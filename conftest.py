@@ -21,7 +21,6 @@ def drivers(request):
     request.addfinalizer(fn)
     return driver
 
-
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item):
     """
