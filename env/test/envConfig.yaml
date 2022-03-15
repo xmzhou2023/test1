@@ -1,0 +1,14 @@
+
+# TEST环境
+# 域名
+host: http://10.250.112.166:9001
+
+# 数据库
+db:
+  host: 10.250.131.10
+  port: 3306
+  user_name: drp_user
+  password: 18645100
+  db_name: drp_test
+  drive: mysql
+

@@ -1,0 +1,14 @@
+# UAT环境
+#域名
+admin_host: http://drp-uat.transsion.com:9200
+
+# 数据库
+db:
+  host: 10.250.131.10
+  port: 3306
+  user_name: drp_user
+  password: 18645100
+  db_name: drp_user
+  drive: mysql
+
+
