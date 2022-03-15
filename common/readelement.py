@@ -26,5 +26,5 @@ class Element:
 
 
 if __name__ == '__main__':
-    search = Element('search')
-    print(search['搜索框'])
+    search = Element('login')
+    print(search['账号密码登录'])

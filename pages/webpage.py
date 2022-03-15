@@ -74,6 +74,10 @@ class WebPage(object):
         log.info("获取文本：{}".format(_text))
         return _text
 
+    def select_state(self, locator):
+        """是否被选中"""
+        return self.driver.find_element(locator).is_selected()
+
     @property
     def get_source(self):
         """获取页面源代码"""

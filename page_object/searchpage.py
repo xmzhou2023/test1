@@ -23,6 +23,9 @@ class SearchPage(WebPage):
         """点击搜索"""
         self.is_click(search['搜索按钮'])
 
+    def click_accountlogin(self):
+        """点击帐号密码登录"""
+        self.is_click()
 
 if __name__ == '__main__':
     pass
