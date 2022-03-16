@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-from pages.webpage import WebPage, sleep
+from page_base.webpage import WebPage, sleep
 from common.readelement import Element
 
 search = Element('search')

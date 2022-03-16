@@ -29,7 +29,7 @@ LOCATE_MODE = {
 
 # 邮件信息
 EMAIL_INFO = {
-    'username': '1084502012@qq.com',  # 切换成你自己的地址
+    'username': '756978382@qq.com',  # 切换成你自己的地址
     'password': 'QQ邮箱授权码',
     'smtp_host': 'smtp.qq.com',
     'smtp_port': 465
@@ -37,7 +37,7 @@ EMAIL_INFO = {
 
 # 收件人
 ADDRESSEE = [
-    '1084502012@qq.com',
+    'yong.liu7@transsion.com',
 ]
 
 if __name__ == '__main__':
