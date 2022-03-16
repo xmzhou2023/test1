@@ -17,7 +17,7 @@ def drivers(request):
         driver = webdriver.Chrome(options=option)
         # driver = webdriver.Chrome()
         driver.maximize_window()
-        inspect_element() # page_element YMAL文件自检
+        # inspect_element() # page_element YMAL文件自检
 
     def fn():
         driver.quit()
