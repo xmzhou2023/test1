@@ -76,7 +76,9 @@ class WebPage(object):
 
     def select_state(self, locator):
         """是否被选中"""
-        return self.driver.find_element(locator).is_selected()
+        _select = self.find_element(locator).is_selected()
+        log.info("获取状态：{}".format(_select))
+        return _select
 
     @property
     def get_source(self):

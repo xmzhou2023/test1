@@ -11,7 +11,11 @@ driver = None
 def drivers(request):
     global driver
     if driver is None:
-        driver = webdriver.Chrome()
+        option = webdriver.ChromeOptions()
+        # 防止打印一些无用的日志
+        option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
+        driver = webdriver.Chrome(options=option)
+        # driver = webdriver.Chrome()
         driver.maximize_window()
         inspect_element()
 
