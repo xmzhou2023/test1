@@ -4,6 +4,11 @@ import pytest
 from py._xmlgen import html
 from selenium import webdriver
 from common.inspect import inspect_element
+from time import sleep
+
+from tools.loggerUI import log
+from common.readconfig import ini
+from page_object.loginpage import LoginPage
 
 driver = None
 
@@ -20,10 +25,24 @@ def drivers(request):
         # inspect_element() # page_element YMAL文件自检
 
     def fn():
+        sleep(10)
         driver.quit()
 
     request.addfinalizer(fn)
     return driver
+
+@pytest.fixture(scope='session', autouse=True)
+def login(drivers):
+    """统一认证"""
+    user = LoginPage(drivers)
+    user.get_url(ini.url)
+    user.click_accountlogin()
+    user.input_account(eval(ini.usernum))
+    user.input_passwd('jf3249JFL')
+    if not user.check_box():
+        user.click_checkbox()
+    user.click_loginsubmit()
+    # user.click_loginsubmit()
 
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item):
@@ -42,7 +61,7 @@ def pytest_runtest_makereport(item):
             file_name = report.nodeid.replace("::", "_") + ".png"
             screen_img = _capture_screenshot()
             if file_name:
-                html = '<div><img src="https://img-blog.csdnimg.cn/2022010610480984472.png" alt="screenshot" style="width:1024px;height:768px;" ' \
+                html = '<div><img src="" alt="screenshot" style="width:1024px;height:768px;" ' \
                        'onclick="window.open(this.src)" align="right"/></div>' % screen_img
                 extra.append(pytest_html.extras.html(html))
         report.extra = extra

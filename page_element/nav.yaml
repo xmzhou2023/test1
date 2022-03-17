@@ -1,19 +1,19 @@
 Dashboard: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[1]/li/div/span'
 Dashboard->Dashboard: 'xpath==/html/body/div[4]/ul/div/a/li/span'
+工号输入框: "xpath==//div[@class='el-input el-input--mini el-input--suffix is-focus']//input[@placeholder='请输入']"
 
 DRP提报: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[2]/li/div/span'
 DRP提报->DRP提报: "xpath==//li[@class='el-menu-item']//span[contains(text(),'DRP提报')]"
-#DRP提报->DRP提报: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[2]/li/div/span'
 
 DRP报表: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[3]/li/div/span'
-DRP报表->DRP0报表: 'xpath==/html/body/div[5]/ul/div[1]/a/li/span'
-DRP报表->终审版报表: 'xpath==/html/body/div[5]/ul/div[2]/a/li/span'
-DRP报表->综合报表: 'xpath==/html/body/div[5]/ul/div[3]/a/li/span'
+DRP报表->DRP0报表: 'xpath==//a[@href='#/reportQuery/reportQuery']//li[@role='menuitem']'
+DRP报表->终审版报表: "xpath==//span[contains(text(),'终审版报表')]"
+DRP报表->综合报表: "xpath==//span[contains(text(),'综合报表')]"
 
 提报管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[4]/li/div/span'
-提报管理->DRP0: 'xpath==/html/body/div[7]/ul/div[1]/a/li/span'
-提报管理->DRP1: 'xpath==/html/body/div[7]/ul/div[2]/a/li/span'
-提报管理->终审版: 'xpath==/html/body/div[7]/ul/div[3]/a/li/span'
+提报管理->DRP0: "xpath==//span[contains(text(),'DRP0报表')]"
+提报管理->DRP1: "xpath==//body/div[5]/ul[1]/div[2]/a[1]/li[1]"
+提报管理->终审版: "xpath==//body/div[5]/ul[1]/div[3]/a[1]/li[1]"
 
 DRP评审: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[5]/li/div/span'
 DRP评审->DRP1评审: 'xpath==/html/body/div[6]/ul/div[1]/a/li/span'
