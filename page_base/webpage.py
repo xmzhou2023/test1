@@ -6,12 +6,11 @@ from selenium.common.exceptions import TimeoutException
 from config.conf import LOCATE_MODE
 from tools.times import sleep
 from tools.loggerUI import log
-
+from selenium.webdriver.common.action_chains import ActionChains
 """
 selenium基类
 本文件存放了selenium基类的封装方法
 """
-
 class WebPage(object):
     """selenium基类"""
 
@@ -65,7 +64,7 @@ class WebPage(object):
     def is_click(self, locator):
         """点击"""
         self.find_element(locator).click()
-        sleep()
+        # sleep()
         log.info("点击元素：{}".format(locator))
 
     def element_text(self, locator):
@@ -79,6 +78,12 @@ class WebPage(object):
         _select = self.find_element(locator).is_selected()
         log.info("获取状态：{}".format(_select))
         return _select
+
+    def moveto_element(self,locator,hidden_locator):
+        """上级菜单移动到下级菜单"""
+
+        sleep(10)
+
 
     @property
     def get_source(self):

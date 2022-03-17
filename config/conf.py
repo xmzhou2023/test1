@@ -24,7 +24,8 @@ LOCATE_MODE = {
     'xpath': By.XPATH,
     'name': By.NAME,
     'id': By.ID,
-    'class': By.CLASS_NAME
+    'class': By.CLASS_NAME,
+    'text': By.LINK_TEXT
 }
 
 # 邮件信息
