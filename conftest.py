@@ -38,35 +38,35 @@ def login(drivers):
     user.get_url(ini.url)
     user.click_accountlogin()
     user.input_account(eval(ini.usernum))
-    user.input_passwd('jf3249JFL')
+    user.input_passwd(eval(ini.passwd))
     if not user.check_box():
         user.click_checkbox()
     user.click_loginsubmit()
     # user.click_loginsubmit()
 
-@pytest.mark.hookwrapper
-def pytest_runtest_makereport(item):
-    """
-    当测试失败的时候，自动截图，展示到html报告中
-    :param item:
-    """
-    pytest_html = item.config.pluginmanager.getplugin('html')
-    outcome = yield
-    report = outcome.get_result()
-    extra = getattr(report, 'extra', [])
-
-    if report.when == 'call' or report.when == "setup":
-        xfail = hasattr(report, 'wasxfail')
-        if (report.skipped and xfail) or (report.failed and not xfail):
-            file_name = report.nodeid.replace("::", "_") + ".png"
-            screen_img = _capture_screenshot()
-            if file_name:
-                html = '<div><img src="" alt="screenshot" style="width:1024px;height:768px;" ' \
-                       'onclick="window.open(this.src)" align="right"/></div>' % screen_img
-                extra.append(pytest_html.extras.html(html))
-        report.extra = extra
-        report.description = str(item.function.__doc__)
-        report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")
+# @pytest.mark.hookwrapper
+# def pytest_runtest_makereport(item):
+#     """
+#     当测试失败的时候，自动截图，展示到html报告中
+#     :param item:
+#     """
+#     pytest_html = item.config.pluginmanager.getplugin('html')
+#     outcome = yield
+#     report = outcome.get_result()
+#     extra = getattr(report, 'extra', [])
+#
+#     if report.when == 'call' or report.when == "setup":
+#         xfail = hasattr(report, 'wasxfail')
+#         if (report.skipped and xfail) or (report.failed and not xfail):
+#             file_name = report.nodeid.replace("::", "_") + ".png"
+#             screen_img = _capture_screenshot()
+#             if file_name:
+#                 html = '<div><img src="" alt="screenshot" style="width:1024px;height:768px;" ' \
+#                        'onclick="window.open(this.src)" align="right"/></div>' % screen_img
+#                 extra.append(pytest_html.extras.html(html))
+#         report.extra = extra
+#         report.description = str(item.function.__doc__)
+#         report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")
 
 
 @pytest.mark.optionalhook

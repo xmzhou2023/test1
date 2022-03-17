@@ -1,5 +1,6 @@
 工号输入框: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[1]/div/div/div/div/input'
 姓名输入框: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[2]/div/div/div/div/input'
 查询: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[1]/span'
+下选择确认: 'css==body > div:nth-child(18) > div.el-scrollbar > div.el-select-dropdown__wrap.el-scrollbar__wrap > ul > li > span'
 重置: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[2]/span'
-新增: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/div[1]/div/div[1]/input'
+新增: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/div[1]/div'

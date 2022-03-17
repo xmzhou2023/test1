@@ -6,6 +6,7 @@ from config.conf import INI_PATH
 
 HOST = 'HOST'
 usernum = 'usernum'
+passwd = 'passwd'
 
 class ReadConfig:
     """配置文件"""
@@ -34,8 +35,13 @@ class ReadConfig:
     def usernum(self):
         return self._get(HOST, usernum)
 
+    @property
+    def passwd(self):
+        return self._get(HOST, passwd)
+
 ini = ReadConfig()
 
 if __name__ == '__main__':
     print(ini.url)
     print(eval(ini.usernum))
+    print(eval(ini.passwd))

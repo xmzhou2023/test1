@@ -19,14 +19,10 @@ class NavPage(WebPage):
         for i in range(len(content)):
             navstr = navstr + '->' + content[i]
             level.append(navstr[2:])
+        log.info(level)
         for i in range(len(content)):
             self.is_click(nav[level[i]])
-            sleep()
-
-    def input_account(self, content):
-        """输入工号"""
-        self.input_text(nav['工号输入框'], txt=content)
-        sleep()
+        sleep(1)
 
     #
     # def input_passwd(self, content):
