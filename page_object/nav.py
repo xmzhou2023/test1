@@ -12,7 +12,7 @@ nav = Element('nav')
 class NavPage(WebPage):
     """Nav类"""
 
-    def click_gotonav(self,*content):
+    def click_gotonav(self, *content):
         """前往菜单"""
         level = []
         navstr = ""
@@ -21,12 +21,13 @@ class NavPage(WebPage):
             level.append(navstr[2:])
         for i in range(len(content)):
             self.is_click(nav[level[i]])
-            sleep(3)
+            sleep()
 
-    # def input_account(self, content):
-    #     """输入工号"""
-    #     self.input_text(login['工号输入框'], txt=content)
-    #     sleep()
+    def input_account(self, content):
+        """输入工号"""
+        self.input_text(nav['工号输入框'], txt=content)
+        sleep()
+
     #
     # def input_passwd(self, content):
     #     """输入密码"""
