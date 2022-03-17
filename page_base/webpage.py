@@ -61,11 +61,25 @@ class WebPage(object):
         ele.send_keys(txt)
         log.info("输入文本：{}".format(txt))
 
+    def readonly_input_text(self, locator, txt):
+        """输入(输入前先清空)"""
+        sleep(0.5)
+        ele = self.find_element(locator)
+        self.driver.execute_script("arguments[0].removeAttribute('readonly')", ele)
+        ele.clear()
+        ele.send_keys(txt)
+        log.info("输入文本：{}".format(txt))
+
     def is_click(self, locator):
         """点击"""
         self.find_element(locator).click()
         # sleep()
         log.info("点击元素：{}".format(locator))
+
+    def click_blank(self, content):
+        """点击空白区域，用于取消释法"""
+        ActionChains(content).move_by_offset(700, 700).click().perform()
+        sleep(10)
 
     def element_text(self, locator):
         """获取当前的text"""
@@ -79,10 +93,7 @@ class WebPage(object):
         log.info("获取状态：{}".format(_select))
         return _select
 
-    def moveto_element(self,locator,hidden_locator):
-        """上级菜单移动到下级菜单"""
 
-        sleep(10)
 
 
     @property

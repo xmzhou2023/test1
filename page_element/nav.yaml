@@ -1,6 +1,5 @@
 Dashboard: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[1]/li/div/span'
 Dashboard->Dashboard: 'xpath==/html/body/div[4]/ul/div/a/li/span'
-工号输入框: "xpath==//div[@class='el-input el-input--mini el-input--suffix is-focus']//input[@placeholder='请输入']"
 
 DRP提报: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[2]/li/div/span'
 DRP提报->DRP提报: "xpath==//li[@class='el-menu-item']//span[contains(text(),'DRP提报')]"

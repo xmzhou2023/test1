@@ -11,18 +11,22 @@ from page_object.loginpage import LoginPage
 from page_object.nav import NavPage
 from page_object.user import UserPage
 from time import sleep
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class TestLogin:
-
-
     def test_001(self, drivers):
         """前往菜单"""
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")
-        sleep(3)
-        # user = UserPage(drivers)
-        user.input_account('18650617')
+        sleep(1)
+        ActionChains(drivers).move_by_offset(700, 700).click().perform()
+        user = UserPage(drivers)
+        # user.input_account('18650617')
+        user.search_user('18650617', '刘勇')
+        sleep(2)
+        user.reset_account()
+        user.append_account()
 
 # class TestSearch:
 #     @pytest.fixture(scope='function', autouse=True)
