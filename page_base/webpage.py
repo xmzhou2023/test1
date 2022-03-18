@@ -76,7 +76,29 @@ class WebPage(object):
         # sleep()
         log.info("点击元素：{}".format(locator))
 
-    def click_blank(self, content):
+    def jobnum_choice_click(self, locator, choice):
+        """滚动条选择指定项"""
+        Npath = []
+        Npath.append(locator[0])
+        Npath.append(locator[1])
+        Npath[1] = Npath[1].replace('jobnum', choice)
+        self.find_element(Npath).click()
+        log.info("下拉选择：{}".format(locator))
+
+    def name_choice_click(self, locator, choice):
+        """滚动条选择指定项"""
+        Npath = []
+        Npath.append(locator[0])
+        Npath.append(locator[1])
+        Npath[1] = Npath[1].replace('name', choice)
+        self.find_element(Npath).click()
+        log.info("下拉选择：{}".format(locator))
+
+    def click_blank(self, ):
+        """点击空白区域，用于取消释法"""
+        sleep(10)
+
+    def move_house(self, content):
         """点击空白区域，用于取消释法"""
         ActionChains(content).move_by_offset(700, 700).click().perform()
         sleep(10)
