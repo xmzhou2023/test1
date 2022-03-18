@@ -20,10 +20,9 @@ class TestLogin:
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")
         sleep(1)
-        ActionChains(drivers).move_by_offset(700, 700).click().perform()
+        # ActionChains(drivers).move_by_offset(700, 700).click().perform()
         user = UserPage(drivers)
-        # user.input_account('18650617')
-        user.search_user('18650617', '刘勇')
+        user.search_user(jobnum='18650617', name='黄琴')
         sleep(2)
         user.reset_account()
         user.append_account()
@@ -54,4 +53,4 @@ class TestLogin:
 
 
 if __name__ == '__main__':
-    pytest.main(['test_case/test_search.py'])
+    pytest.main(['test_case/test_login.py'])
