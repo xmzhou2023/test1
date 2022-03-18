@@ -19,13 +19,15 @@ class TestLogin:
         """前往菜单"""
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")
-        sleep(1)
         # ActionChains(drivers).move_by_offset(700, 700).click().perform()
         user = UserPage(drivers)
         user.search_user(jobnum='18650617', name='黄琴')
-        sleep(2)
+        # user.search_user(name='黄琴')
         user.reset_account()
-        user.append_account()
+
+        # user.append_account("18650617")
+        # user.edit_Permission(jobname="888888",dimension=['组织'],permission=['itel事业部'])
+        user.edit_Permission(jobnum="88888888",dimension={'组织': ['itel事业部','东非地区部'], '品牌':['Infinix']})
 
 # class TestSearch:
 #     @pytest.fixture(scope='function', autouse=True)

@@ -70,29 +70,19 @@ class WebPage(object):
         ele.send_keys(txt)
         log.info("输入文本：{}".format(txt))
 
-    def is_click(self, locator):
+    def is_click(self, locator, choice=None):
         """点击"""
-        self.find_element(locator).click()
-        # sleep()
-        log.info("点击元素：{}".format(locator))
-
-    def jobnum_choice_click(self, locator, choice):
-        """滚动条选择指定项"""
-        Npath = []
-        Npath.append(locator[0])
-        Npath.append(locator[1])
-        Npath[1] = Npath[1].replace('jobnum', choice)
-        self.find_element(Npath).click()
-        log.info("下拉选择：{}".format(locator))
-
-    def name_choice_click(self, locator, choice):
-        """滚动条选择指定项"""
-        Npath = []
-        Npath.append(locator[0])
-        Npath.append(locator[1])
-        Npath[1] = Npath[1].replace('name', choice)
-        self.find_element(Npath).click()
-        log.info("下拉选择：{}".format(locator))
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            self.find_element(Npath).click()
+            log.info("下拉选择：{}".format(locator))
+        else:
+            self.find_element(locator).click()
+            # sleep()
+            log.info("点击元素：{}".format(locator))
 
     def click_blank(self, ):
         """点击空白区域，用于取消释法"""
