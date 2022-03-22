@@ -20,7 +20,6 @@ def drivers(request):
         # 防止打印一些无用的日志
         option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
         driver = webdriver.Chrome(options=option)
-        # driver = webdriver.Chrome()
         driver.maximize_window()
         # inspect_element() # page_element YMAL文件自检
 
@@ -28,6 +27,7 @@ def drivers(request):
         sleep(10)
         driver.quit()
 
+    # 终结函数
     request.addfinalizer(fn)
     return driver
 
@@ -42,7 +42,6 @@ def login(drivers):
     if not user.check_box():
         user.click_checkbox()
     user.click_loginsubmit()
-    # user.click_loginsubmit()
 
 # @pytest.mark.hookwrapper
 # def pytest_runtest_makereport(item):
@@ -67,7 +66,6 @@ def login(drivers):
 #         report.extra = extra
 #         report.description = str(item.function.__doc__)
 #         report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")
-
 
 @pytest.mark.optionalhook
 def pytest_html_results_table_header(cells):

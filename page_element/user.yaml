@@ -1,7 +1,16 @@
-工号输入框: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[1]/div/div/div/div/input'
-姓名输入框: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[2]/div/div/div/div/input'
-工号下拉列表: "xpath==//span[normalize-space()='jobnum']"
-姓名下拉列表: "xpath==//li[@class='el-select-dropdown__item']//span[contains(text(),'name')]"
-查询: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[1]/span'
-重置: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[2]/span'
-新增: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/div[1]/div'
+用户管理-工号输入框: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[1]/div/div/div/div/input'
+用户管理-姓名输入框: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[2]/div/div/div/div/input'
+用户管理-工号下拉列表: "xpath==//span[normalize-space()='variable']"
+用户管理-姓名下拉列表: "xpath==//li[@class='el-select-dropdown__item']//span[contains(text(),'variable')]"
+用户管理-查询: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[1]/span'
+用户管理-重置: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[2]/span'
+用户管理-新增: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/div[1]/div'
+人员列表-新增人员搜索框: "xpath==//input[@placeholder='请输入姓名或工号']"
+人员列表-新增选择人员: "xpath==//div[@class='overflow-ellispe el-col el-col-8'][normalize-space()='variable']"
+人员列表-新增: "xpath==//button[@class='el-button el-button--primary el-button--medium']//span[contains(text(),'确定')]"
+用户管理-列表人员: "xpath==//button[@type='button']//span[contains(text(),'配置') or contains(text(),'编辑')]"
+编辑用户权限-维度: "xpath==//div[@class='el-tabs__nav is-left']//div[contains(text(),'variable')]"
+编辑用户权限-权限: "xpath==//div[@id='pane-1']//span[@class='el-checkbox__label'][contains(text(),'variable')]"
+编辑用户权限-区域-切换品牌: "xpath==//div[@id='pane-3']//div[@id='tab-variable']"
+编辑用户权限-区域-展开树: "xpath==//div[@id='pane-3']//div[@id='pane-variable']//span[@class='el-tree-node__expand-icon el-icon-caret-right']"
+编辑用户权限-区域-勾选树末结点勾选框: "xpath==//div[@role='group']//div[@role='group']//div[@role='group']//span[@class='el-tree-node__label'][contains(text(),'variable')]/preceding-sibling::label"

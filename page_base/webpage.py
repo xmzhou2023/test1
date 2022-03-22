@@ -7,6 +7,9 @@ from config.conf import LOCATE_MODE
 from tools.times import sleep
 from tools.loggerUI import log
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium import webdriver
+
 """
 selenium基类
 本文件存放了selenium基类的封装方法
@@ -70,29 +73,38 @@ class WebPage(object):
         ele.send_keys(txt)
         log.info("输入文本：{}".format(txt))
 
-    def is_click(self, locator):
+    def is_click(self, locator, choice=None):
         """点击"""
-        self.find_element(locator).click()
-        # sleep()
-        log.info("点击元素：{}".format(locator))
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            log.info(Npath)
+            self.find_element(Npath).click()
+            log.info("下拉选择：{}".format(Npath))
+        else:
+            self.find_element(locator).click()
+            # sleep()
+            log.info("点击元素：{}".format(locator))
 
-    def jobnum_choice_click(self, locator, choice):
-        """滚动条选择指定项"""
-        Npath = []
-        Npath.append(locator[0])
-        Npath.append(locator[1])
-        Npath[1] = Npath[1].replace('jobnum', choice)
-        self.find_element(Npath).click()
-        log.info("下拉选择：{}".format(locator))
-
-    def name_choice_click(self, locator, choice):
-        """滚动条选择指定项"""
-        Npath = []
-        Npath.append(locator[0])
-        Npath.append(locator[1])
-        Npath[1] = Npath[1].replace('name', choice)
-        self.find_element(Npath).click()
-        log.info("下拉选择：{}".format(locator))
+    def edituser_tab_click(self, locator, choice=None, pane=None):
+        """编辑用户权限-竖tab切换"""
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            if pane is not None:
+                original = "@id='pane-1'"
+                pane_str = original.replace('1', str(pane))
+                Npath[1] = Npath[1].replace("@id='pane-1'", pane_str)
+            self.find_element(Npath).click()
+            log.info("设置权限：{}".format(Npath))
+        else:
+            self.find_element(locator).click()
+            # sleep()
+            log.info("点击元素：{}".format(locator))
 
     def click_blank(self, ):
         """点击空白区域，用于取消释法"""
@@ -115,9 +127,6 @@ class WebPage(object):
         log.info("获取状态：{}".format(_select))
         return _select
 
-
-
-
     @property
     def get_source(self):
         """获取页面源代码"""
@@ -127,6 +136,19 @@ class WebPage(object):
         """刷新页面F5"""
         self.driver.refresh()
         self.driver.implicitly_wait(30)
+
+class customPage(object):
+    """selenium新增基类"""
+    def __init__(self, driver):
+        # self.driver = webdriver.Chrome()
+        self.driver = driver
+        self.timeout = 20
+        self.driver = webdriver.
+
+    def custom_find_elements(self, locator):
+        """树结构专用查找多个相同的元素"""
+        # return self.f
+        pass
 
 
 if __name__ == "__main__":
