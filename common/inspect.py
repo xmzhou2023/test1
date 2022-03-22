@@ -5,7 +5,6 @@ import yaml
 from tools.times import timestamp
 from config.conf import ELEMENT_PATH, LOCATE_MODE
 
-
 def inspect_element():
     """审查所有的元素是否正确"""
     start_time = timestamp()
