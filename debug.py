@@ -7,10 +7,13 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from time import sleep
+from page_base.webpage import WebPage
 
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
+# driver = WebPage(driver)
+
 # driver.get("http://10.250.112.166:9000/#/systemManage/userManage")
 driver.find_element(By.XPATH, "//div[@class='el-tabs__nav is-left']//div[contains(text(),'区域')]").click()
 # driver.find_element(By.XPATH,"xpath==//div[@id='pane-1']//span[@class='el-checkbox__label'][contains(text(),'Infinix事业部')]").click()
@@ -27,11 +30,12 @@ driver.find_element(By.XPATH, "//div[@class='el-tabs__nav is-left']//div[contain
 #     sleep(1)
 
 while 1:
-    # path = "//div[@id='pane-3']//div[@id='pane-TECNO']//span[@class='el-tree-node__expand-icon el-icon-caret-right']"
-    path = "//div[@id='pane-3']//div[@id='pane-itel']//span[@class='el-tree-node__expand-icon el-icon-caret-right']"
+    path = "//div[@id='pane-3']//div[@id='pane-Infinix']//span[@class='el-tree-node__expand-icon el-icon-caret-right']"
     left_list = len(driver.find_elements(By.XPATH, path))
     print(left_list)
     if left_list != 0:
+        ele = driver.find_element(By.XPATH, path)
+        driver.execute_script("arguments[0].scrollIntoView()", ele)
         driver.find_element(By.XPATH, path).click()
         sleep(1)
     else:

@@ -73,6 +73,21 @@ class WebPage(object):
         ele.send_keys(txt)
         log.info("输入文本：{}".format(txt))
 
+    def scroll_into_view(self, locator, choice=None):
+        """滑动至出现"""
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            ele = self.find_element(Npath)
+            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+            log.info("滚动条至：{}".format(Npath))
+        else:
+            ele = self.find_element(locator)
+            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+            log.info("滚动条至：{}".format(locator))
+
     def is_click(self, locator, choice=None):
         """点击"""
         if choice is not None:
@@ -80,7 +95,6 @@ class WebPage(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             Npath[1] = Npath[1].replace('variable', choice)
-            log.info(Npath)
             self.find_element(Npath).click()
             log.info("下拉选择：{}".format(Npath))
         else:
@@ -137,19 +151,17 @@ class WebPage(object):
         self.driver.refresh()
         self.driver.implicitly_wait(30)
 
-class customPage(object):
+class CustomPage(object):
     """selenium新增基类"""
     def __init__(self, driver):
         # self.driver = webdriver.Chrome()
         self.driver = driver
         self.timeout = 20
-        self.driver = webdriver.
+        self.wait = WebDriverWait(self.driver, self.timeout)
 
-    def custom_find_elements(self, locator):
+    def custom_find_elements(self,locator):
         """树结构专用查找多个相同的元素"""
-        # return self.f
-        pass
-
+        return self.driver.find_elements(By.XPATH, locator[1])
 
 if __name__ == "__main__":
     pass

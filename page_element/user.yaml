@@ -14,3 +14,4 @@
 编辑用户权限-区域-切换品牌: "xpath==//div[@id='pane-3']//div[@id='tab-variable']"
 编辑用户权限-区域-展开树: "xpath==//div[@id='pane-3']//div[@id='pane-variable']//span[@class='el-tree-node__expand-icon el-icon-caret-right']"
 编辑用户权限-区域-勾选树末结点勾选框: "xpath==//div[@role='group']//div[@role='group']//div[@role='group']//span[@class='el-tree-node__label'][contains(text(),'variable')]/preceding-sibling::label"
+编辑用户权限-区域-确定: "xpath==//div[@class='btnContainer']//span[contains(text(),'确定')]"
