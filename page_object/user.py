@@ -84,7 +84,6 @@ class UserPage(WebPage, CustomPage):
                         self.edituser_tab_click(user['编辑用户权限-维度'], "区域")
         self.is_click(user['编辑用户权限-区域-确定'])
 
-
     def tree_open(self, brand):
         locator = user['编辑用户权限-区域-展开树']
         Npath = []

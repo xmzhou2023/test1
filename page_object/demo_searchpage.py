@@ -3,7 +3,7 @@
 from page_base.webpage import WebPage, sleep
 from common.readelement import Element
 
-search = Element('search')
+search = Element('demo_search')
 
 
 class SearchPage(WebPage):
