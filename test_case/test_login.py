@@ -40,6 +40,5 @@ class TestLogin:
                 '区域': {'Infinix': ['利比亚', '土耳其'], 'itel': ['事业部备料', '印度'], 'TECNO': ['事业部备料', 'KH2']}
             }
         )
-
 if __name__ == '__main__':
     pytest.main(['test_case/test_login.py'])
