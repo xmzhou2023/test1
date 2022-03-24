@@ -11,6 +11,8 @@
 用户管理-列表人员: "xpath==//button[@type='button']//span[contains(text(),'配置') or contains(text(),'编辑')]"
 编辑用户权限-维度: "xpath==//div[@class='el-tabs__nav is-left']//div[contains(text(),'variable')]"
 编辑用户权限-权限: "xpath==//div[@id='pane-1']//span[@class='el-checkbox__label'][contains(text(),'variable')]"
+编辑用户权限-列表初始化: "xpath==//div[@id='pane-num']//label[@class='el-checkbox is-checked']//span[@class='el-checkbox__inner']"
+编辑用户权限-区域初始化: "xpath==//div[@id='pane-3']//div[@id='pane-variable']//span[@class='el-checkbox__inner']"
 编辑用户权限-区域-切换品牌: "xpath==//div[@id='pane-3']//div[@id='tab-variable']"
 编辑用户权限-区域-展开树: "xpath==//div[@id='pane-3']//div[@id='pane-variable']//span[@class='el-tree-node__expand-icon el-icon-caret-right']"
 编辑用户权限-区域-勾选树末结点勾选框: "xpath==//div[@role='group']//div[@role='group']//div[@role='group']//span[@class='el-tree-node__label'][contains(text(),'variable')]/preceding-sibling::label"

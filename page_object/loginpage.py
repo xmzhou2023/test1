@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-from page_base.webpage import WebPage, sleep ,CustomPage
+from page_base.webpage import WebPage, sleep, CustomPage
 from common.readelement import Element
 
 login = Element('login')
@@ -34,7 +34,6 @@ class LoginPage(WebPage, CustomPage):
     def click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(login['登录'])
-
 
 if __name__ == '__main__':
     pass

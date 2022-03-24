@@ -66,15 +66,17 @@ class UserPage(WebPage, CustomPage):
             for (key, value) in dimension.items():
                 self.edituser_tab_click(user['编辑用户权限-维度'], key)
                 if key != '区域':
+                    # 对选中框做初始化操作
+                    self.checkbox_init(user['编辑用户权限-列表初始化'], pane=i)
                     for item in value:
                         self.edituser_tab_click(user['编辑用户权限-权限'], item, pane=i)
                     i = i + 1
                 else:
                     for (brand, area) in value.items():
                         self.is_click(user['编辑用户权限-区域-切换品牌'], brand)
+                        # self.tree_init(user['编辑用户权限-区域初始化'], brand) #可单独把区域权限初始化这里无需初始化
                         self.tree_open(brand)
                         for bottom in range(len(area)):
-                            log.info(area[bottom])
                             self.scroll_into_view(user['编辑用户权限-区域-勾选树末结点勾选框'], area[bottom])
                             self.is_click(user['编辑用户权限-区域-勾选树末结点勾选框'], area[bottom])
                         # 为解决滑动条引起的样式异常问题
@@ -89,7 +91,6 @@ class UserPage(WebPage, CustomPage):
         Npath.append(locator[0])
         Npath.append(locator[1])
         Npath[1] = Npath[1].replace('variable', brand)
-        log.info(Npath)
 
         """展开树"""
         while 1:
@@ -103,6 +104,7 @@ class UserPage(WebPage, CustomPage):
                     sleep(0.5)
             else:
                 break
+
 
 if __name__ == '__main__':
     pass

@@ -120,6 +120,42 @@ class WebPage(object):
             # sleep()
             log.info("点击元素：{}".format(locator))
 
+    def checkbox_init(self,locator, pane=None):
+        """编辑用户权限-清除勾选框（组织、品牌用）"""
+        Npath = []
+        Npath.append(locator[0])
+        Npath.append(locator[1])
+        original = "@id='pane-num'"
+        pane_str = original.replace('num', str(pane))
+        Npath[1] = Npath[1].replace("@id='pane-num'", pane_str)
+        element = len(self.driver.find_elements(By.XPATH, Npath[1]))
+        if element != 0:
+            elements = self.find_elements(Npath)
+            for i in range(len(elements)):
+                if elements:
+                    self.find_element(Npath).click()
+                else:
+                    break
+            log.info("清除权限：{}".format(Npath))
+        else:
+            log.info("清除权限: 未勾选任何权限")
+
+    def tree_init(self, locator, choice=None):
+        """编辑用户权限-初孡化勾选框"""
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            self.find_element(Npath).click()
+            self.find_element(Npath).click()
+            log.info("清除树勾选框状态：{}".format(Npath))
+        else:
+            self.find_element(locator).click()
+            self.find_element(locator).click()
+            # sleep()
+            log.info("清除树勾选框状态：{}".format(locator))
+
     def click_blank(self, ):
         """点击空白区域，用于取消释法"""
         sleep(10)
