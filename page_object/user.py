@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import logging
 
-from page_base.webpage import WebPage, sleep, customPage
+from page_base.webpage import WebPage, sleep, CustomPage
 from common.readelement import Element
 from selenium.webdriver.common.keys import Keys
 from tools.loggerUI import log
@@ -11,7 +11,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 user = Element('user')
 
-class UserPage(WebPage, customPage):
+class UserPage(WebPage, CustomPage):
     """用户类"""
 
     def search_user(self, jobnum=None,name=None):
@@ -66,18 +66,23 @@ class UserPage(WebPage, customPage):
             for (key, value) in dimension.items():
                 self.edituser_tab_click(user['编辑用户权限-维度'], key)
                 if key != '区域':
+                    # 对选中框做初始化操作
+                    self.checkbox_init(user['编辑用户权限-列表初始化'], pane=i)
                     for item in value:
                         self.edituser_tab_click(user['编辑用户权限-权限'], item, pane=i)
                     i = i + 1
                 else:
                     for (brand, area) in value.items():
                         self.is_click(user['编辑用户权限-区域-切换品牌'], brand)
-                        sleep(1)
+                        # self.tree_init(user['编辑用户权限-区域初始化'], brand) #可单独把区域权限初始化这里无需初始化
                         self.tree_open(brand)
-                        # for bottom in range(len(area)):
-                        #     log.info(area[i])
-                        #     log.info(user['编辑用户权限-区域-勾选树末结点勾选框'])
-                        #     self.is_click(user['编辑用户权限-区域-勾选树末结点勾选框'], area[i])
+                        for bottom in range(len(area)):
+                            self.scroll_into_view(user['编辑用户权限-区域-勾选树末结点勾选框'], area[bottom])
+                            self.is_click(user['编辑用户权限-区域-勾选树末结点勾选框'], area[bottom])
+                        # 为解决滑动条引起的样式异常问题
+                        self.edituser_tab_click(user['编辑用户权限-维度'], "品牌")
+                        self.edituser_tab_click(user['编辑用户权限-维度'], "区域")
+        self.is_click(user['编辑用户权限-区域-确定'])
 
 
     def tree_open(self, brand):
@@ -86,15 +91,14 @@ class UserPage(WebPage, customPage):
         Npath.append(locator[0])
         Npath.append(locator[1])
         Npath[1] = Npath[1].replace('variable', brand)
-        log.info(Npath)
+
         """展开树"""
         while 1:
-            log.info("1111111111111")
             num = len(self.custom_find_elements(Npath))
-            log.info(num)
             if num != 0:
                 self.find_element(Npath).click()
-                sleep(1)
+                # self.scroll_into_view(Npath)  # 可改为快速展开的方式
+                sleep(0.5)
                 for i in range(3):
                     ActionChains(self.driver).send_keys(Keys.PAGE_DOWN).perform()
                     sleep(0.5)

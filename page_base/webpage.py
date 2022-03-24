@@ -73,6 +73,21 @@ class WebPage(object):
         ele.send_keys(txt)
         log.info("输入文本：{}".format(txt))
 
+    def scroll_into_view(self, locator, choice=None):
+        """滑动至出现"""
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            ele = self.find_element(Npath)
+            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+            log.info("滚动条至：{}".format(Npath))
+        else:
+            ele = self.find_element(locator)
+            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+            log.info("滚动条至：{}".format(locator))
+
     def is_click(self, locator, choice=None):
         """点击"""
         if choice is not None:
@@ -80,7 +95,6 @@ class WebPage(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             Npath[1] = Npath[1].replace('variable', choice)
-            log.info(Npath)
             self.find_element(Npath).click()
             log.info("下拉选择：{}".format(Npath))
         else:
@@ -105,6 +119,42 @@ class WebPage(object):
             self.find_element(locator).click()
             # sleep()
             log.info("点击元素：{}".format(locator))
+
+    def checkbox_init(self,locator, pane=None):
+        """编辑用户权限-清除勾选框（组织、品牌用）"""
+        Npath = []
+        Npath.append(locator[0])
+        Npath.append(locator[1])
+        original = "@id='pane-num'"
+        pane_str = original.replace('num', str(pane))
+        Npath[1] = Npath[1].replace("@id='pane-num'", pane_str)
+        element = len(self.driver.find_elements(By.XPATH, Npath[1]))
+        if element != 0:
+            elements = self.find_elements(Npath)
+            for i in range(len(elements)):
+                if elements:
+                    self.find_element(Npath).click()
+                else:
+                    break
+            log.info("清除权限：{}".format(Npath))
+        else:
+            log.info("清除权限: 未勾选任何权限")
+
+    def tree_init(self, locator, choice=None):
+        """编辑用户权限-初孡化勾选框"""
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            self.find_element(Npath).click()
+            self.find_element(Npath).click()
+            log.info("清除树勾选框状态：{}".format(Npath))
+        else:
+            self.find_element(locator).click()
+            self.find_element(locator).click()
+            # sleep()
+            log.info("清除树勾选框状态：{}".format(locator))
 
     def click_blank(self, ):
         """点击空白区域，用于取消释法"""
@@ -137,19 +187,17 @@ class WebPage(object):
         self.driver.refresh()
         self.driver.implicitly_wait(30)
 
-class customPage(object):
+class CustomPage(object):
     """selenium新增基类"""
     def __init__(self, driver):
         # self.driver = webdriver.Chrome()
         self.driver = driver
         self.timeout = 20
-        self.driver = webdriver.
+        self.wait = WebDriverWait(self.driver, self.timeout)
 
-    def custom_find_elements(self, locator):
+    def custom_find_elements(self,locator):
         """树结构专用查找多个相同的元素"""
-        # return self.f
-        pass
-
+        return self.driver.find_elements(By.XPATH, locator[1])
 
 if __name__ == "__main__":
     pass

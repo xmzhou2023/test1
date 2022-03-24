@@ -36,11 +36,9 @@ class TestLogin:
             jobnum="88888888",
             dimension={
                 '组织': ['itel事业部', '东非地区部'],
-                # '品牌': ['Infinix', 'itel', 'TECNO'],
-                # '区域': {'Infinix': ['事业部备料', '阿尔及利亚'], 'itel': ['利比亚'], 'TECNO': ['事业部备料']}}
-                '品牌': [ 'itel', 'TECNO'],
-                '区域': { 'itel': ['利比亚'], 'TECNO': ['事业部备料']}}
+                '品牌': ['Infinix', 'itel', 'TECNO'],
+                '区域': {'Infinix': ['利比亚', '土耳其'], 'itel': ['事业部备料', '印度'], 'TECNO': ['事业部备料', 'KH2']}
+            }
         )
-
 if __name__ == '__main__':
     pytest.main(['test_case/test_login.py'])
