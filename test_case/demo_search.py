@@ -4,7 +4,7 @@ import re
 import pytest
 from tools.loggerUI import log
 from common.readconfig import ini
-from page_object.searchpage import SearchPage
+from page_object.demo_searchpage import SearchPage
 
 
 class TestSearch:

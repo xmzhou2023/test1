@@ -26,6 +26,7 @@ class TestLogin:
         """用户管理-新建用户"""
         user = UserPage(drivers)
         user.append_account("18650617")
+        sleep(5)
 
     def test_003(self, drivers):
         """用户管理-给新用户配置权限"""
