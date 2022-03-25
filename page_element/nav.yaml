@@ -1,65 +1,65 @@
 Dashboard: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[1]/li/div/span'
 Dashboard->Dashboard: 'xpath==/html/body/div[4]/ul/div/a/li/span'
 
-DRPÌá±¨: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[2]/li/div/span'
-DRPÌá±¨->DRPÌá±¨: "xpath==//li[@class='el-menu-item']//span[contains(text(),'DRPÌá±¨')]"
+DRPææŠ¥: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[2]/li/div/span'
+DRPææŠ¥->DRPææŠ¥: "xpath==//li[@class='el-menu-item']//span[contains(text(),'DRPææŠ¥')]"
 
-DRP±¨±í: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[3]/li/div/span'
-DRP±¨±í->DRP0±¨±í: 'xpath==//a[@href='#/reportQuery/reportQuery']//li[@role='menuitem']'
-DRP±¨±í->ÖÕÉó°æ±¨±í: "xpath==//span[contains(text(),'ÖÕÉó°æ±¨±í')]"
-DRP±¨±í->×ÛºÏ±¨±í: "xpath==//span[contains(text(),'×ÛºÏ±¨±í')]"
+DRPæŠ¥è¡¨: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[3]/li/div/span'
+DRPæŠ¥è¡¨->DRP0æŠ¥è¡¨: 'xpath==//a[@href='#/reportQuery/reportQuery']//li[@role='menuitem']'
+DRPæŠ¥è¡¨->ç»ˆå®¡ç‰ˆæŠ¥è¡¨: "xpath==//span[contains(text(),'ç»ˆå®¡ç‰ˆæŠ¥è¡¨')]"
+DRPæŠ¥è¡¨->ç»¼åˆæŠ¥è¡¨: "xpath==//span[contains(text(),'ç»¼åˆæŠ¥è¡¨')]"
 
-Ìá±¨¹ÜÀí: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[4]/li/div/span'
-Ìá±¨¹ÜÀí->DRP0: "xpath==//span[contains(text(),'DRP0±¨±í')]"
-Ìá±¨¹ÜÀí->DRP1: "xpath==//body/div[5]/ul[1]/div[2]/a[1]/li[1]"
-Ìá±¨¹ÜÀí->ÖÕÉó°æ: "xpath==//body/div[5]/ul[1]/div[3]/a[1]/li[1]"
+ææŠ¥ç®¡ç†: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[4]/li/div/span'
+ææŠ¥ç®¡ç†->DRP0: "xpath==//span[contains(text(),'DRP0æŠ¥è¡¨')]"
+ææŠ¥ç®¡ç†->DRP1: "xpath==//body/div[5]/ul[1]/div[2]/a[1]/li[1]"
+ææŠ¥ç®¡ç†->ç»ˆå®¡ç‰ˆ: "xpath==//body/div[5]/ul[1]/div[3]/a[1]/li[1]"
 
-DRPÆÀÉó: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[5]/li/div/span'
-DRPÆÀÉó->DRP1ÆÀÉó: 'xpath==/html/body/div[6]/ul/div[1]/a/li/span'
-DRPÆÀÉó->DRP1ÆÀÉó-Æ·ÅÆ: 'xpath==/html/body/div[6]/ul/div[2]/a/li/span'
-DRPÆÀÉó->ÖÕÉó²îÒìÈ·ÈÏ: 'xpath==/html/body/div[6]/ul/div[3]/a/li/span'
+DRPè¯„å®¡: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[5]/li/div/span'
+DRPè¯„å®¡->DRP1è¯„å®¡: 'xpath==/html/body/div[6]/ul/div[1]/a/li/span'
+DRPè¯„å®¡->DRP1è¯„å®¡-å“ç‰Œ: 'xpath==/html/body/div[6]/ul/div[2]/a/li/span'
+DRPè¯„å®¡->ç»ˆå®¡å·®å¼‚ç¡®è®¤: 'xpath==/html/body/div[6]/ul/div[3]/a/li/span'
 
-Á÷³ÌÖĞĞÄ: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[6]/li/div/span'
-Á÷³ÌÖĞĞÄ->ÎÒµÄ´ı°ì: 'xpath==/html/body/div[8]/ul/div[1]/a/li/span'
-Á÷³ÌÖĞĞÄ->ÎÒµÄÉêÇë: 'xpath==/html/body/div[8]/ul/div[2]/a/li/span'
-Á÷³ÌÖĞĞÄ->ÎÒµÄÉóÅú: 'xpath==/html/body/div[8]/ul/div[3]/a/li/span'
-Á÷³ÌÖĞĞÄ->ÎÒµÄ³­ËÍ: 'xpath==/html/body/div[8]/ul/div[4]/a/li/span'
+æµç¨‹ä¸­å¿ƒ: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[6]/li/div/span'
+æµç¨‹ä¸­å¿ƒ->æˆ‘çš„å¾…åŠ: 'xpath==/html/body/div[8]/ul/div[1]/a/li/span'
+æµç¨‹ä¸­å¿ƒ->æˆ‘çš„ç”³è¯·: 'xpath==/html/body/div[8]/ul/div[2]/a/li/span'
+æµç¨‹ä¸­å¿ƒ->æˆ‘çš„å®¡æ‰¹: 'xpath==/html/body/div[8]/ul/div[3]/a/li/span'
+æµç¨‹ä¸­å¿ƒ->æˆ‘çš„æŠ„é€: 'xpath==/html/body/div[8]/ul/div[4]/a/li/span'
 
-DRPÄ£°å¹ÜÀí: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[7]/li/div/span'
-DRPÄ£°å¹ÜÀí->DRPÄ£°åÅäÖÃ: 'xpath==/html/body/div[9]/ul/div[1]/a/li/span'
-DRPÄ£°å¹ÜÀí->¹ú¼Ò»úĞÍ: 'xpath==/html/body/div[9]/ul/div[2]/a/li/span'
-DRPÄ£°å¹ÜÀí->¹ú¼ÒÆ½Ì¨: 'xpath==/html/body/div[9]/ul/div[3]/a/li/span'
-DRPÄ£°å¹ÜÀí->Æ½Ì¨»úĞÍ: 'xpath==/html/body/div[9]/ul/div[4]/a/li/span'
+DRPæ¨¡æ¿ç®¡ç†: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[7]/li/div/span'
+DRPæ¨¡æ¿ç®¡ç†->DRPæ¨¡æ¿é…ç½®: 'xpath==/html/body/div[9]/ul/div[1]/a/li/span'
+DRPæ¨¡æ¿ç®¡ç†->å›½å®¶æœºå‹: 'xpath==/html/body/div[9]/ul/div[2]/a/li/span'
+DRPæ¨¡æ¿ç®¡ç†->å›½å®¶å¹³å°: 'xpath==/html/body/div[9]/ul/div[3]/a/li/span'
+DRPæ¨¡æ¿ç®¡ç†->å¹³å°æœºå‹: 'xpath==/html/body/div[9]/ul/div[4]/a/li/span'
 
-DRPÁ÷³Ì¹ÜÀí: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[8]/li/div/span'
-DRPÁ÷³Ì¹ÜÀí->Á÷³Ì¹ÜÀí: 'xpath==/html/body/div[10]/ul/div[1]/a/li/span'
-DRPÁ÷³Ì¹ÜÀí->Á÷³ÌÅäÖÃ: 'xpath==/html/body/div[10]/ul/div[2]/a/li/span'
-DRPÁ÷³Ì¹ÜÀí->Á÷³Ì²éÑ¯: 'xpath==/html/body/div[10]/ul/div[3]/a/li/span'
-DRPÁ÷³Ì¹ÜÀí->½ÚµãÅäÖÃ: 'xpath==/html/body/div[10]/ul/div[4]/a/li/span'
+DRPæµç¨‹ç®¡ç†: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[8]/li/div/span'
+DRPæµç¨‹ç®¡ç†->æµç¨‹ç®¡ç†: 'xpath==/html/body/div[10]/ul/div[1]/a/li/span'
+DRPæµç¨‹ç®¡ç†->æµç¨‹é…ç½®: 'xpath==/html/body/div[10]/ul/div[2]/a/li/span'
+DRPæµç¨‹ç®¡ç†->æµç¨‹æŸ¥è¯¢: 'xpath==/html/body/div[10]/ul/div[3]/a/li/span'
+DRPæµç¨‹ç®¡ç†->èŠ‚ç‚¹é…ç½®: 'xpath==/html/body/div[10]/ul/div[4]/a/li/span'
 
-DRPÊı¾İ¹ÜÀí: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[9]/li/div/span'
-DRPÊı¾İ¹ÜÀí->»úĞÍ¿â: 'xpath==/html/body/div[11]/ul/div[1]/a/li/span'
-DRPÊı¾İ¹ÜÀí->Æ½Ì¨¿â: 'xpath==/html/body/div[11]/ul/div[2]/a/li/span'
-DRPÊı¾İ¹ÜÀí->ÑÕÉ«¿â: 'xpath==/html/body/div[11]/ul/div[3]/a/li/span'
-DRPÊı¾İ¹ÜÀí->ÔÂ¶È¹©Ó¦×ÊÔ´: 'xpath==/html/body/div[11]/ul/div[4]/a/li/span'
-DRPÊı¾İ¹ÜÀí->ÔÂ¶ÈÏúÊÛ¶©µ¥: 'xpath==/html/body/div[11]/ul/div[5]/a/li/span'
-DRPÊı¾İ¹ÜÀí->ÔÂ¶ÈÇåÎ²ÈÎÎñ: 'xpath==/html/body/div[11]/ul/div[6]/a/li/span'
-DRPÊı¾İ¹ÜÀí->Í¨¸æ°å: 'xpath==/html/body/div[11]/ul/div[7]/a/li/span'
-DRPÊı¾İ¹ÜÀí->ÏúÊÛ°æDRP: 'xpath==/html/body/div[11]/ul/div[8]/a/li/span'
-DRPÊı¾İ¹ÜÀí->Í¨Öª¹ÜÀí: 'xpath==/html/body/div[11]/ul/div[9]/a/li/span'
-DRPÊı¾İ¹ÜÀí->¼¯³ÉÊı¾İ¹ÜÀí: 'xpath==/html/body/div[11]/ul/div[10]/a/li/span'
+DRPæ•°æ®ç®¡ç†: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[9]/li/div/span'
+DRPæ•°æ®ç®¡ç†->æœºå‹åº“: 'xpath==/html/body/div[11]/ul/div[1]/a/li/span'
+DRPæ•°æ®ç®¡ç†->å¹³å°åº“: 'xpath==/html/body/div[11]/ul/div[2]/a/li/span'
+DRPæ•°æ®ç®¡ç†->é¢œè‰²åº“: 'xpath==/html/body/div[11]/ul/div[3]/a/li/span'
+DRPæ•°æ®ç®¡ç†->æœˆåº¦ä¾›åº”èµ„æº: 'xpath==/html/body/div[11]/ul/div[4]/a/li/span'
+DRPæ•°æ®ç®¡ç†->æœˆåº¦é”€å”®è®¢å•: 'xpath==/html/body/div[11]/ul/div[5]/a/li/span'
+DRPæ•°æ®ç®¡ç†->æœˆåº¦æ¸…å°¾ä»»åŠ¡: 'xpath==/html/body/div[11]/ul/div[6]/a/li/span'
+DRPæ•°æ®ç®¡ç†->é€šå‘Šæ¿: 'xpath==/html/body/div[11]/ul/div[7]/a/li/span'
+DRPæ•°æ®ç®¡ç†->é”€å”®ç‰ˆDRP: 'xpath==/html/body/div[11]/ul/div[8]/a/li/span'
+DRPæ•°æ®ç®¡ç†->é€šçŸ¥ç®¡ç†: 'xpath==/html/body/div[11]/ul/div[9]/a/li/span'
+DRPæ•°æ®ç®¡ç†->é›†æˆæ•°æ®ç®¡ç†: 'xpath==/html/body/div[11]/ul/div[10]/a/li/span'
 
-BI±¨±í: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[10]/li/div/span'
-BI±¨±í->·¢»õ/¼¤»î·ÖÎö: 'xpath==/html/body/div[12]/ul/div[1]/li/div[1]/span'
-BI±¨±í->ÇşµÀ¿â´æ·ÖÎö: 'xpath==/html/body/div[12]/ul/div[2]/li/div[1]/span'
-BI±¨±í->¶Ô±È·ÖÎö: 'xpath==/html/body/div[12]/ul/div[3]/li/div[1]/span'
-BI±¨±í->PSI±¨±í: 'xpath==/html/body/div[12]/ul/div[4]/li/div[1]/span'
-BI±¨±í->KOMÁãÊÛ·ÖÎö: 'xpath==/html/body/div[12]/ul/div[5]/li/div[1]/span'
-BI±¨±í->ÆÌ»õÂÊ·ÖÎö: 'xpath==/html/body/div[12]/ul/div[6]/li/div[1]/span'
-BI±¨±í->IMEIÈ«ÉúÃüÖÜÆÚ: 'xpath==/html/body/div[12]/ul/div[7]/li/div[1]/span'
-BI±¨±í->DPMÇ¨ÒÆ±¨±í: 'xpath==/html/body/div[12]/ul/div[8]/li/div[1]/span'
+BIæŠ¥è¡¨: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[10]/li/div/span'
+BIæŠ¥è¡¨->å‘è´§/æ¿€æ´»åˆ†æ: 'xpath==/html/body/div[12]/ul/div[1]/li/div[1]/span'
+BIæŠ¥è¡¨->æ¸ é“åº“å­˜åˆ†æ: 'xpath==/html/body/div[12]/ul/div[2]/li/div[1]/span'
+BIæŠ¥è¡¨->å¯¹æ¯”åˆ†æ: 'xpath==/html/body/div[12]/ul/div[3]/li/div[1]/span'
+BIæŠ¥è¡¨->PSIæŠ¥è¡¨: 'xpath==/html/body/div[12]/ul/div[4]/li/div[1]/span'
+BIæŠ¥è¡¨->KOMé›¶å”®åˆ†æ: 'xpath==/html/body/div[12]/ul/div[5]/li/div[1]/span'
+BIæŠ¥è¡¨->é“ºè´§ç‡åˆ†æ: 'xpath==/html/body/div[12]/ul/div[6]/li/div[1]/span'
+BIæŠ¥è¡¨->IMEIå…¨ç”Ÿå‘½å‘¨æœŸ: 'xpath==/html/body/div[12]/ul/div[7]/li/div[1]/span'
+BIæŠ¥è¡¨->DPMè¿ç§»æŠ¥è¡¨: 'xpath==/html/body/div[12]/ul/div[8]/li/div[1]/span'
 
-ÏµÍ³¹ÜÀí: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span'
-ÏµÍ³¹ÜÀí->ÓÃ»§¹ÜÀí: 'xpath==//span[contains(text(),"ÓÃ»§¹ÜÀí")]'
-ÏµÍ³¹ÜÀí->ÇøÓò¹ÜÀí: "xpath==//a[@href='#/systemManage/areaManage']//li[@role='menuitem']"
-ÏµÍ³¹ÜÀí->Î¬¶È¹ÜÀí: "xpath==//span[contains(text(),'Î¬¶È¹ÜÀí')]"
+ç³»ç»Ÿç®¡ç†: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span'
+ç³»ç»Ÿç®¡ç†->ç”¨æˆ·ç®¡ç†: 'xpath==//span[contains(text(),"ç”¨æˆ·ç®¡ç†")]'
+ç³»ç»Ÿç®¡ç†->åŒºåŸŸç®¡ç†: "xpath==//a[@href='#/systemManage/areaManage']//li[@role='menuitem']"
+ç³»ç»Ÿç®¡ç†->ç»´åº¦ç®¡ç†: "xpath==//span[contains(text(),'ç»´åº¦ç®¡ç†')]"
