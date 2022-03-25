@@ -1,19 +1,19 @@
-ÓÃ»§¹ÜÀí-¹¤ºÅÊäÈë¿ò: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[1]/div/div/div/div/input'
-ÓÃ»§¹ÜÀí-ĞÕÃûÊäÈë¿ò: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[2]/div/div/div/div/input'
-ÓÃ»§¹ÜÀí-¹¤ºÅÏÂÀ­ÁĞ±í: "xpath==//span[normalize-space()='variable']"
-ÓÃ»§¹ÜÀí-ĞÕÃûÏÂÀ­ÁĞ±í: "xpath==//li[@class='el-select-dropdown__item']//span[contains(text(),'variable')]"
-ÓÃ»§¹ÜÀí-²éÑ¯: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[1]/span'
-ÓÃ»§¹ÜÀí-ÖØÖÃ: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[2]/span'
-ÓÃ»§¹ÜÀí-ĞÂÔö: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/div[1]/div'
-ÈËÔ±ÁĞ±í-ĞÂÔöÈËÔ±ËÑË÷¿ò: "xpath==//input[@placeholder='ÇëÊäÈëĞÕÃû»ò¹¤ºÅ']"
-ÈËÔ±ÁĞ±í-ĞÂÔöÑ¡ÔñÈËÔ±: "xpath==//div[@class='overflow-ellispe el-col el-col-8'][normalize-space()='variable']"
-ÈËÔ±ÁĞ±í-ĞÂÔö: "xpath==//button[@class='el-button el-button--primary el-button--medium']//span[contains(text(),'È·¶¨')]"
-ÓÃ»§¹ÜÀí-ÁĞ±íÈËÔ±: "xpath==//button[@type='button']//span[contains(text(),'ÅäÖÃ') or contains(text(),'±à¼­')]"
-±à¼­ÓÃ»§È¨ÏŞ-Î¬¶È: "xpath==//div[@class='el-tabs__nav is-left']//div[contains(text(),'variable')]"
-±à¼­ÓÃ»§È¨ÏŞ-È¨ÏŞ: "xpath==//div[@id='pane-1']//span[@class='el-checkbox__label'][contains(text(),'variable')]"
-±à¼­ÓÃ»§È¨ÏŞ-ÁĞ±í³õÊ¼»¯: "xpath==//div[@id='pane-num']//label[@class='el-checkbox is-checked']//span[@class='el-checkbox__inner']"
-±à¼­ÓÃ»§È¨ÏŞ-ÇøÓò³õÊ¼»¯: "xpath==//div[@id='pane-3']//div[@id='pane-variable']//span[@class='el-checkbox__inner']"
-±à¼­ÓÃ»§È¨ÏŞ-ÇøÓò-ÇĞ»»Æ·ÅÆ: "xpath==//div[@id='pane-3']//div[@id='tab-variable']"
-±à¼­ÓÃ»§È¨ÏŞ-ÇøÓò-Õ¹¿ªÊ÷: "xpath==//div[@id='pane-3']//div[@id='pane-variable']//span[@class='el-tree-node__expand-icon el-icon-caret-right']"
-±à¼­ÓÃ»§È¨ÏŞ-ÇøÓò-¹´Ñ¡Ê÷Ä©½áµã¹´Ñ¡¿ò: "xpath==//div[@role='group']//div[@role='group']//div[@role='group']//span[@class='el-tree-node__label'][contains(text(),'variable')]/preceding-sibling::label"
-±à¼­ÓÃ»§È¨ÏŞ-ÇøÓò-È·¶¨: "xpath==//div[@class='btnContainer']//span[contains(text(),'È·¶¨')]"
+ç”¨æˆ·ç®¡ç†-å·¥å·è¾“å…¥æ¡†: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[1]/div/div/div/div/input'
+ç”¨æˆ·ç®¡ç†-å§“åè¾“å…¥æ¡†: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[2]/div/div/div/div/input'
+ç”¨æˆ·ç®¡ç†-å·¥å·ä¸‹æ‹‰åˆ—è¡¨: "xpath==//span[normalize-space()='variable']"
+ç”¨æˆ·ç®¡ç†-å§“åä¸‹æ‹‰åˆ—è¡¨: "xpath==//li[@class='el-select-dropdown__item']//span[contains(text(),'variable')]"
+ç”¨æˆ·ç®¡ç†-æŸ¥è¯¢: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[1]/span'
+ç”¨æˆ·ç®¡ç†-é‡ç½®: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/form/div/div[3]/div/button[2]/span'
+ç”¨æˆ·ç®¡ç†-æ–°å¢: 'xpath==//*[@id="app"]/div/div[2]/div[2]/section/div/div/div[1]/div'
+äººå‘˜åˆ—è¡¨-æ–°å¢äººå‘˜æœç´¢æ¡†: "xpath==//input[@placeholder='è¯·è¾“å…¥å§“åæˆ–å·¥å·']"
+äººå‘˜åˆ—è¡¨-æ–°å¢é€‰æ‹©äººå‘˜: "xpath==//div[@class='overflow-ellispe el-col el-col-8'][normalize-space()='variable']"
+äººå‘˜åˆ—è¡¨-æ–°å¢: "xpath==//button[@class='el-button el-button--primary el-button--medium']//span[contains(text(),'ç¡®å®š')]"
+ç”¨æˆ·ç®¡ç†-åˆ—è¡¨äººå‘˜: "xpath==//button[@type='button']//span[contains(text(),'é…ç½®') or contains(text(),'ç¼–è¾‘')]"
+ç¼–è¾‘ç”¨æˆ·æƒé™-ç»´åº¦: "xpath==//div[@class='el-tabs__nav is-left']//div[contains(text(),'variable')]"
+ç¼–è¾‘ç”¨æˆ·æƒé™-æƒé™: "xpath==//div[@id='pane-1']//span[@class='el-checkbox__label'][contains(text(),'variable')]"
+ç¼–è¾‘ç”¨æˆ·æƒé™-åˆ—è¡¨åˆå§‹åŒ–: "xpath==//div[@id='pane-num']//label[@class='el-checkbox is-checked']//span[@class='el-checkbox__inner']"
+ç¼–è¾‘ç”¨æˆ·æƒé™-åŒºåŸŸåˆå§‹åŒ–: "xpath==//div[@id='pane-3']//div[@id='pane-variable']//span[@class='el-checkbox__inner']"
+ç¼–è¾‘ç”¨æˆ·æƒé™-åŒºåŸŸ-åˆ‡æ¢å“ç‰Œ: "xpath==//div[@id='pane-3']//div[@id='tab-variable']"
+ç¼–è¾‘ç”¨æˆ·æƒé™-åŒºåŸŸ-å±•å¼€æ ‘: "xpath==//div[@id='pane-3']//div[@id='pane-variable']//span[@class='el-tree-node__expand-icon el-icon-caret-right']"
+ç¼–è¾‘ç”¨æˆ·æƒé™-åŒºåŸŸ-å‹¾é€‰æ ‘æœ«ç»“ç‚¹å‹¾é€‰æ¡†: "xpath==//div[@role='group']//div[@role='group']//div[@role='group']//span[@class='el-tree-node__label'][contains(text(),'variable')]/preceding-sibling::label"
+ç¼–è¾‘ç”¨æˆ·æƒé™-åŒºåŸŸ-ç¡®å®š: "xpath==//div[@class='btnContainer']//span[contains(text(),'ç¡®å®š')]"
