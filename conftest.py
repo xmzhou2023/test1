@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+import sys
+
 import pytest
 from py._xmlgen import html
 from selenium import webdriver
@@ -13,16 +15,33 @@ from page_object.loginpage import LoginPage
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request):
+def drivers(request, no_ui=False):
     global driver
     if driver is None:
-        option = webdriver.ChromeOptions()
-        # 防止打印一些无用的日志
-        option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
-        driver = webdriver.Chrome(options=option)
-        driver.maximize_window()
-        # inspect_element() # page_element YMAL文件自检
-
+        if 'linux' in sys.platform:
+            option = webdriver.ChromeOptions()
+            option.add_argument('headless')  # 浏览器不提供可视化页面
+            option.add_argument('no-sandbox')  # 以最高权限运行
+            option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
+            option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
+            # option.add_argument('--window-size=1920,1080')  # 设置浏览器分辨率（窗口大小）
+            driver = webdriver.Chrome(options=option)
+            # inspect_element() # page_element YMAL文件自检
+        else:
+            if no_ui:
+                '''win系统下界面模式'''
+                option = webdriver.ChromeOptions()
+                option.add_argument('headless')  # 浏览器不提供可视化页面
+                option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
+                driver = webdriver.Chrome(chrome_options=option)
+                # inspect_element() # page_element YMAL文件自检
+            else:
+                option = webdriver.ChromeOptions()
+                # 防止打印一些无用的日志
+                option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
+                driver = webdriver.Chrome(options=option)
+                driver.maximize_window()
+                # inspect_element() # page_element YMAL文件自检
     def fn():
         sleep(10)
         driver.quit()

@@ -20,9 +20,9 @@ def is_driver(no_ui=False):
             option.add_argument('headless')             # 浏览器不提供可视化页面
             option.add_argument('--start-maximized')    # 最大化运行（全屏窗口）设置元素定位比较准确
             driver = webdriver.Chrome(chrome_options=option)
-        else:
-            driver = webdriver.Chrome()
-            driver.maximize_window()                    # 将浏览器最大化
+        # else:
+        #     driver = webdriver.Chrome()
+        #     driver.maximize_window()                    # 将浏览器最大化
     return driver
 driver = is_driver()
 driver.get('https://www.baidu.com/')
