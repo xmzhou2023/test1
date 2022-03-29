@@ -1,4 +1,6 @@
 # coding=utf-8
+import time
+
 from selenium import webdriver
 import os
 
@@ -23,4 +25,5 @@ browser = webdriver.Remote("http://10.250.101.58:5555/wd/hub",options=chrome_opt
 browser.get("http://www.163.com")
 print(browser.title)
 browser.get_screenshot_as_file(r"\chrome.png")
-browser.quit()
+time.sleep(50)
+# browser.quit()
