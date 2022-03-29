@@ -1,0 +1,11 @@
+.side-nav__brand {
+  background: url('transsion-logo.png') no-repeat left center !important;
+  margin-left: 26px;
+  height: 80px;
+  background-size: contain !important;
+}
+
+
+.side-nav__brand span{
+  display: none;
+}

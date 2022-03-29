@@ -1,0 +1,141 @@
+{
+  "uid" : "8a90b38e4856a17f",
+  "name" : "test_003",
+  "fullName" : "test_case.test_login.TestLogin#test_003",
+  "historyId" : "47ce0c8cbc7e6aa0b8340bad2cf0ae2e",
+  "time" : {
+    "start" : 1648572682847,
+    "stop" : 1648572877515,
+    "duration" : 194668
+  },
+  "description" : "用户管理-给新用户配置权限",
+  "descriptionHtml" : "<p>用户管理-给新用户配置权限</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "drivers",
+    "time" : {
+      "start" : 1648572648509,
+      "stop" : 1648572649696,
+      "duration" : 1187
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false,
+    "stepsCount" : 0
+  }, {
+    "name" : "login",
+    "time" : {
+      "start" : 1648572649696,
+      "stop" : 1648572663163,
+      "duration" : 13467
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false,
+    "stepsCount" : 0
+  }, {
+    "name" : "_session_faker",
+    "time" : {
+      "start" : 1648572648445,
+      "stop" : 1648572648509,
+      "duration" : 64
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false,
+    "stepsCount" : 0
+  } ],
+  "testStage" : {
+    "description" : "用户管理-给新用户配置权限",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "9cbafb5c8a6114f5",
+      "name" : "log",
+      "source" : "9cbafb5c8a6114f5.txt",
+      "type" : "text/plain",
+      "size" : 430767
+    }, {
+      "uid" : "f31217ce41ba1fc5",
+      "name" : "stderr",
+      "source" : "f31217ce41ba1fc5.txt",
+      "type" : "text/plain",
+      "size" : 6448
+    } ],
+    "parameters" : [ ],
+    "attachmentsCount" : 2,
+    "shouldDisplayMessage" : false,
+    "hasContent" : true,
+    "stepsCount" : 0
+  },
+  "afterStages" : [ {
+    "name" : "drivers::fn",
+    "time" : {
+      "start" : 1648572877518,
+      "stop" : 1648572889652,
+      "duration" : 12134
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "hasContent" : false,
+    "stepsCount" : 0
+  } ],
+  "labels" : [ {
+    "name" : "parentSuite",
+    "value" : "test_case"
+  }, {
+    "name" : "suite",
+    "value" : "test_login"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestLogin"
+  }, {
+    "name" : "host",
+    "value" : "CQPILIUYONG"
+  }, {
+    "name" : "thread",
+    "value" : "5468-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "test_case.test_login"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "tags" : [ ]
+  },
+  "source" : "8a90b38e4856a17f.json",
+  "parameterValues" : [ ]
+}
