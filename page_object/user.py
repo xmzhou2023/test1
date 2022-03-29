@@ -97,7 +97,7 @@ class UserPage(WebPage, CustomPage):
             if num != 0:
                 self.find_element(Npath).click()
                 # self.scroll_into_view(Npath)  # 可改为快速展开的方式
-                sleep(0.5)
+                # sleep(0.5)
                 for i in range(3):
                     ActionChains(self.driver).send_keys(Keys.PAGE_DOWN).perform()
                     sleep(0.5)
