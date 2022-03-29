@@ -14,5 +14,5 @@ chrome_capabilities = {
 browser = webdriver.Remote("http://10.250.101.58:5555/wd/hub",options=webdriver.ChromeOptions())
 browser.get("http://www.163.com")
 print(browser.title)
-browser.get_screenshot_as_file(r"d:/chrome.png")
+browser.get_screenshot_as_file(r"\chrome.png")
 browser.quit()
