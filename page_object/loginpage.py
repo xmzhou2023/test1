@@ -2,12 +2,17 @@
 # -*- coding:utf-8 -*-
 from page_base.webpage import WebPage, sleep, CustomPage
 from common.readelement import Element
+from tools.loggerUI import log
 
 login = Element('login')
 
 
 class LoginPage(WebPage, CustomPage):
     """登录类"""
+    def switch_lanuage(self, content):
+        """语言切换"""
+        self.is_click(login['语言按钮'])
+        self.is_click(login['语言切换'], content)
 
     def click_accountlogin(self):
         """点击帐号密码登录"""

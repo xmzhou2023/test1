@@ -1,0 +1,4 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Mar 30 00:51:14 CST 2022","Wed Mar 30 00:51:22 CST 2022","7941","test_case","test_login","TestLogin","","","test_002","用户管理-新建用户"
+"passed","Wed Mar 30 00:51:03 CST 2022","Wed Mar 30 00:51:14 CST 2022","11727","test_case","test_login","TestLogin","","","test_001","用户管理-查询用户"
+"passed","Wed Mar 30 00:51:22 CST 2022","Wed Mar 30 00:54:37 CST 2022","194668","test_case","test_login","TestLogin","","","test_003","用户管理-给新用户配置权限"
