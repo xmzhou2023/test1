@@ -21,8 +21,9 @@ class NavPage(WebPage):
             level.append(navstr[2:])
         log.info(level)
         for i in range(len(content)):
+            log.info(nav[level[i]])
             self.is_click(nav[level[i]])
-        sleep(1)
+        sleep(10)
 
     #
     # def input_passwd(self, content):

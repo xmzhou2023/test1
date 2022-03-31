@@ -1,4 +1,0 @@
-INFO	2022-03-30 00:51:14,981	[webpage.py:103]	点击元素：('xpath', '//*[@id="app"]/div/div[2]/div[2]/section/div/div/div[1]/div')
-INFO	2022-03-30 00:51:16,597	[webpage.py:65]	输入文本：18650617
-INFO	2022-03-30 00:51:17,741	[webpage.py:99]	下拉选择：['xpath', "//div[@class='overflow-ellispe el-col el-col-8'][normalize-space()='18650617']"]
-INFO	2022-03-30 00:51:17,814	[webpage.py:103]	点击元素：('xpath', "//button[@class='el-button el-button--primary el-button--medium']//span[contains(text(),'确定')]")

@@ -17,6 +17,7 @@ class TestLogin:
         """用户管理-查询用户"""
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")
+        sleep(10)
         # ActionChains(drivers).move_by_offset(700, 700).click().perform()
         user = UserPage(drivers)
         user.search_user(jobnum='18650617', name='黄琴')
