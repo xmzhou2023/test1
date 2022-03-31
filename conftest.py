@@ -15,12 +15,12 @@ from page_object.loginpage import LoginPage
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=False):
+def drivers(request, remote_ui=True):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
             option = webdriver.ChromeOptions()
-            option.add_argument('no-sandbox')  # 以最高权限运行
+            option.add_argument('--no-sandbox')  # 以最高权限运行
             option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
             option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
             # # option.add_argument('--window-size=1920,1080')  # 设置浏览器分辨率（窗口大小）
@@ -32,12 +32,13 @@ def drivers(request, remote_ui=False):
                 '''win系统下VNC界面模式'''
                 option = webdriver.ChromeOptions()
                 # option.add_argument('headless')  # 浏览器不提供可视化页面
-                option.add_argument('no-sandbox')  # 以最高权限运行
+                option.add_argument('--no-sandbox')  # 以最高权限运行
+                option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
+                # option.add_argument('--lang=zh-CN')  # 以中文运行
                 option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
-                option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
-                option.add_argument('--window-size=1366,768')  # 设置浏览器分辨率（窗口大小）
-                driver = webdriver.Remote("http://10.250.101.58:5555/wd/hub", options=option)
+                # option.add_argument('--window-size=1366,768')  # 设置浏览器分辨率（窗口大小）
+                driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
                 # inspect_element() # page_element YMAL文件自检
             else:
                 option = webdriver.ChromeOptions()
@@ -59,7 +60,7 @@ def login(drivers):
     """统一认证"""
     user = LoginPage(drivers)
     user.get_url(ini.url)
-    # user.switch_lanuage('Chinese')
+    user.switch_lanuage('Chinese')
     user.click_accountlogin()
     user.input_account(eval(ini.usernum))
     user.input_passwd(eval(ini.passwd))
