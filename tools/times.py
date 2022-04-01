@@ -20,6 +20,5 @@ def sleep(seconds=1.0):
     """
     time.sleep(seconds)
 
-
 if __name__ == '__main__':
     print(datetime_strftime())
