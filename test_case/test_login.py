@@ -20,7 +20,7 @@ class TestLogin:
         sleep(10)
         # ActionChains(drivers).move_by_offset(700, 700).click().perform()
         user = UserPage(drivers)
-        user.search_user(jobnum='18650617', name='黄琴')
+        user.search_user(jobnum='18650617')
         user.reset_account()
 
     def test_002(self, drivers):
@@ -39,7 +39,8 @@ class TestLogin:
             dimension={
                 '组织': ['itel事业部', '东非地区部'],
                 '品牌': ['Infinix', 'itel', 'TECNO'],
-                '区域': {'Infinix': ['利比亚', '土耳其'], 'itel': ['事业部备料', '印度'], 'TECNO': ['事业部备料', 'KH2']}
+                # '区域': {'Infinix': ['利比亚', '土耳其'], 'itel': ['事业部备料', '印度'], 'TECNO': ['事业部备料', 'KH2']}
+                '区域': {'Infinix': ['利比亚', '土耳其']}
             }
         )
 if __name__ == '__main__':
