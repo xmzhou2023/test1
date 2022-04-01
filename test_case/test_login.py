@@ -1,35 +1,33 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
-import re
-import time
 
 import pytest
-from tools.loggerUI import log
-from common.readconfig import ini
 from page_object.nav import NavPage
 from page_object.user import UserPage
-from time import sleep
-from selenium.webdriver.common.action_chains import ActionChains
+from page_login.login import LoginView
 
 
 class TestLogin:
     def test_001(self, drivers):
+        """用户管理-登录用户"""
+        user = LoginView(drivers)
+        user.login(drivers)
+
+    def test_002(self, drivers):
         """用户管理-查询用户"""
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")
-        sleep(10)
         # ActionChains(drivers).move_by_offset(700, 700).click().perform()
         user = UserPage(drivers)
         user.search_user(jobnum='18650617')
         user.reset_account()
 
-    def test_002(self, drivers):
+    def test_003(self, drivers):
         """用户管理-新建用户"""
         user = UserPage(drivers)
         user.append_account("18650617")
-        sleep(5)
 
-    def test_003(self, drivers):
+    def test_004(self, drivers):
         """用户管理-给新用户配置权限"""
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")

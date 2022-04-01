@@ -20,12 +20,14 @@ REPORT_PATH = os.path.join(BASE_DIR, 'report', 'report.html')
 
 # 元素定位的类型
 LOCATE_MODE = {
-    'css': By.CSS_SELECTOR,
-    'xpath': By.XPATH,
-    'name': By.NAME,
     'id': By.ID,
+    'name': By.NAME,
+    'css': By.CSS_SELECTOR,
     'class': By.CLASS_NAME,
-    'text': By.LINK_TEXT
+    'text': By.LINK_TEXT,
+    'partial-link': By.PARTIAL_LINK_TEXT,
+    'tag': By.TAG_NAME,
+    'xpath': By.XPATH,
 }
 
 # 邮件信息
