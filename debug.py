@@ -7,15 +7,18 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from time import sleep
 # from page_base.webpage import WebPage
+from common.unit_assert import DomAssert
 
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
 
-print(driver.find_element(By.PARTIAL_LINK_TEXT, "扫码登录").text)
-print(driver.find_element(By.LINK_TEXT, " 移动端扫码登录").text)
-
-
+# print(driver.find_element(By.PARTIAL_LINK_TEXT, "扫码登录").text)
+# print(driver.find_element(By.LINK_TEXT, " 移动端扫码登录").text)
+# print(driver.find_elements(By.XPATH, "//div[contains(text(),'扫码')]")[0].text)
+user = DomAssert(driver)
+user.assert_att("帐号密码")
+user.assert_att("刘勇1")
 # option = webdriver.ChromeOptions()
 # # option.add_argument('--headless')  # 浏览器不提供可视化页面
 # option.add_argument('--no-sandbox')  # 以最高权限运行

@@ -187,6 +187,16 @@ class WebPage(object):
         self.driver.refresh()
         self.driver.implicitly_wait(30)
 
+    def switch(self, n):
+        """窗口切换"""
+        self.driver.switch_to.window(self.driver.window_handles[n])
+
+    def close_switch(self, n):
+        """关闭页签"""
+        self.driver.switch_to.window(self.driver.window_handles[n])  # 切换到新页签
+        self.driver.close()  # 关闭新页签
+        self.driver.switch_to.window(self.driver.window_handles[0])  # 然后切换回原始页签
+
 class CustomPage(object):
     """selenium新增基类"""
     def __init__(self, driver):

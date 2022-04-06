@@ -43,4 +43,4 @@ class Log:
 log = Log().logger
 
 if __name__ == '__main__':
-    log.info('你好')
+    log.warning('你好')
