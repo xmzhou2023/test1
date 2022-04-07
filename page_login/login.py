@@ -4,7 +4,6 @@ from common.readconfig import ini
 from selenium.webdriver.support.ui import WebDriverWait
 from page_object.loginpage import LoginPage
 
-
 class LoginView(WebPage):
     """登录类"""
     def login(self, drivers):

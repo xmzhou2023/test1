@@ -1,9 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
 import os
 import yaml
 from config.conf import ELEMENT_PATH
-
 
 class Element:
     """获取元素"""

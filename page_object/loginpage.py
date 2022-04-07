@@ -6,7 +6,6 @@ from tools.loggerUI import log
 
 login = Element('login')
 
-
 class LoginPage(WebPage, CustomPage):
     """登录类"""
     def switch_lanuage(self, content):

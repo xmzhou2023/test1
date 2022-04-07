@@ -1,4 +1,3 @@
-# coding=utf-8
 import requests
 from locust import HttpLocust,TaskSet,task
 from requests.packages.urllib3.exceptions import InsecureRequestWarning

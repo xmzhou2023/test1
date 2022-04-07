@@ -1,11 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
 import sys
 
 import pytest
 from py._xmlgen import html
 from selenium import webdriver
-from common.inspect import inspect_element
+from common.ymal_inspect import inspect_element
 from tools.loggerUI import log
 from time import sleep
 

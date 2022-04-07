@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
 import os
 import logging
 from config.conf import LOG_PATH

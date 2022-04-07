@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
@@ -200,7 +198,6 @@ class WebPage(object):
 class CustomPage(object):
     """selenium新增基类"""
     def __init__(self, driver):
-        # self.driver = webdriver.Chrome()
         self.driver = driver
         self.timeout = 20
         self.wait = WebDriverWait(self.driver, self.timeout)

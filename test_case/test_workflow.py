@@ -1,12 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
+import logging
 import time
-
 import pytest
+from tools.loggerUI import log
 from page_object.nav import NavPage
 from page_object.user import UserPage
 from page_login.login import LoginView
-from common.unit_assert import DomAssert
+from common.unit_assert import DomAssert,SQLAssert
 
 class TestLogin:
     def test_001(self, drivers):
@@ -14,9 +13,13 @@ class TestLogin:
         user = LoginView(drivers)
         user.login(drivers)
         time.sleep(5)
-        user = DomAssert()
-        user.assert_att("刘勇")
-    #
+        # user = DomAssert(drivers)
+        # user.assert_att("刘勇")
+        # user.assert_url("http://10.250.112.166:9000/#/dashboard")
+        user = SQLAssert(drivers)
+        # user.assert_sql("select * from uc_user where name_zh='刘勇' and card_no='18650617'")
+        user.assert_sql(word='刘勇', sql='select name_zh from uc_user where enable_flag=1')
+
     # def test_002(self, drivers):
     #     """用户管理-查询用户"""
     #     user = NavPage(drivers)

@@ -12,13 +12,17 @@ from common.unit_assert import DomAssert
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
-
+driver.get("http://www.google.com")
+print(driver.title)
+# print(driver.find_element(By.ID, "kw").send_keys("guxiaofei"))
+# driver.find_element(By.NAME, "wd").send_keys("guxiaofei")
+driver.find_element(By.XPATH, '//*[@id="kw"]').send_keys("guxiaofei")
+# print(driver.find_element(By.CLASS_NAME, 's_ipt').send_keys("11111"))
+print(driver.find_element(By.XPATH, '//*[@id="su"]').text)
 # print(driver.find_element(By.PARTIAL_LINK_TEXT, "扫码登录").text)
 # print(driver.find_element(By.LINK_TEXT, " 移动端扫码登录").text)
 # print(driver.find_elements(By.XPATH, "//div[contains(text(),'扫码')]")[0].text)
-user = DomAssert(driver)
-user.assert_att("帐号密码")
-user.assert_att("刘勇1")
+
 # option = webdriver.ChromeOptions()
 # # option.add_argument('--headless')  # 浏览器不提供可视化页面
 # option.add_argument('--no-sandbox')  # 以最高权限运行

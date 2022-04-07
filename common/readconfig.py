@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
+import json
+import ast
 import os
 import configparser
 from config.conf import INI_PATH
@@ -7,6 +9,8 @@ from config.conf import INI_PATH
 HOST = 'HOST'
 usernum = 'usernum'
 passwd = 'passwd'
+SQL = 'SQL'
+db = 'db'
 
 class ReadConfig:
     """配置文件"""
@@ -39,9 +43,16 @@ class ReadConfig:
     def passwd(self):
         return self._get(HOST, passwd)
 
-ini = ReadConfig()
+    @property
+    def db(self):
+        return self._get(SQL, db)
 
+
+ini = ReadConfig()
+sql = ast.literal_eval(ini.db)
 if __name__ == '__main__':
     print(ini.url)
+    print(ini.usernum)
     print(eval(ini.usernum))
     print(eval(ini.passwd))
+    print(sql['host'])
