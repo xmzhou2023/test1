@@ -118,6 +118,32 @@ class DomAssert(object):
             log.info("assert In success | word:{}".format(word))
         except Exception as e:
             return e
+    def assert_title(self, word):
+        """当前页面标题是否是指定title"""
+        try:
+            att = self.driver.switch_to.window(self.driver.window_handles[-1])
+            assert word in att.title, log.warning("assert title fail | word:{}".format(word))
+            log.info("assert title success | word:{}".format(word))
+        except Exception as e:
+            return e
+
+    def assert_url(self, word):
+        """当前页面是不是指定url"""
+        try:
+            att = self.driver.current_url
+            assert word in att, log.warning("assert url fail | word:{}".format(word))
+            log.info("assert url success | word:{}".format(word))
+        except Exception as e:
+            return e
+
+    def assert_page_source(self, word):
+        """当前断言页面不包含not found"""
+        try:
+            assert word not in self.driver.page_source, log.warning("assert page_source fail | word:{}".format(word))
+            log.info("assert page_source success | word:{}".format(word))
+        except Exception as e:
+            return e
+
 
 """
     数据库断言
