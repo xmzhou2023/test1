@@ -12,13 +12,46 @@ from common.unit_assert import DomAssert
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
-driver.get("http://www.google.com")
-print(driver.title)
+# print(driver.title)
+
+# searchBtn = driver.find_element(By.XPATH, "//*[@id='app']/div/div[1]/div[2]/div[1]/div/ul/div[10]/li/div")
+# 拖放地址
+sourceEle = driver.find_element(By.XPATH, "//*[@id='dragger']")
+
+# 释放地址
+targetEle  = driver.find_element(By.XPATH, "/html/body/div[5]")
+
+# 执行操作
+print(sourceEle.rect)
+print(targetEle.rect)
+
+targetEleXOffset = sourceEle.location.get("x")
+targetEleYOffset = sourceEle.location.get("y")
+#
+# print(targetEleXOffset)
+# print(targetEleYOffset)
+
+# webdriver.ActionChains(driver).drag_and_drop_by_offset(sourceEle, targetEleXOffset, targetEleYOffset).perform()
+
+# targetEleXOffset = targetEle.location.get("x")
+# targetEleYOffset = targetEle.location.get("y")
+# 拖到指定位置施放
+webdriver.ActionChains(driver).drag_and_drop_by_offset(sourceEle, targetEleXOffset, targetEleYOffset).perform()
+
+# webdriver.ActionChains(driver).release().perform()
+
+
+
+
+
+
+
+
 # print(driver.find_element(By.ID, "kw").send_keys("guxiaofei"))
 # driver.find_element(By.NAME, "wd").send_keys("guxiaofei")
-driver.find_element(By.XPATH, '//*[@id="kw"]').send_keys("guxiaofei")
+# driver.find_element(By.XPATH, '//*[@id="kw"]').send_keys("guxiaofei")
 # print(driver.find_element(By.CLASS_NAME, 's_ipt').send_keys("11111"))
-print(driver.find_element(By.XPATH, '//*[@id="su"]').text)
+# print(driver.find_element(By.XPATH, '//*[@id="su"]').text)
 # print(driver.find_element(By.PARTIAL_LINK_TEXT, "扫码登录").text)
 # print(driver.find_element(By.LINK_TEXT, " 移动端扫码登录").text)
 # print(driver.find_elements(By.XPATH, "//div[contains(text(),'扫码')]")[0].text)
