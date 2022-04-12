@@ -1,16 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
 import sys
 
 import pytest
 from py._xmlgen import html
 from selenium import webdriver
-from common.inspect import inspect_element
 from time import sleep
-
-from tools.loggerUI import log
-from common.readconfig import ini
-from page_object.loginpage import LoginPage
+from libs.common.inspect_ymal import inspect_element
 
 driver = None
 
@@ -23,9 +17,10 @@ def drivers(request, remote_ui=False):
             option.add_argument('--no-sandbox')  # 以最高权限运行
             option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
             option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
+            option.set_capability("browserVersion", "99.0")
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
             driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
-            # # inspect_element() # page_element YMAL文件自检
+            # inspect_element() # page_element YMAL文件自检
         else:
             if remote_ui:
                 '''win系统下VNC界面模式'''
@@ -34,6 +29,7 @@ def drivers(request, remote_ui=False):
                 option.add_argument('--no-sandbox')  # 以最高权限运行
                 option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
                 option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
+                option.set_capability("browserVersion", "99.0")
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
                 # option.add_argument('--window-size=1366,768')  # 设置浏览器分辨率（窗口大小）
                 driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
@@ -53,29 +49,29 @@ def drivers(request, remote_ui=False):
     request.addfinalizer(fn)
     return driver
 
-# @pytest.mark.hookwrapper
-# def pytest_runtest_makereport(item):
-#     """
-#     当测试失败的时候，自动截图，展示到html报告中
-#     :param item:
-#     """
-#     pytest_html = item.config.pluginmanager.getplugin('html')
-#     outcome = yield
-#     report = outcome.get_result()
-#     extra = getattr(report, 'extra', [])
-#
-#     if report.when == 'call' or report.when == "setup":
-#         xfail = hasattr(report, 'wasxfail')
-#         if (report.skipped and xfail) or (report.failed and not xfail):
-#             file_name = report.nodeid.replace("::", "_") + ".png"
-#             screen_img = _capture_screenshot()
-#             if file_name:
-#                 html = '<div><img src="" alt="screenshot" style="width:1024px;height:768px;" ' \
-#                        'onclick="window.open(this.src)" align="right"/></div>' % screen_img
-#                 extra.append(pytest_html.extras.html(html))
-#         report.extra = extra
-#         report.description = str(item.function.__doc__)
-#         report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")
+@pytest.mark.hookwrapper
+def pytest_runtest_makereport(item):
+    """
+    当测试失败的时候，自动截图，展示到html报告中
+    :param item:
+    """
+    pytest_html = item.config.pluginmanager.getplugin('html')
+    outcome = yield
+    report = outcome.get_result()
+    extra = getattr(report, 'extra', [])
+
+    if report.when == 'call' or report.when == "setup":
+        xfail = hasattr(report, 'wasxfail')
+        if (report.skipped and xfail) or (report.failed and not xfail):
+            file_name = report.nodeid.replace("::", "_") + ".png"
+            screen_img = _capture_screenshot()
+            if file_name:
+                html = '<div><img src="" alt="screenshot" style="width:1024px;height:768px;" ' \
+                       'onclick="window.open(this.src)" align="right"/></div>' % screen_img
+                extra.append(pytest_html.extras.html(html))
+        report.extra = extra
+        report.description = str(item.function.__doc__)
+        report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")
 
 @pytest.mark.optionalhook
 def pytest_html_results_table_header(cells):

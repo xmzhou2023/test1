@@ -1,14 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
-from config.conf import LOCATE_MODE
-from tools.times import sleep
-from tools.loggerUI import log
+from libs.config.conf import LOCATE_MODE
+from libs.common.time_ui import sleep
+from libs.common.logger_ui import log
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-from selenium import webdriver
 
 """
 selenium基类
@@ -187,10 +184,26 @@ class WebPage(object):
         self.driver.refresh()
         self.driver.implicitly_wait(30)
 
+    def switch_window(self, n):
+        """窗口切换"""
+        self.driver.switch_to.window(self.driver.window_handles[n])
+
+    def close_switch(self, n):
+        """关闭页签"""
+        self.driver.switch_to.window(self.driver.window_handles[n])  # 切换到新页签
+        self.driver.close()  # 关闭新页签
+        self.driver.switch_to.window(self.driver.window_handles[0])  # 然后切换回原始页签
+
+    def hover(self,locator):
+        """鼠标悬停"""
+        element = self.find_element(locator)
+        # 创建Action对象
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element)
+
 class CustomPage(object):
     """selenium新增基类"""
     def __init__(self, driver):
-        # self.driver = webdriver.Chrome()
         self.driver = driver
         self.timeout = 20
         self.wait = WebDriverWait(self.driver, self.timeout)
