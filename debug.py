@@ -5,28 +5,64 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from time import sleep
+
 # from page_base.webpage import WebPage
-from common.unit_assert import DomAssert
 
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
+
+tab = driver.get_window_size()
+haha = driver.find_element(By.ID, 'kw')
+# driver.fullscreen_window()
+# driver.save_screenshot('haha.png')
+# haha.screenshot('haha.png')
+driver.execute_script('return arguments[0].innerText', haha)
+
+
+# driver.maximize_window()
+# driver.find_element(By.ID, 'kw').send_keys("haha")
+# webdriver.ActionChains(driver).send_keys(Keys.CONTROL,'a').perform()
+# driver.find_element(By.ID, 'kw').send_keys(Keys.CONTROL,"a")
+
+# webdriver.ActionChains(driver).key_down(Keys.CONTROL).send_keys("a").perform()
+# driver.find_element(By.ID, 'kw').send_keys(Keys.CONTROL,"a")
+
+# search = driver.find_element(By.ID, "kw")
+# # 使用向下键和向上键输入文本“qwerty”（QWERTYqwerty）
+# webdriver.ActionChains(driver).key_down(Keys.SHIFT).send_keys_to_element(search, "qwerty").perform()
+
+# searchBtn = driver.find_element(By.XPATH, "//*[@id='app']/div/div[1]/div[2]/div[1]/div/ul/div[5]/li/div")
+
+# sourceEle = driver.find_element(By.XPATH, "//*[@id='dragger']")
+
+# targetEle = driver.find_element(By.XPATH, "/html/body/div[2]")
+
+# print(targetEle.rect) #'x': 13, 'y': 228.875
+
+# targetEleXOffset = sourceEle.location.get("x")
+# targetEleYOffset = sourceEle.location.get("y") + 10
+
+# webdriver.ActionChains(driver).click_and_hold(sourceEle).move_to_element(targetEle).perform()
+# webdriver.ActionChains(driver).release().perform()
+# webdriver.ActionChains(driver).context_click(sourceEle).perform()
+# webdriver.ActionChains(driver).drag_and_drop_by_offset(sourceEle, targetEleXOffset, targetEleYOffset).perform()
+
 # print(driver.title)
 
 # searchBtn = driver.find_element(By.XPATH, "//*[@id='app']/div/div[1]/div[2]/div[1]/div/ul/div[10]/li/div")
 # 拖放地址
-sourceEle = driver.find_element(By.XPATH, "//*[@id='dragger']")
-
-# 释放地址
-targetEle  = driver.find_element(By.XPATH, "/html/body/div[5]")
+# sourceEle = driver.find_element(By.XPATH, "//*[@id='dragger']")
+#
+# # 释放地址
+# targetEle  = driver.find_element(By.XPATH, "/html/body/div[5]")
 
 # 执行操作
-print(sourceEle.rect)
-print(targetEle.rect)
-
-targetEleXOffset = sourceEle.location.get("x")
-targetEleYOffset = sourceEle.location.get("y")
+# print(sourceEle.rect)
+# print(targetEle.rect)
+#
+# targetEleXOffset = sourceEle.location.get("x")
+# targetEleYOffset = sourceEle.location.get("y")
 #
 # print(targetEleXOffset)
 # print(targetEleYOffset)
@@ -36,16 +72,9 @@ targetEleYOffset = sourceEle.location.get("y")
 # targetEleXOffset = targetEle.location.get("x")
 # targetEleYOffset = targetEle.location.get("y")
 # 拖到指定位置施放
-webdriver.ActionChains(driver).drag_and_drop_by_offset(sourceEle, targetEleXOffset, targetEleYOffset).perform()
+# webdriver.ActionChains(driver).drag_and_drop_by_offset(sourceEle, targetEleXOffset, targetEleYOffset).perform()
 
 # webdriver.ActionChains(driver).release().perform()
-
-
-
-
-
-
-
 
 # print(driver.find_element(By.ID, "kw").send_keys("guxiaofei"))
 # driver.find_element(By.NAME, "wd").send_keys("guxiaofei")
