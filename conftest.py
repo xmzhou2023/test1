@@ -100,3 +100,17 @@ def _capture_screenshot():
     :return:
     '''
     return driver.get_screenshot_as_base64()
+
+# @pytest.fixture(scope='session', autouse=True)
+# def logins(drivers):
+#     """打开登录页"""
+#     log.info('111111')
+#     user = LoginPage(drivers)
+#     user.get_url(ini.url)
+#     user.click_accountlogin()
+#     user.input_account('18650617')
+#     user.input_passwd('jf3249JFL')
+#     if user.check_box() == False:
+#         user.click_checkbox()
+#     user.click_loginsubmit()
+#     return user
