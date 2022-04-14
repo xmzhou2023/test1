@@ -5,20 +5,38 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.common.print_page_options import PrintOptions
 # from page_base.webpage import WebPage
 
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
 
-tab = driver.get_window_size()
-haha = driver.find_element(By.ID, 'kw')
+
+# driver.find_element(By.XPATH,'inlineFrameExample').click()
+iframe = driver.find_element(By.XPATH, "//*[@id='inlineFrameExample']")
+driver.switch_to.frame(iframe)
+driver.find_element(By.XPATH,'//*[@id="map"]/div[2]/div[1]/div/a[1]').click()
+
+# driver.switch_to.frame('inlineFrameExample')
+# driver.find_element(By.XPATH,'//*[@id="map"]/div[2]/div[1]/div/a[1]').click()
+#
+# print(driver.window_handles)
+# print(driver.current_window_handle)
+# # driver.switch_to.window('CDwindow-D0527C0885FA7007B64870994DFC01ED')
+# # print(driver.current_window_handle)
+# print(driver.find_element(By.PARTIAL_LINK_TEXT,'帐号密码登录'))
+
+
 # driver.fullscreen_window()
 # driver.save_screenshot('haha.png')
 # haha.screenshot('haha.png')
-driver.execute_script('return arguments[0].innerText', haha)
-
+# driver.execute_script('return arguments[0].innerText', haha)
+# print_options = PrintOptions()
+# print_options.page_ranges = ['1-2']
+#
+# driver.get("printPage.html")
+# base64code = driver.print_page(print_options)
 
 # driver.maximize_window()
 # driver.find_element(By.ID, 'kw').send_keys("haha")

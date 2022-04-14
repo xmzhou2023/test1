@@ -13,8 +13,8 @@ ELEMENT_PATH = os.path.join(BASE_DIR,'project', 'DRP', 'page_element')
 # 日志目录
 LOG_PATH = os.path.join(BASE_DIR,'project', 'DRP', 'log')
 
-# 报告目录
-REPORT_PATH = os.path.join(BASE_DIR,'project', 'DRP', 'report', 'report.html')
+# 当前项目目录
+PEROJECT_PATH = os.path.join(BASE_DIR,'project', 'DRP')
 
 # 元素定位的类型
 LOCATE_MODE = {

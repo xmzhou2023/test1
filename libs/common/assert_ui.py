@@ -1,7 +1,7 @@
 # from selenium.webdriver.support import expected_conditions as EC
 # from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.common.exceptions import TimeoutException
-from libs.common.times import sleep
+from libs.common.time_ui import sleep
 from libs.common.logger_ui import log
 from libs.common.connect_sql import *
 from selenium.webdriver.support.ui import WebDriverWait
@@ -125,7 +125,7 @@ class DomAssert(object):
         """当前页面是不是指定url"""
         try:
             att = self.driver.current_url
-            assert word in att, log.warning("断言成功：URL为预期不一致 | URL:{}".format(word))
+            assert word in att, log.warning("断言失败：URL为预期不一致 | URL:{}".format(word))
             log.info("断言成功：URL为预期一致 | URL:{}".format(word))
         except Exception as e:
             return e
