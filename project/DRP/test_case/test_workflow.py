@@ -1,9 +1,7 @@
 import pytest
 
 from libs.common.assert_ui import DomAssert, SQLAssert
-from project.DRP.page_object.nav import NavPage
-from project.DRP.page_object.user import UserPage
-from public_libs.unified_login.login import Login
+from public.public_libs.unified_login.login import Login
 
 class TestLogin:
     def test_001(self, drivers):

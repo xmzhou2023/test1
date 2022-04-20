@@ -19,11 +19,14 @@ LOG_PATH = os.path.join(PEROJECT_PATH, 'log')
 # excel目录
 TESTCASE_PATH = os.path.join(PEROJECT_PATH, 'excel_drive', 'TestCase.xlsx')
 
+# 公共路径
+PUBLIC_PATH = os.path.join(BASE_DIR, 'public')
+
 # 公共页面元素目录
-PUBLIC_ELEMENT_PATH = os.path.join(BASE_DIR, 'public_libs', 'unified_login', 'page_element')
+PUBLIC_ELEMENT_PATH = os.path.join(PUBLIC_PATH, 'libs', 'unified_login', 'page_element')
 
 # 公共数据源
-PUBLIC_DATA_PATH = os.path.join(BASE_DIR, 'public_data', 'datasource')
+PUBLIC_DATA_PATH = os.path.join(PUBLIC_PATH, 'data', 'datasource')
 
 # 元素定位的类型
 LOCATE_MODE = {
