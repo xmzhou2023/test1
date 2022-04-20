@@ -1,4 +1,4 @@
-from page_base.webpage import WebPage, sleep, CustomPage
+from public_base.Basics import Base, sleep
 from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
@@ -6,7 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 user = Element('user')
 
-class UserPage(WebPage, CustomPage):
+class UserPage(Base):
     """用户类"""
 
     def search_user(self, jobnum=None,name=None):

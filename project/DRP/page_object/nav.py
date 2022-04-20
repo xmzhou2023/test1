@@ -1,10 +1,10 @@
-from page_base.webpage import WebPage, sleep
+from public_base.Basics import Base, sleep
 from libs.common.read_element import Element
 from libs.common.logger_ui import log
 
 nav = Element('nav')
 
-class NavPage(WebPage):
+class NavPage(Base):
     """Nav类"""
 
     def click_gotonav(self, *content):

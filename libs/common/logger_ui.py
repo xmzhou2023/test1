@@ -3,7 +3,6 @@ import logging
 from libs.config.conf import LOG_PATH
 from libs.common.time_ui import datetime_strftime
 
-
 class Log:
     def __init__(self):
         self.logger = logging.getLogger()

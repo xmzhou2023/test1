@@ -1,4 +1,4 @@
-扫码快捷登录: "id==tab-code"
+zx扫码快捷登录: "id==tab-code"
 账号密码登录: "id==tab-account"
 工号输入框: "xpath==//*[@id='pane-account']/form/div[1]/div/div[1]/input"
 密码输入框: "xpath==//*[@id='pane-account']/form/div[2]/div/div[1]/input"

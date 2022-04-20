@@ -1,11 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding:utf-8 -*-
-from page_base.webpage import WebPage, sleep, CustomPage
-from libs.common.read_element import Element
+from public_base.Basics import Base, sleep
+from libs.common.read_public_element import Element
 
 login = Element('login')
 
-class LoginPage(WebPage, CustomPage):
+class LoginPage(Base):
     """登录类"""
     def switch_lanuage(self, content):
         """语言切换"""

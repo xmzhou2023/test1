@@ -11,7 +11,7 @@ from selenium.webdriver.common.by import By
 selenium基类
 本文件存放了selenium基类的封装方法
 """
-class WebPage(object):
+class Base(object):
     """selenium基类"""
 
     def __init__(self, driver):
@@ -39,12 +39,12 @@ class WebPage(object):
 
     def find_element(self, locator):
         """寻找单个元素"""
-        return WebPage.element_locator(lambda *args: self.wait.until(
+        return Base.element_locator(lambda *args: self.wait.until(
             EC.presence_of_element_located(args)), locator)
 
     def find_elements(self, locator):
         """查找多个相同的元素"""
-        return WebPage.element_locator(lambda *args: self.wait.until(
+        return Base.element_locator(lambda *args: self.wait.until(
             EC.presence_of_all_elements_located(args)), locator)
 
     def elements_num(self, locator):
@@ -98,6 +98,66 @@ class WebPage(object):
             self.find_element(locator).click()
             # sleep()
             log.info("点击元素：{}".format(locator))
+
+    def force_click(self, xpath, force=False):
+        """
+        关键字：click
+
+        自定等待元素，然后进行点击
+        :param xpath: 元素定位表达式
+        :param force: 是否强制点击
+        :return:
+        """
+
+        ele = self.find_element(xpath)
+
+        if force:  # 使用js强制点击
+            self.driver.execute_script("argumnets[0].click()", ele)
+        else:
+            ele.click()
+
+    def alert_ok(self):
+        """
+        关键字：alert_ok
+        为alert点击确定
+        :return:
+        """
+        alert = self.wait.until(expected_conditions.alert_is_present())
+
+        alert.accept()
+
+    def frame_enter(self, xpath):
+        """
+        关键字 ：frame_enter
+        进入到指定的frame
+
+        :param xpath: 元素定位表达式
+        :return:
+        """
+        ele = self.find_element(xpath)
+        assert ele.tag_name == "iframe"
+
+        self.driver.switch_to.frame(ele)
+
+    def frame_exit(self):
+        """
+        关键字 ：frame_exit
+        退出当前的frame
+
+        :return:
+        """
+
+        self.driver.switch_to.parent_frame()  # 返回上一层
+
+    def frame_top(self):
+        """
+        关键字 ：frame_top
+        返回顶层frame
+
+        :return:
+        """
+
+        self.driver.switch_to.default_content()  # 返回到顶层
 
     def edituser_tab_click(self, locator, choice=None, pane=None):
         """编辑用户权限-竖tab切换"""
@@ -201,16 +261,31 @@ class WebPage(object):
         actions = ActionChains(self.driver)
         actions.move_to_element(element)
 
-class CustomPage(object):
-    """selenium新增基类"""
-    def __init__(self, driver):
-        self.driver = driver
-        self.timeout = 20
-        self.wait = WebDriverWait(self.driver, self.timeout)
+    @classmethod
+    def all_keyword(cls):
+        """
+        列出所有可用的关键字：
+
+        1. key_开头
+        2. 可调用的
+        :return:
+        """
+
+        _all_keyword = []  # 所有可以用关键字
+
+        for attr in dir(cls):  # 遍历自己的所有成员
+            if attr.startswith("key_"):  # 关键字前缀
+                method = getattr(cls, attr)
+                if callable(method):  # 如果是可调用的
+                    _all_keyword.append(attr[4:])
+
+        return _all_keyword
 
     def custom_find_elements(self,locator):
         """树结构专用查找多个相同的元素"""
         return self.driver.find_elements(By.XPATH, locator[1])
+
+
 
 if __name__ == "__main__":
     pass
