@@ -1,7 +1,7 @@
-from public.public_base.Basics import Base
+from public.base.Basics import Base
 from libs.common.read_config import ini
-from public.public_libs.unified_login.page_object.login import LoginPage
-from public.public_data.unified_login.unified import *
+from public.libs.unified_login.page_object.login import LoginPage
+from public.data.unified_login.unified import *
 
 class Login(Base):
     """登录类"""

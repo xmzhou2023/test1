@@ -1,4 +1,4 @@
-from public.public_base.Basics import Base, sleep
+from public.base.Basics import Base, sleep
 from libs.common.read_public_element import Element
 
 login = Element('login')

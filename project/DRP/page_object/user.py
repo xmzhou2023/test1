@@ -1,4 +1,4 @@
-from public.public_base.Basics import Base, sleep
+from public.base.Basics import Base, sleep
 from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains

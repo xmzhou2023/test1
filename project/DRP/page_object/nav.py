@@ -1,4 +1,4 @@
-from public.public_base.Basics import Base, sleep
+from public.base.Basics import Base, sleep
 from libs.common.read_element import Element
 from libs.common.logger_ui import log
 
