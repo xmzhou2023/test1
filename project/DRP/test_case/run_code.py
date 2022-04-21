@@ -43,4 +43,4 @@ class TestLogin:
             }
         )
 if __name__ == '__main__':
-    pytest.main(['test_case/test_login.py'])
+    pytest.main(['project/DRP/testcase/run_code.py'])

@@ -12,11 +12,36 @@ options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
 
+driver.find_element(By.XPATH,'//*[@id="alertwindow"]/span').click()
+dig_alert = driver.switch_to.alert
+print(dig_alert.text)
+dig_alert.accept()
 
-# driver.find_element(By.XPATH,'inlineFrameExample').click()
-iframe = driver.find_element(By.XPATH, "//*[@id='inlineFrameExample']")
+driver.find_element(By.XPATH,'//*[@id="confirmwindow"]/span').click()
+alert = driver.switch_to.alert
+print(alert.text)
+alert.accept()
+
+driver.find_element(By.XPATH,'//*[@id="promptwindow"]/span').click()
+alert = driver.switch_to.alert
+print(alert.text)
+alert.dismiss()
+
+driver.find_element(By.XPATH,'//*[@id="btn4"]/span').click()
+driver.find_element(By.XPATH,'/html/body/div[2]/div/div[3]/button/span').click()
+
+
+# driver.find_element(By.XPATH,'//*[@id="testiframe"]').click()
+iframe = driver.find_element(By.ID, "testiframe")
 driver.switch_to.frame(iframe)
-driver.find_element(By.XPATH,'//*[@id="map"]/div[2]/div[1]/div/a[1]').click()
+driver.find_element(By.XPATH,'//*[@id="alertwindow2"]/span').click()
+alert = driver.switch_to.alert
+print(alert.text)
+alert.accept()
+# driver.find_element(By.XPATH,'inlineFrameExample').click()
+# iframe = driver.find_element(By.XPATH, "//*[@id='inlineFrameExample']")
+# driver.switch_to.frame(iframe)
+# driver.find_element(By.XPATH,'//*[@id="map"]/div[2]/div[1]/div/a[1]').click()
 
 # driver.switch_to.frame('inlineFrameExample')
 # driver.find_element(By.XPATH,'//*[@id="map"]/div[2]/div[1]/div/a[1]').click()
