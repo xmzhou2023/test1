@@ -1,15 +1,17 @@
 import pytest
-
+from public.data.unified_login.unified import *
 from libs.common.assert_ui import DomAssert, SQLAssert
 from public.libs.unified_login.login import Login
 from project.DRP.page_object.nav import NavPage
 from project.DRP.page_object.user import UserPage
+from public.data.unified_login.unified import *
+
 
 class TestLogin:
     def test_001(self, drivers):
         """用户管理-登录用户"""
         user = Login(drivers)
-        user.login(drivers)
+        user.login(drivers,account[0]['usernum'],account[0]['passwd'])
         user = DomAssert(drivers)
         user.assert_att("系统管理")
         user.assert_url("http://10.250.112.166:9000/#/dashboard")
@@ -43,4 +45,4 @@ class TestLogin:
             }
         )
 if __name__ == '__main__':
-    pytest.main(['test_case/test_login.py'])
+    pytest.main(['project/DRP/testcase/run_code.py'])

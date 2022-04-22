@@ -7,16 +7,65 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.print_page_options import PrintOptions
 # from page_base.webpage import WebPage
+from selenium.webdriver.support.select import Select
+from libs.common.assert_ui import DomAssert
 
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
 
+select_object = DomAssert(driver)
+select_object.assert_filename('//*[@id="file"]','同理心地图2')
+# select_object.assert_platform('win32')
 
+
+# select_object.assert_select('//*[@id="selectid"]','选项2')
+# select_object.assert_platform('win32')
+
+# print(elements)
+# select_object = Select(elements)
+# select_object.select_by_value('选项3')
+#
+# assert select_object.first_selected_option.text=='选项3', 'fail'
+
+# driver.find_element(By.XPATH,'//*[@id="id1"]/span').click()
+# driver.find_element(By.XPATH,'//*[@id="test1"]/div[1]/p').click()
+
+# results = driver.find_elements(By.CLASS_NAME, 'result')
+# assert results[0].text=='按钮2已被点击', '按钮点击失败'
+
+# import sys
+# assert ('win32' in sys.platform), "该代码只能在 Linux 下执行"
+# driver.find_element(By.XPATH,'//*[@id="alertwindow"]/span').click()
+# dig_alert = driver.switch_to.alert
+# print(dig_alert.text)
+# dig_alert.accept()
+#
+# driver.find_element(By.XPATH,'//*[@id="confirmwindow"]/span').click()
+# alert = driver.switch_to.alert
+# print(alert.text)
+# alert.accept()
+#
+# driver.find_element(By.XPATH,'//*[@id="promptwindow"]/span').click()
+# alert = driver.switch_to.alert
+# print(alert.text)
+# alert.dismiss()
+#
+# driver.find_element(By.XPATH,'//*[@id="btn4"]/span').click()
+# driver.find_element(By.XPATH,'/html/body/div[2]/div/div[3]/button/span').click()
+
+
+# driver.find_element(By.XPATH,'//*[@id="testiframe"]').click()
+# iframe = driver.find_element(By.ID, "testiframe")
+# driver.switch_to.frame(iframe)
+# driver.find_element(By.XPATH,'//*[@id="alertwindow2"]/span').click()
+# alert = driver.switch_to.alert
+# print(alert.text)
+# alert.accept()
 # driver.find_element(By.XPATH,'inlineFrameExample').click()
-iframe = driver.find_element(By.XPATH, "//*[@id='inlineFrameExample']")
-driver.switch_to.frame(iframe)
-driver.find_element(By.XPATH,'//*[@id="map"]/div[2]/div[1]/div/a[1]').click()
+# iframe = driver.find_element(By.XPATH, "//*[@id='inlineFrameExample']")
+# driver.switch_to.frame(iframe)
+# driver.find_element(By.XPATH,'//*[@id="map"]/div[2]/div[1]/div/a[1]').click()
 
 # driver.switch_to.frame('inlineFrameExample')
 # driver.find_element(By.XPATH,'//*[@id="map"]/div[2]/div[1]/div/a[1]').click()
