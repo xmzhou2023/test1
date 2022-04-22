@@ -15,7 +15,9 @@ options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
 
 select_object = DomAssert(driver)
-select_object.assert_filename('//*[@id="file"]','同理心地图2')
+select_object.assert_alerttext("//*[@id='alertwindow']/span",'alert测试弹窗')
+# select_object.assert_domcolor('//*[@id="aid"]', 'rgba(0, 0, 0, 1)')
+# select_object.assert_filename('//*[@id="file"]','同理心地图2')
 # select_object.assert_platform('win32')
 
 
