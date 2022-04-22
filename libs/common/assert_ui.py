@@ -119,8 +119,8 @@ class DomAssert(object):
         """页面是否存在某文字"""
         try:
             att = self.driver.find_element(By.XPATH,'//*[contains(text(),{})]'.format(word)).text
-            assert word in att, log.warning("断言失败：页面不存在该标识 | 关键字: {}".format(att))
-            log.info("断言成功：页面存在该标识 | 关键字: {}".format(att))
+            assert word in att, log.warning("断言失败：页面不存在该标识 | 当前页面关键字: {}".format(att.replace("\n","|")))
+            log.info("断言成功：页面存在该标识 | 当前页面关键字: {}".format(att.replace("\n","|")))
         except Exception as e:
             return e
 
