@@ -1,6 +1,10 @@
 # from selenium.webdriver.support import expected_conditions as EC
 # from selenium.webdriver.support.ui import WebDriverWait
 # from selenium.common.exceptions import TimeoutException
+import sys
+
+from selenium.webdriver.support.select import Select
+
 from libs.common.time_ui import sleep
 from libs.common.logger_ui import log
 from libs.common.connect_sql import *
@@ -103,12 +107,20 @@ class DomAssert(object):
         self.timeout = 20
         self.wait = WebDriverWait(self.driver, self.timeout)
 
+    def assert_platform(self, word):
+        try:
+            value = sys.platform
+            assert (word in value), log.warning("断言失败：运行系统与预期不一致 |  当前系统: {}".format(value))
+            log.info("断言成功：运行系统与预期一致 | 当前系统: {}".format(value))
+        except Exception as e:
+            return e
+
     def assert_att(self, word):
         """页面是否存在某文字"""
         try:
             att = self.driver.find_element(By.XPATH,'//*[contains(text(),{})]'.format(word)).text
-            assert word in att, log.warning("断言失败：页面不存在该标识 | 关键字:{}".format(word))
-            log.info("断言成功：页面存在该标识 | 关键字:{}".format(word))
+            assert word in att, log.warning("断言失败：页面不存在该标识 | 关键字: {}".format(att))
+            log.info("断言成功：页面存在该标识 | 关键字: {}".format(att))
         except Exception as e:
             return e
 
@@ -116,8 +128,8 @@ class DomAssert(object):
         """当前页面标题是否是指定title"""
         try:
             att = self.driver.switch_to.window(self.driver.window_handles[-1])
-            assert word in att.title, log.warning("断言失败：标题为预期不符 | 标题:{}".format(word))
-            log.info("断言成功：标题为预期一致 | 标题:{}".format(word))
+            assert word in att.title, log.warning("断言失败：标题为预期不符 | 标题: {}".format(att.title))
+            log.info("断言成功：标题为预期一致 | 标题: {}".format(att.title))
         except Exception as e:
             return e
 
@@ -125,16 +137,39 @@ class DomAssert(object):
         """当前页面是不是指定url"""
         try:
             att = self.driver.current_url
-            assert word in att, log.warning("断言失败：URL为预期不一致 | URL:{}".format(word))
-            log.info("断言成功：URL为预期一致 | URL:{}".format(word))
+            assert word in att, log.warning("断言失败：URL为预期不一致 | URL: {}".format(att))
+            log.info("断言成功：URL为预期一致 | URL: {}".format(att))
         except Exception as e:
             return e
 
     def assert_page_source(self, word):
         """当前断言页面不包含not found"""
         try:
-            assert word not in self.driver.page_source, log.warning("断言失败：页面包含此标识 | 标识:{}".format(word))
-            log.info("断言成功：页面不包含此标识| 标识:{}".format(word))
+            value = self.driver.page_source
+            assert word not in value, log.warning("断言失败：页面包含此标识 | 标识: {}".format(value))
+            log.info("断言成功：页面不包含此标识| 标识: {}".format(value))
+        except Exception as e:
+            return e
+
+    def assert_select(self, element, word):
+        """断言当前下拉选择值是否符合预期"""
+        try:
+            elements = self.driver.find_element(By.XPATH, element)
+            select_object = Select(elements)
+            value = select_object.first_selected_option.text
+            assert word == value, log.warning("断言失败：下拉选择框不是该值 | 当前值: {}".format(value))
+            log.info("断言成功：下拉选择框是该值| 当前值: {}".format(value))
+        except Exception as e:
+            return e
+
+    def assert_filename(self, element, word):
+        """断言当前下文件上传是否符合预期"""
+        try:
+            elements = self.driver.find_elements(By.XPATH, element)
+            value = elements[0].get_attribute('value')
+
+            assert word in value, log.warning("断言失败：选择上传不是该文件 | 当前文件: {}".format(value))
+            log.info("断言成功：选择上传是该文件| 当前文件: {}".format(value))
         except Exception as e:
             return e
 
