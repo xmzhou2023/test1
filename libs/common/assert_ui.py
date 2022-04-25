@@ -173,6 +173,32 @@ class DomAssert(object):
         except Exception as e:
             return e
 
+    def assert_domcolor(self, element, color):
+        """断言当前下文件上传是否符合预期"""
+        try:
+            elements = self.driver.find_elements(By.XPATH, element)
+            value = elements[0].value_of_css_property('color')
+            log.info(value)
+
+            assert color == value, log.warning("断言失败：颜色不符合预期 | 当前元素颜色: {}".format(value))
+            log.info("断言成功：颜色符合预期| 当前元素颜色: {}".format(value))
+        except Exception as e:
+            return e
+
+    def assert_alerttext(self, element, content):
+        """断言当前下文件上传是否符合预期"""
+        log.info("content")
+        try:
+            log.info("content")
+            self.driver.find_element(By.XPATH, element).click()
+            alert = self.driver.switch_to.alert
+            value = alert.text
+
+            assert content == value, log.warning("断言失败：弹窗内容不符合预期 | 当前弹窗内容: {}".format(value))
+            log.info("断言成功：弹窗内容符合预期 | 当前弹窗内容: {}".format(value))
+        except Exception as e:
+            return e
+
 """     数据库断言     """
 
 class SQLAssert(object):
@@ -205,8 +231,9 @@ if __name__ == "__main__":
    # print(value_assert_IsNoneNot(1))
    # print(value_assert_In(3, {3,2}))
    # print(value_assert_InNot(3, {3,2}))
-   print(value_assert_Instance("abc",str))
-   print(value_assert_IsInstanceNot(2,int))
+   # print(value_assert_Instance("abc",str))
+   # print(value_assert_IsInstanceNot(2,int))
+   print(SQLAssert.assert_sql(word='刘勇', sql='select name_zh from uc_user where enable_flag=1'))
 
 
 
