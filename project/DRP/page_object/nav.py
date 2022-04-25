@@ -14,7 +14,6 @@ class NavPage(Base):
         for i in range(len(content)):
             navstr = navstr + '->' + content[i]
             level.append(navstr[2:])
-        log.info(level)
         for i in range(len(content)):
             log.info(nav[level[i]])
             self.is_click(nav[level[i]])

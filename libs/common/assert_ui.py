@@ -231,8 +231,9 @@ if __name__ == "__main__":
    # print(value_assert_IsNoneNot(1))
    # print(value_assert_In(3, {3,2}))
    # print(value_assert_InNot(3, {3,2}))
-   print(value_assert_Instance("abc",str))
-   print(value_assert_IsInstanceNot(2,int))
+   # print(value_assert_Instance("abc",str))
+   # print(value_assert_IsInstanceNot(2,int))
+   print(SQLAssert.assert_sql(word='刘勇', sql='select name_zh from uc_user where enable_flag=1'))
 
 
 

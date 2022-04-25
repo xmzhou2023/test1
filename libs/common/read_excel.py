@@ -24,11 +24,13 @@ def excel(path):
             sheet_temp = excel[sheet]
 
             for i, d in enumerate(sheet_temp.iter_rows(values_only=True)):
-                if i >= 4:
-                    _data = dict(步骤名=d[4],关键字=d[5],参数=[_ for _ in d[6:9] if _])
+                if i >= 1:
+                    if d[0] == 0:
+                        continue
+                    _data = dict(步骤名=d[3],模块名=d[4],类名=d[5],关键字=d[6],参数=[_ for _ in d[7:8] if _])
                     yield _data
         else:
-            log.info('[ {} ]表格内容不是测试用例'.format(sheet))
+            log.info('Sheet页解析：[ {} ]不是测试用例'.format(sheet))
             # 写入后进行保存
 if __name__ == '__main__':
     excel(TESTCASE_PATH)
