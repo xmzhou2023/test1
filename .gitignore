@@ -1,3 +1,5 @@
+.idea
 .pytest_cache
 allure-reports
 log
+venv_uipom

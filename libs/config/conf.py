@@ -4,17 +4,29 @@ from selenium.webdriver.common.by import By
 # 项目目录
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# 配置文件
-INI_PATH = os.path.join(BASE_DIR,'project', 'DRP', 'env', 'test', 'config.ini')
+# 当前项目目录
+PEROJECT_PATH = os.path.join(BASE_DIR, 'project', 'DRP')
 
-# 页面元素目录
-ELEMENT_PATH = os.path.join(BASE_DIR,'project', 'DRP', 'page_element')
+# 配置文件
+INI_PATH = os.path.join(PEROJECT_PATH, 'env', 'test', 'config.ini')
+
+# 项目页面元素目录
+ELEMENT_PATH = os.path.join(PEROJECT_PATH, 'page_element')
 
 # 日志目录
-LOG_PATH = os.path.join(BASE_DIR,'project', 'DRP', 'log')
+LOG_PATH = os.path.join(PEROJECT_PATH, 'log')
 
-# 报告目录
-REPORT_PATH = os.path.join(BASE_DIR,'project', 'DRP', 'report', 'report.html')
+# excel目录
+TESTCASE_PATH = os.path.join(PEROJECT_PATH, 'excel_drive', 'TestCase.xlsx')
+
+# 公共路径
+PUBLIC_PATH = os.path.join(BASE_DIR, 'public')
+
+# 公共页面元素目录
+PUBLIC_ELEMENT_PATH = os.path.join(PUBLIC_PATH, 'libs', 'unified_login', 'page_element')
+
+# 公共数据源
+PUBLIC_DATA_PATH = os.path.join(PUBLIC_PATH, 'data', 'datasource')
 
 # 元素定位的类型
 LOCATE_MODE = {

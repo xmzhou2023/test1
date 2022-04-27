@@ -1,0 +1,8 @@
+zx扫码快捷登录: "id==tab-code"
+账号密码登录: "id==tab-account"
+工号输入框: "xpath==//*[@id='pane-account']/form/div[1]/div/div[1]/input"
+密码输入框: "xpath==//*[@id='pane-account']/form/div[2]/div/div[1]/input"
+隐私保护勾选框: "xpath==//*[@id='pane-account']/form/div[4]/label/span/span"
+登录: "xpath==//*[@id='pane-account']/form/button"
+语言按钮: "xpath==//div[@role='button']"
+语言切换: "xpath==//li[contains(text(),'variable')]"
