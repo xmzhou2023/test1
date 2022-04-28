@@ -1,3 +1,7 @@
 .pytest_cache
 allure-reports
 log
+
+
+.idea
+__pycache__
