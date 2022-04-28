@@ -9,6 +9,7 @@ class Login(Base):
         """统一登录֤"""
         user = LoginPage(drivers)
         user.get_url(ini.url)
+        user.switch_lanuage("Chinese")
         user.click_accountlogin()
         user.input_account(username)
         user.input_passwd(passwd)
