@@ -2,7 +2,7 @@ import os
 import yaml
 from libs.config.conf import ELEMENT_PATH
 
-print(ELEMENT_PATH)
+# print(ELEMENT_PATH)
 class Element:
     """获取元素"""
 

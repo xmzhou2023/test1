@@ -6,8 +6,6 @@ import configparser
 from libs.config.conf import INI_PATH
 
 HOST = 'HOST'
-usernum = 'usernum'
-passwd = 'passwd'
 SQL = 'SQL'
 db = 'db'
 
@@ -35,14 +33,6 @@ class ReadConfig:
         return self._get(HOST, HOST)
 
     @property
-    def usernum(self):
-        return self._get(HOST, usernum)
-
-    @property
-    def passwd(self):
-        return self._get(HOST, passwd)
-
-    @property
     def db(self):
         return self._get(SQL, db)
 
@@ -51,7 +41,4 @@ ini = ReadConfig()
 sql = ast.literal_eval(ini.db)
 if __name__ == '__main__':
     print(ini.url)
-    print(ini.usernum)
-    print(eval(ini.usernum))
-    print(eval(ini.passwd))
     print(sql['host'])
