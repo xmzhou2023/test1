@@ -132,7 +132,7 @@ class Base(object):
         为alert点击确定
         :return:
         """
-        alert = self.wait.until(expected_conditions.alert_is_present())
+        alert = self.wait.until(EC.alert_is_present())
 
         alert.accept()
 
