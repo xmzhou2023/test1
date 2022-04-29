@@ -1,6 +1,7 @@
 # cd C:\Program Files\Google\Chrome\Application
 # chrome.exe --remote-debugging-port=9527 --user-data-dir="D:\selenium\AutomationProfile"
 # http://10.250.112.166:9000/#/systemManage/userManage
+# http://39.101.161.151/#/popupwindow
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -8,12 +9,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.print_page_options import PrintOptions
 # from page_base.webpage import WebPage
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 from libs.common.assert_ui import DomAssert
 
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
-
 
 
 # select_object = DomAssert(driver)
