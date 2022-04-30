@@ -13,6 +13,39 @@ def drivers(request, remote_ui=True):
     if driver is None:
         if 'linux' in sys.platform:
             option = webdriver.ChromeOptions()
+            # option.add_argument('--headless')  # 浏览器不提供可视化页面（无头模式）. linux下如果系统不支持可视化不加这条会启动失败
+            # option.add_argument('--window -size=1280x1024')  # 设置浏览器分辨率（窗口大小）
+            # option.add_argument('--start -maximized')  # 最大化运行（全屏窗口）,不设置，取元素会报错
+            # option.add_argument('--disable -infobars')  # 禁用浏览器正在被自动化程序控制的提示
+            # option.add_argument('--incognito')  # 隐身模式（无痕模式）
+            # option.add_argument('--hide -scrollbars')  # 隐藏滚动条, 应对一些特殊页面
+            # option.add_argument('--disable -javascript')  # 禁用javascript
+            # option.add_argument('--blink -settings=imagesEnabled=false')  # 不加载图片, 提升速度
+            # option.add_argument('disable -gpu')  # 禁用GPU加速
+            # option.add_argument('proxy-server={}'.format(self.proxy_server))  # 配置代理
+            # option.add_argument('no-default-browser-check') # 不做浏览器默认检查
+            # option.add_argument("–disable-popup-blocking")  # 允许弹窗
+            # option.add_argument("–disable-extensions")  # 禁用扩展
+            # option.add_argument("–ignore-certificate-errors")  # 忽略不信任证书
+            # option.add_argument("–no-first-run")  # 初始化时为空白页面
+            # option.add_argument('–disable -notifications')  # 禁用通知警告
+            # option.add_argument('–enable -automation')  # 通知(通知用户其浏览器正由自动化测试控制)
+            # option.add_argument('–disable -xss -auditor')  # 禁止xss防护
+            # option.add_argument('–disable -web -security')  # 关闭安全策略
+            # option.add_argument('–allow -running -insecure  content')  # 允许运行不安全的内容
+            # option.add_argument('–disable - webgl')  # 禁用webgl
+            # option.add_argument('–homedir = {}')  # 指定主目录存放位置
+            # option.add_argument('disable -cache')  # 禁用缓存
+            # option.add_argument('--ignore-certificate-errors')  # 禁用扩展插件并实现窗口最大化
+            # option.add_argument('–disable-software-rasterizer')
+            # option.add_argument('blink-settings=imagesEnabled=false')  # 不加载图片, 提升速度
+            # option.add_experimental_option("debuggerAddress", "127.0.0.1:9222")  # 调用原来的浏览器，不用再次登录即可重启
+            prefs = {"": ""}
+            prefs["credentials_enable_service"] = False
+            prefs["profile.password_manager_enabled"] = False
+            option.add_experimental_option("prefs", prefs)  # 屏蔽'保存密码'提示框
+
+            option.add_argument('–lang=zh-CN')  # 设置语言
             option.add_argument('--no-sandbox')  # 以最高权限运行
             option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
             option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
@@ -24,35 +57,6 @@ def drivers(request, remote_ui=True):
             if remote_ui:
                 '''win系统下VNC界面模式'''
                 option = webdriver.ChromeOptions()
-                # option.add_argument('--headless')  # 浏览器不提供可视化页面（无头模式）. linux下如果系统不支持可视化不加这条会启动失败
-                # option.add_argument('--window -size=1280x1024')  # 设置浏览器分辨率（窗口大小）
-                # option.add_argument('--start -maximized')  # 最大化运行（全屏窗口）,不设置，取元素会报错
-                # option.add_argument('--disable -infobars')  # 禁用浏览器正在被自动化程序控制的提示
-                # option.add_argument('--incognito')  # 隐身模式（无痕模式）
-                # option.add_argument('--hide -scrollbars')  # 隐藏滚动条, 应对一些特殊页面
-                # option.add_argument('--disable -javascript')  # 禁用javascript
-                # option.add_argument('--blink -settings=imagesEnabled=false')  # 不加载图片, 提升速度
-                # option.add_argument('disable -gpu')  # 禁用GPU加速
-                option.add_argument('proxy-server=testdcr.imwav.com')  # 配置代理
-                # option.add_argument('proxy-server={}'.format(self.proxy_server))  # 配置代理
-                # option.add_argument('no-default-browser-check') # 不做浏览器默认检查
-                # option.add_argument("–disable-popup-blocking")  # 允许弹窗
-                # option.add_argument("–disable-extensions")  # 禁用扩展
-                # option.add_argument("–ignore-certificate-errors")  # 忽略不信任证书
-                # option.add_argument("–no-first-run")  # 初始化时为空白页面
-                # option.add_argument('–disable -notifications')  # 禁用通知警告
-                # option.add_argument('–enable -automation')  # 通知(通知用户其浏览器正由自动化测试控制)
-                # option.add_argument('–disable -xss -auditor')  # 禁止xss防护
-                # option.add_argument('–disable -web -security')  # 关闭安全策略
-                # option.add_argument('–allow -running -insecure  content')  # 允许运行不安全的内容
-                # option.add_argument('–disable - webgl')  # 禁用webgl
-                # option.add_argument('–homedir = {}')  # 指定主目录存放位置
-                # option.add_argument('disable -cache')  # 禁用缓存
-                # option.add_argument('--ignore-certificate-errors')  # 禁用扩展插件并实现窗口最大化
-                # option.add_argument('–disable-software-rasterizer')
-                # option.add_argument('blink-settings=imagesEnabled=false')  # 不加载图片, 提升速度
-                # option.add_experimental_option("debuggerAddress", "127.0.0.1:9222")  # 调用原来的浏览器，不用再次登录即可重启
-
                 prefs = {"": ""}
                 prefs["credentials_enable_service"] = False
                 prefs["profile.password_manager_enabled"] = False
