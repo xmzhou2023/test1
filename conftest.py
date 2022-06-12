@@ -8,7 +8,7 @@ from libs.common.inspect_ymal import inspect_element
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=False):
+def drivers(request, remote_ui=True):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
