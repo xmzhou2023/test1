@@ -16,5 +16,4 @@ class Login(Base):
         if not user.check_box():
             user.click_checkbox()
         user.click_loginsubmit()
-        sleep(10)
 

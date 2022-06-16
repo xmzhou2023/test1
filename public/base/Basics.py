@@ -1,12 +1,12 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
-from libs.config.conf import LOCATE_MODE
+from libs.config.conf import LOCATE_MODE,DOWNLOAD_PATH
 from libs.common.time_ui import sleep
 from libs.common.logger_ui import log
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-
+import os
 """
 selenium基类
 本文件存放了selenium基类的封装方法
@@ -103,7 +103,7 @@ class Base(object):
             Npath.append(locator[1])
             Npath[1] = Npath[1].replace('variable', choice)
             self.find_element(Npath).click()
-            log.info("下拉选择：{}".format(Npath))
+            log.info("选择点击：{}".format(Npath))
         else:
             self.find_element(locator).click()
             # sleep()
@@ -270,6 +270,31 @@ class Base(object):
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.move_to_element(element)
+
+    def clear_download(self):
+        """鼠标悬停"""
+        for file in os.listdir(DOWNLOAD_PATH):
+            if len(file) > 0:
+                os.remove(DOWNLOAD_PATH + "\\" + file)
+
+    def download_file(self, filename, load=1):
+        try:
+            if os.path.exists(DOWNLOAD_PATH):
+                log.info(DOWNLOAD_PATH)
+                sleep(int(load))
+                for file in os.listdir(DOWNLOAD_PATH):
+                    log.info(filename,file)
+                    if filename in file:
+                        return True
+                    return False
+        except Exception:
+            return
+
+    def check_download(self, locator, content):
+        self.clear_download()
+        self.find_element(locator).click()
+        assert self.download_file(filename=content, load=3), log.warning("断言失败: 下载该附件失败 | {} ".format(content))
+        log.info("断言成功: 下载该附件成功 | {} ".format(content))
 
     @classmethod
     def all_keyword(cls):
