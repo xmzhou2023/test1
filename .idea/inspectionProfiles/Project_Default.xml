@@ -33,6 +33,8 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="pytest.assume" />
+          <option value="libs.config" />
+          <option value="libs.time_ui" />
         </list>
       </option>
     </inspection_tool>

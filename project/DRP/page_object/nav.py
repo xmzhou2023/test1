@@ -17,7 +17,7 @@ class NavPage(Base):
         for i in range(len(content)):
             log.info(nav[level[i]])
             self.is_click(nav[level[i]])
-        sleep(10)
+        sleep(5)
 
 if __name__ == '__main__':
     pass

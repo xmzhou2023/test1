@@ -19,6 +19,13 @@ options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
 
 
+# a = driver.find_element(By.XPATH,"//div[@class='main-top-audit']//div[contains(text(),'东非地区部')]")
+a = driver.find_elements(By.XPATH,"//div[@tabindex='-1']//div[@class='el-tree-node__content']//span[normalize-space(text())='TECNO事业部']")
+for i in range(len(a)):
+    print(a[i].text)
+# a = driver.find_element(By.XPATH,"//span[@class='custom-tree-node']/span[contains(text(),'TECNO事业部')]")
+# a = driver.find_element(By.XPATH,"//span[@class='custom-tree-node']/span[contains(text(),'利比亚')]")
+
 # select_object = DomAssert(driver)
 # select_object.assert_alerttext("//*[@id='alertwindow']/span",'alert测试弹窗')
 # select_object.assert_domcolor('//*[@id="aid"]', 'rgba(0, 0, 0, 1)')

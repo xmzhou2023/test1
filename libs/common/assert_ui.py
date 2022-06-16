@@ -13,90 +13,92 @@ from selenium.webdriver.common.by import By
 
 """     值校验的各种方法     """
 
-def value_assert_equal(a,b):
-    try:
-        assert a == b, log.warning("断言失败: 两值不等 | a:{} b:{}".format(a, b))
-        log.info("断言成功: 两值相等 | a:{} b:{}".format(a, b))
-    except Exception as e:
-        pass
+class ValueAssert(object):
 
-def value_assert_Notequal(a,b):
-    try:
-        assert a != b, log.warning("断言失败: 两值相等 | a:{} b:{}".format(a, b))
-        log.info("断言成功: 两值不等 | a:{} b:{}".format(a, b))
-    except Exception as e:
-        pass
+    def value_assert_equal(a,b):
+        try:
+            assert a == b, log.warning("断言失败: 两值不等 | a:{} b:{}".format(a, b))
+            log.info("断言成功: 两值相等 | a:{} b:{}".format(a, b))
+        except Exception as e:
+            pass
 
-def value_assert_True(x):
-    try:
-        assert bool(x) is True, log.warning("断言失败: 该值不为True值 | x:{}".format(x))
-        log.info("断言成功: 该值为True值 | x:{}".format(x))
-    except Exception as e:
-        pass
+    def value_assert_Notequal(a,b):
+        try:
+            assert a != b, log.warning("断言失败: 两值相等 | a:{} b:{}".format(a, b))
+            log.info("断言成功: 两值不等 | a:{} b:{}".format(a, b))
+        except Exception as e:
+            pass
 
-def value_assert_False(x):
-    try:
-        assert bool(x) is False, log.warning("断言失败: 该值不为False值 | x:{}".format(x))
-        log.info("断言成功: 该值为False值 | x:{}".format(x))
-    except Exception as e:
-        pass
+    def value_assert_True(x):
+        try:
+            assert bool(x) is True, log.warning("断言失败: 该值不为True值 | x:{}".format(x))
+            log.info("断言成功: 该值为True值 | x:{}".format(x))
+        except Exception as e:
+            pass
 
-def value_assert_Is(a,b):
-    try:
-        assert a is b, log.warning("断言失败:  a 不是 b | a:{} b:{}".format(a, b))
-        log.info("断言成功: a 是 b | a:{} b:{}".format(a, b))
-    except Exception as e:
-        pass
+    def value_assert_False(x):
+        try:
+            assert bool(x) is False, log.warning("断言失败: 该值不为False值 | x:{}".format(x))
+            log.info("断言成功: 该值为False值 | x:{}".format(x))
+        except Exception as e:
+            pass
 
-def value_assert_IsNot(a,b):
-    try:
-        assert a is not b, log.warning("断言失败: a 是 b | a:{} b:{}".format(a, b))
-        log.info("断言成功: a 不是 b | a:{} b:{}".format(a, b))
-    except Exception as e:
-        pass
+    def value_assert_Is(a,b):
+        try:
+            assert a is b, log.warning("断言失败:  a 不是 b | a:{} b:{}".format(a, b))
+            log.info("断言成功: a 是 b | a:{} b:{}".format(a, b))
+        except Exception as e:
+            pass
 
-def value_assert_IsNone(x):
-    try:
-        assert x is None, log.warning("断言失败: 该值不为None | x:{}".format(x))
-        log.info("断言成功: 该值为None | x:{}".format(x))
-    except Exception as e:
-        pass
+    def value_assert_IsNot(a,b):
+        try:
+            assert a is not b, log.warning("断言失败: a 是 b | a:{} b:{}".format(a, b))
+            log.info("断言成功: a 不是 b | a:{} b:{}".format(a, b))
+        except Exception as e:
+            pass
 
-def value_assert_IsNoneNot(x):
-    try:
-        assert x is not None, log.warning("断言失败: 该值为None | x:{}".format(x))
-        log.info("断言成功: 该值不为None | x:{}".format(x))
-    except Exception as e:
-        pass
+    def value_assert_IsNone(x):
+        try:
+            assert x is None, log.warning("断言失败: 该值不为None | x:{}".format(x))
+            log.info("断言成功: 该值为None | x:{}".format(x))
+        except Exception as e:
+            pass
 
-def value_assert_In(a,b):
-    try:
-        assert a in b, log.warning("断言失败: a 不包含 b | a:{} b:{}".format(a, b))
-        log.info("断言成功: a 包含 b | a:{} b:{}".format(a, b))
-    except Exception as e:
-        pass
+    def value_assert_IsNoneNot(x):
+        try:
+            assert x is not None, log.warning("断言失败: 该值为None | x:{}".format(x))
+            log.info("断言成功: 该值不为None | x:{}".format(x))
+        except Exception as e:
+            pass
 
-def value_assert_InNot(a,b):
-    try:
-        assert a not in b, log.warning("断言失败: a 包含 b | a: {} b:{}".format(a, b))
-        log.info("断言成功: a 不包含 b | a: {} b: {}".format(a, b))
-    except Exception as e:
-        pass
+    def value_assert_In(a,b):
+        try:
+            assert a in b, log.warning("断言失败: a 不包含 b | a:{} b:{}".format(a, b))
+            log.info("断言成功: a 包含 b | a:{} b:{}".format(a, b))
+        except Exception as e:
+            pass
+
+    def value_assert_InNot(a,b):
+        try:
+            assert a not in b, log.warning("断言失败: a 包含 b | a: {} b:{}".format(a, b))
+            log.info("断言成功: a 不包含 b | a: {} b: {}".format(a, b))
+        except Exception as e:
+            pass
 
 
-def value_assert_Instance(a,b):
-    try:
-        assert isinstance(a,b), log.warning("断言失败: a: {} 类型：{}".format(a, b))
-        log.info("断言成功: a: {} 类型： {}".format(a, b))
-    except Exception as e:
-        pass
+    def value_assert_Instance(a,b):
+        try:
+            assert isinstance(a,b), log.warning("断言失败: a: {} 类型：{}".format(a, b))
+            log.info("断言成功: a: {} 类型： {}".format(a, b))
+        except Exception as e:
+            pass
 
-def value_assert_IsInstanceNot(a,b):
-    try:
-        assert not isinstance(a,b), log.warning("断言失败: a: {} 类型：{}".format(a, b))
-        log.info("断言成功: a: {} 类型：{}".format(a, b))
-    except Exception as e:
-        pass
+    def value_assert_IsInstanceNot(a,b):
+        try:
+            assert not isinstance(a,b), log.warning("断言失败: a: {} 类型：{}".format(a, b))
+            log.info("断言成功: a: {} 类型：{}".format(a, b))
+        except Exception as e:
+            pass
 
 """     页面元素校验的方法     """
 

@@ -18,25 +18,25 @@ class TestLogin:
         user.search_user(jobnum=account[0]['username'])
         user.reset_account()
 
-    @pytest.mark.RT
-    def test_002(self, drivers):
-        """用户管理-新建用户"""
-        log.info("{} is start".format(sys._getframe().f_code.co_name))
-        user = UserPage(drivers)
-        user.append_account("18650893")
-
-    @pytest.mark.smoke
-    def test_003(self, drivers):
-        """用户管理-给新用户配置权限"""
-        log.info("{} is start".format(sys._getframe().f_code.co_name))
-        user = UserPage(drivers)
-        user.edit_Permission(
-            jobnum="18650893",
-            dimension={
-                '组织': ['itel事业部', '东非地区部'],
-                # '品牌': ['Infinix', 'itel', 'TECNO'],
-                # '区域': {'Infinix': ['利比亚', '土耳其']}
-            }
-        )
+    # @pytest.mark.RT
+    # def test_002(self, drivers):
+    #     """用户管理-新建用户"""
+    #     log.info("{} is start".format(sys._getframe().f_code.co_name))
+    #     user = UserPage(drivers)
+    #     user.append_account("18650893")
+    #
+    # @pytest.mark.smoke
+    # def test_003(self, drivers):
+    #     """用户管理-给新用户配置权限"""
+    #     log.info("{} is start".format(sys._getframe().f_code.co_name))
+    #     user = UserPage(drivers)
+    #     user.edit_Permission(
+    #         jobnum="18650893",
+    #         dimension={
+    #             '组织': ['itel事业部', '东非地区部'],
+    #             # '品牌': ['Infinix', 'itel', 'TECNO'],
+    #             # '区域': {'Infinix': ['利比亚', '土耳其']}
+    #         }
+    #     )
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])

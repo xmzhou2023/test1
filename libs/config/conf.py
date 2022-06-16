@@ -4,6 +4,9 @@ from selenium.webdriver.common.by import By
 # 项目目录
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# 本地下载路径
+DOWNLOAD_PATH = os.path.join(BASE_DIR, 'libs', 'download')
+
 # 当前项目目录
 PEROJECT_PATH = os.path.join(BASE_DIR, 'project', 'DRP')
 
@@ -12,6 +15,7 @@ INI_PATH = os.path.join(PEROJECT_PATH, 'env', 'test', 'config.ini')
 
 # 项目页面元素目录
 ELEMENT_PATH = os.path.join(PEROJECT_PATH, 'page_element')
+
 
 # 日志目录
 LOG_PATH = os.path.join(PEROJECT_PATH, 'log')
@@ -27,6 +31,8 @@ PUBLIC_ELEMENT_PATH = os.path.join(PUBLIC_PATH, 'libs', 'unified_login', 'page_e
 
 # 公共数据源
 PUBLIC_DATA_PATH = os.path.join(PUBLIC_PATH, 'data', 'datasource')
+
+
 
 # 元素定位的类型
 LOCATE_MODE = {
