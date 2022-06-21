@@ -320,6 +320,33 @@ class Base(object):
         """树结构专用查找多个相同的元素"""
         return self.driver.find_elements(By.XPATH, locator[1])
 
+    def input_text_dcr(self, locator, txt):
+        """输入(输入前先清空)，查找多个相同元素，DCR系统用 """
+        sleep(1)
+        ele = self.find_elements_dcr(locator)
+        ele[0].clear()
+        ele[0].send_keys(txt)
+        log.info("输入文本：{}".format(txt))
+
+    def is_click_dcr(self, locator, choice=None):
+        """点击 查找多个相同的元素，DCR系统用"""
+        if choice is not None:
+            log.info(locator)
+            log.info(choice)
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            self.find_elements_dcr(Npath)[0].click()
+            log.info("下拉选择：{}".format(Npath))
+        else:
+            self.find_elements_dcr(locator)[0].click()
+            log.info("点击元素：{}".format(locator))
+
+    def find_elements_dcr(self, locator):
+        """查找多个相同的元素,dcr系统用"""
+        return Base.element_locator(lambda *args: self.wait.until(
+            EC.visibility_of_any_elements_located(args)), locator)
 
 
 if __name__ == "__main__":
