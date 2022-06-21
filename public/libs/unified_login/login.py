@@ -8,11 +8,11 @@ class Login(Base):
     def login(self, drivers, username, passwd):
         """统一登录֤"""
         user = LoginPage(drivers)
-        user.get_url(ini.url)
+        user.get_url(ini.url) # 跳转到指定网页
         # user.switch_lanuage("Chinese")
-        user.click_accountlogin()
-        user.input_account(username)
-        user.input_passwd(passwd)
+        user.click_accountlogin() # 点击帐户密码登录
+        user.input_account(username) # 输入帐户名
+        user.input_passwd(passwd) # 输入密码
         if not user.check_box():
             user.click_checkbox()
         user.click_loginsubmit()

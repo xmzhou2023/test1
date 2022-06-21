@@ -16,7 +16,6 @@ INI_PATH = os.path.join(PEROJECT_PATH, 'env', 'test', 'config.ini')
 # 项目页面元素目录
 ELEMENT_PATH = os.path.join(PEROJECT_PATH, 'page_element')
 
-
 # 日志目录
 LOG_PATH = os.path.join(PEROJECT_PATH, 'log')
 
@@ -31,7 +30,6 @@ PUBLIC_ELEMENT_PATH = os.path.join(PUBLIC_PATH, 'libs', 'unified_login', 'page_e
 
 # 公共数据源
 PUBLIC_DATA_PATH = os.path.join(PUBLIC_PATH, 'data', 'datasource')
-
 
 
 # 元素定位的类型
