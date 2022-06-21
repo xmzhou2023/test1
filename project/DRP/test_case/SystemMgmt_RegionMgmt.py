@@ -15,6 +15,7 @@ class TestSearchArea:
     @allure.title("前往主菜单")
     @allure.description("前往主菜单‘itel事业部‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
     def test_001_001(self, drivers):
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "区域管理")
@@ -23,7 +24,7 @@ class TestSearchArea:
         user = AreaPage(drivers)
         user.goto_tree('itel事业部','itel事业部','itel事业部','事业部备料')
         # user.reset_account()
-
+    @pytest.mark.RT
     @allure.story("前往区域")
     @allure.title("前往二级菜单")
     @allure.description("前往二级菜单‘itel事业部‘")
@@ -41,6 +42,7 @@ class TestSearchArea:
     @allure.title("前往三级菜单")
     @allure.description("前往三级菜单‘itel事业部‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.FT
     def test_001_003(self, drivers):
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "区域管理")
@@ -54,6 +56,7 @@ class TestSearchArea:
     @allure.title("前往四级菜单")
     @allure.description("前往四级菜单‘itel事业部‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
     def test_001_004(self, drivers):
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "区域管理")
@@ -70,6 +73,7 @@ class TestExportArea:
     @allure.title("导出区域数据")
     @allure.description("导出区域数据‘itel事业部’")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.FT
     def test_002_001(self, drivers):
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "区域管理")
