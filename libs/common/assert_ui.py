@@ -176,7 +176,7 @@ class DomAssert(object):
             return e
 
     def assert_domcolor(self, element, color):
-        """断言当前下文件上传是否符合预期"""
+        """断言当前颜色是否符合预期"""
         try:
             elements = self.driver.find_elements(By.XPATH, element)
             value = elements[0].value_of_css_property('color')
@@ -189,9 +189,7 @@ class DomAssert(object):
 
     def assert_alerttext(self, element, content):
         """断言当前下文件上传是否符合预期"""
-        log.info("content")
         try:
-            log.info("content")
             self.driver.find_element(By.XPATH, element).click()
             alert = self.driver.switch_to.alert
             value = alert.text

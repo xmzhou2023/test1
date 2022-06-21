@@ -283,7 +283,7 @@ class Base(object):
                 log.info(DOWNLOAD_PATH)
                 sleep(int(load))
                 for file in os.listdir(DOWNLOAD_PATH):
-                    log.info(filename,file)
+                    log.info("准备生成:{}").format(filename)
                     if filename in file:
                         return True
                     return False
