@@ -5,7 +5,7 @@ from public.data.unified_login.unified import *
 from libs.common.assert_ui import DomAssert, SQLAssert, ValueAssert
 from libs.common.logger_ui import log
 
-from project.DRP.page_object.util_center import NavPage
+from project.DRP.page_object.center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_UserMgmt import UserPage
 
 @allure.feature("系统管理-用户管理")
