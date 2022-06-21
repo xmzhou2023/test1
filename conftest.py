@@ -3,6 +3,7 @@ from py._xmlgen import html
 from selenium import webdriver
 from time import sleep
 from libs.common.inspect_ymal import inspect_element
+from libs.config.conf import DOWNLOAD_PATH
 
 driver = None
 
@@ -75,6 +76,8 @@ def drivers(request, remote_ui=False):
                 prefs = {"": ""}
                 prefs["credentials_enable_service"] = False
                 prefs["profile.password_manager_enabled"] = False
+                prefs["download.prompt_for_download"] = False  # 关闭下载自动打开选项
+                prefs["download.default_directory"] = DOWNLOAD_PATH
                 option.add_experimental_option("prefs", prefs)  # 屏蔽'保存密码'提示框
                 # 防止打印一些无用的日志
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
