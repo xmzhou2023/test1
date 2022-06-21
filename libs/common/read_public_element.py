@@ -26,4 +26,4 @@ class Element:
 
 if __name__ == '__main__':
     search = Element('login')
-    print(search['账号密码登录'])
+    print(search['zx扫码快捷登录'])

@@ -1,9 +1,9 @@
-import sys
-import pytest
+import sys, pytest
 from py._xmlgen import html
 from selenium import webdriver
 from time import sleep
 from libs.common.inspect_ymal import inspect_element
+from libs.config.conf import DOWNLOAD_PATH
 
 driver = None
 
@@ -43,6 +43,7 @@ def drivers(request, remote_ui=False):
             prefs = {"": ""}
             prefs["credentials_enable_service"] = False
             prefs["profile.password_manager_enabled"] = False
+            prefs["download.prompt_for_download"] = False
             option.add_experimental_option("prefs", prefs)  # 屏蔽'保存密码'提示框
 
             option.add_argument('–lang=zh-CN')  # 设置语言
@@ -51,7 +52,7 @@ def drivers(request, remote_ui=False):
             option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
             option.set_capability("browserVersion", "99.0")
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
-            driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
+            driver = webdriver.Remote("http://10.250.113.16:4444", options=option)
             # inspect_element() # page_element YMAL文件自检
         else:
             if remote_ui:
@@ -72,13 +73,19 @@ def drivers(request, remote_ui=False):
                 # inspect_element() # page_element YMAL文件自检
             else:
                 option = webdriver.ChromeOptions()
+                prefs = {"": ""}
+                prefs["credentials_enable_service"] = False
+                prefs["profile.password_manager_enabled"] = False
+                prefs["download.prompt_for_download"] = False  # 关闭下载自动打开选项
+                prefs["download.default_directory"] = DOWNLOAD_PATH
+                option.add_experimental_option("prefs", prefs)  # 屏蔽'保存密码'提示框
                 # 防止打印一些无用的日志
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
                 driver = webdriver.Chrome(options=option)
                 driver.maximize_window()
                 # inspect_element() # page_element YMAL文件自检
     def fn():
-        sleep(10)
+        sleep(5)
         driver.quit()
 
     # 终结函数
@@ -136,17 +143,3 @@ def _capture_screenshot():
     :return:
     '''
     return driver.get_screenshot_as_base64()
-
-# @pytest.fixture(scope='session', autouse=True)
-# def logins(drivers):
-#     """打开登录页"""
-#     log.info('111111')
-#     user = LoginPage(drivers)
-#     user.get_url(ini.url)
-#     user.click_accountlogin()
-#     user.input_account('18650617')
-#     user.input_passwd('jf3249JFL')
-#     if user.check_box() == False:
-#         user.click_checkbox()
-#     user.click_loginsubmit()
-#     return user

@@ -2,7 +2,7 @@ from public.base.Basics import Base, sleep
 from libs.common.read_element import Element
 from libs.common.logger_ui import log
 
-nav = Element('nav')
+nav = Element('center_Component')
 
 class NavPage(Base):
     """Nav类"""
@@ -15,9 +15,9 @@ class NavPage(Base):
             navstr = navstr + '->' + content[i]
             level.append(navstr[2:])
         for i in range(len(content)):
-            log.info(nav[level[i]])
+            # log.info(nav[level[i]])
             self.is_click(nav[level[i]])
-        sleep(10)
+        sleep(5)
 
 if __name__ == '__main__':
     pass

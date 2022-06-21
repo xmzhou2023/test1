@@ -4,7 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-user = Element('user')
+user = Element('SystemMgmt_UserMgmt')
 
 class UserPage(Base):
     """用户类"""
