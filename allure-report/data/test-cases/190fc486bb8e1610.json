@@ -1,0 +1,166 @@
+{
+  "uid" : "190fc486bb8e1610",
+  "name" : "根据姓名查询用户并添加",
+  "fullName" : "project.DRP.test_case.SystemMgmt_UserMgmt.TestAppendUser#test_002_001",
+  "historyId" : "35274437dba0560d3fa88a64f423d290",
+  "time" : {
+    "start" : 1656056830158,
+    "stop" : 1656056834027,
+    "duration" : 3869
+  },
+  "description" : "查询工号为18650893，并添加该用户到系统",
+  "descriptionHtml" : "<p>查询工号为18650893，并添加该用户到系统</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "test_login",
+    "time" : {
+      "start" : 1656056791585,
+      "stop" : 1656056803577,
+      "duration" : 11992
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  }, {
+    "name" : "drivers",
+    "time" : {
+      "start" : 1656056790344,
+      "stop" : 1656056791585,
+      "duration" : 1241
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  }, {
+    "name" : "_session_faker",
+    "time" : {
+      "start" : 1656056790291,
+      "stop" : 1656056790344,
+      "duration" : 53
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  } ],
+  "testStage" : {
+    "description" : "查询工号为18650893，并添加该用户到系统",
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ {
+      "uid" : "6bef2ee9509a1cf3",
+      "name" : "log",
+      "source" : "6bef2ee9509a1cf3.txt",
+      "type" : "text/plain",
+      "size" : 1115
+    } ],
+    "parameters" : [ ],
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : true
+  },
+  "afterStages" : [ {
+    "name" : "drivers::fn",
+    "time" : {
+      "start" : 1656056840370,
+      "stop" : 1656056847563,
+      "duration" : 7193
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false,
+    "stepsCount" : 0,
+    "hasContent" : false
+  } ],
+  "labels" : [ {
+    "name" : "feature",
+    "value" : "系统管理-用户管理"
+  }, {
+    "name" : "story",
+    "value" : "新建用户"
+  }, {
+    "name" : "severity",
+    "value" : "blocker"
+  }, {
+    "name" : "tag",
+    "value" : "smoke"
+  }, {
+    "name" : "parentSuite",
+    "value" : "project.DRP.test_case"
+  }, {
+    "name" : "suite",
+    "value" : "SystemMgmt_UserMgmt"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestAppendUser"
+  }, {
+    "name" : "host",
+    "value" : "CQPILIUYONG"
+  }, {
+    "name" : "thread",
+    "value" : "17940-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "project.DRP.test_case.SystemMgmt_UserMgmt"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "blocker",
+    "retries" : [ ],
+    "categories" : [ ],
+    "history" : {
+      "statistic" : {
+        "failed" : 0,
+        "broken" : 0,
+        "skipped" : 0,
+        "passed" : 2,
+        "unknown" : 0,
+        "total" : 2
+      },
+      "items" : [ {
+        "uid" : "9ec2cd023b657301",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656049922231,
+          "stop" : 1656049926155,
+          "duration" : 3924
+        }
+      } ]
+    },
+    "tags" : [ "smoke" ]
+  },
+  "source" : "190fc486bb8e1610.json",
+  "parameterValues" : [ ]
+}

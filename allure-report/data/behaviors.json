@@ -1,0 +1,73 @@
+{
+  "uid" : "b1a8273437954620fa374b796ffaacdd",
+  "name" : "behaviors",
+  "children" : [ {
+    "name" : "系统管理-用户管理",
+    "children" : [ {
+      "name" : "查询用户",
+      "children" : [ {
+        "name" : "根据姓名查询用户",
+        "uid" : "84f2f8ebd9b6d66",
+        "parentUid" : "7fa0f66a1bfff96e05ea6d9e95caebee",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656056803579,
+          "stop" : 1656056818147,
+          "duration" : 14568
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "重置用户查询条件",
+        "uid" : "e4537a2214e78385",
+        "parentUid" : "7fa0f66a1bfff96e05ea6d9e95caebee",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656056818156,
+          "stop" : 1656056830154,
+          "duration" : 11998
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "7fa0f66a1bfff96e05ea6d9e95caebee"
+    }, {
+      "name" : "新建用户",
+      "children" : [ {
+        "name" : "根据姓名查询用户并添加",
+        "uid" : "190fc486bb8e1610",
+        "parentUid" : "b2a480c3e489d8d52233323de0c4e3a4",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656056830158,
+          "stop" : 1656056834027,
+          "duration" : 3869
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "b2a480c3e489d8d52233323de0c4e3a4"
+    }, {
+      "name" : "编辑用户",
+      "children" : [ {
+        "name" : "查找到指定用户并配置菜单权限",
+        "uid" : "1009f32fba5594d4",
+        "parentUid" : "abc3fb385e93179964875c89b32764ca",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656056834037,
+          "stop" : 1656056840369,
+          "duration" : 6332
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "abc3fb385e93179964875c89b32764ca"
+    } ],
+    "uid" : "291c3f42864b1322b70f516e75bd750a"
+  } ]
+}

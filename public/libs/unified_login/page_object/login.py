@@ -7,8 +7,17 @@ class LoginPage(Base):
     """登录类"""
     def switch_lanuage(self, content):
         """语言切换"""
-        self.is_click(login['语言按钮'])
-        self.is_click(login['语言切换'], content)
+        self.is_click(login['语言展开'])
+        sleep(2)
+        try:
+            if content == "英文":
+                self.is_click(login['语言切换'], "2")
+            elif content == "法文":
+                self.is_click(login['语言切换'], "3")
+            else:
+                self.is_click(login['语言切换'], "1")
+        except:
+            self.is_click(login['语言展开'])
 
     def click_accountlogin(self):
         """点击帐号密码登录"""

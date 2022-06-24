@@ -1,3 +1,4 @@
+import allure
 from public.base.Basics import Base, sleep
 from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
@@ -9,8 +10,8 @@ user = Element('SystemMgmt_UserMgmt')
 class UserPage(Base):
     """用户类"""
 
+    @allure.step("查找工号")
     def search_user(self, jobnum=None,name=None):
-        """工号，姓名查询"""
         if jobnum is not None:
             self.readonly_input_text(user['用户管理-工号输入框'], txt=jobnum)
             sleep(2)
@@ -22,28 +23,28 @@ class UserPage(Base):
         self.is_click(user['用户管理-查询'])
         sleep()
 
+    @allure.step("输入工号")
     def input_account(self, content):
-        """输入工号"""
         self.readonly_input_text(user['用户管理-工号输入框'], txt=content)
         sleep(20)
 
+    @allure.step("输入名称")
     def input_name(self, content):
-        """输入姓名"""
         self.readonly_input_text(user['用户管理-姓名输入框'], txt=content)
         sleep(20)
 
+    @allure.step("查询工号")
     def search_account(self):
-        """查询工号"""
         self.is_click(user['用户管理-查询'])
         sleep()
 
+    @allure.step("重置工号")
     def reset_account(self):
-        """重置工号"""
         self.is_click(user['用户管理-重置'])
         sleep()
 
+    @allure.step("新增工号")
     def append_account(self,content):
-        """新增工号"""
         self.is_click(user['用户管理-新增'])
         sleep()
         self.input_text(user['人员列表-新增人员搜索框'], txt=content)
@@ -52,8 +53,8 @@ class UserPage(Base):
 
     """用户详情类"""
 
+    @allure.step("编辑用户权限")
     def edit_Permission(self, jobnum=None, dimension=None):
-        """给指定用户配置权限"""
         self.search_user(jobnum=jobnum)
         if dimension is not None:
             self.is_click(user['用户管理-列表人员'])
@@ -79,6 +80,7 @@ class UserPage(Base):
                         self.edituser_tab_click(user['编辑用户权限-维度'], "区域")
         self.is_click(user['编辑用户权限-区域-确定'])
 
+    @allure.step("展开树")
     def tree_open(self, brand):
         locator = user['编辑用户权限-区域-展开树']
         Npath = []

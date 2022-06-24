@@ -1,0 +1,65 @@
+{
+  "uid" : "ab17fc5a4eb3bca4b216b548c7f9fcbc",
+  "name" : "timeline",
+  "children" : [ {
+    "name" : "CQPILIUYONG",
+    "children" : [ {
+      "name" : "17940-MainThread",
+      "children" : [ {
+        "name" : "根据姓名查询用户",
+        "uid" : "84f2f8ebd9b6d66",
+        "parentUid" : "4c81d87f9382a2ba87ed27d67f0111e0",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656056803579,
+          "stop" : 1656056818147,
+          "duration" : 14568
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "根据姓名查询用户并添加",
+        "uid" : "190fc486bb8e1610",
+        "parentUid" : "4c81d87f9382a2ba87ed27d67f0111e0",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656056830158,
+          "stop" : 1656056834027,
+          "duration" : 3869
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "查找到指定用户并配置菜单权限",
+        "uid" : "1009f32fba5594d4",
+        "parentUid" : "4c81d87f9382a2ba87ed27d67f0111e0",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656056834037,
+          "stop" : 1656056840369,
+          "duration" : 6332
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      }, {
+        "name" : "重置用户查询条件",
+        "uid" : "e4537a2214e78385",
+        "parentUid" : "4c81d87f9382a2ba87ed27d67f0111e0",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656056818156,
+          "stop" : 1656056830154,
+          "duration" : 11998
+        },
+        "flaky" : false,
+        "newFailed" : false,
+        "parameters" : [ ]
+      } ],
+      "uid" : "4c81d87f9382a2ba87ed27d67f0111e0"
+    } ],
+    "uid" : "a34355707e4cc59ca13ffe457be2a432"
+  } ]
+}
