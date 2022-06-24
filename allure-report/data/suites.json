@@ -1,0 +1,77 @@
+{
+  "uid" : "98d3104e051c652961429bf95fa0b5d6",
+  "name" : "suites",
+  "children" : [ {
+    "name" : "project.DRP.test_case",
+    "children" : [ {
+      "name" : "SystemMgmt_UserMgmt",
+      "children" : [ {
+        "name" : "TestSearchUser",
+        "children" : [ {
+          "name" : "根据姓名查询用户",
+          "uid" : "84f2f8ebd9b6d66",
+          "parentUid" : "ce1f9354707f1b2f6788904d8d1c5cb8",
+          "status" : "passed",
+          "time" : {
+            "start" : 1656056803579,
+            "stop" : 1656056818147,
+            "duration" : 14568
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        }, {
+          "name" : "重置用户查询条件",
+          "uid" : "e4537a2214e78385",
+          "parentUid" : "ce1f9354707f1b2f6788904d8d1c5cb8",
+          "status" : "passed",
+          "time" : {
+            "start" : 1656056818156,
+            "stop" : 1656056830154,
+            "duration" : 11998
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "ce1f9354707f1b2f6788904d8d1c5cb8"
+      }, {
+        "name" : "TestAppendUser",
+        "children" : [ {
+          "name" : "根据姓名查询用户并添加",
+          "uid" : "190fc486bb8e1610",
+          "parentUid" : "3ca4ed1500078d81c0924b4c1d90f227",
+          "status" : "passed",
+          "time" : {
+            "start" : 1656056830158,
+            "stop" : 1656056834027,
+            "duration" : 3869
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "3ca4ed1500078d81c0924b4c1d90f227"
+      }, {
+        "name" : "TestEditUser",
+        "children" : [ {
+          "name" : "查找到指定用户并配置菜单权限",
+          "uid" : "1009f32fba5594d4",
+          "parentUid" : "117f7aeee7651c166dab64ef45e346a9",
+          "status" : "passed",
+          "time" : {
+            "start" : 1656056834037,
+            "stop" : 1656056840369,
+            "duration" : 6332
+          },
+          "flaky" : false,
+          "newFailed" : false,
+          "parameters" : [ ]
+        } ],
+        "uid" : "117f7aeee7651c166dab64ef45e346a9"
+      } ],
+      "uid" : "4b8362fd7b01e3dcdcb26aeb1271681b"
+    } ],
+    "uid" : "31e8af581a0d49511db60dec05083529"
+  } ]
+}

@@ -1,0 +1,41 @@
+[ {
+  "uid" : "1009f32fba5594d4",
+  "name" : "查找到指定用户并配置菜单权限",
+  "time" : {
+    "start" : 1656056834037,
+    "stop" : 1656056840369,
+    "duration" : 6332
+  },
+  "status" : "passed",
+  "severity" : "critical"
+}, {
+  "uid" : "e4537a2214e78385",
+  "name" : "重置用户查询条件",
+  "time" : {
+    "start" : 1656056818156,
+    "stop" : 1656056830154,
+    "duration" : 11998
+  },
+  "status" : "passed",
+  "severity" : "normal"
+}, {
+  "uid" : "190fc486bb8e1610",
+  "name" : "根据姓名查询用户并添加",
+  "time" : {
+    "start" : 1656056830158,
+    "stop" : 1656056834027,
+    "duration" : 3869
+  },
+  "status" : "passed",
+  "severity" : "blocker"
+}, {
+  "uid" : "84f2f8ebd9b6d66",
+  "name" : "根据姓名查询用户",
+  "time" : {
+    "start" : 1656056803579,
+    "stop" : 1656056818147,
+    "duration" : 14568
+  },
+  "status" : "passed",
+  "severity" : "minor"
+} ]

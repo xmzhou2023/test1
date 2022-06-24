@@ -1,0 +1,8 @@
+2022-06-24 16:53:43 [[32m    INFO[0m] 查找元素：('xpath', '//*[@id="app"]/div/div[2]/div[2]/section/div/div/div[1]/div') (Basics.py:51)
+2022-06-24 16:53:43 [[32m    INFO[0m] 点击元素：('xpath', '//*[@id="app"]/div/div[2]/div[2]/section/div/div/div[1]/div') (Basics.py:110)
+2022-06-24 16:53:44 [[32m    INFO[0m] 查找元素：('xpath', "//input[@placeholder='请输入姓名或工号']") (Basics.py:51)
+2022-06-24 16:53:45 [[32m    INFO[0m] 输入文本：18650893 (Basics.py:72)
+2022-06-24 16:53:47 [[32m    INFO[0m] 查找元素：['xpath', "//div[@class='overflow-ellispe el-col el-col-8'][normalize-space()='18650893']"] (Basics.py:51)
+2022-06-24 16:53:47 [[32m    INFO[0m] 选择点击：['xpath', "//div[@class='overflow-ellispe el-col el-col-8'][normalize-space()='18650893']"] (Basics.py:107)
+2022-06-24 16:53:47 [[32m    INFO[0m] 查找元素：('xpath', "//button[@class='el-button el-button--primary el-button--medium']//span[contains(text(),'确定')]") (Basics.py:51)
+2022-06-24 16:53:47 [[32m    INFO[0m] 点击元素：('xpath', "//button[@class='el-button el-button--primary el-button--medium']//span[contains(text(),'确定')]") (Basics.py:110)
