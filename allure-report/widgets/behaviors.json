@@ -1,5 +1,5 @@
 {
-  "total" : 1,
+  "total" : 2,
   "items" : [ {
     "uid" : "291c3f42864b1322b70f516e75bd750a",
     "name" : "系统管理-用户管理",
@@ -10,6 +10,17 @@
       "passed" : 3,
       "unknown" : 0,
       "total" : 3
+    }
+  }, {
+    "uid" : "c2b2fc53172ab4ea3bfb5222c8a54025",
+    "name" : "系统管理-区域管理",
+    "statistic" : {
+      "failed" : 0,
+      "broken" : 0,
+      "skipped" : 0,
+      "passed" : 2,
+      "unknown" : 0,
+      "total" : 2
     }
   } ]
 }

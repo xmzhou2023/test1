@@ -13,7 +13,6 @@ class Login(Base):
         user.click_accountlogin() # 点击帐户密码登录
         user.input_account(username) # 输入帐户名
         user.input_passwd(passwd) # 输入密码
-        if not user.check_box():
-            user.click_checkbox()
+        user.click_checkbox()
         user.click_loginsubmit()
 

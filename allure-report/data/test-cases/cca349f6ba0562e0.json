@@ -1,12 +1,12 @@
 {
-  "uid" : "190fc486bb8e1610",
+  "uid" : "cca349f6ba0562e0",
   "name" : "根据姓名查询用户并添加",
   "fullName" : "project.DRP.test_case.SystemMgmt_UserMgmt.TestAppendUser#test_002_001",
   "historyId" : "35274437dba0560d3fa88a64f423d290",
   "time" : {
-    "start" : 1656056830158,
-    "stop" : 1656056834027,
-    "duration" : 3869
+    "start" : 1656211666734,
+    "stop" : 1656211670731,
+    "duration" : 3997
   },
   "description" : "查询工号为18650893，并添加该用户到系统",
   "descriptionHtml" : "<p>查询工号为18650893，并添加该用户到系统</p>\n",
@@ -14,93 +14,150 @@
   "flaky" : false,
   "newFailed" : false,
   "beforeStages" : [ {
-    "name" : "test_login",
-    "time" : {
-      "start" : 1656056791585,
-      "stop" : 1656056803577,
-      "duration" : 11992
-    },
-    "status" : "passed",
-    "steps" : [ ],
-    "attachments" : [ ],
-    "parameters" : [ ],
-    "attachmentsCount" : 0,
-    "shouldDisplayMessage" : false,
-    "stepsCount" : 0,
-    "hasContent" : false
-  }, {
     "name" : "drivers",
     "time" : {
-      "start" : 1656056790344,
-      "stop" : 1656056791585,
-      "duration" : 1241
+      "start" : 1656211501481,
+      "stop" : 1656211502728,
+      "duration" : 1247
     },
     "status" : "passed",
     "steps" : [ ],
     "attachments" : [ ],
     "parameters" : [ ],
-    "attachmentsCount" : 0,
-    "shouldDisplayMessage" : false,
+    "hasContent" : false,
     "stepsCount" : 0,
-    "hasContent" : false
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  }, {
+    "name" : "test_login",
+    "time" : {
+      "start" : 1656211502728,
+      "stop" : 1656211526299,
+      "duration" : 23571
+    },
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "值为True值断言",
+      "time" : {
+        "start" : 1656211525731,
+        "stop" : 1656211525739,
+        "duration" : 8
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "word",
+        "value" : "'http://10.250.112.166:9000/#/dashboard'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "值为True值断言",
+      "time" : {
+        "start" : 1656211525739,
+        "stop" : 1656211526299,
+        "duration" : 560
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "word",
+        "value" : "'刘勇'"
+      }, {
+        "name" : "sql",
+        "value" : "'select name_zh from uc_user where enable_flag=1'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : true,
+    "stepsCount" : 2,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
   }, {
     "name" : "_session_faker",
     "time" : {
-      "start" : 1656056790291,
-      "stop" : 1656056790344,
-      "duration" : 53
+      "start" : 1656211501414,
+      "stop" : 1656211501481,
+      "duration" : 67
     },
     "status" : "passed",
     "steps" : [ ],
     "attachments" : [ ],
     "parameters" : [ ],
-    "attachmentsCount" : 0,
-    "shouldDisplayMessage" : false,
+    "hasContent" : false,
     "stepsCount" : 0,
-    "hasContent" : false
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
   } ],
   "testStage" : {
     "description" : "查询工号为18650893，并添加该用户到系统",
     "status" : "passed",
-    "steps" : [ ],
+    "steps" : [ {
+      "name" : "新增工号",
+      "time" : {
+        "start" : 1656211666734,
+        "stop" : 1656211670731,
+        "duration" : 3997
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "content",
+        "value" : "'18650893'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
     "attachments" : [ {
-      "uid" : "6bef2ee9509a1cf3",
+      "uid" : "4ac2062a80d3838c",
       "name" : "log",
-      "source" : "6bef2ee9509a1cf3.txt",
+      "source" : "4ac2062a80d3838c.txt",
       "type" : "text/plain",
       "size" : 1115
     } ],
     "parameters" : [ ],
+    "hasContent" : true,
+    "stepsCount" : 1,
     "attachmentsCount" : 1,
-    "shouldDisplayMessage" : false,
-    "stepsCount" : 0,
-    "hasContent" : true
+    "shouldDisplayMessage" : false
   },
   "afterStages" : [ {
     "name" : "drivers::fn",
     "time" : {
-      "start" : 1656056840370,
-      "stop" : 1656056847563,
-      "duration" : 7193
+      "start" : 1656211677298,
+      "stop" : 1656211684458,
+      "duration" : 7160
     },
     "status" : "passed",
     "steps" : [ ],
     "attachments" : [ ],
     "parameters" : [ ],
-    "attachmentsCount" : 0,
-    "shouldDisplayMessage" : false,
+    "hasContent" : false,
     "stepsCount" : 0,
-    "hasContent" : false
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
   } ],
   "labels" : [ {
-    "name" : "feature",
-    "value" : "系统管理-用户管理"
+    "name" : "severity",
+    "value" : "blocker"
   }, {
     "name" : "story",
     "value" : "新建用户"
   }, {
-    "name" : "severity",
-    "value" : "blocker"
+    "name" : "feature",
+    "value" : "系统管理-用户管理"
   }, {
     "name" : "tag",
     "value" : "smoke"
@@ -118,7 +175,7 @@
     "value" : "CQPILIUYONG"
   }, {
     "name" : "thread",
-    "value" : "17940-MainThread"
+    "value" : "13924-MainThread"
   }, {
     "name" : "framework",
     "value" : "pytest"
@@ -161,6 +218,6 @@
     },
     "tags" : [ "smoke" ]
   },
-  "source" : "190fc486bb8e1610.json",
+  "source" : "cca349f6ba0562e0.json",
   "parameterValues" : [ ]
 }

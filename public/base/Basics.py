@@ -293,7 +293,7 @@ class Base(object):
     def check_download(self, locator, content):
         self.clear_download()
         self.find_element(locator).click()
-        assert self.download_file(filename=content, load=3), log.warning("断言失败: 下载该附件失败 | {} ".format(content))
+        assert self.download_file(filename=content, load=3), logging.warning("断言失败: 下载该附件失败 | {} ".format(content))
         logging.info("断言成功: 下载该附件成功 | {} ".format(content))
 
     @classmethod
@@ -331,8 +331,8 @@ class Base(object):
     def is_click_dcr(self, locator, choice=None):
         """点击 查找多个相同的元素，DCR系统用"""
         if choice is not None:
-            log.info(locator)
-            log.info(choice)
+            logging.info(locator)
+            logging.info(choice)
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])

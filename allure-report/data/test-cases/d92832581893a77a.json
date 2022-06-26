@@ -1,0 +1,241 @@
+{
+  "uid" : "d92832581893a77a",
+  "name" : "前往二级菜单",
+  "fullName" : "project.DRP.test_case.SystemMgmt_RegionMgmt.TestSearchArea#test_001_002",
+  "historyId" : "4082ce98fe044a8ccec8637af76170eb",
+  "time" : {
+    "start" : 1656211561676,
+    "stop" : 1656211579330,
+    "duration" : 17654
+  },
+  "description" : "前往二级菜单‘itel事业部‘",
+  "descriptionHtml" : "<p>前往二级菜单‘itel事业部‘</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "drivers",
+    "time" : {
+      "start" : 1656211501481,
+      "stop" : 1656211502728,
+      "duration" : 1247
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  }, {
+    "name" : "test_login",
+    "time" : {
+      "start" : 1656211502728,
+      "stop" : 1656211526299,
+      "duration" : 23571
+    },
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "值为True值断言",
+      "time" : {
+        "start" : 1656211525731,
+        "stop" : 1656211525739,
+        "duration" : 8
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "word",
+        "value" : "'http://10.250.112.166:9000/#/dashboard'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "值为True值断言",
+      "time" : {
+        "start" : 1656211525739,
+        "stop" : 1656211526299,
+        "duration" : 560
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "word",
+        "value" : "'刘勇'"
+      }, {
+        "name" : "sql",
+        "value" : "'select name_zh from uc_user where enable_flag=1'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : true,
+    "stepsCount" : 2,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  }, {
+    "name" : "_session_faker",
+    "time" : {
+      "start" : 1656211501414,
+      "stop" : 1656211501481,
+      "duration" : 67
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "testStage" : {
+    "description" : "前往二级菜单‘itel事业部‘",
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "值为True值断言",
+      "time" : {
+        "start" : 1656211567100,
+        "stop" : 1656211567106,
+        "duration" : 6
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "word",
+        "value" : "'/systemManage/areaManage'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "前往树",
+      "time" : {
+        "start" : 1656211567106,
+        "stop" : 1656211579330,
+        "duration" : 12224
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "content",
+        "value" : "('itel事业部', 'itel事业部')"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
+    "attachments" : [ {
+      "uid" : "e1bac4e24175bbd",
+      "name" : "log",
+      "source" : "e1bac4e24175bbd.txt",
+      "type" : "text/plain",
+      "size" : 1632
+    } ],
+    "parameters" : [ ],
+    "hasContent" : true,
+    "stepsCount" : 2,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false
+  },
+  "afterStages" : [ {
+    "name" : "drivers::fn",
+    "time" : {
+      "start" : 1656211677298,
+      "stop" : 1656211684458,
+      "duration" : 7160
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "labels" : [ {
+    "name" : "severity",
+    "value" : "blocker"
+  }, {
+    "name" : "story",
+    "value" : "前往区域"
+  }, {
+    "name" : "feature",
+    "value" : "系统管理-区域管理"
+  }, {
+    "name" : "tag",
+    "value" : "RT"
+  }, {
+    "name" : "parentSuite",
+    "value" : "project.DRP.test_case"
+  }, {
+    "name" : "suite",
+    "value" : "SystemMgmt_RegionMgmt"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestSearchArea"
+  }, {
+    "name" : "host",
+    "value" : "CQPILIUYONG"
+  }, {
+    "name" : "thread",
+    "value" : "13924-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "project.DRP.test_case.SystemMgmt_RegionMgmt"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "blocker",
+    "retries" : [ ],
+    "categories" : [ ],
+    "history" : {
+      "statistic" : {
+        "failed" : 0,
+        "broken" : 0,
+        "skipped" : 0,
+        "passed" : 2,
+        "unknown" : 0,
+        "total" : 2
+      },
+      "items" : [ {
+        "uid" : "3aaa5543741e31d5",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656049817160,
+          "stop" : 1656049834860,
+          "duration" : 17700
+        }
+      } ]
+    },
+    "tags" : [ "RT" ]
+  },
+  "source" : "d92832581893a77a.json",
+  "parameterValues" : [ ]
+}
