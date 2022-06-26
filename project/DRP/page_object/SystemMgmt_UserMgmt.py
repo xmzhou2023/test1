@@ -26,12 +26,12 @@ class UserPage(Base):
     @allure.step("输入工号")
     def input_account(self, content):
         self.readonly_input_text(user['用户管理-工号输入框'], txt=content)
-        sleep(20)
+        sleep(2)
 
     @allure.step("输入名称")
     def input_name(self, content):
         self.readonly_input_text(user['用户管理-姓名输入框'], txt=content)
-        sleep(20)
+        sleep(2)
 
     @allure.step("查询工号")
     def search_account(self):

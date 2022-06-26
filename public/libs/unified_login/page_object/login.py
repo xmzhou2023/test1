@@ -39,7 +39,8 @@ class LoginPage(Base):
 
     def click_checkbox(self):
         """点击复选框"""
-        self.is_click(login['隐私保护勾选框'])
+        if not self.check_box():
+            self.is_click(login['隐私保护勾选框'])
 
     def click_loginsubmit(self):
         """点击帐号密码登录"""

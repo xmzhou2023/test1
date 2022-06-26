@@ -1,9 +1,10 @@
-import sys, pytest
+import sys, pytest, os, time
+import logging
 from py._xmlgen import html
 from selenium import webdriver
 from time import sleep
 from libs.common.inspect_ymal import inspect_element
-from libs.config.conf import DOWNLOAD_PATH
+from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
 
 driver = None
 
@@ -92,10 +93,19 @@ def drivers(request, remote_ui=False):
     request.addfinalizer(fn)
     return driver
 
+
+logname = time.strftime('%Y_%m_%d_%H')
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)',
+                    datefmt='[%Y-%m-%d %H:%M:%S]',
+                    filename='{}/{}.log'.format(LOG_PATH,logname),
+                    encoding='utf-8',
+                    filemode='a')
+
 # @pytest.mark.hookwrapper
 # def pytest_runtest_makereport(item):
 #     """
-#     当测试失败的时候，自动截图，展示到html报告中
+#     当测试失败的时候，自动截图，展示到html报告中,基于pytest-html
 #     :param item:
 #     """
 #     pytest_html = item.config.pluginmanager.getplugin('html')

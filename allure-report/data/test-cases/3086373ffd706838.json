@@ -1,0 +1,259 @@
+{
+  "uid" : "3086373ffd706838",
+  "name" : "导出区域数据",
+  "fullName" : "project.DRP.test_case.SystemMgmt_RegionMgmt.TestExportArea#test_002_001",
+  "historyId" : "bd142eb5681b6b5bf4ae66ec13cd506f",
+  "time" : {
+    "start" : 1656211626790,
+    "stop" : 1656211643403,
+    "duration" : 16613
+  },
+  "description" : "导出区域数据‘itel事业部’",
+  "descriptionHtml" : "<p>导出区域数据‘itel事业部’</p>\n",
+  "status" : "passed",
+  "flaky" : false,
+  "newFailed" : false,
+  "beforeStages" : [ {
+    "name" : "drivers",
+    "time" : {
+      "start" : 1656211501481,
+      "stop" : 1656211502728,
+      "duration" : 1247
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  }, {
+    "name" : "test_login",
+    "time" : {
+      "start" : 1656211502728,
+      "stop" : 1656211526299,
+      "duration" : 23571
+    },
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "值为True值断言",
+      "time" : {
+        "start" : 1656211525731,
+        "stop" : 1656211525739,
+        "duration" : 8
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "word",
+        "value" : "'http://10.250.112.166:9000/#/dashboard'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "值为True值断言",
+      "time" : {
+        "start" : 1656211525739,
+        "stop" : 1656211526299,
+        "duration" : 560
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "word",
+        "value" : "'刘勇'"
+      }, {
+        "name" : "sql",
+        "value" : "'select name_zh from uc_user where enable_flag=1'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : true,
+    "stepsCount" : 2,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  }, {
+    "name" : "_session_faker",
+    "time" : {
+      "start" : 1656211501414,
+      "stop" : 1656211501481,
+      "duration" : 67
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "testStage" : {
+    "description" : "导出区域数据‘itel事业部’",
+    "status" : "passed",
+    "steps" : [ {
+      "name" : "值为True值断言",
+      "time" : {
+        "start" : 1656211632178,
+        "stop" : 1656211632179,
+        "duration" : 1
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "word",
+        "value" : "'/systemManage/areaManage'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "前往树",
+      "time" : {
+        "start" : 1656211632184,
+        "stop" : 1656211640327,
+        "duration" : 8143
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "content",
+        "value" : "('itel事业部',)"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    }, {
+      "name" : "区域导出",
+      "time" : {
+        "start" : 1656211640327,
+        "stop" : 1656211643402,
+        "duration" : 3075
+      },
+      "status" : "passed",
+      "steps" : [ ],
+      "attachments" : [ ],
+      "parameters" : [ {
+        "name" : "content",
+        "value" : "'drp_dept_export_itel'"
+      } ],
+      "hasContent" : true,
+      "stepsCount" : 0,
+      "attachmentsCount" : 0,
+      "shouldDisplayMessage" : false
+    } ],
+    "attachments" : [ {
+      "uid" : "5110a4a66be63a04",
+      "name" : "log",
+      "source" : "5110a4a66be63a04.txt",
+      "type" : "text/plain",
+      "size" : 1684
+    } ],
+    "parameters" : [ ],
+    "hasContent" : true,
+    "stepsCount" : 3,
+    "attachmentsCount" : 1,
+    "shouldDisplayMessage" : false
+  },
+  "afterStages" : [ {
+    "name" : "drivers::fn",
+    "time" : {
+      "start" : 1656211677298,
+      "stop" : 1656211684458,
+      "duration" : 7160
+    },
+    "status" : "passed",
+    "steps" : [ ],
+    "attachments" : [ ],
+    "parameters" : [ ],
+    "hasContent" : false,
+    "stepsCount" : 0,
+    "attachmentsCount" : 0,
+    "shouldDisplayMessage" : false
+  } ],
+  "labels" : [ {
+    "name" : "story",
+    "value" : "导出区域"
+  }, {
+    "name" : "severity",
+    "value" : "normal"
+  }, {
+    "name" : "feature",
+    "value" : "系统管理-区域管理"
+  }, {
+    "name" : "tag",
+    "value" : "FT"
+  }, {
+    "name" : "parentSuite",
+    "value" : "project.DRP.test_case"
+  }, {
+    "name" : "suite",
+    "value" : "SystemMgmt_RegionMgmt"
+  }, {
+    "name" : "subSuite",
+    "value" : "TestExportArea"
+  }, {
+    "name" : "host",
+    "value" : "CQPILIUYONG"
+  }, {
+    "name" : "thread",
+    "value" : "13924-MainThread"
+  }, {
+    "name" : "framework",
+    "value" : "pytest"
+  }, {
+    "name" : "language",
+    "value" : "cpython3"
+  }, {
+    "name" : "package",
+    "value" : "project.DRP.test_case.SystemMgmt_RegionMgmt"
+  }, {
+    "name" : "resultFormat",
+    "value" : "allure2"
+  } ],
+  "parameters" : [ ],
+  "links" : [ ],
+  "hidden" : false,
+  "retry" : false,
+  "extra" : {
+    "severity" : "normal",
+    "retries" : [ ],
+    "categories" : [ ],
+    "history" : {
+      "statistic" : {
+        "failed" : 0,
+        "broken" : 0,
+        "skipped" : 0,
+        "passed" : 2,
+        "unknown" : 0,
+        "total" : 2
+      },
+      "items" : [ {
+        "uid" : "549fc72f21220498",
+        "status" : "passed",
+        "time" : {
+          "start" : 1656049882385,
+          "stop" : 1656049899033,
+          "duration" : 16648
+        }
+      } ]
+    },
+    "tags" : [ "FT" ]
+  },
+  "source" : "3086373ffd706838.json",
+  "parameterValues" : [ ]
+}
