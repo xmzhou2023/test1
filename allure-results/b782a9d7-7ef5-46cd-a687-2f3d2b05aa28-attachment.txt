@@ -1,1 +1,0 @@
-2022-06-28 14:44:09 [[32m    INFO[0m] 查找元素：('xpath', '//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span') (Basics.py:51)
