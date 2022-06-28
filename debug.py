@@ -20,7 +20,9 @@ options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
 
 
-# driver.find_element(By.XPATH,"//div[@role='button']").click()
+a = driver.find_elements(By.XPATH,"//table[@class='el-table__body']//tr[@class='el-table__row']//td/div/div[normalize-space(text())='INRG022']//parent:")
+for i in a:
+    print(i)
 # driver.find_element(By.XPATH,"//*[contains(@id,'dropdown-menu-')]//li[3]").click()
 # a = LoginPage(driver)
 # a.switch_lanuage("法文")

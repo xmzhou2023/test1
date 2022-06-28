@@ -31,6 +31,13 @@ class AreaPage(Base):
     def download_area(self, content):
         self.check_download(user['区域导出'], content)
 
+    @allure.step("编辑区域")
+    def edit_area(self,num, content):
+        pass
+
+    @allure.step("删除区域")
+    def del_area(self, content):
+        self.check_download(user['区域导出'], content)
 
 if __name__ == '__main__':
     pass
