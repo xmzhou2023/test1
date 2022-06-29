@@ -6,7 +6,8 @@ from libs.common import read_excel
 from libs.common.logger_ui import log
 from libs.config.conf import TESTCASE_PATH
 from public.libs.unified_login.login import Login
-from libs.common.assert_ui import DomAssert
+
+
 # from project.DRP.page_object.nav import NavPage
 # from project.DRP.page_object.user import UserPage
 

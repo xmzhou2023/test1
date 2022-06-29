@@ -4,4 +4,5 @@ allure-reports
 log
 venv_uipom
 .idea
-__pycache__
+__pycache__!/allure-results/
+!/allure-report/

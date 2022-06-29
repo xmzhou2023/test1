@@ -1,12 +1,12 @@
-from public.base.Basics import Base, sleep
+import allure
+from public.base.basics import Base, sleep
 from libs.common.read_element import Element
-from libs.common.logger_ui import log
 
 nav = Element('center_Component')
 
 class NavPage(Base):
-    """Nav类"""
 
+    @allure.step("前往菜单")
     def click_gotonav(self, *content):
         """前往菜单"""
         level = []
@@ -15,7 +15,6 @@ class NavPage(Base):
             navstr = navstr + '->' + content[i]
             level.append(navstr[2:])
         for i in range(len(content)):
-            # log.info(nav[level[i]])
             self.is_click(nav[level[i]])
         sleep(5)
 

@@ -3,10 +3,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from libs.config.conf import LOCATE_MODE,DOWNLOAD_PATH
 from libs.common.time_ui import sleep
-from libs.common.logger_ui import log
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 import os
+import logging
 """
 selenium基类
 本文件存放了selenium基类的封装方法
@@ -27,7 +27,7 @@ class Base(object):
         try:
             self.driver.get(url)
             self.driver.implicitly_wait(10)
-            log.info("打开网页：%s" % url)
+            logging.info("打开网页：%s" % url)
         except TimeoutException:
             raise TimeoutException("打开%s超时请检查网络或网址服务器" % url)
 
@@ -44,11 +44,11 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             Npath[1] = Npath[1].replace('variable', choice)
-            log.info("查找元素：{}".format(Npath))
+            logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
         else:
-            log.info("查找元素：{}".format(locator))
+            logging.info("查找元素：{}".format(locator))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), locator)
 
@@ -60,7 +60,7 @@ class Base(object):
     def elements_num(self, locator):
         """获取相同元素的个数"""
         number = len(self.find_elements(locator))
-        log.info("相同元素：{}".format((locator, number)))
+        logging.info("相同元素：{}".format((locator, number)))
         return number
 
     def input_text(self, locator, txt):
@@ -69,7 +69,7 @@ class Base(object):
         ele = self.find_element(locator)
         ele.clear()
         ele.send_keys(txt)
-        log.info("输入文本：{}".format(txt))
+        logging.info("输入文本：{}".format(txt))
 
     def readonly_input_text(self, locator, txt):
         """输入(输入前先清空)"""
@@ -78,7 +78,7 @@ class Base(object):
         self.driver.execute_script("arguments[0].removeAttribute('readonly')", ele)
         ele.clear()
         ele.send_keys(txt)
-        log.info("输入文本：{}".format(txt))
+        logging.info("输入文本：{}".format(txt))
 
     def scroll_into_view(self, locator, choice=None):
         """滑动至出现"""
@@ -89,11 +89,11 @@ class Base(object):
             Npath[1] = Npath[1].replace('variable', choice)
             ele = self.find_element(Npath)
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            log.info("滚动条至：{}".format(Npath))
+            logging.info("滚动条至：{}".format(Npath))
         else:
             ele = self.find_element(locator)
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            log.info("滚动条至：{}".format(locator))
+            logging.info("滚动条至：{}".format(locator))
 
     def is_click(self, locator, choice=None):
         """点击"""
@@ -102,12 +102,12 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             Npath[1] = Npath[1].replace('variable', choice)
+            sleep(2)
             self.find_element(Npath).click()
-            log.info("选择点击：{}".format(Npath))
+            logging.info("选择点击：{}".format(Npath))
         else:
             self.find_element(locator).click()
-            # sleep()
-            log.info("点击元素：{}".format(locator))
+            logging.info("点击元素：{}".format(locator))
 
     def force_click(self, xpath, force=False):
         """
@@ -181,11 +181,11 @@ class Base(object):
                 pane_str = original.replace('1', str(pane))
                 Npath[1] = Npath[1].replace("@id='pane-1'", pane_str)
             self.find_element(Npath).click()
-            log.info("设置权限：{}".format(Npath))
+            logging.info("设置权限：{}".format(Npath))
         else:
             self.find_element(locator).click()
             # sleep()
-            log.info("点击元素：{}".format(locator))
+            logging.info("点击元素：{}".format(locator))
 
     def checkbox_init(self,locator, pane=None):
         """编辑用户权限-清除勾选框（组织、品牌用）"""
@@ -203,9 +203,9 @@ class Base(object):
                     self.find_element(Npath).click()
                 else:
                     break
-            log.info("清除权限：{}".format(Npath))
+            logging.info("清除权限：{}".format(Npath))
         else:
-            log.info("清除权限: 未勾选任何权限")
+            logging.info("清除权限: 未勾选任何权限")
 
     def tree_init(self, locator, choice=None):
         """编辑用户权限-初孡化勾选框"""
@@ -216,12 +216,12 @@ class Base(object):
             Npath[1] = Npath[1].replace('variable', choice)
             self.find_element(Npath).click()
             self.find_element(Npath).click()
-            log.info("清除树勾选框状态：{}".format(Npath))
+            logging.info("清除树勾选框状态：{}".format(Npath))
         else:
             self.find_element(locator).click()
             self.find_element(locator).click()
             # sleep()
-            log.info("清除树勾选框状态：{}".format(locator))
+            logging.info("清除树勾选框状态：{}".format(locator))
 
     def click_blank(self, ):
         """点击空白区域，用于取消释法"""
@@ -235,13 +235,13 @@ class Base(object):
     def element_text(self, locator):
         """获取当前的text"""
         _text = self.find_element(locator).text
-        log.info("获取文本：{}".format(_text))
+        logging.info("获取文本：{}".format(_text))
         return _text
 
     def select_state(self, locator):
         """是否被选中"""
         _select = self.find_element(locator).is_selected()
-        log.info("获取状态：{}".format(_select))
+        logging.info("获取状态：{}".format(_select))
         return _select
 
     @property
@@ -280,10 +280,10 @@ class Base(object):
     def download_file(self, filename, load=1):
         try:
             if os.path.exists(DOWNLOAD_PATH):
-                log.info(DOWNLOAD_PATH)
+                logging.info("指定下载路径: {}".format(DOWNLOAD_PATH))
                 sleep(int(load))
+                logging.info(os.listdir(DOWNLOAD_PATH))
                 for file in os.listdir(DOWNLOAD_PATH):
-                    log.info("准备生成:{}").format(filename)
                     if filename in file:
                         return True
                     return False
@@ -293,8 +293,8 @@ class Base(object):
     def check_download(self, locator, content):
         self.clear_download()
         self.find_element(locator).click()
-        assert self.download_file(filename=content, load=3), log.warning("断言失败: 下载该附件失败 | {} ".format(content))
-        log.info("断言成功: 下载该附件成功 | {} ".format(content))
+        assert self.download_file(filename=content, load=3), logging.warning("断言失败: 下载该附件失败 | {} ".format(content))
+        logging.info("断言成功: 下载该附件成功 | {} ".format(content))
 
     @classmethod
     def all_keyword(cls):
@@ -326,22 +326,22 @@ class Base(object):
         ele = self.find_elements_dcr(locator)
         ele[0].clear()
         ele[0].send_keys(txt)
-        log.info("输入文本：{}".format(txt))
+        logging.info("输入文本：{}".format(txt))
 
     def is_click_dcr(self, locator, choice=None):
         """点击 查找多个相同的元素，DCR系统用"""
         if choice is not None:
-            log.info(locator)
-            log.info(choice)
+            logging.info(locator)
+            logging.info(choice)
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
             Npath[1] = Npath[1].replace('variable', choice)
             self.find_elements_dcr(Npath)[0].click()
-            log.info("下拉选择：{}".format(Npath))
+            logging.info("下拉选择：{}".format(Npath))
         else:
             self.find_elements_dcr(locator)[0].click()
-            log.info("点击元素：{}".format(locator))
+            logging.info("点击元素：{}".format(locator))
 
     def find_elements_dcr(self, locator):
         """查找多个相同的元素,dcr系统用"""

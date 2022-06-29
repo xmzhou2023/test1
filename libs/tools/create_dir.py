@@ -1,7 +1,7 @@
 from libs.common.read_csv import *
 from libs.config.conf import PEROJECT_PATH
-from libs.common.logger_ui import log
 import csv
+import logging
 import os
 # 创建文件依据
 path = os.path.join('template/modle_name.csv')
@@ -40,7 +40,7 @@ def text_create(name, type="case"):
         file = open(full_path, 'w', encoding='utf-8')    # w 的含义为可进行读写
         file.write(msg)        #file.write()为写入指令
         file.close()
-        log.info("生成成功: 模块文件名为 | {} ".format(name))
+        logging.info("生成成功: 模块文件名为 | {} ".format(name))
 
 def generate_module(file_type):
         list = readCsv(path)
@@ -48,7 +48,9 @@ def generate_module(file_type):
             text_create(name=list[i][0],type=file_type)
 
 if __name__ == '__main__':
+    # generate_module("case")
     generate_module("element")
+    # generate_module("object")
 
 
 

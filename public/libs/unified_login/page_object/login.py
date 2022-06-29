@@ -1,4 +1,4 @@
-from public.base.Basics import Base, sleep
+from public.base.basics import Base, sleep
 from libs.common.read_public_element import Element
 
 login = Element('login')
@@ -7,8 +7,17 @@ class LoginPage(Base):
     """登录类"""
     def switch_lanuage(self, content):
         """语言切换"""
-        self.is_click(login['语言按钮'])
-        self.is_click(login['语言切换'], content)
+        self.is_click(login['语言展开'])
+        sleep(2)
+        try:
+            if content == "英文":
+                self.is_click(login['语言切换'], "2")
+            elif content == "法文":
+                self.is_click(login['语言切换'], "3")
+            else:
+                self.is_click(login['语言切换'], "1")
+        except:
+            self.is_click(login['语言展开'])
 
     def click_accountlogin(self):
         """点击帐号密码登录"""
@@ -30,7 +39,8 @@ class LoginPage(Base):
 
     def click_checkbox(self):
         """点击复选框"""
-        self.is_click(login['隐私保护勾选框'])
+        if not self.check_box():
+            self.is_click(login['隐私保护勾选框'])
 
     def click_loginsubmit(self):
         """点击帐号密码登录"""
