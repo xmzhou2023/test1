@@ -6,23 +6,17 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.print_page_options import PrintOptions
-# from page_base.webpage import WebPage
-from selenium.webdriver.support.select import Select
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
-from libs.common.assert_ui import DomAssert
-from public.libs.unified_login.page_object.login import LoginPage
+# from page_base.webpage import WebPage
 
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
-
-
-a = driver.find_elements(By.XPATH,"//table[@class='el-table__body']//tr[@class='el-table__row']//td/div/div[normalize-space(text())='INRG022']//parent:")
-for i in a:
-    print(i)
+driver.find_element(By.XPATH,"//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]").click()
+# a= NavPage(driver)
+# a = driver.find_elements(By.XPATH,"//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use']")
+# for i in a:
+#     print(i)
 # driver.find_element(By.XPATH,"//*[contains(@id,'dropdown-menu-')]//li[3]").click()
 # a = LoginPage(driver)
 # a.switch_lanuage("法文")

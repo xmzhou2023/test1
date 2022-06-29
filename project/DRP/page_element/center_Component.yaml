@@ -63,3 +63,5 @@ BI报表->DPM迁移报表: 'xpath==/html/body/div[12]/ul/div[8]/li/div[1]/span'
 系统管理->用户管理: 'xpath==//span[contains(text(),"用户管理")]'
 系统管理->区域管理: "xpath==//a[@href='#/systemManage/areaManage']//li[@role='menuitem']"
 系统管理->维度管理: "xpath==//span[contains(text(),'维度管理')]"
+
+切换语言按钮: "xpath==//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]"

@@ -1,8 +1,5 @@
-import os, sys
 import allure
 import pytest
-from public.data.unified_login.unified import *
-from libs.common.assert_ui import DomAssert, SQLAssert, ValueAssert
 
 """
     用例等级说明:

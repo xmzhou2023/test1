@@ -1,4 +1,4 @@
-from public.base.Basics import Base
+from public.base.basics import Base
 from libs.common.read_config import ini
 from public.libs.unified_login.page_object.login import LoginPage
 from time import sleep

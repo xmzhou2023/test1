@@ -1,6 +1,6 @@
-import os , sys, pytest, logging
+import pytest, logging
 from public.data.unified_login.unified import *
-from libs.common.assert_ui import DomAssert, SQLAssert
+from public.base.assert_ui import DomAssert, SQLAssert
 from public.libs.unified_login.login import Login
 from libs.common.read_config import ini
 
