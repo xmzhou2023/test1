@@ -1,8 +1,6 @@
-import os
 import allure
-import pytest, sys
-from public.data.unified_login.unified import *
-from libs.common.assert_ui import DomAssert, SQLAssert, ValueAssert
+import pytest
+from public.base.assert_ui import DomAssert
 
 from project.DRP.page_object.center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_RegionMgmt import AreaPage

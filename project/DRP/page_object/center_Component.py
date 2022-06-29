@@ -1,11 +1,12 @@
-from public.base.Basics import Base, sleep
+import allure
+from public.base.basics import Base, sleep
 from libs.common.read_element import Element
 
 nav = Element('center_Component')
 
 class NavPage(Base):
-    """Nav类"""
 
+    @allure.step("前往菜单")
     def click_gotonav(self, *content):
         """前往菜单"""
         level = []
