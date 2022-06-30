@@ -1,8 +1,7 @@
 .idea
 .pytest_cache
 allure-reports
-project/DRP/log
+project/DRP/log/
 venv_uipom
-.idea
 __pycache__!/allure-results/
 !/allure-report/
