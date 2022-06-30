@@ -16,10 +16,10 @@ class TestSearchArea:
     def test_001_001(self, drivers):
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "区域管理")
-        user1 = DomAssert(drivers)
-        user1.assert_url("/systemManage/areaManage")
-        user2 = AreaPage(drivers)
-        user2.goto_tree('itel事业部','itel事业部','itel事业部','事业部备料')
+        user = DomAssert(drivers)
+        user.assert_url("/systemManage/areaManage")
+        user = AreaPage(drivers)
+        user.goto_tree('itel事业部')
 
     @pytest.mark.RT
     @allure.story("前往区域")
