@@ -181,6 +181,7 @@ class TestAppendArea:
         user.add_area(nameZh='lj测试001', nameEn='ljtest001')  # 输入地区中英文名称
         user.save_button()  # 点击保存按钮
 
+
     @allure.story("新增区域")
     @allure.title("新增三级区域（国家）")
     @allure.description("前往主菜单‘Infinix事业部‘")
