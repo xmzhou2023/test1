@@ -69,7 +69,7 @@ class TestSearchArea:
     @allure.title("精确搜索区域")
     @allure.description("前往主菜单‘itel事业部‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.RT
     @pytest.mark.run(order=5)
     def test_001_005(self, drivers):
         user = NavPage(drivers)
@@ -88,7 +88,7 @@ class TestSearchArea:
     @allure.title("模糊搜索区域")
     @allure.description("前往主菜单‘itel事业部‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.RT
     @pytest.mark.run(order=6)
     def test_001_006(self, drivers):
         user = NavPage(drivers)
@@ -107,7 +107,7 @@ class TestSearchArea:
     @allure.title("点击按钮，清空搜索框内容")
     @allure.description("前往主菜单‘itel事业部‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.RT
     @pytest.mark.run(order=7)
     def test_001_007(self, drivers):
         user = NavPage(drivers)
@@ -392,7 +392,7 @@ class TestCloseArea:
     @allure.title("关闭区域管理窗口")
     @allure.description("前往主菜单‘Infinix事业部‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.UT
     def test_006_001(self, drivers):
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "区域管理")
@@ -409,7 +409,7 @@ class TestCounterExample:
     @allure.title("重复新增 一级区域（地区部）保存失败")
     @allure.description("前往主菜单‘Infinix事业部‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.UT
     def test_007_001(self, drivers):
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "区域管理")
@@ -428,7 +428,7 @@ class TestCounterExample:
     @allure.title("重复新增 二级区域（大区）保存失败")
     @allure.description("前往主菜单‘Infinix事业部‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.UT
     def test_007_002(self, drivers):
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "区域管理")
@@ -497,7 +497,7 @@ class TestCounterExample:
         user.add_area(nameZh='', nameEn='')  # 不维护中/英文名称 保存失败
         user.save_button()
 
-
+@allure.feature("系统管理-区域管理")
 class TestClearData:
     @allure.story("删除测试遗留数据")
     @allure.title("删除测试遗留数据")
