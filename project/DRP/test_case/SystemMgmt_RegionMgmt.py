@@ -182,6 +182,7 @@ class TestAppendArea:
         user.save_button()  # 点击保存按钮
 
 
+
     @allure.story("新增区域")
     @allure.title("新增三级区域（国家）")
     @allure.description("前往主菜单‘Infinix事业部‘")
