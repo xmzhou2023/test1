@@ -34,8 +34,7 @@ class Log:
 
     @property
     def fmt(self):
-        return '%(levelname)s\t%(asctime)s\t[%(filename)s:%(lineno)d]\t%(message)s'
-
+        return '%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)'
 
 log = Log().logger
 

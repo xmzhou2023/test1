@@ -24,5 +24,5 @@ class Element:
 
 
 if __name__ == '__main__':
-    search = Element('login')
-    print(search['账号密码登录'])
+    search = Element('SystemMgmt_RegionMgmt')
+    print(search['tab区域菜单一级菜单'])
