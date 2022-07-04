@@ -23,7 +23,7 @@ CATEGORIES_PATH = os.path.join(CONFIG_PATH, 'categories.json')
 ELEMENT_PATH = os.path.join(PEROJECT_PATH, 'page_element')
 
 # 日志目录
-LOG_PATH = os.path.join(PEROJECT_PATH, 'log')
+LOG_PATH = os.path.join(BASE_DIR, 'log')
 
 # excel目录
 TESTCASE_PATH = os.path.join(PEROJECT_PATH, 'excel_drive', 'TestCase.xlsx')
