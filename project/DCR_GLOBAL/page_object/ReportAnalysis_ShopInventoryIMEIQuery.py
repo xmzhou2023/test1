@@ -40,7 +40,7 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_fold(self):
         """Shop Inventory IMEI Query页面，点击Fold收起筛选条件按钮"""
         self.is_click(user['Fold'])
-        sleep(1)
+        sleep(1.5)
 
     def get_total_text(self):
         """Shop Inventory IMEI Query页面，获取分页功能总条数文本"""
