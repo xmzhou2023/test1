@@ -46,7 +46,7 @@ class TestQueryDeliveryOrder():
         else:
             logging.info("查看Delivery Order列表，加载数据失败，分页总记录数：{}".format(total1))
         list.click_close_delivery_order()
-        sleep(1)
+        sleep(1.5)
 
 
 @allure.feature("销售管理-出库单")

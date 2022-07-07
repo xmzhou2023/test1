@@ -94,7 +94,7 @@ class TestQueryShopSalesQuery():
             logging.info("查看Shop Sales Query列表，未加载筛选后的数据失败，分页总条数Total：{}".format(total1))
         shop_sale.click_reset()
         shop_sale.click_close_shop_sales_query()
-        sleep(1)
+        sleep(1.5)
 
 
 @allure.feature("销售管理-门店销售查询")
