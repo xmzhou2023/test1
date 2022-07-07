@@ -1,0 +1,3 @@
+meta-title: "xpath==//span[@class='meta-title' and contains(text(),'variable')]"
+nest-menu: "xpath==//div[@class='menu-wrapper nest-menu']//span[contains(text(),'variable')]"
+当前菜单: "xpath==//span[@class='tags-view-item router-link-exact-active router-link-active active']"

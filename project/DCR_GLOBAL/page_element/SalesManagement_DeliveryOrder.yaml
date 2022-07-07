@@ -1,0 +1,55 @@
+#新增出库单定位元素
+新增出库单: "id==add_delivery_order"
+Sales Order ID: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[1]/div/div/div/input"
+Delivery/DN Order: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[2]/div/div/div/input"
+Search: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[1]/span"
+Reset: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[2]/span"
+
+Buyer: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[4]/div[1]/div/div/div/input"
+Buyer value: "xpath==/html/body/div[3]/div[1]/div[1]/ul/li"
+
+payment mode: "css==[placeholder='Please select a payment mode']"
+payment mode value: "xpath==/html/body/div[4]/div[1]/div[1]/ul/li[3]/span"
+payment mode value2: "xpath==/html/body/div[4]/div[1]/div[1]/ul/li[2]/span"
+
+IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
+
+check: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[3]/button/span"
+submit: "xpath==//span[contains(text(), 'Submit')]"
+affirm submit: "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[3]/span/button[1]/span"
+
+
+#获取列表字段文本
+Get Sales Order ID Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]/div"
+Get Delivery Order ID Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[3]"
+Get Status Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[6]"
+Get Delivery Date Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]"
+#No Data: "css==[no-data='No Data']"
+关闭导出记录菜单: "xpath==//*[@id='tags-view-container']/div/div[1]/div/span[3]/span"
+关闭出库单菜单: "xpath==//*[@id='tags-view-container']/div/div[1]/div/span[2]/span"
+
+
+#生产环境，导出出库单定位
+Click Export: "id==Delivery_Order_export_"
+Unfold: "xpath==//span[contains(text(), 'Unfold')]"
+Fold: "xpath==//span[contains(text(), 'Fold')]"
+Delivery Start Date: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[2]/div[3]/div/div/div/div/div[1]/div/input"
+Delivery End Date: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[2]/div[3]/div/div/div/div/div[3]/div/input"
+Total: "xpath==//span[contains(text(), 'Total')]"
+点击状态输入框: "xpath==//label[contains(text(),'Status')]//parent::div//following-sibling::div//input"
+
+
+#生产环境，导出出库单成功后校验
+Download Icon: "id==download-icon"
+More: "xpath==//span[contains(text(),'More...')]"
+Create Start Date: "//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[3]/div/div/div/div/div[1]/div/input"
+Export Record Search: "xpath==//span[contains(text(),'Search')]"
+
+获取下载状态文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]/div/div"
+获取任务名称文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div"
+获取文件大小文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[7]/div"
+获取用户ID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[8]/div"
+获取创建日期文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[10]/div"
+获取完成日期文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[11]/div"
+获取导出时间: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[13]/div"
+获取操作按钮文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[5]/div[2]/table/tbody/tr[1]/td[14]/div/button/span/span[contains(text(),' Download')]"

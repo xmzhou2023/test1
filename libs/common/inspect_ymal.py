@@ -1,11 +1,12 @@
 import os
 import yaml
 from libs.common.time_ui import timestamp
-from libs.config.conf import ELEMENT_PATH, LOCATE_MODE
+from libs.config.conf import PEROJECT_PATH, LOCATE_MODE
 
 def inspect_element():
     """审查所有的元素是否正确"""
     start_time = timestamp()
+    ELEMENT_PATH = os.path.join(PEROJECT_PATH, 'DRP', 'page_element')
     for i in os.listdir(ELEMENT_PATH):
         _path = os.path.join(ELEMENT_PATH, i)
         if os.path.isfile(_path):

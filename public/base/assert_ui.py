@@ -5,9 +5,7 @@ import sys
 import allure
 import logging
 from selenium.webdriver.support.select import Select
-
 from libs.common.time_ui import sleep
-
 from libs.common.connect_sql import *
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -223,16 +221,15 @@ class DomAssert(object):
 """     数据库断言     """
 
 class SQLAssert(object):
-
-    def __init__(self, driver):
-        self.driver = driver
-        self.timeout = 20
-        self.wait = WebDriverWait(self.driver, self.timeout)
+    def __init__(self, name, env):
+        self.name = name
+        self.env = env
 
     @allure.step("值为True值断言")
     def assert_sql(self, word, sql):
         """页面是否存在某文字"""
-        sql_list = query_db(sql)
+        database = SQL(self.name,self.env)
+        sql_list = database.query_db(sql)
         sql_colum = []
         for i in sql_list:
             sql_colum.append(str(list(i.values())[0]))
@@ -255,7 +252,8 @@ if __name__ == "__main__":
    # print(value_assert_InNot(3, {3,2}))
    # print(value_assert_Instance("abc",str))
    # print(value_assert_IsInstanceNot(2,int))
-   print(SQLAssert.assert_sql(word='刘勇', sql='select name_zh from uc_user where enable_flag=1'))
+   a = SQLAssert('DRP','test')
+   print(a.assert_sql(word='刘勇', sql='select name_zh from uc_user where enable_flag=1'))
 
 
 

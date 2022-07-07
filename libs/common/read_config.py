@@ -3,16 +3,12 @@
 import ast
 import os
 import configparser
-from libs.config.conf import INI_PATH
-
-HOST = 'HOST'
-SQL = 'SQL'
-db = 'db'
+from libs.config.conf import PEROJECT_PATH
 
 class ReadConfig:
     """配置文件"""
-
-    def __init__(self):
+    def __init__(self, name, env):
+        INI_PATH = os.path.join(PEROJECT_PATH, name, 'env', env, 'config.ini')
         if not os.path.exists(INI_PATH):
             raise FileNotFoundError("配置文件%s不存在！" % INI_PATH)
         self.config = configparser.RawConfigParser()  # 当有%的符号时请使用Raw读取
@@ -30,15 +26,14 @@ class ReadConfig:
 
     @property
     def url(self):
-        return self._get(HOST, HOST)
+        return self._get('HOST', 'url')
 
     @property
     def db(self):
-        return self._get(SQL, db)
+        return self._get('SQL', 'db')
 
-
-ini = ReadConfig()
-sql = ast.literal_eval(ini.db)
 if __name__ == '__main__':
+    ini = ReadConfig('DCR-INDIA','prod')
+    sql = ast.literal_eval(ini.db)
     print(ini.url)
-    print(sql['host'])
+    print(sql)
