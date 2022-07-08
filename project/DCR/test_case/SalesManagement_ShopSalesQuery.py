@@ -1,7 +1,6 @@
-from project.DCR.page_object.menu import MenuPage
 from project.DCR.page_object.SalesManagement_ShopSalesQuery import ShopSaleQueryPage
 import logging
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
@@ -25,8 +24,7 @@ class TestQueryShopSalesQuery():
         # base.refresh()
         # sleep(3.5)
         """打开销售管理-打开门店销售查询页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Shop Sales Query")
+        user.click_gotomenu("Sales Management", "Shop Sales Query")
         sleep(4)
 
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
@@ -60,34 +58,41 @@ class TestQueryShopSalesQuery():
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_002(self, drivers):
         shop_sale = ShopSaleQueryPage(drivers)
+        today = datetime.date.today()
+        today1 = str(today)
         """首先按日期筛选门店销量数据"""
-        shop_sale.input_upload_start_date("2022-06-01")
-        shop_sale.click_search()
+        # shop_sale.input_upload_start_date("2022-06-01")
+        # shop_sale.click_search()
         """获取筛选后的列表字段文本"""
-        shop_id = shop_sale.get_shop_id_text()
-        shop_name = shop_sale.get_shop_name_text()
-        status = shop_sale.get_status_text()
-        sales_date = shop_sale.get_sales_date_text()
-        public_id = shop_sale.get_public_id_text()
+        # shop_id = shop_sale.get_shop_id_text()
+        # shop_name = shop_sale.get_shop_name_text()
+        # status = shop_sale.get_status_text()
+        # sales_date = shop_sale.get_sales_date_text()
+        # public_id = shop_sale.get_public_id_text()
         """然后根据Shop ID条件筛选门店销量数据"""
-        shop_sale.input_query_shop_id(shop_id)
+        # shop_sale.input_query_shop_id(shop_id)
+        # shop_sale.click_search()
+        shop_sale.click_unfold()
+        shop_sale.input_sales_date(today1, today1)
+        shop_sale.click_fold()
         shop_sale.click_search()
+        sleep(8)
 
         """获取按Shop ID条件筛选后的数据进行断言"""
-        shopid = shop_sale.get_shop_id_text()
-        shop_name2 = shop_sale.get_shop_name_text()
-        status2 = shop_sale.get_status_text()
-        sales_date2 = shop_sale.get_sales_date_text()
-        public_id2 = shop_sale.get_public_id_text()
+        # shopid = shop_sale.get_shop_id_text()
+        # shop_name2 = shop_sale.get_shop_name_text()
+        # status2 = shop_sale.get_status_text()
+        # sales_date2 = shop_sale.get_sales_date_text()
+        # public_id2 = shop_sale.get_public_id_text()
         total = shop_sale.get_total_text()
         total1 = total[6:7]
 
         """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
-        ValueAssert.value_assert_equal(shop_id, shopid)
-        ValueAssert.value_assert_equal(status, status2)
-        ValueAssert.value_assert_equal(shop_name, shop_name2)
-        ValueAssert.value_assert_equal(sales_date, sales_date2)
-        ValueAssert.value_assert_equal(public_id, public_id2)
+        # ValueAssert.value_assert_equal(shop_id, shopid)
+        # ValueAssert.value_assert_equal(status, status2)
+        # ValueAssert.value_assert_equal(shop_name, shop_name2)
+        # ValueAssert.value_assert_equal(sales_date, sales_date2)
+        # ValueAssert.value_assert_equal(public_id, public_id2)
         if int(total1) > 0:
             logging.info("Shop Sales Query列表，按Shop ID筛选，加载筛选后的数据正常，分页总条数Total：{}".format(total1))
         else:
@@ -110,26 +115,28 @@ class TestExportShopSalesQuery():
         sleep(3.5)
 
         """打开销售管理-打开门店销售查询页面"""
-        menu = MenuPage(drivers)
+        menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Shop Sales Query")
         sleep(4)
 
         """实例化对象类"""
         export = ShopSaleQueryPage(drivers)
         today = datetime.date.today()
-        totay1 = str(today)
-        export.input_upload_start_date("2022-06-01")
+        today1 = str(today)
+
+        export.click_unfold()
+        export.input_sales_date(today1, today1)
+        export.click_fold()
         export.click_search()
-        shop_id = export.get_shop_id_text()
-        export.input_query_shop_id(shop_id)
-        export.click_search()
+        sleep(8)
+
         # 筛选销售日期后，点击导出功能
         export.click_export()
-        sleep(1.5)
+        sleep(2)
 
         export.click_download_icon()
         export.click_more()
-        sleep(3)
+        sleep(7)
         export.click_export_search()
 
         down_status = export.get_download_status_text()
@@ -148,8 +155,8 @@ class TestExportShopSalesQuery():
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Shop Sales Query")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date1, totay1)
-        ValueAssert.value_assert_equal(complete_date1, totay1)
+        ValueAssert.value_assert_equal(create_date1, today1)
+        ValueAssert.value_assert_equal(complete_date1, today1)
         ValueAssert.value_assert_equal(operation, "Download")
         if int(file_size1) > 0:
             logging.info("Shop Sales Query导出成功，File Size 导出文件大于0KB:{}".format(file_size1))

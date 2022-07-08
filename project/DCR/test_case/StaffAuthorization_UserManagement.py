@@ -1,10 +1,9 @@
-from project.DCR.page_object.menu import MenuPage
 from project.DCR.page_object.StaffAuthorization_UserManagement import UserManagementPage
 from public.base.assert_ui import SQLAssert
 from libs.common.connect_sql import *
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
-from public.base.assert_ui import ValueAssert
+from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.time_ui import sleep
 import random
 import pytest
@@ -23,8 +22,7 @@ class TestAddEditQuitTranssionUser():
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
         sleep(5)
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Staff & Authorization", "User Management")
+        user.click_gotomenu("Staff & Authorization", "User Management")
         sleep(5)
         """新建传音员工账号 用例"""
         """随机生成数字"""
@@ -53,7 +51,7 @@ class TestAddEditQuitTranssionUser():
         ValueAssert.value_assert_equal(user_id, userid)
         ValueAssert.value_assert_equal(user_name, username)
         """查询数据库用户表的userid,username是否存在断言"""
-        sql_asser = SQLAssert('DCR','test')
+        sql_asser = SQLAssert('DCR', 'test')
         sql_asser.assert_sql(user_id,
                              "select USER_CODE from t_user where created_by = 'lhmadmin' order by created_time desc limit 1")
         sql_asser.assert_sql(user_name,
@@ -94,15 +92,17 @@ class TestAddEditQuitTranssionUser():
         user.click_more_option()
         user.click_quit()
         user.click_yes()
+        #sleep(0.5)
         """用户离职是否成功，断言"""
-        success = user.get_text_delete_success()
-        ValueAssert.value_assert_equal(success, "Disabled Successfully")
+        #success = user.get_text_delete_success()
+        DomAssert.assert_exact_att("Disabled Successfully")
         # 点击重置按钮，断言列表是否不存在被删除的用户
         user.click_reset()
         userid2 = user.get_text_user_id()
         ValueAssert.value_assert_IsNot(userid1, userid2)
         sleep(1)
         user.click_close_user_mgt()
+        sleep(2)
 
 
 @allure.feature("员工授权-用户管理")
@@ -117,7 +117,7 @@ class TestAddEditQuitDealerUser():
         base.refresh()
         sleep(3.5)
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = MenuPage(drivers)
+        menu = LoginPage(drivers)
         menu.click_gotomenu("Staff & Authorization", "User Management")
         sleep(5)
         """新建国包代理员工"""
@@ -195,13 +195,13 @@ class TestAddEditQuitDealerUser():
         dealer_user.click_quit()
         dealer_user.click_yes()
         """用户离职是否成功，断言"""
-        success = dealer_user.get_text_delete_success()
-        ValueAssert.value_assert_equal(success, "Disabled Successfully")
+        #success = dealer_user.get_text_delete_success()
+        DomAssert.assert_exact_att("Disabled Successfully")
         """点击重置按钮，断言列表是否不存在被删除的用户"""
         dealer_user.click_reset()
         userid2 = dealer_user.get_text_user_id()
         ValueAssert.value_assert_IsNot(userid1, userid2)
-
+        sleep(1)
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserManagement.py'])

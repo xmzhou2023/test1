@@ -1,5 +1,4 @@
-from project.DCR.page_object.login import LoginPage
-from project.DCR.page_object.menu import MenuPage
+from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.AttendanceVisiting_AttendanceRecords import AttendanceRecordPage
 from public.base.assert_ui import ValueAssert
 import logging
@@ -11,7 +10,7 @@ import allure
 
 @allure.feature("考勤&巡店-考勤记录")
 class TestQueryAttendanceRecord():
-    @allure.story("查询")
+    @allure.story("查询考勤记录")
     @allure.title("考勤记录页面，查询考勤记录列表数据加载")
     @allure.description("考勤记录页面，查询考勤记录列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -20,8 +19,7 @@ class TestQueryAttendanceRecord():
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
         sleep(5)
         """考勤管理-打开考勤记录页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Attendance & Visiting", "Attendance Records")
+        user.click_gotomenu("Attendance & Visiting", "Attendance Records")
         sleep(10)
 
         """查询考勤记录列表，是否存在当天考勤记录用例"""
@@ -43,7 +41,7 @@ class TestQueryAttendanceRecord():
         sleep(1.5)
 
 
-    @allure.story("查询")
+    @allure.story("查询考勤记录")
     @allure.title("考勤记录页面，查询某个用户的，当天考勤记录")
     @allure.description("考勤记录页面，查询某个用户的，当天考勤记录，断言查询后的数据加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -51,10 +49,17 @@ class TestQueryAttendanceRecord():
         """查询某个用户的，当天考勤记录用例"""
         query_user = AttendanceRecordPage(drivers)
         sleep(1)
-        user_id = query_user.get_user_id_text()
+        today = datetime.date.today()
+        today1 = str(today)
 
+        query_user.input_query_date(today1)
+        query_user.click_search()
+        sleep(7)
+
+        user_id = query_user.get_user_id_text()
         query_user.input_user_id_query(user_id, user_id)
         query_user.click_search()
+        sleep(7)
 
         picture = query_user.get_photo_text()
         date = query_user.get_date_text()
@@ -63,8 +68,6 @@ class TestQueryAttendanceRecord():
         total = query_user.get_total_text()
         total1 = total[6]
 
-        today = datetime.date.today()
-        today1 =str(today)
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
         ValueAssert.value_assert_In(picture, "Picture")
         ValueAssert.value_assert_equal(user_id, userid)
@@ -79,7 +82,7 @@ class TestQueryAttendanceRecord():
 
 @allure.feature("考勤&巡店-考勤记录")
 class TestExportAttendanceRecord():
-    @allure.story("导出")
+    @allure.story("导出考勤记录")
     @allure.title("考勤记录页面，导出筛选用户的当天考勤记录")
     @allure.description("考勤记录页面，查询某个用户的，当天考勤记录，然后导出筛选的考勤记录")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -94,7 +97,7 @@ class TestExportAttendanceRecord():
         sleep(3)
         export.click_download_icon()
         export.click_more()
-        sleep(40)
+        sleep(11)
         export.click_export_search()
 
         down_status = export.get_download_status_text()

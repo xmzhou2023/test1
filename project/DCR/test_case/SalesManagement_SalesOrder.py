@@ -1,6 +1,5 @@
-from project.DCR.page_object.menu import MenuPage
 from project.DCR.page_object.SalesManagement_SalesOrder import SalesOrderPage
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert
 from libs.common.connect_sql import *
@@ -21,8 +20,7 @@ class TestAddSubSalesOrder():
         user.dcr_login(drivers, "BD291501", "dcr123456")
         sleep(5)
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Sales Order")
+        user.click_gotomenu("Sales Management", "Sales Order")
         sleep(5)
         """销售订单页面，新建销售单、直接出库、筛选、然后快速收货场景功能"""
         """调用新增销售单用例"""
@@ -69,7 +67,7 @@ class TestDeliverySubSalesOrder():
         base.refresh()
         sleep(3.5)
         """打开Report Analysis->IMEI Inventory Query菜单"""
-        menu = MenuPage(drivers)
+        menu = LoginPage(drivers)
         menu.click_gotomenu("Report Analysis", "IMEI Inventory Query")
 
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""

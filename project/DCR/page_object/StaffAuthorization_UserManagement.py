@@ -5,7 +5,7 @@ from ..test_case.conftest import *
 import random
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
 class UserManagementPage(Base):
     """UserManagementPage 页面元素类"""
@@ -170,7 +170,7 @@ class UserManagementPage(Base):
     def click_yes(self):
         """点击确认删除按钮"""
         self.is_click(user['确认删除Yes'])
-        sleep(0.5)
+
 
     def get_text_nodata(self):
         """获取无数据文本"""

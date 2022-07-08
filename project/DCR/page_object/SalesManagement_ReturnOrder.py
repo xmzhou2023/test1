@@ -1,13 +1,12 @@
 from libs.common.read_element import Element
 import logging
-from project.DCR.page_object.inbound_receipt import InboundReceiptPage
 from public.base.basics import Base
 from libs.common.time_ui import sleep
 from public.base.assert_ui import ValueAssert
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
 class ReturnOrderPage(Base):
     """ReturnOrderPage 类"""

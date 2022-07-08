@@ -1,5 +1,4 @@
-from project.DCR.page_object.login import LoginPage
-from project.DCR.page_object.menu import MenuPage
+from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.Center_Process import SalesOrderPage
 from project.DCR.page_object.Center_Process import InboundReceiptPage
 from public.base.basics import Base
@@ -23,8 +22,7 @@ class TestAddDeliverySubSalesOrder():
         sleep(5)
 
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Sales Order")
+        user.click_gotomenu("Sales Management", "Sales Order")
         sleep(5)
 
         """销售订单页面，新建销售单、直接出库、筛选、然后快速收货场景功能"""
@@ -70,8 +68,8 @@ class TestAddDeliverySubSalesOrder():
         sleep(3.5)
 
         """打开Report Analysis->IMEI Inventory Query菜单"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Report Analysis", "IMEI Inventory Query")
+        user = LoginPage(drivers)
+        user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
 
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
@@ -84,7 +82,7 @@ class TestAddDeliverySubSalesOrder():
 
         """ 刷新页面 """
         base.refresh()
-        menu.click_gotomenu("Sales Management", "Sales Order")
+        user.click_gotomenu("Sales Management", "Sales Order")
         sleep(5)
 
         """二代用户，查询数据库最近新建的销售单ID"""
@@ -126,8 +124,8 @@ class TestAddDeliverySubSalesOrder():
         sleep(5)
 
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Purchase Management", "Inbound Receipt")
+        user = LoginPage(drivers)
+        user.click_gotomenu("Purchase Management", "Inbound Receipt")
         sleep(5)
 
         """定义账号标识是否是二代sub_Account还是零售商retail_Account 账号收货"""
@@ -177,9 +175,6 @@ class TestAddDeliverySubSalesOrder():
 
 # @allure.feature("销售管理-销售单菜单")
 # class TestSubDeliveryReceivReturn():
-
-
-
 
 
 

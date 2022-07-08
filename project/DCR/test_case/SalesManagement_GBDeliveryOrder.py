@@ -1,11 +1,10 @@
-from project.DCR.page_object.menu import MenuPage
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
-from project.DCR.page_object.inbound_receipt import InboundReceiptPage
-from project.DCR.page_object.return_order import ReturnOrderPage
+from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
+from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from public.base.assert_ui import ValueAssert
 from libs.common.connect_sql import *
 from public.base.basics import Base
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from libs.common.time_ui import sleep
 import pytest
 import allure
@@ -22,8 +21,7 @@ class TestDistDelivery():
         user.dcr_login(drivers, "BD40344201", "dcr123456")
         sleep(5)
         """销售管理菜单-出库单列表-筛选出库单数据用例"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Delivery Order")
+        user.click_gotomenu("Sales Management", "Delivery Order")
         sleep(5)
 
         """出库单页面 实例化销售管理页面组件类"""
@@ -126,8 +124,7 @@ class TestAddDistDelivery():
         user.dcr_login(drivers, "BD291501", "dcr123456")
         sleep(5)
         """打开Purchase Management菜单"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Purchase Management", "Inbound Receipt")
+        user.click_gotomenu("Purchase Management", "Inbound Receipt")
         sleep(4)
 
         """二代账号筛选 最近新建的出库单ID，快速收货操作"""
@@ -176,7 +173,7 @@ class TestAddDistDelivery():
         refresh.refresh()
 
         """打开Purchase Management菜单"""
-        menu = MenuPage(drivers)
+        menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Return Order")
         sleep(3)
 
@@ -223,12 +220,11 @@ class TestAddDistDelivery():
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_return_order_Approve(self, drivers):
         """退货单列表页面，国包账号, 进行退货审核操作"""
-        user = LoginPage(drivers)
-        user.dcr_login(drivers, "BD40344201", "dcr123456")
+        user1 = LoginPage(drivers)
+        user1.dcr_login(drivers, "BD40344201", "dcr123456")
         sleep(5)
         """打开Purchase Management菜单"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Return Order")
+        user1.click_gotomenu("Sales Management", "Return Order")
         sleep(3)
 
         """实例化 Return order退货单类"""

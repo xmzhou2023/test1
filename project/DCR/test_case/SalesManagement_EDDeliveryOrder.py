@@ -1,10 +1,9 @@
-from project.DCR.page_object.menu import MenuPage
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
-from project.DCR.page_object.inbound_receipt import InboundReceiptPage
-from project.DCR.page_object.return_order import ReturnOrderPage
+from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
+from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from libs.common.connect_sql import *
 from libs.common.time_ui import sleep
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert
 import pytest
 import allure
@@ -23,13 +22,11 @@ class TestSubDelivery():
         sleep(5)
 
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Delivery Order")
+        user.click_gotomenu("Sales Management", "Delivery Order")
         sleep(5)
 
         """出库单页面 实例化销售管理页面组件类"""
         delivery = DeliveryOrderPage(drivers)
-        """出库单页面，筛选出库单用例"""
         """出库单页面，筛选出库单用例"""
         salesorder = delivery.text_sales_order()
         deliveryorder = delivery.text_delivery_order()
@@ -133,8 +130,7 @@ class TestAddDistDelivery():
         user.dcr_login(drivers, "EG00056201", "dcr123456")
         sleep(5)
         """打开采购单Purchase Management菜单"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Purchase Management", "Inbound Receipt")
+        user.click_gotomenu("Purchase Management", "Inbound Receipt")
         sleep(4)
         receiv = InboundReceiptPage(drivers)
 
@@ -184,8 +180,7 @@ class TestAddDistDelivery():
         # refresh = Base(drivers)
         # refresh.refresh()
         """打开Purchase Management菜单"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Return Order")
+        user.click_gotomenu("Sales Management", "Return Order")
         sleep(3)
 
         """实例化 二代退货单类"""
@@ -226,21 +221,19 @@ class TestAddDistDelivery():
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_return_order_Approve(self, drivers):
         """退货单列表页面，二代账号, 进行审核退货单操作"""
-        """"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "BD291501", "dcr123456")
         sleep(5)
 
         """打开Purchase Management菜单"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Return Order")
+        user.click_gotomenu("Sales Management", "Return Order")
         sleep(3)
 
         """实例化 Return order退货单类"""
         return_approve = ReturnOrderPage(drivers)
         """从数据库表，查询二代账号，最近新建的销售单ID与出库单ID"""
         varsql1 = "select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200001 order by created_time desc limit 1"
-        user = SQL('DCR','test')
+        user = SQL('DCR', 'test')
         result = user.query_db(varsql1)
         delivery_code = result[0].get("delivery_code")
 

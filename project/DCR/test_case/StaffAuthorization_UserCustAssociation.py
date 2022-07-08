@@ -1,7 +1,6 @@
 from project.DCR.page_object.StaffAuthorization_UserCustAssociation import UserCustomerAssociaPage
-from project.DCR.page_object.menu import MenuPage
 import logging
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
 import datetime
@@ -21,8 +20,7 @@ class TestSearchUserCustAssocia():
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
         sleep(5)
         """打开User And Customer Association菜单页面 """
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Staff & Authorization", "User and Customer Association")
+        user.click_gotomenu("Staff & Authorization", "User and Customer Association")
         sleep(40)
         """ 查询用户与客户关系列表,所有数据加载正常 """
         user_cust = UserCustomerAssociaPage(drivers)
@@ -43,7 +41,7 @@ class TestSearchUserCustAssocia():
             logging.info("查看User And Customer Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total1))
         else:
             logging.info("查看User And Customer Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total1))
-        sleep(1)
+        sleep(2)
 
 
 @allure.feature("员工授权-用户和客户关系")
@@ -66,8 +64,8 @@ class TestExportUserCustAssocia():
         customer_name = export.get_list_customer_name()
         total = export.get_total_text()
         total1 = total[6:7]
-        ValueAssert.value_assert_equal(userid, "NG2061301")
-        ValueAssert.value_assert_equal(username, "xinyanli")
+        ValueAssert.value_assert_equal("NG2061301", userid)
+        ValueAssert.value_assert_equal("xinyanli", username)
         ValueAssert.value_assert_IsNoneNot(position)
         ValueAssert.value_assert_IsNoneNot(customer_id)
         ValueAssert.value_assert_IsNoneNot(customer_name)

@@ -1,7 +1,6 @@
 from project.DCR.page_object.StaffAuthorization_UserShopAssociation import UserShopAssociaPage
-from project.DCR.page_object.menu import MenuPage
 import logging
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
 import datetime
@@ -11,7 +10,7 @@ import allure
 
 @allure.feature("员工授权-用户和门店关系")
 class TestSearchUserShopAssociation():
-    @allure.story("查询")
+    @allure.story("查询用户和门店关系")
     @allure.title("查询用户和门店关系列表所有数据")
     @allure.description("查询用户和门店关系列表，所有数据加载正常")
     @allure.severity("critical") # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -22,14 +21,13 @@ class TestSearchUserShopAssociation():
         sleep(5)
 
         """打开User And Customer Association菜单页面 """
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Staff & Authorization", "User and Shop Association")
+        user.click_gotomenu("Staff & Authorization", "User and Shop Association")
         sleep(7)
 
         """ 查询用户与门店关系列表,所有数据加载正常 """
         user_shop = UserShopAssociaPage(drivers)
         userid = user_shop.get_list_user_id()
-        username = user_shop.get_list_user_name
+        username = user_shop.get_list_user_name()
         position = user_shop.get_list_position()
         shop_id = user_shop.get_list_shop_id()
         shop_name = user_shop.get_list_shop_name()
@@ -45,12 +43,12 @@ class TestSearchUserShopAssociation():
             logging.info("查看User and Shop Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total1))
         else:
             logging.info("查看User and Shop Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total1))
-        sleep(1)
+        sleep(2)
 
 
 @allure.feature("员工授权-用户和门店关系")
 class TestExportUserShopAssociation():
-    @allure.story("导出")
+    @allure.story("导出用户和门店关系")
     @allure.title("用户和门店关系列表，筛选User ID：lhmdianzhang关联的门店，并导出筛选的数据")
     @allure.description("用户和门店关系列表，筛选User ID：lhmdianzhang关联的门店，并导出筛选的数据")
     @allure.severity("normal")# blocker\critical\normal\minor\trivial
@@ -63,7 +61,7 @@ class TestExportUserShopAssociation():
         export.input_user_query("lhmdianzhang")
         export.click_search()
         userid = export.get_list_user_id()
-        username = export.get_list_user_name
+        username = export.get_list_user_name()
         position = export.get_list_position()
         shop_id = export.get_list_shop_id()
         shop_name = export.get_list_shop_name()

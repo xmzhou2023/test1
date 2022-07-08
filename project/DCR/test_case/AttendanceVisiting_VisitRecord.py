@@ -1,6 +1,5 @@
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.AttendanceVisiting_VisitRecord import VisitRecordPage
-from project.DCR.page_object.menu import MenuPage
 from public.base.assert_ui import ValueAssert
 import logging
 from public.base.basics import Base
@@ -12,7 +11,7 @@ import allure
 
 @allure.feature("考勤&巡店-巡店记录")
 class TestQueryVisitRecord():
-    @allure.story("查询")
+    @allure.story("查询巡店记录")
     @allure.title("巡店记录页面，查询巡店记录列表数据加载")
     @allure.description("巡店记录页面，查询巡店记录列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -26,15 +25,14 @@ class TestQueryVisitRecord():
         # base.refresh()
         # sleep(3.5)
         """打开考勤与巡店管理-打开巡店记录页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Attendance & Visiting", "Visit Record")
+        user.click_gotomenu("Attendance & Visiting", "Visit Record")
         sleep(8)
 
         all_visit = VisitRecordPage(drivers)
         all_visit.input_submit_start_date("2022-06-01")
-        all_visit.click_submit_date()
+        all_visit.click_sales_region()
         all_visit.click_search()
-        sleep(3.5)
+
         shop_id = all_visit.get_shop_id_text()
         submit_date = all_visit.get_submit_date_text()
         visit_date = all_visit.get_visit_date_text()
@@ -46,25 +44,29 @@ class TestQueryVisitRecord():
         ValueAssert.value_assert_IsNoneNot(submit_date)
         ValueAssert.value_assert_IsNoneNot(visit_date)
         ValueAssert.value_assert_In(operation, "View")
-        if int(total1) > 1000:
+        if int(total1) > 10:
             logging.info("查看巡店记录列表，加载所有数据正常，分页总条数Total:{}".format(total1))
         else:
             logging.info("查看巡店记录列表，未加载所有数据，分页总条数Total:{}".format(total1))
         sleep(2)
 
 
-    @allure.story("查询")
+    @allure.story("查询巡店记录")
     @allure.title("巡店记录页面，按Shop ID条件筛选，查询门店巡店记录数据加载")
     @allure.description("巡店记录页面，按Shop ID条件筛选，查询门店巡店记录，校验数据加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_002(self, drivers):
         """获取当天日期"""
         today = datetime.date.today()
+        today1 = str(today)
         visit = VisitRecordPage(drivers)
-        visit.click_unfold()
 
+        visit.click_unfold()
+        visit.input_submit_start_date("2022-06-01")
+        visit.click_sales_region()
+        visit.click_search()
         shop_id = visit.get_shop_id_text()
-        sleep(1)
+        sleep(0.5)
         visit.input_shop_id_query(shop_id)
         visit.click_search()
         visit.click_fold()
@@ -77,23 +79,22 @@ class TestQueryVisitRecord():
         total1 = total[6]
 
         ValueAssert.value_assert_equal(shop_id, shopid)
-        ValueAssert.value_assert_equal(submit_date, str(today))
-        ValueAssert.value_assert_equal(visit_date, str(today))
+        ValueAssert.value_assert_equal(submit_date, today1)
+        ValueAssert.value_assert_equal(visit_date, today1)
         ValueAssert.value_assert_In(operation, "View")
         if int(total1) > 0:
             logging.info("根据门店ID筛选，巡店记录列表中，加载筛选的数据正常，分页总条数Total:{}".format(total1))
         else:
             logging.info("根据门店ID筛选，巡店记录列表中，未加载筛选的数据，分页总条数Total:{}".format(total1))
-        visit.click_reset()
         visit.click_close_visit_record()
         sleep(2)
 
 
 @allure.feature("考勤&巡店-巡店记录")
 class TestExportVisitRecord():
-    @allure.story("导出")
-    @allure.title("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录")
-    @allure.description("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
+    @allure.story("导出巡店记录")
+    @allure.title("巡店记录页面，按submit date条件筛选，导出筛选后的巡店记录")
+    @allure.description("巡店记录页面，按submit date条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
         """刷新页面"""
@@ -102,15 +103,15 @@ class TestExportVisitRecord():
         sleep(3.5)
 
         """打开考勤与巡店管理-打开巡店记录页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Attendance & Visiting", "Visit Record")
+        user = LoginPage(drivers)
+        user.click_gotomenu("Attendance & Visiting", "Visit Record")
         sleep(8)
 
         """获取当天日期"""
         today = datetime.date.today()
         today1 = str(today)
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date(today1)
+        export.input_submit_start_date("2022-06-01")
         export.click_sales_region()
         export.click_search()
 

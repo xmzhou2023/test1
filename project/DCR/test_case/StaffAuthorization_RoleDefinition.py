@@ -1,7 +1,6 @@
 from libs.common.time_ui import sleep
 from project.DCR.page_object.StaffAuthorization_RoleDefinition import RoleDefinitionPage
-from project.DCR.page_object.menu import MenuPage
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert
 import pytest
 import allure
@@ -19,8 +18,7 @@ class TestSetRolePermission():
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
         sleep(5)
         """打开Staff & Authorization模块下的 Role Definition的菜单"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Staff & Authorization", "Role Definition")
+        user.click_gotomenu("Staff & Authorization", "Role Definition")
         sleep(5)
         """Role Definition角色定义页面，筛选“lhmItel店长”角色，然后添加Basic Data Management菜单权限用例"""
         role = RoleDefinitionPage(drivers)

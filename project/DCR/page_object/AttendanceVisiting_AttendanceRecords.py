@@ -5,7 +5,7 @@ from public.base.basics import Base
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
 class AttendanceRecordPage(Base):
     """ AttendanceRecord类，生产环境，Attendance Records考勤记录页面元素定位"""
