@@ -35,7 +35,6 @@ Contact No: "xpath==//label[(text()='Contact No.')]//parent::div//following-sibl
 Gender: "xpath==//label[(text()='Gender')]//parent::div//following-sibling::div//input"
 Gender Female: "xpath==//span[contains(text(),'Female')]"
 Add User Submit: "xpath==//*[@id='app']/div/div[2]/section/div/div/div/button[1]/span[contains(text(),'Submit')]"
-
 关闭用户管理菜单: "xpath==//*[@id='tags-view-container']/div/div[1]/div/span[2]/span"
 
 
@@ -51,6 +50,8 @@ Reset: "xpath==//span[contains(text(),'Reset')]"
 修改第一个Edit: "id==employee_update_"
 勾选第一个复选框: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[1]/div/label/span/span"
 More Option: "xpath==//span[contains(text(),'More Option')]"
+Set Up Successfully: "xpath==//p[(text()='Set Up Successfully')]"
+
 
 Quit: "id==employee_leave_"
 确认删除Yes: "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[3]/div/button[1]/span"

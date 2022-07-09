@@ -2,6 +2,9 @@ from libs.common.read_element import Element
 from public.base.basics import Base
 from libs.common.time_ui import sleep
 from ..test_case.conftest import *
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
@@ -21,7 +24,7 @@ class UserAuthorizationPage(Base):
         """进入用户授权页面，根据User 筛选品牌、客户等数据"""
         self.is_click_dcr(user['Input User'])
         self.input_text_dcr(user['Input User'], txt=content)
-        sleep(2.5)
+        sleep(3)
         self.is_click(user['Click Trans User Value'])
 
     def click_search(self):
@@ -57,7 +60,7 @@ class UserAuthorizationPage(Base):
 
     def get_add_infinix_text(self):
         """Add Association页面，获取infinix品牌文本 """
-        add_infinix = self.is_click(user['获取添加页面Infinix文本'])
+        add_infinix = self.element_text(user['获取添加页面Infinix文本'])
         return add_infinix
 
     def click_add_brand_checkbox(self):
@@ -67,7 +70,6 @@ class UserAuthorizationPage(Base):
     def click_save_brand(self):
         """点击Save 保存品牌按钮"""
         self.is_click(user['保存品牌'])
-        sleep(0.5)
 
     def get_add_brand_success(self):
         """ 获取添加品牌成功 Successfully 提示语"""
@@ -79,7 +81,7 @@ class UserAuthorizationPage(Base):
     def click_customer_tab(self):
         """ 点击Customer页签 """
         self.is_click_dcr(user['切换客户页签'])
-        sleep(4)
+        sleep(3)
 
     def click_add_customer(self):
         """ 在客户页签，点击Add Association按钮 """
@@ -90,8 +92,9 @@ class UserAuthorizationPage(Base):
         """ 添加客户页面，输入Customer ID筛选需要添加的客户 """
         self.is_click(user['Add Click Input Query Cust'])
         self.input_text_dcr(user['Add Input Query Cust'], txt=content)
-        sleep(2)
+        EC.visibility_of_element_located((By.XPATH, "//*[@id='userAuthCustomer']/div[3]/div/div[2]/form/div/div/div/div[1]/div/div/div/div/div[2]/div/div[2]/div[1]/div[1]/ul/li/span"))
         self.is_click(user['Add Input Query Cust Value'])
+
 
     def click_add_customer_search(self):
         """ 在添加客户页面，点击Search按钮 """
@@ -142,7 +145,7 @@ class UserAuthorizationPage(Base):
     def click_cust_more_option(self):
         """ 在客户页签，筛选Customer ID后，点击More Option按钮 """
         self.is_click(user['Customer More Option'])
-        sleep(1)
+        sleep(2)
 
     def click_cust_cancel_association(self):
         """ 在客户页签，点击Batch Cancel Association按钮 """
@@ -152,7 +155,6 @@ class UserAuthorizationPage(Base):
     def click_cust_delete(self):
         """ 在客户页签，点击delete确认删除按钮 """
         self.is_click(user['Customer Delete'])
-        sleep(0.5)
 
     def get_cust_delete_success(self):
         """ 在客户页签，获取客户列表 删除客户成功提示语 """
@@ -174,7 +176,7 @@ class UserAuthorizationPage(Base):
     def click_warehouse_tab(self):
         """ 在仓库页签，点击Warehouse 切换仓库页签 """
         self.is_click_dcr(user['切换仓库页签'])
-        sleep(4)
+        sleep(3)
 
     def input_list_query_ware(self, content):
         """ 在仓库页签，输入Warehouse ID进行筛选需要删除的仓库 """
@@ -210,7 +212,6 @@ class UserAuthorizationPage(Base):
     def click_ware_delete(self):
         """ 在仓库页签，点击delete确认删除仓库按钮 """
         self.is_click(user['Warehouse Delete'])
-        sleep(0.5)
 
     def get_ware_delete_success(self):
         """ 在仓库页签，获取仓库列表 删除仓库成功提示语 """
@@ -254,7 +255,6 @@ class UserAuthorizationPage(Base):
     def click_add_ware_save(self):
         """ 新增仓库页面，点击Save保存按钮 """
         self.is_click_dcr(user['Add Warehouse Save'])
-        sleep(0.5)
 
     def get_add_ware_success(self):
         """ 新增仓库页面，点击Save后，获取新增仓库成功Successfully文本 """
@@ -267,7 +267,7 @@ class UserAuthorizationPage(Base):
     def click_shop_tab(self):
         """ 在门店页签，点击Shop 切换门店页签 """
         self.is_click_dcr(user['切换门店页签'])
-        sleep(4)
+        sleep(3)
 
     def input_list_query_shop(self, context):
         """ 在门店页签，输入Shop ID进行筛选需要删除的门店 """
@@ -303,7 +303,6 @@ class UserAuthorizationPage(Base):
     def click_shop_delete(self):
         """ 在门店页签，点击确认删除Delete按钮 """
         self.is_click(user['Shop Delete'])
-        sleep(0.5)
 
     def get_shop_delete_success(self):
         """ 在门店页签，获取仓库列表 删除仓库成功提示语 """
@@ -326,7 +325,7 @@ class UserAuthorizationPage(Base):
         """ 在新增门店页面，Shop输入框输入需要筛选的门店 """
         self.is_click(user['Add Click Input Query Shop'])
         self.input_text(user['Add Input Query Shop'], txt=content)
-        sleep(2.5)
+        sleep(3)
         self.is_click_dcr(user['Add Input Query Shop Value'])
 
     def click_add_shop_search(self):
@@ -346,7 +345,7 @@ class UserAuthorizationPage(Base):
     def click_add_shop_author_select(self):
         """ 新增门店页面，点击Authorized Selected 选中授权按钮 """
         self.is_click(user['Add Shop Authorized Selected'])
-        sleep(0.5)
+
 
     def get_shop_add_success(self):
         """ 新增门店页面，获取新增门店成功提示语 """
@@ -382,7 +381,6 @@ class UserAuthorizationPage(Base):
     def click_save_sales_region(self):
         """ 在销售页签，点击Save按钮，保存销售区域 """
         self.is_click_dcr(user['Sales Region Save'])
-        sleep(0.5)
 
     def get_not_auto_score_text(self):
         """ 在销售页签，未勾选销售范围时，点击Save按钮，提示：请先勾选销售范围 """

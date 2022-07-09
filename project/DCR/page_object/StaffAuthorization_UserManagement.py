@@ -110,7 +110,6 @@ class UserManagementPage(Base):
     def click_add_user_submit(self):
         """Add user页面，点击Submit提交按钮"""
         self.is_click(user['Add User Submit'])
-        sleep(5)
 
 
     def get_text_user_id(self):
@@ -157,6 +156,11 @@ class UserManagementPage(Base):
         self.is_click(user['勾选第一个复选框'])
         sleep(2)
 
+    def get_set_up_successfully(self):
+        """编辑用户提交成功提示语"""
+        set_up_success = self.element_text(user['Set Up Successfully'])
+        return set_up_success
+
     def click_more_option(self):
         """点击更多操作"""
         self.is_click(user['More Option'])
@@ -165,7 +169,7 @@ class UserManagementPage(Base):
     def click_quit(self):
         """点击离职功能"""
         self.is_click(user['Quit'])
-        sleep(2)
+        sleep(3)
 
     def click_yes(self):
         """点击确认删除按钮"""
@@ -197,14 +201,14 @@ class UserManagementPage(Base):
 
     def user_id_random(self):
         """随机生成userid"""
-        num = str(random.randint(1, 100))
-        userid = '18748' + num
+        num = str(random.randint(100, 999))
+        userid = '18648' + num
         return userid
 
     def user_name_random(self):
         """随机生成username"""
-        num = str(random.randint(1, 100))
-        username = "smarttestlhm" + num
+        num = str(random.randint(100, 999))
+        username = "smarttest" + num
         return username
 
     def input_position_dealer(self, content):

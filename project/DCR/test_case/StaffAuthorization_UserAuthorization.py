@@ -2,6 +2,7 @@ from project.DCR.page_object.StaffAuthorization_UserAuthorization import UserAut
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.time_ui import sleep
+from libs.common.logger_ui import log
 import pytest
 import allure
 
@@ -28,13 +29,16 @@ class TestDeleteBrandAuthorization():
         brand.click_search()
 
         list_infinix = brand.get_list_infinix_text()
+        log.info("list_infinix{}".format(list_infinix))
+
         """如果存在删除Infinix品牌"""
         if "Infinix" == list_infinix:
             """如果存在Infinix品牌，则删除此品牌"""
             brand.click_cancel_association()
             brand.click_delete_brand()
-            #delete_success = brand.get_delete_brand_success()
-            DomAssert.assert_exact_att("Successfully")
+            """断言页面是否存在Successfully成功提示语"""
+            domassert = DomAssert(drivers)
+            domassert.assert_att("Successfully")
             sleep(2)
 
 
@@ -52,8 +56,9 @@ class TestAddBrandAuthorization():
         ValueAssert.value_assert_equal("Infinix", get_add_infinix)
         brand.click_add_brand_checkbox()
         brand.click_save_brand()
-        #add_success = brand.get_add_brand_success()
-        DomAssert.assert_exact_att("Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         list_infinix_text = brand.get_list_infinix_text()
         ValueAssert.value_assert_equal("Infinix", list_infinix_text)
         sleep(2)
@@ -76,10 +81,9 @@ class TestDeleteCustAuthorization():
         customer.click_cust_more_option()
         customer.click_cust_cancel_association()
         customer.click_cust_delete()
-        #get_dele_success = customer.get_cust_delete_success()
-        DomAssert.assert_exact_att("Successfully")
-        get_dele_nodata = customer.get_cust_delete_success()
-        ValueAssert.value_assert_In("No Data", get_dele_nodata)
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         customer.click_brand_tab()
         customer.click_customer_tab()
 
@@ -99,8 +103,8 @@ class TestAddCustAuthorization():
         if get_customer_id in "CN20009":
             customer.click_add_customer_checkbox()
             customer.click_cust_authoriz_select()
-            #add_cust_success = customer.get_add_cust_success_text()
-            DomAssert.assert_exact_att("Successfully")
+            domassert = DomAssert(drivers)
+            domassert.assert_att("Successfully")
         sleep(2)
 
 
@@ -121,8 +125,10 @@ class TestDeleteWareAuthorization():
         ware.click_ware_more_option()
         ware.click_ware_cancel_association()
         ware.click_ware_delete()
-        #get_ware_del_success = ware.get_ware_delete_success()
-        DomAssert.assert_exact_att("Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
+        sleep(1)
         get_no_data = ware.get_ware_dele_no_data()
         ValueAssert.value_assert_In(get_no_data, "No Data")
         sleep(2)
@@ -142,10 +148,11 @@ class TestAddWareAuthorization():
         if get_add_ware == "WNG2061304":
             ware.click_add_ware_checkbox()
         ware.click_add_ware_save()
-        #add_ware_success = ware.get_add_ware_success()
-        DomAssert.assert_exact_att("Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         get_list_ware2 = ware.get_list_warehouseID_text()
-        ValueAssert.value_assert_equal(get_list_ware2, "WNG2061304")
+        ValueAssert.value_assert_equal(get_add_ware, get_list_ware2)
         sleep(2)
 
 
@@ -163,8 +170,9 @@ class TestAddRegionAuthorization():
         sale_region.click_east_africa_checkbox()
         sale_region.click_score_user_checkbox()
         sale_region.click_save_sales_region()
-        #sale_region_success = sale_region.get_sale_region_success()
-        DomAssert.assert_exact_att("Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         sleep(2)
 
 
@@ -185,8 +193,9 @@ class TestDeleteShopAuthorization():
         shop.click_shop_more_option()
         shop.click_shop_cancel_association()
         shop.click_shop_delete()
-        #shop_del_success = shop.get_shop_delete_success()
-        DomAssert.assert_exact_att("Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         get_shop_no_data = shop.get_shop_delete_no_data()
         ValueAssert.value_assert_In(get_shop_no_data, "No Data")
         sleep(2)
@@ -198,7 +207,7 @@ class TestAddShopAuthorization():
     @allure.title("用户授权页面，新增EG000378门店授权")
     @allure.description("用户授权页面，筛选User：testlhm0215，新增Shop ID:EG000378授权")
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-    def test_008_001(self, drivers):
+    def test_009_001(self, drivers):
         shop = UserAuthorizationPage(drivers)
         shop.click_add_association_shop()
         shop.input_add_query_shop("EG000378")
@@ -207,10 +216,12 @@ class TestAddShopAuthorization():
         if get_add_shop_id == "EG000378":
             shop.click_add_shop_checkbox()
         shop.click_add_shop_author_select()
-        #shop_add_success = shop.get_shop_add_success()
-        DomAssert.assert_exact_att("Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         get_list_shop_id = shop.get_list_shop_id_text()
         ValueAssert.value_assert_equal(get_list_shop_id, "EG000378")
+
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserAuthorization.py'])

@@ -82,7 +82,7 @@ class TestExportUserShopAssociation():
         sleep(2)
 
         export.click_download_icon()
-        sleep(1)
+        sleep(2)
         export.click_more()
         export.click_export_search()
 
