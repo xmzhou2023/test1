@@ -8,13 +8,13 @@ from libs.common.read_element import Element
 from libs.config.conf import BASE_DIR
 from project.TBM.api.api import APIRequest
 from public.base.assert_ui import DomAssert
-from project.TBM.page_object.home import HomePage
+from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name,object_name)
 
-class MachineBOMCollaboration(HomePage, APIRequest):
+class MachineBOMCollaboration(CenterComponent, APIRequest):
     """BOM协作_整机BOM协作"""
 
     @allure.step("初始化页面")
@@ -145,7 +145,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         self.click_menu("BOM协作", "整机BOM协作")
         sleep(1)
-        info = self.find_elements(user['表格内容'])
+        info = self.find_elements_tbm(user['表格内容'])
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -159,7 +159,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         self.click_menu("BOM协作", "整机BOM协作")
         sleep(1)
-        info = self.find_elements(user['表格指定编码内容'], code)
+        info = self.find_elements_tbm(user['表格指定编码内容'], code)
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -347,7 +347,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         @return:返回文本及索引位置分别是  0:'No.'; 1:'BOM类型'; 2:'BOM状态'; 3:'Tree'; 4:'复选框'; 5:'物料编码';
                                     6:'物料描述'; 7:'物料属性'; 8:'用量'; 9:'替代组'; 10:'份额'; 11:'操作'
         """
-        info = self.find_elements(user['BomTree内容'], material)
+        info = self.find_elements_tbm_tbm(user['BomTree内容'], material)
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -463,7 +463,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         获取导入BOM-结果内容
         """
-        info = self.find_elements(user['简易导入内容'])
+        info = self.find_elements_tbm(user['简易导入内容'])
         infolist = []
         for i in info:
             infolist.append(i.text.split('\n'))
@@ -508,7 +508,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         获取BOMTree所有内容
         """
-        info = self.find_elements(user['BomTree全部内容'])
+        info = self.find_elements_tbm(user['BomTree全部内容'])
         infolist = []
         for i in info:
             infolist.append(i.text.split('\n'))
@@ -566,7 +566,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         获取导入BOM-结果内容
         """
-        info = self.find_elements(user['导入BOM内容'])
+        info = self.find_elements_tbm(user['导入BOM内容'])
         infolist = []
         for i in info:
             infolist.append(i.text.split('\n'))
@@ -697,10 +697,10 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         退出oneworks查看流程页面
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.close_switch(1)
         self.refresh()
-        self.quite_iframe()
+        self.frame_exit()
         sleep(1)
 
     def enter_machine_bom_cooperation_my_todo(self):
@@ -736,7 +736,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         退出我的待办页面框架
         """
-        self.quite_iframe()
+        self.frame_exit()
 
     def assert_machine_bom_cooperation_my_todo_node(self, code, node, exist=False):
         """
@@ -756,7 +756,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
                 logging.error('断言失败，我的待办中存在该条单据在:{}审核节点'.format(actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
         else:
             try:
                 assert actual_node == node
@@ -766,7 +766,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
                 logging.error('断言失败，我的待办中该条单据不存在:{}节点，实际在:{}节点'.format(node, actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
 
     def assert_machine_bom_cooperation_my_application_node(self, code, node, exist=False):
         """
@@ -786,7 +786,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中存在该条单据在:{}节点'.format(actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
         else:
             try:
                 assert actual_node == node
@@ -796,13 +796,13 @@ class MachineBOMCollaboration(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中不存在该条单据在:{}审核节点'.format(actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
 
     def assert_machine_bom_cooperation_my_application_flow(self, code, flow, exist=True):
         """
         我申请的页面-断言：成功处理了流程后，我申请的中存在/不存在该条单据在指定流程中
         @param code:流程编码
-        @param node:流程名称
+        @param flow:流程名称
         @param exist:断言存在或者不存在
         """
         self.enter_machine_bom_cooperation_my_application()
@@ -816,7 +816,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中该条单据不在:{}流程，实际在:{}流程'.format(flow, actual_flow))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
         elif exist is False:
             try:
                 assert actual_flow != flow
@@ -826,7 +826,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中该条单据在:{}流程'.format(actual_flow))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
 
     def enter_machine_bom_cooperation_onework_edit(self, process_code):
         """
@@ -841,7 +841,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
             raise
         self.switch_window(1)
         sleep(0.5)
-        self.quite_iframe()
+        self.frame_exit()
         sleep(0.5)
         iframe = self.find_element(user['待办列表-我申请的-iframe'])
         self.driver.switch_to.frame(iframe)
@@ -861,7 +861,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         获取BOMTree所有内容
         """
-        info = self.find_elements(user['OneworksBomTree全部内容'])
+        info = self.find_elements_tbm(user['OneworksBomTree全部内容'])
         infolist = []
         for i in info:
             infolist.append(i.text.split('\n'))
@@ -891,7 +891,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         补充工厂页面点击同意
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['补充工厂同意'])
         logging.info('点击同意')
 
@@ -991,7 +991,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         BOM工程师审批页面 获取BomTree数据
         """
         self.click_machine_bom_cooperation_tree('产成品')
-        info = self.find_elements(user['BOM工程师BomTree信息'])
+        info = self.find_elements_tbm(user['BOM工程师BomTree信息'])
         info_list = []
         for i in info:
             if len(i.text.split('\n')) != 3:
@@ -1026,7 +1026,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         在补充工厂页面中，获取生产工厂信息数据
         """
-        info = self.find_elements(user['补充工厂生产工厂信息'])
+        info = self.find_elements_tbm(user['补充工厂生产工厂信息'])
         info_list = []
         for i in info:
             if len(i.text.split('\n')) != 3:
@@ -1061,7 +1061,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         BOM工程师审批 点击回退，根据node选择回退节点
         @param node:节点
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['回退'])
         logging.info('点击回退')
         self.is_click_tbm(user['BOM工程师审批回退到'])
@@ -1080,7 +1080,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         BOM工程师审批页面 点击转交
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['转交'])
         logging.info('点击转交')
 
@@ -1095,7 +1095,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         断言： BOM工程师审批页面 是否存在确定转交按钮
         """
-        DomAssert(self.driver).assert_page_control(user['BOM工程师审批确定转交'], result)
+        DomAssert(self.driver).assert_control(user['BOM工程师审批确定转交'], result)
 
     def input_machine_bom_cooperation_oneworks_refer(self, referrer):
         """
@@ -1133,8 +1133,8 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         断言： BOM工程师审批页面 是否存在转交，回退按钮
         """
-        DomAssert(self.driver).assert_page_control(user['回退'], result)
-        DomAssert(self.driver).assert_page_control(user['转交'], result)
+        DomAssert(self.driver).assert_control(user['回退'], result)
+        DomAssert(self.driver).assert_control(user['转交'], result)
 
     def assert_machine_bom_cooperation_flow_approver(self, code, name):
         """
@@ -1152,13 +1152,13 @@ class MachineBOMCollaboration(HomePage, APIRequest):
             logging.error('断言失败，审批人为:{}'.format(approver))
             raise
         finally:
-            self.quite_iframe()
+            self.frame_exit()
 
     def click_machine_bom_cooperation_oneworks_refuse(self):
         """
         BOM工程师审批页面 点击拒绝
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['BOM工程师审批拒绝'])
         logging.info('点击拒绝')
         self.is_click_tbm(user['BOM工程师审批拒绝-确定'])
@@ -1179,7 +1179,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
             logging.error('断言失败，流程状态为:{}'.format(status))
             raise
         finally:
-            self.quite_iframe()
+            self.frame_exit()
 
     def click_machine_bom_cooperation_oneworks_approve_unfold_factoryinfo(self):
         """
@@ -1199,7 +1199,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         self.mouse_double_click(user['业务审核编辑验证-用量'])
         sleep(0.5)
-        DomAssert(self.driver).assert_page_control(user['业务审核编辑验证-用量'], True)
+        DomAssert(self.driver).assert_control(user['业务审核编辑验证-用量'], True)
 
     def click_machine_bom_cooperation_oneworks_businessapprove_self_inspection(self, box, option):
         """
@@ -1256,7 +1256,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         """
         BOM工程师审批页面 获取BomTree数据
         """
-        info = self.find_elements(user['BOM工程师BomTree信息'])
+        info = self.find_elements_tbm(user['BOM工程师BomTree信息'])
         info_list = []
         for i in info:
             if len(i.text.split('\n')) != 3:
@@ -1269,7 +1269,7 @@ class MachineBOMCollaboration(HomePage, APIRequest):
         BOM工程师审批页面 导出的数据和Bom Tree的数据是一致的
         """
         page_info = self.get_machine_bom_cooperation_oneworks_datagroup_factory_info()
-        excel_info = self.read_excel()
+        excel_info = self.read_excel_flow()
         try:
 
             for i in range(1, len(excel_info) + 1):

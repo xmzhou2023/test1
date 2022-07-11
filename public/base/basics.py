@@ -144,6 +144,7 @@ class Base(object):
         else:
             self.find_element(locator).click()
             logging.info("点击元素：{}".format(locator))
+            sleep(0.5)
 
     @allure.step("点击元素(用js)")
     def force_click(self, xpath, force=False):
@@ -429,7 +430,21 @@ class Base(object):
         self.driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", ele, type, content)
         logging.info("使用JS脚本修改属性")
 
-    @allure.step("点击（TBM专用）")
+    def find_elements_tbm(self, locator, choice=None):
+        """查找多个相同的元素"""
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            logging.info("正在查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.visibility_of_all_elements_located(args)), Npath)
+        else:
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.visibility_of_all_elements_located(args)), locator)
+
+    # """"点击（TBM专用）""""
     def is_click_tbm(self, locator, choice=None):
         try:
             ele = self.find_element(locator, choice)

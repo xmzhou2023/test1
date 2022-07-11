@@ -1,24 +1,21 @@
-import os
+import datetime
 from time import sleep
 import allure
+import requests
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
-import logging
 from libs.common.read_element import Element
 from libs.config.conf import BASE_DIR
-from public.base.assert_ui import DomAssert
-from project.TBM.page_object.home import HomePage
+from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
-class BareMobilePhoneBomCooperation(HomePage):
+
+class BareMobilePhoneBomCooperation(CenterComponent):
     """BOM协作_单机头BOM协作"""
-
-    @allure.step("初始化页面")
-    def refresh_webpage_click_menu(self):
-        sleep(5)
+    def refresh_webpage(self):
         self.refresh()
         self.driver.switch_to.default_content()
         handles = self.driver.window_handles
@@ -28,6 +25,10 @@ class BareMobilePhoneBomCooperation(HomePage):
                 self.close_switch(1)
         else:
             self.switch_window(0)
+
+    @allure.step("初始化页面")
+    def refresh_webpage_click_menu(self):
+        self.refresh_webpage()
         self.click_menu("BOM协作", "单机头BOM协作")
 
     def click_bare_mobile_phone_bom_cooperation_add(self):
@@ -88,7 +89,7 @@ class BareMobilePhoneBomCooperation(HomePage):
 
     def assert_bare_mobile_phone_bom_cooperation_add_bomtree_exist(self, result):
         """点击新增bom"""
-        DomAssert(self.driver).assert_page_control(user['新增BomTree'], result)
+        DomAssert(self.driver).assert_control(user['新增BomTree'], result)
 
     def input_bare_mobile_phone_bom_cooperation_bomtree(self, header, content):
         """
@@ -140,11 +141,25 @@ class BareMobilePhoneBomCooperation(HomePage):
     def get_bare_mobile_phone_bom_cooperation_info(self):
         """
         获取单机头BOM协作第一列内容
-        @return:返回文本及索引位置分别是'No.'：0; '流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10; '操作':11
+        @return:返回文本及索引位置分别是'流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
         """
         self.click_menu("BOM协作", "单机头BOM协作")
         sleep(1)
-        info = self.find_elements(user['表格内容'])
+        info = self.find_elements_tbm(user['表格内容'])
+        infolist = []
+        for i in info:
+            infolist.append(i.get_attribute('innerText'))
+        logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
+        return infolist
+
+    def get_bare_mobile_phone_bom_cooperation_specify_info(self, code):
+        """
+        获取单机头BOM协作指定流程编码的表格内容
+        @return:返回文本及索引位置分别是'流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
+        """
+        self.click_menu("BOM协作", "单机头BOM协作")
+        sleep(1)
+        info = self.find_elements_tbm(user['指定编码表格内容'], code)
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -250,6 +265,8 @@ class BareMobilePhoneBomCooperation(HomePage):
         except:
             self.refresh()
             sleep(1)
+            self.frame_enter(user['待办列表-我申请的-iframe'])
+            sleep(1)
             self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
         self.switch_window(1)
         try:
@@ -261,7 +278,7 @@ class BareMobilePhoneBomCooperation(HomePage):
             sleep(10)
             self.is_click_tbm(user['撤回'])
             self.is_click_tbm(user['撤回确定'])
-        self.quite_iframe()
+        self.frame_exit()
         self.switch_window(0)
         # self.is_click_tbm(user['关闭我申请的'])
         self.click_menu("BOM协作", "单机头BOM协作")
@@ -272,7 +289,6 @@ class BareMobilePhoneBomCooperation(HomePage):
         @param code:流程编码
         """
         self.is_click_tbm(user['删除'], code)
-        sleep(1)
         self.is_click_tbm(user['确定'])
 
     def click_bare_mobile_phone_bom_cooperation_one_press(self):
@@ -321,7 +337,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         @param material:物料名
         @return:返回文本及索引位置分别是  1:'BOM状态'; 2:'Tree';4:'物料编码'; 5:'物料描述'; 6:'物料属性'; 7:'用量'; 8:'替代组'; 9:'份额';
         """
-        info = self.find_elements(user['BomTree内容'], material)
+        info = self.find_elements_tbm(user['BomTree内容'], material)
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -438,7 +454,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         """
         获取BOMTree所有内容
         """
-        info = self.find_elements(user['BomTree全部内容'])
+        info = self.find_elements_tbm(user['BomTree全部内容'])
         infolist = []
         for i in info:
             infolist.append(i.text.split('\n'))
@@ -462,8 +478,6 @@ class BareMobilePhoneBomCooperation(HomePage):
             self.base_get_img()
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
-
-
 
     def upload_bare_mobile_phone_bom_cooperation_wrong_file(self):
         """
@@ -491,7 +505,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         """
         获取导入BOM-结果内容
         """
-        info = self.find_elements(user['导入BOM内容'])
+        info = self.find_elements_tbm(user['导入BOM内容'])
         infolist = []
         for i in info:
             infolist.append(i.text.split('\n'))
@@ -547,25 +561,27 @@ class BareMobilePhoneBomCooperation(HomePage):
         self.click_bare_mobile_phone_bom_cooperation_optional_material()
         self.move_to_add_material('10000011')
         self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011', '物料编码', '10000012')
-        self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011','用量', '1000')
-        self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011','替代组', 'A1')
-        self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011','份额', '80')
+        self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011', '用量', '1000')
+        self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011', '替代组', 'A1')
+        self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011', '份额', '80')
         self.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
         self.click_bare_mobile_phone_bom_cooperation_add_submit()
         sleep(1)
         DomAssert(self.driver).assert_att('创建流程成功')
         self.refresh()
 
-    def agree_bare_mobile_phone_bom_cooperation_supplementary_factory_flow(self):
+    def bare_mobile_phone_bom_cooperation_supplementary_factory_flow(self, code):
         """
         在补充工厂页面，填写信息，点击同意
         """
+        self.enter_bare_mobile_phone_bom_cooperation_onework_edit(code)
         self.input_bare_mobile_phone_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
         self.click_bare_mobile_phone_bom_cooperation_oneworks_slash()
         self.click_bare_mobile_phone_bom_cooperation_oneworks_plant_check('贴片工厂正确')
         self.click_bare_mobile_phone_bom_cooperation_oneworks_agree()
         self.click_bare_mobile_phone_bom_cooperation_oneworks_confirm()
-        self.quit_bare_mobile_phone_bom_cooperation_onework()
+        DomAssert(self.driver).assert_att('处理成功，审核通过')
+        self.quit_onework()
 
     def click_bare_mobile_phone_bom_cooperation_check(self, code):
         """
@@ -590,7 +606,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         """
         退出oneworks查看流程页面
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.close_switch(1)
 
     def enter_bare_mobile_phone_bom_cooperation_my_todo(self):
@@ -604,6 +620,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         iframe = self.find_element(user['待办列表-我申请的-iframe'])
         self.driver.switch_to.frame(iframe)
         sleep(1)
+        self.is_click(user['待办列表-刷新'])
 
     def enter_bare_mobile_phone_bom_cooperation_my_application(self):
         """
@@ -613,17 +630,10 @@ class BareMobilePhoneBomCooperation(HomePage):
         sleep(1)
         self.refresh()
         sleep(1)
-        iframe = self.find_element(user['待办列表-我申请的-iframe'])
-        self.driver.switch_to.frame(iframe)
+        self.frame_enter(user['待办列表-我申请的-iframe'])
         sleep(1)
 
-    def quit_bare_mobile_phone_bom_cooperation_my_todo(self):
-        """
-        退出我的待办页面框架
-        """
-        self.quite_iframe()
-
-    def assert_bare_mobile_phone_bom_cooperation_my_todo(self, code, node, exist=False):
+    def assert_bare_mobile_phone_bom_cooperation_my_todo_node(self, code, node, exist=False):
         """
         我的待办页面-断言：成功处理了流程后，我的待办中存在/不存在该条单据在指定审核节点
         @param code:流程编码
@@ -641,7 +651,7 @@ class BareMobilePhoneBomCooperation(HomePage):
                 logging.error('断言失败，我的待办中存在该条单据在:{}审核节点'.format(actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
         else:
             try:
                 assert actual_node == node
@@ -651,7 +661,7 @@ class BareMobilePhoneBomCooperation(HomePage):
                 logging.error('断言失败，我的待办中不存在该条单据在:{}审核节点'.format(actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
 
     def enter_bare_mobile_phone_bom_cooperation_onework_edit(self, process_code):
         """
@@ -666,7 +676,7 @@ class BareMobilePhoneBomCooperation(HomePage):
             raise
         self.switch_window(1)
         sleep(0.5)
-        self.quite_iframe()
+        self.frame_exit()
         sleep(0.5)
         iframe = self.find_element(user['待办列表-我申请的-iframe'])
         self.driver.switch_to.frame(iframe)
@@ -686,7 +696,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         """
         获取BOMTree所有内容
         """
-        info = self.find_elements(user['OneworksBomTree全部内容'])
+        info = self.find_elements_tbm(user['OneworksBomTree全部内容'])
         infolist = []
         for i in info:
             infolist.append(i.text.split('\n'))
@@ -699,7 +709,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         :param content: 需要断言的内容，可以一次传入多个
         """
         try:
-            self.click_bare_mobile_phone_bom_cooperation_tree('产成品')
+            self.click_bare_mobile_phone_bom_cooperation_tree('单机头')
             contents = self.get_bare_mobile_phone_bom_cooperation_oneworks_bomtree_info()
             content_list = []
             for i in contents:
@@ -716,7 +726,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         """
         补充工厂页面点击同意
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['补充工厂同意'])
         logging.info('点击同意')
 
@@ -819,7 +829,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         BOM工程师审批页面 获取BomTree数据
         """
         self.click_bare_mobile_phone_bom_cooperation_tree('产成品')
-        info = self.find_elements(user['BOM工程师BomTree信息'])
+        info = self.find_elements_tbm(user['BOM工程师BomTree信息'])
         info_list = []
         for i in info:
             if len(i.text.split('\n')) != 3:
@@ -855,7 +865,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         """
         在补充工厂页面中，获取生产工厂信息数据
         """
-        info = self.find_elements(user['补充工厂生产工厂信息'])
+        info = self.find_elements_tbm(user['补充工厂生产工厂信息'])
         info_list = []
         for i in info:
             if len(i.text.split('\n')) != 3:
@@ -891,13 +901,13 @@ class BareMobilePhoneBomCooperation(HomePage):
         BOM工程师审批 点击回退，根据node选择回退节点
         @param node:节点
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['回退'])
         logging.info('点击回退')
         sleep(0.5)
         self.is_click_tbm(user['BOM工程师审批回退到'])
         sleep(0.5)
-        node_dict = {'申请人':'申请人[Applicant]', node:node}
+        node_dict = {'申请人': '申请人[Applicant]', node: node}
         self.is_click_tbm(user['BOM工程师审批回退选择'], node_dict[node])
         logging.info('回退到：{}'.format(node))
 
@@ -912,7 +922,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         """
         BOM工程师审批页面 点击转交
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['转交'])
         logging.info('点击转交')
         sleep(0.5)
@@ -929,7 +939,7 @@ class BareMobilePhoneBomCooperation(HomePage):
         """
         断言： BOM工程师审批页面 是否存在确定转交按钮
         """
-        DomAssert(self.driver).assert_page_control(user['BOM工程师审批确定转交'], result)
+        DomAssert(self.driver).assert_control(user['BOM工程师审批确定转交'], result)
 
     def input_bare_mobile_phone_bom_cooperation_oneworks_refer(self, referrer):
         """
@@ -970,8 +980,8 @@ class BareMobilePhoneBomCooperation(HomePage):
         """
         断言： BOM工程师审批页面 是否存在转交，回退按钮
         """
-        DomAssert(self.driver).assert_page_control(user['回退'], result)
-        DomAssert(self.driver).assert_page_control(user['转交'], result)
+        DomAssert(self.driver).assert_control(user['回退'], result)
+        DomAssert(self.driver).assert_control(user['转交'], result)
 
     def assert_bare_mobile_phone_bom_cooperation_flow_approver(self, code, name):
         """
@@ -989,13 +999,13 @@ class BareMobilePhoneBomCooperation(HomePage):
             logging.error('断言失败，审批人为:{}'.format(approver))
             raise
         finally:
-            self.quite_iframe()
+            self.frame_exit()
 
     def click_bare_mobile_phone_bom_cooperation_oneworks_refuse(self):
         """
         BOM工程师审批页面 点击拒绝
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['BOM工程师审批拒绝'])
         logging.info('点击拒绝')
         sleep(0.5)
@@ -1018,7 +1028,130 @@ class BareMobilePhoneBomCooperation(HomePage):
             logging.error('断言失败，流程状态为:{}'.format(status))
             raise
         finally:
-            self.quite_iframe()
+            self.frame_exit()
+
+    def request_bare_mobile_phone_bom_cooperation_add(self, data, headers):
+        """
+        TBM 单机头BOM协作 新增接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：单机头BOM协作新增接口')
+        return self.api_request('单机头BOM协作新增接口', data, headers)
+
+    def request_bare_mobile_phone_bom_cooperation_search(self, data, headers):
+        """
+        TBM 单机头BOM协作 TBM查询接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：单机头BOM协作查询接口')
+        return self.api_request('单机头BOM协作查询接口', data, headers)
+
+    @allure.step("单机头BOM协作新增接口")
+    def api_bare_mobile_phone_bom_cooperation_add(self):
+        """
+        TBM 单机头BOM协作新增接口
+        """
+        logging.info('发起流程接口：单机头BOM协作新增流程')
+        token = self.tbm_login()
+        titletime = datetime.datetime.now().strftime('%Y-%m-%d')
+        flowStartdate = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        add_data = {"flowId": 'null', "flowNodeName": "start",
+                    "bomArchive": {"flowNo": "", "flowProposer": "18645960", "flowProposerName": "李小素",
+                                   "flowStartdate": f"{flowStartdate}", "bomVer": "", "bomVersion": "trial",
+                                   "brandCode": "itel", "market": "ET", "produceClass": "singleHead",
+                                   "templateId": 1017733, "templateName": "itel单机头", "isLocalPurchase": "",
+                                   "bomClass": "", "model": "X572-1", "note": "", "title": f"[李小素]-[{titletime}]",
+                                   "researchType": "selfResearch", "flowDept": "PI_系统四部", "doDeriveSame": 'false',
+                                   "curFlowCode": "structureStart"}, "bomDeriveList": [], "otherDeriveList": [],
+                    "bomTreeVOList": [{"id": "new_bom_3000", "matGroup": "120", "bomName": "单机头", "statusCode": "trial",
+                                       "baseQty": "1000", "nodeClass": "actual",
+                                       "businessRole": "qpm,pm,mpm,structure,hardware,screenage,audio,preResearch,cmf,pilot,nps",
+                                       "tempNodeId": 3732, "childNodes": [
+                            {"id": "new_bom_3001", "matGroup": "121", "bomName": "PCBA", "nodeClass": "actual",
+                             "businessRole": "hardware", "tempNodeId": 3733, "childNodes": [], "index": 0,
+                             "serialNo": "1.1"},
+                            {"id": "new_bom_3002", "matGroup": "250", "bomName": "电池", "nodeClass": "actual",
+                             "businessRole": "preResearch", "tempNodeId": 3734, "childNodes": [], "index": 1,
+                             "serialNo": "1.2"},
+                            {"id": "new_bom_3003", "matGroup": "176", "bomName": "指纹模组", "nodeClass": "actual",
+                             "businessRole": "preResearch", "tempNodeId": 3735, "childNodes": [], "index": 2,
+                             "serialNo": "1.3"},
+                            {"id": "new_bom_3004", "matGroup": "232", "bomName": "镜片", "nodeClass": "actual",
+                             "businessRole": "structure", "tempNodeId": 3736, "childNodes": [], "index": 3,
+                             "serialNo": "1.4"},
+                            {"id": "new_bom_3005", "matGroup": "123", "bomName": "虚拟共用件", "nodeClass": "actual",
+                             "businessRole": "structure", "tempNodeId": 3737, "childNodes": [
+                                {"id": "new_bom_3006", "matGroup": "172", "bomName": "摄像头", "nodeClass": "actual",
+                                 "businessRole": "structure", "tempNodeId": 3738, "childNodes": [], "index": 0,
+                                 "serialNo": "1.5.1"},
+                                {"id": "new_bom_3007", "matGroup": "195", "bomName": "听筒", "nodeClass": "actual",
+                                 "businessRole": "structure", "tempNodeId": 3739, "childNodes": [], "index": 1,
+                                 "serialNo": "1.5.2"}], "index": 4, "serialNo": "1.5"}], "isRoot": 'true', "index": 0,
+                                       "serialNo": 1, "matCode": "12012025", "deleteValidate": 'false',
+                                       "note": "单机头_itel_it2173_G1812_B_深蓝_RU_4+4", "matAttr": "可选"}],
+                    "bomDeriveTreeVOList": [], "approvers": {"bisReviewApprovers": [], "bisSupplyApprovers": [
+                {"role": "mpm", "userNo": "18645960"}, {"role": "pm", "userNo": ""}, {"role": "cmf", "userNo": ""},
+                {"role": "qpm", "userNo": ""}, {"role": "structure", "userNo": ""}, {"role": "hardware", "userNo": ""},
+                {"role": "screenage", "userNo": ""}, {"role": "audio", "userNo": ""},
+                {"role": "preResearch", "userNo": ""}, {"role": "pilot", "userNo": ""}, {"role": "nps", "userNo": ""}]},
+                    "uploadList": [], "submitType": "submit"}
+        search_data = {
+            "param": {"title": "", "flowNo": "", "bomCode": "", "produceClass": "", "model": "", "brandCode": "",
+                      "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
+                      "createdTimeFrom": "", "createdTimeTo": "", "bomType": "singleHeadBom"}, "current": 1, "size": 10}
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        add_reponse = self.request_bare_mobile_phone_bom_cooperation_add(add_data, headers)
+        flowId = add_reponse['body']['data']
+        search_reponse = self.request_bare_mobile_phone_bom_cooperation_search(search_data, headers)
+        search_reponse_data = search_reponse['body']['data']['data']
+        for i in search_reponse_data:
+            if i['flowId'] == flowId:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(i['flowNo'], i['instanceId'], i['flowId']))
+                logging.info('流程接口结束：单机头BOM协作新增流程')
+                return i['flowNo'], i['instanceId'], i['flowId']
+
+    def request_bare_mobile_phone_bom_cooperation_recall(self, instanceId, headers):
+        """
+        oneworks TBM 单机头BOM协作撤回接口
+        @param instanceId:oneworks撤回流程编码
+        @param headers:接口头部
+        """
+        logging.info('发起请求：oneworks流程撤回接口')
+        logging.info(f'接口请求地址为：http://10.250.112.14:8090/oneworks/base_api/process-center/instance/{instanceId}/revoke')
+        recall_response = requests.delete(
+            url=f'http://10.250.112.14:8090/oneworks/base_api/process-center/instance/{instanceId}/revoke',
+            headers=headers)
+        response_dicts = dict()
+        response_dicts['body'] = recall_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        return response_dicts
+
+    def request_bare_mobile_phone_bom_cooperation_delete(self, data, headers):
+        """
+        TBM 单机头BOM协作删除已撤回接口
+        @param data:oneworks撤回流程编码
+        @param headers:接口头部
+        """
+        logging.info('发起请求：单机头BOM协作查询接口')
+        return self.api_request('单机头BOM协作删除已撤回接口', data, headers)
+
+    @allure.step("单机头BOM协作撤回删除接口")
+    def api_bare_mobile_phone_bom_cooperation_delete(self, instanceid, flowid):
+        """
+        通过调用接口发起撤回流程
+        调用接口：oneworks流程撤回接口，单机头BOM协作删除已撤回接口
+        @param instanceid:oneworks撤回流程编码
+        @param flowid:流程ID
+        """
+        logging.info('发起流程接口：单机头BOM协作撤回流程')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        delete_data = {"id": flowid}
+        self.request_bare_mobile_phone_bom_cooperation_recall(instanceid, headers)
+        self.request_bare_mobile_phone_bom_cooperation_delete(delete_data, headers)
+        logging.info('流程接口结束：单机头BOM协作撤回流程')
 
 
 if __name__ == '__main__':

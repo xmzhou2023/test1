@@ -14,5 +14,6 @@ def test_login(drivers):
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
     user.login(drivers, ini.url, account[2]['usernum'], account[2]['passwd'])
-    DomAssert(drivers).assert_att('首页')
+    DomAssert(drivers).assert_exact_att('首页')
     logging.info("前置条件：传音统一登录成功")
+

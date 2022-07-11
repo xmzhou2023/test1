@@ -1,6 +1,4 @@
-import allure
 import pytest
-from libs.common.time_ui import sleep
 from public.base.assert_ui import *
 from project.TBM.page_object.KeyComponent_KeyComponentFlow import KeyComponentsFlow
 
@@ -54,7 +52,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.FT  # 用例标记
     def test_002_001(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.enter_key_components_flow_my_todo()
         user.click_key_components_flow_onework_edit(api_response[0], '摄像头+闪光灯')
         user.click_onework_key_components_flow_unfold('摄像头+闪光灯')
@@ -70,7 +68,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_material_parameter('连接方式', '焊接', False)
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_key_components_flow_onework()
+        user.quit_onework()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("硬件电子料-基带节点，审批成功")  # 用例名称
@@ -81,7 +79,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.FT  # 用例标记
     def test_002_002(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.enter_key_components_flow_my_todo()
         user.click_key_components_flow_onework_edit(api_response[0], '硬件电子料-基带')
         user.click_onework_key_components_flow_unfold('硬件电子料-基带')
@@ -92,7 +90,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_material_details('物料属性', '属性test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_key_components_flow_onework()
+        user.quit_onework()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("标准化代表节点，审批成功")  # 用例名称
@@ -102,7 +100,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.FT  # 用例标记
     def test_002_003(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.onework_key_components_flow_flowone(api_response[0])
         user.onework_key_components_flow_flowtwo(api_response[0])
         user.enter_key_components_flow_my_todo()
@@ -114,7 +112,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_onework_key_components_flow_onepress_cancel()
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_key_components_flow_onework()
+        user.quit_onework()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("采购代表节点，审批成功")  # 用例名称
@@ -126,7 +124,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.FT  # 用例标记
     def test_002_004(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.onework_key_components_flow_flowone(api_response[0])
         user.onework_key_components_flow_flowtwo(api_response[0])
         user.enter_key_components_flow_my_todo()
@@ -135,16 +133,20 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_onework_key_components_flow_onepress()
         user.input_onework_key_components_flow_onepress('资源商务', '李小素')
         user.click_onework_key_components_flow_onepress_confirm()
+        DomAssert(drivers).assert_att('已选分类的审批人设置成功')
         user.input_onework_key_components_flow_onepress('采购执行', '李小素')
         user.click_onework_key_components_flow_onepress_confirm()
+        DomAssert(drivers).assert_att('已选分类的审批人设置成功')
         user.input_onework_key_components_flow_onepress('采购PTC', '李小素')
         user.click_onework_key_components_flow_onepress_confirm()
+        DomAssert(drivers).assert_att('已选分类的审批人设置成功')
         user.input_onework_key_components_flow_onepress('采购SQM', '李小素')
         user.click_onework_key_components_flow_onepress_confirm()
+        DomAssert(drivers).assert_att('已选分类的审批人设置成功')
         user.click_onework_key_components_flow_onepress_cancel()
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_key_components_flow_onework()
+        user.quit_onework()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("资源商务评估节点，审批成功")  # 用例名称
@@ -156,7 +158,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.FT  # 用例标记
     def test_002_005(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.onework_key_components_flow_flowone(api_response[0])
         user.onework_key_components_flow_flowtwo(api_response[0])
         user.onework_key_components_flow_flowthree(api_response[0])
@@ -197,7 +199,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_procurement_evaluation('原因及修改建议', '原因及修改建议TEST')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_key_components_flow_onework()
+        user.quit_onework()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("采购执行评估节点，审批成功")  # 用例名称
@@ -208,7 +210,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.FT  # 用例标记
     def test_002_006(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.onework_key_components_flow_flowone(api_response[0])
         user.onework_key_components_flow_flowtwo(api_response[0])
         user.onework_key_components_flow_flowthree(api_response[0])
@@ -249,7 +251,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_procurement_execution('备料建议', '备料建议test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_key_components_flow_onework()
+        user.quit_onework()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("采购PTC评估节点，审批成功")  # 用例名称
@@ -259,7 +261,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.FT  # 用例标记
     def test_002_007(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.onework_key_components_flow_flowone(api_response[0])
         user.onework_key_components_flow_flowtwo(api_response[0])
         user.onework_key_components_flow_flowthree(api_response[0])
@@ -280,7 +282,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_ptc('原因及修改建议', '原因及修改建议test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_key_components_flow_onework()
+        user.quit_onework()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("采购SQM评估节点，审批成功")  # 用例名称
@@ -290,7 +292,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.FT  # 用例标记
     def test_002_008(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.onework_key_components_flow_flowone(api_response[0])
         user.onework_key_components_flow_flowtwo(api_response[0])
         user.onework_key_components_flow_flowthree(api_response[0])
@@ -311,7 +313,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_sqm('原因及修改建议', '原因及修改建议test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_key_components_flow_onework()
+        user.quit_onework()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("标准化部评估节点，审批成功")  # 用例名称
@@ -321,7 +323,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.FT  # 用例标记
     def test_002_009(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.onework_key_components_flow_flowone(api_response[0])
         user.onework_key_components_flow_flowtwo(api_response[0])
         user.onework_key_components_flow_flowthree(api_response[0])
@@ -340,7 +342,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_standardized_evaluation('原因及修改建议', '原因及修改建议test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_key_components_flow_onework()
+        user.quit_onework()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("标准化部评估节点，审批成功")  # 用例名称
@@ -349,7 +351,7 @@ class TestTheProcessOfExaminationAndApproval:
     @pytest.mark.smoke  # 用例标记
     def test_002_010(self, drivers):
         user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
+        user.refresh_webpage()
         user.onework_key_components_flow_flowone(api_response[0])
         user.onework_key_components_flow_flowtwo(api_response[0])
         user.onework_key_components_flow_flowthree(api_response[0])
@@ -363,7 +365,7 @@ class TestTheProcessOfExaminationAndApproval:
         sleep(60)
         user.assert_key_components_flow_my_application_flow(api_response[0], '审批完成')
         document_status = user.get_key_components_flow_info()[5]
-        ValueAssert(drivers).value_assert_equal('approved', document_status)
+        ValueAssert.value_assert_equal(document_status, 'approved')
         user.delete_key_components_flow_sql('50A1S')
 
 
