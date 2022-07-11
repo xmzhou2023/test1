@@ -347,7 +347,7 @@ class Base(object):
         # 写入报告
         self.__base_write_img(imgname)
 
-    def __base_write_img(self, imgname)
+    def __base_write_img(self, imgname):
         """读图片"""
         logging.error("日志正在附加截图...")
         with open(imgname, 'rb') as f:
