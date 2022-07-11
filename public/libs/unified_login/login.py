@@ -15,4 +15,3 @@ class Login(Base):
         user.input_passwd(passwd) # 输入密码
         user.click_checkbox()
         user.click_loginsubmit()
-

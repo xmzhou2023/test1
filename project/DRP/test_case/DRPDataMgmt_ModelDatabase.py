@@ -1,6 +1,6 @@
 import allure
 import pytest
-from public.base.assert_ui import DomAssert, ValueAssert
+from public.base.assert_ui import *
 from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.DRPDataMgmt_ModelDatabase import ModelDatabase
 
