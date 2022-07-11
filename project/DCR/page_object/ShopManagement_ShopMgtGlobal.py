@@ -5,26 +5,10 @@ import random
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
 class ShopManagementPage(Base):
     """ShopManagementPage 页面元素类"""
-
-    def iframe_shop_mgt(self):
-        """门店管理页面，进入iframe"""
-        self.frame_enter(user['iframe shop mgt'])
-        sleep(1)
-
-    def iframe_add_shop(self):
-        """add shop页面，进入iframe"""
-        self.frame_enter(user['iframe shop add'])
-        sleep(1)
-
-    def iframe_exit(self):
-        """退出iframe"""
-        self.frame_exit()
-        sleep(1)
-
     def click_add(self):
         """点击Add新建门店按钮"""
         self.is_click(user['Add'])
@@ -108,7 +92,6 @@ class ShopManagementPage(Base):
     def click_submit(self):
         """新建或者编辑门店时，点击提交"""
         self.is_click_dcr(user['Submit'])
-        sleep(8)
 
 
     def shop_random(self):
@@ -133,7 +116,7 @@ class ShopManagementPage(Base):
     def click_query_search(self):
         """点击Search查询门店信息"""
         self.is_click(user['Search'])
-        sleep(3.5)
+
 
     def click_first_checkbox(self):
         """筛选最近新建的门店ID后，勾线第一个复选框"""
@@ -152,7 +135,7 @@ class ShopManagementPage(Base):
     def click_confirm_delete(self):
         """点击Confirm 确认删除按钮"""
         self.is_click(user['Delete Confirm'])
-        sleep(0.5)
+        #sleep(0.5)
 
     def get_text_edit_success(self):
         """删除门店成功后，获取列表 successfully文本内容"""
@@ -217,11 +200,12 @@ class ShopManagementPage(Base):
         self.is_click(user['Extend Brand'])
         sleep(1)
 
-    def select_extend_Brand(self):
+    def select_extend_brand(self, content):
         """点击选择扩展品牌的输入框，然后选择扩展的品牌itel"""
         self.is_click(user['下拉选择扩展品牌'])
-        sleep(1.5)
-        self.is_click_dcr(user['Select itel'], "itel")
+        self.input_text(user['下拉选择扩展品牌'], txt=content)
+        sleep(2)
+        self.is_click(user['选中扩展的品牌'])
 
     def extend_brand_save(self):
         """点击增加扩展品牌时，弹出窗口选择品牌后，点击Save"""

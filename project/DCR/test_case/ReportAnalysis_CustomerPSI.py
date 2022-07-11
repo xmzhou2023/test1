@@ -1,7 +1,6 @@
 from project.DCR.page_object.ReportAnalysis_CustomerPSI import CustomerPSIPage
-from project.DCR.page_object.menu import MenuPage
 import logging
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
@@ -27,8 +26,7 @@ class TestQueryDistiCustomerPSI():
         # base.refresh()
         # sleep(3.5)
         """报表分析-打开客户PSI页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Report Analysis", "Customer PSI")
+        user.click_gotomenu("Report Analysis", "Customer PSI")
         sleep(9)
 
         psi = CustomerPSIPage(drivers)
@@ -98,8 +96,8 @@ class TestExportDistiCustomerPSI():
         sleep(3.5)
 
         """报表分析-打开客户PSI页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Report Analysis", "Customer PSI")
+        user = LoginPage(drivers)
+        user.click_gotomenu("Report Analysis", "Customer PSI")
         sleep(9)
 
         """筛选国包客户PSI列表数据，导出数据是否正常"""
@@ -135,7 +133,7 @@ class TestExportDistiCustomerPSI():
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Customer Psi")
-        ValueAssert.value_assert_equal(task_id, "testsupervisor")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date1, today1)
         ValueAssert.value_assert_equal(complete_date1, today1)
         ValueAssert.value_assert_equal(operation, "Download")
@@ -163,8 +161,8 @@ class TestExportDistiCustomerPSI():
         base.refresh()
         sleep(3.5)
         """考勤管理-打开考勤记录页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Report Analysis", "Customer PSI")
+        user = LoginPage(drivers)
+        user.click_gotomenu("Report Analysis", "Customer PSI")
         sleep(9)
 
         export = CustomerPSIPage(drivers)

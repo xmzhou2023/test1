@@ -103,7 +103,7 @@ class TestQueryShopInventoryIMEI():
         sleep(1)
         shop_inventory.click_reset()
         shop_inventory.click_close_shop_inventory_imei()
-        sleep(1)
+        sleep(1.5)
 
 
 @allure.feature("报表分析-门店库存IMEI查询")

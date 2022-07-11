@@ -82,7 +82,7 @@ class TestQueryVisitRecord():
             logging.info("根据门店ID筛选，巡店记录列表中，未加载筛选的数据，分页总条数Total:{}".format(total1))
         visit.click_reset()
         visit.click_close_visit_record()
-        sleep(1)
+        sleep(1.5)
 
 
 @allure.feature("考勤&巡店-巡店记录")

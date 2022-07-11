@@ -95,7 +95,7 @@ class TestQueryShopInventoryIMEI():
         # ValueAssert.value_assert_equal(series_text, series)
         # ValueAssert.value_assert_In(model_text, model)
 
-        if int(total1) >= 0:
+        if int(total1) > 0:
             logging.info("查看Shop Inventory IMEI Query列表，加载筛选的数据正常，分页总条数Total：{}".format(total1))
         else:
             logging.info("查看Shop Inventory IMEI Query列表，加载筛选的数据正常，分页总条数Total：{}".format(total1))

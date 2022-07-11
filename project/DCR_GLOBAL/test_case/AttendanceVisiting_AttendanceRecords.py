@@ -50,9 +50,11 @@ class TestQueryAttendanceRecord():
     def test_001_002(self, drivers):
         """查询某个用户的，当天考勤记录用例"""
         query_user = AttendanceRecordPage(drivers)
+        sleep(1)
         """获取当天日期"""
         today = datetime.date.today()
         today1 = str(today)
+
         query_user.input_query_date(today1)
         query_user.click_search()
         sleep(7)

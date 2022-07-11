@@ -4,7 +4,8 @@ Click Role value: "xpath==//span[contains(text(),'lhmItel店长')]"
 
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-第一个复选框: "css==[class='el-table_1_column_1 is-center el-table-column--selection ']"
+#第一个复选框: "css==[class='el-table_1_column_1 is-center el-table-column--selection ']"
+第一个复选框: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span/span"
 Permission Setting: "xpath==//span[contains(text(),'Permission Setting')]"
 
 #Web点击菜单名称前的复选框

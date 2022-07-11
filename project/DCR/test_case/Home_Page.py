@@ -1,8 +1,7 @@
-from project.DCR.page_object.menu import MenuPage
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert
-from project.DCR.page_object.HomePage import HomePagePage
+from project.DCR.page_object.Home_Page import HomePagePage
 import logging
 from libs.common.time_ui import sleep
 import datetime
@@ -22,8 +21,7 @@ class TestQueryUserMgtCard():
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
         sleep(5)
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Home Page")
+        user.click_gotomenu("Home Page")
         sleep(5)
         page_user_mgt = HomePagePage(drivers)
         page_user_mgt.click_time_period()
@@ -166,4 +164,4 @@ class TestQueryAbnormalDataCard():
 
 
 if __name__ == '__main__':
-    pytest.main(['HomePage.py'])
+    pytest.main(['Home_Page.py'])

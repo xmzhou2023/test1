@@ -4,7 +4,7 @@ from libs.common.time_ui import sleep
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
 class RoleDefinitionPage(Base):
     """RoleDefinitionPage 定位元素类"""
@@ -17,13 +17,16 @@ class RoleDefinitionPage(Base):
         self.is_click(user['Click Role value'])
 
     def click_search(self):
+        """进入角色设置页面，点击查询按钮"""
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(2.5)
 
     def click_first_checkbox(self):
+        """进入角色设置页面，筛选角色后，点击第一个复选框"""
         self.is_click(user['第一个复选框'])
 
     def click_permission_setting(self):
+        """点击Permission Setting权限设置按钮"""
         self.is_click(user['Permission Setting'])
         sleep(3)
 

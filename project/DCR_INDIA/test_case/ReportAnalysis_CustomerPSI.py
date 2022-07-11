@@ -140,10 +140,10 @@ class TestExportDistiCustomerPSI():
         else:
             logging.info("Customer PSI导出失败，Export Time(s)导出时间小于0s:{}".format(export_time1))
         export.click_close_customerPSI()
-        sleep(2)
+        sleep(1.5)
 
 
-    @allure.story("导出")
+    @allure.story("导出客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询二代客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据，并导出。断言导出数据是否正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
