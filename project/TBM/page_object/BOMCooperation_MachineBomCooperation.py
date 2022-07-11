@@ -347,7 +347,7 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         @return:返回文本及索引位置分别是  0:'No.'; 1:'BOM类型'; 2:'BOM状态'; 3:'Tree'; 4:'复选框'; 5:'物料编码';
                                     6:'物料描述'; 7:'物料属性'; 8:'用量'; 9:'替代组'; 10:'份额'; 11:'操作'
         """
-        info = self.find_elements_tbm_tbm(user['BomTree内容'], material)
+        info = self.find_elements_tbm(user['BomTree内容'], material)
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
