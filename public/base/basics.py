@@ -1,3 +1,5 @@
+import datetime
+
 import openpyxl
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -338,6 +340,18 @@ class Base(object):
         return Base.element_locator(lambda *args: self.wait.until(
             EC.visibility_of_any_elements_located(args)), locator)
 
+    def presence_sleep_dcr(self, content):
+        """通用的显示等待方法(DCR专用)"""
+        txt1 = None
+        while not txt1:
+            txt1 = self.find_element(content)
+
+    def get_datetime_today(self):
+        """获取当天日期(DCR专用)"""
+        today = datetime.date.today()
+        today1 = str(today)
+        return today1
+
     def base_get_img(self, name='err'):
         """截图方法"""
         imgname = IMAGE_PATH + '\\' + "{}.png".format(name)
@@ -480,6 +494,7 @@ class Base(object):
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
+
 
 if __name__ == "__main__":
     pass
