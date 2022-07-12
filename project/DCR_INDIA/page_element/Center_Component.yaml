@@ -1,3 +1,16 @@
+###======定位登录元素============================================
+工号输入框: "name==username"
+密码输入框: "name==password"
+语言切换: "id==select_lang"
+选择英文: "xpath==//*[@id='app']/div/div[1]/div/form/div[4]/div/div/div[1]/input"
+隐私保护勾选: "xpath==//span[text()='By logging in, means you have read and agreed the']/../label"
+登录: "xpath==//span[contains(text(),'LOGIN')]"
+
+退出登录: "id==LoginOut"
+退出登录2: "css==[id='LoginOut']"
+
+
+###=====定位菜单元素=======================================
 Home Page: "xpath==//span[(text()='Home Page')]"
 Home Page-Customer: "xpath==//span[(text()='Home Page-Customer')]"
 Home Page-SO: "xpath==//span[(text()='home Page-So')]"

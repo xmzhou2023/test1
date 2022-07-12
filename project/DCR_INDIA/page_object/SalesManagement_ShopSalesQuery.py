@@ -18,8 +18,9 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['Select Shop Value'])
 
     def click_unfold(self):
+        sleep(2)
         self.is_click(user['Unfold'])
-        sleep(1)
+        sleep(2)
 
     def click_fold(self):
         self.is_click(user['Fold'])
@@ -34,7 +35,7 @@ class ShopSaleQueryPage(Base):
     def click_search(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
         self.is_click_dcr(user['Search'])
-
+        sleep(3)
 
     def click_reset(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
@@ -68,12 +69,14 @@ class ShopSaleQueryPage(Base):
 
     def get_total_text(self):
         """Shop Sales Query页面，获取列表Status文本内容"""
+        Base.find_element(self, user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
         return total
 
     def click_export(self):
         """Shop Sales Query页面，点击Export 导出门店销量查询数据"""
         self.is_click(user['Export'])
+        sleep(2)
 
     def click_close_export_record(self):
         """关闭导出记录菜单"""
@@ -92,17 +95,15 @@ class ShopSaleQueryPage(Base):
         """Visit Record页面，点击Export导出按钮"""
         self.is_click(user['Export'])
 
-    def click_download_icon(self):
+    def click_download_more(self):
+        """点击异步导出，点击更多按钮"""
         self.is_click(user['Download Icon'])
         sleep(2.5)
-
-    def click_more(self):
         self.is_click(user['More'])
-        sleep(3)
+        sleep(6)
 
     def click_export_search(self):
         self.is_click(user['Export Record Search'])
-        sleep(2.5)
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
@@ -143,6 +144,32 @@ class ShopSaleQueryPage(Base):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
         return export_time
+
+    def assert_total(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 0:
+            logging.info("Shop Sales Query列表，按Shop ID筛选，加载筛选后的数据正常，分页总条数Total：{}".format(total))
+        else:
+            logging.info("查看Shop Sales Query列表，未加载筛选后的数据失败，分页总条数Total：{}".format(total))
+
+    def assert_total2(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 1000:
+            logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
+        else:
+            logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total))
+
+    def assert_file_time_size(self, file_size, export_time):
+        """断言文件或导出时间是否有数据 """
+        if int(file_size) > 0:
+            logging.info("Shop Sales Query导出成功，File Size 导出文件大于0KB:{}".format(file_size))
+        else:
+            logging.info("Shop Sales Query导出成功，File Size 导出文件小于0KB:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("Shop Sales Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Shop Sales Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
 
 
 if __name__ == '__main__':

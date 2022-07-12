@@ -23,8 +23,9 @@ class CustomerPSIPage(Base):
 
     def click_sub_dealer(self):
         """点击Sub-dealer按钮筛选二代数据"""
+        Base.find_element(self, user['Sub dealer'])
         self.is_click(user['Sub dealer'])
-        sleep(1)
+        sleep(4)
 
     def click_search(self):
         """点击Search查询按钮"""
@@ -37,6 +38,7 @@ class CustomerPSIPage(Base):
 
     def get_sale_regiona_text(self):
         """获取Sales Region2字段文本"""
+        Base.find_element(self, user['获取Sale Regiona文本'])
         sale_region2 = self.element_text(user['获取Sale Regiona文本'])
         return sale_region2
 
@@ -63,20 +65,17 @@ class CustomerPSIPage(Base):
 
 
     #Customer PSI列表数据筛选后，导出操作成功后验证
-    def iframe_export_record(self):
-        """Export Record页面，进入iframe"""
-
     def click_export(self):
         """Customer PSI页面，点击Export导出按钮"""
+        Base.find_element(self, user['Export'])
         self.is_click(user['Export'])
+        sleep(2)
 
-    def click_download_icon(self):
+    def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(2.5)
-
-    def click_more(self):
         self.is_click(user['More'])
-        sleep(3.5)
+        sleep(3)
 
     def click_export_search(self):
         self.is_click(user['Export Record Search'])
@@ -121,7 +120,24 @@ class CustomerPSIPage(Base):
         export_time = self.element_text(user['获取导出时间'])
         return export_time
 
+    def assert_total(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 1:
+            logging.info("按日期筛选Distributor Customer PSI后，能正常加载数据，Total{}".format(total))
+        else:
+            logging.info("按日期筛选Distributor Customer PSI后，未筛选到满足条件的数据，Total1{}".format(total))
 
+    def assert_file_time_size(self, file_size, export_time):
+        """断言文件或导出时间是否有数据 """
+        if int(file_size) > 0:
+            logging.info("Customer PSI导出成功，File Size 导出文件大于1KB:{}".format(file_size))
+        else:
+            logging.info("Customer PSI导出失败，File Size 导出文件小于1KB:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("Customer PSI导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Customer PSI导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
 
 if __name__ == '__main__':
     pass

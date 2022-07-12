@@ -1,5 +1,6 @@
-from libs.common.read_element import Element
+import time
 
+from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from public.base.basics import Base
 import datetime
@@ -39,6 +40,7 @@ class AttendanceRecordPage(Base):
 
     def get_photo_text(self):
         """Attendance Records页面，获取列表Picture文本"""
+        Base.presence_sleep_dcr(self, user['获取列表photo文本'])
         photo = self.element_text(user['获取列表photo文本'])
         return photo
 
@@ -49,6 +51,7 @@ class AttendanceRecordPage(Base):
 
     def get_user_id_text(self):
         """Attendance Records页面，获取列表User ID文本"""
+        Base.presence_sleep_dcr(self, user['获取列表UserID文本'])
         userid = self.element_text(user['获取列表UserID文本'])
         return userid
 
@@ -77,26 +80,30 @@ class AttendanceRecordPage(Base):
         return homepage
 
 
+    # def presence_sleep(self, content):
+    #     """DCR通用的显示等待方法"""
+    #     txt1 = None
+    #     while not txt1:
+    #         txt1 = self.find_element(content)
+    #
 
     """导出考勤记录功能"""
-    def click_download_icon(self):
-        """导出操作后，点击右上角下载图标"""
+    def click_download_more(self):
+        """导出操作后，点击右上角下载图标,点击右上角more..."""
         self.is_click(user['Download Icon'])
         sleep(2)
-
-    def click_more(self):
-        """导出操作后，点击右上角more..."""
         self.is_click(user['More'])
-        sleep(3)
+        sleep(8)
 
     def click_export_search(self):
         self.is_click(user['Export Record Search'])
-        sleep(3)
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
-        status = self.element_text(user['获取下载状态文本'])
-        return status
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status1 = self.element_text(user['获取下载状态文本'])
+            return status1
 
     def get_task_name_text(self):
         """导出记录页面，获取列表 Task Name文本"""
@@ -132,6 +139,26 @@ class AttendanceRecordPage(Base):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
         return export_time
+
+    def assert_total(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 0:
+            logging.info("筛选考勤记录列表，分页总条数大于0，能查询到考勤记录数Total:{}".format(total))
+        else:
+            logging.info("筛选考勤记录列表，分页总条数为0，未查询到考勤记录数Total:{}:".format(total))
+
+    def assert_file_time_size(self, file_size, export_time):
+        """断言文件或导出时间是否有数据 """
+        if int(file_size) > 0:
+            logging.info("Attendance Records导出成功，File Size导出文件大于M:{}".format(file_size))
+        else:
+            logging.info("Attendance Records导出失败，File Size导出文件小于M:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
+
 
 if __name__ == '__main__':
     pass

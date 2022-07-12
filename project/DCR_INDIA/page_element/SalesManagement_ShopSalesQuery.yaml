@@ -3,8 +3,8 @@ Select Shop Value: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]
 Search: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[1]/span[contains(text(),'Search')]"
 Reset: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[2]/span[contains(text(),'Reset')]"
 
-Unfold: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/div/span[1]"
-Fold: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/div/span[2]"
+Unfold: "xpath==//span[contains(text(),'Unfold')]"
+Fold: "xpath==//span[contains(text(),'Fold')]"
 Sales Date Start Date: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[2]/div[4]/div/div/div/div/div[1]/div/input"
 Sales Date End Date: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[2]/div[4]/div/div/div/div/div[3]/div/input"
 
