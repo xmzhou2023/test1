@@ -75,7 +75,7 @@ class LoginPage(Base):
             navstr = navstr + '->' + content[i]
             level.append(navstr[2:])
         for i in range(len(content)):
-            logging.info(user[level[i]])
+            # logging.info(user[level[i]])
             sleep(2)
             self.scroll_into_view(user[level[i]])
             sleep(2)
