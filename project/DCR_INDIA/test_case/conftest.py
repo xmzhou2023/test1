@@ -4,7 +4,7 @@ from public.base.assert_ui import *
 from public.libs.unified_login.login import Login
 from libs.common.read_config import *
 
-pro_name = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).split('\\')[-1]
+pro_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 @pytest.fixture(scope='session',autouse=True)
 def __init__(drivers, env_name):
