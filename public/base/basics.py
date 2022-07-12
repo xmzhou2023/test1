@@ -73,10 +73,19 @@ class Base(object):
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), locator)
 
-    def find_elements(self, locator):
+    def find_elements(self, locator, choice=None):
         """寻找多个相同的元素"""
-        return Base.element_locator(lambda *args: self.wait.until(
-            EC.presence_of_all_elements_located(args)), locator)
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', str(choice))
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.presence_of_all_elements_located(args)), Npath)
+        else:
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.presence_of_all_elements_located(args)), locator)
 
     def elements_num(self, locator):
         """获取相同元素个数"""
