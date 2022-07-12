@@ -1,6 +1,10 @@
+import allure
+from public.base.basics import Base, sleep
 from libs.common.read_element import Element
-from libs.common.time_ui import sleep
-from public.base.basics import Base
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+import logging
+
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -10,7 +14,9 @@ class DeliveryOrderPage(Base):
     """DeliveryOrderPage类，生产环境，Delivery Order页面元素定位"""
     def click_export(self):
         """Delivery Order页面，点击导出功能"""
+        Base.find_element(self, user['Click Export'])
         self.is_click(user['Click Export'])
+        sleep(2)
 
     def click_unfold(self):
         """点击Unfold展开筛选条件"""
@@ -24,6 +30,7 @@ class DeliveryOrderPage(Base):
 
     def input_delivery_date(self, content1, content2):
         """输入Delivery Date开始与结束日期筛选"""
+        Base.find_element(self, user['Delivery Start Date'])
         self.is_click(user['Delivery Start Date'])
         self.input_text(user['Delivery Start Date'], txt=content1)
         sleep(1)
@@ -37,7 +44,7 @@ class DeliveryOrderPage(Base):
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(10)
+        sleep(5)
 
     def get_total_text(self):
         """获取Total分页总条数文本"""
@@ -46,6 +53,7 @@ class DeliveryOrderPage(Base):
 
     def get_sales_order_text(self):
         """获取列表Sales Order ID文本内容"""
+        Base.find_element(self, user['Get Sales Order ID Text'])
         sales_order = self.element_text(user['Get Sales Order ID Text'])
         return sales_order
 
@@ -81,14 +89,12 @@ class DeliveryOrderPage(Base):
 
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
-    def click_download_icon(self):
+    def click_download_more(self):
+        """点击more更多按钮"""
         self.is_click(user['Download Icon'])
         sleep(2.5)
-
-    def click_more(self):
-        """点击more更多按钮"""
         self.is_click(user['More'])
-        sleep(3)
+        sleep(5)
 
     def click_export_search(self):
         """导出页面，点击Search按钮"""
@@ -134,6 +140,25 @@ class DeliveryOrderPage(Base):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
         return export_time
+
+    def assert_total(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 1:
+            logging.info("查看Delivery Order列表，加载数据正常，分页总记录数：{}".format(total))
+        else:
+            logging.info("查看Delivery Order列表，加载数据失败，分页总记录数：{}".format(total))
+
+    def assert_file_time_size(self, file_size, export_time):
+        """断言文件或导出时间是否有数据 """
+        if int(file_size) > 0:
+            logging.info("Delivery Order导出成功，File Size 导出文件大于1KB:{}".format(file_size))
+        else:
+            logging.info("Delivery Order导出失败，File Size 导出文件小于1KB:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
 
 
 if __name__ == '__main__':
