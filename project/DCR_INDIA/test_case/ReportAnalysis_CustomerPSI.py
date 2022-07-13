@@ -10,7 +10,7 @@ import allure
 
 
 @allure.feature("报表分析-客户PSI")
-class TestQueryDistiCustomerPSI():
+class TestQueryDistiCustomerPSI:
     @allure.story("查询国包客户PSI")
     @allure.title("Customer PSI页面，查询国包客户PSI列表数据加载")
     @allure.description("Customer PSI页面，查询国包客户PSI列表数据加载，断言数据是否加载正常")
@@ -38,7 +38,7 @@ class TestQueryDistiCustomerPSI():
 
 
 @allure.feature("报表分析-客户PSI")
-class TestExportDistiCustomerPSI():
+class TestExportDistiCustomerPSI:
     @allure.story("导出国包客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询国包客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询国包客户PSI列表数据，并导出")
@@ -80,7 +80,7 @@ class TestExportDistiCustomerPSI():
 
 
 @allure.feature("报表分析-客户PSI")
-class TestQuerSubCustomerPSI():
+class TestQuerSubCustomerPSI:
     @allure.story("查询二代客户PSI")
     @allure.title("Customer PSI页面，按日期查询二代客户PSI列表数据加载")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据加载，断言数据是否加载正常")
@@ -115,7 +115,7 @@ class TestQuerSubCustomerPSI():
 
 
 @allure.feature("报表分析-客户PSI")
-class TestExportSubCustomerPSI():
+class TestExportSubCustomerPSI:
     @allure.story("导出二代客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询二代客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据，并导出。断言导出数据是否正常")
@@ -132,9 +132,8 @@ class TestExportSubCustomerPSI():
         # 筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
-        export.click_export_search()
+        down_status = export.click_export_search()
 
-        down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         file_size1 = file_size[0:1]

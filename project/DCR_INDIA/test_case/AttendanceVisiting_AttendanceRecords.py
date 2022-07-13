@@ -10,7 +10,7 @@ import pytest
 import allure
 
 @allure.feature("考勤&巡店-考勤记录")
-class TestQueryAttendanceRecord():
+class TestQueryAttendanceRecord:
     @allure.story("查询考勤记录")
     @allure.title("考勤记录页面，查询考勤记录列表数据加载")
     @allure.description("考勤记录页面，查询考勤记录列表数据加载，断言数据加载正常")
@@ -34,18 +34,12 @@ class TestQueryAttendanceRecord():
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
         ValueAssert.value_assert_equal(picture, "Picture")
         ValueAssert.value_assert_equal(today, date)
-        if int(total1) > 1000:
-            logging.info("查看考勤记录列表，分页总条数大于1000，能查询到考勤记录Total：{}".format(total1))
-        else:
-            logging.info("查看考勤记录列表，分页总条数为1000，未查询到考勤记录Total：{}".format(total1))
-        #ss = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
-        #logging.info("打印时间戳{}".format(ss))
+        query_all.assert_total2(total1)
         sleep(1)
 
 
-
 @allure.feature("考勤&巡店-考勤记录")
-class TestExportAttendanceRecord():
+class TestExportAttendanceRecord:
     @allure.story("导出考勤记录")
     @allure.title("考勤记录页面，导出筛选用户的当天考勤记录")
     @allure.description("考勤记录页面，查询某个用户的，当天考勤记录，然后导出筛选的考勤记录")
@@ -76,11 +70,9 @@ class TestExportAttendanceRecord():
         export.assert_total(total1)
         """点击导出"""
         export.click_export()
-        sleep(2)
         export.click_download_more()
-        export.click_export_search()
-
-        down_status = export.get_download_status_text()
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
+        down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
@@ -102,8 +94,8 @@ class TestExportAttendanceRecord():
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size1, export_time1)
 
-        export.click_close_export_record()
-        export.click_close_atten_record()
+        #export.click_close_export_record()
+        #export.click_close_atten_record()
         sleep(1)
 
 

@@ -9,7 +9,7 @@ import pytest
 import allure
 
 @allure.feature("报表分析-门店库存IMEI查询")
-class TestQueryShopInventoryIMEI():
+class TestQueryShopInventoryIMEI:
     @allure.story("查询门店库存IMEI")
     @allure.title("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载")
     @allure.description("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载，断言数据加载正常")
@@ -45,7 +45,7 @@ class TestQueryShopInventoryIMEI():
 
 
 @allure.feature("报表分析-门店库存IMEI查询")
-class TestExportShopInventoryIMEI():
+class TestExportShopInventoryIMEI:
     @allure.story("导出门店库存IMEI")
     @allure.title("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的数据")
     @allure.description("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的门店库存IMEI数据，断言导出数据加载正常")
@@ -78,9 +78,8 @@ class TestExportShopInventoryIMEI():
         # 点击导出功能
         export.click_export()
         export.click_download_more()
-        export.click_export_search()
+        down_status = export.click_export_search()
 
-        down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         file_size1 = file_size[0:1]

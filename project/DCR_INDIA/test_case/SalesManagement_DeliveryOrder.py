@@ -9,7 +9,7 @@ import pytest
 import allure
 
 @allure.feature("销售管理-出库单")
-class TestQueryDeliveryOrder():
+class TestQueryDeliveryOrder:
     @allure.story("查询出库单")
     @allure.title("出库单页面，查询出库单列表加载数据")
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
@@ -40,7 +40,7 @@ class TestQueryDeliveryOrder():
 
 
 @allure.feature("销售管理-出库单")
-class TestExportDeliveryOrder():
+class TestExportDeliveryOrder:
     @allure.story("导出出库单")
     @allure.title("出库单页面，导出筛选的出库单记录")
     @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录")
@@ -68,9 +68,8 @@ class TestExportDeliveryOrder():
         # 筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
-        export.click_export_search()
+        down_status = export.click_export_search()
 
-        down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         file_size1 = file_size[0:1]

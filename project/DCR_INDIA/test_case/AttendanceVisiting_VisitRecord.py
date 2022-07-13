@@ -10,7 +10,7 @@ import allure
 
 
 @allure.feature("考勤&巡店-巡店记录")
-class TestQueryVisitRecord():
+class TestQueryVisitRecord:
     @allure.story("查询巡店记录")
     @allure.title("巡店记录页面，根据门店ID查询巡店记录列表数据加载")
     @allure.description("巡店记录页面，根据门店ID查询巡店记录列表数据加载，校验数据加载正常")
@@ -40,12 +40,12 @@ class TestQueryVisitRecord():
         ValueAssert.value_assert_IsNoneNot(submit_date)
         ValueAssert.value_assert_IsNoneNot(visit_date)
         ValueAssert.value_assert_In(operation, "View")
-        all_visit.assert_total(int(total1))
+        all_visit.assert_total(total1)
         all_visit.click_reset()
 
 
 @allure.feature("考勤&巡店-巡店记录")
-class TestExportVisitRecord():
+class TestExportVisitRecord:
     @allure.story("导出巡店记录")
     @allure.title("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录")
     @allure.description("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
@@ -63,9 +63,8 @@ class TestExportVisitRecord():
 
         export.click_export()
         export.click_download_more()
-        export.click_export_search()
+        down_status = export.click_export_search()
 
-        down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         file_size1 = file_size[0:1]
@@ -85,7 +84,6 @@ class TestExportVisitRecord():
         ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size1, export_time1)
-
         # export.click_close_export_record()
         # export.click_close_visit_record()
         sleep(1)

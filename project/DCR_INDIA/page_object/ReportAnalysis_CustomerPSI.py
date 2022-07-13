@@ -38,7 +38,7 @@ class CustomerPSIPage(Base):
 
     def get_sale_regiona_text(self):
         """获取Sales Region2字段文本"""
-        Base.find_element(self, user['获取Sale Regiona文本'])
+        Base.presence_sleep_dcr(self, user['获取Sale Regiona文本'])
         sale_region2 = self.element_text(user['获取Sale Regiona文本'])
         return sale_region2
 
@@ -73,17 +73,22 @@ class CustomerPSIPage(Base):
 
     def click_download_more(self):
         self.is_click(user['Download Icon'])
-        sleep(2.5)
+        sleep(1)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        sleep(4)
 
     def click_export_search(self):
-        self.is_click(user['Export Record Search'])
+        """循环点击查询，直到获取到下载状态为COMPLETE """
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
-        status = self.element_text(user['获取下载状态文本'])
-        return status
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status1 = self.element_text(user['获取下载状态文本'])
+            return status1
 
     def get_task_name_text(self):
         """导出记录页面，获取列表 Task Name文本"""
