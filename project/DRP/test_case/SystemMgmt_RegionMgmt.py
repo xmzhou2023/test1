@@ -357,7 +357,7 @@ class TestUpdateArea:
         user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部', 'Xpark业务区')
-        user.update_list('lj测试001')  # 点击编辑按钮
+        user.update_list(3,'ljtest002')  # 点击编辑按钮
         user.update_area(nameZh='lj测试002', nameEn='ljtest002')  # 编辑 替换内容
         user.save_button()  # 保存
 

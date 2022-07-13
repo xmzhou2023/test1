@@ -73,10 +73,19 @@ class Base(object):
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), locator)
 
-    def find_elements(self, locator):
+    def find_elements(self, locator, choice=None):
         """寻找多个相同的元素"""
-        return Base.element_locator(lambda *args: self.wait.until(
-            EC.presence_of_all_elements_located(args)), locator)
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', str(choice))
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.presence_of_all_elements_located(args)), Npath)
+        else:
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.presence_of_all_elements_located(args)), locator)
 
     def elements_num(self, locator):
         """获取相同元素个数"""
@@ -227,6 +236,18 @@ class Base(object):
             self.find_element(locator).click()
             # sleep()
             logging.info("清除树勾选框状态：{}".format(locator))
+
+    def export_download_status(self, click_search, get_status):
+        """DCR通用的导出，等待下载状态更新(DRP专用)"""
+        self.is_click(click_search)
+        status = self.element_text(get_status)
+        logging.info("循环前Download Status{}".format(status))
+        while status != "COMPLETE":
+            self.is_click(click_search)
+            status = self.element_text(get_status)
+            logging.info("循环后Download Status{}".format(status))
+            sleep(1)
+        return status
 
     def move_house(self, content):
         """点击空白区域，用于取消释法"""
