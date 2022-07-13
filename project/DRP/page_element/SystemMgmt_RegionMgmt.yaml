@@ -1,8 +1,8 @@
 tab区域总菜单: "xpath==//div[@class='main-top-audit']//div[contains(text(),'variable')]"
-tab区域菜单一级菜单: "xpath==//div[@tabindex='0']//span[normalize-space(text())='variable']"
-tab区域菜单二级菜单: "xpath==//div[@tabindex='-1']//div[@class='el-tree-node__content']//span[normalize-space(text())='variable']"
-tab区域菜单三级菜单: "xpath==//div[@tabindex='-1']//div[@tabindex='-1']//div[@class='el-tree-node__content']//span[normalize-space(text())='variable']"
-tab区域菜单四级菜单: "xpath==//div[@tabindex='-1']//div[@tabindex='-1']//div[@tabindex='-1']//div[@class='el-tree-node__content']//span[normalize-space(text())='variable']"
+tab区域菜单一级菜单: "xpath==//div[@class='main-top-left']/div[normalize-space(text())='variable']"
+tab区域菜单二级菜单: "xpath==//div[@tabindex='0']/div[@role='group']/div[@tabindex='-1']/div[@class='el-tree-node__content']//span[normalize-space(text())='variable']"
+tab区域菜单三级菜单: "xpath==//div[@tabindex='-1']//div[@tabindex='-1']//span[normalize-space(text())='variable']"
+tab区域菜单四级菜单: "xpath==//span[normalize-space(text())='variable']"
 
 区域导出: "xpath==//span[contains(text(),'导出')]"
 
