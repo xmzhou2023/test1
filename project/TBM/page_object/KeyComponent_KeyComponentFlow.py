@@ -3,8 +3,6 @@ from time import sleep
 import allure
 import requests
 from libs.common.read_element import Element
-from project.TBM.api.api import APIRequest
-from libs.common.connect_sql import *
 from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
 
@@ -14,17 +12,6 @@ user = Element(pro_name, object_name)
 
 class KeyComponentsFlow(CenterComponent, APIRequest):
     """关键器件_关键器件流程"""
-
-    def refresh_webpage(self):
-        self.refresh()
-        self.driver.switch_to.default_content()
-        handles = self.driver.window_handles
-        logging.info('当前窗口：{}'.format(handles))
-        if len(handles) != 1:
-            for i in range(1, len(handles)):
-                self.close_switch(1)
-        else:
-            self.switch_window(0)
 
     @allure.step("初始化页面")
     def refresh_webpage_click_menu(self):
@@ -115,105 +102,6 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.key_components_flow_add_business_review()
         self.click_key_components_flow_submit()
         DomAssert(self.driver).assert_att('请求成功')
-
-    def request_key_components_flow_add(self, data, headers):
-        """
-        TBM 关键器件流程 新增接口
-        @param data:接口body
-        @param headers:接口头部
-        """
-        logging.info('发起请求：关键器件流程新增接口')
-        return self.api_request('关键器件流程新增接口', data, headers)
-
-    def request_key_components_flow_search(self, data, headers):
-        """
-        TBM 关键器件流程 TBM查询接口
-        @param data:接口body
-        @param headers:接口头部
-        """
-        logging.info('发起请求：关键器件流程查询接口')
-        return self.api_request('关键器件流程查询接口', data, headers)
-
-    @allure.step("关键器件流程新增接口")
-    def api_key_components_flow_add(self):
-        """
-        TBM 关键器件流程新增接口
-        """
-        logging.info('发起流程接口：关键器件流程新增流程')
-        token = self.tbm_login()
-        querytime = datetime.datetime.now().strftime('%Y-%m-%d')
-        add_data = {
-            "flowMainVO": {"flowProposer": "18645960", "flowProposerName": "李小素", "flowDept": "PI_系统四部",
-                           "title": f"[50A1S]-[李小素]-[{querytime}]"},
-            "deviceVO": {"brand": "itel", "model": "50A1S", "templateBid": "956136840950321152",
-                         "basiclineName": "baseline_GP", "platform": "测试平台", "onMarketDate": "2022-06-20",
-                         "monthNeeds": "1", "totalNeeds": "1", "targetMarket": "深圳", "lifecycle": "1"},
-            "approvers": {
-                "domainRole": [{"domainName": "摄像头+闪光灯", "domainCode": "dev_image", "approver": "18645960"},
-                               {"domainName": "硬件电子料-基带", "domainCode": "dev_hardware",
-                                "approver": "18645960"}],
-                "assessRole": [{"domainName": "标准化代表", "domainCode": "standard_deputy", "approver": "18645960"},
-                               {"domainName": "采购代表", "domainCode": "purchase_deputy",
-                                "approver": "18645960"}]}, "uploadList": [], "saveType": "submit"}
-        search_data = {"current": 1, "size": 10, "param": {}}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
-        add_reponse = self.request_key_components_flow_add(add_data, headers)
-        bid = add_reponse['body']['data']['bid']
-        search_reponse = self.request_key_components_flow_search(search_data, headers)
-        search_reponse_data = search_reponse['body']['data']['data']
-        for i in search_reponse_data:
-            if i['bid'] == bid:
-                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(i['flowNo'], i['instanceId'], i['bid']))
-                logging.info('流程接口结束：关键器件流程新增流程')
-                return i['flowNo'], i['instanceId'], i['bid']
-
-    def request_key_components_flow_recall(self, instanceId, headers):
-        """
-        oneworks TBM 关键器件流程撤回接口
-        @param instanceId:oneworks撤回流程编码
-        @param headers:接口头部
-        """
-        logging.info('发起请求：oneworks流程撤回接口')
-        logging.info(f'接口请求地址为：http://10.250.112.14:8090/oneworks/base_api/process-center/instance/{instanceId}/revoke')
-        recall_response = requests.delete(
-            url=f'http://10.250.112.14:8090/oneworks/base_api/process-center/instance/{instanceId}/revoke',
-            headers=headers)
-        response_dicts = dict()
-        response_dicts['body'] = recall_response.json()
-        logging.info('接口响应内容为：%s', response_dicts)
-        return response_dicts
-
-    def request_key_components_flow_delete(self, bid, headers):
-        """
-        TBM 关键器件流程删除已撤回接口
-        @param bid:流程bid
-        @param headers:接口头部
-        """
-        logging.info('发起请求：关键器件流程删除已撤回接口')
-        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/plm-key-device-main/key-device/flow/deleteFlow'
-                     f'?flowBid={bid}')
-        recall_response = requests.get(
-            url=f'http://pfgatewayidct.transsion.com:9088/plm-key-device-main/key-device/flow/deleteFlow?flowBid={bid}',
-            headers=headers)
-        response_dicts = dict()
-        response_dicts['body'] = recall_response.json()
-        logging.info('接口响应内容为：%s', response_dicts)
-        return response_dicts
-
-    @allure.step("关键器件流程撤回删除接口")
-    def api_key_components_flow_delete(self, instanceid, bid):
-        """
-        通过调用接口发起撤回流程
-        调用接口：oneworks流程撤回接口，关键器件流程删除已撤回接口
-        @param instanceid:oneworks撤回流程编码
-        @param bid:流程ID
-        """
-        logging.info('发起流程接口：关键器件流程撤回流程')
-        token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
-        self.request_key_components_flow_recall(instanceid, headers)
-        self.request_key_components_flow_delete(bid, headers)
-        logging.info('流程接口结束：关键器件流程撤回流程')
 
     def get_key_components_flow_info(self):
         """

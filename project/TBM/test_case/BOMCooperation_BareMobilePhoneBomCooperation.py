@@ -19,7 +19,7 @@ class TestCreateProcess:
     @allure.title("创建流程成功")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
                         "在产出品选择一个物料编码，用量填写为1000，点击提交，能提交成功“创建流程成功”")
-    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @allure.severity("blocker")  # blocker\\normal\\trivial
     @pytest.mark.smoke
     def test_001_001(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
@@ -42,7 +42,7 @@ class TestCreateProcess:
         user.assert_bare_mobile_phone_bom_cooperation_add_result('单机头BOM制作', 'X572-1', 'itel', '埃塞本地', '试产阶段', '审批中',
                                                                  '未同步')
         process_code = user.get_bare_mobile_phone_bom_cooperation_info()[2]
-        user.delete_bare_mobile_phone_bom_cooperation_flow(process_code)
+        user.delete_flow(process_code)
 
     @allure.story("创建流程")
     @allure.title("创建流程成功")
@@ -81,7 +81,7 @@ class TestCreateProcess:
         user.assert_bare_mobile_phone_bom_cooperation_add_result('单机头BOM制作', 'X572-1', 'itel', '埃塞本地', '试产阶段', '审批中',
                                                                  '未同步')
         process_code = user.get_bare_mobile_phone_bom_cooperation_info()[2]
-        user.delete_bare_mobile_phone_bom_cooperation_flow(process_code)
+        user.delete_flow(process_code)
 
     @allure.story("创建流程")
     @allure.title("正确选择物料编码，点击一键填写，填写内容保存正确")
@@ -515,25 +515,15 @@ class TestCreateProcessExceptionScenario:
 
 @allure.feature("BOM协作-单机头BOM协作")
 class TestTheProcessOfExaminationAndApproval:
-    @pytest.fixture(scope='function', autouse=True)
-    def add_machine_bom_cooperation(self, drivers):
-        logging.info('开始前置操作')
-        global api_response
-        user = BareMobilePhoneBomCooperation(drivers)
-        api_response = user.api_bare_mobile_phone_bom_cooperation_add()
-        yield
-        logging.info('开始后置操作')
-        user.api_bare_mobile_phone_bom_cooperation_delete(api_response[1], api_response[2])
-
     @allure.story("流程审批")
     @allure.title("发起流程，审批页面的数据和发起的数据是一致的")
     @allure.description("发起一个单机头BOM协作，进入待办中心，点击该条单据进行查看，查看页面的数据和发起的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.FT
-    def test_003_001(self, drivers):
+    def test_003_001(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.enter_bare_mobile_phone_bom_cooperation_onework_check(api_response[0])
+        user.enter_bare_mobile_phone_bom_cooperation_onework_check(BarePhone_API[0])
         sleep(2)
         info1 = user.get_bare_mobile_phone_bom_cooperation_onework_bominfo('制作类型')
         info2 = user.get_bare_mobile_phone_bom_cooperation_onework_bominfo('品牌')
@@ -547,7 +537,7 @@ class TestTheProcessOfExaminationAndApproval:
         ValueAssert.value_assert_equal(info5, '埃塞本地')
         user.assert_bare_mobile_phone_bom_cooperation_oneworks_bomtree_result(
             ('1', '单机头', '12012025', '单机头_itel_it2173_G1812_B_深蓝_RU_4+4', '可选', '1000'), )
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")
     @allure.title("补充工厂页面，审批成功")
@@ -555,18 +545,18 @@ class TestTheProcessOfExaminationAndApproval:
                         "成功处理了补充工厂审核点，我的待办中不存在该条单据在补充工厂审核节点（建议：校验单据号和当前节点）")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.FT
-    def test_003_002(self, drivers):
+    def test_003_002(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
         user.input_bare_mobile_phone_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
         user.click_bare_mobile_phone_bom_cooperation_oneworks_slash()
         user.click_bare_mobile_phone_bom_cooperation_oneworks_plant_check('贴片工厂正确')
         user.click_bare_mobile_phone_bom_cooperation_oneworks_agree()
         user.click_bare_mobile_phone_bom_cooperation_oneworks_confirm()
         DomAssert(drivers).assert_att('处理成功，审核通过')
-        user.quit_onework()
-        user.assert_bare_mobile_phone_bom_cooperation_my_todo_node(api_response[0], '补充工厂')
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_API[0], '补充工厂')
 
     # @allure.story("流程审批")
     # @allure.title("结构工程师审核页面，审批成功")
@@ -574,130 +564,122 @@ class TestTheProcessOfExaminationAndApproval:
     #                     "成功处理了结构工程师审核点，我的待办中不存在该条单机在BOM工程师审核节点（建议：校验单据号和当前节点）")
     # @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     # @pytest.mark.FT
-    # def test_003_003(self, drivers):
+    # def test_003_003(self, drivers, BarePhone_API):
     #     user = BareMobilePhoneBomCooperation(drivers)
     #     user.refresh_webpage()
-    #     user.bare_mobile_phone_bom_cooperation_supplementary_factory_flow(api_response[0])
-    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+    #     user.bare_mobile_phone_bom_cooperation_supplementary_factory_flow(BarePhone_API[0])
+    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(BarePhone_API[0])
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_agree()
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_confirm()
     #     DomAssert(drivers).assert_att('处理成功，审核通过')
-    #     user.quit_onework()
-    #     user.assert_bare_mobile_phone_bom_cooperation_my_todo_node(api_response[0], 'BOM工程师审核')
+    #     user.quit_oneworks()
+    #     user.assert_my_todo_node(BarePhone_API[0], 'BOM工程师审核')
 
     # @allure.story("流程审批")
     # @allure.title("补充工厂页面中，导出的xlsx表的数据和页面的数据是一致")
     # @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")
     # @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     # @pytest.mark.FT
-    # def test_003_003(self, drivers):
+    # def test_003_003(self, drivers, BarePhone_API):
     #     user = BareMobilePhoneBomCooperation(drivers)
     #     user.refresh_webpage()
-    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(BarePhone_API[0])
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_checkbox()
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_approval_export()
     #     user.assert_bare_mobile_phone_bom_cooperation_oneworks_factoryinfo()
-    #     user.quit_onework()
+    #     user.quit_oneworks()
     #
     # @allure.story("流程审批")
     # @allure.title("BOM工程师页面，Bom Tree导出数据一致")
     # @allure.description("在结构工程师审批页面中，在Bom Tree中点导出，导出的数据和Bom Tree的数据是一致的")
     # @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     # @pytest.mark.FT
-    # def test_003_004(self, drivers):
+    # def test_003_004(self, drivers, BarePhone_API):
     #     user = BareMobilePhoneBomCooperation(drivers)
     #     user.refresh_webpage()
-    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(BarePhone_API[0])
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_checkbox()
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_approval_export()
     #     user.assert_bare_mobile_phone_bom_cooperation_oneworks_approval_bominfo()
-    #     user.quit_onework()
+    #     user.quit_oneworks()
+
+
 
 @allure.feature("BOM协作-单机头BOM协作")
 class TestProcessApprovalExceptionScenario:
-    @pytest.fixture(scope='function', autouse=True)
-    def add_machine_bom_cooperation(self, drivers):
-        logging.info('开始前置操作')
-        global api_response
-        user = BareMobilePhoneBomCooperation(drivers)
-        api_response = user.api_bare_mobile_phone_bom_cooperation_add()
-        yield
-        logging.info('开始后置操作')
-        user.api_bare_mobile_phone_bom_cooperation_delete(api_response[1], api_response[2])
-
     @allure.story("流程审批异常场景")
     @allure.title("【生产工厂信息】物料xxxxxx的组包工厂不能为空")
     @allure.description("在补充工厂页面中，不进行填写任何数据，点击同意，不能提交成功，并给出提示“【生产工厂信息】物料xxxxxx的组包工厂不能为空”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.FT
-    def test_004_001(self, drivers):
+    def test_004_001(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
         user.click_bare_mobile_phone_bom_cooperation_oneworks_agree()
         user.click_bare_mobile_phone_bom_cooperation_oneworks_confirm()
-        user.enter_bare_mobile_phone_bom_cooperation_onework_iframe()
+        user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('【生产工厂信息】物料12012025的组包工厂不能为空')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批异常场景")
     @allure.title("未选择BOM,一键填写按钮无法被点击")
     @allure.description("在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.FT
-    def test_004_002(self, drivers):
+    def test_004_002(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
         user.assert_bare_mobile_phone_bom_cooperation_oneworks_onepress_write()
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批异常场景")
     @allure.title("请选择工厂分类")
     @allure.description("在补充工厂页面中，选择BOM，点击一键填写，不进行工厂分类，点击确认，不能进行确认并给出必填提示“请选择工厂分类”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.FT
-    def test_004_003(self, drivers):
+    def test_004_003(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
         user.click_bare_mobile_phone_bom_cooperation_oneworks_checkbox()
         user.click_bare_mobile_phone_bom_cooperation_oneworks_onepress_write()
         user.click_bare_mobile_phone_bom_cooperation_oneworks_onepress_write_confirm()
         DomAssert(drivers).assert_att('请选择工厂分类')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批异常场景")
     @allure.title("请选择工厂")
     @allure.description("在补充工厂页面中，选择BOM，点击一键填写，不进行选择工厂，点击确认，不能进行确认并给出必填提示“请选择工厂”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.FT
-    def test_004_004(self, drivers):
+    def test_004_004(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
         user.click_bare_mobile_phone_bom_cooperation_oneworks_checkbox()
         user.click_bare_mobile_phone_bom_cooperation_oneworks_onepress_write()
         user.click_bare_mobile_phone_bom_cooperation_oneworks_onepress_write_confirm()
         DomAssert(drivers).assert_att('请选择工厂')
-        user.quit_onework()
+        user.quit_oneworks()
 
     # @allure.story("流程审批异常场景")
     # @allure.title("检查贴片工厂不能为空！")
     # @allure.description("在补充工厂页面中，不选择检查贴片工厂，点击同意，不能提交成功，并给出提示“检查贴片工厂不能为空！”")
     # @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     # @pytest.mark.FT
-    # def test_004_005(self, drivers):
+    # def test_004_005(self, drivers, BarePhone_API):
     #     user = BareMobilePhoneBomCooperation(drivers)
     #     user.refresh_webpage()
-    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(BarePhone_API[0])
     #     user.input_bare_mobile_phone_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_slash()
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_agree()
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_confirm()
-    #     user.enter_bare_mobile_phone_bom_cooperation_onework_iframe()
+    #     user.enter_onework_iframe()
     #     DomAssert(drivers).assert_att('检查贴片工厂不能为空！')
-    #     user.quit_onework()
+    #     user.quit_oneworks)
     #
     # @allure.story("流程审批异常场景")
     # @allure.title("父阶BOM料号xxxxxxxx用量不为1000")
@@ -705,17 +687,18 @@ class TestProcessApprovalExceptionScenario:
     #                     "点击同意，不能提交成功页面给出提示“父阶BOM料号xxxxxxxx用量不为1000”")
     # @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     # @pytest.mark.FT
-    # def test_004_006(self, drivers):
+    # def test_004_006(self, drivers, BarePhone_API):
     #     user = BareMobilePhoneBomCooperation(drivers)
     #     user.refresh_webpage()
-    #     user.bare_mobile_phone_bom_cooperation_supplementary_factory_flow(api_response[0])
-    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(api_response[0])
+    #     user.bare_mobile_phone_bom_cooperation_supplementary_factory_flow(BarePhone_API[0])
+    #     user.enter_bare_mobile_phone_bom_cooperation_onework_edit(BarePhone_API[0])
     #     user.input_bare_mobile_phone_bom_cooperation_optional_bomtree('产成品', '用量', '1')
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_agree()
     #     user.click_bare_mobile_phone_bom_cooperation_oneworks_confirm()
-    #     user.enter_bare_mobile_phone_bom_cooperation_onework_iframe()
+    #     user.enter_oneworks_iframe()
     #     DomAssert(drivers).assert_att('父阶BOM料号12012025用量不为1000')
-    #     user.quit_onework()
+    #     user.quit_oneworks()
+
 
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_BareMobilePhoneBomCooperation.py'])

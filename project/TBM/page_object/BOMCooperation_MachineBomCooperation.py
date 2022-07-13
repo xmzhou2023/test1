@@ -1,34 +1,17 @@
-import os
-from time import sleep
-import allure
 from selenium.webdriver import Keys
-from selenium.webdriver.common.by import By
-import logging
 from libs.common.read_element import Element
 from libs.config.conf import BASE_DIR
-from project.TBM.api.api import APIRequest
-from public.base.assert_ui import DomAssert
 from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
-class MachineBOMCollaboration(CenterComponent, APIRequest):
+
+class MachineBOMCollaboration(CenterComponent):
     """BOM协作_整机BOM协作"""
 
     @allure.step("初始化页面")
-    def refresh_webpage(self):
-        self.refresh()
-        self.driver.switch_to.default_content()
-        handles = self.driver.window_handles
-        logging.info('当前窗口：{}'.format(handles))
-        if len(handles) != 1:
-            for i in range(1, len(handles)):
-                self.close_switch(1)
-        else:
-            self.switch_window(0)
-
     def refresh_webpage_click_menu(self):
         self.refresh_webpage()
         self.click_menu("BOM协作", "整机BOM协作")
@@ -57,7 +40,7 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
             self.is_click_tbm(user['BOM信息输入框选择'], select)
             logging.info('选择点击Bom信息:{}'.format(select))
 
-    @allure.step("机BOM协作新增页面 - 输入BOM信息 组合方法")
+    @allure.step("整机BOM协作新增页面-输入BOM信息 组合方法")
     def machine_bom_cooperation_add_bom_info(self):
         self.click_machine_bom_cooperation_add()
         self.input_machine_bom_cooperation_add_bom_info('制作类型', '生产BOM')
@@ -71,14 +54,6 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         self.scroll_into_view(user['提交'])
         sleep(0.5)
         self.is_click_tbm(user['提交'])
-
-    def click_machine_bom_cooperation_close(self):
-        """关闭"""
-        try:
-            self.is_click_tbm(user['关闭'])
-            logging.info('关闭当前页')
-        except:
-            pass
 
     def click_machine_bom_cooperation_add_bomtree(self):
         """点击新增bom"""
@@ -106,7 +81,7 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
             self.readonly_input_text(user['BOMTree输入框'], content, choice=BomTree_dict[header])
             self.is_click_tbm(user['BOM确定'])
 
-    @allure.step("整机BOM协作新增页面 - 输入BOMTree 组合方法")
+    @allure.step("整机BOM协作新增页面-输入BOMTree 组合方法")
     def machine_bom_cooperation_add_bomtree(self):
         self.click_machine_bom_cooperation_add_bomtree()
         self.input_machine_bom_cooperation_bomtree('BOM类型', '国内生产BOM')
@@ -140,8 +115,8 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
 
     def get_machine_bom_cooperation_info(self):
         """
-        获取整机BOM协作第一列内容
-        @return:返回文本及索引位置分别是'No.'：0; '流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10; '操作':11
+        获取整机BOM协作第一列内容 @return:返回文本及索引位置分别是'No.'：0; '流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7;
+        '同步状态':8; '申请人':9; '创建时间':10; '操作':11
         """
         self.click_menu("BOM协作", "整机BOM协作")
         sleep(1)
@@ -154,8 +129,8 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
 
     def get_machine_bom_cooperation_assigned_info(self, code):
         """
-        获取整机BOM协作第一列内容
-        @return:返回文本及索引位置分别是'No.'：0; '流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10; '操作':11
+        获取整机BOM协作第一列内容 @return:返回文本及索引位置分别是'No.'：0; '流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7;
+        '同步状态':8; '申请人':9; '创建时间':10; '操作':11
         """
         self.click_menu("BOM协作", "整机BOM协作")
         sleep(1)
@@ -173,9 +148,6 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         """
         try:
             contents = self.get_machine_bom_cooperation_info()
-            # content_list = []
-            # for i in contents:
-            #     content_list.append(i)
             assert set(content) <= set(contents)
             logging.info('断言成功，选项值包含：{}'.format(content))
         except:
@@ -266,35 +238,6 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
             self.is_click_tbm(user['BOMTree新增物料确定'], tree)
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额')")
-
-    def recall_machine_bom_cooperation_process(self, code):
-        """
-        提交流程申请后，在待办列表-我申请的 根据流程编码对流程进行撤回操作
-        @param code:流程编码
-        """
-        self.enter_machine_bom_cooperation_my_application()
-        try:
-            self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
-        except:
-            self.refresh()
-            self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
-        self.switch_window(1)
-        self.refresh()
-        try:
-            self.is_click_tbm(user['撤回'])
-            self.is_click_tbm(user['撤回确定'])
-        except:
-            self.base_get_img()
-            self.refresh()
-            self.is_click_tbm(user['撤回'])
-            self.is_click_tbm(user['撤回确定'])
-        self.quit_machine_bom_cooperation_onework()
-        # self.quite_iframe()
-        # self.switch_window(0)
-        # # self.is_click_tbm(user['关闭我申请的'])
-        # self.refresh()
-        # self.quite_iframe()
-        self.click_menu("BOM协作", "整机BOM协作")
 
     def click_machine_bom_cooperation_delete(self, code):
         """
@@ -403,7 +346,8 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         导入-上传文件
         """
         ele = self.driver.find_element(By.XPATH,
-                                       "//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper']/div/div[2]/div[1]/div/input")
+                                       "//div[not(contains(@style,'display: none')) and "
+                                       "@class='el-dialog__wrapper']/div/div[2]/div[1]/div/input")
         ele.send_keys(file)
         logging.info('点击导入-上传文件')
 
@@ -591,22 +535,12 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
-    def delete_machine_bom_cooperation_flow(self, process_code):
-        """
-        新建流程后的后置删除处理
-        """
-        self.recall_machine_bom_cooperation_process(process_code)
-        self.click_machine_bom_cooperation_delete(process_code)
+    @allure.step("新建流程后的后置删除处理")
+    def delete_machine_bom_cooperation_flow(self, code):
+        self.recall_process(code)
+        self.click_menu("BOM协作", "整机BOM协作")
+        self.click_machine_bom_cooperation_delete(code)
         DomAssert(self.driver).assert_att('删除成功')
-
-    def api_delete_machine_bom_cooperation_flow(self, instanceid, flowid):
-        """
-        通过调用接口发起撤回流程
-        调用接口：oneworks流程撤回接口，整机BOM协作删除已撤回接口
-        @param instanceid:oneworks撤回流程编码
-        @param flowid:流程ID
-        """
-        self.tbm_machine_bom_cooperation_recall_flow(instanceid, flowid)
 
     def add_machine_bom_cooperation_flow(self):
         """
@@ -630,41 +564,34 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         sleep(1)
         DomAssert(self.driver).assert_att('创建流程成功')
 
-    def api_add_machine_bom_cooperation_flow(self):
-        """
-        通过调用接口发起新增流程
-        返回流程编码，instanceId
-        """
-        return self.tbm_machine_bom_cooperation_add_flow()
-
     def machine_bom_cooperation_supplementary_factory_flow(self, code):
         """
         在补充工厂页面，填写信息，点击同意
         """
-        self.enter_machine_bom_cooperation_onework_edit(code)
+        self.enter_oneworks_edit(code)
         self.input_machine_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
         self.click_machine_bom_cooperation_oneworks_slash()
         self.click_machine_bom_cooperation_oneworks_plant_check('贴片工厂正确')
         self.click_machine_bom_cooperation_oneworks_agree()
         self.click_machine_bom_cooperation_oneworks_confirm()
         DomAssert(self.driver).assert_att('处理成功，审核通过')
-        self.quit_machine_bom_cooperation_onework()
+        self.quit_oneworks()
 
     def machine_bom_cooperation_engineer_approve_flow(self, code):
         """
         在BOM工程师审批页面，填写信息，点击同意
         """
-        self.enter_machine_bom_cooperation_onework_edit(code)
+        self.enter_oneworks_edit(code)
         self.click_machine_bom_cooperation_oneworks_agree()
         self.click_machine_bom_cooperation_oneworks_confirm()
         DomAssert(self.driver).assert_att('处理成功，审核通过')
-        self.quit_machine_bom_cooperation_onework()
+        self.quit_oneworks()
 
     def machine_bom_cooperation_business_approve_flow(self, code):
         """
         在业务审批页面，填写信息，点击同意
         """
-        self.enter_machine_bom_cooperation_onework_edit(code)
+        self.enter_oneworks_edit(code)
         self.click_machine_bom_cooperation_oneworks_businessapprove_self_inspection('业务类型', '手机')
         self.click_machine_bom_cooperation_oneworks_businessapprove_self_inspection('检查角色', '音频')
         self.scroll_machine_bom_cooperation_oneworks_businessapprove_self_inspection()
@@ -672,7 +599,7 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         self.click_machine_bom_cooperation_oneworks_agree()
         self.click_machine_bom_cooperation_oneworks_confirm()
         DomAssert(self.driver).assert_att('处理成功，审核通过')
-        self.quit_machine_bom_cooperation_onework()
+        self.quit_oneworks()
 
     def click_machine_bom_cooperation_check(self, code):
         """
@@ -689,38 +616,8 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         self.click_machine_bom_cooperation_check(code)
         self.switch_window(1)
         sleep(1)
-        iframe = self.find_element(user['待办列表-我申请的-iframe'])
-        self.driver.switch_to.frame(iframe)
+        self.frame_enter(user['待办列表-我申请的-iframe'])
         sleep(1)
-
-    def quit_machine_bom_cooperation_onework(self):
-        """
-        退出oneworks查看流程页面
-        """
-        self.frame_exit()
-        self.close_switch(1)
-        self.refresh()
-        self.frame_exit()
-        sleep(1)
-
-    def enter_machine_bom_cooperation_my_todo(self):
-        """
-        进入我的待办页面
-        """
-        ele = self.element_text(user['当前菜单']).strip()
-        if ele == '我的待办':
-            self.refresh()
-            iframe = self.find_element(user['待办列表-我申请的-iframe'])
-            self.driver.switch_to.frame(iframe)
-            sleep(3)
-            self.is_click_tbm(user['待办列表-刷新'])
-        else:
-            self.click_menu('待办列表', '我的待办')
-            self.refresh()
-            iframe = self.find_element(user['待办列表-我申请的-iframe'])
-            self.driver.switch_to.frame(iframe)
-            sleep(3)
-            self.is_click_tbm(user['待办列表-刷新'])
 
     def enter_machine_bom_cooperation_my_application(self):
         """
@@ -728,121 +625,6 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         """
         self.click_menu('待办列表', '我申请的')
         self.refresh()
-        iframe = self.find_element(user['待办列表-我申请的-iframe'])
-        self.driver.switch_to.frame(iframe)
-        sleep(1)
-
-    def quit_machine_bom_cooperation_my_todo(self):
-        """
-        退出我的待办页面框架
-        """
-        self.frame_exit()
-
-    def assert_machine_bom_cooperation_my_todo_node(self, code, node, exist=False):
-        """
-        我的待办页面-断言：成功处理了流程后，我的待办中存在/不存在该条单据在指定审核节点
-        @param code:流程编码
-        @param node:节点名称
-        @param exist:断言存在或者不存在
-        """
-        self.enter_machine_bom_cooperation_my_todo()
-        actual_node = self.element_text(user['待办列表-我的待办-当前节点'], code)
-        if exist is False:
-            try:
-                assert actual_node != node
-                logging.info('断言成功，我的待办中该条单据不存在:{}节点，实际在:{}节点'.format(node, actual_node))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我的待办中存在该条单据在:{}审核节点'.format(actual_node))
-                raise
-            finally:
-                self.frame_exit()
-        else:
-            try:
-                assert actual_node == node
-                logging.info('断言成功，我的待办中存在该条单据在:{}审核节点'.format(actual_node))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我的待办中该条单据不存在:{}节点，实际在:{}节点'.format(node, actual_node))
-                raise
-            finally:
-                self.frame_exit()
-
-    def assert_machine_bom_cooperation_my_application_node(self, code, node, exist=False):
-        """
-        我申请的页面-断言：成功处理了流程后，我申请的中存在/不存在该条单据在指定审核节点
-        @param code:流程编码
-        @param node:节点名称
-        @param exist:断言存在或者不存在
-        """
-        self.enter_machine_bom_cooperation_my_application()
-        actual_node = self.element_text(user['待办列表-我申请的-当前节点'], code)
-        if exist is False:
-            try:
-                assert actual_node != node
-                logging.info('断言成功，我申请的中该条单据不存在:{}节点，实际在:{}节点'.format(node, actual_node))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我申请的中存在该条单据在:{}节点'.format(actual_node))
-                raise
-            finally:
-                self.frame_exit()
-        else:
-            try:
-                assert actual_node == node
-                logging.info('断言成功，我申请的中存在该条单据在:{}审核节点'.format(actual_node))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我申请的中不存在该条单据在:{}审核节点'.format(actual_node))
-                raise
-            finally:
-                self.frame_exit()
-
-    def assert_machine_bom_cooperation_my_application_flow(self, code, flow, exist=True):
-        """
-        我申请的页面-断言：成功处理了流程后，我申请的中存在/不存在该条单据在指定流程中
-        @param code:流程编码
-        @param flow:流程名称
-        @param exist:断言存在或者不存在
-        """
-        self.enter_machine_bom_cooperation_my_application()
-        actual_flow = self.element_text(user['待办列表-我申请的-当前流程'], code)
-        if exist is True:
-            try:
-                assert actual_flow == flow
-                logging.info('断言成功，我申请的中该条单据在:{}流程'.format(actual_flow))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我申请的中该条单据不在:{}流程，实际在:{}流程'.format(flow, actual_flow))
-                raise
-            finally:
-                self.frame_exit()
-        elif exist is False:
-            try:
-                assert actual_flow != flow
-                logging.info('断言成功，我申请的中该条单据不在:{}流程，实际在:{}流程'.format(flow, actual_flow))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我申请的中该条单据在:{}流程'.format(actual_flow))
-                raise
-            finally:
-                self.frame_exit()
-
-    def enter_machine_bom_cooperation_onework_edit(self, process_code):
-        """
-        进入oneworks我的待办页面
-        当前页获取流程编码，进入‘我的待办’点击对应查看详情，进入页面
-        """
-        self.enter_machine_bom_cooperation_my_todo()
-        try:
-            self.is_click_tbm(user['待办列表-我申请的-查看详情'], process_code)
-        except:
-            self.base_get_img()
-            raise
-        self.switch_window(1)
-        sleep(0.5)
-        self.frame_exit()
-        sleep(0.5)
         iframe = self.find_element(user['待办列表-我申请的-iframe'])
         self.driver.switch_to.frame(iframe)
         sleep(1)
@@ -1065,7 +847,7 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         self.is_click_tbm(user['回退'])
         logging.info('点击回退')
         self.is_click_tbm(user['BOM工程师审批回退到'])
-        node_dict = {'申请人':'申请人[Applicant]', node:node}
+        node_dict = {'申请人': '申请人[Applicant]', node: node}
         self.is_click_tbm(user['BOM工程师审批回退选择'], node_dict[node])
         logging.info('回退到：{}'.format(node))
 
@@ -1222,7 +1004,7 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
         """
         if rule == 'all' and result == '通过':
             num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
-            for i in range(1, num+1):
+            for i in range(1, num + 1):
                 if result == '通过':
                     try:
                         self.is_click_tbm(user['业务审核-自检清单-检查结果-通过'], str(i))
@@ -1231,7 +1013,7 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
                         self.is_click_tbm(user['业务审核-自检清单-检查结果-通过'], str(i))
         elif rule == 'all' and result == '不通过':
             num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
-            for i in range(1, num+1):
+            for i in range(1, num + 1):
                 try:
                     self.is_click_tbm(user['业务审核-自检清单-检查结果-不通过'], str(i))
                 except:
@@ -1239,7 +1021,7 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
                     self.is_click_tbm(user['业务审核-自检清单-检查结果-不通过'], str(i))
         elif rule == 'all' and result == '不涉及':
             num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
-            for i in range(1, num+1):
+            for i in range(1, num + 1):
                 try:
                     self.is_click_tbm(user['业务审核-自检清单-检查结果-不涉及'], str(i))
                 except:
@@ -1280,6 +1062,7 @@ class MachineBOMCollaboration(CenterComponent, APIRequest):
             self.base_get_img()
             logging.error('断言成功，导出的数据和BomTree的数据是不一致的')
             raise
+
 
 if __name__ == '__main__':
     pass
