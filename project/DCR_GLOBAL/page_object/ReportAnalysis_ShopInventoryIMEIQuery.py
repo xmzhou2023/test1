@@ -1,6 +1,8 @@
 from libs.common.read_element import Element
+import logging
 from libs.common.time_ui import sleep
 from public.base.basics import Base
+import datetime
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -23,6 +25,7 @@ class ShopInventoryIMEIQueryPage(Base):
 
     def input_inbound_date(self, content):
         """Shop Inventory IMEI Query页面，输入筛选开始日期"""
+        Base.presence_sleep_dcr(self, user['Inbound Date Start Time'])
         self.is_click(user['Inbound Date Start Time'])
         sleep(1)
         self.input_text(user['Inbound Date Start Time'], txt=content)
@@ -30,25 +33,27 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_search(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
         self.is_click(user['Search'])
-        sleep(8)
+        sleep(1)
 
     def click_reset(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
         self.is_click(user['Reset'])
-        sleep(8)
+        sleep(7.5)
 
     def click_fold(self):
         """Shop Inventory IMEI Query页面，点击Fold收起筛选条件按钮"""
         self.is_click(user['Fold'])
-        sleep(1.5)
+        sleep(1)
 
     def get_total_text(self):
         """Shop Inventory IMEI Query页面，获取分页功能总条数文本"""
+        Base.presence_sleep_dcr(self, user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
         return total
 
     def get_shop_id_text(self):
         """Shop Inventory IMEI Query页面，获取列表Shop ID文本"""
+        Base.presence_sleep_dcr(self, user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
 
@@ -68,10 +73,6 @@ class ShopInventoryIMEIQueryPage(Base):
         model = self.element_text(user['获取Model文本'])
         return model
 
-    def click_export(self):
-        self.is_click(user['Export'])
-        sleep(1)
-
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
@@ -83,30 +84,36 @@ class ShopInventoryIMEIQueryPage(Base):
         sleep(1)
 
 
+
     # 门店库存IMEI查询记录，导出功能验证
     def click_export(self):
         """Visit Record页面，点击Export导出按钮"""
         self.is_click(user['Export'])
-
-    def click_download_icon(self):
-        self.is_click(user['Download Icon'])
         sleep(2)
 
-    def click_more(self):
+    def click_download_more(self):
+        """点击下载-更多按钮"""
+        self.is_click(user['Download Icon'])
+        sleep(1)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3.5)
+        sleep(5)
 
     def click_export_search(self):
-        self.is_click(user['Export Record Search'])
-        sleep(2)
+        """循环点击查询，直到获取到下载状态为COMPLETE """
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
-        status = self.element_text(user['获取下载状态文本'])
-        return status
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status1 = self.element_text(user['获取下载状态文本'])
+            return status1
 
     def get_task_name_text(self):
         """导出记录页面，获取列表 Task Name文本"""
+        Base.presence_sleep_dcr(self, user['获取任务名称文本'])
         task_name = self.element_text(user['获取任务名称文本'])
         return task_name
 
@@ -140,6 +147,27 @@ class ShopInventoryIMEIQueryPage(Base):
         export_time = self.element_text(user['获取导出时间'])
         return export_time
 
+    def click_close_shop_inventory_imei(self):
+        self.is_click(user['关闭门店库存IMEI菜单'])
+
+    def assert_total(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 1000:
+            logging.info("查看Shop Inventory IMEI Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
+        else:
+            logging.info("查看Shop Inventory IMEI Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
+
+    def assert_file_time_size(self, file_size, export_time):
+        """断言文件或导出时间是否有数据 """
+        if int(file_size) > 0:
+            logging.info("Shop Inventory IMEI Query导出成功，File Size 导出文件大于1KB:{}".format(file_size))
+        else:
+            logging.info("Shop Inventory IMEI Query导出失败，File Size 导出文件小于1KB:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("Shop Inventory IMEI Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Shop Inventory IMEI Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
 
 if __name__ == '__main__':
     pass

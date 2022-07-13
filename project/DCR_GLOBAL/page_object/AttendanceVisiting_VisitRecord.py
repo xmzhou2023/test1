@@ -1,4 +1,5 @@
 from libs.common.read_element import Element
+import logging
 from libs.common.time_ui import sleep
 from public.base.basics import Base
 from ..test_case.conftest import *
@@ -6,12 +7,13 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name,object_name)
 
+
 class VisitRecordPage(Base):
     """VisitRecordPage类，生产环境，Visit Record巡店记录页面元素定位"""
     def click_unfold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
         self.is_click(user['Unfold'])
-        sleep(2)
+        sleep(1)
 
     def click_fold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
@@ -26,6 +28,7 @@ class VisitRecordPage(Base):
         self.is_click(user['Select Shop Value'])
 
     def input_submit_start_date(self, content):
+        Base.presence_sleep_dcr(self, user['Submit Start Date'])
         self.is_click(user['Submit Start Date'])
         sleep(1)
         self.input_text(user['Submit Start Date'], txt=content)
@@ -36,15 +39,15 @@ class VisitRecordPage(Base):
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(5)
 
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(5)
+        sleep(4)
 
     def get_shop_id_text(self):
         """Visit Record页面，获取列表中Shop ID文本属性"""
+        Base.presence_sleep_dcr(self, user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
 
@@ -79,7 +82,6 @@ class VisitRecordPage(Base):
         sleep(1)
 
 
-
     #巡店记录，导出功能验证
     def iframe_export_record(self):
         """Export Record页面，进入iframe"""
@@ -88,24 +90,28 @@ class VisitRecordPage(Base):
 
     def click_export(self):
         """Visit Record页面，点击Export导出按钮"""
+        Base.presence_sleep_dcr(self, user['Export'])
         self.is_click(user['Export'])
-
-    def click_download_icon(self):
-        self.is_click(user['Download Icon'])
         sleep(2)
 
-    def click_more(self):
+    def click_download_more(self):
+        self.is_click(user['Download Icon'])
+        sleep(1)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        sleep(5)
 
     def click_export_search(self):
-        self.is_click(user['Export Record Search'])
-        sleep(3)
+        """循环点击查询，直到获取到下载状态为COMPLETE """
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
-        status = self.element_text(user['获取下载状态文本'])
-        return status
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status1 = self.element_text(user['获取下载状态文本'])
+            return status1
 
     def get_task_name_text(self):
         """导出记录页面，获取列表 Task Name文本"""
@@ -141,6 +147,27 @@ class VisitRecordPage(Base):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
         return export_time
+
+
+    def assert_total(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 0:
+            logging.info("根据门店ID筛选，巡店记录列表中，加载筛选的数据正常，分页总条数Total:{}".format(total))
+        else:
+            logging.info("根据门店ID筛选，巡店记录列表中，未加载筛选的数据，分页总条数Total:{}".format(total))
+
+
+    def assert_file_time_size(self, file_size, export_time):
+        """断言文件或导出时间是否有数据 """
+        if int(file_size) > 0:
+            logging.info("Visit Record导出成功，File Size 导出文件大于0M:{}".format(file_size))
+        else:
+            logging.info("Visit Record导出失败，File Size 导出文件小于0M:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("Visit Record导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Visit Record导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
 
 
 if __name__ == '__main__':

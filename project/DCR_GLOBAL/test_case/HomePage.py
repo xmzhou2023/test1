@@ -10,7 +10,7 @@
 # from project.DCR_GLOBAL.page_object.HomePage import HomePagePage
 #
 # @allure.feature("Home Page")
-# class TestQueryUserMgtCard():
+# class TestQueryUserMgtCard:
 #     @allure.story("查询")
 #     @allure.title("查看Homepage首页，User Management& Authorization卡片维度数据")
 #     @allure.description("查看Homepage首页，User Management& Authorization卡片的各维度数据")
@@ -71,7 +71,7 @@
 #
 #
 # @allure.feature("Home Page")
-# class TestExportUserMgtCard():
+# class TestExportUserMgtCard:
 #     @allure.story("导出")
 #     @allure.title("Homepage首页，导出User Management& Authorization卡片维度数据")
 #     @allure.description("Homepage首页的，导出User Management& Authorization卡片的各维度数据")
@@ -121,7 +121,7 @@
 #
 #
 # @allure.feature("Home Page")
-# class TestQueryAbnormalDataCard():
+# class TestQueryAbnormalDataCard:
 #     @allure.story("查询")
 #     @allure.title("Homepage首页，查询Abnormal Data卡片维度数据")
 #     @allure.description("Homepage首页，查询Abnormal Data卡片的各维度数据")
@@ -170,4 +170,4 @@
 #
 #
 # if __name__ == '__main__':
-#     pytest.main(['HomePage.py'])
+#     pytest.main(['Home_Page.py'])

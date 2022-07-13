@@ -1,6 +1,8 @@
 from libs.common.read_element import Element
+import logging
 from libs.common.time_ui import sleep
 from public.base.basics import Base
+import datetime
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -16,14 +18,16 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['Select Shop Value'])
 
     def click_unfold(self):
+        sleep(2)
         self.is_click(user['Unfold'])
-        sleep(1)
+        sleep(2)
 
     def click_fold(self):
         self.is_click(user['Fold'])
         sleep(1)
 
     def input_sales_date_date(self, content1, content2):
+        Base.presence_sleep_dcr(self, user['Sales Date Start Date'])
         self.is_click(user['Sales Date Start Date'])
         self.input_text(user['Sales Date Start Date'], txt=content1)
         self.is_click(user['Sales Date End Date'])
@@ -40,6 +44,7 @@ class ShopSaleQueryPage(Base):
 
     def get_shop_id_text(self):
         """Shop Sales Query页面，获取列表Shop ID 文本内容"""
+        Base.presence_sleep_dcr(self, user['获取门店ID文本'])
         shop_id = self.element_text(user['获取门店ID文本'])
         return shop_id
 
@@ -65,12 +70,10 @@ class ShopSaleQueryPage(Base):
 
     def get_total_text(self):
         """Shop Sales Query页面，获取列表Status文本内容"""
+        Base.presence_sleep_dcr(self, user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
         return total
 
-    def click_export(self):
-        """Shop Sales Query页面，点击Export 导出门店销量查询数据"""
-        self.is_click(user['Export'])
 
     def click_close_export_record(self):
         """关闭导出记录菜单"""
@@ -83,27 +86,32 @@ class ShopSaleQueryPage(Base):
         sleep(1)
 
 
+
     #门店销售查询，导出功能验证
     def click_export(self):
-        """Visit Record页面，点击Export导出按钮"""
+        """Shop Sales Query页面，点击Export 导出门店销量查询数据"""
         self.is_click(user['Export'])
+        sleep(2)
 
-    def click_download_icon(self):
+    def click_download_more(self):
+        """点击异步导出，点击更多按钮"""
         self.is_click(user['Download Icon'])
-        sleep(2.5)
-
-    def click_more(self):
+        sleep(1)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        sleep(5)
 
     def click_export_search(self):
-        self.is_click(user['Export Record Search'])
-        sleep(2)
+        """循环点击查询，直到获取到下载状态为COMPLETE """
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
-        status = self.element_text(user['获取下载状态文本'])
-        return status
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status1 = self.element_text(user['获取下载状态文本'])
+            return status1
 
     def get_task_name_text(self):
         """导出记录页面，获取列表 Task Name文本"""
@@ -139,6 +147,32 @@ class ShopSaleQueryPage(Base):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
         return export_time
+
+    def assert_total(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 0:
+            logging.info("Shop Sales Query列表，按Shop ID筛选，加载筛选后的数据正常，分页总条数Total：{}".format(total))
+        else:
+            logging.info("查看Shop Sales Query列表，未加载筛选后的数据失败，分页总条数Total：{}".format(total))
+
+    def assert_total2(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 1000:
+            logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
+        else:
+            logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total))
+
+    def assert_file_time_size(self, file_size, export_time):
+        """断言文件或导出时间是否有数据 """
+        if int(file_size) > 0:
+            logging.info("Shop Sales Query导出成功，File Size 导出文件大于0KB:{}".format(file_size))
+        else:
+            logging.info("Shop Sales Query导出成功，File Size 导出文件小于0KB:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("Shop Sales Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Shop Sales Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
 
 
 if __name__ == '__main__':
