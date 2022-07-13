@@ -29,11 +29,12 @@ class ShopInventoryIMEIQueryPage(Base):
         self.is_click(user['Inbound Date Start Time'])
         sleep(1)
         self.input_text(user['Inbound Date Start Time'], txt=content)
+        sleep(1)
 
     def click_search(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
         self.is_click(user['Search'])
-        sleep(3)
+        sleep(4)
 
     def click_reset(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
@@ -53,7 +54,7 @@ class ShopInventoryIMEIQueryPage(Base):
 
     def get_shop_id_text(self):
         """Shop Inventory IMEI Query页面，获取列表Shop ID文本"""
-        Base.export_download_status(self, user['获取Shop ID文本'])
+        Base.presence_sleep_dcr(self, user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
 
@@ -94,10 +95,10 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_download_more(self):
         """点击下载-更多按钮"""
         self.is_click(user['Download Icon'])
-        sleep(1)
+        sleep(2)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(5)
+        sleep(6)
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
@@ -168,6 +169,7 @@ class ShopInventoryIMEIQueryPage(Base):
             logging.info("Shop Inventory IMEI Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Shop Inventory IMEI Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
+        sleep(1)
 
 if __name__ == '__main__':
     pass

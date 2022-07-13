@@ -34,7 +34,6 @@ class TestQueryDistiCustomerPSI:
         ValueAssert.value_assert_IsNoneNot(region_textb)
         ValueAssert.value_assert_IsNoneNot(brand_text)
         psi.assert_total(total1)
-        sleep(1)
 
 
 @allure.feature("报表分析-客户PSI")
@@ -49,13 +48,13 @@ class TestExportDistiCustomerPSI:
         # 获取日期
         base = Base(drivers)
         today = base.get_datetime_today()
-
+        # 默认选中查询国包PSI数据
         #点击导出功能
         export.click_export()
         export.click_download_more()
-        export.click_export_search()
+        down_status = export.click_export_search()
 
-        down_status = export.get_download_status_text()
+        #down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         file_size1 = file_size[0:1]
@@ -76,7 +75,7 @@ class TestExportDistiCustomerPSI:
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size1, export_time1)
         export.click_close_customerPSI()
-        sleep(1)
+        #sleep(1)
 
 
 @allure.feature("报表分析-客户PSI")
@@ -111,7 +110,7 @@ class TestQuerSubCustomerPSI:
         ValueAssert.value_assert_IsNoneNot(region3_text)
         ValueAssert.value_assert_IsNoneNot(brand_text)
         psi.assert_total(total1)
-        sleep(1)
+        #sleep(1)
 
 
 @allure.feature("报表分析-客户PSI")

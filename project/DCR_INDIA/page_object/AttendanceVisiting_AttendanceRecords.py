@@ -1,8 +1,6 @@
 import time
-
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
-from public.base.basics import Base
 import datetime
 from ..test_case.conftest import *
 
@@ -28,6 +26,7 @@ class AttendanceRecordPage(Base):
     def click_search(self):
         """Attendance Records页面，点击Seasrch筛选考勤记录"""
         self.is_click(user['Search'])
+        sleep(1)
 
     def click_reset(self):
         """Attendance Records页面，点击Reset重置筛选条件"""

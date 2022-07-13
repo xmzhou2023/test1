@@ -6,8 +6,8 @@ from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
-#ini = ReadConfig(pro_name, pro_env)
-ini = ReadConfig(pro_name, 'prod')
+pro_env = 'prod' # 需要手动配置测试环境
+ini = ReadConfig(pro_name, pro_env)
 
 
 
@@ -83,7 +83,7 @@ class LoginPage(Base):
             self.scroll_into_view(user[level[i]])
             sleep(2)
             self.is_click(user[level[i]])
-        sleep(1)
+        sleep(2)
 
 
 
