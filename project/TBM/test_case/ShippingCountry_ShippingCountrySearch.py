@@ -1,7 +1,5 @@
-import allure
 import pytest
 import datetime
-from libs.common.time_ui import sleep
 from public.base.assert_ui import *
 from project.TBM.page_object.ShippingCountry_ShippingCountrySearch import ShippingCountrySearch
 
@@ -313,7 +311,7 @@ class TestTheProcessOfExaminationAndApproval:
         sleep(60)
         user.assert_shipping_country_flow_my_application_flow(process_code, '审批完成')
         document_status = user.get_shipping_country_flow_info('出货国家查询-变更产品-全流程-自动化测试项目-项目名称')[6]
-        ValueAssert(drivers).value_assert_equal('审批通过', document_status)
+        ValueAssert.value_assert_equal(document_status, '审批通过')
         user.refresh_webpage_click_menu()
         user.input_shipping_country_search_condition('品牌', 'Infinix')
         user.input_shipping_country_search_condition('项目名称', f'修改项目名称{querytime}')
@@ -367,7 +365,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.shipping_country_search_onework_agree_flow(process_code, '产品经理修改')
         user.shipping_country_search_onework_agree_flow(process_code, '项目经理审批')
         country_status = user.get_shipping_country_search_cty_status('项目名称test2022-06-27-14:11:03')
-        ValueAssert(drivers).value_assert_equal('●', country_status[0])
+        ValueAssert.value_assert_equal(country_status[0], '●')
         """发起流程 乍得更改为 ●，走完流程检查乍得是否为 ●；"""
         user.refresh_webpage_click_menu()
         user.input_shipping_country_search_condition('品牌', 'Infinix')
@@ -388,7 +386,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.shipping_country_search_onework_agree_flow(process_code, '产品经理修改')
         user.shipping_country_search_onework_agree_flow(process_code, '项目经理审批')
         country_status = user.get_shipping_country_search_cty_status('项目名称test2022-06-27-14:11:03')
-        ValueAssert(drivers).value_assert_equal('●', country_status[1])
+        ValueAssert.value_assert_equal(country_status[1], '●')
         """发起流程 中国更改为 ●，走完流程检查中国是否为 ●；"""
         user.refresh_webpage_click_menu()
         user.input_shipping_country_search_condition('品牌', 'Infinix')
@@ -409,7 +407,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.shipping_country_search_onework_agree_flow(process_code, '产品经理修改')
         user.shipping_country_search_onework_agree_flow(process_code, '项目经理审批')
         country_status = user.get_shipping_country_search_cty_status('项目名称test2022-06-27-14:11:03')
-        ValueAssert(drivers).value_assert_equal('●', country_status[2])
+        ValueAssert.value_assert_equal(country_status[2], '●')
         """将东亚所有区域状态重置为空"""
         user.refresh_webpage_click_menu()
         user.input_shipping_country_search_condition('品牌', 'Infinix')

@@ -1,8 +1,8 @@
 tab区域总菜单: "xpath==//div[@class='main-top-audit']//div[contains(text(),'variable')]"
-tab区域菜单一级菜单: "xpath==//div[@tabindex='0']//span[normalize-space(text())='variable']"
-tab区域菜单二级菜单: "xpath==//div[@tabindex='-1']//div[@class='el-tree-node__content']//span[normalize-space(text())='variable']"
-tab区域菜单三级菜单: "xpath==//div[@tabindex='-1']//div[@tabindex='-1']//div[@class='el-tree-node__content']//span[normalize-space(text())='variable']"
-tab区域菜单四级菜单: "xpath==//div[@tabindex='-1']//div[@tabindex='-1']//div[@tabindex='-1']//div[@class='el-tree-node__content']//span[normalize-space(text())='variable']"
+tab区域菜单一级菜单: "xpath==//div[@class='main-top-left']/div[normalize-space(text())='variable']"
+tab区域菜单二级菜单: "xpath==//div[@tabindex='0']/div[@role='group']/div[@tabindex='-1']/div[@class='el-tree-node__content']//span[normalize-space(text())='variable']"
+tab区域菜单三级菜单: "xpath==//div[@tabindex='-1']//div[@tabindex='-1']//span[normalize-space(text())='variable']"
+tab区域菜单四级菜单: "xpath==//span[normalize-space(text())='variable']"
 
 区域导出: "xpath==//span[contains(text(),'导出')]"
 
@@ -15,7 +15,7 @@ tab区域菜单四级菜单: "xpath==//div[@tabindex='-1']//div[@tabindex='-1']/
 
 #新增取消: "xpath==//tbody//tr[variable]//td[6]//span[contains(text(),'取消')]"
 # 列表定位
-列表第2列: "xpath==//tbody//tr//td[2]"
+列表第2列: "xpath==//tbody//tr//td[variable]"
 编辑: "xpath==//tbody//tr[variable]//td[6]//span[contains(text(),'编辑')]"
 保存: "xpath==//tbody//tr//td[6]//span[contains(text(),'保存')]"
 删除: "xpath==//tbody//tr[variable]//td[6]//span[contains(text(),'删除')]"

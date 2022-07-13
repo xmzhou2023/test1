@@ -102,6 +102,13 @@ logging.basicConfig(level=logging.INFO,
                     encoding='utf-8',
                     filemode='a')
 
+def pytest_addoption(parser):
+    parser.addoption("--env", action="store", default='test', help='环境操作')
+
+@pytest.fixture(scope="session", autouse=True)
+def env_name(request):
+    return request.config.getoption("--env")
+
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item):
     """

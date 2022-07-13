@@ -165,9 +165,9 @@ class AreaPage(Base):
             self.readonly_input_text(user['新增-英文名称输入'], nameEn)
 
     @allure.step("指定行编辑按钮")
-    def update_list(self, area_name):
+    def update_list(self, num, area_name):
         """编辑列表指定行数据"""
-        a = self.find_elements(user['列表第2列'])
+        a = self.find_elements(user['列表第2列'], num)
         b = []  # 取出列表第二列的所有文本
         for i in range(len(a)):
             b.append(a[i].text)

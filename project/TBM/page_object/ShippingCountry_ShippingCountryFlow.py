@@ -9,14 +9,14 @@ import logging
 from libs.common.read_element import Element
 from project.TBM.api.api import APIRequest
 from public.base.assert_ui import DomAssert
-from project.TBM.page_object.home import HomePage
+from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name,object_name)
 
 
-class ShippingCountryFlow(HomePage, APIRequest):
+class ShippingCountryFlow(CenterComponent, APIRequest):
     """出货国家_出货国家流程"""
 
     def refresh_webpage(self):
@@ -39,10 +39,10 @@ class ShippingCountryFlow(HomePage, APIRequest):
         """
         退出oneworks查看流程页面
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.close_switch(1)
         self.refresh()
-        self.quite_iframe()
+        self.frame_exit()
         sleep(1)
 
     def enter_shipping_country_flow_my_application(self):
@@ -121,7 +121,7 @@ class ShippingCountryFlow(HomePage, APIRequest):
             raise
         self.switch_window(1)
         sleep(0.5)
-        self.quite_iframe()
+        self.frame_exit()
         sleep(0.5)
         iframe = self.find_element(user['待办列表-我申请的-iframe'])
         self.driver.switch_to.frame(iframe)
@@ -301,7 +301,7 @@ class ShippingCountryFlow(HomePage, APIRequest):
         """
         self.click_menu("出货国家", "出货国家流程")
         sleep(1)
-        info = self.find_elements(user['表格指定行内容'], item)
+        info = self.find_elements_tbm(user['表格指定行内容'], item)
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -397,7 +397,7 @@ class ShippingCountryFlow(HomePage, APIRequest):
         """
         点击同意-确定
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['同意'])
         self.is_click_tbm(user['确定'])
         logging.info('点击同意-确定')
@@ -420,7 +420,7 @@ class ShippingCountryFlow(HomePage, APIRequest):
                 logging.error('断言失败，我的待办中存在该条单据在:{} 审核节点'.format(actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
         else:
             try:
                 assert actual_node == node
@@ -430,7 +430,7 @@ class ShippingCountryFlow(HomePage, APIRequest):
                 logging.error('断言失败，我的待办中该条单据不存在:{} 节点，实际在:{} 节点'.format(node, actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
 
     def assert_shipping_country_flow_my_application_node(self, code, node, exist=False):
         """
@@ -450,7 +450,7 @@ class ShippingCountryFlow(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中存在该条单据在:{} 节点'.format(actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
         else:
             try:
                 assert actual_node == node
@@ -460,7 +460,7 @@ class ShippingCountryFlow(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中该条单据不存在:{} 节点，实际在:{} 节点'.format(node, actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
 
     def input_oneworks_shipping_country_flow_product_definition_info(self, header, content):
         """
@@ -518,7 +518,7 @@ class ShippingCountryFlow(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中该条单据不在:{}流程，实际在:{}流程'.format(flow, actual_flow))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
         elif exist is False:
             try:
                 assert actual_flow != flow
@@ -528,7 +528,7 @@ class ShippingCountryFlow(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中该条单据在:{}流程'.format(actual_flow))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
 
 
 if __name__ == '__main__':

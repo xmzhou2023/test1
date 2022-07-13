@@ -7,8 +7,9 @@ from project.TBM.page_object.ShippingCountry_ShippingCountryFlow import Shipping
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
-shipping_country_flow = Element(pro_name,'ShippingCountry_ShippingCountryFlow')
+user = Element(pro_name, object_name)
+shipping_country_flow = Element(pro_name, 'ShippingCountry_ShippingCountryFlow')
+
 
 class ShippingCountrySearch(ShippingCountryFlow):
     """出货国家_出货国家查询"""
@@ -84,7 +85,7 @@ class ShippingCountrySearch(ShippingCountryFlow):
             raise
         self.switch_window(1)
         sleep(0.5)
-        self.quite_iframe()
+        self.frame_exit()
         sleep(0.5)
         iframe = self.find_element(user['待办列表-我申请的-iframe'])
         self.driver.switch_to.frame(iframe)
@@ -122,7 +123,7 @@ class ShippingCountrySearch(ShippingCountryFlow):
         self.input_shipping_country_search_condition('品牌', 'Infinix')
         self.input_shipping_country_search_condition('项目名称', item)
         self.click_shipping_country_search_search()
-        info = self.find_elements(user['表格指定行内容'], item)
+        info = self.find_elements_tbm(user['表格指定行内容'], item)
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -177,7 +178,7 @@ class ShippingCountrySearch(ShippingCountryFlow):
         """
         self.click_menu("出货国家", "出货国家查询")
         sleep(1)
-        info = self.find_elements(user['表格内容'])
+        info = self.find_elements_tbm(user['表格内容'])
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -289,7 +290,6 @@ class ShippingCountrySearch(ShippingCountryFlow):
         oneworks-国家出货查询 变更国家 进入流程页面
         编辑修改产品定义信息
         :param header: 选择要选择的区域
-        :param content: 选择信息内容
         """
         ele = self.find_element(shipping_country_flow['oneworks-节点-产品经理修改-产品定义信息-变更-操作框'])
         self.driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", ele, 'style',
@@ -320,7 +320,7 @@ class ShippingCountrySearch(ShippingCountryFlow):
         self.quit_shipping_country_flow_onework()
 
     def shipping_country_flow_change_country_flow(self, item, cty):
-        '''待修改'''
+        """待修改"""
         self.refresh_webpage_click_menu()
         self.input_shipping_country_search_condition('品牌', 'Infinix')
         self.input_shipping_country_search_condition('项目名称', item)
