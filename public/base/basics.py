@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 import os
 import logging
 import allure
+import datetime
 """
 selenium基类
 本文件存放了selenium基类的封装方法
@@ -470,6 +471,33 @@ class Base(object):
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
+
+    @allure.step("显示等待(DCR专用)")
+    def presence_sleep_dcr(self, content):
+        """DCR通用的显示等待方法"""
+        txt = None
+        while not txt:
+            txt = self.find_element(content)
+
+    @allure.step("获取当天日期(DCR专用)")
+    def get_datetime_today(self):
+        """DCR获取当天日期"""
+        today = datetime.date.today()
+        today1 = str(today)
+        return today1
+
+    @allure.step("导出后，循环点击查询，等待下载状态更新(DCR专用)")
+    def export_download_status(self, click_search, get_status):
+        self.is_click(click_search)
+        status = self.element_text(get_status)
+        logging.info("循环前Download Status:{}".format(status))
+        while status != "COMPLETE":
+            self.is_click(click_search)
+            status = self.element_text(get_status)
+            logging.info("循环后Download Status:{}".format(status))
+            sleep(1)
+        return status
+
 
 if __name__ == "__main__":
     pass

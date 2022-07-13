@@ -1,7 +1,10 @@
 from public.base.basics import Base
 # from libs.common.read_config import ini
 from public.libs.unified_login.page_object.login import LoginPage
+from public.libs.unified_login.page_object.login import DcrLoginPage
+
 from time import sleep
+
 
 class Login(Base):
     """登录类"""
@@ -16,3 +19,16 @@ class Login(Base):
         user.click_checkbox()
         user.click_loginsubmit()
 
+
+    def dcr_login(self, drivers, url, username, passwd):
+        user = DcrLoginPage(drivers)
+        user.get_url(url)
+        sleep(4)
+        user.input_account(username)
+        user.input_passwd(passwd)
+        sleep(1)
+        get_check_class = user.get_check_box_class()
+        if "is-checked" not in str(get_check_class):
+            user.click_check_box()
+        user.click_loginsubmit()
+        sleep(3)
