@@ -44,58 +44,47 @@ class TestCreateProcess:
 
 @allure.feature("出货国家-出货国家流程")  # 模块名称
 class TestTheProcessOfExaminationAndApproval:
-
-    @pytest.fixture(scope='function', autouse=True)
-    def add_machine_bom_cooperation(self, drivers):
-        logging.info('开始前置操作')
-        global api_response
-        user = ShippingCountryFlow(drivers)
-        api_response = user.api_shipping_country_flow_add()
-        yield
-        logging.info('开始后置操作')
-        user.api_shipping_country_flow_delete(api_response[1], api_response[2])
-
     @allure.story("流程审批")  # 场景名称
     @allure.title("产品部管理员审核成功")  # 用例名称
     @allure.description("出货国家：产品部管理员审核,点击同意，提示请求成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_001(self, drivers):
+    def test_002_001(self, drivers, Shipping_API):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
-        user.assert_shipping_country_flow_my_todo_node(api_response[0], '产品部管理员审核', True)
-        user.enter_shipping_country_flow_onework_edit(api_response[0])
+        user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品部管理员审核', True)
+        user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
         user.quit_onework()
-        user.assert_shipping_country_flow_my_todo_node(api_response[0], '产品部汇签', True)
+        user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品部汇签', True)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("产品部汇签审核成功")  # 用例名称
     @allure.description("出货国家：产品部汇签,点击同意，提示请求成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_002(self, drivers):
+    def test_002_002(self, drivers, Shipping_API):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
-        user.shipping_country_flow_product_department_administrator_review(api_response[0])
-        user.enter_shipping_country_flow_onework_edit(api_response[0])
+        user.shipping_country_flow_product_department_administrator_review(Shipping_API[0])
+        user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
         user.quit_onework()
-        user.assert_shipping_country_flow_my_todo_node(api_response[0], '产品经理修改', True)
+        user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品经理修改', True)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("产品经理修改审核成功")  # 用例名称
     @allure.description("出货国家：产品经理修改, 产品定义信息：点击编辑，修改信息后，点击确定，点击同意")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_003(self, drivers):
+    def test_002_003(self, drivers, Shipping_API):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
-        user.shipping_country_flow_product_department_administrator_review(api_response[0])
-        user.shipping_country_flow_product_department_sign(api_response[0])
-        user.enter_shipping_country_flow_onework_edit(api_response[0])
+        user.shipping_country_flow_product_department_administrator_review(Shipping_API[0])
+        user.shipping_country_flow_product_department_sign(Shipping_API[0])
+        user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         querytime2 = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         user.input_oneworks_shipping_country_flow_product_definition_info('全球版本', '版本2')
         user.input_oneworks_shipping_country_flow_product_definition_info('市场名称', f'市场名称{querytime2}')
@@ -108,38 +97,38 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
         user.quit_onework()
-        user.assert_shipping_country_flow_my_todo_node(api_response[0], '产品部管理员复核', True)
+        user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品部管理员复核', True)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("产品部管理员复核审核成功")  # 用例名称
     @allure.description("出货国家：产品部管理员复核 ,点击同意，提示请求成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_004(self, drivers):
+    def test_002_004(self, drivers, Shipping_API):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
-        user.shipping_country_flow_product_department_administrator_review(api_response[0])
-        user.shipping_country_flow_product_department_sign(api_response[0])
-        user.shipping_country_flow_product_manager_modification(api_response[0])
-        user.enter_shipping_country_flow_onework_edit(api_response[0])
+        user.shipping_country_flow_product_department_administrator_review(Shipping_API[0])
+        user.shipping_country_flow_product_department_sign(Shipping_API[0])
+        user.shipping_country_flow_product_manager_modification(Shipping_API[0])
+        user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
         user.quit_onework()
-        user.assert_shipping_country_flow_my_todo_node(api_response[0], '项目经理审批', True)
+        user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '项目经理审批', True)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("项目经理审批审核成功")  # 用例名称
     @allure.description("出货国家：项目经理审批,点击同意，提示请求成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_005(self, drivers):
+    def test_002_005(self, drivers, Shipping_API):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
-        user.shipping_country_flow_product_department_administrator_review(api_response[0])
-        user.shipping_country_flow_product_department_sign(api_response[0])
-        user.shipping_country_flow_product_manager_modification(api_response[0])
-        user.shipping_country_flow_product_department_administrator_re_review(api_response[0])
-        user.enter_shipping_country_flow_onework_edit(api_response[0])
+        user.shipping_country_flow_product_department_administrator_review(Shipping_API[0])
+        user.shipping_country_flow_product_department_sign(Shipping_API[0])
+        user.shipping_country_flow_product_manager_modification(Shipping_API[0])
+        user.shipping_country_flow_product_department_administrator_re_review(Shipping_API[0])
+        user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
         user.quit_onework()
@@ -149,23 +138,23 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("出货国家:抄送（自动抄送，不需要操作）,出货国家-出货国家流程，查看单据状态已变为审批通过")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_006(self, drivers):
+    def test_002_006(self, drivers, Shipping_API):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage_click_menu()
-        user.shipping_country_flow_product_department_administrator_review(api_response[0])
-        user.shipping_country_flow_product_department_sign(api_response[0])
-        user.shipping_country_flow_product_manager_modification(api_response[0])
-        user.shipping_country_flow_product_department_administrator_re_review(api_response[0])
-        user.enter_shipping_country_flow_onework_edit(api_response[0])
+        user.shipping_country_flow_product_department_administrator_review(Shipping_API[0])
+        user.shipping_country_flow_product_department_sign(Shipping_API[0])
+        user.shipping_country_flow_product_manager_modification(Shipping_API[0])
+        user.shipping_country_flow_product_department_administrator_re_review(Shipping_API[0])
+        user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
         user.quit_onework()
-        user.assert_shipping_country_flow_my_application_node(api_response[0], '抄送', True)
+        user.assert_shipping_country_flow_my_application_node(Shipping_API[0], '抄送', True)
         sleep(60)
-        user.assert_shipping_country_flow_my_application_flow(api_response[0], '审批完成')
-        document_status = user.get_shipping_country_flow_info(api_response[0])[6]
+        user.assert_shipping_country_flow_my_application_flow(Shipping_API[0], '审批完成')
+        document_status = user.get_shipping_country_flow_info(Shipping_API[0])[6]
         ValueAssert.value_assert_equal(document_status, '审批通过')
 
 if __name__ == '__main__':

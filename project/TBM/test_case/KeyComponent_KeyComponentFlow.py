@@ -30,19 +30,9 @@ class TestCreateProcess:
         process_code = user.get_key_components_flow_info()[1]
         user.delete_key_components_flow_flow(process_code)
 
+
 @allure.feature("关键器件_关键器件流程")  # 模块名称
 class TestTheProcessOfExaminationAndApproval:
-
-    @pytest.fixture(scope='function', autouse=True)
-    def add_machine_bom_cooperation(self, drivers):
-        logging.info('开始前置操作')
-        global api_response
-        user = KeyComponentsFlow(drivers)
-        api_response = user.api_key_components_flow_add()
-        yield
-        logging.info('开始后置操作')
-        user.api_key_components_flow_delete(api_response[1], api_response[2])
-
     @allure.story("流程审批")  # 场景名称
     @allure.title("摄像头+闪光灯节点，审批成功")  # 用例名称
     @allure.description("摄像头+闪光灯节点，关键器件中的摄像头+闪光灯节点，点击左侧三角，点击下面的模块，点击物料编码右侧的加号，"
@@ -50,11 +40,11 @@ class TestTheProcessOfExaminationAndApproval:
                         "点击同意，提示操作成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
-    def test_002_001(self, drivers):
+    def test_002_001(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
         user.enter_key_components_flow_my_todo()
-        user.click_key_components_flow_onework_edit(api_response[0], '摄像头+闪光灯')
+        user.click_key_components_flow_onework_edit(Component_API[0], '摄像头+闪光灯')
         user.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         user.click_onework_key_components_flow_module('CTP')
         user.click_onework_key_components_flow_code_add()
@@ -77,11 +67,11 @@ class TestTheProcessOfExaminationAndApproval:
                         "点击同意，提示操作成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
-    def test_002_002(self, drivers):
+    def test_002_002(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
         user.enter_key_components_flow_my_todo()
-        user.click_key_components_flow_onework_edit(api_response[0], '硬件电子料-基带')
+        user.click_key_components_flow_onework_edit(Component_API[0], '硬件电子料-基带')
         user.click_onework_key_components_flow_unfold('硬件电子料-基带')
         user.click_onework_key_components_flow_module('CPU')
         user.click_onework_key_components_flow_code_add()
@@ -98,13 +88,13 @@ class TestTheProcessOfExaminationAndApproval:
                         "责任人选择xxx，点击确定，提示已选分类的审批人设置成功，点击关闭按钮，弹框关闭，点击同意，提示操作成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
-    def test_002_003(self, drivers):
+    def test_002_003(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
-        user.onework_key_components_flow_flowone(api_response[0])
-        user.onework_key_components_flow_flowtwo(api_response[0])
+        user.onework_key_components_flow_flowone(Component_API[0])
+        user.onework_key_components_flow_flowtwo(Component_API[0])
         user.enter_key_components_flow_my_todo()
-        user.click_key_components_flow_onework_edit(api_response[0], '标准化代表')
+        user.click_key_components_flow_onework_edit(Component_API[0], '标准化代表')
         user.click_onework_key_components_flow_checkbox()
         user.click_onework_key_components_flow_onepress()
         user.input_onework_key_components_flow_onepress('责任人', '李小素')
@@ -122,13 +112,13 @@ class TestTheProcessOfExaminationAndApproval:
                         "字段名称选择采购SQM，责任人选择xxx，点击确定。提示已选分类的审批人设置成功，点击关闭按钮，弹框关闭，点击同意，提示操作成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
-    def test_002_004(self, drivers):
+    def test_002_004(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
-        user.onework_key_components_flow_flowone(api_response[0])
-        user.onework_key_components_flow_flowtwo(api_response[0])
+        user.onework_key_components_flow_flowone(Component_API[0])
+        user.onework_key_components_flow_flowtwo(Component_API[0])
         user.enter_key_components_flow_my_todo()
-        user.click_key_components_flow_onework_edit(api_response[0], '采购代表')
+        user.click_key_components_flow_onework_edit(Component_API[0], '采购代表')
         user.click_onework_key_components_flow_checkbox()
         user.click_onework_key_components_flow_onepress()
         user.input_onework_key_components_flow_onepress('资源商务', '李小素')
@@ -156,15 +146,15 @@ class TestTheProcessOfExaminationAndApproval:
                         "点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
-    def test_002_005(self, drivers):
+    def test_002_005(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
-        user.onework_key_components_flow_flowone(api_response[0])
-        user.onework_key_components_flow_flowtwo(api_response[0])
-        user.onework_key_components_flow_flowthree(api_response[0])
-        user.onework_key_components_flow_flowfour(api_response[0])
+        user.onework_key_components_flow_flowone(Component_API[0])
+        user.onework_key_components_flow_flowtwo(Component_API[0])
+        user.onework_key_components_flow_flowthree(Component_API[0])
+        user.onework_key_components_flow_flowfour(Component_API[0])
         user.enter_key_components_flow_my_todo()
-        user.click_key_components_flow_onework_edit(api_response[0], '资源商务评估')
+        user.click_key_components_flow_onework_edit(Component_API[0], '资源商务评估')
         user.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         user.click_onework_key_components_flow_module('CTP')
         user.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -208,15 +198,15 @@ class TestTheProcessOfExaminationAndApproval:
                         "共用项目需求合计(K/M)、此项目产能分配(""K/M)、共用项目名、原因及修改建议、备料建议，点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
-    def test_002_006(self, drivers):
+    def test_002_006(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
-        user.onework_key_components_flow_flowone(api_response[0])
-        user.onework_key_components_flow_flowtwo(api_response[0])
-        user.onework_key_components_flow_flowthree(api_response[0])
-        user.onework_key_components_flow_flowfour(api_response[0])
+        user.onework_key_components_flow_flowone(Component_API[0])
+        user.onework_key_components_flow_flowtwo(Component_API[0])
+        user.onework_key_components_flow_flowthree(Component_API[0])
+        user.onework_key_components_flow_flowfour(Component_API[0])
         user.enter_key_components_flow_my_todo()
-        user.click_key_components_flow_onework_edit(api_response[0], '采购执行评估')
+        user.click_key_components_flow_onework_edit(Component_API[0], '采购执行评估')
         user.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         user.click_onework_key_components_flow_module('CTP')
         user.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -259,15 +249,15 @@ class TestTheProcessOfExaminationAndApproval:
                         "填写原因及修改建议，，点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
-    def test_002_007(self, drivers):
+    def test_002_007(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
-        user.onework_key_components_flow_flowone(api_response[0])
-        user.onework_key_components_flow_flowtwo(api_response[0])
-        user.onework_key_components_flow_flowthree(api_response[0])
-        user.onework_key_components_flow_flowfour(api_response[0])
+        user.onework_key_components_flow_flowone(Component_API[0])
+        user.onework_key_components_flow_flowtwo(Component_API[0])
+        user.onework_key_components_flow_flowthree(Component_API[0])
+        user.onework_key_components_flow_flowfour(Component_API[0])
         user.enter_key_components_flow_my_todo()
-        user.click_key_components_flow_onework_edit(api_response[0], '采购PTC评估')
+        user.click_key_components_flow_onework_edit(Component_API[0], '采购PTC评估')
         user.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         user.click_onework_key_components_flow_module('CTP')
         user.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -290,15 +280,15 @@ class TestTheProcessOfExaminationAndApproval:
                         "填写原因及修改建议，，点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
-    def test_002_008(self, drivers):
+    def test_002_008(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
-        user.onework_key_components_flow_flowone(api_response[0])
-        user.onework_key_components_flow_flowtwo(api_response[0])
-        user.onework_key_components_flow_flowthree(api_response[0])
-        user.onework_key_components_flow_flowfour(api_response[0])
+        user.onework_key_components_flow_flowone(Component_API[0])
+        user.onework_key_components_flow_flowtwo(Component_API[0])
+        user.onework_key_components_flow_flowthree(Component_API[0])
+        user.onework_key_components_flow_flowfour(Component_API[0])
         user.enter_key_components_flow_my_todo()
-        user.click_key_components_flow_onework_edit(api_response[0], '采购SQM评估')
+        user.click_key_components_flow_onework_edit(Component_API[0], '采购SQM评估')
         user.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         user.click_onework_key_components_flow_module('CTP')
         user.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -321,15 +311,15 @@ class TestTheProcessOfExaminationAndApproval:
                         "评审结论（选通过或者选建议修改，填原因及修改建议），填写原因及修改建议，点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
-    def test_002_009(self, drivers):
+    def test_002_009(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
-        user.onework_key_components_flow_flowone(api_response[0])
-        user.onework_key_components_flow_flowtwo(api_response[0])
-        user.onework_key_components_flow_flowthree(api_response[0])
-        user.onework_key_components_flow_flowfour(api_response[0])
+        user.onework_key_components_flow_flowone(Component_API[0])
+        user.onework_key_components_flow_flowtwo(Component_API[0])
+        user.onework_key_components_flow_flowthree(Component_API[0])
+        user.onework_key_components_flow_flowfour(Component_API[0])
         user.enter_key_components_flow_my_todo()
-        user.click_key_components_flow_onework_edit(api_response[0], '标准化部评估')
+        user.click_key_components_flow_onework_edit(Component_API[0], '标准化部评估')
         user.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         user.click_onework_key_components_flow_module('CTP')
         user.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -349,23 +339,23 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("关键器件-关键器件流程，查看单据状态已变为审批通过")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_010(self, drivers):
+    def test_002_010(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
-        user.onework_key_components_flow_flowone(api_response[0])
-        user.onework_key_components_flow_flowtwo(api_response[0])
-        user.onework_key_components_flow_flowthree(api_response[0])
-        user.onework_key_components_flow_flowfour(api_response[0])
-        user.onework_key_components_flow_flowfive(api_response[0])
-        user.onework_key_components_flow_flowsix(api_response[0])
-        user.onework_key_components_flow_ptc(api_response[0])
-        user.onework_key_components_flow_sqm(api_response[0])
-        user.onework_key_components_flow_standardized_evaluation(api_response[0])
-        user.assert_key_components_flow_my_application_node(api_response[0], '审批抄送', True)
+        user.onework_key_components_flow_flowone(Component_API[0])
+        user.onework_key_components_flow_flowtwo(Component_API[0])
+        user.onework_key_components_flow_flowthree(Component_API[0])
+        user.onework_key_components_flow_flowfour(Component_API[0])
+        user.onework_key_components_flow_flowfive(Component_API[0])
+        user.onework_key_components_flow_flowsix(Component_API[0])
+        user.onework_key_components_flow_ptc(Component_API[0])
+        user.onework_key_components_flow_sqm(Component_API[0])
+        user.onework_key_components_flow_standardized_evaluation(Component_API[0])
+        user.assert_key_components_flow_my_application_node(Component_API[0], '审批抄送', True)
         sleep(60)
-        user.assert_key_components_flow_my_application_flow(api_response[0], '审批完成')
+        user.assert_key_components_flow_my_application_flow(Component_API[0], '审批完成')
         document_status = user.get_key_components_flow_info()[5]
-        ValueAssert.value_assert_equal(document_status, 'approved')
+        ValueAssert.value_assert_equal(document_status, '审批通过')
         user.delete_key_components_flow_sql('50A1S')
 
 

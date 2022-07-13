@@ -1,4 +1,6 @@
-import pytest, logging
+import pytest
+
+from project.TBM.api.api import APIRequest
 from public.data.unified_login.unified import *
 from public.base.assert_ui import *
 from public.libs.unified_login.login import Login
@@ -21,3 +23,38 @@ def __init__(drivers, env_name):
     DomAssert(drivers).assert_exact_att('首页')
     logging.info("前置条件：传音统一登录成功")
 
+@pytest.fixture(scope='function', autouse=False)
+def BarePhone_API():
+    logging.info('开始前置操作')
+    user = APIRequest()
+    api_response = user.API_BarePhone_Add()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_BarePhone_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def Machine_API():
+    logging.info('开始前置操作')
+    user = APIRequest()
+    api_response = user.API_Machine_Add()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Machine_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def Component_API():
+    logging.info('开始前置操作')
+    user = APIRequest()
+    api_response = user.API_Components_Add()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Components_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def Shipping_API():
+    logging.info('开始前置操作')
+    user = APIRequest()
+    api_response = user.API_Shipping_Add()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Shipping_Delete(api_response[1], api_response[2])

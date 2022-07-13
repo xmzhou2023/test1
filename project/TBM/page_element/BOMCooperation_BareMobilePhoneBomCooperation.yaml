@@ -67,12 +67,6 @@ BOMTree新增物料对焦: "xpath==//span[normalize-space(text())='variable']/..
 
 #==========================================流程撤回删除========================================
 待办列表-我申请的-iframe: "xpath==//iframe"
-待办列表-刷新: "xpath==//i[@class='el-icon-refresh-right']"
-待办列表-我申请的-查看详情: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../..//button/span[text()='查看详情']"
-撤回: "xpath==//button/span[contains(text(),'撤回')]"
-撤回确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
-关闭我申请的: "xpath==//*[@id='tags-view-container']//span[contains(text(),'我申请的')]/span"
-待办列表-我的待办-当前节点: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../../td[2]//div[4]/span[2]"
 #==========================================oneworks========================================
 OneworksBomTree全部内容: "xpath==//div[@row-key='id']//table/tbody/*"
 OneworksBom信息-机型: "xpath==//label[text()='机型']/..//span/span/span"
