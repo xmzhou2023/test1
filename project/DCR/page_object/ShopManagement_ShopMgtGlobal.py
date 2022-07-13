@@ -135,7 +135,6 @@ class ShopManagementPage(Base):
     def click_confirm_delete(self):
         """点击Confirm 确认删除按钮"""
         self.is_click(user['Delete Confirm'])
-        #sleep(0.5)
 
     def get_text_edit_success(self):
         """删除门店成功后，获取列表 successfully文本内容"""

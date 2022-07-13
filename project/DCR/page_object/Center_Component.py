@@ -6,6 +6,7 @@ from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
+pro_env = "test"
 ini = ReadConfig(pro_name, pro_env)
 
 
@@ -65,7 +66,7 @@ class LoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-
+        sleep(3)
 
     """查找菜单"""
     def click_gotomenu(self, *content):
@@ -81,7 +82,7 @@ class LoginPage(Base):
             self.scroll_into_view(user[level[i]])
             sleep(2)
             self.is_click(user[level[i]])
-        sleep(4)
+        sleep(2)
 
 
 

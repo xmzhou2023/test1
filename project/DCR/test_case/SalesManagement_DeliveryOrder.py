@@ -18,15 +18,9 @@ class TestQueryDeliveryOrder():
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
-        sleep(5)
 
-        # """刷新页面"""
-        # base = Base(drivers)
-        # base.refresh()
-        # sleep(3.5)
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Delivery Order")
-        sleep(9)
 
         list = DeliveryOrderPage(drivers)
         sale_order = list.text_sales_order
@@ -35,17 +29,13 @@ class TestQueryDeliveryOrder():
         status = list.text_delivery_Status()
 
         total = list.get_total_text()
-        total1 = total[6:8]
+        total1 = total[6:]
         ValueAssert.value_assert_IsNoneNot(sale_order)
         ValueAssert.value_assert_IsNoneNot(deli_order)
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
-        if int(total1) > 1:
-            logging.info("查看Delivery Order列表，加载数据正常，分页总记录数：{}".format(total1))
-        else:
-            logging.info("查看Delivery Order列表，加载数据失败，分页总记录数：{}".format(total1))
+        list.assert_total(total1)
         list.click_close_delivery_order()
-        sleep(1)
 
 
 @allure.feature("销售管理-出库单")
@@ -62,29 +52,24 @@ class TestExportDeliveryOrder():
         """打开销售管理-打开出库单页面"""
         user = LoginPage(drivers)
         user.click_gotomenu("Sales Management", "Delivery Order")
-        sleep(10)
 
         export = DeliveryOrderPage(drivers)
         # 获取日期
-        today = datetime.date.today()
-        today1 = str(today)
+        base = Base(drivers)
+        today = base.get_datetime_today()
 
         export.click_unfold()
-        export.input_delivery_date(today1, today1)
+        export.input_delivery_date(today, today)
         export.click_status_input_box()
         export.click_fold()
         export.click_search()
-        sleep(1)
+
         #筛选出库单后，点击导出功能
         export.click_export()
-        sleep(2)
-        export.click_download_icon()
-        export.click_more()
-        sleep(5)
-        export.click_export_search()
-        sleep(3)
 
-        down_status = export.get_download_status_text()
+        export.click_download_more()
+        down_status = export.click_export_search()
+
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         file_size1 = file_size[0:1]
@@ -100,18 +85,10 @@ class TestExportDeliveryOrder():
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Delivery Order")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date1, today1)
-        ValueAssert.value_assert_equal(complete_date1, today1)
+        ValueAssert.value_assert_equal(create_date1, today)
+        ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
-        if int(file_size1) > 0:
-            logging.info("Delivery Order导出成功，File Size 导出文件大于1KB:{}".format(file_size1))
-        else:
-            logging.info("Delivery Order导出失败，File Size 导出文件小于1KB:{}".format(file_size1))
-
-        if int(export_time1) > 0:
-            logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time1))
-        else:
-            logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time1))
+        export.assert_file_time_size(file_size1, export_time1)
         #export.click_close_export_record()
         #export.click_close_delivery_order()
         sleep(1)

@@ -101,10 +101,6 @@ class DeliveryOrderPage(Base):
 
 
     """DeliveryOrderPage类，测试环境，Delivery Order页面查询与导出功能元素定位"""
-    def click_export(self):
-        """Delivery Order页面，点击导出功能"""
-        self.is_click(user['Click Export'])
-
     def click_unfold(self):
         """点击Unfold展开筛选条件"""
         self.is_click(user['Unfold'])
@@ -132,10 +128,31 @@ class DeliveryOrderPage(Base):
         total = self.element_text(user['Total'])
         return total
 
+    def get_sales_order_text(self):
+        """获取列表Sales Order ID文本内容"""
+        Base.presence_sleep_dcr(self, user['Get Sales Order ID Text'])
+        sales_order = self.element_text(user['Get Sales Order ID Text'])
+        return sales_order
+
+    def get_delivery_order_text(self):
+        """获取列表Delivery Order ID文本内容"""
+        delivery_order = self.element_text(user['Get Delivery Order ID Text'])
+        return delivery_order
+
     def get_delivery_date_text(self):
         """获取列表Delivery Date文本内容"""
         deli_date = self.element_text(user['Get Delivery Date Text'])
         return deli_date
+
+    def get_status_text(self):
+        """获取列表Status文本内容"""
+        status = self.element_text(user['Get Status Text'])
+        return status
+
+    def get_no_data(self):
+        """ 出库单页面，no Data文本内容 """
+        get_no_data = self.element_text(user['No Data'])
+        return get_no_data
 
     def click_close_export_record(self):
         """关闭导出记录菜单"""
@@ -145,26 +162,28 @@ class DeliveryOrderPage(Base):
     def click_close_delivery_order(self):
         """出库单页面，关闭出库单菜单"""
         self.is_click(user['关闭出库单菜单'])
-
-    def get_no_data(self):
-        """ 出库单页面，no Data文本内容 """
-        get_no_data = self.element_text(user['No Data'])
-        return get_no_data
+        sleep(2)
 
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
-    def click_download_icon(self):
-        self.is_click(user['Download Icon'])
+    def click_export(self):
+        """Delivery Order页面，点击导出功能"""
+        Base.find_element(self, user['Click Export'])
+        self.is_click(user['Click Export'])
         sleep(2)
 
-    def click_more(self):
+    def click_download_more(self):
         """点击more更多按钮"""
+        self.is_click(user['Download Icon'])
+        sleep(1)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        sleep(5)
 
     def click_export_search(self):
-        """导出页面，点击Search按钮"""
-        self.is_click(user['Export Record Search'])
+        """循环点击查询，直到获取到下载状态为COMPLETE """
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
@@ -205,6 +224,27 @@ class DeliveryOrderPage(Base):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
         return export_time
+
+
+    def assert_total(self, total):
+        """断言分页总数是否存在数据"""
+        if int(total) > 1:
+            logging.info("查看Delivery Order列表，加载数据正常，分页总记录数：{}".format(total))
+        else:
+            logging.info("查看Delivery Order列表，加载数据失败，分页总记录数：{}".format(total))
+
+    def assert_file_time_size(self, file_size, export_time):
+        """断言文件或导出时间是否有数据 """
+        if int(file_size) > 0:
+            logging.info("Delivery Order导出成功，File Size 导出文件大于1KB:{}".format(file_size))
+        else:
+            logging.info("Delivery Order导出失败，File Size 导出文件小于1KB:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
+
 
 
 if __name__ == '__main__':
