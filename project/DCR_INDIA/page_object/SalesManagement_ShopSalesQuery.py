@@ -1,12 +1,10 @@
 from libs.common.read_element import Element
-import allure
-from public.base.basics import Base, sleep
-from libs.common.read_element import Element
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 import logging
-
+from libs.common.time_ui import sleep
+from public.base.basics import Base
+import datetime
 from ..test_case.conftest import *
+
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name,object_name)
 
@@ -20,7 +18,6 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['Select Shop Value'])
 
     def click_unfold(self):
-        sleep(2)
         self.is_click(user['Unfold'])
         sleep(2)
 
@@ -29,6 +26,7 @@ class ShopSaleQueryPage(Base):
         sleep(1)
 
     def input_sales_date_date(self, content1, content2):
+        Base.presence_sleep_dcr(self, user['Sales Date Start Date'])
         self.is_click(user['Sales Date Start Date'])
         self.input_text(user['Sales Date Start Date'], txt=content1)
         self.is_click(user['Sales Date End Date'])
@@ -37,7 +35,6 @@ class ShopSaleQueryPage(Base):
     def click_search(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
         self.is_click_dcr(user['Search'])
-        sleep(3)
 
     def click_reset(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
@@ -46,6 +43,7 @@ class ShopSaleQueryPage(Base):
 
     def get_shop_id_text(self):
         """Shop Sales Query页面，获取列表Shop ID 文本内容"""
+        Base.presence_sleep_dcr(self, user['获取门店ID文本'])
         shop_id = self.element_text(user['获取门店ID文本'])
         return shop_id
 
@@ -71,14 +69,10 @@ class ShopSaleQueryPage(Base):
 
     def get_total_text(self):
         """Shop Sales Query页面，获取列表Status文本内容"""
-        Base.find_element(self, user['获取总条数文本'])
+        Base.presence_sleep_dcr(self, user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
         return total
 
-    def click_export(self):
-        """Shop Sales Query页面，点击Export 导出门店销量查询数据"""
-        self.is_click(user['Export'])
-        sleep(2)
 
     def click_close_export_record(self):
         """关闭导出记录菜单"""
@@ -96,21 +90,28 @@ class ShopSaleQueryPage(Base):
     def click_export(self):
         """Visit Record页面，点击Export导出按钮"""
         self.is_click(user['Export'])
+        sleep(2)
 
     def click_download_more(self):
         """点击异步导出，点击更多按钮"""
         self.is_click(user['Download Icon'])
-        sleep(2.5)
+        sleep(1)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(6)
+        sleep(5)
 
     def click_export_search(self):
-        self.is_click(user['Export Record Search'])
+        """循环点击查询，直到获取到下载状态为COMPLETE """
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
+
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
-        status = self.element_text(user['获取下载状态文本'])
-        return status
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status1 = self.element_text(user['获取下载状态文本'])
+            return status1
 
     def get_task_name_text(self):
         """导出记录页面，获取列表 Task Name文本"""

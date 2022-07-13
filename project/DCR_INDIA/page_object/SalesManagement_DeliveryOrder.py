@@ -1,10 +1,6 @@
-import allure
-from public.base.basics import Base, sleep
 from libs.common.read_element import Element
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
-import logging
-
+from libs.common.time_ui import sleep
+from public.base.basics import Base
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -12,12 +8,6 @@ user = Element(pro_name,object_name)
 
 class DeliveryOrderPage(Base):
     """DeliveryOrderPage类，生产环境，Delivery Order页面元素定位"""
-    def click_export(self):
-        """Delivery Order页面，点击导出功能"""
-        Base.find_element(self, user['Click Export'])
-        self.is_click(user['Click Export'])
-        sleep(2)
-
     def click_unfold(self):
         """点击Unfold展开筛选条件"""
         self.is_click(user['Unfold'])
@@ -30,7 +20,7 @@ class DeliveryOrderPage(Base):
 
     def input_delivery_date(self, content1, content2):
         """输入Delivery Date开始与结束日期筛选"""
-        Base.find_element(self, user['Delivery Start Date'])
+        Base.presence_sleep_dcr(self, user['Delivery Start Date'])
         self.is_click(user['Delivery Start Date'])
         self.input_text(user['Delivery Start Date'], txt=content1)
         sleep(1)
@@ -53,7 +43,7 @@ class DeliveryOrderPage(Base):
 
     def get_sales_order_text(self):
         """获取列表Sales Order ID文本内容"""
-        Base.find_element(self, user['Get Sales Order ID Text'])
+        Base.presence_sleep_dcr(self, user['Get Sales Order ID Text'])
         sales_order = self.element_text(user['Get Sales Order ID Text'])
         return sales_order
 
@@ -89,22 +79,32 @@ class DeliveryOrderPage(Base):
 
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
+    def click_export(self):
+        """Delivery Order页面，点击导出功能"""
+        Base.find_element(self, user['Click Export'])
+        self.is_click(user['Click Export'])
+        sleep(2)
+
     def click_download_more(self):
         """点击more更多按钮"""
         self.is_click(user['Download Icon'])
-        sleep(2.5)
+        sleep(1)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(5)
+        sleep(6)
 
     def click_export_search(self):
         """导出页面，点击Search按钮"""
-        self.is_click(user['Export Record Search'])
-        sleep(2.5)
+        """循环点击查询，直到获取到下载状态为COMPLETE """
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
-        status = self.element_text(user['获取下载状态文本'])
-        return status
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status1 = self.element_text(user['获取下载状态文本'])
+            return status1
 
     def get_task_name_text(self):
         """导出记录页面，获取列表 Task Name文本"""

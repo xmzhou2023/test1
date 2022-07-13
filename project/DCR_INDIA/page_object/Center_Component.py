@@ -6,7 +6,8 @@ from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
-ini = ReadConfig(pro_name, 'prod')
+ini = ReadConfig(pro_name, pro_env)
+
 
 class LoginPage(Base):
     """DCR登录类"""
@@ -75,7 +76,7 @@ class LoginPage(Base):
             navstr = navstr + '->' + content[i]
             level.append(navstr[2:])
         for i in range(len(content)):
-            # logging.info(user[level[i]])
+            logging.info(user[level[i]])
             sleep(2)
             self.scroll_into_view(user[level[i]])
             sleep(2)

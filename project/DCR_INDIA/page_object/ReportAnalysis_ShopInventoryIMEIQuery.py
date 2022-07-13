@@ -1,11 +1,10 @@
-import allure
-from public.base.basics import Base, sleep
 from libs.common.read_element import Element
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.action_chains import ActionChains
 import logging
-
+from libs.common.time_ui import sleep
+from public.base.basics import Base
+import datetime
 from ..test_case.conftest import *
+
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name,object_name)
 
@@ -26,7 +25,7 @@ class ShopInventoryIMEIQueryPage(Base):
 
     def input_inbound_date(self, content):
         """Shop Inventory IMEI Query页面，输入筛选开始日期"""
-        Base.find_element(self, user['Inbound Date Start Time'])
+        Base.presence_sleep_dcr(self, user['Inbound Date Start Time'])
         self.is_click(user['Inbound Date Start Time'])
         sleep(1)
         self.input_text(user['Inbound Date Start Time'], txt=content)
@@ -48,13 +47,13 @@ class ShopInventoryIMEIQueryPage(Base):
 
     def get_total_text(self):
         """Shop Inventory IMEI Query页面，获取分页功能总条数文本"""
-        Base.find_element(self, user['获取总条数文本'])
+        Base.presence_sleep_dcr(self, user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
         return total
 
     def get_shop_id_text(self):
         """Shop Inventory IMEI Query页面，获取列表Shop ID文本"""
-        Base.find_element(self, user['获取Shop ID文本'])
+        Base.export_download_status(self, user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
 
@@ -95,20 +94,26 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_download_more(self):
         """点击下载-更多按钮"""
         self.is_click(user['Download Icon'])
-        sleep(2.5)
+        sleep(1)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(9)
+        sleep(5)
 
     def click_export_search(self):
-        self.is_click(user['Export Record Search'])
+        """循环点击查询，直到获取到下载状态为COMPLETE """
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
-        status = self.element_text(user['获取下载状态文本'])
-        return status
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status1 = self.element_text(user['获取下载状态文本'])
+            return status1
 
     def get_task_name_text(self):
         """导出记录页面，获取列表 Task Name文本"""
+        Base.presence_sleep_dcr(self, user['获取任务名称文本'])
         task_name = self.element_text(user['获取任务名称文本'])
         return task_name
 

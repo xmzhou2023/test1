@@ -9,7 +9,7 @@ import pytest
 import allure
 
 @allure.feature("销售管理-门店")
-class TestQueryShopSalesQuery():
+class TestQueryShopSalesQuery:
     @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
@@ -20,7 +20,6 @@ class TestQueryShopSalesQuery():
 
         """打开销售管理-打开门店销售查询页面"""
         user.click_gotomenu("Sales Management", "Shop Sales Query")
-        sleep(10)
 
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         shop_sales = ShopSaleQueryPage(drivers)
@@ -44,12 +43,13 @@ class TestQueryShopSalesQuery():
 
 
 @allure.feature("销售管理-门店销售查询")
-class TestExportShopSalesQuery():
+class TestExportShopSalesQuery:
     @allure.story("导出查询门店销量")
     @allure.title("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
+
         """刷新页面"""
         base = Base(drivers)
         base.refresh()
@@ -77,9 +77,8 @@ class TestExportShopSalesQuery():
         #筛选销售日期后，点击导出功能
         export.click_export()
         export.click_download_more()
-        export.click_export_search()
+        down_status = export.click_export_search()
 
-        down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         file_size1 = file_size[0:1]

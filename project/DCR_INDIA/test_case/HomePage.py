@@ -10,7 +10,7 @@
 # from project.DCR.page_object.HomePage import HomePagePage
 #
 # @allure.feature("Home Page")
-# class TestQueryUserMgtCard():
+# class TestQueryUserMgtCard:
 #     @allure.story("查询")
 #     @allure.title("查看Homepage首页，User Management& Authorization卡片维度数据")
 #     @allure.description("查看Homepage首页，User Management& Authorization卡片的各维度数据")
