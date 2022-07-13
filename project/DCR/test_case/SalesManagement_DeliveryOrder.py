@@ -1,7 +1,6 @@
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
-from project.DCR.page_object.menu import MenuPage
 import logging
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
@@ -26,8 +25,7 @@ class TestQueryDeliveryOrder():
         # base.refresh()
         # sleep(3.5)
         """打开销售管理-打开出库单页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Delivery Order")
+        user.click_gotomenu("Sales Management", "Delivery Order")
         sleep(9)
 
         list = DeliveryOrderPage(drivers)
@@ -62,8 +60,8 @@ class TestExportDeliveryOrder():
         base.refresh()
         sleep(3.5)
         """打开销售管理-打开出库单页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Sales Management", "Delivery Order")
+        user = LoginPage(drivers)
+        user.click_gotomenu("Sales Management", "Delivery Order")
         sleep(10)
 
         export = DeliveryOrderPage(drivers)
@@ -76,6 +74,7 @@ class TestExportDeliveryOrder():
         export.click_status_input_box()
         export.click_fold()
         export.click_search()
+        sleep(1)
         #筛选出库单后，点击导出功能
         export.click_export()
         sleep(2)

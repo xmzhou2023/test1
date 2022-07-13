@@ -1,7 +1,6 @@
 from project.DCR.page_object.ReportAnalysis_CustomerSaleReport import CustomerSalesReportPage
-from project.DCR.page_object.menu import MenuPage
 from libs.common.connect_sql import *
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
 import pytest
@@ -21,8 +20,7 @@ class TestQueryCustomerSalesReport():
         sleep(6)
 
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Report Analysis", "Customer Sales Report")
+        user.click_gotomenu("Report Analysis", "Customer Sales Report")
         sleep(6)
 
         sales_report = CustomerSalesReportPage(drivers)

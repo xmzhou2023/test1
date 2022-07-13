@@ -1,21 +1,18 @@
 import datetime
 from time import sleep
-
 import allure
 import requests
-
-import logging
 from libs.common.read_element import Element
 from project.TBM.api.api import APIRequest
-from public.base.assert_ui import DomAssert
 from libs.common.connect_sql import *
-from project.TBM.page_object.home import HomePage
+from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
-class KeyComponentsFlow(HomePage, APIRequest):
+
+class KeyComponentsFlow(CenterComponent, APIRequest):
     """关键器件_关键器件流程"""
 
     def refresh_webpage(self):
@@ -38,10 +35,10 @@ class KeyComponentsFlow(HomePage, APIRequest):
         """
         退出oneworks查看流程页面
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.close_switch(1)
         self.refresh()
-        self.quite_iframe()
+        self.frame_exit()
         sleep(1)
 
     def click_key_components_flow_add(self):
@@ -189,11 +186,12 @@ class KeyComponentsFlow(HomePage, APIRequest):
     def request_key_components_flow_delete(self, bid, headers):
         """
         TBM 关键器件流程删除已撤回接口
-        @param instanceId:oneworks撤回流程编码
+        @param bid:流程bid
         @param headers:接口头部
         """
         logging.info('发起请求：关键器件流程删除已撤回接口')
-        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/plm-key-device-main/key-device/flow/deleteFlow?flowBid={bid}')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/plm-key-device-main/key-device/flow/deleteFlow'
+                     f'?flowBid={bid}')
         recall_response = requests.get(
             url=f'http://pfgatewayidct.transsion.com:9088/plm-key-device-main/key-device/flow/deleteFlow?flowBid={bid}',
             headers=headers)
@@ -208,7 +206,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         通过调用接口发起撤回流程
         调用接口：oneworks流程撤回接口，关键器件流程删除已撤回接口
         @param instanceid:oneworks撤回流程编码
-        @param flowid:流程ID
+        @param bid:流程ID
         """
         logging.info('发起流程接口：关键器件流程撤回流程')
         token = self.tbm_login()
@@ -224,7 +222,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         """
         self.click_menu("关键器件", "关键器件流程")
         sleep(1)
-        info = self.find_elements(user['表格内容'])
+        info = self.find_elements_tbm(user['表格内容'])
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -271,7 +269,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
             self.refresh()
             self.is_click_tbm(user['撤回'])
             self.is_click_tbm(user['撤回确定'])
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
         self.click_menu("关键器件", "关键器件流程")
 
     def delete_key_components_flow_flow(self, process_code):
@@ -316,7 +314,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
             raise
         self.switch_window(1)
         sleep(0.5)
-        self.quite_iframe()
+        self.frame_exit()
         sleep(0.5)
         iframe = self.find_element(user['待办列表-我申请的-iframe'])
         self.driver.switch_to.frame(iframe)
@@ -420,7 +418,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         self.input_onework_key_components_flow_material_parameter('连接方式', '焊接', False)
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
 
     def onework_key_components_flow_flowtwo(self, code):
         """
@@ -437,7 +435,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         self.input_onework_key_components_flow_material_details('物料属性', '属性test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
 
     def onework_key_components_flow_flowthree(self, code):
         """
@@ -453,7 +451,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         self.click_onework_key_components_flow_onepress_cancel()
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
 
     def onework_key_components_flow_flowfour(self, code):
         """
@@ -475,7 +473,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         self.click_onework_key_components_flow_onepress_cancel()
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
 
     def onework_key_components_flow_flowfive(self, code):
         """
@@ -518,7 +516,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         self.input_onework_key_components_flow_procurement_evaluation('原因及修改建议', '原因及修改建议TEST')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
 
     def onework_key_components_flow_flowsix(self, code):
         """
@@ -561,7 +559,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         self.input_onework_key_components_flow_procurement_execution('备料建议', '备料建议test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
 
     def onework_key_components_flow_ptc(self, code):
         """
@@ -584,7 +582,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         self.input_onework_key_components_flow_ptc('原因及修改建议', '原因及修改建议test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
 
     def onework_key_components_flow_sqm(self, code):
         """
@@ -607,7 +605,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
         self.input_onework_key_components_flow_sqm('原因及修改建议', '原因及修改建议test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
 
     def onework_key_components_flow_standardized_evaluation(self, code):
         """
@@ -628,13 +626,13 @@ class KeyComponentsFlow(HomePage, APIRequest):
         self.input_onework_key_components_flow_standardized_evaluation('原因及修改建议', '原因及修改建议test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_key_components_flow_onework()
+        self.quit_onework()
 
     def click_onework_key_components_flow_agree(self):
         """
         点击同意-确定
         """
-        self.quite_iframe()
+        self.frame_exit()
         self.is_click_tbm(user['同意'])
         self.is_click_tbm(user['确定'])
         self.base_get_img('result')
@@ -650,6 +648,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
             self.is_click_tbm(user['oneworks-节点-评估关键器件-复选框全选'])
         else:
             self.is_click_tbm(user['oneworks-节点-评估关键器件-复选框单选'], sort)
+        logging.info('点击复选框')
 
     def click_onework_key_components_flow_onepress(self):
         """
@@ -778,7 +777,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中存在该条单据在:{}节点'.format(actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
         else:
             try:
                 assert actual_node == node
@@ -788,7 +787,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中不存在该条单据在:{}审核节点'.format(actual_node))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
 
     def assert_key_components_flow_my_application_flow(self, code, flow, exist=True):
         """
@@ -808,7 +807,7 @@ class KeyComponentsFlow(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中该条单据不在:{}流程，实际在:{}流程'.format(flow, actual_flow))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
         elif exist is False:
             try:
                 assert actual_flow != flow
@@ -818,17 +817,18 @@ class KeyComponentsFlow(HomePage, APIRequest):
                 logging.error('断言失败，我申请的中该条单据在:{}流程'.format(actual_flow))
                 raise
             finally:
-                self.quite_iframe()
+                self.frame_exit()
 
     @staticmethod
     def delete_key_components_flow_sql(model):
         """
         使用sql脚本修改删除流程数据
         """
-        connect_sql.change_db(
+        a = SQL('TBM', 'test')
+        a.change_db(
             f"UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
             f"= '{model}')",
-            '关键器件测试环境')
+        )
         logging.info('调用sql脚本修改数据库数据')
 
 

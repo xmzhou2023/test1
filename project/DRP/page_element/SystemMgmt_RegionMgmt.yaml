@@ -15,7 +15,7 @@ tab区域菜单四级菜单: "xpath==//span[normalize-space(text())='variable']"
 
 #新增取消: "xpath==//tbody//tr[variable]//td[6]//span[contains(text(),'取消')]"
 # 列表定位
-列表第2列: "xpath==//tbody//tr//td[2]"
+列表第2列: "xpath==//tbody//tr//td[variable]"
 编辑: "xpath==//tbody//tr[variable]//td[6]//span[contains(text(),'编辑')]"
 保存: "xpath==//tbody//tr//td[6]//span[contains(text(),'保存')]"
 删除: "xpath==//tbody//tr[variable]//td[6]//span[contains(text(),'删除')]"

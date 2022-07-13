@@ -24,7 +24,8 @@ Add Association Customer: "xpath==//span[contains(text(),'Add Association')]"
 #添加客户元素
 Add Click Input Query Cust: "xpath==//*[@id='userAuthCustomer']/div[3]/div/div[2]/form/div/div/div/div[1]/div/div/div/div/div[1]/input"
 Add Input Query Cust: "css==[placeholder='Batch input content']"
-Add Input Query Cust Value: "xpath==//span[contains(text(),'CN20009')]"
+Add Input Query Cust Value: "xpath==//*[@id='userAuthCustomer']/div[3]/div/div[2]/form/div/div/div/div[1]/div/div/div/div/div[2]/div/div[2]/div[1]/div[1]/ul/li/span"
+
 Add Customer Search: "xpath==//*['@id=userAuthCustomer']/div[3]/div/div[2]/form/div/div/div/button/span[contains(text(),'Search')]"
 Add Cust Authorized Selected: "xpath==//span[contains(text(),'Authorized Selected')]"
 添加客户勾选复选框: "xpath==//*[@id='userAuthCustomer']/div[3]/div/div[2]/div/div[1]/div[3]/table/tbody/tr/td[1]/div/label/span"

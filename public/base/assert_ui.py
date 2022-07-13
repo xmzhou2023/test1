@@ -152,7 +152,7 @@ class DomAssert(object):
         try:
             Base(self.driver).base_get_img('result')
             att = self.wait.until(
-                EC.visibility_of_element_located((By.XPATH, "//*[normalize-space(text())='{}']".format(word)))).text
+                EC.visibility_of_element_located((By.XPATH, "//*[contains(text(),'{}')]".format(word)))).text
             assert word in att, logging.warning("断言失败：页面不存在该标识 | 当前页面关键字: {}".format(att.replace("\n", "|")))
             logging.info("断言成功：页面存在该标识 | 当前页面关键字: {}".format(att.replace("\n", "|")))
         except Exception as e:

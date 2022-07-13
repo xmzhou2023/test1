@@ -1,15 +1,15 @@
 from project.DCR.page_object.StaffAuthorization_UserAuthorization import UserAuthorizationPage
-from project.DCR.page_object.menu import MenuPage
-from project.DCR.page_object.login import LoginPage
-from public.base.assert_ui import ValueAssert
+from project.DCR.page_object.Center_Component import LoginPage
+from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.time_ui import sleep
+from libs.common.logger_ui import log
 import pytest
 import allure
 
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteBrandAuthorization():
-    @allure.story("删除")
+    @allure.story("删除品牌授权")
     @allure.title("用户授权页面，删除Infinix品牌授权")
     @allure.description("用户授权页面，筛选User：NG2061301，删除Infinix品牌授权")
     @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -20,8 +20,7 @@ class TestDeleteBrandAuthorization():
         sleep(5)
 
         """打开User Authorization菜单页面 """
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Staff & Authorization", "User Authorization")
+        user.click_gotomenu("Staff & Authorization", "User Authorization")
         sleep(5)
 
         """如果存在infinix品牌则删除infinix品牌，如果不存在infinix品牌则添加infinix品牌"""
@@ -30,19 +29,22 @@ class TestDeleteBrandAuthorization():
         brand.click_search()
 
         list_infinix = brand.get_list_infinix_text()
+        log.info("list_infinix{}".format(list_infinix))
+
         """如果存在删除Infinix品牌"""
-        if list_infinix in "Infinix":
+        if "Infinix" == list_infinix:
             """如果存在Infinix品牌，则删除此品牌"""
             brand.click_cancel_association()
             brand.click_delete_brand()
-            delete_success = brand.get_delete_brand_success()
-            ValueAssert.value_assert_equal(delete_success, "Successfully")
-            sleep(1.5)
+            """断言页面是否存在Successfully成功提示语"""
+            domassert = DomAssert(drivers)
+            domassert.assert_att("Successfully")
+            sleep(2)
 
 
 @allure.feature("员工授权-用户授权")
 class TestAddBrandAuthorization():
-    @allure.story("新增")
+    @allure.story("新增品牌授权")
     @allure.title("用户授权页面，新增Infinix品牌授权")
     @allure.description("用户授权页面，筛选User：NG2061301，新增Infinix品牌授权")
     @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -51,19 +53,20 @@ class TestAddBrandAuthorization():
         brand = UserAuthorizationPage(drivers)
         brand.click_add_brand()
         get_add_infinix = brand.get_add_infinix_text()
-        ValueAssert.value_assert_In(get_add_infinix, "Infinix")
+        ValueAssert.value_assert_equal("Infinix", get_add_infinix)
         brand.click_add_brand_checkbox()
         brand.click_save_brand()
-        add_success = brand.get_add_brand_success()
-        ValueAssert.value_assert_equal(add_success, "Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         list_infinix_text = brand.get_list_infinix_text()
-        ValueAssert.value_assert_equal(list_infinix_text, "Infinix")
-        sleep(1.5)
+        ValueAssert.value_assert_equal("Infinix", list_infinix_text)
+        sleep(2)
 
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteCustAuthorization():
-    @allure.story("删除")
+    @allure.story("删除客户授权")
     @allure.title("用户授权页面，删除CN20009客户授权")
     @allure.description("用户授权页面，筛选User：NG2061301，删除CN20009客户授权")
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -78,17 +81,16 @@ class TestDeleteCustAuthorization():
         customer.click_cust_more_option()
         customer.click_cust_cancel_association()
         customer.click_cust_delete()
-        get_dele_success = customer.get_cust_delete_success()
-        ValueAssert.value_assert_equal(get_dele_success, "Successfully")
-        get_dele_nodata = customer.get_cust_delete_success()
-        ValueAssert.value_assert_In(get_dele_nodata, "No Data")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         customer.click_brand_tab()
         customer.click_customer_tab()
 
 
 @allure.feature("员工授权-用户授权")
 class TestAddCustAuthorization():
-    @allure.story("新增")
+    @allure.story("新增客户授权")
     @allure.title("用户授权页面，新增CN20009客户授权")
     @allure.description("用户授权页面，筛选User：NG2061301，新增CN20009客户授权")
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -101,14 +103,14 @@ class TestAddCustAuthorization():
         if get_customer_id in "CN20009":
             customer.click_add_customer_checkbox()
             customer.click_cust_authoriz_select()
-            add_cust_success = customer.get_add_cust_success_text()
-            ValueAssert.value_assert_In(add_cust_success, "Successfully")
-        sleep(1.5)
+            domassert = DomAssert(drivers)
+            domassert.assert_att("Successfully")
+        sleep(2)
 
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteWareAuthorization():
-    @allure.story("删除")
+    @allure.story("删除仓库授权")
     @allure.title("用户授权页面，删除WNG2061304仓库授权")
     @allure.description("用户授权页面，筛选User：NG2061301，删除WNG2061304 仓库授权")
     @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -123,15 +125,17 @@ class TestDeleteWareAuthorization():
         ware.click_ware_more_option()
         ware.click_ware_cancel_association()
         ware.click_ware_delete()
-        get_ware_del_success = ware.get_ware_delete_success()
-        ValueAssert.value_assert_equal(get_ware_del_success, "Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
+        sleep(1)
         get_no_data = ware.get_ware_dele_no_data()
         ValueAssert.value_assert_In(get_no_data, "No Data")
-        sleep(1.5)
+        sleep(2)
 
 @allure.feature("员工授权-用户授权")
 class TestAddWareAuthorization():
-    @allure.story("新增")
+    @allure.story("新增仓库授权")
     @allure.title("用户授权页面，新增WNG2061304仓库授权")
     @allure.description("用户授权页面，筛选User：NG2061301，新增WNG2061304 仓库授权")
     @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -144,16 +148,17 @@ class TestAddWareAuthorization():
         if get_add_ware == "WNG2061304":
             ware.click_add_ware_checkbox()
         ware.click_add_ware_save()
-        add_ware_success = ware.get_add_ware_success()
-        ValueAssert.value_assert_equal(add_ware_success, "Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         get_list_ware2 = ware.get_list_warehouseID_text()
-        ValueAssert.value_assert_equal(get_list_ware2, "WNG2061304")
-        sleep(1.5)
+        ValueAssert.value_assert_equal(get_add_ware, get_list_ware2)
+        sleep(2)
 
 
 @allure.feature("员工授权-用户授权")
 class TestAddRegionAuthorization():
-    @allure.story("新增")
+    @allure.story("新增销售区域")
     @allure.title("用户授权页面，新增销售区域授权")
     @allure.description("用户授权页面，筛选User：testlhm0215，新增销售区域授权")
     @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -165,14 +170,15 @@ class TestAddRegionAuthorization():
         sale_region.click_east_africa_checkbox()
         sale_region.click_score_user_checkbox()
         sale_region.click_save_sales_region()
-        sale_region_success = sale_region.get_sale_region_success()
-        ValueAssert.value_assert_In(sale_region_success, "Successfully")
-        sleep(1.5)
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
+        sleep(2)
 
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteShopAuthorization():
-    @allure.story("删除")
+    @allure.story("删除门店授权")
     @allure.title("用户授权页面，删除EG000378门店授权")
     @allure.description("用户授权页面，筛选User：testlhm0215，删除Shop ID:EG000378授权")
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -187,8 +193,9 @@ class TestDeleteShopAuthorization():
         shop.click_shop_more_option()
         shop.click_shop_cancel_association()
         shop.click_shop_delete()
-        shop_del_success = shop.get_shop_delete_success()
-        ValueAssert.value_assert_equal(shop_del_success, "Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         get_shop_no_data = shop.get_shop_delete_no_data()
         ValueAssert.value_assert_In(get_shop_no_data, "No Data")
         sleep(2)
@@ -196,11 +203,11 @@ class TestDeleteShopAuthorization():
 
 @allure.feature("员工授权-用户授权")
 class TestAddShopAuthorization():
-    @allure.story("新增")
+    @allure.story("新增门店授权")
     @allure.title("用户授权页面，新增EG000378门店授权")
     @allure.description("用户授权页面，筛选User：testlhm0215，新增Shop ID:EG000378授权")
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-    def test_008_001(self, drivers):
+    def test_009_001(self, drivers):
         shop = UserAuthorizationPage(drivers)
         shop.click_add_association_shop()
         shop.input_add_query_shop("EG000378")
@@ -209,10 +216,12 @@ class TestAddShopAuthorization():
         if get_add_shop_id == "EG000378":
             shop.click_add_shop_checkbox()
         shop.click_add_shop_author_select()
-        shop_add_success = shop.get_shop_add_success()
-        ValueAssert.value_assert_equal(shop_add_success, "Successfully")
+
+        domassert = DomAssert(drivers)
+        domassert.assert_att("Successfully")
         get_list_shop_id = shop.get_list_shop_id_text()
         ValueAssert.value_assert_equal(get_list_shop_id, "EG000378")
+
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserAuthorization.py'])

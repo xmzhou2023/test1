@@ -1,6 +1,5 @@
-from project.DCR.page_object.menu import MenuPage
 from project.DCR.page_object.ShopManagement_ShopMgtGlobal import ShopManagementPage
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import *
 from libs.common.connect_sql import *
 from libs.common.time_ui import sleep
@@ -10,9 +9,9 @@ import allure
 
 @allure.feature("门店管理-门店管理(global)")
 class TestAddShop():
-    @allure.story("新增")
+    @allure.story("新增门店")
     @allure.title("门店管理，新增门店操作")
-    @allure.description("门店管理页面，新增门店操作成功后，校验新增的门店是否存在")
+    @allure.description("门店管理页面，新增门店操作成功后，筛选新增的门店是否加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
@@ -20,7 +19,7 @@ class TestAddShop():
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
         sleep(5)
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = MenuPage(drivers)
+        menu = LoginPage(drivers)
         menu.click_gotomenu("Shop Management", "Shop Management(Global)")
         sleep(5)
 
@@ -44,9 +43,9 @@ class TestAddShop():
         add_shop.click_commercial_area_tag()
         add_shop.click_submit()
         add_shop.click_query_search()
-
+        sleep(4)
         """从数据库查询最近新建的门店ID"""
-        user = SQL('DCR','test')
+        user = SQL('DCR', 'test')
         shop_data = user.query_db(
             "select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
         shop_id = shop_data[0].get("public_code")
@@ -54,6 +53,7 @@ class TestAddShop():
         """获取列表新建的门店ID与门店名称文本内容"""
         add_shop.input_query_shop_name(shop_name, shop_name)
         add_shop.click_query_search()
+        sleep(4)
         shopid = add_shop.get_shop_id_text()
         shopname = add_shop.get_shop_name_text()
         """断言数据库表中是否存在新建的门店名称"""
@@ -64,14 +64,14 @@ class TestAddShop():
         ValueAssert.value_assert_In(shopid, shop_id)
         ValueAssert.value_assert_equal(shopname, shop_name)
         add_shop.click_reset()
-        sleep(1)
+        sleep(2)
 
 
 @allure.feature("门店管理-门店管理(global)")
 class TestEditShop():
-    @allure.story("修改")
+    @allure.story("扩展门店品牌")
     @allure.title("门店管理页面，对新增的门店进行扩展itel品牌操作")
-    @allure.description("门店管理页面，对新增的门店进行扩展itel品牌操作")
+    @allure.description("门店管理页面，对新增的门店进行扩展品牌操作，扩展itel品牌提交后，列表展示扩展的门店品牌")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_002(self, drivers):
         edit_shop = ShopManagementPage(drivers)
@@ -79,11 +79,12 @@ class TestEditShop():
         edit_shop.click_first_checkbox()
         edit_shop.click_more_option()
         edit_shop.click_extend_brand()
-        edit_shop.select_extend_Brand()
+        edit_shop.select_extend_brand("itel")
         edit_shop.extend_brand_save()
 
         edit_shop.input_extend_sales_region("Barisal itel")
         edit_shop.click_extend_shop_grade()
+        sleep(3)
         edit_shop.click_extend_shop_type()
         edit_shop.click_extend_image_type()
         edit_shop.extend_retail_customer("SN455338")
@@ -109,12 +110,12 @@ class TestEditShop():
         ValueAssert.value_assert_equal(shop_name, shopname)
         ValueAssert.value_assert_equal(shop_brand, "itel")
         ValueAssert.value_assert_equal(status, "Enabled")
-        sleep(1)
+        sleep(2)
 
 
 @allure.feature("门店管理-门店管理(global)")
 class TestDeleteShop():
-    @allure.story("删除")
+    @allure.story("删除门店")
     @allure.title("门店管理页面，对新增的扩展品牌门店进行删除操作")
     @allure.description("门店管理页面，对新增的扩展品牌门店进行删除操作")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -134,11 +135,12 @@ class TestDeleteShop():
         sleep(1)
         """增加断言，获取列表删除前的Shop id、Shop name与删除后的 Shop id、Shop name比较是否不包含此内容"""
         del_shop.click_query_search()
+        sleep(4)
         shop_id2 = del_shop.get_shop_id_text()
         shop_name2 = del_shop.get_shop_name_text()
         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
-
+        sleep(1)
 
 if __name__ == '__main__':
     pytest.main(['ShopManagement_ShopMgtGlobal.py'])

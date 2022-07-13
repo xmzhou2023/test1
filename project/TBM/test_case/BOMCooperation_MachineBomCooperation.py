@@ -96,8 +96,8 @@ class TestCreateProcess:
         user.input_machine_bom_cooperation_one_press('用量', '1000')
         amount1 = user.get_machine_bom_cooperation_bomtree_info('产成品')[8]
         amount2 = user.get_machine_bom_cooperation_bomtree_info('产成品')[8]
-        ValueAssert(drivers).value_assert_equal(amount1, '1000')
-        ValueAssert(drivers).value_assert_equal(amount2, '1000')
+        ValueAssert.value_assert_equal(amount1, '1000')
+        ValueAssert.value_assert_equal(amount2, '1000')
 
     @allure.story("创建流程")  # 场景名称
     @allure.title("BOM tree中不选择物料，页面上不存在删除按钮")  # 用例名称
@@ -160,10 +160,10 @@ class TestCreateProcess:
         user.click_machine_bom_cooperation_batch_delete()
         user.click_machine_bom_cooperation_batch_confirm()
         data_list = user.get_machine_bom_cooperation_bomtree_info('充电器')
-        ValueAssert(drivers).value_assert_equal(data_list[5], '')
-        ValueAssert(drivers).value_assert_equal(data_list[8], '')
-        ValueAssert(drivers).value_assert_equal(data_list[9], '')
-        ValueAssert(drivers).value_assert_equal(data_list[10], '')
+        ValueAssert.value_assert_equal(data_list[5], '')
+        ValueAssert.value_assert_equal(data_list[8], '')
+        ValueAssert.value_assert_equal(data_list[9], '')
+        ValueAssert.value_assert_equal(data_list[10], '')
 
 
 @allure.feature("BOM协作_整机BOM协作")  # 模块名称
@@ -402,7 +402,7 @@ class TestCreateProcessExceptionScenario:
         user.input_machine_bom_cooperation_bomtree('物料编码', '10000010')
         user.input_machine_bom_cooperation_one_press('用量', '1000')
         amount = user.get_machine_bom_cooperation_bomtree_info('产成品')[8]
-        ValueAssert(drivers).value_assert_equal(amount, '')
+        ValueAssert.value_assert_equal(amount, '')
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("不填写产成品数据，全选一键填写用量，页面上没有填写上任何数据")  # 用例名称
@@ -418,7 +418,7 @@ class TestCreateProcessExceptionScenario:
         user.click_machine_bom_cooperation_checkbox()
         user.input_machine_bom_cooperation_one_press('用量', '1000')
         amount = user.get_machine_bom_cooperation_bomtree_info('产成品')[8]
-        ValueAssert(drivers).value_assert_equal(amount, '')
+        ValueAssert.value_assert_equal(amount, '')
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("一键填写，不填写内容提示为“不能为空”")  # 用例名称
@@ -579,16 +579,17 @@ class TestTheProcessOfExaminationAndApproval:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
         user.enter_machine_bom_cooperation_onework_check(api_response[0])
+        sleep(2)
         info1 = user.get_machine_bom_cooperation_onework_bominfo('制作类型')
         info2 = user.get_machine_bom_cooperation_onework_bominfo('品牌')
         info3 = user.get_machine_bom_cooperation_onework_bominfo('机型')
         info4 = user.get_machine_bom_cooperation_onework_bominfo('阶段')
         info5 = user.get_machine_bom_cooperation_onework_bominfo('市场')
-        ValueAssert(drivers).value_assert_equal(info1, '生产BOM')
-        ValueAssert(drivers).value_assert_equal(info2, 'itel')
-        ValueAssert(drivers).value_assert_equal(info3, 'X572-1')
-        ValueAssert(drivers).value_assert_equal(info4, '试产阶段')
-        ValueAssert(drivers).value_assert_equal(info5, '埃塞本地')
+        ValueAssert.value_assert_equal(info1, '生产BOM')
+        ValueAssert.value_assert_equal(info2, 'itel')
+        ValueAssert.value_assert_equal(info3, 'X572-1')
+        ValueAssert.value_assert_equal(info4, '试产阶段')
+        ValueAssert.value_assert_equal(info5, '埃塞本地')
         user.assert_machine_bom_cooperation_oneworks_bomtree_result(
             ('1', '产成品', '10000010', '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材', '可选', '1000'), )
         user.quit_machine_bom_cooperation_onework()
@@ -771,7 +772,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_machine_bom_cooperation_onework()
         user.assert_machine_bom_cooperation_flow_refuse(api_response[0])
         process_status = user.get_machine_bom_cooperation_info()[7]
-        ValueAssert(drivers).value_assert_equal(process_status, '审批拒绝')
+        ValueAssert.value_assert_equal(process_status, '审批拒绝')
 
     # @allure.story("流程审批")  # 场景名称
     # @allure.title("业务审核页面，导出文数据和页面数据一致")  # 用例名称
@@ -987,7 +988,7 @@ class TestTheProcessOfExaminationAndApproval:
         sleep(60)
         user.assert_machine_bom_cooperation_my_application_flow(api_response[0], '审批完成')
         document_status = user.get_machine_bom_cooperation_assigned_info(api_response[0])[7]
-        ValueAssert(drivers).value_assert_equal('审批通过', document_status)
+        ValueAssert.value_assert_equal(document_status, '审批通过')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("数据组审批页面，回退到补充工厂")  # 用例名称

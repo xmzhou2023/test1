@@ -1,6 +1,6 @@
 import allure
 import pytest
-from public.base.assert_ui import DomAssert, ValueAssert
+from public.base.assert_ui import *
 from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_RegionMgmt import AreaPage
 
@@ -81,8 +81,7 @@ class TestSearchArea:
         user.search_area("巴基斯坦")
         allist = user.goto_tree()
         res = user.check_tree("巴基斯坦", allist)
-        user = ValueAssert()
-        user.value_assert_equal(res)
+        ValueAssert.value_assert_equal(res)
 
     @allure.story("查询区域")
     @allure.title("模糊搜索区域")
@@ -100,8 +99,7 @@ class TestSearchArea:
         user.search_area("巴基")
         allist = user.goto_tree()
         res = user.check_tree("巴基", allist)
-        user = ValueAssert()
-        user.value_assert_equal(res)
+        ValueAssert.value_assert_equal(res)
 
     @allure.story("查询区域")
     @allure.title("清空搜索框内容")
@@ -119,8 +117,7 @@ class TestSearchArea:
         user.search_area("加纳")
         allist = user.goto_tree()
         res = user.check_tree("加纳", allist)
-        user = ValueAssert()
-        user.value_assert_equal(res)
+        ValueAssert.value_assert_equal(res)
         user = AreaPage(drivers)
         user.clear_tree()
 
@@ -360,7 +357,7 @@ class TestUpdateArea:
         user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部', 'Xpark业务区')
-        user.update_list('lj测试001')  # 点击编辑按钮
+        user.update_list(3,'ljtest002')  # 点击编辑按钮
         user.update_area(nameZh='lj测试002', nameEn='ljtest002')  # 编辑 替换内容
         user.save_button()  # 保存
 

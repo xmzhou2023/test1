@@ -96,7 +96,7 @@ class TestCreateProcessExceptionScenario:
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("BOM编码[null]的物料组在对应的模板中未设置！")  # 用例名称
-    @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中点击新增BOM，不填写物料编码，其他内容正确填写，点击提交，提示BOM编码不能为空")
+    @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中点击新增BOM，不填写物料编码，其他内容正确填写，点击提交，提示BOM编码[null]的物料组在对应的模板中未设置！")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_004(self, drivers):

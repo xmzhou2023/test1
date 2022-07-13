@@ -1,7 +1,6 @@
-from project.DCR.page_object.menu import MenuPage
 from project.DCR.page_object.ReportAnalysis_ShopInventoryIMEIQuery import ShopInventoryIMEIQueryPage
 import logging
-from project.DCR.page_object.login import LoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
@@ -27,8 +26,7 @@ class TestQueryShopInventoryIMEI():
         # sleep(3.5)
 
         """报表分析-打开门店库存IMEI查询页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
+        user.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
         sleep(8)
 
         """查看Shop Inventory IMEI Query 列表所有数据加载是否正常"""
@@ -65,34 +63,36 @@ class TestQueryShopInventoryIMEI():
         """考勤管理-打开考勤记录页面"""
         """查看Shop Inventory IMEI Query 列表数据加载是否正常"""
         shop_inventory = ShopInventoryIMEIQueryPage(drivers)
+        today = datetime.date.today()
+        today1 = str(today)
         # 筛选前，获取列表属性文本内容
-        shop_id_text = shop_inventory.get_shop_id_text()
-        shop_name_text = shop_inventory.get_shop_name_text()
-        brand_text = shop_inventory.get_brand_text()
-        series_text = shop_inventory.get_series_text()
-        model_text = shop_inventory.get_model_text()
+        # shop_id_text = shop_inventory.get_shop_id_text()
+        # shop_name_text = shop_inventory.get_shop_name_text()
+        # brand_text = shop_inventory.get_brand_text()
+        # series_text = shop_inventory.get_series_text()
+        # model_text = shop_inventory.get_model_text()
         #点击Unfold展开筛选按钮
-        #shop_inventory.click_unfold()
-        shop_inventory.input_shop_id(shop_id_text)
-        #shop_inventory.input_inbound_date(today1)
+        shop_inventory.click_unfold()
+        #shop_inventory.input_shop_id(shop_id_text)
+        shop_inventory.input_inbound_date(today1)
         shop_inventory.click_search()
-        #shop_inventory.click_fold()
+        shop_inventory.click_fold()
 
         #筛选后，获取列表属性文本内容
         total = shop_inventory.get_total_text()
         total1 = total[6:7]
-        shop_id = shop_inventory.get_shop_id_text()
-        shop_name = shop_inventory.get_shop_name_text()
-        brand = shop_inventory.get_brand_text()
-        series = shop_inventory.get_series_text()
-        model = shop_inventory.get_model_text()
+        # shop_id = shop_inventory.get_shop_id_text()
+        # shop_name = shop_inventory.get_shop_name_text()
+        # brand = shop_inventory.get_brand_text()
+        # series = shop_inventory.get_series_text()
+        # model = shop_inventory.get_model_text()
 
         #断言筛选前获取列表文本内容，然后筛选操作后，断言比较列表文本内容是否一致
-        ValueAssert.value_assert_equal(shop_id_text, shop_id)
-        ValueAssert.value_assert_equal(shop_name_text, shop_name)
-        ValueAssert.value_assert_equal(brand_text, brand)
-        ValueAssert.value_assert_equal(series_text, series)
-        ValueAssert.value_assert_In(model_text, model)
+        # ValueAssert.value_assert_equal(shop_id_text, shop_id)
+        # ValueAssert.value_assert_equal(shop_name_text, shop_name)
+        # ValueAssert.value_assert_equal(brand_text, brand)
+        # ValueAssert.value_assert_equal(series_text, series)
+        # ValueAssert.value_assert_In(model_text, model)
 
         if int(total1) >= 1:
             logging.info("查看Shop Inventory IMEI Query列表，加载筛选的数据正常，分页总条数Total：{}".format(total1))
@@ -117,8 +117,8 @@ class TestExportShopInventoryIMEI():
         sleep(3.5)
 
         """报表分析-打开门店库存IMEI查询页面"""
-        menu = MenuPage(drivers)
-        menu.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
+        user = LoginPage(drivers)
+        user.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
         sleep(8)
 
         export = ShopInventoryIMEIQueryPage(drivers)
@@ -126,8 +126,8 @@ class TestExportShopInventoryIMEI():
         today = datetime.date.today()
         today1 = str(today)
         # 筛选前，获取列表属性文本内容
-        shop_id_text = export.get_shop_id_text()
-        export.input_shop_id(shop_id_text)
+        export.click_unfold()
+        export.input_inbound_date(today1)
         export.click_search()
 
         # 点击导出功能
@@ -135,7 +135,7 @@ class TestExportShopInventoryIMEI():
         sleep(3)
         export.click_download_icon()
         export.click_more()
-        sleep(5)
+        sleep(8)
         export.click_export_search()
 
         down_status = export.get_download_status_text()
