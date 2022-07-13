@@ -9,6 +9,9 @@ import requests
 import logging
 from libs.common.read_config import *
 
+pro_name = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).split('\\')[-1]
+pro_env = 'test' # 需要手动配置测试环境
+ini = ReadConfig(pro_name, pro_env)
 
 class APIRequest:
 
@@ -20,14 +23,14 @@ class APIRequest:
         @param headers:接口头部
         @param method:接口方式，待补充
         """
-        logging.info('接口请求地址为：%s', eval(ini._get(API, request)))
+        logging.info('接口请求地址为：%s', eval(ini._get('API', request)))
         global response
         if method == 'post':
-            response = requests.post(url=eval(ini._get(API, request)),
+            response = requests.post(url=eval(ini._get('API', request)),
                                      json=data,
                                      headers=headers)
         elif method == 'delete':
-            response = requests.delete(url=eval(ini._get(API, request)),
+            response = requests.delete(url=eval(ini._get('API', request)),
                                        headers=headers)
         response_dicts = dict()
         response_dicts['body'] = response.json()
@@ -140,8 +143,8 @@ class APIRequest:
                         {"id": "new_bom_3018", "matGroup": "278", "bomName": "其他包材", "nodeClass": "actual",
                          "businessRole": "market,pilot", "tempNodeId": 3731, "childNodes": [], "index": 8,
                          "serialNo": "1.3.9"}], "index": 2, "serialNo": "1.3"}], "isRoot": 'true', "index": 0,
-                 "serialNo": 1, "matCode": "10000010", "deleteValidate": 'false',
-                 "note": "1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材", "matAttr": "可选"}], "approvers": {
+                 "serialNo": 1, "matCode": "10026418", "deleteValidate": 'false',
+                 "note": "整机_Infinix_X695D_H854_N1_7度紫_PH_128+8_Ⅰ", "matAttr": "可选"}], "approvers": {
                 "bisReviewApprovers": [{"role": "nps", "userNo": "18645960"}, {"role": "pmSuper", "userNo": ""},
                                        {"role": "qpm", "userNo": ""}],
                 "bisSupplyApprovers": [{"role": "market", "userNo": ""}, {"role": "preResearch", "userNo": ""},
