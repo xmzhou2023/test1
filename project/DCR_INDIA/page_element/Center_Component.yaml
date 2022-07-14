@@ -8,6 +8,7 @@
 
 退出登录: "id==LoginOut"
 退出登录2: "css==[id='LoginOut']"
+get Home Page Customer text: "xpath==//a[@class='router-link-exact-active router-link-active']//span[contains(text(),'Home Page-Customer')]"
 
 
 ###=====定位菜单元素=======================================

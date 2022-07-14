@@ -18,6 +18,9 @@ class TestQueryDeliveryOrder:
         user = LoginPage(drivers)
         user.dcr_login(drivers, "testsupervisor", "dcr123456")
 
+        get_home_page = user.get_home_page_text()
+        ValueAssert.value_assert_equal("Home Page-Customer", get_home_page)
+
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")
