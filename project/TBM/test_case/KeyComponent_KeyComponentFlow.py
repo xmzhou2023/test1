@@ -58,7 +58,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_material_parameter('连接方式', '焊接', False)
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("硬件电子料-基带节点，审批成功")  # 用例名称
@@ -80,7 +80,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_material_details('物料属性', '属性test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("标准化代表节点，审批成功")  # 用例名称
@@ -102,7 +102,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_onework_key_components_flow_onepress_cancel()
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("采购代表节点，审批成功")  # 用例名称
@@ -136,7 +136,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_onework_key_components_flow_onepress_cancel()
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("资源商务评估节点，审批成功")  # 用例名称
@@ -189,7 +189,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_procurement_evaluation('原因及修改建议', '原因及修改建议TEST')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("采购执行评估节点，审批成功")  # 用例名称
@@ -241,7 +241,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_procurement_execution('备料建议', '备料建议test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("采购PTC评估节点，审批成功")  # 用例名称
@@ -272,7 +272,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_ptc('原因及修改建议', '原因及修改建议test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("采购SQM评估节点，审批成功")  # 用例名称
@@ -303,7 +303,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_sqm('原因及修改建议', '原因及修改建议test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("标准化部评估节点，审批成功")  # 用例名称
@@ -332,7 +332,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_onework_key_components_flow_standardized_evaluation('原因及修改建议', '原因及修改建议test')
         user.click_onework_key_components_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("标准化部评估节点，审批成功")  # 用例名称
@@ -355,8 +355,9 @@ class TestTheProcessOfExaminationAndApproval:
         sleep(60)
         user.assert_key_components_flow_my_application_flow(Component_API[0], '审批完成')
         document_status = user.get_key_components_flow_info()[5]
-        ValueAssert.value_assert_equal(document_status, '审批通过')
         user.delete_key_components_flow_sql('50A1S')
+        user.assert_add_flow(document_status)
+
 
 
 if __name__ == '__main__':

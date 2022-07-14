@@ -10,8 +10,8 @@
 撤回流程-查看详情: "xpath==//*[@id='app']/div//div/table/tbody/tr[1]//div/div/button/span[contains(text(),'查看详情')]"
 回退: "xpath==//button/span[contains(text(),'回 退')]"
 转交: "xpath==//button/span[contains(text(),'转 交')]"
-
 #==========================================创建页面========================================
+基本信息: "xpath==//span[text()='基本信息']"
 提交: "xpath==//button/span[contains(text(),'提交')]"
 保存: "xpath==//button/span[contains(text(),'保存')]"
 批量删除: "xpath==//div[@title='批量删除']"

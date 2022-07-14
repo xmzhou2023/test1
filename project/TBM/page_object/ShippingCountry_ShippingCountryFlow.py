@@ -1,19 +1,11 @@
-import allure
-
 import datetime
 from time import sleep
-
-import requests
-
-import logging
 from libs.common.read_element import Element
-from project.TBM.api.api import APIRequest
-from public.base.assert_ui import DomAssert
 from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
 
 class ShippingCountryFlow(CenterComponent, APIRequest):
@@ -158,8 +150,8 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
     def input_shipping_country_flow_add_product_definition_info(self, header, content):
         """
         出货国家流程新增页面 - 新增产品定义信息
-        :param info: 选择要输入的信息
-        :param select: 选择信息内容
+        :param header: 选择要输入的信息
+        :param content: 选择信息内容
         """
         definition_dict = {'全球版本': '4', '市场名称': '5', '项目名称': '6', 'MEMORY': '7', 'BANDSTRATEGY': '8',
                            '产品经理': '9', '项目经理': '10', 'aaa': '12', 'bbb': '13'}
@@ -184,8 +176,6 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         else:
             print(f'请输入正确选项：{definition_dict}')
 
-
-
     def click_shipping_country_flow_product_definition_confirm(self):
         """点击新增"""
         self.is_click_tbm(user['产品定义信息确定'])
@@ -193,8 +183,8 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
     def select_shipping_country_flow_signatory(self, choice, name):
         """
         出货国家流程新增页面 - 选择汇签/抄送人员
-        :param info: 选择要输入的信息
-        :param select: 选择信息内容
+        :param choice: 汇签/抄送人员选择框
+        :param name: 人员名字
         """
         self.is_click_tbm(user['汇签/抄送人员选择框'], choice)
         self.is_click_tbm(user['成员列表清空'], choice)

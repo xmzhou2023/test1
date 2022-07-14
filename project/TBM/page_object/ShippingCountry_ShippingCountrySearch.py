@@ -1,8 +1,5 @@
-import allure
 from time import sleep
-import logging
 from libs.common.read_element import Element
-from public.base.assert_ui import DomAssert
 from project.TBM.page_object.ShippingCountry_ShippingCountryFlow import ShippingCountryFlow
 from ..test_case.conftest import *
 

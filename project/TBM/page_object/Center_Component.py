@@ -4,6 +4,7 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name,object_name)
 
+
 class CenterComponent(Base, APIRequest):
     """用户类"""
 
@@ -20,7 +21,6 @@ class CenterComponent(Base, APIRequest):
                 sleep(1)
                 self.refresh()
             except Exception as e:
-                logging.error(e)
                 self.base_get_img()
                 self.refresh()
                 self.is_click_tbm(user['meta-title'], metatitle)
@@ -118,10 +118,9 @@ class CenterComponent(Base, APIRequest):
             self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
         self.frame_exit()
         self.switch_window(1)
+        sleep(1)
         self.frame_enter(user['待办列表-iframe'])
         sleep(1)
-
-
 
     def assert_my_todo_node(self, code, node, exist=False):
         """

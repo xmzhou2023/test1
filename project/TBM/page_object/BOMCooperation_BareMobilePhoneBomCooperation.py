@@ -662,7 +662,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         补充工厂页面 根据material点击指定复选框，默认全选
         @param code:物料编码，传入物料编码；默认‘all’表示点击全选复选框
         """
-        sleep(1)
+        sleep(2)
         if code == 'all':
             self.is_click_tbm(user['补充工厂复选框全选'])
         else:

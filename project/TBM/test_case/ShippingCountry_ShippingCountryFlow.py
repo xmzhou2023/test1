@@ -56,7 +56,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
         user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品部汇签', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -71,7 +71,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
         user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品经理修改', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -96,7 +96,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_oneworks_shipping_country_flow_product_definition_info('bbb', 'G70')
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
         user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品部管理员复核', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -113,7 +113,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
         user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '项目经理审批', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -131,7 +131,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("项目经理审批审核成功后，流程结束，状态变为审批通过")  # 用例名称
@@ -150,7 +150,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_onework()
+        user.quit_oneworks()
         user.assert_shipping_country_flow_my_application_node(Shipping_API[0], '抄送', True)
         sleep(60)
         user.assert_shipping_country_flow_my_application_flow(Shipping_API[0], '审批完成')

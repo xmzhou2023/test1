@@ -1,7 +1,4 @@
-import datetime
 from time import sleep
-import allure
-import requests
 from libs.common.read_element import Element
 from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
@@ -157,7 +154,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
             self.refresh()
             self.is_click_tbm(user['撤回'])
             self.is_click_tbm(user['撤回确定'])
-        self.quit_onework()
+        self.quit_oneworks()
         self.click_menu("关键器件", "关键器件流程")
 
     def delete_key_components_flow_flow(self, process_code):
@@ -306,7 +303,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.input_onework_key_components_flow_material_parameter('连接方式', '焊接', False)
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_onework()
+        self.quit_oneworks()
 
     def onework_key_components_flow_flowtwo(self, code):
         """
@@ -323,7 +320,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.input_onework_key_components_flow_material_details('物料属性', '属性test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_onework()
+        self.quit_oneworks()
 
     def onework_key_components_flow_flowthree(self, code):
         """
@@ -339,7 +336,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.click_onework_key_components_flow_onepress_cancel()
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_onework()
+        self.quit_oneworks()
 
     def onework_key_components_flow_flowfour(self, code):
         """
@@ -361,7 +358,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.click_onework_key_components_flow_onepress_cancel()
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_onework()
+        self.quit_oneworks()
 
     def onework_key_components_flow_flowfive(self, code):
         """
@@ -404,7 +401,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.input_onework_key_components_flow_procurement_evaluation('原因及修改建议', '原因及修改建议TEST')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_onework()
+        self.quit_oneworks()
 
     def onework_key_components_flow_flowsix(self, code):
         """
@@ -447,7 +444,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.input_onework_key_components_flow_procurement_execution('备料建议', '备料建议test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_onework()
+        self.quit_oneworks()
 
     def onework_key_components_flow_ptc(self, code):
         """
@@ -470,7 +467,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.input_onework_key_components_flow_ptc('原因及修改建议', '原因及修改建议test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_onework()
+        self.quit_oneworks()
 
     def onework_key_components_flow_sqm(self, code):
         """
@@ -493,7 +490,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.input_onework_key_components_flow_sqm('原因及修改建议', '原因及修改建议test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_onework()
+        self.quit_oneworks()
 
     def onework_key_components_flow_standardized_evaluation(self, code):
         """
@@ -514,7 +511,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.input_onework_key_components_flow_standardized_evaluation('原因及修改建议', '原因及修改建议test')
         self.click_onework_key_components_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
-        self.quit_onework()
+        self.quit_oneworks()
 
     def click_onework_key_components_flow_agree(self):
         """
@@ -532,6 +529,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         点击复选框
         @param sort:物料编码，传入物料编码；默认‘all’表示点击全选复选框
         """
+        sleep(1)
         if sort == 'all':
             self.is_click_tbm(user['oneworks-节点-评估关键器件-复选框全选'])
         else:
@@ -719,6 +717,11 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         )
         logging.info('调用sql脚本修改数据库数据')
 
+    def assert_add_flow(self, status):
+        try:
+            ValueAssert.value_assert_equal(status, '审批通过')
+        except:
+            ValueAssert.value_assert_equal(status, 'approved')
 
 if __name__ == '__main__':
     pass

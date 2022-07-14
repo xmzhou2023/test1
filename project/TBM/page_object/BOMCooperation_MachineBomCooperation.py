@@ -20,6 +20,12 @@ class MachineBOMCollaboration(CenterComponent):
         """点击新增"""
         self.is_click_tbm(user['新增'])
         sleep(1)
+        for i in range(20):
+            if self.element_text(user['基本信息']) != '基本信息':
+                self.is_click_tbm(user['新增'])
+                sleep(1)
+            else:
+                break
 
     def input_machine_bom_cooperation_add_bom_info(self, info, select):
         """
