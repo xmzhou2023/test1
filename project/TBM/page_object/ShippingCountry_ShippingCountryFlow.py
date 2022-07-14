@@ -162,7 +162,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         if header in select_list:
             self.is_click_tbm(user['产品定义信息输入框'], definition_dict[header])
             self.is_click_tbm(user['产品定义信息选择'], content)
-        if header in select1_list:
+        elif header in select1_list:
             self.is_click_tbm(user['产品定义信息输入框2'], definition_dict[header])
             self.is_click_tbm(user['产品定义信息选择'], content)
         elif header in input_list:
