@@ -1087,7 +1087,7 @@ class TestProcessApprovalExceptionScenario:
         user.click_machine_bom_cooperation_oneworks_agree()
         user.click_machine_bom_cooperation_oneworks_confirm()
         user.enter_machine_bom_cooperation_onework_iframe()
-        DomAssert(drivers).assert_att('【生产工厂信息】物料10000010的组包工厂不能为空')
+        DomAssert(drivers).assert_att('【生产工厂信息】物料10026418的组包工厂不能为空')
         user.quit_oneworks()
 
     @allure.story("流程审批异常场景")  # 场景名称
@@ -1163,7 +1163,7 @@ class TestProcessApprovalExceptionScenario:
         user.click_machine_bom_cooperation_oneworks_agree()
         user.click_machine_bom_cooperation_oneworks_confirm()
         user.enter_machine_bom_cooperation_onework_iframe()
-        DomAssert(drivers).assert_att('父阶BOM料号10000010用量不为1000')
+        DomAssert(drivers).assert_att('父阶BOM料号10026418用量不为1000')
         user.quit_oneworks()
 
     @allure.story("流程审批异常场景")  # 场景名称

@@ -17,6 +17,7 @@ class CenterComponent(Base, APIRequest):
                 logging.info(f'点击一级菜单:{metatitle}')
                 self.is_click_tbm(user['nest-menu'], nestmenu)
                 logging.info(f'点击二级菜单:{nestmenu}')
+                sleep(1)
                 self.refresh()
             except Exception as e:
                 logging.error(e)
@@ -26,6 +27,7 @@ class CenterComponent(Base, APIRequest):
                 logging.info(f'点击一级菜单:{metatitle}')
                 self.is_click_tbm(user['nest-menu'], nestmenu)
                 logging.info(f'点击二级菜单:{nestmenu}')
+                sleep(1)
                 self.refresh()
 
     def refresh_webpage(self):
@@ -89,6 +91,7 @@ class CenterComponent(Base, APIRequest):
             self.refresh_todo_list()
         else:
             self.click_menu('待办列表', '我的待办')
+            sleep(1)
             self.refresh_todo_list()
 
     def enter_my_application(self):
