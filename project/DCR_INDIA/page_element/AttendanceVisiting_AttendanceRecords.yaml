@@ -9,8 +9,8 @@ Reset: "xpath==//span[contains(text(),'Reset')]"
 获取列表日期文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[3]/div"
 获取列表UserID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[6]/div"
 获取总条数文本: "xpath==//span[contains(text(),'Total')]"
-关闭导出记录菜单: "xpath==//*[@id='tags-view-container']/div/div[1]/div/span[3]/span"
-关闭考勤记录菜单: "xpath==//*[@id='tags-view-container']/div/div[1]/div/span[2]/span"
+关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
+关闭考勤记录菜单: "xpath==//span[normalize-space(text())='Attendance Records']//span[@class='el-icon-close']"
 
 Get Home Page Customer: "xpath==/html/body/div[1]/div/div[2]/div/div[2]/div/div[1]/div/span[1]"
 

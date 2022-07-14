@@ -15,12 +15,12 @@ class DCRLoginPage(Base):
     def input_account(self, content):
         """输入工号"""
         self.input_text(user['工号输入框'], txt=content)
-        sleep()
+        sleep(1)
 
     def input_passwd(self, content):
         """输入密码"""
         self.input_text(user['密码输入框'], txt=content)
-        sleep()
+        sleep(1)
 
     def switch_lanuage(self, content):
         """语言切换"""
@@ -53,6 +53,8 @@ class DCRLoginPage(Base):
         self.is_click(user['退出登录'])
         sleep(2)
 
+
+
     """登录方法"""
     def dcr_login(self, drivers, account, passwd):
         user = DCRLoginPage(drivers)
@@ -65,7 +67,7 @@ class DCRLoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(3)
+        sleep(6)
 
     """查找菜单"""
     def click_gotomenu(self, *content):
@@ -81,7 +83,7 @@ class DCRLoginPage(Base):
             self.scroll_into_view(user[level[i]])
             sleep(2)
             self.is_click(user[level[i]])
-        sleep(5)
+        sleep(6)
 
 
 

@@ -17,12 +17,12 @@ class LoginPage(Base):
     def input_account(self, content):
         """输入工号"""
         self.input_text(user['工号输入框'], txt=content)
-        sleep()
+        sleep(1)
 
     def input_passwd(self, content):
         """输入密码"""
         self.input_text(user['密码输入框'], txt=content)
-        sleep()
+        sleep(1)
 
     def switch_lanuage(self, content):
         """语言切换"""

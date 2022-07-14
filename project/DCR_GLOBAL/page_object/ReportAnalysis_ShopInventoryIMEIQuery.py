@@ -49,7 +49,8 @@ class ShopInventoryIMEIQueryPage(Base):
         """Shop Inventory IMEI Query页面，获取分页功能总条数文本"""
         Base.presence_sleep_dcr(self, user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
-        return total
+        total1 = total[6:]
+        return total1
 
     def get_shop_id_text(self):
         """Shop Inventory IMEI Query页面，获取列表Shop ID文本"""
@@ -82,7 +83,6 @@ class ShopInventoryIMEIQueryPage(Base):
         """关闭门店库存IMEI菜单"""
         self.is_click(user['关闭门店库存IMEI菜单'])
         sleep(2)
-
 
 
     # 门店库存IMEI查询记录，导出功能验证
@@ -147,8 +147,6 @@ class ShopInventoryIMEIQueryPage(Base):
         export_time = self.element_text(user['获取导出时间'])
         return export_time
 
-    def click_close_shop_inventory_imei(self):
-        self.is_click(user['关闭门店库存IMEI菜单'])
 
     def assert_total(self, total):
         """断言分页总数是否存在数据"""

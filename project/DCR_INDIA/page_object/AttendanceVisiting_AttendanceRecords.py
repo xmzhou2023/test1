@@ -54,18 +54,19 @@ class AttendanceRecordPage(Base):
     def get_total_text(self):
         """Attendance Records页面，获取列表Total总条数文本"""
         total = self.element_text(user['获取总条数文本'])
-        return total
+        total1 = total[6:]
+        return total1
 
 
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        sleep(2)
 
     def click_close_atten_record(self):
         """关闭考勤记录菜单"""
         self.is_click(user['关闭考勤记录菜单'])
-        sleep(1)
+        sleep(2)
 
     def get_home_page_cust(self):
         homepage = self.element_text(user['Get Home Page Customer'])
@@ -116,7 +117,8 @@ class AttendanceRecordPage(Base):
     def get_file_size_text(self):
         """导出记录页面，获取列表 Task Name文本"""
         file_size = self.element_text(user['获取文件大小文本'])
-        return file_size
+        file_size1 = file_size[0:1]
+        return file_size1
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
@@ -141,7 +143,8 @@ class AttendanceRecordPage(Base):
     def get_export_time_text(self):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
-        return export_time
+        export_time1 = export_time[0:1]
+        return export_time1
 
     def assert_total(self, total):
         """断言分页总数是否存在数据"""

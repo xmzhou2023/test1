@@ -17,12 +17,14 @@ class TestQueryDistiCustomerPSI:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
         """筛选国包客户PSI列表数据，是否加载正常"""
+        #user.dcr_login(drivers, "testsupervisor", "dcr123456")
+        #get_home_page = user.get_home_page_text()
+        #ValueAssert.value_assert_equal("Home Page-Customer", get_home_page)
+        base = Base(drivers)
+        base.refresh()
+        sleep(3.5)
+
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "testsupervisor", "dcr123456")
-
-        get_home_page = user.get_home_page_text()
-        ValueAssert.value_assert_equal("Home Page-Customer", get_home_page)
-
         """报表分析-打开客户PSI页面"""
         user.click_gotomenu("Report Analysis", "Customer PSI")
 
@@ -31,12 +33,12 @@ class TestQueryDistiCustomerPSI:
         region_textb = psi.get_sale_regionb_text()
         brand_text = psi.get_brand_text()
         total = psi.get_total_text()
-        total1 = total[6:]
+
         """根据日期筛选Distributor Customer PSI数据后，断言是否查询到数据"""
         ValueAssert.value_assert_IsNoneNot(region_texta)
         ValueAssert.value_assert_IsNoneNot(region_textb)
         ValueAssert.value_assert_IsNoneNot(brand_text)
-        psi.assert_total(total1)
+        psi.assert_total(total)
 
 
 @allure.feature("报表分析-客户PSI")
@@ -97,7 +99,7 @@ class TestQuerSubCustomerPSI:
         menu.click_gotomenu("Report Analysis", "Customer PSI")
 
         psi = CustomerPSIPage(drivers)
-        # 点击Sub-dealer按钮筛选二代数据
+        """点击Sub-dealer按钮筛选二代数据"""
         psi.click_sub_dealer()
         psi.click_search()
 
@@ -105,13 +107,12 @@ class TestQuerSubCustomerPSI:
         region3_text = psi.get_sale_regionb_text()
         brand_text = psi.get_brand_text()
         total = psi.get_total_text()
-        total1 = total[6:]
 
         """根据日期筛选Distributor Customer PSI数据后，断言是否查询到数据"""
         ValueAssert.value_assert_IsNoneNot(region2_text)
         ValueAssert.value_assert_IsNoneNot(region3_text)
         ValueAssert.value_assert_IsNoneNot(brand_text)
-        psi.assert_total(total1)
+        psi.assert_total(total)
 
 
 @allure.feature("报表分析-客户PSI")
@@ -136,7 +137,6 @@ class TestExportSubCustomerPSI:
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        file_size1 = file_size[0:1]
         user_id = export.get_task_user_id_text()
 
         create_date = export.get_create_date_text()
@@ -144,7 +144,6 @@ class TestExportSubCustomerPSI:
         complete_date = export.get_complete_date_text()
         complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-        export_time1 = export_time[0:1]
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
@@ -153,9 +152,9 @@ class TestExportSubCustomerPSI:
         ValueAssert.value_assert_equal(create_date1, today)
         ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
-        export.assert_file_time_size(file_size1, export_time1)
-        #export.click_close_export_record()
-        #export.click_close_customerPSI()
+        export.assert_file_time_size(file_size, export_time)
+        export.click_close_export_record()
+        export.click_close_customerPSI()
 
 
 if __name__ == '__main__':

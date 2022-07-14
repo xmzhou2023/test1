@@ -17,10 +17,9 @@ class TestQueryAttendanceRecord:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "testsupervisor", "dcr123456")
-
-        get_home_page = user.get_home_page_text()
-        ValueAssert.value_assert_equal("Home Page-Customer", get_home_page)
+        #user.dcr_login(drivers, "testsupervisor", "dcr123456")
+        #get_home_page = user.get_home_page_text()
+        #ValueAssert.value_assert_equal("Home Page-Customer", get_home_page)
 
         """考勤管理-打开考勤记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Attendance Records")
@@ -32,12 +31,11 @@ class TestQueryAttendanceRecord:
         picture = query_all.get_photo_text()
         date = query_all.get_date_text()
         total = query_all.get_total_text()
-        total1 = total[6:]
 
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
         ValueAssert.value_assert_equal(picture, "Picture")
         ValueAssert.value_assert_equal(today, date)
-        query_all.assert_total2(total1)
+        query_all.assert_total2(total)
 
 
 @allure.feature("考勤&巡店-考勤记录")
@@ -63,13 +61,12 @@ class TestExportAttendanceRecord:
         date = export.get_date_text()
         userid = export.get_user_id_text()
         total = export.get_total_text()
-        total1 = total[6:]
 
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
         ValueAssert.value_assert_In(picture, "Picture")
         ValueAssert.value_assert_equal(user_id, userid)
         ValueAssert.value_assert_equal(today, date)
-        export.assert_total(total1)
+        export.assert_total(total)
         """点击导出"""
         export.click_export()
         export.click_download_more()
@@ -78,14 +75,13 @@ class TestExportAttendanceRecord:
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        file_size1 = file_size[0:1]
+
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
         create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
         complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-        export_time1 = export_time[0:1]
         operation = export.get_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
@@ -94,10 +90,10 @@ class TestExportAttendanceRecord:
         ValueAssert.value_assert_equal(create_date1, today)
         ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
-        export.assert_file_time_size(file_size1, export_time1)
+        export.assert_file_time_size(file_size, export_time)
 
-        #export.click_close_export_record()
-        #export.click_close_atten_record()
+        export.click_close_export_record()
+        export.click_close_atten_record()
 
 
 if __name__ == '__main__':

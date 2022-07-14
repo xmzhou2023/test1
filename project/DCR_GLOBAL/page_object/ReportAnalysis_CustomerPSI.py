@@ -34,7 +34,8 @@ class CustomerPSIPage(Base):
     def get_total_text(self):
         """获取分页总条数文本"""
         total = self.element_text(user['获取分页总条数'])
-        return total
+        total1 = total[6:]
+        return total1
 
     def get_sale_regiona_text(self):
         """获取Sales Region2字段文本"""
@@ -67,7 +68,7 @@ class CustomerPSIPage(Base):
     #Customer PSI列表数据筛选后，导出操作成功后验证
     def click_export(self):
         """Customer PSI页面，点击Export导出按钮"""
-        Base.find_element(self, user['Export'])
+        Base.presence_sleep_dcr(self, user['Export'])
         self.is_click(user['Export'])
         sleep(2)
 

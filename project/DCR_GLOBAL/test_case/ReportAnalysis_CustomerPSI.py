@@ -30,12 +30,12 @@ class TestQueryDistiCustomerPSI:
         region_textb = psi.get_sale_regionb_text3()
         brand_text = psi.get_brand_text()
         total = psi.get_total_text()
-        total1 = total[6:]
+
         """根据日期筛选Distributor Customer PSI数据后，断言是否查询到数据"""
         ValueAssert.value_assert_IsNoneNot(region_texta)
         ValueAssert.value_assert_IsNoneNot(region_textb)
         ValueAssert.value_assert_IsNoneNot(brand_text)
-        psi.assert_total(total1)
+        psi.assert_total(total)
         sleep(1)
 
 
@@ -105,14 +105,12 @@ class TestQuerSubCustomerPSI:
         region3_text = psi.get_sale_regionb_text3()
         brand_text = psi.get_brand_text()
         total = psi.get_total_text()
-        total1 = total[6:]
 
         """根据日期筛选Distributor Customer PSI数据后，断言是否查询到数据"""
         ValueAssert.value_assert_IsNoneNot(region2_text)
         ValueAssert.value_assert_IsNoneNot(region3_text)
         ValueAssert.value_assert_IsNoneNot(brand_text)
-        psi.assert_total(total1)
-
+        psi.assert_total(total)
 
 
 @allure.feature("报表分析-客户PSI")

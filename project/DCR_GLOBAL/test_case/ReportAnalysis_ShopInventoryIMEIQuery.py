@@ -29,13 +29,12 @@ class TestQueryShopInventoryIMEI:
         shop_inventory = ShopInventoryIMEIQueryPage(drivers)
 
         #获取列表属性文本内容
-        total = shop_inventory.get_total_text()
-        total1 = total[6:]
         shop_id = shop_inventory.get_shop_id_text()
         shop_name = shop_inventory.get_shop_name_text()
         brand = shop_inventory.get_brand_text()
         series = shop_inventory.get_series_text()
         model = shop_inventory.get_model_text()
+        total = shop_inventory.get_total_text()
 
         #断言筛选前获取列表文本内容，然后筛选操作后，断言比较列表文本内容是否一致
         ValueAssert.value_assert_IsNoneNot(shop_id)
@@ -43,7 +42,7 @@ class TestQueryShopInventoryIMEI:
         ValueAssert.value_assert_IsNoneNot(brand)
         ValueAssert.value_assert_IsNoneNot(series)
         ValueAssert.value_assert_IsNoneNot(model)
-        shop_inventory.assert_total(total1)
+        shop_inventory.assert_total(total)
         shop_inventory.click_close_shop_inventory_imei()
 
 
@@ -75,8 +74,7 @@ class TestExportShopInventoryIMEI:
 
         shop_id = export.get_shop_id_text()
         total = export.get_total_text()
-        total1 = total[6:]
-        export.assert_total(total1)
+        export.assert_total(total)
 
         # 点击导出功能
         export.click_export()

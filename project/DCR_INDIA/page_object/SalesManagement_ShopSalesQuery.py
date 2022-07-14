@@ -71,7 +71,8 @@ class ShopSaleQueryPage(Base):
         """Shop Sales Query页面，获取列表Status文本内容"""
         Base.presence_sleep_dcr(self, user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
-        return total
+        total1 = total[6:]
+        return total1
 
 
     def click_close_export_record(self):
@@ -121,7 +122,8 @@ class ShopSaleQueryPage(Base):
     def get_file_size_text(self):
         """导出记录页面，获取列表 Task Name文本"""
         file_size = self.element_text(user['获取文件大小文本'])
-        return file_size
+        file_size1 = file_size[0:1]
+        return file_size1
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
@@ -146,7 +148,8 @@ class ShopSaleQueryPage(Base):
     def get_export_time_text(self):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
-        return export_time
+        export_time1 = export_time[0:1]
+        return export_time1
 
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
@@ -155,12 +158,12 @@ class ShopSaleQueryPage(Base):
         else:
             logging.info("查看Shop Sales Query列表，未加载筛选后的数据失败，分页总条数Total：{}".format(total))
 
-    def assert_total2(self, total):
+    def assert_total2(self, total2):
         """断言分页总数是否存在数据"""
-        if int(total) > 1000:
-            logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
+        if int(total2) > 1000:
+            logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total2))
         else:
-            logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total))
+            logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total2))
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """
