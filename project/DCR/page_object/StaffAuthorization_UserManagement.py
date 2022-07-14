@@ -28,6 +28,7 @@ class UserManagementPage(Base):
 
     def input_user_name(self, content):
         """Add user页面， 输入user Name字段"""
+        Base.presence_sleep_dcr(self, user['User Name'])
         self.input_text(user['User Name'], txt=content)
 
 
@@ -57,6 +58,7 @@ class UserManagementPage(Base):
     def click_close_user_mgt(self):
         """ 关闭User Management菜单 """
         self.is_click(user['关闭用户管理菜单'])
+        sleep(2)
 
     def click_edit_brand(self):
         """Add user页面，选择点击品牌"""
@@ -110,9 +112,10 @@ class UserManagementPage(Base):
     def click_add_user_submit(self):
         """Add user页面，点击Submit提交按钮"""
         self.is_click(user['Add User Submit'])
-
+        sleep(2)
 
     def get_text_user_id(self):
+        Base.presence_sleep_dcr(self, user['获取列表文本User ID'])
         userid = self.element_text(user['获取列表文本User ID'])
         return userid
 
@@ -130,12 +133,12 @@ class UserManagementPage(Base):
     def click_search(self):
         """点击搜索功能"""
         self.is_click(user['Search'])
-        sleep(5)
+        sleep(4)
 
     def click_reset(self):
         """点击重置按钮"""
         self.is_click(user['Reset'])
-        sleep(6)
+        sleep(3)
 
 
     #编辑用户时，筛选用户
@@ -149,12 +152,12 @@ class UserManagementPage(Base):
     def click_edit(self):
         """点击编辑功能"""
         self.is_click_dcr(user['修改第一个Edit'])
-        sleep(3.5)
+        sleep(2)
 
     def click_first_checkbox(self):
         """点击第一个checkbox,对用户进行辞职操作"""
         self.is_click(user['勾选第一个复选框'])
-        sleep(2)
+        sleep(1)
 
     def get_set_up_successfully(self):
         """编辑用户提交成功提示语"""
@@ -164,10 +167,11 @@ class UserManagementPage(Base):
     def click_more_option(self):
         """点击更多操作"""
         self.is_click(user['More Option'])
-        sleep(2)
+        sleep(1)
 
     def click_quit(self):
         """点击离职功能"""
+        Base.presence_sleep_dcr(self, user['Quit'])
         self.is_click(user['Quit'])
         sleep(3)
 
@@ -210,6 +214,11 @@ class UserManagementPage(Base):
         num = str(random.randint(100, 999))
         username = "smarttest" + num
         return username
+
+    def number_radom(self):
+        """随机生成电话号码尾号"""
+        num = str(random.randint(100, 999))
+        return num
 
     def input_position_dealer(self, content):
         """Add user页面，输入职位，选中输入的职位"""

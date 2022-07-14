@@ -23,10 +23,12 @@ class UserShopAssociaPage(Base):
     def get_total_text(self):
         """ 获取分页总条数文本 """
         get_total = self.element_text(user['Get Total Text'])
-        return get_total
+        total1 = get_total[6:]
+        return total1
 
     def get_list_user_id(self):
         """ 获取列表User ID文本 """
+        Base.presence_sleep_dcr(self, user['Get list User ID'])
         get_userid = self.element_text(user['Get list User ID'])
         return get_userid
 
@@ -53,21 +55,21 @@ class UserShopAssociaPage(Base):
     def click_export(self):
         """ 点击Export导出按钮 """
         self.is_click(user['Export'])
-
+        sleep(2)
 
     # User and Shop Association列表数据筛选后，导出操作成功后验证
-    def click_download_icon(self):
+    def click_download_more(self):
         self.is_click(user['Download Icon'])
-
-    def click_more(self):
+        sleep(2)
         """点击more更多按钮"""
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(3)
 
     def click_export_search(self):
         """导出页面，点击Search按钮"""
-        self.is_click(user['Export Record Search'])
-        sleep(3)
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
@@ -76,13 +78,15 @@ class UserShopAssociaPage(Base):
 
     def get_task_name_text(self):
         """导出记录页面，获取列表 Task Name文本"""
+        Base.presence_sleep_dcr(self, user['获取任务名称文本'])
         task_name = self.element_text(user['获取任务名称文本'])
         return task_name
 
     def get_file_size_text(self):
         """导出记录页面，获取列表 Task Name文本"""
         file_size = self.element_text(user['获取文件大小文本'])
-        return file_size
+        file_size1 = file_size[0:1]
+        return file_size1
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
@@ -107,8 +111,37 @@ class UserShopAssociaPage(Base):
     def get_export_time_text(self):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
-        return export_time
+        export_time1 = export_time[0:1]
+        return export_time1
 
+    """ 断言判读分页总条数，是否能查询到数据且大于1条 """
+    def assert_total(self, total):
+        if int(total) >= 1000:
+            logging.info("查看User and Shop Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total))
+        else:
+            logging.info("查看User and Shop Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total))
+        sleep(1)
+
+    def assert_total2(self, total2):
+        """ 断言判读分页总条数，是否能查询到数据且大于1条 """
+        if int(total2) >= 1:
+            logging.info("查看User and Shop Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total2))
+        else:
+            logging.info("查看User and Shop Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total2))
+        sleep(1)
+
+    def assert_file_time_size(self, file_size, export_time):
+        """断言导出后的文件大小与导出时间是否大于0"""
+        if int(file_size) > 0:
+            logging.info("User and Shop Association导出成功，File Size 导出文件大于1KB:{}".format(file_size))
+        else:
+            logging.info("User and Shop Association导出失败，File Size 导出文件小于1KB:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("User and Shop Association导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("User and Shop Association导出成功，Export Time(s)导出时间等于0s:{}".format(export_time))
+        sleep(1)
 
 if __name__ == '__main__':
     pass
