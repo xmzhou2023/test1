@@ -367,6 +367,7 @@ class Base(object):
         txt1 = None
         while not txt1:
             txt1 = self.find_element(content)
+            sleep(1)
 
     def get_datetime_today(self):
         """获取当天日期(DCR专用)"""
@@ -524,6 +525,7 @@ class Base(object):
         txt = None
         while not txt:
             txt = self.find_element(content)
+            sleep(1)
 
     @allure.step("获取当天日期(DCR专用)")
     def get_datetime_today(self):
