@@ -31,4 +31,4 @@ class Login(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(3)
+        sleep(8)
