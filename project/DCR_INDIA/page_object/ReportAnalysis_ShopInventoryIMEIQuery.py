@@ -82,7 +82,7 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_close_shop_inventory_imei(self):
         """关闭门店库存IMEI菜单"""
         self.is_click(user['关闭门店库存IMEI菜单'])
-        sleep(1)
+        sleep(2)
 
 
 
@@ -169,7 +169,7 @@ class ShopInventoryIMEIQueryPage(Base):
             logging.info("Shop Inventory IMEI Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Shop Inventory IMEI Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
+        sleep(1.5)
 
 if __name__ == '__main__':
     pass

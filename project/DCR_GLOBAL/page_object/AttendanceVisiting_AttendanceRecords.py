@@ -65,7 +65,7 @@ class AttendanceRecordPage(Base):
     def click_close_atten_record(self):
         """关闭考勤记录菜单"""
         self.is_click(user['关闭考勤记录菜单'])
-        sleep(1)
+        sleep(2)
 
     def get_home_page_cust(self):
         homepage = self.element_text(user['Get Home Page Customer'])
@@ -147,7 +147,7 @@ class AttendanceRecordPage(Base):
             logging.info("查看考勤记录列表，分页总条数大于1000，能查询到考勤记录Total：{}".format(total))
         else:
             logging.info("查看考勤记录列表，分页总条数为1000，未查询到考勤记录Total：{}".format(total))
-
+        sleep(1)
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """

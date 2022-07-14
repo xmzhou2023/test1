@@ -81,7 +81,7 @@ class DCRLoginPage(Base):
             self.scroll_into_view(user[level[i]])
             sleep(2)
             self.is_click(user[level[i]])
-        sleep(1)
+        sleep(5)
 
 
 

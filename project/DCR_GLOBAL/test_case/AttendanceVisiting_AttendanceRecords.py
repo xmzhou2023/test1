@@ -35,7 +35,6 @@ class TestQueryAttendanceRecord:
         ValueAssert.value_assert_equal(picture, "Picture")
         ValueAssert.value_assert_equal(today, date)
         query_all.assert_total2(total1)
-        sleep(1)
 
 
 @allure.feature("考勤&巡店-考勤记录")
@@ -50,6 +49,7 @@ class TestExportAttendanceRecord:
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()
+        logging.info("查询当天日期today{}".format(today))
         export.input_query_date(today)
         export.click_search()
 
@@ -96,7 +96,7 @@ class TestExportAttendanceRecord:
 
         export.click_close_export_record()
         export.click_close_atten_record()
-        sleep(1)
+
 
 if __name__ == '__main__':
     pytest.main(['AttendanceVisiting_AttendanceRecords.py'])

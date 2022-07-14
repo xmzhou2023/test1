@@ -82,7 +82,7 @@ class ShopSaleQueryPage(Base):
     def click_close_shop_sales_query(self):
         """ 关闭门店销售查询菜单 """
         self.is_click(user['关闭门店销售查询菜单'])
-        sleep(1)
+        sleep(2)
 
 
 
@@ -173,7 +173,7 @@ class ShopSaleQueryPage(Base):
             logging.info("Shop Sales Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Shop Sales Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-
+        sleep(1)
 
 if __name__ == '__main__':
     pass

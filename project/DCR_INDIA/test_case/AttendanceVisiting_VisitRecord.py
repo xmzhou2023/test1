@@ -86,7 +86,6 @@ class TestExportVisitRecord:
         export.assert_file_time_size(file_size1, export_time1)
         # export.click_close_export_record()
         # export.click_close_visit_record()
-        sleep(1)
 
 
 if __name__ == '__main__':

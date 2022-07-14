@@ -34,7 +34,7 @@ class DeliveryOrderPage(Base):
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(5)
+        #sleep(5)
 
     def get_total_text(self):
         """获取Total分页总条数文本"""
@@ -75,7 +75,7 @@ class DeliveryOrderPage(Base):
     def click_close_delivery_order(self):
         """出库单页面，关闭出库单菜单"""
         self.is_click(user['关闭出库单菜单'])
-        sleep(1)
+        sleep(2)
 
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
@@ -141,6 +141,7 @@ class DeliveryOrderPage(Base):
         export_time = self.element_text(user['获取导出时间'])
         return export_time
 
+
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
         if int(total) > 1:
@@ -159,7 +160,7 @@ class DeliveryOrderPage(Base):
             logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-
+        sleep(1.5)
 
 if __name__ == '__main__':
     pass

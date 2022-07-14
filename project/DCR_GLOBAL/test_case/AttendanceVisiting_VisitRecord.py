@@ -91,7 +91,7 @@ class TestExportVisitRecord:
 
         export.click_close_export_record()
         export.click_close_visit_record()
-        sleep(1)
+
 
 
 if __name__ == '__main__':

@@ -156,6 +156,7 @@ class AttendanceRecordPage(Base):
             logging.info("查看考勤记录列表，分页总条数大于1000，能查询到考勤记录Total：{}".format(total))
         else:
             logging.info("查看考勤记录列表，分页总条数为1000，未查询到考勤记录Total：{}".format(total))
+        sleep(1)
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """
@@ -168,7 +169,7 @@ class AttendanceRecordPage(Base):
             logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-
+        sleep(1)
 
 if __name__ == '__main__':
     pass

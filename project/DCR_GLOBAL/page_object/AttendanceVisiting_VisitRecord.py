@@ -79,15 +79,10 @@ class VisitRecordPage(Base):
     def click_close_visit_record(self):
         """Visit Record页面，点击关闭菜单"""
         self.is_click(user['关闭巡店记录菜单'])
-        sleep(1)
+        sleep(2)
 
 
     #巡店记录，导出功能验证
-    def iframe_export_record(self):
-        """Export Record页面，进入iframe"""
-        self.frame_enter(user['iframe Export Record'])
-        sleep(1)
-
     def click_export(self):
         """Visit Record页面，点击Export导出按钮"""
         Base.presence_sleep_dcr(self, user['Export'])

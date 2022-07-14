@@ -36,7 +36,6 @@ class TestQueryDeliveryOrder:
         ValueAssert.value_assert_IsNoneNot(status)
         list.assert_total(total1)
         list.click_close_delivery_order()
-        sleep(1)
 
 
 @allure.feature("销售管理-出库单")
@@ -91,7 +90,6 @@ class TestExportDeliveryOrder:
         export.assert_file_time_size(file_size1, export_time1)
         #export.click_close_export_record()
         #export.click_close_delivery_order()
-        sleep(1)
 
 
 if __name__ == '__main__':

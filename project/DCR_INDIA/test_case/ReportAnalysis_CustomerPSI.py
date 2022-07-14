@@ -75,7 +75,6 @@ class TestExportDistiCustomerPSI:
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size1, export_time1)
         export.click_close_customerPSI()
-        #sleep(1)
 
 
 @allure.feature("报表分析-客户PSI")
@@ -110,7 +109,6 @@ class TestQuerSubCustomerPSI:
         ValueAssert.value_assert_IsNoneNot(region3_text)
         ValueAssert.value_assert_IsNoneNot(brand_text)
         psi.assert_total(total1)
-        #sleep(1)
 
 
 @allure.feature("报表分析-客户PSI")
@@ -155,7 +153,6 @@ class TestExportSubCustomerPSI:
         export.assert_file_time_size(file_size1, export_time1)
         #export.click_close_export_record()
         #export.click_close_customerPSI()
-        sleep(1)
 
 
 if __name__ == '__main__':

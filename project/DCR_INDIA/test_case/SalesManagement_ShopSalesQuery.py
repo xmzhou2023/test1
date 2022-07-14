@@ -39,7 +39,6 @@ class TestQueryShopSalesQuery:
         ValueAssert.value_assert_IsNoneNot(public_id)
         shop_sales.assert_total2(total1)
         shop_sales.click_close_shop_sales_query()
-        sleep(1)
 
 
 @allure.feature("销售管理-门店销售查询")
@@ -49,7 +48,6 @@ class TestExportShopSalesQuery:
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
-
         """刷新页面"""
         base = Base(drivers)
         base.refresh()
@@ -100,8 +98,6 @@ class TestExportShopSalesQuery:
         export.assert_file_time_size(file_size1, export_time1)
         #export.click_close_export_record()
         #export.click_close_shop_sales_query()
-        sleep(1)
-
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_ShopSalesQuery.py'])

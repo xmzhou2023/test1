@@ -2,8 +2,6 @@ from libs.common.time_ui import sleep
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.ReportAnalysis_CustomerPSI import CustomerPSIPage
 from public.base.assert_ui import ValueAssert
-import datetime
-import logging
 from public.base.basics import Base
 import pytest
 import allure
@@ -29,7 +27,7 @@ class TestQueryDistiCustomerPSI:
 
         psi = CustomerPSIPage(drivers)
         region_texta = psi.get_sale_regiona_text()
-        region_textb = psi.get_sale_regionb_text()
+        region_textb = psi.get_sale_regionb_text3()
         brand_text = psi.get_brand_text()
         total = psi.get_total_text()
         total1 = total[6:]
@@ -104,7 +102,7 @@ class TestQuerSubCustomerPSI:
         psi.click_search()
 
         region2_text = psi.get_sale_regiona_text()
-        region3_text = psi.get_sale_regionb_text()
+        region3_text = psi.get_sale_regionb_text3()
         brand_text = psi.get_brand_text()
         total = psi.get_total_text()
         total1 = total[6:]
@@ -114,7 +112,7 @@ class TestQuerSubCustomerPSI:
         ValueAssert.value_assert_IsNoneNot(region3_text)
         ValueAssert.value_assert_IsNoneNot(brand_text)
         psi.assert_total(total1)
-        sleep(1)
+
 
 
 @allure.feature("报表分析-客户PSI")
@@ -161,7 +159,7 @@ class TestExportSubCustomerPSI:
 
         export.click_close_export_record()
         export.click_close_customerPSI()
-        sleep(1)
+
 
 
 if __name__ == '__main__':

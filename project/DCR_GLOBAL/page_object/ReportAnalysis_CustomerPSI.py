@@ -42,7 +42,7 @@ class CustomerPSIPage(Base):
         sale_region2 = self.element_text(user['获取Sale Regiona文本'])
         return sale_region2
 
-    def get_sale_regionb_text(self):
+    def get_sale_regionb_text3(self):
         """获取Sales Region3字段文本"""
         sale_region3 = self.element_text(user['获取Sale Regionb文本'])
         return sale_region3
@@ -60,7 +60,7 @@ class CustomerPSIPage(Base):
     def click_close_customerPSI(self):
         """关闭客户PSI菜单"""
         self.is_click(user['关闭客户PSI菜单'])
-        sleep(1)
+        sleep(2)
 
 
 
@@ -131,6 +131,7 @@ class CustomerPSIPage(Base):
             logging.info("按日期筛选Distributor Customer PSI后，能正常加载数据，Total{}".format(total))
         else:
             logging.info("按日期筛选Distributor Customer PSI后，未筛选到满足条件的数据，Total1{}".format(total))
+        sleep(1)
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """

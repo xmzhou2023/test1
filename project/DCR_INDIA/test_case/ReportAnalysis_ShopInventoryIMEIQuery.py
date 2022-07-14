@@ -41,7 +41,6 @@ class TestQueryShopInventoryIMEI:
         ValueAssert.value_assert_IsNoneNot(model)
         shop_inventory.assert_total(total1)
         shop_inventory.click_close_shop_inventory_imei()
-        #sleep(1)
 
 
 @allure.feature("报表分析-门店库存IMEI查询")
@@ -102,8 +101,6 @@ class TestExportShopInventoryIMEI:
         export.assert_file_time_size(file_size1, export_time1)
         #export.click_close_export_record()
         #export.click_close_shop_inventory_imei()
-        #sleep(1)
-
 
 if __name__ == '__main__':
     pytest.main(['ReportAnalysis_ShopInventoryIMEIQuery.py'])

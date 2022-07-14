@@ -8,7 +8,7 @@ from public.base.basics import Base
 import pytest
 import allure
 
-@allure.feature("销售管理-门店")
+@allure.feature("销售管理-门店销售查询")
 class TestQueryShopSalesQuery:
     @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
@@ -42,8 +42,7 @@ class TestQueryShopSalesQuery:
         ValueAssert.value_assert_IsNoneNot(sales_date)
         ValueAssert.value_assert_IsNoneNot(public_id)
         shop_sales.assert_total2(total1)
-        shop_sales.click_close_shop_sales_query()
-        sleep(1)
+        #shop_sales.click_close_shop_sales_query()
 
 
 @allure.feature("销售管理-门店销售查询")
@@ -53,14 +52,14 @@ class TestExportShopSalesQuery:
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
-        """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
-        sleep(3.5)
-
-        """打开销售管理-打开门店销售查询页面"""
-        menu = DCRLoginPage(drivers)
-        menu.click_gotomenu("Sales Management", "Shop Sales Query")
+        # """刷新页面"""
+        # base = Base(drivers)
+        # base.refresh()
+        # sleep(3.5)
+        #
+        # """打开销售管理-打开门店销售查询页面"""
+        # menu = DCRLoginPage(drivers)
+        # menu.click_gotomenu("Sales Management", "Shop Sales Query")
 
         """实例化对象类"""
         export = ShopSaleQueryPage(drivers)
@@ -104,7 +103,7 @@ class TestExportShopSalesQuery:
 
         export.click_close_export_record()
         export.click_close_shop_sales_query()
-        sleep(1)
+
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_ShopSalesQuery.py'])

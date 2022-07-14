@@ -81,7 +81,7 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_close_shop_inventory_imei(self):
         """关闭门店库存IMEI菜单"""
         self.is_click(user['关闭门店库存IMEI菜单'])
-        sleep(1)
+        sleep(2)
 
 
 

@@ -35,7 +35,6 @@ class TestQueryAttendanceRecord:
         ValueAssert.value_assert_equal(picture, "Picture")
         ValueAssert.value_assert_equal(today, date)
         query_all.assert_total2(total1)
-        sleep(1)
 
 
 @allure.feature("考勤&巡店-考勤记录")
@@ -96,7 +95,6 @@ class TestExportAttendanceRecord:
 
         #export.click_close_export_record()
         #export.click_close_atten_record()
-        sleep(1)
 
 
 if __name__ == '__main__':

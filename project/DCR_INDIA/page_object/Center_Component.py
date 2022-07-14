@@ -67,7 +67,7 @@ class LoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(3)
+        sleep(6)
 
     """查找菜单"""
     def click_gotomenu(self, *content):
@@ -83,7 +83,7 @@ class LoginPage(Base):
             self.scroll_into_view(user[level[i]])
             sleep(2)
             self.is_click(user[level[i]])
-        sleep(2)
+        sleep(5)
 
 
 

@@ -60,7 +60,7 @@ class CustomerPSIPage(Base):
     def click_close_customerPSI(self):
         """关闭客户PSI菜单"""
         self.is_click(user['关闭客户PSI菜单'])
-        sleep(1)
+        sleep(2)
 
 
 
@@ -144,6 +144,7 @@ class CustomerPSIPage(Base):
             logging.info("Customer PSI导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Customer PSI导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
+        sleep(1)
 
 if __name__ == '__main__':
     pass

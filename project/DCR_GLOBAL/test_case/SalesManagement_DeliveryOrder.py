@@ -38,8 +38,8 @@ class TestQueryDeliveryOrder:
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
         list.assert_total(total1)
-        list.click_close_delivery_order()
-        sleep(1)
+        #list.click_close_delivery_order()
+
 
 
 @allure.feature("销售管理-出库单")
@@ -50,12 +50,12 @@ class TestExportDeliveryOrder:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
         """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
-        sleep(3.5)
-        """打开销售管理-打开出库单页面"""
-        menu = DCRLoginPage(drivers)
-        menu.click_gotomenu("Sales Management", "Delivery Order")
+        # base = Base(drivers)
+        # base.refresh()
+        # sleep(3.5)
+        #"""打开销售管理-打开出库单页面"""
+        # menu = DCRLoginPage(drivers)
+        # menu.click_gotomenu("Sales Management", "Delivery Order")
 
         export = DeliveryOrderPage(drivers)
         # 获取日期
@@ -95,7 +95,6 @@ class TestExportDeliveryOrder:
 
         export.click_close_export_record()
         export.click_close_delivery_order()
-        sleep(1)
 
 
 if __name__ == '__main__':
