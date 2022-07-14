@@ -31,7 +31,7 @@ class TestSearchUserShopAssociation:
         shop_id = user_shop.get_list_shop_id()
         shop_name = user_shop.get_list_shop_name()
         total = user_shop.get_total_text()
-        #total1 = total[6:]
+
         ValueAssert.value_assert_IsNoneNot(userid)
         ValueAssert.value_assert_IsNoneNot(username)
         ValueAssert.value_assert_IsNoneNot(position)
@@ -61,7 +61,6 @@ class TestExportUserShopAssociation:
         shop_id = export.get_list_shop_id()
         shop_name = export.get_list_shop_name()
         total = export.get_total_text()
-        #total1 = total[6:]
         ValueAssert.value_assert_equal(userid, "lhmdianzhang")
         ValueAssert.value_assert_equal(username, "lhmdianzhang")
         ValueAssert.value_assert_IsNoneNot(position)
@@ -77,16 +76,14 @@ class TestExportUserShopAssociation:
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        #file_size1 = file_size[0:1]
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
         create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
         complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-        #export_time1 = export_time[0:1]
-        operation = export.get_export_operation_text()
 
+        operation = export.get_export_operation_text()
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Staff Shop Association")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")

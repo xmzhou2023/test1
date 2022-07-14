@@ -151,6 +151,7 @@ class UserManagementPage(Base):
 
     def click_edit(self):
         """点击编辑功能"""
+        Base.presence_sleep_dcr(self, user['修改第一个Edit'])
         self.is_click_dcr(user['修改第一个Edit'])
         sleep(2)
 

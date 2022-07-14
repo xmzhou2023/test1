@@ -2,11 +2,8 @@ from project.DCR.page_object.StaffAuthorization_UserManagement import UserManage
 from public.base.assert_ui import SQLAssert
 from libs.common.connect_sql import *
 from project.DCR.page_object.Center_Component import LoginPage
-from public.base.basics import Base
-from libs.common.logger_ui import log
 from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.time_ui import sleep
-import random
 import pytest
 import allure
 
@@ -64,7 +61,7 @@ class TestAddEditQuitTranssionUser:
         user.input_query_User(user_id, user_id)
         user.click_search()
         username = user.user_name_random()
-        sleep(1)
+
         user.click_edit()
         user.input_user_name(username)
         user.click_edit_brand()
@@ -164,7 +161,6 @@ class TestAddEditQuitDealerUser:
         """筛选用户后，点击Search，进行编辑操作"""
         dealer_user.input_query_User(user_id, user_id)
         dealer_user.click_search()
-        #num = str(random.randint(100, 999))
 
         username = dealer_user.user_name_random()
         dealer_user.click_edit()
