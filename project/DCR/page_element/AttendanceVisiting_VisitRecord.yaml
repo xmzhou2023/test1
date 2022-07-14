@@ -20,8 +20,8 @@ Click Submit Date: "xpath==//label[text()='Submit Date']"
 
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-关闭导出记录菜单: "xpath==//*[@id='tags-view-container']/div/div[1]/div/span[3]/span"
-关闭巡店记录菜单: "xpath==//*[@id='tags-view-container']/div/div[1]/div/span[2]/span"
+关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
+关闭巡店记录菜单: "xpath==//span[normalize-space(text())='Visit Record']//span[@class='el-icon-close']"
 
 
 #巡店记录，导出功能

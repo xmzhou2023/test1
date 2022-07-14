@@ -87,8 +87,8 @@ class TestExportUserShopAssociation:
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Staff Shop Association")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date1, str(today))
-        ValueAssert.value_assert_equal(complete_date1, str(today))
+        ValueAssert.value_assert_equal(create_date1, today)
+        ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
 

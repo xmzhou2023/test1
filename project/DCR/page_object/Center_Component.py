@@ -82,7 +82,7 @@ class LoginPage(Base):
             self.scroll_into_view(user[level[i]])
             sleep(2)
             self.is_click(user[level[i]])
-        sleep(5)
+        sleep(6)
 
 
 
