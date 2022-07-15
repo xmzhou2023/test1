@@ -40,11 +40,12 @@ class ShopSaleQueryPage(Base):
     def click_search(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
         self.is_click_dcr(user['Search'])
+        sleep(2)
 
     def click_reset(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
         self.is_click(user['Reset'])
-        sleep(6)
+        sleep(5)
 
     def get_shop_id_text(self):
         """Shop Sales Query页面，获取列表Shop ID 文本内容"""
@@ -76,8 +77,8 @@ class ShopSaleQueryPage(Base):
         """Shop Sales Query页面，获取列表Status文本内容"""
         Base.presence_sleep_dcr(self, user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
-        return total
-
+        total1 = total[6:]
+        return total1
 
     def click_close_export_record(self):
         """关闭导出记录菜单"""
@@ -123,7 +124,8 @@ class ShopSaleQueryPage(Base):
     def get_file_size_text(self):
         """导出记录页面，获取列表 Task Name文本"""
         file_size = self.element_text(user['获取文件大小文本'])
-        return file_size
+        file_size1 = file_size[0:1]
+        return file_size1
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
@@ -148,7 +150,8 @@ class ShopSaleQueryPage(Base):
     def get_export_time_text(self):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
-        return export_time
+        export_time1 = export_time[0:1]
+        return export_time1
 
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
@@ -175,7 +178,7 @@ class ShopSaleQueryPage(Base):
             logging.info("Shop Sales Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Shop Sales Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-
+        sleep(1)
 
 if __name__ == '__main__':
     pass

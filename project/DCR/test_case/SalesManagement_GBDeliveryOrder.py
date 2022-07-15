@@ -10,7 +10,7 @@ import pytest
 import allure
 
 @allure.feature("销售管理-出库单")
-class TestQueryDistDelivery():
+class TestQueryDistDelivery:
     @allure.story("国包查询出库单")
     @allure.title("国包用户按出库单条件筛选，出库单列表数据")
     @allure.description("根据销售单与出库单条件，筛选出库单列表数据")
@@ -42,11 +42,10 @@ class TestQueryDistDelivery():
         ValueAssert.value_assert_equal(deliveryorder, deliveryorder2)
         """重置筛选条件"""
         delivery.click_reset()
-        sleep(1)
 
 
 @allure.feature("销售管理-出库单")
-class TestAddDistDelivery():
+class TestAddDistDelivery:
     @allure.story("国包新增出库单")
     @allure.title("国包新增出库单")
     @allure.description("国包用户新增出库单，然后根据新建的出库断言是否加载正常")
@@ -117,7 +116,7 @@ class TestAddDistDelivery():
 
 
 @allure.feature("销售管理-出库单")
-class TestSubReceiv():
+class TestSubReceiv:
     @allure.story("二代快速收货")
     @allure.title("二代快速收货")
     @allure.description("新增出库单成功后，然后快速收货")
@@ -165,7 +164,7 @@ class TestSubReceiv():
         sleep(1)
 
 @allure.feature("销售管理-出库单")
-class TestSubReturn():
+class TestSubReturn:
     @allure.story("二代申请退货")
     @allure.title("二代申请退货")
     @allure.description("收货成功后，然后申请退货操作")
@@ -218,7 +217,7 @@ class TestSubReturn():
 
 
 @allure.feature("销售管理-出库单")
-class TestDistReturnApprove():
+class TestDistReturnApprove:
     @allure.story("国包退货审核通过")
     @allure.title("国包退货审核通过")
     @allure.description("国包根据退货单，进行审核退货操作")

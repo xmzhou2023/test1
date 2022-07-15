@@ -11,7 +11,7 @@ import allure
 
 
 @allure.feature("销售管理-出库单")
-class TestQuerySubDelivery():
+class TestQuerySubDelivery:
     @allure.story("二代查询出库单")
     @allure.title("按出库单条件筛选，出库单列表数据")
     @allure.description("根据销售单与出库单条件，筛选出库单列表数据")
@@ -48,7 +48,7 @@ class TestQuerySubDelivery():
 
 
 @allure.feature("销售管理-出库单")
-class TestAddSubDelivery():
+class TestAddSubDelivery:
     @allure.story("二代新增出库单")
     @allure.title("二代新增出库单")
     @allure.description("二代用户新增出库单，然后根据新建的出库断言是否加载正常")
@@ -120,7 +120,7 @@ class TestAddSubDelivery():
 
 
 @allure.feature("销售管理-出库单")
-class TestRetailReceiv():
+class TestRetailReceiv:
     @allure.story("零售商快速收货")
     @allure.title("零售商快速收货")
     @allure.description("新增出库单成功后，然后快速收货")
@@ -167,7 +167,7 @@ class TestRetailReceiv():
 
 
 @allure.feature("销售管理-出库单")
-class TestRetailReturn():
+class TestRetailReturn:
     @allure.story("零售商申请退货")
     @allure.title("零售商申请退货")
     @allure.description("收货成功后，然后申请退货操作")
@@ -215,7 +215,7 @@ class TestRetailReturn():
         sleep(1)
 
 @allure.feature("销售管理-出库单")
-class TestSubReturnApprove():
+class TestSubReturnApprove:
     @allure.story("零售商申请退货")
     @allure.title("退货单列表页面，二代账号, 进行审核退货单操作")
     @allure.description("二代账号, 进行退货审核操作")

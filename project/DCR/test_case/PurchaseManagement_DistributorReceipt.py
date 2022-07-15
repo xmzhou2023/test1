@@ -8,7 +8,7 @@
 #
 #
 # @allure.feature("采购管理-国包收货")
-# class TestDistributorReceipt():
+# class TestDistributorReceipt:
 #     @allure.story("新增")
 #     @allure.title("国包用户进入Distributor Receipt页面，进行“快速收货”操作")
 #     @allure.description("国包用户进入Distributor Receipt页面，进行“快速收货”操作")
@@ -47,7 +47,7 @@
 #
 #
 # @allure.feature("采购管理-查看IMEI详情")
-# class TestQueryIMEIDetail():
+# class TestQueryIMEIDetail:
 #     @allure.story("查询")
 #     @allure.title("国包用户进入Distributor Receipt页面，收货成功后，查看IMEI详情信息")
 #     @allure.description("国包用户进入Distributor Receipt页面，收货成功后，查看IMEI详情信息是否与收货的信息一致")

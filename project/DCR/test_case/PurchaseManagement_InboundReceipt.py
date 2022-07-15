@@ -8,7 +8,7 @@ import allure
 
 
 @allure.feature("采购管理-二代零售商收货")
-class TestQueryInboundReceipt():
+class TestQueryInboundReceipt:
     @allure.story("查询二代零售商收货")
     @allure.title("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
     @allure.description("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
@@ -49,7 +49,7 @@ class TestQueryInboundReceipt():
 
 
 @allure.feature("采购管理-二代零售商收货")
-class TestQueryIMEIDetail():
+class TestQueryIMEIDetail:
     @allure.story("查询IMEI详情信息")
     @allure.title("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.description("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")

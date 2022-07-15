@@ -8,7 +8,7 @@ import allure
 
 
 @allure.feature("员工授权-用户授权")
-class TestDeleteBrandAuthorization():
+class TestDeleteBrandAuthorization:
     @allure.story("删除品牌授权")
     @allure.title("用户授权页面，删除Infinix品牌授权")
     @allure.description("用户授权页面，筛选User：NG2061301，删除Infinix品牌授权")
@@ -43,7 +43,7 @@ class TestDeleteBrandAuthorization():
 
 
 @allure.feature("员工授权-用户授权")
-class TestAddBrandAuthorization():
+class TestAddBrandAuthorization:
     @allure.story("新增品牌授权")
     @allure.title("用户授权页面，新增Infinix品牌授权")
     @allure.description("用户授权页面，筛选User：NG2061301，新增Infinix品牌授权")
@@ -65,7 +65,7 @@ class TestAddBrandAuthorization():
 
 
 @allure.feature("员工授权-用户授权")
-class TestDeleteCustAuthorization():
+class TestDeleteCustAuthorization:
     @allure.story("删除客户授权")
     @allure.title("用户授权页面，删除CN20009客户授权")
     @allure.description("用户授权页面，筛选User：NG2061301，删除CN20009客户授权")
@@ -89,7 +89,7 @@ class TestDeleteCustAuthorization():
 
 
 @allure.feature("员工授权-用户授权")
-class TestAddCustAuthorization():
+class TestAddCustAuthorization:
     @allure.story("新增客户授权")
     @allure.title("用户授权页面，新增CN20009客户授权")
     @allure.description("用户授权页面，筛选User：NG2061301，新增CN20009客户授权")
@@ -109,7 +109,7 @@ class TestAddCustAuthorization():
 
 
 @allure.feature("员工授权-用户授权")
-class TestDeleteWareAuthorization():
+class TestDeleteWareAuthorization:
     @allure.story("删除仓库授权")
     @allure.title("用户授权页面，删除WNG2061304仓库授权")
     @allure.description("用户授权页面，筛选User：NG2061301，删除WNG2061304 仓库授权")
@@ -134,7 +134,7 @@ class TestDeleteWareAuthorization():
         sleep(2)
 
 @allure.feature("员工授权-用户授权")
-class TestAddWareAuthorization():
+class TestAddWareAuthorization:
     @allure.story("新增仓库授权")
     @allure.title("用户授权页面，新增WNG2061304仓库授权")
     @allure.description("用户授权页面，筛选User：NG2061301，新增WNG2061304 仓库授权")
@@ -157,7 +157,7 @@ class TestAddWareAuthorization():
 
 
 @allure.feature("员工授权-用户授权")
-class TestAddRegionAuthorization():
+class TestAddRegionAuthorization:
     @allure.story("新增销售区域")
     @allure.title("用户授权页面，新增销售区域授权")
     @allure.description("用户授权页面，筛选User：testlhm0215，新增销售区域授权")
@@ -177,7 +177,7 @@ class TestAddRegionAuthorization():
 
 
 @allure.feature("员工授权-用户授权")
-class TestDeleteShopAuthorization():
+class TestDeleteShopAuthorization:
     @allure.story("删除门店授权")
     @allure.title("用户授权页面，删除EG000378门店授权")
     @allure.description("用户授权页面，筛选User：testlhm0215，删除Shop ID:EG000378授权")
@@ -202,7 +202,7 @@ class TestDeleteShopAuthorization():
 
 
 @allure.feature("员工授权-用户授权")
-class TestAddShopAuthorization():
+class TestAddShopAuthorization:
     @allure.story("新增门店授权")
     @allure.title("用户授权页面，新增EG000378门店授权")
     @allure.description("用户授权页面，筛选User：testlhm0215，新增Shop ID:EG000378授权")

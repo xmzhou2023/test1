@@ -27,7 +27,6 @@ class TestQueryShopInventoryIMEI:
 
         #获取列表属性文本内容
         total = shop_inventory.get_total_text()
-        total1 = total[6:]
         shop_id = shop_inventory.get_shop_id_text()
         shop_name = shop_inventory.get_shop_name_text()
         brand = shop_inventory.get_brand_text()
@@ -40,7 +39,7 @@ class TestQueryShopInventoryIMEI:
         ValueAssert.value_assert_IsNoneNot(brand)
         ValueAssert.value_assert_IsNoneNot(series)
         ValueAssert.value_assert_IsNoneNot(model)
-        shop_inventory.assert_total(total1)
+        shop_inventory.assert_total(total)
         shop_inventory.click_close_shop_inventory_imei()
 
 
@@ -73,8 +72,7 @@ class TestExportShopInventoryIMEI:
         shop_id = export.get_shop_id_text()
         #筛选后，获取列表属性文本内容
         total = export.get_total_text()
-        total1 = total[6:]
-        export.assert_total(total1)
+        export.assert_total2(total)
 
         # 点击导出功能
         export.click_export()
@@ -83,14 +81,13 @@ class TestExportShopInventoryIMEI:
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        file_size1 = file_size[0:1]
+
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
         create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
         complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-        export_time1 = export_time[0:1]
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
@@ -99,7 +96,7 @@ class TestExportShopInventoryIMEI:
         ValueAssert.value_assert_equal(create_date1, today)
         ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
-        export.assert_file_time_size(file_size1, export_time1)
+        export.assert_file_time_size(file_size, export_time)
         # export.click_close_export_record()
         # export.click_close_shop_inventory_imei()
 

@@ -9,7 +9,7 @@ import pytest
 import allure
 
 @allure.feature("销售管理-门店")
-class TestQueryShopSalesQuery():
+class TestQueryShopSalesQuery:
     @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
@@ -32,14 +32,14 @@ class TestQueryShopSalesQuery():
         sales_date = shop_sales.get_sales_date_text()
         public_id = shop_sales.get_public_id_text()
         total = shop_sales.get_total_text()
-        total1 = total[6:]
+
         """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
         ValueAssert.value_assert_IsNoneNot(shop_id)
         ValueAssert.value_assert_IsNoneNot(status)
         ValueAssert.value_assert_IsNoneNot(shop_name)
         ValueAssert.value_assert_IsNoneNot(sales_date)
         ValueAssert.value_assert_IsNoneNot(public_id)
-        shop_sales.assert_total2(total1)
+        shop_sales.assert_total2(total)
         shop_sales.click_close_shop_sales_query()
 
 
@@ -69,9 +69,9 @@ class TestExportShopSalesQuery:
         export.click_fold()
         export.click_search()
         total = export.get_total_text()
-        total1 = total[6:]
+
         """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
-        export.assert_total(total1)
+        export.assert_total(total)
 
         #筛选销售日期后，点击导出功能
         export.click_export()
@@ -79,14 +79,12 @@ class TestExportShopSalesQuery:
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        file_size1 = file_size[0:1]
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
         create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
         complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-        export_time1 = export_time[0:1]
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
@@ -95,10 +93,9 @@ class TestExportShopSalesQuery:
         ValueAssert.value_assert_equal(create_date1, today)
         ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
-        export.assert_file_time_size(file_size1, export_time1)
+        export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
         #export.click_close_shop_sales_query()
-        sleep(1)
 
 
 if __name__ == '__main__':

@@ -58,15 +58,15 @@ class LoginPage(Base):
     def dcr_login(self, drivers, account, passwd):
         user = LoginPage(drivers)
         user.get_url(ini.url)
-        sleep(3)
+        sleep(5)
         user.input_account(account)
         user.input_passwd(passwd)
-        sleep(2)
+        sleep(1)
         get_check_class = user.get_check_box_class()
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(5)
+        sleep(6)
 
     """查找菜单"""
     def click_gotomenu(self, *content):
@@ -78,9 +78,9 @@ class LoginPage(Base):
             level.append(navstr[2:])
         for i in range(len(content)):
             logging.info(user[level[i]])
-            sleep(2)
+            sleep(3.5)
             self.scroll_into_view(user[level[i]])
-            sleep(2)
+            sleep(3.5)
             self.is_click(user[level[i]])
         sleep(6)
 

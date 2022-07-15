@@ -9,7 +9,7 @@ import allure
 
 
 @allure.feature("员工授权-用户和客户关系")
-class TestSearchUserCustAssocia():
+class TestSearchUserCustAssocia:
     @allure.story("查询")
     @allure.title("查询用户和客户关系列表所有数据")
     @allure.description("查询用户和客户关系列表，所有数据加载正常")
@@ -42,7 +42,7 @@ class TestSearchUserCustAssocia():
 
 
 @allure.feature("员工授权-用户和客户关系")
-class TestExportUserCustAssocia():
+class TestExportUserCustAssocia:
     @allure.story("导出")
     @allure.title("用户和客户关系列表，筛选User ID：NG2061301关联的客户，并导出筛选的数据")
     @allure.description("用户和客户关系列表，筛选User ID：NG2061301关联的客户，并导出筛选的数据")
