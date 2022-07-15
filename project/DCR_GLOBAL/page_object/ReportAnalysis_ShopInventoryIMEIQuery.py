@@ -33,7 +33,7 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_search(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
         self.is_click(user['Search'])
-        sleep(1)
+        sleep(5)
 
     def click_reset(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
@@ -154,6 +154,14 @@ class ShopInventoryIMEIQueryPage(Base):
             logging.info("查看Shop Inventory IMEI Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
         else:
             logging.info("查看Shop Inventory IMEI Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
+
+    def assert_total2(self, total2):
+        """断言分页总数是否存在数据"""
+        if int(total2) > 0:
+            logging.info("查看Shop Inventory IMEI Query列表，加载所有数据正常，分页总条数Total：{}".format(total2))
+        else:
+            logging.info("查看Shop Inventory IMEI Query列表，加载所有数据正常，分页总条数Total：{}".format(total2))
+
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """

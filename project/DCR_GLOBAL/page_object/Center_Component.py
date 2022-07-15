@@ -79,9 +79,9 @@ class DCRLoginPage(Base):
             level.append(navstr[2:])
         for i in range(len(content)):
             logging.info(user[level[i]])
-            sleep(2)
+            sleep(3.5)
             self.scroll_into_view(user[level[i]])
-            sleep(2)
+            sleep(3.5)
             self.is_click(user[level[i]])
         sleep(6)
 

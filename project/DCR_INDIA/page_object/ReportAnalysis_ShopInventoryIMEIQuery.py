@@ -34,7 +34,7 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_search(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
         self.is_click(user['Search'])
-        sleep(4)
+        sleep(5)
 
     def click_reset(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
@@ -96,7 +96,7 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_download_more(self):
         """点击下载-更多按钮"""
         self.is_click(user['Download Icon'])
-        sleep(2)
+        sleep(3)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(6)

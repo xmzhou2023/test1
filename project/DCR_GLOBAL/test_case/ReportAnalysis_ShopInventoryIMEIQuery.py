@@ -72,9 +72,9 @@ class TestExportShopInventoryIMEI:
         export.click_fold()
         export.click_search()
 
-        shop_id = export.get_shop_id_text()
+        #shop_id = export.get_shop_id_text()
         total = export.get_total_text()
-        export.assert_total(total)
+        export.assert_total2(total)
 
         # 点击导出功能
         export.click_export()
