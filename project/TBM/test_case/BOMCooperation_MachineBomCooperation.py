@@ -79,7 +79,7 @@ class TestCreateProcess:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
                         "在产成品中和单机头中正确选择物料编码，选中两颗物料，点击一键填写，填写用量和1000点击确认，页面上显示两颗物料用量都为1000")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_001_003(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -100,7 +100,7 @@ class TestCreateProcess:
     @allure.title("BOM tree中不选择物料，页面上不存在删除按钮")  # 用例名称
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，不选择物料，页面上不存在删除按钮")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_001_004(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -112,7 +112,7 @@ class TestCreateProcess:
     @allure.title("BOM tree中选择物料，页面上存在删除按钮")  # 用例名称
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择物料，页面上存在删除按钮")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_001_005(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -125,7 +125,7 @@ class TestCreateProcess:
     @allure.title("选中父节点物料后点击删除，删除页面数据")  # 用例名称
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确添加物料，选中父节点物料后点击删除，删除页面数据")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_001_006(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -143,7 +143,7 @@ class TestCreateProcess:
     @allure.title("选中子节点物料后点击删除，清子节点内容")  # 用例名称
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确添加物料，选中子节点物料后点击删除，子节点内容会清空")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_001_007(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -189,7 +189,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，不添加BOM内容，"
                         "其他内容正确填写，点击提交，不能提交成功并给出提示“产成品必须有物料”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_002(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -203,7 +203,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，不选择BOM类型，"
                         "正确填写物料编码等其他内容，点击提交，不能提交成功并给出提示“BOM类型不能为空”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_003(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -220,7 +220,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，不选择BOM类型，"
                         "正确填写物料编码等其他内容，点击提交，不能提交成功并给出提示“BOM类型不能为空”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_003(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -237,7 +237,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产出品选择一个物料编码，"
                         "用量不进行填写，点击提交，不能提交成功并给出提示“含有物料的节点，用量不能为空”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_004(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -254,7 +254,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产出品选择一个物料编码，"
                         "用量填写为1，点击提交，不能提交成功并给出提示“父阶BOM料号10000001用量不为1000”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_005(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -275,7 +275,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产出品选择一个物料编码，"
                         "用量填写为非数字类型，点击提交，不能提交成功并给出提示“用量只能填写非数字（最多3位小数）”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_006(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -295,7 +295,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，"
                         "选择单机头的物料编码，输入单机头用量为1，点击提示，不能提交成功并给出提示“父阶BOM料号xxxxxxxx下的子阶BOM料号xxxxxxxx用量不为1000”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_007(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -318,7 +318,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，"
                         "业务评审不选择相应的评审人员，点击提交，不能提交成功，并给出提示“业务评审MPM不能为空！”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_008(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -337,7 +337,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，"
                         "业务审核不选择相应的审核人员，点击提交，不能提交成功，并给出提示“业务审核至少要选中一个！”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_009(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -357,7 +357,7 @@ class TestCreateProcessExceptionScenario:
                         "在充电器中新增两颗物料，添加替代组都为A1，份额为一个20，一个20，其他内容正确填写，点击提交，不能提交成功并且提示"
                         "“[国内生产BOM][XXXXXXXX] 替代组[A1]的份额总和不为100”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_010(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -388,7 +388,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，"
                         "不选择物料，点击一键填写，填写用量为1000，点击确定，页面上没有填写上任何数据")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_011(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -406,7 +406,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产成品中不选择物料编码，"
                         "全选选中物料，点击一键填写，一键填写时选择用量和1000，点击确定，页面上不会新增用量数量")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_012(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -422,7 +422,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
                         "在产成品中和单机头中正确选择物料编码，选中两颗物料，点击一键填写，选择用量，并且不填写字段值，点击确认，给出必填提示，提示为“不能为空”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_013(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -444,7 +444,7 @@ class TestCreatingProcessImport:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
                         "选择导入-简易模式选择正确的文件进行导入，并能应用，点击应用后页面显示的数据与模板的数据一致")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_003_001(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -467,7 +467,7 @@ class TestCreatingProcessImport:
     # @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
     #                     "选择导入BOM选择正确的文件进行导入，并能应用，点击应用后页面显示的数据与模板的数据一致")
     # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.FT  # 用例标记
+    # @pytest.mark.UT  # 用例标记
     # def test_003_002(self, drivers):
     #     user = MachineBOMCollaboration(drivers)
     #     user.refresh_webpage_click_menu()
@@ -496,7 +496,7 @@ class TestCreateProcessImportExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM "
                         "tree中点击新增BOM，选择导入-简易模式选择一个错误的文件格式进行导入，不能导入成功并提示“文件类型非excel!”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_004_001(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -510,7 +510,7 @@ class TestCreateProcessImportExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
                         "选择导入-简易模式选择一个模板正确内容错误的文件进行导入，导入失败，并在校验结果给出相应错误提示，导出校验可点击并能成功下载文件")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_004_002(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -524,7 +524,7 @@ class TestCreateProcessImportExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
                         "选择导入BOM选择一个错误的文件格式进行导入，不能导入成功并提示“文件类型非excel!”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_004_003(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -539,7 +539,7 @@ class TestCreateProcessImportExceptionScenario:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
                         "选择导入BOM选择一个模板正确内容错误的文件进行导入，导入失败，并在校验结果给出相应错误提示，导出校验可点击并能成功下载文件")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_004_004(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -600,7 +600,7 @@ class TestTheProcessOfExaminationAndApproval:
     # @allure.title("补充工厂页面中，导出的xlsx表的数据和页面的数据是一致的")  # 用例名称
     # @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")
     # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.FT  # 用例标记
+    # @pytest.mark.UT  # 用例标记
     # def test_005_003(self, drivers, Machine_API):
     #     user = MachineBOMCollaboration(drivers)
     #     user.refresh_webpage_click_menu()
@@ -614,7 +614,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在BOM工程师页面中，所有数据都正确，点击同意，可以提交成功并给出提示“处理成功，审核通过”，页面成功跳转；"
                         "成功处理了BOM工程师审核点，我的待办中不存在该条单机在BOM工程师审核节点（建议：校验单据号和当前节点")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_004(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -630,7 +630,7 @@ class TestTheProcessOfExaminationAndApproval:
     # @allure.title("BOM工程师页面，Bom Tree导出数据一致")  # 用例名称
     # @allure.description("在BOM工程师页面中，在Bom Tree中点导出，导出的数据和Bom Tree的数据是一致的")
     # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.FT  # 用例标记
+    # @pytest.mark.UT  # 用例标记
     # def test_005_005(self, drivers, Machine_API):
     #     user = MachineBOMCollaboration(drivers)
     #     user.refresh_webpage_click_menu()
@@ -645,7 +645,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("BOM工程师页面，点击一键填写按钮，能弹出一键填写的页面")  # 用例名称
     @allure.description("在BOM工程师页面中，点击一键填写按钮，能弹出一键填写的页面")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_006(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -659,7 +659,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("BOM工程师页面，回退到补充工厂页面")  # 用例名称
     @allure.description("在BOM工程师页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_007(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -676,7 +676,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("BOM工程师页面，转交时不选择转交人，不存在确定转交按钮")  # 用例名称
     @allure.description("在BOM工程师页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_008(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -691,7 +691,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("BOM工程师页面，选择转交人转交，存在确定转交按钮")  # 用例名称
     @allure.description("在BOM工程师页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_009(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -708,7 +708,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("BOM工程师页面，选择转交人转交后取消，存在转交，回退按钮")  # 用例名称
     @allure.description("在BOM工程师页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_010(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -726,7 +726,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("BOM工程师页面，转交单据成功")  # 用例名称
     @allure.description("在BOM工程师页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_011(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -745,7 +745,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("BOM工程师页面，拒绝成功")  # 用例名称
     @allure.description("在BOM工程师页面中，点击拒绝，会显示处理成功，并且页面跳转")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_012(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -762,7 +762,7 @@ class TestTheProcessOfExaminationAndApproval:
     # @allure.title("业务审核页面，导出文数据和页面数据一致")  # 用例名称
     # @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")
     # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.FT  # 用例标记
+    # @pytest.mark.UT  # 用例标记
     # def test_005_013(self, drivers, Machine_API):
     #     user = MachineBOMCollaboration(drivers)
     #     user.refresh_webpage_click_menu()
@@ -778,7 +778,7 @@ class TestTheProcessOfExaminationAndApproval:
     # @allure.title("业务审核页面，BOM Tree导出数据和页面中数据一致")  # 用例名称
     # @allure.description("在业务审核页面中，点击BOM Tree中的导出，导出文件中的数据和页面中的数据是一致的")
     # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.FT  # 用例标记
+    # @pytest.mark.UT  # 用例标记
     # def test_005_014(self, drivers, Machine_API):
     #     user = MachineBOMCollaboration(drivers)
     #     user.refresh_webpage_click_menu()
@@ -793,7 +793,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("业务审核页面，产成品数据不能编辑")  # 用例名称
     @allure.description("在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_015(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -808,7 +808,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择通过，点击同意按钮，"
                         "给出提示，并且页面跳转成功，跳转成功后，我的待办中不存在该条业务审核单据")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_016(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -829,7 +829,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("业务审核回退到补充工厂成功")  # 用例名称
     @allure.description("在业务审核页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_017(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -846,7 +846,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("业务审核回退到补充工厂重新审核，下一节点是业务审核")  # 用例名称
     @allure.description("在我的待办中审批从业务审核页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是业务审核节点，而不是BOM工程师节点")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_018(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -867,7 +867,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("在业务审核页面，不选择转交人转交，不存在确定转交按钮")  # 用例名称
     @allure.description("在业务审核页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_019(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -883,7 +883,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("在业务审核页面，选择转交人转交，存在确定转交按钮")  # 用例名称
     @allure.description("在业务审核页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_020(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -901,7 +901,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("在业务审核页面，选择转交人转交后取消，存在转交，回退按钮")  # 用例名称
     @allure.description("在业务审核页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_021(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -920,7 +920,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("在业务审核页面，转交单据成功")  # 用例名称
     @allure.description("在业务审核页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_022(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -939,7 +939,7 @@ class TestTheProcessOfExaminationAndApproval:
     # @allure.title("在数据组审批页面，生产工厂信息导出数据和页面数据一致")  # 用例名称
     # @allure.description("在数据组审批页面中，在生产工厂信息中点击导出，导出的文件中的数据和页面中的数据是一致的")
     # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.FT  # 用例标记
+    # @pytest.mark.UT  # 用例标记
     # def test_005_023(self, drivers, Machine_API):
     #     user = MachineBOMCollaboration(drivers)
     #     user.refresh_webpage_click_menu()
@@ -956,7 +956,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("数据组审批页面，审批成功")  # 用例名称
     @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_024(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -978,7 +978,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("数据组审批页面，回退到补充工厂")  # 用例名称
     @allure.description("在数据组审批页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_025(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -996,7 +996,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("数据组审批页面，回退到补充工厂")  # 用例名称
     @allure.description("在我的待办中审批从数据组审核页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是数据组审核节点，而不是BOM工程师节点")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_026(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1019,7 +1019,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("数据组审批页面，不选择转交人转交，不存在确定转交按钮")  # 用例名称
     @allure.description("在数据组审批页面中中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_027(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1036,7 +1036,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("数据组审批页面，选择转交人转交，存在确定转交按钮")  # 用例名称
     @allure.description("在数据组审核页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_028(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1055,7 +1055,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("数据组审批页面，选择转交人转交取消，存在转交，回退按钮")  # 用例名称
     @allure.description("在数据组审批页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_005_029(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1079,7 +1079,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("【生产工厂信息】物料XXXXXXXX的组包工厂不能为空")  # 用例名称
     @allure.description("在补充工厂页面中，不进行填写任何数据，点击同意，不能提交成功，并给出提示“【生产工厂信息】物料xxxxxx的组包工厂不能为空”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_001(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1094,7 +1094,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("未选择BOM，无法点击一键填写按钮")  # 用例名称
     @allure.description("在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_002(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1106,7 +1106,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("请选择工厂分类")  # 用例名称
     @allure.description("在补充工厂页面中，选择BOM，点击一键填写，不进行工厂分类，点击确认，不能进行确认并给出必填提示“请选择工厂分类”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_003(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1121,7 +1121,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("请选择工厂")  # 用例名称
     @allure.description("在补充工厂页面中，选择BOM，点击一键填写，不进行选择工厂，点击确认，不能进行确认并给出必填提示“请选择工厂”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_004(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1136,7 +1136,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("检查贴片工厂不能为空！")  # 用例名称
     @allure.description("在补充工厂页面中，不选择检查贴片工厂，点击同意，不能提交成功，并给出提示“检查贴片工厂不能为空！")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_005(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1153,7 +1153,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("父阶BOM料号xxxxxxxx用量不为1000！")  # 用例名称
     @allure.description("在BOM工程师页面中，在Bom Tree中点编辑，将用量编辑为“1”，点击同意，不能提交成功页面给出提示“父阶BOM料号xxxxxxxx用量不为1000”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_006(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1170,7 +1170,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("不能删除BOM！")  # 用例名称
     @allure.description("在BOM工程师页面中，在产成品中点击删除按钮，不能进行删除，并且给出提示“不能删除BOM！”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_007(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1184,7 +1184,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("自检清单检查角色未选择")  # 用例名称
     @allure.description("在业务审核页面中，不填写任何内容，点击同意，不能提交成功，并给出提示“自检清单检查角色未选择”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_008(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1202,7 +1202,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，选择后直接点击同意，"
                         "不能提交成功，并给出提示“自检清单第【1】行检查结果未选择”")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_009(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1222,7 +1222,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不通过，不填写原因及修改意见，"
                         "直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不通过需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_010(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1244,7 +1244,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不涉及，不填写原因及修改意见，"
                         "直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不涉及需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_006_011(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
