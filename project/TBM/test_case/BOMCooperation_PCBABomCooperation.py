@@ -1,24 +1,13 @@
-import allure
 import pytest
 from public.base.assert_ui import *
 from project.TBM.page_object.BOMCooperation_PCBABomCooperation import PCBABomCooperation
-
-"""
-    用例等级说明:
-        blocker级别:中断缺陷(客户端程序无响应，无法执行下一步操作)
-        critical级别: 临界缺陷(功能点缺失)
-        normal级别:普通缺陷(数值计算错误)
-        minor级别: 次要缺陷(界面错误与UI需求不符)
-        trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
-"""
 
 
 @allure.feature("BOM协作-PCBA BOM协作")  # 模块名称
 class TestCreateProcess:
     @allure.story("创建流程")  # 场景名称
     @allure.title("创建流程成功")  # 用例名称
-    @allure.description("进入新增页面制作类型选择PCBA BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
-                        "在产出品选择一个物料编码，用量填写为1000，点击提交，能提交成功“创建流程成功”")
+    @allure.description("进入新增页面制作类型选择PCBA BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产出品选择一个物料编码，用量填写为1000，点击提交，能提交成功“创建流程成功”")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):
@@ -48,8 +37,7 @@ class TestCreateProcess:
 class TestCreateProcessExceptionScenario:
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("导入Bom之前需要选中模板")  # 用例名称
-    @allure.description("进入新增页面制作类型选择PCBA BOM制作，选择一个不存在模板的品牌，其他内容正确填写，查看BOM Tree，"
-                        "无新增BOM按钮；点击导入提示“导入Bom之前需要选中模板”")
+    @allure.description("进入新增页面制作类型选择PCBA BOM制作，选择一个不存在模板的品牌，其他内容正确填写，查看BOM Tree，无新增BOM按钮；点击导入提示“导入Bom之前需要选中模板”")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_001(self, drivers):

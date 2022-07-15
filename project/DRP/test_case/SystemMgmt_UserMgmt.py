@@ -10,7 +10,7 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
 
     @allure.story("查询用户")
     @allure.title("根据姓名查询用户")
-    @allure.description("在输入框输入用户工号'18650617'，进行查询")
+    @allure.description("在输入框输入用户工号18650617,进行查询")
     @allure.severity("minor")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_001(self, drivers):

@@ -265,7 +265,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         """
         self.enter_shipping_country_flow_onework_edit(code)
         self.click_onework_shipping_country_flow_agree()
-        DomAssert(self.driver).assert_att('审核通过')
+        DomAssert(self.driver).assert_att('请求成功')
         self.quit_shipping_country_flow_onework()
         self.assert_shipping_country_flow_my_todo_node(code, '产品经理修改', True)
 
