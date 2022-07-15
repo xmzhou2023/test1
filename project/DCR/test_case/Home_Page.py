@@ -119,47 +119,47 @@ class TestExportUserMgtCard():
 
 @allure.feature("Home Page")
 class TestQueryAbnormalDataCard():
-        @allure.story("查询")
-        @allure.title("Homepage首页，查询Abnormal Data卡片维度数据")
-        @allure.description("Homepage首页，查询Abnormal Data卡片的各维度数据")
-        @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-        def test_003_001(self, drivers):
-            abnormal = HomePagePage(drivers)
-            abnormal_text = abnormal.get_abnormal_data_text()
-            infiltration_sale_text = abnormal.get_infiltration_sales_text()
+    @allure.story("查询")
+    @allure.title("Homepage首页，查询Abnormal Data卡片维度数据")
+    @allure.description("Homepage首页，查询Abnormal Data卡片的各维度数据")
+    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    def test_003_001(self, drivers):
+        abnormal = HomePagePage(drivers)
+        abnormal_text = abnormal.get_abnormal_data_text()
+        infiltration_sale_text = abnormal.get_infiltration_sales_text()
 
-            ValueAssert.value_assert_equal("Abnormal Data", abnormal_text)
-            ValueAssert.value_assert_In("Infiltration Sales", infiltration_sale_text)
+        ValueAssert.value_assert_equal("Abnormal Data", abnormal_text)
+        ValueAssert.value_assert_In("Infiltration Sales", infiltration_sale_text)
 
-            dist_deli_pcs = abnormal.get_dist_deli_date()
-            if int(dist_deli_pcs) > 0:
-                logging.info("Abnormal Data卡片，加载Distributor Delivery Date指标的值加载正常：{}".format(dist_deli_pcs))
-            else:
-                logging.info("Abnormal Data卡片，加载Distributor Delivery Date指标的值加载不正常：{}".format(dist_deli_pcs))
+        dist_deli_pcs = abnormal.get_dist_deli_date()
+        if int(dist_deli_pcs) > 0:
+            logging.info("Abnormal Data卡片，加载Distributor Delivery Date指标的值加载正常：{}".format(dist_deli_pcs))
+        else:
+            logging.info("Abnormal Data卡片，加载Distributor Delivery Date指标的值加载不正常：{}".format(dist_deli_pcs))
 
-            sub_deal_deli_pcs = abnormal.get_sub_deal_deli_date()
-            if int(sub_deal_deli_pcs) > 0:
-                logging.info("Abnormal Data卡片，加载Sub-dealer Delivery Date指标的值加载正常：{}".format(sub_deal_deli_pcs))
-            else:
-                logging.info("Abnormal Data卡片，加载Sub-dealer Delivery Date指标的值加载不正常:{}".format(sub_deal_deli_pcs))
+        sub_deal_deli_pcs = abnormal.get_sub_deal_deli_date()
+        if int(sub_deal_deli_pcs) > 0:
+            logging.info("Abnormal Data卡片，加载Sub-dealer Delivery Date指标的值加载正常：{}".format(sub_deal_deli_pcs))
+        else:
+            logging.info("Abnormal Data卡片，加载Sub-dealer Delivery Date指标的值加载不正常:{}".format(sub_deal_deli_pcs))
 
-            factory_deli_pcs = abnormal.get_factory_deli_date()
-            if int(factory_deli_pcs) > 0:
-                logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载正常：{}".format(factory_deli_pcs))
-            else:
-                logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载不正常：{}".format(factory_deli_pcs))
+        factory_deli_pcs = abnormal.get_factory_deli_date()
+        if int(factory_deli_pcs) > 0:
+            logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载正常：{}".format(factory_deli_pcs))
+        else:
+            logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载不正常：{}".format(factory_deli_pcs))
 
-            shop_sale_pcs = abnormal.get_shop_sales_date()
-            if int(shop_sale_pcs) > 0:
-                logging.info("Abnormal Data卡片，加载Shop Sales Date指标的值加载正常:{}".format(shop_sale_pcs))
-            else:
-                logging.info("Abnormal Data卡片，加载Shop Sales Date指标的值加载不正常：{}".format(shop_sale_pcs))
+        shop_sale_pcs = abnormal.get_shop_sales_date()
+        if int(shop_sale_pcs) > 0:
+            logging.info("Abnormal Data卡片，加载Shop Sales Date指标的值加载正常:{}".format(shop_sale_pcs))
+        else:
+            logging.info("Abnormal Data卡片，加载Shop Sales Date指标的值加载不正常：{}".format(shop_sale_pcs))
 
-            infiltration_sale_pcs = abnormal.get_infiltration_sales_pcs()
-            if int(infiltration_sale_pcs) > 0:
-                logging.info("Abnormal Data卡片，加载SAP delivery country is different from activation指标的值加载正常：{}".format(infiltration_sale_pcs))
-            else:
-                logging.info("Abnormal Data卡片，加载SAP delivery country is different from activation指标的值加载不正常：{}".format(infiltration_sale_pcs))
+        infiltration_sale_pcs = abnormal.get_infiltration_sales_pcs()
+        if int(infiltration_sale_pcs) > 0:
+            logging.info("Abnormal Data卡片，加载SAP delivery country is different from activation指标的值加载正常：{}".format(infiltration_sale_pcs))
+        else:
+            logging.info("Abnormal Data卡片，加载SAP delivery country is different from activation指标的值加载不正常：{}".format(infiltration_sale_pcs))
 
 
 
