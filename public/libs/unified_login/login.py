@@ -23,12 +23,12 @@ class Login(Base):
     def dcr_login(self, drivers, url, username, passwd):
         user = DcrLoginPage(drivers)
         user.get_url(url)
-        sleep(4)
-        user.input_account(username)
-        user.input_passwd(passwd)
+        sleep(7)
+        user.dcr_input_account(username)
+        user.dcr_input_passwd(passwd)
         sleep(1)
-        get_check_class = user.get_check_box_class()
+        get_check_class = user.dcr_get_check_box_class()
         if "is-checked" not in str(get_check_class):
-            user.click_check_box()
-        user.click_loginsubmit()
+            user.dcr_click_check_box()
+        user.dcr_click_loginsubmit()
         sleep(8)

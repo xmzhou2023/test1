@@ -48,45 +48,44 @@ class LoginPage(Base):
         sleep(4)
 
 
-
+"""DCR登录类"""
 class DcrLoginPage(Base):
-    """DCR登录类"""
-    def input_account(self, content):
+    def dcr_input_account(self, content):
         """输入工号"""
         self.input_text(login['工号输入框dcr'], txt=content)
-        sleep()
+        sleep(1)
 
-    def input_passwd(self, content):
+    def dcr_input_passwd(self, content):
         """输入密码"""
         self.input_text(login['密码输入框dcr'], txt=content)
-        sleep()
+        sleep(1)
 
-    def switch_lanuage(self, content):
+    def dcr_switch_lanuage(self, content):
         """语言切换"""
         self.is_click(login['语言切换dcr'])
         self.is_click(login['选择英文dcr'], content)
 
-    def click_check_box(self):
+    def dcr_click_check_box(self):
         """判断是否被选中"""
         self.is_click(login['隐私保护勾选dcr'])
         sleep(1)
 
-    def get_check_box_class(self):
+    def dcr_get_check_box_class(self):
         """获取复选框对应的 Class属性是否包含is-checked"""
         ss = self.find_element(login['隐私保护勾选dcr'])
         get_check_state = ss.get_attribute('class')
         return get_check_state
 
-    def check_box(self):
+    def dcr_check_box(self):
         """判断是否被选中"""
         checkbox = self.select_state(login['隐私保护勾选dcr'])
         return checkbox
 
-    def click_loginsubmit(self):
+    def dcr_click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(login['登录dcr'])
 
-    def click_loginOut(self):
+    def dcr_click_loginOut(self):
         """点击退出登录"""
         sleep(2)
         self.is_click(login['退出登录dcr'])
