@@ -60,7 +60,7 @@ class TestCreateProcess:
 class TestTheProcessOfExaminationAndApproval:
     @allure.story("流程审批")  # 场景名称
     @allure.title("产品部管理员审核成功")  # 用例名称
-    @allure.description("产品部管理员审核：点击同意，提示请求成功")
+    @allure.description("产品部管理员审核: 点击同意，提示请求成功")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_002_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -217,7 +217,7 @@ class TestTheProcessOfExaminationAndApproval:
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("变更产品成功,单据状态已变为审批通过")  # 用例名称
-    @allure.description("变更产品：抄送（自动抄送，不需要操作）：出货国家-出货国家流程，查看单据状态已变为审批通过")
+    @allure.description("变更产品：抄送-自动抄送，不需要操作：出货国家-出货国家流程，查看单据状态已变为审批通过")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_006(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
