@@ -186,14 +186,12 @@ def sync_Data(data_list):
             sql_execute.append(sql_mod)
 
             # 添加模块分类
-
             sql_type_FT = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('接口测试','FT',{},'自动化平台','自动化平台',1)".format(mod_id)
             sql_execute.append(sql_type_FT)
             sql_type_ST = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('场景测试','ST',{},'自动化平台','自动化平台',1)".format(mod_id)
             sql_execute.append(sql_type_ST)
             sql_type_UT = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('单元测试','UT',{},'自动化平台','自动化平台',1)".format(mod_id)
             sql_execute.append(sql_type_UT)
-
 
             # 场景数据
             for sce_id, sce_code in enumerate(data_list[pro_code][mod_code]['value'], 1):
@@ -202,30 +200,34 @@ def sync_Data(data_list):
                 sql_sce = "INSERT INTO scene(scene_code,scene_name,m_id,scene_level,created_by,updated_by,enabled_flag) VALUES('{}','{}',{},1,'自动化平台','自动化平台',1)".format(sce_code, sce_zh, mod_id)
                 sql_execute.append(sql_sce)
 
+                print(sce_id, sce_code)
                 # 用例数据
                 for case_id, case_code in enumerate(data_list[pro_code][mod_code]['value'][sce_code]['value'], 1):
 
-                    # 添加用例描述
-                    case_zh = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['title'].replace('\"', '')
-                    case_desc = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['description'].replace('\"', '')
-                    case_desc = '123'
+                    try:
+                        # 添加用例描述
+                        case_zh = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['title'].replace('\"', '')
+                        case_desc = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['description']
 
-                    # 设置用例等级
-                    severity_level = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['severity'].replace('\"', '')
-                    case_level_id = case_level[severity_level]
+                        # 设置用例等级
+                        severity_level = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['severity'].replace('\"', '')
+                        case_level_id = case_level[severity_level]
 
-                    # 添加用例数据
-                    sql_case = "INSERT INTO ts_case(case_code,case_name,case_des,case_status,s_id,case_level,manager_id,created_by,updated_by,enabled_flag,meta_status) VALUES('{}','{}','{}',1,'{}',{},1,'自动化平台','自动化平台',1,'unexecuted')".format(case_code, case_zh, case_desc, sce_id, case_level_id)
-                    sql_execute.append(sql_case)
+                        # 添加用例数据
+                        sql_case = "INSERT INTO ts_case(case_code,case_name,case_des,case_status,s_id,case_level,manager_id,created_by,updated_by,enabled_flag,meta_status) VALUES('{}','{}','{}',1,{},{},1,'自动化平台','自动化平台',1,'unexecuted')".format(case_code, case_zh, case_desc, sce_id, case_level_id)
+                        sql_execute.append(sql_case)
 
-                    # 添加用例等级
-                    severity_level = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['mark']
-                    for i in severity_level:
-                        case_level_id = case_mark[i]
-                        sql_severity = "INSERT INTO ts_casemark_detail(case_id,case_mark_id,created_by,updated_by,enabled_flag) VALUES({},{},1,1,1)".format(case_id, case_level_id)
-                        sql_execute.append(sql_severity)
+                        # 添加用例等级
+                        severity_level = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['mark']
+                        for i in severity_level:
+                            case_level_id = case_mark[i]
+                            sql_severity = "INSERT INTO ts_casemark_detail(case_id,case_mark_id,created_by,updated_by,enabled_flag) VALUES({},{},1,1,1)".format(case_id, case_level_id)
+                            sql_execute.append(sql_severity)
+                    except IOError as e:
+                        print("项目：{},模块：{},场景：{}，用例：{},异常：{}".format(pro_code,mod_code,sce_code,case_code,e))
 
-    change_db(sql_execute)
+    # change_db(sql_execute)
 
 if __name__ == '__main__':
+    # print(get_Data())
     sync_Data(get_Data())
