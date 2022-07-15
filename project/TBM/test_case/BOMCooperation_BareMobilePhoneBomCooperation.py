@@ -74,7 +74,7 @@ class TestCreateProcess:
     @allure.title("正确选择物料编码，点击一键填写，填写内容保存正确")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在单机头中和PCBA中正确选择物料编码，选中两颗物料，点击一键填写，填写用量和1000点击确认，页面上显示两颗物料用量都为1000")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_001_003(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -94,7 +94,7 @@ class TestCreateProcess:
     @allure.title("BOM tree中不选择物料，页面上不存在删除按钮")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，不选择物料，页面上不存在删除按钮")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_001_004(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -106,7 +106,7 @@ class TestCreateProcess:
     @allure.title("选择物料，页面上存在删除按钮")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择物料，页面上存在删除按钮")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_001_005(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -119,7 +119,7 @@ class TestCreateProcess:
     @allure.title("选中父节点物料后点击删除，删除页面数据")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确添加物料，选中父节点物料后点击删除，删除页面数据")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_001_006(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -133,7 +133,7 @@ class TestCreateProcess:
     @allure.title("选中子节点物料后点击删除，清子节点内容")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确添加物料，选中子节点物料后点击删除，子节点内容会清空")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_001_007(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -161,7 +161,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个不存在模板的品牌，其他内容正确填写，"
                         "查看BOM Tree，无新增BOM按钮；点击导入提示'导入Bom之前需要选中模板'")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_001(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -180,7 +180,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("不添加BOM内容，提示BOM状态不能为空")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，在BOM tree中点击新增BOM，不添加BOM内容，其他内容正确填写，点击提交，提示BOM状态不能为空")
     @allure.severity("normal")  # blocker\normal\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_002(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -199,7 +199,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("不选择BOM状态，提示BOM状态不能为空")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，在BOM tree中点击新增BOM，不选择BOM状态，其他内容正确填写，点击提交，提示BOM状态不能为空")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_003(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -220,7 +220,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("BOM编码[null]的物料组在对应的模板中未设置！")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，在BOM tree中点击新增BOM，不填写物料编码，其他内容正确填写，点击提交，提示BOM编码[null]的物料组在对应的模板中未设置！")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_004(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -242,7 +242,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("xxxxxxxx的数量为空")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产出品选择一个物料编码，用量不进行填写，点击提交，不能提交成功并给出提示“xxxxxxxx的数量为空!”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_005(self, drivers):
         """
         回归测试用例：005
@@ -269,7 +269,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("父阶BOM料号xxxxxxxx用量不为1000")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产出品选择一个物料编码，用量填写为1，点击提交，不能提交成功并给出提示“父阶BOM料号xxxxxxxx用量不为1000”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_006(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -292,7 +292,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("用量只能填写非0数字(最多3位小数)")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产出品选择一个物料编码，用量填写为非数字类型，点击提交，不能提交成功并给出提示“用量只能填写非0数字(最多3位小数)”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_007(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -315,7 +315,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("父阶BOM料号XXXXXXXX下的子阶BOM料号XXXXXXXX用量不为1000")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，选择单机头的物料编码，输入PCBA用量为1，点击提示，不能提交成功并给出提示“父阶BOM料号XXXXXXXX下的子阶BOM料号XXXXXXXX用量不为1000”")
     @allure.severity("normal")
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_008(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -338,10 +338,9 @@ class TestCreateProcessExceptionScenario:
 
     @allure.story("创建流程异常场景")
     @allure.title("业务评审MPM不能为空！")
-    @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM "
-                        "tree中点击新增BOM，正确填入产成品数据，业务评审不选择相应的评审人员，点击提交，不能提交成功，并给出提示“业务评审MPM不能为空！”")
+    @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，业务评审不选择相应的评审人员，点击提交，不能提交成功，并给出提示“业务评审MPM不能为空！”")
     @allure.severity("normal")
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_009(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -363,7 +362,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("业务评审MPM不能为空！")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，业务评审MPM不选择评审人员，其他选择审批人员，点击提交，不能提交成功，并给出提示“业务评审MPM不能为空！”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_010(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -386,7 +385,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("[XXXXXX] 替代组[XX]的份额总和不为100")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，在充电器中新增两颗物料，添加替代组都为A1，份额为一个20，一个20，其他内容正确填写，点击提交，不能提交成功并且提示替代组&份额相加不为100")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_011(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -413,7 +412,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("填入产成品数据，不选择物料，一键填写用量，页面上没有填写上任何数据")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，不选择物料，点击一键填写，填写用量为1000，点击确定，页面上没有填写上任何数据")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_012(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -429,7 +428,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("不填写产成品数据，全选一键填写用量，页面上没有填写上任何数据")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产成品中不选择物料编码，全选选中物料，点击一键填写，一键填写时选择用量和1000，点击确定，页面上不会新增用量数量")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_013(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -444,7 +443,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("文件类型非excel!")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择导入BOM选择一个错误的文件格式进行导入，不能导入成功并提示“文件类型非excel!”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_014(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -458,7 +457,7 @@ class TestCreateProcessExceptionScenario:
     @allure.title("模板正确内容错误的文件导入失败，并在校验结果给出相应错误提示，导出校验可点击")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择导入BOM选择一个模板正确内容错误的文件进行导入，导入失败，并在校验结果给出相应错误提示，导出校验可点击并能成功下载文件")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_002_015(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -475,7 +474,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("发起流程，审批页面的数据和发起的数据是一致的")
     @allure.description("发起一个单机头BOM协作，进入待办中心，点击该条单据进行查看，查看页面的数据和发起的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_003_001(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -498,7 +497,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("补充工厂页面，审批成功")
     @allure.description("在补充工厂页面，所有数据正确填写，点击同意，能成功提交，并给出提示“处理成功”，并且页面成功跳转;成功处理了补充工厂审核点，我的待办中不存在该条单据在补充工厂审核节点（建议：校验单据号和当前节点）")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_003_002(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -519,7 +518,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("【生产工厂信息】物料xxxxxx的组包工厂不能为空")
     @allure.description("在补充工厂页面中，不进行填写任何数据，点击同意，不能提交成功，并给出提示“【生产工厂信息】物料xxxxxx的组包工厂不能为空”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_004_001(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -534,7 +533,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("未选择BOM,一键填写按钮无法被点击")
     @allure.description("在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_004_002(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -546,7 +545,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("请选择工厂分类")
     @allure.description("在补充工厂页面中，选择BOM，点击一键填写，不进行工厂分类，点击确认，不能进行确认并给出必填提示“请选择工厂分类”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_004_003(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -561,7 +560,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("请选择工厂")
     @allure.description("在补充工厂页面中，选择BOM，点击一键填写，不进行选择工厂，点击确认，不能进行确认并给出必填提示“请选择工厂”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_004_004(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()

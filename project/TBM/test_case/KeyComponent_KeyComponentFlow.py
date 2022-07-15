@@ -28,7 +28,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("摄像头+闪光灯节点，审批成功")  # 用例名称
     @allure.description("摄像头+闪光灯节点，关键器件中的摄像头+闪光灯节点，点击左侧三角，点击下面的模块，点击物料编码右侧的加号，物料编码下面出现一行，点击新出现这行的加号，填写代申请编码信息，点击其他模块保存成功（像这样随便填几个模块），点击同意，提示操作成功")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_001(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
@@ -53,7 +53,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("硬件电子料-基带节点，审批成功")  # 用例名称
     @allure.description("硬件电子料-基带节点，关键器件中的硬件电子料-基带节点，点击左侧三角，点击下面的模块，点击物料编码右侧的加号，物料编码下面出现一行，点击新出现这行的加号，填写代申请编码信息，点击其他模块保存成功（像这样随便填几个模块），点击同意，提示操作成功")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_002(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
@@ -73,7 +73,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("标准化代表节点，审批成功")  # 用例名称
     @allure.description("标准化代表节点，找到标准化评估责任人，点击左侧全选，点击右侧一键填写，弹出一键填写框，字段名称选择责任人，责任人选择xxx，点击确定，提示已选分类的审批人设置成功，点击关闭按钮，弹框关闭，点击同意，提示操作成功")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_003(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
@@ -94,7 +94,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("采购代表节点，审批成功")  # 用例名称
     @allure.description("采购代表节点，找到采购评估责任人，点击左侧全选，点击右侧一键填写，弹出一键填写框，字段名称选择资源商务，责任人选择xxx，点击确定，提示已选分类的审批人设置成功；字段名称选择采购执行，责任人选择xxx，点击确定，提示已选分类的审批人设置成功；字段名称选择采购PTC，责任人选择xxx，点击确定，提示已选分类的审批人设置成功；字段名称选择采购SQM，责任人选择xxx，点击确定。提示已选分类的审批人设置成功，点击关闭按钮，弹框关闭，点击同意，提示操作成功")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_004(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
@@ -125,7 +125,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("资源商务评估节点，审批成功")  # 用例名称
     @allure.description("资源商务评估节点，（所有前面填过信息的这里都可以填采购评估-资源商务）勾选是否新供应商、国产化属性、供应商选择原因类别、是否客供物料、价格趋势（6个月）、是否NUDD、评审结论（选通过或者选建议修改，填原因及修改建议），填写供应商选择原因、份额（只能输数字1-100）、关联物料（只能填物料）、NUDD说明、NUDD管理方案、原因及修改建议；点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_005(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
@@ -175,7 +175,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("采购执行评估节点，审批成功")  # 用例名称
     @allure.description("采购执行评估节点，（所有前面填过信息的这里都可以填采购评估-采购执行）勾选产能评审结论（选通过或者选建议修改，填原因及修改建议），填写L/T(天)、最小下单量(pcs)、此项目峰值需求(K/M)、供应商总产能(K/M)、分配传音产能(K/M)、供应弹性(%)、共用项目需求合计(K/M)、此项目产能分配(""K/M)、共用项目名、原因及修改建议、备料建议，点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_006(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
@@ -225,7 +225,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("采购PTC评估节点，审批成功")  # 用例名称
     @allure.description("采购PTC评估节点，（所有前面填过信息的这里都可以填采购评估-PTC）勾选评审结论（选通过或者选不同意，填原因及修改建议），填写原因及修改建议，，点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_007(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
@@ -255,7 +255,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("采购SQM评估节点，审批成功")  # 用例名称
     @allure.description("采购SQM评估节点，（所有前面填过信息的这里都可以填采购评估-SQM）勾选评审结论（选通过或者选不同意，填原因及修改建议），填写原因及修改建议，点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_008(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
@@ -285,7 +285,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("标准化部评估节点，审批成功")  # 用例名称
     @allure.description("标准化部评估节点，（所有前面填过信息的这里都可以填标准化评估的一部分）勾选认证状态、评审结论（选通过或者选建议修改，填原因及修改建议），填写原因及修改建议，点击同意，有必填不填时有提示，点击确定")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_002_009(self, drivers, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()

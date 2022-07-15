@@ -316,6 +316,11 @@ class ShippingCountrySearch(ShippingCountryFlow):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_shipping_country_flow_onework()
 
+    def assert_flow_compelete(self, code):
+        sleep(60)
+        self.screening_code(code)
+        self.assert_shipping_country_flow_my_application_flow(code, '审批完成')
+
     def shipping_country_flow_change_country_flow(self, item, cty):
         """待修改"""
         self.refresh_webpage_click_menu()

@@ -55,7 +55,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品部管理员审核', True)
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
-        DomAssert(drivers).assert_att('审核通过')
+        DomAssert(drivers).assert_att('请求成功')
         user.quit_oneworks()
         user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品部汇签', True)
 
@@ -70,7 +70,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.shipping_country_flow_product_department_administrator_review(Shipping_API[0])
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
-        DomAssert(drivers).assert_att('审核通过')
+        DomAssert(drivers).assert_att('请求成功')
         user.quit_oneworks()
         user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品经理修改', True)
 
@@ -95,7 +95,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_oneworks_shipping_country_flow_product_definition_info('aaa', '1G')
         user.input_oneworks_shipping_country_flow_product_definition_info('bbb', 'G70')
         user.click_onework_shipping_country_flow_agree()
-        DomAssert(drivers).assert_att('审核通过')
+        DomAssert(drivers).assert_att('请求成功')
         user.quit_oneworks()
         user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '产品部管理员复核', True)
 
@@ -112,7 +112,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.shipping_country_flow_product_manager_modification(Shipping_API[0])
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
-        DomAssert(drivers).assert_att('审核通过')
+        DomAssert(drivers).assert_att('请求成功')
         user.quit_oneworks()
         user.assert_shipping_country_flow_my_todo_node(Shipping_API[0], '项目经理审批', True)
 
@@ -130,7 +130,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.shipping_country_flow_product_department_administrator_re_review(Shipping_API[0])
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
-        DomAssert(drivers).assert_att('审核通过')
+        DomAssert(drivers).assert_att('请求成功')
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
@@ -149,7 +149,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.shipping_country_flow_product_department_administrator_re_review(Shipping_API[0])
         user.enter_shipping_country_flow_onework_edit(Shipping_API[0])
         user.click_onework_shipping_country_flow_agree()
-        DomAssert(drivers).assert_att('审核通过')
+        DomAssert(drivers).assert_att('请求成功')
         user.quit_oneworks()
         user.assert_shipping_country_flow_my_application_node(Shipping_API[0], '抄送', True)
         sleep(60)
