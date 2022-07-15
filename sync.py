@@ -9,7 +9,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # 当前项目目录
 PEROJECT_PATH = os.path.join(BASE_DIR, 'project')
 
-sql = {'host': '10.250.101.58', 'port': 3306, 'user_name': 'root', 'password': '123456', 'db_name': 'TranDesk',
+sql = {'host': '10.250.113.16', 'port': 3306, 'user_name': 'root', 'password': '123456', 'db_name': 'TranDesk',
        'drive': 'mysql'}
 
 def get_db_conn():
@@ -197,9 +197,8 @@ def sync_Data(data_list):
 
             # 场景数据
             for sce_id, sce_code in enumerate(data_list[pro_code][mod_code]['value'], 1):
-                sce_zh = data_list[pro_code][mod_code]['value'][sce_code]['att']
-                print(type(sce_zh))
-                sce_zh= sce_zh.replace('\"', '')
+                sce_zh = data_list[pro_code][mod_code]['value'][sce_code]['att'].replace('\"', '')
+                # print(pro_code,mod_code)
                 sql_sce = "INSERT INTO scene(scene_code,scene_name,m_id,scene_level,created_by,updated_by,enabled_flag) VALUES('{}','{}',{},1,'自动化平台','自动化平台',1)".format(sce_code, sce_zh, mod_id)
                 sql_execute.append(sql_sce)
 
@@ -208,7 +207,7 @@ def sync_Data(data_list):
 
                     # 添加用例描述
                     case_zh = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['title'].replace('\"', '')
-                    # case_desc = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['description'].replace('\"', '')
+                    case_desc = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['description'].replace('\"', '')
                     case_desc = '123'
 
                     # 设置用例等级
@@ -229,5 +228,4 @@ def sync_Data(data_list):
     change_db(sql_execute)
 
 if __name__ == '__main__':
-    print(get_Data())
-    # sync_Data(get_Data())
+    sync_Data(get_Data())
