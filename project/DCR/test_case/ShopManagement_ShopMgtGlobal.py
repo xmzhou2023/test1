@@ -51,7 +51,7 @@ class TestAddShop:
         shop_name = shop_data[0].get("shop_name")
         """获取列表新建的门店ID与门店名称文本内容"""
         add_shop.input_query_shop_name(shop_name, shop_name)
-        add_shop.click_query_search()
+        add_shop.click_quergity_search()
 
         shopid = add_shop.get_shop_id_text()
         shopname = add_shop.get_shop_name_text()
