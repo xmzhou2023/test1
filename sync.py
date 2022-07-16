@@ -60,7 +60,7 @@ def change_pylist_modulelist(py_name):
 
 def get_PyClass(filepath):
     class_list = {}
-    with open(filepath, "r", encoding='utf-8') as file:
+    with open(filepath, "r", encoding='utf-8', errors='ignore') as file:
         feature_name = ''  # 初始化模块描述
         for line in file.readlines():
             """获取模块编码(py脚本名)feature"""
