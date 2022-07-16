@@ -17,11 +17,9 @@ class TestQueryCustomerSalesReport:
         """国包账号登录"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "BD40344201", "dcr123456")
-        sleep(6)
 
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Report Analysis", "Customer Sales Report")
-        sleep(6)
 
         sales_report = CustomerSalesReportPage(drivers)
         sales_report.input_date("2022-05-01", "2022-06-06")
@@ -41,10 +39,10 @@ class TestQueryCustomerSalesReport:
         re_total = return_result[0].get('sum')
 
         actualsales = de_total - re_total
-        ValueAssert.value_assert_equal(int(delivery_total), de_total)
-        ValueAssert.value_assert_equal(int(return_total), re_total)
-        ValueAssert.value_assert_equal(int(actual_sales), actualsales)
-
+        ValueAssert.value_assert_equal(delivery_total, de_total)
+        ValueAssert.value_assert_equal(return_total, re_total)
+        ValueAssert.value_assert_equal(actual_sales, actualsales)
+        sleep(1)
 
 if __name__ == '__main__':
     pytest.main(['ReportAnalysis_CustomerSaleReport.py'])

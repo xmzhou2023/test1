@@ -39,17 +39,20 @@ class CustomerSalesReportPage(Base):
     def get_delivery_sum_text(self):
         """获取出库总数文本"""
         delivery_total = self.element_text(user['获取出库数量文本'])
-        return delivery_total
+        delivery_total1 = int(delivery_total)
+        return delivery_total1
 
     def get_actual_sales_sum_text(self):
         """获取实际销售总数文本"""
         actual_sales = self.element_text(user['获取实际销售数量文本'])
-        return actual_sales
+        actual_sales1 = int(actual_sales)
+        return actual_sales1
 
     def get_return_sum_text(self):
         """获取退货总数文本"""
         return_total = self.element_text(user['获取退货数量文本'])
-        return return_total
+        return_total1 = int(return_total)
+        return return_total1
 
 
 

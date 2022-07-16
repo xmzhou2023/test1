@@ -16,10 +16,10 @@ class TestQueryInboundReceipt:
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.dcr_login(drivers, "BD291501", "dcr123456")
-        sleep(5)
+
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Purchase Management", "Inbound Receipt")
-        sleep(6)
+
         query = InboundReceiptPage(drivers)
         query.click_unfold()
         query.input_delivery_date("2022-07-01")
@@ -34,18 +34,14 @@ class TestQueryInboundReceipt:
         status = query.get_status_text()
         product = query.get_product_text()
         total = query.get_total_text()
-        total1 = int(total[7:8])
+
         ValueAssert.value_assert_IsNoneNot(saleo_order)
         ValueAssert.value_assert_IsNoneNot(delivery_order)
         ValueAssert.value_assert_IsNoneNot(delivery_date)
         ValueAssert.value_assert_IsNoneNot(status)
         ValueAssert.value_assert_IsNoneNot(product)
-        if total1 > 0:
-            log.info("Inbound Receipt列表，分页总条数为{}".format(total1))
-        else:
-            log.info("Inbound Receipt列表，分页总条数为{}".format(total1))
+        query.assert_total(total)
         query.click_reset()
-        sleep(4)
 
 
 @allure.feature("采购管理-二代零售商收货")
@@ -67,7 +63,7 @@ class TestQueryIMEIDetail:
         #勾选第一条记录前的复选框
         query.select_checkbox()
         query.click_imei_detail()
-        sleep(3)
+
         detail_material = query.get_imei_detail_material_id()
         detail_product = query.get_imei_detail_product()
         detail_itel = query.get_imei_detail_itel()
@@ -75,11 +71,7 @@ class TestQueryIMEIDetail:
         detail_imei = query.get_imei_detail_imei()
         detail_export = query.get_imei_detail_export()
         total = query.get_imei_detail_total()
-        total1 = total[6:7]
-        if int(total1) > 0:
-            log.info("查看Inbound Receipt列表，加载IMEI详情数据正常，分页总条数Total：{}".format(total1))
-        else:
-            log.info("查看Inbound Receipt列表，加载IMEI详情数据失败，分页总条数Total：{}".format(total1))
+        query.assert_total_imei_detail(total)
 
         ValueAssert.value_assert_equal(list_product, detail_product)
         ValueAssert.value_assert_equal(list_itel, detail_itel)
@@ -87,7 +79,8 @@ class TestQueryIMEIDetail:
         ValueAssert.value_assert_IsNoneNot(detail_material)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
         ValueAssert.value_assert_equal("Export", detail_export)
-        sleep(1.5)
+        sleep(1)
+
 
 if __name__ == '__main__':
     pytest.main(['PurchaseManagement_InboundReceipt.py'])

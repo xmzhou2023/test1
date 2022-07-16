@@ -28,7 +28,7 @@ class TestQueryDeliveryOrder:
         menu.click_gotomenu("Sales Management", "Delivery Order")
 
         list = DeliveryOrderPage(drivers)
-        sale_order = list.get_sales_order_text
+        sale_order = list.get_sales_order_text()
         deli_order = list.get_delivery_order_text()
         deli_date = list.get_delivery_date_text()
         status = list.get_status_text()

@@ -2,6 +2,7 @@ from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from public.base.basics import Base
 from ..test_case.conftest import *
+import logging
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
@@ -60,6 +61,7 @@ class InboundReceiptPage(Base):
     def click_reset(self):
         """快速收货页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
+        sleep(4)
 
     def click_unfold(self):
         self.is_click(user['Unfold'])
@@ -111,11 +113,13 @@ class InboundReceiptPage(Base):
     def get_total_text(self):
         """获取列表total文本"""
         total = self.element_text(user['Get Total Text'])
-        return total
+        total1 = int(total[7:])
+        return total1
 
     def click_imei_detail(self):
         """Inbound Receipt列表点击 IMEI Detail按钮"""
         self.is_click(user['IMEI Detail'])
+        sleep(1)
 
     def get_please_select_record(self):
         """获得请选择记录提示语"""
@@ -125,6 +129,7 @@ class InboundReceiptPage(Base):
     #IMEI Detail页面元素定位方法
     def get_imei_detail_material_id(self):
         """获取IMEI Detail页面 material_id字段内容"""
+        Base.presence_sleep_dcr(self, user['Get IMEI Detail Material ID'])
         material = self.element_text(user['Get IMEI Detail Material ID'])
         return material
 
@@ -151,14 +156,26 @@ class InboundReceiptPage(Base):
     def get_imei_detail_total(self):
         """获取IMEI Detail页面 total字段内容"""
         total = self.element_text(user['Get IMEI Detail Total'])
-        return total
+        total1 = total[6:7]
+        return total1
 
     def get_imei_detail_export(self):
         """获取IMEI Detail页面 Export字段内容"""
         get_export = self.element_text(user['Get IMEI Detail Export'])
         return get_export
 
+    def assert_total(self, total):
+        if total > 0:
+            logging.info("Inbound Receipt列表，分页总条数为{}".format(total))
+        else:
+            logging.info("Inbound Receipt列表，分页总条数为{}".format(total))
+        sleep(1)
 
+    def assert_total_imei_detail(self, total1):
+        if int(total1) > 0:
+            logging.info("查看Inbound Receipt列表，加载IMEI详情数据正常，分页总条数Total：{}".format(total1))
+        else:
+            logging.info("查看Inbound Receipt列表，加载IMEI详情数据失败，分页总条数Total：{}".format(total1))
 
 if __name__ == '__main__':
     pass

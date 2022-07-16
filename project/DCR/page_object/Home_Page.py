@@ -116,12 +116,12 @@ class HomePagePage(Base):
     def click_more(self):
         """页面点击more按钮"""
         self.is_click(user['More'])
-        sleep(3)
+        sleep(50)
 
     def click_export_search(self):
         """导出记录页面，点击Search按钮"""
-        self.is_click(user['Export Record Search'])
-        sleep(2)
+        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return down_status
 
     def get_download_status_text(self):
         """导出记录页面，获取列表 Download Status文本"""
@@ -136,7 +136,8 @@ class HomePagePage(Base):
     def get_file_size_text(self):
         """导出记录页面，获取列表 Task Name文本"""
         file_size = self.element_text(user['获取文件大小文本'])
-        return file_size
+        file_size1 = file_size[0:1]
+        return file_size1
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
@@ -161,7 +162,8 @@ class HomePagePage(Base):
     def get_export_time_text(self):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
-        return export_time
+        export_time1 = export_time[0:1]
+        return export_time1
 
     def click_close_export_record(self):
         """ 关闭导出记录菜单页面"""
@@ -171,7 +173,19 @@ class HomePagePage(Base):
     def click_close_user_management(self):
         """ 关闭用户管理菜单页面"""
         self.is_click(user['关闭用户管理菜单'])
-        sleep(1)
+        sleep(2)
+
+    def assert_file_time_size(self, file_size, export_time):
+        if int(file_size) > 0:
+            logging.info("User Management & Authorization卡片数据导出成功，File Size 导出文件大于M:{}".format(file_size))
+        else:
+            logging.info("User Management & Authorization卡片数据导出失败，File Size 导出时间小于M:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("User Management & Authorization卡片数据导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("User Management & Authorization卡片数据导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
+        sleep(2)
 
 
 if __name__ == '__main__':

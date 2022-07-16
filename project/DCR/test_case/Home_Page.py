@@ -19,10 +19,10 @@ class TestQueryUserMgtCard:
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
-        sleep(5)
+
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Home Page")
-        sleep(5)
+
         page_user_mgt = HomePagePage(drivers)
         page_user_mgt.click_time_period()
         page_user_mgt.click_search()
@@ -66,7 +66,6 @@ class TestQueryUserMgtCard:
             logging.info("User Management & Authorization卡片，加载Customer Days No Login指标的值不正常：{}".format(cust_day_no_login))
         page_user_mgt.click_close_export_record()
         page_user_mgt.click_close_user_management()
-        sleep(2)
 
 
 @allure.feature("首页")
@@ -78,43 +77,33 @@ class TestExportUserMgtCard:
     def test_002_001(self, drivers):
         export = HomePagePage(drivers)
         """获取当天日期"""
-        today = datetime.date.today()
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
         export.click_user_mgt_export()
-        sleep(1.5)
         export.click_download_icon()
         export.click_more()
-        sleep(48)
-        export.click_export_search()
+        down_status = export.click_export_search()
 
-        down_status = export.get_download_status_text()
+        #down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        file_size1 = file_size[0:1]
+
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
         create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
         complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-        export_time1 = export_time[0:1]
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "User management")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date1, str(today))
-        ValueAssert.value_assert_equal(complete_date1, str(today))
+        ValueAssert.value_assert_equal(create_date1, today)
+        ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
-        if int(file_size1) > 0:
-            logging.info("User Management & Authorization卡片数据导出成功，File Size 导出文件大于M:{}".format(file_size1))
-        else:
-            logging.info("User Management & Authorization卡片数据导出失败，File Size 导出时间小于M:{}".format(file_size1))
-
-        if int(export_time1) > 0:
-            logging.info("User Management & Authorization卡片数据导出成功，Export Time(s)导出时间大于0s:{}".format(export_time1))
-        else:
-            logging.info("User Management & Authorization卡片数据导出失败，Export Time(s)导出时间小于0s:{}".format(export_time1))
-        sleep(2)
+        export.assert_file_time_size(file_size, export_time)
 
 
 @allure.feature("Home Page")

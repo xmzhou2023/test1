@@ -23,18 +23,17 @@ class TestQueryDeliveryOrder:
         user.click_gotomenu("Sales Management", "Delivery Order")
 
         list = DeliveryOrderPage(drivers)
-        sale_order = list.text_sales_order
+        sale_order = list.text_sales_order()
         deli_order = list.text_delivery_order()
         deli_date = list.get_delivery_date_text()
         status = list.text_delivery_Status()
-
         total = list.get_total_text()
-        total1 = total[6:]
+
         ValueAssert.value_assert_IsNoneNot(sale_order)
         ValueAssert.value_assert_IsNoneNot(deli_order)
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
-        list.assert_total(total1)
+        list.assert_total(total)
         list.click_close_delivery_order()
 
 
@@ -66,20 +65,17 @@ class TestExportDeliveryOrder:
 
         #筛选出库单后，点击导出功能
         export.click_export()
-
         export.click_download_more()
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        file_size1 = file_size[0:1]
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
         create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
         complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-        export_time1 = export_time[0:1]
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
@@ -88,10 +84,9 @@ class TestExportDeliveryOrder:
         ValueAssert.value_assert_equal(create_date1, today)
         ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
-        export.assert_file_time_size(file_size1, export_time1)
+        export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
         #export.click_close_delivery_order()
-        sleep(1)
 
 
 if __name__ == '__main__':

@@ -20,15 +20,13 @@ def test_login(drivers):
 
 
 
-#logging.info(pro_name)
-
 pro_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 @pytest.fixture(scope='session',autouse=True)
 def __init__(drivers, env_name):
     """初始化"""
     global pro_env
-    pro_env = env_name
+    pro_env = "prod"
     logging.info("【{}】项目【{}】环境- UI自动化开始执行".format(pro_name, pro_env))
-    ini = ReadConfig(pro_name, pro_env)
+    #ini = ReadConfig(pro_name, pro_env)
 
