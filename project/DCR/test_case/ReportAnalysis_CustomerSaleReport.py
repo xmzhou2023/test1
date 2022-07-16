@@ -8,7 +8,7 @@ import allure
 
 
 @allure.feature("报表分析-客户销售报表")
-class TestQueryCustomerSalesReport():
+class TestQueryCustomerSalesReport:
     @allure.story("查询")
     @allure.title("国包用户查看客户销售报表，统计出库数、退货数与实际销售数")
     @allure.description("国包用户查看客户销售报表，统计出库数、退货数与实际销售数")

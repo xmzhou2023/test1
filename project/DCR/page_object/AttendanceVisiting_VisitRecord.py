@@ -18,7 +18,7 @@ class VisitRecordPage(Base):
     def click_fold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
         self.is_click(user['Fold'])
-        sleep(1.5)
+        sleep(1)
 
     def input_shop_id_query(self, content):
         """Visit Record页面，筛选Shop ID的巡店记录"""
@@ -39,6 +39,7 @@ class VisitRecordPage(Base):
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
+        sleep(2)
 
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
@@ -69,7 +70,8 @@ class VisitRecordPage(Base):
     def get_total_text(self):
         """Visit Record页面，获取列表中Visit Date文本属性"""
         total = self.element_text(user['获取总条数文本'])
-        return total
+        total1 = total[6:]
+        return total1
 
     def click_close_export_record(self):
         """关闭导出记录菜单"""
@@ -116,7 +118,8 @@ class VisitRecordPage(Base):
     def get_file_size_text(self):
         """导出记录页面，获取列表 Task Name文本"""
         file_size = self.element_text(user['获取文件大小文本'])
-        return file_size
+        file_size1 = file_size[0:1]
+        return file_size1
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
@@ -141,7 +144,8 @@ class VisitRecordPage(Base):
     def get_export_time_text(self):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
-        return export_time
+        export_time1 = export_time[0:1]
+        return export_time1
 
 
     def assert_total(self, total):

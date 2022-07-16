@@ -35,11 +35,10 @@ Payment Mode value: "xpath==//span[contains(text(),'Wechat')]"
 Input IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
 Submit Delivery: "xpath==//span[contains(text(),'Submit')]"
-
+关闭Sales Order: "xpath==//span[normalize-space(text())='Sales Order']//span[@class='el-icon-close']"
 
 
 #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
-imei inventory iframe: "id==imei_inventory_query"
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Material ID: "xpath==//*[@id='app']/div/div[2]/section/div/div[1]/form/div/div[2]/div[2]/div/div/div/input"
 IMEI库存点击Brand: "xpath==//*[@id='app']/div/div[2]/section/div/div[1]/form/div/div[2]/div[9]/div/div/div/div/div[1]/input"
@@ -47,3 +46,4 @@ IMEI库存选中Brand: "xpath==//*[@id='app']/div/div[2]/section/div/div[1]/form
 
 IMEI库存查询按钮: "xpath==//span[contains(text(),'Search')]"
 获取IMEI文本内容: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
+关闭IMEI Inventory Query: "xpath==//span[normalize-space(text())='IMEI Inventory Query']//span[@class='el-icon-close']"

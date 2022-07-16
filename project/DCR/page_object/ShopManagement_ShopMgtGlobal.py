@@ -11,6 +11,7 @@ class ShopManagementPage(Base):
     """ShopManagementPage 页面元素类"""
     def click_add(self):
         """点击Add新建门店按钮"""
+        Base.presence_sleep_dcr(self, user['Add'])
         self.is_click(user['Add'])
         sleep(3)
 
@@ -96,14 +97,15 @@ class ShopManagementPage(Base):
 
     def shop_random(self):
         """新建门店时，门店名称后缀随机生成"""
-        num = str(random.randint(1, 100))
+        num = str(random.randint(100, 999))
         return num
 
     def input_query_shop_name(self, content, content1):
         """根据门店名称查询，最近新建的门店ID"""
+        #Base.presence_sleep_dcr(self, user['点击门店输入框'])
         self.is_click_dcr(user['点击门店输入框'])
         self.input_text(user['门店输入框输入'], txt=content)
-        sleep(2.5)
+        sleep(3)
         self.is_click(user['选中门店值1'], content1)
 
     def extend_query_shop_name(self, content, content1):
@@ -116,7 +118,7 @@ class ShopManagementPage(Base):
     def click_query_search(self):
         """点击Search查询门店信息"""
         self.is_click(user['Search'])
-
+        sleep(4)
 
     def click_first_checkbox(self):
         """筛选最近新建的门店ID后，勾线第一个复选框"""
@@ -153,6 +155,7 @@ class ShopManagementPage(Base):
 
     def get_shop_id_text(self):
         """获取列表Shop ID文本"""
+        Base.presence_sleep_dcr(self, user['获取ShopID文本'])
         get_shop_id = self.element_text(user['获取ShopID文本'])
         return get_shop_id
 
@@ -163,6 +166,7 @@ class ShopManagementPage(Base):
 
     def get_shop_name_text(self):
         """获取列表Shop Name文本"""
+        Base.presence_sleep_dcr(self, user['获取ShopName文本'])
         get_shop_name = self.element_text(user['获取ShopName文本'])
         return get_shop_name
 
@@ -179,7 +183,7 @@ class ShopManagementPage(Base):
     def click_reset(self):
         """点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(3)
+        sleep(5)
 
     # def query_sql_shopid(self):
     #     """查询最近新建的门店ID"""

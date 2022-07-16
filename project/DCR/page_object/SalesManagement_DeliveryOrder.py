@@ -26,7 +26,7 @@ class DeliveryOrderPage(Base):
     def click_reset(self):
         """出库单页面，点击Reset"""
         self.is_click(user['Reset'])
-        sleep(2)
+        sleep(3)
 
     def click_add(self):
         """出库单页面，点击Add新增出库单"""

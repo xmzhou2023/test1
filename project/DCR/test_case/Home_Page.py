@@ -10,7 +10,7 @@ import allure
 
 
 @allure.feature("Home Page")
-class TestQueryUserMgtCard():
+class TestQueryUserMgtCard:
     @allure.story("查询")
     @allure.title("查看Homepage首页，User Management& Authorization卡片维度数据")
     @allure.description("查看Homepage首页，User Management& Authorization卡片的各维度数据")
@@ -70,7 +70,7 @@ class TestQueryUserMgtCard():
 
 
 @allure.feature("首页")
-class TestExportUserMgtCard():
+class TestExportUserMgtCard:
     @allure.story("导出")
     @allure.title("Homepage首页，导出User Management& Authorization卡片维度数据")
     @allure.description("Homepage首页的，导出User Management& Authorization卡片的各维度数据")
@@ -118,7 +118,7 @@ class TestExportUserMgtCard():
 
 
 @allure.feature("Home Page")
-class TestQueryAbnormalDataCard():
+class TestQueryAbnormalDataCard:
     @allure.story("查询")
     @allure.title("Homepage首页，查询Abnormal Data卡片维度数据")
     @allure.description("Homepage首页，查询Abnormal Data卡片的各维度数据")
@@ -145,9 +145,9 @@ class TestQueryAbnormalDataCard():
 
         factory_deli_pcs = abnormal.get_factory_deli_date()
         if int(factory_deli_pcs) > 0:
-            logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载正常：{}".format(factory_deli_pcs))
+                logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载正常：{}".format(factory_deli_pcs))
         else:
-            logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载不正常：{}".format(factory_deli_pcs))
+                logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载不正常：{}".format(factory_deli_pcs))
 
         shop_sale_pcs = abnormal.get_shop_sales_date()
         if int(shop_sale_pcs) > 0:
