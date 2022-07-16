@@ -175,12 +175,15 @@ def sync_Data(data_list):
     sql_execute.append("TRUNCATE ts_casemark_detail")
 
     # 项目数据
+    mod_id = 1
+    sce_id = 1
+    case_id = 1
     for pro_id, pro_code in enumerate(data_list.keys(), 1):
         sql_pro = "INSERT INTO ts_project(project_name,created_by,updated_by,manager_id,project_team,enabled_flag) VALUES ('{}',1,1,1,1,1)".format(pro_code)
         sql_execute.append(sql_pro)
 
         # 模块数据
-        for mod_id, mod_code in enumerate(data_list[pro_code], 1):
+        for mod_index, mod_code in enumerate(data_list[pro_code], 1):
             module_zh = data_list[pro_code][mod_code]['att'].replace('\"', '')
             sql_mod = "INSERT INTO ts_module(module_code,module_name,p_id,created_by,updated_by,enabled_flag) VALUES ('{}','{}','{}','自动化平台','自动化平台',1)".format(mod_code,module_zh ,pro_id)
             sql_execute.append(sql_mod)
@@ -194,15 +197,13 @@ def sync_Data(data_list):
             sql_execute.append(sql_type_UT)
 
             # 场景数据
-            for sce_id, sce_code in enumerate(data_list[pro_code][mod_code]['value'], 1):
+            for sce_index, sce_code in enumerate(data_list[pro_code][mod_code]['value'], 1):
                 sce_zh = data_list[pro_code][mod_code]['value'][sce_code]['att'].replace('\"', '')
-                # print(pro_code,mod_code)
                 sql_sce = "INSERT INTO scene(scene_code,scene_name,m_id,scene_level,created_by,updated_by,enabled_flag) VALUES('{}','{}',{},1,'自动化平台','自动化平台',1)".format(sce_code, sce_zh, mod_id)
                 sql_execute.append(sql_sce)
 
-                print(sce_id, sce_code)
                 # 用例数据
-                for case_id, case_code in enumerate(data_list[pro_code][mod_code]['value'][sce_code]['value'], 1):
+                for case_index, case_code in enumerate(data_list[pro_code][mod_code]['value'][sce_code]['value'], 1):
 
                     try:
                         # 添加用例描述
@@ -223,10 +224,14 @@ def sync_Data(data_list):
                             case_level_id = case_mark[i]
                             sql_severity = "INSERT INTO ts_casemark_detail(case_id,case_mark_id,created_by,updated_by,enabled_flag) VALUES({},{},1,1,1)".format(case_id, case_level_id)
                             sql_execute.append(sql_severity)
+
                     except IOError as e:
                         print("项目：{},模块：{},场景：{}，用例：{},异常：{}".format(pro_code,mod_code,sce_code,case_code,e))
 
-    # change_db(sql_execute)
+                    case_id = case_id + 1
+                sce_id = sce_id + 1
+            mod_id = mod_id + 1
+    change_db(sql_execute)
 
 if __name__ == '__main__':
     # print(get_Data())
