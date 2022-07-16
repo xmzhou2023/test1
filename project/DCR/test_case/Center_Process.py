@@ -172,7 +172,6 @@ class TestAddDeliverySubSalesOrder():
             ValueAssert.value_assert_equal(deliveryorder, deliveryid)
 
 
-
 # @allure.feature("销售管理-销售单菜单")
 # class TestSubDeliveryReceivReturn():
 

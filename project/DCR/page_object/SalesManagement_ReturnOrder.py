@@ -35,6 +35,7 @@ class ReturnOrderPage(Base):
 
     def click_Return_Type(self):
         """退货单页面，点击退货到卖家"""
+        Base.presence_sleep_dcr(self, user['Return To Seller'])
         self.is_click(user['Return To Seller'])
 
     def radio_Delivery_order(self):
@@ -68,26 +69,30 @@ class ReturnOrderPage(Base):
 
     def input_Delivery_Orderid(self, content):
         """退货单列表页面，筛选出库单ID"""
+        Base.presence_sleep_dcr(self, user['Input Delivery Order ID'])
         self.is_click(user['Input Delivery Order ID'])
         self.input_text(user['Input Delivery Order ID'], txt=content)
 
     def click_Search(self):
         """退货单列表页面，点击Search"""
         self.is_click(user['Search'])
-        sleep(1)
+        sleep(2)
 
     def get_text_deliveryID(self):
         """退货单列表页面， 获取第筛选后的第一个出库单ID"""
+        Base.presence_sleep_dcr(self, user['获取列表第一个出库单'])
         deliveryorder = self.element_text(user['获取列表第一个出库单'])
         return deliveryorder
 
     def get_return_status(self):
         """获取退货单列表，退货状态"""
+        Base.presence_sleep_dcr(self, user['获取列表退货状态'])
         return_status = self.element_text(user['获取列表退货状态'])
         return return_status
 
     def click_checkbox(self):
         """退货单列表页面，第一个复选框勾选"""
+        Base.presence_sleep_dcr(self, user['退货复选框勾选'])
         self.is_click(user['退货复选框勾选'])
 
     def click_Approve_button(self):
@@ -106,6 +111,7 @@ class ReturnOrderPage(Base):
 
     def get_text_Status(self):
         """退货单列表页面， 获取退货成功后的第一个Status Approved"""
+        Base.presence_sleep_dcr(self, user['获取列表退货状态'])
         status = self.element_text(user['获取列表退货状态'])
         return status
 

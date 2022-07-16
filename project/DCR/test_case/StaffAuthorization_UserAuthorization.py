@@ -17,11 +17,9 @@ class TestDeleteBrandAuthorization:
         """DCR 管理员账号登录"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
-        sleep(5)
 
         """打开User Authorization菜单页面 """
         user.click_gotomenu("Staff & Authorization", "User Authorization")
-        sleep(5)
 
         """如果存在infinix品牌则删除infinix品牌，如果不存在infinix品牌则添加infinix品牌"""
         brand = UserAuthorizationPage(drivers)
@@ -29,8 +27,6 @@ class TestDeleteBrandAuthorization:
         brand.click_search()
 
         list_infinix = brand.get_list_infinix_text()
-        log.info("list_infinix{}".format(list_infinix))
-
         """如果存在删除Infinix品牌"""
         if "Infinix" == list_infinix:
             """如果存在Infinix品牌，则删除此品牌"""
@@ -74,6 +70,7 @@ class TestDeleteCustAuthorization:
         customer = UserAuthorizationPage(drivers)
         customer.click_customer_tab()
         customer.input_list_customer("CN20009")
+
         customer.click_customer_search()
         get_cust = customer.get_list_customer_id()
         if get_cust == "CN20009":
@@ -99,6 +96,7 @@ class TestAddCustAuthorization:
         customer.click_add_customer()
         customer.click_input_customer("CN20009")
         customer.click_add_customer_search()
+
         get_customer_id = customer.get_customer_id_text()
         if get_customer_id in "CN20009":
             customer.click_add_customer_checkbox()
@@ -128,7 +126,6 @@ class TestDeleteWareAuthorization:
 
         domassert = DomAssert(drivers)
         domassert.assert_att("Successfully")
-        sleep(1)
         get_no_data = ware.get_ware_dele_no_data()
         ValueAssert.value_assert_In(get_no_data, "No Data")
         sleep(2)
@@ -142,8 +139,10 @@ class TestAddWareAuthorization:
     def test_006_001(self, drivers):
         ware = UserAuthorizationPage(drivers)
         ware.click_add_association_ware()
+
         ware.input_add_query_ware("WNG2061304")
         ware.click_add_ware_search()
+
         get_add_ware = ware.get_add_warehouseid_text()
         if get_add_ware == "WNG2061304":
             ware.click_add_ware_checkbox()
@@ -187,6 +186,7 @@ class TestDeleteShopAuthorization:
         shop.click_shop_tab()
         shop.input_list_query_shop("EG000378")
         shop.click_shop_list_search()
+
         get_list_shop = shop.get_list_shop_text()
         if get_list_shop == "EG000378":
             shop.click_list_shop_checkbox()
@@ -212,6 +212,7 @@ class TestAddShopAuthorization:
         shop.click_add_association_shop()
         shop.input_add_query_shop("EG000378")
         shop.click_add_shop_search()
+
         get_add_shop_id = shop.get_add_shop_id_text()
         if get_add_shop_id == "EG000378":
             shop.click_add_shop_checkbox()
@@ -221,7 +222,7 @@ class TestAddShopAuthorization:
         domassert.assert_att("Successfully")
         get_list_shop_id = shop.get_list_shop_id_text()
         ValueAssert.value_assert_equal(get_list_shop_id, "EG000378")
-
+        sleep(1)
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserAuthorization.py'])

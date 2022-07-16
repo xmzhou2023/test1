@@ -4,7 +4,6 @@ from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert, DomAssert
 import pytest
 import allure
-import logging
 
 
 @allure.feature("员工授权-角色定义")

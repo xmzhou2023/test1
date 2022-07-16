@@ -20,11 +20,9 @@ class TestQuerySubDelivery:
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "BD291501", "dcr123456")
-        sleep(5)
 
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Sales Management", "Delivery Order")
-        sleep(5)
 
         """出库单页面 实例化销售管理页面组件类"""
         delivery = DeliveryOrderPage(drivers)
@@ -35,7 +33,6 @@ class TestQuerySubDelivery:
         delivery.input_salesorder(salesorder)
         delivery.input_deliveryorder(deliveryorder)
         delivery.click_search()
-        sleep(3)
 
         salesorder2 = delivery.text_sales_order()
         deliveryorder2 = delivery.text_delivery_order()
@@ -44,7 +41,6 @@ class TestQuerySubDelivery:
         ValueAssert.value_assert_equal(deliveryorder, deliveryorder2)
         """重置筛选条件"""
         delivery.click_reset()
-        sleep(1)
 
 
 @allure.feature("销售管理-出库单")
@@ -61,7 +57,7 @@ class TestAddSubDelivery:
         varsql = "SELECT IMEI FROM  t_channel_warehouse_current_stock WHERE WAREHOUSE_ID = 62134   AND STATUS = 1 limit 1"
         result_imei = user.query_db(varsql)
         sub_imei = result_imei[0].get("IMEI")
-        sleep(1)
+
         """点击Add新增出库单按钮"""
         add.click_add()
         """如果buyer买家为二代账号，则调用input_sub_buyer方法；buyer买家为零售商账号，input_retail_buyer方法。"""
@@ -70,21 +66,20 @@ class TestAddSubDelivery:
         add.input_deli_pay_mode("Online")
         add.input_imei(sub_imei)
         add.click_check()
-        sleep(1)
         add.click_submit()
         affirm = add.get_text_submit_affirm()
-        sleep(1)
+
         dom = DomAssert(drivers)
         if affirm == "Submit":
             add.click_submit_affirm()
             dom.assert_att("Submit successfully")
-        sleep(1)
+        #sleep(1)
         user = SQL('DCR', 'test')
         varsql3 = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200000 order by created_time desc limit 1"
         result = user.query_db(varsql3)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
-        sleep(1)
+        #sleep(1)
         """出库单页面，筛选出库单ID"""
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         salesorder = add.text_sales_order()
@@ -92,7 +87,7 @@ class TestAddSubDelivery:
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
-        sleep(3)
+
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(salesorder, order_code)
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
@@ -129,10 +124,10 @@ class TestRetailReceiv:
         """零售商EG00056201账号登录， 进行快速收货"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "EG00056201", "dcr123456")
-        sleep(5)
+
         """打开采购单Purchase Management菜单"""
         user.click_gotomenu("Purchase Management", "Inbound Receipt")
-        sleep(4)
+
         receiv = InboundReceiptPage(drivers)
 
         """从数据库表，查询最近新建的销售单ID与出库单ID"""
@@ -145,15 +140,14 @@ class TestRetailReceiv:
         receiv.input_salesOrder(order_code)
         receiv.input_deliveryOrder(delivery_code)
         receiv.click_search()
-        sleep(3)
+
         receiv.select_checkbox()
         receiv.click_quick_received()
-        sleep(1)
         receiv.click_save()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Successfully")
-        sleep(2)
+
         status = receiv.text_status()
         """二代收货页面，验证收货后Status：显示GoodsReceipt状态，匹配一致"""
         ValueAssert.value_assert_equal("Goods Receipt", status)
@@ -180,7 +174,6 @@ class TestRetailReturn:
         """打开Purchase Management菜单"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Return Order")
-        sleep(3)
 
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
@@ -202,11 +195,10 @@ class TestRetailReturn:
         """断言页面是否存在提交成功 Submit Success!文本"""
         dom = DomAssert(drivers)
         dom.assert_att("Submit Success!")
-        sleep(3.5)
         """方法参数赋值给变量"""
         return_order.input_Delivery_Orderid(delivery_code)
         return_order.click_Search()
-        sleep(2)
+
         """筛选退货列表页，获取退货出库单ID文本 与数据库表中查询的出库单ID对比是否一致"""
         Delivery_OrderID = return_order.get_text_deliveryID()
         status = return_order.get_return_status()
@@ -224,11 +216,9 @@ class TestSubReturnApprove:
         """退货单列表页面，二代账号, 进行审核退货单操作"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "BD291501", "dcr123456")
-        sleep(5)
 
         """打开Purchase Management菜单"""
         user.click_gotomenu("Sales Management", "Return Order")
-        sleep(3)
 
         """实例化 Return order退货单类"""
         return_approve = ReturnOrderPage(drivers)
@@ -240,7 +230,7 @@ class TestSubReturnApprove:
 
         return_approve.input_Delivery_Orderid(delivery_code)
         return_approve.click_Search()
-        sleep(2)
+
         return_approve.click_checkbox()
         return_approve.click_Approve_button()
         return_approve.input_remark("同意退货")
@@ -249,7 +239,7 @@ class TestSubReturnApprove:
         """ 断言页面是否存在审核成功Approval successfully文本 """
         dom = DomAssert(drivers)
         dom.assert_att("Approval successfully")
-        sleep(2)
+
         """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
         status = return_approve.get_text_Status()
         ValueAssert.value_assert_equal("Approved", status)

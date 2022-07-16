@@ -25,6 +25,7 @@ class InboundReceiptPage(Base):
     def click_search(self):
         """快速收货页面，点击Search"""
         self.is_click(user['Search'])
+        sleep(2)
 
     def text_salesOrder(self):
         """获取列表第一个销售单ID"""
@@ -38,14 +39,17 @@ class InboundReceiptPage(Base):
 
     def select_checkbox(self):
         """快速收货页面，勾选第一个复选框"""
+        Base.presence_sleep_dcr(self, user['收货第一个复选框'])
         self.is_click_dcr(user['收货第一个复选框'])
 
     def click_quick_received(self):
         """快速收货页面，点击Quick Received按钮"""
         self.is_click_dcr(user['快速收货按钮'])
+        sleep(2)
 
     def click_save(self):
         """快速收货页面，点击Save按钮"""
+        Base.presence_sleep_dcr(self, user['保存'])
         self.is_click(user['保存'])
 
     def get_successfully_text(self):
@@ -55,6 +59,7 @@ class InboundReceiptPage(Base):
 
     def text_status(self):
         """快速收货页面，获取列表第一条记录的最新状态"""
+        Base.presence_sleep_dcr(self,user['获取列表状态'])
         status = self.element_text(user['获取列表状态'])
         return status
 

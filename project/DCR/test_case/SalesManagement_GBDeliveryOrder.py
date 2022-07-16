@@ -19,10 +19,9 @@ class TestQueryDistDelivery:
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "BD40344201", "dcr123456")
-        sleep(5)
+
         """销售管理菜单-出库单列表-筛选出库单数据用例"""
         user.click_gotomenu("Sales Management", "Delivery Order")
-        sleep(5)
 
         """出库单页面 实例化销售管理页面组件类"""
         delivery = DeliveryOrderPage(drivers)
@@ -33,7 +32,6 @@ class TestQueryDistDelivery:
         delivery.input_salesorder(salesorder)
         delivery.input_deliveryorder(deliveryorder)
         delivery.click_search()
-        sleep(3)
 
         salesorder2 = delivery.text_sales_order()
         deliveryorder2 = delivery.text_delivery_order()
@@ -65,15 +63,14 @@ class TestAddDistDelivery:
         add.input_deli_pay_mode("Online")
         add.input_imei(imei)
         add.click_check()
-        sleep(1)
         add.click_submit()
         affirm = add.get_text_submit_affirm()
-        sleep(1)
+
         dom = DomAssert(drivers)
         if affirm == "Submit":
             add.click_submit_affirm()
             dom.assert_att("Submit successfully")
-        sleep(1)
+        #sleep(1)
 
         """从数据库表中，获取二代出库单ID，传给出库单筛选方法"""
         user = SQL('DCR', 'test')
@@ -81,19 +78,18 @@ class TestAddDistDelivery:
         result = user.query_db(varsql)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
-        sleep(1)
+        #sleep(1)
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         salesorder = add.text_sales_order()
         deliveryorder = add.text_delivery_order()
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
-        sleep(3)
+
         """出库单页面，调用断言封装的方法，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(salesorder, order_code)
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
         sleep(1)
-
         """ 后端断言，数据库是否存在新建的出库单，获取列表出库单页面，销售ID、出库单ID、状态文本内容与数据库对比是否一致"""
         del_sales_order = add.text_sales_order()
         del_delivery_order = add.text_delivery_order()
@@ -125,10 +121,9 @@ class TestSubReceiv:
         """二代账号登录 进行 快速收货"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "BD291501", "dcr123456")
-        sleep(5)
+
         """打开Purchase Management菜单"""
         user.click_gotomenu("Purchase Management", "Inbound Receipt")
-        sleep(4)
 
         """二代账号筛选 最近新建的出库单ID，快速收货操作"""
         receiv = InboundReceiptPage(drivers)
@@ -143,15 +138,15 @@ class TestSubReceiv:
         receiv.input_salesOrder(order_code)
         receiv.input_deliveryOrder(delivery_code)
         receiv.click_search()
-        sleep(3)
+
         receiv.select_checkbox()
         receiv.click_quick_received()
-        sleep(2)
+
         receiv.click_save()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Successfully")
-        sleep(1.5)
+
         status = receiv.text_status()
         """二代收货页面，验证收货后Status：显示GoodsReceipt状态，匹配一致"""
         ValueAssert.value_assert_equal("Goods Receipt", status)
@@ -178,7 +173,6 @@ class TestSubReturn:
         """打开Purchase Management菜单"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Return Order")
-        sleep(3)
 
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
@@ -201,12 +195,9 @@ class TestSubReturn:
         return_order.click_Submit()
         dom = DomAssert(drivers)
         dom.assert_att("Submit Success!")
-        sleep(3.5)
         """方法参数赋值给变量"""
         return_order.input_Delivery_Orderid(delivery_code)
-
         return_order.click_Search()
-        sleep(2)
 
         """筛选退货列表页，获取退货出库单ID文本 与数据库表中查询的出库单ID对比是否一致"""
         Delivery_OrderID = return_order.get_text_deliveryID()
@@ -226,10 +217,9 @@ class TestDistReturnApprove:
         """退货单列表页面，国包账号, 进行退货审核操作"""
         user1 = LoginPage(drivers)
         user1.dcr_login(drivers, "BD40344201", "dcr123456")
-        sleep(5)
+
         """打开Purchase Management菜单"""
         user1.click_gotomenu("Sales Management", "Return Order")
-        sleep(3)
 
         """实例化 Return order退货单类"""
         return_approve = ReturnOrderPage(drivers)
@@ -241,7 +231,7 @@ class TestDistReturnApprove:
 
         return_approve.input_Delivery_Orderid(delivery_code)
         return_approve.click_Search()
-        sleep(2)
+
         return_approve.click_checkbox()
         return_approve.click_Approve_button()
         return_approve.input_remark("同意退货")
@@ -249,7 +239,6 @@ class TestDistReturnApprove:
         """ 断言页面是否存在审核成功Approval successfully文本 """
         dom = DomAssert(drivers)
         dom.assert_att("Approval successfully")
-        sleep(2)
         """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
         status = return_approve.get_text_Status()
         ValueAssert.value_assert_equal("Approved", status)

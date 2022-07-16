@@ -22,6 +22,7 @@ class DeliveryOrderPage(Base):
     def click_search(self):
         """出库单页面，点击Search"""
         self.is_click(user['Search'])
+        sleep(3)
 
     def click_reset(self):
         """出库单页面，点击Reset"""
@@ -31,10 +32,11 @@ class DeliveryOrderPage(Base):
     def click_add(self):
         """出库单页面，点击Add新增出库单"""
         self.is_click(user['新增出库单'])
-        sleep(3.5)
+        sleep(2)
 
     def input_sub_buyer(self, content):
         """Add新增出库单页面，输入国包账号的Buyer属性"""
+        Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content, )
         sleep(2)
@@ -42,6 +44,7 @@ class DeliveryOrderPage(Base):
 
     def input_retail_buyer(self, content):
         """Add新增出库单页面，输入二代账号的Buyer属性"""
+        Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content, )
         sleep(2)
@@ -66,7 +69,7 @@ class DeliveryOrderPage(Base):
     def click_submit(self):
         """Add新增出库单页面，Submit按钮"""
         self.is_click_dcr(user['Submit'])
-        sleep(2)
+        sleep(1)
 
     def get_text_submit(self):
         """Add新增出库单页面，Submit按钮"""
@@ -75,8 +78,10 @@ class DeliveryOrderPage(Base):
 
     def get_text_submit_affirm(self):
         """Add新增出库单页面，确认Submit按钮"""
+        Base.presence_sleep_dcr(self, user['Affirm Submit'])
         affirm = self.element_text(user['Affirm Submit'])
         return affirm
+
 
     def click_submit_affirm(self):
         """Add新增出库单页面，确认Submit按钮"""
@@ -85,6 +90,7 @@ class DeliveryOrderPage(Base):
 
     def text_sales_order(self):
         """获取出库单列表的 销售单ID文本"""
+        sleep(1)
         Base.presence_sleep_dcr(self, user['Get Sales Order ID Text'])
         sales_order = self.element_text(user['Get Sales Order ID Text'])
         return sales_order
@@ -98,7 +104,6 @@ class DeliveryOrderPage(Base):
         """获取出库单列表的 Status文本"""
         delivery_status = self.element_text(user['Get Status Text'])
         return delivery_status
-
 
 
     """DeliveryOrderPage类，测试环境，Delivery Order页面查询与导出功能元素定位"""
