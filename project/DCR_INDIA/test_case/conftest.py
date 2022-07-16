@@ -15,7 +15,7 @@ def test_login(drivers):
     """登录用户"""
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
-    user.dcr_login(drivers,ini.url, account[3]['usernum'], account[3]['passwd'])
+    user.dcr_login(drivers, ini.url, account[3]['usernum'], account[3]['passwd'])
     logging.info("前置条件：传音统一登录成功")
 
 
@@ -28,5 +28,5 @@ def __init__(drivers, env_name):
     global pro_env
     pro_env = "prod"
     logging.info("【{}】项目【{}】环境- UI自动化开始执行".format(pro_name, pro_env))
-    #ini = ReadConfig(pro_name, pro_env)
+    ini = ReadConfig(pro_name, pro_env)
 
