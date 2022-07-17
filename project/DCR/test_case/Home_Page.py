@@ -81,11 +81,9 @@ class TestExportUserMgtCard:
         today = base.get_datetime_today()
 
         export.click_user_mgt_export()
-        export.click_download_icon()
-        export.click_more()
+        export.click_download_more()
         down_status = export.click_export_search()
 
-        #down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
 

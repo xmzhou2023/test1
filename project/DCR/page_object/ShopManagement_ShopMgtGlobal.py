@@ -93,6 +93,7 @@ class ShopManagementPage(Base):
     def click_submit(self):
         """新建或者编辑门店时，点击提交"""
         self.is_click_dcr(user['Submit'])
+        sleep(0.5)
 
 
     def shop_random(self):
@@ -118,16 +119,20 @@ class ShopManagementPage(Base):
     def click_query_search(self):
         """点击Search查询门店信息"""
         self.is_click(user['Search'])
-        sleep(4)
+        sleep(5)
 
     def click_first_checkbox(self):
         """筛选最近新建的门店ID后，勾线第一个复选框"""
         self.is_click(user['勾选第一个复选框'])
 
+    def click_second_checkbox(self):
+        self.is_click(user['勾选第二个复选框'])
+
+
     def click_more_option(self):
         """点击More Option更多操作按钮"""
         self.is_click(user['More Option'])
-        sleep(1)
+        sleep(2.5)
 
     def click_delete(self):
         """点击delete 删除按钮"""
@@ -137,6 +142,7 @@ class ShopManagementPage(Base):
     def click_confirm_delete(self):
         """点击Confirm 确认删除按钮"""
         self.is_click(user['Delete Confirm'])
+        sleep(0.5)
 
     def get_text_edit_success(self):
         """删除门店成功后，获取列表 successfully文本内容"""

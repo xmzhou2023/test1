@@ -96,7 +96,7 @@ class HomePagePage(Base):
         return infiltration_sales_pcs
 
     def get_infiltration_sales_text(self):
-        """ 获取Abnormal Data指标，门店销量激活日期 """
+        """ 获取Abnormal Data指标，Infiltration Sales文本内容"""
         infiltration_sales_text = self.element_text(user['Get Infiltration Sales Text'])
         return infiltration_sales_text
 
@@ -108,15 +108,14 @@ class HomePagePage(Base):
 
 
     #HomePage首页，导出功能验证
-    def click_download_icon(self):
+    def click_download_more(self):
         """点击导出查看更多图标"""
         self.is_click(user['Download Icon'])
         sleep(2)
-
-    def click_more(self):
         """页面点击more按钮"""
         self.is_click(user['More'])
         sleep(50)
+
 
     def click_export_search(self):
         """导出记录页面，点击Search按钮"""
@@ -168,7 +167,7 @@ class HomePagePage(Base):
     def click_close_export_record(self):
         """ 关闭导出记录菜单页面"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        sleep(1.5)
 
     def click_close_user_management(self):
         """ 关闭用户管理菜单页面"""

@@ -51,7 +51,7 @@ class TestAddShop:
         shop_name = shop_data[0].get("shop_name")
         """获取列表新建的门店ID与门店名称文本内容"""
         add_shop.input_query_shop_name(shop_name, shop_name)
-        add_shop.click_quergity_search()
+        add_shop.click_query_search()
 
         shopid = add_shop.get_shop_id_text()
         shopname = add_shop.get_shop_name_text()
@@ -65,81 +65,82 @@ class TestAddShop:
         add_shop.click_reset()
 
 
-# @allure.feature("门店管理-门店管理(global)")
-# class TestEditShop:
-#     @allure.story("扩展门店品牌")
-#     @allure.title("门店管理页面，对新增的门店进行扩展itel品牌操作")
-#     @allure.description("门店管理页面，对新增的门店进行扩展品牌操作，扩展itel品牌提交后，列表展示扩展的门店品牌")
-#     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-#     def test_001_002(self, drivers):
-#         edit_shop = ShopManagementPage(drivers)
-#         """从数据库查询最近新建的门店ID"""
-#         edit_shop.click_first_checkbox()
-#         edit_shop.click_more_option()
-#         edit_shop.click_extend_brand()
-#         edit_shop.select_extend_brand("itel")
-#         edit_shop.extend_brand_save()
-#
-#         edit_shop.input_extend_sales_region("Barisal itel")
-#         edit_shop.click_extend_shop_grade()
-#
-#         edit_shop.click_extend_shop_type()
-#         edit_shop.click_extend_image_type()
-#         edit_shop.extend_retail_customer("SN455338")
-#         edit_shop.extend_commercial_area()
-#         edit_shop.click_submit()
-#
-#         """获取删除成功提示语, 删除成功后显示No Data提示语"""
-#         dom = DomAssert(drivers)
-#         dom.assert_att("Edited Successfully")
-#         sleep(2)
-#         """根据编辑的门店扩展品牌，筛选门店id，进行断言"""
-#         user = SQL('DCR', 'test')
-#         shop_data = user.query_db(
-#             "select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
-#         public_code = shop_data[0].get("public_code")
-#         shopname = shop_data[0].get("shop_name")
-#         """增加断言，判断新增的扩展门店品牌，是否保存成功"""
-#         shop_id = edit_shop.get_extend_shop_id_text()
-#         shop_name = edit_shop.get_shop_name_text()
-#         shop_brand = edit_shop.get_shop_brand_text()
-#         status = edit_shop.get_shop_status_text()
-#         ValueAssert.value_assert_In(public_code, shop_id)
-#         ValueAssert.value_assert_equal(shop_name, shopname)
-#         ValueAssert.value_assert_equal(shop_brand, "itel")
-#         ValueAssert.value_assert_equal(status, "Enabled")
-#         sleep(2)
-#
-#
-# @allure.feature("门店管理-门店管理(global)")
-# class TestDeleteShop:
-#     @allure.story("删除门店")
-#     @allure.title("门店管理页面，对新增的扩展品牌门店进行删除操作")
-#     @allure.description("门店管理页面，对新增的扩展品牌门店进行删除操作")
-#     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-#     def test_001_003(self, drivers):
-#         """实例化ShopManagementPage类，调用页面元素方法"""
-#         del_shop = ShopManagementPage(drivers)
-#         """选中门店进行删除操作"""
-#         shop_id1 = del_shop.get_shop_id_text()
-#         shop_name1 = del_shop.get_shop_name_text()
-#         del_shop.click_first_checkbox()
-#         del_shop.click_more_option()
-#         del_shop.click_delete()
-#         del_shop.click_confirm_delete()
-#         """获取删除成功提示语, 删除成功后显示No Data提示语"""
-#         dom = DomAssert(drivers)
-#         dom.assert_att("Successfully")
-#         sleep(2)
-#         """增加断言，获取列表删除前的Shop id、Shop name与删除后的 Shop id、Shop name比较是否不包含此内容"""
-#         del_shop.click_query_search()
-#
-#         shop_id2 = del_shop.get_shop_id_text()
-#         shop_name2 = del_shop.get_shop_name_text()
-#         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
-#         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
-#         sleep(1)
-#
+@allure.feature("门店管理-门店管理(global)")
+class TestEditShop:
+    @allure.story("扩展门店品牌")
+    @allure.title("门店管理页面，对新增的门店进行扩展itel品牌操作")
+    @allure.description("门店管理页面，对新增的门店进行扩展品牌操作，扩展itel品牌提交后，列表展示扩展的门店品牌")
+    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    def test_001_002(self, drivers):
+        edit_shop = ShopManagementPage(drivers)
+        """从数据库查询最近新建的门店ID"""
+        edit_shop.click_first_checkbox()
+        edit_shop.click_more_option()
+        edit_shop.click_extend_brand()
+        edit_shop.select_extend_brand("itel")
+        edit_shop.extend_brand_save()
+
+        edit_shop.input_extend_sales_region("Barisal itel")
+        edit_shop.click_extend_shop_grade()
+
+        edit_shop.click_extend_shop_type()
+        edit_shop.click_extend_image_type()
+        edit_shop.extend_retail_customer("SN455338")
+        edit_shop.extend_commercial_area()
+        edit_shop.click_submit()
+
+        """获取删除成功提示语, 删除成功后显示No Data提示语"""
+        #dom = DomAssert(drivers)
+        #dom.assert_att("Edited Successfully")
+        sleep(2)
+        """根据编辑的门店扩展品牌，筛选门店id，进行断言"""
+        user = SQL('DCR', 'test')
+        shop_data = user.query_db(
+            "select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
+        public_code = shop_data[0].get("public_code")
+        shopname = shop_data[0].get("shop_name")
+
+        """增加断言，判断新增的扩展门店品牌，是否保存成功"""
+        shop_id = edit_shop.get_extend_shop_id_text()
+        shop_name = edit_shop.get_shop_name_text()
+        shop_brand = edit_shop.get_shop_brand_text()
+        status = edit_shop.get_shop_status_text()
+        ValueAssert.value_assert_In(shop_id, public_code)
+        ValueAssert.value_assert_equal(shop_name, shopname)
+        ValueAssert.value_assert_equal(shop_brand, "itel")
+        ValueAssert.value_assert_equal(status, "Enabled")
+        sleep(2)
+
+
+@allure.feature("门店管理-门店管理(global)")
+class TestDeleteShop:
+    @allure.story("删除门店")
+    @allure.title("门店管理页面，对新增的扩展品牌门店进行删除操作")
+    @allure.description("门店管理页面，对新增的扩展品牌门店进行删除操作")
+    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    def test_001_003(self, drivers):
+        """实例化ShopManagementPage类，调用页面元素方法"""
+        del_shop = ShopManagementPage(drivers)
+        """选中门店进行删除扩展门店"""
+        shop_id1 = del_shop.get_shop_id_text()
+        shop_name1 = del_shop.get_shop_name_text()
+        del_shop.click_first_checkbox()
+        del_shop.click_second_checkbox()
+        del_shop.click_more_option()
+        del_shop.click_delete()
+        del_shop.click_confirm_delete()
+        """获取删除成功提示语, 删除成功后显示No Data提示语"""
+        dom = DomAssert(drivers)
+        dom.assert_att("Successfully")
+        sleep(2)
+        """增加断言，获取列表删除前的Shop id、Shop name与删除后的 Shop id、Shop name比较是否不包含此内容"""
+        del_shop.click_query_search()
+        shop_id2 = del_shop.get_shop_id_text()
+        shop_name2 = del_shop.get_shop_name_text()
+        ValueAssert.value_assert_InNot(shop_id1, shop_id2)
+        ValueAssert.value_assert_InNot(shop_name1, shop_name2)
+        sleep(1)
+
 
 if __name__ == '__main__':
     pytest.main(['ShopManagement_ShopMgtGlobal.py'])
