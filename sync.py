@@ -194,7 +194,7 @@ def sync_Data(data_list):
             sql_execute.append(sql_type_FT)
             sql_type_ST = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('场景测试','ST',{},'自动化平台','自动化平台',1)".format(mod_id)
             sql_execute.append(sql_type_ST)
-            sql_type_UT = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('单元测试','UT',{},'自动化平台','自动化平台',1)".format(mod_id)
+            sql_type_UT = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag,scene_type) VALUES ('单元测试','UT',{},'自动化平台','自动化平台',1,2)".format(mod_id)
             sql_execute.append(sql_type_UT)
 
             # 场景数据
