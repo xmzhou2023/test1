@@ -1,11 +1,13 @@
-import allure
-from public.base.Basics import Base, sleep
+import allure, os
+from public.base.basics import Base, sleep
 from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+import logging
+from ..test_case.conftest import *
 
-
-user = Element('SystemMgmt_UserMgmt')
+object_name = os.path.basename(__file__).split('.')[0]
+user = Element(pro_name, object_name)
 
 class UserPage(Base):
     """用户类"""
