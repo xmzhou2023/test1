@@ -11,17 +11,6 @@ user = Element(pro_name, object_name)
 class ShippingCountryFlow(CenterComponent, APIRequest):
     """出货国家_出货国家流程"""
 
-    def refresh_webpage(self):
-        self.refresh()
-        self.driver.switch_to.default_content()
-        handles = self.driver.window_handles
-        logging.info('当前窗口：{}'.format(handles))
-        if len(handles) != 1:
-            for i in range(1, len(handles)):
-                self.close_switch(1)
-        else:
-            self.switch_window(0)
-
     @allure.step("初始化页面")
     def refresh_webpage_click_menu(self):
         self.refresh_webpage()
@@ -124,6 +113,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['新增'])
         sleep(1)
 
+    @allure.step("出货国家流程新增页面 - 输入项目信息")
     def input_shipping_country_flow_add_item_info(self, info, select):
         """
         出货国家流程新增页面 - 输入项目信息
@@ -147,6 +137,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         else:
             print('请选择正确的项目信息输入：品牌 or 项目 or 描述')
 
+    @allure.step("出货国家流程新增页面 - 新增产品定义信息")
     def input_shipping_country_flow_add_product_definition_info(self, header, content):
         """
         出货国家流程新增页面 - 新增产品定义信息
@@ -176,10 +167,12 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         else:
             print(f'请输入正确选项：{definition_dict}')
 
+    @allure.step("点击新增")
     def click_shipping_country_flow_product_definition_confirm(self):
         """点击新增"""
         self.is_click_tbm(user['产品定义信息确定'])
 
+    @allure.step("选择汇签/抄送人员")
     def select_shipping_country_flow_signatory(self, choice, name):
         """
         出货国家流程新增页面 - 选择汇签/抄送人员
@@ -193,12 +186,14 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['成员选择'], name)
         self.is_click_tbm(user['成员确定'])
 
+    @allure.step("点击提交")
     def click_shipping_country_flow_add_submit(self):
         """点击提交"""
         self.scroll_into_view(user['提交'])
         sleep(0.5)
         self.is_click_tbm(user['提交'])
 
+    @allure.step("获取出货国家流程第一列内容")
     def get_shipping_country_flow_info(self, item):
         """
         获取出货国家流程第一列内容
@@ -214,18 +209,14 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
+    @allure.step("出货国家流程新增页面 - 项目信息组合")
     def shipping_country_flow_add_item_info(self, item):
-        """
-        出货国家流程新增页面 - 项目信息组合
-        """
         self.input_shipping_country_flow_add_item_info('品牌', 'Infinix')
         self.input_shipping_country_flow_add_item_info('项目', item)
         self.input_shipping_country_flow_add_item_info('描述', '出货国家流程新增描述test')
 
+    @allure.step("出货国家流程新增页面 - 产品定义信息组合")
     def shipping_country_flow_add_product_definition_info(self, item):
-        """
-        出货国家流程新增页面 - 产品定义信息组合
-        """
         self.click_shipping_country_flow_add()
         self.input_shipping_country_flow_add_product_definition_info('全球版本', '版本1')
         self.input_shipping_country_flow_add_product_definition_info('市场名称', f'市场名称{item}')
@@ -237,10 +228,8 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.input_shipping_country_flow_add_product_definition_info('bbb', 'MT6761')
         self.click_shipping_country_flow_product_definition_confirm()
 
+    @allure.step("出货国家流程新增流程 组合")
     def shipping_country_flow_add_flow(self, item):
-        """
-        出货国家流程新增流程 组合
-        """
         self.click_shipping_country_flow_add()
         self.shipping_country_flow_add_item_info(item)
         self.shipping_country_flow_add_product_definition_info(item)
@@ -248,10 +237,8 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.click_shipping_country_flow_add_submit()
         DomAssert(self.driver).assert_att('请求成功')
 
+    @allure.step("出货国家流程 新增流程 产品部管理员审核 组合")
     def shipping_country_flow_product_department_administrator_review(self, code):
-        """
-        出货国家流程 新增流程 产品部管理员审核 组合
-        """
         self.assert_shipping_country_flow_my_todo_node(code, '产品部管理员审核', True)
         self.enter_shipping_country_flow_onework_edit(code)
         self.click_onework_shipping_country_flow_agree()
@@ -259,20 +246,16 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.quit_shipping_country_flow_onework()
         self.assert_shipping_country_flow_my_todo_node(code, '产品部汇签', True)
 
+    @allure.step("出货国家流程 新增流程 产品部汇签 组合")
     def shipping_country_flow_product_department_sign(self, code):
-        """
-        出货国家流程 新增流程 产品部汇签 组合
-        """
         self.enter_shipping_country_flow_onework_edit(code)
         self.click_onework_shipping_country_flow_agree()
         DomAssert(self.driver).assert_att('请求成功')
         self.quit_shipping_country_flow_onework()
         self.assert_shipping_country_flow_my_todo_node(code, '产品经理修改', True)
 
+    @allure.step("出货国家流程 新增流程 产品经理修改 组合")
     def shipping_country_flow_product_manager_modification(self, code):
-        """
-        出货国家流程 新增流程 产品经理修改 组合
-        """
         self.enter_shipping_country_flow_onework_edit(code)
         querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
         self.input_oneworks_shipping_country_flow_product_definition_info('全球版本', '版本2')
@@ -288,21 +271,16 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.quit_shipping_country_flow_onework()
         self.assert_shipping_country_flow_my_todo_node(code, '产品部管理员复核', True)
 
+    @allure.step("出货国家流程 新增流程 产品经理修改 组合")
     def shipping_country_flow_product_department_administrator_re_review(self, code):
-        """
-        出货国家流程 新增流程 产品经理修改 组合
-        """
-
         self.enter_shipping_country_flow_onework_edit(code)
         self.click_onework_shipping_country_flow_agree()
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_shipping_country_flow_onework()
         self.assert_shipping_country_flow_my_todo_node(code, '项目经理审批', True)
 
+    @allure.step("点击同意-确定")
     def click_onework_shipping_country_flow_agree(self):
-        """
-        点击同意-确定
-        """
         self.frame_exit()
         self.is_click_tbm(user['同意'])
         self.is_click_tbm(user['确定'])

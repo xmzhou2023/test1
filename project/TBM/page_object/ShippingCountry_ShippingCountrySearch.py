@@ -182,6 +182,7 @@ class ShippingCountrySearch(ShippingCountryFlow):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist[4]
 
+    @allure.step("勾选指定项目复选框")
     def click_shipping_country_search_checkbox(self, name):
         """
         出货国家查询 勾选指定项目复选框
@@ -189,6 +190,7 @@ class ShippingCountrySearch(ShippingCountryFlow):
         """
         self.is_click_tbm(user['指定复选框'], name)
 
+    @allure.step("点击变更产品/变更国家")
     def click_shipping_country_search_change(self, type):
         """
         出货国家查询 点击变更产品/变更国家
@@ -241,6 +243,7 @@ class ShippingCountrySearch(ShippingCountryFlow):
         """
         self.is_click_tbm(shipping_country_flow['oneworks-节点-产品经理修改-产品定义信息-确定'])
 
+    @allure.step("编辑修改产品定义信息")
     def edit_oneworks_shipping_country_search_product_definition_info(self, header, content):
         """
         oneworks-国家出货查询 变更产品/国家 发起页面/oneworks页面

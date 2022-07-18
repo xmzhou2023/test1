@@ -14,28 +14,17 @@ user = Element(pro_name,object_name)
 class PCBABomCooperation(CenterComponent):
     """BOM协作_PCBA BOM协作"""
 
-    def refresh_webpage(self):
-        self.refresh()
-        self.driver.switch_to.default_content()
-        handles = self.driver.window_handles
-        logging.info('当前窗口：{}'.format(handles))
-        if len(handles) != 1:
-            for i in range(1, len(handles)):
-                self.close_switch(1)
-        else:
-            self.switch_window(0)
-
     @allure.step("初始化页面")
     def refresh_webpage_click_menu(self):
         self.refresh_webpage()
         self.click_menu("BOM协作", "PCBA BOM协作")
 
-
+    @allure.step("点击新增")
     def click_pcba_bom_cooperation_add(self):
-        """点击新增"""
         self.is_click_tbm(user['新增'])
         sleep(1)
 
+    @allure.step("BOM协作新增页面，输入BOM信息")
     def input_pcba_bom_cooperation_add_bom_info(self, info, select):
         """
         PCBA BOM协作新增页面 - 输入BOM信息
@@ -70,6 +59,7 @@ class PCBABomCooperation(CenterComponent):
         self.input_pcba_bom_cooperation_add_bom_info('阶段', '量产阶段')
         self.input_pcba_bom_cooperation_add_bom_info('制作虚拟贴片/套片', '否')
 
+    @allure.step("点击提交")
     def click_pcba_bom_cooperation_add_submit(self):
         """点击提交"""
         self.scroll_into_view(user['提交'])
@@ -85,16 +75,18 @@ class PCBABomCooperation(CenterComponent):
         except:
             pass
 
+    @allure.step("点击新增bom")
     def click_pcba_bom_cooperation_add_bomtree(self):
-        """点击新增bom"""
         self.is_click_tbm(user['新增BomTree'])
         logging.info('点击新增Bom')
         sleep(0.5)
 
+    @allure.step("断言新增bom是否存在")
     def assert_pcba_bom_cooperation_add_bomtree_exist(self, result):
-        """点击新增bom"""
+        """断言 新增bom是否存在"""
         DomAssert(self.driver).assert_control(user['新增BomTree'], result)
 
+    @allure.step("BomTree信息输入")
     def input_pcba_bom_cooperation_bomtree(self, header, content):
         """
         模版信息根据条件输入内容并且点击
@@ -131,6 +123,7 @@ class PCBABomCooperation(CenterComponent):
         self.input_pcba_bom_cooperation_bomtree('物料编码', '12105893')
         self.input_pcba_bom_cooperation_bomtree('用量', '1')
 
+    @allure.step("审核人设置")
     def select_pcba_bom_cooperation_business_review(self, audit, type='MPM'):
         """
         审核人设置-业务评审-：选择用户
@@ -146,6 +139,7 @@ class PCBABomCooperation(CenterComponent):
         sleep(2)
         self.is_click_tbm(user['成员确定'])
 
+    @allure.step("获取PCBA BOM协作第一列内容")
     def get_pcba_bom_cooperation_info(self):
         """
         获取PCBA BOM协作第一列内容
@@ -160,6 +154,7 @@ class PCBABomCooperation(CenterComponent):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
+    @allure.step("断言PCBA BOM协作新增成功后，页面表格内容是否正确")
     def assert_pcba_bom_cooperation_add_result(self, *content):
         """
         断言PCBA BOM协作新增成功后，页面表格内容是否正确
@@ -176,6 +171,7 @@ class PCBABomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
+    @allure.step("BomTree信息根据Tree在指定列表输入内容")
     def input_pcba_bom_cooperation_optional_bomtree(self, tree, header, content):
         """
         BomTree信息根据Tree在指定列表输入内容
@@ -208,6 +204,7 @@ class PCBABomCooperation(CenterComponent):
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
+    @allure.step("点击新增物料")
     def click_pcba_bom_cooperation_optional_material(self):
         """
         点击新增物料
@@ -215,12 +212,14 @@ class PCBABomCooperation(CenterComponent):
         self.is_click_tbm(user['新增物料'])
         logging.info('点击新增物料')
 
+    @allure.step("对焦新增物料")
     def move_to_add_material(self):
         """
         新增物料后，点击新增加的物料列进行对焦
         """
         self.is_click_tbm(user['BOMTree新增物料对焦'])
 
+    @allure.step("新增物料输入BomTree内容")
     def input_pcba_bom_cooperation_optional_material(self, header, content):
         """
         模版信息根据条件输入内容并且点击
@@ -518,6 +517,7 @@ class PCBABomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
+    @allure.step("新建流程后的后置删除处理")
     def delete_pcba_bom_cooperation_flow(self, process_code):
         """
         新建流程后的后置删除处理

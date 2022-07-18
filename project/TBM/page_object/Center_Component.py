@@ -30,6 +30,7 @@ class CenterComponent(Base, APIRequest):
                 sleep(1)
                 self.refresh()
 
+    @allure.step("初始化浏览器")
     def refresh_webpage(self):
         self.refresh()
         self.driver.switch_to.default_content()
@@ -41,21 +42,18 @@ class CenterComponent(Base, APIRequest):
         else:
             self.switch_window(0)
 
+    @allure.step("进入框架")
     def enter_oneworks_iframe(self):
-        """
-        进入oneworks框架
-        """
         self.frame_enter(user['待办列表-iframe'])
 
+    @allure.step("退出oneworks查看流程页面")
     def quit_oneworks(self):
-        """
-        退出oneworks查看流程页面
-        """
         self.frame_exit()
         self.close_switch(1)
         self.refresh()
         self.frame_exit()
 
+    @allure.step("进入框架")
     def refresh_todo_list(self):
         """进入待办列表 刷新单据页面"""
         try:
@@ -67,6 +65,7 @@ class CenterComponent(Base, APIRequest):
             self.frame_enter(user['待办列表-iframe'])
             self.is_click_tbm(user['待办列表-刷新'])
 
+    @allure.step("待办列表 根据单据号 筛选")
     def screening_code(self, code):
         """
         待办列表 根据单据号 筛选
@@ -84,8 +83,8 @@ class CenterComponent(Base, APIRequest):
             else:
                 break
 
+    @allure.step("进入 我的待办 页面")
     def enter_my_todo(self):
-        """进入 我的待办 页面"""
         ele = self.element_text(user['当前菜单']).strip()
         if ele == '我的待办':
             self.refresh_todo_list()
@@ -94,8 +93,8 @@ class CenterComponent(Base, APIRequest):
             sleep(1)
             self.refresh_todo_list()
 
+    @allure.step("进入 我申请的 页面")
     def enter_my_application(self):
-        """进入 我申请的 页面"""
         ele = self.element_text(user['当前菜单']).strip()
         if ele == '我申请的':
             self.refresh_todo_list()
@@ -103,6 +102,7 @@ class CenterComponent(Base, APIRequest):
             self.click_menu('待办列表', '我申请的')
             self.refresh_todo_list()
 
+    @allure.step("点击 查看详情 进入 oneworks 页面")
     def enter_oneworks_edit(self, code, node=None):
         """
         点击 查看详情 进入 oneworks 页面
@@ -122,6 +122,7 @@ class CenterComponent(Base, APIRequest):
         self.frame_enter(user['待办列表-iframe'])
         sleep(1)
 
+    @allure.step("我的待办页面-断言：我的待办中存在/不存在该条单据在指定审核节点")
     def assert_my_todo_node(self, code, node, exist=False):
         """
         我的待办页面-断言：成功处理了流程后，我的待办中存在/不存在该条单据在指定审核节点
@@ -153,6 +154,7 @@ class CenterComponent(Base, APIRequest):
             finally:
                 self.frame_exit()
 
+    @allure.step("我申请的页面-断言：我的待办中存在/不存在该条单据在指定审核节点")
     def assert_my_application_node(self, code, node, exist=False):
         """
         我申请的页面-断言：成功处理了流程后，我申请的中存在/不存在该条单据在指定审核节点
@@ -184,6 +186,7 @@ class CenterComponent(Base, APIRequest):
             finally:
                 self.frame_exit()
 
+    @allure.step("我申请的页面-断言：我的待办中存在/不存在该条单据在指定流程")
     def assert_my_application_flow(self, code, flow, exist=True):
         """
         我申请的页面-断言：成功处理了流程后，我申请的中存在/不存在该条单据在指定流程中
@@ -215,6 +218,7 @@ class CenterComponent(Base, APIRequest):
             finally:
                 self.frame_exit()
 
+    @allure.step("在待办列表-我申请的 根据流程编码对流程进行撤回操作")
     def recall_process(self, code):
         """
         提交流程申请后，在待办列表-我申请的 根据流程编码对流程进行撤回操作
