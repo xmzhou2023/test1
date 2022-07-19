@@ -1,5 +1,11 @@
 Tab菜单: "xpath==//div[@class='wrapper-tabs']//span[contains(text(),'variable')]"
-功能按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'variable')]"
+新增按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'新 增')]"
+变更日志按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'variable')]"
+导入按钮: "xpath==//div[@class='btn-box']//button//span[contains(text(),'导入')]"
+关闭导入弹窗: "xpath==//div[@aria-label='导入']//i[@class='el-dialog__close el-icon el-icon-close']"
+导出按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'导出')]"
+筛选按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'筛选')]"
+关闭筛选: "xpath==//i[@class='el-icon-close']"
 
 新增_来源: "xpath==//div[@class='el-form-item is-required el-form-item--medium']//label[contains(text(),'来源')]/following-sibling::div//input[@placeholder='请选择']"
 新增_供应类型: "xpath==//div[@class='el-form-item is-required el-form-item--medium']//label[contains(text(),'供应类型')]/following-sibling::div//input[@placeholder='请选择']"
@@ -20,7 +26,9 @@ Tab菜单: "xpath==//div[@class='wrapper-tabs']//span[contains(text(),'variable'
 新增_上市时间: "xpath==//label[@for='startPeriod']/following-sibling::div//input[@placeholder='请输入']"
 新增_清尾时间: "xpath==//label[@for='endPeriod']/following-sibling::div//input[@placeholder='请输入']"
 新增_备注: "xpath==//label[@for='remark']/following-sibling::div//input[@placeholder='请输入']"
-新增_按钮: "xpath==//div[@class='tr-form-row el-row']//span[contains(text(),'variable')]"
+新增_确定: "xpath==//div[@class='tr-form-row el-row']//span[contains(text(),'确定')]"
+新增_取消: "xpath==//div[@class='tr-form-row el-row']//span[contains(text(),'取消')]"
+新增_关闭弹窗: "//div[@aria-label='新增机型']//i[@class='el-dialog__close el-icon el-icon-close']"
 
 新增_下拉选项: "xpath==//div[@x-placement='bottom-start']//li[variable]//span"
 新增_日期（按钮）: "xpath==//div[@x-placement='bottom-start']//div[@class='el-picker-panel__body']//button[variable]"
@@ -37,5 +45,6 @@ Tab菜单: "xpath==//div[@class='wrapper-tabs']//span[contains(text(),'variable'
 
 下载导入模板: "xpath==//span[contains(text(),'下载导入模板')]"
 选择文件: "xpath==//button[@class='el-button el-button--primary el-button--small']//span"
-导入按钮: "xpath==//div[@class='btn-box']//button//span[contains(text(),'导入')]"
 
+
+新增 必填项: "xpath==//div[contains(text(),'不能为空')]"
