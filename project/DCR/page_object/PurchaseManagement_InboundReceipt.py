@@ -25,10 +25,11 @@ class InboundReceiptPage(Base):
     def click_search(self):
         """快速收货页面，点击Search"""
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(5)
 
     def text_salesOrder(self):
         """获取列表第一个销售单ID"""
+        Base.presence_sleep_dcr(self, user['获取列表第一个销售单ID'])
         salesorder = self.element_text(user['获取列表第一个销售单ID'])
         return salesorder
 
@@ -66,7 +67,7 @@ class InboundReceiptPage(Base):
     def click_reset(self):
         """快速收货页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(4)
+        sleep(8)
 
     def click_unfold(self):
         self.is_click(user['Unfold'])
@@ -85,9 +86,9 @@ class InboundReceiptPage(Base):
     def click_select_brand(self):
         """ 输入品牌条件，进行筛选操作 """
         self.is_click_dcr(user['Click Select Brand'])
-        sleep(1)
-        self.is_click(user['Select itel'])
+        sleep(1.5)
         self.is_click(user['Select TECNO'])
+        self.is_click(user['Select itel'])
 
     def get_delivery_date_text(self):
         """获取列表Delivery Date文本"""
@@ -101,6 +102,7 @@ class InboundReceiptPage(Base):
 
     def get_product_text(self):
         """获取列表Product文本"""
+        Base.presence_sleep_dcr(self, user['Get Product'])
         product = self.element_text(user['Get Product'])
         return product
 

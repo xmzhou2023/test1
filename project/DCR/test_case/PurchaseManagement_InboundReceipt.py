@@ -52,6 +52,11 @@ class TestQueryIMEIDetail:
     @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
         query = InboundReceiptPage(drivers)
+        query.click_unfold()
+        query.click_select_brand()
+        query.click_search()
+        query.click_fold()
+
         #获取Inbound Receipt列表字段文本
         list_product = query.get_product_text()
         list_itel = query.get_itel_text()

@@ -6,8 +6,8 @@ Input Sales Order ID:  "xpath==//label[(text()='Sales Order ID')]//parent::div//
 Input Delivery Order ID: "xpath==//label[(text()='Delivery Order ID')]//parent::div// following-sibling::div//input"
 Input Delivery Start Date: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[3]/div/div/div/div/div[1]/div/input"
 Click Select Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
-Select TECNO: "xpath==//span[contains(text(),'TECNO')]"
-Select itel: "xpath==//span[contains(text(),'itel')]"
+Select TECNO: "xpath==//span[text()='TECNO']"
+Select itel: "xpath==//span[text()='itel']"
 
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
