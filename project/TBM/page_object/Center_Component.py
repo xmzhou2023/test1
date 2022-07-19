@@ -120,7 +120,7 @@ class CenterComponent(Base, APIRequest):
         self.switch_window(1)
         sleep(1)
         self.frame_enter(user['待办列表-iframe'])
-        sleep(1)
+        DomAssert(self.driver).assert_att('产成品')
 
     @allure.step("我的待办页面-断言：我的待办中存在/不存在该条单据在指定审核节点")
     def assert_my_todo_node(self, code, node, exist=False):

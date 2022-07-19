@@ -84,6 +84,7 @@ class MachineBOMCollaboration(CenterComponent):
             self.readonly_input_text(user['BOMTree输入框'], content, choice=BomTree_dict[header])
             sleep(1)
             self.is_click_tbm(user['物料编码选择'], content)
+            self.is_click_tbm(user['BOM确定'])
         elif header == '用量' or header == '替代组' or header == '份额':
             self.is_click_tbm(user['BOM编辑'])
             self.readonly_input_text(user['BOMTree输入框'], content, choice=BomTree_dict[header])
