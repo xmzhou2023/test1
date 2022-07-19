@@ -16,8 +16,8 @@ class MachineBOMCollaboration(CenterComponent):
         self.refresh_webpage()
         self.click_menu("BOM协作", "整机BOM协作")
 
+    @allure.step("点击新增")
     def click_machine_bom_cooperation_add(self):
-        """点击新增"""
         self.is_click_tbm(user['新增'])
         sleep(1)
         for i in range(20):
@@ -27,6 +27,7 @@ class MachineBOMCollaboration(CenterComponent):
             else:
                 break
 
+    @allure.step("整机BOM协作新增页面-输入BOM信息")
     def input_machine_bom_cooperation_add_bom_info(self, info, select):
         """
         整机BOM协作新增页面 - 输入BOM信息
@@ -55,17 +56,18 @@ class MachineBOMCollaboration(CenterComponent):
         self.input_machine_bom_cooperation_add_bom_info('阶段', '试产阶段')
         self.input_machine_bom_cooperation_add_bom_info('市场', '埃塞本地')
 
+    @allure.step("点击提交")
     def click_machine_bom_cooperation_add_submit(self):
-        """点击提交"""
         self.scroll_into_view(user['提交'])
         sleep(0.5)
         self.is_click_tbm(user['提交'])
 
+    @allure.step("点击新增bom")
     def click_machine_bom_cooperation_add_bomtree(self):
-        """点击新增bom"""
         self.is_click_tbm(user['新增BomTree'])
         logging.info('点击新增Bom')
 
+    @allure.step("输入BomTree内容")
     def input_machine_bom_cooperation_bomtree(self, header, content):
         """
         模版信息根据条件输入内容并且点击
@@ -95,6 +97,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.input_machine_bom_cooperation_bomtree('物料编码', '10018955')
         self.input_machine_bom_cooperation_bomtree('用量', '1000')
 
+    @allure.step("审核人设置-业务评审")
     def select_machine_bom_cooperation_business_review_mpm(self, audit):
         """
         审核人设置-业务评审-MPM：选择MPM用户
@@ -108,6 +111,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['成员选择'], audit)
         self.is_click_tbm(user['成员确定'])
 
+    @allure.step("审核人设置-业务审核")
     def select_machine_bom_cooperation_business_audit_nps(self, audit):
         """
         审核人设置-业务审核-采购部（NPS）：选择审核用户
@@ -119,6 +123,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['成员选择'], audit)
         self.is_click_tbm(user['成员确定'])
 
+    @allure.step("获取整机BOM协作第一列内容")
     def get_machine_bom_cooperation_info(self):
         """
         获取整机BOM协作第一列内容 @return:返回文本及索引位置分别是'No.'：0; '流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7;
@@ -147,6 +152,7 @@ class MachineBOMCollaboration(CenterComponent):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
+    @allure.step("断言整机BOM协作新增成功后，页面表格内容是否正确")
     def assert_machine_bom_cooperation_add_result(self, *content):
         """
         断言整机BOM协作新增成功后，页面表格内容是否正确
@@ -160,6 +166,7 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
+    @allure.step("BomTree信息根据Tree在指定列表输入内容")
     def input_machine_bom_cooperation_optional_bomtree(self, tree, header, content):
         """
         BomTree信息根据Tree在指定列表输入内容
@@ -217,6 +224,7 @@ class MachineBOMCollaboration(CenterComponent):
         """
         self.is_click_tbm(user['BOMTree新增物料对焦'], tree)
 
+    @allure.step("BomTree新增物料根据Tree在指定列表输入内容")
     def input_machine_bom_cooperation_optional_material(self, tree, header, content):
         """
         模版信息根据条件输入内容并且点击
@@ -548,6 +556,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.click_machine_bom_cooperation_delete(code)
         DomAssert(self.driver).assert_att('删除成功')
 
+    @allure.step("发起流程,点击新增，输入BOM信息，输入BOMTree信息后点击提交")
     def add_machine_bom_cooperation_flow(self):
         """
         发起流程
@@ -570,10 +579,8 @@ class MachineBOMCollaboration(CenterComponent):
         sleep(1)
         DomAssert(self.driver).assert_att('创建流程成功')
 
+    @allure.step("在补充工厂页面，填写信息，点击同意")
     def machine_bom_cooperation_supplementary_factory_flow(self, code):
-        """
-        在补充工厂页面，填写信息，点击同意
-        """
         self.enter_oneworks_edit(code)
         self.input_machine_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
         self.click_machine_bom_cooperation_oneworks_slash()
@@ -583,20 +590,16 @@ class MachineBOMCollaboration(CenterComponent):
         DomAssert(self.driver).assert_att('处理成功，审核通过')
         self.quit_oneworks()
 
+    @allure.step("在BOM工程师审批页面，填写信息，点击同意")
     def machine_bom_cooperation_engineer_approve_flow(self, code):
-        """
-        在BOM工程师审批页面，填写信息，点击同意
-        """
         self.enter_oneworks_edit(code)
         self.click_machine_bom_cooperation_oneworks_agree()
         self.click_machine_bom_cooperation_oneworks_confirm()
         DomAssert(self.driver).assert_att('处理成功，审核通过')
         self.quit_oneworks()
 
+    @allure.step("在业务审批页面，填写信息，点击同意")
     def machine_bom_cooperation_business_approve_flow(self, code):
-        """
-        在业务审批页面，填写信息，点击同意
-        """
         self.enter_oneworks_edit(code)
         self.click_machine_bom_cooperation_oneworks_businessapprove_self_inspection('业务类型', '手机')
         self.click_machine_bom_cooperation_oneworks_businessapprove_self_inspection('检查角色', '音频')
@@ -607,6 +610,7 @@ class MachineBOMCollaboration(CenterComponent):
         DomAssert(self.driver).assert_att('处理成功，审核通过')
         self.quit_oneworks()
 
+    @allure.step("点击查看")
     def click_machine_bom_cooperation_check(self, code):
         """
         根据流程编码点击查看 进行查看操作
@@ -675,6 +679,7 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
+    @allure.step("补充工厂页面点击同意")
     def click_machine_bom_cooperation_oneworks_agree(self):
         """
         补充工厂页面点击同意
@@ -683,6 +688,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['补充工厂同意'])
         logging.info('点击同意')
 
+    @allure.step("补充工厂页面点击同意")
     def click_machine_bom_cooperation_oneworks_confirm(self):
         """
         补充工厂页面点击确定
@@ -715,10 +721,8 @@ class MachineBOMCollaboration(CenterComponent):
         """
         self.is_click_tbm(user['补充工厂一键/'])
 
+    @allure.step("补充工厂页面点击 一键填写按钮")
     def click_machine_bom_cooperation_oneworks_onepress_write(self):
-        """
-        补充工厂页面点击 一键填写按钮
-        """
         self.is_click_tbm(user['补充工厂一键填写'])
 
     def click_machine_bom_cooperation_oneworks_onepress_write_confirm(self):
@@ -989,6 +993,7 @@ class MachineBOMCollaboration(CenterComponent):
         sleep(0.5)
         DomAssert(self.driver).assert_control(user['业务审核编辑验证-用量'], True)
 
+    @allure.step("业务审核页面 点击 自检清单")
     def click_machine_bom_cooperation_oneworks_businessapprove_self_inspection(self, box, option):
         """
         业务审核页面 点击 自检清单
@@ -1004,6 +1009,7 @@ class MachineBOMCollaboration(CenterComponent):
         """
         self.scroll_into_view(user['业务审核-自检清单'])
 
+    @allure.step("业务审核页面 自检清单 点击输入检查结果")
     def input_machine_bom_cooperation_oneworks_businessapprove_inspection_result(self, rule='all', result='通过'):
         """
         业务审核页面 自检清单 点击输入检查结果

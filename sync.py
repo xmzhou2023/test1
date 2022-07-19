@@ -200,7 +200,7 @@ def sync_Data(data_list):
             # 场景数据
             for sce_index, sce_code in enumerate(data_list[pro_code][mod_code]['value'], 1):
                 sce_zh = data_list[pro_code][mod_code]['value'][sce_code]['att'].replace('\"', '')
-                sql_sce = "INSERT INTO scene(scene_code,scene_name,m_id,scene_level,created_by,updated_by,enabled_flag) VALUES('{}','{}',{},1,'自动化平台','自动化平台',1)".format(sce_code, sce_zh, mod_id)
+                sql_sce = "INSERT INTO scene(scene_code,scene_name,m_id,scene_level,created_by,updated_by,enabled_flag,scene_type) VALUES('{}','{}',{},1,'自动化平台','自动化平台',1,2)".format(sce_code, sce_zh, mod_id)
                 sql_execute.append(sql_sce)
 
                 # 用例数据

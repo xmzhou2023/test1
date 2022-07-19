@@ -17,11 +17,12 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.refresh_webpage()
         self.click_menu("BOM协作", "单机头BOM协作")
 
+    @allure.step("点击新增")
     def click_bare_mobile_phone_bom_cooperation_add(self):
-        """点击新增"""
         self.is_click_tbm(user['新增'])
         sleep(1)
 
+    @allure.step("单机头BOM协作新增页面-输入BOM信息")
     def input_bare_mobile_phone_bom_cooperation_add_bom_info(self, info, select):
         """
         单机头BOM协作新增页面-输入BOM信息
@@ -44,7 +45,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
 
     @allure.step("单机头BOM协作新增页面-输入BOM信息组合")
     def bare_mobile_phone_bom_cooperation_add_bom_info(self):
-        """单机头BOM协作新增页面 - 输入BOM信息 组合"""
         self.click_bare_mobile_phone_bom_cooperation_add()
         self.input_bare_mobile_phone_bom_cooperation_add_bom_info('制作类型', '单机头BOM制作')
         self.input_bare_mobile_phone_bom_cooperation_add_bom_info('品牌', 'itel')
@@ -53,14 +53,14 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
         self.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
 
+    @allure.step("点击提交")
     def click_bare_mobile_phone_bom_cooperation_add_submit(self):
-        """点击提交"""
         self.scroll_into_view(user['提交'])
         sleep(0.5)
         self.is_click_tbm(user['提交'])
 
+    @allure.step("点击新增bom")
     def click_bare_mobile_phone_bom_cooperation_add_bomtree(self):
-        """点击新增bom"""
         self.is_click_tbm(user['新增BomTree'])
         logging.info('点击新增Bom')
         sleep(0.5)
@@ -69,6 +69,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         """点击新增bom"""
         DomAssert(self.driver).assert_control(user['新增BomTree'], result)
 
+    @allure.step("输入BomTree内容")
     def input_bare_mobile_phone_bom_cooperation_bomtree(self, header, content):
         """
         模版信息根据条件输入内容并且点击
@@ -98,10 +99,11 @@ class BareMobilePhoneBomCooperation(CenterComponent):
                 self.is_click_tbm(user['BOM确定'])
             sleep(0.5)
 
+    @allure.step("根据Tree点击删除按钮")
     def click_bare_mobile_phone_bom_cooperation_bomtree_delete(self, tree):
-        """根据Tree点击删除按钮"""
         self.is_click_tbm(user['BOMTree删除'], tree)
 
+    @allure.step("审核人设置")
     def select_bare_mobile_phone_bom_cooperation_business_review(self, audit, type='MPM'):
         """
         审核人设置-业务评审-：选择用户
@@ -116,6 +118,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.is_click_tbm(user['成员选择'], audit)
         self.is_click_tbm(user['成员确定'])
 
+    @allure.step("获取单机头BOM协作第一列内容")
     def get_bare_mobile_phone_bom_cooperation_info(self):
         """
         获取单机头BOM协作第一列内容
@@ -144,6 +147,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
+    @allure.step("断言单机头BOM协作新增成功后，页面表格内容是否正确")
     def assert_bare_mobile_phone_bom_cooperation_add_result(self, *content):
         """
         断言单机头BOM协作新增成功后，页面表格内容是否正确
@@ -157,6 +161,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
+    @allure.step("BomTree信息根据Tree在指定列表输入内容")
     def input_bare_mobile_phone_bom_cooperation_optional_bomtree(self, tree, header, content):
         """
         BomTree信息根据Tree在指定列表输入内容
@@ -196,12 +201,14 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.is_click_tbm(user['新增物料'])
         logging.info('点击新增物料')
 
+    @allure.step("新增物料对焦")
     def move_to_add_material(self, tree):
         """
         新增物料后，根据上级物料 点击新增加的物料列进行对焦
         """
         self.is_click_tbm(user['BOMTree新增物料对焦'], tree)
 
+    @allure.step("新增物料输入内容")
     def input_bare_mobile_phone_bom_cooperation_optional_material(self, tree, header, content):
         """
         新增物料后，模版信息根据条件在新增的物料输入内容并且点击
@@ -245,6 +252,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         """
         self.is_click_tbm(user['BOM信息一键填写'])
 
+    @allure.step("BOM信息一键填写")
     def input_bare_mobile_phone_bom_cooperation_one_press(self, key, value):
         """
         一键填写-根据key选择字段名称，根据value输入字段值
@@ -279,6 +287,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         sleep(0.5)
         logging.info('点击取消')
 
+    @allure.step("获取BOMTREE指定列内容")
     def get_bare_mobile_phone_bom_cooperation_bomtree_info(self, material):
         """
         获取单机头BOM协作-BOMTREE指定列内容
@@ -292,6 +301,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
+    @allure.step("点击复选框")
     def click_bare_mobile_phone_bom_cooperation_checkbox(self, material='all'):
         """
         TOM Tree根据material点击指定复选框，默认全选
@@ -315,32 +325,24 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言失败')
             raise
 
+    @allure.step("点击批量删除")
     def click_bare_mobile_phone_bom_cooperation_batch_delete(self):
-        """
-        点击批量删除
-        """
         self.is_click_tbm(user['批量删除'])
         logging.info('点击批量删除')
 
+    @allure.step("点击确定")
     def click_bare_mobile_phone_bom_cooperation_batch_confirm(self):
-        """
-        点击确定
-        """
         self.is_click_tbm(user['确定'])
         logging.info('确定')
         sleep(0.5)
 
+    @allure.step("点击导入BOM")
     def click_bare_mobile_phone_bom_cooperation_bom_import(self):
-        """
-        点击导入BOM
-        """
         self.is_click_tbm(user['导入BOM'])
         logging.info('点击导入BOM')
 
+    @allure.step("导入-上传文件")
     def upload_bare_mobile_phone_bom_cooperation_import(self, file):
-        """
-        导入-上传文件
-        """
         ele = self.driver.find_element(By.XPATH,
                                        "//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper']/div/div[2]/div[1]/div/input")
         ele.send_keys(file)
@@ -352,10 +354,8 @@ class BareMobilePhoneBomCooperation(CenterComponent):
     #     """
     #     self.upload_file(user['选择文件'], file)
 
+    @allure.step("断言导入错误内容后，页面状态是否正确")
     def assert_bare_mobile_phone_bom_cooperation_wrongcontent_simple_upload_result(self):
-        """
-        断言导入错误内容后，页面状态是否正确
-        """
         try:
             apply = self.find_element(user['应用状态'])
             check = self.find_element(user['导出校验状态'])
@@ -367,10 +367,8 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言失败，请检查按钮状态')
             raise
 
+    @allure.step("断言导入错误内容后，页面状态是否正确")
     def assert_bare_mobile_phone_bom_cooperation_wrongcontent_upload_result(self):
-        """
-        断言导入错误内容后，页面状态是否正确
-        """
         try:
             apply = self.find_element(user['导入BOM应用状态'])
             check = self.find_element(user['导入BOM导出校验状态'])
@@ -382,10 +380,8 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言失败，请检查按钮状态')
             raise
 
+    @allure.step("点击应用")
     def click_bare_mobile_phone_bom_cooperation_apply(self):
-        """
-        点击应用
-        """
         self.is_click_tbm(user['应用'])
         logging.info('点击应用')
         sleep(1)
@@ -485,6 +481,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.click_bare_mobile_phone_bom_cooperation_delete(code)
         DomAssert(self.driver).assert_att('删除成功')
 
+    @allure.step("发起单机头Bom协作新增全流程")
     def add_bare_mobile_phone_bom_cooperation_flow(self):
         """
         发起流程

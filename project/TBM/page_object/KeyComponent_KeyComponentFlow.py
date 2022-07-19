@@ -25,11 +25,13 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.frame_exit()
         sleep(1)
 
+    @allure.step("点击新增")
     def click_key_components_flow_add(self):
         """点击新增"""
         self.is_click_tbm(user['新增'])
         sleep(1)
 
+    @allure.step("关键器件流程新增页面 - 输入项目信息")
     def input_key_components_flow_add_item_info(self, info, select):
         """
         关键器件流程新增页面 - 输入项目信息
@@ -65,6 +67,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.input_key_components_flow_add_item_info('目标市场', '深圳')
         self.input_key_components_flow_add_item_info('生命周期', '1')
 
+    @allure.step("业务审核")
     def select_key_components_flow_business_review(self, type, audit):
         """
         业务审核 - 选择用户
@@ -84,6 +87,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.select_key_components_flow_business_review('标准化代表', '李小素')
         self.select_key_components_flow_business_review('采购代表', '李小素')
 
+    @allure.step("点击提交")
     def click_key_components_flow_submit(self):
         """点击提交"""
         self.is_click_tbm(user['提交'])
@@ -100,9 +104,10 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.click_key_components_flow_submit()
         DomAssert(self.driver).assert_att('请求成功')
 
+    @allure.step("获取关键器件第一列内容")
     def get_key_components_flow_info(self):
         """
-        获取关键器械第一列内容
+        获取关键器件第一列内容
         @return:返回文本及索引位置分别是'No.'==0; '流程编码'==1; '流程类型'==2; '项目'==3; '品牌'==4; '单据状态'==5; '申请人'==6; '申请时间'==7; '操作'==8;
         """
         self.click_menu("关键器件", "关键器件流程")
@@ -157,6 +162,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.quit_oneworks()
         self.click_menu("关键器件", "关键器件流程")
 
+    @allure.step("新建流程后的后置删除处理")
     def delete_key_components_flow_flow(self, process_code):
         """
         新建流程后的后置删除处理
