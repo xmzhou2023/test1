@@ -12,6 +12,7 @@ CASE_TEMPLATE_PATH = os.path.join('template/case_template.py')
 OBJECT_TEMPLATE_PATH = os.path.join('template/object_template.py')
 ELEMENT_TEMPLATE_PATH = os.path.join('template/element_template.yaml')
 CONFTEST_TEMPLATE_PATH = os.path.join('template/conftest.py')
+ENV_TEMPLATE_PATH = os.path.join('template/env')
 
 # 文件下载路径
 CASE_PATH = os.path.join(PERO_PATH, 'test_case/')
@@ -49,6 +50,10 @@ def text_create(name, type="case"):
         full_path = desktop_path + name + '.py'     # 创建页面对象
         msg = read_file(OBJECT_TEMPLATE_PATH)
         mk_file(full_path, msg)
+
+    elif type == "env":
+        print(ENV_TEMPLATE_PATH)
+
     else:
         desktop_path = CASE_PATH     # 新创建的txt文件的存放路径
         mk_dir(desktop_path)
@@ -65,9 +70,10 @@ def generate_module(file_type):
             text_create(name=list[i][0],type=file_type)
 
 if __name__ == '__main__':
-    generate_module("element")
-    generate_module("object")
-    generate_module("testcase")
+    # generate_module("element")
+    # generate_module("object")
+    # generate_module("testcase")
+    generate_module("env")
 
 
 
