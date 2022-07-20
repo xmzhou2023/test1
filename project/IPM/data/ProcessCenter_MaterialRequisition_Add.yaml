@@ -1,7 +1,0 @@
-ROSTemplateFormatVersion: "2015-09-01"
-Parameters:
-Description:
-Resources:
-
-
-申请物料跳转地址: 'http://ipm-uat.transsion.com/#/flow/material-apply'
