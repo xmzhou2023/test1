@@ -133,6 +133,16 @@ def get_PyClass(filepath):
                     print('请检查指定代码格式{}'.format(class_list))
     return class_list, feature_name
 
+
+def get_env():
+    env_list = {}
+    pro_list = get_FolderName(PEROJECT_PATH)
+    for pro_name in pro_list:
+        env_list[pro_name] = []
+        env_path = os.path.join(BASE_DIR, 'project', pro_name, 'env')
+        env_list[pro_name] = os.listdir(env_path)
+    return env_list  # 封装好的数据
+
 def get_Data():
     data_list = {}
     pro_list = get_FolderName(PEROJECT_PATH)
@@ -152,7 +162,7 @@ def get_Data():
             data_list[pro_name][change_pylist_modulelist(py_name)]['att'] = data_all[1]
     return data_list  # 封装好的数据
 
-def sync_Data(data_list):
+def sync_Data(data_list, env_list):
     sql_execute = []
     case_mark = {
         'smoke': 1,
@@ -167,7 +177,7 @@ def sync_Data(data_list):
         'minor': 4,
         'trivial': 5,
     }
-
+    sql_execute.append("TRUNCATE ts_env")
     sql_execute.append("TRUNCATE ts_project")
     sql_execute.append("TRUNCATE ts_module")
     sql_execute.append("TRUNCATE ts_testtype")
@@ -232,8 +242,15 @@ def sync_Data(data_list):
                     case_id = case_id + 1
                 sce_id = sce_id + 1
             mod_id = mod_id + 1
+
+    for p_env_id, pro_code in enumerate(env_list.keys(), 1):
+        for env_index, env_name in enumerate(env_list[pro_code], 1):
+            sql_env = "INSERT INTO ts_env(env_name,p_id,is_enable,created_by,updated_by,enabled_flag) VALUES('{}',{},1,1,1,1)".format(env_name, p_env_id)
+            sql_execute.append(sql_env)
+
     change_db(sql_execute)
 
 if __name__ == '__main__':
+    # print(get_env())
     # print(get_Data())
-    sync_Data(get_Data())
+    sync_Data(get_Data(),get_env())
