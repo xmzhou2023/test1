@@ -1,0 +1,88 @@
+ROSTemplateFormatVersion: "2015-09-01"
+Parameters:
+Description:
+Resources:
+#通用
+span: 'xpath==//span[text()="variable"]'
+
+#流程
+手机物料: 'xpath==//span[text()="手机物料"]'
+
+
+#节点管理
+
+tablist: 'xpath==//div[@role="tablist"]/div'
+
+流程配置首页首次进入实际结果获取: 'xpath==//div[@role="tablist"]/div'
+
+新增: 'xpath==//*[@id="pane-0"]/div/button/span/div'
+
+未保存新增节点再节点新增按钮实际结果: 'xpath==//div[@role="alert"]/p[text()="请先保存数据,再重试！"]'
+未保存新增节点实际结果: 'xpath==//div[@role="alert"]/p[text()="请先保存数据后重试！"]'
+编辑: 'xpath==//td/div/span[text()="variable"]/../../../td//span[text()="编辑"]'
+删除: 'xpath==//td//div[text()="variable"]/../../../td[6]//span[text()="删除"]'
+删除节点提示语: 'xpath==//div[@class="el-message-box"]//p'
+
+节点名称: 'xpath==//td[@rowspan="1"]/div/div[text()="variable"]/../../../td[2]//input'
+节点名称选择: 'xpath==//li/span[text()="发起节点"]'
+节点名称未填写实际结果: 'xpath==//div[@role="alert"]/p[text()="请输入节点名称"]'
+节点名称重复实际结果: 'xpath==//div[@role="alert"]/p[text()="当前流程配置已存在该物料类型的配置"]'
+
+排序: 'xpath==//td[@rowspan="1"]/div/div[text()="variable"]/../../../td[3]//input'
+排序未填写实际结果: 'xpath==//div[@role="alert"]/p[text()="请输入排序"]'
+节点角色: 'xpath==//td[@rowspan="1"]/div/div[text()="variable"]/../../../td[4]//input'
+下拉框选择: 'xpath==//div[@class="el-scrollbar"]//span[text()="variable"]'
+
+节点角色删除: 'xpath==//td[@rowspan="1"]/div/div[text()="variable"]/../../../td[4]//span//i[2]'
+#节点角色删除的variable传入行数
+获取NO1的节点名称: 'xpath==//div[@id="pane-0"]//div[1]//tr[1]/td//div[text()="1"]/../../../td[2]//span'
+
+节点与节点角色不匹配实际结果: 'xpath==//div[@role="alert"]/p[text()="节点与节点角色不匹配"]'
+状态默认实际结果: 'xpath==//tr[1]/td[5]/div//span[text()="未启用"]'
+
+
+
+新增成功实际结果: 'xpath==//div[@role="alert"]/p[text()="新增成功"]'
+编辑成功: 'xpath==//div[@role="alert"]/p[text()="编辑成功"]'
+未启用节点编辑/删除按钮: 'xpath==//tr[1]/td[6]//button/span'
+#variable行数
+
+状态修改: 'xpath==//tr[1]/td[5]/div//span[2]'
+节点启用提示: 'xpath==//div[@class="el-message-box"]/div[2]/div//p'
+点击取消: 'xpath==//div[@class="el-message-box"]/div[3]/button[1]/span'
+点击确定: 'xpath==//div[@class="el-message-box"]/div[3]/button[2]/span'
+状态启用提示: 'xpath==//p[text()="状态成功修改为启用"]'
+状态禁用提示: 'xpath==//p[text()="状态成功修改为禁用"]'
+
+
+
+
+#角色管理
+角色管理: 'xpath==//*[@id="tab-1"]'
+角色管理表头获取: 'xpath==//*[@id="pane-1"]/div/div[2]/div[2]'
+
+
+#角色管理查询功能
+点击选择框: 'xpath==//div/label/span[text()="物料类型"]/../../div//input'
+选择: 'xpath==//ul/li[@role="menuitem"]/span[text()="variable"]/../label/span'
+#xpath==//div/label/span[text()="物料类型"]/../../div//input
+#xpath==//ul/li[@role="menuitem"]/span[text()="手机"]/../label/span
+#xpath==//ul/li[@role="menuitem"]/span[text()="整机_100"]/../label/span/span
+#xpath==//ul/li[@role="menuitem"]/span[text()="整机"]/../label/span/span
+
+
+人员: 'xpath==//div/label/span[text()="人员"]/../../div//input'
+查询: 'xpath==//button/span[text()="查询"]'
+重置: 'xpath==//button/span[text()="重置"]'
+
+#角色管理功能键
+角色管理新增:
+
+导入:
+导出:
+
+#角色管理表单
+表单编辑:
+表单删除:
+角色管理_表单数据获取: 'xpath==//*[@id="pane-1"]/div/div[2]/div[3]/table/tbody/tr/td[2]/div/span'
+
