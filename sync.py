@@ -5,6 +5,8 @@ import re
 # 项目目录
 import pymysql
 
+from libs.common.read_config import ReadConfig
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # 当前项目目录
@@ -133,14 +135,19 @@ def get_PyClass(filepath):
                     print('请检查指定代码格式{}'.format(class_list))
     return class_list, feature_name
 
-
 def get_env():
+
     env_list = {}
     pro_list = get_FolderName(PEROJECT_PATH)
     for pro_name in pro_list:
-        env_list[pro_name] = []
+        env_list[pro_name] = {}
         env_path = os.path.join(BASE_DIR, 'project', pro_name, 'env')
-        env_list[pro_name] = os.listdir(env_path)
+        list = os.listdir(env_path)
+        for env_name in list:
+            # 当前环境目录
+            ini = ReadConfig(pro_name, env_name)
+            env_list[pro_name][env_name] = ini.url
+
     return env_list  # 封装好的数据
 
 def get_Data():
@@ -245,7 +252,8 @@ def sync_Data(data_list, env_list):
 
     for p_env_id, pro_code in enumerate(env_list.keys(), 1):
         for env_index, env_name in enumerate(env_list[pro_code], 1):
-            sql_env = "INSERT INTO ts_env(env_name,p_id,is_enable,created_by,updated_by,enabled_flag) VALUES('{}',{},1,1,1,1)".format(env_name, p_env_id)
+            env_url = env_list[pro_code][env_name]
+            sql_env = "INSERT INTO ts_env(env_name,env_url,p_id,is_enable,created_by,updated_by,enabled_flag) VALUES('{}','{}',{},1,1,1,1)".format(env_name,env_url ,p_env_id)
             sql_execute.append(sql_env)
 
     change_db(sql_execute)
