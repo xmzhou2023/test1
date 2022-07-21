@@ -830,6 +830,6 @@ print("Hello") ;  print("World")
     三种运行方式，1、通过命令方式运行，2、通过命令方式+ini文件运行，3、通过main()运行
 
 ### Contact - 联系
-    yong.liu7@transsion.com
+    自动化测试小组
 
 ### 
