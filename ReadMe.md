@@ -815,13 +815,8 @@ print("Hello") ;  print("World")
 ```
 
 ## Configuration - 配置（配置信息。）
-<<<<<<< HEAD
 
 ![transsion](http://10.250.112.151:18888/Evan/AutoTest/raw/master/tools/UML.jpg)
-=======
-![haha](http://10.250.112.151:18888/Evan/AutoTest/raw/master/tools/UML.jpg)
-
->>>>>>> ba700effcc9dc0bebaf5454ba5a8120793def148
 
 ## Severity - 用例等级
 
