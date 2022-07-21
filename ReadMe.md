@@ -2,11 +2,11 @@
 
 # AutoTest自动化平台
 
-## Introduction - 设计简介UIPOMTest设计简介
+## Introduction - 设计简介
 
 ### 一、框架结构简述：
 
-暂时无法在文档外展示此内容
+已附在当前文档最后
 
 ### 二、框架设计思想---POM模式
 
