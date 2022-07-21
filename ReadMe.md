@@ -15,7 +15,7 @@
     DRP项目对自动化的应用中，可通过修改config.ini配置文件，对环境的全局切换
 
 ## Configuration - 配置（配置信息。）
-![transsion](http://10.250.112.151:18888/Evan/AutoTest/raw/master/tools/http://10.250.112.151:18888/Evan/AutoTest/raw/master/tools/UML.jpg)
+![transsion](http://10.250.112.151:18888/Evan/AutoTest/raw/master/tools/UML.jpg)
 
 
 ## Severity - 用例等级
