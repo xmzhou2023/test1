@@ -12,7 +12,7 @@ class TestSwitchMenu:
     @allure.title("前往产品信息菜单")
     @allure.description("点击‘产品信息‘，前往‘产品信息‘菜单")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_001_001(self, drivers):
         user = NavPage(drivers)
@@ -26,7 +26,7 @@ class TestSwitchMenu:
     @allure.title("前往产品配置菜单")
     @allure.description("点击‘产品配置’，前往‘产品配置‘菜单")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_001_002(self, drivers):
         user = NavPage(drivers)
@@ -40,7 +40,7 @@ class TestSwitchMenu:
     @allure.title("前往产品周期菜单")
     @allure.description("点击‘产品周期‘，前往‘产品周期‘菜单")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_001_003(self, drivers):
         user = NavPage(drivers)
@@ -58,7 +58,7 @@ class TestButtonFunction:
     @allure.title("产品信息，新增按钮 功能验证")
     @allure.description("前往‘产品信息‘菜单，点击新增按钮，弹出新增窗口")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_002_001(self, drivers):
         user = NavPage(drivers)
@@ -77,7 +77,7 @@ class TestButtonFunction:
     @allure.title("产品信息，‘变更日志’按钮 功能验证")
     @allure.description("进入机型库-产品信息页面，点击‘变更日志’按钮，自动打开并跳转到变更日志目标页")
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_002_002(self, drivers):
         user = NavPage(drivers)
@@ -94,7 +94,7 @@ class TestButtonFunction:
     @allure.title("产品信息，‘导入’按钮 功能验证")
     @allure.description("进入机型库-产品信息页面，点击‘导入’按钮，弹出导入窗口")
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_002_003(self, drivers):
         user = NavPage(drivers)
@@ -113,7 +113,7 @@ class TestButtonFunction:
     @allure.title("产品信息，‘导出’按钮 功能验证")
     @allure.description("进入机型库-产品信息页面，点击‘导出’按钮，产品信息数据导出成功")
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_002_004(self, drivers):
         user = NavPage(drivers)
@@ -128,7 +128,7 @@ class TestButtonFunction:
     @allure.title("产品信息，‘筛选’按钮 功能验证")
     @allure.description("进入机型库-产品信息页面，依次点击‘筛选’按钮，展开筛选项")
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_002_005(self, drivers):
         user = NavPage(drivers)
@@ -151,7 +151,7 @@ class TestAppendProduct:
     @allure.title("新增机型，合法维护必填项 新增成功")
     @allure.description("前往‘产品信息‘菜单，打开新增窗口，依次填选必填项，新增成功")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_003_001(self, drivers):
         user = NavPage(drivers)
@@ -182,7 +182,7 @@ class TestAppendProduct:
     @allure.title("新增机型，合法维护全部字段 新增成功")
     @allure.description("前往‘产品信息‘菜单，打开新增窗口，依次填选所有字段，新增成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_003_002(self, drivers):
         user = NavPage(drivers)
@@ -217,7 +217,7 @@ class TestAppendProduct:
     @allure.title("新增机型，来源=自建，项目名为文本输入框，新增成功")
     @allure.description("前往‘产品信息‘菜单，打开新增窗口，来源=自建，项目名为文本输入框，新增成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_003_003(self, drivers):
         user = NavPage(drivers)
@@ -252,7 +252,7 @@ class TestAppendProduct:
     @allure.title("[异常]新增机型，有必填项未维护 新增失败")
     @allure.description("前往‘产品信息‘菜单，打开新增窗口，不维护大类粗必填项，新增失败")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    # @pytest.mark.skip
+    # # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_003_004(self, drivers):
         user = NavPage(drivers)
@@ -287,7 +287,7 @@ class TestImportFile:
     @allure.title("产品信息，导入文件数据正确，导入成功")
     @allure.description("前往‘产品信息‘菜单，进入导入弹窗，导入文件成功")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_004_001(self, drivers):
         user = NavPage(drivers)
@@ -303,7 +303,7 @@ class TestImportFile:
     @allure.title("产品信息，‘导入-下载模板’按钮 功能验证")
     @allure.description("进入导入弹窗，下载导入模板 成功")
     @allure.severity("minor")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    # @pytest.mark.skip
     # @pytest.mark.run(order=1)
     def test_004_002(self, drivers):
         user = NavPage(drivers)
