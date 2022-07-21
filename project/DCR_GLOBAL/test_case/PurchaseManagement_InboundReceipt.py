@@ -24,6 +24,7 @@ class TestQueryInboundReceipt:
         query.input_delivery_date("2022-07-12")
         query.click_deliver_Order()
         query.click_select_brand()
+        query.click_deliver_Order()
         query.click_search()
         query.click_fold()
 
@@ -53,6 +54,7 @@ class TestQueryIMEIDetail:
         query = InboundReceiptPage(drivers)
         query.click_unfold()
         query.click_select_brand()
+        query.click_deliver_Order()
         query.click_search()
         query.click_fold()
 
