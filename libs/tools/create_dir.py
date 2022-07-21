@@ -4,7 +4,7 @@ import logging
 import os
 import shutil
 
-PERO_PATH = os.path.join(PEROJECT_PATH, 'TEST')
+PERO_PATH = os.path.join(PEROJECT_PATH, 'HAHA')
 # 创建文件依据
 path = os.path.join('template/modle_name.csv')
 
