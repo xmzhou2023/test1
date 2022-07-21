@@ -45,7 +45,7 @@ class LoginPage(Base):
     def click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(login['登录'])
-        sleep(4)
+        sleep(6)
 
 
 """DCR登录类"""
