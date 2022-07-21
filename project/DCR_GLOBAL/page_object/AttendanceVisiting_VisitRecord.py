@@ -13,7 +13,7 @@ class VisitRecordPage(Base):
     def click_unfold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
         self.is_click(user['Unfold'])
-        sleep(1)
+        sleep(2)
 
     def click_fold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
@@ -28,6 +28,7 @@ class VisitRecordPage(Base):
         self.is_click(user['Select Shop Value'])
 
     def input_submit_start_date(self, content):
+        sleep(3)
         Base.presence_sleep_dcr(self, user['Submit Start Date'])
         self.is_click(user['Submit Start Date'])
         sleep(1)
@@ -39,6 +40,7 @@ class VisitRecordPage(Base):
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
+        sleep(3)
 
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
@@ -69,7 +71,8 @@ class VisitRecordPage(Base):
     def get_total_text(self):
         """Visit Record页面，获取列表中Visit Date文本属性"""
         total = self.element_text(user['获取总条数文本'])
-        return total
+        total1 = total[6:]
+        return total1
 
     def click_close_export_record(self):
         """关闭导出记录菜单"""

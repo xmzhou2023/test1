@@ -21,7 +21,7 @@ class TestQueryVisitRecord:
         #ValueAssert.value_assert_equal("Home Page-Customer", get_home_page)
         base = Base(drivers)
         base.refresh()
-        sleep(3.5)
+        sleep(4.5)
 
         user = LoginPage(drivers)
         """打开考勤与巡店管理-打开巡店记录页面"""
@@ -39,7 +39,6 @@ class TestQueryVisitRecord:
         visit_date = all_visit.get_visit_date_text()
         operation = all_visit.get_view_operation_text()
         total = all_visit.get_total_text()
-
 
         ValueAssert.value_assert_equal(shop_id, shopid)
         ValueAssert.value_assert_IsNoneNot(submit_date)

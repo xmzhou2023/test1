@@ -12,6 +12,7 @@ class AttendanceRecordPage(Base):
     """ AttendanceRecord类，生产环境，Attendance Records考勤记录页面元素定位"""
     def input_user_id_query(self, content, content1):
         """Attendance Records页面，输入User ID筛选用户的考勤记录"""
+        Base.presence_sleep_dcr(self, user['筛选用户'])
         self.is_click_dcr(user['筛选用户'])
         sleep(1)
         self.input_text_dcr(user['筛选用户'], txt=content)
@@ -26,7 +27,7 @@ class AttendanceRecordPage(Base):
     def click_search(self):
         """Attendance Records页面，点击Seasrch筛选考勤记录"""
         self.is_click(user['Search'])
-        sleep(1)
+        sleep(3)
 
     def click_reset(self):
         """Attendance Records页面，点击Reset重置筛选条件"""

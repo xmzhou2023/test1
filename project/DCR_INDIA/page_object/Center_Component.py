@@ -86,7 +86,7 @@ class LoginPage(Base):
             logging.info(user[level[i]])
             sleep(3.5)
             self.scroll_into_view(user[level[i]])
-            sleep(3.5)
+            sleep(4)
             self.is_click(user[level[i]])
         sleep(5)
 

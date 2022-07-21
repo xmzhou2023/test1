@@ -18,7 +18,7 @@ class TestQueryVisitRecord:
     def test_001_001(self, drivers):
         base = Base(drivers)
         base.refresh()
-        sleep(3.5)
+        sleep(4.5)
 
         menu = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
@@ -38,13 +38,12 @@ class TestQueryVisitRecord:
         visit_date = all_visit.get_visit_date_text()
         operation = all_visit.get_view_operation_text()
         total = all_visit.get_total_text()
-        total1 = total[6:]
 
         ValueAssert.value_assert_equal(shop_id, shopid)
         ValueAssert.value_assert_IsNoneNot(submit_date)
         ValueAssert.value_assert_IsNoneNot(visit_date)
         ValueAssert.value_assert_In(operation, "View")
-        all_visit.assert_total(total1)
+        all_visit.assert_total(total)
         all_visit.click_reset()
 
 
@@ -91,7 +90,6 @@ class TestExportVisitRecord:
 
         export.click_close_export_record()
         export.click_close_visit_record()
-
 
 
 if __name__ == '__main__':

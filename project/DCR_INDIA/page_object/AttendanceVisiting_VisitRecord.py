@@ -13,7 +13,7 @@ class VisitRecordPage(Base):
     def click_unfold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
         self.is_click(user['Unfold'])
-        sleep(1)
+        sleep(2)
 
     def click_fold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
@@ -28,6 +28,7 @@ class VisitRecordPage(Base):
         self.is_click(user['Select Shop Value'])
 
     def input_submit_start_date(self, content):
+        sleep(3)
         Base.presence_sleep_dcr(self, user['Submit Start Date'])
         self.is_click(user['Submit Start Date'])
         sleep(1)
@@ -39,6 +40,7 @@ class VisitRecordPage(Base):
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
+        sleep(3)
 
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
