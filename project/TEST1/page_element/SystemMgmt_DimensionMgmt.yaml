@@ -1,0 +1,27 @@
+#关键字: "xpath==//span[contains(text(),'终审版报表')]"
+#系统管理-用户管理: 'xpath==//span/span[normalize-space(text())="用户管理"]'
+#系统管理-用户管理-查询: 'xpath==//span[normalize-space(text())="查 询"]'
+#系统管理-用户管理-重置: 'xpath==//span[normalize-space(text())="重 置"]'
+#系统管理-用户管理-新增: 'xpath==//span[normalize-space(text())="新 增"]'
+#系统管理-用户管理-输入工号: 'xpath==//*[@style="margin-left: 40px;"]/div/div/input'
+#系统管理-用户管理-输入姓名: 'xpath==//*[@style="margin-left: 64px;"]/div/div/input'
+#
+#
+##相对定位，通用（周四）
+#表头: 'xpath==//div[@class="main-top-left"]//div[normalize-space(text())="TECNO事业部"]'
+#树列第1级: 'xpath==//div[@tabindex="0"]/div[@class="el-tree-node__content"]//span[normalize-space(text())="TECNO事业部"]'
+#树列第2级: 'xpath==//div[@role="tree"]/div[@role="treeitem"]/div[2]/div[@role="treeitem"]/div[1]//span[normalize-space(text())="TECNO事业部"]'
+#树列第3级: 'xpath==//div[@role="treeitem"]/div[@role="group"]//div[2]/div[1]/div[1]/span[2]/span[normalize-space(text())="TECNO事业部"]'
+#树列第4级: 'xpath==//span//span[normalize-space(text())="多哥"]'
+
+系统管理: 'xpath==//span[text()="系统管理"]'
+系统管理-维度管理: 'xpath==//span[text()="维修管理"]'
+系统管理-维度管理-角色管理: 'xpath==//div[text()="角色管理"]'
+角色管理-维度管理下拉: 'xpath==//input[@placeholder="请输入"]'
+下拉选择infinix事业部: 'xpath==//div[@x-placement="bottom-start"]/div[1]//li[variable]'
+#下拉选择itel事业部: 'xpath==//div[@x-placement="bottom-start"]/div[1]//li[2]'
+#下拉选择TECNO事业部: 'xpath==//div[@x-placement="bottom-start"]/div[1]//li[3]'
+#下拉选择印度地区部: 'xpath==//div[@x-placement="bottom-start"]/div[1]//li[4]'
+角色管理-查询: 'xpath==//span[normalize-space(text())="查 询"]'
+角色管理-重置: 'xpath==//span[normalize-space(text())="重 置"]'
+

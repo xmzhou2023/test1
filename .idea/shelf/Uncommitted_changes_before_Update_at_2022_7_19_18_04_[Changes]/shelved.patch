@@ -1,0 +1,206 @@
+Index: .idea/inspectionProfiles/profiles_settings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/profiles_settings.xml b/.idea/inspectionProfiles/profiles_settings.xml
+new file mode 100644
+--- /dev/null	(date 1658198654602)
++++ b/.idea/inspectionProfiles/profiles_settings.xml	(date 1658198654602)
+@@ -0,0 +1,6 @@
++<component name="InspectionProjectProfileManager">
++  <settings>
++    <option name="USE_PROJECT_PROFILE" value="false" />
++    <version value="1.0" />
++  </settings>
++</component>
+\ No newline at end of file
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1658198654613)
++++ b/.idea/vcs.xml	(date 1658198654613)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="$PROJECT_DIR$" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/.gitignore
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/.gitignore b/.idea/.gitignore
+new file mode 100644
+--- /dev/null	(date 1658198654851)
++++ b/.idea/.gitignore	(date 1658198654851)
+@@ -0,0 +1,3 @@
++# Default ignored files
++/shelf/
++/workspace.xml
+Index: .idea/UIPOMTest.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/UIPOMTest.iml b/.idea/UIPOMTest.iml
+new file mode 100644
+--- /dev/null	(date 1658212045116)
++++ b/.idea/UIPOMTest.iml	(date 1658212045116)
+@@ -0,0 +1,21 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="PYTHON_MODULE" version="4">
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/venv" />
++    </content>
++    <orderEntry type="jdk" jdkName="Python 3.9 (venv)" jdkType="Python SDK" />
++    <orderEntry type="sourceFolder" forTests="false" />
++  </component>
++  <component name="PyDocumentationSettings">
++    <option name="format" value="PLAIN" />
++    <option name="myDocStringFormat" value="Plain" />
++  </component>
++  <component name="PyNamespacePackagesService">
++    <option name="namespacePackageFolders">
++      <list>
++        <option value="$MODULE_DIR$/project" />
++      </list>
++    </option>
++  </component>
++</module>
+\ No newline at end of file
+Index: project/DRP/page_element/login.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/project/DRP/page_element/login.yaml b/project/DRP/page_element/login.yaml
+new file mode 100644
+--- /dev/null	(date 1658220681745)
++++ b/project/DRP/page_element/login.yaml	(date 1658220681745)
+@@ -0,0 +1,24 @@
++定位语言下拉框: 'xpath==//*[@class="el-icon-caret-bottom el-icon--right"]'
++密码登录: 'xpath==//*[@id="tab-account"]'
++用户名: 'xpath==//*[@placeholder="请输入账号/工号"]'
++密码: 'xpath==//*[@placeholder="请输入密码"]'
++用户协议: 'xpath==//div[@class="statement"]/label/span[@class="el-checkbox__input"]'
++登录: 'xpath==//*[@class="el-button login-btn el-button--primary el-button--medium"]'
++
++
++#周二
++系统管理->用户管理: 'xpath ==//span/span[normalize-space(text())="用户管理"]'
++系统管理->用户管理->查询: 'xpath ==//span[normalize-space(text())="查 询"]'
++系统管理->用户管理->重置: 'xpath ==//span[normalize-space(text())="重 置"]'
++系统管理->用户管理->新增: 'xpath ==//span[normalize-space(text())="新 增"]'
++系统管理->用户管理->输入工号: '//label[text()="工号"]//following-sibling::div//input[@placeholder="请输入"]'
++#不建议用分辨率style
++系统管理->用户管理->输入姓名: '//label[text()="姓名"]//following-sibling::div//input[@placeholder="请输入"]'
++
++
++#相对定位，通用（周四）
++表头: '//div[@class="main-top-left"]//div[normalize-space(text())="TECNO事业部"]'
++树列第1级: '//div[@tabindex="0"]/div[@class="el-tree-node__content"]//span[normalize-space(text())="TECNO事业部"]'
++树列第2级: '//div[@role="tree"]/div[@role="treeitem"]/div[2]/div[@role="treeitem"]/div[1]//span[normalize-space(text())="TECNO事业部"]'
++树列第3级: '//div[@role="treeitem"]/div[@role="group"]//div[2]/div[1]/div[1]/span[2]/span[normalize-space(text())="TECNO事业部"]'
++树列第4级: '//span//span[normalize-space(text())="多哥"]'
+\ No newline at end of file
+Index: .idea/modules.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+--- /dev/null	(date 1658198654517)
++++ b/.idea/modules.xml	(date 1658198654517)
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/UIPOMTest.iml" filepath="$PROJECT_DIR$/.idea/UIPOMTest.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+Index: project/DRP/page_object/Login.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/project/DRP/page_object/Login.py b/project/DRP/page_object/Login.py
+new file mode 100644
+--- /dev/null	(date 1658219591296)
++++ b/project/DRP/page_object/Login.py	(date 1658219591296)
+@@ -0,0 +1,30 @@
++import allure
++from public.base.basics import Base, sleep
++from libs.common.read_element import Element
++from selenium.webdriver.common.keys import Keys
++from selenium.webdriver.common.action_chains import ActionChains
++import logging
++
++from ..test_case.conftest import *
++object_name = os.path.basename(__file__).split('.')[0]
++user = Element(pro_name,object_name)
++
++class ModelDatabase(Base):
++
++    # 首页选择密码登录
++    def select_password(self):
++        self.is_click(user["密码登录"])
++
++    def input_account(self, account):
++        self.input_text(user["用户名"],txt=account)
++
++    def input_password(self,password):
++        self.input_text(user["密码"],txt=password)
++
++
++    def click_agreement(self):
++        self.is_click(user["用户协议"])
++
++    def click_login(self):
++        self.is_click(user["登录"])
++
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+--- /dev/null	(date 1658200183947)
++++ b/.idea/misc.xml	(date 1658200183947)
+@@ -0,0 +1,4 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.9 (venv)" project-jdk-type="Python SDK" />
++</project>
+\ No newline at end of file
+Index: project/DRP/page_object/SystemMgmt_UserMgmt.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import allure\r\nfrom public.base.basics import Base, sleep\r\nfrom libs.common.read_element import Element\r\nfrom selenium.webdriver.common.keys import Keys\r\nfrom selenium.webdriver.common.action_chains import ActionChains\r\n\r\nfrom ..test_case.conftest import *\r\nobject_name = os.path.basename(__file__).split('.')[0]\r\nuser = Element(pro_name,object_name)\r\n\r\nclass UserPage(Base):\r\n    \"\"\"用户类\"\"\"\r\n\r\n    @allure.step(\"查找工号\")\r\n    def search_user(self, jobnum=None,name=None):\r\n        if jobnum is not None:\r\n            self.readonly_input_text(user['用户管理-工号输入框'], txt=jobnum)\r\n            sleep(2)\r\n            self.is_click(user['用户管理-工号下拉列表'], jobnum)\r\n        if name is not None:\r\n            self.readonly_input_text(user['用户管理-姓名输入框'], txt=name)\r\n            sleep(2)\r\n            self.is_click(user['用户管理-姓名下拉列表'], name)\r\n        self.is_click(user['用户管理-查询'])\r\n        sleep()\r\n\r\n    @allure.step(\"输入工号\")\r\n    def input_account(self, content):\r\n        self.readonly_input_text(user['用户管理-工号输入框'], txt=content)\r\n        sleep(2)\r\n\r\n    @allure.step(\"输入名称\")\r\n    def input_name(self, content):\r\n        self.readonly_input_text(user['用户管理-姓名输入框'], txt=content)\r\n        sleep(2)\r\n\r\n    @allure.step(\"查询工号\")\r\n    def search_account(self):\r\n        self.is_click(user['用户管理-查询'])\r\n        sleep()\r\n\r\n    @allure.step(\"重置工号\")\r\n    def reset_account(self):\r\n        self.is_click(user['用户管理-重置'])\r\n        sleep()\r\n\r\n    @allure.step(\"新增工号\")\r\n    def append_account(self,content):\r\n        self.is_click(user['用户管理-新增'])\r\n        sleep()\r\n        self.input_text(user['人员列表-新增人员搜索框'], txt=content)\r\n        self.is_click(user['人员列表-新增选择人员'], content)\r\n        self.is_click(user['人员列表-新增'])\r\n\r\n    \"\"\"用户详情类\"\"\"\r\n\r\n    @allure.step(\"编辑用户权限\")\r\n    def edit_Permission(self, jobnum=None, dimension=None):\r\n        self.search_user(jobnum=jobnum)\r\n        if dimension is not None:\r\n            self.is_click(user['用户管理-列表人员'])\r\n            i = 1\r\n            for (key, value) in dimension.items():\r\n                self.edituser_tab_click(user['编辑用户权限-维度'], key)\r\n                if key != '区域':\r\n                    # 对选中框做初始化操作\r\n                    self.checkbox_init(user['编辑用户权限-列表初始化'], pane=i)\r\n                    for item in value:\r\n                        self.edituser_tab_click(user['编辑用户权限-权限'], item, pane=i)\r\n                    i = i + 1\r\n                else:\r\n                    for (brand, area) in value.items():\r\n                        self.is_click(user['编辑用户权限-区域-切换品牌'], brand)\r\n                        # self.tree_init(user['编辑用户权限-区域初始化'], brand) #可单独把区域权限初始化这里无需初始化\r\n                        self.tree_open(brand)\r\n                        for bottom in range(len(area)):\r\n                            self.scroll_into_view(user['编辑用户权限-区域-勾选树末结点勾选框'], area[bottom])\r\n                            self.is_click(user['编辑用户权限-区域-勾选树末结点勾选框'], area[bottom])\r\n                        # 为解决滑动条引起的样式异常问题\r\n                        self.edituser_tab_click(user['编辑用户权限-维度'], \"品牌\")\r\n                        self.edituser_tab_click(user['编辑用户权限-维度'], \"区域\")\r\n        self.is_click(user['编辑用户权限-区域-确定'])\r\n\r\n    @allure.step(\"展开树\")\r\n    def tree_open(self, brand):\r\n        locator = user['编辑用户权限-区域-展开树']\r\n        Npath = []\r\n        Npath.append(locator[0])\r\n        Npath.append(locator[1])\r\n        Npath[1] = Npath[1].replace('variable', brand)\r\n\r\n        \"\"\"展开树\"\"\"\r\n        while 1:\r\n            num = len(self.custom_find_elements(Npath))\r\n            if num != 0:\r\n                self.find_element(Npath).click()\r\n                # self.scroll_into_view(Npath)  # 可改为快速展开的方式\r\n                # sleep(0.5)\r\n                for i in range(3):\r\n                    ActionChains(self.driver).send_keys(Keys.PAGE_DOWN).perform()\r\n                    sleep(0.5)\r\n            else:\r\n                break\r\n\r\n\r\nif __name__ == '__main__':\r\n    pass\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/project/DRP/page_object/SystemMgmt_UserMgmt.py b/project/DRP/page_object/SystemMgmt_UserMgmt.py
+--- a/project/DRP/page_object/SystemMgmt_UserMgmt.py	(revision 9cef3838923c62450d4fc9f1bcf190244fa8e754)
++++ b/project/DRP/page_object/SystemMgmt_UserMgmt.py	(date 1658199909485)
+@@ -5,6 +5,7 @@
+ from selenium.webdriver.common.action_chains import ActionChains
+ 
+ from ..test_case.conftest import *
++
+ object_name = os.path.basename(__file__).split('.')[0]
+ user = Element(pro_name,object_name)
+ 
