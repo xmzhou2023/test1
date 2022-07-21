@@ -15,21 +15,8 @@
     DRP项目对自动化的应用中，可通过修改config.ini配置文件，对环境的全局切换
 
 ## Configuration - 配置（配置信息。）
-    接口文档转yaml的生成脚本，环境的快捷配置，token管理
-    common：
-        全局通用断言、数据库使用封装、日志封装、读取yaml封装
-    case: 
-        各模块里包含的case
-    data：
-        存放测试用例的数据    
-    env:
-        测试环境和预发布环境的数据、token.ini存放token，并切换环境 
-    log：存放日志
-    report：存放报告
-    until：小的测试工具
-    tools：生成用例的工具
-    main：运行主函数入口
-    pytest.ini:pytest的配置文件
+![transsion](http://10.250.112.151:18888/Evan/AutoTest/raw/master/tools/http://10.250.112.151:18888/Evan/AutoTest/raw/master/tools/UML.jpg)
+
 
 ## Severity - 用例等级
 
