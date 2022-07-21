@@ -1,7 +1,8 @@
 from libs.common.read_csv import *
-from libs.config.conf import PEROJECT_PATH
+from libs.config.conf import PEROJECT_PATH, BASE_DIR
 import logging
 import os
+import shutil
 
 PERO_PATH = os.path.join(PEROJECT_PATH, 'TEST')
 # 创建文件依据
@@ -12,12 +13,13 @@ CASE_TEMPLATE_PATH = os.path.join('template/case_template.py')
 OBJECT_TEMPLATE_PATH = os.path.join('template/object_template.py')
 ELEMENT_TEMPLATE_PATH = os.path.join('template/element_template.yaml')
 CONFTEST_TEMPLATE_PATH = os.path.join('template/conftest.py')
-ENV_TEMPLATE_PATH = os.path.join('template/env')
+ENV_TEMPLATE_PATH = os.path.join(BASE_DIR,'libs','tools','template','env')
 
 # 文件下载路径
 CASE_PATH = os.path.join(PERO_PATH, 'test_case/')
 OBJECT_PATH = os.path.join(PERO_PATH, 'page_object/')
 ELEMENT_PATH = os.path.join(PERO_PATH, 'page_element/')
+ENV_PATH = os.path.join(PERO_PATH, 'env')
 
 def read_file(filepaxh):
     with open(filepaxh, 'r', encoding='utf-8') as file:
@@ -36,6 +38,9 @@ def mk_dir(dir_name):
     if not os.path.isdir(dir_name):
         os.makedirs(dir_name)
 
+def read_dir(dir_name):
+    return os.path.isdir(dir_name)
+
 def text_create(name, type="case"):
     if type == "element":
         desktop_path = ELEMENT_PATH
@@ -50,10 +55,6 @@ def text_create(name, type="case"):
         full_path = desktop_path + name + '.py'     # 创建页面对象
         msg = read_file(OBJECT_TEMPLATE_PATH)
         mk_file(full_path, msg)
-
-    elif type == "env":
-        print(ENV_TEMPLATE_PATH)
-
     else:
         desktop_path = CASE_PATH     # 新创建的txt文件的存放路径
         mk_dir(desktop_path)
@@ -69,11 +70,17 @@ def generate_module(file_type):
         for i in range(len(list)):
             text_create(name=list[i][0],type=file_type)
 
+def generate_env():
+    try:
+        shutil.copytree(ENV_TEMPLATE_PATH, ENV_PATH)
+    except FileExistsError as e:
+        print(e)
+
 if __name__ == '__main__':
-    # generate_module("element")
-    # generate_module("object")
-    # generate_module("testcase")
-    generate_module("env")
+    generate_module("element")
+    generate_module("object")
+    generate_module("testcase")
+    generate_env()
 
 
 
