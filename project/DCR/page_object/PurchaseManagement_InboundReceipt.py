@@ -126,7 +126,7 @@ class InboundReceiptPage(Base):
     def click_imei_detail(self):
         """Inbound Receipt列表点击 IMEI Detail按钮"""
         self.is_click(user['IMEI Detail'])
-        sleep(1)
+        sleep(2)
 
     def get_please_select_record(self):
         """获得请选择记录提示语"""
