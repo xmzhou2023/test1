@@ -39,7 +39,8 @@ class DeliveryOrderPage(Base):
     def get_total_text(self):
         """获取Total分页总条数文本"""
         total = self.element_text(user['Total'])
-        return total
+        total1 = total[6:]
+        return total1
 
     def get_sales_order_text(self):
         """获取列表Sales Order ID文本内容"""
@@ -91,7 +92,7 @@ class DeliveryOrderPage(Base):
         sleep(1)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(5)
+        sleep(7)
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
@@ -113,7 +114,8 @@ class DeliveryOrderPage(Base):
     def get_file_size_text(self):
         """导出记录页面，获取列表 Task Name文本"""
         file_size = self.element_text(user['获取文件大小文本'])
-        return file_size
+        file_size1 = file_size[0:1]
+        return file_size1
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
@@ -138,7 +140,8 @@ class DeliveryOrderPage(Base):
     def get_export_time_text(self):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
-        return export_time
+        export_time1 = export_time[0:1]
+        return export_time1
 
     def assert_total(self, total):
         """断言分页总数是否存在数据"""

@@ -79,8 +79,8 @@ class TestQueryIMEIDetail:
         total = query.get_imei_detail_total()
         query.assert_total_imei_detail(total)
 
-        ValueAssert.value_assert_equal(list_product, detail_product)
-        ValueAssert.value_assert_equal(list_itel, detail_itel)
+        ValueAssert.value_assert_In(detail_product, list_product)
+        ValueAssert.value_assert_In(detail_itel, list_itel)
         ValueAssert.value_assert_equal(list_brand, detail_brand)
         ValueAssert.value_assert_IsNoneNot(detail_material)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
