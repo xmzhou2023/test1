@@ -64,8 +64,7 @@ class TestQueryUserMgtCard:
             logging.info("User Management & Authorization卡片，加载Customer Days No Login指标的值正常：{}".format(cust_day_no_login))
         else:
             logging.info("User Management & Authorization卡片，加载Customer Days No Login指标的值不正常：{}".format(cust_day_no_login))
-        page_user_mgt.click_close_export_record()
-        page_user_mgt.click_close_user_management()
+        sleep(2)
 
 
 @allure.feature("首页")
@@ -102,6 +101,8 @@ class TestExportUserMgtCard:
         ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+        export.click_close_export_record()
+        export.click_close_user_management()
 
 
 @allure.feature("Home Page")
@@ -147,7 +148,7 @@ class TestQueryAbnormalDataCard:
             logging.info("Abnormal Data卡片，加载SAP delivery country is different from activation指标的值加载正常：{}".format(infiltration_sale_pcs))
         else:
             logging.info("Abnormal Data卡片，加载SAP delivery country is different from activation指标的值加载不正常：{}".format(infiltration_sale_pcs))
-
+        sleep(2)
 
 
 if __name__ == '__main__':
