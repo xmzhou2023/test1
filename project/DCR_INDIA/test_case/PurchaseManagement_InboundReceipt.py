@@ -59,8 +59,8 @@ class TestQueryIMEIDetail:
         query.click_fold()
 
         #获取Inbound Receipt列表字段文本
-        list_product = query.get_product_text()
-        list_itel = query.get_itel_text()
+        #list_product = query.get_product_text()
+        #list_itel = query.get_itel_text()
         list_brand = query.get_brand_text()
         #点击IMEI Detai功能按钮
         query.click_imei_detail()
@@ -79,8 +79,8 @@ class TestQueryIMEIDetail:
         total = query.get_imei_detail_total()
         query.assert_total_imei_detail(total)
 
-        ValueAssert.value_assert_In(detail_product, list_product)
-        ValueAssert.value_assert_In(detail_itel, list_itel)
+        ValueAssert.value_assert_IsNoneNot(detail_product)
+        ValueAssert.value_assert_IsNoneNot(detail_itel)
         ValueAssert.value_assert_equal(list_brand, detail_brand)
         ValueAssert.value_assert_IsNoneNot(detail_material)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
