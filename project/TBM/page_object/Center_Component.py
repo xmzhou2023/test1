@@ -116,10 +116,15 @@ class CenterComponent(Base, APIRequest):
             self.is_click_tbm(user['待办列表-我申请的-查看详情(节点名称)'], node)
         else:
             self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
+        logging.info('点击查看详情')
         self.frame_exit()
+        logging.info('跳出框架')
         self.switch_window(1)
-        sleep(1)
+        logging.info('切换窗口')
+        sleep(5)
+        logging.info('强制等待')
         self.frame_enter(user['待办列表-iframe'])
+        logging.info('进入框架')
         DomAssert(self.driver).assert_att('基本信息')
 
     @allure.step("我的待办页面-断言：我的待办中存在/不存在该条单据在指定审核节点")

@@ -36,3 +36,8 @@ Get IMEI: "xpath==//*[@id='mainContainer']/section/div[1]/div[5]/div[1]/div/div[
 Get IMEI Detail Total: "xpath==//*[@id='mainContainer']/section/div[1]/div[5]/div[1]/div/div[2]/div[2]/div[2]/span[contains(text(),'Total')]"
 Get IMEI Detail Export: "id==inbound_receipt_imei_export_"
 
+收货第一个复选框: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[1]/div/label/span/span"
+快速收货按钮: "xpath==//Span[contains(text(),'Quick Received')]"
+保存: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div/div/div[3]/span/button/span[contains(text(),'Save')]"
+获取列表状态: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div[contains(text(),'Goods Receipt')]"
+获取收货成功提示: "xpath==//p[contains(text(),'Successfully')]"
