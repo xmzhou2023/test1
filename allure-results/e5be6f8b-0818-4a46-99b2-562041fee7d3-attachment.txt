@@ -1,0 +1,3 @@
+2022-07-21 16:19:28 [[32m    INFO[0m] 查找元素：('xpath', '//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span') (basics.py:73)
+2022-07-21 16:19:28 [[32m    INFO[0m] 点击元素：('xpath', '//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span') (basics.py:157)
+2022-07-21 16:19:29 [[32m    INFO[0m] 查找元素：('xpath', "//a[@href='#/systemManage/areaManage']//li[@role='menuitem']") (basics.py:73)

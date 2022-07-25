@@ -1,0 +1,8 @@
+2022-07-21 16:19:17 [[32m    INFO[0m] 查找元素：('xpath', '//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span') (basics.py:73)
+2022-07-21 16:19:17 [[32m    INFO[0m] 点击元素：('xpath', '//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span') (basics.py:157)
+2022-07-21 16:19:17 [[32m    INFO[0m] 查找元素：('xpath', "//a[@href='#/systemManage/areaManage']//li[@role='menuitem']") (basics.py:73)
+2022-07-21 16:19:18 [[32m    INFO[0m] 点击元素：('xpath', "//a[@href='#/systemManage/areaManage']//li[@role='menuitem']") (basics.py:157)
+2022-07-21 16:19:20 [[32m    INFO[0m] 断言成功：URL为预期一致 | URL: http://10.250.112.166:9000/#/systemManage/areaManage (assert_ui.py:190)
+2022-07-21 16:19:22 [[32m    INFO[0m] 查找元素：['xpath', "//div[@class='main-top-audit']//div[contains(text(),'Infinix事业部')]"] (basics.py:73)
+2022-07-21 16:19:23 [[32m    INFO[0m] 选择点击：['xpath', "//div[@class='main-top-audit']//div[contains(text(),'Infinix事业部')]"] (basics.py:154)
+2022-07-21 16:19:27 [[32m    INFO[0m] 查找元素：['xpath', "//div[@tabindex='0']//span[normalize-space(text())='Infinix事业部']"] (basics.py:73)
