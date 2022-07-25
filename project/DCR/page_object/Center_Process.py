@@ -177,7 +177,7 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击Search")
     def click_search(self):
         self.is_click(user['Inbound Receipt Search'])
-        sleep(2)
+        sleep(8)
 
     @allure.step("获取列表第一个销售单ID")
     def get_text_salesOrder(self, content):
@@ -195,7 +195,7 @@ class InboundReceiptPage(Base):
     def click_checkbox(self):
         Base.presence_sleep_dcr(self, user['第一个复选框'])
         self.is_click_dcr(user['第一个复选框'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("快速收货页面，点击Quick Received按钮")
     def click_received(self):

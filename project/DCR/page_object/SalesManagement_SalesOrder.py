@@ -79,7 +79,7 @@ class SalesOrderPage(Base):
     def click_search(self):
         """销售单页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(3)
 
     @allure.step("获取列表Sales Order ID文本内容")
     def get_text_sales_id(self):
@@ -159,7 +159,7 @@ class SalesOrderPage(Base):
     @allure.step("IMEI库存页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(2)
+        sleep(3)
 
     @allure.step("获取IMEI库存页面，IMEI文本内容")
     def get_text_imei_inventory(self):

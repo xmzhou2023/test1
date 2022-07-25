@@ -30,7 +30,7 @@ class CustomerSalesReportPage(Base):
     @allure.step("点击Search查询按钮")
     def click_search(self):
         self.is_click_dcr(user['Search'])
-        sleep(4)
+        sleep(5.5)
 
     @allure.step("点击Reset重置按钮")
     def click_reset(self):

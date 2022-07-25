@@ -113,7 +113,7 @@ class TestDeliverySubSalesOrder:
         text_status = delivery.get_text_sales_status2()
         """出库操作成功后，验证该条销售单对应的状态是否更新为：Delivered状态"""
         ValueAssert.value_assert_equal(text_status, "Delivered")
-
+        sleep(1)
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_SalesOrder.py'])
