@@ -105,7 +105,7 @@ class TestAddDeliverySubSalesOrder:
         text_status = delivery.get_text_sales_status2()
         """出库操作成功后，验证该条销售单对应的状态是否更新为：Delivered状态"""
         ValueAssert.value_assert_equal(text_status, "Delivered")
-
+        sleep(1)
 
     @allure.story("业务流程")
     @allure.title("采购管理页面，零售商用户快速收货操作")
@@ -115,12 +115,10 @@ class TestAddDeliverySubSalesOrder:
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "EG00056201", "dcr123456")
-        sleep(5)
 
         """销售管理菜单-出库单-筛选出库单用例"""
         user = LoginPage(drivers)
         user.click_gotomenu("Purchase Management", "Inbound Receipt")
-        sleep(5)
 
         """定义账号标识是否是二代sub_Account还是零售商retail_Account 账号收货"""
         usercount = "retail_Account"
@@ -163,7 +161,7 @@ class TestAddDeliverySubSalesOrder:
             """筛选二代收货列表数据，断言数据正确性"""
             ValueAssert.value_assert_equal(salesorder, salesid)
             ValueAssert.value_assert_equal(deliveryorder, deliveryid)
-
+            sleep(1)
 
 # @allure.feature("销售管理-销售单菜单")
 # class TestSubDeliveryReceivReturn():

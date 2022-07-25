@@ -82,7 +82,6 @@ class TestEditShop:
 
         edit_shop.input_extend_sales_region("Barisal itel")
         edit_shop.click_extend_shop_grade()
-
         edit_shop.click_extend_shop_type()
         edit_shop.click_extend_image_type()
         edit_shop.extend_retail_customer("SN455338")
@@ -114,32 +113,62 @@ class TestEditShop:
 
 @allure.feature("门店管理-门店管理(global)")
 class TestDeleteShop:
-    @allure.story("删除门店")
-    @allure.title("门店管理页面，对新增的扩展品牌门店进行删除操作")
-    @allure.description("门店管理页面，对新增的扩展品牌门店进行删除操作")
+    @allure.story("禁用门店")
+    @allure.title("门店管理页面，对新增的门店进行禁用操作")
+    @allure.description("门店管理页面，对新增的门店进行禁用操作")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_003(self, drivers):
         """实例化ShopManagementPage类，调用页面元素方法"""
-        del_shop = ShopManagementPage(drivers)
+        disable = ShopManagementPage(drivers)
         """选中门店进行删除扩展门店"""
-        shop_id1 = del_shop.get_shop_id_text()
-        shop_name1 = del_shop.get_shop_name_text()
-        del_shop.click_first_checkbox()
-        del_shop.click_second_checkbox()
-        del_shop.click_more_option()
-        del_shop.click_delete()
-        del_shop.click_confirm_delete()
-        """获取删除成功提示语, 删除成功后显示No Data提示语"""
+        shop_id1 = disable.get_shop_id_text()
+        shop_name1 = disable.get_shop_name_text()
+
+        disable.click_first_checkbox()
+        disable.click_second_checkbox()
+        disable.click_more_option()
+        disable.click_disable_confirm()
+        """获取删除成功提示语, 删除成功后显示Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Successfully")
-        sleep(2)
+
         """增加断言，获取列表删除前的Shop id、Shop name与删除后的 Shop id、Shop name比较是否不包含此内容"""
-        del_shop.click_query_search()
-        shop_id2 = del_shop.get_shop_id_text()
-        shop_name2 = del_shop.get_shop_name_text()
+        shop_id2 = disable.get_shop_id_text()
+        shop_name2 = disable.get_shop_name_text()
         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
         sleep(1)
+
+
+#暂时无删除功能，用例留着
+# @allure.feature("门店管理-门店管理(global)")
+# class TestDeleteShop:
+#     @allure.story("删除门店")
+#     @allure.title("门店管理页面，对新增的扩展品牌门店进行删除操作")
+#     @allure.description("门店管理页面，对新增的扩展品牌门店进行删除操作")
+#     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+#     def test_001_003(self, drivers):
+#         """实例化ShopManagementPage类，调用页面元素方法"""
+#         del_shop = ShopManagementPage(drivers)
+#         """选中门店进行删除扩展门店"""
+#         shop_id1 = del_shop.get_shop_id_text()
+#         shop_name1 = del_shop.get_shop_name_text()
+#         del_shop.click_first_checkbox()
+#         del_shop.click_second_checkbox()
+#         del_shop.click_more_option()
+#         del_shop.click_delete()
+#         del_shop.click_confirm_delete()
+#         """获取删除成功提示语, 删除成功后显示Successfully提示语"""
+#         dom = DomAssert(drivers)
+#         dom.assert_att("Successfully")
+#
+#         """增加断言，获取列表删除前的Shop id、Shop name与删除后的 Shop id、Shop name比较是否不包含此内容"""
+#         del_shop.click_query_search()
+#         shop_id2 = del_shop.get_shop_id_text()
+#         shop_name2 = del_shop.get_shop_name_text()
+#         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
+#         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
+#         sleep(1)
 
 
 if __name__ == '__main__':
