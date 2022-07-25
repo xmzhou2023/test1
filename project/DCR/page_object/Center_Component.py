@@ -13,48 +13,48 @@ ini = ReadConfig(pro_name, pro_env)
 class LoginPage(Base):
     """DCR登录类"""
 
+    @allure.step("输入工号")
     def input_account(self, content):
-        """输入工号"""
         self.input_text(user['工号输入框'], txt=content)
         sleep()
 
+    @allure.step("输入密码")
     def input_passwd(self, content):
-        """输入密码"""
         self.input_text(user['密码输入框'], txt=content)
         sleep()
 
+    @allure.step("语言切换")
     def switch_lanuage(self, content):
-        """语言切换"""
         self.is_click(user['语言切换'])
         self.is_click(user['选择英文'], content)
 
+    @allure.step("判断是否被选中")
     def click_check_box(self):
-        """判断是否被选中"""
         self.is_click(user['隐私保护勾选'])
         sleep(1)
 
+    @allure.step("获取复选框对应的 Class属性是否包含is-checked")
     def get_check_box_class(self):
-        """获取复选框对应的 Class属性是否包含is-checked"""
         ss = self.find_element(user['隐私保护勾选'])
         get_check_state = ss.get_attribute('class')
         return get_check_state
 
+    @allure.step("判断是否被选中")
     def check_box(self):
-        """判断是否被选中"""
         checkbox = self.select_state(user['隐私保护勾选'])
         return checkbox
 
+    @allure.step("点击帐号密码登录")
     def click_loginsubmit(self):
-        """点击帐号密码登录"""
         self.is_click(user['登录'])
 
+    @allure.step("点击退出登录")
     def click_loginOut(self):
-        """点击退出登录"""
         sleep(2)
         self.is_click(user['退出登录'])
         sleep(2)
 
-    """登录方法"""
+    @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
         user = LoginPage(drivers)
         user.get_url(ini.url)
@@ -68,9 +68,8 @@ class LoginPage(Base):
         user.click_loginsubmit()
         sleep(6)
 
-    """查找菜单"""
+    @allure.step("查找菜单")
     def click_gotomenu(self, *content):
-        """前往左侧菜单栏"""
         level = []
         navstr = ""
         for i in range(len(content)):
