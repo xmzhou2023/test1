@@ -103,19 +103,20 @@ class HomePagePage(Base):
         infiltration_sales_text = self.element_text(user['Get Infiltration Sales Text'])
         return infiltration_sales_text
 
-    @allure.step("点击导出 Abnormal Data指标数据")
+    @allure.step("点击导出Abnormal Data指标数据")
     def click_export_abnormal_data(self):
         self.is_click(user['Abnormal Data Export'])
+        sleep(2)
+
 
 
     #HomePage首页，导出功能验证
-    @allure.step("点击导出查看更多图标")
+    @allure.step("点击导出查看more更多按钮")
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(2)
-        """页面点击more按钮"""
         self.is_click(user['More'])
-        sleep(65)
+        sleep(13)
 
     @allure.step("导出记录页面，点击Search按钮")
     def click_export_search(self):
@@ -128,9 +129,8 @@ class HomePagePage(Base):
         return status
 
     @allure.step("导出记录页面，获取列表 Task Name文本")
-    def get_task_name_text(self):
-        Base.presence_sleep_dcr(self, user['获取任务名称文本'])
-        task_name = self.element_text(user['获取任务名称文本'])
+    def get_task_name_text(self, content):
+        task_name = self.element_text(user['获取任务名称文本'], content)
         return task_name
 
     @allure.step("导出记录页面，获取列表 Task Name文本")
@@ -179,6 +179,109 @@ class HomePagePage(Base):
         self.is_click(user['关闭用户管理菜单'])
         sleep(2)
 
+
+    """查询Sub-dealer Management 指标数据"""
+    @allure.step("获取Sub-dealer Management文本内容")
+    def get_sub_dealer_management(self):
+        sub_dealer = self.element_text(user['Get Sub dealer Management'])
+        return sub_dealer
+
+    @allure.step("获取Total Sub dealer指标值内容")
+    def get_total_sub_dealer_value(self):
+        total_sub_dealer = self.element_text(user['Get Total Sub dealer'])
+        return total_sub_dealer
+
+    @allure.step("获取Number of rebated user指标值内容")
+    def get_number_of_rebated_user(self):
+        number_of_rebated = self.element_text(user['Get Number of rebated user'])
+        return number_of_rebated
+
+    @allure.step("获取Days No Stock In Out指标值内容")
+    def get_days_no_stock_in_out(self):
+        days_no_stock_in = self.element_text(user['Get Days No Stock In Out'])
+        return days_no_stock_in
+
+    @allure.step("获取No Permission Seller Buyer指标值内容")
+    def get_no_permission_seller_buyer(self):
+        no_permission = self.element_text(user['Get No Permission Seller Buyer'])
+        return no_permission
+
+    @allure.step("点击Sub dealer Management导出功能")
+    def click_sub_dealer_export(self):
+        export = self.is_click(user['Sub dealer Management Export'])
+        return export
+
+    @allure.step("点击关闭 Customer Management global菜单")
+    def click_close_customer_mgt(self):
+        self.is_click(user['关闭客户管理菜单'])
+        sleep(2)
+
+
+
+    """Distributor Management 指标数据"""
+    @allure.step("获取Distributor Management文本内容")
+    def get_distributor_management(self):
+        distributor = self.element_text(user['Get Distributor Management'])
+        return distributor
+
+    @allure.step("获取Total Distributor 指标值")
+    def get_total_distributor(self):
+        total_distributor = self.element_text(user['Get Total Distributor'])
+        return total_distributor
+
+    @allure.step("获取Dist Number of rebated user指标值")
+    def get_dist_number_of_rebated_user(self):
+        dist_number_of_rebated = self.element_text(user['Get Dist Number of rebated user'])
+        return dist_number_of_rebated
+
+    @allure.step("获取Dist Days No Stock in Out指标值")
+    def get_dist_days_no_stock_in_out(self):
+        dist_days_no_stock = self.element_text(user['Get Dist Days No Stock in Out'])
+        return dist_days_no_stock
+
+    @allure.step("获取Dist No Permission Buyer指标值")
+    def get_dist_no_permission_buyer(self):
+        dist_no_permission = self.element_text(user['Get Dist No Permission Buyer'])
+        return dist_no_permission
+
+    @allure.step("点击Distributor Management 指标的 Export导出功能")
+    def click_distributor_export(self):
+        self.is_click(user['Distributor Management Export'])
+
+
+    """Shop Management 指标定位"""
+    @allure.step("获取Shop Management文本内容")
+    def get_shop_management_text(self):
+        shop_mgt = self.element_text(user['Get Shop Management'])
+        return shop_mgt
+
+    @allure.step("获取Total Shop指标值")
+    def get_total_shop(self):
+        total_shop = self.element_text(user['Get Total Shop'])
+        return total_shop
+
+    @allure.step("获取Shop Number of rebated user指标值")
+    def get_shop_number_of_rebated_user(self):
+        shop_number = self.element_text(user['Get Shop Number of rebated user'])
+        return shop_number
+
+    @allure.step("获取Total Shop指标值")
+    def get_shop_days_no_upload_sales(self):
+        shop_days = self.element_text(user['Get Shop Days No Upload Sales'])
+        return shop_days
+
+    @allure.step("点击Shop Management Export导出按钮")
+    def click_shop_export(self):
+        self.is_click(user['Shop Management Export'])
+        sleep(2)
+
+    @allure.step("关闭Shop Management global菜单")
+    def click_close_shop_mgt(self):
+        self.is_click(user['关闭门店管理菜单'])
+        sleep(1)
+
+
+
     @allure.step("断言文件下载时长")
     def assert_file_time_size(self, file_size, export_time):
         if int(file_size) > 0:
@@ -191,6 +294,7 @@ class HomePagePage(Base):
         else:
             logging.info("User Management & Authorization卡片数据导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
         sleep(2)
+
 
 
 if __name__ == '__main__':
