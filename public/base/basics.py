@@ -1,4 +1,5 @@
 import datetime
+import time
 
 import openpyxl
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,6 +13,11 @@ import os
 import logging
 import allure
 import datetime
+import ddddocr
+
+import warnings
+from PIL import Image
+
 """
 selenium基类
 本文件存放了selenium基类的封装方法
@@ -58,6 +64,34 @@ class Base(object):
             logging.info("打开网页：%s" % url)
         except TimeoutException:
             raise TimeoutException("打开%s超时请检查网络或网址服务器" % url)
+
+    def get_graphical_code(self, locator):
+        """获取图形验证码"""
+        # 验证码下载路径
+        html_path = os.path.join(DOWNLOAD_PATH, 'driver_html.png')
+        code_path = os.path.join(DOWNLOAD_PATH, 'code.png')
+        time.sleep(3)   # 定个缓冲时间
+
+        self.driver.save_screenshot(html_path)   # 截取整个网页
+        location = self.find_element(locator)   # 获取需要识别的元素对象
+        size = location.size # 获取需要识别的元素尺寸
+
+        # 获取验证码图片的坐标大小
+        rangle = (int(location.location['x']), int(location.location['y']), int(location.location['x'] + size['width']),
+                  int(location.location['y'] + size['height']))
+
+        # 打开保存的网页图片并截取验证码区域并保存
+        Image.open(html_path).crop(rangle).save(code_path)
+
+        # 识别截图内容验证码
+        ocr = ddddocr.DdddOcr()
+
+        with open(code_path, "rb") as f:
+            img_bytes = f.read()
+
+        res = ocr.classification(img_bytes)
+
+        return res
 
     def find_element(self, locator, choice=None):
         """寻找单个元素"""

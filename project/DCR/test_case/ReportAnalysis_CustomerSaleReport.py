@@ -3,6 +3,7 @@ from libs.common.connect_sql import *
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
+from public.base.basics import Base
 import pytest
 import allure
 
@@ -22,7 +23,7 @@ class TestQueryCustomerSalesReport:
         user.click_gotomenu("Report Analysis", "Customer Sales Report")
 
         sales_report = CustomerSalesReportPage(drivers)
-        sales_report.input_date("2022-05-01", "2022-06-06")
+        sales_report.input_date("2022-07-01", "2022-07-24")
         sales_report.click_search()
 
         delivery_total = sales_report.get_delivery_sum_text()
@@ -31,18 +32,20 @@ class TestQueryCustomerSalesReport:
 
         #查询国包用户下出库单总数
         user = SQL('DCR', 'test')
-        del_result = user.query_db("select count(delivery_code) as sum from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and status=80200001 and delivery_date between '2022-05-01' and '2022-06-06'")
+        del_result = user.query_db("select count(delivery_code) as sum from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and status=80200001 and delivery_date between '2022-07-01' and '2022-07-24'")
         de_total = del_result[0].get('sum')
 
         #查询BD40344201国包用户下 已退货的总数
-        return_result = user.query_db("select count(delivery_code) as sum from t_channel_delivery_ticket  where warehouse_id = '62139' and seller_id = '1596874516539667' and return_status = 1 and delivery_date between '2022-05-01' and '2022-06-06'")
+        return_result = user.query_db("select count(delivery_code) as sum from t_channel_delivery_ticket  where warehouse_id = '62139' and seller_id = '1596874516539667' and return_status = 1 and delivery_date between '2022-07-01' and '2022-07-24'")
         re_total = return_result[0].get('sum')
-
+        #出库单-退货单=实际销售总数
         actualsales = de_total - re_total
+        actualsales1 = int(actualsales)
         ValueAssert.value_assert_equal(delivery_total, de_total)
         ValueAssert.value_assert_equal(return_total, re_total)
-        ValueAssert.value_assert_equal(actual_sales, actualsales)
+        ValueAssert.value_assert_equal(actual_sales, actualsales1)
         sleep(1)
+
 
 if __name__ == '__main__':
     pytest.main(['ReportAnalysis_CustomerSaleReport.py'])
