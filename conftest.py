@@ -53,7 +53,8 @@ def drivers(request, remote_ui=False):
             option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
             option.set_capability("browserVersion", "99.0")
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
-            driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
+            # driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
+            driver = webdriver.Remote("http://10.250.113.15:4444", options=option)
             # driver = webdriver.Remote("http://10.250.113.16:4444", options=option)
             # inspect_element() # page_element YMAL文件自检
         else:
