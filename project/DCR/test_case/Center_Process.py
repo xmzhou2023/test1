@@ -145,7 +145,6 @@ class TestAddDeliverySubSalesOrder:
             receipt.input_salesOrder(salesid)
             receipt.input_deliveryOrder(deliveryid)
             receipt.click_search()
-
             receipt.click_checkbox()
             receipt.click_received()
             receipt.click_save()
