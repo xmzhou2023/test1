@@ -1,6 +1,7 @@
 from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.Center_Process import SalesOrderPage
 from project.DCR.page_object.Center_Process import InboundReceiptPage
+from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from public.base.basics import Base
 from libs.common.connect_sql import *
 from public.base.assert_ui import ValueAssert, DomAssert
@@ -163,10 +164,89 @@ class TestAddDeliverySubSalesOrder:
             ValueAssert.value_assert_equal(deliveryorder, deliveryid)
             sleep(1)
 
-# @allure.feature("销售管理-销售单菜单")
-# class TestSubDeliveryReceivReturn():
+
+    @allure.story("业务流程")
+    @allure.title("退货页面，零售商用户，对已收货的销售单，进行退货操作")
+    @allure.description("退货页面，零售商用户收货成功后，对已收货的销售的，进行退货操作")
+    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    def test_004_001(self, drivers):
+            """零售商EG00056201账号, 进行退货操作"""
+            """刷新页面"""
+            refresh = Base(drivers)
+            refresh.refresh()
+
+            """打开Purchase Management菜单"""
+            menu = LoginPage(drivers)
+            menu.click_gotomenu("Sales Management", "Return Order")
+
+            """实例化 二代退货单类"""
+            return_order = ReturnOrderPage(drivers)
+            """从数据库表，查询二代账号，最近新建的销售单ID与出库单ID"""
+            user = SQL('DCR', 'test')
+            varsql = "select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200001 order by created_time desc limit 1"
+            result = user.query_db(varsql)
+            delivery_code = result[0].get("delivery_code")
+
+            return_order.click_Add()
+            return_order.click_Return_Type()
+            return_order.radio_Delivery_order()
+            return_order.input_Delivery_order(delivery_code)
+            return_order.click_Check()
+            record = return_order.get_text_Record()
+            ValueAssert.value_assert_equal("Success", record)
+            return_order.click_Submit()
+
+            """断言页面是否存在提交成功 Submit Success!文本"""
+            dom = DomAssert(drivers)
+            dom.assert_att("Submit Success!")
+            """方法参数赋值给变量"""
+            return_order.input_Delivery_Orderid(delivery_code)
+            return_order.click_Search()
+
+            """筛选退货列表页，获取退货出库单ID文本 与数据库表中查询的出库单ID对比是否一致"""
+            Delivery_OrderID = return_order.get_text_deliveryID()
+            status = return_order.get_return_status()
+            ValueAssert.value_assert_equal(Delivery_OrderID, delivery_code)
+            ValueAssert.value_assert_equal("Pending Approval", status)
+            sleep(1)
 
 
+    @allure.story("业务流程")
+    @allure.title("退货单页面，二代账号, 进行审核退货单操作")
+    @allure.description("二代账号, 进行退货审核操作")
+    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    def test_001_005(self, drivers):
+        """退货单列表页面，二代账号, 进行审核退货单操作"""
+        user = LoginPage(drivers)
+        user.dcr_login(drivers, "BD291501", "dcr123456")
+
+        """打开Purchase Management菜单"""
+        user.click_gotomenu("Sales Management", "Return Order")
+
+        """实例化 Return order退货单类"""
+        return_approve = ReturnOrderPage(drivers)
+        """从数据库表，查询二代账号，最近新建的销售单ID与出库单ID"""
+        varsql1 = "select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200001 order by created_time desc limit 1"
+        user = SQL('DCR', 'test')
+        result = user.query_db(varsql1)
+        delivery_code = result[0].get("delivery_code")
+
+        return_approve.input_Delivery_Orderid(delivery_code)
+        return_approve.click_Search()
+
+        return_approve.click_checkbox()
+        return_approve.click_Approve_button()
+        return_approve.input_remark("同意退货")
+        return_approve.click_agree()
+
+        """ 断言页面是否存在审核成功Approval successfully文本 """
+        dom = DomAssert(drivers)
+        dom.assert_att("Approval successfully")
+
+        """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
+        status = return_approve.get_text_Status()
+        ValueAssert.value_assert_equal("Approved", status)
+        sleep(1)
 
 
 if __name__ == '__main__':
