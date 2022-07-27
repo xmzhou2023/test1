@@ -9,10 +9,10 @@ import pytest
 import allure
 
 
-@allure.feature("Home Page")
+@allure.feature("首页")
 class TestQueryUserMgtCard:
-    @allure.story("查询")
-    @allure.title("查看Homepage首页，User Management& Authorization卡片维度数据")
+    @allure.story("查询User Management& Authorization卡片")
+    @allure.title("查看Homepage首页，User Management& Authorization卡片维度数据加载")
     @allure.description("查看Homepage首页，User Management& Authorization卡片的各维度数据")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
@@ -109,7 +109,7 @@ class TestExportUserMgtCard:
 @allure.feature("首页")
 class TestQueryAbnormalDataCard:
     @allure.story("查询Abnormal Data卡片")
-    @allure.title("Homepage首页，查询Abnormal Data卡片维度数据")
+    @allure.title("Homepage首页，查询Abnormal Data卡片维度数据加载")
     @allure.description("Homepage首页，查询Abnormal Data卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_003_001(self, drivers):
@@ -152,7 +152,7 @@ class TestQueryAbnormalDataCard:
         sleep(2)
 
 
-@allure.feature("Home Page")
+@allure.feature("首页")
 class TestExportAbnormalDataCard:
     @allure.story("导出Abnormal Data卡片")
     @allure.title("Homepage首页，导出Abnormal Data卡片维度数据")
@@ -189,9 +189,9 @@ class TestExportAbnormalDataCard:
 
 
 @allure.feature("首页")
-class TestQuerySubDealerManagementCard:
+class TestQuerySubDealerMgtCard:
     @allure.story("查询Sub-dealer Management卡片")
-    @allure.title("Homepage首页，查询Sub-dealer Management卡片维度数据")
+    @allure.title("Homepage首页，查询Sub-dealer Management卡片维度数据加载")
     @allure.description("Homepage首页，查询Sub-dealer Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_005_001(self, drivers):
@@ -232,7 +232,7 @@ class TestQuerySubDealerManagementCard:
 
 
 @allure.feature("首页")
-class TestExportSubDealerManagementCard:
+class TestExportSubDealerMgtCard:
     @allure.story("导出Sub-dealer Management卡片")
     @allure.title("Homepage首页，导出Sub-dealer Management卡片维度数据")
     @allure.description("Homepage首页，导出Sub-dealer Management卡片的各维度数据")
@@ -271,7 +271,7 @@ class TestExportSubDealerManagementCard:
 @allure.feature("首页")
 class TestQueryDistManagementCard:
     @allure.story("查询Distributor Management卡片")
-    @allure.title("Homepage首页，查询Distributor Management卡片维度数据")
+    @allure.title("Homepage首页，查询Distributor Management卡片维度数据加载")
     @allure.description("Homepage首页，查询Distributor Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_007_001(self, drivers):
@@ -345,7 +345,7 @@ class TestExportDistManagementCard:
 @allure.feature("首页")
 class TestQueryShopManagementCard:
     @allure.story("查询Shop Management卡片")
-    @allure.title("Homepage首页，查询Shop Management卡片维度数据")
+    @allure.title("Homepage首页，查询Shop Management卡片维度数据加载")
     @allure.description("Homepage首页，查询Shop Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_009_001(self, drivers):

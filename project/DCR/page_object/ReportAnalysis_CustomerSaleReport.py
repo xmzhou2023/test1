@@ -30,7 +30,7 @@ class CustomerSalesReportPage(Base):
     @allure.step("点击Search查询按钮")
     def click_search(self):
         self.is_click_dcr(user['Search'])
-        sleep(6)
+        sleep(11)
 
     @allure.step("点击Reset重置按钮")
     def click_reset(self):
@@ -50,6 +50,7 @@ class CustomerSalesReportPage(Base):
         actual_sales = self.element_text(user['获取实际销售数量文本'])
         actual_sales1 = int(actual_sales)
         return actual_sales1
+
 
     @allure.step("获取退货总数文本")
     def get_return_sum_text(self):

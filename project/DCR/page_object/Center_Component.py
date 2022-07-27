@@ -66,10 +66,11 @@ class LoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(6)
+        sleep(4)
 
     @allure.step("查找菜单")
     def click_gotomenu(self, *content):
+        sleep(2)
         level = []
         navstr = ""
         for i in range(len(content)):

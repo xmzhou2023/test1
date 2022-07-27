@@ -10,9 +10,9 @@ import pytest
 import allure
 
 
-@allure.feature("销售管理-销售单菜单")
+@allure.feature("销售管理-销售单")
 class TestAddDeliverySubSalesOrder:
-    @allure.story("业务流程")
+    @allure.story("渠道销售业务流程")
     @allure.title("销售单页面，新增销售单操作")
     @allure.description("销售单页面，新增销售单操作成功后，校验新增的销售单是否存在")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -55,7 +55,7 @@ class TestAddDeliverySubSalesOrder:
         sleep(1)
 
 
-    @allure.story("业务流程")
+    @allure.story("渠道销售业务流程")
     @allure.title("销售单页面，对新增的销售单进行出库操作")
     @allure.description("销售单页面，对新增的销售单进行出库操作成功后，校验销售单状态是否更新")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -108,7 +108,7 @@ class TestAddDeliverySubSalesOrder:
         ValueAssert.value_assert_equal(text_status, "Delivered")
         sleep(1)
 
-    @allure.story("业务流程")
+    @allure.story("渠道销售业务流程")
     @allure.title("采购管理页面，零售商用户快速收货操作")
     @allure.description("采购管理页面，零售商用户快速收货操作成功后，校验收货状态是否更新")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -164,7 +164,7 @@ class TestAddDeliverySubSalesOrder:
             sleep(1)
 
 
-    @allure.story("业务流程")
+    @allure.story("渠道销售业务流程")
     @allure.title("退货页面，零售商用户，对已收货的销售单，进行退货操作")
     @allure.description("退货页面，零售商用户收货成功后，对已收货的销售的，进行退货操作")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -210,8 +210,8 @@ class TestAddDeliverySubSalesOrder:
             sleep(1)
 
 
-    @allure.story("业务流程")
-    @allure.title("退货单页面，二代账号, 进行审核退货单操作")
+    @allure.story("渠道销售业务流程")
+    @allure.title("退货页面，二代账号, 进行审核退货单操作")
     @allure.description("二代账号, 进行退货审核操作")
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_005(self, drivers):
