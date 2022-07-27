@@ -305,7 +305,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("关键器件-关键器件流程，查看单据状态已变为审批通过")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_010(self, drivers, Component_API):
+    def test_002_010(self, drivers, KeyComponents_SQL, Component_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
         user.onework_key_components_flow_flowone(Component_API[0])
@@ -321,7 +321,6 @@ class TestTheProcessOfExaminationAndApproval:
         sleep(60)
         user.assert_my_application_flow(Component_API[0], '审批完成')
         document_status = user.get_key_components_flow_info()[5]
-        user.delete_key_components_flow_sql('50A1S')
         user.assert_add_flow(document_status)
 
 

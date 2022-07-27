@@ -17,10 +17,10 @@ class TestCreateProcess:
         user.input_pcba_bom_cooperation_add_bom_info('制作类型', 'PCBA BOM制作')
         user.input_pcba_bom_cooperation_add_bom_info('品牌', 'itel')
         user.input_pcba_bom_cooperation_add_bom_info('机型', 'JMB-01')
-        user.input_pcba_bom_cooperation_add_bom_info('阶段', '量产阶段')
+        user.input_pcba_bom_cooperation_add_bom_info('阶段', '试产阶段')
         user.input_pcba_bom_cooperation_add_bom_info('制作虚拟贴片/套片', '否')
         user.click_pcba_bom_cooperation_add_bomtree()
-        user.input_pcba_bom_cooperation_bomtree('BOM状态', '量产')
+        user.input_pcba_bom_cooperation_bomtree('BOM状态', '试产')
         user.input_pcba_bom_cooperation_bomtree('物料编码', '12105821')
         user.input_pcba_bom_cooperation_bomtree('用量', '1')
         user.select_pcba_bom_cooperation_business_review('李小素')
@@ -28,7 +28,7 @@ class TestCreateProcess:
         user.click_pcba_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('创建流程成功')
         user.refresh()
-        user.assert_pcba_bom_cooperation_add_result('PCBA BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '未同步')
+        user.assert_pcba_bom_cooperation_add_result('PCBA BOM制作', 'JMB-01', 'itel', '试产阶段', '审批中', '未同步')
         process_code = user.get_pcba_bom_cooperation_info()[2]
         user.delete_pcba_bom_cooperation_flow(process_code)
 
@@ -101,4 +101,4 @@ class TestCreateProcessExceptionScenario:
 
 
 if __name__ == '__main__':
-    pytest.main(['project/DRP/testcase/run_code.py'])
+    pytest.main(['BOMCooperation_PCBABomCooperation.py'])

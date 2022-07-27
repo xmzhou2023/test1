@@ -48,7 +48,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
     @allure.step("关键器件流程新增页面-项目信息组合")
     def key_components_flow_add_item_info(self):
         self.input_key_components_flow_add_item_info('品牌', 'itel')
-        self.input_key_components_flow_add_item_info('项目', '50A1S')
+        self.input_key_components_flow_add_item_info('项目', '50A712U')
         self.input_key_components_flow_add_item_info('基线名称', '基线GP2325')
         self.input_key_components_flow_add_item_info('平台', '测试平台')
         self.input_key_components_flow_add_item_info('上市时间', '2022-06-20')
