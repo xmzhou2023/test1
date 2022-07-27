@@ -50,10 +50,10 @@ class TestCreateProcess:
         user.edit_oneworks_shipping_country_search_product_definition_info('aaa', '1G')
         user.edit_oneworks_shipping_country_search_product_definition_info('bbb', 'G70')
         user.click_oneworks_shipping_country_search_product_definition_info_confirm()
-        user.select_shipping_country_flow_signatory('汇签人员', '李小素')
-        user.click_shipping_country_flow_add_submit()
-        process_code = user.get_shipping_country_flow_info('项目名称test2022-07-14-14:44:47')[2]
-        user.delete_shipping_country_flow(process_code)
+        user.select_shipping_country_search_signatory('汇签人员', '李小素')
+        user.click_shipping_country_search_add_submit()
+        process_code = user.get_shipping_country_search_info('项目名称test2022-07-14-14:44:47')[2]
+        user.delete_shipping_country_search(process_code)
 
 
 @allure.feature("出货国家-出货国家查询")  # 模块名称
@@ -82,12 +82,12 @@ class TestTheProcessOfExaminationAndApproval:
         user.edit_oneworks_shipping_country_search_product_definition_info('aaa', '3G')
         user.edit_oneworks_shipping_country_search_product_definition_info('bbb', 'MT6762D')
         user.click_oneworks_shipping_country_search_product_definition_info_confirm()
-        user.select_shipping_country_flow_signatory('汇签人员', '李小素')
-        user.click_shipping_country_flow_add_submit()
+        user.select_shipping_country_search_signatory('汇签人员', '李小素')
+        user.click_shipping_country_search_add_submit()
         DomAssert(drivers).assert_att('请求成功')
-        process_code = user.get_shipping_country_flow_info('项目名称test2022-07-14-14:44:47')[2]
+        process_code = user.get_shipping_country_search_info('项目名称test2022-07-14-14:44:47')[2]
         user.shipping_country_search_onework_agree_flow(process_code, '产品部管理员审核')
-        user.delete_shipping_country_flow(process_code)
+        user.delete_shipping_country_search(process_code)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("产品部汇签审核成功")  # 用例名称
@@ -113,13 +113,13 @@ class TestTheProcessOfExaminationAndApproval:
         user.edit_oneworks_shipping_country_search_product_definition_info('aaa', '3G')
         user.edit_oneworks_shipping_country_search_product_definition_info('bbb', 'MT6762D')
         user.click_oneworks_shipping_country_search_product_definition_info_confirm()
-        user.select_shipping_country_flow_signatory('汇签人员', '李小素')
-        user.click_shipping_country_flow_add_submit()
+        user.select_shipping_country_search_signatory('汇签人员', '李小素')
+        user.click_shipping_country_search_add_submit()
         DomAssert(drivers).assert_att('请求成功')
-        process_code = user.get_shipping_country_flow_info('项目名称test2022-07-14-14:44:47')[2]
+        process_code = user.get_shipping_country_search_info('项目名称test2022-07-14-14:44:47')[2]
         user.shipping_country_search_onework_agree_flow(process_code, '产品部管理员审核')
         user.shipping_country_search_onework_agree_flow(process_code, '产品部汇签')
-        user.delete_shipping_country_flow(process_code)
+        user.delete_shipping_country_search(process_code)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("产品经理修改审核成功")  # 用例名称
@@ -144,14 +144,14 @@ class TestTheProcessOfExaminationAndApproval:
         user.edit_oneworks_shipping_country_search_product_definition_info('aaa', '2G')
         user.edit_oneworks_shipping_country_search_product_definition_info('bbb', 'G70')
         user.click_oneworks_shipping_country_search_product_definition_info_confirm()
-        user.select_shipping_country_flow_signatory('汇签人员', '李小素')
-        user.click_shipping_country_flow_add_submit()
+        user.select_shipping_country_search_signatory('汇签人员', '李小素')
+        user.click_shipping_country_search_add_submit()
         DomAssert(drivers).assert_att('请求成功')
-        process_code = user.get_shipping_country_flow_info('项目名称test2022-07-14-14:44:47')[2]
+        process_code = user.get_shipping_country_search_info('项目名称test2022-07-14-14:44:47')[2]
         user.shipping_country_search_onework_agree_flow(process_code, '产品部管理员审核')
         user.shipping_country_search_onework_agree_flow(process_code, '产品部汇签')
-        user.assert_shipping_country_flow_my_todo_node(process_code, '产品经理修改', True)
-        user.enter_shipping_country_flow_onework_edit(process_code)
+        user.assert_my_todo_node(process_code, '产品经理修改', True)
+        user.enter_oneworks_edit(process_code)
         user.click_oneworks_shipping_country_search_product_definition_info_edit('修改项目名称')
         querytime = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
         user.edit_oneworks_shipping_country_search_product_definition_info('全球版本', '版本3')
@@ -162,10 +162,10 @@ class TestTheProcessOfExaminationAndApproval:
         user.edit_oneworks_shipping_country_search_product_definition_info('aaa', '3G')
         user.edit_oneworks_shipping_country_search_product_definition_info('bbb', 'MT6762D')
         user.click_oneworks_shipping_country_search_product_definition_info_confirm()
-        user.click_onework_shipping_country_flow_agree()
+        user.click_onework_shipping_country_search_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_shipping_country_flow_onework()
-        user.delete_shipping_country_flow(process_code)
+        user.quit_oneworks()
+        user.delete_shipping_country_search(process_code)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("产品部管理员复核审核成功")  # 用例名称
@@ -191,14 +191,14 @@ class TestTheProcessOfExaminationAndApproval:
         user.edit_oneworks_shipping_country_search_product_definition_info('aaa', '4G')
         user.edit_oneworks_shipping_country_search_product_definition_info('bbb', 'MT6580P')
         user.click_oneworks_shipping_country_search_product_definition_info_confirm()
-        user.select_shipping_country_flow_signatory('汇签人员', '李小素')
-        user.click_shipping_country_flow_add_submit()
+        user.select_shipping_country_search_signatory('汇签人员', '李小素')
+        user.click_shipping_country_search_add_submit()
         DomAssert(drivers).assert_att('请求成功')
-        process_code = user.get_shipping_country_flow_info('项目名称test2022-07-14-14:44:47')[2]
+        process_code = user.get_shipping_country_search_info('项目名称test2022-07-14-14:44:47')[2]
         user.shipping_country_search_onework_agree_flow(process_code, '产品部管理员审核')
         user.shipping_country_search_onework_agree_flow(process_code, '产品部汇签')
-        user.assert_shipping_country_flow_my_todo_node(process_code, '产品经理修改', True)
-        user.enter_shipping_country_flow_onework_edit(process_code)
+        user.assert_my_todo_node(process_code, '产品经理修改', True)
+        user.enter_oneworks_edit(process_code)
         user.click_oneworks_shipping_country_search_product_definition_info_edit(f'修改项目名称{querytime}')
         user.edit_oneworks_shipping_country_search_product_definition_info('全球版本', '版本3')
         querytime = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
@@ -209,11 +209,11 @@ class TestTheProcessOfExaminationAndApproval:
         user.edit_oneworks_shipping_country_search_product_definition_info('aaa', '2G')
         user.edit_oneworks_shipping_country_search_product_definition_info('bbb', 'MT6762D')
         user.click_oneworks_shipping_country_search_product_definition_info_confirm()
-        user.click_onework_shipping_country_flow_agree()
+        user.click_onework_shipping_country_search_agree()
         DomAssert(drivers).assert_att('审核通过')
-        user.quit_shipping_country_flow_onework()
+        user.quit_oneworks()
         user.shipping_country_search_onework_agree_flow(process_code, '产品部管理员复核')
-        user.delete_shipping_country_flow(process_code)
+        user.delete_shipping_country_search(process_code)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("变更产品成功,单据状态已变为审批通过")  # 用例名称
@@ -239,17 +239,17 @@ class TestTheProcessOfExaminationAndApproval:
         user.edit_oneworks_shipping_country_search_product_definition_info('aaa', '3G')
         user.edit_oneworks_shipping_country_search_product_definition_info('bbb', 'MT6580P')
         user.click_oneworks_shipping_country_search_product_definition_info_confirm()
-        user.select_shipping_country_flow_signatory('汇签人员', '李小素')
-        user.click_shipping_country_flow_add_submit()
+        user.select_shipping_country_search_signatory('汇签人员', '李小素')
+        user.click_shipping_country_search_add_submit()
         DomAssert(drivers).assert_att('请求成功')
-        process_code = user.get_shipping_country_flow_info('项目名称test2022-07-12-14:22:55')[2]
+        process_code = user.get_shipping_country_search_info('项目名称test2022-07-12-14:22:55')[2]
         user.shipping_country_search_onework_agree_flow(process_code, '产品部管理员审核')
         user.shipping_country_search_onework_agree_flow(process_code, '产品部汇签')
         user.shipping_country_search_onework_agree_flow(process_code, '产品经理修改')
         user.shipping_country_search_onework_agree_flow(process_code, '项目经理审批')
-        user.assert_shipping_country_flow_my_application_node(process_code, '抄送', True)
+        user.assert_my_application_node(process_code, '抄送', True)
         user.assert_flow_compelete(process_code)
-        document_status = user.get_shipping_country_flow_info('项目名称test2022-07-12-14:22:55')[6]
+        document_status = user.get_shipping_country_search_info('项目名称test2022-07-12-14:22:55')[6]
         ValueAssert.value_assert_equal(document_status, '审批通过')
         user.refresh_webpage_click_menu()
         user.input_shipping_country_search_condition('品牌', 'Infinix')
@@ -267,10 +267,10 @@ class TestTheProcessOfExaminationAndApproval:
         user.edit_oneworks_shipping_country_search_product_definition_info('aaa', '4G')
         user.edit_oneworks_shipping_country_search_product_definition_info('bbb', 'G70')
         user.click_oneworks_shipping_country_search_product_definition_info_confirm()
-        user.select_shipping_country_flow_signatory('汇签人员', '李小素')
-        user.click_shipping_country_flow_add_submit()
+        user.select_shipping_country_search_signatory('汇签人员', '李小素')
+        user.click_shipping_country_search_add_submit()
         DomAssert(drivers).assert_att('请求成功')
-        process_code = user.get_shipping_country_flow_info(f'修改项目名称{querytime}')[2]
+        process_code = user.get_shipping_country_search_info(f'修改项目名称{querytime}')[2]
         user.shipping_country_search_onework_agree_flow(process_code, '产品部管理员审核')
         user.shipping_country_search_onework_agree_flow(process_code, '产品部汇签')
         user.shipping_country_search_onework_agree_flow(process_code, '产品经理修改')
@@ -279,4 +279,4 @@ class TestTheProcessOfExaminationAndApproval:
 
 
 if __name__ == '__main__':
-    pytest.main(['project/DRP/testcase/run_code.py'])
+    pytest.main(['ShippingCountry_ShippingCountrySearch.py'])

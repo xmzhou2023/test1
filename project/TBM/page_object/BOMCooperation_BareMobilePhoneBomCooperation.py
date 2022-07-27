@@ -52,6 +52,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.input_bare_mobile_phone_bom_cooperation_add_bom_info('阶段', '试产阶段')
         self.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
         self.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
+        self.base_get_img()
 
     @allure.step("点击提交")
     def click_bare_mobile_phone_bom_cooperation_add_submit(self):
@@ -105,7 +106,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.is_click_tbm(user['BOMTree删除'], tree)
 
     @allure.step("审核人设置")
-    def select_bare_mobile_phone_bom_cooperation_business_review(self, audit, type='MPM'):
+    def select_business_review(self, audit, type='MPM'):
         """
         审核人设置-业务评审-：选择用户
         @param type:选择的类别
@@ -118,6 +119,20 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         sleep(1)
         self.is_click_tbm(user['成员选择'], audit)
         self.is_click_tbm(user['成员确定'])
+
+    @allure.step("oneworks-审核人设置-组合")
+    def oneworsk_review(self):
+        self.select_business_review('李小素', '质量部')
+        self.select_business_review('李小素', '结构部')
+        self.select_business_review('李小素', '硬件')
+        self.select_business_review('李小素', '影像部')
+        self.select_business_review('李小素', '音频')
+        self.select_business_review('李小素', '预研组')
+        self.select_business_review('李小素', '中试部')
+        self.select_business_review('李小素', '采购部')
+        self.select_business_review('李小素', '结构经理')
+        self.select_business_review('李小素', '啊啊啊')
+        self.base_get_img()
 
     @allure.step("获取单机头BOM协作第一列内容")
     def get_bare_mobile_phone_bom_cooperation_info(self):
@@ -382,12 +397,12 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             raise
 
     @allure.step("点击应用")
-    def click_bare_mobile_phone_bom_cooperation_apply(self):
+    def click_apply(self):
         self.is_click_tbm(user['应用'])
         logging.info('点击应用')
         sleep(1)
 
-    def click_bare_mobile_phone_bom_cooperation_tree(self, tree):
+    def click_tree(self, tree):
         """
         点击展开+图标
         :param tree: 物料名称
@@ -406,7 +421,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         logging.info('获取BOMTree所有内容{}'.format(infolist))
         return infolist
 
-    def assert_bare_mobile_phone_bom_cooperation_tree_result(self, *content):
+    def assert_tree_result(self, *content):
         """
         断言导入BOM-导入后，页面表格内容是否正确
         :param content: 需要断言的内容，可以一次传入多个
@@ -431,7 +446,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', 'worng_file_text.txt')
         self.upload_bare_mobile_phone_bom_cooperation_import(path)
 
-    def upload_bare_mobile_phone_bom_cooperation_true_file(self):
+    def upload_true_file(self):
         """
         导入BOM-上传文件
         """
@@ -445,6 +460,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', '单机头结构工程师发起导入模板错误内容.xlsx')
         self.upload_bare_mobile_phone_bom_cooperation_import(path)
         sleep(2)
+        DomAssert(self.driver).assert_att('电池_Infinix_BL_51BX_5100mAh_ATL_IN_BIS')
 
     def get_bare_mobile_phone_bom_cooperation_bomtree_upload_info(self):
         """
@@ -454,10 +470,12 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         infolist = []
         for i in info:
             infolist.append(i.text.split('\n'))
+        # logging.info(infolist)
+        # infolist = list(info.text.split('\n'))
         logging.info('获取BOM导入结果{}'.format(infolist))
         return infolist
 
-    def assert_bare_mobile_phone_bom_cooperation_upload_result(self, *content):
+    def assert_upload_result(self, *content):
         """
         断言导入后，页面表格内容是否正确
         :param content: 需要断言的内容，可以一次传入多个
@@ -467,8 +485,8 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             content_list = []
             for i in contents:
                 content_list.append(tuple(i))
-            assert set(content) <= set(content_list)
             logging.info(content_list)
+            assert set(content) <= set(content_list)
             logging.info('断言成功，选项值包含：{}'.format(content))
         except:
             self.base_get_img()
@@ -509,23 +527,21 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011', '用量', '1000')
         self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011', '替代组', 'A1')
         self.input_bare_mobile_phone_bom_cooperation_optional_material('10000011', '份额', '80')
-        self.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
+        self.select_business_review('李小素')
         self.click_bare_mobile_phone_bom_cooperation_add_submit()
         sleep(1)
         DomAssert(self.driver).assert_att('创建流程成功')
         self.refresh()
 
-    def bare_mobile_phone_bom_cooperation_supplementary_factory_flow(self, code):
-        """
-        在补充工厂页面，填写信息，点击同意
-        """
+    @allure.step("在补充工厂页面-流程组合")
+    def supplementary_factory_flow(self, code):
         self.enter_oneworks_edit(code)
         self.input_bare_mobile_phone_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
         self.click_bare_mobile_phone_bom_cooperation_oneworks_slash()
-        self.click_bare_mobile_phone_bom_cooperation_oneworks_plant_check('贴片工厂正确')
-        self.click_bare_mobile_phone_bom_cooperation_oneworks_agree()
-        self.click_bare_mobile_phone_bom_cooperation_oneworks_confirm()
-        DomAssert(self.driver).assert_att('处理成功，审核通过')
+        self.click_oneworks_plant_check('贴片工厂正确')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_approve_flow()
         self.quit_oneworks()
 
     def click_bare_mobile_phone_bom_cooperation_check(self, code):
@@ -573,7 +589,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         :param content: 需要断言的内容，可以一次传入多个
         """
         try:
-            self.click_bare_mobile_phone_bom_cooperation_tree('单机头')
+            self.click_tree('单机头')
             contents = self.get_bare_mobile_phone_bom_cooperation_oneworks_bomtree_info()
             content_list = []
             for i in contents:
@@ -586,20 +602,17 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
-    def click_bare_mobile_phone_bom_cooperation_oneworks_agree(self):
-        """
-        补充工厂页面点击同意
-        """
-        self.frame_exit()
-        self.is_click_tbm(user['补充工厂同意'])
-        logging.info('点击同意')
-
-    def click_bare_mobile_phone_bom_cooperation_oneworks_confirm(self):
-        """
-        补充工厂页面点击确定
-        """
-        self.is_click_tbm(user['补充工厂同意确定'])
-        logging.info('点击确定')
+    @allure.step("断言审核流程")
+    def assert_approve_flow(self):
+        att = self.wait.until(EC.visibility_of_element_located((By.XPATH, "//p[contains(text(),'成功')]"))).text
+        logging.info(att)
+        try:
+            if '请求成功' in att or '审核通过' in att or '操作成功' in att:
+                return True
+            else:
+                return False
+        except:
+            raise
 
     def input_bare_mobile_phone_bom_cooperation_oneworks_plant_info(self, plant, content):
         """
@@ -631,7 +644,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         """
         self.is_click_tbm(user['补充工厂一键填写确定'])
 
-    def click_bare_mobile_phone_bom_cooperation_oneworks_plant_check(self, select):
+    def click_oneworks_plant_check(self, select):
         """
         补充工厂页面点击检查贴片工厂，选择贴片工厂正确/不正确
         :param select: 输入’贴片工厂不正确‘ 或者 ’贴片工厂正确‘
@@ -686,7 +699,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         """
         BOM工程师审批页面 获取BomTree数据
         """
-        self.click_bare_mobile_phone_bom_cooperation_tree('产成品')
+        self.click_tree('单机头')
         info = self.find_elements_tbm(user['BOM工程师BomTree信息'])
         info_list = []
         for i in info:
@@ -754,26 +767,25 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.is_click_tbm(user['BOM工程师BomTree删除'], tree)
         sleep(0.5)
 
-    def click_bare_mobile_phone_bom_cooperation_oneworks_rollback(self, node):
+    @allure.step("点击回退，根据node选择回退节点")
+    def click_oneworks_rollback(self, node):
         """
-        BOM工程师审批 点击回退，根据node选择回退节点
+        点击回退，根据node选择回退节点
         @param node:节点
         """
         self.frame_exit()
         self.is_click_tbm(user['回退'])
         logging.info('点击回退')
         sleep(0.5)
-        self.is_click_tbm(user['BOM工程师审批回退到'])
+        self.is_click_tbm(user['回退到'])
         sleep(0.5)
         node_dict = {'申请人': '申请人[Applicant]', node: node}
-        self.is_click_tbm(user['BOM工程师审批回退选择'], node_dict[node])
+        self.is_click_tbm(user['回退选择'], node_dict[node])
         logging.info('回退到：{}'.format(node))
 
-    def click_bare_mobile_phone_bom_cooperation_oneworks_rollback_confirm(self):
-        """
-        BOM工程师审批页面 点击回退确定
-        """
-        self.is_click_tbm(user['BOM工程师审批回退确定'])
+    @allure.step("点击回退确定")
+    def click_oneworks_rollback_confirm(self):
+        self.is_click_tbm(user['回退确定'])
         logging.info('点击回退确定')
 
     def click_bare_mobile_phone_bom_cooperation_oneworks_refer(self):
@@ -888,8 +900,14 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         finally:
             self.frame_exit()
 
-
-
+    @allure.step("断言：在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
+    def assert_oneworks_bomtree_edit(self):
+        """
+        在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑
+        """
+        self.mouse_double_click(user['物料编码编辑验证'])
+        sleep(0.5)
+        DomAssert(self.driver).assert_control(user['物料编码编辑验证'], True)
 
 if __name__ == '__main__':
     pass

@@ -522,9 +522,9 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_machine_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
         user.click_machine_bom_cooperation_oneworks_slash()
         user.click_machine_bom_cooperation_oneworks_plant_check('贴片工厂正确')
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
-        DomAssert(drivers).assert_att('处理成功')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.assert_approve_flow()
         user.quit_oneworks()
         user.assert_my_todo_node(Machine_API[0], '补充工厂')
 
@@ -538,8 +538,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.refresh_webpage()
         user.machine_bom_cooperation_supplementary_factory_flow(Machine_API[0])
         user.enter_oneworks_edit(Machine_API[0])
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
         DomAssert(drivers).assert_att('处理成功')
         user.quit_oneworks()
         user.assert_my_todo_node(Machine_API[0], 'BOM工程师审批')
@@ -642,7 +642,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_machine_bom_cooperation_oneworks_refer_comfirmrefer()
         DomAssert(drivers).assert_att('操作成功')
         user.quit_oneworks()
-        user.assert_machine_bom_cooperation_flow_approver(Machine_API[0], '陈月')
+        user.assert_flow_deliver(Machine_API[0], '陈月')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("BOM工程师页面，拒绝成功")  # 用例名称
@@ -690,8 +690,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_machine_bom_cooperation_oneworks_businessapprove_self_inspection('检查角色', '音频')
         user.scroll_machine_bom_cooperation_oneworks_businessapprove_self_inspection()
         user.input_machine_bom_cooperation_oneworks_businessapprove_inspection_result()
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
         DomAssert(drivers).assert_att('处理成功，审核通过')
         user.quit_oneworks()
         user.assert_my_application_node(Machine_API[0], '数据组审批', True)
@@ -729,8 +729,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
         user.enter_oneworks_edit(Machine_API[0])
         user.click_machine_bom_cooperation_oneworks_plant_check('贴片工厂正确')
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
         user.quit_oneworks()
         user.assert_my_todo_node(Machine_API[0], '业务审核', True)
 
@@ -804,29 +804,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_machine_bom_cooperation_oneworks_refer_comfirm()
         user.click_machine_bom_cooperation_oneworks_refer_comfirmrefer()
         user.quit_oneworks()
-        user.assert_machine_bom_cooperation_flow_approver(Machine_API[0], '陈月')
+        user.assert_flow_deliver(Machine_API[0], '陈月')
 
-    @allure.story("流程审批")  # 场景名称
-    @allure.title("数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    def test_005_019(self, drivers, Machine_API):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage()
-        user.machine_bom_cooperation_supplementary_factory_flow(Machine_API[0])
-        user.machine_bom_cooperation_engineer_approve_flow(Machine_API[0])
-        user.machine_bom_cooperation_business_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
-        DomAssert(drivers).assert_att('处理成功，审核通过')
-        user.quit_oneworks()
-        user.assert_my_application_node(Machine_API[0], '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(Machine_API[0], '审批完成')
-        document_status = user.get_machine_bom_cooperation_assigned_info(Machine_API[0])[7]
-        ValueAssert.value_assert_equal(document_status, '审批通过')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("数据组审批页面，回退到补充工厂")  # 用例名称
@@ -847,7 +826,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_my_todo_node(Machine_API[0], '补充工厂', True)
 
     @allure.story("流程审批")  # 场景名称
-    @allure.title("数据组审批页面，回退到补充工厂")  # 用例名称
+    @allure.title("数据组审批页面，回退到补充工厂再审核，还是数据组审核节点")  # 用例名称
     @allure.description("在我的待办中审批从数据组审核页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是数据组审核节点，而不是BOM工程师节点")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
@@ -864,8 +843,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
         user.enter_oneworks_edit(Machine_API[0])
         user.click_machine_bom_cooperation_oneworks_plant_check('贴片工厂正确')
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
         user.quit_oneworks()
         user.assert_my_todo_node(Machine_API[0], '数据组审批', True)
 
@@ -881,9 +860,9 @@ class TestTheProcessOfExaminationAndApproval:
         user.machine_bom_cooperation_engineer_approve_flow(Machine_API[0])
         user.machine_bom_cooperation_business_approve_flow(Machine_API[0])
         user.enter_oneworks_edit(Machine_API[0])
-        user.click_machine_bom_cooperation_oneworks_refer()
-        user.click_machine_bom_cooperation_oneworks_refer_comfirm()
-        user.assert_machine_bom_cooperation_oneworks_comfirmrefer_exist(False)
+        user.click_oneworks_refer()
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(False)
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
@@ -938,9 +917,9 @@ class TestProcessApprovalExceptionScenario:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_API[0])
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
-        user.enter_machine_bom_cooperation_onework_iframe()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('【生产工厂信息】物料10026418的组包工厂不能为空')
         user.quit_oneworks()
 
@@ -997,9 +976,9 @@ class TestProcessApprovalExceptionScenario:
         user.enter_oneworks_edit(Machine_API[0])
         user.input_machine_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
         user.click_machine_bom_cooperation_oneworks_slash()
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
-        user.enter_machine_bom_cooperation_onework_iframe()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('检查贴片工厂不能为空！')
         user.quit_oneworks()
 
@@ -1014,9 +993,9 @@ class TestProcessApprovalExceptionScenario:
         user.machine_bom_cooperation_supplementary_factory_flow(Machine_API[0])
         user.enter_oneworks_edit(Machine_API[0])
         user.input_machine_bom_cooperation_optional_bomtree('产成品', '用量', '1')
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
-        user.enter_machine_bom_cooperation_onework_iframe()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('父阶BOM料号10026418用量不为1000')
         user.quit_oneworks()
 
@@ -1045,9 +1024,9 @@ class TestProcessApprovalExceptionScenario:
         user.machine_bom_cooperation_supplementary_factory_flow(Machine_API[0])
         user.machine_bom_cooperation_engineer_approve_flow(Machine_API[0])
         user.enter_oneworks_edit(Machine_API[0])
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
-        user.enter_machine_bom_cooperation_onework_iframe()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('自检清单检查角色未选择')
         user.quit_oneworks()
 
@@ -1064,9 +1043,9 @@ class TestProcessApprovalExceptionScenario:
         user.enter_oneworks_edit(Machine_API[0])
         user.click_machine_bom_cooperation_oneworks_businessapprove_self_inspection('业务类型', '手机')
         user.click_machine_bom_cooperation_oneworks_businessapprove_self_inspection('检查角色', '音频')
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
-        user.enter_machine_bom_cooperation_onework_iframe()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('自检清单第【1】行检查结果未选择')
         user.quit_oneworks()
 
@@ -1085,9 +1064,9 @@ class TestProcessApprovalExceptionScenario:
         user.click_machine_bom_cooperation_oneworks_businessapprove_self_inspection('检查角色', '音频')
         user.scroll_machine_bom_cooperation_oneworks_businessapprove_self_inspection()
         user.input_machine_bom_cooperation_oneworks_businessapprove_inspection_result(result='不通过')
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
-        user.enter_machine_bom_cooperation_onework_iframe()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('自检清单第【1】行检查结果为不通过需填写原因及修改建议')
         user.quit_oneworks()
 
@@ -1106,9 +1085,9 @@ class TestProcessApprovalExceptionScenario:
         user.click_machine_bom_cooperation_oneworks_businessapprove_self_inspection('检查角色', '音频')
         user.scroll_machine_bom_cooperation_oneworks_businessapprove_self_inspection()
         user.input_machine_bom_cooperation_oneworks_businessapprove_inspection_result(result='不涉及')
-        user.click_machine_bom_cooperation_oneworks_agree()
-        user.click_machine_bom_cooperation_oneworks_confirm()
-        user.enter_machine_bom_cooperation_onework_iframe()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('自检清单第【1】行检查结果为不涉及需填写原因及修改建议')
         user.quit_oneworks()
 

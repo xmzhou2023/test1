@@ -15,16 +15,6 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.refresh_webpage()
         self.click_menu("关键器件", "关键器件流程")
 
-    def quit_key_components_flow_onework(self):
-        """
-        退出oneworks查看流程页面
-        """
-        self.frame_exit()
-        self.close_switch(1)
-        self.refresh()
-        self.frame_exit()
-        sleep(1)
-
     @allure.step("点击新增")
     def click_key_components_flow_add(self):
         """点击新增"""
@@ -119,17 +109,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
-    def enter_key_components_flow_my_application(self):
-        """
-        进入我申请的页面
-        """
-        self.click_menu('待办列表', '我申请的')
-        self.refresh()
-        iframe = self.find_element(user['待办列表-我申请的-iframe'])
-        self.driver.switch_to.frame(iframe)
-        sleep(1)
-        self.is_click_tbm(user['待办列表-刷新'])
-
+    @allure.step("删除操作")
     def click_key_components_flow_delete(self, code):
         """
         根据流程编码点击删除 进行删除操作
@@ -138,79 +118,17 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['删除'], code)
         self.is_click_tbm(user['确定'])
 
-    def recall_key_components_flow_process(self, code):
-        """
-        提交流程申请后，在待办列表-我申请的 根据流程编码对流程进行撤回操作
-        @param code:流程编码
-        """
-        self.enter_key_components_flow_my_application()
-        try:
-            self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
-        except:
-            self.refresh()
-            self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
-        self.switch_window(1)
-        self.refresh()
-        try:
-            self.is_click_tbm(user['撤回'])
-            self.is_click_tbm(user['撤回确定'])
-        except:
-            self.base_get_img()
-            self.refresh()
-            self.is_click_tbm(user['撤回'])
-            self.is_click_tbm(user['撤回确定'])
-        self.quit_oneworks()
-        self.click_menu("关键器件", "关键器件流程")
-
     @allure.step("新建流程后的后置删除处理")
-    def delete_key_components_flow_flow(self, process_code):
+    def delete_key_components_flow_flow(self, code):
         """
         新建流程后的后置删除处理
         """
-        self.recall_key_components_flow_process(process_code)
-        self.click_key_components_flow_delete(process_code)
+        self.recall_process(code)
+        self.click_menu("关键器件", "关键器件流程")
+        self.click_key_components_flow_delete(code)
         DomAssert(self.driver).assert_att('删除成功')
 
-    def enter_key_components_flow_my_todo(self):
-        """
-        进入我的待办页面
-        """
-        ele = self.element_text(user['当前菜单']).strip()
-        if ele == '我的待办':
-            iframe = self.find_element(user['待办列表-我申请的-iframe'])
-            self.driver.switch_to.frame(iframe)
-            sleep(1)
-            self.is_click_tbm(user['待办列表-刷新'])
-        else:
-            self.click_menu('待办列表', '我的待办')
-            self.refresh()
-            iframe = self.find_element(user['待办列表-我申请的-iframe'])
-            self.driver.switch_to.frame(iframe)
-            sleep(1)
-            self.is_click_tbm(user['待办列表-刷新'])
-
-    def click_key_components_flow_onework_edit(self, code, node):
-        """
-        进入oneworks-关键器件流程-查看详情页面
-        输入流程编码过滤后，根据当前节点名称点击查看详情进入详情页面
-        @param code:流程编码
-        """
-        try:
-            self.is_click_tbm(user['待办列表-筛选框'])
-            self.input_text(user['待办列表-筛选框-单据号'], code)
-            self.is_click_tbm(user['待办列表-筛选框-筛选'])
-            self.is_click_tbm(user['待办列表-我申请的-查看详情(节点名称)'], node)
-        except:
-            self.base_get_img()
-            raise
-        self.switch_window(1)
-        sleep(0.5)
-        self.frame_exit()
-        sleep(0.5)
-        iframe = self.find_element(user['待办列表-我申请的-iframe'])
-        self.driver.switch_to.frame(iframe)
-        sleep(1)
-
+    @allure.step("点击指定关键器件左侧三角按钮展开")
     def click_onework_key_components_flow_unfold(self, key):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -219,6 +137,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.is_click_tbm(user['oneworks-节点-维护关键器件-关键器件展开'], key)
 
+    @allure.step("维护关键器件-点击指定物料模块")
     def click_onework_key_components_flow_module(self, module):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -227,6 +146,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.is_click_tbm(user['oneworks-节点-维护关键器件-物料模块'], module)
 
+    @allure.step("维护关键器件-点击物料编码右侧的加号")
     def click_onework_key_components_flow_code_add(self):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -234,6 +154,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.is_click_tbm(user['oneworks-节点-维护关键器件-物料模块-物料编码加号'])
 
+    @allure.step("维护关键器件-鼠标悬停在物料右侧，点击加号")
     def click_onework_key_components_flow_material_add(self, code):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -243,6 +164,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.hover(user['oneworks-节点-维护关键器件-物料模块-物料编码按钮组'], code)
         self.is_click_tbm(user['oneworks-节点-维护关键器件-物料模块-物料编码按钮组-加号'], code)
 
+    @allure.step("维护关键器件-点击待申请编码，打开物料详情（参数）")
     def click_onework_key_components_flow_material_pending_code(self, code):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -251,6 +173,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.is_click_tbm(user['oneworks-节点-维护关键器件-物料模块-物料编码-待申请编码'], code)
 
+    @allure.step("维护关键器件-物料详情-输入物料详情")
     def input_onework_key_components_flow_material_details(self, choice, details):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -260,6 +183,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.input_text(user['oneworks-节点-维护关键器件-物料模块-物料编码-物料详情'], details, choice)
 
+    @allure.step("维护关键器件-物料详情-滚动显示全部参数")
     def scroll_onework_key_components_flow_material_param(self):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -267,6 +191,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.scroll_into_view(user['oneworks-节点-物料模块-物料编码-物料详情-参数'])
 
+    @allure.step("维护关键器件-物料详情-滚动显示")
     def scroll_onework_key_components_flow_material_details(self, param):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -274,6 +199,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.scroll_into_view(user['oneworks-节点-物料模块-物料编码-物料详情'], param)
 
+    @allure.step("维护关键器件-物料详情-输入物料参数")
     def input_onework_key_components_flow_material_parameter(self, choice, details, mode=True):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -289,13 +215,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
             self.scroll_into_view(user['oneworks-节点-维护关键器件-物料模块-物料编码-物料参数选择'], details)
             self.is_click_tbm(user['oneworks-节点-维护关键器件-物料模块-物料编码-物料参数选择'], details)
 
+    @allure.step("oneworks节点：摄像头+闪光灯 页面填写 组合流程")
     def onework_key_components_flow_flowone(self, code):
-        """
-        oneworks-节点：维护关键器件-查看详情页面
-        摄像头+闪光灯 页面填写 组合流程
-        """
-        self.enter_key_components_flow_my_todo()
-        self.click_key_components_flow_onework_edit(code, '摄像头+闪光灯')
+        self.enter_oneworks_edit(code, '摄像头+闪光灯')
         self.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         self.click_onework_key_components_flow_module('CTP')
         self.click_onework_key_components_flow_code_add()
@@ -311,13 +233,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 
+    @allure.step("oneworks节点：硬件电子料-基带 页面填写 组合流程")
     def onework_key_components_flow_flowtwo(self, code):
-        """
-        oneworks-节点：维护关键器件-查看详情页面
-        摄像头+闪光灯 页面填写 组合流程
-        """
-        self.enter_key_components_flow_my_todo()
-        self.click_key_components_flow_onework_edit(code, '硬件电子料-基带')
+        self.enter_oneworks_edit(code, '硬件电子料-基带')
         self.click_onework_key_components_flow_unfold('硬件电子料-基带')
         self.click_onework_key_components_flow_module('CPU')
         self.click_onework_key_components_flow_code_add()
@@ -328,13 +246,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 
+    @allure.step("oneworks节点：标准化代表 页面填写 组合流程")
     def onework_key_components_flow_flowthree(self, code):
-        """
-        oneworks-节点：标准化代表-查看详情页面
-        页面填写 组合流程
-        """
-        self.enter_key_components_flow_my_todo()
-        self.click_key_components_flow_onework_edit(code, '标准化代表')
+        self.enter_oneworks_edit(code, '标准化代表')
         self.click_onework_key_components_flow_checkbox()
         self.click_onework_key_components_flow_onepress()
         self.input_onework_key_components_flow_onepress('责任人', '李小素')
@@ -344,13 +258,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 
+    @allure.step("oneworks节点：采购代表 页面填写 组合流程")
     def onework_key_components_flow_flowfour(self, code):
-        """
-        oneworks-节点：标准化代表-查看详情页面
-        页面填写 组合流程
-        """
-        self.enter_key_components_flow_my_todo()
-        self.click_key_components_flow_onework_edit(code, '采购代表')
+        self.enter_oneworks_edit(code, '采购代表')
         self.click_onework_key_components_flow_checkbox()
         self.click_onework_key_components_flow_onepress()
         self.input_onework_key_components_flow_onepress('资源商务', '李小素')
@@ -366,13 +276,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 
+    @allure.step("oneworks节点：资源商务评估 页面填写 组合流程")
     def onework_key_components_flow_flowfive(self, code):
-        """
-        oneworks-节点：资源商务评估-查看详情页面
-        页面填写 组合流程
-        """
-        self.enter_key_components_flow_my_todo()
-        self.click_key_components_flow_onework_edit(code, '资源商务评估')
+        self.enter_oneworks_edit(code, '资源商务评估')
         self.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         self.click_onework_key_components_flow_module('CTP')
         self.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -409,13 +315,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 
+    @allure.step("oneworks节点：采购执行评估 页面填写 组合流程")
     def onework_key_components_flow_flowsix(self, code):
-        """
-        oneworks-节点：采购执行评估-查看详情页面
-        页面填写 组合流程
-        """
-        self.enter_key_components_flow_my_todo()
-        self.click_key_components_flow_onework_edit(code, '采购执行评估')
+        self.enter_oneworks_edit(code, '采购执行评估')
         self.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         self.click_onework_key_components_flow_module('CTP')
         self.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -452,13 +354,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 
+    @allure.step("oneworks节点：采购PTC评估 页面填写 组合流程")
     def onework_key_components_flow_ptc(self, code):
-        """
-        oneworks-节点：采购PTC评估-查看详情页面
-        页面填写 组合流程
-        """
-        self.enter_key_components_flow_my_todo()
-        self.click_key_components_flow_onework_edit(code, '采购PTC评估')
+        self.enter_oneworks_edit(code, '采购PTC评估')
         self.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         self.click_onework_key_components_flow_module('CTP')
         self.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -475,13 +373,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 
+    @allure.step("oneworks节点：采购SQM评估 页面填写 组合流程")
     def onework_key_components_flow_sqm(self, code):
-        """
-        oneworks-节点：采购SQM评估-查看详情页面
-        页面填写 组合流程
-        """
-        self.enter_key_components_flow_my_todo()
-        self.click_key_components_flow_onework_edit(code, '采购SQM评估')
+        self.enter_oneworks_edit(code, '采购SQM评估')
         self.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         self.click_onework_key_components_flow_module('CTP')
         self.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -498,13 +392,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 
+    @allure.step("oneworks节点：标准化部评估 页面填写 组合流程")
     def onework_key_components_flow_standardized_evaluation(self, code):
-        """
-        oneworks-节点：标准化部评估-查看详情页面
-        页面填写 组合流程
-        """
-        self.enter_key_components_flow_my_todo()
-        self.click_key_components_flow_onework_edit(code, '标准化部评估')
+        self.enter_oneworks_edit(code, '标准化部评估')
         self.click_onework_key_components_flow_unfold('摄像头+闪光灯')
         self.click_onework_key_components_flow_module('CTP')
         self.click_onework_key_components_flow_material_pending_code('CTP(1供)')
@@ -519,16 +409,15 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 
+    @allure.step("点击同意-确定")
     def click_onework_key_components_flow_agree(self):
-        """
-        点击同意-确定
-        """
         self.frame_exit()
         self.is_click_tbm(user['同意'])
         self.is_click_tbm(user['确定'])
         self.base_get_img('result')
         logging.info('点击确定')
 
+    @allure.step("点击复选框")
     def click_onework_key_components_flow_checkbox(self, sort='all'):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -542,6 +431,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
             self.is_click_tbm(user['oneworks-节点-评估关键器件-复选框单选'], sort)
         logging.info('点击复选框')
 
+    @allure.step("点击一键填写")
     def click_onework_key_components_flow_onepress(self):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -549,6 +439,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.is_click_tbm(user['oneworks-节点-评估关键器件-一键填写'])
 
+    @allure.step("点击一键填写-确定")
     def click_onework_key_components_flow_onepress_confirm(self):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -556,6 +447,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.is_click_tbm(user['oneworks-节点-评估关键器件-一键填写-确定'])
 
+    @allure.step("点击一键填写-取消")
     def click_onework_key_components_flow_onepress_cancel(self):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -563,6 +455,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         """
         self.is_click_tbm(user['oneworks-节点-评估关键器件-一键填写-取消'])
 
+    @allure.step("输入一键填写内容")
     def input_onework_key_components_flow_onepress(self, field, name):
         """
         oneworks-节点：维护关键器件-查看详情页面
@@ -576,6 +469,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['成员选择'], name)
         self.is_click_tbm(user['成员确定'])
 
+    @allure.step("资源商务评估-输入资源商务内容")
     def input_onework_key_components_flow_procurement_evaluation(self, choice, details, mode=True):
         """
         oneworks-节点：资源商务评估-查看详情页面
@@ -594,6 +488,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
                 self.scroll_into_view(user['oneworks-节点-下拉框-选择'], details)
                 self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
 
+    @allure.step("资源商务评估-输入采购执行内容")
     def input_onework_key_components_flow_procurement_execution(self, choice, details, mode=True):
         """
         oneworks-节点：采购执行评估-查看详情页面
@@ -612,6 +507,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
                 self.scroll_into_view(user['oneworks-节点-下拉框-选择'], details)
                 self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
 
+    @allure.step("采购PTC评估-输入PTC内容")
     def input_onework_key_components_flow_ptc(self, choice, details):
         """
         oneworks-节点：采购PTC评估-查看详情页面
@@ -625,6 +521,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
             self.is_click_tbm(user['oneworks-节点-采购PTC评估-采购评估-PTC-输入框'], choice)
             self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
 
+    @allure.step("采购PTC评估-输入SQM内容")
     def input_onework_key_components_flow_sqm(self, choice, details):
         """
         oneworks-节点：采购SQM评估-查看详情页面
@@ -638,6 +535,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
             self.is_click_tbm(user['oneworks-节点-采购PTC评估-采购评估-SQM-输入框'], choice)
             self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
 
+    @allure.step("标准化评估-输入标准化评估内容")
     def input_onework_key_components_flow_standardized_evaluation(self, choice, details):
         """
         oneworks-节点：标准化评估-查看详情页面
@@ -651,78 +549,16 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
             self.is_click_tbm(user['oneworks-节点-标准化部评估-标准化评估-输入框'], choice)
             self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
 
-    def assert_key_components_flow_my_application_node(self, code, node, exist=False):
-        """
-        我申请的页面-断言：成功处理了流程后，我申请的中存在/不存在该条单据在指定审核节点
-        @param code:流程编码
-        @param node:节点名称
-        @param exist:断言存在或者不存在
-        """
-        self.enter_key_components_flow_my_application()
-        actual_node = self.element_text(user['待办列表-我申请的-当前节点'], code)
-        if exist is False:
-            try:
-                assert actual_node != node
-                logging.info('断言成功，我申请的中该条单据不存在:{}节点，实际在:{}节点'.format(node, actual_node))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我申请的中存在该条单据在:{}节点'.format(actual_node))
-                raise
-            finally:
-                self.frame_exit()
-        else:
-            try:
-                assert actual_node == node
-                logging.info('断言成功，我申请的中存在该条单据在:{}审核节点'.format(actual_node))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我申请的中不存在该条单据在:{}审核节点'.format(actual_node))
-                raise
-            finally:
-                self.frame_exit()
-
-    def assert_key_components_flow_my_application_flow(self, code, flow, exist=True):
-        """
-        我申请的页面-断言：成功处理了流程后，我申请的中存在/不存在该条单据在指定流程中
-        @param code:流程编码
-        @param flow:流程名称
-        @param exist:断言存在或者不存在
-        """
-        self.enter_key_components_flow_my_application()
-        actual_flow = self.element_text(user['待办列表-我申请的-当前流程'], code)
-        if exist is True:
-            try:
-                assert actual_flow == flow
-                logging.info('断言成功，我申请的中该条单据在:{}流程'.format(actual_flow))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我申请的中该条单据不在:{}流程，实际在:{}流程'.format(flow, actual_flow))
-                raise
-            finally:
-                self.frame_exit()
-        elif exist is False:
-            try:
-                assert actual_flow != flow
-                logging.info('断言成功，我申请的中该条单据不在:{}流程，实际在:{}流程'.format(flow, actual_flow))
-            except:
-                self.base_get_img()
-                logging.error('断言失败，我申请的中该条单据在:{}流程'.format(actual_flow))
-                raise
-            finally:
-                self.frame_exit()
-
     @staticmethod
     def delete_key_components_flow_sql(model):
-        """
-        使用sql脚本修改删除流程数据
-        """
         a = SQL('TBM', 'test')
         a.change_db(
             f"UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
-            f"= '{model}')",
+            f"= '{model}')"
         )
         logging.info('调用sql脚本修改数据库数据')
 
+    @allure.step("断言审批状态")
     def assert_add_flow(self, status):
         try:
             ValueAssert.value_assert_equal(status, '审批通过')

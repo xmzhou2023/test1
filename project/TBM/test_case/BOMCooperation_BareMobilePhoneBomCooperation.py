@@ -25,7 +25,7 @@ class TestCreateProcess:
         user.input_bare_mobile_phone_bom_cooperation_bomtree('BOM状态', '试产')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('物料编码', '12011067')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('用量', '1000')
-        user.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
+        user.select_business_review('李小素')
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_exact_att('创建流程成功')
         user.refresh()
@@ -62,7 +62,7 @@ class TestCreateProcess:
         user.input_bare_mobile_phone_bom_cooperation_optional_material('17600563', '用量', '1000')
         user.input_bare_mobile_phone_bom_cooperation_optional_material('17600563', '替代组', 'A1')
         user.input_bare_mobile_phone_bom_cooperation_optional_material('17600563', '份额', '80')
-        user.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
+        user.select_business_review('李小素')
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('创建流程成功')
         user.refresh()
@@ -153,13 +153,29 @@ class TestCreateProcess:
         amount = user.get_bare_mobile_phone_bom_cooperation_bomtree_info('电池')[9]
         ValueAssert.value_assert_equal(amount, '')
 
+    @allure.story("创建流程")
+    @allure.title("选择正确的文件进行导入，并应用，显示的数据与模板的数据一致")
+    @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择导入BOM选择正确的文件进行导入，并能应用，点击应用后页面显示的数据与模板的数据一致")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.FT
+    def test_001_008(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.bare_mobile_phone_bom_cooperation_add_bom_info()
+        user.click_bare_mobile_phone_bom_cooperation_add_bomtree()
+        user.click_bare_mobile_phone_bom_cooperation_bom_import()
+        user.upload_true_file()
+        user.assert_upload_result(('1','试产', '12011336', '单机头', '25001649', '电池_Infinix_BL_51BX_5100mAh_ATL_IN_BIS', '1'),)
+        user.click_apply()
+        user.click_tree('单机头')
+        user.assert_tree_result(('1.2', '电池', '25001649', '电池_Infinix_BL_51BX_5100mAh_ATL_IN_BIS', '可选', '1000', '编辑删除'),)
+
 
 @allure.feature("BOM协作-单机头BOM协作")
 class TestCreateProcessExceptionScenario:
     @allure.story("创建流程异常场景")
     @allure.title("导入Bom之前需要选中模板")
-    @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个不存在模板的品牌，其他内容正确填写，"
-                        "查看BOM Tree，无新增BOM按钮；点击导入提示'导入Bom之前需要选中模板'")
+    @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个不存在模板的品牌，其他内容正确填写，查看BOM Tree，无新增BOM按钮；点击导入提示'导入Bom之前需要选中模板'")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
     def test_002_001(self, drivers):
@@ -172,6 +188,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bare_mobile_phone_bom_cooperation_add_bom_info('阶段', '试产阶段')
         user.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
         user.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
+        user.base_get_img()
         user.assert_bare_mobile_phone_bom_cooperation_add_bomtree_exist(False)
         user.click_bare_mobile_phone_bom_cooperation_bom_import()
         DomAssert(drivers).assert_att('导入Bom之前需要选中模板')
@@ -184,13 +201,7 @@ class TestCreateProcessExceptionScenario:
     def test_002_002(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.click_bare_mobile_phone_bom_cooperation_add()
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('制作类型', '单机头BOM制作')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('品牌', 'itel')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('机型', 'X572-1')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('阶段', '试产阶段')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
+        user.bare_mobile_phone_bom_cooperation_add_bom_info()
         user.click_bare_mobile_phone_bom_cooperation_add_bomtree()
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('BOM状态不能为空')
@@ -203,13 +214,7 @@ class TestCreateProcessExceptionScenario:
     def test_002_003(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.click_bare_mobile_phone_bom_cooperation_add()
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('制作类型', '单机头BOM制作')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('品牌', 'itel')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('机型', 'X572-1')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('阶段', '试产阶段')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
+        user.bare_mobile_phone_bom_cooperation_add_bom_info()
         user.click_bare_mobile_phone_bom_cooperation_add_bomtree()
         user.input_bare_mobile_phone_bom_cooperation_bomtree('物料编码', '12011336')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('用量', '1000')
@@ -224,17 +229,11 @@ class TestCreateProcessExceptionScenario:
     def test_002_004(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.click_bare_mobile_phone_bom_cooperation_add()
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('制作类型', '单机头BOM制作')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('品牌', 'itel')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('机型', 'X572-1')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('阶段', '试产阶段')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
+        user.bare_mobile_phone_bom_cooperation_add_bom_info()
         user.click_bare_mobile_phone_bom_cooperation_add_bomtree()
         user.input_bare_mobile_phone_bom_cooperation_bomtree('BOM状态', '试产')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('用量', '1000')
-        user.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
+        user.select_business_review('李小素')
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('BOM编码[null]的物料组在对应的模板中未设置！')
 
@@ -251,17 +250,11 @@ class TestCreateProcessExceptionScenario:
         """
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.click_bare_mobile_phone_bom_cooperation_add()
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('制作类型', '单机头BOM制作')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('品牌', 'itel')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('机型', 'X572-1')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('阶段', '试产阶段')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
+        user.bare_mobile_phone_bom_cooperation_add_bom_info()
         user.click_bare_mobile_phone_bom_cooperation_add_bomtree()
         user.input_bare_mobile_phone_bom_cooperation_bomtree('BOM状态', '试产')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('物料编码', '12011336')
-        user.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
+        user.select_business_review('李小素')
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('[12011336]的数量为空!')
 
@@ -273,18 +266,12 @@ class TestCreateProcessExceptionScenario:
     def test_002_006(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.click_bare_mobile_phone_bom_cooperation_add()
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('制作类型', '单机头BOM制作')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('品牌', 'itel')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('机型', 'X572-1')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('阶段', '试产阶段')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
+        user.bare_mobile_phone_bom_cooperation_add_bom_info()
         user.click_bare_mobile_phone_bom_cooperation_add_bomtree()
         user.input_bare_mobile_phone_bom_cooperation_bomtree('BOM状态', '试产')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('物料编码', '12011336')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('用量', '1')
-        user.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
+        user.select_business_review('李小素')
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('父阶BOM料号12011336用量不为1000')
 
@@ -296,18 +283,12 @@ class TestCreateProcessExceptionScenario:
     def test_002_007(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.click_bare_mobile_phone_bom_cooperation_add()
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('制作类型', '单机头BOM制作')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('品牌', 'itel')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('机型', 'X572-1')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('阶段', '试产阶段')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
+        user.bare_mobile_phone_bom_cooperation_add_bom_info()
         user.click_bare_mobile_phone_bom_cooperation_add_bomtree()
         user.input_bare_mobile_phone_bom_cooperation_bomtree('BOM状态', '试产')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('物料编码', '12011336')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('用量', 'a')
-        user.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
+        user.select_business_review('李小素')
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('用量只能填写非0数字(最多3位小数)')
 
@@ -319,20 +300,14 @@ class TestCreateProcessExceptionScenario:
     def test_002_008(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.click_bare_mobile_phone_bom_cooperation_add()
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('制作类型', '单机头BOM制作')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('品牌', 'itel')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('机型', 'X572-1')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('阶段', '试产阶段')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('市场', '埃塞本地')
-        user.input_bare_mobile_phone_bom_cooperation_add_bom_info('同时做衍生BOM', '否')
+        user.bare_mobile_phone_bom_cooperation_add_bom_info()
         user.click_bare_mobile_phone_bom_cooperation_add_bomtree()
         user.input_bare_mobile_phone_bom_cooperation_bomtree('BOM状态', '试产')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('物料编码', '12011336')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('用量', '1000')
         user.input_bare_mobile_phone_bom_cooperation_optional_bomtree('PCBA', '物料编码', '12101691')
         user.input_bare_mobile_phone_bom_cooperation_optional_bomtree('PCBA', '用量', '1')
-        user.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
+        user.select_business_review('李小素')
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('父阶BOM料号12011336下的子阶BOM料号12101691用量不为1000')
 
@@ -377,7 +352,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bare_mobile_phone_bom_cooperation_bomtree('BOM状态', '试产')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('物料编码', '12011336')
         user.input_bare_mobile_phone_bom_cooperation_bomtree('用量', '1000')
-        user.select_bare_mobile_phone_bom_cooperation_business_review('李小素', '项目经理')
+        user.select_business_review('李小素', '项目经理')
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('业务评审MPM不能为空！')
 
@@ -404,7 +379,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bare_mobile_phone_bom_cooperation_optional_material('25001649', '用量', '1000')
         user.input_bare_mobile_phone_bom_cooperation_optional_material('25001649', '替代组', 'A1')
         user.input_bare_mobile_phone_bom_cooperation_optional_material('25001649', '份额', '20')
-        user.select_bare_mobile_phone_bom_cooperation_business_review('李小素')
+        user.select_business_review('李小素')
         user.click_bare_mobile_phone_bom_cooperation_add_submit()
         DomAssert(drivers).assert_att('[12011336] 替代组[A1]的份额总和不为100')
 
@@ -504,13 +479,155 @@ class TestTheProcessOfExaminationAndApproval:
         user.enter_oneworks_edit(BarePhone_API[0])
         user.input_bare_mobile_phone_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
         user.click_bare_mobile_phone_bom_cooperation_oneworks_slash()
-        user.click_bare_mobile_phone_bom_cooperation_oneworks_plant_check('贴片工厂正确')
-        user.click_bare_mobile_phone_bom_cooperation_oneworks_agree()
-        user.click_bare_mobile_phone_bom_cooperation_oneworks_confirm()
+        user.click_oneworks_plant_check('贴片工厂正确')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
         DomAssert(drivers).assert_att('处理成功，审核通过')
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_API[0], '补充工厂')
 
+    @allure.story("流程审批")
+    @allure.title("结构工程师审核页面，审批成功")
+    @allure.description("结构工程师审核页面中，所有数据都正确，点击同意，可以提交成功并给出提示“处理成功，审核通过”，页面成功跳转;成功处理了结构工程师审核点，我的待办中不存在该条单机在BOM工程师审核节点（建议：校验单据号和当前节点）")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.FT
+    def test_003_003(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.supplementary_factory_flow(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.select_business_review('李小素', '质量部')
+        user.select_business_review('李小素', '结构部')
+        user.select_business_review('李小素', '硬件')
+        user.select_business_review('李小素', '影像部')
+        user.select_business_review('李小素', '音频')
+        user.select_business_review('李小素', '预研组')
+        user.select_business_review('李小素', '中试部')
+        user.select_business_review('李小素', '采购部')
+        user.select_business_review('李小素', '结构经理')
+        user.select_business_review('李小素', '啊啊啊')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        DomAssert(drivers).assert_att('处理成功，审核通过')
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_API[0], '结构工程师审批')
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("结构工程师审批页面，物料编码和物料描述不能编辑")  # 用例名称
+    @allure.description("在结构工程师审批页面中，多次点击单机头列数据，该列物料编码和物料描述是不能再进行编辑")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_004(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.supplementary_factory_flow(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.assert_oneworks_bomtree_edit()
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("结构工程师审批回退到补充工厂成功")  # 用例名称
+    @allure.description("在结构工程师审批页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_005(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.supplementary_factory_flow(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.click_oneworks_rollback('补充工厂')
+        user.click_oneworks_rollback_confirm()
+        user.assert_approve_flow()
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_API[0], '补充工厂', True)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("结构工程师审批回退到申请人成功")  # 用例名称
+    @allure.description("在结构工程师审批页面中，点击回退，选择回退到申请人，查看我的申请中有该单据，显示回退到申请人（校验：单据号和节点）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_006(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.supplementary_factory_flow(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.click_oneworks_rollback('申请人')
+        user.click_oneworks_rollback_confirm()
+        user.assert_approve_flow()
+        user.quit_oneworks()
+        user.assert_my_application_flow(BarePhone_API[0], '退回申请人')
+
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("结构工程师审批页面，回退到补充工厂再审核，还是结构工程师审批节点")  # 用例名称
+    @allure.description("在我的待办中审批从结构工程师审批页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是结构工程师审批")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_007(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.supplementary_factory_flow(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.click_oneworks_rollback('补充工厂')
+        user.click_oneworks_rollback_confirm()
+        user.assert_approve_flow()
+        user.quit_oneworks()
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.click_oneworks_plant_check('贴片工厂正确')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_API[0], '结构工程师审批', True)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("结构工程师审批页面，不选择转交人转交，不存在确定转交按钮")  # 用例名称
+    @allure.description("在结构工程师审批页面中，点击转交，不选择转交的人直接点击确认，选择框自动关闭，下面只有选择转交人和取消按钮")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_008(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.supplementary_factory_flow(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.click_oneworks_refer()
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(False)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("数据组审批页面，选择转交人转交，存在确定转交按钮")  # 用例名称
+    @allure.description("在数据组审核页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_009(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.supplementary_factory_flow(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("数据组审批页面，选择转交人转交取消，存在转交，回退按钮")  # 用例名称
+    @allure.description("在数据组审批页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_010(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.supplementary_factory_flow(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_cancel()
+        user.assert_oneworks_rollback_refer_exist(True)
+        user.quit_oneworks()
 
 @allure.feature("BOM协作-单机头BOM协作")
 class TestProcessApprovalExceptionScenario:
@@ -523,8 +640,8 @@ class TestProcessApprovalExceptionScenario:
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_API[0])
-        user.click_bare_mobile_phone_bom_cooperation_oneworks_agree()
-        user.click_bare_mobile_phone_bom_cooperation_oneworks_confirm()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('【生产工厂信息】物料12012025的组包工厂不能为空')
         user.quit_oneworks()
@@ -571,6 +688,40 @@ class TestProcessApprovalExceptionScenario:
         DomAssert(drivers).assert_att('请选择工厂')
         user.quit_oneworks()
 
+    @allure.story("流程审批异常场景")
+    @allure.title("检查贴片工厂不能为空！")
+    @allure.description("在补充工厂页面中，不选择检查贴片工厂，点击同意，不能提交成功，并给出提示“检查贴片工厂不能为空！”")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.FT
+    def test_004_005(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.input_bare_mobile_phone_bom_cooperation_oneworks_plant_info('国内组包工厂', '1051')
+        user.click_bare_mobile_phone_bom_cooperation_oneworks_slash()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        DomAssert(drivers).assert_att('检查贴片工厂不能为空！')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")
+    @allure.title("父阶BOM料号xxxxxxxx用量不为1000")
+    @allure.description("在结构工程师审批页面中，在Bom Tree中点编辑，将用量编辑为“1”，点击同意，不能提交成功页面给出提示“父阶BOM料号xxxxxxxx用量不为1000”")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.FT
+    def test_004_006(self, drivers, BarePhone_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.supplementary_factory_flow(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_API[0])
+        user.input_bare_mobile_phone_bom_cooperation_optional_bomtree('单机头', '用量', '1')
+        user.oneworsk_review()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        DomAssert(drivers).assert_att('父阶BOM料号12012025用量不为1000')
+        user.quit_oneworks()
 
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_BareMobilePhoneBomCooperation.py'])

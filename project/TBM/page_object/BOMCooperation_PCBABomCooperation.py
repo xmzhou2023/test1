@@ -1,7 +1,5 @@
-import allure
 from time import sleep
 from selenium.webdriver import Keys
-from selenium.webdriver.common.by import By
 from libs.common.read_element import Element
 from libs.config.conf import BASE_DIR
 from project.TBM.page_object.Center_Component import CenterComponent

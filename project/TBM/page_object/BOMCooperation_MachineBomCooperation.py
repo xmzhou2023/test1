@@ -55,6 +55,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.input_machine_bom_cooperation_add_bom_info('机型', 'X572-1')
         self.input_machine_bom_cooperation_add_bom_info('阶段', '试产阶段')
         self.input_machine_bom_cooperation_add_bom_info('市场', '埃塞本地')
+        self.base_get_img()
 
     @allure.step("点击提交")
     def click_machine_bom_cooperation_add_submit(self):
@@ -268,6 +269,7 @@ class MachineBOMCollaboration(CenterComponent):
         """
         self.is_click_tbm(user['BOM信息一键填写'])
 
+    @allure.step("一键填写")
     def input_machine_bom_cooperation_one_press(self, key, value):
         """
         一键填写-根据key选择字段名称，根据value输入字段值
@@ -298,6 +300,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['BOM信息一键填写取消'])
         logging.info('点击取消')
 
+    @allure.step("获取整机BOM协作-BOMTREE指定列内容")
     def get_machine_bom_cooperation_bomtree_info(self, material):
         """
         获取整机BOM协作-BOMTREE指定列内容
@@ -312,6 +315,7 @@ class MachineBOMCollaboration(CenterComponent):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
+    @allure.step("点击复选框")
     def click_machine_bom_cooperation_checkbox(self, material='all'):
         """
         TOM Tree根据material点击指定复选框，默认全选
@@ -322,10 +326,8 @@ class MachineBOMCollaboration(CenterComponent):
         else:
             self.is_click_tbm(user['复选框单选'], material)
 
+    @allure.step("判断是否存在批量删除")
     def assert_machine_bom_cooperation_batch_delete(self, result):
-        """
-        断言：判断是否存在批量删除
-        """
         try:
             ac_result = self.element_exist(user['批量删除'])
             assert ac_result is result
@@ -335,27 +337,22 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言失败')
             raise
 
+    @allure.step("点击批量删除")
     def click_machine_bom_cooperation_batch_delete(self):
-        """
-        点击批量删除
-        """
         self.is_click_tbm(user['批量删除'])
         logging.info('点击批量删除')
 
+    @allure.step("点击确定")
     def click_machine_bom_cooperation_batch_confirm(self):
-        """
-        点击确定
-        """
         self.is_click_tbm(user['确定'])
         logging.info('确定')
 
+    @allure.step("点击简易导入")
     def click_machine_bom_cooperation_simple_import(self):
-        """
-        点击简易导入
-        """
         self.is_click_tbm(user['简易导入'])
         logging.info('点击导入-简易模式')
 
+    @allure.step("导入-上传文件")
     def upload_machine_bom_cooperation_import(self, file):
         """
         导入-上传文件
@@ -366,6 +363,7 @@ class MachineBOMCollaboration(CenterComponent):
         ele.send_keys(file)
         logging.info('点击导入-上传文件')
 
+    @allure.step("上传错误文件")
     def simple_upload_machine_bom_cooperation_wrong_file(self):
         """
         简易导入-上传文件
@@ -373,6 +371,7 @@ class MachineBOMCollaboration(CenterComponent):
         path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', 'worng_file_text.txt')
         self.upload_machine_bom_cooperation_import(path)
 
+    @allure.step("上传正常文件")
     def simple_upload_machine_bom_cooperation_true_file(self):
         """
         简易导入-上传文件
@@ -380,6 +379,7 @@ class MachineBOMCollaboration(CenterComponent):
         path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', '生产BOM项目经理简易模式导入.xls')
         self.upload_machine_bom_cooperation_import(path)
 
+    @allure.step("上传内容错误文件")
     def simple_upload_machine_bom_cooperation_wrongcontent_file(self):
         """
         简易导入-上传文件
@@ -388,10 +388,8 @@ class MachineBOMCollaboration(CenterComponent):
         self.upload_machine_bom_cooperation_import(path)
         sleep(2)
 
+    @allure.step("断言导入错误内容后，页面状态是否正确")
     def assert_machine_bom_cooperation_wrongcontent_simple_upload_result(self):
-        """
-        断言导入错误内容后，页面状态是否正确
-        """
         try:
             apply = self.find_element(user['应用状态'])
             check = self.find_element(user['导出校验状态'])
@@ -403,6 +401,7 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言失败，请检查按钮状态')
             raise
 
+    @allure.step("断言导入错误内容后，页面状态是否正确")
     def assert_machine_bom_cooperation_wrongcontent_upload_result(self):
         """
         断言导入错误内容后，页面状态是否正确
@@ -429,6 +428,7 @@ class MachineBOMCollaboration(CenterComponent):
         logging.info('获取BOM导入结果{}'.format(infolist))
         return infolist
 
+    @allure.step("断言导入BOM-简易导入后，页面表格内容是否正确")
     def assert_machine_bom_cooperation_simple_upload_result(self, *content):
         """
         断言导入BOM-简易导入后，页面表格内容是否正确
@@ -447,17 +447,15 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
+    @allure.step("点击应用")
     def click_machine_bom_cooperation_apply(self):
-        """
-        点击应用
-        """
         self.is_click_tbm(user['应用'])
         logging.info('点击应用')
         sleep(1)
 
+    @allure.step("点击展开")
     def click_machine_bom_cooperation_tree(self, tree):
         """
-        点击展开+图标
         :param tree: 物料名称
         """
         self.is_click_tbm(user['展开'], tree)
@@ -474,6 +472,7 @@ class MachineBOMCollaboration(CenterComponent):
         logging.info('获取BOMTree所有内容{}'.format(infolist))
         return infolist
 
+    @allure.step("断言导入BOM-简易导入后，页面表格内容是否正确")
     def assert_machine_bom_cooperation_tree_result(self, *content):
         """
         断言导入BOM-简易导入后，页面表格内容是否正确
@@ -492,6 +491,7 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
+    @allure.step("点击导入BOM")
     def click_machine_bom_cooperation_bom_import(self):
         """
         点击导入BOM
@@ -499,6 +499,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['导入BOM'])
         logging.info('点击导入BOM')
 
+    @allure.step("上传错误文件")
     def upload_machine_bom_cooperation_wrong_file(self):
         """
         导入BOM-上传文件
@@ -506,6 +507,7 @@ class MachineBOMCollaboration(CenterComponent):
         path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', 'worng_file_text.txt')
         self.upload_machine_bom_cooperation_import(path)
 
+    @allure.step("上传正常文件")
     def upload_machine_bom_cooperation_true_file(self):
         """
         导入BOM-上传文件
@@ -513,6 +515,7 @@ class MachineBOMCollaboration(CenterComponent):
         path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', '生产bom项目经理导入模板.xlsx')
         self.upload_machine_bom_cooperation_import(path)
 
+    @allure.step("上传内容错误文件")
     def upload_machine_bom_cooperation_wrongcontent_file(self):
         """
         导入BOM-上传文件
@@ -532,6 +535,7 @@ class MachineBOMCollaboration(CenterComponent):
         logging.info('获取BOM导入结果{}'.format(infolist))
         return infolist
 
+    @allure.step("断言导入BOM-简易导入后，页面表格内容是否正确")
     def assert_machine_bom_cooperation_upload_result(self, *content):
         """
         断言导入BOM-简易导入后，页面表格内容是否正确
@@ -619,10 +623,8 @@ class MachineBOMCollaboration(CenterComponent):
         """
         self.is_click_tbm(user['查看'], code)
 
+    @allure.step("进入oneworks查看流程页面")
     def enter_machine_bom_cooperation_onework_check(self, code):
-        """
-        进入oneworks查看流程页面
-        """
         sleep(1)
         self.click_machine_bom_cooperation_check(code)
         self.switch_window(1)
@@ -630,16 +632,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.frame_enter(user['待办列表-我申请的-iframe'])
         sleep(1)
 
-    def enter_machine_bom_cooperation_my_application(self):
-        """
-        进入我申请的页面
-        """
-        self.click_menu('待办列表', '我申请的')
-        self.refresh()
-        iframe = self.find_element(user['待办列表-我申请的-iframe'])
-        self.driver.switch_to.frame(iframe)
-        sleep(1)
-
+    @allure.step("获取oneworks页面的Bom信息")
     def get_machine_bom_cooperation_onework_bominfo(self, select):
         """
         获取oneworks页面的Bom信息
@@ -661,6 +654,7 @@ class MachineBOMCollaboration(CenterComponent):
         logging.info('获取Oneworks-BOMTree所有内容{}'.format(infolist))
         return infolist
 
+    @allure.step("断言导入BOM-简易导入后，页面表格内容是否正确")
     def assert_machine_bom_cooperation_oneworks_bomtree_result(self, *content):
         """
         断言导入BOM-简易导入后，页面表格内容是否正确
@@ -680,7 +674,7 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
-    @allure.step("补充工厂页面点击同意")
+    @allure.step("oneworks点击同意")
     def click_machine_bom_cooperation_oneworks_agree(self):
         """
         补充工厂页面点击同意
@@ -689,7 +683,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['补充工厂同意'])
         logging.info('点击同意')
 
-    @allure.step("补充工厂页面点击同意")
+    @allure.step("oneworks页面点击确定")
     def click_machine_bom_cooperation_oneworks_confirm(self):
         """
         补充工厂页面点击确定
@@ -697,13 +691,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['补充工厂同意确定'])
         logging.info('点击确定')
 
-    def enter_machine_bom_cooperation_onework_iframe(self):
-        """
-        进入oneworks框架
-        """
-        iframe = self.find_element(user['待办列表-我申请的-iframe'])
-        self.driver.switch_to.frame(iframe)
-
+    @allure.step("补充工厂页面输入生产工厂信息")
     def input_machine_bom_cooperation_oneworks_plant_info(self, plant, content):
         """
         补充工厂页面输入生产工厂信息
@@ -716,6 +704,7 @@ class MachineBOMCollaboration(CenterComponent):
         else:
             print('请输入正确的工厂')
 
+    @allure.step("补充工厂页面点击’一键/‘")
     def click_machine_bom_cooperation_oneworks_slash(self):
         """
         补充工厂页面点击’一键/‘
@@ -726,12 +715,14 @@ class MachineBOMCollaboration(CenterComponent):
     def click_machine_bom_cooperation_oneworks_onepress_write(self):
         self.is_click_tbm(user['补充工厂一键填写'])
 
+    @allure.step("补充工厂页面点击 一键填写-确定按钮")
     def click_machine_bom_cooperation_oneworks_onepress_write_confirm(self):
         """
         补充工厂页面点击 一键填写-确定按钮
         """
         self.is_click_tbm(user['补充工厂一键填写确定'])
 
+    @allure.step("补充工厂页面点击检查贴片工厂，选择贴片工厂正确/不正确")
     def click_machine_bom_cooperation_oneworks_plant_check(self, select):
         """
         补充工厂页面点击检查贴片工厂，选择贴片工厂正确/不正确
@@ -743,10 +734,8 @@ class MachineBOMCollaboration(CenterComponent):
         else:
             print('请输入’贴片工厂不正确‘ 或者 ’贴片工厂正确‘')
 
+    @allure.step("在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击")
     def assert_machine_bom_cooperation_oneworks_onepress_write(self):
-        """
-        断言: 在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击
-        """
         try:
             write = self.find_element(user['补充工厂一键填写'])
             assert 'is-disabled' in write.get_attribute('class')
@@ -756,6 +745,7 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言失败，请检查按钮状态')
             raise
 
+    @allure.step("补充工厂页面,点击指定复选框")
     def click_machine_bom_cooperation_oneworks_checkbox(self, code='all'):
         """
         补充工厂页面 根据material点击指定复选框，默认全选
@@ -780,10 +770,8 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['BOM工程师导出BOM'])
         self.is_click_tbm(user['确定'])
 
+    @allure.step("BOM工程师审批页面 获取BomTree数据")
     def get_machine_bom_cooperation_oneworks_approval_bomtree_info(self):
-        """
-        BOM工程师审批页面 获取BomTree数据
-        """
         self.click_machine_bom_cooperation_tree('产成品')
         info = self.find_elements_tbm(user['BOM工程师BomTree信息'])
         info_list = []
@@ -793,10 +781,8 @@ class MachineBOMCollaboration(CenterComponent):
         logging.info('获取Oneworks-BOM工程师审批页面-BOMTree所有内容{}'.format(info_list))
         return info_list
 
+    @allure.step("断言：BOM工程师审批页面 导出的数据和Bom Tree的数据是一致的")
     def assert_machine_bom_cooperation_oneworks_approval_bominfo(self):
-        """
-        BOM工程师审批页面 导出的数据和Bom Tree的数据是一致的
-        """
         page_info = self.get_machine_bom_cooperation_oneworks_approval_bomtree_info()
         excel_info = self.read_excel_flow()
         try:
@@ -850,6 +836,7 @@ class MachineBOMCollaboration(CenterComponent):
         """
         self.is_click_tbm(user['BOM工程师BomTree删除'], tree)
 
+    @allure.step("BOM工程师审批 点击回退，根据node选择回退节点")
     def click_machine_bom_cooperation_oneworks_rollback(self, node):
         """
         BOM工程师审批 点击回退，根据node选择回退节点
@@ -863,34 +850,27 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['BOM工程师审批回退选择'], node_dict[node])
         logging.info('回退到：{}'.format(node))
 
+    @allure.step("BOM工程师审批页面 点击回退确定")
     def click_machine_bom_cooperation_oneworks_rollback_confirm(self):
-        """
-        BOM工程师审批页面 点击回退确定
-        """
         self.is_click_tbm(user['BOM工程师审批回退确定'])
         logging.info('点击回退确定')
 
+    @allure.step("BOM工程师审批页面 点击转交")
     def click_machine_bom_cooperation_oneworks_refer(self):
-        """
-        BOM工程师审批页面 点击转交
-        """
         self.frame_exit()
         self.is_click_tbm(user['转交'])
         logging.info('点击转交')
 
+    @allure.step("BOM工程师审批页面 转交 点击确认")
     def click_machine_bom_cooperation_oneworks_refer_comfirm(self):
-        """
-        BOM工程师审批页面 转交 点击确认
-        """
         self.is_click_tbm(user['BOM工程师审批转交-确定'])
         logging.info('点击转交确定')
 
+    @allure.step("断言： BOM工程师审批页面 是否存在确定转交按钮")
     def assert_machine_bom_cooperation_oneworks_comfirmrefer_exist(self, result):
-        """
-        断言： BOM工程师审批页面 是否存在确定转交按钮
-        """
         DomAssert(self.driver).assert_control(user['BOM工程师审批确定转交'], result)
 
+    @allure.step("BOM工程师审批页面 转交 输入转交人")
     def input_machine_bom_cooperation_oneworks_refer(self, referrer):
         """
         BOM工程师审批页面 转交 输入转交人
@@ -901,6 +881,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['BOM工程师审批转交-查询'])
         logging.info('点击查询')
 
+    @allure.step("BOM工程师审批页面 转交 选择转交人")
     def select_machine_bom_cooperation_oneworks_refer(self, referrer):
         """
         BOM工程师审批页面 转交 选择转交人
@@ -909,45 +890,22 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['BOM工程师审批转交-转交人选择'], referrer)
         logging.info('点击转交人')
 
+    @allure.step("BOM工程师审批页面 选择转交后 点击取消")
     def click_machine_bom_cooperation_oneworks_refer_cancel(self):
-        """
-        BOM工程师审批页面 选择转交后 点击取消
-        """
         self.is_click_tbm(user['BOM工程师审批取消'])
         logging.info('点击转交取消')
 
+    @allure.step("BOM工程师审批页面 选择转交后 点击确认转交")
     def click_machine_bom_cooperation_oneworks_refer_comfirmrefer(self):
-        """
-        BOM工程师审批页面 选择转交后 点击确认转交
-        """
         self.is_click_tbm(user['BOM工程师审批确定转交'])
         logging.info('点击确认转交')
 
+    @allure.step("断言： BOM工程师审批页面 是否存在转交，回退按钮")
     def assert_machine_bom_cooperation_oneworks_rollback_refer_exist(self, result):
-        """
-        断言： BOM工程师审批页面 是否存在转交，回退按钮
-        """
         DomAssert(self.driver).assert_control(user['回退'], result)
         DomAssert(self.driver).assert_control(user['转交'], result)
 
-    def assert_machine_bom_cooperation_flow_approver(self, code, name):
-        """
-        断言：BOM工程师审批页面 确认转交后，校验流程移交到转交人上
-        @param code:流程编码
-        @param name:审批人名称
-        """
-        self.enter_machine_bom_cooperation_my_application()
-        approver = self.element_text(user['待办列表-我申请的-审批人'], code)
-        try:
-            assert approver == name
-            logging.info('断言成功，审批人为:{}'.format(approver))
-        except:
-            self.base_get_img()
-            logging.error('断言失败，审批人为:{}'.format(approver))
-            raise
-        finally:
-            self.frame_exit()
-
+    @allure.step("点击拒绝")
     def click_machine_bom_cooperation_oneworks_refuse(self):
         """
         BOM工程师审批页面 点击拒绝
@@ -958,12 +916,13 @@ class MachineBOMCollaboration(CenterComponent):
         self.is_click_tbm(user['BOM工程师审批拒绝-确定'])
         logging.info('点击确定')
 
+    @allure.step("检查审批状态是否为审批拒绝")
     def assert_machine_bom_cooperation_flow_refuse(self, code):
         """
         断言：BOM工程师审批页面 确认转交后，校验流程移交到转交人上
         @param code:流程编码
         """
-        self.enter_machine_bom_cooperation_my_application()
+        self.enter_my_application()
         status = self.element_text(user['待办列表-我申请的-审批状态'], code)
         try:
             assert status == '审批拒绝'
@@ -975,6 +934,7 @@ class MachineBOMCollaboration(CenterComponent):
         finally:
             self.frame_exit()
 
+    @allure.step("业务审核页面 点击 生产工厂信息展开表格")
     def click_machine_bom_cooperation_oneworks_approve_unfold_factoryinfo(self):
         """
         业务审核页面 点击 生产工厂信息展开表格
@@ -987,6 +947,7 @@ class MachineBOMCollaboration(CenterComponent):
         """
         self.is_click_tbm(user['补充工厂生产工厂信息-导出'])
 
+    @allure.step("断言：在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
     def assert_machine_bom_cooperation_oneworks_businessapprove_bomtree_edit(self):
         """
         在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑
@@ -1042,16 +1003,12 @@ class MachineBOMCollaboration(CenterComponent):
                     self.scroll_into_view(user['业务审核-自检清单-检查结果-不涉及'], str(i))
                     self.is_click_tbm(user['业务审核-自检清单-检查结果-不涉及'], str(i))
 
+    @allure.step("数据组审批 页面 点击 生产工厂信息 全选框")
     def click_machine_bom_cooperation_oneworks_datagroup_checkbox(self):
-        """
-        数据组审批 页面 点击 生产工厂信息 全选框
-        """
         self.is_click_tbm(user['oneworks-节点-数据组审批-生产工厂信息-复选框'])
 
+    @allure.step("BOM工程师审批页面 获取BomTree数据")
     def get_machine_bom_cooperation_oneworks_datagroup_factory_info(self):
-        """
-        BOM工程师审批页面 获取BomTree数据
-        """
         info = self.find_elements_tbm(user['BOM工程师BomTree信息'])
         info_list = []
         for i in info:
@@ -1060,10 +1017,8 @@ class MachineBOMCollaboration(CenterComponent):
         logging.info('获取Oneworks-BOM工程师审批页面-BOMTree所有内容{}'.format(info_list))
         return info_list
 
+    @allure.step("断言：BOM工程师审批页面 导出的数据和Bom Tree的数据是一致的")
     def assert_machine_bom_cooperation_oneworks_datagroup_factoryinfo(self):
-        """
-        BOM工程师审批页面 导出的数据和Bom Tree的数据是一致的
-        """
         page_info = self.get_machine_bom_cooperation_oneworks_datagroup_factory_info()
         excel_info = self.read_excel_flow()
         try:
