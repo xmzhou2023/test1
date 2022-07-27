@@ -11,7 +11,7 @@ import allure
 
 @allure.feature("销售管理-出库单")
 class TestQueryDeliveryOrder:
-    @allure.story("查询")
+    @allure.story("查询出库单列表")
     @allure.title("出库单页面，查询出库单列表加载数据")
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -39,7 +39,7 @@ class TestQueryDeliveryOrder:
 
 @allure.feature("销售管理-出库单")
 class TestExportDeliveryOrder:
-    @allure.story("导出")
+    @allure.story("导出筛选的出库单")
     @allure.title("出库单页面，导出筛选的出库单记录")
     @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial

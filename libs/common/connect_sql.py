@@ -2,22 +2,36 @@ import pymysql
 from libs.common.read_config import *
 
 class SQL(object):
-    def __init__(self, name, env):  # 此处可以加入这个类中需要定义的参数
+    def __init__(self, name, env, ini_name=None, values=None):  # 此处可以加入这个类中需要定义的参数
         self.name = name
         self.env = env
+        self.ini_name = ini_name
+        self.values = values
 
     # 获取连接方法
     def get_db_conn(self):
-        ini = ReadConfig(self.name, self.env)
-        sql = ast.literal_eval(ini.db)
-        conn = pymysql.connect(
-            host=sql['host'],                            # 数据库地址
-            port=sql['port'],                            # 端口（配置文件传入的是字符串格式，所以这里取值的时候，用getint的方法 ）
-            user=sql['user_name'],                       # 账号
-            passwd=str(sql['password']),                 # 密码
-            db=sql['db_name'],                           # 要操作的数据库名
-            charset='utf8')                              # 指定编码格式
-        return conn
+        if self.ini_name == None:
+            ini = ReadConfig(self.name, self.env)
+            sql = ast.literal_eval(ini.db)
+            conn = pymysql.connect(
+                host=sql['host'],                            # 数据库地址
+                port=sql['port'],                            # 端口（配置文件传入的是字符串格式，所以这里取值的时候，用getint的方法 ）
+                user=sql['user_name'],                       # 账号
+                passwd=str(sql['password']),                 # 密码
+                db=sql['db_name'],                           # 要操作的数据库名
+                charset='utf8')                              # 指定编码格式
+            return conn
+        else:
+            ini = ReadConfig(self.name, self.env, self.ini_name, self.values)
+            sql = ast.literal_eval(ini.IPM_db)
+            conn = pymysql.connect(
+                host=sql['host'],  # 数据库地址
+                port=sql['port'],  # 端口（配置文件传入的是字符串格式，所以这里取值的时候，用getint的方法 ）
+                user=sql['user_name'],  # 账号
+                passwd=str(sql['password']),  # 密码
+                db=sql['db_name'],  # 要操作的数据库名
+                charset='utf8')  # 指定编码格式
+            return conn
 
     # 查询
     def query_db(self, sql):
@@ -104,5 +118,9 @@ if __name__ == '__main__':
     print(a.delete_sql(table='uc_user',condition='id',condition_value='1'))
     print(a.insert_sql(table='uc_user',condition='id,name_zh,email,card_no',condition_value="'1','测试人员','yong.liu6@transsion.com','18888888'"))
     print(a.update_sql(table='uc_user',column='name_zh',column_value='evan',condition='card_no',condition_value='18888888'))
+    IPM = SQL('IPM','test','database','db_ipm_config_uat')
+    print(IPM.query_db('SELECT node_bid FROM flow_mat_node WHERE flow_type="MOBILE"AND state_code="enable"'))
+    print(IPM.query_db("SELECT DISTINCT obj_type_name FROM flow_mat_member WHERE obj_type_name='2.4G wifi saw' and is_delete=0;"))
+
 
 

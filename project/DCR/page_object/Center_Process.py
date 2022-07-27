@@ -195,7 +195,6 @@ class InboundReceiptPage(Base):
     def click_checkbox(self):
         Base.presence_sleep_dcr(self, user['第一个复选框'])
         self.is_click_dcr(user['第一个复选框'])
-        #sleep(1)
 
     @allure.step("快速收货页面，点击Quick Received按钮")
     def click_received(self):
