@@ -8,7 +8,7 @@ import allure
 
 @allure.feature("员工授权-角色定义")
 class TestSetRolePermission:
-    @allure.story("修改")
+    @allure.story("修改角色权限")
     @allure.title("角色定义页面，给“lhmItel店长”角色设置权限")
     @allure.description("角色定义页面，给“lhmItel店长”角色设置菜单权限")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial

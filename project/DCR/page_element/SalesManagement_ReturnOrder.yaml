@@ -3,10 +3,26 @@ Return To Seller: "id==return_order_add_seller"
 Radio Delivery order: "xpath==//span[text()=' Delivery Order']"
 Input Delivery Order: "css==[placeholder='Please enter delivery order ID,press enter to check']"
 Click Check: "xpath==//span[contains(text(),'Check')]"
-#OK "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div/div[2]/div[1]/div[1]/button/span"
 Get Scan Record: "xpath==//div[contains(text(),'Success')]"
-Submit: "xpath==//span[contains(text(),'Submit')]"
+Submit: "id==returnorderadd_Submit"
 获取退货成功提示: "xpath==//p[text()='Submit Success!']"
+
+
+#Quantity无码申请退货页面定位
+Radio Quantity: "xpath==//span[normalize-space(text())='variable']"
+Quantity Customer: "xpath==//input[@placeholder='Please enter ID or buyer name']"
+Quantity Customer value: "xpath==//span[contains(text(),'variable')]"
+
+Quantity Delivery Order ID: "xpath==//input[@placeholder='Please select a delivery order ID']"
+Quantity Delivery Order ID value: "xpath==//span[contains(text(),'variable')]"
+
+Quantity Product: "xpath==//input[@placeholder='Please select a product']"
+Quantity Product value: "xpath==//span[contains(text(),'variable')]"
+
+Return Quantity: "xpath==//input[@role='spinbutton']"
+Get Quantity Delivery Order Text: "xpath==//div[contains(text(),'variable')]"
+Get Quantity Seller ID Text: "xpath==//div[contains(text(),'variable')]"
+Get Quantity Buyer ID Text: "xpath==//div[contains(text(),'variable')]"
 
 
 #退货单列表

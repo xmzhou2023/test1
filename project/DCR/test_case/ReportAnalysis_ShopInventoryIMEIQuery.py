@@ -11,7 +11,7 @@ import allure
 
 @allure.feature("报表分析-门店库存IMEI查询")
 class TestQueryShopInventoryIMEI:
-    @allure.story("查询")
+    @allure.story("查询门店库存IMEI")
     @allure.title("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载")
     @allure.description("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial

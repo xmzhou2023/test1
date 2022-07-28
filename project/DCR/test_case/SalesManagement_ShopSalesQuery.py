@@ -8,7 +8,7 @@ import datetime
 import pytest
 import allure
 
-@allure.feature("销售管理-门店")
+@allure.feature("销售管理-门店销售查询")
 class TestQueryShopSalesQuery:
     @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
@@ -69,7 +69,6 @@ class TestExportShopSalesQuery:
         export.click_fold()
         export.click_search()
         total = export.get_total_text()
-
         """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
         export.assert_total(total)
 

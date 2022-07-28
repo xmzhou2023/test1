@@ -10,7 +10,7 @@ import allure
 
 @allure.feature("报表分析-客户PSI")
 class TestQueryDistiCustomerPSI:
-    @allure.story("查询")
+    @allure.story("查询客户PSI")
     @allure.title("Customer PSI页面，按日期查询国包客户PSI列表数据加载")
     @allure.description("Customer PSI页面，按日期查询国包客户PSI列表数据加载，断言数据是否加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -38,7 +38,7 @@ class TestQueryDistiCustomerPSI:
 
 @allure.feature("报表分析-客户PSI")
 class TestExportDistiCustomerPSI:
-    @allure.story("导出")
+    @allure.story("导出客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询国包客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询国包客户PSI列表数据，并导出")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -82,7 +82,7 @@ class TestExportDistiCustomerPSI:
 
 @allure.feature("报表分析-客户PSI")
 class TestQuerSubCustomerPSI:
-    @allure.story("查询")
+    @allure.story("查询二代客户PSI")
     @allure.title("Customer PSI页面，按日期查询二代客户PSI列表数据加载")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据加载，断言数据是否加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -114,7 +114,7 @@ class TestQuerSubCustomerPSI:
 
 @allure.feature("报表分析-客户PSI")
 class TestExportSubCustomerPSI:
-    @allure.story("导出")
+    @allure.story("导出二代客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询二代客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据，并导出。断言导出数据是否正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial

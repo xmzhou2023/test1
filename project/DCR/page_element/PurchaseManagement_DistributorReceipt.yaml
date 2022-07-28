@@ -3,13 +3,12 @@ Unfold: "xpath==//span[text()='Unfold']"
 Quick Receive button: "xpath==//span[contains(text(),'Quick Receive')]"
 DN前面第一个复选框: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[1]/div/label/span/span"
 
-列表第一行Quantity文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[11]/div"
+列表第一行Quantity文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[13]/div"
 收货对话框Quantity文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div[1]/div/div[2]/div/div/div/div/div/div[3]/table/tbody/tr/td[3]/div"
 
 列表第一个DN文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]"
 收货对话框DN文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div[1]/div/div[2]/div/div/div/div/div/div[3]/table/tbody/tr/td[1]/div"
 国包收货列表Search: "xpath==//span[contains(text(),'Search')]"
-#国包收货Submit: "xpath==//*[@id='app']/div/div[2]/section/div/div[4]/div/div/div[3]/div/button[1]/span[contains(text(),'Submit')]"
 国包收货Submit: "xpath==//span[contains(text(),'Submit')]"
 国包收货Reset: "xpath==//span[contains(text(),'Reset')]"
 

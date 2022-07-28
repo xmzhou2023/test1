@@ -42,9 +42,9 @@ class DitributorReceiptPage(Base):
 
     @allure.step("获取列表 总数量total Quantity文本")
     def get_list_quantity_text(self):
+        self.scroll_into_view(user['列表第一行Quantity文本'])
         list_quantity = self.element_text(user['列表第一行Quantity文本'])
         return list_quantity
-
 
     @allure.step("获取收货对话框总数量Quantity文本")
     def get_dialog_text_quantity(self):

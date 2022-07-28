@@ -9,14 +9,14 @@
 #
 # @allure.feature("采购管理-国包收货")
 # class TestDistributorReceipt:
-#     @allure.story("新增")
+#     @allure.story("国包快速收货")
 #     @allure.title("国包用户进入Distributor Receipt页面，进行“快速收货”操作")
 #     @allure.description("国包用户进入Distributor Receipt页面，进行“快速收货”操作")
 #     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
 #     def test_001_001(self, drivers):
 #         """DCR 国包账号登录"""
 #         user = LoginPage(drivers)
-#         user.dcr_login(drivers, "BD40344201", "dcr123456")
+#         user.dcr_login(drivers, "EC402067", "dcr123456")
 #
 #         """销售管理菜单-出库单-筛选出库单用例"""
 #         user.click_gotomenu("Purchase Management", "Distributor Receipt")
@@ -47,13 +47,13 @@
 #
 # @allure.feature("采购管理-查看IMEI详情")
 # class TestQueryIMEIDetail:
-#     @allure.story("查询")
+#     @allure.story("查询IMEI详情")
 #     @allure.title("国包用户进入Distributor Receipt页面，收货成功后，查看IMEI详情信息")
 #     @allure.description("国包用户进入Distributor Receipt页面，收货成功后，查看IMEI详情信息是否与收货的信息一致")
 #     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
 #     def test_002_001(self, drivers):
 #         user = LoginPage(drivers)
-#         user.dcr_login(drivers, "BD40344201", "dcr123456")
+#         user.dcr_login(drivers, "EC402067", "dcr123456")
 #
 #         """销售管理菜单-出库单-筛选出库单用例"""
 #         user.click_gotomenu("Purchase Management", "Distributor Receipt")

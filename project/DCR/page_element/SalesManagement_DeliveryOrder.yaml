@@ -8,15 +8,26 @@ Reset: "xpath==//span[contains(text(),'Reset')]"
 
 #新增出库单定位元素
 Buyer: "xpath==//label[contains(text(),'Buyer')]//parent::div//following-sibling::div//input"
-Buyer sub value: "xpath==//li[contains(text(),'BD2915')]"
-Buyer retail value: "xpath==//li[contains(text(),'EG000562')]"
+Buyer1: "xpath==//input[@class='el-input__inner deliveryorderadd_input_buyerId']"
+Buyer sub value: "xpath==//li[contains(text(),'variable')]"
+Buyer retail value: "xpath==//li[contains(text(),'variable')]"
 payment mode: "css==[placeholder='Please select a payment mode']"
 payment mode Online: "xpath==//span[contains(text(),'Online')]"
 payment mode Wechat: "xpath==//span[contains(text(),'Wechat')]"
 Input IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
-Submit: "xpath==//span[contains(text(), 'Submit')]"
+#Submit: "xpath==//span[contains(text(), 'Submit')]"
+Submit: "xpath==//button[@class='el-button el-button--primary el-button--small']"
 Affirm Submit: "xpath==//span[text()='Submit']"
+
+
+#创建出库单，产品为无码的，买方为系统中二级客户
+Quantity Radio Button: "id==delivery_order_create_qty"
+Quantity Add: "xpath==//button[@id='deliveryorderadd_Add']//span[normalize-space(text())='Add']"
+Quantity Input Product: "xpath==//div[@class='el-input el-input--medium el-input--suffix']//input"
+Quantity Input Product Value: "xpath==//span[text()='variable']"
+Delivery Input Quantity: "xpath==//div[@class='el-input el-input--medium']//input"
+Get Delivery Quantiry Text: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[4]/div[2]/div/div[2]"
 
 
 #获取列表字段文本

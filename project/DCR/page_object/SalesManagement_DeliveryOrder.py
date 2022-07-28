@@ -1,6 +1,7 @@
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from public.base.basics import Base
+from public.base.assert_ui import ValueAssert
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -31,6 +32,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("出库单页面，点击Add新增出库单")
     def click_add(self):
+        Base.presence_sleep_dcr(self, user['新增出库单'])
         self.is_click(user['新增出库单'])
         sleep(2)
 
@@ -38,17 +40,18 @@ class DeliveryOrderPage(Base):
     def input_sub_buyer(self, content):
         Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
-        self.input_text(user['Buyer'], txt=content, )
-        sleep(2)
-        self.is_click(user['Buyer sub value'])
+        sleep(1)
+        self.input_text(user['Buyer'], txt=content)
+        sleep(2.5)
+        self.is_click(user['Buyer sub value'], "BD2915")
 
     @allure.step("Add新增出库单页面，输入二代账号的Buyer属性")
     def input_retail_buyer(self, content):
         Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
-        self.input_text(user['Buyer'], txt=content, )
+        self.input_text(user['Buyer'], txt=content)
         sleep(2)
-        self.is_click(user['Buyer retail value'])
+        self.is_click(user['Buyer retail value'], "EG000562")
 
     @allure.step("Add新增出库单页面，payment mode属性")
     def input_deli_pay_mode(self, content):
@@ -68,7 +71,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):
-        self.is_click_dcr(user['Submit'])
+        self.is_click(user['Submit'])
         sleep(1)
 
     @allure.step("Add新增出库单页面，Submit按钮")
@@ -251,6 +254,38 @@ class DeliveryOrderPage(Base):
             logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
+        sleep(1)
+
+
+    """#创建出库单，产品为无码的出库单"""
+    @allure.step("点击无码单选按钮")
+    def click_quantity_radio_button(self):
+        self.is_click(user['Quantity Radio Button'])
+        sleep(2)
+
+    @allure.step("点击无码对应的Add")
+    def click_quantity_add(self):
+        self.is_click(user['Quantity Add'])
+        sleep(2)
+
+    @allure.step("输入出库单无码产品")
+    def click_quantity_product(self, content):
+        Base.presence_sleep_dcr(self, user['Quantity Input Product'])
+        self.is_click(user['Quantity Input Product'])
+        sleep(2)
+        self.is_click(user['Quantity Input Product Value'], content)
+
+    @allure.step("输入出库单无码数量")
+    def input_delivery_quantity(self, content):
+        self.is_click_dcr(user['Delivery Input Quantity'])
+        sleep(0.5)
+        self.input_text_dcr(user['Delivery Input Quantity'], txt=content)
+        self.is_click(user['Get Delivery Quantiry Text'])
+
+    @allure.step("获取Delivery Quantity文本值")
+    def get_delivery_quantity_text(self, content):
+        get_quantiry_text = self.element_text(user['Get Delivery Quantiry Text'])
+        ValueAssert.value_assert_equal(content, get_quantiry_text)
         sleep(1)
 
 

@@ -14,7 +14,7 @@ class TestQueryDistDelivery:
     @allure.story("国包查询出库单")
     @allure.title("国包用户按出库单条件筛选，出库单列表数据")
     @allure.description("根据销售单与出库单条件，筛选出库单列表数据")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_001(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
@@ -47,7 +47,7 @@ class TestAddDistDelivery:
     @allure.story("国包新增出库单")
     @allure.title("国包新增出库单")
     @allure.description("国包用户新增出库单，然后根据新建的出库断言是否加载正常")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
         """出库单列表页，国包账号 新增出库单用例 """
         add = DeliveryOrderPage(drivers)
@@ -70,7 +70,7 @@ class TestAddDistDelivery:
         if affirm == "Submit":
             add.click_submit_affirm()
             dom.assert_att("Submit successfully")
-        #sleep(1)
+        sleep(1)
 
         """从数据库表中，获取二代出库单ID，传给出库单筛选方法"""
         user = SQL('DCR', 'test')
@@ -78,7 +78,7 @@ class TestAddDistDelivery:
         result = user.query_db(varsql)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
-        #sleep(1)
+        sleep(1)
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         salesorder = add.text_sales_order()
         deliveryorder = add.text_delivery_order()
@@ -115,8 +115,8 @@ class TestAddDistDelivery:
 class TestSubReceiv:
     @allure.story("二代快速收货")
     @allure.title("二代快速收货")
-    @allure.description("新增出库单成功后，然后快速收货")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.description("新增出库单成功后，然后快速收货操作")
+    @allure.severity("critical")  # # 分别为3种类型等级：critical\normal\minor
     def test_003_001(self, drivers):
         """二代账号登录 进行 快速收货"""
         user = LoginPage(drivers)
@@ -160,10 +160,10 @@ class TestSubReceiv:
 
 @allure.feature("销售管理-出库单")
 class TestSubReturn:
-    @allure.story("二代申请退货")
-    @allure.title("二代申请退货")
-    @allure.description("收货成功后，然后申请退货操作")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.story("二代退货出库单")
+    @allure.title("二代申请退货出库单")
+    @allure.description("收货成功后，然后二代申请退货出库单操作")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_004_001(self, drivers):
         """二代账号, 进行退货操作"""
         """刷新页面"""
@@ -209,10 +209,10 @@ class TestSubReturn:
 
 @allure.feature("销售管理-出库单")
 class TestDistReturnApprove:
-    @allure.story("国包退货审核通过")
-    @allure.title("国包退货审核通过")
-    @allure.description("国包根据退货单，进行审核退货操作")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.story("国包审核退货单")
+    @allure.title("退货单页面，国包用户，审核退货单操作")
+    @allure.description("退货单页面，国包用户，进行审核退货单操作")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_005_001(self, drivers):
         """退货单列表页面，国包账号, 进行退货审核操作"""
         user1 = LoginPage(drivers)
