@@ -1,5 +1,3 @@
-Dashboard: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[1]/li/div/span'
-Dashboard->Dashboard: 'xpath==/html/body/div[4]/ul/div/a/li/span'
 
 #登录页面
 语言展开: 'xpath==//div[normalize-space(text())="中文版"]'
