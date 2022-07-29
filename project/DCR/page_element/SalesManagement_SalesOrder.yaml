@@ -5,17 +5,18 @@ Add Sales Order iframe:  "id==iframe_sales_order_add"
 Add: "id==saler_order_createSalesOrder_"
 
 Buyer: "xpath==//label[(text()='Buyer')]//parent::div// following-sibling::div//input"
-Buyer value: "xpath==//li[contains(text(),'EG000562')]"
+Buyer value: "xpath==//li[contains(text(),'variable')]"
 
 Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
 Brand value: "xpath==//span[contains(text(),'TECNO')]"
 
 product: "xpath==//label[(text()='Product')]//parent::div// following-sibling::div//input"
-product value: "xpath==//span[(text()='SPARK 6 Go 64+4 AQUA BLUE')]"
+product value: "xpath==//span[(text()='variable')]"
 Quantity: "xpath==//label[(text()='Quantity')]//parent::div// following-sibling::div//input"
 
 Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 保存成功确认OK: "xpath==//span[contains(text(),'OK')]"
+
 
 #根据筛选功能，查询销售订单ID
 按销售单ID筛选: "xpath==//label[contains(text(),'Sales Order ID')]//parent::div//following-sibling::div//input"
@@ -24,6 +25,11 @@ Search: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/but
 获取Sales Order ID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div/div"
 获取Status Pending文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Pending']"
 获取Status Delivered文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Delivered']"
+
+#删除销售单
+Delete Sales Order: "xpath==//span[contains(text(),'Delete')]"
+Confirm Delete: "xpath==//span[normalize-space(text())='Confirm']"
+Reset: "xpath==//span[normalize-space(text())='Reset']"
 
 #勾选新建的销售单，直接出库
 勾选第一条销售单ID: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span/span"
