@@ -11,6 +11,7 @@ class HomePagePage(Base):
 
     @allure.step("根据Time Period条件筛选")
     def click_time_period(self):
+        Base.presence_sleep_dcr(self, user['Input Time Period'])
         self.is_click(user['Input Time Period'])
         sleep(1)
         self.is_click(user['选择月份'])

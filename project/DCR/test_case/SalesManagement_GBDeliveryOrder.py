@@ -28,7 +28,6 @@ class TestQueryDistDelivery:
         """出库单页面，筛选出库单用例"""
         salesorder = delivery.text_sales_order()
         deliveryorder = delivery.text_delivery_order()
-
         delivery.input_salesorder(salesorder)
         delivery.input_deliveryorder(deliveryorder)
         delivery.click_search()
@@ -43,7 +42,7 @@ class TestQueryDistDelivery:
 
 
 @allure.feature("销售管理-出库单")
-class TestAddDistDelivery:
+class TestAddDistDeliveryOrder:
     @allure.story("国包新增出库单")
     @allure.title("国包新增出库单")
     @allure.description("国包用户新增出库单，然后根据新建的出库断言是否加载正常")

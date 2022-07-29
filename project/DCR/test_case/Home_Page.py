@@ -10,7 +10,7 @@ import allure
 
 
 @allure.feature("首页")
-class TestQueryUserMgtCard:
+class TestQueryAllIndicatorsOnTheHomepage:
     @allure.story("查询User Management& Authorization卡片")
     @allure.title("查看Homepage首页，User Management& Authorization卡片维度数据加载")
     @allure.description("查看Homepage首页，User Management& Authorization卡片的各维度数据")
@@ -67,13 +67,11 @@ class TestQueryUserMgtCard:
         sleep(2)
 
 
-@allure.feature("首页")
-class TestExportUserMgtCard:
     @allure.story("导出User Management & Authorization卡片")
     @allure.title("Homepage首页，导出User Management & Authorization卡片维度数据")
     @allure.description("Homepage首页的，导出User Management& Authorization卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         export = HomePagePage(drivers)
         """获取当天日期"""
         base = Base(drivers)
@@ -106,13 +104,11 @@ class TestExportUserMgtCard:
         export.click_close_user_management()
 
 
-@allure.feature("首页")
-class TestQueryAbnormalDataCard:
     @allure.story("查询Abnormal Data卡片")
     @allure.title("Homepage首页，查询Abnormal Data卡片维度数据加载")
     @allure.description("Homepage首页，查询Abnormal Data卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
-    def test_003_001(self, drivers):
+    def test_001_003(self, drivers):
         abnormal = HomePagePage(drivers)
         abnormal_text = abnormal.get_abnormal_data_text()
         infiltration_sale_text = abnormal.get_infiltration_sales_text()
@@ -152,12 +148,10 @@ class TestQueryAbnormalDataCard:
         sleep(2)
 
 
-@allure.feature("首页")
-class TestExportAbnormalDataCard:
     @allure.story("导出Abnormal Data卡片")
     @allure.title("Homepage首页，导出Abnormal Data卡片维度数据")
     @allure.description("Homepage首页，导出Abnormal Data卡片的各维度数据")
-    def test_004_001(self, drivers):
+    def test_001_004(self, drivers):
         export = HomePagePage(drivers)
         """获取当天日期"""
         base = Base(drivers)
@@ -188,19 +182,11 @@ class TestExportAbnormalDataCard:
         sleep(1)
 
 
-@allure.feature("首页")
-class TestQuerySubDealerMgtCard:
     @allure.story("查询Sub-dealer Management卡片")
     @allure.title("Homepage首页，查询Sub-dealer Management卡片维度数据加载")
     @allure.description("Homepage首页，查询Sub-dealer Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
-    def test_005_001(self, drivers):
-        user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
-
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Home Page")
-
+    def test_001_005(self, drivers):
         query = HomePagePage(drivers)
         sub_dealer_text = query.get_sub_dealer_management()
         ValueAssert.value_assert_equal("Sub-dealer Management", sub_dealer_text)
@@ -231,13 +217,17 @@ class TestQuerySubDealerMgtCard:
         sleep(1)
 
 
-@allure.feature("首页")
-class TestExportSubDealerMgtCard:
     @allure.story("导出Sub-dealer Management卡片")
     @allure.title("Homepage首页，导出Sub-dealer Management卡片维度数据")
     @allure.description("Homepage首页，导出Sub-dealer Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
-    def test_006_001(self, drivers):
+    def test_001_006(self, drivers):
+        user = LoginPage(drivers)
+        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Home Page")
+
         export = HomePagePage(drivers)
         """获取当天日期"""
         base = Base(drivers)
@@ -268,13 +258,17 @@ class TestExportSubDealerMgtCard:
         export.click_close_customer_mgt()
 
 
-@allure.feature("首页")
-class TestQueryDistManagementCard:
     @allure.story("查询Distributor Management卡片")
     @allure.title("Homepage首页，查询Distributor Management卡片维度数据加载")
     @allure.description("Homepage首页，查询Distributor Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
-    def test_007_001(self, drivers):
+    def test_001_007(self, drivers):
+        user = LoginPage(drivers)
+        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Home Page")
+
         query_dist = HomePagePage(drivers)
         dist_management = query_dist.get_distributor_management()
         ValueAssert.value_assert_equal("Distributor Management", dist_management)
@@ -305,13 +299,17 @@ class TestQueryDistManagementCard:
         sleep(2)
 
 
-@allure.feature("首页")
-class TestExportDistManagementCard:
     @allure.story("导出Distributor Management卡片")
     @allure.title("Homepage首页，导出Distributor Management卡片维度数据")
     @allure.description("Homepage首页，导出Distributor Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
-    def test_008_001(self, drivers):
+    def test_001_008(self, drivers):
+        user = LoginPage(drivers)
+        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Home Page")
+
         export = HomePagePage(drivers)
         """获取当天日期"""
         base = Base(drivers)
@@ -342,13 +340,11 @@ class TestExportDistManagementCard:
         export.click_close_customer_mgt()
 
 
-@allure.feature("首页")
-class TestQueryShopManagementCard:
     @allure.story("查询Shop Management卡片")
     @allure.title("Homepage首页，查询Shop Management卡片维度数据加载")
     @allure.description("Homepage首页，查询Shop Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_009_001(self, drivers):
+    def test_001_009(self, drivers):
         user = LoginPage(drivers)
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
 
@@ -380,13 +376,11 @@ class TestQueryShopManagementCard:
         sleep(2)
 
 
-@allure.feature("首页")
-class TestExportShopManagementCard:
     @allure.story("导出Shop Management卡片")
     @allure.title("Homepage首页，导出Shop Management卡片维度数据")
     @allure.description("Homepage首页，导出Shop Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
-    def test_010_001(self, drivers):
+    def test_001_010(self, drivers):
         export = HomePagePage(drivers)
         """获取当天日期"""
         base = Base(drivers)

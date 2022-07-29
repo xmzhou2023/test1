@@ -1,7 +1,7 @@
 from project.DCR.page_object.SalesManagement_SalesOrder import SalesOrderPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
-from public.base.assert_ui import ValueAssert
+from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.connect_sql import *
 from libs.common.time_ui import sleep
 import pytest
@@ -9,10 +9,10 @@ import allure
 
 
 @allure.feature("销售管理-销售单")
-class TestAddSubSalesOrder:
+class TestAddSalesOrder:
     @allure.story("新增销售单")
-    @allure.title("销售单页面，新增二代销售单操作")
-    @allure.description("销售单页面，新增销售单操作成功后，校验新增的销售单是否存在")
+    @allure.title("销售单页面，二代用户新增销售单操作")
+    @allure.description("销售单页面，二代用户新增销售单操作成功后，校验新增的销售单是否存在")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
         """DCR 二代账号登录"""
@@ -57,11 +57,11 @@ class TestAddSubSalesOrder:
 
 
 @allure.feature("销售管理-销售单")
-class TestDeliverySubSalesOrder:
+class TestSalesOrderOutbound:
     @allure.story("销售单出库")
-    @allure.title("销售单页面，对新增的销售单进行出库操作")
-    @allure.description("销售单页面，对新增的销售单进行出库操作成功后，校验销售单对应的状态是否更新为：Delivered")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.title("销售单页面，二代用户对新增的销售单进行出库操作")
+    @allure.description("销售单页面，二代用户对新增的销售单进行出库操作成功后，校验销售单对应的状态是否更新为：Delivered")
+    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
         """刷新页面"""
         base = Base(drivers)
@@ -114,6 +114,48 @@ class TestDeliverySubSalesOrder:
         """出库操作成功后，验证该条销售单对应的状态是否更新为：Delivered状态"""
         ValueAssert.value_assert_equal(text_status, "Delivered")
         sleep(1)
+
+
+@allure.feature("销售管理-销售单")
+class TestDeleteSalesOrder:
+    @allure.story("删除销售单")
+    @allure.title("销售单页面，国包用户，删除新建的销售单操作")
+    @allure.description("销售单页面，国包用户，对新建的销售单进行删除操作")
+    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_001(self, drivers):
+        """DCR 二代账号登录"""
+        user = LoginPage(drivers)
+        user.dcr_login(drivers, "BD40344201", "dcr123456")
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Sales Management", "Sales Order")
+
+        """销售订单页面，新建销售单、直接出库、筛选、然后快速收货场景功能"""
+        """调用新增销售单用例"""
+        detele = SalesOrderPage(drivers)
+        dom = DomAssert(drivers)
+
+        detele.click_add_sales()
+        detele.input_sales_buyer("BD2915")
+        detele.input_sales_brand('TECNO')
+        detele.input_sales_product("CAMON 15 Pro 128+6 ICE JADEITE")
+        detele.input_sales_quantity('1')
+        detele.click_submit()
+        detele.click_submit_OK()
+
+        """获取列表，销售单ID与Status文本内容"""
+        get_sales_order = detele.get_text_sales_id()
+        """销售单页面，按销售单ID筛选销售单信息"""
+        detele.input_sales_order_ID(get_sales_order)
+        detele.click_search()
+
+        get_query_sales_order = detele.get_text_sales_id()
+        ValueAssert.value_assert_equal(get_query_sales_order, get_sales_order)
+
+        detele.click_delete_sales()
+        detele.click_confirm_delete()
+        dom.assert_att("Successfully")
+        detele.click_reset()
+
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_SalesOrder.py'])

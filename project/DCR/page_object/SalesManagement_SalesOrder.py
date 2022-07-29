@@ -38,7 +38,7 @@ class SalesOrderPage(Base):
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content)
         sleep(1)
-        self.is_click(user['Buyer value'])
+        self.is_click(user['Buyer value'], content)
 
     @allure.step("输入Brand属性")
     def input_sales_brand(self, content):
@@ -52,7 +52,7 @@ class SalesOrderPage(Base):
         self.is_click(user['product'])
         self.input_text(user['product'], txt=content)
         sleep(3)
-        self.is_click(user['product value'])
+        self.is_click(user['product value'], content)
 
     @allure.step("输入Quantity属性")
     def input_sales_quantity(self, content):
@@ -175,8 +175,20 @@ class SalesOrderPage(Base):
     def close_sales_order(self):
         self.is_click(user['关闭Sales Order'])
 
+    @allure.step("点击删除按钮")
+    def click_delete_sales(self):
+        self.is_click_dcr(user['Delete Sales Order'])
+        sleep(1)
 
+    @allure.step("点击确认删除按钮")
+    def click_confirm_delete(self):
+        Base.presence_sleep_dcr(self, user['Confirm Delete'])
+        self.is_click(user['Confirm Delete'])
 
+    @allure.step("点击Reset按钮")
+    def click_reset(self):
+        self.is_click(user['Reset'])
+        sleep(2)
 
 if __name__ == '__main__':
     pass

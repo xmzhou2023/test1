@@ -9,7 +9,7 @@ import pytest
 import allure
 
 @allure.feature("销售管理-门店销售查询")
-class TestQueryShopSalesQuery:
+class TestShopSalesQuery:
     @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
