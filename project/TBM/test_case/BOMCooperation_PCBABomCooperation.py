@@ -37,7 +37,7 @@ class TestCreateProcess:
 class TestCreateProcessExceptionScenario:
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("导入Bom之前需要选中模板")  # 用例名称
-    @allure.description("进入新增页面制作类型选择PCBA BOM制作，选择一个不存在模板的品牌，其他内容正确填写，查看BOM Tree，无新增BOM按钮；点击导入提示“导入Bom之前需要选中模板”")
+    @allure.description("进入新增页面制作类型选择PCBA BOM制作，选择一个不存在模板的品牌，其他内容正确填写，查看BOM Tree，无新增BOM按钮；点击导入提示-导入Bom之前需要选中模板")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_001(self, drivers):
