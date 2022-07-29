@@ -12,9 +12,9 @@ Buyer1: "xpath==//input[@class='el-input__inner deliveryorderadd_input_buyerId']
 Buyer sub value: "xpath==//li[contains(text(),'variable')]"
 Buyer retail value: "xpath==//li[contains(text(),'variable')]"
 payment mode: "css==[placeholder='Please select a payment mode']"
-payment mode Online: "xpath==//span[contains(text(),'Online')]"
+payment mode Online: "xpath==//span[contains(text(),'variable')]"
 payment mode Wechat: "xpath==//span[contains(text(),'Wechat')]"
-Input IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
+Input IMEI: "xpath==//textarea[@placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
 #Submit: "xpath==//span[contains(text(), 'Submit')]"
 Submit: "xpath==//button[@class='el-button el-button--primary el-button--small']"
@@ -28,6 +28,16 @@ Quantity Input Product: "xpath==//div[@class='el-input el-input--medium el-input
 Quantity Input Product Value: "xpath==//span[text()='variable']"
 Delivery Input Quantity: "xpath==//div[@class='el-input el-input--medium']//input"
 Get Delivery Quantiry Text: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[4]/div[2]/div/div[2]"
+
+#新建出库单，创建临时客户
+Create Temporary Customer: "xpath==//span[normalize-space(text())='variable']"
+Temporary Customer Name: "id==deliveryorderadd_input_tmpEnterprise.clientName"
+Temporary Contact No: "id==deliveryorderadd_input_tmpEnterprise.contactNo"
+Business Type: "xpath==//input[@class='el-input__inner deliveryorderadd_input_tmpEnterprise.businessType']"
+Business Type value: "xpath==//span[normalize-space(text())='variable']"
+
+#查询IMEI Detail详情
+Click IMEI Detail: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[5]/div[2]/table/tbody/tr/td[43]/div/div/span[2]"
 
 
 #获取列表字段文本

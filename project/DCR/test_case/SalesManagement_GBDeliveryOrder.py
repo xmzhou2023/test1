@@ -64,13 +64,17 @@ class TestAddDistDelivery:
         add.input_imei(imei)
         add.click_check()
         add.click_submit()
-        affirm = add.get_text_submit_affirm()
 
+        affirm = add.get_text_submit_affirm()
         dom = DomAssert(drivers)
         if affirm == "Submit":
             add.click_submit_affirm()
             dom.assert_att("Submit successfully")
         sleep(1)
+
+        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
+        salesorder = add.text_sales_order()
+        deliveryorder = add.text_delivery_order()
 
         """从数据库表中，获取二代出库单ID，传给出库单筛选方法"""
         user = SQL('DCR', 'test')
@@ -79,9 +83,7 @@ class TestAddDistDelivery:
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
         sleep(1)
-        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        salesorder = add.text_sales_order()
-        deliveryorder = add.text_delivery_order()
+
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
@@ -103,6 +105,8 @@ class TestAddDistDelivery:
         ordercode = result[0].get("order_code")
         deliverycode = result[0].get("delivery_code")
         status = result[0].get("status")
+
+        """筛选后断言，后端查询数据库sales_order、delivery_order、status字段是否与列表字段一致"""
         ValueAssert.value_assert_equal(del_sales_order, ordercode)
         ValueAssert.value_assert_equal(del_delivery_order, deliverycode)
         if status == 80200000:

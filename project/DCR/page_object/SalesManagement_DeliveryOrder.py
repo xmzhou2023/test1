@@ -2,6 +2,7 @@ from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert
+import random
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -55,10 +56,11 @@ class DeliveryOrderPage(Base):
 
     @allure.step("Add新增出库单页面，payment mode属性")
     def input_deli_pay_mode(self, content):
+        Base.presence_sleep_dcr(self, user['payment mode'])
         self.is_click(user['payment mode'])
         self.input_text(user['payment mode'], txt=content)
         sleep(1)
-        self.is_click(user['payment mode Online'])
+        self.is_click(user['payment mode Online'], content)
 
     @allure.step("Add新增出库单页面，IMEI属性")
     def input_imei(self, content):
@@ -92,7 +94,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("获取出库单列表的 销售单ID文本")
     def text_sales_order(self):
-        sleep(1)
+        sleep(2)
         Base.presence_sleep_dcr(self, user['Get Sales Order ID Text'])
         sales_order = self.element_text(user['Get Sales Order ID Text'])
         return sales_order
@@ -274,12 +276,14 @@ class DeliveryOrderPage(Base):
         self.is_click(user['Quantity Input Product'])
         sleep(2)
         self.is_click(user['Quantity Input Product Value'], content)
+        sleep(1)
 
     @allure.step("输入出库单无码数量")
     def input_delivery_quantity(self, content):
         self.is_click_dcr(user['Delivery Input Quantity'])
-        sleep(0.5)
+        sleep(1)
         self.input_text_dcr(user['Delivery Input Quantity'], txt=content)
+        sleep(1)
         self.is_click(user['Get Delivery Quantiry Text'])
 
     @allure.step("获取Delivery Quantity文本值")
@@ -288,6 +292,34 @@ class DeliveryOrderPage(Base):
         ValueAssert.value_assert_equal(content, get_quantiry_text)
         sleep(1)
 
+
+    """新建出库单时，新建临时客户"""
+    @allure.step("点击临时客户")
+    def click_temporary_customer(self):
+        self.is_click(user['Create Temporary Customer'], "Create Temporary Customer")
+        sleep(1.5)
+
+    @allure.step("输入临时客户名称")
+    def input_temporary_customer_name(self, content):
+        Base.presence_sleep_dcr(self, user['Temporary Customer Name'])
+        self.is_click(user['Temporary Customer Name'])
+        self.input_text(user['Temporary Customer Name'], content)
+
+    @allure.step("输入临时客户联系电话")
+    def input_customer_contact_no(self, content):
+        self.is_click(user['Temporary Contact No'])
+        self.input_text(user['Temporary Contact No'], content)
+
+    @allure.step("点击业务类型下拉框")
+    def click_business_type(self):
+        self.is_click(user['Business Type'])
+        sleep(2)
+        self.is_click(user['Business Type value'], "Retail&Wholesale")
+
+    @allure.step("随机生成数字")
+    def customer_random(self):
+        num = str(random.randint(100, 999))
+        return num
 
 if __name__ == '__main__':
     pass
