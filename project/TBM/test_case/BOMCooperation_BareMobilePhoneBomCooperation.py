@@ -157,7 +157,7 @@ class TestCreateProcess:
     @allure.title("选择正确的文件进行导入，并应用，显示的数据与模板的数据一致")
     @allure.description("进入新增页面制作类型选择单机头BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择导入BOM选择正确的文件进行导入，并能应用，点击应用后页面显示的数据与模板的数据一致")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_001_008(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -490,7 +490,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.title("结构工程师审核页面，审批成功")
     @allure.description("结构工程师审核页面中，所有数据都正确，点击同意，可以提交成功并给出提示“处理成功，审核通过”，页面成功跳转;成功处理了结构工程师审核点，我的待办中不存在该条单机在BOM工程师审核节点（建议：校验单据号和当前节点）")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_003_003(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -692,7 +692,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("检查贴片工厂不能为空！")
     @allure.description("在补充工厂页面中，不选择检查贴片工厂，点击同意，不能提交成功，并给出提示“检查贴片工厂不能为空！”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_004_005(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -709,7 +709,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.title("父阶BOM料号xxxxxxxx用量不为1000")
     @allure.description("在结构工程师审批页面中，在Bom Tree中点编辑，将用量编辑为“1”，点击同意，不能提交成功页面给出提示“父阶BOM料号xxxxxxxx用量不为1000”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.FT
+    @pytest.mark.UT
     def test_004_006(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
