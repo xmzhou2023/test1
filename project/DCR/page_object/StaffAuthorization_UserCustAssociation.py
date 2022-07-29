@@ -19,7 +19,7 @@ class UserCustomerAssociaPage(Base):
     @allure.step("点击Search按钮筛选数据")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(2.5)
 
     @allure.step("获取分页总条数文本")
     def get_total_text(self):
@@ -29,7 +29,7 @@ class UserCustomerAssociaPage(Base):
 
     @allure.step("获取列表User ID文本")
     def get_list_user_id(self):
-        #Base.presence_sleep_dcr(self, user['Get list User ID'])
+        Base.presence_sleep_dcr(self, user['Get list User ID'])
         get_userid = self.element_text(user['Get list User ID'])
         return get_userid
 
