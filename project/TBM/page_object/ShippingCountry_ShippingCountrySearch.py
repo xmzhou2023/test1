@@ -16,7 +16,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.click_menu("出货国家", "出货国家查询")
 
     @allure.step("删除操作")
-    def click_shipping_country_search_delete(self, code):
+    def click_delete(self, code):
         """
         根据流程编码点击删除 进行删除操作
         @param code:流程编码
@@ -24,35 +24,23 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.is_click_tbm(user['删除'], code)
         self.is_click_tbm(user['确定'])
 
-    @allure.step("断言审核流程")
-    def assert_approve_flow(self):
-        att = self.wait.until(EC.visibility_of_element_located((By.XPATH, "//p[contains(text(),'成功')]"))).text
-        logging.info(att)
-        try:
-            if '请求成功' in att or '审核通过' in att or '操作成功' in att:
-                return True
-            else:
-                return False
-        except:
-            raise
-
     @allure.step("新建流程后的后置删除处理")
     def delete_shipping_country_search(self, code):
         logging.info(f'开始撤回流程：{code}')
         self.recall_process(code)
         self.click_menu("出货国家", "出货国家流程")
-        self.click_shipping_country_search_delete(code)
-        self.assert_approve_flow()
+        self.click_delete(code)
+        self.assert_toast()
         logging.info('撤回删除流程成功')
 
     @allure.step("点击查询")
-    def click_shipping_country_search_search(self):
+    def click_search(self):
         """点击查询"""
         self.is_click_tbm(user['查询'])
         sleep(1)
 
     @allure.step("出货国家查询 根据条件选择输入框 输入/选择内容")
-    def input_shipping_country_search_condition(self, codition, content):
+    def input_condition(self, codition, content):
         """
         出货国家查询 根据条件选择输入框 输入/选择内容
         @parma codition:输入框名称
@@ -69,7 +57,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
             self.input_text(user['输入框'], content, codition)
 
     @allure.step("出货国家查询 获取国家状态")
-    def get_shipping_country_search_cty_status(self, item):
+    def get_cty_status(self, item):
         """
         获取出货国家查询指定列内容
         @parma item:项目名称
@@ -77,9 +65,9 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         """
         self.click_menu("出货国家", "出货国家查询")
         sleep(1)
-        self.input_shipping_country_search_condition('品牌', 'Infinix')
-        self.input_shipping_country_search_condition('项目名称', item)
-        self.click_shipping_country_search_search()
+        self.input_condition('品牌', 'Infinix')
+        self.input_condition('项目名称', item)
+        self.click_search()
         info = self.find_elements_tbm(user['表格指定行内容'], item)
         infolist = []
         for i in info:
@@ -89,7 +77,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         return infolist[5:11]
 
     @allure.step("选择汇签/抄送人员")
-    def select_shipping_country_search_signatory(self, choice, name):
+    def select_signatory(self, choice, name):
         """
         出货国家流程新增页面 - 选择汇签/抄送人员
         :param choice: 汇签/抄送人员选择框
@@ -103,14 +91,14 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.is_click_tbm(user['成员确定'])
 
     @allure.step("点击提交")
-    def click_shipping_country_search_add_submit(self):
+    def click_add_submit(self):
         """点击提交"""
         self.scroll_into_view(user['提交'])
         sleep(0.5)
         self.is_click_tbm(user['提交'])
 
     @allure.step("获取出货国家流程第一列内容")
-    def get_shipping_country_search_info(self, item):
+    def get_info(self, item):
         """
         获取出货国家流程第一列内容
         @parma item:项目名称
@@ -126,14 +114,14 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         return infolist
 
     @allure.step("检查出货国家查询地区状态是否为未配置状态，如果是否则清除配置")
-    def check_reset_shipping_country_search_cty_status(self, item, cty):
+    def check_reset_cty_status(self, item, cty):
         """
         待修改！！！！！！！！！！！！！
         检查出货国家查询地区状态是否为未配置状态，如果是否则清除配置
         @parma item:项目名称
         @parma cty:区域
         """
-        cty_status = self.get_shipping_country_search_cty_status(item)
+        cty_status = self.get_cty_status(item)
         status_result = [True, True, True]
         x = 0
         z = 0
@@ -143,31 +131,31 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
                     status_result[x] = False
                 x += 1
             if False in status_result:
-                self.click_shipping_country_search_checkbox(item)
-                self.click_shipping_country_search_change('变更国家')
-                self.click_shipping_country_search_change_select('东亚')
-                self.click_oneworks_shipping_country_search_product_definition_info_edit(item)
+                self.click_checkbox(item)
+                self.click_change('变更国家')
+                self.click_change_select('东亚')
+                self.click_oneworks_product_definition_info_edit(item)
                 ctr = ['EE1', '乍得', '中国']
                 for i in status_result:
                     if i is False:
-                        self.edit_shipping_country_search_product_definition_closd_ctyinfo(ctr[z])
+                        self.edit_product_definition_closed_ctyinfo(ctr[z])
                     z += 1
-                self.click_oneworks_shipping_country_search_product_definition_info_confirm()
-                self.select_shipping_country_search_signatory('汇签人员', '李小素')
-                self.click_shipping_country_search_add_submit()
+                self.click_oneworks_product_definition_info_confirm()
+                self.select_signatory('汇签人员', '李小素')
+                self.click_add_submit()
                 DomAssert(self.driver).assert_att('请求成功')
-                process_code = self.get_shipping_country_search_info(item)[2]
-                self.shipping_country_search_onework_agree_flow(process_code, '产品部管理员审核')
-                self.shipping_country_search_onework_agree_flow(process_code, '产品部汇签')
-                self.shipping_country_search_onework_agree_flow(process_code, '产品经理修改')
-                self.shipping_country_search_onework_agree_flow(process_code, '项目经理审批')
+                process_code = self.get_info(item)[2]
+                self.onework_agree_flow(process_code, '产品部管理员审核')
+                self.onework_agree_flow(process_code, '产品部汇签')
+                self.onework_agree_flow(process_code, '产品经理修改')
+                self.onework_agree_flow(process_code, '项目经理审批')
                 self.refresh_webpage_click_menu()
-                self.input_shipping_country_search_condition('品牌', 'Infinix')
-                self.input_shipping_country_search_condition('项目名称', item)
-                self.click_shipping_country_search_search()
+                self.input_condition('品牌', 'Infinix')
+                self.input_condition('项目名称', item)
+                self.click_search()
 
     @allure.step("获取 出货国家查询 第一列项目名称")
-    def get_shipping_country_search_project_name(self):
+    def get_project_name(self):
         """
         获取 出货国家查询 第一列项目名称
         @return:'项目名称'
@@ -182,7 +170,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         return infolist[4]
 
     @allure.step("勾选复选框")
-    def click_shipping_country_search_checkbox(self, name):
+    def click_checkbox(self, name):
         """
         出货国家查询 勾选指定项目复选框
         @name:'表格内容名称'
@@ -190,7 +178,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.is_click_tbm(user['指定复选框'], name)
 
     @allure.step("点击变更产品/变更国家")
-    def click_shipping_country_search_change(self, type):
+    def click_change(self, type):
         """
         出货国家查询 点击变更产品/变更国家
         @type:变更产品/变更国家
@@ -199,7 +187,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         sleep(2)
 
     @allure.step("断言：变更产品的项目名称/变更产品的产品经理不一致提示")
-    def assert_shipping_country_search_change_tip(self):
+    def assert_change_tip(self):
         if self.element_exist(user['提示语']):
             try:
                 tip = self.element_text(user['提示语'])
@@ -221,7 +209,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
                 raise
 
     @allure.step("出货国家查询 点击变更国家 选择地区")
-    def click_shipping_country_search_change_select(self, cty):
+    def click_change_select(self, cty):
         """
         出货国家查询 点击变更国家 选择地区
         @cty: 地区
@@ -230,7 +218,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.is_click_tbm(user['变更国家选择确定'])
 
     @allure.step("oneworks-国家出货查询 变更产品/国家点击产品定义信息-编辑按钮")
-    def click_oneworks_shipping_country_search_product_definition_info_edit(self, item):
+    def click_oneworks_product_definition_info_edit(self, item):
         """
         oneworks-国家出货查询 变更产品/国家 进入oneworks页面
         根据表格内容点击 产品定义信息 编辑按钮
@@ -239,7 +227,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-指定-编辑'], item)
 
     @allure.step("oneworks-国家出货查询 变更产品/国家点击产品定义信息-确定按钮")
-    def click_oneworks_shipping_country_search_product_definition_info_confirm(self):
+    def click_oneworks_product_definition_info_confirm(self):
         """
         oneworks-国家出货查询 变更产品/国家 进入oneworks页面
         根据表格内容点击 产品定义信息 确认按钮
@@ -247,7 +235,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
 
     @allure.step("编辑修改产品定义信息")
-    def edit_oneworks_shipping_country_search_product_definition_info(self, header, content):
+    def edit_oneworks_product_definition_info(self, header, content):
         """
         oneworks-国家出货查询 变更产品/国家 发起页面/oneworks页面
         编辑修改产品定义信息
@@ -263,7 +251,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         if header in select_list:
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
-        if header in select1_list:
+        elif header in select1_list:
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
         elif header in input_list:
@@ -278,7 +266,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
             print(f'请输入正确选项：{definition_dict}')
 
     @allure.step("编辑修改产品定义信息-区域")
-    def edit_shipping_country_search_product_definition_ctyinfo(self, header, content):
+    def edit_product_definition_ctyinfo(self, header, content):
         """
         国家出货查询 变更国家 进入流程页面
         编辑修改产品定义信息
@@ -290,7 +278,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
 
     @allure.step("编辑修改产品定义信息-删除区域信息")
-    def edit_shipping_country_search_product_definition_closed_ctyinfo(self, header='all'):
+    def edit_product_definition_closed_ctyinfo(self, header='all'):
         """
         oneworks-国家出货查询 变更国家 进入流程页面
         编辑修改产品定义信息
@@ -311,17 +299,17 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
                                    'width: 120px; bottom: 5px;')
 
     @allure.step("点击同意-确定")
-    def click_onework_shipping_country_search_agree(self):
+    def click_onework_agree(self):
         self.frame_exit()
         self.is_click_tbm(user['同意'])
         self.is_click_tbm(user['确定'])
         logging.info('点击同意-确定')
 
     @allure.step("点击同意-确定")
-    def shipping_country_search_onework_agree_flow(self, code, node):
+    def onework_agree_flow(self, code, node):
         self.assert_my_todo_node(code, node, True)
         self.enter_oneworks_edit(code)
-        self.click_onework_shipping_country_search_agree()
+        self.click_onework_agree()
         DomAssert(self.driver).assert_att('审核通过')
         self.quit_oneworks()
 

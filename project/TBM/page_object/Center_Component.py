@@ -32,6 +32,7 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("初始化浏览器")
     def refresh_webpage(self):
+        logging.info("初始化浏览器")
         self.refresh()
         self.driver.switch_to.default_content()
         handles = self.driver.window_handles
@@ -41,6 +42,14 @@ class CenterComponent(Base, APIRequest):
                 self.close_switch(1)
         else:
             self.switch_window(0)
+        text = self.element_text(user['所有文本']).replace("\n", "|")
+        if '扫码快捷登录' in text:
+            """使用统一登录"""
+            logging.info("前置条件：传音统一登录开始")
+            a = Login(self.driver)
+            a.login(self.driver, 'http://bom-sit.transsion.com/#/process/home-page', account[2]['usernum'], account[2]['passwd'])
+            DomAssert(self.driver).assert_exact_att('首页')
+            logging.info("前置条件：传音统一登录成功")
 
     @allure.step("进入框架")
     def enter_oneworks_iframe(self):
@@ -49,13 +58,13 @@ class CenterComponent(Base, APIRequest):
     @allure.step("退出oneworks查看流程页面")
     def quit_oneworks(self):
         self.frame_exit()
+        logging.info("退出oneworks查看流程页面")
         self.close_switch(1)
-        self.refresh()
-        self.frame_exit()
+        logging.info("关闭窗口")
+        self.refresh_webpage()
 
-    @allure.step("进入框架")
+    @allure.step("进入待办列表框架")
     def refresh_todo_list(self):
-        """进入待办列表 刷新单据页面"""
         try:
             self.refresh()
             self.frame_enter(user['待办列表-iframe'])
@@ -75,8 +84,7 @@ class CenterComponent(Base, APIRequest):
         self.input_text(user['待办列表-筛选框-单据号'], code)
         self.is_click_tbm(user['待办列表-筛选框-筛选'])
         for i in range(20):
-            all_text = self.element_text(user['所有文本'])
-            text = all_text.replace("\n", "|")
+            text = self.element_text(user['所有文本']).replace("\n", "|")
             if code not in text:
                 self.is_click(user['待办列表-刷新'])
                 sleep(1)
@@ -127,16 +135,25 @@ class CenterComponent(Base, APIRequest):
         logging.info('进入框架')
         DomAssert(self.driver).assert_att('基本信息')
 
-    @allure.step("断言审核流程")
-    def assert_approve_flow(self):
-        att = self.wait.until(EC.visibility_of_element_located((By.XPATH, "//p[contains(text(),'成功')]"))).text
-        logging.info(att)
+    @allure.step("断言")
+    def assert_toast(self, content=None):
+        # att = self.element_text(user['toast提示'])
         try:
-            if '请求成功' in att or '审核通过' in att or '操作成功' in att:
-                return True
-            else:
-                return False
+            att = self.wait.until(
+                    EC.visibility_of_element_located((By.XPATH, "//div[@role='alert']/p"))).text
+            logging.info('获取toast提示语：{}'.format(att))
+            try:
+                if content is None:
+                    assert '请求成功' in att or '审核通过' in att or '操作成功' in att
+                    logging.info('断言成功，toast提示为：{}'.format(att))
+                else:
+                    assert content in att
+                    logging.info('断言成功，toast提示为：{}'.format(att))
+            except:
+                logging.error('断言失败，实际提示为：{}'.format(att))
+                raise
         except:
+            logging.error('未获取到toast提示语')
             raise
 
     @allure.step("我的待办页面-断言：我的待办中存在/不存在该条单据在指定审核节点")
@@ -250,15 +267,15 @@ class CenterComponent(Base, APIRequest):
             self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
         self.switch_window(1)
         try:
-            self.is_click_tbm(user['撤回'])
-            self.is_click_tbm(user['撤回确定'])
+            self.is_click_tbm(user['oneworks-撤回'])
+            self.is_click_tbm(user['oneworks-撤回确定'])
         except:
             self.base_get_img()
             self.refresh()
-            self.is_click_tbm(user['撤回'])
-            self.is_click_tbm(user['撤回确定'])
+            self.is_click_tbm(user['oneworks-撤回'])
+            self.is_click_tbm(user['oneworks-撤回确定'])
         self.frame_exit()
-        self.switch_window(0)
+        self.close_switch(1)
         self.frame_exit()
 
     @allure.step("断言：校验转交流程在转交人")
@@ -284,28 +301,28 @@ class CenterComponent(Base, APIRequest):
     @allure.step("oneworks点击同意")
     def click_oneworks_agree(self):
         self.frame_exit()
-        self.is_click_tbm(user['同意'])
+        self.is_click_tbm(user['oneworks-同意'])
         logging.info('点击同意')
 
     @allure.step("oneworks点击确定")
     def click_oneworks_confirm(self):
-        self.is_click_tbm(user['同意确定'])
+        self.is_click_tbm(user['oneworks-同意确定'])
         logging.info('点击确定')
 
     @allure.step("oneworks点击转交")
     def click_oneworks_refer(self):
         self.frame_exit()
-        self.is_click_tbm(user['转交'])
+        self.is_click_tbm(user['oneworks-转交'])
         logging.info('点击转交')
 
     @allure.step("oneworks转交 点击确认")
     def click_oneworks_refer_comfirm(self):
-        self.is_click_tbm(user['转交-确定'])
+        self.is_click_tbm(user['oneworks-转交-确定'])
         logging.info('点击转交确定')
 
     @allure.step("断言：是否存在确定转交按钮")
     def assert_oneworks_comfirmrefer_exist(self, result):
-        DomAssert(self.driver).assert_control(user['确定转交'], result)
+        DomAssert(self.driver).assert_control(user['oneworks-确定转交'], result)
 
     @allure.step("转交 输入转交人")
     def input_oneworks_refer(self, referrer):
@@ -313,10 +330,11 @@ class CenterComponent(Base, APIRequest):
         转交 输入转交人
         @param referrer:转交人
         """
-        self.input_text(user['转交-转交人输入'], referrer)
+        self.input_text(user['oneworks-转交-转交人输入'], referrer)
         logging.info('输入转交人：{}'.format(referrer))
-        self.is_click_tbm(user['转交-查询'])
+        self.is_click_tbm(user['oneworks-转交-查询'])
         logging.info('点击查询')
+        sleep(1)
 
     @allure.step("转交 选择转交人")
     def select_oneworks_refer(self, referrer):
@@ -324,23 +342,49 @@ class CenterComponent(Base, APIRequest):
         BOM工程师审批页面 转交 选择转交人
         @param referrer:转交人
         """
-        self.is_click_tbm(user['转交-转交人选择'], referrer)
+        self.is_click_tbm(user['oneworks-转交-转交人选择'], referrer)
         logging.info('点击转交人')
 
     @allure.step("选择转交后 点击取消")
     def click_oneworks_refer_cancel(self):
-        self.is_click_tbm(user['转交取消'])
+        self.is_click_tbm(user['oneworks-转交取消'])
         logging.info('点击转交取消')
 
     @allure.step("选择转交后 点击确认转交")
     def click_oneworks_refer_comfirmrefer(self):
-        self.is_click_tbm(user['确定转交'])
+        self.is_click_tbm(user['oneworks-确定转交'])
         logging.info('点击确认转交')
 
     @allure.step("断言： 是否存在转交，回退按钮")
     def assert_oneworks_rollback_refer_exist(self, result):
-        DomAssert(self.driver).assert_control(user['回退'], result)
-        DomAssert(self.driver).assert_control(user['转交'], result)
+        DomAssert(self.driver).assert_control(user['oneworks-回退'], result)
+        DomAssert(self.driver).assert_control(user['oneworks-转交'], result)
+
+    @allure.step("点击拒绝")
+    def click_oneworks_refuse(self):
+        self.frame_exit()
+        self.is_click_tbm(user['oneworks-拒绝'])
+        logging.info('点击拒绝')
+        self.is_click_tbm(user['oneworks-拒绝-确定'])
+        logging.info('点击确定')
+
+    @allure.step("点击回退，根据node选择回退节点")
+    def click_oneworks_rollback(self, node):
+        """
+        @param node:节点
+        """
+        self.frame_exit()
+        self.is_click_tbm(user['oneworks-回退'])
+        logging.info('点击回退')
+        self.is_click_tbm(user['oneworks-回退到'])
+        node_dict = {'申请人': '申请人[Applicant]', node: node}
+        self.is_click_tbm(user['oneworks-回退选择'], node_dict[node])
+        logging.info('回退到：{}'.format(node))
+
+    @allure.step("点击回退确定")
+    def click_oneworks_rollback_confirm(self):
+        self.is_click_tbm(user['oneworks-回退确定'])
+        logging.info('点击回退确定')
 
 
 if __name__ == '__main__':
