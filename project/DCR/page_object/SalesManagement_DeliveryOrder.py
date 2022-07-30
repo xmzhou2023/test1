@@ -268,10 +268,11 @@ class DeliveryOrderPage(Base):
     @allure.step("点击无码对应的Add")
     def click_quantity_add(self):
         self.is_click(user['Quantity Add'])
-        sleep(2)
+        sleep(1.5)
 
     @allure.step("输入出库单无码产品")
     def click_quantity_product(self, content):
+        self.scroll_into_view(user['Quantity Input Product'])
         Base.presence_sleep_dcr(self, user['Quantity Input Product'])
         self.is_click(user['Quantity Input Product'])
         sleep(2)

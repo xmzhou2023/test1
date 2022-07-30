@@ -1,4 +1,4 @@
-from project.DCR.page_object.ShopManagement_ShopMgtGlobal import ShopManagementPage
+from project.DCR.page_object.ShopManagement_ShopManagement import ShopManagementPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import *
 from libs.common.connect_sql import *
@@ -19,8 +19,7 @@ class TestAddShop:
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
 
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = LoginPage(drivers)
-        menu.click_gotomenu("Shop Management", "Shop Management(Global)")
+        user.click_gotomenu("Shop Management", "Shop Management(Global)")
 
         """新建 TECNO品牌的门店"""
         add_shop = ShopManagementPage(drivers)
@@ -172,4 +171,4 @@ class TestDisableShop:
 
 
 if __name__ == '__main__':
-    pytest.main(['ShopManagement_ShopMgtGlobal.py'])
+    pytest.main(['ShopManagement_ShopManagement.py'])

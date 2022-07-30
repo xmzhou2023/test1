@@ -63,7 +63,7 @@ class InboundReceiptPage(Base):
 
     @allure.step("快速收货页面，获取列表第一条记录的最新状态")
     def text_status(self):
-        Base.presence_sleep_dcr(self,user['获取列表状态'])
+        Base.presence_sleep_dcr(self, user['获取列表状态'])
         status = self.element_text(user['获取列表状态'])
         return status
 

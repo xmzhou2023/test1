@@ -102,7 +102,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单列表页面，点击Approve按钮")
     def click_Approve_button(self):
         self.is_click(user['Approve button'])
-        sleep(2)
+        sleep(3)
 
     @allure.step("退货单列表页面，输入退货评价")
     def input_remark(self, content):

@@ -222,7 +222,7 @@ class ShopManagementPage(Base):
     @allure.step("点击增加扩展品牌时，弹出窗口选择品牌后，点击Save")
     def extend_brand_save(self):
         self.is_click(user['Extend Brand Save'])
-        sleep(4.5)
+        sleep(4)
 
     @allure.step("编辑门店，增加扩展品牌时，输入销售区域并选择销售区域")
     def input_extend_sales_region(self, content):

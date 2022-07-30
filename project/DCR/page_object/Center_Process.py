@@ -180,14 +180,12 @@ class InboundReceiptPage(Base):
         sleep(8)
 
     @allure.step("获取列表第一个销售单ID")
-    def get_text_salesOrder(self, content):
-        #salesorder = self.element_text_dcr(user['获取列表第一个销售单ID'], content)
+    def get_text_salesOrder(self):
         salesorder = self.element_text(user['获取列表第一个销售单ID'])
         return salesorder
 
     @allure.step("获取列表第一个出库单ID")
-    def get_text_deliveryOrder(self, content):
-        #deliveryorder = self.element_text_dcr(user['获取列表第一个出库单ID'], content)
+    def get_text_deliveryOrder(self):
         deliveryorder = self.element_text(user['获取列表第一个出库单ID'])
         return deliveryorder
 
@@ -197,7 +195,7 @@ class InboundReceiptPage(Base):
         self.is_click_dcr(user['第一个复选框'])
 
     @allure.step("快速收货页面，点击Quick Received按钮")
-    def click_received(self):
+    def click_quick_received(self):
         """快速收货页面，点击Quick Received按钮"""
         self.is_click_dcr(user['快速收货按钮'])
         sleep(2)
@@ -214,6 +212,7 @@ class InboundReceiptPage(Base):
 
     @allure.step("快速收货页面，获取列表第一条记录的最新状态")
     def get_text_status(self):
+        Base.presence_sleep_dcr(self, user['获取第一个Status'])
         status = self.element_text(user['获取第一个Status'])
         return status
 
