@@ -40,16 +40,55 @@ class TestQueryDeliveryOrder:
 
 
 @allure.feature("销售管理-出库单")
+class TestViewDeliveryIMEIDetails:
+    @allure.story("查看出库单IMEI详情")
+    @allure.title("国包用户，查看出库单IMEI详情")
+    @allure.description("国包用户，查看出库单IMEI详情")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_002_001(self, drivers):
+        user3 = LoginPage(drivers)
+        user3.dcr_login(drivers, "BD40344201", "dcr123456")
+
+        """打开销售管理-打开出库单页面"""
+        user3.click_gotomenu("Sales Management", "Delivery Order")
+
+        imei_detail = DeliveryOrderPage(drivers)
+
+        sales_order = imei_detail.get_sales_order_text()
+        imei_detail.input_salesorder(sales_order)
+        imei_detail.click_search()
+
+        list_sales_order = imei_detail.get_sales_order_text()
+        list_product = imei_detail.get_list_product_text()
+        list_item = imei_detail.get_list_item_text()
+
+        """点击IMEI Detail查看按钮"""
+        imei_detail.click_imei_detail()
+        detail_title_sale = imei_detail.get_detail_title_sale_text()
+        detail_product = imei_detail.get_detail_product_text()
+        detail_item = imei_detail.get_detail_item_text()
+        detail_imei = imei_detail.get_detail_imei_text()
+        detail_total = imei_detail.get_detail_total_text()
+
+        ValueAssert.value_assert_equal(sales_order, list_sales_order)
+        ValueAssert.value_assert_In(list_sales_order, detail_title_sale)
+        ValueAssert.value_assert_equal(list_product, detail_product)
+        ValueAssert.value_assert_equal(list_item, detail_item)
+        ValueAssert.value_assert_IsNoneNot(detail_imei)
+        ValueAssert.value_assert_In("1", detail_total)
+        sleep(1)
+
+
+@allure.feature("销售管理-出库单")
 class TestExportDeliveryOrder:
     @allure.story("导出筛选的出库单")
     @allure.title("出库单页面，导出筛选的出库单记录")
     @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
-    def test_002_001(self, drivers):
-        """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
-        sleep(3.5)
+    def test_003_001(self, drivers):
+        user3 = LoginPage(drivers)
+        user3.dcr_login(drivers, "BD40344201", "dcr123456")
+
         """打开销售管理-打开出库单页面"""
         user = LoginPage(drivers)
         user.click_gotomenu("Sales Management", "Delivery Order")
@@ -206,6 +245,7 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal(salesorder, order_code)
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
         sleep(1)
+
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_DeliveryOrder.py'])

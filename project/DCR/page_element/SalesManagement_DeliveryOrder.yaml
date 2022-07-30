@@ -38,6 +38,13 @@ Business Type value: "xpath==//span[normalize-space(text())='variable']"
 
 #查询IMEI Detail详情
 Click IMEI Detail: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[5]/div[2]/table/tbody/tr/td[43]/div/div/span[2]"
+Get List Product Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[7]/div/div/div"
+Get List Item Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[8]/div/div/div"
+Get IMEI Detail Product Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[1]/div"
+Get IMEI Detail Item Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div"
+Get IMEI Detail IMEI Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[5]/div"
+Get IMEI Detail Total Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[2]/div[2]/div[2]/span[1]"
+Get IMEI Detail Title: "xpath==//span[contains(text(), 'IMEI Detail: ')]"
 
 
 #获取列表字段文本

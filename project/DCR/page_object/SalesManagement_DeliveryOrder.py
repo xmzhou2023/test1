@@ -321,5 +321,50 @@ class DeliveryOrderPage(Base):
         num = str(random.randint(100, 999))
         return num
 
+
+    """查询出库单的IMEI Detail 详情信息"""
+    @allure.step("查询出库单的IMEI Detail 详情信息")
+    def click_imei_detail(self):
+        self.is_click(user['Click IMEI Detail'])
+        sleep(2.5)
+
+    @allure.step("获取列表Product文本")
+    def get_list_product_text(self):
+        get_list_product = self.element_text(user['Get List Product Text'])
+        return get_list_product
+
+    @allure.step("获取列表Item文本")
+    def get_list_item_text(self):
+        get_list_item = self.element_text(user['Get List Item Text'])
+        return get_list_item
+
+
+    @allure.step("IMEI Detail页面，获取Title标题的Sales Order")
+    def get_detail_title_sale_text(self):
+        Base.presence_sleep_dcr(self, user['Get IMEI Detail Title'])
+        get_detail_title = self.element_text(user['Get IMEI Detail Title'])
+        return get_detail_title
+
+    @allure.step("IMEI Detail页面，获取Product文本")
+    def get_detail_product_text(self):
+        get_detail_product = self.element_text(user['Get IMEI Detail Product Text'])
+        return get_detail_product
+
+    @allure.step("IMEI Detail页面，获取Item文本")
+    def get_detail_item_text(self):
+        get_detail_item = self.element_text(user['Get IMEI Detail Item Text'])
+        return get_detail_item
+
+    @allure.step("IMEI Detail页面，获取IMEI文本")
+    def get_detail_imei_text(self):
+        get_detail_imei = self.element_text(user['Get IMEI Detail IMEI Text'])
+        return get_detail_imei
+
+    @allure.step("IMEI Detail页面，获取Total文本")
+    def get_detail_total_text(self):
+        get_detail_total = self.element_text(user['Get IMEI Detail Total Text'])
+        return get_detail_total
+
+
 if __name__ == '__main__':
     pass
