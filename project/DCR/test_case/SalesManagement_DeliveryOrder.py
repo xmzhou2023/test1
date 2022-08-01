@@ -19,7 +19,7 @@ class TestQueryDeliveryOrder:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.dcr_login(drivers, "BD40344201", "dcr123456")
 
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Delivery Order")
@@ -87,7 +87,7 @@ class TestExportDeliveryOrder:
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_003_001(self, drivers):
         user3 = LoginPage(drivers)
-        user3.dcr_login(drivers, "BD40344201", "dcr123456")
+        user3.dcr_login(drivers, "lhmadmin", "dcr123456")
 
         """打开销售管理-打开出库单页面"""
         user = LoginPage(drivers)
@@ -164,17 +164,19 @@ class TestAddDeliveryOrder:
         dom = DomAssert(drivers)
         dom.assert_att("Submit successfully")
 
-        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        salesorder = add.text_sales_order()
-        deliveryorder = add.text_delivery_order()
-
         """断言查询新建的无码出库单"""
         user = SQL('DCR', 'test')
         varsql1 = "select * from  t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667'  and status=80200001 order by created_time desc limit 1"
         result = user.query_db(varsql1)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
+        logging.info("查询数据库销售单号order_code{}".format(order_code))
+        logging.info("查询数据库出库单号delivery_code{}".format(delivery_code))
         sleep(1)
+
+        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
+        salesorder = add.text_sales_order()
+        deliveryorder = add.text_delivery_order()
 
         """出库单页面，筛选新建的无码出库单ID"""
         add.input_salesorder(order_code)
@@ -216,11 +218,13 @@ class TestAddDeliveryOrder:
         add.input_imei(imei)
         add.click_check()
         add.click_submit()
-
-        affirm = add.get_text_submit_affirm()
         dom = DomAssert(drivers)
-        if affirm == "Submit":
-            add.click_submit_affirm()
+        try:
+            affirm = add.get_text_submit_affirm()
+            if affirm == "Submit":
+                add.click_submit_affirm()
+                dom.assert_att("Submit successfully")
+        except Exception as e:
             dom.assert_att("Submit successfully")
         sleep(1)
 

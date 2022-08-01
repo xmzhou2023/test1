@@ -1,7 +1,7 @@
 #Home Page页面定位
 #筛选条件定位
 Input Time Period: "xpath==//label[(text()='Time Period')]//parent::div// following-sibling::div//input"
-选择月份: "xpath==//a[contains(text(),'May')]"
+选择月份: "xpath==//a[contains(text(),'Jul')]"
 Input Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
 Input Brand Value: "xpath==/html/body/div[5]/div[1]/div[1]/ul/li[2]/span[contains(text(),'TECNO')]"
 
@@ -60,6 +60,8 @@ Shop Management Export: "xpath==/html/body/div[1]/div/div[2]/section/div[1]/div[
 #HomePage首页导出功能
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
+Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
+Task Name value: "xpath==//span[text()='variable']"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取下载状态文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]/div/div[contains(text(),'COMPLETE')]"
 获取任务名称文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div[contains(text(),'variable')]"

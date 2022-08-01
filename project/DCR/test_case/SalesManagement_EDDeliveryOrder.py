@@ -1,3 +1,5 @@
+import logging
+
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
 from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
 from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
@@ -67,18 +69,23 @@ class TestAddSubDelivery:
         add.input_imei(sub_imei)
         add.click_check()
         add.click_submit()
-        affirm = add.get_text_submit_affirm()
-
         dom = DomAssert(drivers)
-        if affirm == "Submit":
-            add.click_submit_affirm()
+        try:
+            affirm = add.get_text_submit_affirm()
+            if affirm == "Submit":
+                add.click_submit_affirm()
+                dom.assert_att("Submit successfully")
+        except Exception as e:
             dom.assert_att("Submit successfully")
+
         sleep(1)
         user = SQL('DCR', 'test')
         varsql3 = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200000 order by created_time desc limit 1"
         result = user.query_db(varsql3)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
+        logging.info("查询数据库order_code字段{}".format(order_code))
+        logging.info("查询数据库delivery_code字段{}".format(delivery_code))
         sleep(1)
 
         """出库单页面，筛选出库单ID"""

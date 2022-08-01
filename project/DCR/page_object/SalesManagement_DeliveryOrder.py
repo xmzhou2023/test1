@@ -94,7 +94,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("获取出库单列表的 销售单ID文本")
     def text_sales_order(self):
-        sleep(2)
+        sleep(2.5)
         Base.presence_sleep_dcr(self, user['Get Sales Order ID Text'])
         sales_order = self.element_text(user['Get Sales Order ID Text'])
         return sales_order
