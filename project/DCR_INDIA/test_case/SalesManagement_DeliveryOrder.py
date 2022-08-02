@@ -19,15 +19,21 @@ class TestQueryDeliveryOrder:
         base.refresh()
         sleep(3.5)
 
-        #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        #get_home_page = user.get_home_page_text()
-        #ValueAssert.value_assert_equal("Home Page-Customer", get_home_page)
-
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")
 
         list = DeliveryOrderPage(drivers)
+        # 获取日期
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
+        list.click_unfold()
+        list.input_delivery_date("2022-06-01", today)
+        list.click_status_input_box()
+        list.click_fold()
+        list.click_search()
+
         sale_order = list.get_sales_order_text()
         deli_order = list.get_delivery_order_text()
         deli_date = list.get_delivery_date_text()

@@ -34,7 +34,7 @@ class DeliveryOrderPage(Base):
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
-        #sleep(5)
+        sleep(4)
 
     def get_total_text(self):
         """获取Total分页总条数文本"""
