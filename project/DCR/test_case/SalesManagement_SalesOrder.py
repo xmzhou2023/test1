@@ -153,5 +153,44 @@ class TestDeleteSalesOrder:
         detele.click_close_sales_order()
 
 
+@allure.feature("销售管理-销售单")
+class TestAddSalesOrder:
+    @allure.story("新增销售单")
+    @allure.title("国包用户创建销售单，产品为无码的，买方为二级客户")
+    @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为系统中二级客户")
+    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    def test_004_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "EG40052202", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Sales Order")
+
+        add = SalesOrderPage(drivers)
+        num = add.customer_random()
+        add.click_add_sales()
+
+        add.click_temporary_customer()
+        add.input_temporary_customer_name("testcodeless" + num)
+        add.input_customer_contact_no("13988776" + num)
+        add.click_business_type()
+
+        add.input_sales_brand("oraimo")
+        add.input_sales_product("OEB-E75D  BLACK")
+        add.input_sales_quantity("1")
+        add.click_submit()
+        add.click_submit_OK()
+        add.click_close_sales_order()
+
+
+# @allure.feature("销售管理-销售单")
+# class TestAddSalesOrder:
+#     @allure.story("新增销售单")
+#     @allure.title("国包用户，直接出库无码产品，买方为临时客户")
+#     @allure.description("销售单页面，国包用户，直接出库无码产品，买方为临时客户")
+#     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+#     def test_005_001(self, drivers):
+#
+
+
 if __name__ == '__main__':
     pytest.main(['SalesManagement_SalesOrder.py'])
