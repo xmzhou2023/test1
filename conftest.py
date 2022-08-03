@@ -88,7 +88,7 @@ def drivers(request, remote_ui=False):
                 # inspect_element() # page_element YMAL文件自检
     def fn():
         sleep(5)
-        driver.quit()
+        # driver.quit()
 
     # 终结函数
     request.addfinalizer(fn)

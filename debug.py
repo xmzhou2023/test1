@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
-driver.find_element(By.XPATH,"//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]").click()
+driver.find_element(By.XPATH,'//input[@name="taskName"]').send_keys('123')
 # a= NavPage(driver)
 # a = driver.find_elements(By.XPATH,"//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use']")
 # for i in a:

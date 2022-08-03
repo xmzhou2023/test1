@@ -92,6 +92,7 @@ class DcrLoginPage(Base):
         self.is_click(login['退出登录dcr'])
         sleep(2)
 
+
 class SrmLoginPage(Base):
     """登录类"""
     def input_elsAccount(self,elsAccount):

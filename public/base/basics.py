@@ -70,7 +70,7 @@ class Base(object):
         # 验证码下载路径
         html_path = os.path.join(DOWNLOAD_PATH, 'driver_html.png')
         code_path = os.path.join(DOWNLOAD_PATH, 'code.png')
-        time.sleep(3)   # 定个缓冲时间
+        time.sleep(0.5)   # 定个缓冲时间
 
         self.driver.save_screenshot(html_path)   # 截取整个网页
         location = self.find_element(locator)   # 获取需要识别的元素对象

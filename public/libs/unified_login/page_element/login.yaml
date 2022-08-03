@@ -3,7 +3,7 @@ zx扫码快捷登录: "id==tab-code"
 工号输入框: "xpath==//*[@id='pane-account']/form/div[1]/div/div[1]/input"
 密码输入框: "xpath==//*[@id='pane-account']/form/div[2]/div/div[1]/input"
 隐私保护勾选框: "xpath==//*[@id='pane-account']/form/div[4]/label/span/span"
-登录: "xpath==//*[@id='pane-account']/form/button"
+登录1: "xpath==//*[@id='pane-account']/form/button"
 语言展开: "xpath==//div[@role='button']"
 语言切换: "xpath==//*[contains(@id,'dropdown-menu-')]//li[variable]"
 
@@ -18,3 +18,10 @@ zx扫码快捷登录: "id==tab-code"
 退出登录dcr: "id==LoginOut"
 #退出登录dcr: "css==[id='LoginOut']"
 
+#SRM定位元素
+主账号: 'xpath==//input[@id="elsAccount"]'
+子账号: 'xpath==//input[@id="elsSubAccount"]'
+密码: 'xpath==//input[@type="password"]'
+验证码: 'xpath==//img[@id="code"]'
+验证码框: 'xpath==//input[@id="identifyCode"]'
+登录: 'xpath==//button[@id="submit_btn"]'
