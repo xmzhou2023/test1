@@ -8,24 +8,6 @@ user = Element(pro_name, object_name)
 
 class SalesOrderPage(Base):
     """SalesOrderPage页面定位方法"""
-
-    @allure.step("Sales Order页面，进入iframe")
-    def sales_iframe(self):
-        iframe = self.find_element(user['Sales Order iframe'])
-        self.driver.switch_to.frame(iframe)
-        sleep(1)
-
-    @allure.step("打开Add新建销售单页面，进入iframe")
-    def sales_iframe_add(self):
-        iframe = self.find_element(user['Add Sales Order iframe'])
-        self.driver.switch_to.frame(iframe)
-        sleep(2)
-
-    @allure.step("退出iframe")
-    def exit_iframe(self):
-        self.driver.switch_to.parent_frame()
-        sleep(1)
-
     @allure.step("Sales Order页面，点击Add新增销售单按钮")
     def click_add_sales(self):
         Base.presence_sleep_dcr(self, user['Add'])
@@ -136,6 +118,11 @@ class SalesOrderPage(Base):
         self.is_click_dcr(user['Submit Delivery'])
         sleep(3)
 
+    @allure.step("刷新页面")
+    def click_refresh(self, drivers):
+        ref = Base(drivers)
+        ref.refresh()
+
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
     @allure.step("IMEI Inventory Query页面，进入iframe")
@@ -172,8 +159,9 @@ class SalesOrderPage(Base):
         self.is_click(user['关闭IMEI Inventory Query'])
 
     @allure.step("关闭Sales Order 菜单")
-    def close_sales_order(self):
+    def click_close_sales_order(self):
         self.is_click(user['关闭Sales Order'])
+        sleep(2)
 
     @allure.step("点击删除按钮")
     def click_delete_sales(self):

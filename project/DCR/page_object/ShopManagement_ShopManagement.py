@@ -222,7 +222,7 @@ class ShopManagementPage(Base):
     @allure.step("点击增加扩展品牌时，弹出窗口选择品牌后，点击Save")
     def extend_brand_save(self):
         self.is_click(user['Extend Brand Save'])
-        sleep(4)
+        sleep(4.5)
 
     @allure.step("编辑门店，增加扩展品牌时，输入销售区域并选择销售区域")
     def input_extend_sales_region(self, content):
@@ -231,7 +231,7 @@ class ShopManagementPage(Base):
         self.is_click(user['Extend Sales Region'])
         self.input_text(user['Extend Sales Region'], txt=content)
         sleep(2)
-        self.is_click(user['Extend Sales Region Value'], "Barisal itel")
+        self.is_click(user['Extend Sales Region Value'], content)
 
     @allure.step("扩展门店等级属性")
     def click_extend_shop_grade(self):
@@ -257,7 +257,7 @@ class ShopManagementPage(Base):
         self.is_click(user['扩展品牌输入零售商'])
         self.input_text(user['扩展品牌输入零售商'], txt=content)
         sleep(3)
-        self.is_click_dcr(user['扩展品牌选中零售商'], "SN455338 lhmRetailer005")
+        self.is_click_dcr(user['扩展品牌选中零售商'], content)
 
     @allure.step("扩展商业区域属性")
     def extend_commercial_area(self):
@@ -273,6 +273,12 @@ class ShopManagementPage(Base):
         sleep(2)
         Base.presence_sleep_dcr(self, user['Disable Confirm'])
         self.is_click(user['Disable Confirm'])
+
+    @allure.step("关闭门店管理菜单")
+    def click_close_shop_management(self):
+        self.is_click(user['关闭门店管理菜单'])
+        sleep(2)
+
 
 
 if __name__ == '__main__':

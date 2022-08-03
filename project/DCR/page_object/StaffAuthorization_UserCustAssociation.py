@@ -53,12 +53,23 @@ class UserCustomerAssociaPage(Base):
         customer_name = self.element_text(user['Get list Customer Name'])
         return customer_name
 
+    @allure.step("关闭用户与客户关系菜单")
+    def click_close_user_cust_assoc(self):
+        self.is_click(user['关闭用户与客户关系菜单'])
+        sleep(2)
+
+    @allure.step("关闭导出记录菜单")
+    def click_close_export_record(self):
+        """关闭导出记录菜单"""
+        self.is_click(user['关闭导出记录菜单'])
+        sleep(1)
+
+    # User and Customer Association列表数据筛选后，导出操作成功后验证
     @allure.step("点击Export导出按钮")
     def click_export(self):
         self.is_click(user['Export'])
         sleep(2)
 
-    # User and Customer Association列表数据筛选后，导出操作成功后验证
     @allure.step("点击下载Download Icon，点击more更多按钮")
     def click_download_more(self):
         self.is_click(user['Download Icon'])
@@ -96,12 +107,14 @@ class UserCustomerAssociaPage(Base):
     @allure.step("导出记录页面，获取列表 Create Date文本")
     def get_create_date_text(self):
         create_date = self.element_text(user['获取创建日期文本'])
-        return create_date
+        create_date1 = create_date[0:10]
+        return create_date1
 
     @allure.step("导出记录页面，获取列表Complete Date文本")
     def get_complete_date_text(self):
         complete_date = self.element_text(user['获取完成日期文本'])
-        return complete_date
+        complete_date1 = complete_date[0:10]
+        return complete_date1
 
     @allure.step("导出记录页面，获取列表 Operation文本")
     def get_export_operation_text(self):

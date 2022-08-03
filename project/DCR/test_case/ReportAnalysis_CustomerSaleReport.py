@@ -18,7 +18,7 @@ class TestQueryCustomerSalesReport:
     def test_001_001(self, drivers):
         """国包账号登录"""
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "BD40344201", "dcr123456")
+        user.initialize_login(drivers, "BD40344201", "dcr123456")
 
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Report Analysis", "Customer Sales Report")
@@ -48,7 +48,7 @@ class TestQueryCustomerSalesReport:
         ValueAssert.value_assert_equal(delivery_total, del_total)
         ValueAssert.value_assert_equal(return_total, ret_total)
         ValueAssert.value_assert_equal(actual_sales, actualsales1)
-        sleep(1)
+        sales_report.click_close_cust_sale_report()
 
 
 if __name__ == '__main__':

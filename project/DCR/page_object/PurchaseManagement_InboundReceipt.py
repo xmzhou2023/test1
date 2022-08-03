@@ -179,6 +179,17 @@ class InboundReceiptPage(Base):
         get_export = self.element_text(user['Get IMEI Detail Export'])
         return get_export
 
+    @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
+    def click_close_inbound_receipt(self):
+        self.is_click(user['关闭二代收货菜单'])
+        sleep(2)
+
+    @allure.step("快速收货页面，点击关闭IMEI Detail窗口")
+    def click_close_inbound_imei_detail(self):
+        self.is_click(user['关闭二代收货IMEI Detail'])
+        sleep(2)
+
+
     @allure.step("断言 列表取分页总数判断是否有数据")
     def assert_total(self, total):
         if total > 0:

@@ -19,6 +19,7 @@ class HomePagePage(Base):
     @allure.step("点击Search查询按钮")
     def click_search(self):
         self.is_click(user['Search'])
+        sleep(3)
 
     @allure.step("点击Search查询按钮")
     def get_user_mgt_authorization(self):

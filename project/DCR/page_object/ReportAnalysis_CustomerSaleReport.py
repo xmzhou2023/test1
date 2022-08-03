@@ -59,6 +59,11 @@ class CustomerSalesReportPage(Base):
         return_total1 = int(return_total)
         return return_total1
 
+    @allure.step("点击关闭Customer Sales Report菜单")
+    def click_close_cust_sale_report(self):
+        self.is_click(user['关闭客户销售报表菜单'])
+        sleep(2)
+
 
 if __name__ == '__main__':
     pass

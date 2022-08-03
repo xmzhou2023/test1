@@ -358,13 +358,14 @@ class UserAuthorizationPage(Base):
 
     @allure.step("新增门店页面，获取Shop ID文本")
     def get_add_shop_id_text(self):
-        Base.presence_sleep_dcr(self, user['add 获取ShopID文本'])
-        get_add_shop_id = self.element_text(user['add 获取ShopID文本'])
+        Base.presence_sleep_dcr(self, user['add获取ShopID文本'])
+        get_add_shop_id = self.element_text(user['add获取ShopID文本'])
         return get_add_shop_id
 
     @allure.step("在门店页签，筛选Shop ID后，点击勾选Shop ID对应的复选框")
     def click_add_shop_checkbox(self):
         self.is_click(user['添加门店勾选复选框'])
+        sleep(0.5)
 
     @allure.step("新增门店页面，点击Authorized Selected 选中授权按钮")
     def click_add_shop_author_select(self):
@@ -419,7 +420,10 @@ class UserAuthorizationPage(Base):
         return get_sale_sucess
         sleep(1.5)
 
-
+    @allure.step("关闭用户授权菜单")
+    def click_close_user_authorization(self):
+        self.is_click(user['关闭用户授权菜单'])
+        sleep(2)
 
 if __name__ == '__main__':
     pass

@@ -15,7 +15,7 @@ class TestSetRolePermission:
     def test_001_001(self, drivers):
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
         """打开Staff & Authorization模块下的 Role Definition的菜单"""
         user.click_gotomenu("Staff & Authorization", "Role Definition")
@@ -37,6 +37,7 @@ class TestSetRolePermission:
         dom = DomAssert(drivers)
         dom.assert_exact_att(success)
         role.click_confirm()
+        role.click_close_role_definition()
 
         # """设置Basic Data Management模块权限后，检查是否能打开此模块下的菜单 """
         # user = DCRLogin(drivers)

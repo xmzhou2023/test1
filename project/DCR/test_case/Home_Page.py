@@ -18,7 +18,7 @@ class TestQueryAllIndicatorsOnTheHomepage:
     def test_001_001(self, drivers):
         """DCR 管理员账号登录"""
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Home Page")
@@ -43,7 +43,16 @@ class TestQueryAllIndicatorsOnTheHomepage:
     @allure.description("Homepage首页，查询Abnormal Data卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_001_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        # """销售管理菜单-出库单-筛选出库单用例"""
+        # user.click_gotomenu("Home Page")
+
         abnormal = HomePagePage(drivers)
+        abnormal.click_time_period()
+        abnormal.click_search()
+
         abnormal_text = abnormal.get_abnormal_data_text()
         infiltration_sale_text = abnormal.get_infiltration_sales_text()
 
@@ -63,7 +72,16 @@ class TestQueryAllIndicatorsOnTheHomepage:
     @allure.description("Homepage首页，查询Sub-dealer Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_001_003(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        # """销售管理菜单-出库单-筛选出库单用例"""
+        # user.click_gotomenu("Home Page")
+
         query = HomePagePage(drivers)
+        query.click_time_period()
+        query.click_search()
+
         sub_dealer_text = query.get_sub_dealer_management()
         ValueAssert.value_assert_equal("Sub-dealer Management", sub_dealer_text)
 
@@ -80,10 +98,10 @@ class TestQueryAllIndicatorsOnTheHomepage:
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_001_004(self, drivers):
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Home Page")
+        # """销售管理菜单-出库单-筛选出库单用例"""
+        # user.click_gotomenu("Home Page")
 
         query_dist = HomePagePage(drivers)
         query_dist.click_time_period()
@@ -104,7 +122,16 @@ class TestQueryAllIndicatorsOnTheHomepage:
     @allure.description("Homepage首页，查询Shop Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_005(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        # """销售管理菜单-出库单-筛选出库单用例"""
+        # user.click_gotomenu("Home Page")
+
         query_shop = HomePagePage(drivers)
+        query_shop.click_time_period()
+        query_shop.click_search()
+
         get_shop_mgt = query_shop.get_shop_management_text()
         ValueAssert.value_assert_equal("Shop Management", get_shop_mgt)
 
@@ -122,12 +149,15 @@ class TestExportAllIndicatorsOnTheHomepage:
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Home Page")
+        # """销售管理菜单-出库单-筛选出库单用例"""
+        # user.click_gotomenu("Home Page")
 
         export = HomePagePage(drivers)
+        export.click_time_period()
+        export.click_search()
+
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()
@@ -165,12 +195,15 @@ class TestExportAllIndicatorsOnTheHomepage:
     @allure.description("Homepage首页，导出Abnormal Data卡片的各维度数据")
     def test_002_002(self, drivers):
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Home Page")
+        # """销售管理菜单-出库单-筛选出库单用例"""
+        # user.click_gotomenu("Home Page")
 
         export = HomePagePage(drivers)
+        export.click_time_period()
+        export.click_search()
+
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()
@@ -207,12 +240,14 @@ class TestExportAllIndicatorsOnTheHomepage:
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_002_003(self, drivers):
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Home Page")
+        # """销售管理菜单-出库单-筛选出库单用例"""
+        # user.click_gotomenu("Home Page")
 
         export = HomePagePage(drivers)
+        export.click_time_period()
+        export.click_search()
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()
@@ -249,6 +284,12 @@ class TestExportAllIndicatorsOnTheHomepage:
     @allure.description("Homepage首页，导出Distributor Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_002_004(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        # """销售管理菜单-出库单-筛选出库单用例"""
+        # user.click_gotomenu("Home Page")
+
         export = HomePagePage(drivers)
         export.click_time_period()
         export.click_search()
@@ -285,7 +326,16 @@ class TestExportAllIndicatorsOnTheHomepage:
     @allure.description("Homepage首页，导出Shop Management卡片的各维度数据")
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_002_005(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        # """销售管理菜单-出库单-筛选出库单用例"""
+        # user.click_gotomenu("Home Page")
+
         export = HomePagePage(drivers)
+        export.click_time_period()
+        export.click_search()
+
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()

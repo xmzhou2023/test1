@@ -19,7 +19,7 @@ class TestQueryDeliveryOrder:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "BD40344201", "dcr123456")
+        user.initialize_login(drivers, "BD40344201", "dcr123456")
 
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Delivery Order")
@@ -46,14 +46,13 @@ class TestViewDeliveryIMEIDetails:
     @allure.description("国包用户，查看出库单IMEI详情")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
-        user3 = LoginPage(drivers)
-        user3.dcr_login(drivers, "BD40344201", "dcr123456")
+        user1 = LoginPage(drivers)
+        user1.initialize_login(drivers, "BD40344201", "dcr123456")
 
         """打开销售管理-打开出库单页面"""
-        user3.click_gotomenu("Sales Management", "Delivery Order")
+        user1.click_gotomenu("Sales Management", "Delivery Order")
 
         imei_detail = DeliveryOrderPage(drivers)
-
         sales_order = imei_detail.get_sales_order_text()
         imei_detail.input_salesorder(sales_order)
         imei_detail.click_search()
@@ -76,7 +75,8 @@ class TestViewDeliveryIMEIDetails:
         ValueAssert.value_assert_equal(list_item, detail_item)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
         ValueAssert.value_assert_In("1", detail_total)
-        sleep(1)
+        imei_detail.click_close_imei_detail()
+        imei_detail.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -86,12 +86,11 @@ class TestExportDeliveryOrder:
     @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_003_001(self, drivers):
-        user3 = LoginPage(drivers)
-        user3.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user2 = LoginPage(drivers)
+        user2.initialize_login(drivers, "BD40344201", "dcr123456")
 
         """打开销售管理-打开出库单页面"""
-        user = LoginPage(drivers)
-        user.click_gotomenu("Sales Management", "Delivery Order")
+        user2.click_gotomenu("Sales Management", "Delivery Order")
 
         export = DeliveryOrderPage(drivers)
         # 获取日期
@@ -113,21 +112,19 @@ class TestExportDeliveryOrder:
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
-        create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
-        complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Delivery Order")
-        ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date1, today)
-        ValueAssert.value_assert_equal(complete_date1, today)
+        ValueAssert.value_assert_equal(task_id, "BD40344201")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        #export.click_close_export_record()
-        #export.click_close_delivery_order()
+        export.click_close_export_record()
+        export.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -137,11 +134,10 @@ class TestAddDeliveryOrder:
     @allure.description("国包用户，新建出库单，产品为无码时，买方为临时客户")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_005(self, drivers):
-        user2 = LoginPage(drivers)
-        user2.dcr_login(drivers, "BD40344201", "dcr123456")
-
+        user3 = LoginPage(drivers)
+        user3.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
-        user2.click_gotomenu("Sales Management", "Delivery Order")
+        user3.click_gotomenu("Sales Management", "Delivery Order")
 
         add = DeliveryOrderPage(drivers)
         num = add.customer_random()
@@ -186,7 +182,7 @@ class TestAddDeliveryOrder:
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(salesorder, order_code)
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
-        sleep(1)
+        add.click_close_delivery_order()
 
 
     @allure.story("新建出库单，产品为有码的，买方为临时客户")
@@ -194,11 +190,10 @@ class TestAddDeliveryOrder:
     @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_006(self, drivers):
-        user3 = LoginPage(drivers)
-        user3.dcr_login(drivers, "BD40344201", "dcr123456")
-
+        user4 = LoginPage(drivers)
+        user4.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
-        user3.click_gotomenu("Sales Management", "Delivery Order")
+        user4.click_gotomenu("Sales Management", "Delivery Order")
 
         add = DeliveryOrderPage(drivers)
         num = add.customer_random()
@@ -226,7 +221,7 @@ class TestAddDeliveryOrder:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             dom.assert_att("Submit successfully")
-        sleep(1)
+        sleep(4)
 
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         salesorder = add.text_sales_order()
@@ -238,7 +233,7 @@ class TestAddDeliveryOrder:
         result = user.query_db(varsql1)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
-        sleep(1)
+        sleep(2)
 
         """出库单页面，筛选新建的无码出库单ID"""
         add.input_salesorder(order_code)
@@ -248,7 +243,7 @@ class TestAddDeliveryOrder:
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(salesorder, order_code)
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
-        sleep(1)
+        add.click_close_delivery_order()
 
 
 if __name__ == '__main__':
