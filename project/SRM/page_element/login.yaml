@@ -4,5 +4,6 @@
 验证码: 'xpath==//img[@id="code"]'
 验证码框: 'xpath==//input[@id="identifyCode"]'
 登录: 'xpath==//button[@id="submit_btn"]'
+登录报错码提示框: 'class_name==bac'
 
 

@@ -20,10 +20,8 @@ class TestUtil:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
     def test_login(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
-        driver = drivers
-        driver.get("http://sitsrm.transsion.com/ELSServer_CY/login/login.html")
         user = LoginPage(drivers)
-        user.login("860000", "1001")
+        user.login("http://sitsrm.transsion.com/ELSServer_CY/login/login.html","860000", "1001")
 
     def test_approval_001(self, drivers):
         user = Performance(drivers)
