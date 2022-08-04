@@ -45,7 +45,6 @@ class ReturnOrderPage(Base):
         self.is_click(user['Radio Delivery order'])
 
 
-
     @allure.step("退货单页面，输入Delivery Order ID")
     def input_Delivery_order(self, content):
         self.is_click(user['Input Delivery Order'])
@@ -175,6 +174,10 @@ class ReturnOrderPage(Base):
         get_buyer_id = self.element_text(user['Get Quantity Buyer ID Text'], content)
         return get_buyer_id
 
+    @allure.step("退货页面，点击关闭退货菜单")
+    def click_close_return_order(self):
+        self.is_click(user['关闭退货菜单'])
+        sleep(2)
 
 if __name__ == '__main__':
     pass

@@ -17,13 +17,12 @@ class TestQueryVisitRecord:
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
 
         all_visit = VisitRecordPage(drivers)
-
         all_visit.input_submit_start_date("2022-06-01")
         all_visit.click_sales_region()
         all_visit.click_unfold()
@@ -44,7 +43,7 @@ class TestQueryVisitRecord:
         ValueAssert.value_assert_IsNoneNot(visit_date)
         ValueAssert.value_assert_In(operation, "View")
         all_visit.assert_total(total)
-        all_visit.click_reset()
+        all_visit.click_close_visit_record()
 
 
 @allure.feature("考勤&巡店-巡店记录")
@@ -55,6 +54,11 @@ class TestExportVisitRecord:
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
         """打开考勤与巡店管理-打开巡店记录页面"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user.click_gotomenu("Attendance & Visiting", "Visit Record")
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()
@@ -73,22 +77,20 @@ class TestExportVisitRecord:
 
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
-        create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
-        complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "History List")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date1, today)
-        ValueAssert.value_assert_equal(complete_date1, today)
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-
         export.click_close_export_record()
         export.click_close_visit_record()
+
 
 if __name__ == '__main__':
     pytest.main(['AttendanceVisiting_VisitRecord.py'])

@@ -15,14 +15,13 @@ class TestQueryDeliveryOrder:
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
-        #user = DCRLoginPage(drivers)
+        menu = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
         base = Base(drivers)
         base.refresh()
         sleep(3.5)
 
         """打开销售管理-打开出库单页面"""
-        menu = DCRLoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")
 
         list = DeliveryOrderPage(drivers)
@@ -76,21 +75,17 @@ class TestExportDeliveryOrder:
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
-        create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
-        complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Delivery Order")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
-        ValueAssert.value_assert_equal(create_date1, today)
-        ValueAssert.value_assert_equal(complete_date1, today)
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-
         export.click_close_export_record()
         export.click_close_delivery_order()
 

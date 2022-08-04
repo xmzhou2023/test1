@@ -42,3 +42,5 @@ Remark: "id==rejectReason"
 Agree:  "xpath==//span[contains(text(),'Agree')]"
 #获取审核通过状态文本
 Approval Successfully: "xpath==//p[text()='Approval successfully']"
+
+关闭退货菜单: "xpath==//span[normalize-space(text())='Return Order']//span[@class='el-icon-close']"

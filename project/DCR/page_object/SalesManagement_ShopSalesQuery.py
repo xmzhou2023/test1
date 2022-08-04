@@ -41,7 +41,7 @@ class ShopSaleQueryPage(Base):
     @allure.step("Shop Sales Query页面，筛选Shop ID后，点击Search按钮")
     def click_search(self):
         self.is_click_dcr(user['Search'])
-        sleep(2)
+        sleep(3)
 
     @allure.step("Shop Sales Query页面，筛选Shop ID后，点击Search按钮")
     def click_reset(self):
@@ -91,6 +91,10 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['关闭门店销售查询菜单'])
         sleep(1.5)
 
+    @allure.step("点击Upload Date结束时间日期框")
+    def click_upload_end_date(self):
+        self.is_click(user['Click Upload End Date'])
+
 
 
     #门店销售查询，导出功能验证
@@ -136,12 +140,14 @@ class ShopSaleQueryPage(Base):
     @allure.step("导出记录页面，获取列表 Create Date文本")
     def get_create_date_text(self):
         create_date = self.element_text(user['获取创建日期文本'])
-        return create_date
+        create_date1 = create_date[0:10]
+        return create_date1
 
     @allure.step("导出记录页面，获取列表Complete Date文本")
     def get_complete_date_text(self):
         complete_date = self.element_text(user['获取完成日期文本'])
-        return complete_date
+        complete_date1 = complete_date[0:10]
+        return complete_date1
 
     @allure.step("导出记录页面，获取列表 Operation文本")
     def get_export_operation_text(self):

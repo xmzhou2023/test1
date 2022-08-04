@@ -24,7 +24,7 @@ class DeliveryOrderPage(Base):
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(4)
+        sleep(5.5)
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
@@ -94,7 +94,6 @@ class DeliveryOrderPage(Base):
 
     @allure.step("获取出库单列表的 销售单ID文本")
     def text_sales_order(self):
-        sleep(2.5)
         Base.presence_sleep_dcr(self, user['Get Sales Order ID Text'])
         sales_order = self.element_text(user['Get Sales Order ID Text'])
         return sales_order
@@ -168,13 +167,17 @@ class DeliveryOrderPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("出库单页面，关闭出库单菜单")
     def click_close_delivery_order(self):
         self.is_click(user['关闭出库单菜单'])
         sleep(2)
 
+    @allure.step("出库单页面，关闭IMEI Detail详情页")
+    def click_close_imei_detail(self):
+        self.is_click(user['关闭IMEI详情页'])
+        sleep(1.5)
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
     @allure.step("Delivery Order页面，点击导出功能")
@@ -220,12 +223,14 @@ class DeliveryOrderPage(Base):
     @allure.step("导出记录页面，获取列表 Create Date文本")
     def get_create_date_text(self):
         create_date = self.element_text(user['获取创建日期文本'])
-        return create_date
+        create_date1 = create_date[0:10]
+        return create_date1
 
     @allure.step("导出记录页面，获取列表Complete Date文本")
     def get_complete_date_text(self):
         complete_date = self.element_text(user['获取完成日期文本'])
-        return complete_date
+        complete_date1 = complete_date[0:10]
+        return complete_date1
 
     @allure.step("导出记录页面，获取列表 Operation文本")
     def get_export_operation_text(self):

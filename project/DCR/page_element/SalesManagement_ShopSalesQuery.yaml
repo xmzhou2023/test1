@@ -3,7 +3,7 @@ Select Shop Value: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]
 Search: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[1]/span[contains(text(),'Search')]"
 Reset: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[2]/span[contains(text(),'Reset')]"
 Input Upload Start Date: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[1]/div/div/div/div/div[1]/div/input"
-
+Click Upload End Date: "id==shopsalesquery_input_uploadDate1"
 
 Unfold: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/div/span[1]"
 Fold: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/div/span[2]"
@@ -16,6 +16,7 @@ Sales Date End Date: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[
 获取销售日期文本: "xpath==//*[@id='app']/div/div[2]/section/div/div[2]/div[1]/div/div[2]/div[1]/div[2]/table/tbody/tr[1]/td[5]/div/span"
 获取Public ID文本: "xpath==//*[@id='app']/div/div[2]/section/div/div[2]/div[1]/div/div[2]/div[1]/div[2]/table/tbody/tr[1]/td[9]/div/span"
 获取总条数文本: "xpath==//*[@id='app']/div/div[2]/section/div/div[2]/div[2]/div[2]/span[contains(text(),'Total')]"
+
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭门店销售查询菜单: "xpath==//span[normalize-space(text())='Shop Sales Query']//span[@class='el-icon-close']"
 
