@@ -216,7 +216,6 @@ class HomePagePage(Base):
 
     @allure.step("关闭导出记录菜单页面")
     def click_close_export_record(self):
-        sleep(1)
         self.is_click(user['关闭导出记录菜单'])
         sleep(1.5)
 
