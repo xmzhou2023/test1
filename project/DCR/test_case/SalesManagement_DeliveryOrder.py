@@ -106,6 +106,7 @@ class TestExportDeliveryOrder:
         #筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
+        export.input_task_name("Delivery Order")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()

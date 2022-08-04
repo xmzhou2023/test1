@@ -48,10 +48,10 @@ class TestAddSalesOrder:
         ValueAssert.value_assert_IsNoneNot(product)
 
         add.input_delivery_quantity('1')
+        add.click_delivery_quantity()
         quantity = add.get_new_delivery_quantity()
         ValueAssert.value_assert_equal('1', quantity)
 
-        add.click_delivery_quantity()
         """点击Submit提交按钮"""
         add.click_submit()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
@@ -63,12 +63,15 @@ class TestAddSalesOrder:
         ValueAssert.value_assert_equal("Delivered", status)
         add.click_close_sales_order()
 
+
+
     # @allure.story("新增销售单")
     # @allure.title("国包用户，直接出库无码产品，买方为临时客户")
     # @allure.description("销售单页面，国包用户，直接出库无码产品，买方为临时客户")
     # @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     # def test_001_002(self, drivers):
     #
+
 
 
     @allure.story("新增销售单")

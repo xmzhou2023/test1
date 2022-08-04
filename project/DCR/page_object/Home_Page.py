@@ -150,6 +150,7 @@ class HomePagePage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(2)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(13)
 

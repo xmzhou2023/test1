@@ -76,7 +76,15 @@ class UserCustomerAssociaPage(Base):
         sleep(1.5)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        sleep(6)
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], txt=content)
+        sleep(2)
+        self.is_click(user['Task Name value'], content)
+
 
     @allure.step("导出页面，点击Search按钮")
     def click_export_search(self):

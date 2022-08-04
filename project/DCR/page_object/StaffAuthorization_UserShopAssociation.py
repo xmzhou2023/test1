@@ -78,6 +78,13 @@ class UserShopAssociaPage(Base):
         self.is_click(user['More'])
         sleep(3)
 
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], txt=content)
+        sleep(2)
+        self.is_click(user['Task Name value'], content)
+
     @allure.step("导出页面，点击Search按钮")
     def click_export_search(self):
         down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])

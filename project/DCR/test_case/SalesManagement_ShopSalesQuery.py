@@ -74,7 +74,9 @@ class TestExportShopSalesQuery:
         #筛选销售日期后，点击导出功能
         export.click_export()
         export.click_download_more()
+        export.input_task_name("Shop Sales Query")
         down_status = export.click_export_search()
+
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()

@@ -16,6 +16,8 @@ Get list Customer Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/d
 #导出功能定位
 Download Icon: "id==download-icon"
 More: "css==[class='el-button more-btn el-button--default el-button--medium']"
+Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
+Task Name value: "xpath==//span[text()='variable']"
 Export Record Search: "css==[class='el-button btn-blue el-button--primary el-button--mini']"
 获取下载状态文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]/div/div[contains(text(),'COMPLETE')]"
 获取任务名称文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div"
