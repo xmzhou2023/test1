@@ -12,11 +12,11 @@ from project.SRM.page_object.login import LoginPage
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 
-@allure.feature("脚本名称") # 模块名称
+@allure.feature("登录SRM系统") # 模块名称
 class TestLogin:
-    @allure.story("二级标题") # 场景名称
-    @allure.title("三级标题")  # 用例名称
-    @allure.description("用例描述")
+    @allure.story("登录SRM系统") # 场景名称
+    @allure.title("登录SRM系统")  # 用例名称
+    @allure.description("登录SRM系统")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
     # def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'

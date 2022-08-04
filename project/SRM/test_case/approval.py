@@ -20,7 +20,6 @@ class TestApproval:
     @allure.description("输入任务名称进行搜索")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
-
     def test_approval_name(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ApprovalPage(drivers)
         user.approval_search_name("周本林")

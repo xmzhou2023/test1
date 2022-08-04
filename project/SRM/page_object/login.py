@@ -24,18 +24,24 @@ class LoginPage(Base):
         for i in range(10):
             self.is_click(user["验证码框"])
             code=self.get_graphical_code(user["验证码"])
-            print(code)
             self.input_text(user["验证码框"],code)
             self.is_click(user["登录"])
-            try:
-                sub_errmsg = self.find_element(user["登录报错码提示框"]).text
-                if '验证码错误' in sub_errmsg:
-                    self.is_click(user["验证码"])
-                    continue
-                else:
-                    break
-            except:
+            if "login" in self.driver.current_url:
+                time.sleep(2)
+                continue
+            else:
                 break
+            # sub_errmsg = self.find_element(user["登录报错码提示框"]).text
+            # try:
+            #     sub_errmsg = self.find_element(user["登录报错码提示框"]).text
+            #     print('errmsg',sub_errmsg)
+            #     if '验证码错误' in sub_errmsg:
+            #         self.is_click(user["验证码"])
+            #         continue
+            #     else:
+            #         break
+            # except:
+            #     break
 
 
 
