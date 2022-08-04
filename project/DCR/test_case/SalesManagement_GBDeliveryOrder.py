@@ -77,12 +77,12 @@ class TestAddDistDeliveryOrder:
         except Exception as e:
             dom.assert_att("Submit successfully")
 
-        sleep(1)
+        sleep(4)
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         salesorder = add.text_sales_order()
         deliveryorder = add.text_delivery_order()
 
-        """从数据库表中，获取二代出库单ID，传给出库单筛选方法"""
+        """从数据库表中，获取国包出库单ID，传给出库单筛选方法"""
         user = SQL('DCR', 'test')
         varsql = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200000 order by created_time desc limit 1"
         result = user.query_db(varsql)

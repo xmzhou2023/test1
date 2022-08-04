@@ -300,7 +300,7 @@ class DeliveryOrderPage(Base):
 
 
     """新建出库单时，新建临时客户"""
-    @allure.step("点击临时客户")
+    @allure.step("点击新建临时客户")
     def click_temporary_customer(self):
         self.is_click(user['Create Temporary Customer'], "Create Temporary Customer")
         sleep(1.5)

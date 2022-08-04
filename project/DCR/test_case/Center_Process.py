@@ -12,7 +12,7 @@ import allure
 
 
 @allure.feature("销售业务流程")
-class TestAddSalesOrder:
+class TestSalesBusinessProcess:
     @allure.story("渠道销售业务流程")
     @allure.title("销售单页面，二代新增销售单操作")
     @allure.description("销售单页面，二代新增销售单操作成功后，校验新增的销售单是否存在")
@@ -245,7 +245,7 @@ class TestAddSalesOrder:
 
 
 @allure.feature("销售业务流程")
-class TestAddDeliveryOrder:
+class TestDeliveryBusinessProcess:
     @allure.story("新增无码出库单")
     @allure.title("出库单页面，国包用户，新增无码出库单操作")
     @allure.description("出库单页面，国包用户，新增无码出库单操作")

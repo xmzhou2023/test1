@@ -16,6 +16,8 @@ Search: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/but
 获取Sales Order ID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div/div"
 获取Status Pending文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Pending']"
 获取Status Delivered文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Delivered']"
+Get list Status Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
+
 
 #删除销售单
 Delete Sales Order: "xpath==//span[contains(text(),'Delete')]"
@@ -28,7 +30,7 @@ Reset: "xpath==//span[normalize-space(text())='Reset']"
 Delivery button: "id==saler_order_scanImei_"
 Sales Delivery iframe:  "id==iframe_sales_order_delivery"
 Payment Mode: "xpath==//label[contains(text(),'Payment Mode')]//parent::div//following-sibling::div//input"
-Payment Mode value: "xpath==//span[contains(text(),'Wechat')]"
+Payment Mode value: "xpath==//span[contains(text(),'variable')]"
 Input IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
 Submit Delivery: "xpath==//span[contains(text(),'Submit')]"
@@ -53,3 +55,9 @@ Temporary Contact No: "id==salesorderadd_input_tmpEnterprise.contactNo"
 Business Type: "xpath==//input[@class='el-input__inner salesorderadd_input_tmpEnterprise.businessType']"
 Business Type value: "xpath==//span[normalize-space(text())='variable']"
 
+#对销售单直接出库操作，产品为无码的，买方为临时客户
+Quantity Radio Button: "xpath==//span[normalize-space(text())='Quantity']"
+Input Delivery Quantity: "xpath==//div[@class='el-input el-input--medium']//input"
+Get Order Detail Product: "xpath==//div[@class='cell el-tooltip']"
+Get New Delivery Quantity: "xpath==//div[normalize-space(text())='Delivery Quantity']/..//div[@class='num']"
+Submit: "id==salesorderdelivery_Submit"

@@ -102,7 +102,7 @@ class SalesOrderPage(Base):
         self.is_click(user['Payment Mode'])
         self.input_text(user['Payment Mode'], txt=content)
         sleep(2)
-        self.is_click(user['Payment Mode value'])
+        self.is_click(user['Payment Mode value'], content)
         sleep(1)
 
     @allure.step("出库单页面，输入IMEI属性")
@@ -125,6 +125,11 @@ class SalesOrderPage(Base):
     def click_refresh(self, drivers):
         ref = Base(drivers)
         ref.refresh()
+
+    @allure.step("获取销售单列表状态Status")
+    def get_list_status_text(self):
+        status = self.element_text(user['Get list Status Text'])
+        return status
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
@@ -210,6 +215,35 @@ class SalesOrderPage(Base):
     def customer_random(self):
         num = str(random.randint(100, 999))
         return num
+
+
+
+    """对销售单进行出库操作，产品为无码的出库单"""
+    @allure.step("点击无码单选按钮")
+    def click_quantity_radio_button(self):
+        self.is_click(user['Quantity Radio Button'])
+        sleep(2)
+
+    @allure.step("输入出库数量")
+    def input_delivery_quantity(self, quantity):
+        self.is_click(user['Input Delivery Quantity'])
+        self.input_text(user['Input Delivery Quantity'], txt=quantity)
+        sleep(1.5)
+
+    @allure.step("新建无码出库单时，获取Order Detail下的Product属性")
+    def get_order_detail_product(self):
+        product = self.element_text(user['Get Order Detail Product'])
+        return product
+
+    @allure.step("新建无码出库单时，获取Delivery Quantity属性")
+    def get_new_delivery_quantity(self):
+        quantity = self.element_text(user['Get New Delivery Quantity'])
+        return quantity
+
+
+    @allure.step("新建无码出库单时，点击delivery quantity属性")
+    def click_delivery_quantity(self):
+        self.is_click(user['Get New Delivery Quantity'])
 
 
 

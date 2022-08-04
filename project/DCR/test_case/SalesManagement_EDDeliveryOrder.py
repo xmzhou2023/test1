@@ -81,8 +81,8 @@ class TestAddSubDelivery:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             dom.assert_att("Submit successfully")
+        sleep(4)
 
-        sleep(1)
         user = SQL('DCR', 'test')
         varsql3 = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200000 order by created_time desc limit 1"
         result = user.query_db(varsql3)
@@ -92,24 +92,26 @@ class TestAddSubDelivery:
         logging.info("查询数据库delivery_code字段{}".format(delivery_code))
         sleep(1)
 
+        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
+        salesorder = add.text_sales_order()
+        deliveryorder = add.text_delivery_order()
+
         """出库单页面，筛选出库单ID"""
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
-        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        salesorder = add.text_sales_order()
-        deliveryorder = add.text_delivery_order()
 
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(salesorder, order_code)
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
         sleep(1)
 
-        """ 后端断言，数据库是否存在新建的出库单，获取列表出库单页面，销售ID、出库单ID、状态文本内容与数据库对比是否一致"""
+        """断言后端，数据库是否存在新建的出库单，获取列表出库单页面，销售ID、出库单ID、状态文本内容与数据库对比是否一致"""
         del_sales_order = add.text_sales_order()
         del_delivery_order = add.text_delivery_order()
         del_status = add.text_delivery_Status()
         sleep(1)
+
         """判断如果买家ID=EG000562，查询数据库表中二代最近新建的出库单信息"""
         user = SQL('DCR', 'test')
         varsql4 = "select order_code,delivery_code,status from  t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200000 order by created_time desc limit 1"
@@ -118,6 +120,7 @@ class TestAddSubDelivery:
         delivery_id = result[0].get("delivery_code")
         status = result[0].get("status")
         sleep(1)
+
         ValueAssert.value_assert_equal(del_sales_order, order_id)
         ValueAssert.value_assert_equal(del_delivery_order, delivery_id)
         if status == 80200000:

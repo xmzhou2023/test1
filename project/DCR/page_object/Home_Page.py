@@ -365,7 +365,7 @@ class HomePagePage(Base):
     @allure.step("关闭Shop Management global菜单")
     def click_close_shop_mgt(self):
         self.is_click(user['关闭门店管理菜单'])
-        sleep(1)
+        sleep(2)
 
 
     @allure.step("断言文件下载时长")

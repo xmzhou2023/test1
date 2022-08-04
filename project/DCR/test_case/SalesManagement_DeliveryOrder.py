@@ -133,7 +133,7 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为无码的，买方为临时客户")
     @allure.description("国包用户，新建出库单，产品为无码时，买方为临时客户")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_005(self, drivers):
+    def test_001_001(self, drivers):
         user3 = LoginPage(drivers)
         user3.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -159,6 +159,7 @@ class TestAddDeliveryOrder:
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Submit successfully")
+        sleep(4)
 
         """断言查询新建的无码出库单"""
         user = SQL('DCR', 'test')
@@ -189,7 +190,7 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为有码的，买方为临时客户")
     @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_006(self, drivers):
+    def test_001_002(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -209,7 +210,7 @@ class TestAddDeliveryOrder:
         user = SQL('DCR', 'test')
         result = user.query_db(varsql)
         imei = result[0].get("IMEI")
-
+        sleep(1)
         add.input_imei(imei)
         add.click_check()
         add.click_submit()
@@ -223,10 +224,6 @@ class TestAddDeliveryOrder:
             dom.assert_att("Submit successfully")
         sleep(4)
 
-        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        salesorder = add.text_sales_order()
-        deliveryorder = add.text_delivery_order()
-
         """断言查询新建的无码出库单"""
         user = SQL('DCR', 'test')
         varsql1 = "select * from  t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667'  and status=80200001 order by created_time desc limit 1"
@@ -234,6 +231,10 @@ class TestAddDeliveryOrder:
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
         sleep(2)
+
+        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
+        salesorder = add.text_sales_order()
+        deliveryorder = add.text_delivery_order()
 
         """出库单页面，筛选新建的无码出库单ID"""
         add.input_salesorder(order_code)
