@@ -1,6 +1,8 @@
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from public.base.basics import Base
+from public.base.assert_ui import ValueAssert
+import random
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -22,7 +24,7 @@ class DeliveryOrderPage(Base):
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        sleep(5.5)
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
@@ -31,6 +33,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("出库单页面，点击Add新增出库单")
     def click_add(self):
+        Base.presence_sleep_dcr(self, user['新增出库单'])
         self.is_click(user['新增出库单'])
         sleep(2)
 
@@ -38,24 +41,26 @@ class DeliveryOrderPage(Base):
     def input_sub_buyer(self, content):
         Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
-        self.input_text(user['Buyer'], txt=content, )
-        sleep(2)
-        self.is_click(user['Buyer sub value'])
+        sleep(1)
+        self.input_text(user['Buyer'], txt=content)
+        sleep(2.5)
+        self.is_click(user['Buyer sub value'], "BD2915")
 
     @allure.step("Add新增出库单页面，输入二代账号的Buyer属性")
     def input_retail_buyer(self, content):
         Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
-        self.input_text(user['Buyer'], txt=content, )
+        self.input_text(user['Buyer'], txt=content)
         sleep(2)
-        self.is_click(user['Buyer retail value'])
+        self.is_click(user['Buyer retail value'], "EG000562")
 
     @allure.step("Add新增出库单页面，payment mode属性")
     def input_deli_pay_mode(self, content):
+        Base.presence_sleep_dcr(self, user['payment mode'])
         self.is_click(user['payment mode'])
         self.input_text(user['payment mode'], txt=content)
         sleep(1)
-        self.is_click(user['payment mode Online'])
+        self.is_click(user['payment mode Online'], content)
 
     @allure.step("Add新增出库单页面，IMEI属性")
     def input_imei(self, content):
@@ -68,7 +73,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):
-        self.is_click_dcr(user['Submit'])
+        self.is_click(user['Submit'])
         sleep(1)
 
     @allure.step("Add新增出库单页面，Submit按钮")
@@ -89,7 +94,6 @@ class DeliveryOrderPage(Base):
 
     @allure.step("获取出库单列表的 销售单ID文本")
     def text_sales_order(self):
-        sleep(1)
         Base.presence_sleep_dcr(self, user['Get Sales Order ID Text'])
         sales_order = self.element_text(user['Get Sales Order ID Text'])
         return sales_order
@@ -163,13 +167,17 @@ class DeliveryOrderPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("出库单页面，关闭出库单菜单")
     def click_close_delivery_order(self):
         self.is_click(user['关闭出库单菜单'])
         sleep(2)
 
+    @allure.step("出库单页面，关闭IMEI Detail详情页")
+    def click_close_imei_detail(self):
+        self.is_click(user['关闭IMEI详情页'])
+        sleep(1.5)
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
     @allure.step("Delivery Order页面，点击导出功能")
@@ -185,6 +193,13 @@ class DeliveryOrderPage(Base):
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(5)
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], txt=content)
+        sleep(2)
+        self.is_click(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -215,12 +230,14 @@ class DeliveryOrderPage(Base):
     @allure.step("导出记录页面，获取列表 Create Date文本")
     def get_create_date_text(self):
         create_date = self.element_text(user['获取创建日期文本'])
-        return create_date
+        create_date1 = create_date[0:10]
+        return create_date1
 
     @allure.step("导出记录页面，获取列表Complete Date文本")
     def get_complete_date_text(self):
         complete_date = self.element_text(user['获取完成日期文本'])
-        return complete_date
+        complete_date1 = complete_date[0:10]
+        return complete_date1
 
     @allure.step("导出记录页面，获取列表 Operation文本")
     def get_export_operation_text(self):
@@ -252,6 +269,114 @@ class DeliveryOrderPage(Base):
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
         sleep(1)
+
+
+    """#创建出库单，产品为无码的出库单"""
+    @allure.step("点击无码单选按钮")
+    def click_quantity_radio_button(self):
+        self.is_click(user['Quantity Radio Button'])
+        sleep(2)
+
+    @allure.step("点击无码对应的Add")
+    def click_quantity_add(self):
+        self.is_click(user['Quantity Add'])
+        sleep(1.5)
+
+    @allure.step("输入出库单无码产品")
+    def click_quantity_product(self, content):
+        self.scroll_into_view(user['Quantity Input Product'])
+        Base.presence_sleep_dcr(self, user['Quantity Input Product'])
+        self.is_click(user['Quantity Input Product'])
+        sleep(2)
+        self.is_click(user['Quantity Input Product Value'], content)
+        sleep(1)
+
+    @allure.step("输入出库单无码数量")
+    def input_delivery_quantity(self, content):
+        self.is_click_dcr(user['Delivery Input Quantity'])
+        sleep(1)
+        self.input_text_dcr(user['Delivery Input Quantity'], txt=content)
+        sleep(1)
+        self.is_click(user['Get Delivery Quantiry Text'])
+
+    @allure.step("获取Delivery Quantity文本值")
+    def get_delivery_quantity_text(self, content):
+        get_quantiry_text = self.element_text(user['Get Delivery Quantiry Text'])
+        ValueAssert.value_assert_equal(content, get_quantiry_text)
+        sleep(1)
+
+
+    """新建出库单时，新建临时客户"""
+    @allure.step("点击新建临时客户")
+    def click_temporary_customer(self):
+        self.is_click(user['Create Temporary Customer'], "Create Temporary Customer")
+        sleep(1.5)
+
+    @allure.step("输入临时客户名称")
+    def input_temporary_customer_name(self, content):
+        Base.presence_sleep_dcr(self, user['Temporary Customer Name'])
+        self.is_click(user['Temporary Customer Name'])
+        self.input_text(user['Temporary Customer Name'], content)
+
+    @allure.step("输入临时客户联系电话")
+    def input_customer_contact_no(self, content):
+        self.is_click(user['Temporary Contact No'])
+        self.input_text(user['Temporary Contact No'], content)
+
+    @allure.step("点击业务类型下拉框")
+    def click_business_type(self):
+        self.is_click(user['Business Type'])
+        sleep(2)
+        self.is_click(user['Business Type value'], "Retail&Wholesale")
+
+    @allure.step("随机生成数字")
+    def customer_random(self):
+        num = str(random.randint(100, 999))
+        return num
+
+
+    """查询出库单的IMEI Detail 详情信息"""
+    @allure.step("查询出库单的IMEI Detail 详情信息")
+    def click_imei_detail(self):
+        self.is_click(user['Click IMEI Detail'])
+        sleep(2.5)
+
+    @allure.step("获取列表Product文本")
+    def get_list_product_text(self):
+        get_list_product = self.element_text(user['Get List Product Text'])
+        return get_list_product
+
+    @allure.step("获取列表Item文本")
+    def get_list_item_text(self):
+        get_list_item = self.element_text(user['Get List Item Text'])
+        return get_list_item
+
+
+    @allure.step("IMEI Detail页面，获取Title标题的Sales Order")
+    def get_detail_title_sale_text(self):
+        Base.presence_sleep_dcr(self, user['Get IMEI Detail Title'])
+        get_detail_title = self.element_text(user['Get IMEI Detail Title'])
+        return get_detail_title
+
+    @allure.step("IMEI Detail页面，获取Product文本")
+    def get_detail_product_text(self):
+        get_detail_product = self.element_text(user['Get IMEI Detail Product Text'])
+        return get_detail_product
+
+    @allure.step("IMEI Detail页面，获取Item文本")
+    def get_detail_item_text(self):
+        get_detail_item = self.element_text(user['Get IMEI Detail Item Text'])
+        return get_detail_item
+
+    @allure.step("IMEI Detail页面，获取IMEI文本")
+    def get_detail_imei_text(self):
+        get_detail_imei = self.element_text(user['Get IMEI Detail IMEI Text'])
+        return get_detail_imei
+
+    @allure.step("IMEI Detail页面，获取Total文本")
+    def get_detail_total_text(self):
+        get_detail_total = self.element_text(user['Get IMEI Detail Total Text'])
+        return get_detail_total
 
 
 if __name__ == '__main__':

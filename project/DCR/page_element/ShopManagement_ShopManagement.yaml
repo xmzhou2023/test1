@@ -18,39 +18,28 @@ Add: "id==ShopManagement_add"
 Shop Name: "xpath==//label[(text()='Shop Name')]//parent::div// following-sibling::div//input"
 Contact Name: "xpath==//label[(text()='Contact Name')]//parent::div// following-sibling::div//input"
 Contact No: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[3]/div[1]/div/div/div/input"
-
 Country City: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[3]/div[2]/div/div/div/div[1]/input"
 Country City value: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[3]/div[2]/div/div/div/div[2]/div/div[1]/div[2]/div[8]/div[2]/div[4]/div[2]/div/div[1]/span[2]"
-
 Address: "xpath==//label[(text()='Address')]//parent::div// following-sibling::div//input"
-
 Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
 itel: "xpath==//span[(text()='itel')]"
 TECNO: "xpath==//span[(text()='variable')]"
-
-Sales Region: "xpath==//label[(text()='Sales Region')]//parent::div// following-sibling::div//input"
-Sales Region value: "xpath==//span[(text()='Barisal itel')]"
-
-Shop Grade: "xpath==//label[(text()='Shop Grade')]//parent::div// following-sibling::div//input"
-Shop Grade Value: "xpath==//span[text()='B 0-50 ']//parent::li"
-
+Sales Region: "id==shopadd_input_shopExtensionList[0].areaId"
+Sales Region value: "xpath==//span[(text()='variable')]"
+Shop Grade: "xpath==//input[@class='el-input__inner shopadd_input_shopExtensionList[0].gradeId']"
+Shop Grade Value: "xpath==//span[text()='variable']//parent::li"
 Shop Type: "xpath==//label[(text()='Shop Type')]//parent::div// following-sibling::div//input"
 Shop Type GRT value: "xpath==//span[(text()='variable')]"
-
 Image Type: "xpath==//label[(text()='Image Type')]//parent::div// following-sibling::div//input"
 Zone Shop Value: "xpath==//span[(text()='variable')]"
-
 Inventory Upload mode: "xpath==//label[(text()='Inventory Upload mode')]//parent::div// following-sibling::div//input"
 Freedom value: "xpath==//span[text()='variable']"
-
 点击No: "xpath==//span[@class='el-radio__input']"
 输入零售商: "xpath==//input[@placeholder='Customer ID for chain shop (Retailer Type)']"
-选中零售商: "xpath==//span[text()='SN455338 lhmRetailer005 ']//parent::li"
-
+选中零售商: "xpath==//span[text()='variable']//parent::li"
 Commercial Area Tag: "xpath==//label[(text()='Commercial Area Tag')]//parent::div//following-sibling::div//input"
 Commercial Area value: "xpath==//span[(text()='variable')]"
-
-Submit: "xpath==//span[contains(text(),'Submit')]"
+Submit: "xpath==//span[contains(text(),'variable')]"
 New Submit Confirm: "xpath==/html/body/div[11]/div/div[3]/button/span"
 
 
@@ -69,28 +58,25 @@ Extend Brand: "id==ShopManagement_extendBrand"
 下拉选择扩展品牌: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[2]/form/div/div/div/div[1]/input"
 选中扩展的品牌: "xpath==//div[@class='el-select-dropdown el-popper is-multiple']//span[normalize-space(text())='itel']"
 Extend Brand Save: "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[3]/div/button[1]/span[contains(text(),'Save')]"
-
 Extend Sales Region: "id==shopextend_input_shopExtensionList[0].areaId"
-Extend Sales Region Value: "xpath==//span[(text()='Barisal itel')]"
-
+Extend Sales Region Value: "xpath==//span[(text()='variable')]"
 Extend Shop Grade: "xpath==//input[@class='el-input__inner shopextend_input_shopExtensionList[0].gradeId']"
 Extend Shop Grade Value: "xpath==//span[text()='variable']//parent::li"
-
 Extend Shop Type: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[9]/div[3]/div[2]/div/div/div/div/input"
 Extend Shop Type Value: "xpath==//span[text()='variable']"
-
 Extend Image Type: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[9]/div[3]/div[3]/div/div/div/div[1]/input"
 Extend Zone Shop Value: "xpath==//span[(text()='variable')]"
-
 扩展品牌输入零售商: "xpath==//input[@class='el-input__inner shopextend_input_shopExtensionList[0].enterpriseId']"
-扩展品牌选中零售商: "xpath==//span[text()='SN455338 lhmRetailer005']//parent::li"
-
+扩展品牌选中零售商: "xpath==//span[contains(text(),'variable')]//parent::li"
 Extend Commercial Area: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[9]/div[5]/div[4]/div/div/div/div/input"
-#Extend Commercial Value: "xpath==/html/body/div[5]/div[1]/div[1]/ul/li[2]/span[text()='KA']//parent::li"
 Extend Commercial Value: "xpath==//span[text()='variable']"
 Edited Successfully: "xpath==//p[text()='Edited Successfully']"
+
 
 #禁用门店
 Disable: "id==ShopManagement_disable"
 Disable Confirm: "xpath==//span[normalize-space(text())='Confirm']"
 Successfully: "xpath==//p[text()='Successfully']"
+
+关闭门店管理菜单: "xpath==//span[normalize-space(text())='Shop Management (global)']//span[@class='el-icon-close']"
+

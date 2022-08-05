@@ -88,7 +88,6 @@ class SalesOrderPage(Base):
         return status
 
 
-
     """勾选新建的销售单，直接出库"""
     @allure.step("勾选新建的 第一条销售单ID")
     def click_checkbox_orderID(self):
@@ -154,13 +153,28 @@ class SalesOrderPage(Base):
     @allure.step("IMEI Inventory Query页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(3)
+        sleep(5)
 
     @allure.step("IMEI Inventory Query页面，获取列表IMEI文本内容")
     def get_text_imei_inventory(self):
         Base.presence_sleep_dcr(self, user['获取IMEI文本内容'])
         imei = self.element_text(user['获取IMEI文本内容'])
         return imei
+
+    @allure.step("刷新页面")
+    def click_refresh(self, drivers):
+        ref = Base(drivers)
+        ref.refresh()
+
+    @allure.step("关闭Sales Order销售单菜单")
+    def click_close_sales_order(self):
+        self.is_click(user['关闭销售单菜单'])
+        sleep(2)
+
+    @allure.step("关闭IMEI Inventory query菜单")
+    def click_close_imei_inventory(self):
+        self.is_click(user['关闭IMEI Inventory Query'])
+        sleep(2)
 
 
 class InboundReceiptPage(Base):
@@ -180,14 +194,13 @@ class InboundReceiptPage(Base):
         sleep(8)
 
     @allure.step("获取列表第一个销售单ID")
-    def get_text_salesOrder(self, content):
-        #salesorder = self.element_text_dcr(user['获取列表第一个销售单ID'], content)
+    def get_text_salesOrder(self):
+        Base.presence_sleep_dcr(self, user['获取列表第一个销售单ID'])
         salesorder = self.element_text(user['获取列表第一个销售单ID'])
         return salesorder
 
     @allure.step("获取列表第一个出库单ID")
-    def get_text_deliveryOrder(self, content):
-        #deliveryorder = self.element_text_dcr(user['获取列表第一个出库单ID'], content)
+    def get_text_deliveryOrder(self):
         deliveryorder = self.element_text(user['获取列表第一个出库单ID'])
         return deliveryorder
 
@@ -195,10 +208,9 @@ class InboundReceiptPage(Base):
     def click_checkbox(self):
         Base.presence_sleep_dcr(self, user['第一个复选框'])
         self.is_click_dcr(user['第一个复选框'])
-        #sleep(1)
 
     @allure.step("快速收货页面，点击Quick Received按钮")
-    def click_received(self):
+    def click_quick_received(self):
         """快速收货页面，点击Quick Received按钮"""
         self.is_click_dcr(user['快速收货按钮'])
         sleep(2)
@@ -215,12 +227,18 @@ class InboundReceiptPage(Base):
 
     @allure.step("快速收货页面，获取列表第一条记录的最新状态")
     def get_text_status(self):
+        Base.presence_sleep_dcr(self, user['获取第一个Status'])
         status = self.element_text(user['获取第一个Status'])
         return status
 
     @allure.step("快速收货页面，点击Reset重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
+
+    @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
+    def click_close_inbound_receipt(self):
+        self.is_click(user['关闭二代收货菜单'])
+        sleep(2)
 
 
 if __name__ == '__main__':

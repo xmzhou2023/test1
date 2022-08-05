@@ -1,7 +1,7 @@
 #Home Page页面定位
 #筛选条件定位
 Input Time Period: "xpath==//label[(text()='Time Period')]//parent::div// following-sibling::div//input"
-选择月份: "xpath==//a[contains(text(),'May')]"
+选择月份: "xpath==//a[contains(text(),'Jul')]"
 Input Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
 Input Brand Value: "xpath==/html/body/div[5]/div[1]/div[1]/ul/li[2]/span[contains(text(),'TECNO')]"
 
@@ -32,17 +32,39 @@ Get Infiltration Sales Text: "xpath==//*[@id='mainContainer']/section/div[1]/div
 Get Infiltration Sales PCS: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[2]/div/div[2]/div[3]/div[1]/div[2]/span"
 Abnormal Data Export: "id==homePage_activation_export"
 
+
 #查看Sub-dealer Management指标统计定位
+Get Sub dealer Management: "xpath==//span[contains(text(),'Sub-dealer Management')]"
+Get Total Sub dealer: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[3]/div/div[2]/div[1]/div[2]/span"
+Get Number of rebated user: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[3]/div/div[2]/div[2]/div[1]/div/div[2]"
+Get Days No Stock In Out: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[3]/div/div[2]/div[3]/div[1]/div/div[1]/div[1]/span"
+Get No Permission Seller Buyer: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[3]/div/div[2]/div[3]/div[2]/div/div[1]/div[1]/span"
+Sub dealer Management Export: "xpath==/html/body/div[1]/div/div[2]/section/div[1]/div[3]/div[3]/div/div[1]/div/div/button[2]/span"
 
+#Distributor Management指标定位
+Get Distributor Management: "xpath==//span[text()='Distributor Management']"
+Get Total Distributor: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[5]/div/div[2]/div[1]/div[2]/span"
+Get Dist Number of rebated user: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[5]/div/div[2]/div[2]/div[1]/div/div[2]"
+Get Dist Days No Stock in Out: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[5]/div/div[2]/div[3]/div[1]/div/div[1]/div[1]/span"
+Get Dist No Permission Buyer: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[5]/div/div[2]/div[3]/div[2]/div/div[1]/div[1]/span"
+Distributor Management Export: "xpath==/html/body/div[1]/div/div[2]/section/div[1]/div[3]/div[5]/div/div[1]/div/div/button[2]/span"
 
+#Shop Management 指标定位
+Get Shop Management: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[4]/div/div[1]/div/span[1]"
+Get Total Shop: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[4]/div/div[2]/div[1]/div[2]/span"
+Get Shop Number of rebated user: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[4]/div/div[2]/div[2]/div[1]/div/div[2]"
+Get Shop Days No Upload Sales: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[4]/div/div[2]/div[3]/div/div/div[1]/div[1]/span"
+Shop Management Export: "xpath==/html/body/div[1]/div/div[2]/section/div[1]/div[3]/div[4]/div/div[1]/div/div/button[2]/span"
 
 
 #HomePage首页导出功能
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
+Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
+Task Name value: "xpath==//span[text()='variable']"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取下载状态文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]/div/div[contains(text(),'COMPLETE')]"
-获取任务名称文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div[contains(text(),'User management')]"
+获取任务名称文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div[contains(text(),'variable')]"
 获取文件大小文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[7]/div"
 获取用户ID文本:  "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[8]/div[contains(text(),'lhmadmin')]"
 获取创建日期文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[10]/div"
@@ -52,8 +74,8 @@ Export Record Search: "xpath==//span[contains(text(),'Search')]"
 
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭用户管理菜单: "xpath==//span[normalize-space(text())='User Management']//span[@class='el-icon-close']"
-
-
+关闭客户管理菜单: "xpath==//span[normalize-space(text())='Customer Management (global)']//span[@class='el-icon-close']"
+关闭门店管理菜单: "xpath==//span[normalize-space(text())='Shop Management (global)']//span[@class='el-icon-close']"
 
 
 

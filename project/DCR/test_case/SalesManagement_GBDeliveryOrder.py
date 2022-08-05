@@ -14,42 +14,46 @@ class TestQueryDistDelivery:
     @allure.story("国包查询出库单")
     @allure.title("国包用户按出库单条件筛选，出库单列表数据")
     @allure.description("根据销售单与出库单条件，筛选出库单列表数据")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_001(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "BD40344201", "dcr123456")
+        user.initialize_login(drivers, "BD40344201", "dcr123456")
 
         """销售管理菜单-出库单列表-筛选出库单数据用例"""
         user.click_gotomenu("Sales Management", "Delivery Order")
 
         """出库单页面 实例化销售管理页面组件类"""
-        delivery = DeliveryOrderPage(drivers)
+        query = DeliveryOrderPage(drivers)
         """出库单页面，筛选出库单用例"""
-        salesorder = delivery.text_sales_order()
-        deliveryorder = delivery.text_delivery_order()
+        salesorder = query.text_sales_order()
+        deliveryorder = query.text_delivery_order()
+        query.input_salesorder(salesorder)
+        query.input_deliveryorder(deliveryorder)
+        query.click_search()
 
-        delivery.input_salesorder(salesorder)
-        delivery.input_deliveryorder(deliveryorder)
-        delivery.click_search()
-
-        salesorder2 = delivery.text_sales_order()
-        deliveryorder2 = delivery.text_delivery_order()
+        salesorder2 = query.text_sales_order()
+        deliveryorder2 = query.text_delivery_order()
         """出库单页面，调用断言封装的方法，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(salesorder, salesorder2)
         ValueAssert.value_assert_equal(deliveryorder, deliveryorder2)
-        """重置筛选条件"""
-        delivery.click_reset()
+        query.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
-class TestAddDistDelivery:
+class TestAddDistDeliveryOrder:
     @allure.story("国包新增出库单")
     @allure.title("国包新增出库单")
     @allure.description("国包用户新增出库单，然后根据新建的出库断言是否加载正常")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
         """出库单列表页，国包账号 新增出库单用例 """
+        user1 = LoginPage(drivers)
+        user1.initialize_login(drivers, "BD40344201", "dcr123456")
+
+        """销售管理菜单-出库单列表-筛选出库单数据用例"""
+        user1.click_gotomenu("Sales Management", "Delivery Order")
+
         add = DeliveryOrderPage(drivers)
         """从数据库表查询国包BD403442仓库的库存IMEI"""
         varsql = "SELECT IMEI FROM  t_channel_warehouse_current_stock WHERE WAREHOUSE_ID ='62139' AND STATUS = 1  limit 1"
@@ -64,24 +68,28 @@ class TestAddDistDelivery:
         add.input_imei(imei)
         add.click_check()
         add.click_submit()
-        affirm = add.get_text_submit_affirm()
-
         dom = DomAssert(drivers)
-        if affirm == "Submit":
-            add.click_submit_affirm()
+        try:
+            affirm = add.get_text_submit_affirm()
+            if affirm == "Submit":
+                add.click_submit_affirm()
+                dom.assert_att("Submit successfully")
+        except Exception as e:
             dom.assert_att("Submit successfully")
-        #sleep(1)
 
-        """从数据库表中，获取二代出库单ID，传给出库单筛选方法"""
+        sleep(4)
+        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
+        salesorder = add.text_sales_order()
+        deliveryorder = add.text_delivery_order()
+
+        """从数据库表中，获取国包出库单ID，传给出库单筛选方法"""
         user = SQL('DCR', 'test')
         varsql = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200000 order by created_time desc limit 1"
         result = user.query_db(varsql)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
-        #sleep(1)
-        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        salesorder = add.text_sales_order()
-        deliveryorder = add.text_delivery_order()
+        sleep(1)
+
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
@@ -103,27 +111,29 @@ class TestAddDistDelivery:
         ordercode = result[0].get("order_code")
         deliverycode = result[0].get("delivery_code")
         status = result[0].get("status")
+
+        """筛选后断言，后端查询数据库sales_order、delivery_order、status字段是否与列表字段一致"""
         ValueAssert.value_assert_equal(del_sales_order, ordercode)
         ValueAssert.value_assert_equal(del_delivery_order, deliverycode)
         if status == 80200000:
             delivery_status = "On Transit"
             ValueAssert.value_assert_equal(delivery_status, del_status)
-        sleep(1)
+        add.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
 class TestSubReceiv:
     @allure.story("二代快速收货")
     @allure.title("二代快速收货")
-    @allure.description("新增出库单成功后，然后快速收货")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.description("新增出库单成功后，然后快速收货操作")
+    @allure.severity("critical")  # # 分别为3种类型等级：critical\normal\minor
     def test_003_001(self, drivers):
         """二代账号登录 进行 快速收货"""
-        user = LoginPage(drivers)
-        user.dcr_login(drivers, "BD291501", "dcr123456")
+        user2 = LoginPage(drivers)
+        user2.initialize_login(drivers, "BD291501", "dcr123456")
 
         """打开Purchase Management菜单"""
-        user.click_gotomenu("Purchase Management", "Inbound Receipt")
+        user2.click_gotomenu("Purchase Management", "Inbound Receipt")
 
         """二代账号筛选 最近新建的出库单ID，快速收货操作"""
         receiv = InboundReceiptPage(drivers)
@@ -156,23 +166,22 @@ class TestSubReceiv:
         """筛选二代收货列表数据，断言数据正确性"""
         ValueAssert.value_assert_equal(salesorder, order_code)
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
-        sleep(1)
+        receiv.click_close_inbound_receipt()
+
 
 @allure.feature("销售管理-出库单")
 class TestSubReturn:
-    @allure.story("二代申请退货")
-    @allure.title("二代申请退货")
-    @allure.description("收货成功后，然后申请退货操作")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.story("二代退货出库单")
+    @allure.title("二代申请退货出库单")
+    @allure.description("收货成功后，然后二代申请退货出库单操作")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_004_001(self, drivers):
         """二代账号, 进行退货操作"""
-        """刷新页面"""
-        refresh = Base(drivers)
-        refresh.refresh()
+        user3 = LoginPage(drivers)
+        user3.initialize_login(drivers, "BD291501", "dcr123456")
 
         """打开Purchase Management菜单"""
-        menu = LoginPage(drivers)
-        menu.click_gotomenu("Sales Management", "Return Order")
+        user3.click_gotomenu("Sales Management", "Return Order")
 
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
@@ -204,22 +213,22 @@ class TestSubReturn:
         status = return_order.get_return_status()
         ValueAssert.value_assert_equal(Delivery_OrderID, delivery_code)
         ValueAssert.value_assert_equal("Pending Approval", status)
-        sleep(1)
+        return_order.click_close_return_order()
 
 
 @allure.feature("销售管理-出库单")
 class TestDistReturnApprove:
-    @allure.story("国包退货审核通过")
-    @allure.title("国包退货审核通过")
-    @allure.description("国包根据退货单，进行审核退货操作")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.story("国包审核退货单")
+    @allure.title("退货单页面，国包用户，审核退货单操作")
+    @allure.description("退货单页面，国包用户，进行审核退货单操作")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_005_001(self, drivers):
         """退货单列表页面，国包账号, 进行退货审核操作"""
-        user1 = LoginPage(drivers)
-        user1.dcr_login(drivers, "BD40344201", "dcr123456")
+        user4 = LoginPage(drivers)
+        user4.initialize_login(drivers, "BD40344201", "dcr123456")
 
         """打开Purchase Management菜单"""
-        user1.click_gotomenu("Sales Management", "Return Order")
+        user4.click_gotomenu("Sales Management", "Return Order")
 
         """实例化 Return order退货单类"""
         return_approve = ReturnOrderPage(drivers)
@@ -242,7 +251,7 @@ class TestDistReturnApprove:
         """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
         status = return_approve.get_text_Status()
         ValueAssert.value_assert_equal("Approved", status)
-        sleep(1)
+        return_approve.click_close_return_order()
 
 
 if __name__ == '__main__':

@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d93b2e87-0a1a-45dc-85ca-b8daa9d38250" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/SRM/page_element/OrderCollaoration.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/SRM/page_object/OrderCollaoration.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/project/SRM/test_case/OrderCollaboration.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/common/connect_sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/common/connect_sql.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/common/read_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/common/read_config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/AttendanceVisiting_AttendanceRecords.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/AttendanceVisiting_AttendanceRecords.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/AttendanceVisiting_VisitRecord.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/AttendanceVisiting_VisitRecord.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/Center_Component.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/Center_Component.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/Center_Process.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/Center_Process.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/Home_Page.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/Home_Page.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/PurchaseManagement_DistributorReceipt.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/PurchaseManagement_DistributorReceipt.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/PurchaseManagement_InboundReceipt.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/PurchaseManagement_InboundReceipt.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/ReportAnalysis_CustomerPSI.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/ReportAnalysis_CustomerPSI.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/ReportAnalysis_CustomerSaleReport.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/ReportAnalysis_CustomerSaleReport.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/ReportAnalysis_ShopInventoryIMEIQuery.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/ReportAnalysis_ShopInventoryIMEIQuery.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_DeliveryOrder.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_DeliveryOrder.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_ReturnOrder.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_ReturnOrder.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_SalesOrder.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_SalesOrder.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_ShopSalesQuery.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_ShopSalesQuery.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/ShopManagement_ShopMgtGlobal.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/ShopManagement_ShopManagement.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/StaffAuthorization_RoleDefinition.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/StaffAuthorization_RoleDefinition.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/StaffAuthorization_UserAuthorization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/StaffAuthorization_UserAuthorization.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/StaffAuthorization_UserCustAssociation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/StaffAuthorization_UserCustAssociation.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/StaffAuthorization_UserShopAssociation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/StaffAuthorization_UserShopAssociation.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/user_customer_association.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/AttendanceVisiting_AttendanceRecords.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/AttendanceVisiting_AttendanceRecords.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/AttendanceVisiting_VisitRecord.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/AttendanceVisiting_VisitRecord.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/Center_Component.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/Center_Component.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/Center_Process.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/Center_Process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/Home_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/Home_Page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/PurchaseManagement_DistributorReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/PurchaseManagement_DistributorReceipt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/PurchaseManagement_InboundReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/PurchaseManagement_InboundReceipt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/ReportAnalysis_CustomerPSI.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/ReportAnalysis_CustomerPSI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/ReportAnalysis_CustomerSaleReport.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/ReportAnalysis_CustomerSaleReport.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/ReportAnalysis_ShopInventoryIMEIQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/ReportAnalysis_ShopInventoryIMEIQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_DeliveryOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_ReturnOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_ReturnOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_SalesOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_SalesOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_ShopSalesQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_ShopSalesQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/ShopManagement_ShopMgtGlobal.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/ShopManagement_ShopManagement.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_RoleDefinition.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_RoleDefinition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_UserAuthorization.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_UserAuthorization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_UserCustAssociation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_UserCustAssociation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_UserShopAssociation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_UserShopAssociation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/AttendanceVisiting_AttendanceRecords.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/AttendanceVisiting_AttendanceRecords.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/AttendanceVisiting_VisitRecord.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/AttendanceVisiting_VisitRecord.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/Center_Process.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/Center_Process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/Home_Page.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/Home_Page.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/PurchaseManagement_DistributorReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/PurchaseManagement_DistributorReceipt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/PurchaseManagement_InboundReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/PurchaseManagement_InboundReceipt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/ReportAnalysis_CustomerPSI.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/ReportAnalysis_CustomerPSI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/ReportAnalysis_CustomerSaleReport.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/ReportAnalysis_CustomerSaleReport.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/ReportAnalysis_ShopInventoryIMEIQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/ReportAnalysis_ShopInventoryIMEIQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_DeliveryOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_EDDeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_EDDeliveryOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_GBDeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_GBDeliveryOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_SalesOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_SalesOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_ShopSalesQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_ShopSalesQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/ShopManagement_ShopMgtGlobal.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/ShopManagement_ShopManagement.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_RoleDefinition.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_RoleDefinition.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserAuthorization.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserAuthorization.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserCustAssociation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserCustAssociation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserManagement.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserManagement.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserShopAssociation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserShopAssociation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/AttendanceVisiting_AttendanceRecords.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/AttendanceVisiting_AttendanceRecords.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/AttendanceVisiting_VisitRecord.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/AttendanceVisiting_VisitRecord.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/ReportAnalysis_CustomerPSI.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/ReportAnalysis_CustomerPSI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/ReportAnalysis_ShopInventoryIMEIQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/ReportAnalysis_ShopInventoryIMEIQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/SalesManagement_DeliveryOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/SalesManagement_ShopSalesQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/SalesManagement_ShopSalesQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/AttendanceVisiting_AttendanceRecords.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/AttendanceVisiting_AttendanceRecords.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/AttendanceVisiting_VisitRecord.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/AttendanceVisiting_VisitRecord.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/PurchaseManagement_InboundReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/PurchaseManagement_InboundReceipt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/ReportAnalysis_CustomerPSI.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/ReportAnalysis_CustomerPSI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/ReportAnalysis_ShopInventoryIMEIQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/ReportAnalysis_ShopInventoryIMEIQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/SalesManagement_DeliveryOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/SalesManagement_ShopSalesQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/SalesManagement_ShopSalesQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/AttendanceVisiting_AttendanceRecords.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/AttendanceVisiting_AttendanceRecords.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/AttendanceVisiting_VisitRecord.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/AttendanceVisiting_VisitRecord.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/ReportAnalysis_CustomerPSI.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/ReportAnalysis_CustomerPSI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/ReportAnalysis_ShopInventoryIMEIQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/ReportAnalysis_ShopInventoryIMEIQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/SalesManagement_DeliveryOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/SalesManagement_ShopSalesQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/SalesManagement_ShopSalesQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/AttendanceVisiting_AttendanceRecords.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/AttendanceVisiting_AttendanceRecords.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/AttendanceVisiting_VisitRecord.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/AttendanceVisiting_VisitRecord.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/PurchaseManagement_InboundReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/PurchaseManagement_InboundReceipt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/ReportAnalysis_CustomerPSI.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/ReportAnalysis_CustomerPSI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/ReportAnalysis_ShopInventoryIMEIQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/ReportAnalysis_ShopInventoryIMEIQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/SalesManagement_DeliveryOrder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/SalesManagement_ShopSalesQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/SalesManagement_ShopSalesQuery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/SRM/page_element/login.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/SRM/page_element/login.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/SRM/page_object/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/SRM/page_object/login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/SRM/test_case/Performance_appraisal.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/SRM/test_case/Performance_appraisal.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/SRM/test_case/approval.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/SRM/test_case/approval.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/SRM/test_case/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/SRM/test_case/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/SRM/test_case/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/SRM/test_case/login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/data/单机头结构工程师发起导入模板.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/data/单机头结构工程师发起导入模板.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_element/BOMCooperation_BareMobilePhoneBomCooperation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_element/BOMCooperation_BareMobilePhoneBomCooperation.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_element/Center_Component.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_element/Center_Component.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_element/ShippingCountry_ShippingCountryFlow.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_element/ShippingCountry_ShippingCountryFlow.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_element/ShippingCountry_ShippingCountrySearch.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_element/ShippingCountry_ShippingCountrySearch.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_BareMobilePhoneBomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_BareMobilePhoneBomCooperation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_MachineBomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_MachineBomCooperation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_PCBABomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_PCBABomCooperation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/Center_Component.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/Center_Component.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/KeyComponent_KeyComponentFlow.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/KeyComponent_KeyComponentFlow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/ShippingCountry_ShippingCountryFlow.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/ShippingCountry_ShippingCountryFlow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/ShippingCountry_ShippingCountrySearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/ShippingCountry_ShippingCountrySearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_BareMobilePhoneBomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_BareMobilePhoneBomCooperation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_MachineBomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_MachineBomCooperation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_PCBABomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_PCBABomCooperation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/KeyComponent_KeyComponentFlow.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/KeyComponent_KeyComponentFlow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/ShippingCountry_ShippingCountryFlow.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/ShippingCountry_ShippingCountryFlow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/ShippingCountry_ShippingCountrySearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/ShippingCountry_ShippingCountrySearch.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/conftest.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master-dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2BdlZOy0kVWBjZHHbeSE2JlgnR0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+    <option name="sortByType" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\EvanCode\UIPOMTest\libs\tools\template" />
+      <recent name="F:\EvanCode\UIPOMTest\libs\tools\template\env\test" />
+      <recent name="F:\EvanCode\UIPOMTest\project\DRP\env" />
+      <recent name="F:\EvanCode\UIPOMTest\project\DCR\env" />
+      <recent name="F:\EvanCode\UIPOMTest\libs" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\EvanCode\UIPOMTest\libs" />
+      <recent name="C:\EvanCode\UIPOMTest\haha" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.create_dir">
+    <configuration name="123 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UIPOMTest" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/haha" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/haha/123.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="123" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UIPOMTest" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="C:\EvanCode\UIPOMTest\haha\123.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="create_dir" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UIPOMTest" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/libs/tools" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/libs/tools/create_dir.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="debug" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UIPOMTest" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/debug.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="sync" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="UIPOMTest" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sync.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.create_dir" />
+        <item itemvalue="Python.sync" />
+        <item itemvalue="Python.debug" />
+        <item itemvalue="Python.123 (1)" />
+        <item itemvalue="Python.123" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d93b2e87-0a1a-45dc-85ca-b8daa9d38250" name="Changes" comment="" />
+      <created>1657243903635</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1657243903635</updated>
+      <workItem from="1657243916896" duration="2266000" />
+      <workItem from="1657247069050" duration="15733000" />
+      <workItem from="1657282444920" duration="1359000" />
+      <workItem from="1657285380420" duration="1911000" />
+      <workItem from="1657461815794" duration="3182000" />
+      <workItem from="1657493444605" duration="916000" />
+      <workItem from="1657500240860" duration="2853000" />
+      <workItem from="1657503153863" duration="18848000" />
+      <workItem from="1657542722533" duration="595000" />
+      <workItem from="1657555943851" duration="409000" />
+      <workItem from="1657587211410" duration="10887000" />
+      <workItem from="1657631353356" duration="9344000" />
+      <workItem from="1657672670770" duration="27420000" />
+      <workItem from="1657764760084" duration="15122000" />
+      <workItem from="1657809918227" duration="3992000" />
+      <workItem from="1657846038516" duration="26046000" />
+      <workItem from="1657878459437" duration="720000" />
+      <workItem from="1657879332578" duration="1679000" />
+      <workItem from="1657881071694" duration="718000" />
+      <workItem from="1657889845525" duration="6117000" />
+      <workItem from="1657925910987" duration="9144000" />
+      <workItem from="1657939147242" duration="290000" />
+      <workItem from="1658045033265" duration="1745000" />
+      <workItem from="1658113950257" duration="1276000" />
+      <workItem from="1658123905054" duration="3485000" />
+      <workItem from="1658132164873" duration="7922000" />
+      <workItem from="1658195262714" duration="20516000" />
+      <workItem from="1658277673743" duration="572000" />
+      <workItem from="1658278621479" duration="517000" />
+      <workItem from="1658280246673" duration="4490000" />
+      <workItem from="1658286732549" duration="7882000" />
+      <workItem from="1658304196538" duration="5050000" />
+      <workItem from="1658364620285" duration="7177000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/project/DRP/test_case/DRPDataMgmt_ModelDatabase.py</url>
+          <line>2</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

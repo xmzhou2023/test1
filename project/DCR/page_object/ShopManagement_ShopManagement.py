@@ -47,10 +47,12 @@ class ShopManagementPage(Base):
 
     @allure.step("新建门店时，输入销售区域")
     def input_sales_region(self, content):
+        self.scroll_into_view(user['Sales Region'])
         self.is_click(user['Sales Region'])
         self.input_text(user['Sales Region'], txt=content)
         sleep(1)
-        self.is_click(user['Sales Region value'])
+        self.is_click(user['Sales Region value'], "Barisal itel")
+        sleep(1)
 
     @allure.step("新建门店时，选择门店等级")
     def click_shop_grade(self):
@@ -84,7 +86,7 @@ class ShopManagementPage(Base):
         self.is_click(user['输入零售商'])
         self.input_text(user['输入零售商'], txt=content)
         sleep(2)
-        self.is_click(user['选中零售商'])
+        self.is_click(user['选中零售商'], "SN455338 lhmRetailer005 ")
 
     @allure.step("新建门店时，选择商业区域")
     def click_commercial_area_tag(self):
@@ -94,8 +96,8 @@ class ShopManagementPage(Base):
 
     @allure.step("新建或者编辑门店时，点击提交")
     def click_submit(self):
-        self.is_click_dcr(user['Submit'])
-        sleep(1)
+        self.is_click_dcr(user['Submit'], "Submit")
+        sleep(5)
 
     @allure.step("新建门店时，门店名称后缀随机生成")
     def shop_random(self):
@@ -104,7 +106,7 @@ class ShopManagementPage(Base):
 
     @allure.step("根据门店名称查询，最近新建的门店ID")
     def input_query_shop_name(self, content, content1):
-        #Base.presence_sleep_dcr(self, user['点击门店输入框'])
+        Base.presence_sleep_dcr(self, user['点击门店输入框'])
         self.is_click_dcr(user['点击门店输入框'])
         self.input_text(user['门店输入框输入'], txt=content)
         sleep(3)
@@ -120,7 +122,7 @@ class ShopManagementPage(Base):
     @allure.step("点击Search查询门店信息")
     def click_query_search(self):
         self.is_click(user['Search'])
-        sleep(5)
+        sleep(6)
 
     @allure.step("筛选最近新建的门店ID后，勾线第一个复选框")
     def click_first_checkbox(self):
@@ -134,7 +136,7 @@ class ShopManagementPage(Base):
     @allure.step("点击More Option更多操作按钮")
     def click_more_option(self):
         self.is_click(user['More Option'])
-        sleep(2.5)
+        sleep(2)
 
     @allure.step("点击delete 删除按钮")
     def click_delete(self):
@@ -171,6 +173,7 @@ class ShopManagementPage(Base):
 
     @allure.step("获取列表Shop ID文本")
     def get_extend_shop_id_text(self):
+        Base.presence_sleep_dcr(self, user['获取ShopID文本'])
         get_shop_id = self.element_text(user['获取ShopID文本'])
         return get_shop_id
 
@@ -205,6 +208,7 @@ class ShopManagementPage(Base):
     """门店扩展品牌"""
     @allure.step("点击More Option->Extend Brand扩展品牌按钮")
     def click_extend_brand(self):
+        Base.presence_sleep_dcr(self, user['Extend Brand'])
         self.is_click(user['Extend Brand'])
         sleep(1)
 
@@ -218,56 +222,63 @@ class ShopManagementPage(Base):
     @allure.step("点击增加扩展品牌时，弹出窗口选择品牌后，点击Save")
     def extend_brand_save(self):
         self.is_click(user['Extend Brand Save'])
-        sleep(4)
+        sleep(4.5)
 
     @allure.step("编辑门店，增加扩展品牌时，输入销售区域并选择销售区域")
     def input_extend_sales_region(self, content):
         self.scroll_into_view(user['Extend Sales Region'])
-        sleep(1.5)
-        Base.presence_sleep_dcr(self, user['Extend Sales Region'])
+        sleep(3)
         self.is_click(user['Extend Sales Region'])
         self.input_text(user['Extend Sales Region'], txt=content)
         sleep(2)
-        self.is_click(user['Extend Sales Region Value'])
+        self.is_click(user['Extend Sales Region Value'], content)
 
     @allure.step("扩展门店等级属性")
     def click_extend_shop_grade(self):
+        self.scroll_into_view(user['Extend Shop Grade'])
         self.is_click(user['Extend Shop Grade'])
-        sleep(1)
+        sleep(2)
         self.is_click(user['Extend Shop Grade Value'], "A 10-20 ")
 
     @allure.step("扩展门店类型属性")
     def click_extend_shop_type(self):
         self.is_click(user['Extend Shop Type'])
-        sleep(1)
+        sleep(1.5)
         self.is_click(user['Extend Shop Type Value'], "CHIN")
 
     @allure.step("扩展门店形象属性")
     def click_extend_image_type(self):
         self.is_click(user['Extend Image Type'])
-        sleep(1)
+        sleep(1.5)
         self.is_click_dcr(user['Extend Zone Shop Value'], "Zone Shop")
 
     @allure.step("扩展零售商客户属性")
     def extend_retail_customer(self, content):
-        self.scroll_into_view(user['扩展品牌输入零售商'])
         self.is_click(user['扩展品牌输入零售商'])
         self.input_text(user['扩展品牌输入零售商'], txt=content)
         sleep(3)
-        self.is_click_dcr(user['扩展品牌选中零售商'])
+        self.is_click_dcr(user['扩展品牌选中零售商'], content)
 
     @allure.step("扩展商业区域属性")
     def extend_commercial_area(self):
         self.is_click(user['Extend Commercial Area'])
-        sleep(1)
+        sleep(1.5)
         self.is_click_dcr(user['Extend Commercial Value'], "KA")
 
     #禁用门店
     @allure.step("点击禁用门店操作")
     def click_disable_confirm(self):
+        Base.presence_sleep_dcr(self, user['Disable'])
         self.is_click(user['Disable'])
         sleep(2)
+        Base.presence_sleep_dcr(self, user['Disable Confirm'])
         self.is_click(user['Disable Confirm'])
+
+    @allure.step("关闭门店管理菜单")
+    def click_close_shop_management(self):
+        self.is_click(user['关闭门店管理菜单'])
+        sleep(2)
+
 
 
 if __name__ == '__main__':

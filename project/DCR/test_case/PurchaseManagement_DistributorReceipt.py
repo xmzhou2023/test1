@@ -9,19 +9,18 @@
 #
 # @allure.feature("采购管理-国包收货")
 # class TestDistributorReceipt:
-#     @allure.story("新增")
+#     @allure.story("国包快速收货")
 #     @allure.title("国包用户进入Distributor Receipt页面，进行“快速收货”操作")
 #     @allure.description("国包用户进入Distributor Receipt页面，进行“快速收货”操作")
 #     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
 #     def test_001_001(self, drivers):
 #         """DCR 国包账号登录"""
 #         user = LoginPage(drivers)
-#         user.dcr_login(drivers, "BD40344201", "dcr123456")
-#         sleep(5)
+#         user.dcr_login(drivers, "EC402067", "dcr123456")
 #
 #         """销售管理菜单-出库单-筛选出库单用例"""
 #         user.click_gotomenu("Purchase Management", "Distributor Receipt")
-#         sleep(6)
+#
 #         """调用国包快速收货用例，并断言收货是否成功"""
 #         receipt = DitributorReceiptPage(drivers)
 #         list_dn = receipt.get_list_dn_text()
@@ -48,28 +47,25 @@
 #
 # @allure.feature("采购管理-查看IMEI详情")
 # class TestQueryIMEIDetail:
-#     @allure.story("查询")
+#     @allure.story("查询IMEI详情")
 #     @allure.title("国包用户进入Distributor Receipt页面，收货成功后，查看IMEI详情信息")
 #     @allure.description("国包用户进入Distributor Receipt页面，收货成功后，查看IMEI详情信息是否与收货的信息一致")
 #     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
 #     def test_002_001(self, drivers):
 #         user = LoginPage(drivers)
-#         user.dcr_login(drivers, "BD40344201", "dcr123456")
-#         sleep(5)
+#         user.dcr_login(drivers, "EC402067", "dcr123456")
 #
 #         """销售管理菜单-出库单-筛选出库单用例"""
 #         user.click_gotomenu("Purchase Management", "Distributor Receipt")
-#         sleep(6)
 #
 #         receipt = DitributorReceiptPage(drivers)
 #         list_dn = receipt.get_list_dn_text()
 #         list_quantity = receipt.get_list_quantity_text()
-#         sleep(1)
 #
 #         receipt.click_unfold()
-#
 #         receipt.input_dn(list_dn)
 #         receipt.click_search()
+#
 #         receipt.click_imei_detail()
 #         imei_detail_dn = receipt.get_text_imei_detail_DN()
 #         detail_total = receipt.text_imei_detail_total()

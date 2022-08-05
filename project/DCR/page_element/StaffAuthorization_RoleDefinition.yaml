@@ -19,5 +19,4 @@ App Sales Order: "xpath==//*[@id='pane-app']/div/div[1]/div[2]/div/div[1]/div[2]
 Save: "xpath==//span[contains(text(),'Save')]"
 Confirm: "xpath==//span[contains(text(),'Confirm')]"
 Get Save Successfully Text: "xpath==//p[text()='Save Successfully']"
-
-
+关闭角色授权菜单: "xpath==//span[normalize-space(text())='Role Definition']//span[@class='el-icon-close']"

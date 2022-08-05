@@ -7,6 +7,11 @@
 确定: "xpath==//button/span[contains(text(),'确定')]"
 查看: "xpath==//div[normalize-space(text())='variable']/../..//button/span[contains(text(),'查看')]"
 撤回流程-查看详情: "xpath==//*[@id='app']/div//div/table/tbody/tr[1]//div/div/button/span[contains(text(),'查看详情')]"
+回退: "xpath==//button/span[contains(text(),'回 退')]"
+转交: "xpath==//button/span[contains(text(),'转 交')]"
+回退到: "xpath==//div[@aria-label='回退到']//input"
+回退选择: "xpath==//span[contains(text(),'variable')]"
+回退确定: "xpath==//div[@aria-label='回退到']//span[contains(text(),'确定')]"
 #==========================================创建页面========================================
 提交: "xpath==//button/span[contains(text(),'提交')]"
 保存: "xpath==//button/span[contains(text(),'保存')]"
@@ -70,10 +75,11 @@ BOMTree新增物料对焦: "xpath==//span[normalize-space(text())='variable']/..
 #==========================================oneworks========================================
 OneworksBomTree全部内容: "xpath==//div[@row-key='id']//table/tbody/*"
 OneworksBom信息-机型: "xpath==//label[text()='机型']/..//span/span/span"
+物料编码编辑验证: "xpath==//*[@id='app']/div/div[4]//tr[1]/td[5]//span"
 
 #==========================================补充工厂========================================
-补充工厂同意: "xpath==//button/span[contains(text(),'同 意')]"
-补充工厂同意确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
+同意: "xpath==//button/span[contains(text(),'同 意')]"
+同意确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
 补充工厂一键填写: "xpath==//button/span[contains(text(),'一键填写')]/.."
 生产工厂信息输入框: "xpath==//div[@label='variable']//input[@placeholder='请输入']"
 生产工厂信息输入框选择: "xpath==/html/body//ul/li[normalize-space(text())='variable']"

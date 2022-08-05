@@ -3,12 +3,13 @@
 重置: "xpath==//button/span[contains(text(),'重置')]"
 关闭: "xpath==//*[@id='tags-view-container']//span[contains(text(),'项目经理发起流程')]/span"
 表格内容: "xpath==//*[@id='app']/div/div[2]/section/div/div/div/div/div[3]/div[3]/table/tbody/tr[1]/td"
-表格指定行内容: "xpath==//div[normalize-space(text())='variable']/../..//td[not(contains(@class,'is-hidden'))]"
+表格指定行内容: "xpath==//div[text()='variable']/../../..//td"
 确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
 查看: "xpath==//div[normalize-space(text())='variable']/../..//button/span[contains(text(),'查看')]"
 删除: "xpath==//div[normalize-space(text())='variable']/../..//button[not(contains(@style,'display: none;'))]/span[text()='删除']"
 同意: "xpath==//button/span[contains(text(),'同 意')]"
-
+提交: "xpath==//button/span[contains(text(),'提交')]"
+保存: "xpath==//button/span[contains(text(),'保存')]"
 #==========================================查询========================================
 输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
 输入框选择: "xpath==//div[@x-placement='bottom-start']//span[normalize-space(text())='variable']"
@@ -19,12 +20,29 @@
 变更国家选择: "xpath==//div[@aria-label='选择变更区域']//span[normalize-space(text())='variable']"
 变更国家选择确定: "xpath==//div[@aria-label='选择变更区域']//span[normalize-space(text())='确定']"
 ###==========================================oneworks========================================
-oneworks-节点- 产品经理修改-产品定义信息-编辑: "xpath==//span[text()='产品定义信息']/../../../..//td[not(contains(@class,'is-hidden'))]//span[text()='编辑']"
-oneworks-节点- 产品经理修改-产品定义信息-确定: "xpath==//span[text()='产品定义信息']/../../../..//td[not(contains(@class,'is-hidden'))]//span[text()='确定']"
-oneworks-节点- 产品经理修改-产品定义信息-输入框: "xpath==//*[@id='app']/div/div[4]/div[2]/div/div[2]/div[4]/div[2]/table/tbody/tr/td[variable]//input"
-oneworks-节点- 产品经理修改-产品定义信息-输入框2: "xpath==//*[@id='app']/div/div[4]/div[2]/div/div[2]/div[3]/table/tbody/tr/td[variable]//input"
-oneworks-节点- 产品经理修改-产品定义信息-选择: "xpath==//div[contains(@x-placement,'-start')]//span[normalize-space(text())='variable']"
+oneworks-节点-产品经理修改-产品定义信息-编辑: "xpath==//span[text()='产品定义信息']/../../../..//td[not(contains(@class,'is-hidden'))]//span[text()='编辑']"
+oneworks-节点-产品经理修改-产品定义信息-确定: "xpath==//span[text()='产品定义信息']/../../../..//td[not(contains(@class,'is-hidden'))]//span[text()='确定']"
+oneworks-节点-产品经理修改-产品定义信息-输入框: "xpath==//*[@id='app']/div/div[4]/div[2]/div/div[2]/div[4]/div[2]/table/tbody/tr/td[variable]//input"
+oneworks-节点-产品经理修改-产品定义信息-输入框2: "xpath==//*[@id='app']/div/div[4]/div[2]/div/div[2]/div[3]/table/tbody/tr/td[variable]//input"
+oneworks-节点-产品经理修改-产品定义信息-选择: "xpath==//div[contains(@x-placement,'-start')]//span[normalize-space(text())='variable']"
 oneworks-节点-下拉框-选择: "xpath==//div[not(contains(@style,'display: none')) and contains(@class,'el-select-dropdown el-popper')]//span[normalize-space(text())='variable']"
+
+oneworks-节点-产品经理修改-产品定义信息-指定-编辑: "xpath==//span[normalize-space(text())='variable']/../../..//td[not(contains(@class,'is-hidden'))]//span[text()='编辑']"
+oneworks-节点-产品经理修改-产品定义信息-变更-输入框: "xpath==//*[@id='app']//tr/td[variable][not(contains(@class,'is-hidden'))]/div//input"
+oneworks-节点-产品经理修改-产品定义信息-变更-输入框删除: "xpath==//*[@id='app']//tr/td[variable][not(contains(@class,'is-hidden'))]/div//i[2]"
+oneworks-节点-产品经理修改-产品定义信息-变更-输入框2: "xpath==//*[@id='app']/div/div[2]/section//table/tbody/tr/td[variable][not(contains(@class,'is-hidden'))]/div//input"
+oneworks-节点-产品经理修改-产品定义信息-变更-操作框: "xpath==//div[@class='el-table__fixed-right']"
+###==========================================产品定义信息========================================
+产品定义信息成员列表输入框: "xpath==//div[@aria-label='成员列表（单选）']//input"
+产品定义信息成员确定: "xpath==//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper user-dialog']//span[contains(text(),'确 定')]"
+
+
+###==========================================汇签/抄送人员========================================
+汇签/抄送人员选择框: "xpath==//span[text()='汇签/抄送人员']/../../../..//label[text()='variable']/..//input"
+成员列表输入框: "xpath==//div[@aria-label='人员列表']//input"
+成员列表清空: "xpath==//div[@aria-label='人员列表']//span[normalize-space(text())='清空']"
+成员选择: "xpath==//div[@class='user-list']/div[3]//div[normalize-space(text())='variable']"
+成员确定: "xpath==//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper user-dialog']//span[contains(text(),'确定')]"
 
 
 #==========================================待办列表========================================

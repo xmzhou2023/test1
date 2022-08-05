@@ -42,6 +42,7 @@ class DitributorReceiptPage(Base):
 
     @allure.step("获取列表 总数量total Quantity文本")
     def get_list_quantity_text(self):
+        self.scroll_into_view(user['列表第一行Quantity文本'])
         list_quantity = self.element_text(user['列表第一行Quantity文本'])
         return list_quantity
 
@@ -82,6 +83,7 @@ class DitributorReceiptPage(Base):
 
     @allure.step("国包收货页面，点击IMEI Detail按钮查看IMEI详情信息")
     def click_imei_detail(self):
+        Base.presence_sleep_dcr(self, user['点击IMEI Detail'])
         self.is_click(user['点击IMEI Detail'])
         sleep(3)
 

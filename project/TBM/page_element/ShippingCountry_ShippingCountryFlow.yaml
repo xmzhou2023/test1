@@ -12,7 +12,7 @@
 #==========================================创建页面========================================
 提交: "xpath==//button/span[contains(text(),'提交')]"
 保存: "xpath==//button/span[contains(text(),'保存')]"
-
+断言: "xpath==//p[contains(text(),'成功')]"
 ###==========================================项目信息========================================
 项目信息输入框: "xpath==//label[contains(text(),'variable')]/..//input"
 项目信息输入框选择: "xpath==/html/body//ul//span[normalize-space(text())='variable']"

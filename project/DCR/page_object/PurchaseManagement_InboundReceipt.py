@@ -63,7 +63,7 @@ class InboundReceiptPage(Base):
 
     @allure.step("快速收货页面，获取列表第一条记录的最新状态")
     def text_status(self):
-        Base.presence_sleep_dcr(self,user['获取列表状态'])
+        Base.presence_sleep_dcr(self, user['获取列表状态'])
         status = self.element_text(user['获取列表状态'])
         return status
 
@@ -178,6 +178,17 @@ class InboundReceiptPage(Base):
     def get_imei_detail_export(self):
         get_export = self.element_text(user['Get IMEI Detail Export'])
         return get_export
+
+    @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
+    def click_close_inbound_receipt(self):
+        self.is_click(user['关闭二代收货菜单'])
+        sleep(2)
+
+    @allure.step("快速收货页面，点击关闭IMEI Detail窗口")
+    def click_close_inbound_imei_detail(self):
+        self.is_click(user['关闭二代收货IMEI Detail'])
+        sleep(2)
+
 
     @allure.step("断言 列表取分页总数判断是否有数据")
     def assert_total(self, total):

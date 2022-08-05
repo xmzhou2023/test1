@@ -30,7 +30,7 @@ class CustomerSalesReportPage(Base):
     @allure.step("点击Search查询按钮")
     def click_search(self):
         self.is_click_dcr(user['Search'])
-        sleep(5.5)
+        sleep(15)
 
     @allure.step("点击Reset重置按钮")
     def click_reset(self):
@@ -38,6 +38,7 @@ class CustomerSalesReportPage(Base):
 
     @allure.step("获取出库总数文本")
     def get_delivery_sum_text(self):
+        self.scroll_into_view(user['获取出库数量文本'])
         Base.presence_sleep_dcr(self, user['获取出库数量文本'])
         delivery_total = self.element_text(user['获取出库数量文本'])
         delivery_total1 = int(delivery_total)
@@ -45,15 +46,23 @@ class CustomerSalesReportPage(Base):
 
     @allure.step("获取实际销售总数文本")
     def get_actual_sales_sum_text(self):
+        self.scroll_into_view(user['获取实际销售数量文本'])
         actual_sales = self.element_text(user['获取实际销售数量文本'])
         actual_sales1 = int(actual_sales)
         return actual_sales1
 
+
     @allure.step("获取退货总数文本")
     def get_return_sum_text(self):
+        self.scroll_into_view(user['获取退货数量文本'])
         return_total = self.element_text(user['获取退货数量文本'])
         return_total1 = int(return_total)
         return return_total1
+
+    @allure.step("点击关闭Customer Sales Report菜单")
+    def click_close_cust_sale_report(self):
+        self.is_click(user['关闭客户销售报表菜单'])
+        sleep(2)
 
 
 if __name__ == '__main__':

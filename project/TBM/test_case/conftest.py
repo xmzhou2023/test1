@@ -8,7 +8,8 @@ from libs.common.read_config import *
 
 pro_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-@pytest.fixture(scope='session',autouse=True)
+
+@pytest.fixture(scope='session', autouse=True)
 def __init__(drivers, env_name):
     """初始化"""
     global pro_env
@@ -23,6 +24,7 @@ def __init__(drivers, env_name):
     DomAssert(drivers).assert_exact_att('首页')
     logging.info("前置条件：传音统一登录成功")
 
+
 @pytest.fixture(scope='function', autouse=False)
 def BarePhone_API():
     logging.info('开始前置操作')
@@ -31,6 +33,7 @@ def BarePhone_API():
     yield api_response
     logging.info('开始后置操作')
     user.API_BarePhone_Delete(api_response[1], api_response[2])
+
 
 @pytest.fixture(scope='function', autouse=False)
 def Machine_API():
@@ -41,6 +44,7 @@ def Machine_API():
     logging.info('开始后置操作')
     user.API_Machine_Delete(api_response[1], api_response[2])
 
+
 @pytest.fixture(scope='function', autouse=False)
 def Component_API():
     logging.info('开始前置操作')
@@ -50,6 +54,7 @@ def Component_API():
     logging.info('开始后置操作')
     user.API_Components_Delete(api_response[1], api_response[2])
 
+
 @pytest.fixture(scope='function', autouse=False)
 def Shipping_API():
     logging.info('开始前置操作')
@@ -58,3 +63,18 @@ def Shipping_API():
     yield api_response
     logging.info('开始后置操作')
     user.API_Shipping_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def KeyComponents_SQL():
+    a = SQL('TBM', 'test')
+    a.change_db(
+        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
+        "= '50A1S')"
+    )
+    logging.info('开始：调用sql脚本修改数据库数据')
+    yield
+    a.change_db(
+        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
+        "= '50A1S')"
+    )
+    logging.info('结束：调用sql脚本修改数据库数据')
