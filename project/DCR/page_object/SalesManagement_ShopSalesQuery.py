@@ -116,7 +116,7 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], txt=content)
         sleep(2)
-        self.is_click(user['Task Name value'], content)
+        self.is_click_dcr(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):

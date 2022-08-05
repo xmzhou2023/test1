@@ -40,7 +40,7 @@ class TestQueryCustomerSalesReport:
         #查询BD40344201国包用户下 已退货的总数
         return_result = user.query_db("select count(delivery_code) as sum from t_channel_delivery_ticket  where warehouse_id = '62139' and seller_id = '1596874516539667' and return_status = 1 and delivery_date between '2022-07-15' and '2022-07-26'")
         ret_total = return_result[0].get('sum')
-        logging.info("打印ret_total{}".format(ret_total))
+        logging.info("打印return total{}".format(ret_total))
         sleep(1)
         #出库单-退货单=实际销售总数
         actualsales = del_total - ret_total

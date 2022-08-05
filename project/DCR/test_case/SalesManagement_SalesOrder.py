@@ -64,14 +64,26 @@ class TestAddSalesOrder:
         add.click_close_sales_order()
 
 
+    @allure.story("新增销售单")
+    @allure.title("国包用户，直接出库无码产品，买方为系统二代客户")
+    @allure.description("销售单页面，国包用户，直接出库无码产品，买方为系统二代客户")
+    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "EG40052202", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Sales Order")
 
-    # @allure.story("新增销售单")
-    # @allure.title("国包用户，直接出库无码产品，买方为临时客户")
-    # @allure.description("销售单页面，国包用户，直接出库无码产品，买方为临时客户")
-    # @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
-    # def test_001_002(self, drivers):
-    #
+        add = SalesOrderPage(drivers)
+        add.click_add_sales()
 
+        add.input_sales_buyer("NG20613")
+        add.input_sales_brand("oraimo")
+        add.input_sales_product("OEB-E75D  BLACK")
+        add.input_sales_quantity('1')
+        add.click_submit()
+        add.click_submit_OK()
+        add.click_close_sales_order()
 
 
     @allure.story("新增销售单")

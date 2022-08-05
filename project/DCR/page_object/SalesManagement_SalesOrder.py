@@ -154,7 +154,7 @@ class SalesOrderPage(Base):
     @allure.step("IMEI库存页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(4)
+        sleep(5.5)
 
     @allure.step("获取IMEI库存页面，IMEI文本内容")
     def get_text_imei_inventory(self):

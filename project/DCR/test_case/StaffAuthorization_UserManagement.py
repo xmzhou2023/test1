@@ -10,7 +10,7 @@ import allure
 
 @allure.feature("员工授权-用户管理")
 class TestAddEditQuitTranssionUser:
-    @allure.story("业务流程")
+    @allure.story("用户管理业务流程")
     @allure.title("用户管理页面，新增、编辑、离职传音用户")
     @allure.description("用户管理页面，新增、编辑、离职传音用户")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
@@ -104,7 +104,7 @@ class TestAddEditQuitTranssionUser:
 
 @allure.feature("员工授权-用户管理")
 class TestAddEditQuitDealerUser:
-    @allure.story("业务流程")
+    @allure.story("用户管理业务流程")
     @allure.title("用户管理页面，新增、编辑、离职代理用户")
     @allure.description("用户管理页面，新增、编辑、离职代理用户")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
