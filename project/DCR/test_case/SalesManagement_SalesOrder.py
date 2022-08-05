@@ -11,8 +11,8 @@ import allure
 @allure.feature("销售管理-销售单")
 class TestAddSalesOrder:
     @allure.story("新增销售单")
-    @allure.title("国包用户创建销售单，产品为无码的，买方为临时客户")
-    @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为临时客户")
+    @allure.title("国包用户创建销售单，产品为无码的，买方为临时客户,并直接出库")
+    @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为临时客户，并直接出库")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -35,7 +35,7 @@ class TestAddSalesOrder:
         add.click_submit()
         add.click_submit_OK()
 
-        """直接出库操作"""
+        """对新建的销售单，直接出库操作"""
         sales_id = add.get_text_sales_id()
         add.input_sales_order_ID(sales_id)
         add.click_checkbox_orderID()
@@ -44,11 +44,11 @@ class TestAddSalesOrder:
         add.input_Payment_Mode("Wechat")
         add.click_quantity_radio_button()
 
-        product = add.get_order_detail_product()
-        ValueAssert.value_assert_IsNoneNot(product)
-
         add.input_delivery_quantity('1')
         add.click_delivery_quantity()
+
+        product = add.get_order_detail_product()
+        ValueAssert.value_assert_IsNoneNot(product)
         quantity = add.get_new_delivery_quantity()
         ValueAssert.value_assert_equal('1', quantity)
 
@@ -65,8 +65,8 @@ class TestAddSalesOrder:
 
 
     @allure.story("新增销售单")
-    @allure.title("国包用户，直接出库无码产品，买方为系统二代客户")
-    @allure.description("销售单页面，国包用户，直接出库无码产品，买方为系统二代客户")
+    @allure.title("国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库")
+    @allure.description("销售单页面，国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
@@ -83,6 +83,48 @@ class TestAddSalesOrder:
         add.input_sales_quantity('1')
         add.click_submit()
         add.click_submit_OK()
+
+        """对新建的销售单，直接出库操作"""
+        add.click_checkbox_orderID()
+        add.click_Delivery_button()
+        add.input_Payment_Mode("Wechat")
+        add.click_quantity_radio_button()
+
+        add.input_delivery_quantity('1')
+        add.click_delivery_quantity()
+
+        product = add.get_order_detail_product()
+        ValueAssert.value_assert_IsNoneNot(product)
+        quantity = add.get_new_delivery_quantity()
+        ValueAssert.value_assert_equal('1', quantity)
+        """点击Submit提交按钮"""
+        add.click_submit()
+        """获取收货提交成功提示语，断言是否包含Successfully提示语"""
+        dom = DomAssert(drivers)
+        dom.assert_att("Successfully")
+        sleep(3)
+
+        """获取列表，销售单ID与Status文本内容"""
+        get_sales_order = add.get_text_sales_id()
+        get_status = add.get_text_sales_status("Delivered")
+
+        # """二代用户，查询数据库最近新建的销售单ID"""
+        # user = SQL('DCR', 'test')
+        # sql = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
+        # result = user.query_db(sql)
+        # order = result[0].get("order_code")
+        # status = result[0].get("status")
+        # if status == 1:
+        #     sales_status = "Delivered"
+        # """销售单页面，按销售单ID筛选销售单信息"""
+        add.input_sales_order_ID(get_sales_order)
+        add.click_search()
+
+        get_sales_order2 = add.get_text_sales_id()
+        get_status2 = add.get_text_sales_status("Delivered")
+        """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
+        ValueAssert.value_assert_equal(get_sales_order, get_sales_order2)
+        ValueAssert.value_assert_equal(get_status, get_status2)
         add.click_close_sales_order()
 
 
@@ -123,7 +165,7 @@ class TestAddSalesOrder:
 
         """获取列表，销售单ID与Status文本内容"""
         get_sales_order = add_sales.get_text_sales_id()
-        get_status = add_sales.get_text_sales_status1()
+        get_status = add_sales.get_text_sales_status("Pending")
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
         ValueAssert.value_assert_equal(get_sales_order, order)
         ValueAssert.value_assert_equal(get_status, sales_status)
@@ -179,7 +221,7 @@ class TestAddSalesOrder:
         text_sales_order = delivery.get_text_sales_id()
         delivery.input_sales_order_ID(text_sales_order)
         delivery.click_search()
-        text_status = delivery.get_text_sales_status2()
+        text_status = delivery.get_text_sales_status("Delivered")
         """出库操作成功后，验证该条销售单对应的状态是否更新为：Delivered状态"""
         ValueAssert.value_assert_equal(text_status, "Delivered")
         delivery.click_close_sales_order()
@@ -225,7 +267,6 @@ class TestDeleteSalesOrder:
         delete.click_confirm_delete()
         dom.assert_att("Successfully")
         delete.click_close_sales_order()
-
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_SalesOrder.py'])

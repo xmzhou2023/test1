@@ -77,14 +77,8 @@ class SalesOrderPage(Base):
         return sales_orde_id
 
     @allure.step("销售单页面，获取销售单状态文本")
-    def get_text_sales_status1(self):
-        status = self.element_text(user['获取Status Pending文本'])
-        return status
-
-    @allure.step("销售单页面，获取销售单状态文本")
-    def get_text_sales_status2(self):
-        Base.presence_sleep_dcr(self, user['获取Status Delivered文本'])
-        status = self.element_text(user['获取Status Delivered文本'])
+    def get_sales_status_text(self, status):
+        status = self.element_text(user['获取列表Status文本'], status)
         return status
 
 

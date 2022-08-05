@@ -10,26 +10,6 @@ user = Element(pro_name, object_name)
 
 class ReturnOrderPage(Base):
     """ReturnOrderPage 类"""
-
-    @allure.step("进入退货单列表页，iframe")
-    def return_order_iframe(self):
-        """进入退货单列表页，iframe"""
-        iframe = self.find_element(user['退货单列表iframe'])
-        self.driver.switch_to.frame(iframe)
-        sleep(1)
-
-    @allure.step("进入新增退货单页面，iframe")
-    def add_return_order_iframe(self):
-        iframe = self.find_element(user['新增退货单iframe'])
-        self.driver.switch_to.frame(iframe)
-        sleep(1)
-
-    @allure.step("退出iframe")
-    def exit_iframe(self):
-        """退出iframe"""
-        self.driver.switch_to.parent_frame()
-        sleep(2)
-
     @allure.step("退货单页面，点击Add")
     def click_Add(self):
         self.is_click(user['Add'])

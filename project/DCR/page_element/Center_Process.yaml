@@ -18,9 +18,7 @@ Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 Sales Order Search: "xpath==//span[contains(text(),'Search')]"
 
 获取Sales Order ID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div/div"
-获取Status Pending文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Pending']"
-获取Status Delivered文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Delivered']"
-
+获取列表Status文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='variable']"
 
 #勾选新建的销售单，直接出库
 勾选第一条销售单ID: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span/span"

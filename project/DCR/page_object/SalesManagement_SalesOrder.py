@@ -15,7 +15,7 @@ class SalesOrderPage(Base):
         self.is_click(user['Add'])
         sleep(3)
 
-    @allure.step("Add新增销售单页面，定位Buyer属性")
+    @allure.step("Add新增销售单页面，输入Buyer属性")
     def input_sales_buyer(self, content):
         Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
@@ -26,7 +26,6 @@ class SalesOrderPage(Base):
     @allure.step("新建销售单页面，输入Brand属性")
     def input_sales_brand(self, content):
         self.is_click(user['Brand'])
-        sleep(2)
         self.input_text(user['Brand'], txt=content)
         sleep(1.5)
         self.is_click(user['Brand value'], content)
@@ -74,15 +73,9 @@ class SalesOrderPage(Base):
         return sales_orde_id
 
     @allure.step("销售单页面，获取销售单状态 Pending文本")
-    def get_text_sales_status1(self):
+    def get_text_sales_status(self, status):
         """销售单页面，获取销售单状态文本"""
-        status = self.element_text(user['获取Status Pending文本'])
-        return status
-
-    @allure.step("销售单页面，获取销售单状态Delivered文本")
-    def get_text_sales_status2(self):
-        Base.presence_sleep_dcr(self, user['获取Status Delivered文本'])
-        status = self.element_text(user['获取Status Delivered文本'])
+        status = self.element_text(user['获取列表Status文本'], status)
         return status
 
 
@@ -103,7 +96,6 @@ class SalesOrderPage(Base):
         self.input_text(user['Payment Mode'], txt=content)
         sleep(2)
         self.is_click(user['Payment Mode value'], content)
-        sleep(1)
 
     @allure.step("出库单页面，输入IMEI属性")
     def input_imei(self, content):
@@ -244,7 +236,7 @@ class SalesOrderPage(Base):
     @allure.step("新建无码出库单时，点击delivery quantity属性")
     def click_delivery_quantity(self):
         self.is_click(user['Get New Delivery Quantity'])
-
+        sleep(1)
 
 
 if __name__ == '__main__':

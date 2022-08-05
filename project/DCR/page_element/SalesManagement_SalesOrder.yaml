@@ -14,8 +14,7 @@ Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 按销售单ID筛选: "xpath==//label[contains(text(),'Sales Order ID')]//parent::div//following-sibling::div//input"
 Search: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[1]//span[contains(text(),'Search')]"
 获取Sales Order ID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div/div"
-获取Status Pending文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Pending']"
-获取Status Delivered文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Delivered']"
+获取列表Status文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='variable']"
 Get list Status Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
 
 
