@@ -11,8 +11,8 @@ import allure
 @allure.feature("销售管理-销售单")
 class TestAddSalesOrder:
     @allure.story("新增销售单")
-    @allure.title("国包用户创建销售单，产品为无码的，买方为临时客户,并直接出库")
-    @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为临时客户，并直接出库")
+    @allure.title("国包用户创建销售单，产品为无码的，买方为临时客户,并直接出库操作")
+    @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为临时客户，并直接出库操作")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -65,8 +65,8 @@ class TestAddSalesOrder:
 
 
     @allure.story("新增销售单")
-    @allure.title("国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库")
-    @allure.description("销售单页面，国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库")
+    @allure.title("国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库操作")
+    @allure.description("销售单页面，国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库操作")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
@@ -129,8 +129,8 @@ class TestAddSalesOrder:
 
 
     @allure.story("新增销售单")
-    @allure.title("销售单页面，二代用户新增销售单操作")
-    @allure.description("销售单页面，二代用户新增销售单操作成功后，校验新增的销售单是否存在")
+    @allure.title("销售单页面，二代用户新增无码销售单操作")
+    @allure.description("销售单页面，二代用户新增无码销售单操作成功后，校验新增的销售单是否存在")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_003(self, drivers):
         """DCR 二代账号登录"""
@@ -140,8 +140,8 @@ class TestAddSalesOrder:
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Sales Management", "Sales Order")
 
-        """销售订单页面，新建销售单、直接出库、筛选、然后快速收货场景功能"""
-        """调用新增销售单用例"""
+        """销售订单页面，新建销售单"""
+
         add_sales = SalesOrderPage(drivers)
         add_sales.click_add_sales()
         add_sales.input_sales_buyer("EG000562")
@@ -173,8 +173,8 @@ class TestAddSalesOrder:
 
 
     @allure.story("销售单出库")
-    @allure.title("销售单页面，二代用户对新增的销售单进行出库操作")
-    @allure.description("销售单页面，二代用户对新增的销售单进行出库操作成功后，校验销售单对应的状态是否更新为：Delivered")
+    @allure.title("销售单页面，二代用户对新增的无码销售单进行出库操作")
+    @allure.description("销售单页面，二代用户对新增的无码销售单进行出库操作成功后，校验销售单对应的状态是否更新为：Delivered")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_004(self, drivers):
         user = LoginPage(drivers)
@@ -234,27 +234,26 @@ class TestDeleteSalesOrder:
     @allure.description("销售单页面，国包用户，对新建Pending状态的销售单进行删除操作")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
-        """DCR 二代账号登录"""
+        """DCR 国包账号登录"""
         user = LoginPage(drivers)
-        user.initialize_login(drivers, "BD40344201", "dcr123456")
+        user.initialize_login(drivers, "EG40052202", "dcr123456")
 
-        """销售管理菜单-出库单-筛选出库单用例"""
+        """销售管理菜单-打开销售单菜单"""
         user.click_gotomenu("Sales Management", "Sales Order")
 
-        """销售订单页面，新建销售单、直接出库、筛选、然后快速收货场景功能"""
         """调用新增销售单用例"""
         delete = SalesOrderPage(drivers)
         dom = DomAssert(drivers)
 
         delete.click_add_sales()
-        delete.input_sales_buyer("BD2915")
-        delete.input_sales_brand('TECNO')
-        delete.input_sales_product("CAMON 15 Pro 128+6 ICE JADEITE")
+        delete.input_sales_buyer("NG20613")
+        delete.input_sales_brand('oraimo')
+        delete.input_sales_product("OEB-E75D  BLACK")
         delete.input_sales_quantity('1')
         delete.click_submit()
         delete.click_submit_OK()
 
-        """获取列表，销售单ID与Status文本内容"""
+        """获取列表，销售单ID文本内容"""
         get_sales_order = delete.get_text_sales_id()
         """销售单页面，按销售单ID筛选销售单信息"""
         delete.input_sales_order_ID(get_sales_order)
@@ -267,6 +266,141 @@ class TestDeleteSalesOrder:
         delete.click_confirm_delete()
         dom.assert_att("Successfully")
         delete.click_close_sales_order()
+
+
+    @allure.story("删除销售单")
+    @allure.title("销售单页面，国包用户，删除Delivered状态的销售单，提示不支持删除")
+    @allure.description("销售单页面，国包用户，删除Delivered状态的销售单，提示不支持删除")
+    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    def test_002_002(self, drivers):
+        """DCR 国包账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "EG40052202", "dcr123456")
+
+        """销售管理菜单-打开销售单菜单"""
+        user.click_gotomenu("Sales Management", "Sales Order")
+
+        delete = SalesOrderPage(drivers)
+        dom = DomAssert(drivers)
+
+        """Status筛选项输入Delivered条件筛选已发货的销售单"""
+        delete.input_status_query("Delivered")
+        delete.click_search()
+
+        """获取列表，销售单ID与Status文本内容"""
+        get_sales_order = delete.get_text_sales_id()
+        get_status = delete.get_text_sales_status("Delivered")
+
+        """筛选已发货的销售单，进行删除操作"""
+        delete.input_sales_order_ID(get_sales_order)
+        delete.click_search()
+
+        if get_status == "Delivered":
+            delete.click_delete_sales()
+        """断言已发货状态的销售单不支持删除"""
+        dom.assert_att("The scanned IMEI exists in the order, fail to delete")
+        delete.click_close_sales_order()
+
+
+@allure.feature("销售管理-销售单")
+class TestExportSalesOrder:
+    @allure.story("导出销售单")
+    @allure.title("销售单页面，国包用户，导出筛选条件下销售单，导出文件内容和列表查询结果一致")
+    @allure.description("销售单页面，国包用户，导出筛选条件下销售单，导出文件内容和列表查询结果一致")
+    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    def test_003_001(self, drivers):
+        """DCR 国包账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        """销售管理菜单-打开销售单菜单"""
+        user.click_gotomenu("Sales Management", "Sales Order")
+
+        export = SalesOrderPage(drivers)
+        # 获取当天日期
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
+        """按销售单创建日期、Status条件筛选销售单"""
+        export.click_sales_order_unfold()
+        export.input_status_query("Delivered")
+        export.list_input_create_date("2022-07-30", today)
+        export.click_search()
+
+        """点击导出按钮"""
+        export.click_export()
+        export.click_download_more()
+        export.input_task_name("Sale Order")
+        down_status = export.click_export_search()
+
+        task_name = export.get_task_name_text()
+        file_size = export.get_file_size_text()
+        task_id = export.get_task_user_id_text()
+        create_date = export.get_create_date_text()
+        complete_date = export.get_complete_date_text()
+        export_time = export.get_export_time_text()
+        operation = export.get_export_operation_text()
+
+        ValueAssert.value_assert_equal(down_status, "COMPLETE")
+        ValueAssert.value_assert_equal(task_name, "Sale Order")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(operation, "Download")
+        export.assert_file_time_size(file_size, export_time)
+        export.click_close_export_record()
+        export.click_close_sales_order()
+
+
+    @allure.story("导出销售单")
+    @allure.title("销售单页面，国包用户，导出筛选条件下销售单详情，导出文件内容和列表查询结果一致")
+    @allure.description("销售单页面，国包用户，导出筛选条件下销售单详情，导出文件内容和列表查询结果一致")
+    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    def test_003_002(self, drivers):
+        """DCR 国包账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        """销售管理菜单-打开销售单菜单"""
+        user.click_gotomenu("Sales Management", "Sales Order")
+
+        export = SalesOrderPage(drivers)
+        # 获取当天日期
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
+        """按销售单创建日期、Status条件筛选销售单"""
+        export.click_sales_order_unfold()
+        export.input_status_query("Delivered")
+        export.list_input_create_date("2022-07-30", today)
+        export.click_search()
+
+        """点击导出按钮"""
+        export.click_more_option()
+        export.click_export_detail()
+
+        export.click_download_more()
+        export.input_task_name("Sales Detail")
+        down_status = export.click_export_search()
+
+        task_name = export.get_task_name_text()
+        file_size = export.get_file_size_text()
+        task_id = export.get_task_user_id_text()
+        create_date = export.get_create_date_text()
+        complete_date = export.get_complete_date_text()
+        export_time = export.get_export_time_text()
+        operation = export.get_export_operation_text()
+
+        ValueAssert.value_assert_equal(down_status, "COMPLETE")
+        ValueAssert.value_assert_equal(task_name, "Sales Detail")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(operation, "Download")
+        export.assert_file_time_size(file_size, export_time)
+        export.click_close_export_record()
+        export.click_close_sales_order()
+
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_SalesOrder.py'])

@@ -109,7 +109,7 @@ class DeliveryOrderPage(Base):
         return delivery_status
 
 
-    """DeliveryOrderPage类，测试环境，Delivery Order页面查询与导出功能元素定位"""
+    """Delivery Order页面查询与导出功能元素定位"""
     @allure.step("点击Unfold展开筛选条件")
     def click_unfold(self):
         self.is_click(user['Unfold'])
@@ -178,6 +178,8 @@ class DeliveryOrderPage(Base):
     def click_close_imei_detail(self):
         self.is_click(user['关闭IMEI详情页'])
         sleep(1.5)
+
+
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
     @allure.step("Delivery Order页面，点击导出功能")

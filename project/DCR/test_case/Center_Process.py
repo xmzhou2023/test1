@@ -244,7 +244,7 @@ class TestSalesBusinessProcess:
         return_approve.click_close_return_order()
 
 
-@allure.feature("聚道出库无码产品业务流程")
+@allure.feature("渠道销售业务流程")
 class TestDeliveryBusinessProcess:
     @allure.story("聚道出库无码产品业务流程")
     @allure.title("出库单页面，国包用户，新增无码出库单操作")
