@@ -597,7 +597,7 @@ def update_data(type, sql_data, data_list, parm=None):
 
         for scene_key in scene_list_py_json:
             if scene_list_sq_json[scene_key] != scene_list_py_json[scene_key]:
-                print('更新 {} 模块描述'.format(scene_key))
+                print('更新 {} 场景描述'.format(scene_key))
                 sql_pro = 'UPDATE scene SET scene_name="{}" WHERE scene_code="{}" AND m_id={}'.format(scene_list_py_json[scene_key], scene_key, parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
