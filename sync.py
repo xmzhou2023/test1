@@ -99,7 +99,7 @@ def get_PyClass(filepath):
             if re.match("@allure.feature\((.*)\)", line):
                 feature_name = re.match("@allure.feature\((.*)\)", line)
                 feature_name = feature_name.group(1)
-                # print(feature_name)
+                print(feature_name)
 
             """获取场景编码(class类名)class"""
             if re.match("class (.*):", line):
@@ -536,7 +536,7 @@ def update_data(type, sql_data, data_list, parm=None):
         module_list_py = sorted(module_list_py.items())
         # 格式化字典
         module_list_py_json = {k: v for k, v in module_list_py}
-        print(module_list_py_json)
+        # print(module_list_py_json)
 
         for i in sql_data:
             list_sq.append(i['module_code'])
@@ -544,7 +544,7 @@ def update_data(type, sql_data, data_list, parm=None):
         module_list_sq = sorted(module_list_sq.items())
         # 格式化字典
         module_list_sq_json = {k: v for k, v in module_list_sq}
-        print(module_list_sq_json)
+        # print(module_list_sq_json)
 
         for module_key in module_list_py_json:
             if module_list_sq_json[module_key] != module_list_py_json[module_key]:
@@ -756,7 +756,7 @@ def sync_Data(data_list, env_list=None):
 
 if __name__ == '__main__':
     # print(get_env())
-    print(get_Data())
+    # print(get_Data())
     # sync_AllData(get_Data(),get_env())
-    # sync_Data(get_Data(),get_env())
+    sync_Data(get_Data(),get_env())
 

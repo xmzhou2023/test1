@@ -280,7 +280,7 @@ class TestAppendProduct:
         user.assert_url("/dataManage/modelLibrary")
 
 
-@allure.feature("DRP数据管理-机型库")
+@allure.feature("DRP数据管理-机型库123")
 class TestImportFile:
 
     @allure.story("导入文件")
