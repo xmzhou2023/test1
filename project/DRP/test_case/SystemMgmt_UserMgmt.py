@@ -5,7 +5,7 @@ from public.data.unified_login.unified import *
 from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_UserMgmt import UserPage
 
-@allure.feature("系统管理-用户管理1123")
+@allure.feature("系统管理-用户管理")
 class TestSearchUser: # Test+(增，删，改，查，导入（上传），导出（下载）)
 
     @allure.story("查询用户")
