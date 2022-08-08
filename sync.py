@@ -648,11 +648,9 @@ def update_data(type, sql_data, data_list, parm=None):
             if len(sql_data) != 0:
                 for i in sql_data:
                     case_tag_list_sq.append(i['case_mark_id'])
-                print(case_tag_list_sq)
 
                 for k in data_list:
                     case_tag_list_py.append(case_mark[k])
-                print(case_tag_list_py)
 
                 ins_mark = list(set(case_tag_list_py).difference(set(case_tag_list_sq)))
                 del_mark = list(set(case_tag_list_sq).difference(set(case_tag_list_py)))
