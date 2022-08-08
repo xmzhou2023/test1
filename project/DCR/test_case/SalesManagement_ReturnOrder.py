@@ -12,8 +12,8 @@ import allure
 
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
-    @allure.story("创建退货单")
-    @allure.title("卖家创建无码销售单，卖家创建退货单，退货类型为Return To Seller，退无码产品")
+    @allure.story("卖家创建退货单")
+    @allure.title("卖家创建无码销售单；然后卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.description("销售单页面，国包用户创建销售单，产品为无码的；卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_001(self, drivers):
@@ -119,8 +119,8 @@ class TestReturnOrder:
         returnorder.click_close_return_order()
 
 
-    @allure.story("创建退货单")
-    @allure.title("卖家创建有码出库单，卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
+    @allure.story("卖家创建退货单")
+    @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.description("销售单页面，国包用户创建有码出库单；卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_002(self, drivers):
@@ -211,6 +211,16 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(Delivery_OrderID, delivery_code)
         ValueAssert.value_assert_equal("Approved", status)
         return_order.click_close_return_order()
+
+
+    # @allure.story("卖家创建退货单")
+    # @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
+    # @allure.description("销售单页面，国包用户卖家创建有码出库单；卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
+    # @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    # def test_001_003(self, drivers):
+
+
+
 
 
 if __name__ == '__main__':
