@@ -2,17 +2,53 @@
 # chrome.exe --remote-debugging-port=9527 --user-data-dir="D:\selenium\AutomationProfile"
 # http://10.250.112.166:9000/#/systemManage/userManage
 # http://39.101.161.151/#/popupwindow
-
+from project.IPM.page_object.AsystemManagement_FlowConfig import *
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.common.action_chains import ActionChains
 # from page_base.webpage import WebPage
+from project.IPM.login.login import *
+from public.base.basics import Base
 
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
-driver.find_element(By.XPATH,"//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]").click()
+driver.find_element(By.XPATH, '//div[@role="alert"]/p')
+#
+# def element():
+#     try:
+#         driver.find_element(By.XPATH, '//div[@role="alert"]/p')
+#
+#         print("百度打开成功")
+#
+#
+#     except:
+#
+#         print("百度打开失败")
+
+# login = Element('IPM','login')
+#
+#
+# filelist = YamlRead('AsystemManagement_FlowConfig.yaml')
+# res=filelist.yaml_read('新增角色管理_取消预期')
+# res2=sql_query_db('db_ipm_config_uat',filelist.yaml_read('流程配置_角色管理_查询1阶HDI主板'),'obj_type_name')
+# print(res)
+# print(res2)
+# lis=[]
+# for i in my_error_element:
+#
+#     lis.append(i.get_attribute('innerText'))
+# print(lis)
+# filelist= YamlRead('AsystemManagement_FlowConfig.yaml')
+#
+# test1=filelist.yaml_read('新增角色管理预期')
+# test2=sql_query_db('db_ipm_config_uat',filelist.yaml_read('流程配置_角色管理_查询1阶HDI主板'),'obj_type_name')
+#
+# print(test2)
+# print(test1)
+# assert test1==test2
+
 # a= NavPage(driver)
 # a = driver.find_elements(By.XPATH,"//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use']")
 # for i in a:
@@ -232,4 +268,4 @@ driver.find_element(By.XPATH,"//div[@class='right-menu']/div[4]/*[name()='svg'][
 #
 
 if __name__ == '__main__':
-    pass
+    element()

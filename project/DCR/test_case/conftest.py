@@ -13,3 +13,6 @@ def __init__(drivers, env_name):
     pro_env = env_name
     logging.info("【{}】项目【{}】环境- UI自动化开始执行".format(pro_name, pro_env))
 
+
+
+

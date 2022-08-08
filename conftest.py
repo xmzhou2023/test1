@@ -9,7 +9,7 @@ from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=True):
+def drivers(request, remote_ui=False):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
@@ -97,12 +97,7 @@ def drivers(request, remote_ui=True):
 
 
 logname = time.strftime('%Y_%m_%d_%H')
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)',
-                    datefmt='[%Y-%m-%d %H:%M:%S]',
-                    filename='{}/{}.log'.format(LOG_PATH, logname),
-                    encoding='utf-8',
-                    filemode='a')
+logging.basicConfig()
 
 def pytest_addoption(parser):
     parser.addoption("--env", action="store", default='test', help='环境操作')

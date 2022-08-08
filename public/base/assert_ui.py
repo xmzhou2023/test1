@@ -277,14 +277,16 @@ class DomAssert(object):
 
 
 class SQLAssert(object):
-    def __init__(self, name, env):
+    def __init__(self, name, env, ini_name=None, values=None):  # 此处可以加入这个类中需要定义的参数
         self.name = name
         self.env = env
+        self.ini_name = ini_name
+        self.values = values
 
     @allure.step("值为True值断言")
     def assert_sql(self, word, sql):
         """页面是否存在某文字"""
-        database = SQL(self.name, self.env)
+        database = SQL(self.name, self.env, self.ini_name, self.values)
         sql_list = database.query_db(sql)
         sql_colum = []
         for i in sql_list:
