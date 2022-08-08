@@ -757,6 +757,6 @@ def sync_Data(data_list, env_list=None):
 if __name__ == '__main__':
     # print(get_env())
     # print(get_Data())
-    # sync_AllData(get_Data(),get_env())
-    sync_Data(get_Data(), get_env())
+    sync_AllData(get_Data(),get_env())
+    # sync_Data(get_Data(), get_env())
 
