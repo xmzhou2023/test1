@@ -755,8 +755,8 @@ def sync_Data(data_list, env_list=None):
                     update_data('mark', query_db(case_sql), case_data_list, case_id)
 
 if __name__ == '__main__':
-    # print(get_env())
-    # print(get_Data())
+    print(get_env())
+    print(get_Data())
     # sync_AllData(get_Data(),get_env())
     sync_Data(get_Data(), get_env())
 
