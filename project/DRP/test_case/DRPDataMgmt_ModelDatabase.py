@@ -8,8 +8,8 @@ from project.DRP.page_object.DRPDataMgmt_ModelDatabase import ModelDatabase
 @allure.feature("DRP数据管理-机型库")
 class TestSwitchMenu:
 
-    @allure.story("前往菜单123")
-    @allure.title("前往产品信息菜单456")
+    @allure.story("前往菜单")
+    @allure.title("前往产品信息菜单123")
     @allure.description("点击‘产品信息‘，前往‘产品信息‘菜单123")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     # @pytest.mark.skip

@@ -117,13 +117,13 @@ def get_PyClass(filepath):
                 story_name = story_name.group(1)
                 class_list[class_name]['att'] = story_name
                 mark_name = [] # 初始化mark_name
-                print(story_name)
+                # print(story_name)
 
             """获取用例中文名title"""
             if re.match("    @allure.title\(\"(.*)\"\)", line):
                 title_name = re.match("    @allure.title\(\"(.*)\"\)", line)
                 title_name = title_name.group(1)
-                # print(title_name)
+                print(title_name)
 
             """获取用例概述description"""
             if re.match("    @allure.description\(\"(.*)\"\)", line):
