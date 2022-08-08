@@ -43,11 +43,11 @@ class TestAppendUser:
         user = UserPage(drivers)
         user.append_account("18650893")
 
-@allure.feature("系统管理-用户管理")
+@allure.feature("系统管理-用户管理123")
 class TestEditUser:
-    @allure.story("编辑用户")
-    @allure.title("查找到指定用户并配置菜单权限")
-    @allure.description("更新工号为18650893的用户添加组织权限为‘itel事业部’和‘东非地区部‘")
+    @allure.story("编辑用户123")
+    @allure.title("查找到指定用户并配置菜单权限123")
+    @allure.description("更新工号为18650893的用户添加组织权限为‘itel事业部’和‘东非地区部‘123")
     @allure.severity("critical")  # blocker\critical\normal\minor\trivial
     @pytest.mark.RT
     def test_003_001(self, drivers):
