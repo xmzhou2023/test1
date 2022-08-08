@@ -123,7 +123,7 @@ def get_PyClass(filepath):
             if re.match("    @allure.title\(\"(.*)\"\)", line):
                 title_name = re.match("    @allure.title\(\"(.*)\"\)", line)
                 title_name = title_name.group(1)
-                print(title_name)
+                # print(title_name)
 
             """获取用例概述description"""
             if re.match("    @allure.description\(\"(.*)\"\)", line):
@@ -757,6 +757,6 @@ def sync_Data(data_list, env_list=None):
 if __name__ == '__main__':
     # print(get_env())
     # print(get_Data())
-    sync_AllData(get_Data(),get_env())
-    # sync_Data(get_Data(), get_env())
+    # sync_AllData(get_Data(),get_env())
+    sync_Data(get_Data(), get_env())
 
