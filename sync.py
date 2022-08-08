@@ -355,19 +355,12 @@ def algo_data(type, sql_data, data_list, parm=None):
 
         for mod_id, mod_code, in enumerate(data_list.keys(), 1):
             list_py.append(mod_code)
-        print(data_list)
-
 
         for i in sql_data:
             list_sq.append(i['module_code'])
-        print(sql_data)
-
 
         del_data = list(set(list_sq).difference(set(list_py)))
         inp_data = list(set(list_py).difference(set(list_sq)))
-        # upd_data = list(set(module_list_py).difference(set(module_list_sq)))
-        # print(module_list_py)
-        # print(module_list_sq)
 
         for module in del_data:
             print('更新后删除 {} 模块'.format(module))
@@ -378,10 +371,6 @@ def algo_data(type, sql_data, data_list, parm=None):
             module_zh = data_list[module_code]['att'].replace('\"','').replace('\'','')
             sql_pro = "INSERT INTO ts_module(module_code,module_name,p_id,created_by,updated_by,enabled_flag) VALUES ('{}','{}',{},'自动化平台','自动化平台',1)".format(module_code, module_zh, parm)
             sql_execute.append(sql_pro)
-        # for upd_module_name in upd_data:
-        #     print('更新 {} 模块描述'.format(upd_module_name))
-        #     sql_pro = "UPDATE ts_module SET module_name = {} WHERE module_name = {}".format(upd_module_name, upd_module_name)
-        #     sql_execute.append(sql_pro)
         change_db(sql_execute)
 
         # 初始化执行列表
@@ -653,8 +642,6 @@ def update_data(type, sql_data, data_list, parm=None):
         change_db(sql_execute)
 
     if type == 'mark':
-        print(data_list)
-        print(sql_data)
         case_tag_list_py = []
         case_tag_list_sq = []
         if len(data_list) != 0:
@@ -672,10 +659,12 @@ def update_data(type, sql_data, data_list, parm=None):
 
                 if len(ins_mark)!=0:
                     for mark_id in ins_mark:
+                        print('增加 {} 用例等级'.format(ins_mark))
                         sql_pro = "INSERT INTO ts_casemark_detail(case_id,case_mark_id,created_by,updated_by,enabled_flag) VALUES({},{},1,1,1)".format(parm, mark_id)
                         sql_execute.append(sql_pro)
                 if len(del_mark)!=0:
                     for mark_id in del_mark:
+                        print('删除 {} 用例等级'.format(ins_mark))
                         sql_pro = "DELETE FROM ts_casemark_detail WHERE case_id={} AND case_mark_id={}".format(parm, mark_id)
                         sql_execute.append(sql_pro)
         change_db(sql_execute)
