@@ -3,7 +3,7 @@ Return To Seller: "id==return_order_add_seller"
 Radio Delivery order: "xpath==//span[text()=' Delivery Order']"
 Input Delivery Order: "css==[placeholder='Please enter delivery order ID,press enter to check']"
 Click Check: "xpath==//span[contains(text(),'Check')]"
-Get Scan Record: "xpath==//div[contains(text(),'Success')]"
+Get Scan Record: "xpath==//div[contains(text(),'variable')]"
 Submit: "id==returnorderadd_Submit"
 获取退货成功提示: "xpath==//p[text()='Submit Success!']"
 

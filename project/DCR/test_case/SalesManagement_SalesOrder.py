@@ -232,7 +232,7 @@ class TestDeleteSalesOrder:
     @allure.story("删除销售单")
     @allure.title("销售单页面，国包用户，删除新建的销售单操作")
     @allure.description("销售单页面，国包用户，对新建Pending状态的销售单进行删除操作")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
@@ -271,7 +271,7 @@ class TestDeleteSalesOrder:
     @allure.story("删除销售单")
     @allure.title("销售单页面，国包用户，删除Delivered状态的销售单，提示不支持删除")
     @allure.description("销售单页面，国包用户，删除Delivered状态的销售单，提示不支持删除")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     def test_002_002(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
@@ -307,7 +307,7 @@ class TestExportSalesOrder:
     @allure.story("导出销售单")
     @allure.title("销售单页面，国包用户，导出筛选条件下销售单，导出文件内容和列表查询结果一致")
     @allure.description("销售单页面，国包用户，导出筛选条件下销售单，导出文件内容和列表查询结果一致")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     def test_003_001(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
@@ -355,7 +355,7 @@ class TestExportSalesOrder:
     @allure.story("导出销售单")
     @allure.title("销售单页面，国包用户，导出筛选条件下销售单详情，导出文件内容和列表查询结果一致")
     @allure.description("销售单页面，国包用户，导出筛选条件下销售单详情，导出文件内容和列表查询结果一致")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     def test_003_002(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)

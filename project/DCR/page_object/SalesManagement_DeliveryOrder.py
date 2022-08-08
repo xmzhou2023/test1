@@ -44,7 +44,7 @@ class DeliveryOrderPage(Base):
         sleep(1)
         self.input_text(user['Buyer'], txt=content)
         sleep(2.5)
-        self.is_click(user['Buyer sub value'], "BD2915")
+        self.is_click(user['Buyer sub value'], content)
 
     @allure.step("Add新增出库单页面，输入二代账号的Buyer属性")
     def input_retail_buyer(self, content):
@@ -52,7 +52,7 @@ class DeliveryOrderPage(Base):
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content)
         sleep(2)
-        self.is_click(user['Buyer retail value'], "EG000562")
+        self.is_click(user['Buyer retail value'], content)
 
     @allure.step("Add新增出库单页面，payment mode属性")
     def input_deli_pay_mode(self, content):
@@ -70,6 +70,17 @@ class DeliveryOrderPage(Base):
     def click_check(self):
         self.is_click_dcr(user['Check'])
         sleep(1)
+
+    @allure.step("Add新增出库单页面，点击check后，右侧Delivery Quan属性下显示出库数量")
+    def get_delivery_quantity(self):
+        get_deli_quantity = self.element_text(user['Get Delivery Quantity'])
+        return get_deli_quantity
+
+    @allure.step("Add新增出库单页面，点击check后，Order Detail列表Delivery Quan属性下显示出库数量")
+    def get_order_detail_deli_quantity(self):
+        get_order_deli_quantity = self.element_text(user['Get Order Detail Deli Quantity'])
+        return get_order_deli_quantity
+
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):

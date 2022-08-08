@@ -6,7 +6,7 @@ Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
 
 
-#新增出库单定位元素
+#创建出库单定位元素
 Buyer: "xpath==//label[contains(text(),'Buyer')]//parent::div//following-sibling::div//input"
 Buyer1: "xpath==//input[@class='el-input__inner deliveryorderadd_input_buyerId']"
 Buyer sub value: "xpath==//li[contains(text(),'variable')]"
@@ -16,9 +16,12 @@ payment mode Online: "xpath==//span[contains(text(),'variable')]"
 payment mode Wechat: "xpath==//span[contains(text(),'Wechat')]"
 Input IMEI: "xpath==//textarea[@placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
-#Submit: "xpath==//span[contains(text(), 'Submit')]"
+Get Delivery Quantity: "xpath==//div[@class='scanned-box']/..//div[@class='num']"
+Get Order Detail Deli Quantity: "xpath==//button[@class='el-button el-button--text el-button--mini']"
 Submit: "xpath==//button[@class='el-button el-button--primary el-button--small']"
 Affirm Submit: "xpath==//span[text()='Submit']"
+
+
 
 
 #创建出库单，产品为无码的，买方为系统中二级客户

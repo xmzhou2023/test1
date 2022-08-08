@@ -20,12 +20,12 @@ class ReturnOrderPage(Base):
         Base.presence_sleep_dcr(self, user['Return To Seller'])
         self.is_click(user['Return To Seller'])
 
-    @allure.step("退货单页面，点击单选按钮退货单")
+    @allure.step("退货单页面，点击单选按钮Delivery order退货单")
     def radio_Delivery_order(self):
         self.is_click(user['Radio Delivery order'])
 
 
-    @allure.step("退货单页面，输入Delivery Order ID")
+    @allure.step("退货单页面，点击Delivery Order单选按钮后，输入Delivery Order ID")
     def input_Delivery_order(self, content):
         self.is_click(user['Input Delivery Order'])
         self.input_text(user['Input Delivery Order'], txt=content)
@@ -38,7 +38,7 @@ class ReturnOrderPage(Base):
 
     @allure.step("退货单页面，点击check获取结果 Succeed文本")
     def get_text_Record(self):
-        record = self.element_text(user['Get Scan Record'])
+        record = self.element_text(user['Get Scan Record'], "Success")
         return record
 
     @allure.step("退货单页面，点击Submit")
@@ -118,7 +118,7 @@ class ReturnOrderPage(Base):
         self.is_click(user['Quantity Customer'])
         self.input_text(user['Quantity Customer'], txt=content)
         sleep(2)
-        self.is_click(user['Quantity Customer value'], "BD2915 lhmSubdealer001")
+        self.is_click(user['Quantity Customer value'], content)
 
     @allure.step("新建退货页面，输入退货的出库单ID")
     def input_quantity_delivery_order(self, content):
