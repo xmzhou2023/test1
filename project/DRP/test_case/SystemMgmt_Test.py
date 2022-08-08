@@ -61,6 +61,24 @@ class TestEditUser:
             }
         )
 
+@allure.feature("系统管理-用户管理456")
+class TestHaHa:
+    @allure.story("编辑用户456")
+    @allure.title("查找到指定用户并配置菜单权限123")
+    @allure.description("更新工号为18650893的用户添加组织权限为‘itel事业部’和‘东非地区部‘456")
+    @allure.severity("critical")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.RT
+    def test_003_001(self, drivers):
+        user = UserPage(drivers)
+        user.edit_Permission(
+            jobnum="18650893",
+            dimension={
+                '组织': ['itel事业部', '东非地区部'],
+                # '品牌': ['Infinix', 'itel', 'TECNO'],
+                # '区域': {'Infinix': ['利比亚', '土耳其']}
+            }
+        )
+
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])
 
