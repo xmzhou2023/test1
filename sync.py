@@ -513,8 +513,6 @@ def update_data(type, sql_data, data_list, parm=None):
     scene_list_sq = {}
     case_list_py = {}
     case_list_sq = {}
-    case_tag_list_py = {}
-    case_tag_list_sq = {}
 
     case_level = {
         'blocker': 1,
@@ -655,16 +653,18 @@ def update_data(type, sql_data, data_list, parm=None):
                 ins_mark = list(set(case_tag_list_py).difference(set(case_tag_list_sq)))
                 del_mark = list(set(case_tag_list_sq).difference(set(case_tag_list_py)))
 
-                if len(ins_mark)!=0:
-                    for mark_id in ins_mark:
-                        print('增加 {} 用例等级'.format(ins_mark))
-                        sql_pro = "INSERT INTO ts_casemark_detail(case_id,case_mark_id,created_by,updated_by,enabled_flag) VALUES({},{},1,1,1)".format(parm, mark_id)
-                        sql_execute.append(sql_pro)
                 if len(del_mark)!=0:
                     for mark_id in del_mark:
                         print('删除 {} 用例等级'.format(ins_mark))
                         sql_pro = "DELETE FROM ts_casemark_detail WHERE case_id={} AND case_mark_id={}".format(parm, mark_id)
                         sql_execute.append(sql_pro)
+
+                if len(ins_mark)!=0:
+                    for mark_id in ins_mark:
+                        print('增加 {} 用例等级'.format(ins_mark))
+                        sql_pro = "INSERT INTO ts_casemark_detail(case_id,case_mark_id,created_by,updated_by,enabled_flag) VALUES({},{},1,1,1)".format(parm, mark_id)
+                        sql_execute.append(sql_pro)
+
         change_db(sql_execute)
 def sync_Data(data_list, env_list=None):
 
