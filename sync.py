@@ -99,7 +99,7 @@ def get_PyClass(filepath):
             if re.match("@allure.feature\((.*)\)", line):
                 feature_name = re.match("@allure.feature\((.*)\)", line)
                 feature_name = feature_name.group(1)
-                print(feature_name)
+                # print(feature_name)
 
             """获取场景编码(class类名)class"""
             if re.match("class (.*):", line):
@@ -117,7 +117,7 @@ def get_PyClass(filepath):
                 story_name = story_name.group(1)
                 class_list[class_name]['att'] = story_name
                 mark_name = [] # 初始化mark_name
-                # print(story_name)
+                print(story_name)
 
             """获取用例中文名title"""
             if re.match("    @allure.title\(\"(.*)\"\)", line):
@@ -758,5 +758,5 @@ if __name__ == '__main__':
     # print(get_env())
     # print(get_Data())
     # sync_AllData(get_Data(),get_env())
-    sync_Data(get_Data(),get_env())
+    sync_Data(get_Data(), get_env())
 

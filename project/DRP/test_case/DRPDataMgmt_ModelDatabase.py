@@ -10,7 +10,7 @@ class TestSwitchMenu:
 
     @allure.story("前往菜单123")
     @allure.title("前往产品信息菜单456")
-    @allure.description("点击‘产品信息‘，前往‘产品信息‘菜单")
+    @allure.description("点击‘产品信息‘，前往‘产品信息‘菜单123")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     # @pytest.mark.skip
     # @pytest.mark.run(order=1)
