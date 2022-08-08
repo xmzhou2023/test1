@@ -13,10 +13,10 @@ import os
 import logging
 import allure
 import datetime
-import ddddocr
+# import ddddocr
 
 import warnings
-from PIL import Image
+# from PIL import Image
 
 """
 selenium基类
@@ -191,13 +191,17 @@ class Base(object):
             logging.info("点击元素：{}".format(locator))
             sleep(0.5)
 
-    def force_click(self, xpath, force=False):
+    def force_click(self, xpath, force=False, xpath_js=None):
         """点击元素(用js)"""
-        ele = self.find_element(xpath)
-        if force:  # 使用js强制点击
-            self.driver.execute_script("argumnets[0].click()", ele)
+        if xpath_js == None:
+            ele = self.find_element(xpath)
+            if force:  # 使用js强制点击
+                self.driver.execute_script("argumnets[0].click()", ele)
+            else:
+                ele.click()
         else:
-            ele.click()
+            self.driver.execute_script('document.evaluate("{}",document).iterateNext().click()'.format(xpath))
+
 
     def alert_ok(self):
         """确认弹窗"""
