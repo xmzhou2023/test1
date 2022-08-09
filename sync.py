@@ -620,7 +620,8 @@ def update_data(type, sql_data, data_list, parm=None):
 
         # 格式化字典
         case_list_py_json = {k: v for k, v in case_list_py}
-        # print(case_list_py_json)
+        print('------------')
+        print(case_list_py_json)
 
         for i in sql_data:
             list_sq.append(i['case_code'])
@@ -633,7 +634,8 @@ def update_data(type, sql_data, data_list, parm=None):
         case_list_sq = sorted(case_list_sq.items())
         # 格式化字典
         case_list_sq_json = {k: v for k, v in case_list_sq}
-        # print(case_list_sq_json)
+        print('------------')
+        print(case_list_sq_json)
 
         for case_key in case_list_py_json:
             if case_list_sq_json[case_key] != case_list_py_json[case_key]:
