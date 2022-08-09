@@ -84,7 +84,7 @@ class TestHaHa:
     @allure.description("更新工号为18650893的用户添加组织权限为‘itel事业部’和‘东非地区部‘45612")
     @allure.severity("critical")  # blocker\critical\normal\minor\trivial
     @pytest.mark.RT
-    def test_004_001(self, drivers):
+    def test_005_001(self, drivers):
         user = UserPage(drivers)
         user.edit_Permission(
             jobnum="18650893",
