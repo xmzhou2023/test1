@@ -634,14 +634,9 @@ def update_data(type, sql_data, data_list, parm=None):
             python_list.append(str(case_level[data_list[case_code]['severity']]))
             case_list_py[case_code] = python_list
 
-        print(case_list_py)
-
         case_list_py = sorted(case_list_py.items())
-        print(case_list_py)
-
         # 格式化字典
         case_list_py_json = {k: v for k, v in case_list_py}
-        print('1111111111111')
         print(case_list_py_json)
 
         for i in sql_data:
@@ -652,11 +647,9 @@ def update_data(type, sql_data, data_list, parm=None):
             sqldata_list.append(i['case_level'])
             case_list_sq[i['case_code']] = sqldata_list
 
-        print(case_list_sq)
         case_list_sq = sorted(case_list_sq.items())
         # 格式化字典
         case_list_sq_json = {k: v for k, v in case_list_sq}
-        print('22222222222222')
         print(case_list_sq_json)
 
         for case_key in case_list_py_json:
