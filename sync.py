@@ -342,7 +342,7 @@ def algo_data(type, sql_data, data_list, parm=None):
 
         for project in del_data:
             print('更新后删除 {} 项目'.format(project))
-            sql_pro = "DELETE FROM ts_project WHERE project_name = {}".format(project)
+            sql_pro = "DELETE FROM ts_project WHERE project_name='{}'".format(project)
             sql_execute.append(sql_pro)
         for project_name in inp_data:
             print('更新后增加 {} 项目'.format(project_name))
@@ -364,7 +364,7 @@ def algo_data(type, sql_data, data_list, parm=None):
 
         for module in del_data:
             print('更新后删除 {} 模块'.format(module))
-            sql_pro = "DELETE FROM ts_module WHERE module_code ={} AND p_id={}".format(module, parm)
+            sql_pro = "DELETE FROM ts_module WHERE module_code ='{}' AND p_id={}".format(module, parm)
             sql_execute.append(sql_pro)
             print(sql_pro)
         change_db(sql_execute)
@@ -382,7 +382,7 @@ def algo_data(type, sql_data, data_list, parm=None):
         sql_execute = []
 
         # 模块查询sql,为了获取mod_id
-        module_sql = "SELECT id,module_code from ts_module where p_id = {}".format(parm)
+        module_sql = "SELECT id,module_code from ts_module where p_id={}".format(parm)
 
         # 获取最新列表
         get_mod_id = fomart_data('mod', 'name', query_db(module_sql))
@@ -416,7 +416,7 @@ def algo_data(type, sql_data, data_list, parm=None):
 
         for scene in del_data:
             print('更新后删除 {} 场景'.format(scene))
-            sql_pro = "DELETE FROM scene WHERE scene_code = {}".format(scene)
+            sql_pro = "DELETE FROM scene WHERE scene_code='{}'".format(scene)
             sql_execute.append(sql_pro)
         for scene_code in inp_data:
             print('更新后增加 {} 项目'.format(scene_code))
@@ -452,7 +452,7 @@ def algo_data(type, sql_data, data_list, parm=None):
 
         for case in del_data:
             print('更新后删除 {} 用例'.format(case))
-            sql_pro = "DELETE FROM ts_case WHERE case_code = {}".format(case)
+            sql_pro = "DELETE FROM ts_case WHERE case_code ='{}'".format(case)
             sql_execute.append(sql_pro)
 
         for case_code in inp_data:
@@ -499,7 +499,7 @@ def algo_data(type, sql_data, data_list, parm=None):
 
         for env in del_data:
             print('更新后删除 {} 项目环境'.format(env))
-            sql_pro = "DELETE FROM ts_env WHERE env_name= {}".format(env)
+            sql_pro = "DELETE FROM ts_env WHERE env_name='{}'".format(env)
             sql_execute.append(sql_pro)
         for env_name in inp_data:
             print('更新后增加 {} 项目环境'.format(env_name))
