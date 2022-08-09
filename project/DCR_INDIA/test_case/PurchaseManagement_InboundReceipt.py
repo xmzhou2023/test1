@@ -59,8 +59,6 @@ class TestQueryIMEIDetail:
         query.click_fold()
 
         #获取Inbound Receipt列表字段文本
-        #list_product = query.get_product_text()
-        #list_itel = query.get_itel_text()
         list_brand = query.get_brand_text()
         #点击IMEI Detai功能按钮
         query.click_imei_detail()

@@ -1,4 +1,4 @@
-from project.DCR.page_object.ShopManagement_ShopMgtGlobal import ShopManagementPage
+from project.DCR.page_object.ShopManagement_ShopManagement import ShopManagementPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import *
 from libs.common.connect_sql import *
@@ -16,11 +16,10 @@ class TestAddShop:
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = LoginPage(drivers)
-        menu.click_gotomenu("Shop Management", "Shop Management(Global)")
+        user.click_gotomenu("Shop Management", "Shop Management(Global)")
 
         """新建 TECNO品牌的门店"""
         add_shop = ShopManagementPage(drivers)
@@ -62,7 +61,7 @@ class TestAddShop:
         """断言门店列表是否存在新建的门店ID与门店名称"""
         ValueAssert.value_assert_In(shopid, shop_id)
         ValueAssert.value_assert_equal(shopname, shop_name)
-        add_shop.click_reset()
+        add_shop.click_close_shop_management()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -72,6 +71,12 @@ class TestEditShop:
     @allure.description("门店管理页面，对新增的门店进行扩展品牌操作，扩展itel品牌提交后，列表展示扩展的门店品牌")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Shop Management", "Shop Management(Global)")
+
         edit_shop = ShopManagementPage(drivers)
         """从数据库查询最近新建的门店ID"""
         edit_shop.click_first_checkbox()
@@ -108,7 +113,7 @@ class TestEditShop:
         ValueAssert.value_assert_equal(shop_name, shopname)
         ValueAssert.value_assert_equal(shop_brand, "itel")
         ValueAssert.value_assert_equal(status, "Enabled")
-        sleep(2)
+        edit_shop.click_close_shop_management()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -118,6 +123,12 @@ class TestDisableShop:
     @allure.description("门店管理页面，对新增的门店进行禁用操作")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_003_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Shop Management", "Shop Management(Global)")
+
         """实例化ShopManagementPage类，调用页面元素方法"""
         disable = ShopManagementPage(drivers)
         """选中门店进行禁用扩展门店"""
@@ -137,7 +148,7 @@ class TestDisableShop:
         shop_name2 = disable.get_shop_name_text()
         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
-        sleep(1)
+        disable.click_close_shop_management()
 
 
 #暂时无删除功能，用例留着
@@ -171,5 +182,5 @@ class TestDisableShop:
 #         sleep(1)
 
 
-if __name__ == '__main__':
-    pytest.main(['ShopManagement_ShopMgtGlobal.py'])
+if __name__ == '__mainShopManagement_ShopManagement__':
+    pytest.main(['.py'])

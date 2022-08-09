@@ -91,7 +91,7 @@ class ShopInventoryIMEIQueryPage(Base):
     @allure.step("关闭门店库存IMEI菜单")
     def click_close_shop_inventory_imei(self):
         self.is_click(user['关闭门店库存IMEI菜单'])
-        sleep(1)
+        sleep(2)
 
 
     # 门店库存IMEI查询记录，导出功能验证
@@ -107,6 +107,13 @@ class ShopInventoryIMEIQueryPage(Base):
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(4)
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], txt=content)
+        sleep(2)
+        self.is_click_dcr(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -138,12 +145,14 @@ class ShopInventoryIMEIQueryPage(Base):
     @allure.step("导出记录页面，获取列表 Create Date文本")
     def get_create_date_text(self):
         create_date = self.element_text(user['获取创建日期文本'])
-        return create_date
+        create_date1 = create_date[0:10]
+        return create_date1
 
     @allure.step("导出记录页面，获取列表Complete Date文本")
     def get_complete_date_text(self):
         complete_date = self.element_text(user['获取完成日期文本'])
-        return complete_date
+        complete_date1 = complete_date[0:10]
+        return complete_date1
 
     @allure.step("导出记录页面，获取列表 Operation文本")
     def get_export_operation_text(self):

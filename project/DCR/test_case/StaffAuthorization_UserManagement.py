@@ -10,14 +10,14 @@ import allure
 
 @allure.feature("员工授权-用户管理")
 class TestAddEditQuitTranssionUser:
-    @allure.story("业务流程")
+    @allure.story("用户管理业务流程")
     @allure.title("用户管理页面，新增、编辑、离职传音用户")
     @allure.description("用户管理页面，新增、编辑、离职传音用户")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Staff & Authorization", "User Management")
@@ -43,6 +43,9 @@ class TestAddEditQuitTranssionUser:
         user.click_add_user_submit()
 
         user.click_search()
+        """根据输入的Shop ID筛选新建的门店ID后，断言列表是否存在新建门店"""
+        user.input_query_User(userid, userid)
+        user.click_search()
         """首先根据新建的User ID筛选，然后获取列表新增的User ID，User name，进行断言比较是否存在新建的用户"""
         user_id = user.get_text_user_id()
         user_name = user.get_text_user_name()
@@ -58,10 +61,7 @@ class TestAddEditQuitTranssionUser:
 
         """ 编辑传音用户 """
         """筛选用户后，点击Search，进行编辑"""
-        user.input_query_User(user_id, user_id)
-        user.click_search()
         username = user.user_name_random()
-
         user.click_edit()
         user.input_user_name(username)
         user.click_edit_brand()
@@ -104,22 +104,17 @@ class TestAddEditQuitTranssionUser:
 
 @allure.feature("员工授权-用户管理")
 class TestAddEditQuitDealerUser:
-    @allure.story("业务流程")
+    @allure.story("用户管理业务流程")
     @allure.title("用户管理页面，新增、编辑、离职代理用户")
     @allure.description("用户管理页面，新增、编辑、离职代理用户")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
 
-        # """刷新页面"""
-        # base = Base(drivers)
-        # base.refresh()
-        # sleep(3.5)
         """销售管理菜单-出库单-筛选出库单用例"""
-        menu = LoginPage(drivers)
-        menu.click_gotomenu("Staff & Authorization", "User Management")
+        user.click_gotomenu("Staff & Authorization", "User Management")
 
         """新建国包代理员工"""
         dealer_user = UserManagementPage(drivers)
@@ -139,6 +134,10 @@ class TestAddEditQuitDealerUser:
         dealer_user.click_add_user_submit()
 
         dealer_user.click_search()
+        """筛选用户后，点击Search，进行断言门店列表是否存在新建的门店ID"""
+        dealer_user.input_query_User(username, username)
+        dealer_user.click_search()
+
         """首先根据新建的User ID筛选，然后获取列表新增的User ID，User name，进行断言比较是否存在新建的用户"""
         user = SQL('DCR', 'test')
         result = user.query_db(
@@ -159,9 +158,6 @@ class TestAddEditQuitDealerUser:
 
         """ 编辑代理员工 """
         """筛选用户后，点击Search，进行编辑操作"""
-        dealer_user.input_query_User(user_id, user_id)
-        dealer_user.click_search()
-
         username = dealer_user.user_name_random()
         dealer_user.click_edit()
         dealer_user.input_user_name(username)
@@ -201,6 +197,7 @@ class TestAddEditQuitDealerUser:
         dealer_user.click_reset()
         user_id2 = dealer_user.get_text_user_id()
         ValueAssert.value_assert_IsNot(user_id1, user_id2)
+        dealer_user.click_close_user_mgt()
 
 
 if __name__ == '__main__':

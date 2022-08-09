@@ -19,8 +19,9 @@ Get Home Page Customer: "xpath==/html/body/div[1]/div/div[2]/div/div[2]/div/div[
 Export: "id==AttendanceRecords_export"
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
+Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
+Task Name value: "xpath==//span[text()='variable']"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
-
 获取下载状态文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]/div/div"
 获取任务名称文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div"
 获取文件大小文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[7]/div"

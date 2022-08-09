@@ -15,7 +15,7 @@ class TestQueryInboundReceipt:
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
-        user.dcr_login(drivers, "BD291501", "dcr123456")
+        user.initialize_login(drivers, "BD291501", "dcr123456")
 
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Purchase Management", "Inbound Receipt")
@@ -42,7 +42,7 @@ class TestQueryInboundReceipt:
         ValueAssert.value_assert_IsNoneNot(status)
         ValueAssert.value_assert_IsNoneNot(product)
         query.assert_total(total)
-        query.click_reset()
+        query.click_close_inbound_receipt()
 
 
 @allure.feature("采购管理-二代零售商收货")
@@ -52,6 +52,12 @@ class TestQueryIMEIDetail:
     @allure.description("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
+        user1 = LoginPage(drivers)
+        user1.initialize_login(drivers, "BD291501", "dcr123456")
+
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user1.click_gotomenu("Purchase Management", "Inbound Receipt")
+
         query = InboundReceiptPage(drivers)
         query.click_unfold()
         query.click_select_brand()
@@ -84,7 +90,8 @@ class TestQueryIMEIDetail:
         ValueAssert.value_assert_IsNoneNot(detail_material)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
         ValueAssert.value_assert_equal("Export", detail_export)
-        sleep(1)
+        query.click_close_inbound_imei_detail()
+        query.click_close_inbound_receipt()
 
 
 if __name__ == '__main__':

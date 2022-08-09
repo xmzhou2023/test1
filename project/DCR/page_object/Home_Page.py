@@ -11,6 +11,7 @@ class HomePagePage(Base):
 
     @allure.step("根据Time Period条件筛选")
     def click_time_period(self):
+        Base.presence_sleep_dcr(self, user['Input Time Period'])
         self.is_click(user['Input Time Period'])
         sleep(1)
         self.is_click(user['选择月份'])
@@ -18,6 +19,7 @@ class HomePagePage(Base):
     @allure.step("点击Search查询按钮")
     def click_search(self):
         self.is_click(user['Search'])
+        sleep(3)
 
     @allure.step("点击Search查询按钮")
     def get_user_mgt_authorization(self):
@@ -28,32 +30,50 @@ class HomePagePage(Base):
     @allure.step("获取No Auth Customer WH Shop维度的统计数")
     def get_no_auth_cust_wh_shop(self):
         no_auth_cust_shop = self.element_text(user['Get No Auth Customer WH Shop'])
-        return no_auth_cust_shop
+        if int(no_auth_cust_shop) > 1:
+            logging.info("User Management & Authorization卡片，加载No Auth Customer WH Shop指标的值正常：{}".format(no_auth_cust_shop))
+        else:
+            logging.info("User Management & Authorization卡片，加载No Auth Customer WH Shop指标的值为0：{}".format(no_auth_cust_shop))
 
     @allure.step("获取Country And Above Authority维度的统计数")
     def get_country_and_above_authority(self):
-        country_above_authority = self.element_text(user['Get Country And Above Authority'])
-        return country_above_authority
+        country_above_auth = self.element_text(user['Get Country And Above Authority'])
+        if int(country_above_auth) > 1:
+            logging.info("User Management & Authorization卡片，加载Country And Above Authority指标的值正常：{}".format(country_above_auth))
+        else:
+            logging.info("User Management & Authorization卡片，加载Country And Above Authority指标的值为0：{}".format(country_above_auth))
 
     @allure.step("获取Transsion Days No Login维度的统计数")
     def get_trans_days_no_login(self):
         trans_days_no_login = self.element_text(user['Get Transsion Days No Login'])
-        return trans_days_no_login
+        if int(trans_days_no_login) > 1:
+            logging.info("User Management & Authorization卡片，加载Transsion Days No Login指标的值正常：{}".format(trans_days_no_login))
+        else:
+            logging.info("User Management & Authorization卡片，加载Transsion Days No Login指标的值为0：{}".format(trans_days_no_login))
 
     @allure.step("获取No menu维度的统计数")
     def get_no_menu(self):
         trans_no_menu = self.element_text(user['Get No menu'])
-        return trans_no_menu
+        if int(trans_no_menu) > 1:
+            logging.info("User Management & Authorization卡片，加载No menu指标的值正常：{}".format(trans_no_menu))
+        else:
+            logging.info("User Management & Authorization卡片，加载No menu指标的值为0：{}".format(trans_no_menu))
 
     @allure.step("获取No Auth Customer WH维度的统计数")
     def get_no_auth_cust_wh(self):
-        trans_days_no_login = self.element_text(user['Get No Auth Customer WH'])
-        return trans_days_no_login
+        no_auth_cust = self.element_text(user['Get No Auth Customer WH'])
+        if int(no_auth_cust) > 1:
+            logging.info("User Management & Authorization卡片，加载No Auth Customer WH指标的值正常：{}".format(no_auth_cust))
+        else:
+            logging.info("User Management & Authorization卡片，加载No Auth Customer WH指标的值为0：{}".format(no_auth_cust))
 
     @allure.step("获取Customer Days No Login维度的统计数")
     def get_cust_days_no_login(self):
         cust_days_no_login = self.element_text(user['Get Customer Days No Login'])
-        return cust_days_no_login
+        if int(cust_days_no_login) > 1:
+            logging.info("User Management & Authorization卡片，加载Customer Days No Login指标的值正常：{}".format(cust_days_no_login))
+        else:
+            logging.info("User Management & Authorization卡片，加载Customer Days No Login指标的值为0：{}".format(cust_days_no_login))
 
     @allure.step("点击用户管理卡片的 导出 功能")
     def click_user_mgt_export(self):
@@ -76,27 +96,42 @@ class HomePagePage(Base):
     @allure.step("获取Abnormal Data指标，国包出库单激活日期")
     def get_dist_deli_date(self):
         dist_deli_date = self.element_text(user['Get Dist Delivery Date Activation'])
-        return dist_deli_date
+        if int(dist_deli_date) > 0:
+            logging.info("Abnormal Data卡片，加载Distributor Delivery Date指标的值加载正常：{}".format(dist_deli_date))
+        else:
+            logging.info("Abnormal Data卡片，加载Distributor Delivery Date指标的值加载为0：{}".format(dist_deli_date))
 
     @allure.step("获取Abnormal Data指标，二代出库单激活日期")
     def get_sub_deal_deli_date(self):
         sub_deal_deli_date = self.element_text(user['Get Subdealer Delivery Activation'])
-        return sub_deal_deli_date
+        if int(sub_deal_deli_date) > 0:
+            logging.info("Abnormal Data卡片，加载Sub-dealer Delivery Date指标的值加载正常：{}".format(sub_deal_deli_date))
+        else:
+            logging.info("Abnormal Data卡片，加载Sub-dealer Delivery Date指标的值加载为0:{}".format(sub_deal_deli_date))
 
     @allure.step("获取Abnormal Data指标，工厂出库单激活日期")
     def get_factory_deli_date(self):
         factory_deli_date = self.element_text(user['Get Factory Delivery Activation'])
-        return factory_deli_date
+        if int(factory_deli_date) > 0:
+            logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载正常：{}".format(factory_deli_date))
+        else:
+            logging.info("Abnormal Data卡片，加载Factory Delivery Date指标的值加载为0：{}".format(factory_deli_date))
 
     @allure.step("获取Abnormal Data指标，门店销量激活日期")
     def get_shop_sales_date(self):
         shop_sales_date = self.element_text(user['Get Shop Sales Activation'])
-        return shop_sales_date
+        if int(shop_sales_date) > 0:
+            logging.info("Abnormal Data卡片，加载Shop Sales Date指标的值加载正常:{}".format(shop_sales_date))
+        else:
+            logging.info("Abnormal Data卡片，加载Shop Sales Date指标的值加载为0：{}".format(shop_sales_date))
 
     @allure.step("获取Abnormal Data指标，门店销量激活日期")
     def get_infiltration_sales_pcs(self):
         infiltration_sales_pcs = self.element_text(user['Get Infiltration Sales PCS'])
-        return infiltration_sales_pcs
+        if int(infiltration_sales_pcs) > 0:
+            logging.info("Abnormal Data卡片，加载SAP delivery country is different from activation指标的值加载正常：{}".format(infiltration_sales_pcs))
+        else:
+            logging.info("Abnormal Data卡片，加载SAP delivery country is different from activation指标的值加载不正常：{}".format(infiltration_sales_pcs))
 
     @allure.step("获取Abnormal Data指标，Infiltration Sales文本内容")
     def get_infiltration_sales_text(self):
@@ -115,8 +150,17 @@ class HomePagePage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(2)
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(13)
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], txt=content)
+        sleep(2)
+        self.is_click(user['Task Name value'], content)
+
 
     @allure.step("导出记录页面，点击Search按钮")
     def click_export_search(self):
@@ -149,13 +193,15 @@ class HomePagePage(Base):
     def get_create_date_text(self):
         """导出记录页面，获取列表 Create Date文本"""
         create_date = self.element_text(user['获取创建日期文本'])
-        return create_date
+        create_date1 = create_date[0:10]
+        return create_date1
 
     @allure.step("导出记录页面，获取列表Complete Date文本")
     def get_complete_date_text(self):
         """导出记录页面，获取列表Complete Date文本"""
         complete_date = self.element_text(user['获取完成日期文本'])
-        return complete_date
+        complete_date1 = complete_date[0:10]
+        return complete_date1
 
     @allure.step("导出记录页面，获取列表 Operation文本")
     def get_export_operation_text(self):
@@ -170,7 +216,6 @@ class HomePagePage(Base):
 
     @allure.step("关闭导出记录菜单页面")
     def click_close_export_record(self):
-        sleep(1)
         self.is_click(user['关闭导出记录菜单'])
         sleep(1.5)
 
@@ -189,22 +234,35 @@ class HomePagePage(Base):
     @allure.step("获取Total Sub dealer指标值内容")
     def get_total_sub_dealer_value(self):
         total_sub_dealer = self.element_text(user['Get Total Sub dealer'])
-        return total_sub_dealer
+        if int(total_sub_dealer) > 0:
+            logging.info("Sub-dealer Management卡片，加载Total Sub dealer指标的值加载正常：{}".format(total_sub_dealer))
+        else:
+            logging.info("Sub-dealer Management卡片，加载Total Sub dealer指标的值加载为0：{}".format(total_sub_dealer))
 
     @allure.step("获取Number of rebated user指标值内容")
     def get_number_of_rebated_user(self):
         number_of_rebated = self.element_text(user['Get Number of rebated user'])
-        return number_of_rebated
+        if int(number_of_rebated) > 0:
+            logging.info("Sub-dealer Management卡片，加载Number of rebated user指标的值加载正常：{}".format(number_of_rebated))
+        else:
+            logging.info("Sub-dealer Management卡片，加载Number of rebated user指标的值加载为0：{}".format(number_of_rebated))
 
     @allure.step("获取Days No Stock In Out指标值内容")
     def get_days_no_stock_in_out(self):
         days_no_stock_in = self.element_text(user['Get Days No Stock In Out'])
-        return days_no_stock_in
+        if int(days_no_stock_in) > 0:
+            logging.info("Sub-dealer Management卡片，加载Days No Stock In Out指标的值加载正常：{}".format(days_no_stock_in))
+        else:
+            logging.info("Sub-dealer Management卡片，加载Days No Stock In Out指标的值加载为0：{}".format(days_no_stock_in))
 
     @allure.step("获取No Permission Seller Buyer指标值内容")
     def get_no_permission_seller_buyer(self):
         no_permission = self.element_text(user['Get No Permission Seller Buyer'])
-        return no_permission
+        if int(no_permission) > 0:
+            logging.info("Sub-dealer Management卡片，加载No Permission Seller Buyer指标的值加载正常：{}".format(no_permission))
+        else:
+            logging.info("Sub-dealer Management卡片，加载No Permission Seller Buyer指标的值加载为0：{}".format(no_permission))
+
 
     @allure.step("点击Sub dealer Management导出功能")
     def click_sub_dealer_export(self):
@@ -226,23 +284,39 @@ class HomePagePage(Base):
 
     @allure.step("获取Total Distributor 指标值")
     def get_total_distributor(self):
-        total_distributor = self.element_text(user['Get Total Distributor'])
-        return total_distributor
+        total_dist = self.element_text(user['Get Total Distributor'])
+        if int(total_dist) > 0:
+            logging.info("Distributor Management卡片，加载Total Distributor指标的值加载正常：{}".format(total_dist))
+        else:
+            logging.info("Distributor Management卡片，加载Total Distributor指标的值加载为0：{}".format(total_dist))
+        sleep(0.5)
 
     @allure.step("获取Dist Number of rebated user指标值")
     def get_dist_number_of_rebated_user(self):
         dist_number_of_rebated = self.element_text(user['Get Dist Number of rebated user'])
-        return dist_number_of_rebated
+        if int(dist_number_of_rebated) > 0:
+            logging.info("Distributor Management卡片，加载Number of rebated user指标的值加载正常：{}".format(dist_number_of_rebated))
+        else:
+            logging.info("Distributor Management卡片，加载Number of rebated user指标的值加载为0：{}".format(dist_number_of_rebated))
+        sleep(0.5)
 
     @allure.step("获取Dist Days No Stock in Out指标值")
     def get_dist_days_no_stock_in_out(self):
         dist_days_no_stock = self.element_text(user['Get Dist Days No Stock in Out'])
-        return dist_days_no_stock
+        if int(dist_days_no_stock) > 0:
+            logging.info("Distributor Management卡片，加载Days No Stock in Out指标的值加载正常：{}".format(dist_days_no_stock))
+        else:
+            logging.info("Distributor Management卡片，加载Days No Stock in Out指标的值加载为0：{}".format(dist_days_no_stock))
+        sleep(0.5)
 
     @allure.step("获取Dist No Permission Buyer指标值")
     def get_dist_no_permission_buyer(self):
         dist_no_permission = self.element_text(user['Get Dist No Permission Buyer'])
-        return dist_no_permission
+        if int(dist_no_permission) > 0:
+            logging.info("Distributor Management卡片，加载No Permission Buyer指标的值加载正常：{}".format(dist_no_permission))
+        else:
+            logging.info("Distributor Management卡片，加载No Permission Buyer指标的值加载为0：{}".format(dist_no_permission))
+        sleep(0.5)
 
     @allure.step("点击Distributor Management 指标的 Export导出功能")
     def click_distributor_export(self):
@@ -258,17 +332,30 @@ class HomePagePage(Base):
     @allure.step("获取Total Shop指标值")
     def get_total_shop(self):
         total_shop = self.element_text(user['Get Total Shop'])
-        return total_shop
+        if int(total_shop) > 0:
+            logging.info("Shop Management卡片，加载Total Shop指标的值加载正常：{}".format(total_shop))
+        else:
+            logging.info("Shop Management卡片，加载Total Shop指标的值加载为0：{}".format(total_shop))
+
 
     @allure.step("获取Shop Number of rebated user指标值")
     def get_shop_number_of_rebated_user(self):
         shop_number = self.element_text(user['Get Shop Number of rebated user'])
-        return shop_number
+        if int(shop_number) > 0:
+            logging.info("Shop Management卡片，加载Number of rebated user指标的值加载正常：{}".format(shop_number))
+        else:
+            logging.info("Shop Management卡片，加载Number of rebated user指标的值加载为0：{}".format(shop_number))
+        sleep(0.5)
 
     @allure.step("获取Total Shop指标值")
     def get_shop_days_no_upload_sales(self):
-        shop_days = self.element_text(user['Get Shop Days No Upload Sales'])
-        return shop_days
+        Base.presence_sleep_dcr(self, user['Get Shop Days No Upload Sales'])
+        shop_days_no_upload = self.element_text(user['Get Shop Days No Upload Sales'])
+        if int(shop_days_no_upload) > 0:
+            logging.info("Shop Management卡片，加载Days No Upload Sales指标的值加载正常：{}".format(shop_days_no_upload))
+        else:
+            logging.info("Shop Management卡片，加载Days No Upload Sales指标的值加载为0：{}".format(shop_days_no_upload))
+        sleep(0.5)
 
     @allure.step("点击Shop Management Export导出按钮")
     def click_shop_export(self):
@@ -278,8 +365,7 @@ class HomePagePage(Base):
     @allure.step("关闭Shop Management global菜单")
     def click_close_shop_mgt(self):
         self.is_click(user['关闭门店管理菜单'])
-        sleep(1)
-
+        sleep(2)
 
 
     @allure.step("断言文件下载时长")
@@ -294,7 +380,6 @@ class HomePagePage(Base):
         else:
             logging.info("User Management & Authorization卡片数据导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
         sleep(2)
-
 
 
 if __name__ == '__main__':
