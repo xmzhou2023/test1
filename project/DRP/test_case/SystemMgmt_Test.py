@@ -63,8 +63,8 @@ class TestEditUser:
 
 @allure.feature("系统管理-用户管理92233")
 class TestHaHa:
-    @allure.story("编辑用户456")
-    @allure.title("查找到指定用户并配置菜单权限123")
+    @allure.story("编辑用户456dsfdsfsdf")
+    @allure.title("查找到指定用户并配置菜单权限123456")
     @allure.description("更新工号为18650893的用户添加组织权限为‘itel事业部’和‘东非地区部‘456")
     @allure.severity("critical")  # blocker\critical\normal\minor\trivial
     @pytest.mark.RT
