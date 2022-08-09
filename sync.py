@@ -416,7 +416,7 @@ def algo_data(type, sql_data, data_list, parm=None):
             sql_pro = "DELETE FROM scene WHERE scene_code='{}'".format(scene)
             sql_execute.append(sql_pro)
         for scene_code in inp_data:
-            print('更新后增加项目 {} 项目'.format(scene_code))
+            print('更新后增加项目 {} '.format(scene_code))
             scene_zh = data_list[scene_code]['att'].replace('\"','').replace('\'','')
             sql_pro = "INSERT INTO scene(scene_code,scene_name,m_id,scene_level,created_by,updated_by,enabled_flag,scene_type) VALUES('{}','{}',{},1,'自动化平台','自动化平台',1,2)".format(scene_code, scene_zh, parm)
             sql_execute.append(sql_pro)
