@@ -9,7 +9,7 @@ from project.DRP.page_object.SystemMgmt_UserMgmt import UserPage
 class TestSearchUser: # Test+(增，删，改，查，导入（上传），导出（下载）)
 
     @allure.story("查询")
-    @allure.title("aaaaaaa")
+    @allure.title("aaaaaaa1111")
     @allure.description("aaaaaaaaaaa1111")
     @allure.severity("minor")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
