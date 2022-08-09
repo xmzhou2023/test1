@@ -39,13 +39,13 @@ class AreaPage(Base):
             count = 0
             for i in range(len(allist)):
                 if text in allist[i]:
-                    log.info("{} is in {}".format(text, allist[i]))
+                    logging.info("{} is in {}".format(text, allist[i]))
                     for j in range(1, len(allist[i])):
                         if text in allist[i][j]:
                             count = count + 1
                     return count
                 else:
-                    log.info("{}is not in {}".format(text, allist[i]))
+                    logging.info("{}is not in {}".format(text, allist[i]))
         except Exception as e:
             print(str(e))
 
@@ -53,7 +53,7 @@ class AreaPage(Base):
     def search_area(self, content):
         """查询区域"""
         self.input_text(user["区域搜索框"], content)
-        log.info("输入框键入{}".format(content))
+        logging.info("输入框键入{}".format(content))
         sleep(1)
 
     @allure.step("清空搜索框")

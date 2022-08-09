@@ -1,0 +1,4 @@
+Repair Mgt: "xpath==//span[contains(text(),'Repair Mgt')]"
+Repair Mgt->WO Report Mgt: "xpath==//span[contains(text(),'WO Report Mgt')]"
+Repair Mgt->WO Report Mgt->WO NonSerialized Report: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO NonSerialized Report')]"
+切换语言按钮: "xpath==//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]"

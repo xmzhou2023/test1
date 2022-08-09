@@ -54,8 +54,8 @@ ADDRESSEE = [
     'yong.liu7@transsion.com',
 ]
 
-if __name__ == '__main__':
-    print(BASE_DIR)
-    print(INI_PATH)
-    print(ELEMENT_PATH)
-    print(LOG_PATH)
+# if __name__ == '__main__':
+#     print(BASE_DIR)
+#     print(INI_PATH)
+#     print(ELEMENT_PATH)
+#     print(LOG_PATH)

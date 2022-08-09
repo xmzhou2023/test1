@@ -4,7 +4,7 @@ from libs.common.read_element import Element
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name,object_name)
+user = Element(pro_name, object_name)
 
 class NavPage(Base):
 
@@ -15,11 +15,12 @@ class NavPage(Base):
         navstr = ""
         for i in range(len(content)):
             navstr = navstr + '->' + content[i]
+            print(navstr)
             level.append(navstr[2:])
+        print(level)
         for i in range(len(content)):
             self.is_click(user[level[i]])
         sleep(2)
-
 
 if __name__ == '__main__':
     pass

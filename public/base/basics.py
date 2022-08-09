@@ -13,10 +13,10 @@ import os
 import logging
 import allure
 import datetime
-import ddddocr
+# import ddddocr
 
 import warnings
-from PIL import Image
+# from PIL import Image
 
 """
 selenium基类
