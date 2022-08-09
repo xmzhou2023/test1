@@ -632,7 +632,9 @@ def update_data(type, sql_data, data_list, parm=None):
             python_list.append(data_list[case_code]['title'].replace('\"','').replace('\'',''))
             python_list.append(data_list[case_code]['description'].replace('\"','').replace('\'',''))
             python_list.append(str(case_level[data_list[case_code]['severity']]))
-        print(python_list)
+            case_list_py[case_code] = python_list
+
+        print(case_list_py)
 
         case_list_py = sorted(case_list_py.items())
         print(case_list_py)
