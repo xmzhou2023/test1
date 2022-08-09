@@ -13,6 +13,7 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
     @allure.description("aaaaaaaaaaa111aaaaaaaaa1")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
+    @pytest.mark.RT
     def test_001_001(self, drivers):
         pass
 
@@ -22,7 +23,7 @@ class TestAppendUser:
     @allure.title("bbbbbbbbcccccc")
     @allure.description("bbbbbbbbbbb11aaaaaaaaaa1")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.UT
     def test_002_001(self, drivers):
         pass
 
