@@ -9,6 +9,11 @@ from project.IPM.page_base.pathconfig import *
 @allure.feature('IPM-流程中心-物料申请-前后端物料描述对比')
 class TestAddMaterialContrast:
 
+    @allure.story("整机-正常场景1")
+    @allure.title("手机物料-整机1")
+    @allure.description("整机-物料描述前后端对比1”")
+    @allure.severity("trivial")
+    @pytest.mark.smoke
     def test_001(self, drivers):
         """用户管理-登录用户"""
         user = LoginPage(drivers)

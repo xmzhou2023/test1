@@ -344,6 +344,10 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除项目 {} '.format(project))
             sql_pro = "DELETE FROM ts_project WHERE project_name='{}'".format(project)
             sql_execute.append(sql_pro)
+        change_db(sql_execute)
+
+        sql_execute = []
+
         for project_name in inp_data:
             print('更新后增加项目 {} '.format(project_name))
             project_name = project_name.replace('\"', '').replace('\'', '')
@@ -415,6 +419,10 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除场景 {} '.format(scene))
             sql_pro = "DELETE FROM scene WHERE scene_code='{}'".format(scene)
             sql_execute.append(sql_pro)
+        change_db(sql_execute)
+
+        sql_execute = []
+
         for scene_code in inp_data:
             print('更新后增加项目 {} '.format(scene_code))
             scene_zh = data_list[scene_code]['att'].replace('\"','').replace('\'','')
@@ -498,6 +506,10 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除项目环境 {} '.format(env))
             sql_pro = "DELETE FROM ts_env WHERE env_name='{}'".format(env)
             sql_execute.append(sql_pro)
+        change_db(sql_execute)
+
+        sql_execute = []
+
         for env_name in inp_data:
             print('更新后增加项目环境 {} '.format(env_name))
             env_url = data_list[env_name]
