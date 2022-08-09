@@ -9,7 +9,7 @@ from project.DRP.page_object.SystemMgmt_UserMgmt import UserPage
 class TestSearchUser: # Test+(增，删，改，查，导入（上传），导出（下载）)
 
     @allure.story("查询")
-    @allure.title("aaaaaaa11112222")
+    @allure.title("aaaaaaaabbbbbbb")
     @allure.description("aaaaaaaaaaa1111")
     @allure.severity("minor")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
@@ -19,7 +19,7 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
 @allure.feature("系统管理-aaaaaaa")
 class TestAppendUser:
     @allure.story("新建")
-    @allure.title("bbbbbbbb1111")
+    @allure.title("bbbbbbbbcccccc")
     @allure.description("bbbbbbbbbbb111")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
