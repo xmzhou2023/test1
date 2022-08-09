@@ -623,8 +623,6 @@ def update_data(type, sql_data, data_list, parm=None):
         change_db(sql_execute)
 
     if type == 'case':
-        print(sql_data)
-        print(data_list)
 
         for case_id, case_code, in enumerate(data_list.keys(), 1):
             list_py.append(case_code)
