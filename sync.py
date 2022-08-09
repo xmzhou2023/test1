@@ -382,6 +382,8 @@ def algo_data(type, sql_data, data_list, parm=None):
         # 获取最新列表
         get_mod_id = fomart_data('mod', 'name', query_db(module_sql))
 
+        print(get_mod_id)
+
         for module_code in inp_data:
             mod_id = get_mod_id[module_code]
 
