@@ -18,10 +18,10 @@ Input IMEI: "xpath==//textarea[@placeholder='Please enter IMEI/BoxID,press enter
 Check: "xpath==//span[contains(text(),'Check')]"
 Get Delivery Quantity: "xpath==//div[@class='scanned-box']/..//div[@class='num']"
 Get Order Detail Deli Quantity: "xpath==//button[@class='el-button el-button--text el-button--mini']"
+Get Delivery Scan Record IMEI: "xpath==//div[normalize-space(text())='variable']"
+Get Delivery Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
 Submit: "xpath==//button[@class='el-button el-button--primary el-button--small']"
 Affirm Submit: "xpath==//span[text()='Submit']"
-
-
 
 
 #创建出库单，产品为无码的，买方为系统中二级客户
@@ -30,7 +30,7 @@ Quantity Add: "xpath==//button[@id='deliveryorderadd_Add']//span[normalize-space
 Quantity Input Product: "xpath==//div[@class='el-input el-input--medium el-input--suffix']//input"
 Quantity Input Product Value: "xpath==//span[text()='variable']"
 Delivery Input Quantity: "xpath==//div[@class='el-input el-input--medium']//input"
-Get Delivery Quantiry Text: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[4]/div[2]/div/div[2]"
+Get Delivery Quantity Text: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[4]/div[2]/div/div[2]"
 
 #新建出库单，创建临时客户
 Create Temporary Customer: "xpath==//span[normalize-space(text())='variable']"
@@ -55,7 +55,7 @@ Get Sales Order ID Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/
 Get Delivery Order ID Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[3]/div/div"
 Get Status Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[6]/div"
 Get Delivery Date Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
-#No Data: "css==[no-data='No Data']"
+Get Delivery Status: "xpath==//div[text()='Goods Receipt']"
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭出库单菜单: "xpath==//span[normalize-space(text())='Delivery Order']//span[@class='el-icon-close']"
 关闭IMEI详情页: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[1]/button/i"
