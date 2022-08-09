@@ -341,11 +341,11 @@ def algo_data(type, sql_data, data_list, parm=None):
         inp_data = list(set(list_py).difference(set(list_sq)))
 
         for project in del_data:
-            print('更新后删除 {} 项目'.format(project))
+            print('更新后删除项目 {} '.format(project))
             sql_pro = "DELETE FROM ts_project WHERE project_name='{}'".format(project)
             sql_execute.append(sql_pro)
         for project_name in inp_data:
-            print('更新后增加 {} 项目'.format(project_name))
+            print('更新后增加项目 {} '.format(project_name))
             project_name = project_name.replace('\"', '').replace('\'', '')
             sql_pro = "INSERT INTO ts_project(project_name,created_by,updated_by,manager_id,project_team,enabled_flag) VALUES ('{}',1,1,1,1,1)".format(project_name)
             sql_execute.append(sql_pro)
@@ -363,16 +363,15 @@ def algo_data(type, sql_data, data_list, parm=None):
         inp_data = list(set(list_py).difference(set(list_sq)))
 
         for module in del_data:
-            print('更新后删除 {} 模块'.format(module))
+            print('更新后删除模块 {} '.format(module))
             sql_pro = "DELETE FROM ts_module WHERE module_code ='{}' AND p_id={}".format(module, parm)
             sql_execute.append(sql_pro)
-            print(sql_pro)
         change_db(sql_execute)
 
         sql_execute = []
 
         for module_code in inp_data:
-            print('更新后增加 {} 模块'.format(module_code))
+            print('更新后增加模块 {} '.format(module_code))
             module_zh = data_list[module_code]['att'].replace('\"','').replace('\'','')
             sql_pro = "INSERT INTO ts_module(module_code,module_name,p_id,created_by,updated_by,enabled_flag) VALUES ('{}','{}',{},'自动化平台','自动化平台',1)".format(module_code, module_zh, parm)
             sql_execute.append(sql_pro)
@@ -387,12 +386,10 @@ def algo_data(type, sql_data, data_list, parm=None):
         # 获取最新列表
         get_mod_id = fomart_data('mod', 'name', query_db(module_sql))
 
-        print(get_mod_id)
-
         for module_code in inp_data:
             mod_id = get_mod_id[module_code]
 
-            print('更新后 {} 模块分别增加了FT,ST,UT测试场景'.format(module_code))
+            print('更新后模块分别增加了FT,ST,UT测试场景 {}'.format(module_code))
             # 添加模块分类
             sql_type_FT = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('接口测试','FT',{},'自动化平台','自动化平台',1)".format(mod_id)
             sql_execute.append(sql_type_FT)
@@ -415,11 +412,11 @@ def algo_data(type, sql_data, data_list, parm=None):
         inp_data = list(set(list_py).difference(set(list_sq)))
 
         for scene in del_data:
-            print('更新后删除 {} 场景'.format(scene))
+            print('更新后删除场景 {} '.format(scene))
             sql_pro = "DELETE FROM scene WHERE scene_code='{}'".format(scene)
             sql_execute.append(sql_pro)
         for scene_code in inp_data:
-            print('更新后增加 {} 项目'.format(scene_code))
+            print('更新后增加项目 {} 项目'.format(scene_code))
             scene_zh = data_list[scene_code]['att'].replace('\"','').replace('\'','')
             sql_pro = "INSERT INTO scene(scene_code,scene_name,m_id,scene_level,created_by,updated_by,enabled_flag,scene_type) VALUES('{}','{}',{},1,'自动化平台','自动化平台',1,2)".format(scene_code, scene_zh, parm)
             sql_execute.append(sql_pro)
@@ -451,12 +448,12 @@ def algo_data(type, sql_data, data_list, parm=None):
         inp_data = list(set(list_py).difference(set(list_sq)))
 
         for case in del_data:
-            print('更新后删除 {} 用例'.format(case))
+            print('更新后删除用例 {} '.format(case))
             sql_pro = "DELETE FROM ts_case WHERE case_code ='{}'".format(case)
             sql_execute.append(sql_pro)
 
         for case_code in inp_data:
-            print('更新后增加 {} 用例'.format(case_code))
+            print('更新后增加用例 {} '.format(case_code))
             case_zh = data_list[case_code]['title'].replace('\"','').replace('\'','')
             case_desc = data_list[case_code]['description'].replace('\"','').replace('\'','')
             severity_level = data_list[case_code]['severity'].replace('\"','').replace('\'','')
@@ -479,7 +476,7 @@ def algo_data(type, sql_data, data_list, parm=None):
             case_id = get_case_id[case_code]
         # 添加用例等级
             mark_level = data_list[case_code]['mark']
-            print('更新后增加 {} 用例标记'.format(mark_level))
+            print('更新后增加用例标记 {} '.format(mark_level))
             for i in mark_level:
                 case_mark_id = case_mark[i]
                 sql_mark_level = "INSERT INTO ts_casemark_detail(case_id,case_mark_id,created_by,updated_by,enabled_flag) VALUES({},{},1,1,1)".format(case_id, case_mark_id)
@@ -498,11 +495,11 @@ def algo_data(type, sql_data, data_list, parm=None):
         inp_data = list(set(list_py).difference(set(list_sq)))
 
         for env in del_data:
-            print('更新后删除 {} 项目环境'.format(env))
+            print('更新后删除项目环境 {} '.format(env))
             sql_pro = "DELETE FROM ts_env WHERE env_name='{}'".format(env)
             sql_execute.append(sql_pro)
         for env_name in inp_data:
-            print('更新后增加 {} 项目环境'.format(env_name))
+            print('更新后增加项目环境 {} '.format(env_name))
             env_url = data_list[env_name]
             sql_pro = "INSERT INTO ts_env(env_name,env_url,p_id,is_enable,created_by,updated_by,enabled_flag) VALUES('{}','{}',{},1,1,1,1)".format(env_name, env_url, parm)
             sql_execute.append(sql_pro)
@@ -555,7 +552,7 @@ def update_data(type, sql_data, data_list, parm=None):
 
         for module_key in module_list_py_json:
             if module_list_sq_json[module_key] != module_list_py_json[module_key]:
-                print('更新 {} 模块描述'.format(module_key))
+                print('更新模块描述 {} '.format(module_key))
                 sql_pro = 'UPDATE ts_module SET module_name="{}" WHERE module_code="{}" AND p_id={}'.format(module_list_py_json[module_key], module_key, parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
@@ -578,7 +575,7 @@ def update_data(type, sql_data, data_list, parm=None):
 
         for env_key in env_list_py_json:
             if env_list_sq_json[env_key] != env_list_py_json[env_key]:
-                print('更新 {} 环境描述'.format(env_key))
+                print('更新环境描述 {} '.format(env_key))
                 sql_pro = 'UPDATE ts_env SET env_url="{}" WHERE env_url="{}" AND p_id={}'.format(env_list_py_json[env_key],env_list_sq_json[env_key], parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
@@ -604,7 +601,7 @@ def update_data(type, sql_data, data_list, parm=None):
 
         for scene_key in scene_list_py_json:
             if scene_list_sq_json[scene_key] != scene_list_py_json[scene_key]:
-                print('更新 {} 场景描述'.format(scene_key))
+                print('更新场景描述 {} '.format(scene_key))
                 sql_pro = 'UPDATE scene SET scene_name="{}" WHERE scene_code="{}" AND m_id={}'.format(scene_list_py_json[scene_key], scene_key, parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
@@ -640,7 +637,7 @@ def update_data(type, sql_data, data_list, parm=None):
 
         for case_key in case_list_py_json:
             if case_list_sq_json[case_key] != case_list_py_json[case_key]:
-                print('更新 {} 模块描述'.format(case_key))
+                print('更新模块描述 {} '.format(case_key))
                 sql_pro = 'UPDATE ts_case SET case_name="{}",case_des="{}",case_level={} WHERE case_code="{}" AND s_id={}'.format(case_list_py_json[case_key][0], case_list_py_json[case_key][1], case_list_py_json[case_key][2], case_key, parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
@@ -662,13 +659,13 @@ def update_data(type, sql_data, data_list, parm=None):
 
                 if len(del_mark)!=0:
                     for mark_id in del_mark:
-                        print('删除 {} 用例等级'.format(ins_mark))
+                        print('删除用例等级 {} '.format(ins_mark))
                         sql_pro = "DELETE FROM ts_casemark_detail WHERE case_id={} AND case_mark_id={}".format(parm, mark_id)
                         sql_execute.append(sql_pro)
 
                 if len(ins_mark)!=0:
                     for mark_id in ins_mark:
-                        print('增加 {} 用例等级'.format(ins_mark))
+                        print('增加用例等级 {} '.format(ins_mark))
                         sql_pro = "INSERT INTO ts_casemark_detail(case_id,case_mark_id,created_by,updated_by,enabled_flag) VALUES({},{},1,1,1)".format(parm, mark_id)
                         sql_execute.append(sql_pro)
 
