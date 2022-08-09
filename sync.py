@@ -650,6 +650,7 @@ def update_data(type, sql_data, data_list, parm=None):
             sqldata_list.append(i['case_level'])
             case_list_sq[i['case_code']] = sqldata_list
 
+        print(case_list_sq)
         case_list_sq = sorted(case_list_sq.items())
         # 格式化字典
         case_list_sq_json = {k: v for k, v in case_list_sq}
