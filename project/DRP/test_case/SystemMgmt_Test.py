@@ -79,7 +79,7 @@ class TestHaHa:
             }
         )
 
-    @allure.story("编辑用户456")
+    @allure.story("编辑用户sfasdfasf")
     @allure.title("查找到指定用户并配置菜单权限12312")
     @allure.description("更新工号为18650893的用户添加组织权限为‘itel事业部’和‘东非地区部‘45612")
     @allure.severity("critical")  # blocker\critical\normal\minor\trivial
