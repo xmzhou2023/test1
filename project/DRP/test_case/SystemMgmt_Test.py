@@ -61,7 +61,7 @@ class TestEditUser:
             }
         )
 
-@allure.feature("系统管理-用户管理456")
+@allure.feature("系统管理-用户管理99999")
 class TestHaHa:
     @allure.story("编辑用户456")
     @allure.title("查找到指定用户并配置菜单权限123")
