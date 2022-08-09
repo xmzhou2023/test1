@@ -366,6 +366,7 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除 {} 模块'.format(module))
             sql_pro = "DELETE FROM ts_module WHERE module_code ={} AND p_id={}".format(module, parm)
             sql_execute.append(sql_pro)
+            print(sql_pro)
         change_db(sql_execute)
 
         sql_execute = []
