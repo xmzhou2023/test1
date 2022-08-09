@@ -636,7 +636,7 @@ def update_data(type, sql_data, data_list, parm=None):
 
         # 格式化字典
         case_list_py_json = {k: v for k, v in case_list_py}
-        print('------------')
+        print('1111111111111')
         print(case_list_py_json)
 
         for i in sql_data:
@@ -650,7 +650,7 @@ def update_data(type, sql_data, data_list, parm=None):
         case_list_sq = sorted(case_list_sq.items())
         # 格式化字典
         case_list_sq_json = {k: v for k, v in case_list_sq}
-        print('------------')
+        print('22222222222222')
         print(case_list_sq_json)
 
         for case_key in case_list_py_json:
