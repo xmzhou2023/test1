@@ -459,6 +459,10 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除用例 {} '.format(case))
             sql_pro = "DELETE FROM ts_case WHERE case_code ='{}'".format(case)
             sql_execute.append(sql_pro)
+        change_db(sql_execute)
+
+        sql_execute = []
+
 
         for case_code in inp_data:
             print('更新后增加用例 {} '.format(case_code))
@@ -468,7 +472,6 @@ def algo_data(type, sql_data, data_list, parm=None):
             case_level_id = case_level[severity_level]
             sql_pro = "INSERT INTO ts_case(case_code,case_name,case_des,case_status,s_id,case_level,manager_id,created_by,updated_by,enabled_flag,meta_status) VALUES('{}','{}','{}',1,{},{},1,'自动化平台','自动化平台',1,'unexecuted')".format(case_code, case_zh, case_desc, parm, case_level_id)
             sql_execute.append(sql_pro)
-
         change_db(sql_execute)
 
         # 初始化执行列表
