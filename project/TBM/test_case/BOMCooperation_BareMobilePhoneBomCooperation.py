@@ -6,7 +6,7 @@ from project.TBM.page_object.BOMCooperation_BareMobilePhoneBomCooperation import
 @allure.feature("BOM协作-单机头BOM协作")
 class TestCreateProcess:
 
-    @allure.story("创建流程")
+    @allure.story("创建流程123")
     @allure.title("创建流程成功")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产出品选择一个物料编码，用量填写为1000，点击提交，能提交成功创建流程成功")
     @allure.severity("blocker")  # blocker\\normal\\trivial
