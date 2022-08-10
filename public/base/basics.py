@@ -275,17 +275,22 @@ class Base(object):
             # sleep()
             logging.info("清除树勾选框状态：{}".format(locator))
 
+
     def export_download_status(self, click_search, get_status):
         """DCR通用的导出，等待下载状态更新(DRP专用)"""
         self.is_click(click_search)
         status = self.element_text(get_status)
         logging.info("循环前Download Status{}".format(status))
-        while status != "COMPLETE":
-            self.is_click(click_search)
-            status = self.element_text(get_status)
-            logging.info("循环后Download Status{}".format(status))
-            sleep(1)
+        for i in range(20):
+            if status != "COMPLETE":
+                self.is_click(click_search)
+                status = self.element_text(get_status)
+                logging.info("循环后Download Status{}".format(status))
+                sleep(1)
+                i += 1
+                logging.info("打印循环执行查询次数{}".format(i))
         return status
+
 
     def move_house(self, content):
         """点击空白区域，用于取消释法"""
