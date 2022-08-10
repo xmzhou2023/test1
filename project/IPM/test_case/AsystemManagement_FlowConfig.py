@@ -411,7 +411,7 @@ class TestFlowLayoutNodeAdd:
 #                                  expected_results='状态禁用提示')
 #         add.state_RoleManagent()
 
-@allure.feature('IPM-系统管理-流程配置-角色管理-新增')
+@allure.feature("IPM-系统管理-流程配置-角色管理-新增")
 class TestFlowLayoutRoleAdd:
     @allure.story("新增正常场景")
     @allure.title("新增1阶HDI主板成功")
