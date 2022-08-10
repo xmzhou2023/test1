@@ -403,7 +403,7 @@ class Base(object):
     def presence_sleep_dcr(self, locator, choice=None):
         """通用的加载数据等待方法(DCR专用)"""
         txt = None
-        for i in range(15):
+        for i in range(20):
             if txt is None:
                 txt = self.find_element(locator, choice)
                 sleep(1)
