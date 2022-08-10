@@ -783,27 +783,24 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
         user.assert_flow_deliver(Machine_bomEnginner_API[0], '陈月')
 
-    # @allure.story("流程审批")  # 场景名称
-    # @allure.title("数据组审批页面，审批成功")  # 用例名称
-    # @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
-    # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.UT  # 用例标记
-    # def test_005_019(self, drivers, Machine_API):
-    #     user = MachineBOMCollaboration(drivers)
-    #     user.refresh_webpage()
-    #     user.supplementary_factory_flow(Machine_API[0])
-    #     user.engineer_approve_flow(Machine_API[0])
-    #     user.business_approve_flow(Machine_API[0])
-    #     user.enter_oneworks_edit(Machine_API[0])
-    #     user.click_oneworks_agree()
-    #     user.click_oneworks_confirm()
-    #     user.assert_toast()
-    #     user.quit_oneworks()
-    #     user.assert_my_application_node(Machine_API[0], '审批通知', True)
-    #     sleep(60)
-    #     user.assert_my_application_flow(Machine_API[0], '审批完成')
-    #     document_status = user.get_assigned_info(Machine_API[0])[7]
-    #     ValueAssert.value_assert_equal(document_status, '审批通过')
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("数据组审批页面，审批成功")  # 用例名称
+    @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_019(self, drivers, Machine_Approval_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_Approval_API[0])
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_application_node(Machine_Approval_API[0], '审批通知', True)
+        sleep(60)
+        user.assert_my_application_flow(Machine_Approval_API[0], '审批完成')
+        document_status = user.get_assigned_info(Machine_Approval_API[0])[7]
+        ValueAssert.value_assert_equal(document_status, '审批通过')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("数据组审批页面，回退到补充工厂")  # 用例名称
