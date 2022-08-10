@@ -998,7 +998,7 @@ class TestProcessApprovalExceptionScenario:
         user.assert_toast('父阶BOM料号12012025用量不为1000')
         user.quit_oneworks()
 
-    @allure.story("流程审批")  # 场景名称
+    @allure.story("流程审批异常场景")  # 场景名称
     @allure.title("数据组审批页面，检查失败项不为0，提交失败")  # 用例名称
     @allure.description("在数据组审批页面中，子阶BOM检查有失败项，点击同意，不能提交成功，并且给出提交失败的提示")
     @allure.severity("normal")  # 用例等级
