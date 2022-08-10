@@ -82,10 +82,21 @@ class DeliveryOrderPage(Base):
         return get_order_deli_quantity
 
 
+    @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧显示Success")
+    def get_Deli_Scan_Record_Success(self):
+        Base.presence_sleep_dcr(self, user['Get Delivery Scan Record Success'])
+        scan_record_success = self.element_text(user['Get Delivery Scan Record Success'])
+        return scan_record_success
+
+    @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧出现显示IMEI")
+    def get_Deli_Scan_Record_IMEI(self, imei):
+        scan_record_imei = self.element_text(user['Get Delivery Scan Record IMEI'], imei)
+        return scan_record_imei
+
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):
         self.is_click(user['Submit'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def get_text_submit(self):
@@ -310,13 +321,16 @@ class DeliveryOrderPage(Base):
         sleep(1)
         self.input_text_dcr(user['Delivery Input Quantity'], txt=content)
         sleep(1)
-        self.is_click(user['Get Delivery Quantiry Text'])
+        self.is_click(user['Get Delivery Quantity Text'])
 
-    @allure.step("获取Delivery Quantity文本值")
-    def get_delivery_quantity_text(self, content):
-        get_quantiry_text = self.element_text(user['Get Delivery Quantiry Text'])
-        ValueAssert.value_assert_equal(content, get_quantiry_text)
-        sleep(1)
+    @allure.step("获取Delivery Quantity文本内容")
+    def get_delivery_quantity_text(self):
+        get_quantity_text = self.element_text(user['Get Delivery Quantity Text'])
+        return get_quantity_text
+
+    @allure.step("点击Delivery Quantity出库单数量文本")
+    def click_delivery_quantity_text(self):
+        self.is_click(user['Get Delivery Quantity Text'])
 
 
     """新建出库单时，新建临时客户"""

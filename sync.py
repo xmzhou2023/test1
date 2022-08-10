@@ -344,6 +344,10 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除项目 {} '.format(project))
             sql_pro = "DELETE FROM ts_project WHERE project_name='{}'".format(project)
             sql_execute.append(sql_pro)
+        change_db(sql_execute)
+
+        sql_execute = []
+
         for project_name in inp_data:
             print('更新后增加项目 {} '.format(project_name))
             project_name = project_name.replace('\"', '').replace('\'', '')
@@ -415,6 +419,10 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除场景 {} '.format(scene))
             sql_pro = "DELETE FROM scene WHERE scene_code='{}'".format(scene)
             sql_execute.append(sql_pro)
+        change_db(sql_execute)
+
+        sql_execute = []
+
         for scene_code in inp_data:
             print('更新后增加项目 {} '.format(scene_code))
             scene_zh = data_list[scene_code]['att'].replace('\"','').replace('\'','')
@@ -451,6 +459,10 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除用例 {} '.format(case))
             sql_pro = "DELETE FROM ts_case WHERE case_code ='{}'".format(case)
             sql_execute.append(sql_pro)
+        change_db(sql_execute)
+
+        sql_execute = []
+
 
         for case_code in inp_data:
             print('更新后增加用例 {} '.format(case_code))
@@ -460,7 +472,6 @@ def algo_data(type, sql_data, data_list, parm=None):
             case_level_id = case_level[severity_level]
             sql_pro = "INSERT INTO ts_case(case_code,case_name,case_des,case_status,s_id,case_level,manager_id,created_by,updated_by,enabled_flag,meta_status) VALUES('{}','{}','{}',1,{},{},1,'自动化平台','自动化平台',1,'unexecuted')".format(case_code, case_zh, case_desc, parm, case_level_id)
             sql_execute.append(sql_pro)
-
         change_db(sql_execute)
 
         # 初始化执行列表
@@ -498,6 +509,10 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除项目环境 {} '.format(env))
             sql_pro = "DELETE FROM ts_env WHERE env_name='{}'".format(env)
             sql_execute.append(sql_pro)
+        change_db(sql_execute)
+
+        sql_execute = []
+
         for env_name in inp_data:
             print('更新后增加项目环境 {} '.format(env_name))
             env_url = data_list[env_name]
@@ -615,13 +630,12 @@ def update_data(type, sql_data, data_list, parm=None):
             python_list.append(data_list[case_code]['title'].replace('\"','').replace('\'',''))
             python_list.append(data_list[case_code]['description'].replace('\"','').replace('\'',''))
             python_list.append(str(case_level[data_list[case_code]['severity']]))
+            case_list_py[case_code] = python_list
 
         case_list_py = sorted(case_list_py.items())
-
         # 格式化字典
         case_list_py_json = {k: v for k, v in case_list_py}
-        print('------------')
-        print(case_list_py_json)
+        # print(case_list_py_json)
 
         for i in sql_data:
             list_sq.append(i['case_code'])
@@ -634,8 +648,7 @@ def update_data(type, sql_data, data_list, parm=None):
         case_list_sq = sorted(case_list_sq.items())
         # 格式化字典
         case_list_sq_json = {k: v for k, v in case_list_sq}
-        print('------------')
-        print(case_list_sq_json)
+        # print(case_list_sq_json)
 
         for case_key in case_list_py_json:
             if case_list_sq_json[case_key] != case_list_py_json[case_key]:
@@ -761,8 +774,8 @@ def sync_Data(data_list, env_list=None):
                     update_data('mark', query_db(case_sql), case_data_list, case_id)
 
 if __name__ == '__main__':
-    print(get_env())
-    print(get_Data())
+    # print(get_env())
+    # print(get_Data())
     # sync_AllData(get_Data(),get_env())
     sync_Data(get_Data(), get_env())
 
