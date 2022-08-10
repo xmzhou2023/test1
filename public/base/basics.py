@@ -291,7 +291,6 @@ class Base(object):
                 logging.info("打印循环执行查询次数{}".format(i))
         return status
 
-
     def move_house(self, content):
         """点击空白区域，用于取消释法"""
         ActionChains(content).move_by_offset(700, 700).click().perform()
