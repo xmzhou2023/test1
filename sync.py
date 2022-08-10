@@ -544,7 +544,7 @@ def del_data(type, data_list):
         sql_pro = "DELETE FROM ts_casemark_detail WHERE case_id NOT IN {}".format(data_list)
 
     sql_execute.append(sql_pro)
-    print(sql_pro)
+    # print(sql_pro)
     change_db(sql_execute)
 
 def update_data(type, sql_data, data_list, parm=None):
