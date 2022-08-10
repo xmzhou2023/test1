@@ -23,29 +23,29 @@ class TestQueryDeliveryOrder:
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")
 
-        list = DeliveryOrderPage(drivers)
+        query = DeliveryOrderPage(drivers)
         # 获取日期
         base = Base(drivers)
         today = base.get_datetime_today()
 
-        list.click_unfold()
-        list.input_delivery_date("2022-07-01", today)
-        list.click_status_input_box()
-        list.click_fold()
-        list.click_search()
+        query.click_unfold()
+        query.input_delivery_date("2022-07-01", today)
+        query.click_status_input_box()
+        query.click_fold()
+        query.click_search()
 
-        sale_order = list.get_sales_order_text()
-        deli_order = list.get_delivery_order_text()
-        deli_date = list.get_delivery_date_text()
-        status = list.get_status_text()
-        total = list.get_total_text()
+        sale_order = query.get_sales_order_text()
+        deli_order = query.get_delivery_order_text()
+        deli_date = query.get_delivery_date_text()
+        status = query.get_status_text()
+        total = query.get_total_text()
 
         ValueAssert.value_assert_IsNoneNot(sale_order)
         ValueAssert.value_assert_IsNoneNot(deli_order)
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
-        list.assert_total(total)
-        list.click_close_delivery_order()
+        query.assert_total(total)
+        query.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
