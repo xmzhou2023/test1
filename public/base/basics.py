@@ -295,12 +295,12 @@ class Base(object):
     def element_text(self, locator, choice=None):
         """获取元素的文本"""
         if choice is None:
-            _text = self.find_element(locator).text
+            _text = self.find_element(locator).text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
         else:
             ele = self.find_element(locator, choice)
-            _text = ele.text
+            _text = ele.text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
 

@@ -531,27 +531,25 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在BOM工程师页面中，所有数据都正确，点击同意，可以提交成功并给出提示“处理成功，审核通过”，页面成功跳转；成功处理了BOM工程师审核点，我的待办中不存在该条单机在BOM工程师审核节点（建议：校验单据号和当前节点")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_003(self, drivers, Machine_API):
+    def test_005_003(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_my_todo_node(Machine_API[0], 'BOM工程师审批')
+        user.assert_my_todo_node(Machine_Factory_API[0], 'BOM工程师审批')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("BOM工程师页面，点击一键填写按钮，能弹出一键填写的页面")  # 用例名称
     @allure.description("在BOM工程师页面中，点击一键填写按钮，能弹出一键填写的页面")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_004(self, drivers, Machine_API):
+    def test_005_004(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_one_press()
         DomAssert(drivers).assert_exact_att('一键填写')
         user.quit_oneworks()
@@ -561,28 +559,26 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在BOM工程师页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_005(self, drivers, Machine_API):
+    def test_005_005(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_oneworks_rollback('补充工厂')
         user.click_oneworks_rollback_confirm()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_my_todo_node(Machine_API[0], 'BOM工程师审批')
-        user.assert_my_todo_node(Machine_API[0], '补充工厂', True)
+        user.assert_my_todo_node(Machine_Factory_API[0], 'BOM工程师审批')
+        user.assert_my_todo_node(Machine_Factory_API[0], '补充工厂', True)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("BOM工程师页面，转交时不选择转交人，不存在确定转交按钮")  # 用例名称
     @allure.description("在BOM工程师页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_006(self, drivers, Machine_API):
+    def test_005_006(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_oneworks_refer()
         user.click_oneworks_refer_comfirm()
         user.assert_oneworks_comfirmrefer_exist(False)
@@ -593,11 +589,10 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在BOM工程师页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_007(self, drivers, Machine_API):
+    def test_005_007(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_oneworks_refer()
         user.input_oneworks_refer('李小素')
         user.select_oneworks_refer('李小素')
@@ -610,11 +605,10 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在BOM工程师页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_008(self, drivers, Machine_API):
+    def test_005_008(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_oneworks_refer()
         user.input_oneworks_refer('李小素')
         user.select_oneworks_refer('李小素')
@@ -628,11 +622,10 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在BOM工程师页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_009(self, drivers, Machine_API):
+    def test_005_009(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_oneworks_refer()
         user.input_oneworks_refer('陈月')
         user.select_oneworks_refer('陈月')
@@ -640,22 +633,21 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_refer_comfirmrefer()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_flow_deliver(Machine_API[0], '陈月')
+        user.assert_flow_deliver(Machine_Factory_API[0], '陈月')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("BOM工程师页面，拒绝成功")  # 用例名称
     @allure.description("在BOM工程师页面中，点击拒绝，会显示处理成功，并且页面跳转")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_010(self, drivers, Machine_API):
+    def test_005_010(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_oneworks_refuse()
         user.assert_toast('处理成功，审核拒绝')
         user.quit_oneworks()
-        user.assert_my_application_flow(Machine_API[0], '审批拒绝')
+        user.assert_my_application_flow(Machine_Factory_API[0], '审批拒绝')
         process_status = user.get_info()[7]
         ValueAssert.value_assert_equal(process_status, '审批拒绝')
 
@@ -664,12 +656,10 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_011(self, drivers, Machine_API):
+    def test_005_011(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.assert_oneworks_businessapprove_bomtree_edit()
         user.quit_oneworks()
 
@@ -699,51 +689,45 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_013(self, drivers, Machine_API):
+    def test_005_013(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_rollback('补充工厂')
         user.click_oneworks_rollback_confirm()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_my_todo_node(Machine_API[0], '补充工厂', True)
+        user.assert_my_todo_node(Machine_bomEnginner_API[0], '补充工厂', True)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("业务审核回退到补充工厂重新审核，下一节点是业务审核")  # 用例名称
     @allure.description("在我的待办中审批从业务审核页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是业务审核节点，而不是BOM工程师节点")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_014(self, drivers, Machine_API):
+    def test_005_014(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_rollback('补充工厂')
         user.click_oneworks_rollback_confirm()
         user.quit_oneworks()
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_my_todo_node(Machine_API[0], '业务审核', True)
+        user.assert_my_todo_node(Machine_bomEnginner_API[0], '业务审核', True)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("在业务审核页面，不选择转交人转交，不存在确定转交按钮")  # 用例名称
     @allure.description("在业务审核页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_015(self, drivers, Machine_API):
+    def test_005_015(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_refer()
         user.click_oneworks_refer_comfirm()
         user.assert_oneworks_comfirmrefer_exist(False)
@@ -754,12 +738,10 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_016(self, drivers, Machine_API):
+    def test_005_016(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_refer()
         user.input_oneworks_refer('李小素')
         user.select_oneworks_refer('李小素')
@@ -772,12 +754,10 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_017(self, drivers, Machine_API):
+    def test_005_017(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_refer()
         user.input_oneworks_refer('李小素')
         user.select_oneworks_refer('李小素')
@@ -791,96 +771,85 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_018(self, drivers, Machine_API):
+    def test_005_018(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_refer()
         user.input_oneworks_refer('陈月')
         user.select_oneworks_refer('陈月')
         user.click_oneworks_refer_comfirm()
         user.click_oneworks_refer_comfirmrefer()
         user.quit_oneworks()
-        user.assert_flow_deliver(Machine_API[0], '陈月')
+        user.assert_flow_deliver(Machine_bomEnginner_API[0], '陈月')
 
-    @allure.story("流程审批")  # 场景名称
-    @allure.title("数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    def test_005_019(self, drivers, Machine_API):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.business_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
-        user.assert_my_application_node(Machine_API[0], '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(Machine_API[0], '审批完成')
-        document_status = user.get_assigned_info(Machine_API[0])[7]
-        ValueAssert.value_assert_equal(document_status, '审批通过')
+    # @allure.story("流程审批")  # 场景名称
+    # @allure.title("数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
+    # @allure.severity("normal")  # 用例等级
+    # @pytest.mark.UT  # 用例标记
+    # def test_005_019(self, drivers, Machine_API):
+    #     user = MachineBOMCollaboration(drivers)
+    #     user.refresh_webpage()
+    #     user.supplementary_factory_flow(Machine_API[0])
+    #     user.engineer_approve_flow(Machine_API[0])
+    #     user.business_approve_flow(Machine_API[0])
+    #     user.enter_oneworks_edit(Machine_API[0])
+    #     user.click_oneworks_agree()
+    #     user.click_oneworks_confirm()
+    #     user.assert_toast()
+    #     user.quit_oneworks()
+    #     user.assert_my_application_node(Machine_API[0], '审批通知', True)
+    #     sleep(60)
+    #     user.assert_my_application_flow(Machine_API[0], '审批完成')
+    #     document_status = user.get_assigned_info(Machine_API[0])[7]
+    #     ValueAssert.value_assert_equal(document_status, '审批通过')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("数据组审批页面，回退到补充工厂")  # 用例名称
     @allure.description("在数据组审批页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_020(self, drivers, Machine_API):
+    def test_005_020(self, drivers, Machine_Approval_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.business_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Approval_API[0])
         user.click_oneworks_rollback('补充工厂')
         user.click_oneworks_rollback_confirm()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_my_todo_node(Machine_API[0], '补充工厂', True)
+        user.assert_my_todo_node(Machine_Approval_API[0], '补充工厂', True)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("数据组审批页面，回退到补充工厂再审核，还是数据组审核节点")  # 用例名称
     @allure.description("在我的待办中审批从数据组审核页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是数据组审核节点，而不是BOM工程师节点")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_021(self, drivers, Machine_API):
+    def test_005_021(self, drivers, Machine_Approval_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.business_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Approval_API[0])
         user.click_oneworks_rollback('补充工厂')
         user.click_oneworks_rollback_confirm()
         user.assert_toast()
         user.quit_oneworks()
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Approval_API[0])
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_my_todo_node(Machine_API[0], '数据组审批', True)
+        user.assert_my_todo_node(Machine_Approval_API[0], '数据组审批', True)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("数据组审批页面，不选择转交人转交，不存在确定转交按钮")  # 用例名称
     @allure.description("在数据组审批页面中中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_022(self, drivers, Machine_API):
+    def test_005_022(self, drivers, Machine_Approval_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.business_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Approval_API[0])
         user.click_oneworks_refer()
         user.click_oneworks_refer_comfirm()
         user.assert_oneworks_comfirmrefer_exist(False)
@@ -891,13 +860,10 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在数据组审核页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_023(self, drivers, Machine_API):
+    def test_005_023(self, drivers, Machine_Approval_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.business_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Approval_API[0])
         user.click_oneworks_refer()
         user.input_oneworks_refer('李小素')
         user.select_oneworks_refer('李小素')
@@ -910,19 +876,50 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在数据组审批页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_005_024(self, drivers, Machine_API):
+    def test_005_024(self, drivers, Machine_Approval_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.business_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Approval_API[0])
         user.click_oneworks_refer()
         user.input_oneworks_refer('李小素')
         user.select_oneworks_refer('李小素')
         user.click_oneworks_refer_comfirm()
         user.click_oneworks_refer_cancel()
         user.assert_oneworks_rollback_refer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("BOM工程师页面，选BOMTree中点击设置市场/配置按钮，保存成功")  # 用例名称
+    @allure.description("在BOM工程师中，BOMTree中点击设置市场/配置按钮，弹出相应页面，在设置市场/配置页面中，填入组号和销售市场和机型配置，点击确认，能保存成功")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_025(self, drivers, Machine_Factory_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_Factory_API[0])
+        user.click_config()
+        user.modify_config('10026418', '组号', '5')
+        user.modify_config('10026418', '销售市场', '尼泊尔')
+        user.modify_config('10026418', '机型配置', '64+3')
+        user.click_config_confirm()
+        user.assert_toast('已成功更新BOM的市场及配置')
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("在BOM工程师中，BOMTree新增物料成功")  # 用例名称
+    @allure.description("在BOM工程师中，BOM Tree上点击新增物料，会出现新的物料节点")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_026(self, drivers, Machine_Factory_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_Factory_API[0])
+        user.click_tree('产成品')
+        user.input_optional_bomtree('充电器', '物料编码', '25001673')
+        user.click_optional_material()
+        user.move_to_add_material('25001673')
+        user.input_optional_material('25001673', '物料编码', '25001674')
+        user.assert_oneworks_add_material(['1.2.1.2', '25001674', '电池_TECNO_BL_49FT_4900mAh_FH_IN_W10', '外研', '编辑删除'])
         user.quit_oneworks()
 
 
@@ -1008,11 +1005,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在BOM工程师页面中，在Bom Tree中点编辑，将用量编辑为“1”，点击同意，不能提交成功页面给出提示父阶BOM料号xxxxxxxx用量不为1000")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_006_006(self, drivers, Machine_API):
+    def test_006_006(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.input_optional_bomtree('产成品', '用量', '1')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
@@ -1025,11 +1021,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在BOM工程师页面中，在产成品中点击删除按钮，不能进行删除，并且给出提示不能删除BOM！")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_006_007(self, drivers, Machine_API):
+    def test_006_007(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_oneworks_approval_delete('产成品')
         user.assert_toast('不能删除BOM！')
         user.quit_oneworks()
@@ -1039,12 +1034,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，不填写任何内容，点击同意，不能提交成功，并给出提示自检清单检查角色未选择")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_006_008(self, drivers, Machine_API):
+    def test_006_008(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
@@ -1056,12 +1049,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，选择后直接点击同意，不能提交成功，并给出提示自检清单第【1】行检查结果未选择")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_006_009(self, drivers, Machine_API):
+    def test_006_009(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
         user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
         user.click_oneworks_agree()
@@ -1075,12 +1066,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不通过，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不通过需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_006_010(self, drivers, Machine_API):
+    def test_006_010(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
         user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
         user.scroll_oneworks_businessapprove_self_inspection()
@@ -1096,12 +1085,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不涉及，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不涉及需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_006_011(self, drivers, Machine_API):
+    def test_006_011(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(Machine_API[0])
-        user.engineer_approve_flow(Machine_API[0])
-        user.enter_oneworks_edit(Machine_API[0])
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
         user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
         user.scroll_oneworks_businessapprove_self_inspection()
@@ -1112,6 +1099,24 @@ class TestProcessApprovalExceptionScenario:
         user.assert_toast('自检清单第【1】行检查结果为不涉及需填写原因及修改建议')
         user.quit_oneworks()
 
+    @allure.story("流程审批异常场景")  # 场景名称
+    @allure.title("[手机_itel_预研组_整机BOM]未配置自检清单！&自检清单不能为空")  # 用例名称
+    @allure.description("在业务审核页面中，选择检查角色没有配置的自检清单的检查角色，会提示[手机_itel_预研组_整机BOM]未配置自检清单！，直接点击同意，会提示自检清单不能为空")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_011(self, drivers, Machine_bomEnginner_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
+        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
+        user.click_oneworks_businessapprove_self_inspection('检查角色', 'MPM')
+        user.assert_toast('[手机_itel_MPM_整机BOM]未配置自检清单！')
+        sleep(5)
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('自检清单不能为空')
+        user.quit_oneworks()
 
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_MachineBomCooperation.py'])
