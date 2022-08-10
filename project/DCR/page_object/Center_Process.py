@@ -19,6 +19,7 @@ class SalesOrderPage(Base):
 
     @allure.step("Add新增销售单页面，输入Sales Buyer属性")
     def input_sales_buyer(self, content):
+        Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content)
         sleep(1)
@@ -68,16 +69,17 @@ class SalesOrderPage(Base):
     def click_search(self):
         """销售单页面，点击Search查询按钮"""
         self.is_click(user['Sales Order Search'])
-        sleep(5)
+        sleep(2)
 
     @allure.step("销售单页面，获取销售单ID文本")
     def get_text_sales_id(self):
         Base.presence_sleep_dcr(self, user['获取Sales Order ID文本'])
-        sales_orde_id = self.element_text(user['获取Sales Order ID文本'])
-        return sales_orde_id
+        sales_order_id = self.element_text(user['获取Sales Order ID文本'])
+        return sales_order_id
 
     @allure.step("销售单页面，获取销售单状态文本")
     def get_sales_status_text(self, status):
+        Base.presence_sleep_dcr(self, user['获取列表Status文本'], status)
         status = self.element_text(user['获取列表Status文本'], status)
         return status
 
@@ -122,7 +124,7 @@ class SalesOrderPage(Base):
     @allure.step("新建出库单页面，点击Submit Delivery提交出库单按钮")
     def click_submit_delivery(self):
         self.is_click_dcr(user['Submit Delivery'])
-        sleep(3)
+        sleep(2)
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
@@ -147,7 +149,7 @@ class SalesOrderPage(Base):
     @allure.step("IMEI Inventory Query页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(5)
+        sleep(2)
 
     @allure.step("IMEI Inventory Query页面，获取列表IMEI文本内容")
     def get_text_imei_inventory(self):
@@ -195,8 +197,8 @@ class InboundReceiptPage(Base):
 
     @allure.step("获取列表第一个出库单ID")
     def get_text_deliveryOrder(self):
-        deliveryorder = self.element_text(user['获取列表第一个出库单ID'])
-        return deliveryorder
+        delivery_order = self.element_text(user['获取列表第一个出库单ID'])
+        return delivery_order
 
     @allure.step("快速收货页面，勾选第一个复选框")
     def click_checkbox(self):

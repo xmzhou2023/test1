@@ -388,9 +388,9 @@ class TestDeliveryBusinessProcess:
         return_order.click_Search()
 
         """筛选退货列表页，获取退货出库单ID文本 与数据库表中查询的出库单ID对比是否一致"""
-        Delivery_OrderID = return_order.get_text_deliveryID()
+        delivery_order_id = return_order.get_text_deliveryID()
         status = return_order.get_return_status()
-        ValueAssert.value_assert_equal(Delivery_OrderID, delivery_code)
+        ValueAssert.value_assert_equal(delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Pending Approval", status)
         return_order.click_close_return_order()
 

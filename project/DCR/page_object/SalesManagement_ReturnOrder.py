@@ -43,6 +43,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单页面，点击Check")
     def click_Check(self):
         self.is_click_dcr(user['Click Check'])
+        sleep(1)
 
     @allure.step("退货单页面，点击check获取结果 Succeed文本")
     def get_text_Record(self):
