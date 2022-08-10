@@ -432,4 +432,4 @@ class TestDeliveryBusinessProcess:
 
 
 if __name__ == '__main__':
-    pytest.main(['Center_Process'])
+    pytest.main(['Center_Process.py'])
