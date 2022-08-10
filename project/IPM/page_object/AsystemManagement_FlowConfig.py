@@ -9,7 +9,8 @@
 
 from project.IPM.page_object.home import ProcessHome
 from project.IPM.page_object.Center_Component import *
-from project.IPM.page_object.Center_Personal import *
+from project.IPM.page_base.pubic_element import *
+from project.IPM.page_base.assert_pubic import *
 
 
 class FlowLayout():

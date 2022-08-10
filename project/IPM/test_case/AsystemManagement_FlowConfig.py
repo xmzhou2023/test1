@@ -11,10 +11,10 @@ class TestFlowLayoutNodeAdd:
     @allure.description("属性说明/节点角色与节点名称不匹配，点击提交提示：""")
     @allure.severity("normal")
     @pytest.mark.smoke
-    def test_001(self,drivers):
+    def test_001_001(self,drivers):
         user = LoginPage(drivers)
         user.login(drivers,account='18645960')
-        sleep(3)
+#         sleep(3)
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         mysql=MySqlDB()
@@ -34,7 +34,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("属性说明/节点管理新增成功”")
 #     @allure.severity("critical")
 #     @pytest.mark.smoke
-#     def test_002(self,drivers):
+#     def test_001_002(self,drivers):
 #         add = RoleManagement(drivers)
 #         mysql = MySqlDB()
 #         mysql.db_updata(sql='更改手机物料发起节点为删除状态')
@@ -53,7 +53,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("新增：点击“新增”按钮，表格中新增一条数据（显示在第一行）")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_003(self,drivers):
+#     def test_001_003(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -71,7 +71,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("节点设置/新增：不可同时新增或者编辑多条数据")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_004(self,drivers):
+#     def test_001_004(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -90,7 +90,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("属性说明/节点名称：未填，提示")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_005(self,drivers):
+#     def test_001_005(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -106,7 +106,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("属性说明/节点名称：下拉，单选，必填")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_006(self,drivers):
+#     def test_001_006(self,drivers):
 #             add = RoleManagement(drivers)
 #             add.url_RoleManagent()
 #             sleep(2)
@@ -124,7 +124,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("属性说明/排序：排序未填写")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_007(self,drivers):
+#     def test_001_007(self,drivers):
 #             add = RoleManagement(drivers)
 #             add.url_RoleManagent()
 #             sleep(2)
@@ -140,7 +140,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("属性说明/排序：特殊字符校验，double数字类型如非 ‘1.1、1.2等")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_008(self,drivers):
+#     def test_001_008(self,drivers):
 #             add = RoleManagement(drivers)
 #             add.url_RoleManagent()
 #             sleep(2)
@@ -158,7 +158,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("属性说明/节点名称重复提示：当前流程配置已存在该物料类型的配置")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_009(self, drivers):
+#     def test_001_009(self, drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -175,7 +175,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("新增节点配置默认为未启用")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_010(self,drivers):
+#     def test_001_010(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -190,7 +190,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("点击编辑按钮打开编辑功能")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_001(self,drivers):
+#     def test_002_001(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         mysql = MySqlDB()
@@ -211,7 +211,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("在编辑状态中更改状态，更改成功")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_002(self,drivers):
+#     def test_002_002(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -227,7 +227,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("节点名称为发起节点的状态为禁用，在角色管理表头不显示发起节点")
 #     @allure.severity("critical")
 #     @pytest.mark.smoke
-#     def test_003(self, drivers):
+#     def test_002_003(self, drivers):
 #         add = RoleManagement(drivers)
 #         add_two=RoleManagent(drivers)
 #         sleep(2)
@@ -254,7 +254,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("编辑状态为启用后点击保存，提示：编辑成功")
 #     @allure.severity("critical")
 #     @pytest.mark.smoke
-#     def test_004(self, drivers):
+#     def test_002_004(self, drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -274,7 +274,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("删除按钮，未启用的数据可见；点击删除，提示，是否删除该数据”")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_001(self,drivers):
+#     def test_003_001(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         mysql = MySqlDB()
@@ -296,7 +296,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("删除按钮，未启用的数据可见；点击删除，提示，是否删除该数据，点击取消数据不丢失”")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_002(self,drivers):
+#     def test_003_002(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -313,7 +313,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("删除按钮，未启用的数据可见；点击删除，提示，是否删除该数据，点击确认角色管理不显示发起节点”")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_003(self,drivers):
+#     def test_003_003(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -333,7 +333,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("未启用：当状态未启用，此节点可启用可删除可编辑操作")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_001(self,drivers):
+#     def test_004_001(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         mysql = MySqlDB()
@@ -355,7 +355,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("启用一个节点时，提示：该操作将不可逆,启用后将无法恢复，是否继续?")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_002(self,drivers):
+#     def test_004_002(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -369,7 +369,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("启用一个节点时，提示：该操作将不可逆,启用后将无法恢复，是否继续?后点击取消?")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_003(self,drivers):
+#     def test_004_003(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -384,7 +384,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("启用一个节点时，提示：该操作将不可逆,启用后将无法恢复，是否继续?后点击确认提示：状态成功修改为启用")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_004(self,drivers):
+#     def test_004_004(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -401,7 +401,7 @@ class TestFlowLayoutNodeAdd:
 #     @allure.description("禁用一个节点时，提示：状态成功修改为禁用")
 #     @allure.severity("normal")
 #     @pytest.mark.smoke
-#     def test_005(self,drivers):
+#     def test_004_005(self,drivers):
 #         add = RoleManagement(drivers)
 #         add.url_RoleManagent()
 #         sleep(2)
@@ -410,7 +410,7 @@ class TestFlowLayoutNodeAdd:
 #         ass.assert_element_equal(actual_results='状态禁用提示',
 #                                  expected_results='状态禁用提示')
 #         add.state_RoleManagent()
-#
+
 @allure.feature('IPM-系统管理-流程配置-角色管理-新增')
 class TestFlowLayoutRoleAdd:
     @allure.story("新增正常场景")
@@ -418,11 +418,17 @@ class TestFlowLayoutRoleAdd:
     @allure.description("新增1阶HDI主板，点击保存，保存成功")
     @allure.severity("normal")
     @pytest.mark.smoke
-    def test_001(self,drivers):
+    def test_005_001(self,drivers):
         add = RoleManagent(drivers)
         add.url_RoleManagent()
         add.Role_Management()
         sql=MySqlDB()
+        sql.db_delete('角色管理_删除手机物料发起节点')
+        sql.query_sql('角色管理_插入手机物料发起节点')
+        sql.db_delete('角色管理_删除手机物料直属领导审核')
+        sql.query_sql('角色管理_插入手机物料直属领导审核')
+        sql.db_delete('角色管理_删除手机物料重复检查审核')
+        sql.query_sql('角色管理_插入手机物料重复检查审核')
         sql.db_delete('流程配置_角色管理_删除1阶HDI主板')
         add.RoleManagement_Add()
         add.FormApprovalCon("印刷电路板",'HDI_155','1阶HDI主板',choice='1',
@@ -446,7 +452,7 @@ class TestFlowLayoutRoleAdd:
     @allure.description("新增的物料类型重复，点击保存，提示：")
     @allure.severity("normal")
     @pytest.mark.smoke
-    def test_002(self,drivers):
+    def test_005_002(self,drivers):
         add = RoleManagent(drivers)
         add.url_RoleManagent()
         add.Role_Management()
@@ -472,7 +478,7 @@ class TestFlowLayoutRoleAdd:
     @allure.description("新增的直属领导不为Y R:Direct_Leader，点击保存，提示：")
     @allure.severity("normal")
     @pytest.mark.smoke
-    def test_003(self,drivers):
+    def test_005_003(self,drivers):
         add = RoleManagent(drivers)
         add.url_RoleManagent()
         add.Role_Management()
@@ -489,7 +495,7 @@ class TestFlowLayoutRoleAdd:
     @allure.description("未保存流程配置，点击新增，则提示")
     @allure.severity("normal")
     @pytest.mark.smoke
-    def test_004(self,drivers):
+    def test_005_004(self,drivers):
         add = RoleManagent(drivers)
         add.url_RoleManagent()
         add.Role_Management()
@@ -505,7 +511,7 @@ class TestFlowLayoutRoleAdd:
     @allure.description("未保存流程配置，点击编辑，则提示")
     @allure.severity("normal")
     @pytest.mark.smoke
-    def test_005(self,drivers):
+    def test_005_005(self,drivers):
         add = RoleManagent(drivers)
         add.url_RoleManagent()
         add.Role_Management()
@@ -520,7 +526,7 @@ class TestFlowLayoutRoleAdd:
     @allure.description("未保存流程配置，点击编辑，则提示")
     @allure.severity("normal")
     @pytest.mark.smoke
-    def test_006(self,drivers):
+    def test_005_006(self,drivers):
         add = RoleManagent(drivers)
         add.url_RoleManagent()
         add.Role_Management()
@@ -534,7 +540,7 @@ class TestFlowLayoutRoleAdd:
     @allure.description("未保存流程配置，点击编辑，则提示")
     @allure.severity("normal")
     @pytest.mark.smoke
-    def test_007(self,drivers):
+    def test_005_007(self,drivers):
         add = RoleManagent(drivers)
         add.url_RoleManagent()
         add.Role_Management()
