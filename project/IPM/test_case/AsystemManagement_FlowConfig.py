@@ -3,12 +3,12 @@ from project.IPM.page_object.AsystemManagement_FlowConfig import *
 import allure
 import pytest
 
-@allure.feature('IPM-系统管理-流程配置-节点管理-新增')
+@allure.feature("IPM-系统管理-流程配置-节点管理-新增")
 class TestFlowLayoutNodeAdd:
 
     @allure.story("新增异常场景")
     @allure.title("说明/节点角色与节点名称不匹配")
-    @allure.description("属性说明/节点角色与节点名称不匹配，点击提交提示：""")
+    @allure.description("属性说明/节点角色与节点名称不匹配，点击提交提示：")
     @allure.severity("normal")
     @pytest.mark.smoke
     def test_001_001(self,drivers):
