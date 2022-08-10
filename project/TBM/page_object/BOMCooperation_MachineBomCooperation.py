@@ -202,29 +202,13 @@ class MachineBOMCollaboration(CenterComponent):
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
-    def optional_bomtree(self):
-        self.input_optional_bomtree('充电器', '物料编码', '10000011')
-        self.input_optional_bomtree('充电器', '用量', '1000')
-        self.input_optional_bomtree('充电器', '替代组', 'A1')
-        self.input_optional_bomtree('充电器', '份额', '20')
-        self.click_optional_material()
-        self.move_to_add_material('10000011')
-        self.input_optional_material('10000011', '物料编码', '10000012')
-        self.input_optional_material('10000011', '用量', '1000')
-        self.input_optional_material('10000011', '替代组', 'A1')
-        self.input_optional_material('10000011', '份额', '20')
-
+    @allure.step("点击新增物料")
     def click_optional_material(self):
-        """
-        点击新增物料
-        """
         self.is_click_tbm(user['新增物料'])
         logging.info('点击新增物料')
 
+    @allure.step("点击新增加的物料列进行对焦")
     def move_to_add_material(self, tree):
-        """
-        新增物料后，根据上级物料 点击新增加的物料列进行对焦
-        """
         self.is_click_tbm(user['BOMTree新增物料对焦'], tree)
 
     @allure.step("BomTree新增物料根据Tree在指定列表输入内容")
@@ -256,18 +240,16 @@ class MachineBOMCollaboration(CenterComponent):
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额')")
 
+    @allure.step("根据流程编码进行删除操作")
     def click_delete(self, code):
         """
-        根据流程编码点击删除 进行删除操作
         @param code:流程编码
         """
         self.is_click_tbm(user['删除'], code)
         self.is_click_tbm(user['确定'])
 
+    @allure.step("点击一键填写")
     def click_one_press(self):
-        """
-        点击一键填写
-        """
         self.is_click_tbm(user['BOM信息一键填写'])
 
     @allure.step("一键填写")
@@ -294,10 +276,8 @@ class MachineBOMCollaboration(CenterComponent):
         sleep(0.5)
         self.is_click_tbm(user['确定'])
 
+    @allure.step("点击取消")
     def click_one_press_cancel(self):
-        """
-        点击取消
-        """
         self.is_click_tbm(user['BOM信息一键填写取消'])
         logging.info('点击取消')
 
@@ -749,7 +729,6 @@ class MachineBOMCollaboration(CenterComponent):
 
     @allure.step("BOM工程师审批页面 获取BomTree数据")
     def get_oneworks_approval_bomtree_info(self):
-        self.click_tree('产成品')
         info = self.find_elements_tbm(user['BOM工程师BomTree信息'])
         info_list = []
         for i in info:
@@ -844,16 +823,10 @@ class MachineBOMCollaboration(CenterComponent):
 
     @allure.step("业务审核页面 滑动到 自检清单")
     def scroll_oneworks_businessapprove_self_inspection(self):
-        """
-        业务审核页面 滑动到 自检清单
-        """
         self.scroll_into_view(user['业务审核-自检清单'])
 
     @allure.step("业务审核页面 自检清单 点击输入检查结果")
     def input_oneworks_businessapprove_inspection_result(self, rule='all', result='通过'):
-        """
-        业务审核页面 自检清单 点击输入检查结果
-        """
         if rule == 'all' and result == '通过':
             num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
             for i in range(1, num + 1):
@@ -909,6 +882,38 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言成功，导出的数据和BomTree的数据是不一致的')
             raise
 
+    @allure.step("BOM工程师页面点击设置市场/配置")
+    def click_config(self):
+        self.is_click_tbm(user['BOM工程师-设置市场/配置'])
+
+    @allure.step("BOM工程师页面修改设置市场/配置")
+    def modify_config(self, num, type, content):
+        """
+        @param num:物料编号
+        @param type:配置类型
+        @param content:配置内容
+        """
+        if type == '组号':
+            self.input_text(user['BOM工程师-设置市场/配置-修改组号'], content, num)
+        elif type == '销售市场':
+            self.is_click_tbm(user['BOM工程师-设置市场/配置-修改销售市场'], num)
+            self.is_click_tbm(user['BOM工程师-设置市场/配置-市场/机型-选择'], content)
+        elif type == '机型配置':
+            self.is_click_tbm(user['BOM工程师-设置市场/配置-修改机型配置'], num)
+            self.is_click_tbm(user['BOM工程师-设置市场/配置-市场/机型-选择'], content)
+
+    @allure.step("BOM工程师页面设置市场/配置确定")
+    def click_config_confirm(self):
+        self.is_click(user['BOM工程师-设置市场/配置-确定'])
+
+    @allure.step("断言：BOM工程师页面，Bom Tree数据包含指定数据")
+    def assert_oneworks_add_material(self, content):
+        page_info = self.get_oneworks_approval_bomtree_info()
+        try:
+            assert content in page_info
+        except:
+            self.base_get_img()
+            raise
 
 if __name__ == '__main__':
     pass

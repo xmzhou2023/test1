@@ -65,19 +65,14 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("进入待办列表框架")
     def refresh_todo_list(self):
-        try:
-            self.refresh()
-            self.frame_enter(user['待办列表-iframe'])
-            self.is_click_tbm(user['待办列表-刷新'])
-        except:
-            self.refresh()
-            self.frame_enter(user['待办列表-iframe'])
-            self.is_click_tbm(user['待办列表-刷新'])
+        self.refresh()
+        self.frame_enter(user['待办列表-iframe'])
+        self.is_click_tbm(user['待办列表-刷新'])
+
 
     @allure.step("待办列表 根据单据号 筛选")
     def screening_code(self, code):
         """
-        待办列表 根据单据号 筛选
         @param code:流程编码
         """
         self.is_click_tbm(user['待办列表-筛选框'])
@@ -90,6 +85,7 @@ class CenterComponent(Base, APIRequest):
                 sleep(1)
             else:
                 break
+        self.base_get_img()
 
     @allure.step("进入 我的待办 页面")
     def enter_my_todo(self):
@@ -144,7 +140,7 @@ class CenterComponent(Base, APIRequest):
             logging.info('获取toast提示语：{}'.format(att))
             try:
                 if content is None:
-                    assert '请求成功' in att or '审核通过' in att or '操作成功' in att
+                    assert '请求成功' in att or '审核通过' in att or '操作成功' in att or '处理成功' in att
                     logging.info('断言成功，toast提示为：{}'.format(att))
                 else:
                     assert content in att
@@ -153,7 +149,7 @@ class CenterComponent(Base, APIRequest):
                 logging.error('断言失败，实际提示为：{}'.format(att))
                 raise
         except:
-            logging.error('未获取到toast提示语')
+            logging.error('断言失败，未获取到toast提示语/toast提示语错误')
             raise
 
     @allure.step("我的待办页面-断言：我的待办中存在/不存在该条单据在指定审核节点")
