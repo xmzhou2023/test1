@@ -7,9 +7,6 @@
 # @Software: PyCharm
 '''
 
-from libs.common.read_element import Element
-from libs.common.time_ui import sleep
-from public.base.basics import *
 from project.IPM.login.login import *
 
 

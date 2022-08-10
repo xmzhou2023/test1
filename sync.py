@@ -81,7 +81,7 @@ def get_ModuleName(filepath):
     py_list = []
     module = os.listdir(filepath)
     for i in module:
-        if i != '__pycache__' and i != 'conftest.py' and i != 'failures':
+        if i != '__pycache__' and i != 'conftest.py' and i != 'failures' and i != 'login.py':
             py_list.append(i)
     return py_list
 
@@ -424,10 +424,11 @@ def algo_data(type, sql_data, data_list, parm=None):
         sql_execute = []
 
         for scene_code in inp_data:
-            print('更新后增加项目 {} '.format(scene_code))
+            print('更新后增加场景 {} '.format(scene_code))
             scene_zh = data_list[scene_code]['att'].replace('\"','').replace('\'','')
             sql_pro = "INSERT INTO scene(scene_code,scene_name,m_id,scene_level,created_by,updated_by,enabled_flag,scene_type) VALUES('{}','{}',{},1,'自动化平台','自动化平台',1,2)".format(scene_code, scene_zh, parm)
             sql_execute.append(sql_pro)
+            print(sql_pro)
         change_db(sql_execute)
 
     elif type == 'case':
@@ -463,7 +464,6 @@ def algo_data(type, sql_data, data_list, parm=None):
 
         sql_execute = []
 
-
         for case_code in inp_data:
             print('更新后增加用例 {} '.format(case_code))
             case_zh = data_list[case_code]['title'].replace('\"','').replace('\'','')
@@ -472,6 +472,7 @@ def algo_data(type, sql_data, data_list, parm=None):
             case_level_id = case_level[severity_level]
             sql_pro = "INSERT INTO ts_case(case_code,case_name,case_des,case_status,s_id,case_level,manager_id,created_by,updated_by,enabled_flag,meta_status) VALUES('{}','{}','{}',1,{},{},1,'自动化平台','自动化平台',1,'unexecuted')".format(case_code, case_zh, case_desc, parm, case_level_id)
             sql_execute.append(sql_pro)
+            print(sql_pro)
         change_db(sql_execute)
 
         # 初始化执行列表
@@ -519,6 +520,32 @@ def algo_data(type, sql_data, data_list, parm=None):
             sql_pro = "INSERT INTO ts_env(env_name,env_url,p_id,is_enable,created_by,updated_by,enabled_flag) VALUES('{}','{}',{},1,1,1,1)".format(env_name, env_url, parm)
             sql_execute.append(sql_pro)
         change_db(sql_execute)
+
+def del_data(type, data_list):
+
+    sql_execute = []
+
+    if type == 'mod':
+        sql_pro = "DELETE FROM ts_module WHERE p_id NOT IN {}".format(data_list)
+
+    elif type == 'env':
+        sql_pro = "DELETE FROM ts_env WHERE p_id NOT IN {}".format(data_list)
+
+    elif type == 'test_type':
+        sql_pro = "DELETE FROM ts_testtype WHERE m_id NOT IN {}".format(data_list)
+
+    elif type == 'sce':
+        sql_pro = "DELETE FROM scene WHERE m_id NOT IN {}".format(data_list)
+
+    elif type == 'case':
+        sql_pro = "DELETE FROM ts_case WHERE s_id NOT IN {}".format(data_list)
+
+    elif type == 'mark':
+        sql_pro = "DELETE FROM ts_casemark_detail WHERE case_id NOT IN {}".format(data_list)
+
+    sql_execute.append(sql_pro)
+    # print(sql_pro)
+    change_db(sql_execute)
 
 def update_data(type, sql_data, data_list, parm=None):
     sql_execute = []
@@ -704,6 +731,7 @@ def sync_Data(data_list, env_list=None):
 
         # 模块查询sql
         module_sql = "SELECT id,module_code,module_name from ts_module where p_id = {}".format(pro_id)
+
         # 查找出py文件和数据库项目数据的差异并进行輸入操作
         algo_data('mod', query_db(module_sql), pro_data_list, pro_id)
 
@@ -773,9 +801,64 @@ def sync_Data(data_list, env_list=None):
                     # 查找出py文件和数据库项目数据mark的差异并进行操作
                     update_data('mark', query_db(case_sql), case_data_list, case_id)
 
+def clear_data():
+    # 项目查询sql
+    project_sql = "SELECT id,project_name from ts_project"
+
+    # 模块查询sql
+    module_sql = "SELECT id,module_code from ts_module"
+
+    # 场景查询sql
+    scene_sql = "SELECT scene_id,scene_code from scene"
+
+    # 用例查询sql
+    case_sql = "SELECT id,case_code from ts_case"
+
+    # 查找最新数据ts_project表的数据并格式化
+    pro_list = fomart_data('pro', 'id', query_db(project_sql))
+
+    # 获取最新project_id list
+    pro_id_list = tuple(pro_list.keys())
+
+    # 清除模块多余数据
+    del_data('mod', pro_id_list)
+
+    # 清除环境多余数据
+    del_data('env', pro_id_list)
+
+    # 查找最新数据ts_module表的数据并格式化
+    mod_list = fomart_data('mod', 'id', query_db(module_sql))
+
+    # 获取最新mod_id list
+    mod_id_list = tuple(mod_list.keys())
+
+    # 清除场景多余数据
+    del_data('sce', mod_id_list)
+
+    # 清除测试类型多余数据
+    del_data('test_type', mod_id_list)
+
+    # 查找最新数据ts_module表的数据并格式化
+    sce_list = fomart_data('sce', 'id', query_db(scene_sql))
+
+    # 获取最新sce_id list
+    sce_id_list = tuple(sce_list.keys())
+
+    # 清除用例多余数据
+    del_data('case', sce_id_list)
+
+    # 查找最新数据ts_module表的数据并格式化
+    case_list = fomart_data('case', 'id', query_db(case_sql))
+
+    # 获取最新case_id list
+    case_id_list = tuple(case_list.keys())
+
+    # 清除标记多余数据
+    del_data('mark', case_id_list)
+
 if __name__ == '__main__':
     # print(get_env())
     # print(get_Data())
     # sync_AllData(get_Data(),get_env())
     sync_Data(get_Data(), get_env())
-
+    clear_data()

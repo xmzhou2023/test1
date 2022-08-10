@@ -49,6 +49,19 @@ test_007NO1的节点名称: 重复检查审核
 流程配置_角色管理_物料类型获取: SELECT DISTINCT obj_type_name FROM flow_mat_member WHERE obj_type_name='2.4G wifi saw' and is_delete=0;
 流程配置_角色管理_删除1阶HDI主板: DELETE FROM flow_mat_member WHERE flow_type='MOBILE' AND obj_type_name='印刷电路板 / HDI_155 / 1阶HDI主板';
 流程配置_角色管理_查询1阶HDI主板: SELECT DISTINCT(obj_type_name) FROM flow_mat_member WHERE  flow_type='MOBILE' AND  obj_type_name='印刷电路板 / HDI_155 / 1阶HDI主板';
+#删除手机物料
+角色管理_删除手机物料发起节点: DELETE FROM flow_mat_node WHERE flow_type="MOBILE"and node_bid='mf-start';
+角色管理_插入手机物料发起节点: INSERT INTO flow_mat_node VALUES(621, 1006629019178897408,'MOBILE','mf-start',0.00,0,'start',0,'enable',0,'IPM',100,18645960,'2022-08-02 10:33:35',18645960,'2022-08-02 10:33:35');
+
+
+角色管理_删除手机物料直属领导审核: DELETE FROM flow_mat_node WHERE flow_type="MOBILE"and node_bid='mf-leader-review';
+角色管理_插入手机物料直属领导审核: INSERT INTO flow_mat_node VALUES(622, 1006610387922898944,'MOBILE','mf-leader-review',2.00,10,'leader',0,'enable',0,'IPM',100,18645960,'2022-08-02 10:33:35',18645960,'2022-08-02 10:33:35');
+
+角色管理_删除手机物料重复检查审核: DELETE FROM flow_mat_node WHERE flow_type="MOBILE"and node_bid='mf-repeat_check_review';
+角色管理_插入手机物料重复检查审核: INSERT INTO flow_mat_node VALUES(623, 1006611387922898944,'MOBILE','mf-repeat_check_review',1.00,10,'leader',0,'enable',0,'IPM',100,18645960,'2022-08-02 10:33:35',18645960,'2022-08-02 10:33:35');
+
+
+
 新增角色管理_保存成功预期:
   - 印刷电路板 / HDI_155 / 1阶HDI主板
 角色管理-角色管理重复创建物料类型: 当前流程配置已存在该物料类型的配置

@@ -1,9 +1,6 @@
-from libs.common.time_ui import sleep
+
 from project.IPM.page_object.home import ProcessHome
-from project.IPM.page_base.pathconfig import *
-from project.IPM.page_object.Center_Component import *
-
-
+from project.IPM.page_base.pubic_element import *
 
 
 class FlowLayout():
