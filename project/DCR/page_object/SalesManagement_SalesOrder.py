@@ -13,7 +13,7 @@ class SalesOrderPage(Base):
     def click_add_sales(self):
         Base.presence_sleep_dcr(self, user['Add'])
         self.is_click(user['Add'])
-        sleep(3)
+        sleep(1)
 
     @allure.step("Add新增销售单页面，输入Buyer属性")
     def input_sales_buyer(self, content):
@@ -45,7 +45,6 @@ class SalesOrderPage(Base):
     @allure.step("新建销售单页面，点击提交Submit按钮")
     def click_submit(self):
         self.is_click_dcr(user['Submit Sales'])
-        sleep(2)
 
     @allure.step("新建销售单页面，点击确认OK按钮")
     def click_submit_OK(self):
@@ -63,14 +62,14 @@ class SalesOrderPage(Base):
     def click_search(self):
         """销售单页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(3)
+        #sleep(1)
 
     @allure.step("获取列表Sales Order ID文本内容")
     def get_text_sales_id(self):
         """销售单页面，获取销售单ID文本"""
         Base.presence_sleep_dcr(self, user['获取Sales Order ID文本'])
-        sales_orde_id = self.element_text(user['获取Sales Order ID文本'])
-        return sales_orde_id
+        sales_order_id = self.element_text(user['获取Sales Order ID文本'])
+        return sales_order_id
 
     @allure.step("销售单页面，获取销售单状态 Pending文本")
     def get_text_sales_status(self, status):
@@ -88,10 +87,11 @@ class SalesOrderPage(Base):
     @allure.step("点击Delivery button出库按钮")
     def click_Delivery_button(self):
         self.is_click(user['Delivery button'])
-        sleep(2)
+        #sleep(1)
 
     @allure.step("输入Payment Mode支付方式属性")
     def input_Payment_Mode(self, content):
+        Base.presence_sleep_dcr(self, user['Payment Mode'])
         self.is_click(user['Payment Mode'])
         self.input_text(user['Payment Mode'], txt=content)
         sleep(2)
@@ -220,13 +220,14 @@ class SalesOrderPage(Base):
     @allure.step("点击无码单选按钮")
     def click_quantity_radio_button(self):
         self.is_click(user['Quantity Radio Button'])
-        sleep(2)
+        #sleep(2)
 
     @allure.step("输入出库数量")
     def input_delivery_quantity(self, quantity):
+        Base.presence_sleep_dcr(self, user['Input Delivery Quantity'])
         self.is_click(user['Input Delivery Quantity'])
         self.input_text(user['Input Delivery Quantity'], txt=quantity)
-        sleep(1.5)
+        sleep(1)
 
     @allure.step("新建无码出库单时，获取Order Detail下的Product属性")
     def get_order_detail_product(self):

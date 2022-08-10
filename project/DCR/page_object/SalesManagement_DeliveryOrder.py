@@ -24,7 +24,7 @@ class DeliveryOrderPage(Base):
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(5.5)
+        sleep(3)
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
@@ -35,7 +35,6 @@ class DeliveryOrderPage(Base):
     def click_add(self):
         Base.presence_sleep_dcr(self, user['新增出库单'])
         self.is_click(user['新增出库单'])
-        sleep(2)
 
     @allure.step("Add新增出库单页面，输入国包账号的Buyer属性")
     def input_sub_buyer(self, content):
@@ -43,7 +42,7 @@ class DeliveryOrderPage(Base):
         self.is_click(user['Buyer'])
         sleep(1)
         self.input_text(user['Buyer'], txt=content)
-        sleep(2.5)
+        Base.presence_sleep_dcr(self, user['Buyer sub value'], content)
         self.is_click(user['Buyer sub value'], content)
 
     @allure.step("Add新增出库单页面，输入二代账号的Buyer属性")
@@ -69,7 +68,7 @@ class DeliveryOrderPage(Base):
     @allure.step("Add新增出库单页面，Check按钮")
     def click_check(self):
         self.is_click_dcr(user['Check'])
-        sleep(1)
+
 
     @allure.step("Add新增出库单页面，点击check后，右侧Delivery Quan属性下显示出库数量")
     def get_delivery_quantity(self):
@@ -90,13 +89,14 @@ class DeliveryOrderPage(Base):
 
     @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧出现显示IMEI")
     def get_Deli_Scan_Record_IMEI(self, imei):
+        Base.presence_sleep_dcr(self, user['Get Delivery Scan Record IMEI'], imei)
         scan_record_imei = self.element_text(user['Get Delivery Scan Record IMEI'], imei)
         return scan_record_imei
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):
         self.is_click(user['Submit'])
-        #sleep(1)
+
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def get_text_submit(self):
@@ -122,6 +122,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("获取出库单列表的 出库单ID文本")
     def text_delivery_order(self):
+        Base.presence_sleep_dcr(self, user['Get Delivery Order ID Text'])
         delivery_order = self.element_text(user['Get Delivery Order ID Text'])
         return delivery_order
 

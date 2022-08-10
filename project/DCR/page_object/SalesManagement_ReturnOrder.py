@@ -12,8 +12,8 @@ class ReturnOrderPage(Base):
     """ReturnOrderPage 类"""
     @allure.step("退货单页面，点击Add")
     def click_Add(self):
+        Base.presence_sleep_dcr(self, user['Add'])
         self.is_click(user['Add'])
-        sleep(3)
 
     @allure.step("退货单页面，点击退货到卖家")
     def click_Return_Type(self):
@@ -22,6 +22,7 @@ class ReturnOrderPage(Base):
 
     @allure.step("退货单页面，点击单选按钮BoxID IMEI输入IMEI退货")
     def radio_Boxid_IMEI(self):
+        Base.presence_sleep_dcr(self, user['Radio BoxID IMEI'])
         self.is_click(user['Radio BoxID IMEI'])
 
     @allure.step("退货单页面，点击单选按钮Delivery order出库单退货")
@@ -39,14 +40,13 @@ class ReturnOrderPage(Base):
         self.is_click(user['Input Delivery Order'])
         self.input_text(user['Input Delivery Order'], txt=content)
 
-
     @allure.step("退货单页面，点击Check")
     def click_Check(self):
         self.is_click_dcr(user['Click Check'])
-        sleep(3.5)
 
     @allure.step("退货单页面，点击check获取结果 Succeed文本")
     def get_text_Record(self):
+        Base.presence_sleep_dcr(self, user['Get Scan Record'], "Success")
         record = self.element_text(user['Get Scan Record'], "Success")
         return record
 
@@ -75,6 +75,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单页面，点击Submit")
     def click_Submit(self):
         self.is_click(user['Submit'])
+        sleep(0.7)
 
     @allure.step("获取提交退货成功提示语")
     def get_submit_success_text(self):
@@ -90,7 +91,6 @@ class ReturnOrderPage(Base):
     @allure.step("退货单列表页面，点击Search")
     def click_Search(self):
         self.is_click(user['Search'])
-        sleep(3)
 
     @allure.step("退货单列表页面， 获取第筛选后的第一个出库单ID")
     def get_text_deliveryID(self):
@@ -147,27 +147,26 @@ class ReturnOrderPage(Base):
     @allure.step("新建退货页面，点击无码单选按钮")
     def click_radio_quantity(self):
         self.is_click(user['Radio Quantity'], "Quantity")
-        sleep(2)
 
     @allure.step("新建退货页面，输入退货的客户")
     def input_quantity_customer(self, content):
         Base.presence_sleep_dcr(self, user['Quantity Customer'])
         self.is_click(user['Quantity Customer'])
         self.input_text(user['Quantity Customer'], txt=content)
-        sleep(2)
+        Base.presence_sleep_dcr(self, user['Quantity Customer value'], content)
         self.is_click(user['Quantity Customer value'], content)
 
     @allure.step("新建退货页面，输入退货的出库单ID")
     def input_quantity_delivery_order(self, content):
         self.is_click(user['Quantity Delivery Order ID'])
         self.input_text(user['Quantity Delivery Order ID'], txt=content)
-        sleep(2)
+        Base.presence_sleep_dcr(self, user['Quantity Delivery Order ID value'], content)
         self.is_click(user['Quantity Delivery Order ID value'], content)
 
     @allure.step("新建退货页面，输入退货的product")
     def click_quantity_product(self, content):
         self.is_click(user['Quantity Product'])
-        sleep(2)
+        Base.presence_sleep_dcr(self, user['Quantity Product value'], content)
         self.is_click(user['Quantity Product value'], content)
 
     @allure.step("新建退货页面，输入退货的数量")
@@ -178,6 +177,7 @@ class ReturnOrderPage(Base):
 
     @allure.step("新建退货页面，切换无码退货单选按钮，点击Chek后，获取Delivery Order ID")
     def get_quantity_deli_order_text(self, content):
+        Base.presence_sleep_dcr(self, user['Get Quantity Delivery Order Text'], content)
         get_quantity_deli = self.element_text(user['Get Quantity Delivery Order Text'], content)
         return get_quantity_deli
 

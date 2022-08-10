@@ -15,7 +15,6 @@ Get Order Detail Buyer ID: "xpath==//tr[@class='el-table__row']//td[5]//div[@cla
 Get Order Detail Return Quantity: "xpath==//tr[@class='el-table__row']//td[10]//div[@class='cell el-tooltip']"
 
 
-
 #Quantity无码申请退货页面定位
 Radio Quantity: "xpath==//span[normalize-space(text())='variable']"
 Quantity Customer: "xpath==//input[@placeholder='Please enter ID or buyer name']"
