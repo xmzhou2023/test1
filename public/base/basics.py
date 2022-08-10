@@ -399,16 +399,18 @@ class Base(object):
         return Base.element_locator(lambda *args: self.wait.until(
             EC.visibility_of_any_elements_located(args)), locator)
 
-    def presence_sleep_dcr(self, content):
-        """通用的显示等待方法(DCR专用)"""
+
+    def presence_sleep_dcr(self, locator, choice=None):
+        """通用的加载数据等待方法(DCR专用)"""
         txt = None
-        while not txt:
-            txt = self.find_element(content)
-            sleep(1)
-
-
-
-
+        for i in range(15):
+            if txt is None:
+                txt = self.find_element(locator, choice)
+                sleep(1)
+                i += 1
+                logging.info("循环查找元素次数:{}".format(i))
+            else:
+                break
 
     def get_datetime_today(self):
         """获取当天日期(DCR专用)"""
