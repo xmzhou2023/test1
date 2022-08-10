@@ -1,5 +1,5 @@
-from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
-from project.DCR.page_object.Center_Component import LoginPage
+from project.DCR_GLOBAL.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
+from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
 import pytest
@@ -13,7 +13,7 @@ class TestQueryInboundReceipt:
     @allure.description("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
-        user = LoginPage(drivers)
+        user = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "BD291501", "dcr123456")
 
         """销售管理菜单-出库单-筛选出库单用例"""
@@ -83,7 +83,8 @@ class TestQueryIMEIDetail:
         ValueAssert.value_assert_IsNoneNot(detail_material)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
         ValueAssert.value_assert_equal("Export", detail_export)
-        sleep(1)
+        query.click_close_inbound_imei_detail()
+        query.click_close_inbound_receipt()
 
 
 if __name__ == '__main__':
