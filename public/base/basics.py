@@ -1,6 +1,5 @@
 import datetime
 import time
-
 import openpyxl
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -18,7 +17,7 @@ import ddddocr
 import warnings
 from PIL import Image
 
-"""
+"""git
 selenium基类
 本文件存放了selenium基类的封装方法
 """
@@ -406,6 +405,10 @@ class Base(object):
         while not txt:
             txt = self.find_element(content)
             sleep(1)
+
+
+
+
 
     def get_datetime_today(self):
         """获取当天日期(DCR专用)"""

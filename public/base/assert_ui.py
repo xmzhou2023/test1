@@ -9,11 +9,9 @@ from libs.common.time_ui import sleep
 from libs.common.connect_sql import *
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-
 from public.base.basics import Base
 
 """     值校验的各种方法     """
-
 
 class ValueAssert(object):
 

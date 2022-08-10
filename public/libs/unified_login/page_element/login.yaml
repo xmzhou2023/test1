@@ -8,7 +8,7 @@ zx扫码快捷登录: "id==tab-code"
 语言切换: "xpath==//*[contains(@id,'dropdown-menu-')]//li[variable]"
 
 
-###======DCR定位登录元素============================================
+####======DCR定位登录元素============================================
 工号输入框dcr: "name==username"
 密码输入框dcr: "name==password"
 语言切换dcr: "id==select_lang"

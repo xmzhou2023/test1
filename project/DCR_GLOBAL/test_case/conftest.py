@@ -13,7 +13,7 @@ def test_login(drivers):
     """登录用户"""
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
-    user.dcr_login(drivers,ini.url, account[3]['usernum'], account[3]['passwd'])
+    user.dcr_login(drivers, ini.url, account[3]['usernum'], account[3]['passwd'])
     logging.info("前置条件：传音统一登录成功")
 
 

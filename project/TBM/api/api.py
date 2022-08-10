@@ -108,7 +108,7 @@ class APIRequest:
         add_data = {"flowId": 'null', "flowNodeName": "start",
                     "bomArchive": {"flowNo": "", "flowProposer": "18645960", "flowProposerName": "李小素",
                                    "flowStartdate": querytime, "bomVer": "", "bomVersion": "trial", "brandCode": "itel",
-                                   "market": "ET", "produceClass": "prod", "templateId": 1017732,
+                                   "market": "ET", "produceClass": "prod_global", "templateId": 1017732,
                                    "templateName": "itel智能机整机模板", "isLocalPurchase": "", "bomClass": "",
                                    "model": "X572-1",
                                    "note": "", "title": f"[李小素]-[{querytime[:10]}]", "researchType": "selfResearch",
