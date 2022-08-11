@@ -13,14 +13,14 @@ class SalesOrderPage(Base):
     def click_add_sales(self):
         Base.presence_sleep_dcr(self, user['Add'])
         self.is_click(user['Add'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("Add新增销售单页面，输入Buyer属性")
     def input_sales_buyer(self, content):
         Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content)
-        sleep(1)
+        sleep(1.5)
         self.is_click(user['Buyer value'], content)
 
     @allure.step("新建销售单页面，输入Brand属性")
@@ -45,6 +45,7 @@ class SalesOrderPage(Base):
     @allure.step("新建销售单页面，点击提交Submit按钮")
     def click_submit(self):
         self.is_click_dcr(user['Submit Sales'])
+        sleep(1)
 
     @allure.step("新建销售单页面，点击确认OK按钮")
     def click_submit_OK(self):
@@ -62,7 +63,7 @@ class SalesOrderPage(Base):
     def click_search(self):
         """销售单页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        #sleep(1)
+        sleep(1)
 
     @allure.step("获取列表Sales Order ID文本内容")
     def get_text_sales_id(self):
@@ -87,7 +88,7 @@ class SalesOrderPage(Base):
     @allure.step("点击Delivery button出库按钮")
     def click_Delivery_button(self):
         self.is_click(user['Delivery button'])
-        #sleep(1)
+        sleep(1)
 
     @allure.step("输入Payment Mode支付方式属性")
     def input_Payment_Mode(self, content):
@@ -106,7 +107,13 @@ class SalesOrderPage(Base):
     @allure.step("点击check 检查按钮")
     def click_check(self):
         self.is_click_dcr(user['Check'])
-        sleep(1)
+        sleep(2)
+
+    @allure.step("退货单页面，点击check获取结果 Succeed文本")
+    def get_text_Record(self):
+        Base.presence_sleep_dcr(self, user['Get Scan Record'], "Success")
+        record = self.element_text(user['Get Scan Record'], "Success")
+        return record
 
     @allure.step("点击Submit Delivery提交出库单按钮")
     def click_submit_delivery(self):

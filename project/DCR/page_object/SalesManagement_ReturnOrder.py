@@ -69,6 +69,7 @@ class ReturnOrderPage(Base):
 
     @allure.step("退货单页面，点击check后，获取Order Detail列表的Buyer Name文本")
     def get_Order_Detail_Return_Quantity(self):
+        Base.scroll_into_view(self, user['Get Order Detail Return Quantity'])
         return_quantity = self.element_text(user['Get Order Detail Return Quantity'])
         return return_quantity
 
@@ -156,7 +157,7 @@ class ReturnOrderPage(Base):
         self.is_click(user['Quantity Customer'])
         self.input_text(user['Quantity Customer'], txt=content)
         sleep(2)
-        self.is_click(user['Quantity Customer value'], "BD2915 lhmSubdealer001")
+        self.is_click(user['Quantity Customer value'], content)
 
     @allure.step("新建退货页面，输入退货的出库单ID")
     def input_quantity_delivery_order(self, content):

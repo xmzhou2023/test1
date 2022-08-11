@@ -153,14 +153,13 @@ class TestAddDeliveryOrder:
         get_deli_quantity = add.get_delivery_quantity_text()
         ValueAssert.value_assert_equal(get_deli_quantity, "1")
         add.click_delivery_quantity_text()
-
         """点击Submit提交按钮"""
         add.click_submit()
 
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Submit successfully")
-        sleep(4)
+        sleep(3.5)
 
         """断言查询新建的无码出库单"""
         user = SQL('DCR', 'test')
@@ -177,13 +176,13 @@ class TestAddDeliveryOrder:
         add.click_search()
 
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        get_salesorder = add.text_sales_order()
-        get_deliveryorder = add.text_delivery_order()
+        get_sales_order = add.text_sales_order()
+        get_delivery_order = add.text_delivery_order()
         get_status = add.text_delivery_Status()
 
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
-        ValueAssert.value_assert_equal(get_salesorder, order_code)
-        ValueAssert.value_assert_equal(get_deliveryorder, delivery_code)
+        ValueAssert.value_assert_equal(get_sales_order, order_code)
+        ValueAssert.value_assert_equal(get_delivery_order, delivery_code)
         ValueAssert.value_assert_equal("Goods Receipt", get_status)
         add.click_close_delivery_order()
 

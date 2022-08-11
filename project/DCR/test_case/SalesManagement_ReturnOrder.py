@@ -88,9 +88,10 @@ class TestReturnOrder:
         delivery_code = result2[0].get("delivery_code")
         logging.info("打印查询数据库的出库单 delivery_code{}".format(delivery_code))
 
+        """点击Add退货按钮"""
         returnorder.click_Add()
         returnorder.click_Return_Type()
-
+        """切换无码退货单选按钮"""
         returnorder.click_radio_quantity()
         returnorder.input_quantity_customer("NG20613")
         returnorder.input_quantity_delivery_order(delivery_code)

@@ -37,6 +37,7 @@ Payment Mode: "xpath==//label[contains(text(),'Payment Mode')]//parent::div//fol
 Payment Mode value: "xpath==//span[contains(text(),'variable')]"
 Input IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
+Get Scan Record: "xpath==//div[contains(text(),'variable')]"
 Submit Delivery: "xpath==//span[contains(text(),'Submit')]"
 关闭Sales Order: "xpath==//span[normalize-space(text())='Sales Order']//span[@class='el-icon-close']"
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
