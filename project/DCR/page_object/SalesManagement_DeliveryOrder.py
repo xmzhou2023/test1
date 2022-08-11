@@ -80,7 +80,6 @@ class DeliveryOrderPage(Base):
         get_order_deli_quantity = self.element_text(user['Get Order Detail Deli Quantity'])
         return get_order_deli_quantity
 
-
     @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧显示Success")
     def get_Deli_Scan_Record_Success(self):
         Base.presence_sleep_dcr(self, user['Get Delivery Scan Record Success'])
@@ -131,6 +130,10 @@ class DeliveryOrderPage(Base):
         delivery_status = self.element_text(user['Get Status Text'])
         return delivery_status
 
+    def delivery_convert_status(self, content):
+        if content == 80200000:
+            status = "On Transit"
+            return status
 
     """Delivery Order页面查询与导出功能元素定位"""
     @allure.step("点击Unfold展开筛选条件")

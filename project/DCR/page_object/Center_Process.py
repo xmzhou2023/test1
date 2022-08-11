@@ -93,7 +93,7 @@ class SalesOrderPage(Base):
     @allure.step("点击Delivery button出库按钮")
     def click_Delivery_button(self):
         self.is_click(user['Delivery button'])
-        sleep(3)
+        sleep(2)
 
     @allure.step("Delivery Order页面，进入iframe")
     def Sales_Delivery_iframe(self):
@@ -103,11 +103,11 @@ class SalesOrderPage(Base):
 
     @allure.step("新建出库单页面，输入Payment Mode支持方式属性")
     def input_Payment_Mode(self, content):
-        sleep(2)
+        Base.presence_sleep_dcr(self, user['Payment Mode'])
         self.is_click(user['Payment Mode'])
         self.input_text(user['Payment Mode'], txt=content)
-        sleep(2)
-        self.is_click(user['Payment Mode value'])
+        Base.presence_sleep_dcr(self, user['Payment Mode value'], content)
+        self.is_click(user['Payment Mode value'], content)
         sleep(1)
 
     @allure.step("新建出库单页面，输入IMEI属性")
@@ -121,10 +121,35 @@ class SalesOrderPage(Base):
         self.is_click_dcr(user['Check'])
         sleep(1)
 
+    @allure.step("Add新增出库单页面，点击check后，右侧Delivery Quan属性下显示出库数量")
+    def get_delivery_quantity(self):
+        get_deli_quantity = self.element_text(user['Get Delivery Quantity'])
+        return get_deli_quantity
+
+    @allure.step("Add新增出库单页面，点击check后，Order Detail列表Delivery Quan属性下显示出库数量")
+    def get_order_detail_deli_quantity(self):
+        get_order_deli_quantity = self.element_text(user['Get Order Detail Deli Quantity'])
+        return get_order_deli_quantity
+
+    @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧显示Success")
+    def get_Deli_Scan_Record_Success(self):
+        Base.presence_sleep_dcr(self, user['Get Delivery Scan Record Success'])
+        scan_record_success = self.element_text(user['Get Delivery Scan Record Success'])
+        return scan_record_success
+
+    @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧出现显示IMEI")
+    def get_Deli_Scan_Record_IMEI(self, imei):
+        Base.presence_sleep_dcr(self, user['Get Delivery Scan Record IMEI'], imei)
+        scan_record_imei = self.element_text(user['Get Delivery Scan Record IMEI'], imei)
+        return scan_record_imei
+
+
     @allure.step("新建出库单页面，点击Submit Delivery提交出库单按钮")
     def click_submit_delivery(self):
         self.is_click_dcr(user['Submit Delivery'])
         sleep(2)
+
+
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
@@ -187,7 +212,7 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击Search")
     def click_search(self):
         self.is_click(user['Inbound Receipt Search'])
-        sleep(8)
+        sleep(5)
 
     @allure.step("获取列表第一个销售单ID")
     def get_text_salesOrder(self):
@@ -214,7 +239,7 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击Save按钮")
     def click_save(self):
         self.is_click_dcr(user['保存'])
-        sleep(2)
+        sleep(0.7)
 
     @allure.step("快速收货页面，提交成功后获取提交成功提示语")
     def get_successfully_text(self):
