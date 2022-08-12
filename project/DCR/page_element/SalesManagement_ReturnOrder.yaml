@@ -18,7 +18,7 @@ Get Order Detail Return Quantity: "xpath==//tr[@class='el-table__row']//td[10]//
 #Quantity无码申请退货页面定位
 Radio Quantity: "xpath==//span[normalize-space(text())='variable']"
 Quantity Customer: "xpath==//input[@placeholder='Please enter ID or buyer name']"
-Quantity Customer value: "xpath==//span[contains(text(),'variable')]"
+Quantity Customer value: "xpath==//div[@class='el-scrollbar']//span[contains(text(),'variable')]"
 Quantity Delivery Order ID: "xpath==//input[@placeholder='Please select a delivery order ID']"
 Quantity Delivery Order ID value: "xpath==//span[contains(text(),'variable')]"
 Quantity Product: "xpath==//input[@placeholder='Please select a product']"
@@ -41,9 +41,13 @@ Search: "xpath==//span[contains(text(),'Search')]"
 退货复选框勾选: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[1]/div/label/span/span"
 #审核按钮
 Approve button: "id==return_orders_audit_"
-
 Remark: "id==rejectReason"
 Agree:  "xpath==//span[contains(text(),'Agree')]"
 #获取审核通过状态文本
 Approval Successfully: "xpath==//p[text()='Approval successfully']"
 关闭退货菜单: "xpath==//span[normalize-space(text())='Return Order']//span[@class='el-icon-close']"
+
+#撤销退货单
+More Option: "xpath==//span[normalize-space(text())='More Option']"
+Recall: "xpath==//li[normalize-space(text())='Recall']"
+Confirm Recall: "xpath==//span[normalize-space(text())='Confirm']"
