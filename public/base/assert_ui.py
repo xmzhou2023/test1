@@ -296,6 +296,20 @@ class SQLAssert(object):
             logging.error(e)
             raise
 
+    @allure.step("值为True值断言")
+    def assert_sql_count(self, count, sql):
+        """数据库查询结果条数"""
+        database = SQL(self.name, self.env)
+        sql_list = database.query_db(sql)
+        # result = sql_list[0]["count(*)"]
+        result = list(sql_list[0].values())[0]
+        try:
+            assert int(result) == count, logging.warning("断言失败: 数据库查询结果为{}行，页面查询结果为{}行".format(result, count))
+            logging.info("断言成功: 数据库查询结果条数与页面查询结果一致")
+        except Exception as e:
+            logging.error(e)
+            raise
+
 
 if __name__ == "__main__":
     # print(value_assert_equal(1,2))
