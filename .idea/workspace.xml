@@ -2,255 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e20fe4ab-6d0e-4514-96c1-72c630d0798f" name="Changes" comment="push">
-      <change afterPath="$PROJECT_DIR$/libs/image/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_08_10.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_08_11.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_08_15.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_08_16.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_09_09.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_09_17.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_10_13.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_10_14.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_10_15.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_12_09.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_12_10.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_12_13.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_12_15.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/log/2022_08_12_16.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/CRM/env/test/categories.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/CRM/env/test/config.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/CRM/env/test/environment.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/CRM/page_element/RC_BasicDataMgt_SymptomGroupMgt.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/CRM/page_object/RC_BasicDataMgt_SymptomGroupMgt.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/CRM/test_case/RC_BasicDataMgt_SymptomGroupMgt.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/CRM/test_case/conftest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_ReturnOrder.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/DRP/test_case/failures" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/AsystemManagement_FlowConfig.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/包材-销售包装组件_382-封套.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/印刷电路板-HDI_155-功能机_1阶HDI主板.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/安规器件-锂离子电池_250-铝壳锂离子电池.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/屏幕-显示屏模组_170-功能机_显示屏.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/手机-整机_100-整机.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/指纹模组-指纹模组_176-电容式指纹模组.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/摄像头-摄像头模组_172-功能机_CSP模组.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/机电器件-振动马达_193-圆柱形振动马达.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/电声器件-喇叭_194-功能机_BOX喇叭.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/电子元器件-APU套片_156-MTK主芯片.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/结构件-DOME片_231-DOME片.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ODM物料/连接器-贴片五金件_154-功能机_弹片.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/ProcessCenter_MaterialRequisition_Add.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/material_A.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/二级物料/印刷电路板-屏幕FPC_963-屏幕FPC.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/二级物料/安规器件-电芯_931-电芯.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/二级物料/屏幕-液晶面板_964-功能机_a-Si.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/二级物料/摄像头-镜头_981-5P以上玻塑镜头.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/二级物料/机电器件-VCM_982-OIS马达.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/二级物料/电子元器件-驱动芯片_965-功能机_TPIC.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/二级物料/结构件-屏幕盖板_961-2D盖板.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料-二级BOM/安规器件-充电器_251-带线充电器.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料-二级BOM/安规器件-锂离子电池_250-铝壳锂离子电池.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料-二级BOM/屏幕-全贴合组件_174-Incell.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料-二级BOM/屏幕-显示屏模组_170-功能机_显示屏.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料-二级BOM/屏幕-触摸屏模组_171-电容屏.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料-二级BOM/指纹模组-指纹模组_176-电容式指纹模组.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料-二级BOM/摄像头-摄像头模组_172-功能机_CSP模组.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/包材-塑胶袋_383-功能机_PE袋.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/包材-标贴_238-广告标签.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/包材-纸卡册_386-说明书.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/包材-运输包装组件_384-卡通箱.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/包材-销售包装组件_382-封套.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/包材-销售护膜_385-广告膜.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/安规器件-数据线_253-普通数据线.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-CKD_110-CKD.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-PCBA_121-其他类贴片主板.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-SKD_107-SKD.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-单机头_120-单机头.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-外包料_128-预加工外包料.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-套料PCBA_129-套料存储副板（FLASH）.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-机头包_102-机头包.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-机模_104-机模.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-海运配件包_101-海运配件包.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-独立发运包_132-电池包.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-虚拟件_123-虚拟共用件.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机-预加工_122-主板预加工.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/手机_整机_100_整机.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/机电器件-VCM_982-OIS马达.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/机电器件-振动马达_193-圆柱形振动马达.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电声器件-MIC_192-驻极体麦克.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电声器件-听筒_195-圆形受话器.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电声器件-喇叭_194-功能机_BOX喇叭.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电声器件-耳机_252-有线耳机.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-APU套片_156-MTK主芯片.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-EMI_Filter_332-EMI_Filter.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-LED类_333-功能机_手电灯.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-LNA_334-功能机_FMLNA.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-LTCC_335-功能机_蓝牙天线.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-RFPA_336-功能机_2GPA.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-sensor类_145-SAR_SENSOR.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-分立器件_341-TVS.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-功能芯片_342-数字电位器芯片.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-存储芯片_142-功能机_EMCP.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-射频收发模组_353-LFEM.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-开关类_343-功能机_其他开关.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-晶体_149-功能机_普通晶体.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-滤波器类_334-2.4Gwifisaw.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-耦合器_345-耦合器.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-被动器件_151-功能机_热敏电阻.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-音频类_147-AB_D类.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/电子元器件-驱动类_346-闪光灯驱动.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-DOME片_231-DOME片.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-PC镜片_370-功能机_LCD镜片.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-PET件_371-PET装饰件.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-升降模组_378-升降模组.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-卡托_376-功能机_钢片注塑卡托.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-复合板材_373-功能机_复合板材镜片.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-天线_190-功能机_FPC天线.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-散热_388-散热膜.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-模切件_233-功能机_辅料.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-注塑件_381-功能机_IML电池盖组件.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-玻璃件_372-功能机_玻璃护膜.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-玻纤板材_387-玻纤板电池盖组件.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-硅胶套_374-功能机_硅胶套.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/手机物料/结构件-金属件_375-功能机_冲压电池盖.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/包材-塑胶袋_383-功能机_PE袋.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/包材-标贴_238-广告标签.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/包材-纸卡册_386-说明书.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/包材-运输包装组件_384-卡通箱.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/包材-销售包装组件_382-封套.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/包材-销售护膜_385-广告膜.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/安规器件-充电器_251-无线充电器.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/安规器件-数据线_253-普通数据线.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/安规器件-电芯_931-电芯.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/安规器件-锂离子电池_250-铝壳锂离子电池.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/data/配件物料/电声器件-耳机_252-有线耳机.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/env/test/config.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/login/login.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_base/assert_pubic.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_base/db_mysql.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_base/import_ipm.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_base/pathconfig.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_base/pubic_element.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_base/yamlbase.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_element/AsystemManagement_FlowConfig.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_element/ProcessCenter_MaterialRequisition_Add.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_element/home.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_element/login.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_element/public_method.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_object/AsystemManagement_FlowConfig.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_object/ProcessCenter_MaterialRequisition_Add.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_object/home.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/page_object/loginpage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/test_case/AsystemManagement_FlowConfig.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/IPM/test_case/conftest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/data/headimg.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/data/login.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/data/mes_account.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/env/test/categories.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/env/test/config.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/env/test/environment.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_element/BasicInfo_BoardParametersSetting.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_element/BasicInfo_BoardUserSetting.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_element/BasicInfo_DailyProductionPlan.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_element/BasicInfo_ProductionLineInfoSetting.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_element/Center_Component.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_object/BasicInfo_BoardParametersSetting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_object/BasicInfo_BoardUserSetting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_object/BasicInfo_DailyProductionPlan.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_object/BasicInfo_ProductionLineInfoSetting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/page_object/Center_Component.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/test_case/BasicInfo_BoardParametersSetting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/test_case/BasicInfo_BoardUserSetting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/test_case/BasicInfo_DailyProductionPlan.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/test_case/BasicInfo_ProductionLineInfoSetting.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/MES_DAP/test_case/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/debug.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/common/connect_sql.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/common/connect_sql.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/config/conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/config/conf.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/download/drp_dept_export_itel+BU_20220711160002.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/download/sogou_wubi_32b.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/image/result.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/tools/create_dir.py" beforeDir="false" afterPath="$PROJECT_DIR$/libs/tools/create_dir.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/tools/template/modle_name.csv" beforeDir="false" afterPath="$PROJECT_DIR$/libs/tools/template/modle_name.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/2022_07_08_09.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/2022_07_20_16.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/2022_08_08_18.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/2022_08_08_18.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/2022_08_09_18.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/2022_08_09_18.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/2022_08_12_11.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/2022_08_12_11.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/2022_08_12_14.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/2022_08_12_14.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/Center_Process.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/Center_Process.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/PurchaseManagement_InboundReceipt.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/PurchaseManagement_InboundReceipt.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_DeliveryOrder.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_DeliveryOrder.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_ReturnOrder.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_ReturnOrder.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_SalesOrder.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_element/SalesManagement_SalesOrder.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/AttendanceVisiting_VisitRecord.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/AttendanceVisiting_VisitRecord.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/Center_Component.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/Center_Component.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/Center_Process.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/Center_Process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/PurchaseManagement_InboundReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/PurchaseManagement_InboundReceipt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/ReportAnalysis_ShopInventoryIMEIQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/ReportAnalysis_ShopInventoryIMEIQuery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_DeliveryOrder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_ReturnOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_ReturnOrder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_SalesOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_SalesOrder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_ShopSalesQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/SalesManagement_ShopSalesQuery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_UserManagement.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/page_object/StaffAuthorization_UserManagement.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/Center_Process.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/Center_Process.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/ReportAnalysis_CustomerSaleReport.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/ReportAnalysis_CustomerSaleReport.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_DeliveryOrder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_GBDeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_GBDeliveryOrder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_SalesOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/SalesManagement_SalesOrder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserManagement.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/StaffAuthorization_UserManagement.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR/test_case/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR/test_case/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/page_element/PurchaseManagement_InboundReceipt.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/page_element/PurchaseManagement_InboundReceipt.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/PurchaseManagement_InboundReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/page_object/PurchaseManagement_InboundReceipt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/PurchaseManagement_InboundReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/PurchaseManagement_InboundReceipt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/SalesManagement_DeliveryOrder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/SalesManagement_ShopSalesQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/SalesManagement_ShopSalesQuery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_GLOBAL/test_case/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_element/PurchaseManagement_InboundReceipt.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_element/PurchaseManagement_InboundReceipt.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/Center_Component.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/Center_Component.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/PurchaseManagement_InboundReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/PurchaseManagement_InboundReceipt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/ReportAnalysis_CustomerPSI.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/ReportAnalysis_CustomerPSI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/page_object/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/page_object/SalesManagement_DeliveryOrder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/PurchaseManagement_InboundReceipt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/PurchaseManagement_InboundReceipt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/ReportAnalysis_CustomerPSI.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/ReportAnalysis_CustomerPSI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/ReportAnalysis_ShopInventoryIMEIQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/ReportAnalysis_ShopInventoryIMEIQuery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/SalesManagement_DeliveryOrder.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/SalesManagement_DeliveryOrder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/SalesManagement_ShopSalesQuery.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/SalesManagement_ShopSalesQuery.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DCR_INDIA/test_case/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DCR_INDIA/test_case/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DRP/page_element/DRPDataMgmt_ModelDatabase.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/DRP/page_element/DRPDataMgmt_ModelDatabase.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DRP/page_object/DRPDataMgmt_ModelDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DRP/page_object/DRPDataMgmt_ModelDatabase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DRP/test_case/DRPDataMgmt_ModelDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DRP/test_case/DRPDataMgmt_ModelDatabase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DRP/test_case/SystemMgmt_RegionMgmt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DRP/test_case/SystemMgmt_RegionMgmt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DRP/test_case/SystemMgmt_UserMgmt.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DRP/test_case/SystemMgmt_UserMgmt.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/DRP/test_case/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/DRP/test_case/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/api/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/env/test/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/env/test/config.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/page_element/BOMCooperation_BareMobilePhoneBomCooperation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_element/BOMCooperation_BareMobilePhoneBomCooperation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/page_element/BOMCooperation_MachineBomCooperation.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_element/BOMCooperation_MachineBomCooperation.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/page_element/ShippingCountry_ShippingCountrySearch.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_element/ShippingCountry_ShippingCountrySearch.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_BareMobilePhoneBomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_BareMobilePhoneBomCooperation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_MachineBomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/BOMCooperation_MachineBomCooperation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/Center_Component.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/Center_Component.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/ShippingCountry_ShippingCountryFlow.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/ShippingCountry_ShippingCountryFlow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/page_object/ShippingCountry_ShippingCountrySearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/page_object/ShippingCountry_ShippingCountrySearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_BareMobilePhoneBomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_BareMobilePhoneBomCooperation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_MachineBomCooperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/BOMCooperation_MachineBomCooperation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/ShippingCountry_ShippingCountryFlow.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/ShippingCountry_ShippingCountryFlow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/ShippingCountry_ShippingCountrySearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/ShippingCountry_ShippingCountrySearch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/TBM/test_case/conftest.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/TBM/test_case/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/base/assert_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/public/base/assert_ui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/data/datasource/account.csv" beforeDir="false" afterPath="$PROJECT_DIR$/public/data/datasource/account.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/libs/unified_login/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/public/libs/unified_login/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/libs/unified_login/page_element/login.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/public/libs/unified_login/page_element/login.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/libs/unified_login/page_object/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/public/libs/unified_login/page_object/login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/sync.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/SRM/test_case/approval.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/SRM/test_case/approval.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -259,18 +23,24 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2CvZTCSqekz2voQMuAGanBM16Xs" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/daimei.shi/Desktop/UIPOMTest&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/daimei.shi/Desktop/UIPOMTest",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -287,7 +57,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660303968237</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="push">
+      <created>1660307209232</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1660307209232</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -302,6 +79,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="push" />
     <option name="LAST_COMMIT_MESSAGE" value="push" />
   </component>
