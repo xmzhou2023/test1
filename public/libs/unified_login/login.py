@@ -8,6 +8,7 @@ from time import sleep
 
 class Login(Base):
     """登录类"""
+
     def login(self, drivers, url, username, passwd):
         """统一登录֤"""
         user = LoginPage(drivers)
@@ -18,6 +19,7 @@ class Login(Base):
         user.input_passwd(passwd) # 输入密码
         user.click_checkbox()
         user.click_loginsubmit()
+
 
 
     def dcr_login(self, drivers, url, username, passwd):

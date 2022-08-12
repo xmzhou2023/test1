@@ -2,6 +2,7 @@ import datetime
 
 import openpyxl
 from selenium.webdriver.support import expected_conditions as EC
+
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from libs.config.conf import LOCATE_MODE, DOWNLOAD_PATH, IMAGE_PATH, BASE_DIR
@@ -156,6 +157,23 @@ class Base(object):
             self.find_element(locator).click()
             logging.info("点击元素：{}".format(locator))
             sleep(0.5)
+
+    def is_click_save(self, locator, choice=None):
+        """点击元素"""
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            sleep(2)
+            self.find_element(Npath).click()
+            logging.info("选择点击：{}".format(Npath))
+        else:
+            element1 = self.find_element(locator)
+            self.driver.execute_script("arguments[0].click();", element1)
+            logging.info("点击元素：{}".format(locator))
+            sleep(0.5)
+
 
     def force_click(self, xpath, force=False):
         """点击元素(用js)"""
