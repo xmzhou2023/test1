@@ -96,7 +96,7 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_download_more(self):
         """点击下载-更多按钮"""
         self.is_click(user['Download Icon'])
-        sleep(2)
+        sleep(3)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(6)
@@ -133,14 +133,12 @@ class ShopInventoryIMEIQueryPage(Base):
     def get_create_date_text(self):
         """导出记录页面，获取列表 Create Date文本"""
         create_date = self.element_text(user['获取创建日期文本'])
-        create_date1 = create_date[0:10]
-        return create_date1
+        return create_date
 
     def get_complete_date_text(self):
         """导出记录页面，获取列表Complete Date文本"""
         complete_date = self.element_text(user['获取完成日期文本'])
-        complete_date1 = complete_date[0:10]
-        return complete_date1
+        return complete_date
 
     def get_export_operation_text(self):
         """导出记录页面，获取列表 Operation文本"""

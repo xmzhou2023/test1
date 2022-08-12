@@ -17,7 +17,7 @@ class TestAddEditQuitTranssionUser:
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        user.dcr_login(drivers, "lhmadmin", "dcr123456")
 
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Staff & Authorization", "User Management")
@@ -113,8 +113,13 @@ class TestAddEditQuitDealerUser:
         user = LoginPage(drivers)
         user.dcr_login(drivers, "lhmadmin", "dcr123456")
 
+        # """刷新页面"""
+        # base = Base(drivers)
+        # base.refresh()
+        # sleep(3.5)
         """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Staff & Authorization", "User Management")
+        menu = LoginPage(drivers)
+        menu.click_gotomenu("Staff & Authorization", "User Management")
 
         """新建国包代理员工"""
         dealer_user = UserManagementPage(drivers)
@@ -197,7 +202,7 @@ class TestAddEditQuitDealerUser:
         dealer_user.click_reset()
         user_id2 = dealer_user.get_text_user_id()
         ValueAssert.value_assert_IsNot(user_id1, user_id2)
-        dealer_user.click_close_user_mgt()
+
 
 
 if __name__ == '__main__':

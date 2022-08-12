@@ -18,7 +18,7 @@ class TestSearchUserShopAssociation:
     def test_001_001(self, drivers):
         """DCR 管理员账号登录"""
         user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        user.dcr_login(drivers, "lhmadmin", "dcr123456")
 
         """打开User And Customer Association菜单页面 """
         user.click_gotomenu("Staff & Authorization", "User and Shop Association")
@@ -39,7 +39,6 @@ class TestSearchUserShopAssociation:
         ValueAssert.value_assert_IsNoneNot(shop_name)
         """ 断言判读分页总条数，是否能查询到数据且大于1条 """
         user_shop.assert_total(total)
-        user_shop.click_close_user_shop_assoc()
 
 
 @allure.feature("员工授权-用户和门店关系")
@@ -50,12 +49,6 @@ class TestExportUserShopAssociation:
     @allure.severity("normal")  # critical\normal\minor\
     def test_002_001(self, drivers):
         """ 根据 Userid：lhmdianzhang，筛选关联的门店，并导出筛选的数据 """
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
-        """打开User And Customer Association菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User and Shop Association")
-
         export = UserShopAssociaPage(drivers)
         # 获取日期
         base = Base(drivers)
@@ -79,26 +72,26 @@ class TestExportUserShopAssociation:
         """点击导出功能"""
         export.click_export()
         export.click_download_more()
-        export.input_task_name("Staff Shop Association")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
+        create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
+        complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-        operation = export.get_export_operation_text()
 
+        operation = export.get_export_operation_text()
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Staff Shop Association")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(create_date1, today)
+        ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_user_shop_assoc()
+
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserShopAssociation.py'])

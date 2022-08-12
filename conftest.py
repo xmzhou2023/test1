@@ -9,7 +9,7 @@ from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=True):
+def drivers(request, remote_ui=False):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
@@ -51,11 +51,10 @@ def drivers(request, remote_ui=True):
             option.add_argument('--no-sandbox')  # 以最高权限运行
             option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
             option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
-            # option.set_capability("browserVersion", "99.0")
+            option.set_capability("browserVersion", "99.0")
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
-            # driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
-            # driver = webdriver.Remote("http://10.250.113.15:4444", options=option)
-            driver = webdriver.Remote("http://10.250.113.16:4444", options=option)
+            driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
+            # driver = webdriver.Remote("http://10.250.113.16:4444", options=option)
             # inspect_element() # page_element YMAL文件自检
         else:
             if remote_ui:
@@ -89,7 +88,7 @@ def drivers(request, remote_ui=True):
                 # inspect_element() # page_element YMAL文件自检
     def fn():
         sleep(5)
-        driver.quit()
+        # driver.quit()
 
     # 终结函数
     request.addfinalizer(fn)

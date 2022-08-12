@@ -16,8 +16,28 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.refresh_webpage()
         self.click_menu("出货国家", "出货国家流程")
 
-    @allure.step("删除操作")
-    def click_delete(self, code):
+    def quit_shipping_country_flow_onework(self):
+        """
+        退出oneworks查看流程页面
+        """
+        self.frame_exit()
+        self.close_switch(1)
+        self.refresh()
+        self.frame_exit()
+        sleep(1)
+
+    def enter_shipping_country_flow_my_application(self):
+        """
+        进入我申请的页面
+        """
+        self.click_menu('待办列表', '我申请的')
+        self.refresh()
+        iframe = self.find_element(user['待办列表-我申请的-iframe'])
+        self.driver.switch_to.frame(iframe)
+        sleep(1)
+        self.is_click_tbm(user['待办列表-刷新'])
+
+    def click_shipping_country_flow_delete(self, code):
         """
         根据流程编码点击删除 进行删除操作
         @param code:流程编码
@@ -25,22 +45,76 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['删除'], code)
         self.is_click_tbm(user['确定'])
 
-    @allure.step("新建流程后的后置删除处理")
-    def delete_shipping_country_flow(self, code):
-        logging.info(f'开始撤回流程：{code}')
-        self.recall_process(code)
+    def recall_shipping_country_flow_process(self, code):
+        """
+        提交流程申请后，在待办列表-我申请的 根据流程编码对流程进行撤回操作
+        @param code:流程编码
+        """
+        self.enter_shipping_country_flow_my_application()
+        try:
+            self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
+        except:
+            self.refresh()
+            self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
+        self.switch_window(1)
+        self.refresh()
+        try:
+            self.is_click_tbm(user['撤回'])
+            self.is_click_tbm(user['撤回确定'])
+        except:
+            self.base_get_img()
+            self.refresh()
+            self.is_click_tbm(user['撤回'])
+            self.is_click_tbm(user['撤回确定'])
+        self.quit_shipping_country_flow_onework()
         self.click_menu("出货国家", "出货国家流程")
-        self.click_delete(code)
-        self.assert_toast()
+
+    def delete_shipping_country_flow(self, process_code):
+        """
+        新建流程后的后置删除处理
+        """
+        logging.info(f'开始撤回流程：{process_code}')
+        self.recall_shipping_country_flow_process(process_code)
+        self.click_shipping_country_flow_delete(process_code)
+        DomAssert(self.driver).assert_att('请求成功')
         logging.info('撤回删除流程成功')
 
-    @allure.step("点击新增")
-    def click_add(self):
+    def enter_shipping_country_flow_my_todo(self):
+        """
+        进入我的待办页面
+        """
+        self.click_menu('待办列表', '我的待办')
+        iframe = self.find_element(user['待办列表-我申请的-iframe'])
+        self.driver.switch_to.frame(iframe)
+        sleep(1)
+        self.is_click_tbm(user['待办列表-刷新'])
+
+    def enter_shipping_country_flow_onework_edit(self, code):
+        """
+        进入oneworks我的待办页面
+        当前页获取流程编码，进入‘我的待办’点击对应查看详情，进入页面
+        """
+        self.enter_shipping_country_flow_my_todo()
+        try:
+            self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
+        except:
+            self.base_get_img()
+            raise
+        self.switch_window(1)
+        sleep(0.5)
+        self.frame_exit()
+        sleep(0.5)
+        iframe = self.find_element(user['待办列表-我申请的-iframe'])
+        self.driver.switch_to.frame(iframe)
+        sleep(1)
+
+    def click_shipping_country_flow_add(self):
+        """点击新增"""
         self.is_click_tbm(user['新增'])
         sleep(1)
 
     @allure.step("出货国家流程新增页面 - 输入项目信息")
-    def input_add_item_info(self, info, select):
+    def input_shipping_country_flow_add_item_info(self, info, select):
         """
         出货国家流程新增页面 - 输入项目信息
         :param info: 选择要输入的信息
@@ -64,7 +138,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
             print('请选择正确的项目信息输入：品牌 or 项目 or 描述')
 
     @allure.step("出货国家流程新增页面 - 新增产品定义信息")
-    def input_add_product_definition_info(self, header, content):
+    def input_shipping_country_flow_add_product_definition_info(self, header, content):
         """
         出货国家流程新增页面 - 新增产品定义信息
         :param header: 选择要输入的信息
@@ -93,12 +167,13 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         else:
             print(f'请输入正确选项：{definition_dict}')
 
-    @allure.step("产品定义信息-点击确定")
-    def click_product_definition_confirm(self):
+    @allure.step("点击新增")
+    def click_shipping_country_flow_product_definition_confirm(self):
+        """点击新增"""
         self.is_click_tbm(user['产品定义信息确定'])
 
     @allure.step("选择汇签/抄送人员")
-    def select_signatory(self, choice, name):
+    def select_shipping_country_flow_signatory(self, choice, name):
         """
         出货国家流程新增页面 - 选择汇签/抄送人员
         :param choice: 汇签/抄送人员选择框
@@ -112,14 +187,14 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['成员确定'])
 
     @allure.step("点击提交")
-    def click_add_submit(self):
+    def click_shipping_country_flow_add_submit(self):
         """点击提交"""
         self.scroll_into_view(user['提交'])
         sleep(0.5)
         self.is_click_tbm(user['提交'])
 
     @allure.step("获取出货国家流程第一列内容")
-    def get_info(self, item):
+    def get_shipping_country_flow_info(self, item):
         """
         获取出货国家流程第一列内容
         @parma item:项目名称
@@ -136,84 +211,143 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         return infolist
 
     @allure.step("出货国家流程新增页面 - 项目信息组合")
-    def add_item_info(self, item):
-        self.input_add_item_info('品牌', 'Infinix')
-        self.input_add_item_info('项目', item)
-        self.input_add_item_info('描述', '出货国家流程新增描述test')
+    def shipping_country_flow_add_item_info(self, item):
+        self.input_shipping_country_flow_add_item_info('品牌', 'Infinix')
+        self.input_shipping_country_flow_add_item_info('项目', item)
+        self.input_shipping_country_flow_add_item_info('描述', '出货国家流程新增描述test')
 
     @allure.step("出货国家流程新增页面 - 产品定义信息组合")
-    def add_product_definition_info(self, item):
-        self.click_add()
-        self.input_add_product_definition_info('全球版本', '版本1')
-        self.input_add_product_definition_info('市场名称', f'市场名称{item}')
-        self.input_add_product_definition_info('项目名称', item)
-        self.input_add_product_definition_info('MEMORY', '128+8')
-        self.input_add_product_definition_info('BANDSTRATEGY', '拉美市场')
-        self.input_add_product_definition_info('项目经理', '李小素')
-        self.input_add_product_definition_info('aaa', '2G')
-        self.input_add_product_definition_info('bbb', 'MT6761')
-        self.click_product_definition_confirm()
+    def shipping_country_flow_add_product_definition_info(self, item):
+        self.click_shipping_country_flow_add()
+        self.input_shipping_country_flow_add_product_definition_info('全球版本', '版本1')
+        self.input_shipping_country_flow_add_product_definition_info('市场名称', f'市场名称{item}')
+        self.input_shipping_country_flow_add_product_definition_info('项目名称', item)
+        self.input_shipping_country_flow_add_product_definition_info('MEMORY', '128+8')
+        self.input_shipping_country_flow_add_product_definition_info('BANDSTRATEGY', '拉美市场')
+        self.input_shipping_country_flow_add_product_definition_info('项目经理', '李小素')
+        self.input_shipping_country_flow_add_product_definition_info('aaa', '2G')
+        self.input_shipping_country_flow_add_product_definition_info('bbb', 'MT6761')
+        self.click_shipping_country_flow_product_definition_confirm()
 
     @allure.step("出货国家流程新增流程 组合")
-    def add_flow(self, item):
-        self.click_add()
-        self.add_item_info(item)
-        self.add_product_definition_info(item)
-        self.select_signatory('汇签人员', '李小素')
-        self.click_add_submit()
-        self.assert_toast()
+    def shipping_country_flow_add_flow(self, item):
+        self.click_shipping_country_flow_add()
+        self.shipping_country_flow_add_item_info(item)
+        self.shipping_country_flow_add_product_definition_info(item)
+        self.select_shipping_country_flow_signatory('汇签人员', '李小素')
+        self.click_shipping_country_flow_add_submit()
+        DomAssert(self.driver).assert_att('请求成功')
 
     @allure.step("出货国家流程 新增流程 产品部管理员审核 组合")
-    def product_department_administrator_review(self, code):
-        self.assert_my_todo_node(code, '产品部管理员审核', True)
-        self.enter_oneworks_edit(code)
-        self.click_onework_agree()
-        self.assert_toast()
-        self.quit_oneworks()
-        self.assert_my_todo_node(code, '产品部汇签', True)
+    def shipping_country_flow_product_department_administrator_review(self, code):
+        self.assert_shipping_country_flow_my_todo_node(code, '产品部管理员审核', True)
+        self.enter_shipping_country_flow_onework_edit(code)
+        self.click_onework_shipping_country_flow_agree()
+        DomAssert(self.driver).assert_att('审核通过')
+        self.quit_shipping_country_flow_onework()
+        self.assert_shipping_country_flow_my_todo_node(code, '产品部汇签', True)
 
     @allure.step("出货国家流程 新增流程 产品部汇签 组合")
-    def product_department_sign(self, code):
-        self.enter_oneworks_edit(code)
-        self.click_onework_agree()
-        self.assert_toast()
-        self.quit_oneworks()
-        self.assert_my_todo_node(code, '产品经理修改', True)
+    def shipping_country_flow_product_department_sign(self, code):
+        self.enter_shipping_country_flow_onework_edit(code)
+        self.click_onework_shipping_country_flow_agree()
+        DomAssert(self.driver).assert_att('请求成功')
+        self.quit_shipping_country_flow_onework()
+        self.assert_shipping_country_flow_my_todo_node(code, '产品经理修改', True)
 
     @allure.step("出货国家流程 新增流程 产品经理修改 组合")
-    def product_manager_modification(self, code):
-        self.enter_oneworks_edit(code)
+    def shipping_country_flow_product_manager_modification(self, code):
+        self.enter_shipping_country_flow_onework_edit(code)
         querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
-        self.input_oneworks_product_definition_info('全球版本', '版本2')
-        self.input_oneworks_product_definition_info('市场名称', f'市场名称test{querytime}')
-        self.input_oneworks_product_definition_info('项目名称', f'项目名称test{querytime}')
-        self.input_oneworks_product_definition_info('MEMORY', '64+8')
-        self.input_oneworks_product_definition_info('BANDSTRATEGY', '公开市场')
-        self.input_oneworks_product_definition_info('项目经理', '李小素')
-        self.input_oneworks_product_definition_info('aaa', '1G')
-        self.input_oneworks_product_definition_info('bbb', 'G70')
-        self.click_onework_agree()
-        self.assert_toast()
-        self.quit_oneworks()
-        self.assert_my_todo_node(code, '产品部管理员复核', True)
+        self.input_oneworks_shipping_country_flow_product_definition_info('全球版本', '版本2')
+        self.input_oneworks_shipping_country_flow_product_definition_info('市场名称', f'市场名称test{querytime}')
+        self.input_oneworks_shipping_country_flow_product_definition_info('项目名称', f'项目名称test{querytime}')
+        self.input_oneworks_shipping_country_flow_product_definition_info('MEMORY', '64+8')
+        self.input_oneworks_shipping_country_flow_product_definition_info('BANDSTRATEGY', '公开市场')
+        self.input_oneworks_shipping_country_flow_product_definition_info('项目经理', '李小素')
+        self.input_oneworks_shipping_country_flow_product_definition_info('aaa', '1G')
+        self.input_oneworks_shipping_country_flow_product_definition_info('bbb', 'G70')
+        self.click_onework_shipping_country_flow_agree()
+        DomAssert(self.driver).assert_att('审核通过')
+        self.quit_shipping_country_flow_onework()
+        self.assert_shipping_country_flow_my_todo_node(code, '产品部管理员复核', True)
 
     @allure.step("出货国家流程 新增流程 产品经理修改 组合")
-    def product_department_administrator_re_review(self, code):
-        self.enter_oneworks_edit(code)
-        self.click_onework_agree()
-        self.assert_toast()
-        self.quit_oneworks()
-        self.assert_my_todo_node(code, '项目经理审批', True)
+    def shipping_country_flow_product_department_administrator_re_review(self, code):
+        self.enter_shipping_country_flow_onework_edit(code)
+        self.click_onework_shipping_country_flow_agree()
+        DomAssert(self.driver).assert_att('审核通过')
+        self.quit_shipping_country_flow_onework()
+        self.assert_shipping_country_flow_my_todo_node(code, '项目经理审批', True)
 
     @allure.step("点击同意-确定")
-    def click_onework_agree(self):
+    def click_onework_shipping_country_flow_agree(self):
         self.frame_exit()
         self.is_click_tbm(user['同意'])
         self.is_click_tbm(user['确定'])
         logging.info('点击同意-确定')
 
-    @allure.step("oneworks-产品经理修改-编辑产品定义信息")
-    def input_oneworks_product_definition_info(self, header, content):
+    def assert_shipping_country_flow_my_todo_node(self, code, node, exist=False):
+        """
+        我的待办页面-断言：成功处理了流程后，我的待办中存在/不存在该条单据在指定审核节点
+        @param code:流程编码
+        @param node:节点名称
+        @param exist:断言存在或者不存在
+        """
+        self.enter_shipping_country_flow_my_todo()
+        actual_node = self.element_text(user['待办列表-我的待办-当前节点'], code)
+        if exist is False:
+            try:
+                assert actual_node != node
+                logging.info('断言成功，我的待办中该条单据不存在:{} 节点，实际在:{} 节点'.format(node, actual_node))
+            except:
+                self.base_get_img()
+                logging.error('断言失败，我的待办中存在该条单据在:{} 审核节点'.format(actual_node))
+                raise
+            finally:
+                self.frame_exit()
+        else:
+            try:
+                assert actual_node == node
+                logging.info('断言成功，我的待办中存在该条单据在:{} 审核节点'.format(actual_node))
+            except:
+                self.base_get_img()
+                logging.error('断言失败，我的待办中该条单据不存在:{} 节点，实际在:{} 节点'.format(node, actual_node))
+                raise
+            finally:
+                self.frame_exit()
+
+    def assert_shipping_country_flow_my_application_node(self, code, node, exist=False):
+        """
+        我申请的页面-断言：成功处理了流程后，我申请的中存在/不存在该条单据在指定审核节点
+        @param code:流程编码
+        @param node:节点名称
+        @param exist:断言存在或者不存在
+        """
+        self.enter_shipping_country_flow_my_application()
+        actual_node = self.element_text(user['待办列表-我申请的-当前节点'], code)
+        if exist is False:
+            try:
+                assert actual_node != node
+                logging.info('断言成功，我申请的中该条单据不存在:{} 节点，实际在:{} 节点'.format(node, actual_node))
+            except:
+                self.base_get_img()
+                logging.error('断言失败，我申请的中存在该条单据在:{} 节点'.format(actual_node))
+                raise
+            finally:
+                self.frame_exit()
+        else:
+            try:
+                assert actual_node == node
+                logging.info('断言成功，我申请的中存在该条单据在:{} 审核节点'.format(actual_node))
+            except:
+                self.base_get_img()
+                logging.error('断言失败，我申请的中该条单据不存在:{} 节点，实际在:{} 节点'.format(node, actual_node))
+                raise
+            finally:
+                self.frame_exit()
+
+    def input_oneworks_shipping_country_flow_product_definition_info(self, header, content):
         """
         oneworks-节点：产品经理修改-查看详情页面
         编辑产品定义信息
@@ -231,7 +365,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-输入框'], definition_dict[header])
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
-        elif header in select1_list:
+        if header in select1_list:
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-编辑'])
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-输入框2'], definition_dict[header])
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
@@ -250,6 +384,36 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
             self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
         else:
             print(f'请输入正确选项：{definition_dict}')
+
+    def assert_shipping_country_flow_my_application_flow(self, code, flow, exist=True):
+        """
+        我申请的页面-断言：成功处理了流程后，我申请的中存在/不存在该条单据在指定流程中
+        @param code:流程编码
+        @param flow:流程名称
+        @param exist:断言存在或者不存在
+        """
+        self.enter_shipping_country_flow_my_application()
+        actual_flow = self.element_text(user['待办列表-我申请的-当前流程'], code)
+        if exist is True:
+            try:
+                assert actual_flow == flow
+                logging.info('断言成功，我申请的中该条单据在:{}流程'.format(actual_flow))
+            except:
+                self.base_get_img()
+                logging.error('断言失败，我申请的中该条单据不在:{}流程，实际在:{}流程'.format(flow, actual_flow))
+                raise
+            finally:
+                self.frame_exit()
+        elif exist is False:
+            try:
+                assert actual_flow != flow
+                logging.info('断言成功，我申请的中该条单据不在:{}流程，实际在:{}流程'.format(flow, actual_flow))
+            except:
+                self.base_get_img()
+                logging.error('断言失败，我申请的中该条单据在:{}流程'.format(actual_flow))
+                raise
+            finally:
+                self.frame_exit()
 
 
 if __name__ == '__main__':
