@@ -2,30 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e20fe4ab-6d0e-4514-96c1-72c630d0798f" name="Changes" comment="push">
+      <change afterPath="$PROJECT_DIR$/.idea/UIPOMTest5.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/log/2022_08_12_20.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/02841f86-d474-4eef-8d9b-413c62c5bd5c-attachment.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/097dd460-7da3-460d-b6c4-7d1714c0b99e-container.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/2905a05f-92e2-4e00-8a74-cb14777221dc-result.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/2aca9e9d-04c2-4e20-b0b3-afb82665f9c7-result.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/3b067202-1b53-4ef1-8365-c1c85c746e93-attachment.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/494d003a-938b-4bfe-a76c-b6eff4065a0a-attachment.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/4ba48b4e-dee3-41ee-8a13-962e62b97112-result.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/6ebe1bed-0379-4e9e-8578-75cebd1d65de-result.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/75c97612-922e-42b5-b093-15b55560dbfa-attachment.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/7f0dd6b4-0f5e-4e10-bc21-1a741a9c67cf-attachment.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/8329a934-0c4f-4350-a9eb-64341d39ed7b-container.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/9f373a3a-e07e-487e-b32f-a97774cd7835-container.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/bbb555ae-d2ed-4517-957f-1807ff3377ef-container.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/d7598b0a-da9f-4f05-9cd3-3562b0518cb0-container.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/allure-results/f2ed3a29-16e6-49e6-bbc9-f885aa18bb79-result.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/SRM/page_element/approval.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/project/SRM/page_element/Approval.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project/SRM/page_object/approval.py" beforeDir="false" afterPath="$PROJECT_DIR$/project/SRM/page_object/Approval.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/libs/unified_login/login.py" beforeDir="false" afterPath="$PROJECT_DIR$/public/libs/unified_login/login.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/SRM/test_case/conftest.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -34,18 +31,24 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2CvZTCSqekz2voQMuAGanBM16Xs" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/daimei.shi/Desktop/UIPOMTest&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/daimei.shi/Desktop/UIPOMTest",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -77,6 +80,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="push" />
     <option name="LAST_COMMIT_MESSAGE" value="push" />
   </component>
