@@ -95,7 +95,10 @@ class CenterComponent(Base, APIRequest):
         else:
             self.click_menu('待办列表', '我的待办')
             sleep(1)
-            self.refresh_todo_list()
+            try:
+                self.refresh_todo_list()
+            except:
+                self.refresh_todo_list()
 
     @allure.step("进入 我申请的 页面")
     def enter_my_application(self):
@@ -104,7 +107,10 @@ class CenterComponent(Base, APIRequest):
             self.refresh_todo_list()
         else:
             self.click_menu('待办列表', '我申请的')
-            self.refresh_todo_list()
+            try:
+                self.refresh_todo_list()
+            except:
+                self.refresh_todo_list()
 
     @allure.step("点击 查看详情 进入 oneworks 页面")
     def enter_oneworks_edit(self, code, node=None):
@@ -125,7 +131,7 @@ class CenterComponent(Base, APIRequest):
         logging.info('跳出框架')
         self.switch_window(1)
         logging.info('切换窗口')
-        sleep(5)
+        sleep(2)
         logging.info('强制等待')
         self.frame_enter(user['待办列表-iframe'])
         logging.info('进入框架')

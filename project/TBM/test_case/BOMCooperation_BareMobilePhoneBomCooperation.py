@@ -266,6 +266,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bomtree('单机头', 'BOM状态', '试产')
         user.input_bomtree('单机头', '物料编码', '12011336')
         user.input_bomtree('单机头', '用量', '1')
+        user.base_get_img()
         user.select_business_review('李小素')
         user.click_add_submit()
         user.assert_toast('父阶BOM料号12011336用量不为1000')
@@ -891,11 +892,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在结构工程师审批页面中，在Bom Tree中点编辑，将用量编辑为1，点击同意，不能提交成功页面给出提示父阶BOM料号xxxxxxxx用量不为1000")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
-    def test_004_006(self, drivers, BarePhone_API):
+    def test_004_006(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_Factory_API[0])
         user.input_bomtree('单机头', '用量', '1')
         user.select_business_review('李小素', 'all')
         user.click_oneworks_agree()
@@ -909,12 +909,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，不填写任何内容，点击同意，不能提交成功，并给出提示自检清单检查角色未选择")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_007(self, drivers, BarePhone_API):
+    def test_004_007(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
@@ -926,12 +924,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不通过，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不通过需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_008(self, drivers, BarePhone_API):
+    def test_004_008(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_oneworks_self_inspection('业务类型', '手机')
         user.click_oneworks_self_inspection('检查角色', '质量部(QPM)')
         user.scroll_oneworks_self_inspection()
@@ -947,12 +943,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不涉及，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不涉及需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_009(self, drivers, BarePhone_API):
+    def test_004_009(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_oneworks_self_inspection('业务类型', '手机')
         user.click_oneworks_self_inspection('检查角色', '质量部(QPM)')
         user.scroll_oneworks_self_inspection()
@@ -968,13 +962,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在BOM工程师审批中，在BOMTree中，点击删除，提示不能删除BOM")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_010(self, drivers, BarePhone_API):
+    def test_004_010(self, drivers, BarePhone_Approval_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.business_approve_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
         user.click_bomtree_delete('12012025')
         user.assert_toast('不能删除BOM')
         user.quit_oneworks()
@@ -984,13 +975,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在BOM工程师审批中，在BOMTree中，点击编辑，可更改用量，将用量改为10000，点击确定，点击同意，提示父阶BOM料号xxxxxxxx用量不为1000")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_011(self, drivers, BarePhone_API):
+    def test_004_011(self, drivers, BarePhone_Approval_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.business_approve_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
         user.input_bomtree('12012025', '用量', '10000')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
@@ -1003,22 +991,15 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在数据组审批页面中，子阶BOM检查有失败项，点击同意，不能提交成功，并且给出提交失败的提示")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_012(self, drivers):
+    def test_004_012(self, drivers, BarePhone_bomEnginner_Fail_API):
         user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage_click_menu()
-        user.add_bom()
-        process_code = user.get_info()[2]
-        user.supplementary_factory_flow(process_code)
-        user.framework_engineer_flow(process_code)
-        user.business_approve_flow(process_code)
-        user.bom_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_bomEnginner_Fail_API[0])
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('子阶bom检查失败，无法同步')
         user.quit_oneworks()
-        user.delete_flow(process_code)
 
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_BareMobilePhoneBomCooperation.py'])

@@ -852,6 +852,41 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：单机头BOM协作-业务审核通过流程')
 
+    @allure.step("单机头BOM协作-BOM工程师审批通过接口")
+    def API_BarePhone_bomEnginner(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：单机头BOM协作-业务审核通过流程')
+        self.API_BarePhone_Approval(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        BomSingleHeadInfo = self.Oneworks_queryBomSingleHeadInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "bomArchReview",
+            "bomType": False,
+            "bomArchive":
+                BomSingleHeadInfo['data']['bomArchive'],
+            "approvers":
+                BomSingleHeadInfo['data']['approvers'],
+            "bomTreeVOList":
+                BomSingleHeadInfo['data']['bomTreeVOList'],
+            "refFactoryList":
+                BomSingleHeadInfo['data']['refFactoryList'],
+            "bomDeriveList": [],
+            "copyRuleList": [],
+            "otherDeriveList": [],
+            "uploadList": [],
+            "bomImportKeyDeviceList": [],
+            "purchaseList": None,
+            "role": "mpm,qpm,structure,hardware,screenage,audio,preResearch,pilot,nps,structure2,aaa",
+            "bomDeriveTreeVOList": [],
+            "virtualChipList": None,
+            "diffCollectList": None,
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_BarePhone_BomEngineer(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：单机头BOM协作-BOM工程师审批通过接口')
+
     @allure.step("单机头BOM协作撤回删除接口")
     def API_BarePhone_Delete(self, instanceid, flowid):
         """
@@ -950,7 +985,7 @@ class APIRequest:
         self.Request_Components_Delete(bid, headers)
         logging.info('流程接口结束：关键器件流程撤回流程')
 
-    def Request_Shipping_Add(self, data, headers):
+    def Request_SaleCountry_Add(self, data, headers):
         """
         TBM 出货国家流程 新增接口
         @param data:接口body
@@ -959,7 +994,7 @@ class APIRequest:
         logging.info('发起请求：出货国家流程新增接口')
         return self.api_request('出货国家流程新增接口', data, headers)
 
-    def Request_Shipping_Search(self, data, headers):
+    def Request_SaleCountry_Search(self, data, headers):
         """
         TBM 出货国家流程 TBM查询接口
         @param data:接口body
@@ -968,7 +1003,7 @@ class APIRequest:
         logging.info('发起请求：出货国家流程查询接口')
         return self.api_request('出货国家流程查询接口', data, headers)
 
-    def Request_Shipping_Delete(self, data, headers):
+    def Request_SaleCountry_Delete(self, data, headers):
         """
         TBM 出货国家流程删除已撤回接口
         @param data:oneworks撤回流程编码
@@ -977,8 +1012,76 @@ class APIRequest:
         logging.info('发起请求：出货国家流程删除已撤回接口')
         return self.api_request('出货国家流程删除已撤回接口', data, headers)
 
+    def Request_Change_Product(self, data, headers):
+        """
+        TBM 出货国家查询 变更产品接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家查询变更产品接口')
+        return self.api_request('出货国家查询变更产品接口', data, headers)
+
+    def Request_SaleCountry_Audit(self, data, headers):
+        """
+        TBM 出货国家查询 产品部管理员审核 产品部汇签 产品部管理员复核 用同一接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家流程审核接口')
+        return self.api_request('出货国家流程审核接口', data, headers)
+
+    def Request_SaleCountry_managerModify(self, data, headers):
+        """
+        TBM 出货国家查询 产品经理修改审核
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家流程产品经理修改审核接口')
+        return self.api_request('出货国家流程产品经理修改审核接口', data, headers)
+
+    def Request_SaleCountry_PageList(self, data, headers):
+        """
+        TBM 出货国家查询 列表查询
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家查询列表查询接口')
+        return self.api_request('出货国家查询列表查询接口', data, headers)
+
+    def Request_SaleCountry_Info(self, bid, headers):
+        """
+        TBM 出货国家流程 获取单据信息
+        @param bid:流程bid
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家流程获取单据信息接口')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-bom-archive/sale-country/flow/queryScInfoByFlowBId?flowBid={bid}')
+        recall_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/service-bom-archive/sale-country/flow/queryScInfoByFlowBId?flowBid={bid}',
+            headers=headers)
+        response_dicts = recall_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：出货国家流程获取单据信息接口')
+        return response_dicts
+
+    def Request_SaleCountry_queryArchDetail(self, bid, headers):
+        """
+        TBM 出货国家查询 获取流程明细
+        @param bid:流程bid
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家查询获取流程明细接口')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-bom-archive/sale-country/arch/queryArchDetailByBId?bid={bid}')
+        recall_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/service-bom-archive/sale-country/arch/queryArchDetailByBId?bid={bid}',
+            headers=headers)
+        response_dicts = recall_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：出货国家查询获取流程明细接口')
+        return response_dicts
+
     @allure.step("出货国家流程新增接口")
-    def API_Shipping_Add(self):
+    def API_SaleCountry_Add(self):
         """
         TBM 出货国家流程新增接口
         """
@@ -1014,8 +1117,8 @@ class APIRequest:
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
                                  "flowStartdate": ""}, "current": 1, "size": 10}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
-        self.Request_Shipping_Add(add_data, headers)
-        search_reponse = self.Request_Shipping_Search(search_data, headers)
+        self.Request_SaleCountry_Add(add_data, headers)
+        search_reponse = self.Request_SaleCountry_Search(search_data, headers)
         search_reponse_data = search_reponse['data']['data']
         logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(search_reponse_data[0]['flowNo'],
                                                                     search_reponse_data[0]['instanceId'],
@@ -1024,7 +1127,7 @@ class APIRequest:
         return search_reponse_data[0]['flowNo'], search_reponse_data[0]['instanceId'], search_reponse_data[0]['bid']
 
     @allure.step("出货国家流程撤回删除接口")
-    def API_Shipping_Delete(self, instanceid, bid):
+    def API_SaleCountry_Delete(self, instanceid, bid):
         """
         通过调用接口发起撤回流程
         调用接口：oneworks流程撤回接口，出货国家流程删除已撤回接口
@@ -1036,9 +1139,347 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         delete_data = {"flowBid": bid}
         self.Oneworks_Recall(instanceid, headers)
-        self.Request_Shipping_Delete(delete_data, headers)
+        self.Request_SaleCountry_Delete(delete_data, headers)
         logging.info('流程接口结束：出货国家流程撤回流程')
 
+    @allure.step("出货国家查询变更产品接口")
+    def API_Change_Product(self, projectName):
+        logging.info('发起流程接口：出货国家查询变更产品接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        PageList_body = {
+            "current": 1,
+            "size": 10,
+            "param": {
+                "brandCode": "infinix",
+                "nationCodes": [],
+                "projectName": projectName
+            }
+        }
+        PageList = self.Request_SaleCountry_PageList(PageList_body, headers)
+        queryArchDetail = self.Request_SaleCountry_queryArchDetail(PageList['data']['data'][0]['bid'], headers)
+        titletime = datetime.now().strftime('%Y-%m-%d')
+        flowStartdate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        testdate = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        change_data = {
+            "prdInfoVOS": [
+                {
+                    "scPrdBaseInfoVO": {
+                        "createdBy": "18645960",
+                        "createdTime": queryArchDetail['data']['scArchiveProductVO']['createdTime'],
+                        "updatedBy": "18645960",
+                        "updatedTime":queryArchDetail['data']['scArchiveProductVO']['updatedTime'],
+                        "companyId": queryArchDetail['data']['scArchiveProductVO']['companyId'],
+                        "id": queryArchDetail['data']['scArchiveProductVO']['id'],
+                        "bid": queryArchDetail['data']['scArchiveProductVO']['bid'],
+                        "flowBid": queryArchDetail['data']['scArchiveProductVO']['flowBid'],
+                        "bizType": "update",
+                        "globalVersion": "ver3",
+                        "marketName": f'{projectName}{testdate}',
+                        "projectName": projectName,
+                        "memory": "256+8",
+                        "brandCode": "infinix",
+                        "bandStrategy": "Indianmarket",
+                        "productManager": "18645960",
+                        "projectManager": "18645960",
+                        "isDeleted": "0",
+                        "rootBid": queryArchDetail['data']['scArchiveProductVO']['rootBid'],
+                        "checkResultMessage": None,
+                        "baseArchBid": None,
+                        "countryProperties": {},
+                        "countryField": None,
+                        "dictMap": queryArchDetail['data']['scArchiveProductVO']['dictMap'],
+                        "editStatus": False
+                    },
+                    "scPrdUniversalInfoMap": {
+                        "aaaa": "Standard6",
+                        "bbb": "Chipset3"
+                    },
+                    "countryProperties": {}
+                }
+            ],
+            "flowMainVO": {
+                "title": f"[李小素]-[{titletime}]",
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowDept": "PI_系统四部",
+                "flowStartdate": flowStartdate,
+                "remark": "",
+                "busiType": "insOrUpdProduct",
+                "flowProposerName": "李小素"
+            },
+            "scProjectVO": {
+                "createdBy": None,
+                "createdTime": None,
+                "updatedBy": None,
+                "updatedTime": None,
+                "companyId": None,
+                "id": None,
+                "bid": None,
+                "flowBid": None,
+                "templateBid": queryArchDetail['data']['scArchiveProductVO']['templateBid'],
+                "brandCode": queryArchDetail['data']['scArchiveProductVO']['brandCode'],
+                "projectName": queryArchDetail['data']['scArchiveProductVO']['projectName'],
+                "remark": None,
+                "isDeleted": "0",
+                "areaCodes": None,
+                "areaCodeArr": None
+            },
+            "submitType": "submit",
+            "approvers": {
+                "bisSupplyApprovers": [
+                    {
+                        "role": "",
+                        "roleKey": "verb",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ],
+                "bisSupplySenders": [
+                    {
+                        "role": "",
+                        "roleKey": "verc",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ]
+            },
+            "areas": [],
+            "uploadList": [],
+            "fields": [
+                {
+                    "id": None,
+                    "bid": "989123712022351872",
+                    "fieldName": "aaa",
+                    "fieldIdent": "aaaa",
+                    "fieldType": "select",
+                    "fieldTypeRef": "Standard",
+                    "necessary": 1,
+                    "fieldOrder": 0,
+                    "valid": True,
+                    "constraint": "{\"key\": \"Standard\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "989123712022351873",
+                    "fieldName": "bbb",
+                    "fieldIdent": "bbb",
+                    "fieldType": "select",
+                    "fieldTypeRef": "Chipset",
+                    "necessary": 1,
+                    "fieldOrder": 1,
+                    "valid": True,
+                    "constraint": "{\"key\": \"Chipset\"}",
+                    "value": None
+                }
+            ]
+        }
+        search_data = {"param": {"title": "", "flowNo": "", "projectName": projectName, "brandCode": "",
+                                 "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
+                                 "flowStartdate": ""}, "current": 1, "size": 10}
+        self.Request_Change_Product(change_data, headers)
+        search_reponse = self.Request_SaleCountry_Search(search_data, headers)
+        for i in range(20):
+            if len(search_reponse['data']['data']) == 0:
+                sleep(1)
+                search_reponse = self.Request_SaleCountry_Search(search_data, headers)
+        search_reponse_data = search_reponse['data']['data']
+        logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(search_reponse_data[0]['flowNo'],
+                                                                    search_reponse_data[0]['instanceId'],
+                                                                    search_reponse_data[0]['bid']))
+        logging.info('流程接口结束：出货国家查询变更产品接口')
+        return search_reponse_data[0]['flowNo'], search_reponse_data[0]['instanceId'], search_reponse_data[0]['bid']
+
+    @allure.step("出货国家流程产品部管理员审核接口")
+    def API_Change_Audit(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：出货国家流程产品部管理员审核接口')
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        Info = self.Request_SaleCountry_Info(bid, headers)
+        change_data = {
+            "currentNodeCode": "productor_admin",
+            "flowMainVO":
+                Info['data']['flowMainVO'],
+            "scProjectVO":
+                Info['data']['scProjectVO'],
+            "prdInfoVOS":
+                Info['data']['prdInfoVOS'],
+            "uploadList": [],
+            "fields":
+                Info['data']['fields'],
+            "prdModifyInfoVOS":
+                Info['data']['prdModifyInfoVOS'],
+            "approvers":
+                Info['data']['approvers'],
+            "areas": Info['data']['areas']
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        self.Request_SaleCountry_Audit(change_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：出货国家流程产品部管理员审核接口')
+
+    @allure.step("出货国家流程产品部汇签审核接口")
+    def API_Change_Join(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：出货国家流程产品部汇签审核接口')
+        self.API_Change_Audit(flowNo, instanceid, bid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        Info = self.Request_SaleCountry_Info(bid, headers)
+        change_data = {
+            "currentNodeCode": "productor_join",
+            "flowMainVO":
+                Info['data']['flowMainVO'],
+            "scProjectVO":
+                Info['data']['scProjectVO'],
+            "prdInfoVOS":
+                Info['data']['prdInfoVOS'],
+            "uploadList": [],
+            "fields":
+                Info['data']['fields'],
+            "prdModifyInfoVOS":
+                Info['data']['prdModifyInfoVOS'],
+            "approvers":
+                Info['data']['approvers'],
+            "areas": Info['data']['areas']
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        self.Request_SaleCountry_Audit(change_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：出货国家流程产品部汇签审核接口')
+
+    @allure.step("出货国家流程产品经理修改审核接口")
+    def API_Change_managerModify(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：出货国家流程产品经理修改审核接口')
+        self.API_Change_Join(flowNo, instanceid, bid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        Info = self.Request_SaleCountry_Info(bid, headers)
+        querytime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        change_data = {
+            "prdInfoVOS": [
+                {
+                    "scPrdBaseInfoVO": {
+                        "createdBy": "18645960",
+                        "createdTime": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO']['createdTime'],
+                        "updatedBy": "18645960",
+                        "updatedTime": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO']['updatedTime'],
+                        "companyId": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO']['companyId'],
+                        "id": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO']['id'],
+                        "bid": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO']['bid'],
+                        "flowBid": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO']['flowBid'],
+                        "bizType": "update",
+                        "globalVersion": "ver3",
+                        "marketName": f"市场修改{querytime}",
+                        "projectName": f"项目修改{querytime}",
+                        "memory": "128+8",
+                        "brandCode": "infinix",
+                        "bandStrategy": "africanMarket",
+                        "productManager": "18645960",
+                        "projectManager": "18645960",
+                        "isDeleted": "0",
+                        "rootBid": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO']['rootBid'],
+                        "checkResultMessage": None,
+                        "baseArchBid": None,
+                        "countryProperties": {},
+                        "countryField": "{}",
+                        "dictMap": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO']['dictMap'],
+                        "editStatus": False
+                    },
+                    "scPrdUniversalInfoMap": {
+                        "bbb": "Chipset2",
+                        "aaaa": "Standard4"
+                    },
+                    "countryProperties": {}
+                }
+            ],
+            "flowMainVO": Info['data']['flowMainVO'],
+            "scProjectVO": Info['data']['scProjectVO'],
+            "approvers": {
+                "bisSupplyApprovers": [
+                    {
+                        "role": "",
+                        "roleKey": "verb",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ],
+                "bisSupplySenders": [
+                    {
+                        "role": "",
+                        "roleKey": "verc",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ]
+            },
+            "areas": [],
+            "fields": [
+                {
+                    "id": None,
+                    "bid": "989123712022351872",
+                    "fieldName": "aaa",
+                    "fieldIdent": "aaaa",
+                    "fieldType": "select",
+                    "fieldTypeRef": "Standard",
+                    "necessary": 1,
+                    "fieldOrder": 0,
+                    "valid": True,
+                    "constraint": "{\"key\": \"Standard\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "989123712022351873",
+                    "fieldName": "bbb",
+                    "fieldIdent": "bbb",
+                    "fieldType": "select",
+                    "fieldTypeRef": "Chipset",
+                    "necessary": 1,
+                    "fieldOrder": 1,
+                    "valid": True,
+                    "constraint": "{\"key\": \"Chipset\"}",
+                    "value": None
+                }
+            ]
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        self.Request_SaleCountry_managerModify(change_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：出货国家流程产品经理修改审核接口')
+
+    @allure.step("出货国家流程产品部管理员复核接口")
+    def API_Change_Audit2(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：出货国家流程产品部管理员审核接口')
+        self.API_Change_managerModify(flowNo, instanceid, bid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        Info = self.Request_SaleCountry_Info(bid, headers)
+        change_data = {
+            "currentNodeCode": "productor_admin2",
+            "flowMainVO":
+                Info['data']['flowMainVO'],
+            "scProjectVO":
+                Info['data']['scProjectVO'],
+            "prdInfoVOS":
+                Info['data']['prdInfoVOS'],
+            "uploadList": [],
+            "fields":
+                Info['data']['fields'],
+            "prdModifyInfoVOS":
+                Info['data']['prdModifyInfoVOS'],
+            "approvers":
+                Info['data']['approvers'],
+            "areas": Info['data']['areas']
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        self.Request_SaleCountry_Audit(change_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：出货国家流程产品部管理员审核接口')
 
 if __name__ == '__main__':
     a = APIRequest()

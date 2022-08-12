@@ -1,1 +1,0 @@
-2022-08-12 15:28:03 [[32m    INFO[0m] 查找元素：['xpath', "//div[@class='wrapper-tabs']//span[contains(text(),'产品信息')]"] (basics.py:107)

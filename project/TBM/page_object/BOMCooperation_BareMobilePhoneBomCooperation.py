@@ -186,11 +186,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             self.is_click_tbm(user['BOMTree输入框选择'], content)
         elif header == '用量':
             self.is_click_tbm(user['BOMTree编辑'], tree)
-            try:
-                self.readonly_input_text(user['BOMTree用量'], content, tree)
-            except:
-                self.is_click_tbm(user['BOMTree编辑'], tree)
-                self.readonly_input_text(user['BOMTree用量'], content, tree)
+            self.readonly_input_text(user['BOMTree用量'], content, tree)
             self.is_click_tbm(user['BOMTree确定'], tree)
         elif header == '替代组':
             self.is_click_tbm(user['BOMTree编辑'], tree)

@@ -1,1 +1,0 @@
-2022-08-12 15:28:19 [[32m    INFO[0m] 查找元素：('xpath', "//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'新 增')]") (basics.py:107)
