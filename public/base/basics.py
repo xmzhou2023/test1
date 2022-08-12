@@ -191,6 +191,10 @@ class Base(object):
             logging.info("点击元素：{}".format(locator))
             sleep(0.5)
 
+    def clear_input(self,xpath):
+        ele = self.find_element(xpath)
+        ele.clear()
+
     def force_click(self, xpath, force=False):
         """点击元素(用js)"""
         ele = self.find_element(xpath)
@@ -551,6 +555,11 @@ class Base(object):
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
+
+
+    def find_elements_srm(self,locator):
+
+        return self.find_elements(By.XPATH, locator)
 
 
 

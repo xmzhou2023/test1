@@ -50,14 +50,9 @@ class LoginPage(Base):
 
     @allure.step("点击退出登录")
     def click_loginOut(self):
+        sleep(2)
         self.is_click(user['退出登录'])
-        sleep(1.5)
-
-    @allure.step("获取页面已登录的账号")
-    def get_login_account(self):
-        get_login_account = self.element_text(user['获取登录账号'])
-        return get_login_account
-
+        sleep(2)
 
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
@@ -71,24 +66,10 @@ class LoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(4)
-
-    @allure.step("退货重新登录，去掉打开登录地址")
-    def dcr_again_login(self, drivers, account, passwd):
-        user = LoginPage(drivers)
-        user.input_account(account)
-        user.input_passwd(passwd)
-        sleep(1)
-        get_check_class = user.get_check_box_class()
-        if "is-checked" not in str(get_check_class):
-            user.click_check_box()
-        user.click_loginsubmit()
-        sleep(4)
-
+        sleep(6)
 
     @allure.step("查找菜单")
     def click_gotomenu(self, *content):
-        sleep(2)
         level = []
         navstr = ""
         for i in range(len(content)):
@@ -102,17 +83,6 @@ class LoginPage(Base):
             self.is_click(user[level[i]])
         sleep(6)
 
-
-    @allure.step("初始化登录方法")
-    def initialize_login(self, drivers, account1, password):
-        get_account = self.get_login_account()
-        sleep(1)
-        if account1 != get_account:
-            self.click_loginOut()
-            self.dcr_again_login(drivers, account1, password)
-        else:
-            ref = Base(drivers)
-            ref.refresh()
 
 
 if __name__ == '__main__':

@@ -2,18 +2,35 @@ from libs.common.read_element import Element
 from public.base.basics import Base
 from libs.common.time_ui import sleep
 from ..test_case.conftest import *
-import random
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
 class SalesOrderPage(Base):
     """SalesOrderPage页面定位方法"""
+
+    @allure.step("Sales Order页面，进入iframe")
+    def sales_iframe(self):
+        iframe = self.find_element(user['Sales Order iframe'])
+        self.driver.switch_to.frame(iframe)
+        sleep(1)
+
+    @allure.step("打开Add新建销售单页面，进入iframe")
+    def sales_iframe_add(self):
+        iframe = self.find_element(user['Add Sales Order iframe'])
+        self.driver.switch_to.frame(iframe)
+        sleep(2)
+
+    @allure.step("退出iframe")
+    def exit_iframe(self):
+        self.driver.switch_to.parent_frame()
+        sleep(1)
+
     @allure.step("Sales Order页面，点击Add新增销售单按钮")
     def click_add_sales(self):
         Base.presence_sleep_dcr(self, user['Add'])
         self.is_click(user['Add'])
-        sleep(3)
+        sleep(1.5)
 
     @allure.step("Add新增销售单页面，定位Buyer属性")
     def input_sales_buyer(self, content):
@@ -21,24 +38,23 @@ class SalesOrderPage(Base):
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content)
         sleep(1)
-        self.is_click(user['Buyer value'], content)
+        self.is_click(user['Buyer value'])
 
-    @allure.step("新建销售单页面，输入Brand属性")
+    @allure.step("输入Brand属性")
     def input_sales_brand(self, content):
         self.is_click(user['Brand'])
-        sleep(2)
         self.input_text(user['Brand'], txt=content)
-        sleep(1.5)
-        self.is_click(user['Brand value'], content)
+        sleep(1)
+        self.is_click(user['Brand value'])
 
-    @allure.step("新建销售单页面，输入product属性")
+    @allure.step("输入product属性")
     def input_sales_product(self, content):
         self.is_click(user['product'])
         self.input_text(user['product'], txt=content)
         sleep(3)
-        self.is_click(user['product value'], content)
+        self.is_click(user['product value'])
 
-    @allure.step("新建销售单页面，输入Quantity属性")
+    @allure.step("输入Quantity属性")
     def input_sales_quantity(self, content):
         self.is_click(user['Quantity'])
         self.input_text(user['Quantity'], txt=content)
@@ -50,7 +66,6 @@ class SalesOrderPage(Base):
 
     @allure.step("新建销售单页面，点击确认OK按钮")
     def click_submit_OK(self):
-        Base.presence_sleep_dcr(self, user['保存成功确认OK'])
         self.is_click(user['保存成功确认OK'])
         sleep(3)
 
@@ -102,7 +117,7 @@ class SalesOrderPage(Base):
         self.is_click(user['Payment Mode'])
         self.input_text(user['Payment Mode'], txt=content)
         sleep(2)
-        self.is_click(user['Payment Mode value'], content)
+        self.is_click(user['Payment Mode value'])
         sleep(1)
 
     @allure.step("出库单页面，输入IMEI属性")
@@ -120,16 +135,6 @@ class SalesOrderPage(Base):
     def click_submit_delivery(self):
         self.is_click_dcr(user['Submit Delivery'])
         sleep(3)
-
-    @allure.step("刷新页面")
-    def click_refresh(self, drivers):
-        ref = Base(drivers)
-        ref.refresh()
-
-    @allure.step("获取销售单列表状态Status")
-    def get_list_status_text(self):
-        status = self.element_text(user['Get list Status Text'])
-        return status
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
@@ -154,7 +159,7 @@ class SalesOrderPage(Base):
     @allure.step("IMEI库存页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(4)
+        sleep(3)
 
     @allure.step("获取IMEI库存页面，IMEI文本内容")
     def get_text_imei_inventory(self):
@@ -167,83 +172,9 @@ class SalesOrderPage(Base):
         self.is_click(user['关闭IMEI Inventory Query'])
 
     @allure.step("关闭Sales Order 菜单")
-    def click_close_sales_order(self):
+    def close_sales_order(self):
         self.is_click(user['关闭Sales Order'])
-        sleep(2)
 
-    @allure.step("点击删除按钮")
-    def click_delete_sales(self):
-        self.is_click_dcr(user['Delete Sales Order'])
-        sleep(1)
-
-    @allure.step("点击确认删除按钮")
-    def click_confirm_delete(self):
-        Base.presence_sleep_dcr(self, user['Confirm Delete'])
-        self.is_click(user['Confirm Delete'])
-
-    @allure.step("点击Reset按钮")
-    def click_reset(self):
-        self.is_click(user['Reset'])
-        sleep(2)
-
-
-    """新建出库单时，新建临时客户"""
-    @allure.step("点击新建临时客户")
-    def click_temporary_customer(self):
-        Base.presence_sleep_dcr(self, user['Create Temporary Customer'])
-        self.is_click(user['Create Temporary Customer'])
-        sleep(1.5)
-
-    @allure.step("输入临时客户名称")
-    def input_temporary_customer_name(self, content):
-        Base.presence_sleep_dcr(self, user['Temporary Customer Name'])
-        self.is_click(user['Temporary Customer Name'])
-        self.input_text(user['Temporary Customer Name'], content)
-
-    @allure.step("输入临时客户联系电话")
-    def input_customer_contact_no(self, content):
-        self.is_click(user['Temporary Contact No'])
-        self.input_text(user['Temporary Contact No'], content)
-
-    @allure.step("点击业务类型下拉框")
-    def click_business_type(self):
-        self.is_click(user['Business Type'])
-        sleep(2)
-        self.is_click(user['Business Type value'], "Retail&Wholesale")
-
-    @allure.step("随机生成数字")
-    def customer_random(self):
-        num = str(random.randint(100, 999))
-        return num
-
-
-
-    """对销售单进行出库操作，产品为无码的出库单"""
-    @allure.step("点击无码单选按钮")
-    def click_quantity_radio_button(self):
-        self.is_click(user['Quantity Radio Button'])
-        sleep(2)
-
-    @allure.step("输入出库数量")
-    def input_delivery_quantity(self, quantity):
-        self.is_click(user['Input Delivery Quantity'])
-        self.input_text(user['Input Delivery Quantity'], txt=quantity)
-        sleep(1.5)
-
-    @allure.step("新建无码出库单时，获取Order Detail下的Product属性")
-    def get_order_detail_product(self):
-        product = self.element_text(user['Get Order Detail Product'])
-        return product
-
-    @allure.step("新建无码出库单时，获取Delivery Quantity属性")
-    def get_new_delivery_quantity(self):
-        quantity = self.element_text(user['Get New Delivery Quantity'])
-        return quantity
-
-
-    @allure.step("新建无码出库单时，点击delivery quantity属性")
-    def click_delivery_quantity(self):
-        self.is_click(user['Get New Delivery Quantity'])
 
 
 

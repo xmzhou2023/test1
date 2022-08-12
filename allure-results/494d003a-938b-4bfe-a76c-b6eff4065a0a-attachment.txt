@@ -1,0 +1,8 @@
+2022-08-12 19:30:50 [[32m    INFO[0m] 查找元素：('xpath', '//button[text()=" 更多"]') (basics.py:107)
+2022-08-12 19:30:50 [[32m    INFO[0m] 点击元素：('xpath', '//button[text()=" 更多"]') (basics.py:191)
+2022-08-12 19:30:50 [[32m    INFO[0m] 查找元素：('xpath', '//input[@name="promoterName"]') (basics.py:107)
+2022-08-12 19:30:50 [[32m    INFO[0m] 点击元素：('xpath', '//input[@name="promoterName"]') (basics.py:191)
+2022-08-12 19:30:51 [[32m    INFO[0m] 查找元素：('xpath', '//input[@name="promoterName"]') (basics.py:107)
+2022-08-12 19:30:51 [[32m    INFO[0m] 输入文本：管理员 (basics.py:138)
+2022-08-12 19:30:51 [[32m    INFO[0m] 查找元素：('xpath', '//button[text()=" 查询"]') (basics.py:107)
+2022-08-12 19:30:52 [[32m    INFO[0m] 点击元素：('xpath', '//button[text()=" 查询"]') (basics.py:191)

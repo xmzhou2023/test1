@@ -1,36 +1,37 @@
-#新增销售单 元素定位
+Sales Order iframe:  "id==iframe_sales_order"
+Add Sales Order iframe:  "id==iframe_sales_order_add"
+
+#新增销售订单元素
 Add: "id==saler_order_createSalesOrder_"
+
 Buyer: "xpath==//label[(text()='Buyer')]//parent::div// following-sibling::div//input"
-Buyer value: "xpath==//li[contains(text(),'variable')]"
+Buyer value: "xpath==//li[contains(text(),'EG000562')]"
+
 Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
-Brand value: "xpath==//span[contains(text(),'variable')]"
+Brand value: "xpath==//span[contains(text(),'TECNO')]"
+
 product: "xpath==//label[(text()='Product')]//parent::div// following-sibling::div//input"
-product value: "xpath==//span[(text()='variable')]"
+product value: "xpath==//span[(text()='SPARK 6 Go 64+4 AQUA BLUE')]"
 Quantity: "xpath==//label[(text()='Quantity')]//parent::div// following-sibling::div//input"
+
 Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 保存成功确认OK: "xpath==//span[contains(text(),'OK')]"
 
 #根据筛选功能，查询销售订单ID
 按销售单ID筛选: "xpath==//label[contains(text(),'Sales Order ID')]//parent::div//following-sibling::div//input"
 Search: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[1]//span[contains(text(),'Search')]"
+
 获取Sales Order ID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div/div"
 获取Status Pending文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Pending']"
 获取Status Delivered文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Delivered']"
-Get list Status Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
-
-
-#删除销售单
-Delete Sales Order: "xpath==//span[contains(text(),'Delete')]"
-Confirm Delete: "xpath==//span[normalize-space(text())='Confirm']"
-Reset: "xpath==//span[normalize-space(text())='Reset']"
-
 
 #勾选新建的销售单，直接出库
 勾选第一条销售单ID: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span/span"
 Delivery button: "id==saler_order_scanImei_"
 Sales Delivery iframe:  "id==iframe_sales_order_delivery"
+
 Payment Mode: "xpath==//label[contains(text(),'Payment Mode')]//parent::div//following-sibling::div//input"
-Payment Mode value: "xpath==//span[contains(text(),'variable')]"
+Payment Mode value: "xpath==//span[contains(text(),'Wechat')]"
 Input IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
 Submit Delivery: "xpath==//span[contains(text(),'Submit')]"
@@ -46,18 +47,3 @@ IMEI库存选中Brand: "xpath==//*[@id='app']/div/div[2]/section/div/div[1]/form
 IMEI库存查询按钮: "xpath==//span[contains(text(),'Search')]"
 获取IMEI文本内容: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
 关闭IMEI Inventory Query: "xpath==//span[normalize-space(text())='IMEI Inventory Query']//span[@class='el-icon-close']"
-
-
-#新建销售单，创建临时客户
-Create Temporary Customer: "xpath==//span[normalize-space(text())='Create Temporary Customer']"
-Temporary Customer Name: "id==salesorderadd_input_tmpEnterprise.clientName"
-Temporary Contact No: "id==salesorderadd_input_tmpEnterprise.contactNo"
-Business Type: "xpath==//input[@class='el-input__inner salesorderadd_input_tmpEnterprise.businessType']"
-Business Type value: "xpath==//span[normalize-space(text())='variable']"
-
-#对销售单直接出库操作，产品为无码的，买方为临时客户
-Quantity Radio Button: "xpath==//span[normalize-space(text())='Quantity']"
-Input Delivery Quantity: "xpath==//div[@class='el-input el-input--medium']//input"
-Get Order Detail Product: "xpath==//div[@class='cell el-tooltip']"
-Get New Delivery Quantity: "xpath==//div[normalize-space(text())='Delivery Quantity']/..//div[@class='num']"
-Submit: "id==salesorderdelivery_Submit"

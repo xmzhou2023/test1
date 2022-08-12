@@ -8,14 +8,14 @@ import allure
 
 @allure.feature("员工授权-角色定义")
 class TestSetRolePermission:
-    @allure.story("修改角色权限")
+    @allure.story("修改")
     @allure.title("角色定义页面，给“lhmItel店长”角色设置权限")
     @allure.description("角色定义页面，给“lhmItel店长”角色设置菜单权限")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        user.dcr_login(drivers, "lhmadmin", "dcr123456")
 
         """打开Staff & Authorization模块下的 Role Definition的菜单"""
         user.click_gotomenu("Staff & Authorization", "Role Definition")
@@ -37,7 +37,6 @@ class TestSetRolePermission:
         dom = DomAssert(drivers)
         dom.assert_exact_att(success)
         role.click_confirm()
-        role.click_close_role_definition()
 
         # """设置Basic Data Management模块权限后，检查是否能打开此模块下的菜单 """
         # user = DCRLogin(drivers)

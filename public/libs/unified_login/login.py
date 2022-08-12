@@ -35,8 +35,8 @@ class Login(Base):
     def srm_login(self, drivers, url, elsAccount, elsSubAccount):
         user = SrmLoginPage(drivers)
         user.get_url(url)  # 跳转到指定网页
-        user.input_elsSubAccount(elsSubAccount)  # 点击帐户密码登录
         user.input_elsAccount(elsAccount)  # 输入帐户名
+        user.input_elsSubAccount(elsSubAccount)  # 点击帐户密码登录
         user.input_password()
         user.input_code()
         user.click_login()
