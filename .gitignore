@@ -1,6 +1,4 @@
-.idea
-.pytest_cache
-allure-reports
-venv_uipom
-__pycache__!/allure-results/
-!/allure-report/
+/failures
+/libs/common/__pycache__
+/libs/config/__pycache__
+/project/DCR_PROD/__pycache__

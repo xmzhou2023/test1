@@ -1,0 +1,49 @@
+#创建退货单
+Add: "id==return_orders_create_"
+Return To Seller: "id==return_order_add_seller"
+Radio BoxID IMEI: "xpath==//span[contains(text(),'BoxID/IMEI')]"
+Radio Delivery order: "xpath==//span[text()=' Delivery Order']"
+Input BoxID IMEI: "css==[placeholder='Please enter IMEI or Box ID, press enter to check']"
+Input Delivery Order: "css==[placeholder='Please enter delivery order ID,press enter to check']"
+Click Check: "xpath==//span[contains(text(),'Check')]"
+Get Scan Record: "xpath==//div[contains(text(),'variable')]"
+Submit: "id==returnorderadd_Submit"
+获取退货成功提示: "xpath==//p[text()='Submit Success!']"
+Get Order Detail Deli Order ID: "xpath==//tr[@class='el-table__row']//td[1]//div[@class='cell el-tooltip']"
+Get Order Detail Seller ID: "xpath==//tr[@class='el-table__row']//td[2]//div[@class='cell el-tooltip']"
+Get Order Detail Buyer ID: "xpath==//tr[@class='el-table__row']//td[5]//div[@class='cell el-tooltip']"
+Get Order Detail Return Quantity: "xpath==//tr[@class='el-table__row']//td[10]//div[@class='cell el-tooltip']"
+
+
+#Quantity无码申请退货页面定位
+Radio Quantity: "xpath==//span[normalize-space(text())='variable']"
+Quantity Customer: "xpath==//input[@placeholder='Please enter ID or buyer name']"
+Quantity Customer value: "xpath==//span[normalize-space(text())='variable']"
+Quantity Delivery Order ID: "xpath==//input[@placeholder='Please select a delivery order ID']"
+Quantity Delivery Order ID value: "xpath==//span[contains(text(),'variable')]"
+Quantity Product: "xpath==//input[@placeholder='Please select a product']"
+Quantity Product value: "xpath==//span[contains(text(),'variable')]"
+Return Quantity: "xpath==//input[@role='spinbutton']"
+Get Quantity Delivery Order Text: "xpath==//div[contains(text(),'variable')]"
+Get Quantity Seller ID Text: "xpath==//div[contains(text(),'variable')]"
+Get Quantity Buyer ID Text: "xpath==//div[contains(text(),'variable')]"
+
+
+#退货单列表
+Click Delivery Order ID: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[2]/div/div/div/input"
+Input Delivery Order ID: "xpath==//label[(text()='Delivery/DN Order ID')]//parent::div// following-sibling::div//input"
+Search: "xpath==//span[contains(text(),'Search')]"
+获取列表第一个出库单: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
+获取列表退货状态: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[6]/div"
+获取列表第一个退货单: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div"
+
+#审核退货单定位
+退货复选框勾选: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[1]/div/label/span/span"
+#审核按钮
+Approve button: "id==return_orders_audit_"
+
+Remark: "id==rejectReason"
+Agree:  "xpath==//span[contains(text(),'Agree')]"
+#获取审核通过状态文本
+Approval Successfully: "xpath==//p[text()='Approval successfully']"
+关闭退货菜单: "xpath==//span[normalize-space(text())='Return Order']//span[@class='el-icon-close']"

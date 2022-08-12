@@ -1,0 +1,22 @@
+Click Role: "xpath==/html/body/div[1]/div/div[2]/section/div[1]/div[1]/form/div/div[1]/div[1]/div/div/div/div/div[1]/input"
+Input Role: "css==[class='el-select__input is-small']"
+Click Role value: "xpath==//span[contains(text(),'lhmItel店长')]"
+
+Search: "xpath==//span[contains(text(),'Search')]"
+Reset: "xpath==//span[contains(text(),'Reset')]"
+#第一个复选框: "css==[class='el-table_1_column_1 is-center el-table-column--selection ']"
+第一个复选框: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span/span"
+Permission Setting: "xpath==//span[contains(text(),'Permission Setting')]"
+
+#Web点击菜单名称前的复选框
+Basic Data Management: "xpath==//*[@id='pane-web']/div/div[1]/div[2]/div/div[5]/div[1]/label/span/span"
+Sales Region Management: "xpath==//span[text()='Sales Region Management']"
+
+#APP点击菜单名称前的复选框
+App Menu Management:  "xpath==//span[contains(text(),'App Menu Management')]"
+App Sales Order: "xpath==//*[@id='pane-app']/div/div[1]/div[2]/div/div[1]/div[2]/div[1]/div/label/span/span"
+
+Save: "xpath==//span[contains(text(),'Save')]"
+Confirm: "xpath==//span[contains(text(),'Confirm')]"
+Get Save Successfully Text: "xpath==//p[text()='Save Successfully']"
+关闭角色授权菜单: "xpath==//span[normalize-space(text())='Role Definition']//span[@class='el-icon-close']"

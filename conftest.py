@@ -1,5 +1,5 @@
 import sys, pytest, os, time
-import logging
+import logging, allure
 from py._xmlgen import html
 from selenium import webdriver
 from time import sleep
@@ -9,7 +9,7 @@ from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=False):
+def drivers(request, remote_ui=True):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
@@ -51,9 +51,11 @@ def drivers(request, remote_ui=False):
             option.add_argument('--no-sandbox')  # 以最高权限运行
             option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
             option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
-            option.set_capability("browserVersion", "99.0")
+            # option.set_capability("browserVersion", "99.0")
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
-            driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
+            # driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
+            # driver = webdriver.Remote("http://10.250.113.15:4444", options=option)
+            driver = webdriver.Remote("http://10.250.113.16:4444", options=option)
             # inspect_element() # page_element YMAL文件自检
         else:
             if remote_ui:
@@ -102,29 +104,37 @@ logging.basicConfig(level=logging.INFO,
                     encoding='utf-8',
                     filemode='a')
 
-# @pytest.mark.hookwrapper
-# def pytest_runtest_makereport(item):
-#     """
-#     当测试失败的时候，自动截图，展示到html报告中,基于pytest-html
-#     :param item:
-#     """
-#     pytest_html = item.config.pluginmanager.getplugin('html')
-#     outcome = yield
-#     report = outcome.get_result()
-#     extra = getattr(report, 'extra', [])
-#
-#     if report.when == 'call' or report.when == "setup":
-#         xfail = hasattr(report, 'wasxfail')
-#         if (report.skipped and xfail) or (report.failed and not xfail):
-#             file_name = report.nodeid.replace("::", "_") + ".png"
-#             screen_img = _capture_screenshot()
-#             if file_name:
-#                 html = '<div><img src="" alt="screenshot" style="width:1024px;height:768px;" ' \
-#                        'onclick="window.open(this.src)" align="right"/></div>' % screen_img
-#                 extra.append(pytest_html.extras.html(html))
-#         report.extra = extra
-#         report.description = str(item.function.__doc__)
-#         report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")
+
+def pytest_addoption(parser):
+    parser.addoption("--env", action="store", default='test', help='环境操作')
+
+@pytest.fixture(scope="session", autouse=True)
+def env_name(request):
+    return request.config.getoption("--env")
+
+@pytest.mark.hookwrapper
+def pytest_runtest_makereport(item):
+    """
+    当测试失败的时候，自动截图，展示到html报告中,基于pytest-html
+    :param item:
+    """
+    pytest_html = item.config.pluginmanager.getplugin('html')
+    outcome = yield
+    report = outcome.get_result()
+    extra = getattr(report, 'extra', [])
+
+    if report.when == 'call' or report.when == "setup":
+        xfail = hasattr(report, 'wasxfail')
+        if (report.skipped and xfail) or (report.failed and not xfail):
+            file_name = report.nodeid.replace("::", "_") + ".png"
+            screen_img = _capture_screenshot()
+            if file_name:
+                html = '<div><img src="" alt="screenshot" style="width:1024px;height:768px;" ' \
+                       'onclick="window.open(this.src)" align="right"/></div>' % screen_img
+                extra.append(pytest_html.extras.html(html))
+        report.extra = extra
+        report.description = str(item.function.__doc__)
+        report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")
 
 @pytest.mark.optionalhook
 def pytest_html_results_table_header(cells):
@@ -153,3 +163,25 @@ def _capture_screenshot():
     :return:
     '''
     return driver.get_screenshot_as_base64()
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    """
+获取⽤例执⾏结果的钩⼦函数
+    :param item:
+    :param call:
+    :return:
+    """
+    outcome = yield
+    report = outcome.get_result()
+    if report.when == "call" and report.failed:
+        mode = "a" if os.path.exists("failures") else "w"
+        with open("failures", mode)as f:
+            if "tmpir" in item.fixturenames:
+                extra = " (%s)" % item.funcargs["tmpdir"]
+            else:
+                extra = ""
+                f.write(report.nodeid + extra + "\n")
+            with allure.step('添加失败截图'):
+                allure.attach(driver.get_screenshot_as_png(), "失败截图", allure.attachment_type.PNG)
+

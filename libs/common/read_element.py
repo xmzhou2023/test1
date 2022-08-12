@@ -1,12 +1,12 @@
 import os
 import yaml
-from libs.config.conf import ELEMENT_PATH
+from libs.config.conf import PEROJECT_PATH
 
-# print(ELEMENT_PATH)
 class Element:
     """获取元素"""
+    def __init__(self, project, name):
 
-    def __init__(self, name):
+        ELEMENT_PATH = os.path.join(PEROJECT_PATH, project, 'page_element')
         self.file_name = '%s.yaml' % name
         self.element_path = os.path.join(ELEMENT_PATH, self.file_name)
         if not os.path.exists(self.element_path):
@@ -24,5 +24,5 @@ class Element:
 
 
 if __name__ == '__main__':
-    search = Element('SystemMgmt_RegionMgmt')
+    search = Element('DRP','SystemMgmt_RegionMgmt')
     print(search['tab区域菜单一级菜单'])

@@ -15,14 +15,15 @@ tab区域菜单四级菜单: "xpath==//div[@tabindex='-1']//div[@tabindex='-1']/
 
 #新增取消: "xpath==//tbody//tr[variable]//td[6]//span[contains(text(),'取消')]"
 # 列表定位
-列表第2列: "xpath==//tbody//tr//td[2]"
+
+列表第n列: "xpath==//tbody//tr//td[variable]"
 编辑: "xpath==//tbody//tr[variable]//td[6]//span[contains(text(),'编辑')]"
 保存: "xpath==//tbody//tr//td[6]//span[contains(text(),'保存')]"
 删除: "xpath==//tbody//tr[variable]//td[6]//span[contains(text(),'删除')]"
 删除 确定: "xpath==//div[@aria-hidden='false']//span[contains(text(),'确定')]"
 
 查找国家: "xpath==//input[@placeholder='请输入国家编码或国家名称']"
-国家列表第二列: "xpath==//div[4]//div[2]//table//tbody//tr//td[2]"
+国家列表第n列: "xpath==//div[4]//div[2]//table//tbody//tr//td[variable]"
 添加按钮: "xpath==/html[1]/body[1]/div[2]/div[1]/div[2]/div[2]/section[1]/div[1]/div[1]/div[4]/div[1]/div[2]/div[1]/div[2]/div[1]/div[4]/div[2]/table[1]/tbody[1]/tr[variable]/td[4]/div[1]/button[1]/span[1]"
 
 #取消添加: "xpath==//span[normalize-space(text())='variable']//i[@class='el-tag__close el-icon-close']"

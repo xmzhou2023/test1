@@ -3,9 +3,12 @@ from public.base.basics import Base, sleep
 from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from libs.common.logger_ui import log
 
-user = Element('SystemMgmt_RegionMgmt')
+import logging
+from ..test_case.conftest import *
+object_name = os.path.basename(__file__).split('.')[0]
+user = Element(pro_name,object_name)
+
 
 
 class AreaPage(Base):
@@ -90,10 +93,14 @@ class AreaPage(Base):
     @allure.step("市场分类配置 编辑")
     def update_market(self):
         self.is_click(user['市场编辑'])
+        sleep(1)
+
 
     @allure.step("保存市场配置")
     def save_market(self):
         self.is_click(user['保存市场'])
+        sleep(1)
+
 
     @allure.step("切换市场页签")
     def cut_market(self,cut=None):
@@ -141,10 +148,10 @@ class AreaPage(Base):
                 self.is_click(user['市场选项'])
 
     @allure.step("指定国家添加按钮")
-    def add_list(self, area_name):
+    def add_list(self, num, area_name):
         """添加指定行数据"""
-        a = self.find_elements(user['国家列表第二列'])
-        b = []  # 取出列表第二列的所有文本
+        a = self.find_elements(user['国家列表第n列'], num)
+        b = []  # 取出列表第n列的所有文本
         for i in range(len(a)):
             b.append(a[i].text)
         if area_name in b:
@@ -164,15 +171,17 @@ class AreaPage(Base):
             self.readonly_input_text(user['新增-英文名称输入'], nameEn)
 
     @allure.step("指定行编辑按钮")
-    def update_list(self, area_name):
+    def update_list(self, num, area_name):
         """编辑列表指定行数据"""
-        a = self.find_elements(user['列表第2列'])
-        b = []  # 取出列表第二列的所有文本
+        a = self.find_elements(user['列表第n列'],num)
+        b = []  # 取出列表第n列的所有文本
+
         for i in range(len(a)):
             b.append(a[i].text)
         if area_name in b:
             c = b.index(area_name) + 1  # 取到所传参数所在行号
-            self.find_element(user['编辑'],str(c)).click()  # 将行号c替换到xpath中进行相关操作
+            self.find_element(user['编辑'], str(c)).click()  # 将行号c替换到xpath中进行相关操作
+
 
     @allure.step("删除区域")
     def delete_area(self):
@@ -184,9 +193,9 @@ class AreaPage(Base):
             sleep(1)
 
     @allure.step("指定行删除按钮")
-    def del_list(self, area_name):
+    def del_list(self, num, area_name):
         """删除列表指定行数据"""
-        a = self.find_elements(user['列表第2列'])
+        a = self.find_elements(user['列表第n列'], num)
         b = []  # 取出列表第二列的所有文本
         for i in range(len(a)):
             b.append(a[i].text)

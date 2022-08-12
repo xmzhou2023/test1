@@ -7,30 +7,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # 本地下载路径
 DOWNLOAD_PATH = os.path.join(BASE_DIR, 'libs', 'download')
 
+# 图片下载路径
+IMAGE_PATH = os.path.join(BASE_DIR, 'libs', 'image')
+
 # 当前项目目录
-PEROJECT_PATH = os.path.join(BASE_DIR, 'project', 'DRP')
-
-# 配置文件
-CONFIG_PATH = os.path.join(PEROJECT_PATH, 'env', 'test')
-
-INI_PATH = os.path.join(CONFIG_PATH, 'config.ini')
-
-ENVIRONMENT_PATH = os.path.join(CONFIG_PATH, 'environment.properties')
-
-CATEGORIES_PATH = os.path.join(CONFIG_PATH, 'categories.json')
-
-# 项目页面元素目录
-ELEMENT_PATH = os.path.join(PEROJECT_PATH, 'page_element')
+PEROJECT_PATH = os.path.join(BASE_DIR, 'project')
 
 # 日志目录
 LOG_PATH = os.path.join(BASE_DIR, 'log')
 
-# excel目录
-TESTCASE_PATH = os.path.join(PEROJECT_PATH, 'excel_drive', 'TestCase.xlsx')
 
-# 报告json数据 和 网页报告路径
-RESULTS_PATH = os.path.join(BASE_DIR, 'allure-results')
-REPORT_PATH = os.path.join(BASE_DIR, 'allure-report')
+# excel目录
+TESTCASE_PATH = os.path.join(PEROJECT_PATH, 'DRP', 'excel_drive', 'TestCase.xlsx')
 
 # 公共路径
 PUBLIC_PATH = os.path.join(BASE_DIR, 'public')

@@ -3,20 +3,18 @@
 import ast
 import os
 import configparser
-from libs.config.conf import INI_PATH
-
-HOST = 'HOST'
-SQL = 'SQL'
-db = 'db'
+from libs.config.conf import PEROJECT_PATH
 
 class ReadConfig:
     """配置文件"""
-
-    def __init__(self):
+    def __init__(self, name, env, ini_name=None, values=None):
+        INI_PATH = os.path.join(PEROJECT_PATH, name, 'env', env, 'config.ini')
         if not os.path.exists(INI_PATH):
             raise FileNotFoundError("配置文件%s不存在！" % INI_PATH)
         self.config = configparser.RawConfigParser()  # 当有%的符号时请使用Raw读取
         self.config.read(INI_PATH, encoding='utf-8')
+        self.ini_name = ini_name
+        self.values = values
 
     def _get(self, section, option):
         """获取"""
@@ -30,15 +28,21 @@ class ReadConfig:
 
     @property
     def url(self):
-        return self._get(HOST, HOST)
+        return self._get('HOST', 'url')
 
     @property
     def db(self):
-        return self._get(SQL, db)
+        return self._get('SQL', 'db')
 
+    @property
+    def IPM_db(self):
+        return self._get(self.ini_name, self.values)
 
-ini = ReadConfig()
-sql = ast.literal_eval(ini.db)
 if __name__ == '__main__':
+    ini = ReadConfig('DRP','test')
+    sql = ast.literal_eval(ini.db)
+    inis = ReadConfig('IPM', 'test','database','db_ipm_config_uat')
+    sql_IPM = ast.literal_eval(inis.IPM_db)
     print(ini.url)
-    print(sql['host'])
+    print(sql)
+    print(sql_IPM)

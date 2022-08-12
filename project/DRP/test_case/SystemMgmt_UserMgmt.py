@@ -2,7 +2,7 @@ import allure
 import pytest
 from public.data.unified_login.unified import *
 
-from project.DRP.page_object.center_Component import NavPage
+from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_UserMgmt import UserPage
 
 @allure.feature("系统管理-用户管理")
@@ -10,15 +10,14 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
 
     @allure.story("查询用户")
     @allure.title("根据姓名查询用户")
-    @allure.description("在输入框输入用户工号'18650617'，进行查询")
+    @allure.description("在输入框输入用户工号18650617,进行查询")
     @allure.severity("minor")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_001(self, drivers):
-        allure.step('步骤细节')
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")
         user = UserPage(drivers)
-        user.search_user(jobnum=account[0]['username'])
+        user.search_user(name=account[0]['username'])
 
     @allure.story("查询用户")
     @allure.title("重置用户查询条件")
@@ -29,13 +28,13 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")
         user = UserPage(drivers)
-        user.search_user(jobnum=account[0]['username'])
+        user.search_user(jobnum=account[0]['usernum'])
         user.reset_account()
 
 @allure.feature("系统管理-用户管理")
 class TestAppendUser:
     @allure.story("新建用户")
-    @allure.title("根据姓名查询用户并添加")
+    @allure.title("根据姓名查询用户并添加456")
     @allure.description("查询工号为18650893，并添加该用户到系统")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
