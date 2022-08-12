@@ -1,3 +1,4 @@
+import logging
 from time import sleep
 from libs.common.read_element import Element
 from project.TBM.page_object.Center_Component import CenterComponent
@@ -306,14 +307,16 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         logging.info('点击同意-确定')
 
     @allure.step("点击同意-确定")
-    def onework_agree_flow(self, code, node):
-        self.assert_my_todo_node(code, node, True)
+    def onework_agree_flow(self, code, node=None):
         self.enter_oneworks_edit(code)
         self.click_onework_agree()
-        DomAssert(self.driver).assert_att('审核通过')
+        self.assert_toast()
         self.quit_oneworks()
+        if node is not None:
+            self.assert_my_todo_node(code, node, True)
 
     def assert_flow_compelete(self, code):
+        logging.info('等待一分钟，流程抄送到审批完成流转')
         sleep(60)
         self.assert_my_application_flow(code, '审批完成')
 

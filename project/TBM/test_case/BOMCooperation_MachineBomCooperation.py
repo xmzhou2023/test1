@@ -1101,19 +1101,19 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，选择检查角色没有配置的自检清单的检查角色，会提示[手机_itel_预研组_整机BOM]未配置自检清单！，直接点击同意，会提示自检清单不能为空")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_006_011(self, drivers, Machine_bomEnginner_API):
+    def test_006_012(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
         user.click_oneworks_businessapprove_self_inspection('检查角色', 'MPM')
         user.assert_toast('[手机_itel_MPM_整机BOM]未配置自检清单！')
-        sleep(5)
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
-        user.assert_toast('自检清单不能为空')
+        DomAssert(drivers).assert_att('自检清单不能为空')
         user.quit_oneworks()
+
 
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_MachineBomCooperation.py'])

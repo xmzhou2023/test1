@@ -6,6 +6,7 @@ zx扫码快捷登录: "id==tab-code"
 登录: "xpath==//*[@id='pane-account']/form/button"
 语言展开: "xpath==//div[@role='button']"
 语言切换: "xpath==//*[contains(@id,'dropdown-menu-')]//li[variable]"
+隐私保护勾选框_英文: "xpath==//span[text()='I have read and accept']/../label/span/span"
 
 
 ####======DCR定位登录元素============================================
