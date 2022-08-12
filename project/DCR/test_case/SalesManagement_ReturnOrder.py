@@ -2,9 +2,11 @@ import logging
 from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from project.DCR.page_object.SalesManagement_SalesOrder import SalesOrderPage
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
+from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert, DomAssert
+from public.base.assert_ui import SQLAssert
 from libs.common.time_ui import sleep
 from libs.common.connect_sql import *
 import pytest
@@ -211,6 +213,7 @@ class TestReturnOrder:
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
 
+
         """点击提交按钮"""
         return_order.click_Submit()
         dom = DomAssert(drivers)
@@ -342,6 +345,100 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Approved", get_status)
         return_order.click_close_return_order()
+
+
+
+    @allure.story("撤回退货单")
+    @allure.title("退货单页面，撤回退货单，Pending Approval状态的订单可撤回")
+    @allure.description("销售单页面，国包用户卖家创建有码出库单；卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_004(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "EG40052202", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Delivery Order")
+        """新建无码出库单操作"""
+        delivery = DeliveryOrderPage(drivers)
+
+        delivery.click_add()
+        delivery.input_sub_buyer("NG20613")
+        delivery.input_deli_pay_mode("Wechat")
+        delivery.click_quantity_radio_button()
+        delivery.click_quantity_add()
+        delivery.click_quantity_product("OCD-M201")
+        delivery.input_delivery_quantity('1')
+        delivery.click_submit()
+        DomAssert(drivers).assert_att("Submit successfully")
+        sleep(2.5)
+        delivery.click_search()
+        get_delivery_order = delivery.get_delivery_order_text()
+        """数据库断言,列表新建的出库单 与数据库的出库单是否一致"""
+        deli_sql = SQLAssert('DCR', 'test')
+        varsql2 = "select delivery_code from t_channel_delivery_ticket where warehouse_id='61735' and seller_id='1596874516539127' and buyer_id='1596874516539550' and status=80200000 order by created_time desc limit 1"
+        deli_sql.assert_sql(get_delivery_order, varsql2)
+        delivery.click_close_delivery_order()
+
+        """二代用户快速收货操作"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "NG2061301", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Purchase Management", "Inbound Receipt")
+        """新建无码出库单操作"""
+        receipt = InboundReceiptPage(drivers)
+        """从数据库表，查询最近新建的销售单ID与出库单ID"""
+        sql3 = SQL('DCR', 'test')
+        var_sql3 = "select delivery_code from t_channel_delivery_ticket where warehouse_id='61735' and seller_id='1596874516539127' and buyer_id='1596874516539550' and status=80200000 order by created_time desc limit 1"
+        result = sql3.query_db(var_sql3)
+        delivery_id = result[0].get("delivery_code")
+        logging.info("打印查询数据库表新建的出库单ID:{}".format(delivery_id))
+
+        receipt.input_deliveryOrder(delivery_id)
+        receipt.click_search()
+        receipt.select_checkbox()
+        receipt.click_quick_received()
+        """选择收货的仓库"""
+        receipt.input_select_warehouse("WNG2061301")
+        receipt.click_save()
+        """获取收货提交成功提示语，断言是否包含Successfully提示语"""
+        DomAssert(drivers).assert_att("Successfully")
+        sleep(2)
+        status = receipt.get_status_text()
+        """ 二代收货页面，断言收货后Status更新为：Goods Receipt状态 """
+        ValueAssert.value_assert_equal(status, "Goods Receipt")
+        receipt.click_close_inbound_receipt()
+
+        """二代用户打开退货页面，点击退货按钮，然后点击撤销退货操作"""
+        user.initialize_login(drivers, "NG2061301", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Return Order")
+        recall_return = ReturnOrderPage(drivers)
+        recall_return.click_Add()
+        recall_return.click_Return_Type()
+        recall_return.click_radio_quantity()
+        recall_return.input_quantity_customer("NG20613")
+        recall_return.input_quantity_delivery_order(delivery_id)
+
+        recall_return.click_quantity_product("OCD-M201")
+        recall_return.input_return_quantity('1')
+        recall_return.click_Check()
+        recall_return.click_Submit()
+        DomAssert(drivers).assert_att("Submit Success!")
+
+        """筛选新建的退货单数据，然后进行撤销操作"""
+        recall_return.input_Delivery_Orderid(delivery_id)
+        recall_return.click_Search()
+
+        get_status = recall_return.get_return_status()
+        ValueAssert.value_assert_equal(get_status, "Pending Approval")
+
+        recall_return.click_checkbox()
+        """点击更多操作，Recall 撤销功能"""
+        recall_return.click_more_option_recall()
+        """断言是否提示撤销成功，获取状态是否更新为Cancel状态"""
+        DomAssert(drivers).assert_att("Approval successfully")
+        get_status_cancel = recall_return.get_return_status()
+        ValueAssert.value_assert_equal(get_status_cancel, "Cancel")
+        recall_return.click_close_return_order()
 
 
 if __name__ == '__main__':

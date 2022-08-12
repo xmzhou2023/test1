@@ -301,7 +301,7 @@ class TestAddSalesOrder:
 @allure.feature("销售管理-销售单")
 class TestDeleteSalesOrder:
     @allure.story("删除销售单")
-    @allure.title("销售单页面，国包用户，删除新建的销售单操作")
+    @allure.title("销售单页面，国包用户，删除新建的Pending状态的销售单操作")
     @allure.description("销售单页面，国包用户，对新建Pending状态的销售单进行删除操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
