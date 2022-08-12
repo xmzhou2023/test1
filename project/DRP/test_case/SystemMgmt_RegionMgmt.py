@@ -4,6 +4,13 @@ from public.base.assert_ui import *
 from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_RegionMgmt import AreaPage
 
+@pytest.fixture(scope='module', autouse=True)
+def setup_module(drivers):
+    logging.info("模块前置条件：前往“DRP数据管理-机型库”页面")
+    user = NavPage(drivers)
+    user.click_gotonav("系统管理", "区域管理")
+    user = DomAssert(drivers)
+    user.assert_url("/systemManage/areaManage")
 
 @allure.feature("系统管理-区域管理")
 class TestSearchArea:
@@ -14,10 +21,6 @@ class TestSearchArea:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_001(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('itel事业部')
 
@@ -28,10 +31,6 @@ class TestSearchArea:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_002(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('itel事业部', 'itel事业部')
 
@@ -41,10 +40,6 @@ class TestSearchArea:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_003(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('itel事业部', 'itel事业部', 'itel事业部')
 
@@ -54,10 +49,6 @@ class TestSearchArea:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_004(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('itel事业部', 'itel事业部', 'itel事业部', '事业部备料')
 
@@ -67,10 +58,6 @@ class TestSearchArea:
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_005(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('itel事业部')
         user.search_area("巴基斯坦")
@@ -85,10 +72,6 @@ class TestSearchArea:
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_006(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('itel事业部')
         user.search_area("巴基")
@@ -103,10 +86,6 @@ class TestSearchArea:
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_007(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('itel事业部')
         user.search_area("加纳")
@@ -127,10 +106,6 @@ class TestExportArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_002_001(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('itel事业部')
         user.download_area(content="drp_dept_export_itel")
@@ -145,10 +120,6 @@ class TestAppendArea:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_001(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部')
         user.add_button()  # 点击新增按钮
@@ -164,10 +135,6 @@ class TestAppendArea:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_002(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部', 'Xpark业务区')
         user.add_button()  # 点击新增按钮
@@ -183,10 +150,6 @@ class TestAppendArea:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_003(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部', 'Xpark业务区', 'Xpark区')
         user.add_button()  # 点击新增按钮
@@ -203,10 +166,6 @@ class TestAppendArea:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_004(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         # 新增国家“中国”
         user.goto_tree('Infinix事业部', 'Xpark业务区', 'Xpark区')
@@ -229,10 +188,6 @@ class TestAppendArea:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_005(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         # 新增国家“中国”
         user.goto_tree('Infinix事业部', 'Xpark业务区', 'Xpark区')
@@ -256,10 +211,6 @@ class TestAppendArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_006(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部')
         user.add_button()  # 点击新增按钮
@@ -278,10 +229,6 @@ class TestAppendArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_007(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部', 'Xpark业务区')
         user.add_button()  # 点击新增按钮
@@ -300,10 +247,6 @@ class TestAppendArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_008(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部', 'Xpark业务区', 'Xpark区')
         user.add_button()  # 点击新增按钮
@@ -324,10 +267,6 @@ class TestAppendArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_009(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部', 'Xpark业务区', 'Xpark区')
         user.add_button()  # 点击新增按钮
@@ -341,10 +280,6 @@ class TestAppendArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_010(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部')
         user.add_button()  # 点击新增按钮
@@ -361,10 +296,6 @@ class TestUpdateArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_004_001(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部')
         user.add_button()  # 点击新增按钮
@@ -383,10 +314,6 @@ class TestUpdateArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_004_002(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部', 'Xpark业务区')
         user.add_button()  # 点击新增按钮
@@ -405,10 +332,6 @@ class TestUpdateArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_004_003(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         # 新增国家“中国”
         user.goto_tree('Infinix事业部', 'Xpark业务区', 'Xpark区')
@@ -434,10 +357,6 @@ class TestUpdateArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_004_004(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         # 新增国家“中国”
         user.goto_tree('Infinix事业部', 'Xpark业务区', 'Xpark区')
@@ -469,10 +388,6 @@ class TestDeleteArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_005_001(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         # 新增国家“中国”
         user.goto_tree('Infinix事业部', 'Xpark业务区', 'Xpark区')
@@ -489,10 +404,6 @@ class TestDeleteArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_005_002(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部', 'Xpark业务区')
         user.add_button()  # 点击新增按钮
@@ -507,10 +418,6 @@ class TestDeleteArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_005_003(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部')
         user.add_button()  # 点击新增按钮
@@ -526,10 +433,6 @@ class TestDeleteArea:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_005_004(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.goto_tree('Infinix事业部')  # 进入一级菜单
         user.add_button()
@@ -553,10 +456,6 @@ class TestCloseArea:
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_006_001(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "区域管理")
-        user = DomAssert(drivers)
-        user.assert_url("/systemManage/areaManage")
         user = AreaPage(drivers)
         user.close_window(window_name='区域管理')  # 关闭区域管理窗口
         user = DomAssert(drivers)
