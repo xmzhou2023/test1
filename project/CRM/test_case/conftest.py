@@ -1,7 +1,7 @@
 import pytest, logging
 from public.data.unified_login.unified import *
 from public.base.assert_ui import *
-from project.CRM.public.login import Login
+from public.libs.unified_login.login import Login
 from libs.common.read_config import *
 from selenium.webdriver.common.by import By
 pro_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -17,7 +17,7 @@ def __init__(drivers, env_name):
     """使用统一登录"""
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
-    user.crm_login(drivers,ini.url, account[5]['usernum'], account[5]['passwd'])
+    user.crm_login(drivers, ini.url, account[5]['usernum'], account[5]['passwd'])
     user = DomAssert(drivers)
     user.assert_url("{}".format(ini.url))
     #user = SQLAssert(pro_name, pro_env)

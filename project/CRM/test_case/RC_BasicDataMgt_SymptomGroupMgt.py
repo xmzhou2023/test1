@@ -23,7 +23,7 @@ import logging
 num = string.ascii_letters + string.digits
 
 @pytest.fixture(scope='module',autouse=True)
-def setup_module(drivers):
+def modul_setup_fixture(drivers):
     logging.info("前往RC中的Basic Data Mgt的Symptom Group Mgt")
     user = SymPage(drivers)
     user.GoTo_Symp()  # 进入现象组页面
@@ -36,7 +36,7 @@ def setup_module(drivers):
 @allure.feature("SymptomGroup") # 模块名称
 class TestSymptomGroup:
     @pytest.fixture()
-    def symp_fixture(self, drivers):
+    def session_fixture(self, drivers):
         logging.info("\n这个fixture在每个case前执行一次")
         yield
         logging.info("\n在每个case完成后执行的teardown")
@@ -54,8 +54,8 @@ class TestSymptomGroup:
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     #@pytest.mark.skip  # 跳过不执行
-    def test_1269692(self, drivers, setup_module, symp_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
-        name = setup_module  # 前置条件中已执行添加步骤，此用例只判断添加成功
+    def test_1269692(self, drivers, modul_setup_fixture, session_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
+        name = modul_setup_fixture  # 前置条件中已执行添加步骤，此用例只判断添加成功
         user = SymPage(drivers)
         get_record = user.Get_Symp(name)  # 查询添加成功
         ValueAssert.value_assert_equal(get_record, name)  # 判断查询与添加一致
@@ -72,8 +72,8 @@ class TestSymptomGroup:
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
    # @pytest.mark.skip  # 跳过不执行
-    def test_1269695(self, drivers, setup_module, symp_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
-        name = setup_module
+    def test_1269695(self, drivers, modul_setup_fixture, session_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
+        name = modul_setup_fixture
         user = SymPage(drivers)
         # user.Add_Symp(name)
         logging.info("步骤1：测试精确查询")
@@ -129,8 +129,8 @@ class TestSymptomGroup:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
    # @pytest.mark.skip  # 跳过不执行
-    def test_1272054(self, drivers, setup_module, symp_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
-        name = setup_module
+    def test_1272054(self, drivers, modul_setup_fixture, session_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
+        name = modul_setup_fixture
         user = SymPage(drivers)
         user.Get_Symp(name)  # 查询出来方便编辑
         logging.info("步骤1：将现象组状态修改为Disable")
@@ -158,8 +158,8 @@ class TestSymptomGroup:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
    # @pytest.mark.skip  # 跳过不执行
-    def test_1272248(self, setup_module,drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-        name = setup_module
+    def test_1272248(self, modul_setup_fixture,drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        name = modul_setup_fixture
         user = SymPage(drivers)
         created_date, created_by, modified_on, modified_by = user.Get_Symp_DATE_BY(name)  # 查询添加的时间、和创建人
         now_time = datetime.now()  # 获取当前时间
@@ -191,7 +191,7 @@ class TestSymptomGroup:
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     #@pytest.mark.skip  # 跳过不执行
-    def test_1272954(self, drivers, symp_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_1272954(self, drivers, session_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
         user = SymPage(drivers)
         _, _, name = user.Get_Enable_Status_Symp("Enable")  # 查询Enable,获取名称
         name_repeat_tip = user.Repeat_Add_Symp(name)  # 再次添加一样名称的现象组
@@ -204,7 +204,7 @@ class TestSymptomGroup:
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
    # @pytest.mark.skip  # 跳过不执行
-    def test_1272955(self, drivers, symp_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_1272955(self, drivers, session_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
         user = SymPage(drivers)
         _, _, name = user.Get_Enable_Status_Symp("Enable")  # 查询Enable,获取名称
         name_repeat_tip = user.Repeat_Edit_Symp(name)  # 编辑一样名称的现象组
@@ -217,8 +217,8 @@ class TestSymptomGroup:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
     #@pytest.mark.skip  # 跳过不执行
-    def test_1269693(self, drivers, setup_module, symp_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
-        name = setup_module
+    def test_1269693(self, drivers, modul_setup_fixture, session_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
+        name = modul_setup_fixture
         user = SymPage(drivers)
         user.Get_Symp(name)  # 查询出来方便编辑
         update_name = name[1:9:2]

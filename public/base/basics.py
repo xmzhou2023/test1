@@ -83,14 +83,14 @@ class Base(object):
         Image.open(html_path).crop(rangle).save(code_path)
 
         # 识别截图内容验证码
-        ocr = ddddocr.DdddOcr()
+         ocr = ddddocr.DdddOcr()
 
         with open(code_path, "rb") as f:
             img_bytes = f.read()
 
-        res = ocr.classification(img_bytes)
+         res = ocr.classification(img_bytes)
 
-        return res
+         return res
 
     def find_element(self, locator, choice=None):
         """寻找单个元素"""
