@@ -159,13 +159,9 @@ class ReturnOrderPage(Base):
         self.is_click(user['Quantity Customer'])
         sleep(1)
         self.input_text(user['Quantity Customer'], txt=content)
-<<<<<<< HEAD
         sleep(2.5)
         self.is_click(user['Quantity Customer value'], content)
-=======
         sleep(2)
-        self.is_click(user['Quantity Customer value'], "BD2915 lhmSubdealer001")
->>>>>>> 24116f7f051a9afa2562dba2a99a4bcd2e43f25b
 
 
     @allure.step("新建退货页面，输入Quantity无码退货的出库单ID")

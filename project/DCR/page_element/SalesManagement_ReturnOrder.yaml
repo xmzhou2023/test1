@@ -18,15 +18,14 @@ Get Order Detail Return Quantity: "xpath==//tr[@class='el-table__row']//td[10]//
 #Quantity无码申请退货页面定位
 Radio Quantity: "xpath==//span[normalize-space(text())='variable']"
 Quantity Customer: "xpath==//input[@placeholder='Please enter ID or buyer name']"
-<<<<<<< HEAD
 Quantity Customer value: "xpath==//div[@class='el-scrollbar']//span[contains(text(),'variable')]"
-=======
-Quantity Customer value: "xpath==//span[normalize-space(text())='variable']"
->>>>>>> 24116f7f051a9afa2562dba2a99a4bcd2e43f25b
+
 Quantity Delivery Order ID: "xpath==//input[@placeholder='Please select a delivery order ID']"
 Quantity Delivery Order ID value: "xpath==//span[contains(text(),'variable')]"
+
 Quantity Product: "xpath==//input[@placeholder='Please select a product']"
 Quantity Product value: "xpath==//span[contains(text(),'variable')]"
+
 Return Quantity: "xpath==//input[@role='spinbutton']"
 Get Quantity Delivery Order Text: "xpath==//div[contains(text(),'variable')]"
 Get Quantity Seller ID Text: "xpath==//div[contains(text(),'variable')]"
