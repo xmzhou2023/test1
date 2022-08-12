@@ -24,7 +24,7 @@ class DeliveryOrderPage(Base):
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(5.5)
+        sleep(3)
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
@@ -35,7 +35,6 @@ class DeliveryOrderPage(Base):
     def click_add(self):
         Base.presence_sleep_dcr(self, user['新增出库单'])
         self.is_click(user['新增出库单'])
-        sleep(2)
 
     @allure.step("Add新增出库单页面，输入国包账号的Buyer属性")
     def input_sub_buyer(self, content):
@@ -43,8 +42,8 @@ class DeliveryOrderPage(Base):
         self.is_click(user['Buyer'])
         sleep(1)
         self.input_text(user['Buyer'], txt=content)
-        sleep(2.5)
-        self.is_click(user['Buyer sub value'], "BD2915")
+        Base.presence_sleep_dcr(self, user['Buyer sub value'], content)
+        self.is_click(user['Buyer sub value'], content)
 
     @allure.step("Add新增出库单页面，输入二代账号的Buyer属性")
     def input_retail_buyer(self, content):
@@ -52,7 +51,7 @@ class DeliveryOrderPage(Base):
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content)
         sleep(2)
-        self.is_click(user['Buyer retail value'], "EG000562")
+        self.is_click(user['Buyer retail value'], content)
 
     @allure.step("Add新增出库单页面，payment mode属性")
     def input_deli_pay_mode(self, content):
@@ -69,12 +68,34 @@ class DeliveryOrderPage(Base):
     @allure.step("Add新增出库单页面，Check按钮")
     def click_check(self):
         self.is_click_dcr(user['Check'])
-        sleep(1)
+
+
+    @allure.step("Add新增出库单页面，点击check后，右侧Delivery Quan属性下显示出库数量")
+    def get_delivery_quantity(self):
+        get_deli_quantity = self.element_text(user['Get Delivery Quantity'])
+        return get_deli_quantity
+
+    @allure.step("Add新增出库单页面，点击check后，Order Detail列表Delivery Quan属性下显示出库数量")
+    def get_order_detail_deli_quantity(self):
+        get_order_deli_quantity = self.element_text(user['Get Order Detail Deli Quantity'])
+        return get_order_deli_quantity
+
+    @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧显示Success")
+    def get_Deli_Scan_Record_Success(self):
+        Base.presence_sleep_dcr(self, user['Get Delivery Scan Record Success'])
+        scan_record_success = self.element_text(user['Get Delivery Scan Record Success'])
+        return scan_record_success
+
+    @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧出现显示IMEI")
+    def get_Deli_Scan_Record_IMEI(self, imei):
+        Base.presence_sleep_dcr(self, user['Get Delivery Scan Record IMEI'], imei)
+        scan_record_imei = self.element_text(user['Get Delivery Scan Record IMEI'], imei)
+        return scan_record_imei
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):
         self.is_click(user['Submit'])
-        sleep(1)
+
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def get_text_submit(self):
@@ -100,6 +121,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("获取出库单列表的 出库单ID文本")
     def text_delivery_order(self):
+        Base.presence_sleep_dcr(self, user['Get Delivery Order ID Text'])
         delivery_order = self.element_text(user['Get Delivery Order ID Text'])
         return delivery_order
 
@@ -108,6 +130,10 @@ class DeliveryOrderPage(Base):
         delivery_status = self.element_text(user['Get Status Text'])
         return delivery_status
 
+    def delivery_convert_status(self, content):
+        if content == 80200000:
+            status = "On Transit"
+            return status
 
     """Delivery Order页面查询与导出功能元素定位"""
     @allure.step("点击Unfold展开筛选条件")
@@ -299,13 +325,16 @@ class DeliveryOrderPage(Base):
         sleep(1)
         self.input_text_dcr(user['Delivery Input Quantity'], txt=content)
         sleep(1)
-        self.is_click(user['Get Delivery Quantiry Text'])
+        self.is_click(user['Get Delivery Quantity Text'])
 
-    @allure.step("获取Delivery Quantity文本值")
-    def get_delivery_quantity_text(self, content):
-        get_quantiry_text = self.element_text(user['Get Delivery Quantiry Text'])
-        ValueAssert.value_assert_equal(content, get_quantiry_text)
-        sleep(1)
+    @allure.step("获取Delivery Quantity文本内容")
+    def get_delivery_quantity_text(self):
+        get_quantity_text = self.element_text(user['Get Delivery Quantity Text'])
+        return get_quantity_text
+
+    @allure.step("点击Delivery Quantity出库单数量文本")
+    def click_delivery_quantity_text(self):
+        self.is_click(user['Get Delivery Quantity Text'])
 
 
     """新建出库单时，新建临时客户"""

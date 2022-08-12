@@ -16,6 +16,7 @@ PEROJECT_PATH = os.path.join(BASE_DIR, 'project')
 # 日志目录
 LOG_PATH = os.path.join(BASE_DIR, 'log')
 
+
 # excel目录
 TESTCASE_PATH = os.path.join(PEROJECT_PATH, 'DRP', 'excel_drive', 'TestCase.xlsx')
 

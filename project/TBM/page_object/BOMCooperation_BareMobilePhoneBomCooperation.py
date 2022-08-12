@@ -1,3 +1,4 @@
+import logging
 from time import sleep
 from selenium.webdriver import Keys
 from libs.common.read_element import Element
@@ -54,6 +55,27 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.input_add_bom_info('同时做衍生BOM', '否')
         self.base_get_img()
 
+    @allure.step("单机头BOM协作新增组合")
+    def add_bom(self):
+        self.click_add()
+        self.input_add_bom_info('制作类型', '单机头BOM制作')
+        self.input_add_bom_info('品牌', 'itel')
+        self.input_add_bom_info('机型', 'X572-1')
+        self.input_add_bom_info('阶段', '试产阶段')
+        self.input_add_bom_info('市场', '埃塞本地')
+        self.input_add_bom_info('同时做衍生BOM', '否')
+        self.base_get_img()
+        self.click_add_bomtree()
+        self.input_bomtree('单机头', 'BOM状态', '试产')
+        self.input_bomtree('单机头', '物料编码', '12011061')
+        self.input_bomtree('单机头', '用量', '1000')
+        self.input_bomtree('指纹模组', '物料编码', '12200078')
+        self.input_bomtree('指纹模组', '用量', '1000')
+        self.select_business_review('李小素')
+        self.click_add_submit()
+        self.assert_toast('创建流程成功')
+        self.refresh()
+
     @allure.step("点击提交")
     def click_add_submit(self):
         self.scroll_into_view(user['提交'])
@@ -70,37 +92,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         """点击新增bom"""
         DomAssert(self.driver).assert_control(user['新增BomTree'], result)
 
-    @allure.step("输入BomTree内容")
-    def input_bomtree(self, header, content):
-        """
-        模版信息根据条件输入内容并且点击
-        @param content:输入的内容
-        @param header: BomTree要输入的表头；{'BOM类型':'2','BOM状态':'3','物料编码':'6','用量':'9','替代组':'10','份额':'11',}
-        """
-        BomTree_dict = {'BOM状态': '2', '物料编码': '5',
-                        '用量': '8', '替代组': '9', '份额': '10', }
-        if header == 'BOM状态':
-            self.is_click_tbm(user['BOMTree输入框'], BomTree_dict[header])
-            sleep(0.5)
-            self.is_click_tbm(user['BOMTree输入框选择'], content)
-        elif header == '物料编码':
-            self.is_click_tbm(user['BOM编辑'])
-            self.readonly_input_text(user['BOMTree输入框'], content, choice=BomTree_dict[header])
-            sleep(1)
-            self.is_click_tbm(user['物料编码选择'], content)
-            self.is_click_tbm(user['BOM确定'])
-        elif header == '用量' or header == '替代组' or header == '份额':
-            try:
-                self.is_click_tbm(user['BOM编辑'])
-                self.readonly_input_text(user['BOMTree输入框'], content, choice=BomTree_dict[header])
-                self.is_click_tbm(user['BOM确定'])
-            except:
-                self.is_click_tbm(user['BOM编辑'])
-                self.readonly_input_text(user['BOMTree输入框'], content,
-                                         choice=BomTree_dict[header])
-                self.is_click_tbm(user['BOM确定'])
-            sleep(0.5)
-
     @allure.step("根据Tree点击删除按钮")
     def click_bomtree_delete(self, tree):
         self.is_click_tbm(user['BOMTree删除'], tree)
@@ -113,26 +104,24 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         @param audit:输入的用户名
         """
         self.scroll_into_view(user['审核人设置'])
-        sleep(0.5)
-        self.is_click_tbm(user['审核人类别'], type)
-        self.input_text(user['成员列表输入框'], audit)
-        sleep(1)
-        self.is_click_tbm(user['成员选择'], audit)
-        self.is_click_tbm(user['成员确定'])
-
-    @allure.step("oneworks-审核人设置-组合")
-    def oneworsk_review(self):
-        self.select_business_review('李小素', '质量部')
-        self.select_business_review('李小素', '结构部')
-        self.select_business_review('李小素', '硬件')
-        self.select_business_review('李小素', '影像部')
-        self.select_business_review('李小素', '音频')
-        self.select_business_review('李小素', '预研组')
-        self.select_business_review('李小素', '中试部')
-        self.select_business_review('李小素', '采购部')
-        self.select_business_review('李小素', '结构经理')
-        self.select_business_review('李小素', '啊啊啊')
-        self.base_get_img()
+        if type == 'all':
+            info = self.find_elements_tbm(user['审核人名单'])
+            infolist = []
+            for i in info:
+                infolist.append(i.text)
+                self.is_click_tbm(user['审核人类别'], i.text)
+                self.input_text(user['成员列表输入框'], audit)
+                sleep(1)
+                self.is_click_tbm(user['成员选择'], audit)
+                self.is_click_tbm(user['成员确定'])
+            self.base_get_img()
+            logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
+        else:
+            self.is_click_tbm(user['审核人类别'], type)
+            self.input_text(user['成员列表输入框'], audit)
+            sleep(1)
+            self.is_click_tbm(user['成员选择'], audit)
+            self.is_click_tbm(user['成员确定'])
 
     @allure.step("获取单机头BOM协作第一列内容")
     def get_info(self):
@@ -177,8 +166,8 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
-    @allure.step("BomTree信息根据Tree在指定列表输入内容")
-    def input_optional_bomtree(self, tree, header, content):
+    @allure.step("BomTree信息根据Tree在指定列输入内容")
+    def input_bomtree(self, tree, header, content):
         """
         BomTree信息根据Tree在指定列表输入内容
         @param tree:输入选择
@@ -191,6 +180,10 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             sleep(1)
             self.is_click_tbm(user['物料编码选择'], content)
             self.is_click_tbm(user['BOMTree确定'], tree)
+        elif header == 'BOM状态':
+            self.is_click_tbm(user['BOMTreeBOM状态'], tree)
+            sleep(0.5)
+            self.is_click_tbm(user['BOMTree输入框选择'], content)
         elif header == '用量':
             self.is_click_tbm(user['BOMTree编辑'], tree)
             try:
@@ -497,8 +490,9 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.click_delete(code)
         self.assert_toast('删除成功')
 
-    @allure.step("在补充工厂页面-流程组合")
+    @allure.step("补充工厂页面-流程组合")
     def supplementary_factory_flow(self, code):
+        self.assert_my_todo_node(code, '补充工厂', True)
         self.enter_oneworks_edit(code)
         self.input_oneworks_plant_info('国内组包工厂', '1051')
         self.click_oneworks_slash()
@@ -507,6 +501,40 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.click_oneworks_confirm()
         self.assert_toast()
         self.quit_oneworks()
+
+    @allure.step("结构工程师审批页面-流程组合")
+    def framework_engineer_flow(self, code):
+        self.assert_my_todo_node(code, '结构工程师审批', True)
+        self.enter_oneworks_edit(code)
+        self.select_business_review('李小素', 'all')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("业务审核审批页面-流程组合")
+    def business_approve_flow(self, code):
+        self.assert_my_todo_node(code, '业务审核', True)
+        self.enter_oneworks_edit(code)
+        self.click_oneworks_self_inspection('业务类型', '手机')
+        self.click_oneworks_self_inspection('检查角色', '质量部(QPM)')
+        self.scroll_oneworks_self_inspection()
+        self.input_oneworks_inspection_result()
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("BOM工程师审批页面-流程组合")
+    def bom_approve_flow(self, code):
+        self.assert_my_todo_node(code, 'BOM工程师审批', True)
+        self.enter_oneworks_edit(code)
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.enter_oneworks_iframe()
+        self.assert_toast()
+        self.quit_oneworks()
+
 
     def click_check(self, code):
         """
@@ -716,5 +744,77 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         sleep(0.5)
         DomAssert(self.driver).assert_control(user['物料编码编辑验证'], True)
 
+    @allure.step("业务审核页面 点击 自检清单")
+    def click_oneworks_self_inspection(self, box, option):
+        """
+        业务审核页面 点击 自检清单
+        @param box:输入框
+        @param option:选项
+        """
+        self.is_click_tbm(user['业务审核-自检清单-输入框'], box)
+        self.is_click_tbm(user['业务审核-自检清单-选项'], option)
+
+    @allure.step("业务审核页面 滑动到 自检清单")
+    def scroll_oneworks_self_inspection(self):
+        self.scroll_into_view(user['业务审核-自检清单'])
+
+    @allure.step("业务审核页面 自检清单 点击输入检查结果")
+    def input_oneworks_inspection_result(self, rule='all', result='通过'):
+        """
+        业务审核页面 自检清单 点击输入检查结果
+        """
+        if rule == 'all' and result == '通过':
+            num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
+            for i in range(1, num + 1):
+                if result == '通过':
+                    try:
+                        self.is_click_tbm(user['业务审核-自检清单-检查结果-通过'], str(i))
+                    except:
+                        self.scroll_into_view(user['业务审核-自检清单-检查结果-通过'], str(i))
+                        self.is_click_tbm(user['业务审核-自检清单-检查结果-通过'], str(i))
+        elif rule == 'all' and result == '不通过':
+            num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
+            for i in range(1, num + 1):
+                try:
+                    self.is_click_tbm(user['业务审核-自检清单-检查结果-不通过'], str(i))
+                except:
+                    self.scroll_into_view(user['业务审核-自检清单-检查结果-不通过'], str(i))
+                    self.is_click_tbm(user['业务审核-自检清单-检查结果-不通过'], str(i))
+        elif rule == 'all' and result == '不涉及':
+            num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
+            for i in range(1, num + 1):
+                try:
+                    self.is_click_tbm(user['业务审核-自检清单-检查结果-不涉及'], str(i))
+                except:
+                    self.scroll_into_view(user['业务审核-自检清单-检查结果-不涉及'], str(i))
+                    self.is_click_tbm(user['业务审核-自检清单-检查结果-不涉及'], str(i))
+
+    @allure.step("子阶BOM检查")
+    def bom_check(self, result):
+        act_result = self.element_text(user['子阶BOM检查-检查结果'])
+        failed = self.element_text(user['子阶BOM检查-检查失败项数'])[6:]
+        try:
+            assert act_result == result
+            try:
+                if result == '成功':
+                    assert failed == '0'
+                elif result == '失败':
+                    assert failed != '0'
+                logging.info('断言成功，失败项数与实际相符：{}'.format(failed))
+            except:
+                self.base_get_img()
+                logging.error('断言失败，失败项数与实际不符：{}'.format(failed))
+                raise
+        except:
+            logging.error('断言失败，检查结果或失败项数与实际不符；检查结果：{}，失败项数：{}'.format(act_result, failed))
+            raise
+
+    @allure.step("点击子阶BOM检查-更多操作")
+    def click_more(self):
+        self.is_click(user['子阶BOM检查-更多操作'])
+
+    @allure.step("点击子阶BOM检查-更多操作-更新子阶BOM")
+    def click_update(self):
+        self.is_click(user['子阶BOM检查-更多操作-更新子阶BOM'])
 if __name__ == '__main__':
     pass

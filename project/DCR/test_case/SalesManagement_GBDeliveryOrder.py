@@ -76,8 +76,8 @@ class TestAddDistDeliveryOrder:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             dom.assert_att("Submit successfully")
-
         sleep(4)
+
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         salesorder = add.text_sales_order()
         deliveryorder = add.text_delivery_order()
@@ -204,7 +204,8 @@ class TestSubReturn:
         return_order.click_Submit()
         dom = DomAssert(drivers)
         dom.assert_att("Submit Success!")
-        """方法参数赋值给变量"""
+
+        """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
         return_order.input_Delivery_Orderid(delivery_code)
         return_order.click_Search()
 

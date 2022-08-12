@@ -24,19 +24,19 @@ class TestQueryDeliveryOrder:
         """打开销售管理-打开出库单页面"""
         menu.click_gotomenu("Sales Management", "Delivery Order")
 
-        list = DeliveryOrderPage(drivers)
-        sale_order = list.get_sales_order_text()
-        deli_order = list.get_delivery_order_text()
-        deli_date = list.get_delivery_date_text()
-        status = list.get_status_text()
-        total = list.get_total_text()
+        query = DeliveryOrderPage(drivers)
+        sale_order = query.get_sales_order_text()
+        deli_order = query.get_delivery_order_text()
+        deli_date = query.get_delivery_date_text()
+        status = query.get_status_text()
+        total = query.get_total_text()
 
         ValueAssert.value_assert_IsNoneNot(sale_order)
         ValueAssert.value_assert_IsNoneNot(deli_order)
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
-        list.assert_total(total)
-        #list.click_close_delivery_order()
+        query.assert_total(total)
+        query.click_close_delivery_order()
 
 
 
@@ -48,12 +48,12 @@ class TestExportDeliveryOrder:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
         """刷新页面"""
-        # base = Base(drivers)
-        # base.refresh()
-        # sleep(3.5)
-        #"""打开销售管理-打开出库单页面"""
-        # menu = DCRLoginPage(drivers)
-        # menu.click_gotomenu("Sales Management", "Delivery Order")
+        base = Base(drivers)
+        base.refresh()
+        sleep(3.5)
+        """打开销售管理-打开出库单页面"""
+        menu = DCRLoginPage(drivers)
+        menu.click_gotomenu("Sales Management", "Delivery Order")
 
         export = DeliveryOrderPage(drivers)
         # 获取日期

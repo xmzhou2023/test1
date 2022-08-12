@@ -27,7 +27,6 @@ class TestQueryShopInventoryIMEI:
         shop_inventory = ShopInventoryIMEIQueryPage(drivers)
 
         #获取列表属性文本内容
-
         shop_id = shop_inventory.get_shop_id_text()
         shop_name = shop_inventory.get_shop_name_text()
         brand = shop_inventory.get_brand_text()

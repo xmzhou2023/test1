@@ -131,6 +131,17 @@ class InboundReceiptPage(Base):
         select_record = self.element_text(user['Get Please select a record'])
         return select_record
 
+    @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
+    def click_close_inbound_receipt(self):
+        self.is_click(user['关闭二代收货菜单'])
+        sleep(2)
+
+    @allure.step("快速收货页面，点击关闭IMEI Detail窗口")
+    def click_close_inbound_imei_detail(self):
+        self.is_click(user['关闭二代收货IMEI Detail'])
+        sleep(2)
+
+
     #IMEI Detail页面元素定位方法
     def get_imei_detail_material_id(self):
         """获取IMEI Detail页面 material_id字段内容"""
@@ -181,6 +192,8 @@ class InboundReceiptPage(Base):
             logging.info("查看Inbound Receipt列表，加载IMEI详情数据正常，分页总条数Total：{}".format(total1))
         else:
             logging.info("查看Inbound Receipt列表，加载IMEI详情数据失败，分页总条数Total：{}".format(total1))
+
+
 
 if __name__ == '__main__':
     pass

@@ -34,7 +34,7 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
 @allure.feature("系统管理-用户管理")
 class TestAppendUser:
     @allure.story("新建用户")
-    @allure.title("根据姓名查询用户并添加")
+    @allure.title("根据姓名查询用户并添加456")
     @allure.description("查询工号为18650893，并添加该用户到系统")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke

@@ -1,19 +1,20 @@
-from public.base.basics import Base
+import logging
+import os
+import allure
+from libs.common.read_config import ReadConfig
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
-from libs.common.read_config import *
+from public.base.basics import Base
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-user = Element(pro_name, object_name)
 pro_env = 'prod' # 需要手动配置测试环境
+user = Element(pro_name, object_name)
 ini = ReadConfig(pro_name, pro_env)
-
 
 
 class LoginPage(Base):
     """DCR登录类"""
-
     def input_account(self, content):
         """输入工号"""
         self.input_text(user['工号输入框'], txt=content)
@@ -48,6 +49,7 @@ class LoginPage(Base):
     def click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(user['登录'])
+        sleep(8)
 
     def click_loginOut(self):
         """点击退出登录"""
@@ -60,21 +62,22 @@ class LoginPage(Base):
         homepage = self.element_text(user['get Home Page Customer text'])
         return homepage
 
-    """登录方法"""
-    def dcr_login(self, drivers, account, passwd):
-        user = LoginPage(drivers)
-        user.get_url(ini.url)
-        sleep(3)
-        user.input_account(account)
-        user.input_passwd(passwd)
-        sleep(2)
-        get_check_class = user.get_check_box_class()
-        if "is-checked" not in str(get_check_class):
-            user.click_check_box()
-        user.click_loginsubmit()
-        sleep(6)
 
-    """查找菜单"""
+    @allure.step("登录方法")
+    def dcr_login(self, drivers, account, passwd):
+        #user = LoginPageDCR(drivers)
+        self.get_url(ini.url)
+        sleep(7)
+        self.input_account(account)
+        self.input_passwd(passwd)
+        sleep(1)
+        get_check_class = self.get_check_box_class()
+        if "is-checked" not in str(get_check_class):
+            self.click_check_box()
+        self.click_loginsubmit()
+
+
+    @allure.step("点击菜单")
     def click_gotomenu(self, *content):
         """前往左侧菜单栏"""
         level = []

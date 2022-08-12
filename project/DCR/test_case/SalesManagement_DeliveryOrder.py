@@ -1,15 +1,15 @@
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
-import logging
+from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.time_ui import sleep
 from libs.common.connect_sql import *
-from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
-from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 import datetime
+import logging
 import pytest
 import allure
+
 
 @allure.feature("销售管理-出库单")
 class TestQueryDeliveryOrder:
@@ -20,23 +20,22 @@ class TestQueryDeliveryOrder:
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
-
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Delivery Order")
 
-        list = DeliveryOrderPage(drivers)
-        sale_order = list.text_sales_order()
-        deli_order = list.text_delivery_order()
-        deli_date = list.get_delivery_date_text()
-        status = list.text_delivery_Status()
-        total = list.get_total_text()
+        list1 = DeliveryOrderPage(drivers)
+        sale_order = list1.text_sales_order()
+        deli_order = list1.text_delivery_order()
+        deli_date = list1.get_delivery_date_text()
+        status = list1.text_delivery_Status()
+        total = list1.get_total_text()
 
         ValueAssert.value_assert_IsNoneNot(sale_order)
         ValueAssert.value_assert_IsNoneNot(deli_order)
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
-        list.assert_total(total)
-        list.click_close_delivery_order()
+        list1.assert_total(total)
+        list1.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -48,7 +47,6 @@ class TestViewDeliveryIMEIDetails:
     def test_002_001(self, drivers):
         user1 = LoginPage(drivers)
         user1.initialize_login(drivers, "BD40344201", "dcr123456")
-
         """打开销售管理-打开出库单页面"""
         user1.click_gotomenu("Sales Management", "Delivery Order")
 
@@ -88,7 +86,6 @@ class TestExportDeliveryOrder:
     def test_003_001(self, drivers):
         user2 = LoginPage(drivers)
         user2.initialize_login(drivers, "BD40344201", "dcr123456")
-
         """打开销售管理-打开出库单页面"""
         user2.click_gotomenu("Sales Management", "Delivery Order")
 
@@ -136,7 +133,7 @@ class TestAddDeliveryOrder:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_001(self, drivers):
         user3 = LoginPage(drivers)
-        user3.initialize_login(drivers, "BD40344201", "dcr123456")
+        user3.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user3.click_gotomenu("Sales Management", "Delivery Order")
 
@@ -151,9 +148,12 @@ class TestAddDeliveryOrder:
 
         add.click_quantity_radio_button()
         add.click_quantity_add()
-        add.click_quantity_product("TECNO B1 BLACK")
+        add.click_quantity_product("CD-C3AR GREY")
         add.input_delivery_quantity("1")
-        add.get_delivery_quantity_text("1")
+        get_deli_quantity = add.get_delivery_quantity_text()
+        ValueAssert.value_assert_equal(get_deli_quantity, "1")
+        add.click_delivery_quantity_text()
+
         """点击Submit提交按钮"""
         add.click_submit()
 
@@ -164,26 +164,27 @@ class TestAddDeliveryOrder:
 
         """断言查询新建的无码出库单"""
         user = SQL('DCR', 'test')
-        varsql1 = "select * from  t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667'  and status=80200001 order by created_time desc limit 1"
+        varsql1 = "select order_code,delivery_code from t_channel_delivery_ticket where warehouse_id='61735' and seller_id='1596874516539127' and status=80200001 order by created_time desc limit 1"
         result = user.query_db(varsql1)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
-        logging.info("查询数据库销售单号order_code{}".format(order_code))
-        logging.info("查询数据库出库单号delivery_code{}".format(delivery_code))
-        sleep(1)
-
-        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        salesorder = add.text_sales_order()
-        deliveryorder = add.text_delivery_order()
+        logging.info("打印查询数据库销售单号order_code{}".format(order_code))
+        logging.info("打印查询数据库出库单号delivery_code{}".format(delivery_code))
 
         """出库单页面，筛选新建的无码出库单ID"""
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
 
+        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
+        get_salesorder = add.text_sales_order()
+        get_deliveryorder = add.text_delivery_order()
+        get_status = add.text_delivery_Status()
+
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
-        ValueAssert.value_assert_equal(salesorder, order_code)
-        ValueAssert.value_assert_equal(deliveryorder, delivery_code)
+        ValueAssert.value_assert_equal(get_salesorder, order_code)
+        ValueAssert.value_assert_equal(get_deliveryorder, delivery_code)
+        ValueAssert.value_assert_equal("Goods Receipt", get_status)
         add.click_close_delivery_order()
 
 
@@ -207,15 +208,28 @@ class TestAddDeliveryOrder:
         add.click_business_type()
 
         """从数据库表查询国包BD403442仓库的库存IMEI"""
-        varsql = "SELECT IMEI FROM  t_channel_warehouse_current_stock WHERE WAREHOUSE_ID ='62139' AND STATUS = 1  limit 1"
-        user = SQL('DCR', 'test')
-        result = user.query_db(varsql)
-        imei = result[0].get("IMEI")
-        sleep(1)
+        varsql1 = "SELECT IMEI FROM  t_channel_warehouse_current_stock WHERE WAREHOUSE_ID ='62139' AND STATUS = 1  limit 1"
+        sql1 = SQL('DCR', 'test')
+        imei_result = sql1.query_db(varsql1)
+        imei = imei_result[0].get("IMEI")
+        logging.info("打印查询数据库的 imei{}".format(imei))
+
         add.input_imei(imei)
         add.click_check()
+
+        """断言检查出库单数量是否一致,扫码IMEI是否加载正确，是否有Success提示"""
+        get_success = add.get_Deli_Scan_Record_Success()
+        ValueAssert.value_assert_equal(get_success, "Success")
+        get_imei = add.get_Deli_Scan_Record_IMEI(imei)
+        ValueAssert.value_assert_equal(get_imei, imei)
+        get_deli_quantity = add.get_delivery_quantity()
+        get_order_deli_quantity = add.get_order_detail_deli_quantity()
+        ValueAssert.value_assert_equal(get_deli_quantity, get_order_deli_quantity)
+
+        """点击提交按钮"""
         add.click_submit()
         dom = DomAssert(drivers)
+        """点击提交后，盘点是否有弹出确认价格提示框，如果没有就执行except下面的语句，直接提交成功，断言是否有成功提示语"""
         try:
             affirm = add.get_text_submit_affirm()
             if affirm == "Submit":
@@ -226,26 +240,73 @@ class TestAddDeliveryOrder:
         sleep(4)
 
         """断言查询新建的无码出库单"""
-        user = SQL('DCR', 'test')
-        varsql1 = "select * from  t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667'  and status=80200001 order by created_time desc limit 1"
-        result = user.query_db(varsql1)
+        sql2 = SQL('DCR', 'test')
+        varsql2 = "select * from  t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667'  and status=80200001 order by created_time desc limit 1"
+        result = sql2.query_db(varsql2)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
-        sleep(2)
-
-        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        salesorder = add.text_sales_order()
-        deliveryorder = add.text_delivery_order()
+        logging.info("打印数据库查询的销售单ID order_code{}".format(order_code))
+        logging.info("打印数据库查询的出库单ID delivery_code{}".format(delivery_code))
 
         """出库单页面，筛选新建的无码出库单ID"""
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
 
+        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
+        get_salesorder = add.text_sales_order()
+        get_deliveryorder = add.text_delivery_order()
+        get_status = add.text_delivery_Status()
+
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
-        ValueAssert.value_assert_equal(salesorder, order_code)
-        ValueAssert.value_assert_equal(deliveryorder, delivery_code)
+        ValueAssert.value_assert_equal(get_salesorder, order_code)
+        ValueAssert.value_assert_equal(get_deliveryorder, delivery_code)
+        ValueAssert.value_assert_equal("Goods Receipt", get_status)
         add.click_close_delivery_order()
+
+        """卖家创建退货单，退货类型为Return To Seller、退有码产品，输入Delivery Order出库单ID整单退货"""
+        base = Base(drivers)
+        base.refresh()
+        """打开销售管理-打开出库单页面"""
+        user4.click_gotomenu("Sales Management", "Return Order")
+        return_order = ReturnOrderPage(drivers)
+
+        return_order.click_Add()
+        return_order.click_Return_Type()
+        return_order.radio_Delivery_order()
+        return_order.input_Delivery_order(delivery_code)
+        return_order.click_Check()
+
+        """点击check按钮后，断言加载出库单信息，获取检查Scan Record结果与 Order Detail列表下出库单记录是否加载正常"""
+        record = return_order.get_text_Record()
+        ValueAssert.value_assert_equal("Success", record)
+        delivery_order_id = return_order.get_Order_Detail_Deli_Order_ID()
+        seller_id = return_order.get_Order_Detail_Seller_ID()
+        buyer_id = return_order.get_Order_Detail_Buyer_ID()
+        return_quantity = return_order.get_Order_Detail_Return_Quantity()
+
+        ValueAssert.value_assert_equal(delivery_order_id, delivery_code)
+        ValueAssert.value_assert_equal(seller_id, "BD403442")
+        ValueAssert.value_assert_IsNoneNot(buyer_id)
+        ValueAssert.value_assert_equal(return_quantity, "1")
+
+        """点击提交按钮"""
+        return_order.click_Submit()
+        dom = DomAssert(drivers)
+        dom.assert_att("Submit Success!")
+
+        """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
+        return_order.input_Delivery_Orderid(delivery_code)
+        return_order.click_Search()
+
+        """断言筛选退货列表页，获取退货单ID、退货出库单ID、退货状态与数据库表中查询的出库单ID对比是否一致"""
+        get_return_order_id = return_order.get_list_return_order_id()
+        ValueAssert.value_assert_IsNoneNot(get_return_order_id)
+        get_delivery_order_id = return_order.get_text_deliveryID()
+        get_status = return_order.get_return_status()
+        ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
+        ValueAssert.value_assert_equal("Approved", get_status)
+        return_order.click_close_return_order()
 
 
 if __name__ == '__main__':

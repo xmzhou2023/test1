@@ -112,15 +112,13 @@ class SQL(object):
             return e
 
 if __name__ == '__main__':
-    a = SQL('DRP','test')
-    print(a.query_db("select * from uc_user where name_zh='刘勇' and card_no='18650617'"))
-    print(a.check_sql(column='*',table='uc_user',condition='name_zh',condition_value="黄琴"))
-    print(a.delete_sql(table='uc_user',condition='id',condition_value='1'))
-    print(a.insert_sql(table='uc_user',condition='id,name_zh,email,card_no',condition_value="'1','测试人员','yong.liu6@transsion.com','18888888'"))
-    print(a.update_sql(table='uc_user',column='name_zh',column_value='evan',condition='card_no',condition_value='18888888'))
+    # a = SQL('DRP','test')
+    # print(a.query_db("select * from uc_user where name_zh='刘勇' and card_no='18650617'"))
+    # print(a.check_sql(column='*',table='uc_user',condition='name_zh',condition_value="黄琴"))
+    # print(a.delete_sql(table='uc_user',condition='id',condition_value='1'))
+    # print(a.insert_sql(table='uc_user',condition='id,name_zh,email,card_no',condition_value="'1','测试人员','yong.liu6@transsion.com','18888888'"))
+    # print(a.update_sql(table='uc_user',column='name_zh',column_value='evan',condition='card_no',condition_value='18888888'))
     IPM = SQL('IPM','test','database','db_ipm_config_uat')
-    print(IPM.query_db('SELECT node_bid FROM flow_mat_node WHERE flow_type="MOBILE"AND state_code="enable"'))
-    print(IPM.query_db("SELECT DISTINCT obj_type_name FROM flow_mat_member WHERE obj_type_name='2.4G wifi saw' and is_delete=0;"))
-
-
+    print(IPM.query_db("SELECT DISTINCT(obj_type_name) FROM flow_mat_member WHERE  flow_type='MOBILE' AND  obj_type_name='1阶HDI副板'"))
+    # print(IPM.query_db("SELECT DISTINCT obj_type_name FROM flow_mat_member WHERE obj_type_name='2.4G wifi saw' and is_delete=0;"))
 
