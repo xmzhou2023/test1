@@ -23,7 +23,7 @@ import logging
 num = string.ascii_letters + string.digits
 
 @pytest.fixture(scope='module',autouse=True)
-def modul_setup_fixture(drivers):
+def module_setup_fixture(drivers):
     logging.info("前往RC中的Basic Data Mgt的Symptom Group Mgt")
     user = SymPage(drivers)
     user.GoTo_Symp()  # 进入现象组页面

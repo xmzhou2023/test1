@@ -5,7 +5,7 @@ from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_RegionMgmt import AreaPage
 
 @pytest.fixture(scope='module', autouse=True)
-def setup_module(drivers):
+def module_setup_fixture(drivers):
     logging.info("模块前置条件：前往“DRP数据管理-机型库”页面")
     user = NavPage(drivers)
     user.click_gotonav("系统管理", "区域管理")
