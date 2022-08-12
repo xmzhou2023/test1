@@ -1,5 +1,5 @@
-from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
-from project.DCR.page_object.Center_Component import LoginPage
+from project.DCR_INDIA.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
+from project.DCR_INDIA.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
 import pytest
@@ -85,7 +85,8 @@ class TestQueryIMEIDetail:
         ValueAssert.value_assert_IsNoneNot(detail_material)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
         ValueAssert.value_assert_equal("Export", detail_export)
-        sleep(1)
+        query.click_close_inbound_imei_detail()
+        query.click_close_inbound_receipt()
 
 
 if __name__ == '__main__':

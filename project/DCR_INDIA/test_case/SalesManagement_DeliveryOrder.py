@@ -19,27 +19,33 @@ class TestQueryDeliveryOrder:
         base.refresh()
         sleep(3.5)
 
-        #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        #get_home_page = user.get_home_page_text()
-        #ValueAssert.value_assert_equal("Home Page-Customer", get_home_page)
-
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")
 
-        list = DeliveryOrderPage(drivers)
-        sale_order = list.get_sales_order_text()
-        deli_order = list.get_delivery_order_text()
-        deli_date = list.get_delivery_date_text()
-        status = list.get_status_text()
-        total = list.get_total_text()
+        query = DeliveryOrderPage(drivers)
+        # 获取日期
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
+        query.click_unfold()
+        query.input_delivery_date("2022-07-01", today)
+        query.click_status_input_box()
+        query.click_fold()
+        query.click_search()
+
+        sale_order = query.get_sales_order_text()
+        deli_order = query.get_delivery_order_text()
+        deli_date = query.get_delivery_date_text()
+        status = query.get_status_text()
+        total = query.get_total_text()
 
         ValueAssert.value_assert_IsNoneNot(sale_order)
         ValueAssert.value_assert_IsNoneNot(deli_order)
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
-        list.assert_total(total)
-        #list.click_close_delivery_order()
+        query.assert_total(total)
+        query.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -50,12 +56,12 @@ class TestExportDeliveryOrder:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_002_001(self, drivers):
         """刷新页面"""
-        # base = Base(drivers)
-        # base.refresh()
-        # sleep(3.5)
-        # """打开销售管理-打开出库单页面"""
-        # menu = LoginPage(drivers)
-        # menu.click_gotomenu("Sales Management", "Delivery Order")
+        base = Base(drivers)
+        base.refresh()
+        sleep(3.5)
+        """打开销售管理-打开出库单页面"""
+        menu = LoginPage(drivers)
+        menu.click_gotomenu("Sales Management", "Delivery Order")
 
         export = DeliveryOrderPage(drivers)
         # 获取日期
@@ -77,17 +83,15 @@ class TestExportDeliveryOrder:
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
-        create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
-        complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Delivery Order")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
-        ValueAssert.value_assert_equal(create_date1, today)
-        ValueAssert.value_assert_equal(complete_date1, today)
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
         export.click_close_export_record()

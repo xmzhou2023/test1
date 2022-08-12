@@ -13,8 +13,10 @@ Select itel: "xpath==//span[text()='itel']"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
 IMEI Detail: "xpath==//span[contains(text(),'IMEI Detail')]"
-
 Get Please select a record: "xpath==//p[contains(text(),'Please select a record')]"
+
+关闭二代收货菜单: "xpath==//span[normalize-space(text())='Inbound Receipt']//span[@class='el-icon-close']"
+关闭二代收货IMEI Detail: "xpath==//*[@id='mainContainer']/section/div[1]/div[5]/div[1]/div/div[1]/button/i"
 
 
 #获取列表字段元素

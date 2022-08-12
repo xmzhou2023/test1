@@ -37,10 +37,19 @@ class LoginPage(Base):
         """判断是否被选中"""
         return self.select_state(login['隐私保护勾选框'])
 
+    def check_box_en(self):
+        """判断是否被选中"""
+        return self.select_state(login['隐私保护勾选框_英文'])
+
     def click_checkbox(self):
         """点击复选框"""
         if not self.check_box():
             self.is_click(login['隐私保护勾选框'])
+
+    def click_checkbox_en(self):
+        """点击复选框"""
+        if not self.check_box_en():
+            self.is_click(login['隐私保护勾选框_英文'])
 
     def click_loginsubmit(self):
         """点击帐号密码登录"""

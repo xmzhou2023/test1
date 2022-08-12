@@ -28,7 +28,7 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(5)
+        sleep(4)
 
     @allure.step("获取列表第一个销售单ID")
     def text_salesOrder(self):
@@ -51,10 +51,19 @@ class InboundReceiptPage(Base):
         self.is_click_dcr(user['快速收货按钮'])
         sleep(2)
 
+    @allure.step("点击快速收货按钮后，弹出快速收货窗口，有多个仓库时需要选择仓库")
+    def input_select_warehouse(self, warehouse):
+        Base.presence_sleep_dcr(self, user['Quick Received select Warehouse'])
+        self.is_click(user['Quick Received select Warehouse'])
+        self.input_text(user['Quick Received select Warehouse'], txt=warehouse)
+        sleep(1.5)
+        self.is_click(user['Select Warehouse Value'], warehouse)
+
     @allure.step("快速收货页面，点击Save按钮")
     def click_save(self):
         Base.presence_sleep_dcr(self, user['保存'])
         self.is_click(user['保存'])
+        sleep(0.6)
 
     @allure.step("快速收货页面，提交成功后获取提交成功提示语")
     def get_successfully_text(self):
@@ -101,7 +110,7 @@ class InboundReceiptPage(Base):
         delivery_date = self.element_text(user['Get Delivery Date'])
         return delivery_date
 
-    @allure.step("获取列表Status文本")
+    @allure.step("获取收货页面，列表Status文本")
     def get_status_text(self):
         status = self.element_text(user['Get Status'])
         return status

@@ -18,18 +18,20 @@ Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 Sales Order Search: "xpath==//span[contains(text(),'Search')]"
 
 获取Sales Order ID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div/div"
-获取Status Pending文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Pending']"
-获取Status Delivered文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='Delivered']"
+获取列表Status文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='variable']"
 
 #勾选新建的销售单，直接出库
 勾选第一条销售单ID: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span/span"
 Delivery button: "id==saler_order_scanImei_"
 Sales Delivery iframe:  "id==iframe_sales_order_delivery"
-
 Payment Mode: "xpath==//label[contains(text(),'Payment Mode')]//parent::div//following-sibling::div//input"
-Payment Mode value: "xpath==//span[contains(text(),'Wechat')]"
+Payment Mode value: "xpath==//span[contains(text(),'variable')]"
 Input IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
+Get Delivery Quantity: "xpath==//div[normalize-space(text())='Delivery Quantity']/..//div[@class='num']"
+Get Order Detail Deli Quantity: "xpath==//table[@class='el-table__body']//tr[1]//td[5]"
+Get Delivery Scan Record IMEI: "xpath==//div[normalize-space(text())='variable']"
+Get Delivery Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
 Submit Delivery: "xpath==//span[contains(text(),'Submit')]"
 
 #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
@@ -65,22 +67,21 @@ iframe Distributor Receipt: "id==iframe_distributor_receipt"
 Distributor Receipt Unfold: "xpath==//span[text()='Unfold']"
 Quick Receive button: "xpath==//span[contains(text(),'Quick Receive')]"
 DN前面第一个复选框: "xpath==//*[@id='app']/div/div[2]/section/div/div[2]/div[1]/div[4]/div[2]/table/tbody/tr[1]/td[1]/div/label/span/span"
-
 列表第一行Quantity文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[11]/div"
 收货对话框Quantity文本: "xpath==//*[@id='app']/div/div[2]/section/div/div[4]/div/div/div[2]/div/div/div/div/div[3]/table/tbody/tr/td[3]/div"
-
 列表第一个DN文本: "xpath==//*[@id='app']/div/div[2]/section/div/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[2]/div"
 收货对话框DN文本: "xpath==//*[@id='app']/div/div[2]/section/div/div[4]/div/div/div[2]/div/div/div/div/div[3]/table/tbody/tr/td[1]/div"
 国包收货Search: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[1]/span[contains(text(),'Search')]"
 国包收货Submit: "xpath==//*[@id='app']/div/div[2]/section/div/div[4]/div/div/div[3]/div/button[1]/span[contains(text(),'Submit')]"
 国包收货Reset: "xpath==//span[contains(text(),'Reset')]"
-
 收货成功显示No Data: "xpath==//*[@id='app']/div/div[2]/section/div/div[2]/div[1]/div[3]/div/span"
 DN输入框: "xpath==//label[(text()='DN')]//parent::div// following-sibling::div//input"
 点击IMEI Detail: "xpath==/html/body/div/div/div[2]/section/div[1]/div[2]/div[1]/div[5]/div[2]/table/tbody/tr[1]/td[25]/div/button/span"
-
 IMEI Detail DN:  "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[1]/span"
 IMEI Detail Total: "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[2]/div[2]/div/div[2]/span[1]"
 Close IMEI Detail: "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[1]/button/i"
 
 
+关闭销售单菜单: "xpath==//span[normalize-space(text())='Sales Order']//span[@class='el-icon-close']"
+关闭二代收货菜单: "xpath==//span[normalize-space(text())='Inbound Receipt']//span[@class='el-icon-close']"
+关闭IMEI Inventory Query: "xpath==//span[normalize-space(text())='IMEI Inventory Query']//span[@class='el-icon-close']"

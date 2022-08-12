@@ -129,7 +129,7 @@ class UserManagementPage(Base):
     @allure.step("点击搜索功能")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(4)
+        sleep(4.5)
 
     @allure.step("点击重置按钮")
     def click_reset(self):

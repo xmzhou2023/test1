@@ -25,11 +25,12 @@ class CustomerPSIPage(Base):
         """点击Sub-dealer按钮筛选二代数据"""
         Base.find_element(self, user['Sub dealer'])
         self.is_click(user['Sub dealer'])
-        sleep(4)
+        sleep(1)
 
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
+        sleep(4)
 
     def get_total_text(self):
         """获取分页总条数文本"""

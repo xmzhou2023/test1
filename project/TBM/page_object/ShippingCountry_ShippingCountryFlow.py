@@ -202,6 +202,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         """
         self.click_menu("出货国家", "出货国家流程")
         sleep(1)
+        self.refresh()
         info = self.find_elements_tbm(user['表格指定行内容'], item)
         infolist = []
         for i in info:

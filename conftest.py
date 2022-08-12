@@ -103,6 +103,7 @@ logging.basicConfig(level=logging.INFO,
                     encoding='utf-8',
                     filemode='a')
 
+
 def pytest_addoption(parser):
     parser.addoption("--env", action="store", default='test', help='环境操作')
 

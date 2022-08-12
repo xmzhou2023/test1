@@ -8,6 +8,7 @@ from time import sleep
 
 class Login(Base):
     """登录类"""
+
     def login(self, drivers, url, username, passwd):
         """统一登录֤"""
         user = LoginPage(drivers)
@@ -18,6 +19,7 @@ class Login(Base):
         user.input_passwd(passwd) # 输入密码
         user.click_checkbox()
         user.click_loginsubmit()
+
 
 
     def dcr_login(self, drivers, url, username, passwd):
@@ -32,7 +34,18 @@ class Login(Base):
             user.dcr_click_check_box()
         user.dcr_click_loginsubmit()
 
-    def srm_login(self, drivers, url, elsAccount, elsSubAccount):
+    def crm_login(self, drivers, url, username, passwd):
+        """统一登录֤"""
+        user = LoginPage(drivers)
+        user.get_url(url)  # 跳转到指定网页
+        user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
+        user.click_accountlogin()  # 点击帐户密码登录
+        user.input_account(username)  # 输入帐户名
+        user.input_passwd(passwd)  # 输入密码
+        user.click_checkbox_en()
+        user.click_loginsubmit()
+    
+	def srm_login(self, drivers, url, elsAccount, elsSubAccount):
         user = SrmLoginPage(drivers)
         user.get_url(url)  # 跳转到指定网页
         user.input_elsAccount(elsAccount)  # 输入帐户名

@@ -9,11 +9,9 @@ from libs.common.time_ui import sleep
 from libs.common.connect_sql import *
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-
 from public.base.basics import Base
 
 """     值校验的各种方法     """
-
 
 class ValueAssert(object):
 
@@ -277,14 +275,16 @@ class DomAssert(object):
 
 
 class SQLAssert(object):
-    def __init__(self, name, env):
+    def __init__(self, name, env, ini_name=None, values=None):  # 此处可以加入这个类中需要定义的参数
         self.name = name
         self.env = env
+        self.ini_name = ini_name
+        self.values = values
 
     @allure.step("值为True值断言")
     def assert_sql(self, word, sql):
         """页面是否存在某文字"""
-        database = SQL(self.name, self.env)
+        database = SQL(self.name, self.env, self.ini_name, self.values)
         sql_list = database.query_db(sql)
         sql_colum = []
         for i in sql_list:
@@ -292,6 +292,20 @@ class SQLAssert(object):
         try:
             assert word in sql_colum, logging.warning("断言失败: 该内容不存在数据列表中 | word:{}".format(word))
             logging.info("断言成功: 该内容存在数据列表中 | word:{}".format(word))
+        except Exception as e:
+            logging.error(e)
+            raise
+
+    @allure.step("值为True值断言")
+    def assert_sql_count(self, count, sql):
+        """数据库查询结果条数"""
+        database = SQL(self.name, self.env)
+        sql_list = database.query_db(sql)
+        # result = sql_list[0]["count(*)"]
+        result = list(sql_list[0].values())[0]
+        try:
+            assert int(result) == count, logging.warning("断言失败: 数据库查询结果为{}行，页面查询结果为{}行".format(result, count))
+            logging.info("断言成功: 数据库查询结果条数与页面查询结果一致")
         except Exception as e:
             logging.error(e)
             raise
