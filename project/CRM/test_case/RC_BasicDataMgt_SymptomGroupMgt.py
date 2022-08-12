@@ -95,7 +95,7 @@ class TestSymptomGroup:
     @allure.title("Status查询框，遍历Enable、Disable查询成功")  # 用例名称
     @allure.description("Status查询框，遍历Enable、Disable查询成功")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.smoke  # 用例标记
     #@pytest.mark.skip  # 跳过不执行
     def test_1269694(self, drivers):   # 遍历Satus查询框Enable\Disable查询
         logging.info("步骤1：Enable查询")
@@ -156,7 +156,7 @@ class TestSymptomGroup:
     @allure.title("添加现象组后Created Date、CreatedBy、ModifiedOn、ModifiedBy字段值正确")  # 验证字段的值
     @allure.description("添加现象组后Created Date、CreatedBy、ModifiedOn、ModifiedBy字段值正确")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.smoke  # 用例标记
    # @pytest.mark.skip  # 跳过不执行
     def test_1272248(self, modul_setup_fixture,drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         name = modul_setup_fixture
@@ -215,7 +215,7 @@ class TestSymptomGroup:
     @allure.title("编辑现象组名称，save生效")  # 编辑现象组
     @allure.description("编辑现象组名称，save生效")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.smoke  # 用例标记
     #@pytest.mark.skip  # 跳过不执行
     def test_1269693(self, drivers, modul_setup_fixture, session_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
         name = modul_setup_fixture
@@ -230,7 +230,7 @@ class TestSymptomGroup:
     @allure.title("导出现象组成功")  # 编辑现象组
     @allure.description("导出现象组成功")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.smoke  # 用例标记
    # @pytest.mark.skip  # 跳过不执行
     def test_1272066(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = SymPage(drivers)
