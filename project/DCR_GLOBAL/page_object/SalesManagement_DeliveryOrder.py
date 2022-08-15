@@ -125,12 +125,14 @@ class DeliveryOrderPage(Base):
     def get_create_date_text(self):
         """导出记录页面，获取列表 Create Date文本"""
         create_date = self.element_text(user['获取创建日期文本'])
-        return create_date
+        create_date1 = create_date[0:10]
+        return create_date1
 
     def get_complete_date_text(self):
         """导出记录页面，获取列表Complete Date文本"""
         complete_date = self.element_text(user['获取完成日期文本'])
-        return complete_date
+        complete_date1 = complete_date[0:10]
+        return complete_date1
 
     def get_export_operation_text(self):
         """导出记录页面，获取列表 Operation文本"""
