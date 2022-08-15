@@ -9,7 +9,7 @@ from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=False):
+def drivers(request, remote_ui=True):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
