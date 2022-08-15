@@ -1,5 +1,6 @@
 import datetime
 import time
+
 import openpyxl
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -17,7 +18,7 @@ import ddddocr
 import warnings
 from PIL import Image
 
-"""git
+"""
 selenium基类
 本文件存放了selenium基类的封装方法
 """
@@ -69,11 +70,11 @@ class Base(object):
         # 验证码下载路径
         html_path = os.path.join(DOWNLOAD_PATH, 'driver_html.png')
         code_path = os.path.join(DOWNLOAD_PATH, 'code.png')
-        time.sleep(3)  # 定个缓冲时间
+        time.sleep(0.5)   # 定个缓冲时间
 
-        self.driver.save_screenshot(html_path)  # 截取整个网页
-        location = self.find_element(locator)  # 获取需要识别的元素对象
-        size = location.size  # 获取需要识别的元素尺寸
+        self.driver.save_screenshot(html_path)   # 截取整个网页
+        location = self.find_element(locator)   # 获取需要识别的元素对象
+        size = location.size # 获取需要识别的元素尺寸
 
         # 获取验证码图片的坐标大小
         rangle = (int(location.location['x']), int(location.location['y']), int(location.location['x'] + size['width']),
@@ -190,17 +191,17 @@ class Base(object):
             logging.info("点击元素：{}".format(locator))
             sleep(0.5)
 
-    def force_click(self, xpath, force=False, xpath_js=None):
-        """点击元素(用js)"""
-        if xpath_js == None:
-            ele = self.find_element(xpath)
-            if force:  # 使用js强制点击
-                self.driver.execute_script("argumnets[0].click()", ele)
-            else:
-                ele.click()
-        else:
-            self.driver.execute_script('document.evaluate("{}",document).iterateNext().click()'.format(xpath))
+    def clear_input(self,xpath):
+        ele = self.find_element(xpath)
+        ele.clear()
 
+    def force_click(self, xpath, force=False):
+        """点击元素(用js)"""
+        ele = self.find_element(xpath)
+        if force:  # 使用js强制点击
+            self.driver.execute_script("argumnets[0].click()", ele)
+        else:
+            ele.click()
 
     def alert_ok(self):
         """确认弹窗"""
@@ -275,20 +276,16 @@ class Base(object):
             # sleep()
             logging.info("清除树勾选框状态：{}".format(locator))
 
-
     def export_download_status(self, click_search, get_status):
         """DCR通用的导出，等待下载状态更新(DRP专用)"""
         self.is_click(click_search)
         status = self.element_text(get_status)
         logging.info("循环前Download Status{}".format(status))
-        for i in range(20):
-            if status != "COMPLETE":
-                self.is_click(click_search)
-                status = self.element_text(get_status)
-                logging.info("循环后Download Status{}".format(status))
-                sleep(1)
-                i += 1
-                logging.info("打印循环执行查询次数{}".format(i))
+        while status != "COMPLETE":
+            self.is_click(click_search)
+            status = self.element_text(get_status)
+            logging.info("循环后Download Status{}".format(status))
+            sleep(1)
         return status
 
     def move_house(self, content):
@@ -299,12 +296,12 @@ class Base(object):
     def element_text(self, locator, choice=None):
         """获取元素的文本"""
         if choice is None:
-            _text = self.find_element(locator).text.replace("\n", "|")
+            _text = self.find_element(locator).text
             logging.info("获取文本：{}".format(_text))
             return _text
         else:
             ele = self.find_element(locator, choice)
-            _text = ele.text.replace("\n", "|")
+            _text = ele.text
             logging.info("获取文本：{}".format(_text))
             return _text
 
@@ -403,18 +400,12 @@ class Base(object):
         return Base.element_locator(lambda *args: self.wait.until(
             EC.visibility_of_any_elements_located(args)), locator)
 
-
-    def presence_sleep_dcr(self, locator, choice=None):
-        """通用的加载数据等待方法(DCR专用)"""
+    def presence_sleep_dcr(self, content):
+        """通用的显示等待方法(DCR专用)"""
         txt = None
-        for i in range(20):
-            if txt is None:
-                txt = self.find_element(locator, choice)
-                sleep(1)
-                i += 1
-                logging.info("循环查找元素次数:{}".format(i))
-            else:
-                break
+        while not txt:
+            txt = self.find_element(content)
+            sleep(1)
 
     def get_datetime_today(self):
         """获取当天日期(DCR专用)"""
@@ -564,6 +555,11 @@ class Base(object):
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
+
+
+    def find_elements_srm(self,locator):
+
+        return self.find_elements(By.XPATH, locator)
 
 
 

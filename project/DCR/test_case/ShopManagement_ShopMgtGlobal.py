@@ -1,4 +1,4 @@
-from project.DCR.page_object.ShopManagement_ShopManagement import ShopManagementPage
+from project.DCR.page_object.ShopManagement_ShopMgtGlobal import ShopManagementPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import *
 from libs.common.connect_sql import *
@@ -16,10 +16,11 @@ class TestAddShop:
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        user.dcr_login(drivers, "lhmadmin", "dcr123456")
 
         """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Shop Management", "Shop Management(Global)")
+        menu = LoginPage(drivers)
+        menu.click_gotomenu("Shop Management", "Shop Management(Global)")
 
         """新建 TECNO品牌的门店"""
         add_shop = ShopManagementPage(drivers)
@@ -61,7 +62,7 @@ class TestAddShop:
         """断言门店列表是否存在新建的门店ID与门店名称"""
         ValueAssert.value_assert_In(shopid, shop_id)
         ValueAssert.value_assert_equal(shopname, shop_name)
-        add_shop.click_close_shop_management()
+        add_shop.click_reset()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -70,13 +71,7 @@ class TestEditShop:
     @allure.title("门店管理页面，对新增的门店进行扩展itel品牌操作")
     @allure.description("门店管理页面，对新增的门店进行扩展品牌操作，扩展itel品牌提交后，列表展示扩展的门店品牌")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-    def test_002_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Shop Management", "Shop Management(Global)")
-
+    def test_001_002(self, drivers):
         edit_shop = ShopManagementPage(drivers)
         """从数据库查询最近新建的门店ID"""
         edit_shop.click_first_checkbox()
@@ -93,10 +88,10 @@ class TestEditShop:
         edit_shop.extend_commercial_area()
         edit_shop.click_submit()
 
-        """获取编辑成功提示语"""
-        # dom = DomAssert(drivers)
-        # dom.assert_att("Edited Successfully")
-        # sleep(2)
+        """获取删除成功提示语, 删除成功后显示No Data提示语"""
+        #dom = DomAssert(drivers)
+        #dom.assert_att("Edited Successfully")
+        sleep(2)
         """根据编辑的门店扩展品牌，筛选门店id，进行断言"""
         user = SQL('DCR', 'test')
         shop_data = user.query_db(
@@ -113,25 +108,19 @@ class TestEditShop:
         ValueAssert.value_assert_equal(shop_name, shopname)
         ValueAssert.value_assert_equal(shop_brand, "itel")
         ValueAssert.value_assert_equal(status, "Enabled")
-        edit_shop.click_close_shop_management()
+        sleep(2)
 
 
 @allure.feature("门店管理-门店管理(global)")
-class TestDisableShop:
+class TestDeleteShop:
     @allure.story("禁用门店")
     @allure.title("门店管理页面，对新增的门店进行禁用操作")
     @allure.description("门店管理页面，对新增的门店进行禁用操作")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-    def test_003_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Shop Management", "Shop Management(Global)")
-
+    def test_001_003(self, drivers):
         """实例化ShopManagementPage类，调用页面元素方法"""
         disable = ShopManagementPage(drivers)
-        """选中门店进行禁用扩展门店"""
+        """选中门店进行删除扩展门店"""
         shop_id1 = disable.get_shop_id_text()
         shop_name1 = disable.get_shop_name_text()
 
@@ -143,12 +132,12 @@ class TestDisableShop:
         dom = DomAssert(drivers)
         dom.assert_att("Successfully")
 
-        """增加断言，获取列表禁用前的Shop id、Shop name与删除后的 Shop id、Shop name比较是否不包含此内容"""
+        """增加断言，获取列表删除前的Shop id、Shop name与删除后的 Shop id、Shop name比较是否不包含此内容"""
         shop_id2 = disable.get_shop_id_text()
         shop_name2 = disable.get_shop_name_text()
         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
-        disable.click_close_shop_management()
+        sleep(1)
 
 
 #暂时无删除功能，用例留着
@@ -182,5 +171,5 @@ class TestDisableShop:
 #         sleep(1)
 
 
-if __name__ == '__mainShopManagement_ShopManagement__':
-    pytest.main(['.py'])
+if __name__ == '__main__':
+    pytest.main(['ShopManagement_ShopMgtGlobal.py'])

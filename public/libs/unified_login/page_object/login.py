@@ -101,6 +101,27 @@ class DcrLoginPage(Base):
         self.is_click(login['退出登录dcr'])
         sleep(2)
 
+class SrmLoginPage(Base):
+    """登录类"""
+    def input_elsAccount(self,elsAccount):
+        self.input_text(login["主账号"], txt=elsAccount)
+
+    def input_elsSubAccount(self,elsSubAccount):
+        self.input_text(login["子账号"], txt=elsSubAccount)
+
+    def input_password(self):
+        self.input_text(login["密码"], "1qaz@WSX")
+
+    def input_code(self):
+        self.is_click(login["验证码框"])
+        code = self.get_graphical_code(login["验证码"])
+        # print(code)
+        self.input_text(login["验证码框"], code)
+        # time.sleep(3)
+
+    def click_login(self):
+        self.is_click(login["登录"])
+
 
 
 if __name__ == '__main__':

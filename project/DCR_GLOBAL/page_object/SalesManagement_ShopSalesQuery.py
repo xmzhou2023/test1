@@ -76,7 +76,6 @@ class ShopSaleQueryPage(Base):
         total2 = int(total1)
         return total2
 
-
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
@@ -123,8 +122,7 @@ class ShopSaleQueryPage(Base):
     def get_file_size_text(self):
         """导出记录页面，获取列表 Task Name文本"""
         file_size = self.element_text(user['获取文件大小文本'])
-        file_size1 = file_size[0:1]
-        return file_size1
+        return file_size
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
@@ -134,14 +132,12 @@ class ShopSaleQueryPage(Base):
     def get_create_date_text(self):
         """导出记录页面，获取列表 Create Date文本"""
         create_date = self.element_text(user['获取创建日期文本'])
-        create_date1 = create_date[0:10]
-        return create_date1
+        return create_date
 
     def get_complete_date_text(self):
         """导出记录页面，获取列表Complete Date文本"""
         complete_date = self.element_text(user['获取完成日期文本'])
-        complete_date1 = complete_date[0:10]
-        return complete_date1
+        return complete_date
 
     def get_export_operation_text(self):
         """导出记录页面，获取列表 Operation文本"""
@@ -151,8 +147,7 @@ class ShopSaleQueryPage(Base):
     def get_export_time_text(self):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
-        export_time1 = export_time[0:1]
-        return export_time1
+        return export_time
 
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
@@ -167,7 +162,7 @@ class ShopSaleQueryPage(Base):
             logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
         else:
             logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total))
-        sleep(2)
+        sleep(1)
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """

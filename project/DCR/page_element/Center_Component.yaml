@@ -5,8 +5,10 @@
 选择英文: "xpath==//*[@id='app']/div/div[1]/div/form/div[4]/div/div/div[1]/input"
 隐私保护勾选: "xpath==//span[text()='By logging in, means you have read and agreed the']/../label"
 登录: "xpath==//span[contains(text(),'LOGIN')]"
-获取登录账号: "xpath==//span[@class='el-dropdown-link el-dropdown-selfdefine']"
-退出登录: "xpath==//div[@class='right-menu-item']//img"
+
+退出登录: "id==LoginOut"
+退出登录2: "css==[id='LoginOut']"
+
 
 ###=====定位菜单元素=======================================
 Home Page: "xpath==//span[(text()='Home Page')]"

@@ -31,7 +31,6 @@ Add Cust Authorized Selected: "xpath==//span[contains(text(),'Authorized Selecte
 添加客户勾选复选框: "xpath==//*[@id='userAuthCustomer']/div[3]/div/div[2]/div/div[1]/div[3]/table/tbody/tr/td[1]/div/label/span"
 Add 获取CustomerID文本: "xpath==//div[text()='CN20009']"
 获取添加客户成功提示: "xpath==//p[text()='Successfully']"
-
 #删除客户元素
 客户列表点击客户输入框: "xpath==//label[(text()='Customer')]//parent::div// following-sibling::div//input"
 客户列表输入客户: "css==[placeholder='Batch input content']"
@@ -91,7 +90,7 @@ Add Input Query Shop Value: "xpath==//span[contains(text(),'EG000378')]"
 Add Shop Search: "xpath==//*[@id='userAuthShop']/div[3]/div/div[2]/form/div/div/div/button"
 添加门店勾选复选框: "xpath==//*[@id='userAuthShop']/div[3]/div/div[2]/div/div[1]/div[3]/table/tbody/tr/td[1]/div/label/span/span"
 Add Shop Authorized Selected: "xpath==//span[contains(text(),'Authorized Selected')]"
-add获取ShopID文本: "xpath==//*[@id='userAuthShop']/div[3]/div/div[2]/div/div[1]/div[3]/table/tbody/tr/td[2]/div[text()='EG000378']"
+add 获取ShopID文本: "xpath==//*[@id='userAuthShop']/div[3]/div/div[2]/div/div[1]/div[3]/table/tbody/tr/td[2]/div[text()='EG000378']"
 门店列表获取ShopID文本: "xpath==//*[@id='userAuthShop']/div[2]/div[1]/div[3]/table/tbody/tr/td[2]/div[text()='EG000378']"
 
 
@@ -105,7 +104,7 @@ Sales Region Save: "xpath==//span[contains(text(),'Save')]"
 获取销售区域成功提示: "xpath==//p[text()='Successfully']"
 获取授权的销售区域文本: "xpath==//*[@id='userSalesRegion']/div[2]/div[1]/div[2]/div[2]/div/div[1]/div[2]/div/div/span[2]/span"
 
-关闭用户授权菜单: "xpath==//span[normalize-space(text())='User Authorization']//span[@class='el-icon-close']"
+
 
 
 

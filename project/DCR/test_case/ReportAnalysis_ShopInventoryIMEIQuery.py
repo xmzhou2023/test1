@@ -11,13 +11,13 @@ import allure
 
 @allure.feature("报表分析-门店库存IMEI查询")
 class TestQueryShopInventoryIMEI:
-    @allure.story("查询门店库存IMEI")
+    @allure.story("查询")
     @allure.title("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载")
     @allure.description("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        user.dcr_login(drivers, "lhmadmin", "dcr123456")
 
         """报表分析-打开门店库存IMEI查询页面"""
         user.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
@@ -51,10 +51,11 @@ class TestExportShopInventoryIMEI:
     @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
         """查看Shop Inventory IMEI Query 列表数据加载是否正常"""
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
+        base = Base(drivers)
+        base.refresh()
+        sleep(3.5)
         """报表分析-打开门店库存IMEI查询页面"""
+        user = LoginPage(drivers)
         user.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
 
         export = ShopInventoryIMEIQueryPage(drivers)
@@ -76,7 +77,6 @@ class TestExportShopInventoryIMEI:
         # 点击导出功能
         export.click_export()
         export.click_download_more()
-        export.input_task_name("Shop Inventory IMEI Query")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
@@ -84,19 +84,21 @@ class TestExportShopInventoryIMEI:
 
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
+        create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
+        complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Shop Inventory IMEI Query")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(create_date1, today)
+        ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_shop_inventory_imei()
+        # export.click_close_export_record()
+        # export.click_close_shop_inventory_imei()
 
 
 if __name__ == '__main__':

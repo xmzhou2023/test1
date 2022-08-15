@@ -1,6 +1,6 @@
 from public.base.basics import Base
 # from libs.common.read_config import ini
-from public.libs.unified_login.page_object.login import LoginPage
+from public.libs.unified_login.page_object.login import LoginPage, SrmLoginPage
 from public.libs.unified_login.page_object.login import DcrLoginPage
 
 from time import sleep
@@ -44,3 +44,13 @@ class Login(Base):
         user.input_passwd(passwd)  # 输入密码
         user.click_checkbox_en()
         user.click_loginsubmit()
+
+
+    def srm_login(self, drivers, url, elsAccount, elsSubAccount):
+        user = SrmLoginPage(drivers)
+        user.get_url(url)       # 跳转到指定网页
+        user.input_elsAccount(elsAccount)      # 输入帐户名
+        user.input_elsSubAccount(elsSubAccount)     # 点击帐户密码登录
+        user.input_password()
+        user.input_code()
+        user.click_login()
