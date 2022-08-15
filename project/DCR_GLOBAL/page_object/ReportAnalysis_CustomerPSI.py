@@ -99,7 +99,8 @@ class CustomerPSIPage(Base):
     def get_file_size_text(self):
         """导出记录页面，获取列表 Task Name文本"""
         file_size = self.element_text(user['获取文件大小文本'])
-        return file_size
+        file_size1 = file_size[0:1]
+        return file_size1
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
@@ -109,12 +110,14 @@ class CustomerPSIPage(Base):
     def get_create_date_text(self):
         """导出记录页面，获取列表 Create Date文本"""
         create_date = self.element_text(user['获取创建日期文本'])
-        return create_date
+        create_date1 = create_date[0:10]
+        return create_date1
 
     def get_complete_date_text(self):
         """导出记录页面，获取列表Complete Date文本"""
         complete_date = self.element_text(user['获取完成日期文本'])
-        return complete_date
+        complete_date1 = complete_date[0:10]
+        return complete_date1
 
     def get_export_operation_text(self):
         """导出记录页面，获取列表 Operation文本"""
@@ -124,7 +127,8 @@ class CustomerPSIPage(Base):
     def get_export_time_text(self):
         """导出记录页面，获取列表导出时间文本"""
         export_time = self.element_text(user['获取导出时间'])
-        return export_time
+        export_time1 = export_time[0:1]
+        return export_time1
 
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
