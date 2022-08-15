@@ -1,0 +1,13 @@
+#Customer Sales Report页面元素定位
+客户销售报表开始日期: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div/div/div/div/div[1]/div/input"
+客户销售报表结束日期: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div/div/div/div/div[3]/div/input"
+
+Search: "xpath==//span[contains(text(),'Search')]"
+Reset: "xpath==//span[contains(text(),'Reset')]"
+获取分页总条数文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[2]/span[contains(text(),'Total')]"
+
+获取出库数量文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/table/tbody/tr/td[12]/div"
+获取退货数量文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/table/tbody/tr/td[13]/div"
+获取实际销售数量文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/table/tbody/tr/td[14]/div"
+
+关闭客户销售报表菜单: "xpath==//span[normalize-space(text())='Customer Sales Report']//span[@class='el-icon-close']"

@@ -1,0 +1,21 @@
+zx扫码快捷登录: "id==tab-code"
+账号密码登录: "id==tab-account"
+工号输入框: "xpath==//*[@id='pane-account']/form/div[1]/div/div[1]/input"
+密码输入框: "xpath==//*[@id='pane-account']/form/div[2]/div/div[1]/input"
+隐私保护勾选框: "xpath==//span[text()='我已阅读并接受']/../label/span/span"
+登录: "xpath==//*[@id='pane-account']/form/button"
+语言展开: "xpath==//div[@role='button']"
+语言切换: "xpath==//*[contains(@id,'dropdown-menu-')]//li[variable]"
+隐私保护勾选框_英文: "xpath==//span[text()='I have read and accept']/../label/span/span"
+
+
+####======DCR定位登录元素============================================
+工号输入框dcr: "name==username"
+密码输入框dcr: "name==password"
+语言切换dcr: "id==select_lang"
+选择英文dcr: "xpath==//*[@id='app']/div/div[1]/div/form/div[4]/div/div/div[1]/input"
+隐私保护勾选dcr: "xpath==//span[text()='By logging in, means you have read and agreed the']/../label"
+登录dcr: "xpath==//span[contains(text(),'LOGIN')]"
+退出登录dcr: "id==LoginOut"
+#退出登录dcr: "css==[id='LoginOut']"
+

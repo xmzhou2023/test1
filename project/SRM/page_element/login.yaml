@@ -1,0 +1,9 @@
+主账号: 'xpath==//input[@id="elsAccount"]'
+子账号: 'xpath==//input[@id="elsSubAccount"]'
+密码: 'xpath==//input[@type="password"]'
+验证码: 'xpath==//img[@id="code"]'
+验证码框: 'xpath==//input[@id="identifyCode"]'
+登录: 'xpath==//button[@id="submit_btn"]'
+登录报错码提示框: 'class_name==bac'
+
+
