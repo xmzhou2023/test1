@@ -18,8 +18,6 @@ class TestQueryAttendanceRecord:
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        #get_home_page = user.get_home_page_text()
-        #ValueAssert.value_assert_equal("Home Page-Customer", get_home_page)
 
         """考勤管理-打开考勤记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Attendance Records")
