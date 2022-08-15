@@ -57,11 +57,6 @@ class LoginPage(Base):
         self.is_click(user['退出登录'])
         sleep(2)
 
-    def get_home_page_text(self):
-        Base.presence_sleep_dcr(self, user['get Home Page Customer text'])
-        homepage = self.element_text(user['get Home Page Customer text'])
-        return homepage
-
 
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
