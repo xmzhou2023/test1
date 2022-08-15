@@ -70,23 +70,19 @@ class TestExportVisitRecord:
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        file_size1 = file_size[0:1]
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
-        create_date1 = create_date[0:10]
         complete_date = export.get_complete_date_text()
-        complete_date1 = complete_date[0:10]
         export_time = export.get_export_time_text()
-        export_time1 = export_time[0:1]
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "History List")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
-        ValueAssert.value_assert_equal(create_date1, today)
-        ValueAssert.value_assert_equal(complete_date1, today)
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
-        export.assert_file_time_size(file_size1, export_time1)
+        export.assert_file_time_size(file_size, export_time)
 
         export.click_close_export_record()
         export.click_close_visit_record()
