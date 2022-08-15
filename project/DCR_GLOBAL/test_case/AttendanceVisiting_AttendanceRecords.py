@@ -29,7 +29,7 @@ class TestQueryAttendanceRecord:
         picture = query_all.get_photo_text()
         date = query_all.get_date_text()
         total = query_all.get_total_text()
-        
+
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
         ValueAssert.value_assert_equal(picture, "Picture")
         ValueAssert.value_assert_equal(today, date)
