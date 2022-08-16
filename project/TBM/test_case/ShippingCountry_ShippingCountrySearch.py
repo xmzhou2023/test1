@@ -35,11 +35,11 @@ class TestCreateProcess:
         user = ShippingCountrySearch(drivers)
         user.refresh_webpage_click_menu()
         user.input_condition('品牌', 'Infinix')
-        user.input_condition('项目名称', '项目名称test2022-08-11-11:10:57')
+        user.input_condition('项目名称', '项目名称test2022-08-12-06:34:16')
         user.click_search()
-        user.click_checkbox('项目名称test2022-08-11-11:10:57')
+        user.click_checkbox('项目名称test2022-08-12-06:34:16')
         user.click_change('变更产品')
-        user.click_oneworks_product_definition_info_edit('项目名称test2022-08-11-11:10:57')
+        user.click_oneworks_product_definition_info_edit('项目名称test2022-08-12-06:34:16')
         querytime = datetime.now().strftime('%Y%m%d%H%M%S')
         user.edit_oneworks_product_definition_info('全球版本', '版本2')
         user.edit_oneworks_product_definition_info('市场名称', f'市场名称test{querytime}')
@@ -52,7 +52,7 @@ class TestCreateProcess:
         user.click_oneworks_product_definition_info_confirm()
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
-        process_code = user.get_info('项目名称test2022-08-11-11:10:57')[2]
+        process_code = user.get_info('项目名称test2022-08-12-06:34:16')[2]
         user.delete_shipping_country_search(process_code)
 
 
@@ -76,7 +76,7 @@ class TestTheProcessOfExaminationAndApproval:
     def test_002_002(self, drivers, SaleCountry_ProductChange_Audit_API):  # 用例名称取名规范'test+场景编号+用例编号'
         user = ShippingCountrySearch(drivers)
         user.refresh_webpage()
-        user.onework_agree_flow(SaleCountry_ProductChange_Audit_API[0], '产品部汇签')
+        user.onework_agree_flow(SaleCountry_ProductChange_Audit_API[0], '产品经理修改')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("产品经理修改审核成功")  # 用例名称
@@ -87,14 +87,14 @@ class TestTheProcessOfExaminationAndApproval:
         user = ShippingCountrySearch(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(SaleCountry_ProductChange_Join_API[0])
-        user.click_oneworks_product_definition_info_edit('项目名称')
+        user.click_oneworks_product_definition_info_edit('出货国家查询变更产品部分流程')
         querytime = datetime.now().strftime('%Y%m%d%H%M%S')
-        user.edit_oneworks_product_definition_info('全球版本', '版本3')
+        user.edit_oneworks_product_definition_info('全球版本', '版本2')
         user.edit_oneworks_product_definition_info('市场名称', f'修改市场名称{querytime}')
         user.edit_oneworks_product_definition_info('项目名称',  f'修改项目名称{querytime}')
-        user.edit_oneworks_product_definition_info('MEMORY', '256+8')
-        user.edit_oneworks_product_definition_info('BANDSTRATEGY', '印度市场')
-        user.edit_oneworks_product_definition_info('aaa', '3G')
+        user.edit_oneworks_product_definition_info('MEMORY', '128+8')
+        user.edit_oneworks_product_definition_info('BANDSTRATEGY', '公开市场')
+        user.edit_oneworks_product_definition_info('aaa', '2G')
         user.edit_oneworks_product_definition_info('bbb', 'MT6762D')
         user.click_oneworks_product_definition_info_confirm()
         user.click_onework_agree()

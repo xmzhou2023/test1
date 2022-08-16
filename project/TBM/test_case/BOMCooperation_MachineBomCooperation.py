@@ -1096,6 +1096,7 @@ class TestProcessApprovalExceptionScenario:
         user.assert_toast('自检清单第【1】行检查结果为不涉及需填写原因及修改建议')
         user.quit_oneworks()
 
+
     @allure.story("流程审批异常场景")  # 场景名称
     @allure.title("[手机_itel_预研组_整机BOM]未配置自检清单！&自检清单不能为空")  # 用例名称
     @allure.description("在业务审核页面中，选择检查角色没有配置的自检清单的检查角色，会提示[手机_itel_预研组_整机BOM]未配置自检清单！，直接点击同意，会提示自检清单不能为空")
@@ -1113,6 +1114,7 @@ class TestProcessApprovalExceptionScenario:
         user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('自检清单不能为空')
         user.quit_oneworks()
+
 
 
 if __name__ == '__main__':

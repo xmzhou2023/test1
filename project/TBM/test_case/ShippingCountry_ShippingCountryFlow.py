@@ -117,23 +117,23 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("出货国家:抄送（自动抄送，不需要操作）,出货国家-出货国家流程，查看单据状态已变为审批通过")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_005(self, drivers, Shipping_API):
+    def test_002_005(self, drivers, SaleCountry_API):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage_click_menu()
-        user.product_department_administrator_review(Shipping_API[0])
-        user.product_department_sign(Shipping_API[0])
-        user.product_manager_modification(Shipping_API[0])
-        user.product_department_administrator_re_review(Shipping_API[0])
-        user.enter_oneworks_edit(Shipping_API[0])
+        user.product_department_administrator_review(SaleCountry_API[0])
+        user.product_department_sign(SaleCountry_API[0])
+        user.product_manager_modification(SaleCountry_API[0])
+        user.product_department_administrator_re_review(SaleCountry_API[0])
+        user.enter_oneworks_edit(SaleCountry_API[0])
         user.click_onework_agree()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_my_application_node(Shipping_API[0], '抄送', True)
+        user.assert_my_application_node(SaleCountry_API[0], '抄送', True)
         sleep(60)
-        user.assert_my_application_flow(Shipping_API[0], '审批完成')
-        document_status = user.get_info(Shipping_API[0])[6]
+        user.assert_my_application_flow(SaleCountry_API[0], '审批完成')
+        document_status = user.get_info(SaleCountry_API[0])[6]
         ValueAssert.value_assert_equal(document_status, '审批通过')
 
 

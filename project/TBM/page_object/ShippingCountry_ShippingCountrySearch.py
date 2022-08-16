@@ -225,6 +225,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         根据表格内容点击 产品定义信息 编辑按钮
         :param item: 表格内容
         """
+        sleep(1)
         self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-指定-编辑'], item)
 
     @allure.step("oneworks-国家出货查询 变更产品/国家点击产品定义信息-确定按钮")
