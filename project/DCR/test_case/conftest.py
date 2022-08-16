@@ -16,6 +16,8 @@ def __init__(drivers, env_name):
     ini = ReadConfig(pro_name, pro_env)
 
     logging.info("前置条件：传音统一登录开始")
+    logging.info(ini.url)
+
     user = Login(drivers)
     user.dcr_login(drivers, ini.url, "lhmadmin", "dcr123456")
     logging.info("前置条件：传音统一登录成功")
