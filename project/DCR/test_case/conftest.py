@@ -11,6 +11,13 @@ pro_env = 'test'  # 需要手动配置测试环境
 ini = ReadConfig(pro_name, pro_env)
 
 @pytest.fixture(scope='session',autouse=True)
+def __init__(drivers, env_name):
+    """初始化"""
+    global pro_env
+    pro_env = env_name
+    logging.info("【{}】项目【{}】环境- UI自动化开始执行".format(pro_name, pro_env))
+
+@pytest.fixture(scope='session',autouse=True)
 def test_login(drivers):
     """登录用户"""
     logging.info("前置条件：传音统一登录开始")
@@ -18,13 +25,6 @@ def test_login(drivers):
     user.dcr_login(drivers, ini.url, "lhmadmin", "dcr123456")
     logging.info("前置条件：传音统一登录成功")
 
-
-@pytest.fixture(scope='session',autouse=True)
-def __init__(drivers, env_name):
-    """初始化"""
-    global pro_env
-    pro_env = env_name
-    logging.info("【{}】项目【{}】环境- UI自动化开始执行".format(pro_name, pro_env))
 
 
 
