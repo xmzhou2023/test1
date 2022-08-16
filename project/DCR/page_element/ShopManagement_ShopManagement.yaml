@@ -77,6 +77,20 @@ Edited Successfully: "xpath==//p[text()='Edited Successfully']"
 Disable: "id==ShopManagement_disable"
 Disable Confirm: "xpath==//span[normalize-space(text())='Confirm']"
 Successfully: "xpath==//p[text()='Successfully']"
-
 关闭门店管理菜单: "xpath==//span[normalize-space(text())='Shop Management (global)']//span[@class='el-icon-close']"
 
+#查看view门店详情
+View Shop: "id==ShopManagement_view"
+Get list Shop Name Text: "xpath==//tr[@class='vxe-body--row']//td[3]//span[@class='vxe-cell--label']"
+Get list Public ID Text: "xpath==//tr[@class='vxe-body--row']//td[8]//span[@class='vxe-cell--label']"
+Get list Contact Name Text: "xpath==//tr[@class='vxe-body--row']//td[18]//span[@class='vxe-cell--label']"
+Get list  Contact No Text: "xpath==//tr[@class='vxe-body--row']//td[19]//span[@class='vxe-cell--label']"
+Get View Shop Name Text: "id==shopview_input_shopName"
+Get View Contact Name Text: "id==shopview_input_ownerName"
+Get View Contact No Text: "id==shopview_input_ownerContactNo"
+Get View Public ID Text: "xpath==//input[@class='el-input__inner shopview_input_publicCode']"
+Close Shop View: "id==shopview_Close"
+
+
+#编辑门店信息
+Edit Shop: "id==ShopManagement_edit"
