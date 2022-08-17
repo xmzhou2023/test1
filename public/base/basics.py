@@ -558,12 +558,19 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.click(element).perform()
 
-    def mouse_double_click(self,locator):
+    def mouse_double_click(self, locator):
         """鼠标双击"""
         element = self.find_element(locator)
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
+
+
+    def clear_input(self, xpath):
+        # 清除文本框输入，srm使用
+        ele = self.find_element(xpath)
+        ele.clear()
+
 
 
 

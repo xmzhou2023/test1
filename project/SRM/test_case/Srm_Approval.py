@@ -3,7 +3,7 @@ import time
 import allure
 import pytest
 
-from project.SRM.page_object.Approval import ApprovalPage
+from project.SRM.page_object.Srm_Approval import ApprovalPage
 from public.base.assert_ui import *
 from libs.common.connect_sql import *
 """
