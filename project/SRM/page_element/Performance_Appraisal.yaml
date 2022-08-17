@@ -1,0 +1,44 @@
+供应商绩效: 'xpath==//div[@id="supplierPerformanceAppraisal"]'
+供应商绩效标题: 'xpath==//div[@class="winTitle"]/span[text()="供应商绩效考核 "]'
+供应商绩效iframe: 'xpath==//iframe[@class="iframeApp"]'
+
+供应商绩效->供应商评分: 'xpath==//a[@data-name="assessmentForm"]//span'
+供应商绩效->供应商评分报告: 'xpath==//a[@data-name="assessmentReport"]//span'
+供应商绩效->二级供应商评分报告: 'xpath==//a[@data-name="secondAssessmentReport"]//span'
+供应商绩效->评分汇总报表: 'xpath==//a[@data-name="assessmentFormReport"]//span'
+供应商绩效->评分细项报表: 'xpath==//a[@data-name="assessmentFormItemReport"]//span'
+供应商绩效->供应商绩效推移图: 'xpath==//a[@data-name="transitionDiagram"]//span'
+供应商绩效->供应商绩效改善: 'xpath==//a[@data-name="purchaseReportHeader"]//span'
+供应商绩效->二级供应商问卷调查: 'xpath==//a[@data-name="supplierOpinionManage"]//span'
+供应商绩效->二级供应商意见模板管理: 'xpath==//a[@data-name="supplierOpinionTemplateManage"]//span'
+供应商绩效->评估项管理: 'xpath==//a[@data-name="assessment"]//span'
+供应商绩效->评估模板管理: 'xpath==//a[@data-name="evaluationTemplate"]//span'
+供应商绩效->评分等级规则管理: 'xpath==//a[@data-name="assessmentRule"]//span'
+供应商绩效->评估代码管理人员配置: 'xpath==//a[@data-name="evaluatorCodeConfigurationManager"]//span'
+
+
+供应商绩效-评估代码供货品类配置: 'xpath==//a[@data-name="evaluateSupplyCategoryConfigurationManager"]//span'
+评估代码供货品类配置页面标题: 'xpath==//a[@title=" 评估代码供货品类配置"]/span'
+评估代码供货品类配置页面内容iframe: 'xpath==//iframe[@id="tab-iframe-evaluateSupplyCategoryConfigurationManager"]'
+评估代码供货品类配置-新建: 'xpath==//li[@id="create"]/a'
+评估代码供货品类配置-新建弹窗标题: 'xpath==//span[text()="新增供货品类配置"]'
+评估代码供货品类配置-新建弹窗-关闭: 'xpath==//div[@id="btnAddClose"]'
+
+评估代码供货品类配置-新建-评估代码: 'xpath==//div[@title="评估代码"]/input[@class="easyui-textbox"]'
+
+评估代码供货品类配置-新建-大类: 'xpath==//input[@id="materialCateLevel1Name"]'
+评估代码供货品类配置-新建-中类: 'xpath==//input[@id="materialCateLevel2Name"]'
+评估代码供货品类配置-新建-小类: 'xpath==//input[@id="materialCateLevel3Name"]'
+评估代码供货品类配置-新建-小类搜索: 'xpath==//img[@id="searchMaterialCateLevel3Name"]'
+
+评估代码供货品类配置-新建-评分规则: 'xpath==//input[@id="scoreLevelRuleInput"]'
+评估代码供货品类配置-新建-确定: 'xpath==//button[@id="btnAddOK"]'
+评估代码供货品类配置-新建-取消: 'xpath==//button[@id="btnAddCancel"]'
+
+
+评估代码供货品类配置-删除: 'xpath==//li[@id="delete"]/a'
+评估代码供货品类配置-修改: 'xpath==//li[@id="update"]/a'
+评估代码供货品类配置-查询: 'xpath==//form[1]/button[2]/i'
+评估代码供货品类配置-评估代码查询输入框: 'xpath==//input[@name="evaluatedCode"]'
+评估代码供货品类配置-物料小类查询输入框: 'xpath==//input[@name="materialCateNumber"]'
+窗口最小化: 'xpath==//div//div[@id="win_VMIManage"]//span/a[@title="最小化"]'

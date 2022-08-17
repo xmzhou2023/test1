@@ -1,18 +1,25 @@
 
 审批列表: 'xpath==//span[@title="审批列表"]'
+
+审批列表标题: 'xpath==//div[@class="winTitle"]/span[text()="审批列表 "]'
 审批历史: 'xpath==//a[text()=" 审批历史"]'
+审批历史标题: 'xpath==//div[@class="winTitle"]/span[text()="审批历史 "]'
 流程图: 'xpath==//a[text()=" 流程图"]'
 
 主题: 'xpath==//input[@name="subject"]'
+主题标题: 'xpath==//span[text()="供应商审核报告：20220628000011"]'
 任务名称: 'xpath==//input[@name="taskName"]'
+任务名称结果: 'xpath==//div[text()="周本林"][@id="pq-body-cell-u0-0-5-right"]'
 查询: 'xpath==//button[text()=" 查询"]'
 更多: 'xpath==//button[text()=" 更多"]'
-iframe: 'xpath==//iframe[@name="iframeApp_auditList"]'
+发起人: 'xpath==//input[@name="promoterName"]'
+审批列表iframe: 'xpath==//iframe[@name="iframeApp_auditList"]'
+审批内容iframe: 'xpath==//iframe[@class="iframeApp"]'
+
+
 
 
 审批最新一条: 'xpath==//div[@id="pq-body-cell-u0-0-2-right"]/span'
 列表第几条数据: 'xpath==//div[@id="pq-body-cell-u0-variable-2-right"]/span'
 #X为variable时，第1条数据，variable为2时第二条数据，依次类推
-审批通过: 'xpath==//div[@id="pq-body-cell-u0-0-2-right"]/span'
-
-
+审批通过: 'xpath==//li[@id="auditPass"]/a/i'

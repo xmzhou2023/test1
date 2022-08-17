@@ -103,5 +103,29 @@ class DcrLoginPage(Base):
 
 
 
+"""SRM登录类"""
+class SrmLoginPage(Base):
+    """登录类"""
+    def input_elsAccount(self,elsAccount):
+        self.input_text(login["主账号srm"], txt=elsAccount)
+
+    def input_elsSubAccount(self,elsSubAccount):
+        self.input_text(login["子账号srm"], txt=elsSubAccount)
+
+    def input_password(self):
+        self.input_text(login["密码srm"], "1qaz@WSX")
+
+    def input_code(self):
+        self.is_click(login["验证码框srm"])
+        code = self.get_graphical_code(login["验证码srm"])
+        # print(code)
+        self.input_text(login["验证码框srm"], code)
+        # time.sleep(3)
+
+    def click_login(self):
+        self.is_click(login["登录srm"])
+
+
+
 if __name__ == '__main__':
     pass
