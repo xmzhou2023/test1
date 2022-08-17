@@ -68,7 +68,6 @@ class TestAppraisal:
         app = Performance(drivers)
         app.creat_SupplyCategory_close()
 
-
     @allure.story("估代码供货品类配置")  # 场景名称
     @allure.title("评估代码供货品类配置新建取消")  # 用例名称
     @allure.description("点击新建--取消")
@@ -76,10 +75,20 @@ class TestAppraisal:
     def test_creat_cancel(self, drivers):
         app = Performance(drivers)
         app.creat_SupplyCategory_cancel()
-    #
-    # def test_seach(self,drivers):
-    #     app = Performance(drivers)
-    #     app.search()
+
+
+        #
+        # def test_seach(self,drivers):
+        #     app = Performance(drivers)
+        #     app.search()
+
+    @allure.story("估代码供货品类配置")  # 场景名称
+    @allure.title("评估代码供货品类配置窗口最小化")  # 用例名称
+    @allure.description("窗口最小化--回到桌面")
+    @allure.severity("normal")  # 用例等级
+    def test_min_window(self, drivers):
+        app = Performance(drivers)
+        app.minimize()
 
 
 

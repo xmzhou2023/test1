@@ -9,7 +9,7 @@
 主题: 'xpath==//input[@name="subject"]'
 主题标题: 'xpath==//span[text()="供应商审核报告：20220628000011"]'
 任务名称: 'xpath==//input[@name="taskName"]'
-任务名称结果: 'xpath==//div[text()="周本林"][@id="pq-body-cell-u0-0-5-right"]'
+任务名称结果: 'xpath==//div[@id="pq-body-cell-u0-12-5-right"]'
 查询: 'xpath==//button[text()=" 查询"]'
 更多: 'xpath==//button[text()=" 更多"]'
 发起人: 'xpath==//input[@name="promoterName"]'

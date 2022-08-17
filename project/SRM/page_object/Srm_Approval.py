@@ -38,6 +38,7 @@ class ApprovalPage(Base):
     def get_name_title(self):
         return self.find_element(user["任务名称结果"]).text
 
+
     @allure.step("审批列表按主题查询")
     def approval_search_task(self,subject):
         # 通过主题查找
@@ -63,6 +64,7 @@ class ApprovalPage(Base):
     @allure.step("审批列表查看审批历史")
     def approval_history(self):
         self.is_click(user["审批历史"])
+
 
 
     @allure.step("获取审批历史标题")

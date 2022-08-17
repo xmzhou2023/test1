@@ -41,4 +41,4 @@
 评估代码供货品类配置-查询: 'xpath==//form[1]/button[2]/i'
 评估代码供货品类配置-评估代码查询输入框: 'xpath==//input[@name="evaluatedCode"]'
 评估代码供货品类配置-物料小类查询输入框: 'xpath==//input[@name="materialCateNumber"]'
-窗口最小化: 'xpath==//div//div[@id="win_VMIManage"]//span/a[@title="最小化"]'
+窗口最小化: 'xpath==//div[@id="win_supplierPerformanceAppraisal"]//a[@title="最小化"]'

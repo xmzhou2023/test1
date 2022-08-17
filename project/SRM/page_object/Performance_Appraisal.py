@@ -46,9 +46,14 @@ class Performance(Base):
         self.is_click(app["评估代码供货品类配置-新建-取消"])
 
 
+
+
     @allure.step("进入供应商绩效考核")
     def minimize(self):
+        self.frame_exit()
         self.is_click(app['窗口最小化'])
+
+
     # def search(self):
     #     ele = self.find_elements_srm("//form[1]/button[2]/i")[3]
     #     print("测试")
