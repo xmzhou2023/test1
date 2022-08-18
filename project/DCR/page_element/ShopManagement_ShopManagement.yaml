@@ -9,7 +9,7 @@ Search: "xpath==//span[contains(text(),'Search')]"
 获取ShopID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/span"
 获取ShopName文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[1]/div[2]/table/tbody/tr[1]/td[3]/div/span"
 获取Brand文本: "xpath==//div[@class='vxe-cell c--tooltip']//span[normalize-space(text())='itel']"
-获取Status文本: "xpath==//div[@class='vxe-cell c--tooltip']//span[normalize-space(text())='Enabled']"
+获取Status文本: "xpath==//tr[@class='vxe-body--row']//td[5]//div//span"
 Reset: "xpath==//span[contains(text(),'Reset')]"
 
 
@@ -72,25 +72,42 @@ Extend Commercial Area: "xpath==//*[@id='mainContainer']/section/div[1]/form/div
 Extend Commercial Value: "xpath==//span[text()='variable']"
 Edited Successfully: "xpath==//p[text()='Edited Successfully']"
 
-
 #禁用门店
 Disable: "id==ShopManagement_disable"
 Disable Confirm: "xpath==//span[normalize-space(text())='Confirm']"
 Successfully: "xpath==//p[text()='Successfully']"
 关闭门店管理菜单: "xpath==//span[normalize-space(text())='Shop Management (global)']//span[@class='el-icon-close']"
+#启用门店
+Enable: "id==ShopManagement_enable"
+门店列表筛选状态: "id==shopmanagementglobal_input_status"
+筛选后选中禁用值: "xpath==//span[text()='variable']"
+Enable Confirm: "xpath==//span[normalize-space(text())='Confirm']"
+Click Status Attribute: "xpath==//label[text()='Status']"
+
+#查询门店列表信息
+Unfold: "xpath==//span[text()='Unfold']"
+Fold: "xpath==//span[text()='Fold']"
+Create Start Date: "id==shopmanagementglobal_input_createDateBegin"
+Create End Date: "id==shopmanagementglobal_input_createDateBegin1"
+Get Total: "xpath==//span[contains(text(),'Total')]"
+Get list Brand Text: "xpath==//tr[@class='vxe-body--row']//td[4]//span[@class='vxe-cell--label']"
 
 #查看view门店详情
-View Shop: "id==ShopManagement_view"
+View Shop: "xpath==//span[normalize-space(text())='View']"
+Get list Shop ID Text: "xpath==//tr[@class='vxe-body--row']//td[2]//span[@class='vxe-cell--label']"
 Get list Shop Name Text: "xpath==//tr[@class='vxe-body--row']//td[3]//span[@class='vxe-cell--label']"
 Get list Public ID Text: "xpath==//tr[@class='vxe-body--row']//td[8]//span[@class='vxe-cell--label']"
 Get list Contact Name Text: "xpath==//tr[@class='vxe-body--row']//td[18]//span[@class='vxe-cell--label']"
-Get list  Contact No Text: "xpath==//tr[@class='vxe-body--row']//td[19]//span[@class='vxe-cell--label']"
+Get list Contact No Text: "xpath==//tr[@class='vxe-body--row']//td[19]//span[@class='vxe-cell--label']"
+
+Get view Shop ID Text: "xpath==//label[(text()='Shop ID')]//parent::div//following-sibling::div//input"
 Get View Shop Name Text: "id==shopview_input_shopName"
 Get View Contact Name Text: "id==shopview_input_ownerName"
 Get View Contact No Text: "id==shopview_input_ownerContactNo"
 Get View Public ID Text: "xpath==//input[@class='el-input__inner shopview_input_publicCode']"
 Close Shop View: "id==shopview_Close"
 
-
 #编辑门店信息
 Edit Shop: "id==ShopManagement_edit"
+
+#导出门店信息
