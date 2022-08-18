@@ -20,12 +20,10 @@ class MachineBOMCollaboration(CenterComponent):
     def click_add(self):
         self.is_click_tbm(user['新增'])
         sleep(1)
-        for i in range(20):
-            if self.element_text(user['基本信息']) != '基本信息':
-                self.is_click_tbm(user['新增'])
-                sleep(1)
-            else:
-                break
+        if self.element_exist(user['基本信息']) is False:
+            self.is_click_tbm(user['新增'])
+            sleep(1)
+        DomAssert(self.driver).assert_att('基本信息')
 
     @allure.step("整机BOM协作新增页面-输入BOM信息")
     def input_add_bom_info(self, info, select):

@@ -213,11 +213,11 @@ class APIRequest:
                       "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
                       "createdTimeFrom": "", "createdTimeTo": ""}, "current": 1, "size": 10}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
-        add_reponse = self.Request_Machine_Add(add_data, headers)
-        flowId = add_reponse['data']
-        search_reponse = self.Request_Machine_Search(search_data, headers)
-        search_reponse_data = search_reponse['data']['data']
-        for i in search_reponse_data:
+        add_response = self.Request_Machine_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_Machine_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
             if i['flowId'] == flowId:
                 logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
                 logging.info('流程结束：整机BOM协作新增流程')
@@ -567,12 +567,12 @@ class APIRequest:
         token = self.tbm_login()
         search_data = {"code": flowNo}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
-        search_reponse = self.Request_Todo_Search(search_data, headers)
+        search_response = self.Request_Todo_Search(search_data, headers)
         for i in range(20):
-            if len(search_reponse['data']['list']) == 0:
+            if len(search_response['data']['list']) == 0:
                 sleep(1)
-                search_reponse = self.Request_Todo_Search(search_data, headers)
-        response_data = search_reponse['data']['list'][0]
+                search_response = self.Request_Todo_Search(search_data, headers)
+        response_data = search_response['data']['list'][0]
         logging.info('接口返回数据：taskId：{}'.format(response_data['taskId']))
         logging.info('流程接口结束：TBM-我的待办-查询')
         return response_data['taskId'], token
@@ -631,11 +631,11 @@ class APIRequest:
                       "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
                       "createdTimeFrom": "", "createdTimeTo": "", "bomType": "singleHeadBom"}, "current": 1, "size": 10}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
-        add_reponse = self.Request_BarePhone_Add(add_data, headers)
-        flowId = add_reponse['data']
-        search_reponse = self.Request_BarePhone_Search(search_data, headers)
-        search_reponse_data = search_reponse['data']['data']
-        for i in search_reponse_data:
+        add_response = self.Request_BarePhone_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_BarePhone_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
             if i['flowId'] == flowId:
                 logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(i['flowNo'], i['instanceId'], i['flowId']))
                 logging.info('流程接口结束：单机头BOM协作新增流程')
@@ -697,11 +697,11 @@ class APIRequest:
                       "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
                       "createdTimeFrom": "", "createdTimeTo": "", "bomType": "singleHeadBom"}, "current": 1, "size": 10}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
-        add_reponse = self.Request_BarePhone_Add(add_data, headers)
-        flowId = add_reponse['data']
-        search_reponse = self.Request_BarePhone_Search(search_data, headers)
-        search_reponse_data = search_reponse['data']['data']
-        for i in search_reponse_data:
+        add_response = self.Request_BarePhone_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_BarePhone_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
             if i['flowId'] == flowId:
                 logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(i['flowNo'], i['instanceId'], i['flowId']))
                 logging.info('流程接口结束：单机头BOM协作新增流程')
@@ -903,7 +903,7 @@ class APIRequest:
         self.Request_BarePhone_Delete(delete_data, headers)
         logging.info('流程接口结束：单机头BOM协作撤回流程')
 
-    def Request_Components_Add(self, data, headers):
+    def Request_KeyDevice_Add(self, data, headers):
         """
         TBM 关键器件流程 新增接口
         @param data:接口body
@@ -912,7 +912,7 @@ class APIRequest:
         logging.info('发起请求：关键器件流程新增接口')
         return self.api_request('关键器件流程新增接口', data, headers)
 
-    def Request_Components_Search(self, data, headers):
+    def Request_KeyDevice_Search(self, data, headers):
         """
         TBM 关键器件流程 TBM查询接口
         @param data:接口body
@@ -921,7 +921,102 @@ class APIRequest:
         logging.info('发起请求：关键器件流程查询接口')
         return self.api_request('关键器件流程查询接口', data, headers)
 
-    def Request_Components_Delete(self, bid, headers):
+    def Request_KeyDevice_flowInfo(self, data, headers):
+        """
+        TBM 关键器件流程 flowInfo查询接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：关键器件流程查询流程信息接口')
+        return self.api_request('关键器件流程查询流程信息接口', data, headers)
+
+    def Request_KeyDevice_nodeMatAdd(self, data, headers):
+        """
+        TBM 关键器件流程 节点nodeMat Add接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：关键器件流程nodeMat保存接口')
+        return self.api_request('关键器件流程nodeMat保存接口', data, headers)
+
+    def Request_KeyDevice_nodeMatSubmit(self, data, headers):
+        """
+        TBM 关键器件流程 节点nodeMat Submit接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：关键器件流程nodeMat提交接口')
+        return self.api_request('关键器件流程nodeMat提交接口', data, headers)
+
+    def Request_KeyDevice_FlowDetail(self, deviceBid, headers):
+        """
+        TBM 关键器件流程 查询FlowDetail
+        @param deviceBid:deviceBid
+        @param headers:接口头部
+        """
+        logging.info('发起请求：关键器件流程FlowDetail查询接口')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/plm-key-device-main/key-device/nodeMat/queryFlowDetailByDeviceBid?deviceBid=={deviceBid}&flowNodeCode=')
+        recall_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/plm-key-device-main/key-device/nodeMat/queryFlowDetailByDeviceBid?deviceBid={deviceBid}&flowNodeCode=',
+            headers=headers)
+        response_dicts = recall_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：关键器件流程FlowDetail查询接口')
+        return response_dicts
+
+    def Request_KeyDevice_Approver(self, data, headers):
+        """
+        TBM 关键器件流程 代表节点Approver接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：关键器件流程代表提交接口')
+        return self.api_request('关键器件流程代表提交接口', data, headers)
+
+    def Request_KeyDevice_MatList(self, data, headers):
+        """
+        TBM 关键器件流程 节点MatList查询接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：关键器件流程MatList查询接口')
+        return self.api_request('关键器件流程MatList查询接口', data, headers)
+
+    def Request_KeyDevice_procurement(self, data, headers):
+        """
+        TBM 关键器件流程 procurement保存接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：关键器件流程procurement保存接口')
+        return self.api_request('关键器件流程procurement保存接口', data, headers)
+
+    def Request_KeyDevice_evaluation(self, data, headers):
+        """
+        TBM 关键器件流程 evaluation提交接口
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：关键器件流程evaluation提交接口')
+        return self.api_request('关键器件流程evaluation提交接口', data, headers)
+
+    def Request_KeyDevice_FlowNodeApprover(self, deviceBid, flowBid, headers):
+        """
+        TBM 关键器件流程 查询FlowNodeApprover
+        @param deviceBid:deviceBid
+        @param headers:接口头部
+        """
+        logging.info('发起请求：关键器件流程FlowNodeApprover查询接口')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/plm-key-device-main/key-device/getFlowNodeApprover?deviceBid={deviceBid}&businissType=1&flowBid={flowBid}')
+        recall_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/plm-key-device-main/key-device/getFlowNodeApprover?deviceBid={deviceBid}&businissType=1&flowBid={flowBid}',
+            headers=headers)
+        response_dicts = recall_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：关键器件流程FlowNodeApprover查询接口')
+        return response_dicts
+
+    def Request_KeyDevice_Delete(self, bid, headers):
         """
         TBM 关键器件流程删除已撤回接口
         @param bid:流程bid
@@ -938,10 +1033,7 @@ class APIRequest:
         return response_dicts
 
     @allure.step("关键器件流程新增接口")
-    def API_Components_Add(self):
-        """
-        TBM 关键器件流程新增接口
-        """
+    def API_KeyDevice_Add(self):
         logging.info('发起流程接口：关键器件流程新增流程')
         token = self.tbm_login()
         querytime = datetime.now().strftime('%Y-%m-%d')
@@ -960,18 +1052,225 @@ class APIRequest:
                                 "approver": "18645960"}]}, "uploadList": [], "saveType": "submit"}
         search_data = {"current": 1, "size": 10, "param": {}}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
-        add_reponse = self.Request_Components_Add(add_data, headers)
-        bid = add_reponse['data']['bid']
-        search_reponse = self.Request_Components_Search(search_data, headers)
-        search_reponse_data = search_reponse['data']['data']
-        for i in search_reponse_data:
+        add_response = self.Request_KeyDevice_Add(add_data, headers)
+        bid = add_response['data']['bid']
+        search_response = self.Request_KeyDevice_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
             if i['bid'] == bid:
                 logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(i['flowNo'], i['instanceId'], i['bid']))
                 logging.info('流程接口结束：关键器件流程新增流程')
+                print(i['flowNo'], i['instanceId'], i['bid'])
                 return i['flowNo'], i['instanceId'], i['bid']
 
+    @allure.step("关键器件流程：摄像头+闪光灯审批接口")
+    def API_KeyDevice_image(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：关键器件流程：摄像头+闪光灯审批接口')
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        flowInfo_body = {"flowBid": bid}
+        flowInfo_response = self.Request_KeyDevice_flowInfo(flowInfo_body, headers)
+        FlowDetail_response = self.Request_KeyDevice_FlowDetail(flowInfo_response['data']['flowMainVO']['deviceBid'], headers)
+        domainNodeVOList = FlowDetail_response['data']['domainNodeVOList']
+        nodeMatAdd_body = {
+            "domainDeviceVO": {
+                "deviceMatVOList": [
+                    {
+                        "group": 1,
+                        "deviceGroupName": "CTP(1供)",
+                        "groupCode": "CTP1",
+                        "defineId": 1,
+                        "isAddRow": True,
+                        "matList": [
+                            {
+                                "group": 1,
+                                "deviceType": "parameter",
+                                "parentId": 1,
+                                "deviceGroupName": "CTP(1供)",
+                                "deviceMatParamBusinessVOList": [
+                                    {
+                                        "paramBid": "956136841009041427",
+                                        "paramValue": "GFF"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041428"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041429",
+                                        "paramValue": "CG颜色test"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041430"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041431"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041432",
+                                        "paramValue": "接口类型test"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041433"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041434"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041438",
+                                        "paramValue": "焊接"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041436"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041437"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041435"
+                                    },
+                                    {
+                                        "paramBid": "956136841009041439"
+                                    }
+                                ],
+                                "defineId": 2,
+                                "matCode": "NA",
+                                "baseQty": 1,
+                                "reason": "标准件",
+                                "matNote": "待申请编码",
+                                "matAttr": "属性test"
+                            }
+                        ]
+                    }
+                ],
+                "nodeBid": '956136841009041426'
+            },
+            "kdDeviceVO": flowInfo_response['data']['deviceVO'],
+            "kdFlowMainVO": flowInfo_response['data']['flowMainVO']
+        }
+        print(self.Request_KeyDevice_nodeMatAdd(nodeMatAdd_body, headers))
+        nodeMatSubmit_body = {
+            "domainNodeVOList": domainNodeVOList,
+            "deviceBid": flowInfo_response['data']['flowMainVO']['deviceBid']
+        }
+        print(self.Request_KeyDevice_nodeMatSubmit(nodeMatSubmit_body, headers))
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        print(self.Request_Oneworks_Complete(complete_data, headers))
+        logging.info('流程接口结束：关键器件流程：摄像头+闪光灯审批接口')
+
+    @allure.step("关键器件流程：硬件电子料-基带审批接口")
+    def API_KeyDevice_hardware(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：关键器件流程：硬件电子料-基带审批接口')
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        flowInfo_body = {"flowBid": bid}
+        flowInfo_response = self.Request_KeyDevice_flowInfo(flowInfo_body, headers)
+        FlowDetail_response = self.Request_KeyDevice_FlowDetail(flowInfo_response['data']['flowMainVO']['deviceBid'], headers)
+        domainNodeVOList = FlowDetail_response['data']['domainNodeVOList']
+        nodeMatAdd_body = {
+            "domainDeviceVO": {
+                "deviceMatVOList": [
+                    {
+                        "group": 1,
+                        "deviceGroupName": "CPU(1供)",
+                        "groupCode": "CPU1",
+                        "defineId": 1,
+                        "isAddRow": True,
+                        "matList": [
+                            {
+                                "group": 1,
+                                "deviceType": "parameter",
+                                "parentId": 1,
+                                "deviceGroupName": "CPU(1供)",
+                                "deviceMatParamBusinessVOList": [
+                                    {
+                                        "paramBid": "956136841013235738"
+                                    },
+                                    {
+                                        "paramBid": "956136841013235736"
+                                    },
+                                    {
+                                        "paramBid": "956136841013235739"
+                                    },
+                                    {
+                                        "paramBid": "956136841013235737"
+                                    }
+                                ],
+                                "defineId": 2,
+                                "matCode": "NA",
+                                "baseQty": 1,
+                                "reason": "标准件",
+                                "matNote": "待申请编码",
+                                "matAttr": "属性test"
+                            }
+                        ]
+                    }
+                ],
+                "nodeBid": '956136841013235735'
+            },
+            "kdDeviceVO": flowInfo_response['data']['deviceVO'],
+            "kdFlowMainVO": flowInfo_response['data']['flowMainVO']
+        }
+        print(self.Request_KeyDevice_nodeMatAdd(nodeMatAdd_body, headers))
+        nodeMatSubmit_body = {
+            "domainNodeVOList": domainNodeVOList,
+            "deviceBid": flowInfo_response['data']['flowMainVO']['deviceBid']
+        }
+        print(self.Request_KeyDevice_nodeMatSubmit(nodeMatSubmit_body, headers))
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        print(self.Request_Oneworks_Complete(complete_data, headers))
+        logging.info('流程接口结束：关键器件流程：硬件电子料-基带审批接口')
+
+    @allure.step("关键器件流程：标准化代表审批接口")
+    def API_KeyDevice_StandardDeputy(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：关键器件流程：标准化代表审批接口')
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        flowInfo_body = {"flowBid": bid}
+        flowInfo_response = self.Request_KeyDevice_flowInfo(flowInfo_body, headers)
+        FlowDetail_response = self.Request_KeyDevice_FlowNodeApprover(flowInfo_response['data']['flowMainVO']['deviceBid'], bid, headers)
+        Approver_body = {
+            "flowNodeApproverList": FlowDetail_response['data'],
+            "flowBid": bid,
+            "flowType": "standard_deputy"
+        }
+        for i in FlowDetail_response['data']:
+            for j in i['childList']:
+                j['standardBehalf'] = "18645960"
+        print(self.Request_KeyDevice_Approver(Approver_body, headers))
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        print(self.Request_Oneworks_Complete(complete_data, headers))
+        logging.info('流程接口结束：关键器件流程：标准化代表审批接口')
+
+    @allure.step("关键器件流程：采购代表审批接口")
+    def API_KeyDevice_PurchaseDeputy(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：关键器件流程：采购代表审批接口')
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        flowInfo_body = {"flowBid": bid}
+        flowInfo_response = self.Request_KeyDevice_flowInfo(flowInfo_body, headers)
+        FlowDetail_response = self.Request_KeyDevice_FlowNodeApprover(flowInfo_response['data']['flowMainVO']['deviceBid'], bid, headers)
+        Approver_body = {
+            "flowNodeApproverList": FlowDetail_response['data'],
+            "flowBid": bid,
+            "flowType": "purchase_deputy"
+        }
+        for i in FlowDetail_response['data']:
+            for j in i['childList']:
+                j['resourcesBusiness'] = "18645960"
+                j['procurementExecution'] = "18645960"
+                j['procurementPtc'] = "18645960"
+                j['procurementSqm'] = "18645960"
+        print(self.Request_KeyDevice_Approver(Approver_body, headers))
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        print(self.Request_Oneworks_Complete(complete_data, headers))
+        logging.info('流程接口结束：关键器件流程：采购代表审批接口')
+
     @allure.step("关键器件流程撤回删除接口")
-    def API_Components_Delete(self, instanceid, bid):
+    def API_KeyDevice_Delete(self, instanceid, bid):
         """
         通过调用接口发起撤回流程
         调用接口：oneworks流程撤回接口，关键器件流程删除已撤回接口
@@ -982,7 +1281,7 @@ class APIRequest:
         token = self.tbm_login()
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         self.Oneworks_Recall(instanceid, headers)
-        self.Request_Components_Delete(bid, headers)
+        self.Request_KeyDevice_Delete(bid, headers)
         logging.info('流程接口结束：关键器件流程撤回流程')
 
     def Request_SaleCountry_Add(self, data, headers):
@@ -1118,13 +1417,13 @@ class APIRequest:
                                  "flowStartdate": ""}, "current": 1, "size": 10}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         self.Request_SaleCountry_Add(add_data, headers)
-        search_reponse = self.Request_SaleCountry_Search(search_data, headers)
-        search_reponse_data = search_reponse['data']['data']
-        logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(search_reponse_data[0]['flowNo'],
-                                                                    search_reponse_data[0]['instanceId'],
-                                                                    search_reponse_data[0]['bid']))
+        search_response = self.Request_SaleCountry_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(search_response_data[0]['flowNo'],
+                                                                    search_response_data[0]['instanceId'],
+                                                                    search_response_data[0]['bid']))
         logging.info('流程接口结束：出货国家流程新增流程')
-        return search_reponse_data[0]['flowNo'], search_reponse_data[0]['instanceId'], search_reponse_data[0]['bid']
+        return search_response_data[0]['flowNo'], search_response_data[0]['instanceId'], search_response_data[0]['bid']
 
     @allure.step("出货国家流程撤回删除接口")
     def API_SaleCountry_Delete(self, instanceid, bid):
@@ -1279,17 +1578,17 @@ class APIRequest:
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
                                  "flowStartdate": ""}, "current": 1, "size": 10}
         self.Request_Change_Product(change_data, headers)
-        search_reponse = self.Request_SaleCountry_Search(search_data, headers)
+        search_response = self.Request_SaleCountry_Search(search_data, headers)
         for i in range(20):
-            if len(search_reponse['data']['data']) == 0:
+            if len(search_response['data']['data']) == 0:
                 sleep(1)
-                search_reponse = self.Request_SaleCountry_Search(search_data, headers)
-        search_reponse_data = search_reponse['data']['data']
-        logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(search_reponse_data[0]['flowNo'],
-                                                                    search_reponse_data[0]['instanceId'],
-                                                                    search_reponse_data[0]['bid']))
+                search_response = self.Request_SaleCountry_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(search_response_data[0]['flowNo'],
+                                                                    search_response_data[0]['instanceId'],
+                                                                    search_response_data[0]['bid']))
         logging.info('流程接口结束：出货国家查询变更产品接口')
-        return search_reponse_data[0]['flowNo'], search_reponse_data[0]['instanceId'], search_reponse_data[0]['bid']
+        return search_response_data[0]['flowNo'], search_response_data[0]['instanceId'], search_response_data[0]['bid']
 
     @allure.step("出货国家流程产品部管理员审核接口")
     def API_Change_Audit(self, flowNo, instanceid, bid):

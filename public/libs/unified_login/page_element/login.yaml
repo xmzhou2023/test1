@@ -19,3 +19,10 @@ zx扫码快捷登录: "id==tab-code"
 退出登录dcr: "id==LoginOut"
 #退出登录dcr: "css==[id='LoginOut']"
 
+#SRM定位元素
+主账号srm: 'xpath==//input[@id="elsAccount"]'
+子账号srm: 'xpath==//input[@id="elsSubAccount"]'
+密码srm: 'xpath==//input[@type="password"]'
+验证码srm: 'xpath==//img[@id="code"]'
+验证码框srm: 'xpath==//input[@id="identifyCode"]'
+登录srm: 'xpath==//button[@id="submit_btn"]'

@@ -9,7 +9,7 @@ from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=True):
+def drivers(request, remote_ui=False):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
@@ -42,6 +42,7 @@ def drivers(request, remote_ui=True):
             # option.add_argument('blink-settings=imagesEnabled=false')  # 不加载图片, 提升速度
             # option.add_experimental_option("debuggerAddress", "127.0.0.1:9222")  # 调用原来的浏览器，不用再次登录即可重启
             prefs = {"": ""}
+            prefs["intl.accept_languages"] = 'zh-CN,zh'
             prefs["credentials_enable_service"] = False
             prefs["profile.password_manager_enabled"] = False
             prefs["download.prompt_for_download"] = False
@@ -62,6 +63,7 @@ def drivers(request, remote_ui=True):
                 '''win系统下VNC界面模式'''
                 option = webdriver.ChromeOptions()
                 prefs = {"": ""}
+                prefs["intl.accept_languages"] = 'zh-CN,zh'
                 prefs["credentials_enable_service"] = False
                 prefs["profile.password_manager_enabled"] = False
                 option.add_experimental_option("prefs", prefs)  # 屏蔽'保存密码'提示框
