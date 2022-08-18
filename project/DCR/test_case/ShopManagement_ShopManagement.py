@@ -78,21 +78,29 @@ class TestExpandBrandShop:
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Shop Management", "Shop Management(Global)")
 
-        edit_shop = ShopManagementPage(drivers)
+        expand_brand = ShopManagementPage(drivers)
         """从数据库查询最近新建的门店ID"""
-        edit_shop.click_first_checkbox()
-        edit_shop.click_more_option()
-        edit_shop.click_extend_brand()
-        edit_shop.select_extend_brand("itel")
-        edit_shop.extend_brand_save()
+        user = SQL('DCR', 'test')
+        shop_data = user.query_db(
+            "select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
+        shop_name = shop_data[0].get("shop_name")
+        """筛选新建的门店ID与门店名称文本内容"""
+        expand_brand.input_query_shop_name(shop_name, shop_name)
+        expand_brand.click_query_search()
 
-        edit_shop.input_extend_sales_region("Barisal itel")
-        edit_shop.click_extend_shop_grade()
-        edit_shop.click_extend_shop_type()
-        edit_shop.click_extend_image_type()
-        edit_shop.extend_retail_customer("SN455338")
-        edit_shop.extend_commercial_area()
-        edit_shop.click_submit()
+        expand_brand.click_first_checkbox()
+        expand_brand.click_more_option()
+        expand_brand.click_extend_brand()
+        expand_brand.select_extend_brand("itel")
+        expand_brand.extend_brand_save()
+
+        expand_brand.input_extend_sales_region("Barisal itel")
+        expand_brand.click_extend_shop_grade()
+        expand_brand.click_extend_shop_type()
+        expand_brand.click_extend_image_type()
+        expand_brand.extend_retail_customer("SN455338")
+        expand_brand.extend_commercial_area()
+        expand_brand.click_submit()
 
         """获取编辑成功提示语"""
         # dom = DomAssert(drivers)
@@ -104,17 +112,18 @@ class TestExpandBrandShop:
             "select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
         public_code = shop_data[0].get("public_code")
         shopname = shop_data[0].get("shop_name")
+        expand_brand.click_reset()
 
         """增加断言，判断新增的扩展门店品牌，是否保存成功"""
-        shop_id = edit_shop.get_extend_shop_id_text()
-        shop_name = edit_shop.get_shop_name_text()
-        shop_brand = edit_shop.get_shop_brand_text()
-        status = edit_shop.get_shop_status_text()
+        shop_id = expand_brand.get_extend_shop_id_text()
+        shop_name = expand_brand.get_shop_name_text()
+        shop_brand = expand_brand.get_shop_brand_text()
+        status = expand_brand.get_shop_status_text()
         ValueAssert.value_assert_In(shop_id, public_code)
         ValueAssert.value_assert_equal(shop_name, shopname)
-        ValueAssert.value_assert_equal(shop_brand, "itel")
+        ValueAssert.value_assert_IsNoneNot(shop_brand)
         ValueAssert.value_assert_equal(status, "Enabled")
-        edit_shop.click_close_shop_management()
+        expand_brand.click_close_shop_management()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -325,6 +334,58 @@ class TestEnableShop:
         enable.click_close_shop_management()
 
 
+@allure.feature("门店管理-门店管理(global)")
+class TestExportShop:
+    @allure.story("导出门店")
+    @allure.title("门店管理页面，根据门店创建日期筛选门店后，进行导出操作")
+    @allure.description("门店管理页面，根据门店创建日期筛选门店后，进行导出操作")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_007_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """销售管理菜单-出库单-筛选出库单用例  BD026498"""
+        user.click_gotomenu("Shop Management", "Shop Management(Global)")
+        """实例化ShopManagementPage类，调用页面元素方法"""
+        export = ShopManagementPage(drivers)
+
+        today = Base(drivers).get_datetime_today()
+        logging.info("打印当前日期：{}".format(today))
+
+        export.click_unfold()
+        """门店列表，按日期筛选门店记录"""
+        export.input_create_date("2022-08-01", today)
+        export.click_status_attribute()
+        """点击查询按钮"""
+        export.click_query_search()
+        export.click_fold()
+
+        """点击导出"""
+        export.click_export()
+        export.click_download_more()
+        export.input_task_name("Shop Manager List")
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
+        down_status = export.click_export_search()
+
+        task_name = export.get_task_name_text()
+        file_size = export.get_file_size_text()
+
+        task_id = export.get_task_user_id_text()
+        create_date = export.get_create_date_text()
+        complete_date = export.get_complete_date_text()
+        export_time = export.get_export_time_text()
+        operation = export.get_operation_text()
+
+        ValueAssert.value_assert_equal(down_status, "COMPLETE")
+        ValueAssert.value_assert_equal(task_name, "Shop Manager List")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(operation, "Download")
+        export.assert_file_time_size(file_size, export_time)
+        export.click_close_export_record()
+        export.click_close_shop_management()
+
+
 #暂时无删除功能，用例留着
 # @allure.feature("门店管理-门店管理(global)")
 # class TestDeleteShop:
@@ -353,7 +414,7 @@ class TestEnableShop:
 #         shop_name2 = del_shop.get_shop_name_text()
 #         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
 #         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
-#         sleep(1)  #TestExportShop
+#         sleep(1)
 
 if __name__ == '__main__':
     pytest.main(['ShopManagement_ShopManagement.py'])

@@ -9,7 +9,6 @@ user = Element(pro_name, object_name)
 
 class ShopManagementPage(Base):
     """ShopManagementPage 页面元素类"""
-
     @allure.step("点击Add新建门店按钮")
     def click_add(self):
         Base.presence_sleep_dcr(self, user['Add'])
@@ -110,7 +109,7 @@ class ShopManagementPage(Base):
         Base.presence_sleep_dcr(self, user['点击门店输入框'])
         self.is_click_dcr(user['点击门店输入框'])
         self.input_text(user['门店输入框输入'], txt=content)
-        sleep(3)
+        sleep(4)
         Base.presence_sleep_dcr(self, user['选中门店值1'], content1)
         self.is_click(user['选中门店值1'], content1)
 
@@ -124,7 +123,7 @@ class ShopManagementPage(Base):
     @allure.step("点击Search查询门店信息")
     def click_query_search(self):
         self.is_click(user['Search'])
-        sleep(6)
+        sleep(10)
 
     @allure.step("筛选最近新建的门店ID后，勾线第一个复选框")
     def click_first_checkbox(self):
@@ -138,7 +137,7 @@ class ShopManagementPage(Base):
     @allure.step("点击More Option更多操作按钮")
     def click_more_option(self):
         self.is_click(user['More Option'])
-        sleep(2)
+        sleep(3.5)
 
     @allure.step("点击delete 删除按钮")
     def click_delete(self):
@@ -187,6 +186,7 @@ class ShopManagementPage(Base):
 
     @allure.step("获取列表brand文本")
     def get_shop_brand_text(self):
+        sleep(1)
         get_brand = self.element_text(user['获取Brand文本'])
         return get_brand
 
@@ -220,12 +220,12 @@ class ShopManagementPage(Base):
         self.is_click(user['下拉选择扩展品牌'])
         self.input_text(user['下拉选择扩展品牌'], txt=content)
         sleep(2)
-        self.is_click(user['选中扩展的品牌'])
+        self.is_click(user['选中扩展的品牌'], content)
 
     @allure.step("点击增加扩展品牌时，弹出窗口选择品牌后，点击Save")
     def extend_brand_save(self):
         self.is_click(user['Extend Brand Save'])
-        sleep(4.5)
+        sleep(5)
 
     @allure.step("编辑门店，增加扩展品牌时，输入销售区域并选择销售区域")
     def input_extend_sales_region(self, content):
@@ -233,14 +233,16 @@ class ShopManagementPage(Base):
         sleep(3)
         self.is_click(user['Extend Sales Region'])
         self.input_text(user['Extend Sales Region'], txt=content)
-        sleep(2)
+        sleep(3.5)
         self.is_click(user['Extend Sales Region Value'], content)
+        sleep(1)
 
     @allure.step("扩展门店等级属性")
     def click_extend_shop_grade(self):
         self.scroll_into_view(user['Extend Shop Grade'])
+        sleep(1)
         self.is_click(user['Extend Shop Grade'])
-        sleep(2)
+        sleep(2.5)
         self.is_click(user['Extend Shop Grade Value'], "A 10-20 ")
 
     @allure.step("扩展门店类型属性")
@@ -254,6 +256,7 @@ class ShopManagementPage(Base):
         self.is_click(user['Extend Image Type'])
         sleep(1.5)
         self.is_click_dcr(user['Extend Zone Shop Value'], "Zone Shop")
+        sleep(1)
 
     @allure.step("扩展零售商客户属性")
     def extend_retail_customer(self, content):
@@ -273,8 +276,13 @@ class ShopManagementPage(Base):
         self.is_click(user['关闭门店管理菜单'])
         sleep(2)
 
+    @allure.step("关闭导出记录菜单")
+    def click_close_export_record(self):
+        """关闭导出记录菜单"""
+        self.is_click(user['关闭导出记录菜单'])
+        sleep(1)
 
-    #禁用门店
+    """禁用门店"""
     @allure.step("点击禁用门店按钮")
     def click_disable_confirm(self):
         Base.presence_sleep_dcr(self, user['Disable'])
@@ -284,7 +292,8 @@ class ShopManagementPage(Base):
         self.is_click(user['Disable Confirm'])
         sleep(1)
 
-    #启用门店Disabled
+
+    """启用门店Disabled"""
     @allure.step("点击启用门店按钮")
     def click_enable_confirm(self):
         Base.presence_sleep_dcr(self, user['Enable'])
@@ -306,7 +315,8 @@ class ShopManagementPage(Base):
         self.is_click(user['Click Status Attribute'])
         sleep(1)
 
-    #View查看门店
+
+    """View查看门店"""
     @allure.step("门店管理页面，点击View查看门店详情")
     def click_view_shop(self):
         self.is_click(user['View Shop'])
@@ -372,7 +382,8 @@ class ShopManagementPage(Base):
         self.is_click(user['Close Shop View'])
         sleep(3)
 
-    #查询门店信息
+
+    """查询门店信息"""
     @allure.step("点击Unfold 展开筛选项")
     def click_unfold(self):
         self.is_click(user['Unfold'])
@@ -409,12 +420,113 @@ class ShopManagementPage(Base):
         return get_list_brand
 
 
-    #编辑门店信息
+    """编辑门店信息"""
     @allure.step("门店列表页面，点击编辑门店功能")
     def click_edit_shop(self):
         Base.presence_sleep_dcr(self, user['Edit Shop'])
         self.is_click(user['Edit Shop'])
         sleep(2)
+
+
+    """导出门店功能"""
+    @allure.step("门店列表页面，点击Export 导出考勤记录")
+    def click_export(self):
+        self.is_click(user['Export'])
+        sleep(2)
+
+    @allure.step("门店列表页面，导出操作后，点击右上角下载图标,点击右上角more...")
+    def click_download_more(self):
+        self.is_click(user['Download Icon'])
+        sleep(1)
+        Base.presence_sleep_dcr(self, user['More'])
+        self.is_click(user['More'])
+        sleep(4)
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], txt=content)
+        sleep(2)
+        self.is_click(user['Task Name value'], content)
+
+    @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
+    def click_export_search(self):
+        download_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        return download_status
+
+    @allure.step("导出记录页面，获取列表 Download Status文本")
+    def get_download_status_text(self):
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status = self.element_text(user['获取下载状态文本'])
+            sleep(1)
+        return status
+
+    @allure.step("导出记录页面，获取列表 Task Name文本")
+    def get_task_name_text(self):
+        task_name = self.element_text(user['获取任务名称文本'])
+        return task_name
+
+    @allure.step("导出记录页面，获取列表 Task Name文本")
+    def get_file_size_text(self):
+        file_size = self.element_text(user['获取文件大小文本'])
+        file_size1 = file_size[0:1]
+        return file_size1
+
+    @allure.step("导出记录页面，获取列表 User ID文本")
+    def get_task_user_id_text(self):
+        user_id = self.element_text(user['获取用户ID文本'])
+        return user_id
+
+    @allure.step("导出记录页面，获取列表 Create Date文本")
+    def get_create_date_text(self):
+        create_date = self.element_text(user['获取创建日期文本'])
+        create_date1 = create_date[0:10]
+        return create_date1
+
+    @allure.step("导出记录页面，获取列表Complete Date文本")
+    def get_complete_date_text(self):
+        complete_date = self.element_text(user['获取完成日期文本'])
+        complete_date1 = complete_date[0:10]
+        return complete_date1
+
+    @allure.step("导出记录页面，获取列表 Operation文本")
+    def get_operation_text(self):
+        operation = self.element_text(user['获取操作按钮文本'])
+        return operation
+
+    @allure.step("导出记录页面，获取列表导出时间文本")
+    def get_export_time_text(self):
+        export_time = self.element_text(user['获取导出时间'])
+        export_time1 = export_time[0:1]
+        return export_time1
+
+    @allure.step("断言分页总数是否存在数据")
+    def assert_total(self, total):
+        if int(total) > 0:
+            logging.info("筛选考勤记录列表，分页总条数大于0，能查询到考勤记录数Total:{}".format(total))
+        else:
+            logging.info("筛选考勤记录列表，分页总条数为0，未查询到考勤记录数Total:{}:".format(total))
+
+    @allure.step("断言分页总数是否存在数据")
+    def assert_total2(self, total):
+        if int(total) > 1000:
+            logging.info("查看考勤记录列表，分页总条数大于1000，能查询到考勤记录Total：{}".format(total))
+        else:
+            logging.info("查看考勤记录列表，分页总条数为1000，未查询到考勤记录Total：{}".format(total))
+
+    @allure.step("断言文件或导出时间是否有数据")
+    def assert_file_time_size(self, file_size, export_time):
+        if int(file_size) > 0:
+            logging.info("Attendance Records导出成功，File Size导出文件大于M:{}".format(file_size))
+        else:
+            logging.info("Attendance Records导出失败，File Size导出文件小于M:{}".format(file_size))
+
+        if int(export_time) > 0:
+            logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
+        sleep(1)
 
 
 if __name__ == '__main__':
