@@ -189,8 +189,8 @@ class TestAddDeliveryOrder:
 
 
     @allure.story("新建出库单")
-    @allure.title("国包用户，新建出库单，产品为有码的，买方为临时客户")
-    @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户")
+    @allure.title("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家退货单")
+    @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家创建退货单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_002(self, drivers):
         user4 = LoginPage(drivers)
