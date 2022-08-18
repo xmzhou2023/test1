@@ -355,6 +355,5 @@ class TestEnableShop:
 #         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
 #         sleep(1)  #TestExportShop
 
-
 if __name__ == '__main__':
     pytest.main(['ShopManagement_ShopManagement.py'])

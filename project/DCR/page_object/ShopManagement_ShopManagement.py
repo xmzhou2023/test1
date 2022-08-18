@@ -111,6 +111,7 @@ class ShopManagementPage(Base):
         self.is_click_dcr(user['点击门店输入框'])
         self.input_text(user['门店输入框输入'], txt=content)
         sleep(3)
+        Base.presence_sleep_dcr(self, user['选中门店值1'], content1)
         self.is_click(user['选中门店值1'], content1)
 
     @allure.step("根据门店名称查询，最近扩展门店品牌的的门店ID")
@@ -123,7 +124,7 @@ class ShopManagementPage(Base):
     @allure.step("点击Search查询门店信息")
     def click_query_search(self):
         self.is_click(user['Search'])
-        sleep(5)
+        sleep(6)
 
     @allure.step("筛选最近新建的门店ID后，勾线第一个复选框")
     def click_first_checkbox(self):
