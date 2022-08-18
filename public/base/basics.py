@@ -167,12 +167,13 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             Npath[1] = Npath[1].replace('variable', choice)
-            ele = self.find_element(Npath)
+            ele = self.find_element(Npath).click()
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
             logging.info("滚动条至：{}".format(Npath))
         else:
             ele = self.find_element(locator)
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+            self.find_element(locator).click()
             logging.info("滚动条至：{}".format(locator))
 
     def is_click(self, locator, choice=None):
