@@ -17,7 +17,7 @@ class NavPage(Base):
             navstr = navstr + '->' + content[i]
             level.append(navstr[2:])
         for i in range(len(content)):
-            self.scroll_into_view(user[level[i]])
+            self.scroll_into_view_CRM(user[level[i]])
         sleep(2)
 
 if __name__ == '__main__':
