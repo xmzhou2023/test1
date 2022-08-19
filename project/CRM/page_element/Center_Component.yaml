@@ -1,0 +1,4 @@
+OperationMgt: 'xpath==//div[@class="el-submenu__title"]//span[text()="Operation Mgt"]'
+OperationMgt->PolicyandProfits: 'xpath==//li[@aria-expanded="true"]//span[text()="Policy and Profits"]'
+OperationMgt->PolicyandProfits->WarrantyDurationMgt: 'xpath==//li[@role="menuitem"]//span[text()="Warranty Duration Mgt"]'
+OperationMgt->PolicyandProfits->ProfitsTypeMgt: 'xpath==//li[@role="menuitem"]//span[text()="Profits Type Mgt"]'
