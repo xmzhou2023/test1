@@ -47,9 +47,9 @@ class TestInsertBoardUserSetting:
     def test_1029050(self, drivers):
         info = BoardUserSetting(drivers)
         info.click_insert()
-        print(os.path.join(os.path.join(os.path.abspath('..'),'data'),'headimg.jpeg'))
+        os.path.join(BASE_DIR, 'project', 'MES_DAP', 'data', 'headimg.jpeg')
         info.fill_form({"1": "19950109", "2": "测试", "3": "1888888888", "4": "组装产线",
-                        "5": "拉长", "6": os.path.join(os.path.abspath('.'), 'project/MES_DAP/data/headimg.jpeg')})
+                        "5": "拉长", "6": os.path.join(BASE_DIR, 'project', 'MES_DAP', 'data', 'headimg.jpeg')})
         info.click_form_accept()
         db = SQLAssert(pro_name, 'test')
         db.assert_sql_count(1, "SELECT count(EMP_ID) FROM db_pldb_test.dt_pv_employees WHERE EMP_CODE ='19950109';")
