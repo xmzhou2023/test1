@@ -49,8 +49,10 @@ class TestAddShop:
             "select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
         shop_id = shop_data[0].get("public_code")
         shop_name = shop_data[0].get("shop_name")
+        shop_id1 = shop_id[1:]
+        logging.info("从数据库查询Shop ID：{}".format(shop_id1))
         """筛选新建的门店ID与门店名称文本内容"""
-        add_shop.input_query_shop_name(shop_name, shop_name)
+        add_shop.input_query_shop_name(shop_id1, shop_id1)
         add_shop.click_query_search()
 
         shopid = add_shop.get_shop_id_text()
@@ -83,9 +85,12 @@ class TestExpandBrandShop:
         user = SQL('DCR', 'test')
         shop_data = user.query_db(
             "select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
-        shop_name = shop_data[0].get("shop_name")
+        shop_code = shop_data[0].get("public_code")
+        shop_code1 = shop_code[1:]
+        logging.info("从数据库查询Shop ID：{}".format(shop_code1))
+
         """筛选新建的门店ID与门店名称文本内容"""
-        expand_brand.input_query_shop_name(shop_name, shop_name)
+        expand_brand.input_query_shop_name(shop_code1, shop_code1)
         expand_brand.click_query_search()
 
         expand_brand.click_first_checkbox()
@@ -113,13 +118,13 @@ class TestExpandBrandShop:
         public_code = shop_data[0].get("public_code")
         shopname = shop_data[0].get("shop_name")
         expand_brand.click_reset()
-
+        public_code1 = public_code[1:]
         """增加断言，判断新增的扩展门店品牌，是否保存成功"""
         shop_id = expand_brand.get_extend_shop_id_text()
         shop_name = expand_brand.get_shop_name_text()
         shop_brand = expand_brand.get_shop_brand_text()
         status = expand_brand.get_shop_status_text()
-        ValueAssert.value_assert_In(shop_id, public_code)
+        ValueAssert.value_assert_In(shop_id, public_code1)
         ValueAssert.value_assert_equal(shop_name, shopname)
         ValueAssert.value_assert_IsNoneNot(shop_brand)
         ValueAssert.value_assert_equal(status, "Enabled")
