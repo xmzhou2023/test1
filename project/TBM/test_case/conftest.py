@@ -78,10 +78,19 @@ def BarePhone_Approval_Fail_API():
     logging.info('开始后置操作')
     user.API_BarePhone_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def BarePhone_bomEnginner_API():
+    logging.info('开始前置操作-新建流程-BOM工程师审批同意')
+    user = APIRequest()
+    api_response = user.API_BarePhone_Add()
+    user.API_BarePhone_bomEnginner(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_BarePhone_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def BarePhone_bomEnginner_Fail_API():
-    logging.info('开始前置操作-新建流程-业务审核审批同意')
+    logging.info('开始前置操作-新建流程-BOM工程师审批同意')
     user = APIRequest()
     api_response = user.API_BarePhone_Fail_Add()
     user.API_BarePhone_bomEnginner(api_response[0], api_response[1], api_response[2])

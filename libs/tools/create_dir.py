@@ -4,7 +4,7 @@ import logging
 import os
 import shutil
 
-PERO_PATH = os.path.join(PEROJECT_PATH, 'IPMM')
+PERO_PATH = os.path.join(PEROJECT_PATH, 'TBM')
 # 创建文件依据
 path = os.path.join('template/modle_name.csv')
 
@@ -80,7 +80,7 @@ if __name__ == '__main__':
     generate_module("element")
     generate_module("object")
     generate_module("testcase")
-    generate_env()
+    # generate_env()
 
 
 

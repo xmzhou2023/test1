@@ -47,7 +47,7 @@ class TestCreateProcessExceptionScenario:
         user.input_add_bom_info('制作类型', 'PCBA BOM制作')
         user.input_add_bom_info('品牌', 'aaaaa')
         user.input_add_bom_info('机型', 'JMB-01')
-        user.input_add_bom_info('阶段', '量产阶段')
+        user.input_add_bom_info('阶段', '试产阶段')
         user.input_add_bom_info('制作虚拟贴片/套片', '否')
         user.assert_add_bomtree_exist(False)
         user.click_bom_import()
@@ -92,13 +92,28 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM状态', '量产')
+        user.input_bomtree('BOM状态', '试产')
         user.input_bomtree('用量', '1')
         user.select_business_review('李小素')
         user.select_business_review('李小素', '射频&天线工程师')
         user.click_add_submit()
         user.assert_toast('BOM编码[null]的物料组在对应的模板中未设置！')
 
-
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("BOM编码[null]的物料组在对应的模板中未设置！")  # 用例名称
+    @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中点击新增BOM，不填写物料编码，其他内容正确填写，点击提交，提示BOM编码空的物料组在对应的模板中未设置！")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_005(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_bom_info('制作类型', 'PCBA BOM制作')
+        user.input_add_bom_info('品牌', 'aaaaa')
+        user.input_add_bom_info('机型', 'JMB-01')
+        user.input_add_bom_info('阶段', '试产阶段')
+        user.input_add_bom_info('制作虚拟贴片/套片', '否')
+        user.click_add_submit()
+        user.assert_toast('请完善Bom信息')
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_PCBABomCooperation.py'])

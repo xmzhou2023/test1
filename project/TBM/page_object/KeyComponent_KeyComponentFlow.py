@@ -15,12 +15,6 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.refresh_webpage()
         self.click_menu("关键器件", "关键器件流程")
 
-    @allure.step("点击新增")
-    def click_add(self):
-        """点击新增"""
-        self.is_click_tbm(user['新增'])
-        sleep(1)
-
     @allure.step("关键器件流程新增页面 - 输入项目信息")
     def input_add_item_info(self, info, select):
         """

@@ -34,11 +34,6 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.assert_toast()
         logging.info('撤回删除流程成功')
 
-    @allure.step("点击新增")
-    def click_add(self):
-        self.is_click_tbm(user['新增'])
-        sleep(1)
-
     @allure.step("出货国家流程新增页面 - 输入项目信息")
     def input_add_item_info(self, info, select):
         """
