@@ -18,11 +18,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.refresh_webpage()
         self.click_menu("BOM协作", "单机头BOM协作")
 
-    @allure.step("点击新增")
-    def click_add(self):
-        self.is_click_tbm(user['新增'])
-        sleep(1)
-
     @allure.step("单机头BOM协作新增页面-输入BOM信息")
     def input_add_bom_info(self, info, select):
         """
@@ -322,13 +317,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         """
         断言：判断是否存在批量删除
         """
-        try:
-            assert self.element_exist(user['批量删除']) is result
-            logging.info('断言成功')
-        except:
-            self.base_get_img()
-            logging.error('断言失败')
-            raise
+        DomAssert(self.driver).assert_control(user['批量删除'], result)
 
     @allure.step("点击批量删除")
     def click_batch_delete(self):
