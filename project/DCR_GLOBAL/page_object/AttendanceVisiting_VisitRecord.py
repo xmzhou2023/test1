@@ -45,7 +45,7 @@ class VisitRecordPage(Base):
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(4)
+        sleep(5)
 
     def get_shop_id_text(self):
         """Visit Record页面，获取列表中Shop ID文本属性"""
