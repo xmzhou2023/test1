@@ -62,7 +62,7 @@ class TestAddShop:
         sql_asser.assert_sql(shopname,
                              "select shop_name from t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
         """断言门店列表是否存在新建的门店ID与门店名称"""
-        ValueAssert.value_assert_In(shopid, shop_id)
+        ValueAssert.value_assert_In(shopid, shop_id1)
         ValueAssert.value_assert_equal(shopname, shop_name)
         add_shop.click_close_shop_management()
 
