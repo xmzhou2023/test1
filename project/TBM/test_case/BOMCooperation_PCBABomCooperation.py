@@ -9,8 +9,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from public.base.assert_ui import *
-from project.TBM.page_object.BOMCooperation_PCBABomCooperation import PCBABomCooperation
-        user.click_bom_import()
+from project.TBM.page_object.BOMCooperation_PCBABomCooperation import PCBABomCooperationuser.click_bom_import()
 @allure.feature("BOM协作-PCBA BOM协作")  # 模块名称
 class TestCreateProcess:
     @allure.story("创建流程")  # 场景名称
