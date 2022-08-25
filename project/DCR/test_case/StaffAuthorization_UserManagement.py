@@ -62,8 +62,8 @@ class TestQueryUser:
 class TestAddEditQuitTranssionUser:
     @allure.story("用户管理业务流程")
     @allure.title("用户管理页面，新增、编辑、离职传音用户")
-    @allure.description("用户管理页面，新增、编辑、离职传音用户")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.description("用户管理页面，新增、编辑、离职传音用户能正常运行")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -158,8 +158,8 @@ class TestAddEditQuitTranssionUser:
 class TestAddEditQuitDealerUser:
     @allure.story("用户管理业务流程")
     @allure.title("用户管理页面，新增、编辑、离职代理用户")
-    @allure.description("用户管理页面，新增、编辑、离职代理用户")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.description("用户管理页面，新增、编辑、离职代理用户能正常运行")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_003_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -308,9 +308,9 @@ class TestExportUser:
 @allure.feature("员工授权-用户管理")
 class TestResetPasswordUser:
     @allure.story("用户重置密码")
-    @allure.title("用户管理页面，筛选用户然后重置密码")
-    @allure.description("用户管理页面，筛选用户然后重置密码")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
+    @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
+    @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
     def test_005_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
