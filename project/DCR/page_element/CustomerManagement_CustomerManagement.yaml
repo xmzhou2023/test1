@@ -1,0 +1,59 @@
+关键字: "xpath==//span[contains(text(),'终审版报表')]"
+
+Add: "xpath==//button//span[contains(text(),'Add')]"
+一级菜单: "xpath==//div[@class='el-submenu__title']//span[contains(text(),'variable')]"
+#IMEI Management
+二级菜单: "xpath==//div[@class='nest-menu']//span[text()='variable']"
+#IMEI Query
+
+Customer Type: "xpath==//label//span[contains(text(),'Customer Type')]//..//..//input"
+Customer Type Select: "xpath==//ul[@class='el-scrollbar__view el-select-dropdown__list']//li//span[contains(text(),'variable')]"
+Brand: "xpath==//label//span[contains(text(),'Brand')]//..//..//input[@id='customermanagementadd_input_brandNames']"
+Brand Select: "xpath==//div[@class='el-select-dropdown__wrap el-scrollbar__wrap']//li//span[text()='variable']"
+Brand finish: "xpath==//span[@class='el-tag el-tag--info el-tag--mini el-tag--light']//..//..//input"
+Customer Name: "xpath==//label//span[contains(text(),'Customer Name')]//..//..//input"
+SAP Customer ID: "xpath==//label//span[contains(text(),'SAP Customer ID')]//..//..//input"
+
+Sales Region: "xpath==//label//span[contains(text(),'Sales Region')]//..//..//input"
+Sales Region Select: "xpath==//div[@class='select-region-box']//span[(text()='variable')]"
+Customer Grade: "xpath==//label//span[contains(text(),'Customer Grade')]//..//..//input"
+Customer Grade Select: "xpath==//ul[@class='el-scrollbar__view el-select-dropdown__list']//span[text()='variable']"
+Business Type: "xpath==//label//span[contains(text(),'Business Type')]//..//..//input"
+Business Type Selecte: "xpath==//span[contains(text(),'variable')]"
+
+Contact Name: "xpath==//span[text()='Contact Name']//..//..//div//input"
+Contact No: "xpath==//span[text()='Contact No.']//..//..//div//input"
+Email: "xpath==//span[text()='Email']//..//..//div//input"
+Country: "xpath==//label//span[contains(text(),'Country')]//..//..//input"
+Country Select: "xpath==//div[@class='el-tree-node__content']//span[(text()='variable')]"
+Customer Address: "xpath==//span[text()='Customer Address']//..//..//div//input"
+Add Submit: "xpath==//div[@class='area-add-btn']//..//button[@id='customermanagementadd_Submit']"
+
+#编辑客户信息
+CheckBox: "xpath==//table[@class='el-table__body']//tbody//tr[1]//td//div//label[@class='el-checkbox']"
+Edit: "xpath==//span[@id='enterprise_update']"
+Edit Submit: "xpath==//div[@class='area-add-btn']//..//button[@id='customermanagementedit_Submit']"
+
+#筛选客户信息
+筛选Customer: "xpath==//label//span[text()='Customer']//..//..//input"
+筛选Customer Select: "xpath==//span[contains(text(),'variable')]"
+Search: "xpath==//button//span[normalize-space(text())='Search']"
+Reset: "xpath==//span[normalize-space(text())='Reset']"
+Get list Customer Id: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div"
+#Get list Customer Name: "xpath==//tbody//tr[@class='el-table__row']//td[4]//div[text()='variable']"
+Get list Customer Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
+Get list Brand: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div[@class='cell el-tooltip' and text()='variable']"
+#Get Contact Name: "xpath==//tbody//tr[@class='el-table__row']//td[15]//div[@class='cell el-tooltip' and text()='variable']"
+Get Contact Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[15]/div"
+#Get Contact No: "xpath==//tbody//tr[@class='el-table__row']//td[16]//div[@class='cell el-tooltip' and text()='variable']"
+Get Contact No: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr/td[16]/div"
+Get Customer Type: "xpath==//tbody//tr[@class='el-table__row']//td[17]//div[@class='cell el-tooltip' and text()='variable']"
+
+#删除客户信息
+More Options: "xpath==//button[@id='customermanagementglobal_More Option']//span"
+Delete: "xpath==//li[normalize-space(text())='Delete']"
+#//li[normalize-space(text())='Delete']//i[@class="el-icon-delete"]
+Delete Confirm: "xpath==//div[@class='el-dialog__body']//..//div[@class='el-dialog__footer']//button[@id='customermanagementglobal_Yes']"
+
+
+关闭客户管理菜单: "xpath==//span[normalize-space(text())='Customer Management (global)']//span[@class='el-icon-close']"
