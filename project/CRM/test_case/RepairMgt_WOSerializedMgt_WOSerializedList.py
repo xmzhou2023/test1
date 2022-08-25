@@ -25,6 +25,7 @@ def class_setup_fixture(drivers):
 
 @pytest.fixture(scope='module',autouse=True)
 def module_setup_fixture(drivers):
+    sleep(1)
     logging.info("前置条件:进入序列化工单列表页")
     user = NavPage(drivers)
     user.click_gotonav("Repair Mgt", "WO Serialized Mgt", 'WO Serialized List')
@@ -57,6 +58,7 @@ class TestAddWoList:
         num = DomAssert(drivers)
         num.assert_att("IMEI/SN Does not exist or does not belong to the current location！")
 
+
 @allure.feature("WO Serialized Mgt-WO Serialized List")
 class TestSearchWoList:
     @allure.story("查询序列化工单所有数据")  # 场景名称
@@ -71,6 +73,7 @@ class TestSearchWoList:
         ValueAssert.value_assert_equal(record[0], record[1],)
 
 
+
     @allure.story("查询序列化工单部分数据")  # 场景名称
     @allure.title("查询印度当月的序列化工单数据")  # 用例名称
     @allure.description("查询条件设置时间为当月，国家选择印度进行查询")
@@ -81,6 +84,7 @@ class TestSearchWoList:
         num.search_woserlist(scope='part')
         record = num.search_stock(stock='part')
         ValueAssert.value_assert_equal(record[0], record[1],)
+
 
 if __name__ == '__main__':
     pass
