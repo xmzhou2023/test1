@@ -13,13 +13,17 @@ import pymysql
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 @pytest.fixture(scope='module',autouse=True)
-def module_setup_fixture(drivers):
+def module_fixture(drivers):
     sleep(1)
     logging.info("前置条件:进入非序列化工单报表页")
     user = NavPage(drivers)
     user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO NonSerialized Report')
     user = DomAssert(drivers)
     user.assert_url("/maintenanceMgt/workOrderReportMgt/woNoSerializedReport")
+    yield
+    logging.info("后置条件:合起菜单")
+    user = NavPage(drivers)
+    user.click_gotonav("Repair Mgt")
 
 
 @allure.feature("Repair Mgt-WO NonSerialized Report")

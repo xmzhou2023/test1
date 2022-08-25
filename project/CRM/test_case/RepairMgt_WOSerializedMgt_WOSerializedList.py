@@ -13,7 +13,7 @@ from project.CRM.page_object.RepairMgt_WOSerializedMgt_WOSerializedList import *
 """
 
 @pytest.fixture(scope='module',autouse=True)
-def class_setup_fixture(drivers):
+def module_fixture(drivers):
     num = NavPage(drivers)
     num.click_gotonav("WMS", "Stock In/Out Mgt", "Initialize Inventory")
     num = DomAssert(drivers)
@@ -22,6 +22,10 @@ def class_setup_fixture(drivers):
     logging.info("前置条件:添加物料库存")
     num = WOSerializedListAdd(drivers)
     num.add_material()
+    yield
+    logging.info("后置条件:合起菜单")
+    user = NavPage(drivers)
+    user.click_gotonav("Repair Mgt")
 
 @pytest.fixture(scope='module',autouse=True)
 def module_setup_fixture(drivers):
@@ -32,6 +36,8 @@ def module_setup_fixture(drivers):
     user = DomAssert(drivers)
     user.assert_url("/maintenanceMgt/workorderSerializedMgt/workorderSerializedList")
 
+
+
 @allure.feature("WO Serialized Mgt-WO Serialized List")
 class TestAddWoList:
     @allure.story("新增序列化工单成功") # 场景名称
@@ -40,6 +46,7 @@ class TestAddWoList:
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke # 用例标记
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+
         sn_imei = WOSerializedListAdd.search_imei_stock(self)
         num = WOSerializedListAdd(drivers)
         num.add_woserlist(Warehouse='API_母仓', imei=sn_imei)
