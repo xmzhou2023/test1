@@ -55,15 +55,8 @@ class TestWoReportExport:
     @pytest.mark.smoke  # 用例标记
     def test_002_001(self, drivers):
         user = WONonSerializedReport(drivers)
-        user.input_date()
-        user.search_report()
-        user.Stop_date()
-        user.clear_date()
+        user.download_report(scope=all)
 
-        user.search_report()
-        user.download_report()
-        user.input_date()
-        user.search_report()
 
     @allure.story("非序列化报表导出SL国家数据成功")  # 场景名称
     @allure.title("导出非序列化报表中SL国家数据")  # 用例名称
@@ -72,17 +65,7 @@ class TestWoReportExport:
     @pytest.mark.smoke  # 用例标记
     def test_002_002(self, drivers):
         user = WONonSerializedReport(drivers)
-        user.input_date()
-        user.search_report()
-        user.Stop_date()
-        user.clear_date()
-        user.input_country()
-        user.search_report()
-        user.download_report()
-        sleep(1)
-        user.clear_country()
-        user.input_date()
-        user.search_report()
+        user.download_report(scope='part')
 
 # if __name__ == '__main__':
 #     pytest.main(['project/DRP/testcase/run_code.py'])

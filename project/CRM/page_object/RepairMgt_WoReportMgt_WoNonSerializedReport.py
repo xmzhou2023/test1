@@ -61,13 +61,26 @@ class WONonSerializedReport(Base):
 
 
     @allure.step("报表导出")
-    def download_report(self):
-        self.is_click(user['WO NonSerialized Report Export'], 'Export')
-        # self.alert_ok()
-        self.is_click(user['确认导出'], 'OK')
-        # logging.info("输入框键入{}".format(content))
+    def download_report(self, scope):
+        self.refresh()
         sleep(1)
+        self.is_click(user['WO Non Serialized Date开始日期搜索框'])
+        self.hover(user['WO Non Serialized Date开始日期搜索框'])
+        self.is_click(user['清除时间搜索框'])
+        if scope == all:
 
-
+            self.is_click(user['WO NonSerialized Report Search'])
+            self.is_click(user['WO NonSerialized Report Export'], 'Export')
+            self.is_click(user['确认导出'], 'OK')
+        # logging.info("输入框键入{}".format(content))
+            self.refresh()
+        else:
+            self.is_click(user["Country搜索框"])
+            self.hover(user['Country下拉选择'], choice='SL')
+            self.is_click(user["Country下拉选择"])
+            self.is_click(user['WO NonSerialized Report Search'])
+            self.is_click(user['WO NonSerialized Report Export'], 'Export')
+            self.is_click(user['确认导出'], 'OK')
+            self.refresh()
 if __name__ == '__main__':
     pass
