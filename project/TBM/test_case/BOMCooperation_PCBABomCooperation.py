@@ -110,3 +110,4 @@ class TestCreateProcessExceptionScenario:
         user.input_add_bom_info('制作虚拟贴片/套片', '否')
         user.click_add_submit()
         user.assert_toast('请完善Bom信息')
+print(121111)
