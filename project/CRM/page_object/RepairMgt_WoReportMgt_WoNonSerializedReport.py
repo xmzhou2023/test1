@@ -32,9 +32,10 @@ class WONonSerializedReport(Base):
             self.is_click(user['WO Non Serialized Date开始日期搜索框'])
             self.input_text(user['WO Non Serialized Date开始日期搜索框'], txt=str(WONonSerializedReport.first_day_of_month))
             self.is_click(user["Country搜索框"])
+            self.input_text(user["Country搜索框"], txt='SL')
+            sleep(1)
             self.hover(user['Country下拉选择'], choice='SL')
             self.is_click(user["Country下拉选择"])
-            # self.is_click(user['序列化Search按钮'])
             self.is_click(user['WO NonSerialized Report Search'])
 
     @allure.step("查询非序列化工单报表数量")
@@ -76,6 +77,8 @@ class WONonSerializedReport(Base):
             self.refresh()
         else:
             self.is_click(user["Country搜索框"])
+            self.input_text(user["Country搜索框"], txt='SL')
+            sleep(1)
             self.hover(user['Country下拉选择'], choice='SL')
             self.is_click(user["Country下拉选择"])
             self.is_click(user['WO NonSerialized Report Search'])

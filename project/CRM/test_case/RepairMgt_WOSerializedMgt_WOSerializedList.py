@@ -11,18 +11,17 @@ from project.CRM.page_object.RepairMgt_WOSerializedMgt_WOSerializedList import *
         minor级别: 次要缺陷(界面错误与UI需求不符)
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
-#
+
 @pytest.fixture(scope='module',autouse=True)
 def class_setup_fixture(drivers):
     num = NavPage(drivers)
     num.click_gotonav("WMS", "Stock In/Out Mgt", "Initialize Inventory")
     num = DomAssert(drivers)
     num.assert_url("/wms/stockInOutMgt/initializeInventory")
+
     logging.info("前置条件:添加物料库存")
     num = WOSerializedListAdd(drivers)
     num.add_material()
-
-
 
 @pytest.fixture(scope='module',autouse=True)
 def module_setup_fixture(drivers):

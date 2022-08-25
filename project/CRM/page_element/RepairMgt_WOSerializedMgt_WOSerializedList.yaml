@@ -18,14 +18,14 @@
 库存初始化新增页Warehouse Name搜索框: "xpath==//div[@class='el-row'][2]//div[@class='el-col el-col-12'][1]//input[@class='el-input__inner']"
 库存初始化新增页Warehouse Name下拉选择: "xpath==//div[contains(@class,'el-popper')]//div[@class='el-scrollbar']//span[contains(text(),'API_母仓')]"
 库存初始化新增页添加按钮: "xpath==//div[@class='codeListStyle'][2]//i[contains(@class,'circle-plus')]"
-库存初始化新增页物料搜索框: "xpath==//div[contains(@class,'is-scrolling-none')]//td[3]//input[@class='el-input__inner']"
-库存初始化新增页物料选择框: "xpath==//div[contains(@class,'el-popper')]//div[@class='el-scrollbar']//span[contains(text(),'10015788')]"
-库存初始化新增页物料状态搜索框: "xpath==//div[contains(@class,'is-scrolling-none')]//td[5]//input[@class='el-input__inner']"
+库存初始化新增页物料搜索框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[3]/div/div/div/div/input'
+库存初始化新增页物料选择框: "xpath==//body/div[contains(@class,'el-select-dropdown el-popper')][2]//li[contains(@class,'dropdown__item')]"
+库存初始化新增页物料状态搜索框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[5]/div/div/div/div/input'
 库存初始化新增页物料状态选择框: "xpath==//div[contains(@class,'el-popper')]//div[@class='el-scrollbar']//span[contains(text(),'Defective')]"
-库存初始化新增页IMEI输入框: "xpath==//div[contains(@class,'is-scrolling-none')]//td[6]//input[@class='el-input__inner']"
-库存初始化新增页Zone搜索框: "xpath==//div[contains(@class,'is-scrolling-none')]//td[9]//input[@class='el-input__inner']"
+库存初始化新增页IMEI输入框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[6]/div/div/div/input'
+库存初始化新增页Zone搜索框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[9]/div/div/div/div[1]/input'
 库存初始化新增页Zone选择框: "xpath==//div[contains(@class,'el-popper')]//div[@class='el-scrollbar']//span[contains(text(),'Phone')]"
-库存初始化新增页Bin搜索框: "xpath==//div[contains(@class,'is-scrolling-none')]//td[10]//input[@class='el-input__inner']"
+库存初始化新增页Bin搜索框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[10]/div/div/div/div/div[1]/input'
 库存初始化新增页Bin选择框: "xpath==//div[contains(@class,'el-popper')]//div[@class='el-scrollbar']//span[contains(text(),'Defective_1')]"
 库存初始化新增页Save按钮: "xpath==//div[@class='buttonView']//span[contains(text(),'Save')]"
 库存初始化查询页confirm按钮: "xpath==//tr[1]/td[2]//button[2]"

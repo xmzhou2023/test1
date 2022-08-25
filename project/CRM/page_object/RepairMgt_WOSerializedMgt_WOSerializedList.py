@@ -42,20 +42,21 @@ class WOSerializedListAdd(Base):
     def add_material(self):
         self.refresh()
         sleep(1)
-
         self.is_click(user['库存初始化查询页Add按钮'])
-        # sleep(1)
         # 记得修改成显示等待
         self.is_click(user['库存初始化新增页Warehouse Name搜索框'])
         self.input_text(user['库存初始化新增页Warehouse Name搜索框'], txt='API_母仓')
         self.hover(user['库存初始化新增页Warehouse Name下拉选择'], choice='API_母仓')
         self.is_click(user['库存初始化新增页Warehouse Name下拉选择'])
         self.is_click(user["库存初始化新增页添加按钮"])
+        logging.info("000")
+        sleep(1)
         self.is_click(user['库存初始化新增页物料搜索框'])
         self.input_text(user["库存初始化新增页物料搜索框"], txt='10015788')
         self.hover(user['库存初始化新增页物料选择框'], choice='10015788')
         self.is_click(user['库存初始化新增页物料选择框'])
         # 这里等待物料描述值出现
+        sleep(1)
         self.is_click(user["库存初始化新增页物料状态搜索框"])
         self.input_text(user["库存初始化新增页物料状态搜索框"], txt='Defective')
         self.hover(user['库存初始化新增页物料状态选择框'], choice='Defective')
