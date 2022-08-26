@@ -27,7 +27,7 @@ class TestQueryShopSalesQuery:
 
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         shop_sales = ShopSaleQueryPage(drivers)
-
+        sleep(10)
         shop_id = shop_sales.get_shop_id_text()
         shop_name = shop_sales.get_shop_name_text()
         status = shop_sales.get_status_text()

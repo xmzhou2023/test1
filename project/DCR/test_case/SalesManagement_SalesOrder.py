@@ -73,7 +73,6 @@ class TestAddSalesOrder:
         user.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         add = SalesOrderPage(drivers)
         add.click_add_sales()
 
@@ -129,19 +128,16 @@ class TestAddSalesOrder:
 
 
     @allure.story("新增销售单")
-    @allure.title("销售单页面，二代用户新增无码销售单操作")
-    @allure.description("销售单页面，二代用户新增无码销售单操作成功后，校验新增的销售单是否存在")
+    @allure.title("销售单页面，二代用户新增有码销售单操作")
+    @allure.description("销售单页面，二代用户新增有码销售单操作成功后，校验新增的销售单是否存在")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_003(self, drivers):
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD291501", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         """销售订单页面，新建销售单"""
-
         add_sales = SalesOrderPage(drivers)
         add_sales.click_add_sales()
         add_sales.input_sales_buyer("EG000562")
@@ -173,8 +169,8 @@ class TestAddSalesOrder:
 
 
     @allure.story("销售单出库")
-    @allure.title("销售单页面，二代用户对新增的无码销售单进行出库操作")
-    @allure.description("销售单页面，二代用户对新增的无码销售单进行出库操作成功后，校验销售单对应的状态是否更新为：Delivered")
+    @allure.title("销售单页面，二代用户对新增的有码销售单，进行出库操作")
+    @allure.description("销售单页面，二代用户对新增的有码销售单，进行出库操作成功后，校验销售单对应的状态是否更新为：Delivered")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
     def test_001_004(self, drivers):
         user = LoginPage(drivers)
@@ -226,11 +222,19 @@ class TestAddSalesOrder:
         ValueAssert.value_assert_equal(text_status, "Delivered")
         delivery.click_close_sales_order()
 
+        """对出库的销售单，进行退货操作"""
+
+
+
+
+
+
+
 
 @allure.feature("销售管理-销售单")
 class TestDeleteSalesOrder:
     @allure.story("删除销售单")
-    @allure.title("销售单页面，国包用户，删除新建的销售单操作")
+    @allure.title("销售单页面，国包用户，删除新建的Pending状态的销售单操作")
     @allure.description("销售单页面，国包用户，对新建Pending状态的销售单进行删除操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     def test_002_001(self, drivers):

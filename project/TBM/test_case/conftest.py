@@ -34,6 +34,7 @@ def BarePhone_API():
     logging.info('开始后置操作')
     user.API_BarePhone_Delete(api_response[1], api_response[2])
 
+
 @pytest.fixture(scope='function', autouse=False)
 def BarePhone_Factory_API():
     logging.info('开始前置操作-新建流程-补充工厂审批同意')
@@ -43,6 +44,7 @@ def BarePhone_Factory_API():
     yield api_response
     logging.info('开始后置操作')
     user.API_BarePhone_Delete(api_response[1], api_response[2])
+
 
 @pytest.fixture(scope='function', autouse=False)
 def BarePhone_StructureEnginner_API():
@@ -54,6 +56,7 @@ def BarePhone_StructureEnginner_API():
     logging.info('开始后置操作')
     user.API_BarePhone_Delete(api_response[1], api_response[2])
 
+
 @pytest.fixture(scope='function', autouse=False)
 def BarePhone_Approval_API():
     logging.info('开始前置操作-新建流程-业务审核审批同意')
@@ -63,6 +66,7 @@ def BarePhone_Approval_API():
     yield api_response
     logging.info('开始后置操作')
     user.API_BarePhone_Delete(api_response[1], api_response[2])
+
 
 @pytest.fixture(scope='function', autouse=False)
 def BarePhone_Approval_Fail_API():
@@ -75,6 +79,27 @@ def BarePhone_Approval_Fail_API():
     user.API_BarePhone_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
+def BarePhone_bomEnginner_API():
+    logging.info('开始前置操作-新建流程-BOM工程师审批同意')
+    user = APIRequest()
+    api_response = user.API_BarePhone_Add()
+    user.API_BarePhone_bomEnginner(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_BarePhone_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def BarePhone_bomEnginner_Fail_API():
+    logging.info('开始前置操作-新建流程-BOM工程师审批同意')
+    user = APIRequest()
+    api_response = user.API_BarePhone_Fail_Add()
+    user.API_BarePhone_bomEnginner(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_BarePhone_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
 def Machine_API():
     logging.info('开始前置操作')
     user = APIRequest()
@@ -82,6 +107,7 @@ def Machine_API():
     yield api_response
     logging.info('开始后置操作')
     user.API_Machine_Delete(api_response[1], api_response[2])
+
 
 @pytest.fixture(scope='function', autouse=False)
 def Machine_Factory_API():
@@ -93,6 +119,7 @@ def Machine_Factory_API():
     logging.info('开始后置操作')
     user.API_Machine_Delete(api_response[1], api_response[2])
 
+
 @pytest.fixture(scope='function', autouse=False)
 def Machine_bomEnginner_API():
     logging.info('开始前置操作-新建流程-BOM工程师审批审批同意')
@@ -102,6 +129,7 @@ def Machine_bomEnginner_API():
     yield api_response
     logging.info('开始后置操作')
     user.API_Machine_Delete(api_response[1], api_response[2])
+
 
 @pytest.fixture(scope='function', autouse=False)
 def Machine_Approval_API():
@@ -113,27 +141,152 @@ def Machine_Approval_API():
     logging.info('开始后置操作')
     user.API_Machine_Delete(api_response[1], api_response[2])
 
+
 @pytest.fixture(scope='function', autouse=False)
-def Component_API():
+def KeyDevice_API():
     logging.info('开始前置操作')
     user = APIRequest()
-    api_response = user.API_Components_Add()
+    api_response = user.API_KeyDevice_Add()
     yield api_response
     logging.info('开始后置操作')
-    user.API_Components_Delete(api_response[1], api_response[2])
+    user.API_KeyDevice_Delete(api_response[1], api_response[2])
 
 
 @pytest.fixture(scope='function', autouse=False)
-def Shipping_API():
+def KeyDevice_nodeMat_API():
+    logging.info('开始前置操作-nodeMat审批')
+    user = APIRequest()
+    api_response = user.API_KeyDevice_Add()
+    user.API_KeyDevice_image(api_response[0], api_response[1], api_response[2])
+    user.API_KeyDevice_hardware(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_KeyDevice_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def KeyDevice_Approver_API():
+    logging.info('开始前置操作-代表审批')
+    user = APIRequest()
+    api_response = user.API_KeyDevice_Add()
+    user.API_KeyDevice_image(api_response[0], api_response[1], api_response[2])
+    user.API_KeyDevice_hardware(api_response[0], api_response[1], api_response[2])
+    user.API_KeyDevice_StandardDeputy(api_response[0], api_response[1], api_response[2])
+    user.API_KeyDevice_PurchaseDeputy(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_KeyDevice_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_API():
     logging.info('开始前置操作')
     user = APIRequest()
-    api_response = user.API_Shipping_Add()
+    api_response = user.API_SaleCountry_Add()
     yield api_response
     logging.info('开始后置操作')
-    user.API_Shipping_Delete(api_response[1], api_response[2])
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
 
 @pytest.fixture(scope='function', autouse=False)
-def KeyComponents_SQL():
+def SaleCountry_Audit_API():
+    logging.info('开始前置操作-产品部管理员审核同意')
+    user = APIRequest()
+    api_response = user.API_SaleCountry_Add()
+    user.API_Change_Audit(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_Join_API():
+    logging.info('开始前置操作-产品部汇签同意')
+    user = APIRequest()
+    api_response = user.API_SaleCountry_Add()
+    user.API_Change_Join(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_managerModify_API():
+    logging.info('开始前置操作-产品经理修改同意')
+    user = APIRequest()
+    api_response = user.API_SaleCountry_Add()
+    user.API_Change_managerModify(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_ProductChange_API():
+    logging.info('开始前置操作-变更产品')
+    user = APIRequest()
+    api_response = user.API_Change_Product('出货国家查询变更产品部分流程')
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_ProductChange_All_API():
+    logging.info('开始前置操作-变更产品')
+    user = APIRequest()
+    api_response = user.API_Change_Product('出货国家查询变更产品自动化全流程测试')
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_ProductChange_Audit_API():
+    logging.info('开始前置操作-变更产品-产品部管理员审核同意')
+    user = APIRequest()
+    api_response = user.API_Change_Product('出货国家查询变更产品部分流程')
+    user.API_Change_Audit(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_ProductChange_Join_API():
+    logging.info('开始前置操作-变更产品-产品部汇签同意')
+    user = APIRequest()
+    api_response = user.API_Change_Product('出货国家查询变更产品部分流程')
+    user.API_Change_Join(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_ProductChange_managerModify_API():
+    logging.info('开始前置操作-变更产品-产品经理修改同意')
+    user = APIRequest()
+    api_response = user.API_Change_Product('出货国家查询变更产品部分流程')
+    user.API_Change_managerModify(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_ProductChange_Audit2_API():
+    logging.info('开始前置操作-变更产品-产品部管理员复核同意')
+    user = APIRequest()
+    api_response = user.API_Change_Product('出货国家查询变更产品部分流程')
+    user.API_Change_managerModify(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def KeyDevice_SQL():
     a = SQL('TBM', 'test')
     a.change_db(
         "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "

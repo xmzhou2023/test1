@@ -266,6 +266,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bomtree('单机头', 'BOM状态', '试产')
         user.input_bomtree('单机头', '物料编码', '12011336')
         user.input_bomtree('单机头', '用量', '1')
+        user.base_get_img()
         user.select_business_review('李小素')
         user.click_add_submit()
         user.assert_toast('父阶BOM料号12011336用量不为1000')
@@ -437,6 +438,26 @@ class TestCreateProcessExceptionScenario:
         user.upload_wrongcontent_file()
         user.assert_wrongcontent_upload_result()
 
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("[XXXXX] 替代组[XX]只有一颗物料")  # 用例名称
+    @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入数据，新增一颗物料，添加替代组为A1，份额为20，其他内容正确填写，点击提交，不能提交成功并且提示替代组只有一颗物料")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_002_016(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.add_bom_info()
+        user.click_add_bomtree()
+        user.input_bomtree('单机头', 'BOM状态', '试产')
+        user.input_bomtree('单机头', '物料编码', '12011331')
+        user.input_bomtree('单机头', '用量', '1000')
+        user.input_bomtree('指纹模组', '物料编码', '17600563')
+        user.input_bomtree('指纹模组', '用量', '1000')
+        user.input_bomtree('指纹模组', '替代组', 'A1')
+        user.input_bomtree('指纹模组', '份额', '20')
+        user.click_add_submit()
+        user.assert_toast('[12011331] 替代组[A1]只有一颗物料')
+
 
 @allure.feature("BOM协作-单机头BOM协作")
 class TestTheProcessOfExaminationAndApproval:
@@ -519,26 +540,11 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
-    @allure.title("结构工程师审批回退到补充工厂成功")  # 用例名称
-    @allure.description("在结构工程师审批页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
+    @allure.title("结构工程师审批回退到申请人成功")  # 用例名称
+    @allure.description("在结构工程师审批页面中，点击回退，选择回退到申请人，查看我的申请中有该单据，显示回退到申请人")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_003_005(self, drivers, BarePhone_Factory_API):
-        user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(BarePhone_Factory_API[0])
-        user.click_oneworks_rollback('补充工厂')
-        user.click_oneworks_rollback_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
-        user.assert_my_todo_node(BarePhone_Factory_API[0], '补充工厂', True)
-
-    @allure.story("流程审批")  # 场景名称
-    @allure.title("结构工程师审批回退到申请人成功")  # 用例名称
-    @allure.description("在结构工程师审批页面中，点击回退，选择回退到申请人，查看我的申请中有该单据，显示回退到申请人（校验：单据号和节点）")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    def test_003_006(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
@@ -553,7 +559,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在我的待办中审批从结构工程师审批页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是结构工程师审批")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_007(self, drivers, BarePhone_Factory_API):
+    def test_003_006(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
@@ -561,6 +567,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_rollback_confirm()
         user.assert_toast()
         user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_Factory_API[0], '补充工厂', True)
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
@@ -573,7 +580,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在结构工程师审批页面中，点击转交，不选择转交的人直接点击确认，选择框自动关闭，下面只有选择转交人和取消按钮")
     @allure.severity("normal")
     @pytest.mark.UT  # 用例标记
-    def test_003_008(self, drivers, BarePhone_Factory_API):
+    def test_003_007(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
@@ -587,7 +594,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在结构工程师审批页面中，点击转交，选择转交的人直接点击确认，转交成功，可在转交人账号看到该待办消息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_009(self, drivers, BarePhone_Factory_API):
+    def test_003_008(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
@@ -603,7 +610,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在结构工程师审批页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_010(self, drivers, BarePhone_Factory_API):
+    def test_003_009(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
@@ -620,7 +627,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在结构工程师审批页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_011(self, drivers, BarePhone_Factory_API):
+    def test_003_010(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
@@ -638,7 +645,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_012(self, drivers, BarePhone_StructureEnginner_API):
+    def test_003_011(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
@@ -650,7 +657,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择质量部，在检查结果中选择通过，点击同意按钮，给出提示，并且页面跳转成功，跳转成功后，我的待办中不存在该条业务审核单据")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_013(self, drivers, BarePhone_StructureEnginner_API):
+    def test_003_012(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
@@ -665,11 +672,11 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_my_application_node(BarePhone_StructureEnginner_API[0], 'BOM工程师审批', True)
 
     @allure.story("流程审批")  # 场景名称
-    @allure.title("业务审核页面回退到补充工厂成功")  # 用例名称
-    @allure.description("在业务审核页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
+    @allure.title("业务审核页面，回退到补充工厂再审核，还是业务审核节点")  # 用例名称
+    @allure.description("在我的待办中审批从业务审核页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是业务审核节点，而不是BOM工程师节点")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_014(self, drivers, BarePhone_StructureEnginner_API):
+    def test_003_013(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
@@ -678,20 +685,6 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_toast()
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_StructureEnginner_API[0], '补充工厂', True)
-
-    @allure.story("流程审批")  # 场景名称
-    @allure.title("业务审核页面，回退到补充工厂再审核，还是业务审核节点")  # 用例名称
-    @allure.description("在我的待办中审批从业务审核页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是业务审核节点，而不是BOM工程师节点")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    def test_003_015(self, drivers, BarePhone_StructureEnginner_API):
-        user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
-        user.click_oneworks_rollback('补充工厂')
-        user.click_oneworks_rollback_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
@@ -704,7 +697,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
     @allure.severity("normal")
     @pytest.mark.UT  # 用例标记
-    def test_003_016(self, drivers, BarePhone_StructureEnginner_API):
+    def test_003_014(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
@@ -718,7 +711,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_017(self, drivers, BarePhone_StructureEnginner_API):
+    def test_003_015(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
@@ -734,7 +727,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_018(self, drivers, BarePhone_StructureEnginner_API):
+    def test_003_016(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
@@ -751,7 +744,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在业务审核页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_019(self, drivers, BarePhone_StructureEnginner_API):
+    def test_003_017(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
@@ -769,13 +762,13 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在BOM工程师审批中，检查失败项为0时，不填写任何内容，点击同意，可以提交成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_020(self, drivers, BarePhone_Approval_API):
+    def test_003_018(self, drivers, BarePhone_Approval_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Approval_API[0])
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
-        user.enter_oneworks_iframe()
+        # user.enter_oneworks_iframe()
         user.assert_toast()
         user.quit_oneworks()
 
@@ -784,7 +777,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在BOM工程师审批中，检查失败项不为0时，不填写任何内容，点击同意，可以提交成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_021(self, drivers, BarePhone_Approval_Fail_API):
+    def test_003_019(self, drivers, BarePhone_Approval_Fail_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Approval_Fail_API[0])
@@ -800,7 +793,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在BOM工程师审批中，在BOM工程师审批中，点击更多操作-更新子阶BOM，提示刷新成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_022(self, drivers, BarePhone_Approval_API):
+    def test_003_020(self, drivers, BarePhone_Approval_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Approval_API[0])
@@ -809,6 +802,238 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_toast('刷新成功！')
         user.quit_oneworks()
 
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("在BOM工程师页面，拒绝成功")  # 用例名称
+    @allure.description("在BOM工程师审批中，点击拒绝，会显示处理成功，并且页面跳转")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_021(self, drivers, BarePhone_Approval_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_refuse()
+        user.assert_toast('处理成功，审核拒绝')
+        user.quit_oneworks()
+        user.assert_my_application_flow(BarePhone_Approval_API[0], '审批拒绝')
+        process_status = user.get_info()[7]
+        ValueAssert.value_assert_equal(process_status, '审批拒绝')
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("BOM工程师审批回退到结构工程师审批成功")  # 用例名称
+    @allure.description("在BOM工程师审批中，点击回退，选择回退到结构工程师审批页面，查看我的待办中存在结构工程师审批节点")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_022(self, drivers, BarePhone_Approval_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_rollback('结构工程师审批')
+        user.click_oneworks_rollback_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_Approval_API[0], '结构工程师审批', True)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("BOM工程师审批回退到业务审核成功")  # 用例名称
+    @allure.description("在BOM工程师审批中，点击回退，选择回退到业务审核页面，查看我的待办中存在业务审核节点")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_023(self, drivers, BarePhone_Approval_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_rollback('业务审核')
+        user.click_oneworks_rollback_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_Approval_API[0], '业务审核', True)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("BOM工程师审批回退到申请人成功")  # 用例名称
+    @allure.description("在BOM工程师审批中，点击回退，选择回退到申请人，查看我的申请中有该单据，显示回退到申请人")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_024(self, drivers, BarePhone_Approval_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_rollback('申请人')
+        user.click_oneworks_rollback_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_application_flow(BarePhone_Approval_API[0], '退回申请人')
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("BOM工程师审批页面，回退到补充工厂再审核，还是BOM工程师审批节点")  # 用例名称
+    @allure.description("在我的待办中审批从BOM工程师审批回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是BOM工程师审批")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_025(self, drivers, BarePhone_Approval_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_rollback('补充工厂')
+        user.click_oneworks_rollback_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_Approval_API[0], '补充工厂', True)
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_plant_check('贴片工厂正确')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_Approval_API[0], 'BOM工程师审批', True)
+
+    @allure.story("流程审批")
+    @allure.title("BOM工程师审批页面，不选择转交人转交，不存在确定转交按钮")
+    @allure.description("在BOM工程师审批页面中，点击转交，不选择转交的人直接点击确认，选择框自动关闭，下面只有选择转交人和取消按钮")
+    @allure.severity("normal")
+    @pytest.mark.UT  # 用例标记
+    def test_003_026(self, drivers, BarePhone_Approval_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_refer()
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(False)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("BOM工程师审批页面，选择转交人转交，存在确定转交按钮")
+    @allure.description("在BOM工程师审批页面中，点击转交，选择转交的人直接点击确认，转交成功，可在转交人账号看到该待办消息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_027(self, drivers, BarePhone_Approval_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("BOM工程师审批页面，选择转交人转交取消，存在转交，回退按钮")
+    @allure.description("在BOM工程师审批页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_028(self, drivers, BarePhone_Approval_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_cancel()
+        user.assert_oneworks_rollback_refer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("BOM工程师审批页面，转交单据成功")  # 用例名称
+    @allure.description("在BOM工程师审批页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_029(self, drivers, BarePhone_Approval_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('陈月')
+        user.select_oneworks_refer('陈月')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_comfirmrefer()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_flow_deliver(BarePhone_Approval_API[0], '陈月')
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("数据组审批页面，回退到补充工厂再审核，还是BOM工程师审批节点")  # 用例名称
+    @allure.description("在我的待办中审批从数据组审批回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是数据组审批")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_030(self, drivers, BarePhone_bomEnginner_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_bomEnginner_API[0])
+        user.click_oneworks_rollback('补充工厂')
+        user.click_oneworks_rollback_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_bomEnginner_API[0], '补充工厂', True)
+        user.enter_oneworks_edit(BarePhone_bomEnginner_API[0])
+        user.click_oneworks_plant_check('贴片工厂正确')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.quit_oneworks()
+        user.assert_my_todo_node(BarePhone_bomEnginner_API[0], '数据组审批', True)
+
+    @allure.story("流程审批")
+    @allure.title("数据组审批页面，不选择转交人转交，不存在确定转交按钮")
+    @allure.description("在数据组审批批页面中，点击转交，不选择转交的人直接点击确认，选择框自动关闭，下面只有选择转交人和取消按钮")
+    @allure.severity("normal")
+    @pytest.mark.UT  # 用例标记
+    def test_003_031(self, drivers, BarePhone_bomEnginner_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_bomEnginner_API[0])
+        user.click_oneworks_refer()
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(False)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("数据组审批页面，选择转交人转交，存在确定转交按钮")
+    @allure.description("在数据组审批页面中，点击转交，选择转交的人直接点击确认，转交成功，可在转交人账号看到该待办消息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_032(self, drivers, BarePhone_bomEnginner_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_bomEnginner_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("数据组审批页面，选择转交人转交取消，存在转交，回退按钮")
+    @allure.description("在数据组审批页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_033(self, drivers, BarePhone_bomEnginner_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_bomEnginner_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_cancel()
+        user.assert_oneworks_rollback_refer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("数据组审批页面，转交单据成功")  # 用例名称
+    @allure.description("在数据组审批页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_034(self, drivers, BarePhone_bomEnginner_API):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_bomEnginner_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('陈月')
+        user.select_oneworks_refer('陈月')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_comfirmrefer()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_flow_deliver(BarePhone_bomEnginner_API[0], '陈月')
 
 @allure.feature("BOM协作-单机头BOM协作")
 class TestProcessApprovalExceptionScenario:
@@ -891,11 +1116,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在结构工程师审批页面中，在Bom Tree中点编辑，将用量编辑为1，点击同意，不能提交成功页面给出提示父阶BOM料号xxxxxxxx用量不为1000")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
-    def test_004_006(self, drivers, BarePhone_API):
+    def test_004_006(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_Factory_API[0])
         user.input_bomtree('单机头', '用量', '1')
         user.select_business_review('李小素', 'all')
         user.click_oneworks_agree()
@@ -909,12 +1133,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，不填写任何内容，点击同意，不能提交成功，并给出提示自检清单检查角色未选择")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_007(self, drivers, BarePhone_API):
+    def test_004_007(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
@@ -926,12 +1148,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不通过，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不通过需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_008(self, drivers, BarePhone_API):
+    def test_004_008(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_oneworks_self_inspection('业务类型', '手机')
         user.click_oneworks_self_inspection('检查角色', '质量部(QPM)')
         user.scroll_oneworks_self_inspection()
@@ -947,12 +1167,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不涉及，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不涉及需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_009(self, drivers, BarePhone_API):
+    def test_004_009(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_oneworks_self_inspection('业务类型', '手机')
         user.click_oneworks_self_inspection('检查角色', '质量部(QPM)')
         user.scroll_oneworks_self_inspection()
@@ -968,13 +1186,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在BOM工程师审批中，在BOMTree中，点击删除，提示不能删除BOM")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_010(self, drivers, BarePhone_API):
+    def test_004_010(self, drivers, BarePhone_Approval_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.business_approve_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
         user.click_bomtree_delete('12012025')
         user.assert_toast('不能删除BOM')
         user.quit_oneworks()
@@ -984,13 +1199,10 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在BOM工程师审批中，在BOMTree中，点击编辑，可更改用量，将用量改为10000，点击确定，点击同意，提示父阶BOM料号xxxxxxxx用量不为1000")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_011(self, drivers, BarePhone_API):
+    def test_004_011(self, drivers, BarePhone_Approval_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
-        user.supplementary_factory_flow(BarePhone_API[0])
-        user.framework_engineer_flow(BarePhone_API[0])
-        user.business_approve_flow(BarePhone_API[0])
-        user.enter_oneworks_edit(BarePhone_API[0])
+        user.enter_oneworks_edit(BarePhone_Approval_API[0])
         user.input_bomtree('12012025', '用量', '10000')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
@@ -1003,22 +1215,15 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在数据组审批页面中，子阶BOM检查有失败项，点击同意，不能提交成功，并且给出提交失败的提示")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_012(self, drivers):
+    def test_004_012(self, drivers, BarePhone_bomEnginner_Fail_API):
         user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage_click_menu()
-        user.add_bom()
-        process_code = user.get_info()[2]
-        user.supplementary_factory_flow(process_code)
-        user.framework_engineer_flow(process_code)
-        user.business_approve_flow(process_code)
-        user.bom_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(BarePhone_bomEnginner_Fail_API[0])
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('子阶bom检查失败，无法同步')
         user.quit_oneworks()
-        user.delete_flow(process_code)
 
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_BareMobilePhoneBomCooperation.py'])

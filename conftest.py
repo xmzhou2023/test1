@@ -42,6 +42,7 @@ def drivers(request, remote_ui=True):
             # option.add_argument('blink-settings=imagesEnabled=false')  # 不加载图片, 提升速度
             # option.add_experimental_option("debuggerAddress", "127.0.0.1:9222")  # 调用原来的浏览器，不用再次登录即可重启
             prefs = {"": ""}
+            prefs["intl.accept_languages"] = 'zh-CN,zh'
             prefs["credentials_enable_service"] = False
             prefs["profile.password_manager_enabled"] = False
             prefs["download.prompt_for_download"] = False
@@ -51,7 +52,7 @@ def drivers(request, remote_ui=True):
             option.add_argument('--no-sandbox')  # 以最高权限运行
             option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
             option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
-            # option.set_capability("browserVersion", "99.0")
+            # option.set_capability("browserVersion", "104.0")
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
             # driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
             # driver = webdriver.Remote("http://10.250.113.15:4444", options=option)
@@ -62,6 +63,7 @@ def drivers(request, remote_ui=True):
                 '''win系统下VNC界面模式'''
                 option = webdriver.ChromeOptions()
                 prefs = {"": ""}
+                prefs["intl.accept_languages"] = 'zh-CN,zh'
                 prefs["credentials_enable_service"] = False
                 prefs["profile.password_manager_enabled"] = False
                 option.add_experimental_option("prefs", prefs)  # 屏蔽'保存密码'提示框
@@ -70,7 +72,7 @@ def drivers(request, remote_ui=True):
                 option.add_argument('--no-sandbox')  # 以最高权限运行
                 option.add_argument('--start-maximized')  # 最大化运行（全屏窗口）设置元素定位比较准确
                 option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
-                option.set_capability("browserVersion", "99.0")
+                # option.set_capability("browserVersion", "104.0")
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
                 driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
                 # inspect_element() # page_element YMAL文件自检

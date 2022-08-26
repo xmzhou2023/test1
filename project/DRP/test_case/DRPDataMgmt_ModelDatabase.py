@@ -6,7 +6,7 @@ from project.DRP.page_object.DRPDataMgmt_ModelDatabase import ModelDatabase
 
 
 @pytest.fixture(scope='module', autouse=True)
-def setup_module(drivers):
+def module_setup_fixture(drivers):
     logging.info("模块前置条件：前往“DRP数据管理-机型库”页面")
     user = NavPage(drivers)
     user.click_gotonav("DRP数据管理", "机型库")

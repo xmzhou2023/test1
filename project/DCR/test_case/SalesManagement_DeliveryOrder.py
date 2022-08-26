@@ -25,7 +25,7 @@ class TestQueryDeliveryOrder:
 
         list1 = DeliveryOrderPage(drivers)
         sale_order = list1.text_sales_order()
-        deli_order = list1.text_delivery_order()
+        deli_order =list1.text_delivery_order()
         deli_date = list1.get_delivery_date_text()
         status = list1.text_delivery_Status()
         total = list1.get_total_text()
@@ -127,7 +127,7 @@ class TestExportDeliveryOrder:
 
 @allure.feature("销售管理-出库单")
 class TestAddDeliveryOrder:
-    @allure.story("新建出库单，产品为无码的，买方为临时客户")
+    @allure.story("新建出库单")
     @allure.title("国包用户，新建出库单，产品为无码的，买方为临时客户")
     @allure.description("国包用户，新建出库单，产品为无码时，买方为临时客户")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -148,7 +148,7 @@ class TestAddDeliveryOrder:
 
         add.click_quantity_radio_button()
         add.click_quantity_add()
-        add.click_quantity_product("CD-C3AR GREY")
+        add.click_quantity_product("OEP-E22")
         add.input_delivery_quantity("1")
         get_deli_quantity = add.get_delivery_quantity_text()
         ValueAssert.value_assert_equal(get_deli_quantity, "1")
@@ -188,9 +188,9 @@ class TestAddDeliveryOrder:
         add.click_close_delivery_order()
 
 
-    @allure.story("新建出库单，产品为有码的，买方为临时客户")
-    @allure.title("国包用户，新建出库单，产品为有码的，买方为临时客户")
-    @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户")
+    @allure.story("新建出库单")
+    @allure.title("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家退货单")
+    @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家创建退货单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_002(self, drivers):
         user4 = LoginPage(drivers)

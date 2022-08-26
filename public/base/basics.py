@@ -175,6 +175,22 @@ class Base(object):
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
             logging.info("滚动条至：{}".format(locator))
 
+    def scroll_into_view_CRM(self, locator, choice=None):
+        """滑动至出现元素"""
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            ele = self.find_element(Npath).click()
+            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+            logging.info("滚动条至：{}".format(Npath))
+        else:
+            ele = self.find_element(locator)
+            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+            self.find_element(locator).click()
+            logging.info("滚动条至：{}".format(locator))
+
     def is_click(self, locator, choice=None):
         """点击元素"""
         if choice is not None:
@@ -416,6 +432,10 @@ class Base(object):
             else:
                 break
 
+
+
+
+
     def get_datetime_today(self):
         """获取当天日期(DCR专用)"""
         today = datetime.date.today()
@@ -558,12 +578,19 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.click(element).perform()
 
-    def mouse_double_click(self,locator):
+    def mouse_double_click(self, locator):
         """鼠标双击"""
         element = self.find_element(locator)
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
+
+
+    def clear_input(self, xpath):
+        # 清除文本框输入，srm使用
+        ele = self.find_element(xpath)
+        ele.clear()
+
 
 
 

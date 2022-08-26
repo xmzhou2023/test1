@@ -16,16 +16,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.refresh_webpage()
         self.click_menu("BOM协作", "整机BOM协作")
 
-    @allure.step("点击新增")
-    def click_add(self):
-        self.is_click_tbm(user['新增'])
-        sleep(1)
-        for i in range(20):
-            if self.element_text(user['基本信息']) != '基本信息':
-                self.is_click_tbm(user['新增'])
-                sleep(1)
-            else:
-                break
+
 
     @allure.step("整机BOM协作新增页面-输入BOM信息")
     def input_add_bom_info(self, info, select):

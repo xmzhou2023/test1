@@ -27,7 +27,7 @@ oneworks-节点-产品经理修改-产品定义信息-输入框2: "xpath==//*[@i
 oneworks-节点-产品经理修改-产品定义信息-选择: "xpath==//div[contains(@x-placement,'-start')]//span[normalize-space(text())='variable']"
 oneworks-节点-下拉框-选择: "xpath==//div[not(contains(@style,'display: none')) and contains(@class,'el-select-dropdown el-popper')]//span[normalize-space(text())='variable']"
 
-oneworks-节点-产品经理修改-产品定义信息-指定-编辑: "xpath==//span[normalize-space(text())='variable']/../../..//td[not(contains(@class,'is-hidden'))]//span[text()='编辑']"
+oneworks-节点-产品经理修改-产品定义信息-指定-编辑: "xpath==//span[contains(text(),'variable')]/../../..//td[not(contains(@class,'is-hidden'))]//span[text()='编辑']"
 oneworks-节点-产品经理修改-产品定义信息-变更-输入框: "xpath==//*[@id='app']//tr/td[variable][not(contains(@class,'is-hidden'))]/div//input"
 oneworks-节点-产品经理修改-产品定义信息-变更-输入框删除: "xpath==//*[@id='app']//tr/td[variable][not(contains(@class,'is-hidden'))]/div//i[2]"
 oneworks-节点-产品经理修改-产品定义信息-变更-输入框2: "xpath==//*[@id='app']/div/div[2]/section//table/tbody/tr/td[variable][not(contains(@class,'is-hidden'))]/div//input"

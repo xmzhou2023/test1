@@ -36,6 +36,7 @@ class ShopSaleQueryPage(Base):
     def click_search(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
         self.is_click_dcr(user['Search'])
+        sleep(10)
 
     def click_reset(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""

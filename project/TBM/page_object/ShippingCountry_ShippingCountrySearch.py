@@ -1,3 +1,4 @@
+import logging
 from time import sleep
 from libs.common.read_element import Element
 from project.TBM.page_object.Center_Component import CenterComponent
@@ -224,6 +225,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         根据表格内容点击 产品定义信息 编辑按钮
         :param item: 表格内容
         """
+        sleep(1)
         self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-指定-编辑'], item)
 
     @allure.step("oneworks-国家出货查询 变更产品/国家点击产品定义信息-确定按钮")
@@ -306,14 +308,16 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         logging.info('点击同意-确定')
 
     @allure.step("点击同意-确定")
-    def onework_agree_flow(self, code, node):
-        self.assert_my_todo_node(code, node, True)
+    def onework_agree_flow(self, code, node=None):
         self.enter_oneworks_edit(code)
         self.click_onework_agree()
-        DomAssert(self.driver).assert_att('审核通过')
+        self.assert_toast()
         self.quit_oneworks()
+        if node is not None:
+            self.assert_my_todo_node(code, node, True)
 
     def assert_flow_compelete(self, code):
+        logging.info('等待一分钟，流程抄送到审批完成流转')
         sleep(60)
         self.assert_my_application_flow(code, '审批完成')
 
