@@ -17,6 +17,8 @@ class SymPage(Base):
 
     @allure.step("进入现象组页面")
     def GoTo_Symp(self):
+        self.refresh()
+        self.driver.implicitly_wait(5)  # 隐式等待页面加载成功
         self.is_click(user['一级菜单'], choice='Repair Center')
         self.is_click(user['Basic Data Mgt'])
         self.is_click(user['Symptom Group Mgt'])
@@ -24,10 +26,16 @@ class SymPage(Base):
 
     @allure.step("进入下载任务页面")
     def GoTo_Task(self):
+        self.refresh()
+        self.driver.implicitly_wait(5)  # 隐式等待页面加载成功
         self.is_click(user['一级菜单'], choice='Report Center')
         self.is_click(user['Asynchronous Report Mgt'])
         self.is_click(user['Task List'])
         self.driver.implicitly_wait(5)  # 隐式等待页面加载成功
+
+    @allure.step("关闭打开的页面")
+    def Close_Page(self):
+        self.is_click(user['Close_Page'])
 
     @allure.step("下载导出的excel")
     def Download_Symp(self, name, content):
@@ -35,21 +43,30 @@ class SymPage(Base):
         self.input_text(user['Menu_Name_Input'], txt=name)
         self.is_click(user['Search_Button'])
         task_status = self.element_text(user['Task_Status'])
-        if task_status =='95-Failed':
-            assert False, '导出失败,状态为95-Failed'
+        if task_status == '100-Finished':
+            logging.info("状态为100，可以直接下载")
+            self.check_download(user['Download_Task'], content)
         elif task_status != '100-Finished':
+            while task_status != '100-Finished':
+                self.is_click(user['Search_Button'])
+                task_status = self.element_text(user['Task_Status'])
+            self.check_download(user['Download_Task'], content)
+        else:
             self.is_click(user['Search_Button'])
             self.wait.until(EC.presence_of_element_located(user["Download_Task"]), message='进度不是100')
             task_status = self.element_text(user['Task_Status'])
             self.check_download(user['Download_Task'], content)
-        elif task_status == '100-Finished':
-            self.check_download(user['Download_Task'], content)
+
+    @allure.step("默认条件查询现象组，返回查询到的现象组名称")
+    def Get_Defualt_Symp(self):
+        self.is_click(user['Search_Button'])
 
 
 
 
     @allure.step("添加现象组")
     def Add_Symp(self, name):
+        self.wait.until(EC.presence_of_element_located(user["Symptom_Group_Add"]), message='页面加载不成功')
         self.is_click(user['Symptom_Group_Add'])
         self.wait.until(EC.presence_of_element_located(user["Symptom_Group_Input"]), message='添加页面加载不成功')  # 显示等待页面加载成功
         self.input_text(user['Symptom_Group_Input'], txt=name)
