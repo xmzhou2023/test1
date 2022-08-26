@@ -3,7 +3,7 @@ Tab菜单: "xpath==//div[@class='wrapper-tabs']//span[contains(text(),'variable'
 变更日志按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'变更日志')]"
 关闭变更日志页签: "xpath==//span[contains(text(),'变更日志')]//span[@class='el-icon-close']"
 导入按钮: "xpath==//div[@class='right-btn']//button//span[contains(text(),'导入')]"
-关闭导入弹窗: "xpath==//div[@aria-label='导入']//i[@class='el-dialog__close el-icon el-icon-close']"
+关闭导入弹窗: "xpath==//*[@id='app']/div/div[2]/div[2]/section/div/div[2]/div[6]/div/div[1]/button/i"
 导出按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'导出')]"
 筛选按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'筛选')]"
 关闭筛选: "xpath==//i[@class='el-icon-close']"
