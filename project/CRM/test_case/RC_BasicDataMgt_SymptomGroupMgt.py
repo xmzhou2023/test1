@@ -10,6 +10,7 @@ from public.base.assert_ui import *
 from public.libs.unified_login.login import Login
 from libs.common.read_config import *
 from datetime import *
+from datetime import timedelta
 pro_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import logging
 """
@@ -31,7 +32,19 @@ def module_setup_fixture(drivers):
     result.assert_url("/repairCenter/RPCbasicDataMgt/SymptomGroupMgt")
     name = "".join(random.sample(num, 10))  # 名称使用随机数，以防重复名称添加失败
     user.Add_Symp(name)
-    return name
+    user = SQL('CRM', 'test')
+    group_data = user.query_db(
+        'select symptom_group_id from crm_mdm_symptom_group where symptom_group_name="{}"'.format(name))
+    sql_get_id = group_data[0].get("symptom_group_id")
+    yield name
+    logging.info("\n在当前模块完成后执行的teardown")
+    user = SQL('CRM', 'test')
+    logging.info("group id")
+    logging.info(sql_get_id)
+    user.query_db(
+        'delete  from crm_mdm_symptom_group where symptom_group_id="{}"'.format(sql_get_id))
+
+
 
 @allure.feature("SymptomGroup") # 模块名称
 class TestAddSymptomGroup:
@@ -71,8 +84,11 @@ class TestAddSymptomGroup:
         user = SymPage(drivers)
         created_date, created_by, modified_on, modified_by = user.Get_Symp_DATE_BY(name)  # 查询添加的时间、和创建人
         now_time = datetime.now()  # 获取当前时间
-        created_date1 = datetime.strptime(created_date, '%Y-%m-%d %H:%M:%S')  # 将查询到的创建时间转换为datetime.datetime 格式
-        modified_on1 = datetime.strptime(modified_on, '%Y-%m-%d %H:%M:%S')  # 将查询到的修改时间转换为datetime.datetime 格式
+        #logging.info(created_date)
+        created_date1 = datetime.strptime(created_date, '%Y-%m-%d %H:%M:%S')+timedelta(hours=8)  # 将查询到的创建时间转换为datetime.datetime 格式
+        modified_on1 = datetime.strptime(modified_on, '%Y-%m-%d %H:%M:%S')+timedelta(hours=8)  # 将查询到的修改时间转换为datetime.datetime 格式
+        logging.info(created_date1)
+        logging.info(modified_on1)
         time_difference1 = int((now_time - created_date1).total_seconds())  # 获取时间差
         time_difference2 = int((now_time - modified_on1).total_seconds())  # 获取时间差
         logging.info(time_difference1)
@@ -167,7 +183,7 @@ class TestGetSymptomGroup:
         ## 恢复为默认查询条件
         user = SymPage(drivers)
         user.Clear_Get()
-
+#
 @allure.feature("SymptomGroup") # 模块名称
 class TestEditSymptomGroup:
     @pytest.fixture()
@@ -225,24 +241,22 @@ class TestEditSymptomGroup:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     #@pytest.mark.skip  # 跳过不执行
-    def test_1269693(self, drivers, module_setup_fixture, class_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
-        name = module_setup_fixture
+    def test_1269693(self, drivers, class_fixture):   # 用例名称取名规范'test+场景编号+用例编号'
+        user = SymPage(drivers)
+        name = "".join(random.sample(num, 10))  # 名称使用随机数，以防重复名称添加失败
+        user.Add_Symp(name)
         user = SymPage(drivers)
         user.Get_Symp(name)  # 查询出来方便编辑
         update_name = name[1:9:2]
         user.Edit_Symp(update_name)  # 修改名称
         get_record = user.Get_Symp(update_name)
         ValueAssert.value_assert_equal(get_record, update_name)  # 用修改后的名称查询成功
+        user = SQL('CRM', 'test')
+        user.query_db(
+            'delete  from crm_mdm_symptom_group where symptom_group_name="{}"'.format(update_name))
+        sleep(5)
 
 class TestExportSymptomGroup:
-    @pytest.fixture()
-    def class_fixture(self, drivers):
-        logging.info("\n这个fixture在每个case前执行一次")
-        yield
-        logging.info("\n在每个case完成后执行的teardown")
-        user = SymPage(drivers)
-        user.Clear_Get()
-
     @allure.story("导出现象组")  # 场景名称
     @allure.title("导出现象组成功")  # 编辑现象组
     @allure.description("导出现象组成功")
@@ -251,9 +265,15 @@ class TestExportSymptomGroup:
    # @pytest.mark.skip  # 跳过不执行
     def test_1272066(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = SymPage(drivers)
+        user.Get_Defualt_Symp()
         user.Export_Symp()  # 点击导出按钮
+        user.Close_Page()  # 关闭现象组页面
         user.GoTo_Task()   # 进入下载任务页面
-        user.Download_Symp("Symptom_Group", "Symptom_Group_")  # 下载导出的excel，同时判断文件名正确
+        sleep(5)
+        user.Download_Symp("Symptom_Group", "Symptom_Group")  # 下载导出的excel，同时判断文件名正确
+
+        user.Close_Page()  # 关闭下载页面
+        user.GoTo_Symp()  # 回到现象组页面
 
 
 
