@@ -6,14 +6,67 @@ from project.DCR.page_object.CustomerManagement_CustomerManagement import Custom
 from public.base.assert_ui import DomAssert, ValueAssert
 from public.base.assert_ui import SQLAssert
 from libs.common.connect_sql import *
+from public.base.basics import Base
 """
     用例等级说明:
         blocker级别:中断缺陷(客户端程序无响应，无法执行下一步操作)
         critical级别: 临界缺陷(功能点缺失)
         normal级别:普通缺陷(数值计算错误)
         minor级别: 次要缺陷(界面错误与UI需求不符)
-        trivial级别:轻微缺陷(必输项无提示， 或者提示不规范) TestQueryGlobalCustomers
+        trivial级别:轻微缺陷(必输项无提示， 或者提示不规范) 
 """
+
+@allure.feature("客户管理-客户管理(全球)") # 模块名称
+class TestQueryGlobalCustomers:
+    @allure.story("查询客户")
+    @allure.title("查询客户列表所以数据加载，然后筛选客户信息是否加载正常")
+    @allure.description("查询客户列表所以数据加载，然后筛选客户信息是否加载正常")
+    @allure.severity("normal")
+    @pytest.mark.smoke   # 用例标记
+    def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        """登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开客户管理菜单"""
+        user.click_gotomenu("Customer Management", "Customer Management(Global)")
+
+        query = CustomerManagementPage(drivers)
+        get_cust_name = query.get_customer_name()
+        get_cust_id = query.get_customer_id()
+        get_list_brand = query.get_list_field("Get list Brand")
+        get_list_ware_id = query.get_list_field("Get Warehouse ID")
+        get_list_ware_name = query.get_list_field("Get Warehouse Name")
+        get_all_total = query.get_list_total()
+        logging.info("打印客户列表总分页数：{}".format(get_all_total))
+
+        ValueAssert.value_assert_IsNoneNot(get_cust_name)
+        ValueAssert.value_assert_IsNoneNot(get_cust_id)
+        ValueAssert.value_assert_IsNoneNot(get_list_brand)
+        ValueAssert.value_assert_IsNoneNot(get_list_ware_id)
+        ValueAssert.value_assert_IsNoneNot(get_list_ware_name)
+        query.assert_total2(get_all_total)
+
+        """获取列表的客户ID，然后筛选此客户信息，是否加载正常"""
+        get_query_cust_id = query.get_customer_id()
+        query.input_customer_query(get_query_cust_id)
+        query.click_search()
+
+        get_query_cust_name = query.get_customer_name()
+        get_query_cust_id = query.get_customer_id()
+        get_query_list_brand = query.get_list_field("Get list Brand")
+        get_query_list_ware_id = query.get_list_field("Get Warehouse ID")
+        get_query_list_ware_name = query.get_list_field("Get Warehouse Name")
+        get_query_total = query.get_list_total()
+        logging.info("打印客户列表总分页数：{}".format(get_query_total))
+
+        ValueAssert.value_assert_IsNoneNot(get_query_cust_name)
+        ValueAssert.value_assert_IsNoneNot(get_query_cust_id)
+        ValueAssert.value_assert_IsNoneNot(get_query_list_brand)
+        ValueAssert.value_assert_IsNoneNot(get_query_list_ware_id)
+        ValueAssert.value_assert_IsNoneNot(get_query_list_ware_name)
+        query.assert_total1(get_query_total)
+        query.click_close_customer_mgt()
+
 
 @allure.feature("客户管理-客户管理(全球)") # 模块名称
 class TestAddCustomer:
@@ -22,7 +75,7 @@ class TestAddCustomer:
     @allure.description("新增客户操作成功，列表展示新增的客户信息")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
-    def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_002_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -60,7 +113,7 @@ class TestAddCustomer:
 
         get_customer_id2 = add_customer.get_customer_id()
         get_customer_name = add_customer.get_customer_name()
-        get_brand = add_customer.get_brand()
+        get_brand = add_customer.get_list_new_brand()
 
         ValueAssert.value_assert_equal(get_customer_id1, get_customer_id2)
         ValueAssert.value_assert_equal(get_customer_name, customer_name)
@@ -83,7 +136,7 @@ class TestEditCustomer:
     @allure.description("编辑客户操作成功，列表筛选该客户ID，客户名称更新为编辑后的信息")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
-    def test_002_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_003_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -130,7 +183,7 @@ class TestDeleteCustomer:
     @allure.description("删除新建的二代客户成功后，列表不展示被删除的客户信息")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
-    def test_003_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_004_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -162,23 +215,55 @@ class TestDeleteCustomer:
         delete.click_close_customer_mgt()
 
 
-# @allure.feature("客户管理-客户管理(全球)") # 模块名称
-# class TestExportCustomer:
-#     @allure.story("导出客户")
-#     @allure.title("导出筛选后的客户信息")
-#     @allure.description("导出筛选后的客户信息，验证导出功能是否正常")
-#     @allure.severity("normal")
-#     @pytest.mark.smoke   # 用例标记
-#     def test_004_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-#         """登录"""
-#         user = LoginPage(drivers)
-#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-#         """打开客户管理菜单"""
-#         user.click_gotomenu("Customer Management", "Customer Management(Global)")
-#
-#         export = CustomerManagementPage(drivers)
+@allure.feature("客户管理-客户管理(全球)") # 模块名称
+class TestExportCustomer:
+    @allure.story("导出客户")
+    @allure.title("导出筛选后的客户信息")
+    @allure.description("导出筛选后的客户信息，验证导出功能是否正常")
+    @allure.severity("normal")
+    @pytest.mark.smoke   # 用例标记
+    def test_005_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        """登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开客户管理菜单"""
+        user.click_gotomenu("Customer Management", "Customer Management(Global)")
 
+        export = CustomerManagementPage(drivers)
+        """获取当天日期"""
+        base = Base(drivers)
+        today = base.get_datetime_today()
 
+        """获取列表的客户ID，然后筛选此客户，进行导出操作"""
+        get_cust_id = export.get_customer_id()
+        export.input_customer_query(get_cust_id)
+        export.click_search()
+
+        """点击导出"""
+        export.click_export()
+        export.click_download_more()
+        export.input_task_name("Customer management")
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
+        down_status = export.click_export_search()
+
+        task_name = export.get_task_name_text()
+        file_size = export.get_file_size_text()
+
+        task_id = export.get_task_user_id_text()
+        create_date = export.get_create_date_text()
+        complete_date = export.get_complete_date_text()
+        export_time = export.get_export_time_text()
+        operation = export.get_operation_text()
+
+        ValueAssert.value_assert_equal(down_status, "COMPLETE")
+        ValueAssert.value_assert_equal(task_name, "Customer management")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(operation, "Download")
+        export.assert_file_time_size(file_size, export_time)
+        export.click_close_export_record()
+        export.click_close_customer_mgt()
 
 
 if __name__ == '__main__':
