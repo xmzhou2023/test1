@@ -266,22 +266,11 @@ class TestProductInformationAppendProduct:
 class TestProductInformationImportFile:
 
     @allure.story("导入文件")
-    @allure.title("产品信息，导入文件数据正确，导入成功")
-    @allure.description("前往‘产品信息‘菜单，进入导入弹窗，导入文件成功")
-    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
-    def test_004_001(self, drivers):
-        user = ModelDatabase(drivers)
-        user.goto_tab('产品信息')  # 切换到产品信息tab页
-        user.import_button()
-        user.selectFile_button()
-
-    @allure.story("导入文件")
     @allure.title("产品信息，‘导入-下载模板’按钮 功能验证")
     @allure.description("进入导入弹窗，下载导入模板 成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
-    def test_004_002(self, drivers):
+    def test_004_001(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.import_button()  # 点击‘导入’按钮
@@ -293,7 +282,7 @@ class TestProductInformationImportFile:
     @allure.description("进入导入弹窗，选择导入文件，导入成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
-    def test_004_003(self, drivers):
+    def test_004_002(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         beforeListNum = user.listNum()
