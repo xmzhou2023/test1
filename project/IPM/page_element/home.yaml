@@ -1,2 +1,0 @@
-meta-title: "xpath==//span[@class='meta-title' and contains(text(),'variable')]"
-nest-menu: "xpath==//div[@class='menu-wrapper nest-menu']//span[contains(text(),'variable')]"

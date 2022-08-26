@@ -20,6 +20,7 @@ class CenterComponent(Base, APIRequest):
                 logging.info(f'点击二级菜单:{nestmenu}')
                 sleep(1)
                 self.refresh()
+                self.click_menu(metatitle, nestmenu)
             except Exception as e:
                 self.base_get_img()
                 self.refresh()
@@ -29,6 +30,7 @@ class CenterComponent(Base, APIRequest):
                 logging.info(f'点击二级菜单:{nestmenu}')
                 sleep(1)
                 self.refresh()
+                self.click_menu(metatitle, nestmenu)
 
     @allure.step("初始化浏览器")
     def refresh_webpage(self):
@@ -95,7 +97,10 @@ class CenterComponent(Base, APIRequest):
         else:
             self.click_menu('待办列表', '我的待办')
             sleep(1)
-            self.refresh_todo_list()
+            try:
+                self.refresh_todo_list()
+            except:
+                self.refresh_todo_list()
 
     @allure.step("进入 我申请的 页面")
     def enter_my_application(self):
@@ -104,7 +109,10 @@ class CenterComponent(Base, APIRequest):
             self.refresh_todo_list()
         else:
             self.click_menu('待办列表', '我申请的')
-            self.refresh_todo_list()
+            try:
+                self.refresh_todo_list()
+            except:
+                self.refresh_todo_list()
 
     @allure.step("点击 查看详情 进入 oneworks 页面")
     def enter_oneworks_edit(self, code, node=None):
@@ -125,7 +133,7 @@ class CenterComponent(Base, APIRequest):
         logging.info('跳出框架')
         self.switch_window(1)
         logging.info('切换窗口')
-        sleep(5)
+        sleep(2)
         logging.info('强制等待')
         self.frame_enter(user['待办列表-iframe'])
         logging.info('进入框架')
@@ -285,7 +293,7 @@ class CenterComponent(Base, APIRequest):
         self.screening_code(code)
         approver = self.element_text(user['待办列表-我申请的-审批人'], code)
         try:
-            assert approver == name
+            assert name in approver
             logging.info('断言成功，审批人为:{}'.format(approver))
         except:
             self.base_get_img()
@@ -382,6 +390,15 @@ class CenterComponent(Base, APIRequest):
         self.is_click_tbm(user['oneworks-回退确定'])
         logging.info('点击回退确定')
 
+    @allure.step("点击新增")
+    def click_add(self):
+        self.is_click_tbm(user['新增'])
+        sleep(1)
+        if self.element_exist(user['基本信息']) is False:
+            self.is_click_tbm(user['新增'])
+            sleep(1)
+        self.base_get_img()
+        DomAssert(self.driver).assert_att('基本信息')
 
 if __name__ == '__main__':
     pass

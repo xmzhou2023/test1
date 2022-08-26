@@ -30,7 +30,9 @@ Quantity Add: "xpath==//button[@id='deliveryorderadd_Add']//span[normalize-space
 Quantity Input Product: "xpath==//div[@class='el-input el-input--medium el-input--suffix']//input"
 Quantity Input Product Value: "xpath==//span[text()='variable']"
 Delivery Input Quantity: "xpath==//div[@class='el-input el-input--medium']//input"
-Get Delivery Quantity Text: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[4]/div[2]/div/div[2]"
+#Get Delivery Quantity Text: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[4]/div[2]/div/div[2]"
+Get Delivery Quantity Text: "xpath==//div[@class='scanned-box']//div[@class='num']"
+
 
 #新建出库单，创建临时客户
 Create Temporary Customer: "xpath==//span[normalize-space(text())='variable']"

@@ -41,7 +41,7 @@ class ShopSaleQueryPage(Base):
     @allure.step("Shop Sales Query页面，筛选Shop ID后，点击Search按钮")
     def click_search(self):
         self.is_click_dcr(user['Search'])
-        sleep(3)
+        sleep(5)
 
     @allure.step("Shop Sales Query页面，筛选Shop ID后，点击Search按钮")
     def click_reset(self):

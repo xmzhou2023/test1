@@ -12,6 +12,7 @@
 转交: "xpath==//button/span[contains(text(),'转 交')]"
 #==========================================创建页面========================================
 基本信息: "xpath==//span[text()='基本信息']"
+所有文本: "xpath==//*[contains(text(),'')]"
 提交: "xpath==//button/span[contains(text(),'提交')]"
 保存: "xpath==//button/span[contains(text(),'保存')]"
 批量删除: "xpath==//div[@title='批量删除']"

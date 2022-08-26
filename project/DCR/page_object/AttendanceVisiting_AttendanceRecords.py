@@ -72,13 +72,6 @@ class AttendanceRecordPage(Base):
         return homepage
 
 
-    # def presence_sleep(self, content):
-    #     """DCR通用的显示等待方法"""
-    #     txt1 = None
-    #     while not txt1:
-    #         txt1 = self.find_element(content)
-    #
-
     """导出考勤记录功能"""
     @allure.step("Attendance Records页面，点击Export 导出考勤记录")
     def click_export(self):

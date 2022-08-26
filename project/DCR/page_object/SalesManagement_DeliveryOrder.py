@@ -42,6 +42,7 @@ class DeliveryOrderPage(Base):
         self.is_click(user['Buyer'])
         sleep(1)
         self.input_text(user['Buyer'], txt=content)
+        sleep(1.5)
         Base.presence_sleep_dcr(self, user['Buyer sub value'], content)
         self.is_click(user['Buyer sub value'], content)
 
@@ -95,7 +96,7 @@ class DeliveryOrderPage(Base):
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):
         self.is_click(user['Submit'])
-
+        sleep(0.6)
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def get_text_submit(self):
@@ -172,6 +173,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("获取列表Delivery Order ID文本内容")
     def get_delivery_order_text(self):
+        Base.presence_sleep_dcr(self, user['Get Delivery Order ID Text'])
         delivery_order = self.element_text(user['Get Delivery Order ID Text'])
         return delivery_order
 
@@ -317,14 +319,12 @@ class DeliveryOrderPage(Base):
         self.is_click(user['Quantity Input Product'])
         sleep(2)
         self.is_click(user['Quantity Input Product Value'], content)
-        sleep(1)
 
     @allure.step("输入出库单无码数量")
     def input_delivery_quantity(self, content):
-        self.is_click_dcr(user['Delivery Input Quantity'])
-        sleep(1)
-        self.input_text_dcr(user['Delivery Input Quantity'], txt=content)
-        sleep(1)
+        self.is_click(user['Delivery Input Quantity'])
+        self.input_text(user['Delivery Input Quantity'], txt=content)
+        sleep(2)
         self.is_click(user['Get Delivery Quantity Text'])
 
     @allure.step("获取Delivery Quantity文本内容")
