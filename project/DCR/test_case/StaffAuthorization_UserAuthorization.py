@@ -232,75 +232,75 @@ class TestAddRegionAuthorization:
         sale_region.click_close_user_authorization()
 
 
-@allure.feature("员工授权-用户授权")
-class TestDeleteShopAuthorization:
-    @allure.story("删除门店授权")
-    @allure.title("用户授权页面，删除EG000378门店授权")
-    @allure.description("用户授权页面，筛选User：testlhm0215，删除Shop ID:EG000378授权")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-    def test_008_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+# @allure.feature("员工授权-用户授权")
+# class TestDeleteShopAuthorization:
+#     @allure.story("删除门店授权")
+#     @allure.title("用户授权页面，删除EG000378门店授权")
+#     @allure.description("用户授权页面，筛选User：testlhm0215，删除Shop ID:EG000378授权")
+#     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+#     def test_008_001(self, drivers):
+#         user = LoginPage(drivers)
+#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
+#
+#         """打开User Authorization菜单页面 """
+#         user.click_gotomenu("Staff & Authorization", "User Authorization")
+#
+#         shop = UserAuthorizationPage(drivers)
+#         shop.input_trans_user_query("testlhm0215")
+#         shop.click_search()
+#
+#         shop.click_shop_tab()
+#         shop.input_list_query_shop("EG000378")
+#         shop.click_shop_list_search()
+#
+#         get_list_shop = shop.get_list_shop_text()
+#         if get_list_shop == "EG000378":
+#             shop.click_list_shop_checkbox()
+#         shop.click_shop_more_option()
+#         shop.click_shop_cancel_association()
+#         shop.click_shop_delete()
+#
+#         domassert = DomAssert(drivers)
+#         domassert.assert_att("Successfully")
+#         get_shop_no_data = shop.get_shop_delete_no_data()
+#         ValueAssert.value_assert_In(get_shop_no_data, "No Data")
+#         shop.click_close_user_authorization()
 
-        """打开User Authorization菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User Authorization")
 
-        shop = UserAuthorizationPage(drivers)
-        shop.input_trans_user_query("testlhm0215")
-        shop.click_search()
-
-        shop.click_shop_tab()
-        shop.input_list_query_shop("EG000378")
-        shop.click_shop_list_search()
-
-        get_list_shop = shop.get_list_shop_text()
-        if get_list_shop == "EG000378":
-            shop.click_list_shop_checkbox()
-        shop.click_shop_more_option()
-        shop.click_shop_cancel_association()
-        shop.click_shop_delete()
-
-        domassert = DomAssert(drivers)
-        domassert.assert_att("Successfully")
-        get_shop_no_data = shop.get_shop_delete_no_data()
-        ValueAssert.value_assert_In(get_shop_no_data, "No Data")
-        shop.click_close_user_authorization()
-
-
-@allure.feature("员工授权-用户授权")
-class TestAddShopAuthorization:
-    @allure.story("新增门店授权")
-    @allure.title("用户授权页面，新增EG000378门店授权")
-    @allure.description("用户授权页面，筛选User：testlhm0215，新增Shop ID:EG000378授权")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-    def test_009_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
-        """打开User Authorization菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User Authorization")
-
-        shop = UserAuthorizationPage(drivers)
-        shop.input_trans_user_query("testlhm0215")
-        shop.click_search()
-
-        shop.click_shop_tab()
-        shop.click_add_association_shop()
-        shop.input_add_query_shop("EG000378")
-        shop.click_add_shop_search()
-
-        get_add_shop_id = shop.get_add_shop_id_text()
-        logging.info("新增门店页面，获取列表的门店ID{}".format(get_add_shop_id))
-        sleep(1)
-        if "EG000378" == get_add_shop_id:
-            shop.click_add_shop_checkbox()
-        shop.click_add_shop_author_select()
-
-        domassert = DomAssert(drivers)
-        domassert.assert_att("Successfully")
-        get_list_shop_id = shop.get_list_shop_id_text()
-        ValueAssert.value_assert_equal(get_list_shop_id, "EG000378")
-        shop.click_close_user_authorization()
+# @allure.feature("员工授权-用户授权")
+# class TestAddShopAuthorization:
+#     @allure.story("新增门店授权")
+#     @allure.title("用户授权页面，新增EG000378门店授权")
+#     @allure.description("用户授权页面，筛选User：testlhm0215，新增Shop ID:EG000378授权")
+#     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+#     def test_009_001(self, drivers):
+#         user = LoginPage(drivers)
+#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
+#
+#         """打开User Authorization菜单页面 """
+#         user.click_gotomenu("Staff & Authorization", "User Authorization")
+#
+#         shop = UserAuthorizationPage(drivers)
+#         shop.input_trans_user_query("testlhm0215")
+#         shop.click_search()
+#
+#         shop.click_shop_tab()
+#         shop.click_add_association_shop()
+#         shop.input_add_query_shop("EG000378")
+#         shop.click_add_shop_search()
+#
+#         get_add_shop_id = shop.get_add_shop_id_text()
+#         logging.info("新增门店页面，获取列表的门店ID{}".format(get_add_shop_id))
+#         sleep(1)
+#         if "EG000378" == get_add_shop_id:
+#             shop.click_add_shop_checkbox()
+#         shop.click_add_shop_author_select()
+#
+#         domassert = DomAssert(drivers)
+#         domassert.assert_att("Successfully")
+#         get_list_shop_id = shop.get_list_shop_id_text()
+#         ValueAssert.value_assert_equal(get_list_shop_id, "EG000378")
+#         shop.click_close_user_authorization()
 
 
 if __name__ == '__main__':
