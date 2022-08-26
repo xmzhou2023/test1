@@ -1,0 +1,11 @@
+WO Serialized Report Export: "xpath==//button[@type='button']//span[contains(text(),'Export')]"
+确认导出: 'xpath==//button[contains(@class,"el-button--primary")]/span[contains(text(),"OK")]'
+WO Serialized Report Search: "xpath==//button[@type='button']//span[contains(text(),'Search')]"
+Country搜索框: "xpath==//div[@class='el-col el-col-12'][1]//input[@type='text']"
+WO Serialized Date开始日期搜索框: "xpath==//div[@class='el-col el-col-12'][6]//input[contains(@placeholder,'Start')]"
+清除时间搜索框: "xpath==//div[@class='el-col el-col-12'][6]//span[contains(@class,'suffix-inner')]/i[contains(@class,'circle-close')]"
+报表总数: "xpath==//div[@class='formPage']//span[@class='el-pagination__total']"
+Country: "xpath==//div[@class='el-col el-col-12'][1]//input[@type='text']"
+Country下拉选择: "xpath==//body/div[contains(@class,'el-select-dropdown el-popper')]//li[contains(@class,'dropdown__item')]"
+清除国家搜索框: "xpath==//div[@class='el-col el-col-12'][1]//span[contains(@class,'suffix-inner')]//i[contains(@class,'circle-close')]"
+序列化工单查询页表格country字段: 'xpath==//*[@id="main-containerId"]/section/div/div/div[2]/div[1]/div[2]/table/thead/tr/th[2]/div'
