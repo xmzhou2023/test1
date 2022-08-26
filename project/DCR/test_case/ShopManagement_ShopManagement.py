@@ -116,18 +116,20 @@ class TestExpandBrandShop:
         shop_data = user.query_db(
             "select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
         public_code = shop_data[0].get("public_code")
-        shopname = shop_data[0].get("shop_name")
-        expand_brand.click_reset()
         public_code1 = public_code[1:]
+        shopname = shop_data[0].get("shop_name")
+
         """增加断言，判断新增的扩展门店品牌，是否保存成功"""
-        shop_id = expand_brand.get_extend_shop_id_text()
-        shop_name = expand_brand.get_shop_name_text()
-        shop_brand = expand_brand.get_shop_brand_text()
-        status = expand_brand.get_shop_status_text()
-        ValueAssert.value_assert_In(shop_id, public_code1)
-        ValueAssert.value_assert_equal(shop_name, shopname)
-        ValueAssert.value_assert_IsNoneNot(shop_brand)
-        ValueAssert.value_assert_equal(status, "Enabled")
+        expand_brand.click_reset()
+        get_public = expand_brand.get_shop_public()
+        get_shop_name = expand_brand.get_shop_name_text()
+        get_shop_brand = expand_brand.get_shop_brand_text()
+        get_status = expand_brand.get_shop_status_text()
+
+        ValueAssert.value_assert_In(get_public, public_code1)
+        ValueAssert.value_assert_equal(get_shop_name, shopname)
+        ValueAssert.value_assert_IsNoneNot(get_shop_brand)
+        ValueAssert.value_assert_equal(get_status, "Enabled")
         expand_brand.click_close_shop_management()
 
 

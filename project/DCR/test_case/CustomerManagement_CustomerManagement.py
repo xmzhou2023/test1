@@ -18,7 +18,7 @@ from libs.common.connect_sql import *
 @allure.feature("客户管理-客户管理(全球)") # 模块名称
 class TestAddCustomer:
     @allure.story("新增客户")
-    @allure.title("新增二代客户操作")
+    @allure.title("新增二代客户信息")
     @allure.description("新增客户操作成功，列表展示新增的客户信息")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
@@ -79,7 +79,7 @@ class TestAddCustomer:
 @allure.feature("客户管理-客户管理(全球)")  #  模块名称
 class TestEditCustomer:
     @allure.story("编辑客户")
-    @allure.title("编辑二代客户操作")
+    @allure.title("编辑二代客户信息")
     @allure.description("编辑客户操作成功，列表筛选该客户ID，客户名称更新为编辑后的信息")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
@@ -126,7 +126,7 @@ class TestEditCustomer:
 @allure.feature("客户管理-客户管理(全球)") # 模块名称
 class TestDeleteCustomer:
     @allure.story("删除客户")
-    @allure.title("删除新建的二代客户操作")
+    @allure.title("删除新建的二代客户信息")
     @allure.description("删除新建的二代客户成功后，列表不展示被删除的客户信息")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
@@ -160,6 +160,25 @@ class TestDeleteCustomer:
         logging.info("获取列表第一行Customer ID：{}".format(get_customer_id))
         ValueAssert.value_assert_InNot(get_customer_id, customer_id)
         delete.click_close_customer_mgt()
+
+
+# @allure.feature("客户管理-客户管理(全球)") # 模块名称
+# class TestExportCustomer:
+#     @allure.story("导出客户")
+#     @allure.title("导出筛选后的客户信息")
+#     @allure.description("导出筛选后的客户信息，验证导出功能是否正常")
+#     @allure.severity("normal")
+#     @pytest.mark.smoke   # 用例标记
+#     def test_004_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+#         """登录"""
+#         user = LoginPage(drivers)
+#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
+#         """打开客户管理菜单"""
+#         user.click_gotomenu("Customer Management", "Customer Management(Global)")
+#
+#         export = CustomerManagementPage(drivers)
+
+
 
 
 if __name__ == '__main__':

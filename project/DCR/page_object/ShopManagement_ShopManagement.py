@@ -97,7 +97,7 @@ class ShopManagementPage(Base):
     @allure.step("新建或者编辑门店时，点击提交")
     def click_submit(self):
         self.is_click_dcr(user['Submit'], "Submit")
-        sleep(1)
+        sleep(2)
 
     @allure.step("新建门店时，门店名称后缀随机生成")
     def shop_random(self):
@@ -195,6 +195,12 @@ class ShopManagementPage(Base):
         Base.presence_sleep_dcr(self, user['获取Status文本'])
         get_status = self.element_text(user['获取Status文本'])
         return get_status
+
+    @allure.step("获取列表public文本")
+    def get_shop_public(self):
+        get_public = self.element_text(user['获取Public ID文本'])
+        get_public1 = get_public[1:]
+        return get_public1
 
     @allure.step("点击Reset重置按钮")
     def click_reset(self):

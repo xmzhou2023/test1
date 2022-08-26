@@ -1,4 +1,0 @@
-2022-08-25 22:18:52 [[32m    INFO[0m] 模块前置条件，前往operation页面 (OperationMgt_PolicyAndProfits_WarrantyDurationMgt.py:18)
-2022-08-25 22:18:52 [[32m    INFO[0m] 查找元素：('xpath', '//div[@class="el-submenu__title"]//span[text()="Operation Mgt"]') (basics.py:106)
-2022-08-25 22:18:52 [[32m    INFO[0m] 点击元素：('xpath', '//div[@class="el-submenu__title"]//span[text()="Operation Mgt"]') (basics.py:206)
-2022-08-25 22:18:52 [[32m    INFO[0m] 查找元素：('xpath', '//li[@aria-expanded="true"]//span[text()="Policy and Profits"]') (basics.py:106)

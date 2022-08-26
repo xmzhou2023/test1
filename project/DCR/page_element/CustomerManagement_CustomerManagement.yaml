@@ -55,5 +55,8 @@ Delete: "xpath==//li[normalize-space(text())='Delete']"
 #//li[normalize-space(text())='Delete']//i[@class="el-icon-delete"]
 Delete Confirm: "xpath==//div[@class='el-dialog__body']//..//div[@class='el-dialog__footer']//button[@id='customermanagementglobal_Yes']"
 
+#导出客户
+Export: "id==customermanagementglobal_Export"
+
 
 关闭客户管理菜单: "xpath==//span[normalize-space(text())='Customer Management (global)']//span[@class='el-icon-close']"
