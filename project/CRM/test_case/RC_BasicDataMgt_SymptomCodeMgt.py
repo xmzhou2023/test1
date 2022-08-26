@@ -201,7 +201,7 @@ class TestExportSymptomCode:
     @allure.description("导出现象码成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-   # @pytest.mark.skip  # 跳过不执行
+    @pytest.mark.skip  # 跳过不执行
     def test_1272066(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = SymCodePage(drivers)
         user.Export_Symp()  # 点击导出按钮

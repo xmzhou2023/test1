@@ -106,8 +106,8 @@ class TestAddSymptomGroup:
             logging.warning("修改时间与当前时间相差超过1分钟 | 修改时间:{} 当前时间:{}".format(modified_on1, now_time))
             assert False, '创建时间与当前时间相差超过1分钟'
 
-        ValueAssert.value_assert_equal(account[5]['username'], modified_by)  # 判断创建人等于当前登录用户
-        ValueAssert.value_assert_equal(account[5]['username'], created_by)  # 判断修改人等于当前登录用户
+        ValueAssert.value_assert_equal(account[7]['username'], modified_by)  # 判断创建人等于当前登录用户
+        ValueAssert.value_assert_equal(account[7]['username'], created_by)  # 判断修改人等于当前登录用户
 
     @allure.story("新增现象组")  # 场景名称,中文
     @allure.title("重复添加相同名称的现象组，添加失败，提示合理")  # 用例名称
@@ -254,7 +254,6 @@ class TestEditSymptomGroup:
         user = SQL('CRM', 'test')
         user.query_db(
             'delete  from crm_mdm_symptom_group where symptom_group_name="{}"'.format(update_name))
-        sleep(5)
 
 class TestExportSymptomGroup:
     @allure.story("导出现象组")  # 场景名称
@@ -262,16 +261,14 @@ class TestExportSymptomGroup:
     @allure.description("导出现象组成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-   # @pytest.mark.skip  # 跳过不执行
+    @pytest.mark.skip  # 跳过不执行
     def test_1272066(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = SymPage(drivers)
         user.Get_Defualt_Symp()
         user.Export_Symp()  # 点击导出按钮
         user.Close_Page()  # 关闭现象组页面
         user.GoTo_Task()   # 进入下载任务页面
-        sleep(5)
         user.Download_Symp("Symptom_Group", "Symptom_Group")  # 下载导出的excel，同时判断文件名正确
-
         user.Close_Page()  # 关闭下载页面
         user.GoTo_Symp()  # 回到现象组页面
 

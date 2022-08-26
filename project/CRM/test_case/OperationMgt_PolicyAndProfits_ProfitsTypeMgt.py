@@ -16,12 +16,16 @@ from project.CRM.page_object.OperationMgt_PolicyAndProfits_WarrantyDurationMgt i
 """
 
 @pytest.fixture(scope='module' , autouse=True) # 模块名称
-def smodule_setup_fixture(drivers):
+def module_fixture(drivers):
     logging.info("模块前置条件，前往operation页面")
     user = NavPage(drivers)
     user.click_gotonav("OperationMgt", "PolicyandProfits", "ProfitsTypeMgt")  # 点击菜单
     user= DomAssert(drivers)
     user.assert_url("policyAndProfits/profitsTypeMgt")
+    yield
+    logging.info("后置条件：收起菜单")
+    user = NavPage(drivers)
+    user.click_gotonav("OperationMgt")
 
 @allure.feature("Operation_ProfitsType") # 模块名称
 class TestProfitsTypeMgt:
