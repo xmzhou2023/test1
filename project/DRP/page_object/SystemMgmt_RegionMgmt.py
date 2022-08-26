@@ -42,13 +42,13 @@ class AreaPage(Base):
             count = 0
             for i in range(len(allist)):
                 if text in allist[i]:
-                    log.info("{} is in {}".format(text, allist[i]))
+                    logging.info("{} is in {}".format(text, allist[i]))
                     for j in range(1, len(allist[i])):
                         if text in allist[i][j]:
                             count = count + 1
                     return count
                 else:
-                    log.info("{}is not in {}".format(text, allist[i]))
+                    logging.info("{}is not in {}".format(text, allist[i]))
         except Exception as e:
             print(str(e))
 
@@ -56,8 +56,13 @@ class AreaPage(Base):
     def search_area(self, content):
         """查询区域"""
         self.input_text(user["区域搜索框"], content)
-        log.info("输入框键入{}".format(content))
+        logging.info("输入框键入{}".format(content))
         sleep(1)
+
+    @allure.step("产品信息页-区域搜索框断言")
+    def search_data(self):
+        searchData = self.element_text(user['区域搜索框'])
+        return searchData
 
     @allure.step("清空搜索框")
     def clear_tree(self):
@@ -190,7 +195,9 @@ class AreaPage(Base):
         tier = ['组织', '地区部', '大区']
         if txt in tier:
             self.is_click(user['删除 确定'])
+            logging.info("测试数据删除")
             sleep(1)
+
 
     @allure.step("指定行删除按钮")
     def del_list(self, num, area_name):

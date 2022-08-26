@@ -1,0 +1,11 @@
+查询条件: "xpath==//div//label[contains(text(),'variable')]/following-sibling::div//input[@type='text']"
+
+查询按钮: "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[1]//span[contains(text (), '查  询')]"
+重置按钮： "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[2]//span[contains(text (), '重  置')]"
+
+下拉列表: "xpath==//div[@x-placement='bottom-start']"
+下拉选项: "xpath==//div[@x-placement='bottom-start']//li//span['variable']"
+平台列表: "xpath==//table[@class="el-table__body"]//tr//td"
+
+
+

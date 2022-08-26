@@ -5,9 +5,10 @@ from public.base.assert_ui import *
 from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_RegionMgmt import AreaPage
 
+
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
-    logging.info("模块前置条件：前往“DRP数据管理-机型库”页面")
+    logging.info("模块前置条件：前往“系统管理-区域管理”页面")
     user = NavPage(drivers)
     user.click_gotonav("系统管理", "区域管理")
     user = DomAssert(drivers)
@@ -27,7 +28,6 @@ class TestSearchArea:
         user = AreaPage(drivers)
         user.goto_tree('itel事业部')
 
-    @pytest.mark.RT
     @allure.story("查询区域")
     @allure.title("前往二级区域")
     @allure.description("点击‘itel事业部’前往二级区域")
@@ -56,7 +56,6 @@ class TestSearchArea:
         user = AreaPage(drivers)
         user.goto_tree('itel事业部', 'itel事业部', 'itel事业部', '事业部备料')
 
-
     @allure.story("查询区域")
     @allure.title("精确搜索区域")
     @allure.description("区域搜索框，输入‘巴基斯坦’，可查到该区域")
@@ -71,7 +70,6 @@ class TestSearchArea:
         user = ValueAssert()
         user.value_assert_equal(res)
 
-
     @allure.story("查询区域")
     @allure.title("模糊搜索区域")
     @allure.description("区域搜索框，输入‘巴基’，可查到该区域")
@@ -85,7 +83,6 @@ class TestSearchArea:
         res = user.check_tree("巴基", allist)
         user = ValueAssert()
         user.value_assert_equal(res)
-
 
     @allure.story("查询区域")
     @allure.title("清空搜索框内容")
@@ -118,7 +115,6 @@ class TestExportArea:
         user.download_area(content="drp_dept_export_itel")
 
 
-
 @allure.feature("系统管理-区域管理")
 class TestAppendArea:
 
@@ -148,7 +144,6 @@ class TestAppendArea:
         user.add_button()  # 点击新增按钮
         user.add_area(nameZh='lj测试001', nameEn='ljtest001')  # 输入地区中英文名称
         user.save_button()  # 点击保存按钮
-
         # 删除测试数据
         user.del_list(2, 'lj测试001')  # 点击删除按钮
         user.delete_area()  # 删除确认
@@ -295,7 +290,6 @@ class TestAppendArea:
         user.add_button()  # 点击新增按钮
         user.add_area(nameZh='', nameEn='')  # 不维护中/英文名称 保存失败
         user.save_button()
-
 
 
 @allure.feature("系统管理-区域管理")
@@ -455,21 +449,6 @@ class TestDeleteArea:
         user.goto_tree('Infinix事业部')  # 切到一级菜单
         user.del_list(2, 'lj测试01')  # 点击删除按钮
         user.delete_area()  # 删除地区部，且大区也被删除
-
-
-@allure.feature("系统管理-区域管理")
-class TestCloseArea:
-
-    @allure.story("关闭区域管理窗口")
-    @allure.title("关闭区域管理窗口")
-    @allure.description("打开‘系统管理-区域管理’窗口，点击页签关闭按钮，关闭窗口")
-    @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
-    def test_006_001(self, drivers):
-        user = AreaPage(drivers)
-        user.close_window(window_name='区域管理')  # 关闭区域管理窗口
-        user = DomAssert(drivers)
-        user.assert_url("/dashboard")
 
 
 
