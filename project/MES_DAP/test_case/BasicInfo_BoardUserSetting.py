@@ -40,6 +40,20 @@ class TestSearchBoardUserSetting:
 
 @allure.feature("基础信息-看板人员维护")
 class TestInsertBoardUserSetting:
+    @pytest.fixture(scope='class', autouse=True)
+    def class_teardown_fixture(self, drivers):
+        yield
+        logging.info("新增类后置条件：删除新增的数据")
+        info = BoardUserSetting(drivers)
+        info.input_job_number("19950109")
+        info.input_name("测试")
+        info.choice_post("拉长")
+        info.click_search()
+        info.click_del('1')
+        info.click_del_accept()
+        db = SQLAssert(pro_name, 'test')
+        db.assert_sql_count(0, "SELECT count(EMP_ID) FROM db_pldb_test.dt_pv_employees WHERE EMP_CODE ='19950109';")
+
     @allure.story("新增看板人员")
     @allure.title("所有字段正确填写，新增看板人员成功")
     @allure.description("进入看板人员维护>点击新增按钮>正确填写所有内容>上传图片>保存")
@@ -56,7 +70,61 @@ class TestInsertBoardUserSetting:
 
 
 @allure.feature("基础信息-看板人员维护")
+class TestEditBoardUserSetting:
+    @pytest.fixture(scope='class', autouse=True)
+    def class_fixture(self, drivers):
+        logging.info("修改类前置条件：新增数据")
+        info = BoardUserSetting(drivers)
+        info.click_insert()
+        os.path.join(BASE_DIR, 'project', 'MES_DAP', 'data', 'headimg.jpeg')
+        info.fill_form({"1": "19950109", "2": "测试", "3": "1888888888", "4": "组装产线",
+                        "5": "拉长", "6": os.path.join(BASE_DIR, 'project', 'MES_DAP', 'data', 'headimg.jpeg')})
+        info.click_form_accept()
+        db = SQLAssert(pro_name, 'test')
+        db.assert_sql_count(1, "SELECT count(EMP_ID) FROM db_pldb_test.dt_pv_employees WHERE EMP_CODE ='19950109';")
+        yield
+        logging.info("修改类前置条件：删除数据")
+        info = BoardUserSetting(drivers)
+        info.input_job_number("19950109")
+        info.input_name("测试")
+        info.choice_post("拉长")
+        info.click_search()
+        info.click_del('1')
+        info.click_del_accept()
+        db = SQLAssert(pro_name, 'test')
+        db.assert_sql_count(0, "SELECT count(EMP_ID) FROM db_pldb_test.dt_pv_employees WHERE EMP_CODE ='19950109';")
+
+    @allure.story("修改看板人员")
+    @allure.title("所有字段正确填写，修看板人员成功")
+    @allure.description("进入看板人员维护>查询要修改的数据>点击修改按钮>修改内容>保存")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    def test_1029050(self, drivers):
+        info = BoardUserSetting(drivers)
+        info.input_job_number("19950109")
+        info.input_name("测试")
+        info.choice_post("拉长")
+        info.click_search()
+        info.click_edit('1')
+        info.fill_form({"3": "16666666666"})
+        info.click_form_accept()
+        db = SQLAssert(pro_name, 'test')
+        db.assert_sql("16666666666", "SELECT MOBILE_NO FROM db_pldb_test.dt_pv_employees WHERE EMP_CODE ='19950109';")
+
+
+@allure.feature("基础信息-看板人员维护")
 class TestDelBoardUserSetting:
+    @pytest.fixture(scope='class', autouse=True)
+    def class_setup_fixture(self, drivers):
+        logging.info("删除类前置条件：新增数据")
+        info = BoardUserSetting(drivers)
+        info.click_insert()
+        os.path.join(BASE_DIR, 'project', 'MES_DAP', 'data', 'headimg.jpeg')
+        info.fill_form({"1": "19950109", "2": "测试", "3": "1888888888", "4": "组装产线",
+                        "5": "拉长", "6": os.path.join(BASE_DIR, 'project', 'MES_DAP', 'data', 'headimg.jpeg')})
+        info.click_form_accept()
+        db = SQLAssert(pro_name, 'test')
+        db.assert_sql_count(1, "SELECT count(EMP_ID) FROM db_pldb_test.dt_pv_employees WHERE EMP_CODE ='19950109';")
+
     @allure.story("删除看板人员")
     @allure.title("查询后删除")
     @allure.description("进入看板参数配置>选择查询条件>点击查询按钮>点击删除按钮>确认")
