@@ -33,6 +33,7 @@ def module_setup_fixture(drivers):
     user.Add_Symp(name)
     return name
 
+
 @allure.feature("SymptomGroup") # 模块名称
 class TestSymptomGroup:
     @pytest.fixture()

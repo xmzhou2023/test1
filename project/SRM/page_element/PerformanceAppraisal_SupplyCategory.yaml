@@ -31,14 +31,33 @@
 评估代码供货品类配置-新建-小类: 'xpath==//input[@id="materialCateLevel3Name"]'
 评估代码供货品类配置-新建-小类搜索: 'xpath==//img[@id="searchMaterialCateLevel3Name"]'
 
-评估代码供货品类配置-新建-评分规则: 'xpath==//input[@id="scoreLevelRuleInput"]'
+评估代码供货品类配置-新建-小类iframe: 'xpath==//iframe[@id="iframeApp_supplyCategoryNewSearch"]'
+评估代码供货品类配置-新建-小类选择: 'xpath==//*[@id="pq-body-cell-u0-4-0-right"]/input'
+
+评估代码供货品类配置-新建-小类-确定: 'xpath==//li[@id="confirmBtn"]'
+
+
+评估代码供货品类配置-新建-评分规则: 'xpath==//img[@id="searchScoreLevelRule"]'
+评估代码供货品类配置-新建-评分规则iframe: 'xpath==//iframe[@name="iframeApp_searchTemplate"]'
+评估代码供货品类配置-新建-评分规则-选择: 'xpath==//span[text()="RU002"]'
+评估代码供货品类配置-新建-评分规则-确定: 'xpath==//button[@id="btnSelectOK"]'
+
+
 评估代码供货品类配置-新建-确定: 'xpath==//button[@id="btnAddOK"]'
+评估代码供货品类配置-新建-确定-保存确定: 'xpath==//button[@i-id="ok"]'
+评估代码供货品类配置-新建-确定-保存取消: 'xpath==//button[@i-id="cancel"]'
 评估代码供货品类配置-新建-取消: 'xpath==//button[@id="btnAddCancel"]'
+评估代码供货品类配置-新建-重复错诶提示: 'xpath==//div[@class="messager-content"]'
+# 同一评估代码下，不允许维护多个评分规则
+评估代码供货品类配置-新建-操作成功提示: 'xpath==//div[@class="messager-content"]'
+#操作成功
 
 
 评估代码供货品类配置-删除: 'xpath==//li[@id="delete"]/a'
 评估代码供货品类配置-修改: 'xpath==//li[@id="update"]/a'
-评估代码供货品类配置-查询: 'xpath==//form[1]/button[2]/i'
+评估代码供货品类配置-查询: 'xpath==//button[text()=" 查询"]'
 评估代码供货品类配置-评估代码查询输入框: 'xpath==//input[@name="evaluatedCode"]'
 评估代码供货品类配置-物料小类查询输入框: 'xpath==//input[@name="materialCateNumber"]'
+评估代码搜索结果: 'xpath==//span[text()="显示 1 到 6 总共6个项目"]'
+
 窗口最小化: 'xpath==//div[@id="win_supplierPerformanceAppraisal"]//a[@title="最小化"]'
