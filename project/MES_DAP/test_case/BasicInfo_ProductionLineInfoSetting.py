@@ -29,6 +29,7 @@ class TestSearchProductionLineInfoSetting:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     def test_1028958(self, drivers):
         info = ProductionLineInfoSetting(drivers)
+        info.click_reset()
         info.choice_workshop_section('PCBA')
         info.click_search()
         db = SQLAssert(pro_name, 'test')

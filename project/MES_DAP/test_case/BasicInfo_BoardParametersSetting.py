@@ -29,6 +29,7 @@ class TestSearchParametersSetting:
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     def test_1029040(self, drivers):
         info = BoardParametersSetting(drivers)
+        info.click_reset()
         info.click_search()
         db = SQLAssert(pro_name, 'test')
         page = PageInfo(drivers)
