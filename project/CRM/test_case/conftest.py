@@ -17,8 +17,8 @@ def __init__(drivers, env_name):
     """使用统一登录"""
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
-    user.crm_login(drivers,ini.url, account[6]['usernum'], account[6]['passwd'])
+    user.crm_login(drivers,ini.url, account[7]['usernum'], account[7]['passwd'])
     user = DomAssert(drivers)
     user.assert_url("{}".format(ini.url))
-    user.assert_exact_att('18646156')
+    # user.assert_exact_att('18646156')
     logging.info("前置条件：传音统一登录成功")

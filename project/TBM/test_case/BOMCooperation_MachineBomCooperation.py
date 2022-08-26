@@ -406,6 +406,23 @@ class TestCreateProcessExceptionScenario:
         DomAssert(drivers).assert_att('不能为空')
         user.click_one_press_cancel()
 
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("[XXXXX] 替代组[XX]只有一颗物料")  # 用例名称
+    @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入数据，新增一颗物料，添加替代组为A1，份额为20，其他内容正确填写，点击提交，不能提交成功并且提示替代组只有一颗物料")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_002_015(self, drivers):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage_click_menu()
+        user.add_bom_info()
+        user.add_bomtree()
+        user.input_optional_bomtree('充电器', '物料编码', '10018955')
+        user.input_optional_bomtree('充电器', '用量', '1000')
+        user.input_optional_bomtree('充电器', '替代组', 'A1')
+        user.input_optional_bomtree('充电器', '份额', '20')
+        user.click_add_submit()
+        user.assert_toast('[国内生产BOM][10018955] 替代组[A1]只有一颗物料')
+
 
 @allure.feature("BOM协作_整机BOM协作")  # 模块名称
 class TestCreatingProcessImport:

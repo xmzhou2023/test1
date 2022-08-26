@@ -221,6 +221,7 @@ class APIRequest:
             if i['flowId'] == flowId:
                 logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
                 logging.info('流程结束：整机BOM协作新增流程')
+                print(i['flowNo'], i['instanceId'], flowId)
                 return i['flowNo'], i['instanceId'], flowId
 
     @allure.step("整机BOM协作-补充工厂审批通过接口")
@@ -274,8 +275,8 @@ class APIRequest:
             "checkFactory": "patchTrue"
         }
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
-        self.Request_Machine_Factory(approve_data, headers)
-        self.Request_Oneworks_Complete(complete_data, headers)
+        print(self.Request_Machine_Factory(approve_data, headers))
+        print(self.Request_Oneworks_Complete(complete_data, headers))
         logging.info('流程接口结束：整机BOM协作-补充工厂审批通过流程')
 
     @allure.step("整机BOM协作-BOM工程师审批通过接口")

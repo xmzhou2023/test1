@@ -432,6 +432,10 @@ class Base(object):
             else:
                 break
 
+
+
+
+
     def get_datetime_today(self):
         """获取当天日期(DCR专用)"""
         today = datetime.date.today()
