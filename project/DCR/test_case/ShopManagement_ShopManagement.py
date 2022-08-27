@@ -7,13 +7,34 @@ from libs.common.time_ui import sleep
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_shop_mgt_fixture(drivers):
+    yield
+    close = ShopManagementPage(drivers)
+    close.click_close_shop_management()
+
+@pytest.fixture(scope='function')
+def function_view_fixture(drivers):
+    yield
+    close = ShopManagementPage(drivers)
+    close.click_close_shop_view()
+    close.click_close_shop_management()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    close = ShopManagementPage(drivers)
+    close.click_close_export_record()
+    close.click_close_shop_management()
 
 @allure.feature("门店管理-门店管理(global)")
 class TestAddShop:
     @allure.story("新增门店")
     @allure.title("门店管理，新增门店操作")
     @allure.description("门店管理页面，新增门店操作成功后，筛选新增的门店是否加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_mgt_fixture')
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -64,7 +85,7 @@ class TestAddShop:
         """断言门店列表是否存在新建的门店ID与门店名称"""
         ValueAssert.value_assert_In(shopid, shop_id1)
         ValueAssert.value_assert_equal(shopname, shop_name)
-        add_shop.click_close_shop_management()
+        #add_shop.click_close_shop_management()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -72,7 +93,8 @@ class TestExpandBrandShop:
     @allure.story("扩展门店品牌")
     @allure.title("门店管理页面，对新增的门店进行扩展itel品牌操作")
     @allure.description("门店管理页面，对新增的门店进行扩展品牌操作，扩展itel品牌提交后，列表展示扩展的门店品牌")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_mgt_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -130,7 +152,7 @@ class TestExpandBrandShop:
         ValueAssert.value_assert_equal(get_shop_name, shopname)
         ValueAssert.value_assert_IsNoneNot(get_shop_brand)
         ValueAssert.value_assert_equal(get_status, "Enabled")
-        expand_brand.click_close_shop_management()
+        #expand_brand.click_close_shop_management()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -138,7 +160,8 @@ class TestDisableShop:
     @allure.story("禁用门店")
     @allure.title("门店管理页面，对新增的门店进行禁用操作")
     @allure.description("门店管理页面，对新增的门店进行禁用操作")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_mgt_fixture')
     def test_003_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -165,7 +188,7 @@ class TestDisableShop:
         shop_name2 = disable.get_shop_name_text()
         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
-        disable.click_close_shop_management()
+        #disable.click_close_shop_management()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -174,6 +197,7 @@ class TestQueryGlobalShop:
     @allure.title("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
     @allure.description("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_mgt_fixture')
     def test_004_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -205,13 +229,14 @@ class TestQueryGlobalShop:
         ValueAssert.value_assert_IsNoneNot(get_public_id)
         total = query.get_total_text()
         query.assert_total(total)
-        query.click_close_shop_management()
+        #query.click_close_shop_management()
 
 
     @allure.story("查询全球门店")
     @allure.title("门店管理页面，查看View门店详情信息是否正确")
     @allure.description("门店管理页面，查看View门店详情信息是否正确")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_view_fixture')
     def test_004_002(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -252,8 +277,8 @@ class TestQueryGlobalShop:
         ValueAssert.value_assert_equal(list_contact_no, view_contact_no)
         ValueAssert.value_assert_equal(list_public_id, view_public_id)
         """点击关闭view页面"""
-        view.click_close_shop_view()
-        view.click_close_shop_management()
+        #view.click_close_shop_view()
+        #view.click_close_shop_management()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -262,6 +287,7 @@ class TestEditShop:
     @allure.title("门店管理页面，Edit编辑门店信息")
     @allure.description("门店管理页面，Edit编辑门店信息，提交后，返回列表显示编辑后的门店信息")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_mgt_fixture')
     def test_005_001(self, drivers):
         user5 = LoginPage(drivers)
         user5.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -296,7 +322,7 @@ class TestEditShop:
         edit.click_submit()
         DomAssert(drivers).assert_att("Edited Successfully")
         sleep(2)
-        edit.click_close_shop_management()
+        #edit.click_close_shop_management()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -305,6 +331,7 @@ class TestEnableShop:
     @allure.title("门店管理页面，对禁用的门店，进行启用操作")
     @allure.description("门店管理页面，对禁用的门店，进行启用操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_mgt_fixture')
     def test_006_001(self, drivers):
         user6 = LoginPage(drivers)
         user6.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -338,7 +365,7 @@ class TestEnableShop:
             get_status3 = enable.get_shop_status_text()
             """断言启用操作后，门店列表是否更新为Enabled状态 """
             ValueAssert.value_assert_equal("Enabled", get_status3)
-        enable.click_close_shop_management()
+        #enable.click_close_shop_management()
 
 
 @allure.feature("门店管理-门店管理(global)")
@@ -347,6 +374,7 @@ class TestExportShop:
     @allure.title("门店管理页面，根据门店创建日期筛选门店后，进行导出操作")
     @allure.description("门店管理页面，根据门店创建日期筛选门店后，进行导出操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_007_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -389,8 +417,8 @@ class TestExportShop:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_shop_management()
+        #export.click_close_export_record()
+        #export.click_close_shop_management()
 
 
 #暂时无删除功能，用例留着
