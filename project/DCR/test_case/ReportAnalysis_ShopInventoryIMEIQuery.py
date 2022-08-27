@@ -8,13 +8,28 @@ import datetime
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_query_fixture(drivers):
+    yield
+    close = ShopInventoryIMEIQueryPage(drivers)
+    close.click_close_shop_inventory_imei()
+
+@pytest.fixture(scope='function')
+def function_report_fixture(drivers):
+    yield
+    close = ShopInventoryIMEIQueryPage(drivers)
+    close.click_close_export_record()
+    close.click_close_shop_inventory_imei()
+
 
 @allure.feature("报表分析-门店库存IMEI查询")
 class TestQueryShopInventoryIMEI:
     @allure.story("查询门店库存IMEI")
     @allure.title("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载")
     @allure.description("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载，断言数据加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_query_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -40,7 +55,7 @@ class TestQueryShopInventoryIMEI:
         ValueAssert.value_assert_IsNoneNot(series)
         ValueAssert.value_assert_IsNoneNot(model)
         shop_inventory.assert_total(total)
-        shop_inventory.click_close_shop_inventory_imei()
+        #shop_inventory.click_close_shop_inventory_imei()
 
 
 @allure.feature("报表分析-门店库存IMEI查询")
@@ -48,7 +63,8 @@ class TestExportShopInventoryIMEI:
     @allure.story("导出门店库存IMEI")
     @allure.title("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的数据")
     @allure.description("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的门店库存IMEI数据，断言导出数据加载正常")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_report_fixture')
     def test_002_001(self, drivers):
         """查看Shop Inventory IMEI Query 列表数据加载是否正常"""
         user = LoginPage(drivers)
@@ -68,7 +84,6 @@ class TestExportShopInventoryIMEI:
         export.click_fold()
         export.click_search()
 
-        shop_id = export.get_shop_id_text()
         #筛选后，获取列表属性文本内容
         total = export.get_total_text()
         export.assert_total2(total)
@@ -95,8 +110,8 @@ class TestExportShopInventoryIMEI:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_shop_inventory_imei()
+        # export.click_close_export_record()
+        # export.click_close_shop_inventory_imei()
 
 
 if __name__ == '__main__':

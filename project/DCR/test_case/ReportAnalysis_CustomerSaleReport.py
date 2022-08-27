@@ -9,12 +9,21 @@ import allure
 import logging
 
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_sale_report_fixture(drivers):
+    yield
+    close = CustomerSalesReportPage(drivers)
+    close.click_close_cust_sale_report()
+
+
 @allure.feature("报表分析-客户销售报表")
 class TestQueryCustomerSalesReport:
     @allure.story("国包用户查看客户销售报表")
     @allure.title("国包用户查看客户销售报表，统计出库数、退货数与实际销售数")
     @allure.description("国包用户查看客户销售报表，统计出库数、退货数与实际销售数")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_sale_report_fixture')
     def test_001_001(self, drivers):
         """国包账号登录"""
         user = LoginPage(drivers)
@@ -48,7 +57,7 @@ class TestQueryCustomerSalesReport:
         ValueAssert.value_assert_equal(delivery_total, del_total)
         ValueAssert.value_assert_equal(return_total, ret_total)
         ValueAssert.value_assert_equal(actual_sales, actualsales1)
-        sales_report.click_close_cust_sale_report()
+        #sales_report.click_close_cust_sale_report()
 
 
 if __name__ == '__main__':
