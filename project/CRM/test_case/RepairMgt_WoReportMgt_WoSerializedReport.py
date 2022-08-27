@@ -26,7 +26,7 @@ def module_fixture(drivers):
     user.click_gotonav("Repair Mgt")
 
 
-@allure.feature("Repair Mgt-WO NonSerialized Report")
+@allure.feature("Repair Mgt-WO Serialized Report")
 class TestWoReportSearch:
     @allure.story("查询序列化报表所有数据") # 场景名称
     @allure.title("查询序列化报表所有数据 ")  # 用例名称
