@@ -190,12 +190,12 @@ class SalesOrderPage(Base):
     @allure.step("关闭Sales Order销售单菜单")
     def click_close_sales_order(self):
         self.is_click(user['关闭销售单菜单'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("关闭IMEI Inventory query菜单")
     def click_close_imei_inventory(self):
         self.is_click(user['关闭IMEI Inventory Query'])
-        sleep(2)
+        sleep(1)
 
 
 class InboundReceiptPage(Base):
@@ -259,7 +259,7 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
     def click_close_inbound_receipt(self):
         self.is_click(user['关闭二代收货菜单'])
-        sleep(2)
+        sleep(1)
 
 
 if __name__ == '__main__':

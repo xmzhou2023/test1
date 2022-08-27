@@ -91,7 +91,7 @@ class ShopInventoryIMEIQueryPage(Base):
     @allure.step("关闭门店库存IMEI菜单")
     def click_close_shop_inventory_imei(self):
         self.is_click(user['关闭门店库存IMEI菜单'])
-        sleep(2)
+        sleep(1)
 
 
     # 门店库存IMEI查询记录，导出功能验证

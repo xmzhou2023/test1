@@ -62,7 +62,7 @@ class CustomerSalesReportPage(Base):
     @allure.step("点击关闭Customer Sales Report菜单")
     def click_close_cust_sale_report(self):
         self.is_click(user['关闭客户销售报表菜单'])
-        sleep(2)
+        sleep(1)
 
 
 if __name__ == '__main__':
