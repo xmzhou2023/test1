@@ -8,13 +8,27 @@ import datetime
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_shop_assoc_fixture(drivers):
+    yield
+    close = UserShopAssociaPage(drivers)
+    close.click_close_user_shop_assoc()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    close = UserShopAssociaPage(drivers)
+    close.click_close_export_record()
+    close.click_close_user_shop_assoc()
 
 @allure.feature("员工授权-用户和门店关系")
 class TestSearchUserShopAssociation:
     @allure.story("查询用户和门店关系")
     @allure.title("查询用户和门店关系列表所有数据")
     @allure.description("查询用户和门店关系列表，所有数据加载正常")
-    @allure.severity("critical") # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  #  分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_assoc_fixture')
     def test_001_001(self, drivers):
         """DCR 管理员账号登录"""
         user = LoginPage(drivers)
@@ -39,7 +53,7 @@ class TestSearchUserShopAssociation:
         ValueAssert.value_assert_IsNoneNot(shop_name)
         """ 断言判读分页总条数，是否能查询到数据且大于1条 """
         user_shop.assert_total(total)
-        user_shop.click_close_user_shop_assoc()
+        #user_shop.click_close_user_shop_assoc()
 
 
 @allure.feature("员工授权-用户和门店关系")
@@ -47,7 +61,8 @@ class TestExportUserShopAssociation:
     @allure.story("导出用户和门店关系")
     @allure.title("用户和门店关系列表，筛选User ID：lhmdianzhang关联的门店，并导出筛选的数据")
     @allure.description("用户和门店关系列表，筛选User ID：lhmdianzhang关联的门店，并导出筛选的数据")
-    @allure.severity("normal")  # critical\normal\minor\
+    @allure.severity("normal")   #  critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """ 根据 Userid：lhmdianzhang，筛选关联的门店，并导出筛选的数据 """
         user = LoginPage(drivers)
@@ -97,8 +112,8 @@ class TestExportUserShopAssociation:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_user_shop_assoc()
+        #export.click_close_export_record()
+        #export.click_close_user_shop_assoc()
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserShopAssociation.py'])
