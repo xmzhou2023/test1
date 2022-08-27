@@ -51,7 +51,7 @@ class TestWoReportSearch:
         record = num.search_stock(stock='part')
         ValueAssert.value_assert_equal(record[0], record[1], )
 
-@allure.feature("Repair Mgt-WO NonSerialized Report")
+@allure.feature("Repair Mgt-WO Serialized Report")
 class TestWoReportExport:
     @allure.story("序列化报表导出成功")  # 场景名称
     @allure.title("导出序列化报表所有数据")  # 用例名称
