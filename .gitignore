@@ -2,3 +2,8 @@
 /libs/common/__pycache__
 /libs/config/__pycache__
 /project/DCR_PROD/__pycache__
+__pycache__
+.idea
+allure-results
+log
+libs/image
