@@ -16,13 +16,29 @@ from public.base.basics import Base
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范) 
 """
 
-@allure.feature("客户管理-客户管理(全球)") # 模块名称
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_customer_fixture(drivers):
+    yield
+    close = CustomerManagementPage(drivers)
+    close.click_close_customer_mgt()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    close = CustomerManagementPage(drivers)
+    close.click_close_export_record()
+    close.click_close_customer_mgt()
+
+
+@allure.feature("客户管理-客户管理(全球)")  # 模块名称
 class TestQueryGlobalCustomers:
     @allure.story("查询客户")
     @allure.title("查询客户列表所以数据加载，然后筛选客户信息是否加载正常")
     @allure.description("查询客户列表所以数据加载，然后筛选客户信息是否加载正常")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
+    @pytest.mark.usefixtures('function_customer_fixture')
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
@@ -65,16 +81,17 @@ class TestQueryGlobalCustomers:
         ValueAssert.value_assert_IsNoneNot(get_query_list_ware_id)
         ValueAssert.value_assert_IsNoneNot(get_query_list_ware_name)
         query.assert_total1(get_query_total)
-        query.click_close_customer_mgt()
+        #query.click_close_customer_mgt()
 
 
-@allure.feature("客户管理-客户管理(全球)") # 模块名称
+@allure.feature("客户管理-客户管理(全球)")
 class TestAddCustomer:
     @allure.story("新增客户")
     @allure.title("新增二代客户信息")
     @allure.description("新增客户操作成功，列表展示新增的客户信息")
     @allure.severity("normal")
-    @pytest.mark.smoke   # 用例标记
+    @pytest.mark.smoke
+    @pytest.mark.usefixtures('function_customer_fixture')
     def test_002_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
@@ -126,7 +143,7 @@ class TestAddCustomer:
         ValueAssert.value_assert_equal(contact_name, get_contact_name)
         ValueAssert.value_assert_equal(contact_no, get_contact_no,)
         ValueAssert.value_assert_equal("Sub-dealer", get_customer_type)
-        add_customer.click_close_customer_mgt()
+        #add_customer.click_close_customer_mgt()
 
 
 @allure.feature("客户管理-客户管理(全球)")  #  模块名称
@@ -136,6 +153,7 @@ class TestEditCustomer:
     @allure.description("编辑客户操作成功，列表筛选该客户ID，客户名称更新为编辑后的信息")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
+    @pytest.mark.usefixtures('function_customer_fixture')
     def test_003_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
@@ -173,16 +191,17 @@ class TestEditCustomer:
         ValueAssert.value_assert_equal(customer_name, get_customer_name)
         ValueAssert.value_assert_equal(contact_name, get_contact_name)
         ValueAssert.value_assert_equal(contact_no, get_contact_no)
-        edit.click_close_customer_mgt()
+        #edit.click_close_customer_mgt()
 
 
-@allure.feature("客户管理-客户管理(全球)") # 模块名称
+@allure.feature("客户管理-客户管理(全球)")  #  模块名称
 class TestDeleteCustomer:
     @allure.story("删除客户")
     @allure.title("删除新建的二代客户信息")
     @allure.description("删除新建的二代客户成功后，列表不展示被删除的客户信息")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
+    @pytest.mark.usefixtures('function_customer_fixture')
     def test_004_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
@@ -212,7 +231,7 @@ class TestDeleteCustomer:
         get_customer_id = delete.get_customer_id()
         logging.info("获取列表第一行Customer ID：{}".format(get_customer_id))
         ValueAssert.value_assert_InNot(get_customer_id, customer_id)
-        delete.click_close_customer_mgt()
+        #delete.click_close_customer_mgt()
 
 
 @allure.feature("客户管理-客户管理(全球)") # 模块名称
@@ -222,6 +241,7 @@ class TestExportCustomer:
     @allure.description("导出筛选后的客户信息，验证导出功能是否正常")
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_005_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
@@ -262,9 +282,8 @@ class TestExportCustomer:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_customer_mgt()
-
+        #export.click_close_export_record()
+        #export.click_close_customer_mgt()
 
 if __name__ == '__main__':
     pytest.main(['CustomerManagement_CustomerManagement.py'])

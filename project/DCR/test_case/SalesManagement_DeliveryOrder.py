@@ -131,7 +131,7 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为无码的，买方为临时客户")
     @allure.description("国包用户，新建出库单，产品为无码时，买方为临时客户")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_001(self, drivers):
+    def test_004_001(self, drivers):
         user3 = LoginPage(drivers)
         user3.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -192,7 +192,7 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家退货单")
     @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家创建退货单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_002(self, drivers):
+    def test_004_002(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
