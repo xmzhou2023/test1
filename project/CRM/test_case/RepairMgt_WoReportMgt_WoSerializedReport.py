@@ -67,7 +67,7 @@ class TestWoReportExport:
     @allure.title("导出序列化报表中IN国家数据")  # 用例名称
     @allure.description("查询到IN国家的报表数据，可导出成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.RT  # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_002_002(self, drivers):
         user = WOSerializedReport(drivers)
         user.download_report(scope='part')
