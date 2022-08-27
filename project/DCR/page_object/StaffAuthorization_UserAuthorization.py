@@ -303,9 +303,9 @@ class UserAuthorizationPage(Base):
         sleep(2.5)
 
     @allure.step("在门店页签，筛选Shop ID后，获取筛选到的Shop ID文本")
-    def get_list_shop_text(self):
-        Base.presence_sleep_dcr(self, user['list 获取ShopID文本'])
-        get_list_shopid = self.element_text(user['list 获取ShopID文本'])
+    def get_list_shop_text(self, shop):
+        Base.presence_sleep_dcr(self, user['list 获取ShopID文本'], shop)
+        get_list_shopid = self.element_text(user['list 获取ShopID文本'], shop)
         return get_list_shopid
 
     @allure.step("在门店页签，筛选Shop ID后，点击勾选Shop ID对应的复选框")
@@ -360,9 +360,9 @@ class UserAuthorizationPage(Base):
         sleep(3)
 
     @allure.step("新增门店页面，获取Shop ID文本")
-    def get_add_shop_id_text(self):
-        Base.presence_sleep_dcr(self, user['add获取ShopID文本'])
-        get_add_shop_id = self.element_text(user['add获取ShopID文本'])
+    def get_add_shop_id_text(self, shop):
+        Base.presence_sleep_dcr(self, user['add获取ShopID文本'], shop)
+        get_add_shop_id = self.element_text(user['add获取ShopID文本'], shop)
         return get_add_shop_id
 
     @allure.step("在门店页签，筛选Shop ID后，点击勾选Shop ID对应的复选框")
@@ -381,9 +381,9 @@ class UserAuthorizationPage(Base):
         sleep(1)
 
     @allure.step("门店页签，获取门店列表 Shop ID文本")
-    def get_list_shop_id_text(self):
-        Base.presence_sleep_dcr(self, user['门店列表获取ShopID文本'])
-        get_list_shop = self.element_text(user['门店列表获取ShopID文本'])
+    def get_list_shop_id_text(self, shop):
+        Base.presence_sleep_dcr(self, user['门店列表获取ShopID文本'], shop)
+        get_list_shop = self.element_text(user['门店列表获取ShopID文本'], shop)
         return get_list_shop
 
 
@@ -427,6 +427,7 @@ class UserAuthorizationPage(Base):
     def click_close_user_authorization(self):
         self.is_click(user['关闭用户授权菜单'])
         sleep(2)
+
 
 if __name__ == '__main__':
     pass
