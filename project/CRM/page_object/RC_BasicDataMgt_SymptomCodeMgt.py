@@ -25,6 +25,7 @@ class SymCodePage(Base):
         self.is_click(user['Symptom Code Mgt'])
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
 
+
     @allure.step("进入下载任务页面")
     def GoTo_Task(self):
         self.refresh()
@@ -120,10 +121,13 @@ class SymCodePage(Base):
             self.is_click(user['Input_Clear'])  # 将现象码名称查询框清空
         except:
             logging.info("搜索框无数据")
+
+    @allure.step("清空现象组查询框，恢复查询条件为默认值")
+    def Group_Clear_Get(self):
         try:
             self.is_click(user['Input_Grouping'])
             self.hover(user['Input_Clear'])
-            self.is_click(user['Input_Clear'])  # 将现象码名称查询框清空
+            self.is_click(user['Input_Clear'])  # 将现象组名称查询框清空
         except:
             logging.info("搜索框无数据")
 

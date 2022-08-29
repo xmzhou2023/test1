@@ -43,6 +43,10 @@ def module_setup_fixture(drivers):
     logging.info(sql_get_id)
     user.query_db(
         'delete  from crm_mdm_symptom_group where symptom_group_id="{}"'.format(sql_get_id))
+    user = SymPage(drivers)
+    user.Close_Page()  # 关闭页面
+    user.Close_Up_First_Menu("Repair Center")  # 合起菜单
+
 
 
 
@@ -55,6 +59,7 @@ class TestAddSymptomGroup:
         logging.info("\n在每个case完成后执行的teardown")
         user = SymPage(drivers)
         user.Clear_Get()
+
 
 
     @allure.story("新增现象组")  # 场景名称,中文
