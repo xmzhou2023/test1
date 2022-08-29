@@ -275,7 +275,7 @@ class TestProductInformationImportFile:
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.import_button()  # 点击‘导入’按钮
         user.downloadTemplate_button('drp_model_template.xlsx')  # 下载导入模板，并断言文件名
-        user.importClose_button()
+
 
     @allure.story("导入文件")
     @allure.title("产品信息，导入文件成功")
@@ -291,7 +291,6 @@ class TestProductInformationImportFile:
         fileAssert = user.selectFile_assert()
         ValueAssert.value_assert_In(fileAssert, "产品信息.xlsx")
         user.import_file()
-        user.importClose_button()
         afterListNum = user.listNum()
         ValueAssert.value_assert_Notequal(afterListNum,beforeListNum)
         user.screen_testData(drivers)
