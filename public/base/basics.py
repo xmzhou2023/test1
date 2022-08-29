@@ -366,7 +366,7 @@ class Base(object):
             if len(file) > 0:
                 os.remove(DOWNLOAD_PATH + r"/" + file)
 
-    def download_file(self, filename, load=1):
+    def download_file(self, filename, load=5):
         """下载到指定路径"""
         try:
             if os.path.exists(DOWNLOAD_PATH):
