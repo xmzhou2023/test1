@@ -100,6 +100,16 @@ class TestSearchColor:
         ValueAssert.value_assert_Notequal(beforeNum,afterNum)
 
 
+@allure.feature("DRP数据管理-颜色库")
+class TestExportColorLibrary:
+    @allure.story("导出Excel")
+    @allure.title("点击导出按钮，导出Excel")
+    @allure.description("点击导出按钮，导出Excel")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_002_001(self, drivers):
+        color = ColorLibrary(drivers)
+        color.export_button("drp_color_export")
 
 
 if __name__ == '__main__':

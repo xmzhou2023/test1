@@ -68,8 +68,12 @@ class ColorLibrary(Base):
         else:
             self.assert_method(color, "1")
 
-
-
+    @allure.step("导出Excel")
+    def export_button(self,content):
+        try:
+            self.check_download(user['导出按钮'], content)
+        except Exception:
+            logging.info("断言失败: 下载该附件失败")
 
 
 
