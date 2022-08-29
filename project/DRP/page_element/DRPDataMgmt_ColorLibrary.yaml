@@ -1,0 +1,13 @@
+查询条件: "xpath==//div//label[contains(text(),'variable')]/following-sibling::div//input[@type='text']"
+下拉列表: "xpath==//div[@x-placement='bottom-start']//li"
+查询按钮: "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[1]//span[contains(text (), '查  询')]"
+重置按钮: "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[2]//span[contains(text (), '重  置')]"
+新增按钮: "xpath==//div[@class=‘btn-tool-countryModel’]//span[contains(text(),'新 增')]"
+导出按钮: "xpath==//div[@class='right-btn']//span[contains(text(),'导出Excel')]"
+
+"""=====================================列表 子表===================================================="""
+列表指定列: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr//td[variable]"
+编辑/保存 按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//button[1]"
+禁用/启用 按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//button[2]"
+新增 自动生成一行（断言）: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//td//input"
+
