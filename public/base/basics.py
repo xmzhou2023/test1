@@ -8,7 +8,7 @@ from libs.config.conf import LOCATE_MODE, DOWNLOAD_PATH, IMAGE_PATH, BASE_DIR
 from libs.common.time_ui import sleep
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-import os,sys
+import os
 import logging
 import allure
 import datetime
@@ -29,9 +29,6 @@ class Base(object):
         self.driver = driver
         self.timeout = 20
         self.wait = WebDriverWait(self.driver, self.timeout)
-        if 'linux' in sys.platform:
-            self.CHROME_PATH = r'/home/seluser/Downloads'
-            logging.info(self.CHROME_PATH)
 
     @staticmethod
     def element_locator(func, locator):
@@ -372,11 +369,11 @@ class Base(object):
     def download_file(self, filename, load=5):
         """下载到指定路径"""
         try:
-            if os.path.exists(self.CHROME_PATH):
-                logging.info("指定下载路径: {}".format(self.CHROME_PATH))
+            if os.path.exists(DOWNLOAD_PATH):
+                logging.info("指定下载路径: {}".format(DOWNLOAD_PATH))
                 sleep(int(load))
-                logging.info(os.listdir(self.CHROME_PATH))
-                for file in os.listdir(self.CHROME_PATH):
+                logging.info(os.listdir(DOWNLOAD_PATH))
+                for file in os.listdir(DOWNLOAD_PATH):
                     if filename in file:
                         return True
                     return False
@@ -385,7 +382,7 @@ class Base(object):
 
     def check_download(self, locator, content):
         """下载并断言文件名是否符合预期"""
-        self.clear_download(self.CHROME_PATH)
+        self.clear_download(DOWNLOAD_PATH)
         self.find_element(locator).click()
         assert self.download_file(filename=content, load=3), logging.warning("断言失败: 下载该附件失败 | {} ".format(content))
         logging.info("断言成功: 下载该附件成功 | {} ".format(content))
