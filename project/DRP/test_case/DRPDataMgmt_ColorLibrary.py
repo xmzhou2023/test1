@@ -101,7 +101,7 @@ class TestSearchColor:
 
 
 @allure.feature("DRP数据管理-颜色库")
-class TestSearchColor:
+class TestExportColorLibrary:
     @allure.story("导出Excel")
     @allure.title("点击导出按钮，导出Excel")
     @allure.description("点击导出按钮，导出Excel")
