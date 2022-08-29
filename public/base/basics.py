@@ -384,6 +384,8 @@ class Base(object):
         """下载并断言文件名是否符合预期"""
         self.clear_download()
         self.find_element(locator).click()
+        time.sleep(100)
+        logging.info("导出下载调试：睡100秒")
         assert self.download_file(filename=content, load=3), logging.warning("断言失败: 下载该附件失败 | {} ".format(content))
         logging.info("断言成功: 下载该附件成功 | {} ".format(content))
 
