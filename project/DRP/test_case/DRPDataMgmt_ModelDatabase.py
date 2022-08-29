@@ -274,7 +274,7 @@ class TestProductInformationImportFile:
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.import_button()  # 点击‘导入’按钮
-        user.downloadTemplate_button('drp_model_template.xlsx')  # 下载导入模板，并断言文件名
+        user.downloadTemplate_button('drp_model_template')  # 下载导入模板，并断言文件名
 
 
     @allure.story("导入文件")
