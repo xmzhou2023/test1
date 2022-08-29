@@ -15,6 +15,10 @@ user = Element(pro_name, object_name)
 class SymPage(Base):
     """现象组"""
 
+    @allure.step("合起菜单")
+    def Close_Up_First_Menu(self, menu):
+        self.is_click(user['一级菜单'], choice=menu)
+
     @allure.step("进入现象组页面")
     def GoTo_Symp(self):
         self.refresh()

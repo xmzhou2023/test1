@@ -47,6 +47,11 @@ def module_fixture(drivers):
         'delete  from crm_mdm_symptom where symptom_code="{}"'.format(name_code))
     user.query_db(
         'delete  from crm_mdm_symptom_group where symptom_group_name="{}"'.format(name_group))
+    logging.info("后置条件:合起菜单")
+    user = SymPage(drivers)
+    user.Close_Page()  # 关闭页面
+    user.Close_Up_First_Menu("Repair Center")  # 合起菜单
+
 
 
 @allure.feature("SymptomCode")  # 现象码页面
@@ -122,7 +127,7 @@ class TestGetSymptomGroup:
     @allure.description("Keyword：Code/Description 支持模糊查询")
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    #@pytest.mark.skip  # 跳过不执行
+   # @pytest.mark.skip  # 跳过不执行
     def test_1035789(self, drivers, module_fixture, class_fixture):  # 用例名称取名规范'test+场景编号+用例编号'
             name_code, name_group, description = module_fixture
             user = SymCodePage(drivers)
@@ -171,7 +176,7 @@ class TestGetSymptomGroup:
     @allure.description("Status:Enable/Disable")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    #@pytest.mark.skip  # 跳过不执行
+   # @pytest.mark.skip  # 跳过不执行
     def test_1035791(self, drivers):   # 遍历Satus查询框Enable\Disable查询
         logging.info("步骤1：Enable查询")
         user = SymCodePage(drivers)
