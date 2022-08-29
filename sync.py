@@ -141,7 +141,7 @@ def get_PyClass(filepath):
             if re.match("    @pytest.mark.([^\s]+)", line):
                 mark_value = re.match("    @pytest.mark.([^\s]+)", line)
                 mark_value = mark_value.group(1)
-                if 'run' not in mark_value and 'skip' not in mark_value:
+                if 'run' not in mark_value and 'skip' not in mark_value and 'usefixtures(' not in mark_value:
                     mark_name.append(mark_value)
                     # print(mark_name)
 
@@ -149,9 +149,9 @@ def get_PyClass(filepath):
             if re.match("    def (.*)\(", line):
                 function_name = re.match("    def (.*)\(", line)
                 function_name = function_name.group(1)
+                print(function_name)
                 if '_fixture' in function_name:
                     continue
-                # print(function_name)
                 try:
                     class_list[class_name]['value'][function_name] = {}
                 except KeyError as e:
