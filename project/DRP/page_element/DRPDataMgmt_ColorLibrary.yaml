@@ -5,7 +5,7 @@
 新增按钮: "xpath==//div[@class=‘btn-tool-countryModel’]//span[contains(text(),'新 增')]"
 导出按钮: "xpath==//div[@class='right-btn']//span[contains(text(),'导出Excel')]"
 
-"""=====================================列表 子表===================================================="""
+
 列表指定列: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr//td[variable]"
 编辑/保存 按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//button[1]"
 禁用/启用 按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//button[2]"
