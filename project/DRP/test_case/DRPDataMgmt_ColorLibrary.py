@@ -24,7 +24,7 @@ class TestSearchColor:
     @pytest.mark.smoke
     def test_001_001(self, drivers):
         color = ColorLibrary(drivers)
-        color.screenOption("颜色","123")
+        color.screenOption("123")
         color.queryButton()
         # color.screenAssert("颜色","123")
 

@@ -14,9 +14,8 @@ class ColorLibrary(Base):
     """颜色库"""
 
     @allure.step("选择指定选项")
-    def screenOption(self, condition,option):
-        self.is_click(user['查询条件'],condition)
-        self.input_text(user['查询条件'], option)
+    def screenOption(self, option):
+        self.input_text(user['查询条件 颜色'],option)
         logging.info("颜色：{}".format(option))
 
     @allure.step("点击查询按钮")
