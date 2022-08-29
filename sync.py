@@ -149,7 +149,7 @@ def get_PyClass(filepath):
             if re.match("    def (.*)\(", line):
                 function_name = re.match("    def (.*)\(", line)
                 function_name = function_name.group(1)
-                if function_name in ['session_setup_fixture','session_teardown_fixture','session_fixture','module_setup_fixture','module_teardown_fixture','module_fixture','class_setup_fixture','class_teardown_fixture','class_fixture','function_setup_fixture','function_teardown_fixture','function_fixture']:
+                if '_fixture' in function_name:
                     continue
                 # print(function_name)
                 try:
