@@ -18,12 +18,15 @@ class TestUtil:
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
-    def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-        user = UserPage(drivers)
-        user.click_menu("BOM协作", "整机BOM协作")
-        user.input_make("衍生BOM")
-        user.click_search()
-        pass
-
+    def test_001_001(self, drivers):   # BOM协作-整机BOM协作-制作类型-衍生BOM-查询
+      user = UserPage(drivers)
+      user.click_menu("BOM协作", "整机BOM协作")
+      user.input_make("衍生BOM")
+      user.click_search()
+    def test_001_002(self, drivers): # BOM协作-单机头BOM协作-制作类型-二级BOM制作-查询
+      user = UserPage(drivers)
+      user.click_menu("BOM协作", "单机头BOM协作")
+      user.input_make("二级BOM制作")
+      user.click_search()
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])

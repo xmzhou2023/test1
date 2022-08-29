@@ -591,6 +591,10 @@ class Base(object):
         ele = self.find_element(xpath)
         ele.clear()
 
+    def switch_location(self, path):
+        # 使用javascript 跳转路由
+        self.driver.execute_script('location=arguments[0]', path)
+
 
 
 

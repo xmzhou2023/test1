@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Ignored tests",
+    "matchedStatuses": ["skipped"] /* 跳过测试 */
+  },
+  {
+    "name": "Infrastructure problems",
+    "matchedStatuses": ["broken", "failed"], /* 基础问题 */
+    "messageRegex": ".*bye-bye.*"
+  },
+  {
+    "name": "Outdated tests",
+    "matchedStatuses": ["broken"], /* 过时测试 */
+    "traceRegex": ".*FileNotFoundException.*"
+  },
+  {
+    "name": "Product defects",
+    "matchedStatuses": ["failed"] /* 产品缺陷 */
+  },
+  {
+    "name": "Test defects",
+    "matchedStatuses": ["broken"] /* 测试缺陷 */
+  }
+]
