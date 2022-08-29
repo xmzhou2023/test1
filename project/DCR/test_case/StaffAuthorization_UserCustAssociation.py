@@ -7,13 +7,27 @@ from public.base.basics import Base
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_cust_assoc_fixture(drivers):
+    yield
+    close = UserCustomerAssociaPage(drivers)
+    close.click_close_user_cust_assoc()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    close = UserCustomerAssociaPage(drivers)
+    close.click_close_export_record()
+    close.click_close_user_cust_assoc()
 
 @allure.feature("员工授权-用户和客户关系")
 class TestSearchUserCustAssocia:
     @allure.story("查询用户和客户关系")
     @allure.title("查询用户和客户关系列表所有数据")
     @allure.description("查询用户和客户关系列表，所有数据加载正常")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_cust_assoc_fixture')
     def test_001_001(self, drivers):
         """DCR 管理员账号登录"""
         user = LoginPage(drivers)
@@ -39,7 +53,7 @@ class TestSearchUserCustAssocia:
         ValueAssert.value_assert_IsNoneNot(customer_name)
         """ 断言判读分页总条数，是否能查询到数据且大于1条 """
         user_cust.assert_total(total)
-        user_cust.click_close_user_cust_assoc()
+        #user_cust.click_close_user_cust_assoc()
 
 
 @allure.feature("员工授权-用户和客户关系")
@@ -47,7 +61,8 @@ class TestExportUserCustAssocia:
     @allure.story("导出用户和客户关系")
     @allure.title("用户和客户关系列表，筛选User ID：NG2061301关联的客户，并导出筛选的数据")
     @allure.description("用户和客户关系列表，筛选User ID：NG2061301关联的客户，并导出筛选的数据")
-    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @allure.severity("normal")   # critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -98,8 +113,8 @@ class TestExportUserCustAssocia:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_user_cust_assoc()
+        #export.click_close_export_record()
+        #export.click_close_user_cust_assoc()
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserCustAssociation.py'])

@@ -1,5 +1,4 @@
 import allure
-import allure
 from public.base.basics import Base, sleep
 from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
@@ -18,6 +17,7 @@ class ModelDatabase(Base):
     def goto_tab(self, tab):
         self.is_click(user['Tab菜单'], tab)
         logging.info("前往菜单{}".format(tab))
+        sleep(1)
         if tab == '产品信息':
             return self.element_text(user['产品信息页面(新增按钮)'])
         elif tab == '产品配置':
@@ -85,7 +85,7 @@ class ModelDatabase(Base):
     @allure.step("新增弹窗 供应类型选项（必填）")
     def supplyType_option(self, supplyType=None):
         self.is_click(user['新增_供应类型'])
-        if supplyType == "自研":
+        if supplyType == "自制":
             self.is_click(user['新增_下拉选项'], "1")
         elif supplyType == "外购":
             self.is_click(user['新增_下拉选项'], "2")
@@ -135,6 +135,7 @@ class ModelDatabase(Base):
         self.is_click(user['新增_系列'])
         self.is_click(user['新增_下拉选项(系列&项目名)'], series)
         logging.info("系列：{}".format(series))
+        sleep(1)
 
     @allure.step("新增弹窗 项目名_自建输入（必填）")
     def projectName_input(self, projectName=None):
@@ -250,8 +251,13 @@ class ModelDatabase(Base):
             if hint == "不能为空":
                 self.appendClose_button()
                 logging.info("有必填项未维护,新增失败,关闭新增弹窗")
-        else:
+        elif caseType == "正例":
             logging.info("新增保存成功")
+        else:
+            hint = self.element_text(user['断言（新增保存成功）'])
+            assert hint == "此机型已存在"
+            self.appendClose_button()
+            logging.info("重复新增失败")
 
     @allure.step("返回新增成功提示文本，用做断言")
     def save_hint(self):
@@ -262,15 +268,23 @@ class ModelDatabase(Base):
         self.check_download(user['下载导入模板'], content)
 
     @allure.step("导入弹窗-选择文件")
-    def selectFile_button(self):
-        self.find_element(user['选择文件']).send_keys("project/DRP/excel_drive/TestCase.xlsx")
-        logging.info("选择文件")
+    def selectFile_button(self, file):
+        self.upload_file(user['选择文件'], file)
+        logging.info("选择文件{}".format(file))
+
+    @allure.step("导入弹窗-选择文件后断言")
+    def selectFile_assert(self):
+        return self.element_text(user['选择文件后断言'])
+
+    @allure.step("导入弹窗-导入文件")
+    def import_file(self):
+        self.is_click(user['导入弹窗（导入按钮）'])
+        logging.info("点击导入按钮")
 
     @allure.step("导入弹窗-选择文件")
     def import_button(self):
         self.is_click(user['导入按钮'])
         logging.info("点击导入按钮，打开导入弹窗")
-
 
     @allure.step("返回导入窗口文本，用做断言")
     def import_title(self):
@@ -348,6 +362,7 @@ class ModelDatabase(Base):
     @allure.step("筛选系列")
     def screen_series(self, series=None):
         self.readonly_input_text(user['系列输入框'], series)
+        sleep(1)
         self.is_click(user['输入框下拉'], series)
         logging.info("筛选系列：{}".format(series))
 
@@ -360,6 +375,7 @@ class ModelDatabase(Base):
     @allure.step("筛选状态")
     def screen_state(self, state):
         self.is_click(user['状态下拉框'])
+        sleep(1)
         if state == "NP":
             self.is_click(user['新增_下拉选项'], "1")
         elif state == "MP":
@@ -386,7 +402,7 @@ class ModelDatabase(Base):
     @allure.step("筛选供应类型")
     def screen_supplyType(self, supplyType=None):
         self.is_click(user['供应类型下拉框'])
-        if supplyType == "自研":
+        if supplyType == "自制":
             self.is_click(user['新增_下拉选项'], "1")
         elif supplyType == "外购":
             self.is_click(user['新增_下拉选项'], "2")
@@ -469,7 +485,7 @@ class ModelDatabase(Base):
             optionList.append(eles[i].text)
         if option in optionList:
             index = optionList.index(option) + 1
-            self.is_click(user['编辑下拉选项'],str(index))
+            self.is_click(user['编辑下拉选项'], str(index))
             logging.info('编辑成功，修改为{}'.format(option))
         else:
             logging.info("无此选项，退出编辑")
@@ -486,39 +502,36 @@ class ModelDatabase(Base):
         return self.element_text(user["断言（保存成功）"])
 
     @allure.step("点击指定行删除按钮")
-    def delete_button(self,updateOne_name,num):
+    def delete_button(self, updateOne_name, num):
         line = self.find_elements(user['列表第n列'], num)
-        print("line0",line)
         name = []  # 取出列表第n列的所有文本
         for i in range(len(line)):
             name.append(line[i].text)
         if updateOne_name in name:
             lineNum = name.index(updateOne_name) + 1  # 取到所传参数所在行号
             Nxpath = user['删除'][1].replace('variable', str(lineNum))
-            print('Nxpath',Nxpath)
             self.force_click(Nxpath, xpath_js=True)  # 将行号c替换到xpath中进行相关操作
-            logging.info('点击指定行删除按钮成功')
+            logging.info('点击指定行数据删除成功')
             return str(lineNum), Nxpath
 
     @allure.step("返回删除保存成功警示文本，用做断言")
     def delete_hint(self):
         hint = self.element_text(user["断言（保存成功）"])
-        print(f"删除{hint}")
         return hint
 
     @allure.step("删除测试数据")
-    def delete_testData(self, drivers,**kwargs):
+    def delete_testData(self, drivers, **kwargs):
         user = ModelDatabase(drivers)
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_brand(kwargs["brand"])  # 选择品牌
         user.screen_broadCoarse(kwargs["broadCoarse"])  # 选择大类粗
         user.screen_mobileType(kwargs["mobileType"])  # 输入机型
-        user.screen_marketName(kwargs["marketName"])  # 输入市场名
-        user.screen_series(kwargs["series"])  # 输入系列
-        user.screen_projectName(kwargs["projectName"])  # 输入项目名
-        user.screen_state(kwargs["state"])  # 选择状态
-        user.screen_source(kwargs["source"])  # 选择来源
-        user.screen_supplyType(kwargs["supplyType"])  # 选择供应类型
+        # user.screen_marketName(kwargs["marketName"])  # 输入市场名
+        # user.screen_series(kwargs["series"])  # 输入系列
+        # user.screen_projectName(kwargs["projectName"])  # 输入项目名
+        # user.screen_state(kwargs["state"])  # 选择状态
+        # user.screen_source(kwargs["source"])  # 选择来源
+        # user.screen_supplyType(kwargs["supplyType"])  # 选择供应类型
         user.screen_inquire()  # 点击查询按钮
         user.assert_screen_result("隆江", num=22)
         logging.info('列表操作，前置条件过滤完成')
@@ -529,7 +542,7 @@ class ModelDatabase(Base):
         user = ModelDatabase(drivers)
         user.append_button()  # 点击新增按钮
         user.source_option('数仓')  # 选择来源
-        user.supplyType_option('自研')  # 选择供应类型
+        user.supplyType_option('自制')  # 选择供应类型
         user.brand_option('itel')  # 选择品牌
         user.broadCoarse_option('智能机')  # 选择大类粗
         user.series_option('A')  # 选择系列
@@ -541,16 +554,20 @@ class ModelDatabase(Base):
         user.save_color()  # 保存颜色
         user.state_option('MP')  # 选择状态
         user.save_button("正例")  # 新增保存完成
+
+    @allure.step("造测试数据并筛选")
+    def screen_testData(self, drivers):
+        user = ModelDatabase(drivers)
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_brand("itel")  # 选择品牌
         user.screen_broadCoarse("智能机")  # 选择大类粗
         user.screen_mobileType("S11 64+4")  # 输入机型
-        user.screen_marketName("India")  # 输入市场名
-        user.screen_series("A")  # 输入系列
-        user.screen_projectName("S11")  # 输入项目名
-        user.screen_state("MP")  # 选择状态
-        user.screen_source("数仓")  # 选择来源
-        user.screen_supplyType("自研")  # 选择供应类型
+        # user.screen_marketName("India")  # 输入市场名
+        # user.screen_series(series="A")  # 输入系列
+        # user.screen_projectName("S11")  # 输入项目名
+        # user.screen_state("MP")  # 选择状态
+        # user.screen_source("数仓")  # 选择来源
+        # user.screen_supplyType("自制")  # 选择供应类型
         user.screen_inquire()  # 点击查询按钮
         user.assert_screen_result("隆江", num=22)
         logging.info('列表操作，前置条件过滤完成')
@@ -562,7 +579,7 @@ class ModelDatabase(Base):
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.append_button()  # 点击新增按钮
         user.source_option('数仓')  # 选择来源
-        user.supplyType_option('自研')  # 选择供应类型
+        user.supplyType_option('自制')  # 选择供应类型
         user.brand_option('itel')  # 选择品牌
         user.broadCoarse_option('智能机')  # 选择大类粗
         user.broadFine_option('中端SP')  # 选择大类细
@@ -575,8 +592,94 @@ class ModelDatabase(Base):
         user.save_color()  # 保存颜色
         user.state_option('MP')  # 选择状态
         user.save_button("正例")  # 新增保存完成
+
         sleep(2)
 
+    @allure.step("产品配置页-状态过滤")
+    def statusFilt(self, status):
+        self.is_click(user['状态选框'])
+        if status == "待维护":
+            self.is_click(user['状态下拉选项'], "1")
+            sleep(1)
+        elif status == "已维护":
+            self.is_click(user['状态下拉选项'], "2")
+            sleep(1)
+        else:
+            self.is_click(user['状态选框'])
+        logging.info("筛选来源：{}".format(status))
+
+    @allure.step("产品配置页-断言列表数据条数")
+    def listNum(self):
+        ListNum = self.element_text(user['断言 数据条数'])
+        return ListNum
+
+    @allure.step("产品配置页-清除状态选项")
+    def clearOption(self):
+        self.is_click(user['状态选框'])
+        logging.info("鼠标悬停到状态选框")
+        self.is_click(user['清除选项'])
+        logging.info("清空状态选项")
+
+    @allure.step("产品配置页-筛选测试数据")
+    def screenTestData(self, drivers):
+        user = ModelDatabase(drivers)
+        user.goto_tab('产品配置')
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_brand("itel")  # 选择品牌
+        user.screen_mobileType("S11 64+4")  # 输入机型
+        user.screen_marketName("India")  # 输入市场名
+        # user.screen_projectName("A14")  # 输入项目名
+        user.screen_inquire()  # 点击查询按钮
+
+    @allure.step("点击指定行编辑按钮")
+    def edit_button(self, updateOne_name, num):
+        line = self.find_elements(user['列表第n列'], num)
+        name = []  # 取出列表第n列的所有文本
+        for i in range(len(line)):
+            name.append(line[i].text)
+        if updateOne_name in name:
+            lineNum = name.index(updateOne_name) + 1  # 取到所传参数所在行号
+            Nxpath = user['编辑(产品配置)'][1].replace('variable', str(lineNum))
+            self.force_click(Nxpath, xpath_js=True)  # 将行号c替换到xpath中进行相关操作
+            logging.info('点击指定行编辑按钮成功')
+            return str(lineNum), Nxpath
+
+    @allure.step("产品配置页-编辑某列信息")
+    def editData(self, value, inputValue):
+        """ 编辑选项 套片、主板、屏幕"""
+        if value == "套片":
+            Nxpath = user['编辑项'][1].replace('variable', str(12))
+            Nxpath1 = ('xpath', Nxpath)
+            self.force_click(Nxpath, xpath_js=True)
+            self.input_text(Nxpath1, inputValue)
+        elif value == "主板":
+            Nxpath = user['编辑项'][1].replace('variable', str(13))
+            Nxpath1 = ('xpath', Nxpath)
+            self.force_click(Nxpath, xpath_js=True)
+            self.input_text(Nxpath1, inputValue)
+        elif value == "屏幕":
+            Nxpath = user['编辑项'][1].replace('variable', str(14))
+            Nxpath1 = ('xpath', Nxpath)
+            self.force_click(Nxpath, xpath_js=True)
+            self.input_text(Nxpath1, inputValue)
+        else:
+            self.force_click(user['编辑取消(产品配置)'])
+        logging.info("网络制式：{}".format(value))
+
+    @allure.step("编辑保存")
+    def editSave(self):
+        Nxpath = user['编辑保存(产品配置)'][1]
+        self.force_click(Nxpath, xpath_js=True)
+        logging.info("编辑保存成功")
+        sleep(2)
+
+
+    @allure.step("返回指定列文本信息，用做断言")
+    def editAssert(self, num):
+        Nxpath = user['断言（编辑列内容）'][1].replace('variable', str(num))
+        Nxpath1 = ("xpath", Nxpath)
+        Nxpath2 = self.element_text(Nxpath1)
+        return Nxpath2
 
 
 if __name__ == '__main__':

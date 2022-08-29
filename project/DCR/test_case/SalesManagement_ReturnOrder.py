@@ -12,13 +12,20 @@ from libs.common.connect_sql import *
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_return_fixture(drivers):
+    yield
+    close = ReturnOrderPage(drivers)
+    close.click_close_return_order()
 
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
     @allure.story("卖家创建退货单")
     @allure.title("卖家创建无码销售单；然后卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.description("销售单页面，国包用户创建销售单，产品为无码的；卖家创建退货单，退货类型为Return To Seller，退无码产品")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_return_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
@@ -124,13 +131,14 @@ class TestReturnOrder:
         get_status = returnorder.get_return_status()
         ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Approved", get_status)
-        returnorder.click_close_return_order()
+        #returnorder.click_close_return_order()
 
 
     @allure.story("卖家创建退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.description("销售单页面，国包用户创建有码出库单；卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_return_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -212,7 +220,6 @@ class TestReturnOrder:
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
 
-
         """点击提交按钮"""
         return_order.click_Submit()
         dom = DomAssert(drivers)
@@ -229,13 +236,14 @@ class TestReturnOrder:
         get_status = return_order.get_return_status()
         ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Approved", get_status)
-        return_order.click_close_return_order()
+        #return_order.click_close_return_order()
 
 
     @allure.story("卖家创建退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
     @allure.description("销售单页面，国包用户卖家创建有码出库单；卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_return_fixture')
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -343,14 +351,14 @@ class TestReturnOrder:
         get_status = return_order.get_return_status()
         ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Approved", get_status)
-        return_order.click_close_return_order()
-
+        #return_order.click_close_return_order()
 
 
     @allure.story("撤回退货单")
     @allure.title("退货单页面，撤回退货单，Pending Approval状态的订单可撤回")
-    @allure.description("销售单页面，国包用户卖家创建有码出库单；卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
+    @allure.description("销售单页面，国包用户卖家创建无码出库单；二代用户快速收货；最后新建退货单，然后进行撤回退货单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_return_fixture')
     def test_001_004(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
@@ -406,7 +414,7 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(status, "Goods Receipt")
         receipt.click_close_inbound_receipt()
 
-        """二代用户打开退货页面，点击退货按钮，然后点击撤销退货操作"""
+        """二代用户打开退货页面，点击退货按钮，进行退货操作"""
         user.initialize_login(drivers, "NG2061301", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
@@ -437,7 +445,7 @@ class TestReturnOrder:
         DomAssert(drivers).assert_att("Approval successfully")
         get_status_cancel = recall_return.get_return_status()
         ValueAssert.value_assert_equal(get_status_cancel, "Cancel")
-        recall_return.click_close_return_order()
+        #recall_return.click_close_return_order()
 
 
 if __name__ == '__main__':

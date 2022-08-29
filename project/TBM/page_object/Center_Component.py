@@ -20,6 +20,7 @@ class CenterComponent(Base, APIRequest):
                 logging.info(f'点击二级菜单:{nestmenu}')
                 sleep(1)
                 self.refresh()
+                self.click_menu(metatitle, nestmenu)
             except Exception as e:
                 self.base_get_img()
                 self.refresh()
@@ -29,6 +30,7 @@ class CenterComponent(Base, APIRequest):
                 logging.info(f'点击二级菜单:{nestmenu}')
                 sleep(1)
                 self.refresh()
+                self.click_menu(metatitle, nestmenu)
 
     @allure.step("初始化浏览器")
     def refresh_webpage(self):
@@ -291,7 +293,7 @@ class CenterComponent(Base, APIRequest):
         self.screening_code(code)
         approver = self.element_text(user['待办列表-我申请的-审批人'], code)
         try:
-            assert approver == name
+            assert name in approver
             logging.info('断言成功，审批人为:{}'.format(approver))
         except:
             self.base_get_img()
@@ -388,6 +390,15 @@ class CenterComponent(Base, APIRequest):
         self.is_click_tbm(user['oneworks-回退确定'])
         logging.info('点击回退确定')
 
+    @allure.step("点击新增")
+    def click_add(self):
+        self.is_click_tbm(user['新增'])
+        sleep(1)
+        if self.element_exist(user['基本信息']) is False:
+            self.is_click_tbm(user['新增'])
+            sleep(1)
+        self.base_get_img()
+        DomAssert(self.driver).assert_att('基本信息')
 
 if __name__ == '__main__':
     pass

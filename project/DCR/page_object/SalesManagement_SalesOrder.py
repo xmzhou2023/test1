@@ -106,7 +106,7 @@ class SalesOrderPage(Base):
     @allure.step("点击check 检查按钮")
     def click_check(self):
         self.is_click_dcr(user['Check'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("点击Submit Delivery提交出库单按钮")
     def click_submit_delivery(self):
@@ -146,7 +146,7 @@ class SalesOrderPage(Base):
     @allure.step("IMEI库存页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(5.5)
+        sleep(6)
 
     @allure.step("获取IMEI库存页面，IMEI文本内容")
     def get_text_imei_inventory(self):
@@ -161,7 +161,7 @@ class SalesOrderPage(Base):
     @allure.step("关闭Sales Order 菜单")
     def click_close_sales_order(self):
         self.is_click(user['关闭Sales Order'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("点击删除按钮")
     def click_delete_sales(self):
@@ -269,7 +269,7 @@ class SalesOrderPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("销售单页面，点击Export导出按钮")
     def click_export(self):

@@ -1,8 +1,10 @@
 import allure
 import pytest
+
 from public.base.assert_ui import *
 from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_RegionMgmt import AreaPage
+
 
 @pytest.fixture(scope='module', autouse=True)
 def module_setup_fixture(drivers):
@@ -12,6 +14,7 @@ def module_setup_fixture(drivers):
     user = DomAssert(drivers)
     user.assert_url("/systemManage/areaManage")
 
+
 @allure.feature("系统管理-区域管理")
 class TestSearchArea:
 
@@ -20,11 +23,11 @@ class TestSearchArea:
     @allure.description("点击‘itel事业部’前往一级区域‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
+    @pytest.mark.run(order=1)
     def test_001_001(self, drivers):
         user = AreaPage(drivers)
         user.goto_tree('itel事业部')
 
-    @pytest.mark.RT
     @allure.story("查询区域")
     @allure.title("前往二级区域")
     @allure.description("点击‘itel事业部’前往二级区域")
@@ -48,6 +51,7 @@ class TestSearchArea:
     @allure.description("点击‘事业部备料’前往四级区域‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
+    @pytest.mark.run(order=4)
     def test_001_004(self, drivers):
         user = AreaPage(drivers)
         user.goto_tree('itel事业部', 'itel事业部', 'itel事业部', '事业部备料')
@@ -177,6 +181,7 @@ class TestAppendArea:
         user.update_market()  # 点击编辑
         user.market_class(market='印度')  # 选择市场分类
         user.save_market()  # 保存
+
         # 删除测试数据
         user.goto_tree('Infinix事业部', 'Xpark业务区', 'Xpark区')
         user.del_list(2, '中国')  # 点击删除按钮
@@ -378,7 +383,6 @@ class TestUpdateArea:
         user.delete_area()  # 删除确认
 
 
-
 @allure.feature("系统管理-区域管理")
 class TestDeleteArea:
 
@@ -446,20 +450,6 @@ class TestDeleteArea:
         user.del_list(2, 'lj测试01')  # 点击删除按钮
         user.delete_area()  # 删除地区部，且大区也被删除
 
-
-@allure.feature("系统管理-区域管理")
-class TestCloseArea:
-
-    @allure.story("关闭区域管理窗口")
-    @allure.title("关闭区域管理窗口")
-    @allure.description("打开‘系统管理-区域管理’窗口，点击页签关闭按钮，关闭窗口")
-    @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
-    def test_006_001(self, drivers):
-        user = AreaPage(drivers)
-        user.close_window(window_name='区域管理')  # 关闭区域管理窗口
-        user = DomAssert(drivers)
-        user.assert_url("/dashboard")
 
 
 if __name__ == '__main__':

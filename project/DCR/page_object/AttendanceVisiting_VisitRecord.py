@@ -89,7 +89,7 @@ class VisitRecordPage(Base):
     @allure.step("Visit Record页面，点击关闭Visit Record菜单")
     def click_close_visit_record(self):
         self.is_click(user['关闭巡店记录菜单'])
-        sleep(2)
+        sleep(1)
 
 
     #巡店记录，导出功能验证

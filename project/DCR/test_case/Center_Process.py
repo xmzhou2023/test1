@@ -10,13 +10,38 @@ from libs.common.time_ui import sleep
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_sales_fixture(drivers):
+    yield
+    close = SalesOrderPage(drivers)
+    close.click_close_sales_order()
+
+@pytest.fixture(scope='function')
+def function_inbound_fixture(drivers):
+    yield
+    close = InboundReceiptPage(drivers)
+    close.click_close_inbound_receipt()
+
+@pytest.fixture(scope='function')
+def function_delivery_fixture(drivers):
+    yield
+    close = DeliveryOrderPage(drivers)
+    close.click_close_delivery_order()
+
+@pytest.fixture(scope='function')
+def function_return_fixture(drivers):
+    yield
+    close = ReturnOrderPage(drivers)
+    close.click_close_return_order()
 
 @allure.feature("渠道销售业务流程")
 class TestSalesBusinessProcess:
     @allure.story("渠道销售有码产品业务流程")
     @allure.title("销售单页面，二代新增销售单操作")
     @allure.description("销售单页面，二代新增销售单操作成功后，校验新增的销售单是否存在")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_sales_fixture')
     def test_001_001(self, drivers):
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
@@ -53,13 +78,14 @@ class TestSalesBusinessProcess:
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
         ValueAssert.value_assert_equal(get_sales_order, order)
         ValueAssert.value_assert_equal(get_status, sales_status)
-        add_sales.click_close_sales_order()
+        #add_sales.click_close_sales_order()
 
 
     @allure.story("渠道销售有码产品业务流程")
     @allure.title("销售单页面，对新增的销售单进行出库操作")
     @allure.description("销售单页面，对新增的销售单进行出库操作成功后，校验销售单状态是否更新")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_sales_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD291501", "dcr123456")
@@ -116,13 +142,14 @@ class TestSalesBusinessProcess:
         text_status = delivery.get_sales_status_text("Delivered")
         """出库操作成功后，验证该条销售单对应的状态是否更新为：Delivered状态"""
         ValueAssert.value_assert_equal(text_status, "Delivered")
-        delivery.click_close_sales_order()
+        #delivery.click_close_sales_order()
 
 
     @allure.story("渠道销售有码产品业务流程")
     @allure.title("采购管理页面，零售商用户快速收货操作")
     @allure.description("采购管理页面，零售商用户快速收货操作成功后，校验收货状态是否更新")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_inbound_fixture')
     def test_001_003(self, drivers):
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
@@ -170,13 +197,14 @@ class TestSalesBusinessProcess:
             """筛选二代收货列表数据，断言数据正确性"""
             ValueAssert.value_assert_equal(salesorder, salesid)
             ValueAssert.value_assert_equal(deliveryorder, deliveryid)
-            receipt.click_close_inbound_receipt()
+            #receipt.click_close_inbound_receipt()
 
 
     @allure.story("渠道销售有码产品业务流程")
     @allure.title("退货页面，零售商用户，对已收货的销售单，进行退货操作")
     @allure.description("退货页面，零售商用户收货成功后，对已收货的销售的，进行退货操作")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_return_fixture')
     def test_001_004(self, drivers):
             """零售商EG00056201账号, 进行退货操作"""
             user1 = LoginPage(drivers)
@@ -214,13 +242,14 @@ class TestSalesBusinessProcess:
             status = return_order.get_return_status()
             ValueAssert.value_assert_equal(delivery_order_id, delivery_code)
             ValueAssert.value_assert_equal("Pending Approval", status)
-            return_order.click_close_return_order()
+            #return_order.click_close_return_order()
 
 
     @allure.story("渠道销售有码产品业务流程")
     @allure.title("退货页面，二代账号, 进行审核退货单操作")
     @allure.description("二代账号, 进行退货审核操作")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_return_fixture')
     def test_001_005(self, drivers):
         """退货单列表页面，二代账号, 进行审核退货单操作"""
         user2 = LoginPage(drivers)
@@ -252,7 +281,7 @@ class TestSalesBusinessProcess:
         """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
         status = return_approve.get_text_Status()
         ValueAssert.value_assert_equal("Approved", status)
-        return_approve.click_close_return_order()
+        #return_approve.click_close_return_order()
 
 
 @allure.feature("渠道销售业务流程")
@@ -260,8 +289,9 @@ class TestDeliveryBusinessProcess:
     @allure.story("聚道出库无码产品业务流程")
     @allure.title("出库单页面，国包用户，新增无码出库单操作")
     @allure.description("出库单页面，国包用户，新增无码出库单操作")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_001(self, drivers):
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_delivery_fixture')
+    def test_002_001(self, drivers):
         user3 = LoginPage(drivers)
         user3.initialize_login(drivers, "BD40344201", "dcr123456")
 
@@ -309,14 +339,15 @@ class TestDeliveryBusinessProcess:
         ValueAssert.value_assert_equal(get_sales_order, order_code)
         ValueAssert.value_assert_equal(get_delivery_order, delivery_code)
         ValueAssert.value_assert_equal(get_status, status)
-        add.click_close_delivery_order()
+        #add.click_close_delivery_order()
 
 
     @allure.story("聚道出库无码产品业务流程")
     @allure.title("国包新建无码出库单后，二代用户，快速收货无码出库单")
     @allure.description("国包新建无码出库单成功后，然后二代快速收货无码出库单")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
-    def test_001_002(self, drivers):
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_inbound_fixture')
+    def test_002_002(self, drivers):
         """二代账号登录 进行 快速收货"""
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "BD291501", "dcr123456")
@@ -356,14 +387,15 @@ class TestDeliveryBusinessProcess:
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
         """断言收货后Status：显示GoodsReceipt状态，匹配一致"""
         ValueAssert.value_assert_equal("Goods Receipt", status)
-        receiv.click_close_inbound_receipt()
+        #receiv.click_close_inbound_receipt()
 
 
     @allure.story("聚道出库无码产品业务流程")
     @allure.title("二代用户，申请退货无码出库单")
     @allure.description("二代收货成功后，然后申请退货无码出库单操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_003(self, drivers):
+    @pytest.mark.usefixtures('function_return_fixture')
+    def test_002_003(self, drivers):
         """二代账号, 对无码出库单进行退货操作"""
         user5 = LoginPage(drivers)
         user5.initialize_login(drivers, "BD291501", "dcr123456")
@@ -410,14 +442,15 @@ class TestDeliveryBusinessProcess:
         status = return_order.get_return_status()
         ValueAssert.value_assert_equal(delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Pending Approval", status)
-        return_order.click_close_return_order()
+        #return_order.click_close_return_order()
 
 
     @allure.story("聚道出库无码产品业务流程")
     @allure.title("退货单页面，国包用户，审核无码退货单操作")
     @allure.description("退货单页面，国包用户，进行审核无码退货单操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_004(self, drivers):
+    @pytest.mark.usefixtures('function_return_fixture')
+    def test_002_004(self, drivers):
         """退货单列表页面，国包账号, 进行退货审核操作"""
         user6 = LoginPage(drivers)
         user6.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -446,7 +479,7 @@ class TestDeliveryBusinessProcess:
         """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
         status = return_approve.get_text_Status()
         ValueAssert.value_assert_equal("Approved", status)
-        return_approve.click_close_return_order()
+        #return_approve.click_close_return_order()
 
 
 if __name__ == '__main__':
