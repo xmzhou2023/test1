@@ -8,7 +8,7 @@ from libs.config.conf import LOCATE_MODE, DOWNLOAD_PATH, IMAGE_PATH, BASE_DIR
 from libs.common.time_ui import sleep
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
-import os
+import os,sys
 import logging
 import allure
 import datetime
@@ -29,6 +29,8 @@ class Base(object):
         self.driver = driver
         self.timeout = 20
         self.wait = WebDriverWait(self.driver, self.timeout)
+        if 'linux' in sys.platform:
+            CHROME_DOWNLOAD_PATH = '/home/seluser/Downloads'
 
     @staticmethod
     def element_locator(func, locator):
@@ -369,11 +371,11 @@ class Base(object):
     def download_file(self, filename, load=5):
         """下载到指定路径"""
         try:
-            if os.path.exists(DOWNLOAD_PATH):
-                logging.info("指定下载路径: {}".format(DOWNLOAD_PATH))
+            if os.path.exists(self.CHROME_DOWNLOAD_PATH):
+                logging.info("指定下载路径: {}".format(self.CHROME_DOWNLOAD_PATH))
                 sleep(int(load))
-                logging.info(os.listdir(DOWNLOAD_PATH))
-                for file in os.listdir(DOWNLOAD_PATH):
+                logging.info(os.listdir(self.CHROME_DOWNLOAD_PATH))
+                for file in os.listdir(self.CHROME_DOWNLOAD_PATH):
                     if filename in file:
                         return True
                     return False
