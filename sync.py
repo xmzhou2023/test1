@@ -149,7 +149,7 @@ def get_PyClass(filepath):
             if re.match("    def (.*)\(", line):
                 function_name = re.match("    def (.*)\(", line)
                 function_name = function_name.group(1)
-                print(function_name)
+                # print(function_name)
                 if '_fixture' in function_name:
                     continue
                 try:
