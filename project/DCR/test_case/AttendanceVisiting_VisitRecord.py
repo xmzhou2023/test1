@@ -8,13 +8,27 @@ import datetime
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_query_fixture(drivers):
+    yield
+    close = VisitRecordPage(drivers)
+    close.click_close_visit_record()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    close = VisitRecordPage(drivers)
+    close.click_close_export_record()
+    close.click_close_visit_record()
 
 @allure.feature("考勤&巡店-巡店记录")
 class TestQueryVisitRecord:
     @allure.story("查询巡店记录")
     @allure.title("巡店记录页面，根据门店ID查询巡店记录列表数据加载")
     @allure.description("巡店记录页面，根据门店ID查询巡店记录列表数据加载，断言数据加载正常")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_query_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -43,7 +57,7 @@ class TestQueryVisitRecord:
         ValueAssert.value_assert_IsNoneNot(visit_date)
         ValueAssert.value_assert_In(operation, "View")
         all_visit.assert_total(total)
-        all_visit.click_close_visit_record()
+        #all_visit.click_close_visit_record()
 
 
 @allure.feature("考勤&巡店-巡店记录")
@@ -51,7 +65,8 @@ class TestExportVisitRecord:
     @allure.story("导出巡店记录")
     @allure.title("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录")
     @allure.description("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """打开考勤与巡店管理-打开巡店记录页面"""
         user = LoginPage(drivers)
@@ -89,8 +104,8 @@ class TestExportVisitRecord:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_visit_record()
+        #export.click_close_export_record()
+        #export.click_close_visit_record()
 
 
 if __name__ == '__main__':

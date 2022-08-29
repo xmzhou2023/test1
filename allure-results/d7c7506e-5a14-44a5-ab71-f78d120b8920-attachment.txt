@@ -1,0 +1,2 @@
+2022-08-26 15:22:13 [[32m    INFO[0m] 查找元素：('xpath', '//div[@id="btnAddClose"]') (basics.py:106)
+2022-08-26 15:22:13 [[32m    INFO[0m] 点击元素：('xpath', '//div[@id="btnAddClose"]') (basics.py:190)

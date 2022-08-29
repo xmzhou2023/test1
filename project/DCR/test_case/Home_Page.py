@@ -8,13 +8,40 @@ import datetime
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_user_fixture(drivers):
+    yield
+    close = HomePagePage(drivers)
+    close.click_close_export_record()
+    close.click_close_user_management()
+
+@pytest.fixture(scope='function')
+def function_customer_fixture(drivers):
+    yield
+    close = HomePagePage(drivers)
+    close.click_close_export_record()
+    close.click_close_customer_mgt()
+
+@pytest.fixture(scope='function')
+def function_shop_fixture(drivers):
+    yield
+    close = HomePagePage(drivers)
+    close.click_close_export_record()
+    close.click_close_shop_mgt()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    close = HomePagePage(drivers)
+    close.click_close_export_record()
 
 @allure.feature("首页")
 class TestQueryAllIndicatorsOnTheHomepage:
     @allure.story("查询User Management& Authorization卡片")
     @allure.title("查看Homepage首页，User Management& Authorization卡片维度数据加载")
     @allure.description("查看Homepage首页，User Management& Authorization卡片的各维度数据")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_001(self, drivers):
         """DCR 管理员账号登录"""
         user = LoginPage(drivers)
@@ -41,7 +68,7 @@ class TestQueryAllIndicatorsOnTheHomepage:
     @allure.story("查询Abnormal Data卡片")
     @allure.title("Homepage首页，查询Abnormal Data卡片维度数据加载")
     @allure.description("Homepage首页，查询Abnormal Data卡片的各维度数据")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -70,7 +97,7 @@ class TestQueryAllIndicatorsOnTheHomepage:
     @allure.story("查询Sub-dealer Management卡片")
     @allure.title("Homepage首页，查询Sub-dealer Management卡片维度数据加载")
     @allure.description("Homepage首页，查询Sub-dealer Management卡片的各维度数据")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -95,7 +122,7 @@ class TestQueryAllIndicatorsOnTheHomepage:
     @allure.story("查询Distributor Management卡片")
     @allure.title("Homepage首页，查询Distributor Management卡片维度数据加载")
     @allure.description("Homepage首页，查询Distributor Management卡片的各维度数据")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_004(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -146,7 +173,8 @@ class TestExportAllIndicatorsOnTheHomepage:
     @allure.story("导出User Management & Authorization卡片")
     @allure.title("Homepage首页，导出User Management & Authorization卡片维度数据")
     @allure.description("Homepage首页的，导出User Management& Authorization卡片的各维度数据")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_user_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -186,13 +214,15 @@ class TestExportAllIndicatorsOnTheHomepage:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_user_management()
+        # export.click_close_export_record()
+        # export.click_close_user_management()
 
 
     @allure.story("导出Abnormal Data卡片")
     @allure.title("Homepage首页，导出Abnormal Data卡片维度数据")
     @allure.description("Homepage首页，导出Abnormal Data卡片的各维度数据")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -230,14 +260,15 @@ class TestExportAllIndicatorsOnTheHomepage:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
+        #export.click_close_export_record()
         sleep(1)
 
 
     @allure.story("导出Sub-dealer Management卡片")
     @allure.title("Homepage首页，导出Sub-dealer Management卡片维度数据")
     @allure.description("Homepage首页，导出Sub-dealer Management卡片的各维度数据")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_customer_fixture')
     def test_002_003(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -275,14 +306,15 @@ class TestExportAllIndicatorsOnTheHomepage:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_customer_mgt()
+        # export.click_close_export_record()
+        # export.click_close_customer_mgt()
 
 
     @allure.story("导出Distributor Management卡片")
     @allure.title("Homepage首页，导出Distributor Management卡片维度数据")
     @allure.description("Homepage首页，导出Distributor Management卡片的各维度数据")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_customer_fixture')
     def test_002_004(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -317,14 +349,15 @@ class TestExportAllIndicatorsOnTheHomepage:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_customer_mgt()
+        # export.click_close_export_record()
+        # export.click_close_customer_mgt()
 
 
     @allure.story("导出Shop Management卡片")
     @allure.title("Homepage首页，导出Shop Management卡片维度数据")
     @allure.description("Homepage首页，导出Shop Management卡片的各维度数据")
-    @allure.severity("critical")  # 分别为5种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_fixture')
     def test_002_005(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -361,8 +394,8 @@ class TestExportAllIndicatorsOnTheHomepage:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_shop_mgt()
+        # export.click_close_export_record()
+        # export.click_close_shop_mgt()
 
 
 if __name__ == '__main__':

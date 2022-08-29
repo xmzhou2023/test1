@@ -14,12 +14,16 @@ import logging
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 @pytest.fixture(scope='module' , autouse=True) # 模块名称
-def smodule_setup_fixture(drivers):
+def module_fixture(drivers):
     logging.info("模块前置条件，前往operation页面")
     user = NavPage(drivers)
     user.click_gotonav("OperationMgt", "PolicyandProfits", "WarrantyDurationMgt")  # 点击菜单
     user= DomAssert(drivers)
     user.assert_url("/policyAndProfits/warrantyDurationMgt")
+    yield
+    logging.info("后置条件：收起菜单")
+    user = NavPage(drivers)
+    user.click_gotonav("OperationMgt")
 
 @allure.feature("政策与权益") # 模块名称
 class TestWarrantyDurationMgt:

@@ -125,6 +125,11 @@ class SrmLoginPage(Base):
     def click_login(self):
         self.is_click(login["登录srm"])
 
+    def get_current_url(self):
+        return self.driver.current_url
+
+
+
 
 
 if __name__ == '__main__':

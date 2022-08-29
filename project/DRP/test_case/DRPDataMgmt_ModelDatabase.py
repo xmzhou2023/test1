@@ -14,8 +14,8 @@ def module_setup_fixture(drivers):
     user.assert_url("/dataManage/modelLibrary")
 
 
-@allure.feature("DRP数据管理-机型库")
-class TestSwitchMenu:
+@allure.feature("DRP数据管理-机型库-产品信息")
+class TestProductInformationSwitchMenu:
 
     @allure.story("前往菜单")
     @allure.title("前往产品信息菜单")
@@ -51,8 +51,8 @@ class TestSwitchMenu:
         ValueAssert.value_assert_equal(title, "管理维度")
 
 
-@allure.feature("DRP数据管理-机型库")
-class TestButtonFunction:
+@allure.feature("DRP数据管理-机型库-产品信息")
+class TestProductInformationButtonFunction:
 
     @allure.story("页面按钮功能验证")
     @allure.title("产品信息，新增按钮 功能验证")
@@ -117,8 +117,8 @@ class TestButtonFunction:
         user.close_screen()
 
 
-@allure.feature("DRP数据管理-机型库")
-class TestAppendProduct:
+@allure.feature("DRP数据管理-机型库-产品信息")
+class TestProductInformationAppendProduct:
 
     @allure.story("新增产品信息")
     @allure.title("新增机型，合法维护必填项 新增成功")
@@ -130,7 +130,7 @@ class TestAppendProduct:
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.append_button()  # 点击新增按钮
         user.source_option('数仓')  # 选择来源
-        user.supplyType_option('自研')  # 选择供应类型
+        user.supplyType_option('自制')  # 选择供应类型
         user.brand_option('itel')  # 选择品牌
         user.broadCoarse_option('智能机')  # 选择大类粗
         user.series_option('A')  # 选择系列
@@ -145,7 +145,7 @@ class TestAppendProduct:
         hintAssert = user.save_hint()
         ValueAssert.value_assert_equal(hintAssert,"新增成功!")
         """清空测试数据"""
-        user.delete_testData(drivers,brand='itel',broadCoarse='智能机',mobileType='S11 64+4',marketName='India',series='A',projectName='S11',state='MP',source='数仓',supplyType='自研')
+        user.delete_testData(drivers,brand='itel',broadCoarse='智能机',mobileType='S11 64+4')
 
     @allure.story("新增产品信息")
     @allure.title("新增机型，合法维护全部字段 新增成功")
@@ -157,7 +157,7 @@ class TestAppendProduct:
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.append_button()  # 点击新增按钮
         user.source_option('数仓')  # 选择来源
-        user.supplyType_option('自研')  # 选择供应类型
+        user.supplyType_option('自制')  # 选择供应类型
         user.brand_option('itel')  # 选择品牌
         user.broadCoarse_option('智能机')  # 选择大类粗
         user.broadFine_option('中端SP')  # 选择大类细
@@ -178,8 +178,7 @@ class TestAppendProduct:
         hintAssert = user.save_hint()
         ValueAssert.value_assert_equal(hintAssert,"新增成功!")
         """清空测试数据"""
-        user.delete_testData(drivers,brand='itel',broadCoarse='智能机',mobileType='S11 64+4',marketName='India',series='A',projectName='S11',state='MP',source='数仓',supplyType='自研')
-
+        user.delete_testData(drivers, brand='itel', broadCoarse='智能机', mobileType='S11 64+4')
 
     @allure.story("新增产品信息")
     @allure.title("新增机型，来源=自建，项目名为文本输入框，新增成功")
@@ -191,7 +190,7 @@ class TestAppendProduct:
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.append_button()  # 点击新增按钮
         user.source_option('自建')  # 选择来源
-        user.supplyType_option('自研')  # 选择供应类型
+        user.supplyType_option('自制')  # 选择供应类型
         user.brand_option('itel')  # 选择品牌
         user.broadCoarse_option('智能机')  # 选择大类粗
         user.broadFine_option('中端SP')  # 选择大类细
@@ -212,8 +211,7 @@ class TestAppendProduct:
         hintAssert = user.save_hint()
         ValueAssert.value_assert_equal(hintAssert,"新增成功!")
         """清空测试数据"""
-        user.delete_testData(drivers,brand='itel',broadCoarse='智能机',mobileType='S11 64+5',marketName='India',series='P',projectName='S11',state='MP',source='自建',supplyType='自研')
-
+        user.delete_testData(drivers, brand='itel', broadCoarse='智能机', mobileType='S11 64+5')
 
     @allure.story("新增产品信息")
     @allure.title("[异常]新增机型，有必填项未维护 新增失败")
@@ -225,7 +223,7 @@ class TestAppendProduct:
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.append_button()  # 点击新增按钮
         user.source_option('数仓')  # 选择来源
-        user.supplyType_option('自研')  # 选择供应类型
+        user.supplyType_option('自制')  # 选择供应类型
         user.brand_option('itel')  # 选择品牌
         user.broadCoarse_option()  # 选择大类粗   必填项未维护
         user.series_option('A')  # 选择系列
@@ -238,36 +236,69 @@ class TestAppendProduct:
         user.state_option('MP')  # 选择状态
         user.save_button("反例")  # 新增保存失败 并关闭新建窗口
 
-
-@allure.feature("DRP数据管理-机型库")
-class TestImportFile:
-
-    @allure.story("导入文件")
-    @allure.title("产品信息，导入文件数据正确，导入成功")
-    @allure.description("前往‘产品信息‘菜单，进入导入弹窗，导入文件成功")
+    @allure.story("新增产品信息")
+    @allure.title("重复新增机型，新增失败")
+    @allure.description("前往‘产品信息‘菜单，重复新增相同机型信息，新增失败")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
-    def test_004_001(self, drivers):
+    @pytest.mark.smoke
+    def test_003_005(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
-        user.import_button()
-        user.selectFile_button()
+        user.insert_testData(drivers)
+        user.append_button()  # 点击新增按钮
+        user.source_option('数仓')  # 选择来源
+        user.supplyType_option('自制')  # 选择供应类型
+        user.brand_option('itel')  # 选择品牌
+        user.broadCoarse_option('智能机')  # 选择大类粗
+        user.series_option('A')  # 选择系列
+        user.projectName_option('S11')  # 填选项目名
+        user.memoryVersion('64+4')  # 输入内存版本
+        user.network_option('5G')  # 选择网络制式
+        user.marketName('India')  # 输入市场名
+        user.color('半透黑')  # 选择颜色
+        user.save_color()  # 保存颜色
+        user.state_option('MP')  # 选择状态
+        user.save_button("重复新增")  # 新增保存完成
+        """清空测试数据"""
+        user.delete_testData(drivers,brand='itel',broadCoarse='智能机',mobileType='S11 64+4')
+
+@allure.feature("DRP数据管理-机型库-产品信息")
+class TestProductInformationImportFile:
 
     @allure.story("导入文件")
     @allure.title("产品信息，‘导入-下载模板’按钮 功能验证")
     @allure.description("进入导入弹窗，下载导入模板 成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
-    def test_004_002(self, drivers):
+    def test_004_001(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.import_button()  # 点击‘导入’按钮
         user.downloadTemplate_button('drp_model_template.xlsx')  # 下载导入模板，并断言文件名
-        user.importClose_button()
 
 
-@allure.feature("DRP数据管理-机型库")
-class TestScreenFunction:
+    @allure.story("导入文件")
+    @allure.title("产品信息，导入文件成功")
+    @allure.description("进入导入弹窗，选择导入文件，导入成功")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_004_002(self, drivers):
+        user = ModelDatabase(drivers)
+        user.goto_tab('产品信息')  # 切换到产品信息tab页
+        beforeListNum = user.listNum()
+        user.import_button()  # 点击‘导入’按钮
+        user.selectFile_button(os.path.join(os.path.dirname(os.getcwd()), "data", "机型库", "产品信息.xlsx"))  # 选择文件上传
+        fileAssert = user.selectFile_assert()
+        ValueAssert.value_assert_In(fileAssert, "产品信息.xlsx")
+        user.import_file()
+        afterListNum = user.listNum()
+        ValueAssert.value_assert_Notequal(afterListNum,beforeListNum)
+        user.screen_testData(drivers)
+        user.delete_button("隆江", num=22)
+
+
+@allure.feature("DRP数据管理-机型库-产品信息")
+class TestProductInformationScreenFunction:
     """按条件筛选机型"""
     @allure.story("筛选功能")
     @allure.title("产品信息，筛选功能验证")
@@ -283,11 +314,11 @@ class TestScreenFunction:
         user.screen_broadCoarse("智能机")  # 选择大类粗
         user.screen_mobileType("S11 64+4")  # 输入机型
         user.screen_marketName("India")  # 输入市场名
-        user.screen_series("A")  # 输入系列
+        user.screen_series(series="A")  # 输入系列
         user.screen_projectName("S11")  # 输入项目名
         user.screen_state("MP")  # 选择状态
         user.screen_source("数仓")  # 选择来源
-        user.screen_supplyType("自研")  # 选择供应类型
+        user.screen_supplyType("自制")  # 选择供应类型
         user.screen_inquire()  # 点击查询按钮
         user.assert_screen_result("隆江",num=22)
         """清空测试数据"""
@@ -335,8 +366,8 @@ class TestScreenFunction:
         user.assert_screen_result('冯晨', num=22)
 
 
-@allure.feature("DRP数据管理-机型库")
-class TestUpdate:
+@allure.feature("DRP数据管理-机型库-产品信息")
+class TestProductInformationUpdate:
     """编辑机型信息"""
     @allure.story("编辑功能")
     @allure.title("产品信息，编辑指定行数据")
@@ -346,6 +377,7 @@ class TestUpdate:
     def test_006_001(self, drivers):
         user = ModelDatabase(drivers)
         user.insert_testData(drivers)  # 插入测试数据
+        user.screen_testData(drivers)  # 筛选出测试数据
         user.update_button("隆江", num=22)  # 点击指定行编辑按钮
         user.update_something(2,"外购")
         user.update_save()
@@ -356,8 +388,8 @@ class TestUpdate:
         """清空测试数据"""
         user.delete_button("隆江", num=22)  # 点击指定行删除按钮
 
-@allure.feature("DRP数据管理-机型库")
-class TestDelete:
+@allure.feature("DRP数据管理-机型库-产品信息")
+class TestProductInformationDelete:
     @allure.story("删除功能")
     @allure.title("产品信息，删除指定行数据")
     @allure.description("打开筛选弹窗，输入筛选条件过滤指定数据，将xx数据删除")
@@ -366,13 +398,104 @@ class TestDelete:
     def test_007_001(self, drivers):
         user = ModelDatabase(drivers)
         user.insert_testData(drivers)
+        user.screen_testData(drivers)  # 筛选出测试数据
         user.delete_button("隆江", num=22)  # 点击指定行删除按钮
         hint = user.delete_hint()
         ValueAssert.value_assert_equal(hint, "删除成功!")
 
 
+"""================================================产品配置页面================================================================="""
 
 
+@allure.feature("DRP数据管理-机型库-产品配置")
+class TestProductCofigStatusFilt:
+    @allure.story("产品配置页面 状态过滤")
+    @allure.title("产品配置，选择状态=待维护")
+    @allure.description("进入产品配置页签，选择状态=待维护，页面刷新并只展示状态为待维护的数据")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_008_001(self, drivers):
+        user = ModelDatabase(drivers)
+        user.goto_tab('产品配置')
+        beforeListNum = user.listNum()
+        user.statusFilt("待维护")
+        afterListNum = user.listNum()
+        ValueAssert.value_assert_Notequal(beforeListNum, afterListNum)
+
+    @allure.story("产品配置页面 状态过滤")
+    @allure.title("产品配置，选择状态=已维护")
+    @allure.description("进入产品配置页签，选择状态=已维护，页面刷新并只展示状态为已维护的数据")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_008_002(self, drivers):
+        user = ModelDatabase(drivers)
+        user.goto_tab('产品配置')
+        beforeListNum = user.listNum()
+        user.statusFilt("已维护")
+        afterListNum = user.listNum()
+        ValueAssert.value_assert_Notequal(beforeListNum, afterListNum)
+
+    @allure.story("产品配置页面 状态过滤")
+    @allure.title("产品配置，清空状态筛选条件，列表展示全部数据")
+    @allure.description("进入产品配置页签，选择状态=已维护，页面刷新并只展示状态为已维护的数据，清除选项，列表展示全部数据")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_008_003(self, drivers):
+        user = ModelDatabase(drivers)
+        user.goto_tab('产品配置')
+        user.statusFilt("已维护")
+        beforeListNum = user.listNum()
+        user.clearOption()
+        afterListNum = user.listNum()
+        ValueAssert.value_assert_Notequal(beforeListNum, afterListNum)
+
+
+@allure.feature("DRP数据管理-机型库-产品配置")
+class TestProductCofigScreen:
+    @allure.story("产品配置页面 产品配置筛选")
+    @allure.title("产品配置，分别输入筛选项，列表展示筛选后的结果")
+    @allure.description("进入产品配置页签，分别输入品牌、机型、市场名、项目名，点击查询按钮，列表展示筛选后的结果")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_009_001(self, drivers):
+        user = ModelDatabase(drivers)
+        user.goto_tab('产品配置')
+        beforeListNum = user.listNum()
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_brand("itel")  # 选择品牌
+        user.screen_mobileType("A14 8+512")  # 输入机型
+        user.screen_marketName("A14")  # 输入市场名
+        user.screen_inquire()  # 点击查询按钮
+        afterListNum = user.listNum()
+        ValueAssert.value_assert_Notequal(afterListNum,beforeListNum)
+
+
+@allure.feature("DRP数据管理-机型库-产品配置")
+class TestProductCofigEdit:
+    @allure.story("产品配置页面 编辑新增的机型的产品配置")
+    @allure.title("产品信息新增机型，产品配置编辑对应机型的配置 保存成功")
+    @allure.description("产品信息新增机型，产品配置编辑对应机型的配置 保存成功")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_010_001(self, drivers):
+        user = ModelDatabase(drivers)
+        user.insert_testData1(drivers)
+        user.screenTestData(drivers)
+        user.edit_button("隆江",15)
+        user.editData("套片", inputValue="123")
+        user.editData("主板", "abc")
+        user.editData("屏幕", "ABC")
+        user.editSave()
+        assert1 = user.editAssert(12)
+        ValueAssert.value_assert_equal(assert1,"123")
+        assert2 = user.editAssert(13)
+        ValueAssert.value_assert_equal(assert2,"abc")
+        assert3 = user.editAssert(14)
+        ValueAssert.value_assert_equal(assert3,"ABC")
+        assert4 = user.editAssert(1)
+        ValueAssert.value_assert_equal(assert4,"已维护")
+        user.goto_tab('产品信息')
+        user.delete_testData(drivers,brand='itel',broadCoarse='智能机',mobileType='S11 64+4')
 
 
 

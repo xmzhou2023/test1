@@ -39,8 +39,9 @@ DRP流程管理->节点配置: 'xpath==/html/body/div[10]/ul/div[4]/a/li/span'
 
 DRP数据管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[9]/li/div/span'
 DRP数据管理->机型库: "xpath==//li[@role='menuitem']//span[contains(text(),'机型库')]"
-DRP数据管理->平台库: 'xpath==/html/body/div[11]/ul/div[2]/a/li/span'
-DRP数据管理->颜色库: 'xpath==/html/body/div[11]/ul/div[3]/a/li/span'
+DRP数据管理->平台库: "xpath==//li[@role='menuitem']//span[contains(text(),'平台库')]"
+DRP数据管理->颜色库: "xpath==//li[@role='menuitem']//span[contains(text(),'颜色库')]"
+
 DRP数据管理->月度供应资源: 'xpath==/html/body/div[11]/ul/div[4]/a/li/span'
 DRP数据管理->月度销售订单: 'xpath==/html/body/div[11]/ul/div[5]/a/li/span'
 DRP数据管理->月度清尾任务: 'xpath==/html/body/div[11]/ul/div[5]/a/li/span'

@@ -52,5 +52,14 @@ class Login(Base):
         user.input_elsAccount(elsAccount)      # 输入帐户名
         user.input_elsSubAccount(elsSubAccount)     # 点击帐户密码登录
         user.input_password()
-        user.input_code()
-        user.click_login()
+        # 验证码错误，登录失败重跑
+        for i in range(10):
+            user.input_code()
+            user.click_login()
+            import time
+            time.sleep(1)
+            if 'login' in user.get_current_url():
+                continue
+            else:
+                break
+

@@ -8,12 +8,27 @@ import datetime
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_shop_sale_fixture(drivers):
+    yield
+    close = ShopSaleQueryPage(drivers)
+    close.click_close_shop_sales_query()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    close = ShopSaleQueryPage(drivers)
+    close.click_close_export_record()
+    close.click_close_shop_sales_query()
+
 @allure.feature("销售管理-门店销售查询")
 class TestShopSalesQuery:
     @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_sale_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -40,7 +55,7 @@ class TestShopSalesQuery:
         ValueAssert.value_assert_IsNoneNot(sales_date)
         ValueAssert.value_assert_IsNoneNot(public_id)
         shop_sales.assert_total2(total)
-        shop_sales.click_close_shop_sales_query()
+        #shop_sales.click_close_shop_sales_query()
 
 
 @allure.feature("销售管理-门店销售查询")
@@ -48,7 +63,8 @@ class TestExportShopSalesQuery:
     @allure.story("导出查询门店销量")
     @allure.title("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -92,8 +108,8 @@ class TestExportShopSalesQuery:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_shop_sales_query()
+        #export.click_close_export_record()
+        #export.click_close_shop_sales_query()
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_ShopSalesQuery.py'])

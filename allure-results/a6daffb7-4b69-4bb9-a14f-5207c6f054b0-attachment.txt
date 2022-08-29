@@ -1,0 +1,6 @@
+2022-08-26 15:22:24 [[32m    INFO[0m] 查找元素：('xpath', '//iframe[@id="tab-iframe-evaluateSupplyCategoryConfigurationManager"]') (basics.py:106)
+2022-08-26 15:22:25 [[32m    INFO[0m] 查找元素：('xpath', '//input[@name="evaluatedCode"]') (basics.py:106)
+2022-08-26 15:22:25 [[32m    INFO[0m] 输入文本：H0101 (basics.py:137)
+2022-08-26 15:22:25 [[32m    INFO[0m] 查找元素：('xpath', '//button[text()=" 查询"]') (basics.py:106)
+2022-08-26 15:22:26 [[32m    INFO[0m] 查找元素：('xpath', '//div[@id="win_supplierPerformanceAppraisal"]//a[@title="最小化"]') (basics.py:106)
+2022-08-26 15:22:27 [[32m    INFO[0m] 点击元素：('xpath', '//div[@id="win_supplierPerformanceAppraisal"]//a[@title="最小化"]') (basics.py:190)
