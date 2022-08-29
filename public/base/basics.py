@@ -30,7 +30,7 @@ class Base(object):
         self.timeout = 20
         self.wait = WebDriverWait(self.driver, self.timeout)
         if 'linux' in sys.platform:
-            CHROME_DOWNLOAD_PATH = '/home/seluser/Downloads'
+            self.CHROME_DOWNLOAD_PATH = f'/home/seluser/Downloads'
 
     @staticmethod
     def element_locator(func, locator):
