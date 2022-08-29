@@ -288,7 +288,6 @@ class ModelDatabase(Base):
     def import_file(self):
         self.is_click(user['导入弹窗（导入按钮）'])
         logging.info("点击导入按钮")
-        sleep(2)
 
     @allure.step("导入弹窗-选择文件")
     def import_button(self):
