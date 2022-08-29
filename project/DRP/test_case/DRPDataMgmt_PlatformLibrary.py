@@ -27,6 +27,8 @@ class TestSearchPlatform:
         platform.screenOption("平台","埃塞转出口")
         platform.queryButton()
         platform.screenAssert("平台","埃塞转出口")
+        platform.resetButton()
+
 
     @allure.story("查询物料状态")
     @allure.title("按照物料状态 条件过滤平台库信息")
@@ -38,6 +40,7 @@ class TestSearchPlatform:
         platform.screenOption("物料状态","整机")
         platform.queryButton()
         platform.screenAssert("物料状态","整机")
+        platform.resetButton()
 
     @allure.story("查询可用状态")
     @allure.title("按照可用状态 条件过滤平台库信息")
@@ -49,6 +52,7 @@ class TestSearchPlatform:
         platform.screenOption("可用状态","启用")
         platform.queryButton()
         platform.screenAssert("可用状态","启用")
+        platform.resetButton()
 
 
     @allure.story("组合条件查询 平台、物料状态、可用状态")
@@ -63,6 +67,7 @@ class TestSearchPlatform:
         platform.screenOption("可用状态","启用")
         platform.queryButton()
         platform.screenAssert("平台","HK-整机")
+        platform.resetButton()
 
     @allure.story("异常 查询结果为空")
     @allure.title("按照组合条件过滤平台库信息，查询结果无数据")
@@ -75,6 +80,7 @@ class TestSearchPlatform:
         platform.screenOption("物料状态","CKD")
         platform.queryButton()
         platform.exceptionAssert()
+        platform.resetButton()
 
     @allure.story("查询重置")
     @allure.title("先按条件查询平台信息，点击重置按钮，清空查询条件")
