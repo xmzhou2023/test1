@@ -265,7 +265,12 @@ class ModelDatabase(Base):
 
     @allure.step("导入弹窗-下载导入模板")
     def downloadTemplate_button(self, content):
-        self.check_download(user['下载导入模板'], content)
+        try:
+            self.check_download(user['下载导入模板'], content)
+        except Exception:
+            self.importClose_button()
+            return
+
 
     @allure.step("导入弹窗-选择文件")
     def selectFile_button(self, file):
@@ -280,6 +285,7 @@ class ModelDatabase(Base):
     def import_file(self):
         self.is_click(user['导入弹窗（导入按钮）'])
         logging.info("点击导入按钮")
+        sleep(2)
 
     @allure.step("导入弹窗-选择文件")
     def import_button(self):
