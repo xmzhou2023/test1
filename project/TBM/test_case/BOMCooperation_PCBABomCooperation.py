@@ -40,17 +40,21 @@ class TestCreateProcessExceptionScenario:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_001(self, drivers):
-        user = PCBABomCooperation(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        user.input_add_bom_info('制作类型', 'PCBA BOM制作')
-        user.input_add_bom_info('品牌', 'aaaaa')
-        user.input_add_bom_info('机型', 'JMB-01')
-        user.input_add_bom_info('阶段', '试产阶段')
-        user.input_add_bom_info('制作虚拟贴片/套片', '否')
-        user.assert_add_bomtree_exist(False)
-        user.click_bom_import()
-        user.assert_toast('导入Bom之前需要选中模板')
+        drivers.get("https://pfuac.transsion.com:10101/")
+        drivers.find_element(By.ID, "tab-account").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys("y5dQ")
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys(Keys.ENTER)
+        drivers.find_element(By.CSS_SELECTOR, ".el-submenu:nth-child(4) > .el-submenu__title > span").click()
+        drivers.find_element(By.CSS_SELECTOR, ".el-menu-item:nth-child(4) > span").click()
+        drivers.find_element(By.CSS_SELECTOR, ".el-table__row:nth-child(2) > .el-table_1_column_1").click()
+        drivers.find_element(By.CSS_SELECTOR, ".current-row .el-table__expand-icon").click()
+        drivers.find_element(By.CSS_SELECTOR, ".el-table__row:nth-child(1) > .el-table_1_column_2 > .cell").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".hover").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".hover:nth-child(3) > span").click()
+        drivers.find_element(By.CSS_SELECTOR, ".content").click()
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("BOM tree不能为空")  # 用例名称
     @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中不点击新增BOM，其他内容正确填写，点击提交，提示BOM tree不能为空")
