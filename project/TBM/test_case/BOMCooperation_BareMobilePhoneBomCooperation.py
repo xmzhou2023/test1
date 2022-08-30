@@ -1226,4 +1226,4 @@ class TestProcessApprovalExceptionScenario:
         user.quit_oneworks()
 
 if __name__ == '__main__':
-    pytest.main(['BOMCooperation_BareMobilePhoneBomCooperation.py'])
+    pytest.main(['Test_module.py'])
