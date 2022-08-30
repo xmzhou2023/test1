@@ -3,6 +3,7 @@ from public.base.basics import Base, sleep
 from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+from public.base.assert_ui import DomAssert
 import logging
 from ..test_case.conftest import *
 from datetime import datetime
@@ -73,12 +74,7 @@ class WOSerializedReport(Base):
         self.hover(user['WO Serialized Date开始日期搜索框'])
         self.is_click(user['清除时间搜索框'])
         if scope == all:
-
             self.is_click(user['WO Serialized Report Search'])
-            self.is_click(user['WO Serialized Report Export'], 'Export')
-            self.is_click(user['确认导出'], 'OK')
-        # logging.info("输入框键入{}".format(content))
-            self.refresh()
         else:
             self.is_click(user["Country搜索框"])
             self.input_text(user["Country搜索框"], txt='IN')
@@ -86,8 +82,22 @@ class WOSerializedReport(Base):
             self.hover(user['Country下拉选择'], choice='IN')
             self.is_click(user["Country下拉选择"])
             self.is_click(user['WO Serialized Report Search'])
-            self.is_click(user['WO Serialized Report Export'], 'Export')
-            self.is_click(user['确认导出'], 'OK')
-            self.refresh()
+
+        self.is_click(user['WO Serialized Report Export'], 'Export')
+        self.is_click(user['确认导出'], 'OK')
+        self.find_element(user['页签关闭'], 'WO Serialized Report').click()
+
+
+
+    @allure.step("任务列表文件下载")
+    def download_task(self):
+        self.is_click(user["导出列表页隐藏任务勾选框"])
+        self.is_click(user['任务列表页查询按钮'])
+        # sleep(15)
+        # self.is_click(user['任务列表页查询按钮'])
+
+
+
+
 if __name__ == '__main__':
     pass
