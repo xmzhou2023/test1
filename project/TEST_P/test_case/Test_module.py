@@ -1,61 +1,63 @@
+import allure
 import pytest
-from public.base.assert_ui import *
-from project.TBM.page_object.KeyComponent_KeyComponentFlow import KeyComponentsFlow
+from public.data.unified_login.unified import *
 
+from project.DRP.page_object.Center_Component import NavPage
+from project.DRP.page_object.SystemMgmt_UserMgmt import UserPage
 
-@allure.feature("Test_模块中文名称")  # 模块名称
-class TestCreateProcess:
-    @allure.story("测试场景1")  # 场景名称
-    @allure.title("用例名称1")  # 用例名称
-    @allure.description("测试用例描述1")
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
+@allure.feature("系统管理-用户管理")
+class TestSearchUser: # Test+(增，删，改，查，导入（上传），导出（下载）)
+
+    @allure.story("查询用户")
+    @allure.title("根据姓名查询用户")
+    @allure.description("在输入框输入用户工号18650617,进行查询")
+    @allure.severity("minor")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
     def test_001_001(self, drivers):
-        user = KeyComponentsFlow(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        user.add_item_info()
-        user.add_business_review()
-        user.click_submit()
-        user.assert_toast()
-        process_code = user.get_info()[1]
-        user.delete_flow(process_code)
-
-
-@allure.feature("Test_模块中文名称")  # 模块名称
-class TestTheProcessOfExaminationAndApproval:
-    @allure.story("测试场景2")  # 场景名称
-    @allure.title("用例名称1")  # 用例名称
-    @allure.description("测试用例描述2")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    def test_002_001(self, drivers):
         pass
 
+    @allure.story("查询用户")
+    @allure.title("重置用户查询条件")
+    @allure.description("在输入框输入用户工号或名称，然后重置清除")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    def test_001_002(self, drivers):
+        """用户管理-查询用户"""
+        user = NavPage(drivers)
+        user.click_gotonav("系统管理", "用户管理")
+        user = UserPage(drivers)
+        user.search_user(jobnum=account[0]['usernum'])
+        user.reset_account()
 
-    @allure.story("测试场景2")  # 场景名称
-    @allure.title("用例名称2")  # 用例名称
-    @allure.description("测试用例描述3")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    def test_002_002(self, drivers):
-        user = KeyComponentsFlow(drivers)
-        user.refresh_webpage()
-        user.click_onework_unfold('摄像头+闪光灯')
-        user.click_onework_module('CTP')
-        user.click_onework_code_add()
-        user.click_onework_material_add('CTP(1供)')
-        user.click_onework_material_pending_code('CTP(1供)')
-        user.input_onework_material_details('物料属性', '属性test')
-        user.scroll_onework_material_param()
-        user.input_onework_material_parameter('技术类型', 'GFF', False)
-        user.input_onework_material_parameter('CG颜色', 'CG颜色test')
-        user.input_onework_material_parameter('接口类型', '接口类型test')
-        user.input_onework_material_parameter('连接方式', '焊接', False)
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+@allure.feature("系统管理-用户管理")
+class TestAppendUser:
+    @allure.story("新建用户")
+    @allure.title("根据姓名查询用户并添加456")
+    @allure.description("查询工号为18650893，并添加该用户到系统")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_002_001(self, drivers):
+        """用户管理-新建用户"""
+        user = UserPage(drivers)
+        user.append_account("18650893")
 
+@allure.feature("系统管理-用户管理")
+class TestEditUser:
+    @allure.story("编辑用户")
+    @allure.title("查找到指定用户并配置菜单权限")
+    @allure.description("更新工号为18650893的用户添加组织权限为‘itel事业部’和‘东非地区部‘")
+    @allure.severity("critical")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.RT
+    def test_003_001(self, drivers):
+        user = UserPage(drivers)
+        user.edit_Permission(
+            jobnum="18650893",
+            dimension={
+                '组织': ['itel事业部', '东非地区部'],
+                # '品牌': ['Infinix', 'itel', 'TECNO'],
+                # '区域': {'Infinix': ['利比亚', '土耳其']}
+            }
+        )
 
 if __name__ == '__main__':
-    pytest.main(['Test_module.py'])
+    pytest.main(['project/DRP/testcase/run_code.py'])
+
