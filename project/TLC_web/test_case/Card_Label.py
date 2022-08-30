@@ -351,4 +351,4 @@ class TestQueryLabel:
 
 
 if __name__ == '__main__':
-    pytest.main(['project/TLC_web/test_case/Card_Center/Card_Label.py'])
+    pytest.main(['project/TLC_web/test_case/Card_Label.py'])
