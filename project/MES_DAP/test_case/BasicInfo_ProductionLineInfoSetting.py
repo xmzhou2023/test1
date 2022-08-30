@@ -144,18 +144,18 @@ class TestDelProductionLineInfoSetting:
                                "='100047';")
 
 
-@allure.feature("基础信息-产线信息配置")
-class TestExportProductionLineInfoSetting:
-    @allure.story("导出产线信息配置")
-    @allure.title("按工段导出产线信息配置")
-    @allure.description("进入产线信息配置>重置查询条件>选择PCBA工段>查询全量数据>点击导出按钮")
-    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    def test_1028962(self, drivers):
-        info = ProductionLineInfoSetting(drivers)
-        info.click_reset()
-        info.choice_workshop_section('PCBA')
-        info.click_search()
-        info.click_export(content="ExportLineConfig")
+# @allure.feature("基础信息-产线信息配置")
+# class TestExportProductionLineInfoSetting:
+#     @allure.story("导出产线信息配置")
+#     @allure.title("按工段导出产线信息配置")
+#     @allure.description("进入产线信息配置>重置查询条件>选择PCBA工段>查询全量数据>点击导出按钮")
+#     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+#     def test_1028962(self, drivers):
+#         info = ProductionLineInfoSetting(drivers)
+#         info.click_reset()
+#         info.choice_workshop_section('PCBA')
+#         info.click_search()
+#         info.click_export(content="ExportLineConfig")
 
 
 

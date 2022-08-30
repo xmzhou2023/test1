@@ -141,17 +141,17 @@ class TestDelBssicInfo_FingerPrintCodes:
                                " 'SA1' and main_board = 'A245';")
 
 
-@allure.feature("基础信息-FingerPrint版本库")
-class TestExportBssicInfo_FingerPrintCodes:
-    @allure.story("导出FingerPrint版本")
-    @allure.title("按工段导出FingerPrint版本")
-    @allure.description("进入FingerPrint版本库>重置查询条件>查询全量数据>点击导出按钮")
-    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    def test_1279695(self, drivers):
-        info = BssicInfo_FingerPrintCodes(drivers)
-        info.click_reset()
-        info.click_search()
-        info.click_export(content="FingerprintCodes")
+# @allure.feature("基础信息-FingerPrint版本库")
+# class TestExportBssicInfo_FingerPrintCodes:
+#     @allure.story("导出FingerPrint版本")
+#     @allure.title("按工段导出FingerPrint版本")
+#     @allure.description("进入FingerPrint版本库>重置查询条件>查询全量数据>点击导出按钮")
+#     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+#     def test_1279695(self, drivers):
+#         info = BssicInfo_FingerPrintCodes(drivers)
+#         info.click_reset()
+#         info.click_search()
+#         info.click_export(content="FingerprintCodes")
 
 
 

@@ -8,6 +8,9 @@
 获取登录账号: "xpath==//span[@class='el-dropdown-link el-dropdown-selfdefine']"
 退出登录: "xpath==//div[@class='right-menu-item']//img"
 
+关闭当前打开的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']//span[@class='el-icon-close']"
+打开状态的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']"
+
 ###=====定位菜单元素=======================================
 Home Page: "xpath==//span[(text()='Home Page')]"
 Home Page-Customer: "xpath==//span[(text()='Home Page-Customer')]"

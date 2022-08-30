@@ -10,6 +10,36 @@ from public.base.basics import Base
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+# @pytest.fixture(scope='function')
+# def function_delivery_fixture(drivers):
+#     yield
+#     close = DeliveryOrderPage(drivers)
+#     close.click_close_delivery_order()
+#
+# @pytest.fixture(scope='function')
+# def function_inbound_fixture(drivers):
+#     yield
+#     close = InboundReceiptPage(drivers)
+#     close.click_close_inbound_receipt()
+#
+# @pytest.fixture(scope='function')
+# def function_return_fixture(drivers):
+#     yield
+#     close = ReturnOrderPage(drivers)
+#     close.click_close_return_order()
+
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    for i in range(1):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
+
 
 @allure.feature("销售管理-出库单")
 class TestQuerySubDelivery:
@@ -17,6 +47,7 @@ class TestQuerySubDelivery:
     @allure.title("按出库单条件筛选，出库单列表数据")
     @allure.description("根据销售单与出库单条件，筛选出库单列表数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
@@ -40,7 +71,7 @@ class TestQuerySubDelivery:
         """出库单页面，调用断言封装的方法，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(salesorder, salesorder2)
         ValueAssert.value_assert_equal(deliveryorder, deliveryorder2)
-        query.click_close_delivery_order()
+        #query.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -49,6 +80,7 @@ class TestAddSubDelivery:
     @allure.title("二代新增出库单")
     @allure.description("二代用户新增出库单，然后根据新建的出库断言是否加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         """出库单列表页，二代用户新增出库单用例 """
         user1 = LoginPage(drivers)
@@ -126,7 +158,7 @@ class TestAddSubDelivery:
         if status == 80200000:
             delivery_status = "On Transit"
             ValueAssert.value_assert_equal(delivery_status, del_status)
-        add.click_close_delivery_order()
+        #add.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -135,6 +167,7 @@ class TestRetailReceiv:
     @allure.title("零售商快速收货")
     @allure.description("新增出库单成功后，然后快速收货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_001(self, drivers):
         """零售商EG00056201账号登录， 进行快速收货"""
         user2 = LoginPage(drivers)
@@ -171,7 +204,7 @@ class TestRetailReceiv:
         """筛选二代收货列表数据，断言数据正确性"""
         ValueAssert.value_assert_equal(salesorder, order_code)
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
-        receiv.click_close_inbound_receipt()
+        #receiv.click_close_inbound_receipt()
 
 
 @allure.feature("销售管理-出库单")
@@ -180,6 +213,7 @@ class TestRetailReturn:
     @allure.title("零售商申请退货出库单")
     @allure.description("零售商收货成功后，然后零售商用户申请退货出库单操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_001(self, drivers):
         """零售商EG00056201账号, 进行退货操作"""
         user3 = LoginPage(drivers)
@@ -217,7 +251,7 @@ class TestRetailReturn:
         status = return_order.get_return_status()
         ValueAssert.value_assert_equal(Delivery_OrderID, delivery_code)
         ValueAssert.value_assert_equal("Pending Approval", status)
-        return_order.click_close_return_order()
+        #return_order.click_close_return_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -226,6 +260,7 @@ class TestSubReturnApprove:
     @allure.title("退货单页面，二代账号, 进行审核退货单操作")
     @allure.description("退货单页面，二代账号, 进行审核退货操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_005_001(self, drivers):
         """退货单列表页面，二代账号, 进行审核退货单操作"""
         user4 = LoginPage(drivers)
@@ -257,8 +292,7 @@ class TestSubReturnApprove:
         """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
         status = return_approve.get_text_Status()
         ValueAssert.value_assert_equal("Approved", status)
-        return_approve.click_close_return_order()
-
+        #return_approve.click_close_return_order()
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_EDDeliveryOrder.py'])

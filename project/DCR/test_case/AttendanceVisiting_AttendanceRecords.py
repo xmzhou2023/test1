@@ -9,18 +9,30 @@ import pytest
 import allure
 
 """后置关闭菜单方法"""
-@pytest.fixture(scope='function')
-def function_query_fixture(drivers):
-    yield
-    close = AttendanceRecordPage(drivers)
-    close.click_close_atten_record()
+# @pytest.fixture(scope='function')
+# def function_query_fixture(drivers):
+#     yield
+#     close = AttendanceRecordPage(drivers)
+#     close.click_close_atten_record()
+#
+# @pytest.fixture(scope='function')
+# def function_export_fixture(drivers):
+#     yield
+#     close = AttendanceRecordPage(drivers)
+#     close.click_close_export_record()
+#     close.click_close_atten_record()
 
 @pytest.fixture(scope='function')
-def function_export_fixture(drivers):
+def function_menu_fixture(drivers):
     yield
-    close = AttendanceRecordPage(drivers)
-    close.click_close_export_record()
-    close.click_close_atten_record()
+    menu = LoginPage(drivers)
+    for i in range(1):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
+
 
 @allure.feature("考勤&巡店-考勤记录")
 class TestQueryAttendanceRecord:
@@ -28,7 +40,7 @@ class TestQueryAttendanceRecord:
     @allure.title("考勤记录页面，查询考勤记录列表数据加载")
     @allure.description("考勤记录页面，查询考勤记录列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_query_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -57,7 +69,7 @@ class TestExportAttendanceRecord:
     @allure.title("考勤记录页面，导出筛选用户的当天考勤记录")
     @allure.description("考勤记录页面，查询某个用户的，当天考勤记录，然后导出筛选的考勤记录")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_export_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")

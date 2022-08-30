@@ -265,12 +265,20 @@ class ModelDatabase(Base):
 
     @allure.step("导入弹窗-下载导入模板")
     def downloadTemplate_button(self, content):
-        self.check_download(user['下载导入模板'], content)
+        try:
+            self.check_download(user['下载导入模板'], content)
+        except Exception:
+            self.importClose_button()
+            return
 
     @allure.step("导入弹窗-选择文件")
     def selectFile_button(self, file):
-        self.upload_file(user['选择文件'], file)
-        logging.info("选择文件{}".format(file))
+        try:
+            self.upload_file(user['选择文件'], file)
+            logging.info("选择文件{}".format(file))
+        except Exception:
+            self.importClose_button()
+            return
 
     @allure.step("导入弹窗-选择文件后断言")
     def selectFile_assert(self):

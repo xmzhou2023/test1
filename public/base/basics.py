@@ -360,13 +360,13 @@ class Base(object):
             actions.move_to_element(element).perform()
             sleep(1)
 
-    def clear_download(self):
+    def clear_download(self, path):
         """清空下载路径"""
-        for file in os.listdir(DOWNLOAD_PATH):
+        for file in os.listdir(path):
             if len(file) > 0:
-                os.remove(DOWNLOAD_PATH + r"/" + file)
+                os.remove(path + r"/" + file)
 
-    def download_file(self, filename, load=1):
+    def download_file(self, filename, load=5):
         """下载到指定路径"""
         try:
             if os.path.exists(DOWNLOAD_PATH):
@@ -382,7 +382,7 @@ class Base(object):
 
     def check_download(self, locator, content):
         """下载并断言文件名是否符合预期"""
-        self.clear_download()
+        self.clear_download(DOWNLOAD_PATH)
         self.find_element(locator).click()
         assert self.download_file(filename=content, load=3), logging.warning("断言失败: 下载该附件失败 | {} ".format(content))
         logging.info("断言成功: 下载该附件成功 | {} ".format(content))
