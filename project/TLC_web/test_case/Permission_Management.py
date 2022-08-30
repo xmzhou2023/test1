@@ -70,5 +70,5 @@ class TestAddRole:
 
 
 if __name__ == '__main__':
-    pytest.main(['project/TLC_web/test_case/Permission_Management.py'])
+    pytest.main(['p'])
 
