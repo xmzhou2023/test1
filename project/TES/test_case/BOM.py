@@ -32,22 +32,22 @@ class TestUtil:
         # instance.click('新增')
 
         # 直接进入 新增页面
-        instance.jump_to('http://bom-sit.transsion.com/#/start-flow/add')
+        instance.switch_location('http://bom-sit.transsion.com/#/start-flow/add')
 
-        # BOM信息录入
+        # __________________________________BOM信息录入_______________________________________________________
         instance.BOM_select_info_input('Bom信息-品牌', 'Bom信息-Infinix')
         instance.BOM_select_info_input('Bom信息-市场', 'Bom信息-孟加拉')
-        instance.BOM_select_info_input('Bom信息-阶段', 'Bom信息-量产阶段')
+        instance.BOM_select_info_input('Bom信息-阶段', 'Bom信息-试产阶段')
 
         instance.BOM_select_info_input('Bom信息-制作类型', 'Bom信息-生产BOM')
         instance.BOM_select_info_input('Bom信息-机型', 'Bom信息-X559', ' ')
 
         sleep(1)
 
-        # BOM Tree 录入 点击新增 BOM
+        # __________________________________BOM Tree 录入________________________________________
         instance.click('新增Bom')
         instance.BOM_select_info_input('新增Bom-Bom类型', '新增Bom-国内生产BOM')
-        instance.BOM_select_info_input('新增Bom-Bom状态', '新增Bom-转量产')
+        instance.BOM_select_info_input('新增Bom-Bom状态', '新增Bom-试产')
         # 点击编辑按钮
         instance.click('新增Bom-编辑')
 
@@ -55,18 +55,18 @@ class TestUtil:
         instance.normal_input('新增Bom-物料编码', '10000001')
         instance.click('新增Bom-10000001')
 
-        instance.normal_input('新增Bom-用量', '1')
+        instance.normal_input('新增Bom-用量', '1000')
 
-        # 录入结束, 点击确认
+        # __________________________________________录入结束_______________________________________
         instance.click('新增Bom-确定')
 
-        # 业务评审
+        # __________________________________________业务评审_______________________________________
         instance.click('审核人设置-MPM')
         instance.normal_input('用户输入', '18645960')
         instance.click('用户选择')
         instance.click('审核人设置-确定')
 
-        # 业务审核
+        # ___________________________________________业务审核______________________________________
         instance.click('审核人设置-采购部')
         instance.normal_input('用户输入', '18645960')
         instance.click('用户选择')
@@ -75,8 +75,35 @@ class TestUtil:
         # 提交
         instance.click('提交')
         sleep(1)
-        DomAssert(drivers).assert_att('提交成功')
+        DomAssert(drivers).assert_att('创建流程成功')
 
+
+        # ____________________________________________撤销流程____________________________________________
+        instance.switch_location('http://bom-sit.transsion.com/#/archive/list')
+        sleep(2)
+        # 获取流程编码
+        code = instance.getText()
+
+        # 我的申请
+        instance.switch_location('http://bom-sit.transsion.com/#/process/applicant')
+        sleep(1)
+        instance.refresh()
+        # 进入iframe
+        instance.switch_iframe('iframe')
+        instance.click('查看详情', code)
+
+        # 此时会打开一个新窗口
+        instance.switch_window(1)
+        instance.click('撤回')
+        instance.click('确定撤回')
+        instance.close_switch(1)
+
+        instance.switch_location('http://bom-sit.transsion.com/#/archive/list')
+        # 刷新一下页面
+        instance.click('查询')
+        instance.click('删除', code)
+        instance.click('确定撤回')
+        DomAssert(drivers).assert_att('删除成功')
 
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])

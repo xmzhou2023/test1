@@ -9,11 +9,15 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
+
 class UserPage(Base):
     """用户类"""
 
+    def replaceXpath(self, arr, s):
+        return [arr[0], arr[1].replace('variable', s)]
+
     @allure.step("查找工号")
-    def search_user(self, jobnum=None,name=None):
+    def search_user(self, jobnum=None, name=None):
         if jobnum is not None:
             self.readonly_input_text(user['用户管理-工号输入框'], txt=jobnum)
             sleep(2)
@@ -31,10 +35,15 @@ class UserPage(Base):
         self.is_click(user['二级菜单'])
         sleep(1)
 
-    def click(self, locatorText):
-        self.is_click_tbm(user[locatorText])
+    @allure.step("点击按钮")
+    def click(self, locatorText, s=None):
+        res = user[locatorText]
+        if s:
+            res = tuple(self.replaceXpath(res, s))
+        self.is_click_tbm(res)
 
-    def BOM_select_info_input(self, locatorStr1, locatorStr2, searchText = None):
+    @allure.step("BOM信息下拉框录入")
+    def BOM_select_info_input(self, locatorStr1, locatorStr2, searchText=None):
         # self.readonly_input_text(user[locatorText], text)
         # 要先点一下再输入值, 上面的方法不行
         self.is_click(user[locatorStr1])
@@ -42,11 +51,17 @@ class UserPage(Base):
             self.input_text(user[locatorStr1], searchText)
         self.is_click(user[locatorStr2])
 
-    def jump_to(self, target):
-        self.switch_location(target)
-
+    @allure.step("普通的文本框信息录入")
     def normal_input(self, locatorText, text):
         self.readonly_input_text(user[locatorText], text)
+
+    @allure.step("获取流程编码")
+    def getText(self):
+        return self.element_text(user['流程编码'])
+
+    @allure.step("进入iframe")
+    def switch_iframe(self, path):
+        self.frame_enter(user[path])
 
 
     # enter_iframe
@@ -54,6 +69,7 @@ class UserPage(Base):
     # close_switch 传入索引
     # element_text 获取元素的文字
     # DomAssert(dirvers).assert_att('页面文字')
+
 
 if __name__ == '__main__':
     pass
