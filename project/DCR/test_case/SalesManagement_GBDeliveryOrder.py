@@ -40,7 +40,7 @@ def function_menu_fixture(drivers):
             sleep(1)
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-国包出库单")
 class TestQueryDistDelivery:
     @allure.story("国包查询出库单")
     @allure.title("国包用户按出库单条件筛选，出库单列表数据")
@@ -72,7 +72,7 @@ class TestQueryDistDelivery:
         #query.click_close_delivery_order()
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-国包出库单")
 class TestAddDistDeliveryOrder:
     @allure.story("国包新增出库单")
     @allure.title("国包新增出库单")
@@ -154,7 +154,7 @@ class TestAddDistDeliveryOrder:
         #add.click_close_delivery_order()
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-国包出库单")
 class TestSubReceiv:
     @allure.story("二代快速收货")
     @allure.title("二代快速收货")
@@ -203,7 +203,7 @@ class TestSubReceiv:
         #receiv.click_close_inbound_receipt()
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-国包出库单")
 class TestSubReturn:
     @allure.story("二代退货出库单")
     @allure.title("二代申请退货出库单")
@@ -252,7 +252,7 @@ class TestSubReturn:
         #return_order.click_close_return_order()
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-国包出库单")
 class TestDistReturnApprove:
     @allure.story("国包审核退货单")
     @allure.title("退货单页面，国包用户，审核退货单操作")
