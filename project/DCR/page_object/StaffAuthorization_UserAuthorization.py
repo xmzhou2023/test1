@@ -26,14 +26,14 @@ class UserAuthorizationPage(Base):
         """进入用户授权页面，根据User 筛选品牌、客户等数据"""
         self.is_click_dcr(user['Input User'])
         self.input_text_dcr(user['Input User'], txt=content)
-        sleep(3)
+        sleep(3.5)
         Base.presence_sleep_dcr(self, user['Click Trans User Value'], content)
         self.is_click(user['Click Trans User Value'], content)
 
     @allure.step("点击user对应的Search按钮")
     def click_search(self):
         self.is_click_dcr(user['User Search'])
-        sleep(2)
+        sleep(2.5)
 
 
     """删除与添加品牌定位方法"""
@@ -258,7 +258,7 @@ class UserAuthorizationPage(Base):
     @allure.step("新增仓库页面，点击仓库Search按钮")
     def click_add_ware_search(self):
         self.is_click(user['Add Warehouse Search'])
-        sleep(2)
+        sleep(2.5)
 
     @allure.step("新增仓库页面，获取warehouseID文本")
     def get_add_warehouseid_text(self):
