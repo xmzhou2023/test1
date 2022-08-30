@@ -32,7 +32,7 @@
 评估代码供货品类配置-新建-小类搜索: 'xpath==//img[@id="searchMaterialCateLevel3Name"]'
 
 评估代码供货品类配置-新建-小类iframe: 'xpath==//iframe[@id="iframeApp_supplyCategoryNewSearch"]'
-评估代码供货品类配置-新建-小类选择: 'xpath==//*[@id="pq-body-cell-u0-4-0-right"]/input'
+评估代码供货品类配置-新建-小类选择: 'xpath==//*[@id="pq-body-cell-u0-8-0-right"]/input'
 
 评估代码供货品类配置-新建-小类-确定: 'xpath==//li[@id="confirmBtn"]'
 
@@ -60,4 +60,5 @@
 评估代码供货品类配置-物料小类查询输入框: 'xpath==//input[@name="materialCateNumber"]'
 评估代码搜索结果: 'xpath==//span[text()="显示 1 到 6 总共6个项目"]'
 
+评估代码供货品类配置-excel导出模板: 'xpath==//li[@id="excelImportTemplate"]/a[text()=" Excel导出模版"]'
 窗口最小化: 'xpath==//div[@id="win_supplierPerformanceAppraisal"]//a[@title="最小化"]'
