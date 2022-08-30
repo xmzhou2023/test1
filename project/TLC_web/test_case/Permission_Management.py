@@ -1,7 +1,7 @@
 import pytest
 from public.base.assert_ui import *
 from project.TLC_web.page_object.Center_Component import NavPage
-from project.TLC_web.page_object.Card_Center.Permission_Management import Permission
+from project.TLC_web.page_object.Permission_Management import Permission
 
 # 卡片中心-卡片属性
 @allure.feature("新增角色")
