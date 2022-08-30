@@ -19,6 +19,7 @@ class Performance(Base):
     @allure.step("进入供应商绩效考核")
     def PerformanceAppraisal(self):
         self.is_click(app['供应商绩效'])
+
     def appraisal_page_title(self):
        return self.find_element(app["供应商绩效标题"]).text
 

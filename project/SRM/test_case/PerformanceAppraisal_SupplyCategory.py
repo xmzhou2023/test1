@@ -9,18 +9,6 @@ from project.SRM.page_object.PerformanceAppraisal_SupplyCategory import Performa
 def fixture(drivers):
     app = Performance(drivers)
     app.PerformanceAppraisal()
-    # appraisal_page_title = app.appraisal_page_title()
-    # assert "供应商绩效考核" in appraisal_page_title, "未进入到供应商绩效考核"
-    yield
-    app = Performance(drivers)
-    app.MinWindows()
-
-
-
-@pytest.fixture(scope="class",autouse=True)
-def fixture(drivers):
-    app = Performance(drivers)
-    app.PerformanceAppraisal()
     app.enter_SupplyCategory()
     # appraisal_page_title = app.appraisal_page_title()
     # assert "供应商绩效考核" in appraisal_page_title, "未进入到供应商绩效考核"
@@ -29,32 +17,9 @@ def fixture(drivers):
     app.MinWindows()
 
 
-
 @allure.feature("供应商绩效考核") # 模块名称
 class TestAppraisal:
-    # @pytest.mark.run(order=1)
-    # @allure.story("进入供应商绩效考核") # 场景名称
-    # @allure.title("进入供应商绩效考核")  # 用例名称
-    # @allure.description("进入供应商绩效考核模块")
-    # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.smoke # 用例标记
-    # def test_enter_PerformanceAppraisal(self, drivers):
-    #     app = Performance(drivers)
-    #     app.PerformanceAppraisal()
-    #     appraisal_page_title = app.appraisal_page_title()
-    #     assert "供应商绩效考核" in appraisal_page_title,"未进入到供应商绩效考核"
 
-
-    # @allure.story("估代码供货品类配置")  # 场景名称
-    # @allure.title("进入估代码供货品类配置页面")  # 用例名称
-    # @allure.description("进入评估代码供货品类配置页面成功")
-    # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.smoke  # 用例标记
-    # def test_enter_SupplyCategory(self, drivers):
-    #     app = Performance(drivers)
-    #     app.enter_SupplyCategory()
-    #     SupplyCategory_title = app.title_SupplyCategory()
-    #     assert "评估代码供货品类配置" in SupplyCategory_title,"未进入到评估代码供货品类配置页面"
 
 
     # #
