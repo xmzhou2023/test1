@@ -16,6 +16,7 @@ class ProfitsType(Base):
 
     @allure.step("权益类型配置页查询")
     def search_data(self,classname,choice):
+        self.is_click(user["筛选按钮"])
         self.input_text(user["筛选按钮"],classname)
         self.is_click(user["搜索按钮"])
         try:

@@ -34,6 +34,7 @@ class OperationPage(Base):
 
     @allure.step("保修期限基础数据页查询")
     def search_data(self,classname,choice):
+        self.is_click(user["筛选按钮"])
         self.input_text(user["筛选按钮"],classname)
         self.is_click(user["搜索按钮"])
         try:
