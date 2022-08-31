@@ -7,6 +7,7 @@ Input BoxID IMEI: "css==[placeholder='Please enter IMEI or Box ID, press enter t
 Input Delivery Order: "css==[placeholder='Please enter delivery order ID,press enter to check']"
 Click Check: "xpath==//span[contains(text(),'Check')]"
 Get Scan Record: "xpath==//div[contains(text(),'variable')]"
+Get Scan Record IMEI: "xpath==//ul//li//div[text()='variable']"
 Submit: "id==returnorderadd_Submit"
 获取退货成功提示: "xpath==//p[text()='Submit Success!']"
 Get Order Detail Deli Order ID: "xpath==//tr[@class='el-table__row']//td[1]//div[@class='cell el-tooltip']"

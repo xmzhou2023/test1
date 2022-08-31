@@ -1,0 +1,10 @@
+#组件中心
+组件中心: 'xpath==//span[normalize-space(text())="组件中心"]'
+我的文件: 'xpath==//li[@role="menuitem"]//span[normalize-space(text())="我的文件"]'
+#新增文件
+文件新增: 'xpath==//button[@type="button"]//span[normalize-space(text())="新增"]'
+空间选择下拉框: 'xpath==//input[@placeholder="请选择"]'
+空间选择: 'xpath==//ul[@class="el-scrollbar__view el-select-dropdown__list"]//li["1"]'
+名称输入框: 'xpath==//div[@class="el-form-item is-required el-form-item--mini"]//input[@class="el-input__inner"]'
+取消新增文件: 'xpath==//span[normalize-space(text())="取消"]'
+

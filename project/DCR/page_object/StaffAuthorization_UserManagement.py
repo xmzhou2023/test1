@@ -164,20 +164,13 @@ class UserManagementPage(Base):
         set_up_success = self.element_text(user['Set Up Successfully'])
         return set_up_success
 
-    @allure.step("点击更多操作")
-    def click_more_option(self):
+    @allure.step("点击更多操作,点击离职功能")
+    def click_more_option_quit(self):
         self.is_click(user['More Option'])
         sleep(2)
-
-    @allure.step("点击离职功能")
-    def click_quit(self):
         Base.presence_sleep_dcr(self, user['Quit'])
         self.is_click(user['Quit'])
         sleep(3)
-
-
-    @allure.step("点击确认删除按钮")
-    def click_yes(self):
         self.is_click(user['确认删除Yes'])
 
     @allure.step("获取无数据文本")
@@ -251,7 +244,9 @@ class UserManagementPage(Base):
 
     """用户重置密码"""
     @allure.step("点击重置密码及重置密码确认功能")
-    def click_reset_password(self):
+    def click_more_reset_password(self):
+        self.is_click(user['More Option'])
+        sleep(2)
         Base.presence_sleep_dcr(self, user['Reset Password'])
         self.is_click(user['Reset Password'])
         sleep(1.5)
@@ -299,7 +294,7 @@ class UserManagementPage(Base):
     @allure.step("Attendance Records页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
         self.is_click(user['Download Icon'])
-        sleep(1)
+        sleep(2)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(3)

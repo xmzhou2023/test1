@@ -1,4 +1,0 @@
-2022-08-26 15:22:12 [[32m    INFO[0m] 查找元素：('xpath', '//iframe[@id="tab-iframe-evaluateSupplyCategoryConfigurationManager"]') (basics.py:106)
-2022-08-26 15:22:12 [[32m    INFO[0m] 查找元素：('xpath', '//li[@id="create"]/a') (basics.py:106)
-2022-08-26 15:22:13 [[32m    INFO[0m] 点击元素：('xpath', '//li[@id="create"]/a') (basics.py:190)
-2022-08-26 15:22:13 [[32m    INFO[0m] 查找元素：('xpath', '//span[text()="新增供货品类配置"]') (basics.py:106)

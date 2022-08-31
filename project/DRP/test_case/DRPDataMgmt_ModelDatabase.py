@@ -146,6 +146,8 @@ class TestProductInformationAppendProduct:
         ValueAssert.value_assert_equal(hintAssert,"新增成功!")
         """清空测试数据"""
         user.delete_testData(drivers,brand='itel',broadCoarse='智能机',mobileType='S11 64+4')
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
 
     @allure.story("新增产品信息")
     @allure.title("新增机型，合法维护全部字段 新增成功")
@@ -179,6 +181,8 @@ class TestProductInformationAppendProduct:
         ValueAssert.value_assert_equal(hintAssert,"新增成功!")
         """清空测试数据"""
         user.delete_testData(drivers, brand='itel', broadCoarse='智能机', mobileType='S11 64+4')
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
 
     @allure.story("新增产品信息")
     @allure.title("新增机型，来源=自建，项目名为文本输入框，新增成功")
@@ -212,6 +216,8 @@ class TestProductInformationAppendProduct:
         ValueAssert.value_assert_equal(hintAssert,"新增成功!")
         """清空测试数据"""
         user.delete_testData(drivers, brand='itel', broadCoarse='智能机', mobileType='S11 64+5')
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
 
     @allure.story("新增产品信息")
     @allure.title("[异常]新增机型，有必填项未维护 新增失败")
@@ -235,6 +241,7 @@ class TestProductInformationAppendProduct:
         user.save_color()  # 保存颜色
         user.state_option('MP')  # 选择状态
         user.save_button("反例")  # 新增保存失败 并关闭新建窗口
+
 
     @allure.story("新增产品信息")
     @allure.title("重复新增机型，新增失败")
@@ -261,6 +268,8 @@ class TestProductInformationAppendProduct:
         user.save_button("重复新增")  # 新增保存完成
         """清空测试数据"""
         user.delete_testData(drivers,brand='itel',broadCoarse='智能机',mobileType='S11 64+4')
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
 
 @allure.feature("DRP数据管理-机型库-产品信息")
 class TestProductInformationImportFile:
@@ -274,8 +283,9 @@ class TestProductInformationImportFile:
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
         user.import_button()  # 点击‘导入’按钮
-        user.downloadTemplate_button('drp_model_template.xlsx')  # 下载导入模板，并断言文件名
+        user.downloadTemplate_button('drp_model_template')  # 下载导入模板，并断言文件名
         user.importClose_button()
+
 
     @allure.story("导入文件")
     @allure.title("产品信息，导入文件成功")
@@ -291,11 +301,12 @@ class TestProductInformationImportFile:
         fileAssert = user.selectFile_assert()
         ValueAssert.value_assert_In(fileAssert, "产品信息.xlsx")
         user.import_file()
-        user.importClose_button()
         afterListNum = user.listNum()
         ValueAssert.value_assert_Notequal(afterListNum,beforeListNum)
         user.screen_testData(drivers)
         user.delete_button("隆江", num=22)
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
 
 
 @allure.feature("DRP数据管理-机型库-产品信息")
@@ -315,7 +326,6 @@ class TestProductInformationScreenFunction:
         user.screen_broadCoarse("智能机")  # 选择大类粗
         user.screen_mobileType("S11 64+4")  # 输入机型
         user.screen_marketName("India")  # 输入市场名
-        user.screen_series(series="A")  # 输入系列
         user.screen_projectName("S11")  # 输入项目名
         user.screen_state("MP")  # 选择状态
         user.screen_source("数仓")  # 选择来源
@@ -324,6 +334,8 @@ class TestProductInformationScreenFunction:
         user.assert_screen_result("隆江",num=22)
         """清空测试数据"""
         user.delete_button("隆江", num=22)  # 点击指定行删除按钮
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
 
     @allure.story("筛选功能")
     @allure.title("产品信息，组合条件查询，无匹配数据")
@@ -343,6 +355,8 @@ class TestProductInformationScreenFunction:
         ValueAssert.value_assert_IsNoneNot(countscreen)
         screen_result = user.screen_result_null()
         ValueAssert.value_assert_equal(screen_result, '暂无数据')
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
 
     @allure.story("筛选功能")
     @allure.title("产品信息，点击重置，筛选条件被清空")
@@ -365,6 +379,8 @@ class TestProductInformationScreenFunction:
         countScreen = user.screen_count()
         ValueAssert.value_assert_IsNoneNot(countScreen)
         user.assert_screen_result('冯晨', num=22)
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
 
 
 @allure.feature("DRP数据管理-机型库-产品信息")
@@ -388,6 +404,8 @@ class TestProductInformationUpdate:
         user.assert_screen_result("隆江", num=22)
         """清空测试数据"""
         user.delete_button("隆江", num=22)  # 点击指定行删除按钮
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
 
 @allure.feature("DRP数据管理-机型库-产品信息")
 class TestProductInformationDelete:
@@ -400,9 +418,13 @@ class TestProductInformationDelete:
         user = ModelDatabase(drivers)
         user.insert_testData(drivers)
         user.screen_testData(drivers)  # 筛选出测试数据
+        beforeListNum = user.listNum()
         user.delete_button("隆江", num=22)  # 点击指定行删除按钮
-        hint = user.delete_hint()
-        ValueAssert.value_assert_equal(hint, "删除成功!")
+        afterListNum = user.listNum()
+        ValueAssert.value_assert_Notequal(beforeListNum, afterListNum)
+        user.screen_button()  # 点击筛选按钮，弹出筛选框
+        user.screen_reset()  # 点击重置按钮
+
 
 
 """================================================产品配置页面================================================================="""

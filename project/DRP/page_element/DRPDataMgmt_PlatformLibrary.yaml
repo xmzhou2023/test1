@@ -1,4 +1,6 @@
 查询条件: "xpath==//div//label[contains(text(),'variable')]/following-sibling::div//input[@type='text']"
+清空查询条件: "xpath==//*[@id='app']/div/div[2]/div[2]/section/div/div/form/div/div[variable]/div/div/div/div/span/span/i[2]"
+
 
 查询按钮: "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[1]//span[contains(text (), '查  询')]"
 重置按钮: "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[2]//span[contains(text (), '重  置')]"

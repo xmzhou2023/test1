@@ -119,7 +119,7 @@ class SalesOrderPage(Base):
     @allure.step("新建出库单页面，点击check检查IMEI按钮")
     def click_check(self):
         self.is_click_dcr(user['Check'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("Add新增出库单页面，点击check后，右侧Delivery Quan属性下显示出库数量")
     def get_delivery_quantity(self):
@@ -143,13 +143,10 @@ class SalesOrderPage(Base):
         scan_record_imei = self.element_text(user['Get Delivery Scan Record IMEI'], imei)
         return scan_record_imei
 
-
     @allure.step("新建出库单页面，点击Submit Delivery提交出库单按钮")
     def click_submit_delivery(self):
         self.is_click_dcr(user['Submit Delivery'])
         sleep(2)
-
-
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
@@ -174,7 +171,7 @@ class SalesOrderPage(Base):
     @allure.step("IMEI Inventory Query页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(10)
+        sleep(5)
 
     @allure.step("IMEI Inventory Query页面，获取列表IMEI文本内容")
     def get_text_imei_inventory(self):
