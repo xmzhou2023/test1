@@ -34,17 +34,17 @@ class UserPage(Base):
         self.is_click(user[locatorText], s)
 
     @allure.step("下拉框信息录入")
-    def select_info_input(self, label, value, searchText='', dropdown='dropdown-label-var'):
-        self.is_click(user[dropdown], label)
+    def select_info_input(self, label, value, searchText='', targetXpath='form-input'):
+        self.is_click(user[targetXpath], label)
         if searchText:
-            super().readonly_input_text(user[dropdown], searchText, label)
-            self.is_click(user['dropdown-search-value-var'], value)
+            super().readonly_input_text(user[targetXpath], searchText, label)
+            self.is_click(user['dropdown-search-value'], value)
 
         else:
-            self.is_click(user['dropdown-value-var'], value)
+            self.is_click(user['dropdown-value'], value)
 
     @allure.step("输入框信息录入")
-    def readonly_input_text(self, replace, value, target='tHead-var'):
+    def readonly_input_text(self, replace, value, target='table-form-input'):
         """
         replace: xpath里 variable被替换后的值
         value: 输入到文本框的值
@@ -65,7 +65,7 @@ class UserPage(Base):
         userSelector: 用户选择器所在的form label
         employeeNo: 员工工号
         """
-        self.is_click(user['dropdown-label-var'], userSelectLabel)
+        self.is_click(user['form-input'], userSelectLabel)
         # 对话框里的结构是固定的
         self.input_text(user['输入用户名'], employeeNo)
         self.is_click(user['选择用户'], employeeNo)

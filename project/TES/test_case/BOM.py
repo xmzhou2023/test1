@@ -40,7 +40,7 @@ class TestUtil:
         # 视图切换后要好选择一点
         instance.click('oneworks-视图切换')
 
-        instance.click('oneworks-查看详情-var', code)
+        instance.click('oneworks-查看详情-by-code', code)
 
         # 此时会打开一个新窗口
         instance.switch_window(1)
@@ -51,7 +51,7 @@ class TestUtil:
         instance.switch_location('http://bom-sit.transsion.com/#/archive/list')
         # 刷新一下页面
         instance.click('button', '查询')
-        instance.click('删除-var', code)
+        instance.click('delete-by-code', code)
         instance.click('提示-确定撤回')
         DomAssert(drivers).assert_att('删除成功')
 
@@ -76,7 +76,7 @@ class TestUtil:
         instance.switch_iframe('iframe')
         # 视图切换
         instance.click('oneworks-视图切换')
-        instance.click('oneworks-查看详情-var', code)
+        instance.click('oneworks-查看详情-by-code', code)
         instance.switch_window(1)
         # 进入iframe
         sleep(2)
@@ -84,7 +84,7 @@ class TestUtil:
         instance.select_info_input('国内组包工厂', '1051', '105', 'oneworks-dropdown')
         instance.click('button', '一键/')
 
-        instance.select_info_input('检查贴片工厂', '贴片工厂正确', None, 'oneworks-footer-dropdown')
+        instance.select_info_input('检查贴片工厂', '贴片工厂正确', '', 'oneworks-footer-dropdown')
 
         instance.frame_exit()
         instance.click('button', '同 意')
@@ -116,7 +116,7 @@ class TestUtil:
         instance.switch_location(addPage)
 
     def create_process(self, drivers):
-        tHeadDict = {
+        tableDict = {
             "Bom类型": '2',
             "Bom状态": '3',
             "物料编码": '6',
@@ -137,22 +137,23 @@ class TestUtil:
 
         # __________________________________BOM Tree 录入________________________________________
         instance.click('button', '新增Bom')
-        instance.select_info_input(tHeadDict["Bom类型"], '国内生产BOM', '', 'tHead-var')
-        instance.select_info_input(tHeadDict["Bom状态"], '试产', '', 'tHead-var')
+        instance.select_info_input(tableDict["Bom类型"], '国内生产BOM', '', 'table-form-input')
+        instance.select_info_input(tableDict["Bom状态"], '试产', '', 'table-form-input')
         # 点击编辑按钮
-        instance.click('新增Bom-右侧按钮', '编辑')
+        instance.click('新增Bom-operation-button', '编辑')
+
 
         sleep(1)
         # 新增BOM 物料编码
-        instance.readonly_input_text(tHeadDict["物料编码"], '10000001')
+        instance.readonly_input_text(tableDict["物料编码"], '10000001')
         # 带搜索建议的下拉框需要点一下
-        instance.click('dropdown-search-value-var', '10000001')
+        instance.click('dropdown-search-value', '10000001')
 
         # 新增BOM用量
-        instance.readonly_input_text(tHeadDict["用量"], '1000')
+        instance.readonly_input_text(tableDict["用量"], '1000')
 
         # __________________________________________录入结束_______________________________________
-        instance.click('新增Bom-右侧按钮', '确定')
+        instance.click('新增Bom-operation-button', '确定')
 
         # __________________________________________业务评审_______________________________________
         instance.user_selector('MPM', '18645960')
