@@ -20,9 +20,11 @@ class NavPage(Base):
             self.is_click(user[level[i]])
         sleep(2)
 
-    # def switch_tab(self, txt=None):
-    #     self.find_element(user['页签切换'], str(txt)).click()
-
+    @allure.step("刷新菜单")
+    def refresh_page(self):
+        self.is_click(user["Dashboard"])
+        self.refresh()
+        self.wait.until(EC.presence_of_element_located(user["Dashboard"]),message="页面刷新失败")
 
 
         
