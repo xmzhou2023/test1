@@ -24,25 +24,22 @@ class TestSearchColor:
     @pytest.mark.smoke
     def test_001_001(self, drivers):
         color = ColorLibrary(drivers)
-        color.input_color("123")
+        color.input_color("半透黑")
         color.query_button()
-        color.screen_assert("颜色名称Zh","123")
+        color.screen_assert("颜色名称Zh", "半透黑")
         color.reset_button()
 
-
-
     @allure.story("查询颜色")
-    @allure.title("按照颜色条件（颜色名称Eh）过滤颜色库信息")
-    @allure.description("输入颜色名称Eh，查询 颜色=ABC 的颜色库信息")
+    @allure.title("按照颜色条件（颜色名称En）过滤颜色库信息")
+    @allure.description("输入颜色名称En，查询 颜色=ABC 的颜色库信息")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_002(self, drivers):
         color = ColorLibrary(drivers)
-        color.input_color("ABC")
+        color.input_color("Aegean Blue")
         color.query_button()
-        color.screen_assert("颜色名称Eh","ABC")
+        color.screen_assert("颜色名称En", "Aegean Blue")
         color.reset_button()
-
 
     @allure.story("查询颜色")
     @allure.title("按照颜色条件（颜色编码）过滤颜色库信息")
@@ -53,9 +50,8 @@ class TestSearchColor:
         color = ColorLibrary(drivers)
         color.input_color("#")
         color.query_button()
-        color.screen_assert("颜色编码","#")
+        color.screen_assert("颜色编码", "#")
         color.reset_button()
-
 
     @allure.story("查询可用状态")
     @allure.title("按照可用状态条件过滤颜色库信息")
@@ -66,9 +62,8 @@ class TestSearchColor:
         color = ColorLibrary(drivers)
         color.choice_state("禁用")
         color.query_button()
-        color.screen_assert("可用状态","禁用")
+        color.screen_assert("可用状态", "禁用")
         color.reset_button()
-
 
     @allure.story("组合查询颜色库（颜色、可用状态）")
     @allure.title("按照可用状态条件过滤颜色库信息")
@@ -80,8 +75,8 @@ class TestSearchColor:
         color.input_color("#")
         color.choice_state("启用")
         color.query_button()
-        color.screen_assert("颜色编码","#")
-        color.screen_assert("可用状态","启用")
+        color.screen_assert("颜色编码", "#")
+        color.screen_assert("可用状态", "启用")
         color.reset_button()
 
     @allure.story("查询条件重置")
@@ -97,7 +92,7 @@ class TestSearchColor:
         beforeNum = color.listnum_assert()
         color.reset_button()
         afterNum = color.listnum_assert()
-        ValueAssert.value_assert_Notequal(beforeNum,afterNum)
+        ValueAssert.value_assert_Notequal(beforeNum, afterNum)
 
 
 @allure.feature("DRP数据管理-颜色库")
@@ -110,6 +105,29 @@ class TestExportColorLibrary:
     def test_002_001(self, drivers):
         color = ColorLibrary(drivers)
         color.export_button("drp_color_export")
+
+
+@allure.feature("DRP数据管理-颜色库")
+class TestAppendColor:
+    @allure.story("新增颜色库数据")
+    @allure.title("点击新增按钮，维护颜色信息 保存")
+    @allure.description("点击新增按钮，维护颜色信息 颜色名称Zh=123,颜色名称Eh=ABC,备注=123，保存成功")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_003_001(self, drivers):
+        color = ColorLibrary(drivers)
+        color.append_button()
+        color.input_colorinf("3", "", "123")
+        color.input_colorinf("4", "", "ABC")
+        color.input_colorinf("5", "", "123")
+        color.save_button()
+        color.list_assert(inputcolor="AB", lis="2", colorcode="ABC")  # 页面列表数据断言
+        color.list_assert(inputcolor="AB", lis="3", colorcode="123")  # 页面列表数据断言
+        color.clear_testdata("123", "ABC", "123", "隆江")
+
+
+
+
 
 
 if __name__ == '__main__':
