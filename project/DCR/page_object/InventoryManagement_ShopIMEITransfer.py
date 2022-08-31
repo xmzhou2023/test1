@@ -142,17 +142,26 @@ class ShopIMEITransferPage(Base):
         self.is_click(user['search按钮'])
         sleep(2)
 
-    @allure.step("点击弹窗Yes/Cancel按钮")
-    def click_yes_or_cancel(self, Yes_Cancel):
-        self.is_click(user['弹窗Yes Cancel按钮'], Yes_Cancel)
+    # @allure.step("点击弹窗Yes/Cancel按钮")
+    # def click_yes_or_cancel(self, yes_cancel):
+    #     self.is_click(user['弹窗Yes Cancel按钮'], yes_cancel)
 
-    @allure.step("点击ApproveOK按钮")
-    def click_ApproveOK(self):
-        self.is_click(user['ApproveOK按钮'])
+    # @allure.step("点击Approve按钮后，弹出Yes对话框， 点击OK按钮")
+    # def click_approve_ok(self):
+    #     self.is_click(user['Approve OK按钮'])
 
-    @allure.step("点击RejectOK按钮")
-    def click_reject_ok(self):
-        self.is_click(user['Reject OK按钮'])
+    # @allure.step("点击RejectOK按钮")
+    # def click_reject_ok(self):
+    #     self.is_click(user['Reject OK按钮'])
+
+    @allure.step("点击Approve，弹出弹窗Yes/Cancel按钮，点击OK审核通过")
+    def click_approve_yes_ok(self, choose, yes_cancel):
+        self.is_click(user['Approve reject按钮'], choose)
+        sleep(1)
+        self.is_click(user['Yes Cancel按钮'], yes_cancel)
+        sleep(0.6)
+        self.is_click(user['Approve OK按钮'])
+        sleep(1)
 
     @allure.step("点击Reject按钮,输入拒绝原因，点击OK")
     def input_reject_reason(self, reason):

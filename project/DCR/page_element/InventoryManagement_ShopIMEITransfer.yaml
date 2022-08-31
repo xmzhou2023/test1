@@ -20,13 +20,10 @@ Get list Transfer ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[2]//d
 #xvanze: "xpath==//label[contains(text(),'variable')]/..//input"
 #shopxvanze: "xpath==//span[contains(text(),'PK034552')]"
 
-
 筛选门店: "xpath==//label[contains(text(),'To Shop')]//parent::div// following-sibling::div//input"
 选中筛选门店: "xpath==//ul//li//span[contains(text(),'variable')]"
-
 筛选状态: "xpath==//label[(text()='Status')]//parent::div// following-sibling::div//input"
 选中筛选状态: "xpath==//ul//li//span[text()='variable']"
-
 
 unfold按钮: "xpath==//span[normalize-space()='Unfold']"
 fold按钮: "xpath==//span[normalize-space()='Fold']"
@@ -38,7 +35,7 @@ search按钮: "xpath==//button[@id='shopimeitransfer_search']"
 勾选复选框: 'xpath==//*[@id="mainContainer"]/section/div[1]/div[2]/div[1]/div[4]/div[1]/table/thead/tr/th[1]/div/label/span/span'
 Approve reject按钮: "xpath==//button[@id='shop_imei_transfer_approver']//span[contains(text(),'variable')]"
 Yes Cancel按钮: "xpath==//div[@class='el-message-box el-message-box--center']//span[normalize-space(text())='variable']"
-ApproveOK按钮: "xpath==//span[contains(@class,'dialog-footer')]//button[@id='shopimeitransfer_OK']"
+Approve OK按钮: "xpath==//span[contains(@class,'dialog-footer')]//button[@id='shopimeitransfer_OK']"
 
 输入拒绝原因: "xpath==//div//p//textarea[@id='rejectReason']"
 Reject Yes按钮: "xpath==//button//span[normalize-space(text())='Yes']"
