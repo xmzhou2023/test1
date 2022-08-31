@@ -318,7 +318,7 @@ class TestApproveRejectTransfer:
         sleep(1)
         approve.click_approve_reject('Reject')
         DomAssert(drivers).assert_att('The data you selected include completed, please reselect')
-        sleep(1)
+
 
 if __name__ == '__main__':
     pytest.main(['InventoryManagement_ShopIMEITransfer.py'])
