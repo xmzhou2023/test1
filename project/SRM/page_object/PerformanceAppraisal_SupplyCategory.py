@@ -91,16 +91,22 @@ class Performance(Base):
         # 获取弹窗内容，srm使用
         return self.find_element(app["评估代码供货品类配置-新建-操作成功提示"]).text
 
+    @allure.step("关闭新建成功弹窗提示")
+    def close_alert(self):
+        self.is_click(app["评估代码供货品类配置-新建-操作成功提示关闭"])
 
+
+    @allure.step("通过评估代码查询")
     def search_code(self, code):
         self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
         self.input_text(app["评估代码供货品类配置-评估代码查询输入框"], code)
         self.is_click(app["评估代码供货品类配置-查询"])
+        self.clear_input(app["评估代码供货品类配置-评估代码查询输入框"])
         self.frame_back()
         # time.sleep(3)
         # self.find_elements_choice('//button[text()=" 查询"]',1)
 
-
+    @allure.step("通过评估代码查询结果")
     def search_code_number(self):
         return self.find_element(app["评估代码搜索结果"]).text
 
@@ -108,6 +114,37 @@ class Performance(Base):
     def search_material(self, material):
         self.input_text(app["评估代码供货品类配置-物料小类查询输入框"], material)
         self.is_click(app["评估代码供货品类配置-查询"])
+
+    @allure.step("修改数据的评分规则")
+    def change_rule(self,code):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.input_text(app["评估代码供货品类配置-评估代码查询输入框"], code)
+        self.is_click(app["评估代码供货品类配置-查询"])
+        self.is_click(app["评估代码搜索结果第一条"])
+        self.is_click(app["评估代码供货品类配置-修改"])
+        self.is_click(app["评估代码供货品类配置-修改-评分规则"])
+        self.frame_back()
+        self.frame_enter(app["评估代码供货品类配置-新建-评分规则iframe"])
+        self.is_click(app["评估代码供货品类配置-新建-评分规则-选择"])
+        self.is_click(app["评估代码供货品类配置-新建-评分规则-确定"])
+        self.frame_back()
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.is_click(app["评估代码供货品类配置-新建-确定"])
+        self.frame_back()
+        self.is_click(app["评估代码供货品类配置-新建-确定-保存确定"])
+
+
+    def export_template(self):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.is_click(app["评估代码供货品类配置-excel导出模板"])
+        self.frame_back()
+
+
+    def next_page(self):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.is_click(app["评估代码供货品类配置-列表下一页"])
+        self.frame_back()
+
 
 
     @allure.step("最小化供应商绩效考核窗口")

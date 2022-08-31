@@ -4,7 +4,9 @@
 # @Email   : qi.wu@transsion.com
 # @File    : BasicInfo_BoardParametersSetting.py
 # @Software: PyCharm
+import logging
 import os
+import time
 
 import allure
 from ..test_case.conftest import *

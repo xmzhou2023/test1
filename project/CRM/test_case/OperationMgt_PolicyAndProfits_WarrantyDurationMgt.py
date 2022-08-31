@@ -17,6 +17,7 @@ import logging
 def module_fixture(drivers):
     logging.info("模块前置条件，前往operation页面")
     user = NavPage(drivers)
+    user.refresh_page()  # 刷新菜单
     user.click_gotonav("OperationMgt", "PolicyandProfits", "WarrantyDurationMgt")  # 点击菜单
     user= DomAssert(drivers)
     user.assert_url("/policyAndProfits/warrantyDurationMgt")
@@ -25,7 +26,7 @@ def module_fixture(drivers):
     user = NavPage(drivers)
     user.click_gotonav("OperationMgt")
 
-@allure.feature("政策与权益") # 模块名称
+@allure.feature("政策与权益")  # 模块名称
 class TestWarrantyDurationMgt:
     @allure.story("WarrantyDurationMgt查询") # 场景名称
     @allure.title("页面筛选框查询")  # 用例名称
@@ -35,7 +36,7 @@ class TestWarrantyDurationMgt:
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = OperationPage(drivers)
         classname = user.get_warrantyname()[1]
-        user.search_data(classname,choice=classname)#在保修期限基础数据页筛选框进行搜索
+        user.search_data(classname,choice=classname)  # 在保修期限基础数据页筛选框进行搜索
 
     @allure.story("WarrantyDurationMgt") # 场景名称
     @allure.title("异常场景重复数据校验")  # 用例名称

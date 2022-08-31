@@ -50,15 +50,20 @@
 评估代码供货品类配置-新建-重复错诶提示: 'xpath==//div[@class="messager-content"]'
 # 同一评估代码下，不允许维护多个评分规则
 评估代码供货品类配置-新建-操作成功提示: 'xpath==//div[@class="messager-content"]'
+评估代码供货品类配置-新建-操作成功提示关闭: 'xpath==//button[@class="action action-close close"]'
 #操作成功
 
 
 评估代码供货品类配置-删除: 'xpath==//li[@id="delete"]/a'
 评估代码供货品类配置-修改: 'xpath==//li[@id="update"]/a'
+评估代码供货品类配置-修改-评分规则: 'xpath==//img[@id="searchScoreLevelRule"]'
 评估代码供货品类配置-查询: 'xpath==//button[text()=" 查询"]'
 评估代码供货品类配置-评估代码查询输入框: 'xpath==//input[@name="evaluatedCode"]'
 评估代码供货品类配置-物料小类查询输入框: 'xpath==//input[@name="materialCateNumber"]'
-评估代码搜索结果: 'xpath==//span[text()="显示 1 到 6 总共6个项目"]'
+评估代码搜索结果第一条: 'xpath==//div[@id="pq-body-cell-u1-0--1-left"]'
+评估代码供货品类配置-列表下一页: 'xpath==//span[@class="ui-icon ui-icon-seek-next"]'
+
 
 评估代码供货品类配置-excel导出模板: 'xpath==//li[@id="excelImportTemplate"]/a[text()=" Excel导出模版"]'
 窗口最小化: 'xpath==//div[@id="win_supplierPerformanceAppraisal"]//a[@title="最小化"]'
+

@@ -285,5 +285,66 @@ class TestExportCustomer:
         #export.click_close_export_record()
         #export.click_close_customer_mgt()
 
+
+@allure.feature("客户管理-客户管理(全球)") # 模块名称
+class TestDisableCustomer:
+    @allure.story("禁用客户")
+    @allure.title("禁用客户")
+    @allure.description("筛选需要禁用的客户，然后点击禁用功能，查看该客户状态是否更新为Disable状态")
+    @allure.severity("normal")
+    @pytest.mark.smoke   # 用例标记
+    @pytest.mark.usefixtures('function_customer_fixture')
+    def test_006_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        """登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开客户管理菜单"""
+        user.click_gotomenu("Customer Management", "Customer Management(Global)")
+
+        disable = CustomerManagementPage(drivers)
+
+        get_customer = disable.get_customer_id()
+        disable.input_customer_query(get_customer)
+        disable.click_search()
+
+        disable.click_more_option_disable()
+        DomAssert(drivers).assert_att("Successfully")
+
+        """断言启用操作后，列表状态是否更新为Disable状态"""
+        get_status = disable.get_list_status('Disable')
+        logging.info("打印获取客户列表，禁用操作后最新状态：{}".format(get_status))
+        ValueAssert.value_assert_equal("Disable", get_status)
+
+
+@allure.feature("客户管理-客户管理(全球)")  # 模块名称
+class TestEnableCustomer:
+    @allure.story("启用客户")
+    @allure.title("启用客户")
+    @allure.description("筛选需要启用的客户，然后点击启用功能，查看该客户状态是否更新为Enable状态")
+    @allure.severity("normal")
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_customer_fixture')
+    def test_007_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        """登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开客户管理菜单"""
+        user.click_gotomenu("Customer Management", "Customer Management(Global)")
+
+        enable = CustomerManagementPage(drivers)
+
+        get_customer = enable.get_customer_id()
+        enable.input_customer_query(get_customer)
+        enable.click_search()
+
+        enable.click_more_option_enable()
+        DomAssert(drivers).assert_att("Successfully")
+
+        """断言启用操作后，列表状态是否更新为Enable状态"""
+        get_status = enable.get_list_status('Enable')
+        logging.info("打印获取客户列表，启用操作后的最新状态{}".format(get_status))
+        ValueAssert.value_assert_equal("Enable", get_status)
+
+
 if __name__ == '__main__':
     pytest.main(['CustomerManagement_CustomerManagement.py'])

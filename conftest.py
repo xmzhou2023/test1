@@ -5,15 +5,18 @@ from selenium import webdriver
 from time import sleep
 from libs.common.inspect_ymal import inspect_element
 from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
+from selenium.webdriver.remote.file_detector import LocalFileDetector
+
 
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=True):
+def drivers(request, remote_ui=False):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
             option = webdriver.ChromeOptions()
+            option.file_detector = LocalFileDetector()
             # option.add_argument('--headless')  # 浏览器不提供可视化页面（无头模式）. linux下如果系统不支持可视化不加这条会启动失败
             # option.add_argument('--window -size=1280x1024')  # 设置浏览器分辨率（窗口大小）
             # option.add_argument('--start -maximized')  # 最大化运行（全屏窗口）,不设置，取元素会报错

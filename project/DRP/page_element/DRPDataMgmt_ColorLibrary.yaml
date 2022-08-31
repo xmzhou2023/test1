@@ -1,0 +1,32 @@
+查询条件 颜色: "xpath==//div//label[contains(text(),'颜色')]/following-sibling::div//input[@type='text']"
+清空颜色输入框: "xpath==//*[@id='app']/div/div[2]/div[2]/section/div/div/form/div/div[1]/div/div/div/span/span/i"
+查询条件 可用状态: "xpath==//div//label[contains(text(),'可用状态')]/following-sibling::div//input[@type='text']"
+清空 可用状态复选框: "xpath==//*[@id='app']/div/div[2]/div[2]/section/div/div/form/div/div[2]/div/div/div/div/span/span/i[2]"
+可用状态下拉选项: "xpath==//div[@x-placement='bottom-start']//li[variable]"
+查询按钮: "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[1]//span[contains(text (), '查  询')]"
+重置按钮: "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[2]//span[contains(text (), '重  置')]"
+新增按钮: "xpath==//div[@class='btn-tool-countryModel']//button[@type='button']//span[contains(text(),'新 增')]"
+导出按钮: "xpath==//div[@class='right-btn']//button[@type='button']//span[contains(text(),'导出Excel')]"
+列表条数（断言）: "xpath==//div[@class='table-page']//span[@class='el-pagination__total']"
+
+
+
+列表指定列: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr//td[variable]"
+
+获取列表指定列所有文本: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr//td[variable]//div"
+列表断言: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr//td[variable]//div//span"
+颜色名称Zh: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr[variable]//td[3]//input"
+颜色名称En: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr[variable]//td[4]//input"
+备注: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr[variable]//td[5]//input"
+
+
+编辑按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//button[1]"
+保存按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//td[8]//button[1]//span[contains(text(),'保存')]"
+取消按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//td[8]//button[2]//span[contains(text(),'取消')]"
+
+提示信息: "xpath==//p[@class='el-message__content']"
+列表数量: "xpath==//div[@class='table-page']//span[@class='el-pagination__total']"
+
+禁用/启用 按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//button[2]"
+
+

@@ -12,7 +12,6 @@ object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
 class CustomerManagementPage(Base):
-
     # def gotomenu(self, metatitle, nestmenu):
     #     self.is_click(user['一级菜单'], metatitle)
     #     logging.info(f'点击一级菜单：{metatitle}')
@@ -204,6 +203,35 @@ class CustomerManagementPage(Base):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
         sleep(1)
+
+    @allure.step("点击启用按钮")
+    def click_more_option_enable(self):
+        sleep(1)
+        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['More Options'])
+        sleep(2)
+        self.is_click(user['Enable'])
+        sleep(1.5)
+        Base.presence_sleep_dcr(self, user['Enable Confirm'])
+        self.is_click(user['Enable Confirm'])
+
+    @allure.step("点击禁用按钮")
+    def click_more_option_disable(self):
+        sleep(1)
+        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['More Options'])
+        sleep(2)
+        self.is_click(user['Disable'])
+        sleep(1.5)
+        Base.presence_sleep_dcr(self, user['Disable Yes'])
+        self.is_click_dcr(user['Disable Yes'])
+
+    @allure.step("客户列表，获取列表状态字段内容")
+    def get_list_status(self, status):
+        sleep(2)
+        self.scroll_into_view(user['Get list Status'], status)
+        get_status = self.element_text(user['Get list Status'], status)
+        return get_status
 
 
     """导出客户记录"""
