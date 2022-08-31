@@ -18,20 +18,12 @@ class TestCreateProcess:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):
-        drivers.get("http://10.250.113.16/")
-        drivers.set_window_size(1552, 840)
-        drivers.find_element(By.CSS_SELECTOR, ".el-submenu:nth-child(4) > .el-submenu__title > span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-menu-item:nth-child(4) > span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-table__row:nth-child(3) > .el-table_1_column_3").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-table__body-wrapper .el-table__row:nth-child(6) > .el-table_2_column_12 span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-table__fixed-body-wrapper .el-table__row:nth-child(4) .el-button:nth-child(2) > span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-button--default:nth-child(2) > span").click()
-        element = self.driver.find_element(By.CSS_SELECTOR, ".el-button--default:nth-child(2)")
-        actions = ActionChains(self.driver)
-        actions.move_to_element(element).perform()
-        element = self.driver.find_element(By.CSS_SELECTOR, "body")
-        actions = ActionChains(self.driver)
-        actions.move_to_element(element, 0, 0).perform()
+        drivers.get("https://pfuac.transsion.com:10101/")
+        drivers.find_element(By.ID, "tab-account").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys("y5dQ")
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys(Keys.ENTER)
+        
 @allure.feature("BOM协作-PCBA BOM协作")  # 模块名称
 class TestCreateProcessExceptionScenario:
     @allure.story("创建流程异常场景")  # 场景名称
