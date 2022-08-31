@@ -164,20 +164,6 @@ class TestApproveIMEITransfer:
             ValueAssert.value_assert_equal('Approved', get_status)
             ValueAssert.value_assert_equal('NG003965', get_to_shop)
 
-# @allure.feature("库存管理-门店IMEI调拨")
-# class TestQueryIMEITransfer:
-    # @allure.title("库存管理页面，按状态查询门店IMEI调店")
-    # @allure.description("库存管理页面，按状态查询门店IMEI调店")
-    # @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    # @pytest.mark.usefixtures('function_menu_fixture')
-    # def test_003_001(self, drivers):
-    #     user2 = LoginPage(drivers)
-    #
-    #     user2.initialize_login(drivers, "xiongbo92", "dcr123456")
-    #     user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
-    #
-    #     query = ShopIMEITransferPage(drivers)
-
 
 if __name__ == '__main__':
     pytest.main(['InventoryManagement_ShopIMEITransfer.py'])
