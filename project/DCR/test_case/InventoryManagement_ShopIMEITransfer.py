@@ -19,7 +19,7 @@ def function_menu_fixture(drivers):
             menu.click_close_open_menu()
             sleep(1)
 
-@allure.feature("库存管理-门店IMEI调拨")
+@allure.feature("库存管理-门店IMEI调店")
 class TestNewRejectIMEITransfer:
     @allure.story("新建、拒绝门店IMEI调店")
     @allure.title("库存管理页面，新建、拒绝门店IMEI调店")
@@ -75,7 +75,7 @@ class TestNewRejectIMEITransfer:
         ValueAssert.value_assert_equal('Rejected', get_status)
 
 
-@allure.feature("库存管理-门店IMEI调拨")
+@allure.feature("库存管理-门店IMEI调店")
 class TestApproveIMEITransfer:
         @allure.story("审核门店IMEI调店")
         @allure.title("库存管理页面，审核门店IMEI调店")
@@ -164,7 +164,6 @@ class TestApproveIMEITransfer:
             ValueAssert.value_assert_equal('Approved', get_status)
             ValueAssert.value_assert_equal('NG003965', get_to_shop)
 
-
 # @allure.feature("库存管理-门店IMEI调拨")
 # class TestQueryIMEITransfer:
     # @allure.title("库存管理页面，按状态查询门店IMEI调店")
@@ -178,98 +177,6 @@ class TestApproveIMEITransfer:
     #     user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
     #
     #     query = ShopIMEITransferPage(drivers)
-
-
-    # def test_001_002(self,drivers):
-    #     user1 = LoginPage(drivers)
-    #     user1.dcr_login(drivers, "xiongbo92", "dcr123456")
-    #     user1.click_gotomenu("IMEIManagement", "ShopIMEITransfer")
-    #
-    #     user = ShopIMEITransferPage(drivers)
-    #     user.search_pending()
-    #     user.click_xvanze()
-    #     user.click_approve_reject('Approve')
-    #     user.click_YesORCancel('Cancel')
-    #
-    # def test_001_003(self,drivers):
-    #     user1 = LoginPage(drivers)
-    #     user1.dcr_login(drivers, "xiongbo92", "dcr123456")
-    #     user1.click_gotomenu("IMEIManagement", "ShopIMEITransfer")
-    #
-    #     user = ShopIMEITransferPage(drivers)
-    #     user.search_pending()   #筛选出未同意及未拒绝的调拨单
-    #     user.click_xvanze()
-    #     user.click_approve_reject('Reject')
-    #     user.click_YesORCancel('Cancel')
-    #     # user.click_YesORCancel('Yes')
-    #     # user.click_RejectOK()
-    #
-    # def test_004_001(self, drivers):
-    #     #登录dcr
-    #     user1 = LoginPage(drivers)
-    #     user1.dcr_login(drivers, "xiongbo92", "dcr123456")
-    #     user1.click_gotomenu("IMEIManagement", "ShopIMEITransfer")
-    #
-    #     #新建店铺调拨单，把351517496367986从lwz_shop调入liufei_shop
-    #     user = ShopIMEITransferPage(drivers)
-    #     user.click_addIMEITransfer()
-    #     user.input_ShopTransfer('EG000805 ','liufei_shop')
-    #     user.input_ScanIMEI('351517496367986')
-    #     user.click_check()
-    #     user.click_addSubmit()
-    #     user.click_addok()
-    #     sleep(1)
-    #     #同意lwz_shop到liufei_shop调拨单
-    #     user.refresh()
-    #     user.search_pending()
-    #     user.click_xvanze()
-    #     user.click_approve_reject('Approve')
-    #     user.click_YesORCancel('Yes')
-    #     user.click_ApproveOK()
-    #
-    #     #新建店铺调拨单，把351517496367986从liufei_shop调入lwz_shop
-    #     user.refresh()
-    #     sleep(1)
-    #     user.click_addIMEITransfer()
-    #     user.input_ShopTransfer('NG003965 ', 'lwz_shop')
-    #     sleep(1)
-    #     user.input_ScanIMEI('351517496367986')
-    #     user.click_check()
-    #     user.click_addSubmit()
-    #     sleep(1)
-    #     user.click_addok()
-    #     sleep(2)
-    #     #同意lwz_shop到liufei_shop调拨单
-    #     user.refresh()
-    #     sleep(2)
-    #     user.search_pending()
-    #     user.click_xvanze()
-    #     user.click_approve_reject('Approve')
-    #     user.click_YesORCancel('Yes')
-    #     user.click_ApproveOK()
-    #
-    # def test_005_001(self, drivers):
-    #     #登录dcr并进入ShopIMEI
-    #     user1 = LoginPage(drivers)
-    #     user1.dcr_login(drivers, "xiongbo92", "dcr123456")
-    #     user1.click_gotomenu("IMEIManagement", "ShopIMEITransfer")
-    #
-    #     user = ShopIMEITransferPage(drivers)
-    #     #新建到liufei_shop的调拨单
-    #     user.click_addIMEITransfer()
-    #     user.input_ShopTransfer('EG000805 ','liufei_shop')
-    #     user.input_ScanIMEI('351517496668490')
-    #     user.click_check()
-    #     user.click_addSubmit()
-    #     user.click_addok()
-    #
-    #     #拒绝调拨单
-    #     user.search_pending()  # 筛选出未同意及未拒绝的调拨单
-    #     user.click_xvanze()
-    #     user.click_approve_reject('Reject')
-    #     #user.click_YesORCancel('Cancel')
-    #     user.click_YesORCancel('Yes')
-    #     user.click_RejectOK()
 
 
 if __name__ == '__main__':
