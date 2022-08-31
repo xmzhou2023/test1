@@ -245,19 +245,24 @@ class ModelDatabase(Base):
 
     @allure.step("新增弹窗 新增保存")
     def save_button(self, caseType):
-        self.is_click(user['新增_确定'])
-        if caseType == "反例":
-            hint = self.element_text(user['新增 必填项'])
-            if hint == "不能为空":
+        try:
+            self.is_click(user['新增_确定'])
+            if caseType == "反例":
+                hint = self.element_text(user['新增 必填项'])
+                if hint == "不能为空":
+                    self.appendClose_button()
+                    logging.info("有必填项未维护,新增失败,关闭新增弹窗")
+            elif caseType == "正例":
+                logging.info("新增保存成功")
+            elif caseType == "重复新增":
+                hint = self.element_text(user['断言（新增保存成功）'])
+                assert hint == "此机型已存在"
                 self.appendClose_button()
-                logging.info("有必填项未维护,新增失败,关闭新增弹窗")
-        elif caseType == "正例":
-            logging.info("新增保存成功")
-        else:
-            hint = self.element_text(user['断言（新增保存成功）'])
-            assert hint == "此机型已存在"
+                logging.info("重复新增失败")
+        except Exception:
             self.appendClose_button()
             logging.info("重复新增失败")
+        sleep(2)
 
     @allure.step("返回新增成功提示文本，用做断言")
     def save_hint(self):
@@ -288,6 +293,7 @@ class ModelDatabase(Base):
     def import_file(self):
         self.is_click(user['导入弹窗（导入按钮）'])
         logging.info("点击导入按钮")
+        sleep(1)
 
     @allure.step("导入弹窗-选择文件")
     def import_button(self):
@@ -302,6 +308,7 @@ class ModelDatabase(Base):
     def importClose_button(self):
         self.is_click(user['关闭导入弹窗'])
         logging.info("关闭导入弹窗")
+        sleep(1)
 
     @allure.step("导出按钮")
     def export(self, content):
@@ -369,6 +376,7 @@ class ModelDatabase(Base):
 
     @allure.step("筛选系列")
     def screen_series(self, series=None):
+        self.scroll_into_view(user['系列输入框'])
         self.readonly_input_text(user['系列输入框'], series)
         sleep(1)
         self.is_click(user['输入框下拉'], series)
@@ -520,12 +528,11 @@ class ModelDatabase(Base):
             Nxpath = user['删除'][1].replace('variable', str(lineNum))
             self.force_click(Nxpath, xpath_js=True)  # 将行号c替换到xpath中进行相关操作
             logging.info('点击指定行数据删除成功')
+            sleep(1)
             return str(lineNum), Nxpath
 
-    @allure.step("返回删除保存成功警示文本，用做断言")
-    def delete_hint(self):
-        hint = self.element_text(user["断言（保存成功）"])
-        return hint
+
+
 
     @allure.step("删除测试数据")
     def delete_testData(self, drivers, **kwargs):
@@ -563,7 +570,7 @@ class ModelDatabase(Base):
         user.state_option('MP')  # 选择状态
         user.save_button("正例")  # 新增保存完成
 
-    @allure.step("造测试数据并筛选")
+    @allure.step("筛选测试数据")
     def screen_testData(self, drivers):
         user = ModelDatabase(drivers)
         user.screen_button()  # 点击筛选按钮，弹出筛选框

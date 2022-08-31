@@ -126,7 +126,22 @@ class TestAppendColor:
         color.clear_testdata("123", "ABC", "123", "隆江")
 
 
-
+@allure.feature("DRP数据管理-颜色库")
+class TestEditColor:
+    @allure.story("修改颜色库数据")
+    @allure.title("点击指定行编辑按钮，修改颜色信息 保存")
+    @allure.description("点击指定行编辑按钮，修改颜色信息 颜色名称Zh=123->456,颜色名称Eh=ABC->zzz,备注=123->aaa，保存成功")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.skip
+    def test_004_001(self, drivers):
+        color = ColorLibrary(drivers)
+        # color.precondition_addtestdata(drivers)
+        color.precondition_selecttestdata("ABC")
+        color.edit_button("ABC")
+        color.edit_color("ABC","3","123","456")
+        color.save_button()
+        color.list_assert(inputcolor="456", lis="3", colorcode="456")  # 页面列表数据断言
+        color.clear_testdata("456",  "隆江")
 
 
 
