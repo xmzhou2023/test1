@@ -1,3 +1,5 @@
+Dashboard: 'xpath==//li[@tabindex="-1"]//span[text()="Dashboard"]'
+
 OperationMgt: 'xpath==//div[@class="el-submenu__title"]//span[text()="Operation Mgt"]'
 OperationMgt->PolicyandProfits: 'xpath==//li[@aria-expanded="true"]//span[text()="Policy and Profits"]'
 OperationMgt->PolicyandProfits->WarrantyDurationMgt: 'xpath==//li[@role="menuitem"]//span[text()="Warranty Duration Mgt"]'
@@ -14,6 +16,8 @@ WMS: "xpath==//span[contains(text(),'WMS')]"
 WMS->Stock In/Out Mgt: "xpath==//span[contains(text(),'Stock In/Out Mgt')]"
 WMS->Stock In/Out Mgt->Initialize Inventory:  "xpath==//div[@class='nest-menu']//span[contains(text(),'Initialize Inventory')]"
 切换语言按钮: "xpath==//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]"
+
 Report Center: "xpath==//span[contains(text(),'Report Center')]"
 Report Center->Asynchronous Report Mgt: "xpath==//span[contains(text(),'Asynchronous Report Mgt')]"
 Report Center->Asynchronous Report Mgt->Task List: "xpath==//div[@class='nest-menu']//span[contains(text(),'Task List')]"
+

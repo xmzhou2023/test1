@@ -28,9 +28,9 @@ def function_menu_fixture(drivers):
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteBrandAuthorization:
-    @allure.story("删除品牌授权")
-    @allure.title("用户授权页面，删除Infinix品牌授权")
-    @allure.description("用户授权页面，筛选User：NG2061301，删除Infinix品牌授权")
+    @allure.story("删除、新增品牌授权")
+    @allure.title("用户授权页面，删除、新增Infinix品牌授权")
+    @allure.description("用户授权页面，筛选User：NG2061301，删除、新增Infinix品牌授权")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
@@ -56,26 +56,7 @@ class TestDeleteBrandAuthorization:
             domassert = DomAssert(drivers)
             domassert.assert_att("Successfully")
 
-
-@allure.feature("员工授权-用户授权")
-class TestAddBrandAuthorization:
-    @allure.story("新增品牌授权")
-    @allure.title("用户授权页面，新增Infinix品牌授权")
-    @allure.description("用户授权页面，筛选User：NG2061301，新增Infinix品牌授权")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_001(self, drivers):
-        """添如果不存在则添加Infinix品牌"""
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
-        """打开User Authorization菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User Authorization")
-
-        brand = UserAuthorizationPage(drivers)
-        brand.input_dealer_user_query("NG2061301")
-        brand.click_search()
-
+        """用户授权页面，新增Infinix品牌授权"""
         brand.click_add_brand()
         get_add_infinix = brand.get_add_infinix_text()
         ValueAssert.value_assert_equal("Infinix", get_add_infinix)
@@ -87,14 +68,15 @@ class TestAddBrandAuthorization:
         list_infinix_text = brand.get_list_infinix_text()
         ValueAssert.value_assert_equal("Infinix", list_infinix_text)
 
+
 @allure.feature("员工授权-用户授权")
 class TestDeleteCustAuthorization:
-    @allure.story("删除客户授权")
-    @allure.title("用户授权页面，删除CN20009客户授权")
-    @allure.description("用户授权页面，筛选User：NG2061301，删除CN20009客户授权")
+    @allure.story("删除、新增客户授权")
+    @allure.title("用户授权页面，删除、新增CN20009客户授权")
+    @allure.description("用户授权页面，筛选User：NG2061301，删除、新增CN20009客户授权")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_003_001(self, drivers):
+    def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
@@ -118,25 +100,7 @@ class TestDeleteCustAuthorization:
         domassert = DomAssert(drivers)
         domassert.assert_att("Successfully")
 
-@allure.feature("员工授权-用户授权")
-class TestAddCustAuthorization:
-    @allure.story("新增客户授权")
-    @allure.title("用户授权页面，新增CN20009客户授权")
-    @allure.description("用户授权页面，筛选User：NG2061301，新增CN20009客户授权")
-    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
-        """打开User Authorization菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User Authorization")
-
-        customer = UserAuthorizationPage(drivers)
-        customer.input_dealer_user_query("NG2061301")
-        customer.click_search()
-
-        customer.click_customer_tab()
+        """新增CN20009客户授权"""
         customer.click_add_customer()
         customer.click_input_customer("CN20009")
         customer.click_add_customer_search()
@@ -151,12 +115,12 @@ class TestAddCustAuthorization:
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteWareAuthorization:
-    @allure.story("删除仓库授权")
-    @allure.title("用户授权页面，删除WNG2061304仓库授权")
-    @allure.description("用户授权页面，筛选User：NG2061301，删除WNG2061304 仓库授权")
+    @allure.story("删除、新增仓库授权")
+    @allure.title("用户授权页面，删除、新增WNG2061304仓库授权")
+    @allure.description("用户授权页面，筛选User：NG2061301，删除、新增WNG2061304 仓库授权")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_005_001(self, drivers):
+    def test_003_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
@@ -183,25 +147,7 @@ class TestDeleteWareAuthorization:
         ValueAssert.value_assert_In(get_no_data, "No Data")
 
 
-@allure.feature("员工授权-用户授权")
-class TestAddWareAuthorization:
-    @allure.story("新增仓库授权")
-    @allure.title("用户授权页面，新增WNG2061304仓库授权")
-    @allure.description("用户授权页面，筛选User：NG2061301，新增WNG2061304 仓库授权")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_006_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
-        """打开User Authorization菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User Authorization")
-
-        ware = UserAuthorizationPage(drivers)
-        ware.input_dealer_user_query("NG2061301")
-        ware.click_search()
-
-        ware.click_warehouse_tab()
+        """ 新增WNG2061304仓库授权 """
         ware.click_add_association_ware()
         ware.input_add_query_ware("WNG2061304")
         ware.click_add_ware_search()
@@ -224,7 +170,7 @@ class TestAddRegionAuthorization:
     @allure.description("用户授权页面，筛选User：testlhm0215，新增销售区域授权")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_007_001(self, drivers):
+    def test_004_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
@@ -245,12 +191,12 @@ class TestAddRegionAuthorization:
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteShopAuthorization:
-    @allure.story("删除门店授权")
-    @allure.title("用户授权页面，删除EG000378门店授权")
-    @allure.description("用户授权页面，筛选User：testlhm0215，删除Shop ID:EG000378授权")
+    @allure.story("删除、新增门店授权")
+    @allure.title("用户授权页面，删除、新增SN002331门店授权")
+    @allure.description("用户授权页面，筛选User：testlhm0215，删除、新增Shop ID:SN002331授权")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_008_001(self, drivers):
+    def test_005_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
 
@@ -277,26 +223,7 @@ class TestDeleteShopAuthorization:
         get_shop_no_data = shop.get_shop_delete_no_data()
         ValueAssert.value_assert_In(get_shop_no_data, "No Data")
 
-
-@allure.feature("员工授权-用户授权")
-class TestAddShopAuthorization:
-    @allure.story("新增门店授权")
-    @allure.title("用户授权页面，新增EG000378门店授权")
-    @allure.description("用户授权页面，筛选User：testlhm0215，新增Shop ID:EG000378授权")
-    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_009_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
-        """打开User Authorization菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User Authorization")
-
-        shop = UserAuthorizationPage(drivers)
-        shop.input_trans_user_query("lhmyingxiao001")
-        shop.click_search()
-
-        shop.click_shop_tab()
+        """ 新增SN002331门店授权 """
         shop.click_add_association_shop()
         shop.input_add_query_shop("SN002331")
         shop.click_add_shop_search()
@@ -312,6 +239,7 @@ class TestAddShopAuthorization:
         domassert.assert_att("Successfully")
         get_list_shop_id = shop.get_list_shop_id_text("SN002331")
         ValueAssert.value_assert_equal(get_list_shop_id, "SN002331")
+
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserAuthorization.py'])

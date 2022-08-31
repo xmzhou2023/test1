@@ -41,7 +41,7 @@ def function_menu_fixture(drivers):
             sleep(1)
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-二代出库单")
 class TestQuerySubDelivery:
     @allure.story("二代查询出库单")
     @allure.title("按出库单条件筛选，出库单列表数据")
@@ -74,7 +74,7 @@ class TestQuerySubDelivery:
         #query.click_close_delivery_order()
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-二代出库单")
 class TestAddSubDelivery:
     @allure.story("二代新增出库单")
     @allure.title("二代新增出库单")
@@ -161,7 +161,7 @@ class TestAddSubDelivery:
         #add.click_close_delivery_order()
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-二代出库单")
 class TestRetailReceiv:
     @allure.story("零售商快速收货")
     @allure.title("零售商快速收货")
@@ -207,7 +207,7 @@ class TestRetailReceiv:
         #receiv.click_close_inbound_receipt()
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-二代出库单")
 class TestRetailReturn:
     @allure.story("零售商退货出库单")
     @allure.title("零售商申请退货出库单")
@@ -254,7 +254,7 @@ class TestRetailReturn:
         #return_order.click_close_return_order()
 
 
-@allure.feature("销售管理-出库单")
+@allure.feature("销售管理-二代出库单")
 class TestSubReturnApprove:
     @allure.story("二代审核退货单")
     @allure.title("退货单页面，二代账号, 进行审核退货单操作")
