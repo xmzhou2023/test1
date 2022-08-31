@@ -128,6 +128,7 @@ class Base(object):
         return number
 
     def input_text(self, locator, txt, choice=None):
+        print(locator)
         """输入文本"""
         if choice is None:
             sleep(0.5)

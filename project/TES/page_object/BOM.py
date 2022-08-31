@@ -13,55 +13,63 @@ user = Element(pro_name, object_name)
 class UserPage(Base):
     """用户类"""
 
-    def replaceXpath(self, arr, s):
-        return [arr[0], arr[1].replace('variable', s)]
+    # def replaceXpath(self, arr, s):
+    #     return tuple([arr[0], arr[1].replace('variable', s)])
 
     @allure.step("查找工号")
     def search_user(self, jobnum=None, name=None):
         if jobnum is not None:
-            self.readonly_input_text(user['用户管理-工号输入框'], txt=jobnum)
+            super().readonly_input_text(user['用户管理-工号输入框'], txt=jobnum)
             sleep(2)
             self.is_click(user['用户管理-工号下拉列表'], jobnum)
         if name is not None:
-            self.readonly_input_text(user['用户管理-姓名输入框'], txt=name)
+            super().readonly_input_text(user['用户管理-姓名输入框'], txt=name)
             sleep(2)
             self.is_click(user['用户管理-姓名下拉列表'], name)
         self.is_click(user['用户管理-查询'])
         sleep()
 
-    @allure.step("点击菜单")
-    def click_muen(self):
-        self.is_click(user['一级菜单'])
-        self.is_click(user['二级菜单'])
-        sleep(1)
-
     @allure.step("点击按钮")
     def click(self, locatorText, s=None):
-        res = user[locatorText]
-        if s:
-            res = tuple(self.replaceXpath(res, s))
-        self.is_click_tbm(res)
+        self.is_click(user[locatorText], s)
 
-    @allure.step("BOM信息下拉框录入")
-    def BOM_select_info_input(self, locatorStr1, locatorStr2, searchText=None):
-        # self.readonly_input_text(user[locatorText], text)
-        # 要先点一下再输入值, 上面的方法不行
-        self.is_click(user[locatorStr1])
+    @allure.step("下拉框信息录入")
+    def select_info_input(self, label, value, searchText='', dropdown='dropdown-label-var'):
+        self.is_click(user[dropdown], label)
         if searchText:
-            self.input_text(user[locatorStr1], searchText)
-        self.is_click(user[locatorStr2])
+            super().readonly_input_text(user[dropdown], searchText, label)
+            self.is_click(user['dropdown-search-value-var'], value)
 
-    @allure.step("普通的文本框信息录入")
-    def normal_input(self, locatorText, text):
-        self.readonly_input_text(user[locatorText], text)
+        else:
+            self.is_click(user['dropdown-value-var'], value)
+
+    @allure.step("输入框信息录入")
+    def readonly_input_text(self, replace, value, target='tHead-var'):
+        """
+        replace: xpath里 variable被替换后的值
+        value: 输入到文本框的值
+        target: 带 variable的xpath
+        """
+        super().readonly_input_text(user[target], value, replace)
 
     @allure.step("获取流程编码")
-    def getText(self):
-        return self.element_text(user['流程编码'])
+    def getText(self, productCode=None):
+        return self.element_text(user['流程编码'], productCode)
 
     @allure.step("进入iframe")
     def switch_iframe(self, path):
         self.frame_enter(user[path])
+
+    def user_selector(self, userSelectLabel, employeeNo):
+        """
+        userSelector: 用户选择器所在的form label
+        employeeNo: 员工工号
+        """
+        self.is_click(user['dropdown-label-var'], userSelectLabel)
+        # 对话框里的结构是固定的
+        self.input_text(user['输入用户名'], employeeNo)
+        self.is_click(user['选择用户'], employeeNo)
+        self.is_click(user['选择用户-确定'])
 
 
     # enter_iframe
