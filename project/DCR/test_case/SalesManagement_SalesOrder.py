@@ -123,8 +123,8 @@ class TestAddSalesOrder:
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Successfully")
-        sleep(3)
-
+        sleep(1)
+        add.click_search()
         """获取列表，销售单ID与Status文本内容"""
         get_sales_order = add.get_text_sales_id()
         get_status = add.get_text_sales_status("Delivered")
@@ -305,10 +305,8 @@ class TestDeleteSalesOrder:
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
-
         """销售管理菜单-打开销售单菜单"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         """调用新增销售单用例"""
         delete = SalesOrderPage(drivers)
         dom = DomAssert(drivers)
@@ -345,10 +343,8 @@ class TestDeleteSalesOrder:
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
-
         """销售管理菜单-打开销售单菜单"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         delete = SalesOrderPage(drivers)
         dom = DomAssert(drivers)
 
@@ -382,10 +378,8 @@ class TestExportSalesOrder:
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """销售管理菜单-打开销售单菜单"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         export = SalesOrderPage(drivers)
         # 获取当天日期
         base = Base(drivers)

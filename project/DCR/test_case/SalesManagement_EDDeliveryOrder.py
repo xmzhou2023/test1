@@ -11,24 +11,6 @@ import pytest
 import allure
 
 """后置关闭菜单方法"""
-# @pytest.fixture(scope='function')
-# def function_delivery_fixture(drivers):
-#     yield
-#     close = DeliveryOrderPage(drivers)
-#     close.click_close_delivery_order()
-#
-# @pytest.fixture(scope='function')
-# def function_inbound_fixture(drivers):
-#     yield
-#     close = InboundReceiptPage(drivers)
-#     close.click_close_inbound_receipt()
-#
-# @pytest.fixture(scope='function')
-# def function_return_fixture(drivers):
-#     yield
-#     close = ReturnOrderPage(drivers)
-#     close.click_close_return_order()
-
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
@@ -39,7 +21,6 @@ def function_menu_fixture(drivers):
         if class_value == str(get_menu_class):
             menu.click_close_open_menu()
             sleep(1)
-
 
 @allure.feature("销售管理-二代出库单")
 class TestQuerySubDelivery:
@@ -113,7 +94,8 @@ class TestAddSubDelivery:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             dom.assert_att("Submit successfully")
-        sleep(4)
+        sleep(1)
+        add.click_search()
 
         user = SQL('DCR', 'test')
         varsql3 = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200000 order by created_time desc limit 1"

@@ -13,12 +13,6 @@ import pytest
 import allure
 
 """后置关闭菜单方法"""
-# @pytest.fixture(scope='function')
-# def function_return_fixture(drivers):
-#     yield
-#     close = ReturnOrderPage(drivers)
-#     close.click_close_return_order()
-
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
