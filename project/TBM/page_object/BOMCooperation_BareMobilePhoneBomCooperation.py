@@ -110,13 +110,15 @@ class BareMobilePhoneBomCooperation(CenterComponent):
                 self.is_click_tbm(user['成员选择'], audit)
                 self.is_click_tbm(user['成员确定'])
             self.base_get_img()
-            logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
+            logging.info('获取审核人名单:{}'.format(infolist))
         else:
             self.is_click_tbm(user['审核人类别'], type)
             self.input_text(user['成员列表输入框'], audit)
             sleep(1)
             self.is_click_tbm(user['成员选择'], audit)
             self.is_click_tbm(user['成员确定'])
+            self.base_get_img()
+        logging.info('审核人填写:字段：{}， 审核人：{}'.format(type, audit))
 
     @allure.step("获取单机头BOM协作第一列内容")
     def get_info(self):
@@ -674,9 +676,12 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         BOM工程师审批页面 导出的数据和Bom Tree的数据是一致的
         """
         page_info = self.get_oneworks_approval_bomtree_info()
+        DomAssert(self.driver).assert_control(user['BomTreeTitle'])
+        self.click_oneworks_checkbox()
+        self.click_oneworks_approval_export()
         excel_info = self.read_excel_flow()
         try:
-
+            assert len(excel_info) != 0
             for i in range(1, len(excel_info) + 1):
                 assert set(page_info[0][2:3]) <= set(excel_info[i - 1])
                 assert set(page_info[i][2:-1]) <= set(excel_info[i - 1])
@@ -693,25 +698,26 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.is_click_tbm(user['补充工厂生产工厂信息-导出'])
         sleep(0.5)
 
+    @allure.step("在补充工厂页面中，获取生产工厂信息数据")
     def get_oneworks_factoryinfo(self):
-        """
-        在补充工厂页面中，获取生产工厂信息数据
-        """
-        info = self.find_elements_tbm(user['补充工厂生产工厂信息'])
+        state = self.get_element_attribute(user['补充工厂生产工厂信息明细折叠按钮'], 'class')
+        if 'expand' not in state:
+            self.is_click_tbm(user['补充工厂生产工厂信息'])
+        DomAssert(self.driver).assert_control(user['生产工厂信息Title'], True)
+        info = self.find_elements_tbm(user['补充工厂生产工厂信息明细'])
         info_list = []
         for i in info:
-            if len(i.text.split('\n')) != 3:
-                info_list.append(i.text.split('\n'))
+            info_list.append(i.text.split('\n'))
         logging.info('获取Oneworks-补充工厂页面-生产工厂信息所有内容{}'.format(info_list))
         return info_list
 
+    @allure.step("导出的生产工厂信息xlsx表的数据和页面的生产工厂信息数据是一致的")
     def assert_oneworks_factoryinfo(self):
-        """
-        在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的生产工厂信息数据是一致的
-        """
         page_info = self.get_oneworks_factoryinfo()
+        self.click_oneworks_factory_export()
         excel_info = self.read_excel_flow()
         try:
+            assert len(excel_info) != 0
             for i in range(len(excel_info)):
                 assert set(page_info[i][2:]) <= set(excel_info[i])
             logging.info('断言成功，导出的数据和生产工厂信息的数据是一致的')
@@ -801,5 +807,34 @@ class BareMobilePhoneBomCooperation(CenterComponent):
     @allure.step("点击子阶BOM检查-更多操作-更新子阶BOM")
     def click_update(self):
         self.is_click(user['子阶BOM检查-更多操作-更新子阶BOM'])
+
+    @allure.step("点击子阶BOM检查-导出")
+    def click_oneworks_bomcheck_export(self):
+        self.is_click_tbm(user['子阶BOM检查-导出'])
+
+    @allure.step("BOM工程师审批页面 获取子阶BOM检查数据")
+    def get_oneworks_approval_bomcheck_info(self):
+        info = self.find_elements_tbm(user['子阶BOM检查信息'])
+        info_list = []
+        for i in info:
+            if len(i.text.split('\n')) != 3:
+                info_list.append(i.text.split('\n'))
+        logging.info('获取Oneworks-BOM工程师审批页面-子阶BOM检查所有内容{}'.format(info_list))
+        return info_list
+
+    @allure.step("BOM工程师审批页面 导出的数据和子阶BOM检查的数据是一致的")
+    def assert_oneworks_approval_bomcheck(self):
+        page_info = self.get_oneworks_approval_bomcheck_info()
+        self.click_oneworks_bomcheck_export()
+        excel_info = self.read_excel_flow()
+        try:
+            for i in range(len(excel_info)):
+                page_info[i].pop(5)
+                assert set(page_info[i]) <= set(excel_info[i])
+            logging.info('断言成功，导出的数据和BomTree的数据是一致的')
+        except:
+            self.base_get_img()
+            logging.error('断言成功，导出的数据和BomTree的数据是不一致的')
+            raise
 if __name__ == '__main__':
     pass

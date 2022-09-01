@@ -83,7 +83,7 @@ class CenterComponent(Base, APIRequest):
         for i in range(20):
             text = self.element_text(user['所有文本']).replace("\n", "|")
             if code not in text:
-                self.is_click(user['待办列表-刷新'])
+                self.is_click_tbm(user['待办列表-刷新'])
                 sleep(1)
             else:
                 break
@@ -133,11 +133,52 @@ class CenterComponent(Base, APIRequest):
         logging.info('跳出框架')
         self.switch_window(1)
         logging.info('切换窗口')
-        sleep(2)
-        logging.info('强制等待')
-        self.frame_enter(user['待办列表-iframe'])
-        logging.info('进入框架')
-        DomAssert(self.driver).assert_att('基本信息')
+        try:
+            sleep(2)
+            logging.info('强制等待')
+            self.frame_enter(user['待办列表-iframe'])
+            logging.info('进入框架')
+            DomAssert(self.driver).assert_att('基本信息')
+        except:
+            self.refresh()
+            sleep(2)
+            logging.info('强制等待')
+            self.frame_enter(user['待办列表-iframe'])
+            logging.info('进入框架')
+            DomAssert(self.driver).assert_att('基本信息')
+
+    @allure.step("点击 查看详情 进入 oneworks 页面")
+    def enter_oneworks_application(self, code, node=None):
+        """
+        点击 查看详情 进入 oneworks 页面
+        输入流程编码过滤后，根据当前节点名称点击查看详情进入详情页面
+        @param code:流程编码
+        @param node:节点名称
+        """
+        self.enter_my_application()
+        self.screening_code(code)
+        if node is not None:
+            self.is_click_tbm(user['待办列表-我申请的-查看详情(节点名称)'], node)
+        else:
+            self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
+        logging.info('点击查看详情')
+        self.frame_exit()
+        logging.info('跳出框架')
+        self.switch_window(1)
+        logging.info('切换窗口')
+        try:
+            sleep(2)
+            logging.info('强制等待')
+            self.frame_enter(user['待办列表-iframe'])
+            logging.info('进入框架')
+            DomAssert(self.driver).assert_att('基本信息')
+        except:
+            self.refresh()
+            sleep(2)
+            logging.info('强制等待')
+            self.frame_enter(user['待办列表-iframe'])
+            logging.info('进入框架')
+            DomAssert(self.driver).assert_att('基本信息')
 
     @allure.step("断言")
     def assert_toast(self, content=None):
@@ -313,6 +354,11 @@ class CenterComponent(Base, APIRequest):
         self.is_click_tbm(user['oneworks-同意确定'])
         logging.info('点击确定')
 
+    @allure.step("oneworks点击取消")
+    def click_oneworks_cancel(self):
+        self.is_click_tbm(user['oneworks-同意取消'])
+        logging.info('点击取消')
+
     @allure.step("oneworks点击转交")
     def click_oneworks_refer(self):
         self.frame_exit()
@@ -364,6 +410,10 @@ class CenterComponent(Base, APIRequest):
         DomAssert(self.driver).assert_control(user['oneworks-回退'], result)
         DomAssert(self.driver).assert_control(user['oneworks-转交'], result)
 
+    @allure.step("断言： 是否存在转交按钮")
+    def assert_oneworks_rollback_refer(self, result):
+        DomAssert(self.driver).assert_control(user['oneworks-转交'], result)
+
     @allure.step("点击拒绝")
     def click_oneworks_refuse(self):
         self.frame_exit()
@@ -399,6 +449,24 @@ class CenterComponent(Base, APIRequest):
             sleep(1)
         self.base_get_img()
         DomAssert(self.driver).assert_att('基本信息')
+
+    @allure.step("断言：区域配置数据按照时间降序排序")
+    def assert_search_time_desc(self):
+        times = self.find_elements(user['创建时间'])
+        timelist = []
+        for i in times:
+            timelist.append(i.text)
+        try:
+            for i in range(len(timelist) - 1):
+                try:
+                    assert timelist[i] >= timelist[i + 1]
+                except:
+                    logging.error('未按降序排序,修改时间分别为：{}，{}'.format(timelist[i], timelist[i + 1]))
+                    raise
+            logging.info('查询按照按修改时间的降序排序')
+        except Exception as e:
+            logging.error(e)
+            raise
 
 if __name__ == '__main__':
     pass
