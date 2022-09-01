@@ -13,8 +13,12 @@ user = Element(pro_name, object_name)
 class UserPage(Base):
     """用户类"""
 
-    # def replaceXpath(self, arr, s):
-    #     return tuple([arr[0], arr[1].replace('variable', s)])
+    def __init__(self, drivers, productType='产成品'):
+        super(UserPage, self).__init__(drivers)
+        # 产成品 | 单机头
+        self.productType = productType
+    def replaceXpath(self, arr, placeholder, replace):
+        return tuple([arr[0], arr[1].replace(placeholder, replace)])
 
     @allure.step("查找工号")
     def search_user(self, jobnum=None, name=None):
@@ -34,27 +38,32 @@ class UserPage(Base):
         self.is_click(user[locatorText], s)
 
     @allure.step("下拉框信息录入")
-    def select_info_input(self, label, value, searchText='', targetXpath='form-input'):
-        self.is_click(user[targetXpath], label)
+    def select_info_input(self, locatorText, value, replace, searchText=''):
+        self.is_click(user[locatorText], replace)
         if searchText:
-            super().readonly_input_text(user[targetXpath], searchText, label)
+            super().readonly_input_text(user[locatorText], searchText, replace)
             self.is_click(user['dropdown-search-value'], value)
 
         else:
             self.is_click(user['dropdown-value'], value)
 
     @allure.step("输入框信息录入")
-    def readonly_input_text(self, replace, value, target='table-form-input'):
+    def readonly_input_text(self, locatorText, value, replace):
         """
         replace: xpath里 variable被替换后的值
         value: 输入到文本框的值
-        target: 带 variable的xpath
+        locatorText: 带 variable的xpath
         """
-        super().readonly_input_text(user[target], value, replace)
+        super().readonly_input_text(user[locatorText], value, replace)
 
     @allure.step("获取流程编码")
-    def getText(self, productCode=None):
-        return self.element_text(user['流程编码'], productCode)
+    def getText(self, productCode=None, s='整机BOM协作'):
+        dictMap = {
+            "整机BOM协作": "2",
+            "单机头BOM协作": "3",
+        }
+        xpathArr = self.replaceXpath(user['流程编码'], 'placeholder', dictMap[s])
+        return self.element_text(xpathArr, productCode)
 
     @allure.step("进入iframe")
     def switch_iframe(self, path):
