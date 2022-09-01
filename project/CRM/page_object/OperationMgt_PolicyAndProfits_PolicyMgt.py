@@ -9,21 +9,42 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-class UserPage(Base):
-    """用户类"""
+class PolicyPage(Base):
+    """政策页"""
 
-    @allure.step("查找工号")
-    def search_user(self, jobnum=None,name=None):
-        if jobnum is not None:
-            self.readonly_input_text(user['用户管理-工号输入框'], txt=jobnum)
-            sleep(2)
-            self.is_click(user['用户管理-工号下拉列表'], jobnum)
-        if name is not None:
-            self.readonly_input_text(user['用户管理-姓名输入框'], txt=name)
-            sleep(2)
-            self.is_click(user['用户管理-姓名下拉列表'], name)
-        self.is_click(user['用户管理-查询'])
-        sleep()
+    @allure.step("筛选框查询")
+    def search_policy(self,country=None, brand=None, project=None, keyword=None):
+        self.refresh()
+        if country is not None:
+            self.is_click(user["筛选框"],choice="country")
+            self.input_text(user["筛选框"],choice="country",txt=country)
+            sleep(0.5)
+            self.is_click(user["下拉筛选框_第一条数据"])
+        if brand is not None:
+            self.is_click(user["筛选框"],choice="brandCategory")
+            self.input_text(user["筛选框"],choice="brandCategory", txt=brand)
+            sleep(0.5)
+            self.is_click(user["下拉筛选框_第二条数据"])
+        if project is not None:
+            self.is_click(user["筛选框"],choice="projectName")
+            self.input_text(user["筛选框"],choice="projectName", txt=project)
+            sleep(0.5)
+            self.is_click(user["下拉筛选框_第一条数据"])
+        if keyword is not None:
+            self.is_click(user["筛选框"], choice="keyword")
+            self.input_text(user["筛选框"], choice="keyword", txt=keyword)
+            sleep(0.5)
+        self.is_click(user["搜索按钮"])
+        sleep(0.5)
+
+
+    def get_total(self):
+        sleep(0.5)
+        total = self.element_text(user["total数量"])
+        num = total.split(" ",1)
+        number = num[1]
+        return number
+
 
 if __name__ == '__main__':
     pass
