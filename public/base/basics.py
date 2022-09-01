@@ -470,6 +470,11 @@ class Base(object):
             for cell in i:
                 info.append(str(cell.value))
             info_list.append(info)
+        try:
+            assert info_list != 0
+        except:
+            logging.error('excel表格内容：{};实际为空'.format(info_list))
+            raise
         logging.info('excel表格内容：{}'.format(info_list))
         return info_list
 
@@ -486,9 +491,8 @@ class Base(object):
             logging.info('download文件夹内有文件：{}'.format(path_list))
             assert len(path_list) != 0
         except:
-            path = os.path.join(BASE_DIR)
-            path_list = os.listdir(DOWNLOAD_PATH)
-            logging.info('download文件夹内有文件：{}'.format(path_list))
+            logging.error('download文件夹无内容')
+            raise
         try:
             return self.read_excel(path, path_list[-1])
         except Exception as e:
