@@ -48,8 +48,7 @@ class CenterComponent(Base, APIRequest):
         if '扫码快捷登录' in text:
             """使用统一登录"""
             logging.info("前置条件：传音统一登录开始")
-            a = Login(self.driver)
-            a.login(self.driver, 'http://bom-sit.transsion.com/#/process/home-page', account[2]['usernum'], account[2]['passwd'])
+            self.get_url('http://bom-sit.transsion.com/#/process/home-page')  # 跳转到指定网页
             DomAssert(self.driver).assert_exact_att('首页')
             logging.info("前置条件：传音统一登录成功")
 
