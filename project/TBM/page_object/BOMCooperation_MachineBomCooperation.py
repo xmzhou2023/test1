@@ -757,10 +757,11 @@ class MachineBOMCollaboration(CenterComponent):
 
     @allure.step("BOM工程师审批页面 获取BomTree数据")
     def get_oneworks_approval_bomtree_info(self):
-        self.click_tree('产成品')
+        # self.click_tree('产成品')
         info = self.find_elements_tbm(user['BOM工程师BomTree信息'])
         info_list = []
         for i in info:
+            # if len(i.get_attribute('innerText').split('\n')) != 3:
             if len(i.text.split('\n')) != 3:
                 info_list.append(i.text.split('\n'))
         logging.info('获取Oneworks-BOM工程师审批页面-BOMTree所有内容{}'.format(info_list))
@@ -768,6 +769,7 @@ class MachineBOMCollaboration(CenterComponent):
 
     @allure.step("断言：BOM工程师审批页面 导出的数据和Bom Tree的数据是一致的")
     def assert_oneworks_approval_bominfo(self):
+        self.click_tree('产成品')
         page_info = self.get_oneworks_approval_bomtree_info()
         excel_info = self.read_excel_flow()
         try:

@@ -12,7 +12,7 @@ from public.base.assert_ui import DomAssert, ValueAssert
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 
-@allure.feature("BOM协作-外研协作")  # 模块名称
+@allure.feature("BOM协作-外研BOM协作")  # 模块名称
 class TestCreateProcess:
     @allure.story("创建流程")  # 场景名称
     @allure.title("创建流程成功")  # 用例名称

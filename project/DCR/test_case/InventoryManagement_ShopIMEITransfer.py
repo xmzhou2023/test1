@@ -322,6 +322,7 @@ class TestApproveRejectTransfer:
         user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
 
         approve = ShopIMEITransferPage(drivers)
+        approve.click_unfold()
         approve.input_status_query('Rejected')
         approve.click_search()
 
