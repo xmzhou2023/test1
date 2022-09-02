@@ -322,43 +322,42 @@ class TestExportUser:
         #export.click_close_user_mgt()
 
 
-@allure.feature("员工授权-用户管理")
-class TestResetPasswordUser:
-    @allure.story("用户重置密码")
-    @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
-    @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
-    @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
-    def test_005_001(self, drivers):
-        """ lhmadmin管理员账号登录"""
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+# @allure.feature("员工授权-用户管理")
+# class TestResetPasswordUser:
+#     @allure.story("用户重置密码")
+#     @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
+#     @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
+#     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+#     def test_005_001(self, drivers):
+#         """ lhmadmin管理员账号登录"""
+#         user = LoginPage(drivers)
+#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
+#
+#         """用户授权-用户管理-查询用户管理列表数据用例"""
+#         user.click_gotomenu("Staff & Authorization", "User Management")
+#
+#         reset = UserManagementPage(drivers)
+#         reset.input_query_User('EG4463901')
+#         reset.click_search()
+#         reset.click_first_checkbox()
+#         reset.click_more_reset_password()
+#         """断言是否弹出设置成功提示"""
+#         DomAssert(drivers).assert_att("Set Up Successfully")
+#         sleep(1.5)
+#         """重置密码成功后，使用该账号登录，设置新的密码"""
+#         user.dcr_login(drivers, "EG4463901", "EG4463901")
+#
+#         """该用户登录时，弹出设置新密码窗口，输入新密码及确认新密码，点击保存"""
+#         reset.input_new_password_save("dcr123456")
+#         DomAssert(drivers).assert_att("Save successfully!")
+#         reset.click_save_successfully_ok()
+#
+#         """弹出登录页面，输入新的密码，点击登录按钮"""
+#         reset.input_login_password("dcr123456")
+#         reset.click_login()
+#         """验证登录成功后，页面是否存在首页菜单"""
+#         DomAssert(drivers).assert_att("Home Page-Customer")
 
-        """用户授权-用户管理-查询用户管理列表数据用例"""
-        user.click_gotomenu("Staff & Authorization", "User Management")
-
-        reset = UserManagementPage(drivers)
-        reset.input_query_User('EG4463901')
-        reset.click_search()
-        reset.click_first_checkbox()
-        reset.click_more_reset_password()
-        """断言是否弹出设置成功提示"""
-        DomAssert(drivers).assert_att("Set Up Successfully")
-        sleep(2)
-        """重置密码成功后，使用该账号登录，设置新的密码"""
-        user.dcr_login(drivers, "EG4463901", "EG4463901")
-        get_new_password = reset.get_new_password_label()
-        ValueAssert.value_assert_In("New Password", get_new_password)
-
-        """该用户登录时，弹出设置新密码窗口，输入新密码及确认新密码，点击保存"""
-        reset.input_new_password_save("dcr123456")
-        DomAssert(drivers).assert_att("Save successfully!")
-        reset.click_save_successfully_ok()
-
-        """弹出登录页面，输入新的密码，点击登录按钮"""
-        reset.input_login_password("dcr123456")
-        reset.click_login()
-        """验证登录成功后，页面是否存在首页菜单"""
-        DomAssert(drivers).assert_att("Home Page-Customer")
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserManagement.py'])
