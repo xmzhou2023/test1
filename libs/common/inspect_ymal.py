@@ -32,34 +32,43 @@ def inspect_element():
                     data = yaml.safe_load(f)
                     try:
                         if data is None:
-                            error_list.append('【项目】%s【模块】%s中元素格式不符' % (pro, i))
+                            error_list.append('【项目】%s【模块】%s中元素格式不符！' % (pro, i))
 
                         if isinstance(data, dict) is False:
                             error_list.append(
-                                '【项目】%s【模块】%s请检查元素名和表达式固定格式【元素定位名: 定位方式==定位路径】' % (pro, i))
+                                '【项目】%s【模块】%s请检查元素名和表达式固定格式【元素定位名: 定位方式==定位路径】！' % (
+                                pro, i))
 
-                        for k,v in data.items():
+                        for k, v in data.items():
 
-                            if k is None:
-                                error_list.append('【项目】%s【模块】%s【元素】%s【定位表达式】%s定位方式和值未填写' % (pro, i, k, v))
+                            if v is None:
+                                error_list.append(
+                                    '【项目】%s【模块】%s【元素】%s【定位表达式】%s定位方式和值未填写！' % (pro, i, k, v))
 
-                            if '==' not in k:
-                                error_list.append('【项目】%s【模块】%s【元素】%s【定位表达式】%s标签和路径需用==间隔' % (pro, i, k, v))
+                            if '==' not in str(v):
+                                error_list.append(
+                                    '【项目】%s【模块】%s【元素】%s【定位表达式】%s标签和路径需用==间隔！' % (pro, i, k, v))
 
-                            pattern, value = k.split('==')
+                            pattern, value = v.split('==')
 
                             if pattern not in LOCATE_MODE:
-                                error_list.append('【项目】%s【模块】%s【元素】%s【定位表达式】%s没有指定类型' % (pro, i, k, v))
+                                error_list.append('【项目】%s【模块】%s【元素】%s【定位表达式】%s类型系统暂不支持' % (pro, i, k, v))
 
                             if pattern in ('id', 'name', 'css', 'class', 'text', 'partial-link', 'tag'):
                                 continue
 
                             if pattern == 'xpath':
-                                if '/' not in value:
-                                    error_list.append('【项目】%s【模块】%s【元素】%s【定位表达式】%sxpath类型与值不配！' % (pro, i, k, v))
 
                                 if '“' in value or '‘' in value:
-                                    error_list.append('【项目】%s【模块】%s【元素】%s【定位表达式】%s注意不要用中文符号的引号！' % (pro, i, k, v))
+                                    error_list.append(
+                                        '【项目】%s【模块】%s【元素】%s【定位表达式】%s注意不要用中文符号的引号！' % (
+                                        pro, i, k, v))
+
+                                if '/' not in value:
+                                    error_list.append(
+                                        '【项目】%s【模块】%s【元素】%s【定位表达式】%s该类型不为路径！' % (pro, i, k, v))
+
+
 
                             # if pattern == 'css':
                             #     if '/' not in value:
