@@ -54,6 +54,3 @@
 卡片属性页面点击: 'xpath==//div[normalize-space(text())="操作"]'
 名称必填项: 'xpath==//div[@class="el-form-item__error"]'
 清除框: 'xpath==//i[@class="el-input__icon el-icon-circle-close el-input__clear"]'
-
-
-

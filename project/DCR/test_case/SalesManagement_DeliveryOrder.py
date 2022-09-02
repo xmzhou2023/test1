@@ -12,12 +12,6 @@ import allure
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
-def function_delivery_fixture(drivers):
-    yield
-    close = DeliveryOrderPage(drivers)
-    close.click_close_delivery_order()
-
-@pytest.fixture(scope='function')
 def function_view_fixture(drivers):
     yield
     close = DeliveryOrderPage(drivers)
@@ -31,6 +25,14 @@ def function_export_fixture(drivers):
     close.click_close_export_record()
     close.click_close_delivery_order()
 
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("销售管理-出库单")
 class TestQueryDeliveryOrder:
@@ -38,7 +40,7 @@ class TestQueryDeliveryOrder:
     @allure.title("出库单页面，查询出库单列表加载数据")
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_delivery_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -155,7 +157,7 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为无码的，买方为临时客户")
     @allure.description("国包用户，新建出库单，产品为无码时，买方为临时客户")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_delivery_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_001(self, drivers):
         user3 = LoginPage(drivers)
         user3.initialize_login(drivers, "EG40052202", "dcr123456")
@@ -185,8 +187,8 @@ class TestAddDeliveryOrder:
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Submit successfully")
-        sleep(4)
-
+        sleep(1)
+        add.click_search()
         """断言查询新建的无码出库单"""
         user = SQL('DCR', 'test')
         varsql1 = "select order_code,delivery_code from t_channel_delivery_ticket where warehouse_id='61735' and seller_id='1596874516539127' and status=80200001 order by created_time desc limit 1"
@@ -217,7 +219,7 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家退货单")
     @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家创建退货单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_delivery_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_002(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -263,8 +265,8 @@ class TestAddDeliveryOrder:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             dom.assert_att("Submit successfully")
-        sleep(4)
-
+        sleep(1)
+        add.click_search()
         """断言查询新建的无码出库单"""
         sql2 = SQL('DCR', 'test')
         varsql2 = "select * from  t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667'  and status=80200001 order by created_time desc limit 1"
@@ -337,4 +339,3 @@ class TestAddDeliveryOrder:
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_DeliveryOrder.py'])
-

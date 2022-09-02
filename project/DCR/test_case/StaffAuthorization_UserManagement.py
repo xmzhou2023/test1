@@ -10,21 +10,17 @@ import pytest
 import allure
 
 """后置关闭菜单方法"""
-# @pytest.fixture(scope='function')
-# def function_user_mgt_fixture(drivers):
-#     yield
-#     close = UserManagementPage(drivers)
-#     close.click_close_user_mgt()
-#
-# @pytest.fixture(scope='function')
-# def function_export_fixture(drivers):
-#     yield
-#     close = UserManagementPage(drivers)
-#     close.click_close_export_record()
-#     close.click_close_user_mgt()
-
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
     yield
     menu = LoginPage(drivers)
     for i in range(2):
@@ -281,7 +277,7 @@ class TestExportUser:
     @allure.title("用户管理页面，导出筛选的用户数据")
     @allure.description("用户管理页面，导出筛选的用户数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_004_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)

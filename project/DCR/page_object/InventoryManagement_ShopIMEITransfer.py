@@ -78,13 +78,12 @@ class ShopIMEITransferPage(Base):
 
     @allure.step("获取列表To Shop文本内容")
     def get_list_to_shop_text(self, shop):
-        self.scroll_into_view(user['Get list Creator ID Text'])
+        self.scroll_into_view(user['Get List To Shop ID Text'], shop)
         get_to_shop = self.element_text(user['Get List To Shop ID Text'], shop)
         return get_to_shop
 
     @allure.step("获取列表Creator ID文本内容")
     def get_list_creator_id_text(self):
-        self.scroll_into_view(user['Get list Creator ID Text'])
         get_creator_id = self.element_text(user['Get list Creator ID Text'])
         return get_creator_id
 
@@ -122,12 +121,12 @@ class ShopIMEITransferPage(Base):
         self.is_click(user['search按钮'])
         sleep(3)
 
-    @allure.step("点击Checkbox勾选复选框")
+    @allure.step("点击Checkbox勾选全选复选框")
     def click_check_box(self):
-        self.is_click(user['勾选复选框'])
+        self.is_click(user['勾选全选复选框'])
         sleep(1)
 
-    @allure.step("点击Approve/reject按钮")
+    @allure.step("点击Approve或 reject按钮")
     def click_approve_reject(self, choose):
         self.is_click(user['Approve reject按钮'], choose)
 
@@ -141,18 +140,6 @@ class ShopIMEITransferPage(Base):
         sleep(1)
         self.is_click(user['search按钮'])
         sleep(2)
-
-    # @allure.step("点击弹窗Yes/Cancel按钮")
-    # def click_yes_or_cancel(self, yes_cancel):
-    #     self.is_click(user['弹窗Yes Cancel按钮'], yes_cancel)
-
-    # @allure.step("点击Approve按钮后，弹出Yes对话框， 点击OK按钮")
-    # def click_approve_ok(self):
-    #     self.is_click(user['Approve OK按钮'])
-
-    # @allure.step("点击RejectOK按钮")
-    # def click_reject_ok(self):
-    #     self.is_click(user['Reject OK按钮'])
 
     @allure.step("点击Approve，弹出弹窗Yes/Cancel按钮，点击OK审核通过")
     def click_approve_yes_ok(self, choose, yes_cancel):
@@ -174,7 +161,34 @@ class ShopIMEITransferPage(Base):
     @allure.step("点击Reset按钮")
     def click_reset(self):
         self.is_click(user['Reset 按钮'])
-        sleep(8)
+        sleep(4.5)
+
+    @allure.step("获取Total分页总条数")
+    def get_total_text(self):
+        get_status = self.element_text(user['Get Total'])
+        get_status1 = get_status[6:]
+        return get_status1
+
+    @allure.step("断言分页总条数，是否存在分页数据")
+    def assert_total(self, total):
+        if int(total) >= 1:
+            logging.info("打印获取门店IMEI调店页面，的分页总条数{}".format(total))
+        else:
+            logging.info("打印获取门店IMEI调店页面，的分页总条数{}".format(total))
+
+    @allure.step("筛选Create Date创建日期")
+    def input_create_date_query(self, date):
+        self.is_click(user['Create Start Date'])
+        self.input_text(user['Create Start Date'], txt=date)
+
+    @allure.step("点击筛选Create Date创建日期，释放光标")
+    def click_create_end_date(self):
+        self.is_click(user['Create End Date'])
+
+    @allure.step("勾选第一条记录的复选框")
+    def click_first_checkbox(self):
+        self.is_click_dcr(user['勾选第一条复选框'])
+
 
 if __name__ == '__main__':
     pass

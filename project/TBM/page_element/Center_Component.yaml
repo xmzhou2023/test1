@@ -20,6 +20,7 @@ oneworks-撤回: "xpath==//button/span[contains(text(),'撤回')]"
 oneworks-撤回确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
 oneworks-同意: "xpath==//button/span[contains(text(),'同 意')]"
 oneworks-同意确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
+oneworks-同意取消: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'取消')]"
 oneworks-回退: "xpath==//button/span[contains(text(),'回 退')]"
 oneworks-回退到: "xpath==//div[@aria-label='回退到']//input"
 oneworks-回退选择: "xpath==//span[contains(text(),'variable')]"
@@ -34,3 +35,6 @@ oneworks-选择转交人: "xpath==//div[@class='btn-groups']//button/span[contai
 oneworks-转交取消: "xpath==//div[@class='btn-groups']//button/span[contains(text(),'取 消')]"
 oneworks-拒绝: "xpath==//div[@class='btn-groups']//button/span[contains(text(),'拒 绝')]"
 oneworks-拒绝-确定: "xpath==//*[@aria-label='提示']//button/span[contains(text(),'确定')]"
+
+创建时间: "xpath==//tbody/tr/td[12]"
+

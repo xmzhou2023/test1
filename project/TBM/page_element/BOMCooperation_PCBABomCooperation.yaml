@@ -15,7 +15,7 @@
 BOM信息输入框: "xpath==//label[contains(text(),'variable')]/..//input"
 BOM信息输入框选择: "xpath==//div[@x-placement='bottom-start']//span[normalize-space(text())='variable']"
 BOM信息选择框: "xpath==//span[contains(text(),'variable ')]/../..//input"
-BOM信息输入框机型选择: "xpath==/html/body//div[1]/div[1]/ul//li[contains(text(),'variable')]"
+BOM信息输入框机型选择: "xpath==//div[starts-with(@x-placement,'bottom')]//li[contains(text(),'variable')]"
 BOM信息一键填写: "xpath==//div[@title='一键填写']/i"
 BOM信息一键填写取消: "xpath==//div[@aria-label='一键填写']//button/span[contains(text(),'取消')]"
 BOM信息一键填写-字段名称: "xpath==//div[@aria-label='一键填写']//label[@for='key']/..//input"

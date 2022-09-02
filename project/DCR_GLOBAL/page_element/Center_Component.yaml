@@ -58,7 +58,7 @@ Staff & Authorization->Staff Authorized List: "xpath==//span[(text()='Staff Auth
 
 
 Customer Management: "xpath==//span[(text()='Customer Management')]"
-Customer Management->Customer Management(Global): "xpath==Customer Management (global)"
+Customer Management->Customer Management(Global): "xpath==//Customer Management (global)"
 Customer Management->Warehouse Management: "xpath==//span[(text()='Warehouse Management')]"
 Customer Management->Customer Management(India): "xpath==//span[(text()='Customer Management (india)')]"
 Customer Management->Customer Permission: "xpath==//span[(text()='Customer Permission')]"

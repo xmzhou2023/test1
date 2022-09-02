@@ -60,17 +60,23 @@ class ForeignBom(CenterComponent):
         self.input_optional_material('12004871', '用量', '1000')
         self.base_get_img()
 
-
     @allure.step("点击提交")
     def click_add_submit(self):
         self.scroll_into_view(user['提交'])
         sleep(0.5)
         self.is_click_tbm(user['提交'])
+        logging.info('点击提交')
 
     @allure.step("点击刷新")
     def click_refresh(self):
         self.scroll_into_view(user['刷新'])
         self.is_click_tbm(user['刷新'])
+        logging.info('点击刷新')
+
+    @allure.step("点击查询")
+    def click_search(self):
+        self.is_click_tbm(user['查询'])
+        logging.info('点击查询')
 
     @allure.step("点击新增bom")
     def click_add_bomtree(self):
@@ -111,10 +117,8 @@ class ForeignBom(CenterComponent):
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
+    @allure.step("点击新增物料")
     def click_optional_material(self):
-        """
-        点击新增物料
-        """
         self.is_click_tbm(user['新增物料'])
         logging.info('点击新增物料')
 
@@ -154,7 +158,7 @@ class ForeignBom(CenterComponent):
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
     @allure.step("审核人设置")
-    def select_business_review(self, audit, type='MPM'):
+    def select_business_review(self, audit, type='all'):
         """
         审核人设置-业务评审-：选择用户
         @param type:选择的类别
@@ -305,6 +309,7 @@ class ForeignBom(CenterComponent):
     @allure.step("根据Tree点击删除按钮")
     def click_bomtree_delete(self, tree):
         self.is_click_tbm(user['BOMTree删除'], tree)
+        self.click_batch_confirm()
 
     @allure.step("点击确定")
     def click_batch_confirm(self):
@@ -312,6 +317,186 @@ class ForeignBom(CenterComponent):
         logging.info('确定')
         sleep(0.5)
 
+    @allure.step("点击导入BOM")
+    def click_bom_import(self):
+        self.is_click_tbm(user['导入BOM'])
+        logging.info('点击导入BOM')
 
+    @allure.step("导入-上传文件")
+    def upload_import(self, file):
+        ele = self.driver.find_element(By.XPATH,
+                                       "//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper']/div/div[2]/div[1]/div/input")
+        ele.send_keys(file)
+        logging.info('点击导入-上传文件')
+
+    @allure.step("导入BOM-上传正确文件")
+    def upload_true_file(self):
+        path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', '外研客供BOM导入模板.xlsx')
+        self.upload_import(path)
+        DomAssert(self.driver).assert_control(user['导入BOM校验结果成功状态'])
+
+    @allure.step("导入BOM-上传错误文件")
+    def upload_wrong_file(self):
+        path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', 'worng_file_text.txt')
+        self.upload_import(path)
+
+    @allure.step("导入BOM-上传错误内容文件")
+    def upload_wrongcontent_file(self):
+        path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', '外研客供BOM导入模板错误内容.xlsx')
+        self.upload_import(path)
+        sleep(2)
+        DomAssert(self.driver).assert_att('外购单机头_TECNO_W1_B40030_埃塞_新客供')
+
+    @allure.step("断言导入错误内容后，页面状态是否正确")
+    def assert_wrongcontent_upload_result(self):
+        try:
+            apply = self.find_element(user['导入BOM应用状态'])
+            check = self.find_element(user['导入BOM导出校验状态'])
+            assert 'is-disabled' in apply.get_attribute('class')
+            assert 'is-disabled' not in check.get_attribute('class')
+            logging.info('断言成功，导出校验可点击，应用不可点击')
+        except:
+            self.base_get_img()
+            logging.error('断言失败，请检查按钮状态')
+            raise
+
+    def get_bomtree_upload_info(self):
+        """
+        获取导入BOM-结果内容
+        """
+        info = self.find_elements_tbm(user['导入BOM内容'])
+        infolist = []
+        for i in info:
+            infolist.append(i.text.split('\n'))
+        logging.info('获取BOM导入结果{}'.format(infolist))
+        return infolist
+
+    @allure.step("断言导入后，页面表格内容是否正确")
+    def assert_upload_result(self, *content):
+        """
+        断言导入后，页面表格内容是否正确
+        :param content: 需要断言的内容，可以一次传入多个
+        """
+        try:
+            contents = self.get_bomtree_upload_info()
+            content_list = []
+            for i in contents:
+                content_list.append(tuple(i))
+            logging.info(content_list)
+            assert set(content) <= set(content_list)
+            logging.info('断言成功，选项值包含：{}'.format(content))
+        except:
+            self.base_get_img()
+            logging.error('断言失败，选项值不包含：{}'.format(content))
+            raise
+
+    @allure.step("点击应用")
+    def click_apply(self):
+        self.is_click_tbm(user['应用'])
+        logging.info('点击应用')
+
+    @allure.step("点击展开+图标")
+    def click_tree(self, tree):
+        """
+        点击展开+图标
+        :param tree: 物料名称
+        """
+        self.is_click_tbm(user['展开'], tree)
+        logging.info('点击展开')
+
+    def get_bomtree_tree_info(self):
+        """
+        获取BOMTree所有内容
+        """
+        info = self.find_elements_tbm(user['BomTree全部内容'])
+        infolist = []
+        for i in info:
+            infolist.append(i.text.split('\n'))
+        logging.info('获取BOMTree所有内容{}'.format(infolist))
+        return infolist
+
+
+    @allure.step("断言导入BOM-导入后，页面表格内容是否正确")
+    def assert_tree_result(self, *content):
+        """
+        断言导入BOM-导入后，页面表格内容是否正确
+        :param content: 需要断言的内容，可以一次传入多个
+        """
+        try:
+            contents = self.get_bomtree_tree_info()
+            content_list = []
+            for i in contents:
+                content_list.append(tuple(i))
+            assert set(content) <= set(content_list)
+            logging.info(content_list)
+            logging.info('断言成功，选项值包含：{}'.format(content))
+        except:
+            self.base_get_img()
+            logging.error('断言失败，选项值不包含：{}'.format(content))
+            raise
+
+    @allure.step("点击查看")
+    def click_check(self, code):
+        """
+        根据流程编码点击查看 进行查看操作
+        @param code:流程编码
+        """
+        self.is_click_tbm(user['查看'], code)
+
+    @allure.step("进入oneworks查看流程页面")
+    def enter_onework_check(self, code):
+        sleep(1)
+        self.click_check(code)
+        self.switch_window(1)
+        sleep(1)
+        self.frame_enter(user['待办列表-我申请的-iframe'])
+        sleep(2)
+        DomAssert(self.driver).assert_att('基本信息')
+
+    @allure.step("获取oneworks页面的Bom信息")
+    def get_onework_bominfo(self, select):
+        """
+        获取oneworks页面的Bom信息
+        @param select:需要获取的信息类型： 制作类型， 品牌， 机型， 阶段， 市场， 模板， 自研/外研
+        """
+        self.scroll_into_view(user['BOM工程师-BomTree'])
+        DomAssert(self.driver).assert_control(user['BOM工程师-BomTreeTitle'])
+        if select == '机型':
+            BomInfo = self.element_text(user['OneworksBom信息-机型'])
+            logging.info('获取Bom信息：{}'.format(BomInfo))
+            return BomInfo
+        else:
+            BomInfo = self.element_input_text(user['BOM信息输入框'], select)
+            logging.info('获取Bom信息：{}'.format(BomInfo))
+            return BomInfo
+
+    @allure.step("获取BOMTree所有内容")
+    def get_oneworks_bomtree_info(self):
+        info = self.find_elements_tbm(user['OneworksBomTree全部内容'])
+        infolist = []
+        for i in info:
+            infolist.append(i.text.split('\n'))
+        logging.info('获取Oneworks-BOMTree所有内容{}'.format(infolist))
+        return infolist
+
+    @allure.step("断言：页面表格内容是否正确")
+    def assert_oneworks_bomtree_result(self, *content):
+        """
+        断言导入BOM-简易导入后，页面表格内容是否正确
+        :param content: 需要断言的内容，可以一次传入多个
+        """
+        try:
+            self.click_tree('客供BOM')
+            contents = self.get_oneworks_bomtree_info()
+            content_list = []
+            for i in contents:
+                content_list.append(tuple(i))
+            assert set(content) <= set(content_list)
+            logging.info(content_list)
+            logging.info('断言成功，选项值包含：{}'.format(content))
+        except:
+            self.base_get_img()
+            logging.error('断言失败，选项值不包含：{}'.format(content))
+            raise
 if __name__ == '__main__':
     pass

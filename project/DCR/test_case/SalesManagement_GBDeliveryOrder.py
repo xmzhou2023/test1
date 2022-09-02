@@ -10,24 +10,6 @@ import pytest
 import allure
 
 """后置关闭菜单方法"""
-# @pytest.fixture(scope='function')
-# def function_delivery_fixture(drivers):
-#     yield
-#     close = DeliveryOrderPage(drivers)
-#     close.click_close_delivery_order()
-#
-# @pytest.fixture(scope='function')
-# def function_inbound_fixture(drivers):
-#     yield
-#     close = InboundReceiptPage(drivers)
-#     close.click_close_inbound_receipt()
-#
-# @pytest.fixture(scope='function')
-# def function_return_fixture(drivers):
-#     yield
-#     close = ReturnOrderPage(drivers)
-#     close.click_close_return_order()
-
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
@@ -38,7 +20,6 @@ def function_menu_fixture(drivers):
         if class_value == str(get_menu_class):
             menu.click_close_open_menu()
             sleep(1)
-
 
 @allure.feature("销售管理-国包出库单")
 class TestQueryDistDelivery:
@@ -109,8 +90,8 @@ class TestAddDistDeliveryOrder:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             dom.assert_att("Submit successfully")
-        sleep(4)
-
+        sleep(1)
+        add.click_search()
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         salesorder = add.text_sales_order()
         deliveryorder = add.text_delivery_order()
