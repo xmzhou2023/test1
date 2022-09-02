@@ -251,7 +251,7 @@ class UserManagementPage(Base):
         self.is_click(user['Reset Password'])
         sleep(1.5)
         self.is_click(user['Reset Password Yes'])
-        sleep(0.5)
+        #sleep(0.5)
 
     @allure.step("登录时，弹出设置新密码窗口，获取New Password 标签")
     def get_new_password_label(self):
