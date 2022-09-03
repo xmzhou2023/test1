@@ -18,17 +18,43 @@ class TransferOrderPage(Base):
         self.is_click(user['Create'])
         sleep(2)
 
-    @allure.step("Create新增TransferOrder页面，点击Transfer From的customer属性")
-    def click_transfer_from_customer(self):
+    # @allure.step("Create新增TransferOrder页面，点击Transfer From的customer属性")
+    # def click_transfer_from_customer(self):
+    #     self.is_click(user['Transfer From'])
+    #     sleep(2)
+    #     self.is_click(user['Transfer From Select Customer'], 'BD2915 lhmSubdealer001 ')
+    #
+    # @allure.step("Create新增TransferOrder页面，输入Transfer To的customer属性")
+    # def click_transfer_to_customer(self):
+    #     self.is_click(user['Transfer To'])
+    #     sleep(2)
+    #     self.is_click(user['Transfer To Select Customer'], 'NG20613 xylSub dealer')
+
+    @allure.step("Create新增TransferOrder页面，输入Transfer From的customer属性")
+    def click_transfer_from_customer(self, customer):
         self.is_click(user['Transfer From'])
-        sleep(2)
-        self.is_click(user['Transfer From Select Customer'], 'BD2915 lhmSubdealer001 ')
+        sleep(1.5)
+        self.is_click(user['Transfer From Select Customer'], customer)
+
+    @allure.step("Create新增TransferOrder页面，输入Transfer From的warehouse属性")
+    def click_transfer_from_warehouse(self, warehouse):
+        self.is_click(user['Transfer From Warehouse'])
+        sleep(1.5)
+        self.is_click_dcr(user['Transfer From Select Warehouse'], warehouse)
 
     @allure.step("Create新增TransferOrder页面，输入Transfer To的customer属性")
-    def click_transfer_to_customer(self):
+    def click_transfer_to_customer(self, customer):
         self.is_click(user['Transfer To'])
-        sleep(2)
-        self.is_click(user['Transfer To Select Customer'], 'NG20613 xylSub dealer')
+        sleep(1.5)
+        self.is_click(user['Transfer To Select Customer'], customer)
+
+    @allure.step("Create新增TransferOrder页面，输入Transfer To的warehouse属性")
+    def click_transfer_to_warehouse(self, warehouse):
+        self.is_click(user['Transfer To Warehouse'])
+        sleep(1.5)
+        self.is_click_dcr(user['Transfer To Select Warehouse'], warehouse)
+
+
 
     @allure.step("Create新增TransferOrder页面，输入IMEI属性")
     def input_scan_imei(self, content):
@@ -70,33 +96,38 @@ class TransferOrderPage(Base):
         sleep(2)
 
     @allure.step("获取列表Transfer ID文本")
-    def get_transfer_id(self):
-        get_transfer_id = self.element_text(user['Get Transfer ID text'])
+    def get_list_transfer_id(self):
+        Base.presence_sleep_dcr(self, user['Get list Transfer ID'])
+        get_transfer_id = self.element_text(user['Get list Transfer ID'])
         return get_transfer_id
 
     @allure.step("获取列表Order Status状态文本")
-    def get_order_status_text(self):
-        get_order_status = self.element_text(user['Get Order Status text'])
+    def get_list_order_status(self):
+        Base.presence_sleep_dcr(self, user['Get list Order Status'])
+        get_order_status = self.element_text(user['Get list Order Status'])
         return get_order_status
 
     @allure.step("获取列表Receipt Status状态文本")
-    def get_receipt_status_text(self):
-        get_receipt_status = self.element_text(user['Get Receipt Status text'])
+    def get_list_receipt_status(self):
+        get_receipt_status = self.element_text(user['Get list Receipt Status'])
         return get_receipt_status
 
     @allure.step("勾选第一条复选框")
     def click_first_checkbox(self):
         self.is_click_dcr(user['Click First CheckBox'])
 
-    @allure.step("点击Confirm Receipt 按钮")
+    @allure.step("勾选记录后，点击Confirm Receipt按钮,进行确认收货操作")
     def click_confirm_receipt(self, context):
         self.is_click(user['Confirm Receipt'])
-        sleep(0.5)
-        self.is_click(user['Receipt Remark'])
+        sleep(1)
         self.input_text(user['Receipt Remark'], context)
         self.is_click(user['点击确认收货按钮'])
         sleep(0.6)
         self.is_click(user['Confirm receipt or Recall'])
+
+    @allure.step("未勾选记录时，点击Confirm Receipt 按钮,进行确认收货操作")
+    def click_confirm_receipt1(self):
+        self.is_click(user['Confirm Receipt'])
 
     @allure.step("点击Unfold,展开筛选项")
     def click_unfold(self):
@@ -111,7 +142,7 @@ class TransferOrderPage(Base):
     def click_receipt_status_query(self, status):
         Base.presence_sleep_dcr(self, user['点击收货状态筛选项'])
         self.is_click(user['点击收货状态筛选项'])
-        sleep(1)
+        sleep(0.6)
         self.is_click(user['选中Received状态'], status)
 
     @allure.step("点击Search按钮")
@@ -134,15 +165,7 @@ class TransferOrderPage(Base):
         self.is_click(user['Confirm receipt or Recall'])
         sleep(0.5)
 
-    @allure.step("TransferOrder页面，获取列表 Order Status状态")
-    def get_list_order_status(self, status):
-        get_order_status = self.element_text(user['Get list Order Status'], status)
-        return get_order_status
 
-    @allure.step("TransferOrder页面，获取列表Receive状态")
-    def get_list_receipt_status(self, status):
-        get_receipt_status = self.element_text(user['Get list Receipt Status'], status)
-        return get_receipt_status
 
     # @allure.step("Create新增TransferOrder页面，输入TransferTo的warehouse属性")
     # def input_to_warehouse(self, content):

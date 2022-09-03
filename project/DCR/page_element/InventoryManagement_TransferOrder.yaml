@@ -2,13 +2,13 @@
 Create: "xpath==//div[@class='action']/span/button/span[contains(text(),'Create')]"
 Transfer From: "xpath==//label[contains(text(),'Transfer From')]/../div/div/div/input[@placeholder='Please select a customer']"
 Transfer From Select Customer: "xpath==//div[@class='el-scrollbar']//..//ul//li//span[contains(text(),'variable')]"
-#Transfer From Warehouse: "xpath==//label[contains(text(),'Transfer From')]/../div/div/div/input[@placeholder='Please select a warehouse']"
-#Transfer From Select Warehouse: "xpath==//ul//li//span[contains(text(),'WBD291502')]"
+Transfer From Warehouse: "xpath==//label[contains(text(),'Transfer From')]/../div/div/div/input[@placeholder='Please select a warehouse']"
+Transfer From Select Warehouse: "xpath==//div//ul//li//span[contains(text(),'WNG2061301')]"
 
 Transfer To: "xpath==//label[contains(text(),'Transfer To')]/../div/div/div/input[@placeholder='Please select a customer']"
-Transfer To Select Customer: "xpath==//div//ul//li//span[contains(text(),'variable')]"
-#Transfer To Warehouse: "xpath==//label[contains(text(),'Transfer To')]/../div/div/div/input[@placeholder='Please select a warehouse']"
-#Transfer To Select Warehouse: "xpath==//ul//li//span[contains(text(),'WBD291503')]"
+Transfer To Select Customer: "xpath==//div//ul//li//span[text()='variable']"
+Transfer To Warehouse: "xpath==//label[contains(text(),'Transfer To')]/../div/div/div/input[@placeholder='Please select a warehouse']"
+Transfer To Select Warehouse: "xpath==//ul//li//span[contains(text(),'WNG2061304')]"
 
 Scan IMEI: "xpath==//div[@class='el-textarea el-input--small']/textarea[@placeholder]"
 Check: "xpath==//div[@class='title']//span[contains(text(),'Check')]"
@@ -20,9 +20,9 @@ Submit: "xpath==//div[@class='action']/button/span[contains(text(),'Submit')]"
 Submit OK: "xpath==//button//span[normalize-space(text())='OK']"
 
 #获取列表字段内容
-Get Transfer ID text: "xpath==//tbody//tr[1]//td[2]//div[@class='cell el-tooltip']"
-Get Order Status text: "xpath==//tbody//tr[1]//td[3]//div[@class='cell el-tooltip']"
-Get Receipt Status text: "xpath==//tbody//tr[1]//td[4]//div[@class='cell el-tooltip']"
+Get list Transfer ID: "xpath==//tbody//tr[1]//td[2]//div[@class='cell el-tooltip']"
+Get list Order Status: "xpath==//tbody//tr[1]//td[3]//div[@class='cell el-tooltip']"
+Get list Receipt Status: "xpath==//tbody//tr[1]//td[4]//div[@class='cell el-tooltip']"
 
 #确认收货
 Confirm Receipt: "xpath==//button[@id='transferring_order_receive_']//span[normalize-space(text())='Confirm Receipt']"
@@ -39,9 +39,6 @@ Unfold: "xpath==//div[@class='filter-fold']//span[contains(text(),'Unfold')]"
 点击收货状态筛选项: "xpath==//div//input[@class='el-input__inner transferorder_input_receiptStatus']"
 选中Received状态: "xpath==//ul//li//span[contains(text(),'variable')]"
 Search: "xpath==//span[normalize-space(text())='Search']"
-
-Get list Order Status: "xpath==//tr[1]//td[3]//div[contains(text(),'variable')]"
-Get list Receipt Status: "xpath==//tr[1]//td[4]//div[contains(text(),'variable')]"
 
 
 #AddConfirmOk: "xpath==//button[@id='transferorderadd_Confirm']"

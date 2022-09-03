@@ -1,3 +1,5 @@
+import logging
+
 from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.Center_Process import SalesOrderPage
 from project.DCR.page_object.Center_Process import InboundReceiptPage
@@ -20,8 +22,6 @@ def function_menu_fixture(drivers):
         class_value = "tags-view-item router-link-exact-active router-link-active active"
         if class_value == str(get_menu_class):
             menu.click_close_open_menu()
-            sleep(1)
-
 
 @allure.feature("渠道销售业务流程")
 class TestSalesBusinessProcess:
@@ -84,9 +84,10 @@ class TestSalesBusinessProcess:
         delivery = SalesOrderPage(drivers)
         """查询IMEI Inventory Query页面 指定product的IMEI"""
         delivery.click_unfold()
-        delivery.input_material_id("11001120")
+        delivery.input_material_id('11001120')
         delivery.click_inventory_search()
         imei = delivery.get_text_imei_inventory()
+        logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.click_close_imei_inventory()
 
         """ 刷新页面 """
@@ -170,8 +171,7 @@ class TestSalesBusinessProcess:
             receipt.click_quick_received()
             receipt.click_save()
             """获取收货提交成功提示语，断言是否包含Successfully提示语"""
-            dom = DomAssert(drivers)
-            dom.assert_att("Successfully")
+            DomAssert(drivers).assert_att("Successfully")
             sleep(2)
             status = receipt.get_text_status()
             """ 二代收货页面，断言收货后Status更新为：Goods Receipt状态 """
