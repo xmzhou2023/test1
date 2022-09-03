@@ -18,18 +18,6 @@ class TransferOrderPage(Base):
         self.is_click(user['Create'])
         sleep(2)
 
-    # @allure.step("Create新增TransferOrder页面，点击Transfer From的customer属性")
-    # def click_transfer_from_customer(self):
-    #     self.is_click(user['Transfer From'])
-    #     sleep(2)
-    #     self.is_click(user['Transfer From Select Customer'], 'BD2915 lhmSubdealer001 ')
-    #
-    # @allure.step("Create新增TransferOrder页面，输入Transfer To的customer属性")
-    # def click_transfer_to_customer(self):
-    #     self.is_click(user['Transfer To'])
-    #     sleep(2)
-    #     self.is_click(user['Transfer To Select Customer'], 'NG20613 xylSub dealer')
-
     @allure.step("Create新增TransferOrder页面，输入Transfer From的customer属性")
     def click_transfer_from_customer(self, customer):
         self.is_click(user['Transfer From'])
