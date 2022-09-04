@@ -3,7 +3,7 @@
 form-input: "xpath==//label[normalize-space(text())='variable']/..//input"
 form-textarea: "xpath==//label[contains(text(),'variable')]/..//textarea"
 
-last-dropdown-value: "xpath==//body/div[last()]//li/span[normalize-space(text())='variable']"
+dropdown-value: "xpath==//body/div[last()]//li/span[normalize-space(text())='variable']"
 #dropdown-value: "xpath==//li/span[normalize-space(text())='variable']"
 
 提示-button: "xpath==//div[@aria-label='提示']//button//span[contains(text(),'variable')]"

@@ -49,15 +49,19 @@ class UserPage(Base):
         # self.input_text(user[locatorText], value, replace)
         super().readonly_input_text(user[locatorText], value, replace)
 
+    def input_text(self, locatorText, value, choice=None):
+        return super().input_text(user[locatorText], value, choice)
+
     @allure.step("下拉框信息录入")
-    def select_info_input_last(self, locatorText, value, replace, searchText=''):
+    def select_info_input(self, locatorText, value, replace, searchText=''):
         self.is_click(user[locatorText], replace)
         if searchText:
             super().readonly_input_text(user[locatorText], searchText, replace)
             self.is_click(user['dropdown-search-value'], value)
 
         else:
-            self.is_click(user['last-dropdown-value'], value)
+            self.is_click(user['dropdown-value'], value)
+
 
     # def select_info_input(self, locatorText, value, replace, searchText=''):
     #     self.is_click(user[locatorText], replace)
