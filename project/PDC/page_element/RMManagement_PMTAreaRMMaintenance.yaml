@@ -1,0 +1,22 @@
+dropdown-value: "xpath==//body/div[last()]//li/span[normalize-space(text())='variable']"
+form-input: "xpath==//label[normalize-space(text())='variable']/..//input"
+
+transform-table-select: "xpath==//div[@aria-label='选择事业部RM']//tbody/tr[variable]//label"
+transform-button: "xpath==//div[@aria-label='选择事业部RM']//button//span[contains(text(),'variable')]"
+
+icon-button: "xpath==//button//i[@class='variable']"
+
+button: "xpath==//button//span[contains(text(),'variable')]"
+
+table-button: "xpath==//div[@class='el-table__fixed-right']//span[text()='variable']/../../../..//td[last()]//button//span[contains(text(),'placeholder')]"
+
+dialog-table-radio: "xpath==//div[@aria-label='选择分发方案']//table[@class='el-table__body']//tr/td[2]//label"
+分发方案: "xpath==//div[text()='分发方案']/../div[2]/input"
+自动化测试评估方案: "xpath==//body/div[last()]//li[normalize-space(text())='自动化测试评估方案']"
+分发方案-确定: "xpath==//div[@aria-label='选择分发方案']//div[@class='text-align__right']//button/span[text()='确定']"
+
+iframe: "xpath==//iframe"
+oneworks-刷新按钮: "css==i.el-icon-refresh-right"
+oneworks-查看详情-by-rm_name: "xpath==//tbody/tr/td[3]//span[contains(text(), 'variable')]/../../../td[last()]"
+oneworks-视图切换: "css==i.el-icon-menu"
+提示-确定同意: "xpath==//div[@aria-label='提示']//span[normalize-space(text())='确定']"
