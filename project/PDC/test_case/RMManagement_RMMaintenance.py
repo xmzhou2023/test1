@@ -25,14 +25,14 @@ class TestUtil:
     def test_001_001(self, drivers):
         # pytest ./project/PDC/test_case/RMManagement_RMMaintenance.py::TestUtil::test_001_001
         # __________________________ 新增路线图 ____________________________
-        form = ['fxy年度计划2', '2023', '北非', 'TECNO']
+        form = ['fxy年度计划3', '2023', '北非', 'TECNO']
         i = UserPage(drivers)
         i.switch_location('http://bom-sit.transsion.com:10000/#/roadmap/roadmap-division')
         i.click('button', '+新增路线图')
         i.readonly_input_text('提示-form-input', form[0], 'RM名称')
-        i.select_info_input_last('提示-form-input', form[1], '规划年度')
-        i.select_info_input_last('提示-form-input', form[2], '地区')
-        i.select_info_input_last('提示-form-input', form[3], '品牌')
+        i.select_info_input('提示-form-input', form[1], '规划年度')
+        i.select_info_input('提示-form-input', form[2], '地区')
+        i.select_info_input('提示-form-input', form[3], '品牌')
         i.click('提示-button', '确定')
         DomAssert(drivers).assert_att('新增成功')
 
@@ -55,10 +55,10 @@ class TestUtil:
         i.click('sku点击')
         i.click('button', '确定')
         # ______________________________右侧表单必填项填写____________________________
-        i.select_info_input_last('form-input', '是', '是否爆款')
+        i.select_info_input('form-input', '是', '是否爆款')
         i.readonly_input_text('form-textarea', 'fxy测试测试', '描述')
         i.readonly_input_text('form-input', '123', 'FOB')
-        i.select_info_input_last('form-input', 'USD', '零售价币种')
+        i.select_info_input('form-input', 'USD', '零售价币种')
         i.readonly_input_text('form-input', '123', '零售价')
         i.readonly_input_text('form-input', '123', '整机成本')
         i.readonly_input_text('form-input', '20', '销售量（K）')
@@ -70,8 +70,8 @@ class TestUtil:
         i.readonly_input_text('form-input', '3', '生命周期（月）')
         # ___________________________如果选的是 北非, 还有一下几个选项 _______________________________
         if name[4:6] == '北非':
-            i.select_info_input_last('form-input', '无', 'Sar sensor（欧盟标配）')
-            i.select_info_input_last('form-input', '无', '气压传感器（北美标配）')
+            i.select_info_input('form-input', '无', 'Sar sensor（欧盟标配）')
+            i.select_info_input('form-input', '无', '气压传感器（北美标配）')
 
         i.click('button', '保存')
         # 等待5秒, 或许要更长时间
@@ -80,6 +80,11 @@ class TestUtil:
 
         return [i, name]
 
+    @allure.story("事业部RM维护后,编辑,选品,提交") # 场景名称
+    @allure.title("新增路线图")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
     def test_001_003(self, drivers):
         # pytest ./project/PDC/test_case/RMManagement_RMMaintenance.py::TestUtil::test_001_003
         [i, name] = self.test_001_002(drivers)
@@ -90,8 +95,6 @@ class TestUtil:
         sleep(1)
         i.click('table-button', name, '提交')
         i.click('message-box-button', '确定')
-        # 等待5秒, 或许要更长时间
-        sleep(5)
         DomAssert(drivers).assert_att('提交成功')
 
 
