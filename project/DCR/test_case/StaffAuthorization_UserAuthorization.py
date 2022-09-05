@@ -1,5 +1,4 @@
 import logging
-
 from project.DCR.page_object.StaffAuthorization_UserAuthorization import UserAuthorizationPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert, DomAssert
@@ -9,12 +8,6 @@ import pytest
 import allure
 
 """后置关闭菜单方法"""
-# @pytest.fixture(scope='function')
-# def function_del_brand_fixture(drivers):
-#     yield
-#     close = UserAuthorizationPage(drivers)
-#     close.click_close_user_authorization()
-
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
@@ -24,7 +17,6 @@ def function_menu_fixture(drivers):
         class_value = "tags-view-item router-link-exact-active router-link-active active"
         if class_value == str(get_menu_class):
             menu.click_close_open_menu()
-            sleep(1)
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteBrandAuthorization:
@@ -145,7 +137,6 @@ class TestDeleteWareAuthorization:
         domassert.assert_att("Successfully")
         get_no_data = ware.get_ware_dele_no_data()
         ValueAssert.value_assert_In(get_no_data, "No Data")
-
 
         """ 新增WNG2061304仓库授权 """
         ware.click_add_association_ware()
