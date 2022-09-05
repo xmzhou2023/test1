@@ -1,0 +1,1 @@
+{"uuid": "88b7a823-e616-4c33-b768-db1c50ee382c", "children": ["0dda7c86-86d6-42b3-a39b-22466154280f"], "befores": [{"name": "__init__", "status": "passed", "attachments": [{"name": "断言截图:", "source": "e807bb98-0406-4a64-99a4-9be8101c7af2-attachment.png", "type": "image/png"}], "start": 1661920125206, "stop": 1661920145175}], "start": 1661920125206, "stop": 1661920151128}
