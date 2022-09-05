@@ -28,6 +28,19 @@ class SymPage(Base):
         self.is_click(user['Symptom Group Mgt'])
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
 
+    @allure.step("获取页面列表表头")
+    def Group_List_Header(self):
+        logging.info("获取列表数据")
+        th_num = self.elements_num(user['表头字段个数'])
+        list1 = []
+        for i in range(1, th_num+1):
+            logging.info(f'{i}')
+            txt = self.element_text(user['表头字段'], choice=f'{i}')
+            logging.info(txt)
+            list1.append(txt)
+            logging.info(list1)
+        return th_num, list1
+
     @allure.step("进入下载任务页面")
     def GoTo_Task(self):
         self.refresh()
