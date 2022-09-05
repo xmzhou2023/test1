@@ -32,7 +32,6 @@ class AttendanceRecordPage(Base):
         self.is_click(user['Reset'])
         sleep(5)
 
-
     @allure.step("Attendance Records页面，获取列表Picture文本")
     def get_photo_text(self):
         Base.presence_sleep_dcr(self, user['获取列表photo文本'])
