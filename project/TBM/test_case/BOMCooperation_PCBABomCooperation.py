@@ -37,29 +37,15 @@ class TestCreateProcessExceptionScenario:
         drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").click()
         drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys("y5dQ")
         drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys(Keys.ENTER)
-        drivers.find_element(By.CSS_SELECTOR, ".el-submenu:nth-child(4) > .el-submenu__title > span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-menu-item:nth-child(4) > span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-table__row:nth-child(2) > .el-table_1_column_1").click()
-        drivers.find_element(By.CSS_SELECTOR, ".current-row .el-table__expand-icon").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-table__row:nth-child(1) > .el-table_1_column_2 > .cell").click()
-        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
-        drivers.find_element(By.CSS_SELECTOR, ".hover").click()
-        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
-        drivers.find_element(By.CSS_SELECTOR, ".hover:nth-child(3) > span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".content").click()
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("BOM tree不能为空")  # 用例名称
     @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中不点击新增BOM，其他内容正确填写，点击提交，提示BOM tree不能为空")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_002(self, drivers):
-        user = PCBABomCooperation(drivers)
-        user.refresh_webpage_click_menu()
-        user.add_bom_info()
-        user.select_business_review('李小素')
-        user.select_business_review('李小素', '射频&天线工程师')
-        user.click_add_submit()
-        user.assert_toast('Bom Tree不能为空！')
+        drivers.get("https://pfuac.transsion.com:10101/")
+        drivers.find_element(By.ID, "tab-account").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").click()
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("BOM状态不能为空")  # 用例名称
     @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中点击新增BOM，不选择BOM状态，其他内容正确填写，点击提交，提示BOM状态不能为空")
