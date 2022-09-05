@@ -28,22 +28,36 @@ class TestNewRecallTransferOrder:
     def test_001_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD291501", "dcr123456")
-        user.click_gotomenu("Inventory Management", "Transfer Order")
 
+        """打开Report Analysis->IMEI Inventory Query菜单"""
+        user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
+        """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
+        get_imei = SalesOrderPage(drivers)
+        """查询IMEI Inventory Query页面 指定product的IMEI"""
+        get_imei.click_unfold()
+        get_imei.input_warehouse_query('WBD291502')
+        get_imei.click_inventory_search()
+        imei = get_imei.get_text_imei_inventory()
+        logging.info("打印从IMEI Inventory Query页面，获取的imei:{}".format(imei))
+        get_imei.click_close_imei_inventory()
+        """刷新页面"""
+        get_imei.click_refresh(drivers)
+
+        user.click_gotomenu("Inventory Management", "Transfer Order")
         transfer = TransferOrderPage(drivers)
         transfer.click_create()
         transfer.click_transfer_from_customer('BD2915 lhmSubdealer001 ')
         transfer.click_transfer_to_customer('NG20613 xylSub dealer')
-        transfer.input_scan_imei('356560549278086')
+        transfer.input_scan_imei(imei)
         """点击Check 按钮，校验IMEI是否存在此仓库"""
         transfer.click_check()
         """断言输入的IMEI是否验证通过"""
         get_scanned = transfer.get_scanned()
         get_deli_quantity = transfer.get_delivery_quantity()
-        get_scan_record_imei = transfer.get_scan_record_imei('356560549278086')
+        get_scan_record_imei = transfer.get_scan_record_imei(imei)
         get_scan_record_success = transfer.get_scan_record_success()
         ValueAssert.value_assert_equal(get_scanned, get_deli_quantity)
-        ValueAssert.value_assert_equal('356560549278086', get_scan_record_imei)
+        ValueAssert.value_assert_equal(imei, get_scan_record_imei)
         ValueAssert.value_assert_In('Success', get_scan_record_success)
         """点击提交按钮"""
         transfer.click_submit()
@@ -77,30 +91,6 @@ class TestNewRecallTransferOrder:
 
 
 @allure.feature("库存管理-调拨单")
-class TestRecallTransferOrder:
-    @allure.story("撤回调拨单")  # 场景名称
-    @allure.title("撤回Received状态的调拨单")  # 用例名称
-    @allure.description("调拨单页面，已收货Received状态的调拨单，Recall撤回操作，不支持撤回")
-    @allure.severity("minor")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "BD291501", "dcr123456")
-        user.click_gotomenu("Inventory Management", "Transfer Order")
-
-        recall = TransferOrderPage(drivers)
-        """筛选Transfer Order页面，Received已经收货状态数据"""
-        recall.click_unfold()
-        recall.click_receipt_status_query('Received')
-        recall.click_search()
-        recall.click_first_checkbox()
-        """对已收货Received状态的数据，进行Recall撤回操作"""
-        recall.click_more_option_recall()
-        DomAssert(drivers).assert_att('Only No Receive or Audited can confirm receipt')
-
-
-@allure.feature("库存管理-调拨单")
 class TestConfirmReceiptTransferOrder:
     @allure.story("创建调拨单，然后被调拨方收货")
     @allure.title("创建调拨单，然后被调拨方收货")
@@ -108,7 +98,7 @@ class TestConfirmReceiptTransferOrder:
     @allure.severity("critical")
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_003_001(self, drivers):
+    def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "NG2061301", "dcr123456")
 
@@ -186,7 +176,72 @@ class TestConfirmReceiptTransferOrder:
         ValueAssert.value_assert_equal('Received', get_received)
 
 
+@allure.feature("库存管理-调拨单")
+class TestViewIMEIDetailTransfer:
+    @allure.story("查看调拨单IMEI详情")  # 场景名称
+    @allure.title("查看调拨单IMEI详情")  # 用例名称
+    @allure.description("调拨单页面，点击IMEI Detail功能，查看调拨单IMEI详情")
+    @allure.severity("minor")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_003_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "BD291501", "dcr123456")
+        user.click_gotomenu("Inventory Management", "Transfer Order")
 
+        detail = TransferOrderPage(drivers)
+        """根据Transfer ID条件筛选"""
+        transfer_id = detail.get_list_transfer_id()
+        detail.input_transfer_id_query(transfer_id)
+        detail.click_search()
+
+        transfer_id2 = detail.get_list_transfer_id()
+        ValueAssert.value_assert_equal(transfer_id, transfer_id2)
+        get_list_brand = detail.get_list_field('Get list Brand')
+        get_list_item = detail.get_list_field('Get list item')
+        get_list_model = detail.get_list_field('Get list Model')
+        get_list_cust = detail.get_list_field('Get list Transfer From Cust')
+
+        """点击查看IMEI Detail详情功能"""
+        detail.click_imei_detail()
+        get_detail_transfer = detail.get_list_field('Get Detail Transfer ID')
+        get_detail_brand = detail.get_list_field('Get Detail Brand')
+        get_detail_item = detail.get_list_field('Get Detail Item')
+        get_detail_model = detail.get_list_field('Get Detail Model')
+        get_detail_imei = detail.get_list_field('Get Detail IMEI')
+        get_detail_customer = detail.get_list_field('Get Detail Customer Name')
+
+        ValueAssert.value_assert_equal(transfer_id2, get_detail_transfer)
+        ValueAssert.value_assert_equal(get_list_brand, get_detail_brand)
+        ValueAssert.value_assert_equal(get_list_item, get_detail_item)
+        ValueAssert.value_assert_equal(get_list_model, get_detail_model)
+        ValueAssert.value_assert_IsNoneNot(get_detail_imei)
+        ValueAssert.value_assert_In(get_detail_customer, get_list_cust)
+        detail.click_close_imei_detail()
+
+
+@allure.feature("库存管理-调拨单")
+class TestRecallTransferOrder:
+    @allure.story("撤回调拨单")  # 场景名称
+    @allure.title("撤回Received状态的调拨单")  # 用例名称
+    @allure.description("调拨单页面，已收货Received状态的调拨单，Recall撤回操作，不支持撤回")
+    @allure.severity("minor")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_004_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "BD291501", "dcr123456")
+        user.click_gotomenu("Inventory Management", "Transfer Order")
+
+        recall = TransferOrderPage(drivers)
+        """筛选Transfer Order页面，Received已经收货状态数据"""
+        recall.click_unfold()
+        recall.click_receipt_status_query('Received')
+        recall.click_search()
+        recall.click_first_checkbox()
+        """对已收货Received状态的数据，进行Recall撤回操作"""
+        recall.click_more_option_recall()
+        DomAssert(drivers).assert_att('Only No Receive or Audited can confirm receipt')
 
 if __name__ == '__main__':
     pytest.main(['InventoryManagement_TransferOrder.py'])

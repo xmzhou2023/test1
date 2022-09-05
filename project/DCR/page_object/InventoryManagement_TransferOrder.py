@@ -42,8 +42,6 @@ class TransferOrderPage(Base):
         sleep(1.5)
         self.is_click_dcr(user['Transfer To Select Warehouse'], warehouse)
 
-
-
     @allure.step("Create新增TransferOrder页面，输入IMEI属性")
     def input_scan_imei(self, content):
         self.input_text(user['Scan IMEI'], txt=content)
@@ -153,23 +151,44 @@ class TransferOrderPage(Base):
         self.is_click(user['Confirm receipt or Recall'])
         sleep(0.5)
 
+    @allure.step("点击IMEI Detail查询详情按钮")
+    def click_imei_detail(self):
+        self.is_click_dcr(user['IMEI Detail'])
+        sleep(3)
+
+    @allure.step("点击IMEI Detail查询详情按钮")
+    def click_close_imei_detail(self):
+        self.is_click(user['Close IMEI Detail'])
+        sleep(1)
 
 
-    # @allure.step("Create新增TransferOrder页面，输入TransferTo的warehouse属性")
-    # def input_to_warehouse(self, content):
-    #     Base.presence_sleep_dcr(self, user['TransferTo'])
-    #     self.is_click(user['SelectWarehouse'])
-    #     sleep(2)
-    #     # self.input_text(user['TransferTo'], txt=content)
-    #     # sleep(2.5)
-    #     self.is_click(user['lhmSubdealer001 WBD291503'])
+    # @allure.step("获取Transfer ID列表 Product字段内容")
+    # def get_list_product(self):
+    #     self.scroll_into_view(user['Get list Product'])
+    #     product = self.element_text(user['Get list Product'])
+    #     return product
+    #
+    # @allure.step("获取Transfer ID列表 Brand字段内容")
+    # def get_list_brand(self):
+    #     self.scroll_into_view(user['Get list Brand'])
+    #     brand = self.element_text(user['Get list Brand'])
+    #     return brand
+    #
+    # @allure.step("获取Transfer ID列表 Brand字段内容")
+    # def get_list_item(self):
+    #     item = self.element_text(user['Get list item'])
+    #     return item
+    #
+    # @allure.step("获取Transfer ID列表 Model字段内容")
+    # def get_list_model(self):
+    #     model = self.element_text(user['Get list Model'])
+    #     return model
 
+    def get_list_field(self, flag):
+        self.scroll_into_view(user[flag])
+        get_field = self.element_text(user[flag])
+        return get_field
 
-    # @allure.step("Create新增TransferOrder页面，输入TransferTo的warehouse属性")
-    # def input_to_warehouse(self, content):
-    #     self.is_click(user['TransferToWarehouse'])
-    #     sleep(2)
-    #     self.is_click(user['NG2061303 WNG2061304'])
 
     #  对No Receive的调拨单进行撤回操作----------------------------------------------------------------------------------------------
     @allure.step("TransferOrder页面，勾选框")
@@ -177,29 +196,6 @@ class TransferOrderPage(Base):
         Base.presence_sleep_dcr(self, user['撤回复选框勾选'])
         self.is_click(user['撤回复选框勾选'])
         sleep(2)
-    #
-    # @allure.step("TransferOrder页面，点击more option")
-    # def click_more_option(self):
-    #     self.is_click(user['More Option'])
-    #     sleep(2)
-    #
-    # @allure.step("TransferOrder页面，点击recall")
-    # def click_recall(self):
-    #     self.is_click(user['Recall'])
-    #     sleep(2)
-    #
-    # @allure.step("recall TransferOrder页面，点击Confirm")
-    # def click_recall_confirm(self):
-    #     self.is_click(user['RecallConfirm'])
-    #     sleep(2)
-
-    # @allure.step("TransferOrder页面，点击confirm")
-    # def click_confirm(self):
-    #     #  Base.presence_sleep_dcr(self, user['Confirm'])
-    #     self.is_click(user['Confirm'])
-    #     sleep(2)
-
-    #  ----------------------------------------------------------------------------------------
 
 
     @allure.step("Create新增TransferOrder页面，提交成功之后OK按钮")
