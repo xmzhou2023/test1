@@ -46,8 +46,6 @@ class TestCreateProcessExceptionScenario:
         drivers.get("https://pfuac.transsion.com:10101/")
         drivers.find_element(By.ID, "tab-account").click()
         drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").click()
-        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys("y5dQ")
-        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys(Keys.ENTER)
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("BOM状态不能为空")  # 用例名称
     @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中点击新增BOM，不选择BOM状态，其他内容正确填写，点击提交，提示BOM状态不能为空")
