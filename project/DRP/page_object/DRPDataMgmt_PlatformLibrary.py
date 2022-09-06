@@ -24,6 +24,13 @@ class PlatformLibrary(Base):
         self.is_click(user['查询按钮'])
         logging.info("点击查询按钮")
 
+    @allure.step("清空查询条件")
+    def query_clear(self,condition,num):
+        self.is_click(user['查询条件'],condition)
+        self.is_click(user['清空查询条件'],num)
+        logging.info("清空查询条件：{}".format(condition))
+
+
     @allure.step("查询结果断言")
     def screenAssert(self,condition, value):
         if condition == "平台":

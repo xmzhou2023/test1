@@ -72,6 +72,8 @@ class TestAddShop:
         shop_name = shop_data[0].get("shop_name")
         shop_id1 = shop_id[1:]
         logging.info("从数据库查询Shop ID：{}".format(shop_id1))
+
+
         """筛选新建的门店ID与门店名称文本内容"""
         add_shop.input_query_shop_name(shop_id1, shop_id1)
         add_shop.click_query_search()

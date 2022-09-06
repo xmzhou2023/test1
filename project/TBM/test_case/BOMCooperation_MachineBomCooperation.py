@@ -21,12 +21,12 @@ class TestCreateProcess:
         user.input_add_bom_info('阶段', '试产阶段')
         user.input_add_bom_info('市场', '埃塞本地')
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', '10018956')
-        user.input_bomtree('用量', '1000')
-        user.select_business_review_mpm('李小素')
-        user.select_business_audit_nps('李小素')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', '10018956')
+        user.input_bomtree('产成品', '用量', '1000')
+        user.select_business_review('李小素', 'MPM')
+        user.select_business_review('李小素', 'NPS')
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
@@ -44,18 +44,18 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.add_bomtree()
-        user.input_optional_bomtree('充电器', '物料编码', '25101424')
-        user.input_optional_bomtree('充电器', '用量', '1000')
-        user.input_optional_bomtree('充电器', '替代组', 'A1')
-        user.input_optional_bomtree('充电器', '份额', '20')
-        user.click_optional_material()
+        user.input_bomtree('充电器', '物料编码', '25101424')
+        user.input_bomtree('充电器', '用量', '1000')
+        user.input_bomtree('充电器', '替代组', 'A1')
+        user.input_bomtree('充电器', '份额', '20')
+        user.click_add_material()
         user.move_to_add_material('25101424')
         user.input_optional_material('25101424', '物料编码', '25101448')
         user.input_optional_material('25101424', '用量', '1000')
         user.input_optional_material('25101424', '替代组', 'A1')
         user.input_optional_material('25101424', '份额', '80')
-        user.select_business_review_mpm('李小素')
-        user.select_business_audit_nps('李小素')
+        user.select_business_review('李小素', 'MPM')
+        user.select_business_review('李小素', 'NPS')
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
@@ -73,10 +73,10 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', '10000010')
-        user.input_optional_bomtree('单机头', '物料编码', '10000011')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', '10000010')
+        user.input_bomtree('单机头', '物料编码', '10000011')
         user.click_checkbox()
         user.input_one_press('用量', '1000')
         amount1 = user.get_bomtree_info('产成品')[8]
@@ -119,9 +119,9 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', '10000010')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', '10000010')
         user.click_checkbox()
         user.click_batch_delete()
         user.click_batch_confirm()
@@ -137,10 +137,10 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_optional_bomtree('充电器', '物料编码', '10000011')
-        user.input_optional_bomtree('充电器', '用量', '1000')
-        user.input_optional_bomtree('充电器', '替代组', 'A1')
-        user.input_optional_bomtree('充电器', '份额', '20')
+        user.input_bomtree('充电器', '物料编码', '10000011')
+        user.input_bomtree('充电器', '用量', '1000')
+        user.input_bomtree('充电器', '替代组', 'A1')
+        user.input_bomtree('充电器', '份额', '20')
         user.click_checkbox('充电器')
         user.click_batch_delete()
         user.click_batch_confirm()
@@ -149,6 +149,24 @@ class TestCreateProcess:
         ValueAssert.value_assert_equal(data_list[8], '')
         ValueAssert.value_assert_equal(data_list[9], '')
         ValueAssert.value_assert_equal(data_list[10], '')
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("复制审批人成功")  # 用例名称
+    @allure.description("进入新增页面制作类型选择生产BOM，正确填入数据后，在审核人设置中点击复制审批人，会弹出选择单据号页面，查询结果正确显示，并且选择生效")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_001_008(self, drivers):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage_click_menu()
+        user.add_bom_info()
+        user.click_copy_review()
+        user.doc_num_search('单据号', 'ZBOM20220824071208114316')
+        user.doc_num_search('机型名称', 'X572-1')
+        user.click_search()
+        user.assert_doc_result('ZBOM20220824071208114316','X572-1')
+        user.click_doc_select('ZBOM20220824071208114316')
+        user.assert_doc_copy('李小素', 'MPM')
+        user.assert_doc_copy('李小素', 'NPS')
 
 
 @allure.feature("BOM协作_整机BOM协作")  # 模块名称
@@ -194,9 +212,9 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', '10000010')
-        user.input_bomtree('用量', '1000')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', '10000010')
+        user.input_bomtree('产成品', '用量', '1000')
         user.click_add_submit()
         user.assert_toast('BOM类型不能为空')
 
@@ -210,9 +228,9 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('物料编码', '10000010')
-        user.input_bomtree('用量', '1000')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', '物料编码', '10000010')
+        user.input_bomtree('产成品', '用量', '1000')
         user.click_add_submit()
         user.assert_toast('BOM状态不能为空')
 
@@ -226,9 +244,9 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', '10000010')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', '10000010')
         user.click_add_submit()
         user.assert_toast('含有物料的节点，用量不能为空')
 
@@ -242,13 +260,13 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
         code = '10018959'
-        user.input_bomtree('物料编码', code)
-        user.input_bomtree('用量', '1')
-        user.select_business_review_mpm('李小素')
-        user.select_business_audit_nps('李小素')
+        user.input_bomtree('产成品', '物料编码', code)
+        user.input_bomtree('产成品', '用量', '1')
+        user.select_business_review('李小素', 'MPM')
+        user.select_business_review('李小素', 'NPS')
         user.click_add_submit()
         user.assert_toast(f'父阶BOM料号{code}用量不为1000')
 
@@ -262,12 +280,12 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', '10000010')
-        user.input_bomtree('用量', 'acb')
-        user.select_business_review_mpm('李小素')
-        user.select_business_audit_nps('李小素')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', '10000010')
+        user.input_bomtree('产成品', '用量', 'acb')
+        user.select_business_review('李小素', 'MPM')
+        user.select_business_review('李小素', 'NPS')
         user.click_add_submit()
         user.assert_toast('用量只能填写非0数字(最多3位小数)')
 
@@ -282,14 +300,14 @@ class TestCreateProcessExceptionScenario:
         user.add_bom_info()
         f_code, s_code = '10018959', '10000012'
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', f_code)
-        user.input_bomtree('用量', '1000')
-        user.input_optional_bomtree('单机头', '物料编码', s_code)
-        user.input_optional_bomtree('单机头', '用量', '1')
-        user.select_business_review_mpm('李小素')
-        user.select_business_audit_nps('李小素')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', f_code)
+        user.input_bomtree('产成品', '用量', '1000')
+        user.input_bomtree('单机头', '物料编码', s_code)
+        user.input_bomtree('单机头', '用量', '1')
+        user.select_business_review('李小素', 'MPM')
+        user.select_business_review('李小素', 'NPS')
         user.click_add_submit()
         user.assert_toast(f'父阶BOM料号{f_code}下的子阶BOM料号{s_code}用量不为1000')
 
@@ -303,11 +321,11 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', '10000010')
-        user.input_bomtree('用量', '1')
-        user.select_business_audit_nps('李小素')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', '10000010')
+        user.input_bomtree('产成品', '用量', '1')
+        user.select_business_review('李小素', 'NPS')
         user.click_add_submit()
         user.assert_toast('业务评审MPM不能为空')
 
@@ -321,11 +339,11 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', '10000010')
-        user.input_bomtree('用量', '1')
-        user.select_business_review_mpm('李小素')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', '10000010')
+        user.input_bomtree('产成品', '用量', '1')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         user.assert_toast('业务审核至少要选中一个！')
 
@@ -340,22 +358,22 @@ class TestCreateProcessExceptionScenario:
         user.add_bom_info()
         f_code = '10000010'
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', f_code)
-        user.input_bomtree('用量', '1000')
-        user.input_optional_bomtree('充电器', '物料编码', '10000011')
-        user.input_optional_bomtree('充电器', '用量', '1000')
-        user.input_optional_bomtree('充电器', '替代组', 'A1')
-        user.input_optional_bomtree('充电器', '份额', '20')
-        user.click_optional_material()
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', f_code)
+        user.input_bomtree('产成品', '用量', '1000')
+        user.input_bomtree('充电器', '物料编码', '10000011')
+        user.input_bomtree('充电器', '用量', '1000')
+        user.input_bomtree('充电器', '替代组', 'A1')
+        user.input_bomtree('充电器', '份额', '20')
+        user.click_add_material()
         user.move_to_add_material('10000011')
         user.input_optional_material('10000011', '物料编码', '10000012')
         user.input_optional_material('10000011', '用量', '1000')
         user.input_optional_material('10000011', '替代组', 'A1')
         user.input_optional_material('10000011', '份额', '20')
-        user.select_business_review_mpm('李小素')
-        user.select_business_audit_nps('李小素')
+        user.select_business_review('李小素', 'MPM')
+        user.select_business_review('李小素', 'NPS')
         user.click_add_submit()
         user.assert_toast(f'[国内生产BOM][{f_code}] 替代组[A1]的份额总和不为100')
 
@@ -369,9 +387,9 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('BOM类型', '国内生产BOM')
-        user.input_bomtree('BOM状态', '试产')
-        user.input_bomtree('物料编码', '10000010')
+        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+        user.input_bomtree('产成品', 'BOM状态', '试产')
+        user.input_bomtree('产成品', '物料编码', '10000010')
         user.input_one_press('用量', '1000')
         amount = user.get_bomtree_info('产成品')[8]
         ValueAssert.value_assert_equal(amount, '')
@@ -416,10 +434,10 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.add_bomtree()
-        user.input_optional_bomtree('充电器', '物料编码', '10018955')
-        user.input_optional_bomtree('充电器', '用量', '1000')
-        user.input_optional_bomtree('充电器', '替代组', 'A1')
-        user.input_optional_bomtree('充电器', '份额', '20')
+        user.input_bomtree('充电器', '物料编码', '10018955')
+        user.input_bomtree('充电器', '用量', '1000')
+        user.input_bomtree('充电器', '替代组', 'A1')
+        user.input_bomtree('充电器', '份额', '20')
         user.click_add_submit()
         user.assert_toast('[国内生产BOM][10018955] 替代组[A1]只有一颗物料')
 
@@ -442,7 +460,31 @@ class TestCreatingProcessImport:
         user.click_tree('产成品')
         user.assert_tree_result(('1.1.1', '12000001', '单机头_TECNO_T722_E680B1_咖啡色_4G','可选', '1000', '编辑删除'),('1.1.2', '12000002', '单机头_TECNO_T722_E680B1_白色_4G','可选', '2000', '编辑删除'))
 
+    @allure.story("创建流程导入")  # 场景名称
+    @allure.title("导入选择正确的文件进行导入成功")  # 用例名称
+    @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
+                        "选择导入BOM选择正确的文件进行导入，并能应用，点击应用后页面显示的数据与模板的数据一致")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.FT  # 用例标记
+    def test_003_002(self, drivers):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_bom_info('制作类型', '生产BOM')
+        user.input_add_bom_info('品牌', 'Infinix')
+        user.input_add_bom_info('机型', '1005G1')
+        user.input_add_bom_info('阶段', '量产阶段')
+        user.input_add_bom_info('市场', '孟加拉')
+        user.click_bom_import()
+        user.upload_true_file()
+        user.assert_upload_result(('1', '10000010', '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材', '未归档', '1', '国内生产BOM', '量产',
+                                                           '孟加拉', '16+1', '12000001'), )
 
+        user.click_apply()
+        user.click_tree('产成品')
+        user.assert_tree_result(('1', '产成品', '10000010',
+                                                         '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材',
+                                                         '可选', '编辑删除'), )
 @allure.feature("BOM协作_整机BOM协作")  # 模块名称
 class TestCreateProcessImportExceptionScenario:
     @allure.story("创建流程导入异常场景")  # 场景名称
@@ -469,7 +511,7 @@ class TestCreateProcessImportExceptionScenario:
         user.add_bom_info()
         user.click_simple_import()
         user.simple_upload_wrongcontent_file()
-        user.assert_wrongcontent_simple_upload_result()
+        user.assert_wrongcontent_upload_result()
 
     @allure.story("创建流程导入异常场景")  # 场景名称
     @allure.title("选择错误文件导入提示文件类型非excel!")  # 用例名称
@@ -511,7 +553,6 @@ class TestTheProcessOfExaminationAndApproval:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
         user.enter_onework_check(Machine_API[0])
-        sleep(2)
         info1 = user.get_onework_bominfo('制作类型')
         info2 = user.get_onework_bominfo('品牌')
         info3 = user.get_onework_bominfo('机型')
@@ -929,8 +970,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Factory_API[0])
         user.click_tree('产成品')
-        user.input_optional_bomtree('充电器', '物料编码', '25001673')
-        user.click_optional_material()
+        user.input_bomtree('充电器', '物料编码', '25001673')
+        user.click_add_material()
         user.move_to_add_material('25001673')
         user.input_optional_material('25001673', '物料编码', '25001674')
         user.assert_oneworks_add_material(['1.2.1.2', '25001674', '电池_TECNO_BL_49FT_4900mAh_FH_IN_W10', '外研', '编辑删除'])
@@ -1023,7 +1064,7 @@ class TestProcessApprovalExceptionScenario:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Factory_API[0])
-        user.input_optional_bomtree('产成品', '用量', '1')
+        user.input_bomtree('产成品', '用量', '1')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
@@ -1113,7 +1154,6 @@ class TestProcessApprovalExceptionScenario:
         user.assert_toast('自检清单第【1】行检查结果为不涉及需填写原因及修改建议')
         user.quit_oneworks()
 
-
     @allure.story("流程审批异常场景")  # 场景名称
     @allure.title("[手机_itel_预研组_整机BOM]未配置自检清单！&自检清单不能为空")  # 用例名称
     @allure.description("在业务审核页面中，选择检查角色没有配置的自检清单的检查角色，会提示[手机_itel_预研组_整机BOM]未配置自检清单！，直接点击同意，会提示自检清单不能为空")
@@ -1130,6 +1170,94 @@ class TestProcessApprovalExceptionScenario:
         user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('自检清单不能为空')
+        user.quit_oneworks()
+
+@allure.feature("BOM协作_整机BOM协作")  # 模块名称
+class TestProcessSearch:
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("输入标题查询成功")  # 用例名称
+    @allure.description("进入整机BOM协作页面，输入存在的标题，点击查询，下方会显示相应的数据")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_007_001(self, drivers, Machine_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_API[0])
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('【生产工厂信息】物料10026418的组包工厂不能为空')
+        user.quit_oneworks()
+
+
+@allure.feature("BOM协作_整机BOM协作")  # 模块名称
+class TestProcessInformationExport:
+    @allure.story("流程信息导出")  # 场景名称
+    @allure.title("补充工厂页面中，导出的xlsx表的数据和页面的数据是一致的")  # 用例名称
+    @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_008_001(self, drivers, Machine_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_API[0])
+
+        user.assert_oneworks_factoryinfo()
+        user.quit_oneworks()
+
+    @allure.story("流程信息导出")  # 场景名称
+    @allure.title("BOM工程师页面，Bom Tree导出数据一致")  # 用例名称
+    @allure.description("在BOM工程师页面中，在Bom Tree中点导出，导出的数据和Bom Tree的数据是一致的")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_008_002(self, drivers, Machine_Factory_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_Factory_API[0])
+        user.click_oneworks_approval_checkbox()
+        user.click_oneworks_approval_export()
+        user.assert_oneworks_approval_bominfo()
+        user.quit_oneworks()
+
+    @allure.story("流程信息导出")  # 场景名称
+    @allure.title("业务审核页面，生产工厂信息导出数据和页面数据一致")  # 用例名称
+    @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_008_003(self, drivers, Machine_bomEnginner_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
+        user.assert_oneworks_factoryinfo()
+        user.quit_oneworks()
+
+    @allure.story("流程信息导出")  # 场景名称
+    @allure.title("业务审核页面，BOM Tree导出数据和页面中数据一致")  # 用例名称
+    @allure.description("在业务审核页面中，点击BOM Tree中的导出，导出文件中的数据和页面中的数据是一致的")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_008_004(self, drivers, Machine_bomEnginner_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
+        user.click_oneworks_approval_checkbox()
+        user.click_oneworks_approval_export()
+        user.assert_oneworks_approval_bominfo()
+        user.quit_oneworks()
+
+    @allure.story("流程信息导出")  # 场景名称
+    @allure.title("在数据组审批页面，生产工厂信息导出数据和页面数据一致")  # 用例名称
+    @allure.description("在数据组审批页面中，在生产工厂信息中点击导出，导出的文件中的数据和页面中的数据是一致的")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_008_005(self, drivers, Machine_Approval_API):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(Machine_Approval_API[0])
+        user.click_oneworks_datagroup_checkbox()
+        user.click_oneworks_factory_export()
+        user.assert_oneworks_factoryinfo()
         user.quit_oneworks()
 
 

@@ -112,6 +112,7 @@ class TestEditParametersSetting:
         db.assert_sql("100.000", "select completion_rate from db_pldb_test.project_info pi2 where station_type "
                                "='FE' and project_name = 'H371' and line_classify = '2';")
 
+
 @allure.feature("基础信息-看板参数配置")
 class TestDelParametersSetting:
     @pytest.fixture(scope='class', autouse=True)
@@ -143,17 +144,17 @@ class TestDelParametersSetting:
                                "='FE' and project_name = 'H371' and line_classify = '2';")
 
 
-@allure.feature("基础信息-看板参数配置")
-class TestExportParametersSetting:
-    @allure.story("导出参数配置")
-    @allure.title("全量导出参数配置")
-    @allure.description("进入看板参数配置>重置查询条件>查询全量数据>点击导出按钮")
-    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    def test_1273168(self, drivers):
-        info = BoardParametersSetting(drivers)
-        info.click_reset()
-        info.click_search()
-        info.click_export(content="ExportParaConfig")
+# @allure.feature("基础信息-看板参数配置")
+# class TestExportParametersSetting:
+#     @allure.story("导出参数配置")
+#     @allure.title("全量导出参数配置")
+#     @allure.description("进入看板参数配置>重置查询条件>查询全量数据>点击导出按钮")
+#     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+#     def test_1273168(self, drivers):
+#         info = BoardParametersSetting(drivers)
+#         info.click_reset()
+#         info.click_search()
+#         info.click_export(content="ExportParaConfig")
 
 
 

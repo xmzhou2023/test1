@@ -45,13 +45,19 @@ class ReturnOrderPage(Base):
     @allure.step("新建退货单页面，点击Check")
     def click_Check(self):
         self.is_click_dcr(user['Click Check'])
-        sleep(1.5)
+        sleep(2)
 
-    @allure.step("退货单页面，点击check获取结果 Succeed文本")
+    @allure.step("退货单页面，点击check按钮，获取结果Succeed文本")
     def get_text_Record(self):
         Base.presence_sleep_dcr(self, user['Get Scan Record'], "Success")
         record = self.element_text(user['Get Scan Record'], "Success")
         return record
+
+    @allure.step("退货单页面，点击check按钮，获取结果IMEI文本内容")
+    def get_Scan_Record_IMEI(self, imei):
+        get_imei = self.element_text(user['Get Scan Record IMEI'], imei)
+        return get_imei
+
 
     @allure.step("退货单页面，点击check后，获取Order Detail列表的Delivery Order ID文本")
     def get_Order_Detail_Deli_Order_ID(self):
@@ -94,7 +100,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单列表页面，点击Search")
     def click_Search(self):
         self.is_click(user['Search'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("退货单列表页面， 获取第筛选后的第一个出库单ID")
     def get_text_deliveryID(self):

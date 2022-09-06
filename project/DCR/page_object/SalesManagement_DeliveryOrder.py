@@ -24,7 +24,7 @@ class DeliveryOrderPage(Base):
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        sleep(4)
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):

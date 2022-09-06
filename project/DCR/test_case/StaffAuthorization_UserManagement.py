@@ -11,17 +11,24 @@ import allure
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
-def function_user_mgt_fixture(drivers):
+def function_menu_fixture(drivers):
     yield
-    close = UserManagementPage(drivers)
-    close.click_close_user_mgt()
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    close = UserManagementPage(drivers)
-    close.click_close_export_record()
-    close.click_close_user_mgt()
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
 
 @allure.feature("员工授权-用户管理")
 class TestQueryUser:
@@ -29,7 +36,7 @@ class TestQueryUser:
     @allure.title("用户管理页面，查询用户列表所有用户数据加载")
     @allure.description("用户管理页面，查询用户列表所有用户数据加载")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_user_mgt_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -77,7 +84,7 @@ class TestAddEditQuitTranssionUser:
     @allure.title("用户管理页面，新增、编辑、离职传音用户")
     @allure.description("用户管理页面，新增、编辑、离职传音用户能正常运行")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_user_mgt_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -155,9 +162,8 @@ class TestAddEditQuitTranssionUser:
         sleep(1)
         """ 离职传音用户 """
         add_transsion.click_first_checkbox()
-        add_transsion.click_more_option()
-        add_transsion.click_quit()
-        add_transsion.click_yes()
+        add_transsion.click_more_option_quit()
+
         """用户离职是否成功，断言"""
         DomAssert(drivers).assert_att("Disabled Successfully")
         #点击重置按钮，断言列表是否不存在被删除的用户
@@ -173,7 +179,7 @@ class TestAddEditQuitDealerUser:
     @allure.title("用户管理页面，新增、编辑、离职代理用户")
     @allure.description("用户管理页面，新增、编辑、离职代理用户能正常运行")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_user_mgt_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -254,9 +260,8 @@ class TestAddEditQuitDealerUser:
         sleep(1)
         """ 离职代理员工 """
         dealer_user.click_first_checkbox()
-        dealer_user.click_more_option()
-        dealer_user.click_quit()
-        dealer_user.click_yes()
+        dealer_user.click_more_option_quit()
+
         """用户离职是否成功，断言"""
         DomAssert(drivers).assert_att("Disabled Successfully")
         """点击重置按钮，断言列表是否不存在被删除的用户"""
@@ -323,7 +328,6 @@ class TestResetPasswordUser:
     @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
     @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_user_mgt_fixture')
     def test_005_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -336,15 +340,12 @@ class TestResetPasswordUser:
         reset.input_query_User('EG4463901')
         reset.click_search()
         reset.click_first_checkbox()
-        reset.click_more_option()
-        reset.click_reset_password()
+        reset.click_more_reset_password()
         """断言是否弹出设置成功提示"""
         DomAssert(drivers).assert_att("Set Up Successfully")
-        sleep(2)
+        sleep(1.5)
         """重置密码成功后，使用该账号登录，设置新的密码"""
-        user.dcr_login(drivers, "EG4463901", "EG4463901")
-        get_new_password = reset.get_new_password_label()
-        ValueAssert.value_assert_In("New Password", get_new_password)
+        user.initialize_login(drivers, "EG4463901", "EG4463901")
 
         """该用户登录时，弹出设置新密码窗口，输入新密码及确认新密码，点击保存"""
         reset.input_new_password_save("dcr123456")
@@ -356,7 +357,7 @@ class TestResetPasswordUser:
         reset.click_login()
         """验证登录成功后，页面是否存在首页菜单"""
         DomAssert(drivers).assert_att("Home Page-Customer")
-        #export.click_close_user_mgt()
+
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserManagement.py'])

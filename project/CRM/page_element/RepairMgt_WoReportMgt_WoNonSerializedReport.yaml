@@ -3,7 +3,7 @@ WO NonSerialized Report Export: "xpath==//button[@type='button']//span[contains(
 WO NonSerialized Report Search: "xpath==//button[@type='button']//span[contains(text(),'Search')]"
 Repair Mgt: "xpath==//span[contains(text(),'Repair Mgt')]"
 Repair Mgt-WO Report Mgt: "xpath==//span[contains(text(),'WO Report Mgt')]"
-Repair Mgt-WO Report Mgt-WO NonSerialized Report: "xpath=//div[@class='nest-menu']//span[contains(text(),'WO NonSerialized Report')]"
+Repair Mgt-WO Report Mgt-WO NonSerialized Report: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO NonSerialized Report')]"
 Country搜索框: "xpath==//div[@class='el-col el-col-12'][1]//input[@type='text']"
 WO Non Serialized Date开始日期搜索框: "xpath==//div[@class='el-col el-col-12'][4]//input[contains(@placeholder,'Start')]"
 清除时间搜索框: "xpath==//div[@class='el-col el-col-12'][4]//span[contains(@class,'suffix-inner')]/i[contains(@class,'circle-close')]"

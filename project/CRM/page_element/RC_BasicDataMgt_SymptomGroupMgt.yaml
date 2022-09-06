@@ -1,4 +1,5 @@
 一级菜单: 'xpath==//div[@class="el-submenu__title"]//span[contains(text(),"variable")]'
+Repair Center: 'xpath==//div[@class="el-submenu__title"]//span[contains(text(),"Repair Center")]'
 Basic Data Mgt: 'xpath==//div[@class="nest-menu"][7]/li[@role="menuitem"]/div[@class="el-submenu__title"]/span[contains(text(),"Basic Data Mgt")]'
 Asynchronous Report Mgt: 'xpath==//span[contains(text(),"Asynchronous Report Mgt")]'
 Symptom Group Mgt: 'xpath==//li[@role="menuitem"]/span[contains(text(),"Symptom Group Mgt")]'
@@ -30,3 +31,5 @@ Close_Confirm: 'xpath==//div[@class="el-message-box__btns"]//span[contains(text(
 Input_Clear: 'xpath==//i[contains(@class,"el-input__clear")]'
 Close_Page: 'xpath==//span[@class="el-icon-close"]'
 Get_No_Data: 'xpath==//div[contains(text(),"Seq")]/parent::th/parent::tr/parent::thead/parent::table/parent::div/following-sibling::div//span[contains(text(),"No Data")]'
+表头字段个数: 'xpath== //div[@class="tableView"]//div[@class="el-table__header-wrapper"]//thead[@class="has-gutter"]/tr/child::th/div'
+表头字段: 'xpath== //div[@class="tableView"]//div[@class="el-table__header-wrapper"]//thead[@class="has-gutter"]/tr/child::th[variable]/div[1]'

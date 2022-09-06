@@ -1,0 +1,9 @@
+#组件中心
+组件中心: 'xpath==//span[normalize-space(text())="组件中心"]'
+组件中心->我的文件: 'xpath==//li[@role="menuitem"]//span[normalize-space(text())="我的文件"]'
+
+#卡片中心
+卡片中心: 'xpath==//span[normalize-space(text())="卡片中心"]'
+卡片中心->卡片中心: 'xpath==//div[@class="sidebar-menu"]//span[normalize-space(text())="卡片中心"]'
+卡片中心->权限管理: 'xpath==//div[@class="sidebar-menu"]//span[normalize-space(text())="权限管理"]'
+卡片中心->分类管理: 'xpath==//div[@class="sidebar-menu"]//span[normalize-space(text())="分类管理"]'

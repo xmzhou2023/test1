@@ -278,4 +278,4 @@ class TestTheProcessOfExaminationAndApproval:
 
 
 if __name__ == '__main__':
-    pytest.main(['KeyComponent_KeyComponentFlow.py'])
+    pytest.main(['Test_module.py'])
