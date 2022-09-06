@@ -86,7 +86,7 @@ class TestExportVisitRecord:
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-06-01")
+        export.input_submit_start_date("2022-08-01")
         export.click_sales_region()
         export.click_search()
 
