@@ -13,19 +13,19 @@ class UserManagementPage(Base):
     @allure.step("user management页面，点击Add新增按钮")
     def click_add_user(self):
         self.is_click(user['Add'])
-        sleep(3.5)
+        sleep(2.5)
 
     @allure.step("进入Add user页面， 选择传音员工类型")
     def click_staff_type_value(self, type1):
+        Base.presence_sleep_dcr(self, user['Staff Type'])
         self.is_click(user['Staff Type'])
-        sleep(0.8)
+        sleep(1)
         self.is_click(user['Transsion Staff'], type1)
 
     @allure.step("Add user页面， 输入user ID字段")
     def input_user_id(self, content):
         self.is_click(user['User ID'])
         self.input_text_dcr(user['User ID'], txt=content)
-        sleep(1)
 
     @allure.step("Add user页面， 输入user Name字段")
     def input_user_name(self, content):
@@ -53,41 +53,46 @@ class UserManagementPage(Base):
 
     @allure.step("Add user页面，选择点击品牌")
     def click_select_brand(self):
-        self.is_click(user['Select Brand'])
+        self.is_click(user['Add Select Brand'])
         sleep(1)
-        self.is_click(user['Brand TECNO'])
-        self.is_click(user['Brand itel'])
-        self.is_click(user['Brand Infinix'])
+        Base.presence_sleep_dcr(self, user['Select Brand Value'], 'Infinix')
+        self.is_click(user['Select Brand Value'], 'Infinix')
+        self.is_click(user['Select Brand Value'], 'TECNO')
+        self.is_click(user['Select Brand Value'], 'itel')
 
     @allure.step("关闭User Management菜单")
     def click_close_user_mgt(self):
         self.is_click(user['关闭用户管理菜单'])
         sleep(1)
 
-    @allure.step("Add user页面，选择点击品牌")
-    def click_edit_brand(self):
-        self.is_click(user['Select Brand'])
+    @allure.step("Edit user页面，选择点击品牌")
+    def click_edit_trans_brand(self):
+        self.is_click(user['Edit Select Brand'])
         sleep(1)
-        self.is_click(user['Brand oraimo'])
+        Base.presence_sleep_dcr(self, user['Select Brand Value'], 'oraimo')
+        self.is_click(user['Select Brand Value'], 'oraimo')
 
-    @allure.step("Add user页面，选择点击品牌")
+    @allure.step("Edit user页面，选择点击品牌")
     def click_edit_dealer_brand(self):
-        self.is_click(user['Select Brand'])
+        self.is_click(user['Edit Select Brand'])
         sleep(1)
-        self.is_click(user['Brand Infinix'])
+        Base.presence_sleep_dcr(self, user['Select Brand Value'], 'Infinix')
+        self.is_click(user['Select Brand Value'], 'Infinix')
 
     @allure.step("Add user页面，输入职位，选中输入的职位")
     def input_position_transsion(self, content):
         self.is_click(user['Position'])
         self.input_text(user['Position'], txt=content)
         sleep(1)
+        Base.presence_sleep_dcr(self, user['Position Value Transsion'])
         self.is_click(user['Position Value Transsion'])
 
     @allure.step("Add user页面，输入上级领导，选中输入的上级领导")
     def input_superior(self, content):
         self.is_click(user['Superior'])
         self.input_text(user['Superior'], txt=content)
-        sleep(3)
+        sleep(2.5)
+        Base.presence_sleep_dcr(self, user['Superior Value'], "lhmadmin lhmadmin")
         self.is_click(user['Superior Value'], "lhmadmin lhmadmin")
 
     @allure.step("Add user页面，输入邮箱")
@@ -99,17 +104,17 @@ class UserManagementPage(Base):
     def input_contact_no(self, content):
         self.input_text(user['Contact No'], txt=content)
 
-
     @allure.step("Add user页面，选择性别")
     def click_gender_female(self, context):
         self.is_click(user['Gender'])
         sleep(1)
+        Base.presence_sleep_dcr(self, user['Gender Female'], context)
         self.is_click(user['Gender Female'], context)
 
     @allure.step("Add user页面，点击Submit提交按钮")
     def click_add_user_submit(self):
         self.is_click(user['Add User Submit'])
-        sleep(2)
+        sleep(1.5)
 
     @allure.step("获取列表User ID文本内容")
     def get_text_user_id(self):
@@ -126,13 +131,13 @@ class UserManagementPage(Base):
     def input_query_userid(self, content1):
         self.is_click(user['Input User ID'])
         self.input_text(user['Input User ID'], txt=content1)
-        self.is_click(user['User ID Value'])
         sleep(1)
+        self.is_click(user['User ID Value'])
 
     @allure.step("点击搜索功能")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(4.5)
+        sleep(4)
 
     @allure.step("点击重置按钮")
     def click_reset(self):
@@ -157,7 +162,6 @@ class UserManagementPage(Base):
     @allure.step("点击第一个checkbox,对用户进行辞职操作")
     def click_first_checkbox(self):
         self.is_click(user['勾选第一个复选框'])
-        sleep(1)
 
     @allure.step("编辑用户提交成功提示语")
     def get_set_up_successfully(self):
@@ -251,7 +255,6 @@ class UserManagementPage(Base):
         self.is_click(user['Reset Password'])
         sleep(1.5)
         self.is_click(user['Reset Password Yes'])
-        #sleep(0.5)
 
     @allure.step("登录时，弹出设置新密码窗口，获取New Password 标签")
     def get_new_password_label(self):
@@ -289,7 +292,7 @@ class UserManagementPage(Base):
     @allure.step("User Management页面，点击Export 导出用户记录")
     def click_export(self):
         self.is_click(user['Export'])
-        sleep(2)
+        sleep(1.5)
 
     @allure.step("Attendance Records页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):

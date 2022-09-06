@@ -89,7 +89,6 @@ class TestAddEditQuitTranssionUser:
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Staff & Authorization", "User Management")
 
@@ -106,8 +105,8 @@ class TestAddEditQuitTranssionUser:
         add_transsion.input_sales_region("Barisal")
         add_transsion.input_country_city("Barisal")
         add_transsion.click_select_brand()
-        add_transsion.input_position_transsion("lhmTecno促销员")
         add_transsion.input_superior("lhmadmin")
+        add_transsion.input_position_transsion("lhmTecno促销员")
         add_transsion.input_email("646195353@163.com")
         num = add_transsion.user_id_random()
         add_transsion.input_contact_no("13762513" + num)
@@ -136,7 +135,7 @@ class TestAddEditQuitTranssionUser:
         username = add_transsion.user_name_random()
         add_transsion.click_edit()
         add_transsion.input_user_name(username)
-        add_transsion.click_edit_brand()
+        add_transsion.click_edit_trans_brand()
         add_transsion.click_user_name()
         add_transsion.input_email("646167867@qq.com")
         num = add_transsion.number_radom()
@@ -160,17 +159,16 @@ class TestAddEditQuitTranssionUser:
         sqlasser.assert_sql(user_name,
                             "select USER_NAME from t_user where created_by= 'lhmadmin'  order by created_time desc limit 1")
         sleep(1)
+
         """ 离职传音用户 """
         add_transsion.click_first_checkbox()
         add_transsion.click_more_option_quit()
-
         """用户离职是否成功，断言"""
         DomAssert(drivers).assert_att("Disabled Successfully")
         #点击重置按钮，断言列表是否不存在被删除的用户
         add_transsion.click_reset()
         user_id2 = add_transsion.get_text_user_id()
         ValueAssert.value_assert_IsNot(user_id1, user_id2)
-        #add_transsion.click_close_user_mgt()
 
 
 @allure.feature("员工授权-用户管理")
@@ -184,7 +182,6 @@ class TestAddEditQuitDealerUser:
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Staff & Authorization", "User Management")
 
@@ -199,10 +196,11 @@ class TestAddEditQuitDealerUser:
         dealer_user.input_country_city("Barisal")
         dealer_user.click_select_brand()
         dealer_user.input_position_dealer("lhm二代")
+        dealer_user.input_superior('lhmadmin')
         dealer_user.input_email("646195353@163.com")
         num = dealer_user.number_radom()
         dealer_user.input_contact_no("13896785" + num)
-        dealer_user.click_gender_female("Female")
+        dealer_user.click_gender_female('Female')
         dealer_user.click_add_user_submit()
 
         dealer_user.click_search()
@@ -227,6 +225,7 @@ class TestAddEditQuitDealerUser:
         sql_asser.assert_sql(user_name,
                              "select u.USER_NAME  from  t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin'  order by e.created_time desc limit 1")
         sleep(1)
+
         """ 编辑代理员工 """
         """筛选用户后，点击Search，进行编辑操作"""
         username = dealer_user.user_name_random()
@@ -258,17 +257,16 @@ class TestAddEditQuitDealerUser:
         sqlasser.assert_sql(user_name,
                             "select u.USER_NAME  from  t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin'  order by e.created_time desc limit 1")
         sleep(1)
+
         """ 离职代理员工 """
         dealer_user.click_first_checkbox()
         dealer_user.click_more_option_quit()
-
         """用户离职是否成功，断言"""
         DomAssert(drivers).assert_att("Disabled Successfully")
         """点击重置按钮，断言列表是否不存在被删除的用户"""
         dealer_user.click_reset()
         user_id2 = dealer_user.get_text_user_id()
         ValueAssert.value_assert_IsNot(user_id1, user_id2)
-        #dealer_user.click_close_user_mgt()
 
 
 @allure.feature("员工授权-用户管理")
@@ -327,7 +325,7 @@ class TestResetPasswordUser:
     @allure.story("用户重置密码")
     @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
     @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
-    @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     def test_005_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -357,7 +355,6 @@ class TestResetPasswordUser:
         reset.click_login()
         """验证登录成功后，页面是否存在首页菜单"""
         DomAssert(drivers).assert_att("Home Page-Customer")
-
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserManagement.py'])

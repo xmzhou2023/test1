@@ -13,7 +13,7 @@ class VisitRecordPage(Base):
     @allure.step("Visit Record页面，点击unfold展开筛选条件")
     def click_unfold(self):
         self.is_click(user['Unfold'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("Visit Record页面，点击unfold展开筛选条件")
     def click_fold(self):
@@ -43,13 +43,13 @@ class VisitRecordPage(Base):
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(3)
+        sleep(3.5)
 
     @allure.step("Visit Record页面，点击Reset重置按钮")
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(4)
+        sleep(3.5)
 
     @allure.step("Visit Record页面，获取列表中Shop ID文本属性")
     def get_shop_id_text(self):
