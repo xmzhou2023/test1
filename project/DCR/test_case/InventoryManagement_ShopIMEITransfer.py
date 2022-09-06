@@ -164,7 +164,6 @@ class TestApproveIMEITransfer:
         ValueAssert.value_assert_equal('EG000394', get_to_shop)
 
 
-
 @allure.feature("库存管理-门店IMEI调店")
 class TestQueryIMEITransfer:
     @allure.story("查询门店IMEI调店数据")
