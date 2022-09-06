@@ -1,6 +1,6 @@
 import allure
 import pytest
-from project.TBM.page_object.BOM import UserPage
+from project.TBM.page_object.BOM3 import UserPage
 from public.base.assert_ui import DomAssert
 
 """
@@ -21,20 +21,21 @@ class TestUtil:
     @pytest.mark.smoke # 用例标记
     def test_001_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         user = UserPage(drivers)
-        user.click_menu('BOM协作', '整机BOM协作')
+        user.click_menu('BOM协作', '单机头BOM协作')
         user.click_add()
         user.click_lx()
         user.click_pp()
         user.click_jx()
         user.click_jd()
         user.click_sc()
+        user.click_ys()
         user.click_add_bom()
-        user.click_bomlx()
+        # user.click_bomlx()
         user.click_bomzt()
         user.click_bom_code()
         user.click_yl()
         user.click_mpm()
-        user.click_cg()
+        # user.click_cg()
         user.click_submit()
         DomAssert(drivers).assert_att('创建流程成功')
         user.click_search()
@@ -42,7 +43,7 @@ class TestUtil:
         user.click_menu1('待办列表','我申请的')
         user.click_xq(code)
         user.click_ch()
-        user.click_menu('BOM协作', '整机BOM协作')
+        user.click_menu('BOM协作', '单机头BOM协作')
         user.click_delete(code)
         DomAssert(drivers).assert_att('删除成功')
         pass

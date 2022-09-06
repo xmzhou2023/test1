@@ -29,7 +29,7 @@ class UserPage(Base):
     @allure.step("选择Bom信息-制作类型")
     def click_lx(self):
         self.is_click_tbm(user["Bom信息-制作类型"])
-        self.is_click_tbm(user["Bom信息-生产BOM"])
+        self.is_click_tbm(user["Bom信息-单机头BOM制作"])
         sleep(1)
 
     @allure.step("选择Bom信息-品牌")
@@ -48,7 +48,7 @@ class UserPage(Base):
     @allure.step("选择Bom信息-阶段")
     def click_jd(self):
         self.is_click_tbm(user["Bom信息-阶段"])
-        self.is_click_tbm(user["Bom信息-量产阶段"])
+        self.is_click_tbm(user["Bom信息-试产阶段"])
         sleep(1)
 
     @allure.step("选择Bom信息-市场")
@@ -57,22 +57,28 @@ class UserPage(Base):
         self.is_click_tbm(user["Bom信息-孟加拉"])
         sleep(1)
 
+    @allure.step("选择Bom信息-衍生")
+    def click_ys(self):
+        self.is_click_tbm(user["Bom信息-衍生"])
+        self.is_click_tbm(user["Bom信息-否"])
+        sleep(1)
+
     @allure.step("点击新增BOM")
     def click_add_bom(self):
         self.is_click_tbm(user["新增Bom"])
         self.is_click_tbm(user["新增Bom-编辑"])
         sleep(1)
 
-    @allure.step("选择新增Bom-Bom类型")
-    def click_bomlx(self):
-        self.is_click_tbm(user["新增Bom-Bom类型"])
-        self.is_click_tbm(user["新增Bom-国内生产BOM"])
-        sleep(1)
+    # @allure.step("选择新增Bom-Bom类型")
+    # def click_bomlx(self):
+    #     self.is_click_tbm(user["新增Bom-Bom类型"])
+    #     self.is_click_tbm(user["新增Bom-国内生产BOM"])
+    #     sleep(1)
 
     @allure.step("选择新增Bom-Bom状态")
     def click_bomzt(self):
         self.is_click_tbm(user["新增Bom-Bom状态"])
-        self.is_click_tbm(user["新增Bom-量产"])
+        self.is_click_tbm(user["新增Bom-试产"])
         sleep(1)
 
     @allure.step("选择新增Bom-物料编码")
@@ -135,7 +141,7 @@ class UserPage(Base):
     def click_xq(self, code):
         self.is_click_tbm(user["查看详情"], code)
         self.switch_window(1)
-        sleep(1)
+        sleep(2)
 
     @allure.step("撤回")
     def click_ch(self):
@@ -149,7 +155,5 @@ class UserPage(Base):
         self.is_click_tbm(user['查询'])
         self.is_click_tbm(user['删除'], code)
         self.is_click_tbm(user['撤回确定'])
-
-
 if __name__ == '__main__':
     pass
