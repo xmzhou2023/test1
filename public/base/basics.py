@@ -134,6 +134,7 @@ class Base(object):
 
 
     def input_text(self, locator, txt, choice=None):
+        print(locator)
         """输入文本"""
         if choice is None:
             sleep(0.5)
@@ -600,6 +601,10 @@ class Base(object):
         # 清除文本框输入，srm使用
         ele = self.find_element(xpath)
         ele.clear()
+
+    def switch_location(self, path):
+        # 使用javascript 跳转路由
+        self.driver.execute_script('location=arguments[0]', path)
 
 
 

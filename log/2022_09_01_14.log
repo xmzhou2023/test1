@@ -1,0 +1,7 @@
+[2022-09-01 14:54:44] [    INFO] 【PDC】项目【test】环境- UI自动化开始执行 (conftest.py:14)
+[2022-09-01 14:54:44] [    INFO] 前置条件：传音统一登录开始 (conftest.py:18)
+[2022-09-01 14:54:47] [    INFO] 打开网页：http://10.248.39.163:10101/#/c-login (basics.py:63)
+[2022-09-01 14:54:47] [    INFO] 查找元素：('xpath', "//div[@role='button']") (basics.py:106)
+[2022-09-01 14:54:47] [    INFO] 点击元素：('xpath', "//div[@role='button']") (basics.py:206)
+[2022-09-01 14:54:52] [    INFO] 查找元素：['xpath', "//*[contains(@id,'dropdown-menu-')]//li[1]"] (basics.py:106)
+[2022-09-01 14:55:02] [    INFO] 查找元素：('xpath', "//div[@role='button']") (basics.py:106)
