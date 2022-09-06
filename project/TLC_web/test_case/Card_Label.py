@@ -22,7 +22,7 @@ class TestAddLabel:
         user.page_click()
         user.append_button()
         user.add_label(input_labelName='autozz0829010', input_Description='testssssssauto')
-        user.add_save("标签新增正例")
+        user.add_save("新增标签正例")
         user = DomAssert(drivers)
         user.assert_exact_att("autozz0829010")
 
@@ -89,7 +89,7 @@ class TestAddLabel:
         user.append_cancel()
 
 
-@allure.feature("编辑卡片属性")
+@allure.feature("编辑分类属性")
 class TestEditLabel:
     # 编辑标签
 
@@ -172,6 +172,7 @@ class TestEditLabel:
         user.edit_cancel()
 
 
+@allure.feature("切换标签状态")
 class TestStateLabel:
     # 标签状态切换
 
@@ -186,6 +187,9 @@ class TestStateLabel:
         user.assert_url("/card-manage/attribute")
         user = label(drivers)
         user.page_click()
+        user.append_button()
+        user.add_label(input_labelName='enable', input_Description='testsssss')
+        user.add_save("新增标签正例1")
         user.enable_label()
 
     @allure.story("卡片属性状态切换")
@@ -199,6 +203,10 @@ class TestStateLabel:
         user.assert_url("/card-manage/attribute")
         user = label(drivers)
         user.page_click()
+        user.append_button()
+        user.add_label(input_labelName='enable0', input_Description='testssauto')
+        user.add_save("新增标签正例2")
+        user.enable_label()
         user.disable_label()
 
     @allure.story("卡片属性状态切换")
@@ -212,6 +220,10 @@ class TestStateLabel:
         user.assert_url("/card-manage/attribute")
         user = label(drivers)
         user.page_click()
+        user.append_button()
+        user.add_label(input_labelName='enable1', input_Description='tesssssauto')
+        user.add_save("新增标签正例3")
+        user.enable_label()
         user.disable_cancel()
 
     @allure.story("卡片属性状态切换")
@@ -225,6 +237,10 @@ class TestStateLabel:
         user.assert_url("/card-manage/attribute")
         user = label(drivers)
         user.page_click()
+        user.append_button()
+        user.add_label(input_labelName='enable2', input_Description='testssssssauto')
+        user.add_save("新增标签正例4")
+        user.enable_label()
         user.disable_close()
 
 @allure.feature("查询卡片属性")
@@ -245,7 +261,8 @@ class TestQueryLabel:
         user.query_label()
         user.query_labelName(query_labelName='视图')
         user.query_labelState(query_labelState='启用')
-
+        user.query_label()
+        user.query_reset()
 
     @allure.story("卡片属性查询")
     @allure.title("卡片标签禁用查询")
@@ -261,6 +278,8 @@ class TestQueryLabel:
         user.query_label()
         user.query_labelName(query_labelName='测试')
         user.query_labelState(query_labelState='禁用')
+        user.query_label()
+        user.query_reset()
 
 
     @allure.story("卡片属性查询")

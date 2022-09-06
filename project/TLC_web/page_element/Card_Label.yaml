@@ -9,8 +9,8 @@
 添加标签按钮: 'xpath==//span[normalize-space(text())="新增"]'
 标签名称输入框: 'xpath==//div[@aria-label="新增分类"]//label[@for="groupName"]/following-sibling::*//input'
 标签描述输入框: 'xpath==//div[@aria-label="新增分类"]//textarea[@class="el-textarea__inner"]'
-确定按钮: 'xpath==//div[@class="el-dialog__body"]//span[normalize-space(text())="确定"]'
-取消按钮: 'xpath==//div[@class="el-dialog__body"]//span[normalize-space(text())="取消"]'
+确定按钮: 'xpath==//div[@aria-label="新增分类"]//span[normalize-space(text())="确定"]'
+取消按钮: 'xpath==//div[@aria-label="新增分类"]//span[normalize-space(text())="取消"]'
 新增弹框关闭按钮: 'xpath==//div[@aria-label="新增分类"]//button[@aria-label="Close"]'
 名称新增必填项: 'xpath==//div[@class="el-form-item__error"]'
 

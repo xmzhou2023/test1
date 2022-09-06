@@ -139,7 +139,6 @@ class label(Base):
     @allure.step("禁用标签取消")
     def disable_cancel(self):
         self.is_click(user['启用/禁用切换按钮'])
-        self.is_click(user['启用/禁用切换按钮'])
         self.is_click(user['禁用取消'])
         logging.info("禁用标签弹框关闭，标签为启用")
         sleep(2)
