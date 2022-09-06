@@ -24,8 +24,8 @@ def __init__(drivers, env_name):
     user.srm_login(drivers,ini.url, account_srm[0]['usernum'], account_srm[0]['passwd'])
 
     user = DomAssert(drivers)
-
     user.assert_url("http://sitsrm.transsion.com/ELSServer_CY/default.jsp?account=860000_1001")
+
     # user = SQLAssert(pro_name, pro_env)
     # user.assert_sql(word=account[0]['username'], sql='select name_zh from uc_user where enable_flag=1')
 

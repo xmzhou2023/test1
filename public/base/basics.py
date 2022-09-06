@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from libs.config.conf import LOCATE_MODE, DOWNLOAD_PATH, IMAGE_PATH, BASE_DIR
+from selenium.webdriver.common.keys import Keys
 from libs.common.time_ui import sleep
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
@@ -126,6 +127,11 @@ class Base(object):
         number = len(self.find_elements(locator))
         logging.info("相同元素：{}".format((locator, number)))
         return number
+
+    def send_enter(self):  # 夏小珍新增 2022-9-2
+        """回车"""
+        ActionChains(self).send_keys(Keys.ENTER)
+
 
     def input_text(self, locator, txt, choice=None):
         print(locator)
@@ -361,13 +367,13 @@ class Base(object):
             actions.move_to_element(element).perform()
             sleep(1)
 
-    def clear_download(self):
+    def clear_download(self, path):
         """清空下载路径"""
-        for file in os.listdir(DOWNLOAD_PATH):
+        for file in os.listdir(path):
             if len(file) > 0:
-                os.remove(DOWNLOAD_PATH + r"/" + file)
+                os.remove(path + r"/" + file)
 
-    def download_file(self, filename, load=1):
+    def download_file(self, filename, load=5):
         """下载到指定路径"""
         try:
             if os.path.exists(DOWNLOAD_PATH):
@@ -383,7 +389,7 @@ class Base(object):
 
     def check_download(self, locator, content):
         """下载并断言文件名是否符合预期"""
-        self.clear_download()
+        self.clear_download(DOWNLOAD_PATH)
         self.find_element(locator).click()
         assert self.download_file(filename=content, load=3), logging.warning("断言失败: 下载该附件失败 | {} ".format(content))
         logging.info("断言成功: 下载该附件成功 | {} ".format(content))
@@ -471,6 +477,11 @@ class Base(object):
             for cell in i:
                 info.append(str(cell.value))
             info_list.append(info)
+        try:
+            assert info_list != 0
+        except:
+            logging.error('excel表格内容：{};实际为空'.format(info_list))
+            raise
         logging.info('excel表格内容：{}'.format(info_list))
         return info_list
 
@@ -487,9 +498,8 @@ class Base(object):
             logging.info('download文件夹内有文件：{}'.format(path_list))
             assert len(path_list) != 0
         except:
-            path = os.path.join(BASE_DIR)
-            path_list = os.listdir(DOWNLOAD_PATH)
-            logging.info('download文件夹内有文件：{}'.format(path_list))
+            logging.error('download文件夹无内容')
+            raise
         try:
             return self.read_excel(path, path_list[-1])
         except Exception as e:

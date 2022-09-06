@@ -58,6 +58,17 @@ class LoginPage(Base):
         get_login_account = self.element_text(user['获取登录账号'])
         return get_login_account
 
+    @allure.step("关闭当天打开状态的菜单")
+    def click_close_open_menu(self):
+        self.is_click(user['关闭当前打开的菜单'])
+        sleep(1)
+
+    @allure.step("获取当前打开状态的菜单class值")
+    def get_open_menu_class(self):
+        ss = self.find_element(user['打开状态的菜单'])
+        get_menu_class = ss.get_attribute('class')
+        return get_menu_class
+
 
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
@@ -74,7 +85,7 @@ class LoginPage(Base):
         sleep(4)
 
 
-    @allure.step("退货重新登录，去掉打开登录地址")
+    @allure.step("退出重新登录，去掉打开登录地址")
     def dcr_again_login(self, drivers, account, passwd):
         user = LoginPage(drivers)
         user.input_account(account)

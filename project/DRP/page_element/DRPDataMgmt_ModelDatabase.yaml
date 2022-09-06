@@ -3,7 +3,7 @@ Tab菜单: "xpath==//div[@class='wrapper-tabs']//span[contains(text(),'variable'
 变更日志按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'变更日志')]"
 关闭变更日志页签: "xpath==//span[contains(text(),'变更日志')]//span[@class='el-icon-close']"
 导入按钮: "xpath==//div[@class='right-btn']//button//span[contains(text(),'导入')]"
-关闭导入弹窗: "xpath==//div[@aria-label='导入']//i[@class='el-dialog__close el-icon el-icon-close']"
+关闭导入弹窗: "xpath==//*[@id='app']/div/div[2]/div[2]/section/div/div[2]/div[6]/div/div[1]/button/i"
 导出按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'导出')]"
 筛选按钮: "xpath==//div[@class='btn-tool-info']//button[@type='button']//span[contains(text(),'筛选')]"
 关闭筛选: "xpath==//i[@class='el-icon-close']"
@@ -55,8 +55,11 @@ Tab菜单: "xpath==//div[@class='wrapper-tabs']//span[contains(text(),'variable'
 断言（新增保存成功）: "xpath==//p[@class='el-message__content']"
 
 下载导入模板: "xpath==//span[contains(text(),'下载导入模板')]"
-选择文件: "xpath==//button[@class='el-button el-button--primary el-button--small']//span"
+选择文件: "xpath==//div[@class='flex']//button[@type='button']/following-sibling::input"
+
 导入窗口断言: "xpath==//div[@class='upload-box']"
+选择文件后断言: "xpath==//div[@class='upload-box file-box']"
+导入弹窗（导入按钮）: "xpath==//button[@class='el-button el-button--primary el-button--mini']//span[contains(text(),'导入')]"
 
 #=====================================筛选==================================================================#
 筛选框断言: "xpath==//div[@class='screen-title']//span[contains(text(),'筛选')]"
@@ -73,7 +76,7 @@ Tab菜单: "xpath==//div[@class='wrapper-tabs']//span[contains(text(),'variable'
 查询按钮: "xpath==//div[@class='screen-btns']//button//span[contains(text(),'查  询')]"
 重置按钮: "xpath==//div[@class='screen-btns']//button//span[contains(text(),'重  置')]"
 取消按钮: "xpath==//div[@class='screen-btns']//button//span[contains(text(),'取消')]"
-输入框下拉: "xpath==//li[@class='el-select-dropdown__item']//span[text()='variable']"
+输入框下拉: "xpath==//li[contains(@class,'el-select-dropdown__item')]//span[normalize-space(text())='variable']"
 输入框下拉项: "xpath==//div[@x-placement='bottom-start']//li[@class='el-select-dropdown__item']"
 输入框下拉（模糊）: "xpath==//div[@x-placement='bottom-start']//li[@class='el-select-dropdown__item'][1]"
 
@@ -106,6 +109,16 @@ Tab菜单: "xpath==//div[@class='wrapper-tabs']//span[contains(text(),'variable'
 
 #==================================产品配置页面===================================
 页面断言(状态): "xpath==//label[@for='preserveStatus']"
+状态选框: "xpath==//form[@class='el-form tr-form filter-form']//input[@placeholder='请选择']"
+状态下拉选项: "xpath==//div[@x-placement='bottom-start']//li[variable]"
+断言 数据条数: "xpath==//span[@class='el-pagination__total']"
+清除选项: "xpath==//i[@class='el-select__caret el-input__icon el-icon-circle-close']"
+编辑(产品配置): "xpath==//div[2]//div[3]//table[@class='el-table__body']//tbody//tr[variable]//td[17]//button[1]"
+编辑保存(产品配置): "xpath==//div[2]//div[3]//table[@class='el-table__body']//tbody//td[17]//span[contains(text(),'保存')]"
+编辑取消(产品配置): "xpath==//div[2]//div[3]//table[@class='el-table__body']//tbody//td[17]//span[contains(text(),'取消')]"
+编辑项: "xpath==//div[2]//div[3]//table[@class='el-table__body']//tbody//tr//td[variable]//input[@type='text']"
+
+断言（编辑列内容）: "xpath==//div[2]//div[3]//table[@class='el-table__body']//tbody//tr//td[variable]//span"
 
 #==================================产品周期页面===================================
 页面断言(管理维度): "xpath==//label[@for='mgmtDimensionCode']"

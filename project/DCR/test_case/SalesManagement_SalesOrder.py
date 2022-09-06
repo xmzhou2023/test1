@@ -1,19 +1,39 @@
 from project.DCR.page_object.SalesManagement_SalesOrder import SalesOrderPage
+from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.connect_sql import *
 from libs.common.time_ui import sleep
+import logging
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    close = SalesOrderPage(drivers)
+    close.click_close_export_record()
+    close.click_close_sales_order()
+
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    for i in range(1):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
 
 @allure.feature("销售管理-销售单")
 class TestAddSalesOrder:
     @allure.story("新增销售单")
     @allure.title("国包用户创建销售单，产品为无码的，买方为临时客户,并直接出库操作")
     @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为临时客户，并直接出库操作")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
@@ -61,13 +81,14 @@ class TestAddSalesOrder:
         """断言状态是否更新为Delivered状态"""
         status = add.get_list_status_text()
         ValueAssert.value_assert_equal("Delivered", status)
-        add.click_close_sales_order()
+        #add.click_close_sales_order()
 
 
     @allure.story("新增销售单")
     @allure.title("国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库操作")
     @allure.description("销售单页面，国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库操作")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
@@ -101,8 +122,8 @@ class TestAddSalesOrder:
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Successfully")
-        sleep(3)
-
+        sleep(1)
+        add.click_search()
         """获取列表，销售单ID与Status文本内容"""
         get_sales_order = add.get_text_sales_id()
         get_status = add.get_text_sales_status("Delivered")
@@ -124,13 +145,14 @@ class TestAddSalesOrder:
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
         ValueAssert.value_assert_equal(get_sales_order, get_sales_order2)
         ValueAssert.value_assert_equal(get_status, get_status2)
-        add.click_close_sales_order()
+        #add.click_close_sales_order()
 
 
-    @allure.story("新增销售单")
-    @allure.title("销售单页面，二代用户新增有码销售单操作")
-    @allure.description("销售单页面，二代用户新增有码销售单操作成功后，校验新增的销售单是否存在")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.story("新增销售单,直接出库")
+    @allure.title("销售单页面，二代用户新增有码销售单操作,然后进行出库操作,最后进行退货操作")
+    @allure.description("销售单页面，二代用户新增有码销售单操作成功后，然后进行出库操作,最后进行退货操作，闭环流程")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_003(self, drivers):
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
@@ -148,35 +170,29 @@ class TestAddSalesOrder:
         add_sales.click_submit_OK()
 
         """二代用户，查询数据库最近新建的销售单ID"""
-        user = SQL('DCR', 'test')
-        sql = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
-        result = user.query_db(sql)
-        order = result[0].get("order_code")
+        sql = SQL('DCR', 'test')
+        sql_val = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
+        result = sql.query_db(sql_val)
+        order_code = result[0].get("order_code")
         status = result[0].get("status")
         if status == 0:
             sales_status = "Pending"
         """销售单页面，按销售单ID筛选销售单信息"""
-        add_sales.input_sales_order_ID(order)
+        add_sales.input_sales_order_ID(order_code)
         add_sales.click_search()
 
         """获取列表，销售单ID与Status文本内容"""
         get_sales_order = add_sales.get_text_sales_id()
         get_status = add_sales.get_text_sales_status("Pending")
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
-        ValueAssert.value_assert_equal(get_sales_order, order)
+        ValueAssert.value_assert_equal(get_sales_order, order_code)
         ValueAssert.value_assert_equal(get_status, sales_status)
         add_sales.click_close_sales_order()
 
 
-    @allure.story("销售单出库")
-    @allure.title("销售单页面，二代用户对新增的有码销售单，进行出库操作")
-    @allure.description("销售单页面，二代用户对新增的有码销售单，进行出库操作成功后，校验销售单对应的状态是否更新为：Delivered")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_004(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "BD291501", "dcr123456")
-
-        """打开Report Analysis->IMEI Inventory Query菜单"""
+        """ 刷新页面 获取库存IMEI，对新增的销售单，直接出库操作"""
+        add_sales.click_refresh(drivers)
+        """打开Report Analysis->IMEI Inventory Query菜单，获取库存IMEI"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
 
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
@@ -193,24 +209,31 @@ class TestAddSalesOrder:
         user.click_gotomenu("Sales Management", "Sales Order")
 
         """二代用户，查询数据库最近新建的销售单ID"""
-        user = SQL('DCR', 'test')
-        sql = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
-        result = user.query_db(sql)
-        order = result[0].get("order_code")
+        sql = SQL('DCR', 'test')
+        sql_val = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
+        result = sql.query_db(sql_val)
+        order_code = result[0].get("order_code")
         # status = result[0].get("status")
         # if status == 80200000:
         #     sales_status = "Delivered"
         """销售单页面，按销售单ID筛选销售单信息"""
-        delivery.input_sales_order_ID(order)
+        delivery.input_sales_order_ID(order_code)
         delivery.click_search()
 
         """勾选新建的销售单，直接出库操作"""
         delivery.click_checkbox_orderID()
+        """点击Delivery出库按钮"""
         delivery.click_Delivery_button()
 
         delivery.input_Payment_Mode('Wechat')
         delivery.input_imei(imei)
         delivery.click_check()
+        """点击Check按钮后，断言IMEI是否校验成功"""
+        get_imei = delivery.get_scan_record_imei(imei)
+        get_success = delivery.get_scan_record_success()
+        ValueAssert.value_assert_In("Success", get_success)
+        ValueAssert.value_assert_In(imei, get_imei)
+        """点击提交按钮"""
         delivery.click_submit_delivery()
 
         """销售单页面，按销售单ID筛选销售单信息，断言该条销售单对应的状态是否更新为：Delivered状态"""
@@ -222,13 +245,45 @@ class TestAddSalesOrder:
         ValueAssert.value_assert_equal(text_status, "Delivered")
         delivery.click_close_sales_order()
 
-        """对出库的销售单，进行退货操作"""
+        """对出库的销售单，进行退货操作,闭环流程"""
+        Base(drivers).refresh()
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Return Order")
+        return_order = ReturnOrderPage(drivers)
 
+        """从数据库表中，获取二代出库单ID，传给出库单筛选方法"""
+        deli_sql = SQL('DCR', 'test')
+        deli_varsql = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200000 order by created_time desc limit 1"
+        deli_result = deli_sql.query_db(deli_varsql)
+        delivery_code = deli_result[0].get("delivery_code")
+        logging.info("打印数据库查询的二代出库单ID delivery_code{}".format(delivery_code))
 
+        return_order.click_Add()
+        return_order.click_Return_Type()
+        return_order.radio_Delivery_order()
+        return_order.input_Delivery_order(delivery_code)
+        return_order.click_Check()
+        get_success = return_order.get_text_Record()
+        get_imei = return_order.get_Scan_Record_IMEI(imei)
+        ValueAssert.value_assert_equal("Success", get_success)
+        ValueAssert.value_assert_In(imei, get_imei)
 
+        """点击提交按钮"""
+        return_order.click_Submit()
+        dom = DomAssert(drivers)
+        dom.assert_att("Submit Success!")
 
+        """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
+        return_order.input_Delivery_Orderid(delivery_code)
+        return_order.click_Search()
 
-
+        """断言筛选退货列表页，获取退货单ID、退货出库单ID、退货状态与数据库表中查询的出库单ID对比是否一致"""
+        get_return_order_id = return_order.get_list_return_order_id()
+        get_delivery_order_id = return_order.get_text_deliveryID()
+        get_status = return_order.get_return_status()
+        ValueAssert.value_assert_IsNoneNot(get_return_order_id)
+        ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
+        ValueAssert.value_assert_equal("Approved", get_status)
 
 
 @allure.feature("销售管理-销售单")
@@ -237,14 +292,13 @@ class TestDeleteSalesOrder:
     @allure.title("销售单页面，国包用户，删除新建的Pending状态的销售单操作")
     @allure.description("销售单页面，国包用户，对新建Pending状态的销售单进行删除操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
-
         """销售管理菜单-打开销售单菜单"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         """调用新增销售单用例"""
         delete = SalesOrderPage(drivers)
         dom = DomAssert(drivers)
@@ -269,21 +323,20 @@ class TestDeleteSalesOrder:
         delete.click_delete_sales()
         delete.click_confirm_delete()
         dom.assert_att("Successfully")
-        delete.click_close_sales_order()
+        #delete.click_close_sales_order()
 
 
     @allure.story("删除销售单")
     @allure.title("销售单页面，国包用户，删除Delivered状态的销售单，提示不支持删除")
     @allure.description("销售单页面，国包用户，删除Delivered状态的销售单，提示不支持删除")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_002(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
-
         """销售管理菜单-打开销售单菜单"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         delete = SalesOrderPage(drivers)
         dom = DomAssert(drivers)
 
@@ -303,7 +356,7 @@ class TestDeleteSalesOrder:
             delete.click_delete_sales()
         """断言已发货状态的销售单不支持删除"""
         dom.assert_att("The scanned IMEI exists in the order, fail to delete")
-        delete.click_close_sales_order()
+        #delete.click_close_sales_order()
 
 
 @allure.feature("销售管理-销售单")
@@ -312,14 +365,13 @@ class TestExportSalesOrder:
     @allure.title("销售单页面，国包用户，导出筛选条件下销售单，导出文件内容和列表查询结果一致")
     @allure.description("销售单页面，国包用户，导出筛选条件下销售单，导出文件内容和列表查询结果一致")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_003_001(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """销售管理菜单-打开销售单菜单"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         export = SalesOrderPage(drivers)
         # 获取当天日期
         base = Base(drivers)
@@ -352,14 +404,15 @@ class TestExportSalesOrder:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_sales_order()
+        #export.click_close_export_record()
+        #export.click_close_sales_order()
 
 
     @allure.story("导出销售单")
     @allure.title("销售单页面，国包用户，导出筛选条件下销售单详情，导出文件内容和列表查询结果一致")
     @allure.description("销售单页面，国包用户，导出筛选条件下销售单详情，导出文件内容和列表查询结果一致")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_003_002(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
@@ -402,8 +455,8 @@ class TestExportSalesOrder:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_sales_order()
+        #export.click_close_export_record()
+        #export.click_close_sales_order()
 
 
 if __name__ == '__main__':

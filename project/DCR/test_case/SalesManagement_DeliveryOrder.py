@@ -10,13 +10,37 @@ import logging
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_view_fixture(drivers):
+    yield
+    close = DeliveryOrderPage(drivers)
+    close.click_close_imei_detail()
+    close.click_close_delivery_order()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    close = DeliveryOrderPage(drivers)
+    close.click_close_export_record()
+    close.click_close_delivery_order()
+
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("销售管理-出库单")
 class TestQueryDeliveryOrder:
     @allure.story("查询出库单列表")
     @allure.title("出库单页面，查询出库单列表加载数据")
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -25,7 +49,7 @@ class TestQueryDeliveryOrder:
 
         list1 = DeliveryOrderPage(drivers)
         sale_order = list1.text_sales_order()
-        deli_order =list1.text_delivery_order()
+        deli_order = list1.text_delivery_order()
         deli_date = list1.get_delivery_date_text()
         status = list1.text_delivery_Status()
         total = list1.get_total_text()
@@ -35,7 +59,7 @@ class TestQueryDeliveryOrder:
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
         list1.assert_total(total)
-        list1.click_close_delivery_order()
+        #list1.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -43,7 +67,8 @@ class TestViewDeliveryIMEIDetails:
     @allure.story("查看出库单IMEI详情")
     @allure.title("国包用户，查看出库单IMEI详情")
     @allure.description("国包用户，查看出库单IMEI详情")
-    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_view_fixture')
     def test_002_001(self, drivers):
         user1 = LoginPage(drivers)
         user1.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -73,8 +98,8 @@ class TestViewDeliveryIMEIDetails:
         ValueAssert.value_assert_equal(list_item, detail_item)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
         ValueAssert.value_assert_In("1", detail_total)
-        imei_detail.click_close_imei_detail()
-        imei_detail.click_close_delivery_order()
+        #imei_detail.click_close_imei_detail()
+        #imei_detail.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -82,7 +107,8 @@ class TestExportDeliveryOrder:
     @allure.story("导出筛选的出库单")
     @allure.title("出库单页面，导出筛选的出库单记录")
     @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_003_001(self, drivers):
         user2 = LoginPage(drivers)
         user2.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -121,8 +147,8 @@ class TestExportDeliveryOrder:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_delivery_order()
+        #export.click_close_export_record()
+        #export.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -131,7 +157,8 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为无码的，买方为临时客户")
     @allure.description("国包用户，新建出库单，产品为无码时，买方为临时客户")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_001(self, drivers):
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_004_001(self, drivers):
         user3 = LoginPage(drivers)
         user3.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -160,8 +187,8 @@ class TestAddDeliveryOrder:
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Submit successfully")
-        sleep(4)
-
+        sleep(1)
+        add.click_search()
         """断言查询新建的无码出库单"""
         user = SQL('DCR', 'test')
         varsql1 = "select order_code,delivery_code from t_channel_delivery_ticket where warehouse_id='61735' and seller_id='1596874516539127' and status=80200001 order by created_time desc limit 1"
@@ -185,14 +212,15 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal(get_salesorder, order_code)
         ValueAssert.value_assert_equal(get_deliveryorder, delivery_code)
         ValueAssert.value_assert_equal("Goods Receipt", get_status)
-        add.click_close_delivery_order()
+        #add.click_close_delivery_order()
 
 
     @allure.story("新建出库单")
     @allure.title("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家退货单")
     @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家创建退货单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_001_002(self, drivers):
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_004_002(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -237,8 +265,8 @@ class TestAddDeliveryOrder:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             dom.assert_att("Submit successfully")
-        sleep(4)
-
+        sleep(1)
+        add.click_search()
         """断言查询新建的无码出库单"""
         sql2 = SQL('DCR', 'test')
         varsql2 = "select * from  t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667'  and status=80200001 order by created_time desc limit 1"
@@ -263,6 +291,7 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal(get_deliveryorder, delivery_code)
         ValueAssert.value_assert_equal("Goods Receipt", get_status)
         add.click_close_delivery_order()
+
 
         """卖家创建退货单，退货类型为Return To Seller、退有码产品，输入Delivery Order出库单ID整单退货"""
         base = Base(drivers)
@@ -306,9 +335,8 @@ class TestAddDeliveryOrder:
         get_status = return_order.get_return_status()
         ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Approved", get_status)
-        return_order.click_close_return_order()
+        #return_order.click_close_return_order()
 
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_DeliveryOrder.py'])
-

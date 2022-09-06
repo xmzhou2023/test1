@@ -61,7 +61,7 @@ class UserShopAssociaPage(Base):
     @allure.step("点击关闭用户与门店关系菜单")
     def click_close_user_shop_assoc(self):
         self.is_click(user['关闭用户与门店关系菜单'])
-        sleep(2)
+        sleep(1)
 
 
     # User and Shop Association列表数据筛选后，导出操作成功后验证

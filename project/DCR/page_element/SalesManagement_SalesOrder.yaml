@@ -38,18 +38,21 @@ Payment Mode value: "xpath==//span[contains(text(),'variable')]"
 Input IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
 Submit Delivery: "xpath==//span[contains(text(),'Submit')]"
-关闭Sales Order: "xpath==//span[normalize-space(text())='Sales Order']//span[@class='el-icon-close']"
+
+Get Scan Record IMEI: "xpath==//ul//li//div[text()='variable']"
+Get Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
+关闭销售单菜单: "xpath==//span[normalize-space(text())='Sales Order']//span[@class='el-icon-close']"
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 
 
 #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
-Material ID: "xpath==//*[@id='app']/div/div[2]/section/div/div[1]/form/div/div[2]/div[2]/div/div/div/input"
+Material ID: "xpath==//input[@id='imeiinventoryquery_input_materialId']"
 IMEI库存点击Brand: "xpath==//*[@id='app']/div/div[2]/section/div/div[1]/form/div/div[2]/div[9]/div/div/div/div/div[1]/input"
 IMEI库存选中Brand: "xpath==//*[@id='app']/div/div[2]/section/div/div[1]/form/div/div[2]/div[9]/div/div/div/div/div[2]/div/div[3]/div[1]/div[1]/ul/li[3]/span"
-
 IMEI库存查询按钮: "xpath==//span[contains(text(),'Search')]"
-获取IMEI文本内容: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
+#获取IMEI文本内容: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
+获取IMEI文本内容: "xpath==//tbody//tr[1]//td[4]//div"
 关闭IMEI Inventory Query: "xpath==//span[normalize-space(text())='IMEI Inventory Query']//span[@class='el-icon-close']"
 
 

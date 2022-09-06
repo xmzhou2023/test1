@@ -65,14 +65,14 @@ class APIRequest:
         logging.info('发起请求：整机BOM协作新增接口')
         return self.api_request('整机BOM协作新增接口', data, headers)
 
-    def Request_Machine_Search(self, data, headers):
+    def Request_Bom_Search(self, data, headers):
         """
-        TBM BOM整机协作 TBM查询接口
+        TBM BOM协作 TBM查询接口
         @param data:接口body
         @param headers:接口头部
         """
-        logging.info('发起请求：整机BOM协作查询接口')
-        return self.api_request('整机BOM协作查询接口', data, headers)
+        logging.info('发起请求：BOM协作查询接口')
+        return self.api_request('BOM协作查询接口', data, headers)
 
     def Oneworks_Recall(self, instanceId, headers):
         """
@@ -89,14 +89,14 @@ class APIRequest:
         logging.info('接口响应内容为：%s', response_dicts)
         return response_dicts
 
-    def Request_Machine_Delete(self, data, headers):
+    def Request_Bom_Delete(self, data, headers):
         """
         TBM BOM协作 TBM删除已撤回流程接口
         @param data:接口body
         @param headers:接口头部
         """
-        logging.info('发起请求：整机BOM协作删除已撤回接口')
-        return self.api_request('整机BOM协作删除已撤回接口', data, headers)
+        logging.info('发起请求：BOM协作删除已撤回接口')
+        return self.api_request('BOM协作删除已撤回接口', data, headers)
 
     def Request_Machine_Factory(self, data, headers):
         """
@@ -215,13 +215,12 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         add_response = self.Request_Machine_Add(add_data, headers)
         flowId = add_response['data']
-        search_response = self.Request_Machine_Search(search_data, headers)
+        search_response = self.Request_Bom_Search(search_data, headers)
         search_response_data = search_response['data']['data']
         for i in search_response_data:
             if i['flowId'] == flowId:
                 logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
                 logging.info('流程结束：整机BOM协作新增流程')
-                print(i['flowNo'], i['instanceId'], flowId)
                 return i['flowNo'], i['instanceId'], flowId
 
     @allure.step("整机BOM协作-补充工厂审批通过接口")
@@ -275,8 +274,8 @@ class APIRequest:
             "checkFactory": "patchTrue"
         }
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
-        print(self.Request_Machine_Factory(approve_data, headers))
-        print(self.Request_Oneworks_Complete(complete_data, headers))
+        self.Request_Machine_Factory(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：整机BOM协作-补充工厂审批通过流程')
 
     @allure.step("整机BOM协作-BOM工程师审批通过接口")
@@ -418,20 +417,20 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：单机头BOM协作-结构工程师审批通过流程')
 
-    @allure.step("整机头BOM协作撤回删除接口")
-    def API_Machine_Delete(self, instanceid, flowid):
+    @allure.step("BOM协作撤回删除接口")
+    def API_Bom_Delete(self, instanceid, flowid):
         """
         TBM BOM协作 oneworks撤回接口 TBM删除已撤回流程接口
         @param instanceid:oneworks撤回流程编码
         @param flowid:流程ID
         """
-        logging.info('发起流程：整机BOM协作撤回流程')
+        logging.info('发起流程：BOM协作撤回流程')
         token = self.tbm_login()
         delete_data = {"id": flowid}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         self.Oneworks_Recall(instanceid, headers)
-        self.Request_Machine_Delete(delete_data, headers)
-        logging.info('流程结束：整机BOM协作撤回流程')
+        self.Request_Bom_Delete(delete_data, headers)
+        logging.info('流程结束：BOM协作撤回流程')
 
     def Request_BarePhone_Add(self, data, headers):
         """
@@ -441,24 +440,6 @@ class APIRequest:
         """
         logging.info('发起请求：单机头BOM协作新增接口')
         return self.api_request('单机头BOM协作新增接口', data, headers)
-
-    def Request_BarePhone_Search(self, data, headers):
-        """
-        TBM 单机头BOM协作 TBM查询接口
-        @param data:接口body
-        @param headers:接口头部
-        """
-        logging.info('发起请求：单机头BOM协作查询接口')
-        return self.api_request('单机头BOM协作查询接口', data, headers)
-
-    def Request_BarePhone_Delete(self, data, headers):
-        """
-        TBM 单机头BOM协作删除已撤回接口
-        @param data:oneworks撤回流程编码
-        @param headers:接口头部
-        """
-        logging.info('发起请求：单机头BOM协作查询接口')
-        return self.api_request('单机头BOM协作删除已撤回接口', data, headers)
 
     def Oneworks_History(self, instanceId, headers):
         """
@@ -634,7 +615,7 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         add_response = self.Request_BarePhone_Add(add_data, headers)
         flowId = add_response['data']
-        search_response = self.Request_BarePhone_Search(search_data, headers)
+        search_response = self.Request_Bom_Search(search_data, headers)
         search_response_data = search_response['data']['data']
         for i in search_response_data:
             if i['flowId'] == flowId:
@@ -700,7 +681,7 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         add_response = self.Request_BarePhone_Add(add_data, headers)
         flowId = add_response['data']
-        search_response = self.Request_BarePhone_Search(search_data, headers)
+        search_response = self.Request_Bom_Search(search_data, headers)
         search_response_data = search_response['data']['data']
         for i in search_response_data:
             if i['flowId'] == flowId:
@@ -849,7 +830,7 @@ class APIRequest:
             }
         }
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
-        self.Request_BarePhone_StructureEnginner(approve_data, headers)
+        self.Request_BarePhone_Approval(approve_data, headers)
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：单机头BOM协作-业务审核通过流程')
 
@@ -887,22 +868,6 @@ class APIRequest:
         self.Request_BarePhone_BomEngineer(approve_data, headers)
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：单机头BOM协作-BOM工程师审批通过接口')
-
-    @allure.step("单机头BOM协作撤回删除接口")
-    def API_BarePhone_Delete(self, instanceid, flowid):
-        """
-        通过调用接口发起撤回流程
-        调用接口：oneworks流程撤回接口，单机头BOM协作删除已撤回接口
-        @param instanceid:oneworks撤回流程编码
-        @param flowid:流程ID
-        """
-        logging.info('发起流程接口：单机头BOM协作撤回流程')
-        token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
-        delete_data = {"id": flowid}
-        self.Oneworks_Recall(instanceid, headers)
-        self.Request_BarePhone_Delete(delete_data, headers)
-        logging.info('流程接口结束：单机头BOM协作撤回流程')
 
     def Request_KeyDevice_Add(self, data, headers):
         """
@@ -1780,6 +1745,349 @@ class APIRequest:
         self.Request_SaleCountry_Audit(change_data, headers)
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：出货国家流程产品部管理员审核接口')
+
+    def Request_Foreign_Add(self, data, headers):
+        """
+        TBM 外研BOM协作 新增流程
+        @param data: 接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：外研BOM协作新增接口')
+        return self.api_request('外研BOM协作新增接口', data, headers)
+
+    @allure.step("外研BOM协作新增接口")
+    def API_Foreign_Add(self):
+        logging.info('发起流程：外研BOM协作新增接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        add_data = {
+            "flowId": None,
+            "flowNodeName": "start",
+            "bomArchive": {
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowProposerName": "李小素",
+                "flowStartdate": querytime,
+                "bomVer": "",
+                "bomVersion": "batch",
+                "brandCode": "itel",
+                "market": "ET",
+                "produceClass": "userProvi",
+                "templateId": None,
+                "templateName": "",
+                "isLocalPurchase": "",
+                "bomClass": "",
+                "model": "JMB-01",
+                "note": "",
+                "title": f"[李小素]-[{querytime[:10]}]",
+                "flowDept": "PI_系统四部",
+                "bomModel": "retailValueModel",
+                "curFlowCode": "structureStart"
+            },
+            "refFactoryList": [
+                {
+                    "matCode": "12004875",
+                    "note": "单机头_Spice_Z301_G282Z2_蓝色_无卡_IN",
+                    "statusCodeLabel": "量产",
+                    "statusCode": "batch",
+                    "homePackagingFactory": "1201",
+                    "homeChipFactory": "/",
+                    "overseasPackagingFactory": "/",
+                    "overseasChipFactory": "/"
+                }
+            ],
+            "bomTreeVOList": [
+                {
+                    "id": "new_bom_3000",
+                    "bomName": "客供BOM",
+                    "statusCode": "batch",
+                    "baseQty": "1000",
+                    "childNodes": [
+                        {
+                            "id": 1002,
+                            "baseQty": "1000",
+                            "index": 0,
+                            "serialNo": "1.1",
+                            "matCode": "12800002",
+                            "deleteValidate": False,
+                            "note": "整机外包料Infinix_X5010_AW878_黑_A欧_P02_Ⅰ",
+                            "matAttr": "外研"
+                        }
+                    ],
+                    "isRoot": True,
+                    "index": 0,
+                    "serialNo": 1,
+                    "matCode": "12004875",
+                    "deleteValidate": False,
+                    "note": "单机头_Spice_Z301_G282Z2_蓝色_无卡_IN",
+                    "matAttr": "可选"
+                }
+            ],
+            "approvers": {
+                "bisReviewApprovers": [
+                    {
+                        "role": "qpm_review",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "ppm_review",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "foreign_purchase",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "hardware",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "rf_review",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "video",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "structure",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "skd_mpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "ckd_mpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "other",
+                        "userNo": ""
+                    }
+                ],
+                "bisSupplyApprovers": []
+            },
+            "uploadList": [],
+            "submitType": "submit"
+        }
+        search_data = {
+            "param": {
+                "bomCode": "12004875",
+                "bomType": "foreignBom",
+                "createdTimeFrom": "",
+                "createdTimeTo": ""
+            },
+            "current": 1,
+            "size": 10
+        }
+        add_response = self.Request_Foreign_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_Bom_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
+            if i['flowId'] == flowId:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
+                logging.info('流程结束：外研BOM协作新增接口')
+                return i['flowNo'], i['instanceId'], flowId
+
+    @allure.step("外研BOM协作新增接口")
+    def API_Foreign_Failed_Add(self):
+        logging.info('发起流程：外研BOM协作新增接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        add_data = {
+            "flowId": None,
+            "flowNodeName": "start",
+            "bomArchive": {
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowProposerName": "李小素",
+                "flowStartdate": querytime,
+                "bomVer": "",
+                "bomVersion": "batch",
+                "brandCode": "itel",
+                "market": "ET",
+                "produceClass": "userProvi",
+                "templateId": None,
+                "templateName": "",
+                "isLocalPurchase": "",
+                "bomClass": "",
+                "model": "JMB-01",
+                "note": "",
+                "title": f"[李小素]-[{querytime[:10]}]",
+                "flowDept": "PI_系统四部",
+                "bomModel": "retailValueModel",
+                "curFlowCode": "structureStart"
+            },
+            "refFactoryList": [
+                {
+                    "matCode": "12300083",
+                    "note": "虚拟单机头包_TECNO_L7_QP18_蓝色_16GB+2GB",
+                    "statusCodeLabel": "量产",
+                    "statusCode": "batch",
+                    "homePackagingFactory": "1201",
+                    "homeChipFactory": "/",
+                    "overseasPackagingFactory": "/",
+                    "overseasChipFactory": "/"
+                }
+            ],
+            "bomTreeVOList": [
+                {
+                    "id": "new_bom_3000",
+                    "bomName": "客供BOM",
+                    "statusCode": "batch",
+                    "baseQty": "1000",
+                    "childNodes": [
+                        {
+                            "id": 1002,
+                            "baseQty": "1000",
+                            "index": 0,
+                            "serialNo": "1.1",
+                            "matCode": "12800002",
+                            "deleteValidate": False,
+                            "note": "整机外包料Infinix_X5010_AW878_黑_A欧_P02_Ⅰ",
+                            "matAttr": "外研"
+                        }
+                    ],
+                    "isRoot": True,
+                    "index": 0,
+                    "serialNo": 1,
+                    "matCode": "12300083",
+                    "deleteValidate": False,
+                    "note": "虚拟单机头包_TECNO_L7_QP18_蓝色_16GB+2GB",
+                    "matAttr": "可选"
+                }
+            ],
+            "approvers": {
+                "bisReviewApprovers": [
+                    {
+                        "role": "qpm_review",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "ppm_review",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "foreign_purchase",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "hardware",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "rf_review",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "video",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "structure",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "skd_mpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "ckd_mpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "other",
+                        "userNo": ""
+                    }
+                ],
+                "bisSupplyApprovers": []
+            },
+            "uploadList": [],
+            "submitType": "submit"
+        }
+        search_data = {
+            "param": {
+                "bomCode": "12300083",
+                "bomType": "foreignBom",
+                "createdTimeFrom": "",
+                "createdTimeTo": ""
+            },
+            "current": 1,
+            "size": 10
+        }
+        add_response = self.Request_Foreign_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_Bom_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
+            if i['flowId'] == flowId:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
+                logging.info('流程结束：外研BOM协作新增接口')
+                print(i['flowNo'], i['instanceId'], flowId)
+                return i['flowNo'], i['instanceId'], flowId
+
+    def Request_Foreign_Approval(self, data, headers):
+        """
+        TBM 外研BOM协作 新增流程
+        @param data: 接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：外研BOM协作业务审核接口')
+        return self.api_request('外研BOM协作业务审核接口', data, headers)
+
+    def Oneworks_queryBomForeignInfo(self, flowId, headers):
+        """
+        TBM oneworks 查询外研流程信息
+        @param flowId:oneworks  flowId
+        @param headers:接口头部
+        """
+        logging.info('发起请求：oneworks查询流程历史接口')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-bom-archive/bom-arc/foreign/queryBomInfoByFlowId?flowId={flowId}')
+        history_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/service-bom-archive/bom-arc/foreign/queryBomInfoByFlowId?flowId={flowId}',
+            headers=headers)
+        response_dicts = history_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：oneworks查询流程历史接口')
+        return response_dicts
+
+    @allure.step("外研BOM协作-业务审核通过接口")
+    def API_Foreign_Approval(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：外研BOM协作-业务审核通过流程')
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        BomForeignInfo = self.Oneworks_queryBomForeignInfo(flowid, headers)
+        approve_data = {
+            "flowId": "flowid",
+            "flowNodeName": "bisReview",
+            "bomArchive":
+                BomForeignInfo['data']['bomArchive'],
+            "approvers":
+                BomForeignInfo['data']['approvers'],
+            "bomTreeVOList":
+                BomForeignInfo['data']['bomTreeVOList'],
+            "refFactoryList":
+                BomForeignInfo['data']['refFactoryList'],
+            "bomDeriveList": [],
+            "copyRuleList": [],
+            "otherDeriveList": [],
+            "uploadList": [],
+            "bomImportKeyDeviceList": [],
+            "purchaseList": None,
+            "role": "qpm_review,ppm_review",
+            "bomDeriveTreeVOList": [],
+            "virtualChipList": None,
+            "diffCollectList": None
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_Foreign_Approval(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：外研BOM协作-业务审核通过流程')
+
 
 if __name__ == '__main__':
     a = APIRequest()

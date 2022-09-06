@@ -12,13 +12,24 @@ from libs.common.connect_sql import *
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    for i in range(1):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
 
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
     @allure.story("卖家创建退货单")
     @allure.title("卖家创建无码销售单；然后卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.description("销售单页面，国包用户创建销售单，产品为无码的；卖家创建退货单，退货类型为Return To Seller，退无码产品")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
@@ -124,13 +135,14 @@ class TestReturnOrder:
         get_status = returnorder.get_return_status()
         ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Approved", get_status)
-        returnorder.click_close_return_order()
+        #returnorder.click_close_return_order()
 
 
     @allure.story("卖家创建退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.description("销售单页面，国包用户创建有码出库单；卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -212,7 +224,6 @@ class TestReturnOrder:
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
 
-
         """点击提交按钮"""
         return_order.click_Submit()
         dom = DomAssert(drivers)
@@ -229,13 +240,14 @@ class TestReturnOrder:
         get_status = return_order.get_return_status()
         ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Approved", get_status)
-        return_order.click_close_return_order()
+        #return_order.click_close_return_order()
 
 
     @allure.story("卖家创建退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
     @allure.description("销售单页面，国包用户卖家创建有码出库单；卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
-    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
@@ -278,11 +290,6 @@ class TestReturnOrder:
             logging.info("打印异常日志{}".format(e))
         sleep(4)
 
-        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        salesorder = deli_return.text_sales_order()
-        deliveryorder = deli_return.text_delivery_order()
-        del_status = deli_return.text_delivery_Status()
-
         """从数据库表中，获取国包出库单ID，传给出库单筛选方法"""
         deli_sql = SQL('DCR', 'test')
         deli_varsql = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200000 order by created_time desc limit 1"
@@ -295,6 +302,11 @@ class TestReturnOrder:
         deli_return.input_salesorder(order_code)
         deli_return.input_deliveryorder(delivery_code)
         deli_return.click_search()
+
+        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
+        salesorder = deli_return.text_sales_order()
+        deliveryorder = deli_return.text_delivery_order()
+        del_status = deli_return.text_delivery_Status()
 
         """出库单页面，调用断言封装的方法，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(salesorder, order_code)
@@ -343,14 +355,14 @@ class TestReturnOrder:
         get_status = return_order.get_return_status()
         ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Approved", get_status)
-        return_order.click_close_return_order()
-
+        #return_order.click_close_return_order()
 
 
     @allure.story("撤回退货单")
     @allure.title("退货单页面，撤回退货单，Pending Approval状态的订单可撤回")
-    @allure.description("销售单页面，国包用户卖家创建有码出库单；卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
+    @allure.description("销售单页面，国包用户卖家创建无码出库单；二代用户快速收货；最后新建退货单，然后进行撤回退货单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_004(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
@@ -406,7 +418,7 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(status, "Goods Receipt")
         receipt.click_close_inbound_receipt()
 
-        """二代用户打开退货页面，点击退货按钮，然后点击撤销退货操作"""
+        """二代用户打开退货页面，点击退货按钮，进行退货操作"""
         user.initialize_login(drivers, "NG2061301", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
@@ -437,8 +449,7 @@ class TestReturnOrder:
         DomAssert(drivers).assert_att("Approval successfully")
         get_status_cancel = recall_return.get_return_status()
         ValueAssert.value_assert_equal(get_status_cancel, "Cancel")
-        recall_return.click_close_return_order()
-
+        #recall_return.click_close_return_order()
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_ReturnOrder.py'])

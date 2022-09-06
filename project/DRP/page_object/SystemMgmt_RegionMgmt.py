@@ -3,10 +3,13 @@ from public.base.basics import Base, sleep
 from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
+
 import logging
 from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name,object_name)
+
+
 
 class AreaPage(Base):
     """区域管理"""
@@ -39,13 +42,13 @@ class AreaPage(Base):
             count = 0
             for i in range(len(allist)):
                 if text in allist[i]:
-                    log.info("{} is in {}".format(text, allist[i]))
+                    logging.info("{} is in {}".format(text, allist[i]))
                     for j in range(1, len(allist[i])):
                         if text in allist[i][j]:
                             count = count + 1
                     return count
                 else:
-                    log.info("{}is not in {}".format(text, allist[i]))
+                    logging.info("{}is not in {}".format(text, allist[i]))
         except Exception as e:
             print(str(e))
 
@@ -53,8 +56,13 @@ class AreaPage(Base):
     def search_area(self, content):
         """查询区域"""
         self.input_text(user["区域搜索框"], content)
-        log.info("输入框键入{}".format(content))
+        logging.info("输入框键入{}".format(content))
         sleep(1)
+
+    @allure.step("产品信息页-区域搜索框断言")
+    def search_data(self):
+        searchData = self.element_text(user['区域搜索框'])
+        return searchData
 
     @allure.step("清空搜索框")
     def clear_tree(self):
@@ -92,10 +100,12 @@ class AreaPage(Base):
         self.is_click(user['市场编辑'])
         sleep(1)
 
+
     @allure.step("保存市场配置")
     def save_market(self):
         self.is_click(user['保存市场'])
         sleep(1)
+
 
     @allure.step("切换市场页签")
     def cut_market(self,cut=None):
@@ -170,11 +180,13 @@ class AreaPage(Base):
         """编辑列表指定行数据"""
         a = self.find_elements(user['列表第n列'],num)
         b = []  # 取出列表第n列的所有文本
+
         for i in range(len(a)):
             b.append(a[i].text)
         if area_name in b:
             c = b.index(area_name) + 1  # 取到所传参数所在行号
             self.find_element(user['编辑'], str(c)).click()  # 将行号c替换到xpath中进行相关操作
+
 
     @allure.step("删除区域")
     def delete_area(self):
@@ -183,7 +195,9 @@ class AreaPage(Base):
         tier = ['组织', '地区部', '大区']
         if txt in tier:
             self.is_click(user['删除 确定'])
+            logging.info("测试数据删除")
             sleep(1)
+
 
     @allure.step("指定行删除按钮")
     def del_list(self, num, area_name):

@@ -1,0 +1,50 @@
+#新增门店调店
+Add IMEI Transfer: "xpath==//button[@id='shop_imei_transfer_add']"
+Transfer To Shop Name: "xpath==//input[@placeholder='Please select a shop']"
+Transfer To Shop Name value: "xpath==//span[contains(text(),'variable')]"
+
+Scan IMEI Name: "xpath==//textarea[@placeholder='Please enter IMEI,press enter to check']"
+Check Scan IMEI: "xpath==//span[normalize-space()='Check']"
+Get Scan Record IMEI: "xpath==//ul//li//div[text()='variable']"
+Get Scan Record Success: "xpath==//ul//li//div[normalize-space()='variable']"
+Get Scanned Value: "xpath==//div[@class='num']//..//div[normalize-space()='variable']"
+Get Order Detail Scanned: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div"
+Add Submit: "xpath==//button[@id='shopimeitransferadd_Submit']"
+Add OK: "xpath==//button[contains(@class,'el-button el-button--default el-button--small el-button--primary ')]"
+
+Get List Status Text: "xpath==//tbody//tr[1]//td[3]//div[text()='variable']"
+Get List To Shop ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[13]//div[text()='variable']"
+Get list Creator ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[4]//div"
+Get list Transfer ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div"
+
+#xvanze: "xpath==//label[contains(text(),'variable')]/..//input"
+#shopxvanze: "xpath==//span[contains(text(),'PK034552')]"
+
+筛选门店: "xpath==//label[contains(text(),'To Shop')]//parent::div// following-sibling::div//input"
+选中筛选门店: "xpath==//ul//li//span[contains(text(),'variable')]"
+筛选状态: "xpath==//label[(text()='Status')]//parent::div// following-sibling::div//input"
+选中筛选状态: "xpath==//ul//li//span[text()='variable']"
+
+unfold按钮: "xpath==//span[normalize-space()='Unfold']"
+fold按钮: "xpath==//span[normalize-space()='Fold']"
+Status条件筛选: "xpath==//input[contains(@class,'el-input__inner shopimeitransfer_input_status')]"
+Pending按钮: "xpath==//span[normalize-space(text())='Pending']"
+Reset按钮: "xpath==//button[@id='shopimeitransfer_reset']"
+search按钮: "xpath==//button[@id='shopimeitransfer_search']"
+
+勾选全选复选框: 'xpath==//*[@id="mainContainer"]/section/div[1]/div[2]/div[1]/div[4]/div[1]/table/thead/tr/th[1]/div/label/span/span'
+Approve reject按钮: "xpath==//button[@id='shop_imei_transfer_approver']//span[contains(text(),'variable')]"
+Yes Cancel按钮: "xpath==//div[@class='el-message-box el-message-box--center']//span[normalize-space(text())='variable']"
+Approve OK按钮: "xpath==//span[contains(@class,'dialog-footer')]//button[@id='shopimeitransfer_OK']"
+
+输入拒绝原因: "xpath==//div//p//textarea[@id='rejectReason']"
+Reject Yes按钮: "xpath==//button//span[normalize-space(text())='Yes']"
+Reject OK按钮: "xpath==//button[@id='shopimeitransfer_OK']//span[text()='OK']"
+
+Reset 按钮: "xpath==//button//..//span[normalize-space(text())='Reset']"
+
+Create Start Date: "xpath==//label//..//..//input[@id='shopimeitransfer_input_fromDate']"
+Create End Date: "xpath==//label//..//..//input[@id='shopimeitransfer_input_fromDate1']"
+Get Total: "xpath==//span[contains(text(),'Total')]"
+勾选第一条复选框: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
+

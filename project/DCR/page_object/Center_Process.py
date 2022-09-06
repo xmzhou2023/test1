@@ -119,7 +119,7 @@ class SalesOrderPage(Base):
     @allure.step("新建出库单页面，点击check检查IMEI按钮")
     def click_check(self):
         self.is_click_dcr(user['Check'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("Add新增出库单页面，点击check后，右侧Delivery Quan属性下显示出库数量")
     def get_delivery_quantity(self):
@@ -143,13 +143,10 @@ class SalesOrderPage(Base):
         scan_record_imei = self.element_text(user['Get Delivery Scan Record IMEI'], imei)
         return scan_record_imei
 
-
     @allure.step("新建出库单页面，点击Submit Delivery提交出库单按钮")
     def click_submit_delivery(self):
         self.is_click_dcr(user['Submit Delivery'])
         sleep(2)
-
-
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
@@ -171,10 +168,18 @@ class SalesOrderPage(Base):
         self.input_text(user['Material ID'], txt=content1)
         sleep(1)
 
+    @allure.step("IMEI库存页面，输入Warehouse 查询仓库下的IMEI")
+    def input_warehouse_query(self, context):
+        self.is_click(user['Warehouse'])
+        self.input_text(user['Warehouse'], context)
+        sleep(2.5)
+        Base.presence_sleep_dcr(self, user['Select Warehouse Value'], context)
+        self.is_click_dcr(user['Select Warehouse Value'], context)
+
     @allure.step("IMEI Inventory Query页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(2)
+        sleep(5)
 
     @allure.step("IMEI Inventory Query页面，获取列表IMEI文本内容")
     def get_text_imei_inventory(self):
@@ -184,18 +189,17 @@ class SalesOrderPage(Base):
 
     @allure.step("刷新页面")
     def click_refresh(self, drivers):
-        ref = Base(drivers)
-        ref.refresh()
+        Base(drivers).refresh()
 
     @allure.step("关闭Sales Order销售单菜单")
     def click_close_sales_order(self):
         self.is_click(user['关闭销售单菜单'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("关闭IMEI Inventory query菜单")
     def click_close_imei_inventory(self):
         self.is_click(user['关闭IMEI Inventory Query'])
-        sleep(2)
+        sleep(1)
 
 
 class InboundReceiptPage(Base):
@@ -259,7 +263,7 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
     def click_close_inbound_receipt(self):
         self.is_click(user['关闭二代收货菜单'])
-        sleep(2)
+        sleep(1)
 
 
 if __name__ == '__main__':

@@ -42,7 +42,7 @@ Total: "xpath==//span[contains(text(), 'Total')]"
 #生产环境，导出出库单成功后校验
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
-Create Start Date: "//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[3]/div/div/div/div/div[1]/div/input"
+Create Start Date: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[3]/div/div/div/div/div[1]/div/input"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
 
 获取下载状态文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]/div/div"

@@ -48,8 +48,8 @@ class BoardUserSetting(Base):
         self.check_download(basic["导出按钮"], content)
 
     @allure.step("点击编辑按钮")
-    def click_edit(self):
-        self.is_click(basic["编辑按钮"])
+    def click_edit(self, row):
+        self.is_click(basic["编辑按钮"], row)
 
     @allure.step("点击删除按钮")
     def click_del(self, row):

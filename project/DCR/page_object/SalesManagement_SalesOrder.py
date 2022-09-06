@@ -11,16 +11,17 @@ class SalesOrderPage(Base):
     """SalesOrderPage页面定位方法"""
     @allure.step("Sales Order页面，点击Add新增销售单按钮")
     def click_add_sales(self):
+        sleep(1.5)
         Base.presence_sleep_dcr(self, user['Add'])
         self.is_click(user['Add'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("Add新增销售单页面，输入Buyer属性")
     def input_sales_buyer(self, content):
         Base.presence_sleep_dcr(self, user['Buyer'])
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content)
-        sleep(1)
+        sleep(2)
         self.is_click(user['Buyer value'], content)
 
     @allure.step("新建销售单页面，输入Brand属性")
@@ -45,6 +46,7 @@ class SalesOrderPage(Base):
     @allure.step("新建销售单页面，点击提交Submit按钮")
     def click_submit(self):
         self.is_click_dcr(user['Submit Sales'])
+        sleep(0.8)
 
     @allure.step("新建销售单页面，点击确认OK按钮")
     def click_submit_OK(self):
@@ -62,7 +64,7 @@ class SalesOrderPage(Base):
     def click_search(self):
         """销售单页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        #sleep(1)
+        sleep(2)
 
     @allure.step("获取列表Sales Order ID文本内容")
     def get_text_sales_id(self):
@@ -74,6 +76,7 @@ class SalesOrderPage(Base):
     @allure.step("销售单页面，获取销售单状态 Pending文本")
     def get_text_sales_status(self, status):
         """销售单页面，获取销售单状态文本"""
+        Base.presence_sleep_dcr(self, user['获取列表Status文本'], status)
         status = self.element_text(user['获取列表Status文本'], status)
         return status
 
@@ -87,7 +90,7 @@ class SalesOrderPage(Base):
     @allure.step("点击Delivery button出库按钮")
     def click_Delivery_button(self):
         self.is_click(user['Delivery button'])
-        #sleep(1)
+        sleep(1)
 
     @allure.step("输入Payment Mode支付方式属性")
     def input_Payment_Mode(self, content):
@@ -106,7 +109,7 @@ class SalesOrderPage(Base):
     @allure.step("点击check 检查按钮")
     def click_check(self):
         self.is_click_dcr(user['Check'])
-        sleep(2)
+        sleep(2.5)
 
     @allure.step("点击Submit Delivery提交出库单按钮")
     def click_submit_delivery(self):
@@ -123,6 +126,16 @@ class SalesOrderPage(Base):
         status = self.element_text(user['Get list Status Text'])
         return status
 
+    @allure.step("出库操作时，输入IMEI点击Check后，Scan Record里面显示该IMEI扫码成功记录")
+    def get_scan_record_success(self):
+        get_success = self.element_text(user['Get Scan Record Success'])
+        return get_success
+
+    @allure.step("出库操作时，输入IMEI点击Check后，Scan Record里面显示该IMEI扫码成功记录")
+    def get_scan_record_imei(self, imei):
+        get_imei = self.element_text(user['Get Scan Record IMEI'], imei)
+        return get_imei
+
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
     @allure.step("IMEI Inventory Query页面，进入iframe")
@@ -136,7 +149,7 @@ class SalesOrderPage(Base):
         self.is_click(user['Unfold'])
         sleep(2)
 
-    @allure.step("IMEI库存页面，输入Material ID属性")
+    @allure.step("IMEI库存页面，输入Material ID 查询")
     def input_material_id(self, content1):
         Base.presence_sleep_dcr(self, user['Material ID'])
         self.is_click(user['Material ID'])
@@ -146,7 +159,7 @@ class SalesOrderPage(Base):
     @allure.step("IMEI库存页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(6)
+        sleep(5)
 
     @allure.step("获取IMEI库存页面，IMEI文本内容")
     def get_text_imei_inventory(self):
@@ -160,8 +173,8 @@ class SalesOrderPage(Base):
 
     @allure.step("关闭Sales Order 菜单")
     def click_close_sales_order(self):
-        self.is_click(user['关闭Sales Order'])
-        sleep(2)
+        self.is_click(user['关闭销售单菜单'])
+        sleep(1)
 
     @allure.step("点击删除按钮")
     def click_delete_sales(self):
@@ -269,7 +282,7 @@ class SalesOrderPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("销售单页面，点击Export导出按钮")
     def click_export(self):

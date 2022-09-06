@@ -5,13 +5,20 @@ from public.base.assert_ui import ValueAssert, DomAssert
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_set_role_fixture(drivers):
+    yield
+    close = RoleDefinitionPage(drivers)
+    close.click_close_role_definition()
 
 @allure.feature("员工授权-角色定义")
 class TestSetRolePermission:
     @allure.story("修改角色权限")
     @allure.title("角色定义页面，给“lhmItel店长”角色设置权限")
     @allure.description("角色定义页面，给“lhmItel店长”角色设置菜单权限")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_set_role_fixture')
     def test_001_001(self, drivers):
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
@@ -37,7 +44,7 @@ class TestSetRolePermission:
         dom = DomAssert(drivers)
         dom.assert_exact_att(success)
         role.click_confirm()
-        role.click_close_role_definition()
+        #role.click_close_role_definition()
 
         # """设置Basic Data Management模块权限后，检查是否能打开此模块下的菜单 """
         # user = DCRLogin(drivers)
@@ -50,7 +57,6 @@ class TestSetRolePermission:
         #
         # sales_region = role.get_sale_region_mgt_text()
         # assert_ui.value_assert_In(sales_region, "Sales Region Management")
-
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_RoleDefinition.py'])

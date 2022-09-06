@@ -7,13 +7,28 @@ from libs.common.time_ui import sleep
 import pytest
 import allure
 
+"""后置关闭菜单方法"""
+@pytest.fixture(scope='function')
+def function_cust_psi_fixture(drivers):
+    yield
+    close = CustomerPSIPage(drivers)
+    close.click_close_customerPSI()
+
+@pytest.fixture(scope='function')
+def function_export_psi_fixture(drivers):
+    yield
+    close = CustomerPSIPage(drivers)
+    close.click_close_export_record()
+    close.click_close_customerPSI()
+
 
 @allure.feature("报表分析-客户PSI")
 class TestQueryDistiCustomerPSI:
     @allure.story("查询客户PSI")
     @allure.title("Customer PSI页面，按日期查询国包客户PSI列表数据加载")
     @allure.description("Customer PSI页面，按日期查询国包客户PSI列表数据加载，断言数据是否加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_cust_psi_fixture')
     def test_001_001(self, drivers):
         """筛选国包客户PSI列表数据，是否加载正常"""
         user = LoginPage(drivers)
@@ -34,7 +49,7 @@ class TestQueryDistiCustomerPSI:
         ValueAssert.value_assert_IsNoneNot(region3_text)
         ValueAssert.value_assert_IsNoneNot(brand_text)
         query_psi.assert_total(total)
-        query_psi.click_close_customerPSI()
+        #query_psi.click_close_customerPSI()
 
 
 @allure.feature("报表分析-客户PSI")
@@ -42,7 +57,8 @@ class TestExportDistiCustomerPSI:
     @allure.story("导出客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询国包客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询国包客户PSI列表数据，并导出")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_psi_fixture')
     def test_002_001(self, drivers):
         """筛选国包客户PSI列表数据，导出数据是否正常"""
         user1 = LoginPage(drivers)
@@ -79,8 +95,8 @@ class TestExportDistiCustomerPSI:
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_customerPSI()
+        #export.click_close_export_record()
+        #export.click_close_customerPSI()
 
 
 @allure.feature("报表分析-客户PSI")
@@ -88,7 +104,8 @@ class TestQuerSubCustomerPSI:
     @allure.story("查询二代客户PSI")
     @allure.title("Customer PSI页面，按日期查询二代客户PSI列表数据加载")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据加载，断言数据是否加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_cust_psi_fixture')
     def test_003_001(self, drivers):
         """根据日期筛选二代客户PSI列表数据，是否加载正常"""
         user2 = LoginPage(drivers)
@@ -112,7 +129,7 @@ class TestQuerSubCustomerPSI:
         ValueAssert.value_assert_IsNoneNot(region3_text)
         ValueAssert.value_assert_IsNoneNot(brand_text)
         psi.assert_total(total)
-        psi.click_close_customerPSI()
+        #psi.click_close_customerPSI()
 
 
 @allure.feature("报表分析-客户PSI")
@@ -120,7 +137,8 @@ class TestExportSubCustomerPSI:
     @allure.story("导出二代客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询二代客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据，并导出。断言导出数据是否正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("normal")  # 分别为5种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_psi_fixture')
     def test_004_001(self, drivers):
         """根据日期筛选二代客户PSI列表数据，导出数据是否正常"""
         user3 = LoginPage(drivers)
@@ -160,8 +178,8 @@ class TestExportSubCustomerPSI:
         ValueAssert.value_assert_equal(complete_date1, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_customerPSI()
+        #export.click_close_export_record()
+        #export.click_close_customerPSI()
 
 
 if __name__ == '__main__':

@@ -24,7 +24,7 @@ class DeliveryOrderPage(Base):
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        sleep(4)
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
@@ -195,18 +195,17 @@ class DeliveryOrderPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("出库单页面，关闭出库单菜单")
     def click_close_delivery_order(self):
         self.is_click(user['关闭出库单菜单'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("出库单页面，关闭IMEI Detail详情页")
     def click_close_imei_detail(self):
         self.is_click(user['关闭IMEI详情页'])
         sleep(1.5)
-
 
 
     #Delivery Order列表数据筛选后，导出操作成功后验证

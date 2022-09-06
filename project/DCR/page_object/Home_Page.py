@@ -217,12 +217,12 @@ class HomePagePage(Base):
     @allure.step("关闭导出记录菜单页面")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1.5)
+        sleep(1)
 
     @allure.step("关闭用户管理菜单页面")
     def click_close_user_management(self):
         self.is_click(user['关闭用户管理菜单'])
-        sleep(2)
+        sleep(1)
 
 
     """查询Sub-dealer Management 指标数据"""
@@ -272,7 +272,7 @@ class HomePagePage(Base):
     @allure.step("点击关闭 Customer Management global菜单")
     def click_close_customer_mgt(self):
         self.is_click(user['关闭客户管理菜单'])
-        sleep(2)
+        sleep(1)
 
 
 

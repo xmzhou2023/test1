@@ -134,6 +134,7 @@ class DomAssert(object):
         self.timeout = 20
         self.wait = WebDriverWait(self.driver, self.timeout)
 
+
     @allure.step("值为True值断言")
     def assert_platform(self, word):
         try:
@@ -165,7 +166,35 @@ class DomAssert(object):
                 EC.visibility_of_element_located((By.XPATH, "//*[normalize-space(text())='{}']".format(word)))).text
             assert word in att, logging.warning("断言失败：页面不存在该标识{} | 关键字:{}".format(att, word))
             logging.info("断言成功：页面存在该标识{} | 关键字:{}".format(att, word))
-        except:
+        except Exception as e:
+            logging.error(e)
+            raise
+
+    @allure.step("具体某行某列存在某内容断言")
+    def assert_point_att(self, variable1, variable2, word, press='Search'):
+        """精确匹配：某行某列是否存在某文字"""
+        """查询结果和需要的值不一致时，最多循环5次等待查询，在5次内结果一致即跳出循环，进行断言。超过5次结果还是不一样也一样跳出循环，进行断言"""
+        n = 1
+        while n < 6:
+            attr = self.driver.find_element(By.XPATH, "//tr[{0}]/td[{1}]//*".format(variable1, variable2)).text
+            if attr == word:
+                logging.info("断言成功：页面存在该标识{} | 关键字:{}".format(attr, word))
+                break
+            else:
+                logging.info("继续查询{}值".format(word))
+                sleep(5)
+                # print("//button//span[contains(text(),'{}')]".format(press))
+                self.driver.find_element(By.XPATH, "//button//span[contains(text(),'{}')]".format(press)).click()
+                n += 1
+                continue
+        try:
+            Base(self.driver).base_get_img('result')
+            att = self.wait.until(
+                EC.visibility_of_element_located((By.XPATH, "//tr[{0}]/td[{1}]//*[normalize-space(text())='{2}']".format(variable1, variable2, word))), message='你要的值未找到').text
+            assert word in att, logging.warning("断言失败：页面不存在该标识{} | 关键字:'{}'".format(att, word))
+            logging.info("断言成功：页面存在该标识'{}' | 关键字:'{}'".format(att, word))
+        except Exception as e:
+            logging.error(e)
             raise
 
     @allure.step("值为True值断言")
@@ -271,7 +300,7 @@ class DomAssert(object):
             logging.error(e)
             raise
 
-"""     数据库断言     """
+    """     数据库断言     """
 
 
 class SQLAssert(object):

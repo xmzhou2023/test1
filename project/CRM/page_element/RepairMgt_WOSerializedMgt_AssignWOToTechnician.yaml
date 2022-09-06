@@ -1,0 +1,20 @@
+
+序列化工单查询页Document Status输入框: "xpath==//div[contains(@class,'el-col-12')][2]//input[@class='el-input__inner']"
+序列化工单查询页Document Status下拉选择: "xpath==//div[@class='el-scrollbar']//li[normalize-space(text())='variable']"
+
+序列化工单查询页From Date输入框: "xpath==//div[contains(@class,'el-col-12')][3]//input[@class='el-input__inner']"
+序列化工单查询页From Date清除按钮: "xpath==//div[contains(@class,'el-col-12')][3]//div[contains(@class,'el-date-editor')]//span[contains(@class,'suffix-inner')]/i[contains(@class,'close')]"
+序列化工单查询页表格中工单号: "xpath==//tr[tr]/td[td]//div[normalize-space(text())]"
+序列化工单分派技术员页Exact Word输入框: "xpath==//div[contains(@class,'collapse')]//div[contains(@class,'__content')]//input"
+
+Search按钮: "xpath==//button/span[contains(text(),'Search')]"
+Assign To输入框: "xpath==//form[contains(@class,'inline')]//input"
+Assign To下拉选择框: "xpath==//li/span[contains(text(),'熊文敏')]"
+序列化工单分派技术员页工单勾选框: "xpath==//tr[variable1]/td[variable2]//span[contains(@class,'input')]"
+序列化工单分派技术员页Assign Select按钮: "xpath==//button/span[contains(text(),'Assign Select')]"
+序列化工单分派技术员页Assign All按钮: "xpath==//button/span[contains(text(),'Assign All')]"
+序列化工单分派技术员页Assign By Scan按钮: "xpath==//button/span[contains(text(),'Assign By Scan')]"
+序列化工单分派技术员页Re-Assigned按钮: "xpath==//button/span[contains(text(),'Re-Assigned')]"
+序列化工单分派技术员二次确认弹框Yes: "xpath==//button//span[contains(text(),'Yes')]"
+序列化工单分派技术员页工单total数: "xpath==//div[@class='formPage']//span[@class='el-pagination__total']"
+页签关闭: "xpath==//div[contains(@class,'scrollbar__wrap')]//div[contains(@class,'scrollbar__view')]//span[normalize-space(text())='variable']//span[@class='el-icon-close']"

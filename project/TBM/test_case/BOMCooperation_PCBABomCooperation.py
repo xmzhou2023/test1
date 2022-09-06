@@ -18,20 +18,12 @@ class TestCreateProcess:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):
-        drivers.get("http://10.250.113.16/")
-        drivers.set_window_size(1552, 840)
-        drivers.find_element(By.CSS_SELECTOR, ".el-submenu:nth-child(4) > .el-submenu__title > span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-menu-item:nth-child(4) > span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-table__row:nth-child(3) > .el-table_1_column_3").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-table__body-wrapper .el-table__row:nth-child(6) > .el-table_2_column_12 span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-table__fixed-body-wrapper .el-table__row:nth-child(4) .el-button:nth-child(2) > span").click()
-        drivers.find_element(By.CSS_SELECTOR, ".el-button--default:nth-child(2) > span").click()
-        element = self.driver.find_element(By.CSS_SELECTOR, ".el-button--default:nth-child(2)")
-        actions = ActionChains(self.driver)
-        actions.move_to_element(element).perform()
-        element = self.driver.find_element(By.CSS_SELECTOR, "body")
-        actions = ActionChains(self.driver)
-        actions.move_to_element(element, 0, 0).perform()
+        drivers.get("https://pfuac.transsion.com:10101/")
+        drivers.find_element(By.ID, "tab-account").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys("y5dQ")
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys(Keys.ENTER)
+        
 @allure.feature("BOM协作-PCBA BOM协作")  # 模块名称
 class TestCreateProcessExceptionScenario:
     @allure.story("创建流程异常场景")  # 场景名称
@@ -40,30 +32,20 @@ class TestCreateProcessExceptionScenario:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_001(self, drivers):
-        user = PCBABomCooperation(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        user.input_add_bom_info('制作类型', 'PCBA BOM制作')
-        user.input_add_bom_info('品牌', 'aaaaa')
-        user.input_add_bom_info('机型', 'JMB-01')
-        user.input_add_bom_info('阶段', '试产阶段')
-        user.input_add_bom_info('制作虚拟贴片/套片', '否')
-        user.assert_add_bomtree_exist(False)
-        user.click_bom_import()
-        user.assert_toast('导入Bom之前需要选中模板')
+        drivers.get("https://pfuac.transsion.com:10101/")
+        drivers.find_element(By.ID, "tab-account").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys("y5dQ")
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").send_keys(Keys.ENTER)
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("BOM tree不能为空")  # 用例名称
     @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中不点击新增BOM，其他内容正确填写，点击提交，提示BOM tree不能为空")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_002(self, drivers):
-        user = PCBABomCooperation(drivers)
-        user.refresh_webpage_click_menu()
-        user.add_bom_info()
-        user.select_business_review('李小素')
-        user.select_business_review('李小素', '射频&天线工程师')
-        user.click_add_submit()
-        user.assert_toast('Bom Tree不能为空！')
+        drivers.get("https://pfuac.transsion.com:10101/")
+        drivers.find_element(By.ID, "tab-account").click()
+        drivers.find_element(By.CSS_SELECTOR, ".l-code .el-input__inner").click()
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("BOM状态不能为空")  # 用例名称
     @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中点击新增BOM，不选择BOM状态，其他内容正确填写，点击提交，提示BOM状态不能为空")
