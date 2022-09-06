@@ -26,7 +26,6 @@ def function_menu_fixture(drivers):
         class_value = "tags-view-item router-link-exact-active router-link-active active"
         if class_value == str(get_menu_class):
             menu.click_close_open_menu()
-            sleep(1)
 
 @allure.feature("销售管理-销售单")
 class TestAddSalesOrder:
@@ -149,9 +148,9 @@ class TestAddSalesOrder:
         #add.click_close_sales_order()
 
 
-    @allure.story("新增销售单")
-    @allure.title("销售单页面，二代用户新增有码销售单操作")
-    @allure.description("销售单页面，二代用户新增有码销售单操作成功后，校验新增的销售单是否存在")
+    @allure.story("新增销售单,直接出库")
+    @allure.title("销售单页面，二代用户新增有码销售单操作,然后进行出库操作,最后进行退货操作")
+    @allure.description("销售单页面，二代用户新增有码销售单操作成功后，然后进行出库操作,最后进行退货操作，闭环流程")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_003(self, drivers):
@@ -188,19 +187,12 @@ class TestAddSalesOrder:
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
         ValueAssert.value_assert_equal(get_sales_order, order_code)
         ValueAssert.value_assert_equal(get_status, sales_status)
-        #add_sales.click_close_sales_order()
+        add_sales.click_close_sales_order()
 
 
-    @allure.story("销售单出库")
-    @allure.title("销售单页面，二代用户对新增的有码销售单，进行出库操作")
-    @allure.description("销售单页面，二代用户对新增的有码销售单，进行出库操作成功后，校验销售单对应的状态是否更新为：Delivered")
-    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_001_004(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "BD291501", "dcr123456")
-
-        """打开Report Analysis->IMEI Inventory Query菜单"""
+        """ 刷新页面 获取库存IMEI，对新增的销售单，直接出库操作"""
+        add_sales.click_refresh(drivers)
+        """打开Report Analysis->IMEI Inventory Query菜单，获取库存IMEI"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
 
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
@@ -465,6 +457,7 @@ class TestExportSalesOrder:
         export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
         #export.click_close_sales_order()
+
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_SalesOrder.py'])

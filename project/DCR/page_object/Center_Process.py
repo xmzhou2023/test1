@@ -189,8 +189,7 @@ class SalesOrderPage(Base):
 
     @allure.step("刷新页面")
     def click_refresh(self, drivers):
-        ref = Base(drivers)
-        ref.refresh()
+        Base(drivers).refresh()
 
     @allure.step("关闭Sales Order销售单菜单")
     def click_close_sales_order(self):

@@ -292,6 +292,7 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal("Goods Receipt", get_status)
         add.click_close_delivery_order()
 
+
         """卖家创建退货单，退货类型为Return To Seller、退有码产品，输入Delivery Order出库单ID整单退货"""
         base = Base(drivers)
         base.refresh()
