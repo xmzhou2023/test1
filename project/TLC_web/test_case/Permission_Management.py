@@ -54,8 +54,8 @@ class TestAddRole:
         user.close_button()
 
     @allure.story("角色权限")
-    @allure.title("新增角色弹框关闭按钮操作")
-    @allure.description("‘新增角色’弹框关闭按钮验证")
+    @allure.title("新增角色名称输入框为空校验")
+    @allure.description("‘新增角色’输入名称为空")
     @allure.severity("critical")  # blocker\critical\normal\minor\trivial
     def test_001_004(self, drivers):
         user = NavPage(drivers)
@@ -70,5 +70,5 @@ class TestAddRole:
 
 
 if __name__ == '__main__':
-    pytest.main(['p'])
+    pytest.main(['project/TLC_web/test_case/Permission_Management.py'])
 

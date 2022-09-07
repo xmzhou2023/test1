@@ -1,0 +1,62 @@
+#创建调拨单
+Create: "xpath==//div[@class='action']/span/button/span[contains(text(),'Create')]"
+Transfer From: "xpath==//label[contains(text(),'Transfer From')]/../div/div/div/input[@placeholder='Please select a customer']"
+Transfer From Select Customer: "xpath==//div[@class='el-scrollbar']//..//ul//li//span[contains(text(),'variable')]"
+Transfer From Warehouse: "xpath==//label[contains(text(),'Transfer From')]/../div/div/div/input[@placeholder='Please select a warehouse']"
+Transfer From Select Warehouse: "xpath==//div//ul//li//span[contains(text(),'WNG2061301')]"
+
+Transfer To: "xpath==//label[contains(text(),'Transfer To')]/../div/div/div/input[@placeholder='Please select a customer']"
+Transfer To Select Customer: "xpath==//div//ul//li//span[text()='variable']"
+Transfer To Warehouse: "xpath==//label[contains(text(),'Transfer To')]/../div/div/div/input[@placeholder='Please select a warehouse']"
+Transfer To Select Warehouse: "xpath==//ul//li//span[contains(text(),'WNG2061304')]"
+
+Scan IMEI: "xpath==//div[@class='el-textarea el-input--small']/textarea[@placeholder]"
+Check: "xpath==//div[@class='title']//span[contains(text(),'Check')]"
+Get Scanned Value: "xpath==//div//..//div[@class='num']"
+Get Order Detail Deli Quantity: "xpath==//tbody//tr[1]//td[3]//div//span"
+Get Scan Record IMEI: "xpath==//ul//li//div[text()='variable']"
+Get Scan Record Success: "xpath==//ul//li//..//div[normalize-space(text())='Success']"
+Submit: "xpath==//div[@class='action']/button/span[contains(text(),'Submit')]"
+Submit OK: "xpath==//button//span[normalize-space(text())='OK']"
+
+#获取列表字段内容
+Get list Transfer ID: "xpath==//tbody//tr[1]//td[2]//div[@class='cell el-tooltip']"
+Get list Order Status: "xpath==//tbody//tr[1]//td[3]//div[@class='cell el-tooltip']"
+Get list Receipt Status: "xpath==//tbody//tr[1]//td[4]//div[@class='cell el-tooltip']"
+
+#确认收货
+Confirm Receipt: "xpath==//button[@id='transferring_order_receive_']//span[normalize-space(text())='Confirm Receipt']"
+Click First CheckBox: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
+Receipt Remark: "xpath==//div//textarea[@placeholder='Limit 150 chars']"
+点击确认收货按钮: "xpath==//button//..//span[text()='Confirm Receipt']"
+Confirm receipt or Recall: "xpath==//button//span[normalize-space(text())='Confirm']"
+
+#撤回功能
+More Option: "xpath==//button//span[normalize-space(text())='More Option']"
+Recall: "xpath==//ul//..//li[normalize-space(text())='Recall']"
+Unfold: "xpath==//div[@class='filter-fold']//span[contains(text(),'Unfold')]"
+点击调拨单筛选项: "xpath==//div//input[@id='transferorder_input_transferId']"
+点击收货状态筛选项: "xpath==//div//input[@class='el-input__inner transferorder_input_receiptStatus']"
+选中Received状态: "xpath==//ul//li//span[contains(text(),'variable')]"
+Search: "xpath==//span[normalize-space(text())='Search']"
+
+#查看IMEI详情
+IMEI Detail: "xpath==//tbody//tr[1]//td[23]//div//button//span[normalize-space(text())='IMEI Detail']"
+Get list Brand: "xpath==//tbody//tr[@class='el-table__row']//td[11]//div"
+Get list item: "xpath==//tbody//tr[@class='el-table__row']//td[12]//div"
+Get list Model: "xpath==//tbody//tr[@class='el-table__row']//td[13]//div"
+Get list Transfer From Cust: "xpath==//tbody//tr[@class='el-table__row']//td[6]//div"
+
+Get Detail Transfer ID: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div/div[2]/div/div[1]/div/div[3]/table/tbody/tr/td[1]/div"
+Get Detail Brand: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div/div[2]/div/div[1]/div/div[3]/table/tbody/tr/td[4]/div"
+Get Detail Item: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div/div[2]/div/div[1]/div/div[3]/table/tbody/tr/td[5]/div"
+Get Detail Model: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div/div[2]/div/div[1]/div/div[3]/table/tbody/tr/td[6]/div"
+Get Detail IMEI: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div/div[2]/div/div[1]/div/div[3]/table/tbody/tr/td[10]/div"
+Get Detail Customer Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div/div[2]/div/div[1]/div/div[3]/table/tbody/tr/td[2]/div"
+Close IMEI Detail: "xpath==//*[@id='mainContainer']/section/div[1]/div[4]/div/div[1]/button/i"
+
+#RecallTransferConfirm: "xpath==//button[@id='transferorderadd_Confirm']//span[contains(text(),'Confirm')]"
+#Cancel: "xpath==//div[@class='action']/button/span[contains(text(),'Cancel')]"
+#Recipt Status: "xpath==//div[@class='el-input el-input--mini el-input--suffix is-focus']/input[@placeholder='All']"
+#No Receive: "xpath==//span[contains(text(),'No Receive')]"
+#撤回复选框勾选: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[1]/div/label/span/span"

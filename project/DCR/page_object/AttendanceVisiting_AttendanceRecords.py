@@ -22,15 +22,15 @@ class AttendanceRecordPage(Base):
         sleep(1)
         self.input_text(user['筛选开始日期'], txt=content)
 
-    @allure.step("Attendance Records页面，点击Seasrch筛选考勤记录")
+    @allure.step("Attendance Records页面，点击 Search筛选考勤记录")
     def click_search(self):
         self.is_click(user['Search'])
+        sleep(2)
 
     @allure.step("Attendance Records页面，点击Reset重置筛选条件")
     def click_reset(self):
         self.is_click(user['Reset'])
         sleep(5)
-
 
     @allure.step("Attendance Records页面，获取列表Picture文本")
     def get_photo_text(self):

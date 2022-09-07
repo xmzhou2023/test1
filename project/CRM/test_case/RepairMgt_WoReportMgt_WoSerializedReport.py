@@ -17,6 +17,8 @@ def module_fixture(drivers):
     sleep(1)
     logging.info("前置条件:进入序列化工单报表页")
     user = NavPage(drivers)
+    user.refresh()
+    sleep(1)
     user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
     user = DomAssert(drivers)
     user.assert_url("/maintenanceMgt/workOrderReportMgt/woSerializedReport")

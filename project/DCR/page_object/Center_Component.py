@@ -85,7 +85,7 @@ class LoginPage(Base):
         sleep(4)
 
 
-    @allure.step("退货重新登录，去掉打开登录地址")
+    @allure.step("退出重新登录，去掉打开登录地址")
     def dcr_again_login(self, drivers, account, passwd):
         user = LoginPage(drivers)
         user.input_account(account)

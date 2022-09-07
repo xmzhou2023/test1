@@ -168,6 +168,14 @@ class SalesOrderPage(Base):
         self.input_text(user['Material ID'], txt=content1)
         sleep(1)
 
+    @allure.step("IMEI库存页面，输入Warehouse 查询仓库下的IMEI")
+    def input_warehouse_query(self, context):
+        self.is_click(user['Warehouse'])
+        self.input_text(user['Warehouse'], context)
+        sleep(2.5)
+        Base.presence_sleep_dcr(self, user['Select Warehouse Value'], context)
+        self.is_click_dcr(user['Select Warehouse Value'], context)
+
     @allure.step("IMEI Inventory Query页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
@@ -181,8 +189,7 @@ class SalesOrderPage(Base):
 
     @allure.step("刷新页面")
     def click_refresh(self, drivers):
-        ref = Base(drivers)
-        ref.refresh()
+        Base(drivers).refresh()
 
     @allure.step("关闭Sales Order销售单菜单")
     def click_close_sales_order(self):

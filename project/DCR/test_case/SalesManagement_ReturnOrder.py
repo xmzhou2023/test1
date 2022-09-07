@@ -13,12 +13,6 @@ import pytest
 import allure
 
 """后置关闭菜单方法"""
-# @pytest.fixture(scope='function')
-# def function_return_fixture(drivers):
-#     yield
-#     close = ReturnOrderPage(drivers)
-#     close.click_close_return_order()
-
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
@@ -28,7 +22,6 @@ def function_menu_fixture(drivers):
         class_value = "tags-view-item router-link-exact-active router-link-active active"
         if class_value == str(get_menu_class):
             menu.click_close_open_menu()
-            sleep(1)
 
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
@@ -457,7 +450,6 @@ class TestReturnOrder:
         get_status_cancel = recall_return.get_return_status()
         ValueAssert.value_assert_equal(get_status_cancel, "Cancel")
         #recall_return.click_close_return_order()
-
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_ReturnOrder.py'])

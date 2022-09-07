@@ -10,21 +10,17 @@ import pytest
 import allure
 
 """后置关闭菜单方法"""
-# @pytest.fixture(scope='function')
-# def function_user_mgt_fixture(drivers):
-#     yield
-#     close = UserManagementPage(drivers)
-#     close.click_close_user_mgt()
-#
-# @pytest.fixture(scope='function')
-# def function_export_fixture(drivers):
-#     yield
-#     close = UserManagementPage(drivers)
-#     close.click_close_export_record()
-#     close.click_close_user_mgt()
-
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
     yield
     menu = LoginPage(drivers)
     for i in range(2):
@@ -281,7 +277,7 @@ class TestExportUser:
     @allure.title("用户管理页面，导出筛选的用户数据")
     @allure.description("用户管理页面，导出筛选的用户数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_004_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -347,11 +343,9 @@ class TestResetPasswordUser:
         reset.click_more_reset_password()
         """断言是否弹出设置成功提示"""
         DomAssert(drivers).assert_att("Set Up Successfully")
-        sleep(2)
+        sleep(1.5)
         """重置密码成功后，使用该账号登录，设置新的密码"""
-        user.dcr_login(drivers, "EG4463901", "EG4463901")
-        get_new_password = reset.get_new_password_label()
-        ValueAssert.value_assert_In("New Password", get_new_password)
+        user.initialize_login(drivers, "EG4463901", "EG4463901")
 
         """该用户登录时，弹出设置新密码窗口，输入新密码及确认新密码，点击保存"""
         reset.input_new_password_save("dcr123456")
@@ -363,6 +357,7 @@ class TestResetPasswordUser:
         reset.click_login()
         """验证登录成功后，页面是否存在首页菜单"""
         DomAssert(drivers).assert_att("Home Page-Customer")
+
 
 if __name__ == '__main__':
     pytest.main(['StaffAuthorization_UserManagement.py'])

@@ -11,7 +11,7 @@ from selenium.webdriver.remote.file_detector import LocalFileDetector
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=False):
+def drivers(request, remote_ui=True):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
@@ -60,7 +60,7 @@ def drivers(request, remote_ui=False):
             # driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
             # driver = webdriver.Remote("http://10.250.113.15:4444", options=option)
             driver = webdriver.Remote("http://10.250.113.16:4444", options=option)
-            # inspect_element() # page_element YMAL文件自检
+            inspect_element() # page_element YMAL文件自检
         else:
             if remote_ui:
                 '''win系统下VNC界面模式'''
@@ -78,7 +78,7 @@ def drivers(request, remote_ui=False):
                 # option.set_capability("browserVersion", "104.0")
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
                 driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
-                # inspect_element() # page_element YMAL文件自检
+                inspect_element() # page_element YMAL文件自检
             else:
                 option = webdriver.ChromeOptions()
                 prefs = {"": ""}
@@ -91,7 +91,7 @@ def drivers(request, remote_ui=False):
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
                 driver = webdriver.Chrome(options=option)
                 driver.maximize_window()
-                # inspect_element() # page_element YMAL文件自检
+                inspect_element() # page_element YMAL文件自检
     def fn():
         sleep(5)
         driver.quit()
