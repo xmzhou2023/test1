@@ -19,7 +19,6 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
-
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
@@ -42,7 +41,6 @@ class TestQueryUser:
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """用户授权-用户管理-查询用户管理列表数据用例"""
         user.click_gotomenu("Staff & Authorization", "User Management")
 
@@ -74,7 +72,7 @@ class TestQueryUser:
         get_total2 = query_user.get_total()
         ValueAssert.value_assert_equal(get_list_user_id, get_list_user_id2)
         ValueAssert.value_assert_equal(get_list_user_name, get_list_user_name2)
-        ValueAssert.value_assert_equal(get_list_brand, get_list_brand2)
+        ValueAssert.value_assert_IsNoneNot(get_list_brand2)
         ValueAssert.value_assert_equal(get_total2, '1')
         #query_user.click_close_user_mgt()
 

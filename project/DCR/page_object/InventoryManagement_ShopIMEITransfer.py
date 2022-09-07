@@ -24,11 +24,9 @@ class ShopIMEITransferPage(Base):
         sleep(4)
         self.is_click(user['Transfer To Shop Name value'], info1)
 
-
     @allure.step("输入ScanIMEI")
     def input_scan_imei(self, imei):
         self.input_text(user['Scan IMEI Name'], imei)
-        sleep(1)
 
     @allure.step("点击check按钮")
     def click_check(self):
