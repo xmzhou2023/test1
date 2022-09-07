@@ -8,10 +8,13 @@ import allure
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
-def function_inbound_fixture(drivers):
+def function_menu_fixture(drivers):
     yield
-    close = InboundReceiptPage(drivers)
-    close.click_close_inbound_receipt()
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @pytest.fixture(scope='function')
 def function_inbound_imei_fixture(drivers):
@@ -26,7 +29,7 @@ class TestQueryInboundReceipt:
     @allure.title("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
     @allure.description("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_inbound_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD291501", "dcr123456")
@@ -107,6 +110,28 @@ class TestQueryIMEIDetail:
         ValueAssert.value_assert_equal("Export", detail_export)
         #query.click_close_inbound_imei_detail()
         #query.click_close_inbound_receipt()
+
+
+# @allure.feature("采购管理-二代零售商收货")
+# class TestQueryInboundReceipt:
+#     @allure.story("二代扫码收货")
+#     @allure.title("二代用户进入Inbound Receipt页面，点击扫码收货操作")
+#     @allure.description("二代用户进入Inbound Receipt页面，点击Stock-in by Scan扫码收货操作")
+#     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+#     @pytest.mark.usefixtures('function_menu_fixture')
+#     def test_003_001(self, drivers):
+#         user = LoginPage(drivers)
+#         user.initialize_login(drivers, "BD291501", "dcr123456")
+#         """销售管理菜单-出库单-筛选出库单用例"""
+#         user.click_gotomenu("Purchase Management", "Inbound Receipt")
+#
+#         scan_receipt = InboundReceiptPage(drivers)
+#         scan_receipt.click_scan_imei_receipt()
+#         scan_receipt.input_scan_imei()
+#         scan_receipt.click_check()
+#         scan_receipt.click_submit()
+
+
 
 if __name__ == '__main__':
     pytest.main(['PurchaseManagement_InboundReceipt.py'])

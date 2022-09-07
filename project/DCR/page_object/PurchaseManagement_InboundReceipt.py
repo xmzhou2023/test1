@@ -214,6 +214,26 @@ class InboundReceiptPage(Base):
         else:
             logging.info("查看Inbound Receipt列表，加载IMEI详情数据失败，分页总条数Total：{}".format(total1))
 
+    #扫码收货
+    @allure.step("点击Stock in by Scan 扫码收货按钮")
+    def click_scan_imei_receipt(self):
+        self.is_click(user['Stock in by Scan'])
+        sleep(2)
+
+    @allure.step("输入扫码的IMEI")
+    def input_scan_imei(self, imei):
+        self.is_click(user['Scan IMEI'])
+        self.input_text(user['Scan IMEI'], imei)
+
+    @allure.step("点击Check检查按钮")
+    def click_check(self):
+        self.is_click(user['Check'])
+        sleep(1.5)
+
+    @allure.step("点击Submit提交按钮")
+    def click_submit(self):
+        self.is_click(user['Submit'])
+        sleep(1.5)
 
 if __name__ == '__main__':
     pass
