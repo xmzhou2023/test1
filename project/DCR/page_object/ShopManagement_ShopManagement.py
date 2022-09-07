@@ -123,7 +123,7 @@ class ShopManagementPage(Base):
     @allure.step("点击Search查询门店信息")
     def click_query_search(self):
         self.is_click(user['Search'])
-        sleep(10)
+        sleep(4)
 
     @allure.step("筛选最近新建的门店ID后，勾线第一个复选框")
     def click_first_checkbox(self):
