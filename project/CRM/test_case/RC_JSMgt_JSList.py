@@ -58,9 +58,7 @@ class TestGetJSList:
     @allure.title("查询工单")  # 用例名称
     @allure.description("JS页面，遍历Document Status下拉框查询正确")
     @allure.severity("critical")  # 用例等级
-    @pytest.mark.parametrize("status", ["5-Draft", "10-Open", "20-Assigned To Technician", "30-SWAP",
-                    "35-SWAP Approved", "36-SWAP DisApproved", "40-Checked for SWAP", "45-SWAPPED", "90-Repair Completed", "95-Non Repairable",
-                    "96-Re-open", "100-Returned", "110-DOA Certificate"])  # 30状态没有用全称的原因是前端空格处理有问题
+    @pytest.mark.parametrize("status", ["5-Draft", "10-Open", "20-Assigned To Technician", "30-SWAP","35-SWAP Approved", "36-SWAP DisApproved", "40-Checked for SWAP", "45-SWAPPED", "90-Repair Completed", "95-Non Repairable","96-Re-open", "100-Returned", "110-DOA Certificate"])  # 30状态没有用全称的原因是前端空格处理有问题
     @pytest.mark.smoke  # 用例标记
     #@pytest.mark.skip  # 跳过不执行
     def test_1750(self, drivers, class_fixture, status):   # 用例名称取名规范'test+场景编号+用例编号'
