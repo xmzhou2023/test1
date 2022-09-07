@@ -162,28 +162,6 @@ class TransferOrderPage(Base):
         sleep(1)
 
 
-    # @allure.step("获取Transfer ID列表 Product字段内容")
-    # def get_list_product(self):
-    #     self.scroll_into_view(user['Get list Product'])
-    #     product = self.element_text(user['Get list Product'])
-    #     return product
-    #
-    # @allure.step("获取Transfer ID列表 Brand字段内容")
-    # def get_list_brand(self):
-    #     self.scroll_into_view(user['Get list Brand'])
-    #     brand = self.element_text(user['Get list Brand'])
-    #     return brand
-    #
-    # @allure.step("获取Transfer ID列表 Brand字段内容")
-    # def get_list_item(self):
-    #     item = self.element_text(user['Get list item'])
-    #     return item
-    #
-    # @allure.step("获取Transfer ID列表 Model字段内容")
-    # def get_list_model(self):
-    #     model = self.element_text(user['Get list Model'])
-    #     return model
-
     def get_list_field(self, flag):
         self.scroll_into_view(user[flag])
         get_field = self.element_text(user[flag])

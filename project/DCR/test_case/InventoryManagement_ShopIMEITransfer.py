@@ -18,6 +18,7 @@ def function_menu_fixture(drivers):
         if class_value == str(get_menu_class):
             menu.click_close_open_menu()
 
+
 @allure.feature("库存管理-门店IMEI调店")
 class TestNewRejectIMEITransfer:
     @allure.story("新建、拒绝门店IMEI调店")
@@ -162,7 +163,6 @@ class TestApproveIMEITransfer:
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_equal('Approved', get_status)
         ValueAssert.value_assert_equal('EG000394', get_to_shop)
-
 
 
 @allure.feature("库存管理-门店IMEI调店")

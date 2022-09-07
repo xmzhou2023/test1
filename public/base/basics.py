@@ -9,6 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from libs.common.time_ui import sleep
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 import os
 import logging
 import allure
@@ -70,7 +71,7 @@ class Base(object):
         # 验证码下载路径
         html_path = os.path.join(DOWNLOAD_PATH, 'driver_html.png')
         code_path = os.path.join(DOWNLOAD_PATH, 'code.png')
-        time.sleep(3)  # 定个缓冲时间
+        time.sleep(1)  # 定个缓冲时间
 
         self.driver.save_screenshot(html_path)  # 截取整个网页
         location = self.find_element(locator)  # 获取需要识别的元素对象
@@ -598,16 +599,35 @@ class Base(object):
 
 
     def clear_input(self, xpath):
-        # 清除文本框输入，srm使用
+        # 清除文本框输入
         ele = self.find_element(xpath)
         ele.clear()
+
 
     def switch_location(self, path):
         # 使用javascript 跳转路由
         self.driver.execute_script('location=arguments[0]', path)
 
 
+    def hover_click(self, locator):
+        # 鼠标悬停后点击
+        element = self.find_element(locator)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        actions.click(element).perform()
+
+
+    def keyboard_enter(self, locator):
+        # 键盘回车
+        element = self.find_element(locator)
+        element.send_keys(Keys.ENTER)
+
+    def keyboard_backspace(self, locator):
+        # 键盘删除键
+        element = self.find_element(locator)
+        element.send_keys(Keys.BACK_SPACE)
 
 
 if __name__ == "__main__":
     pass
+

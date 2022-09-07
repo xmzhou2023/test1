@@ -60,6 +60,7 @@ class UserManagementPage(Base):
         self.is_click(user['Select Brand Value'], 'TECNO')
         self.is_click(user['Select Brand Value'], 'itel')
 
+
     @allure.step("关闭User Management菜单")
     def click_close_user_mgt(self):
         self.is_click(user['关闭用户管理菜单'])

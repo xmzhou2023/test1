@@ -124,7 +124,6 @@ class ShopIMEITransferPage(Base):
     @allure.step("点击Checkbox勾选全选复选框")
     def click_check_box(self):
         self.is_click(user['勾选全选复选框'])
-        sleep(1)
 
     @allure.step("点击Approve或 reject按钮")
     def click_approve_reject(self, choose):

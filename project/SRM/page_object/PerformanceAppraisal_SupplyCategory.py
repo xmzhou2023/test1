@@ -9,7 +9,7 @@ import logging
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
-app= Element(pro_name, object_name)
+app = Element(pro_name, object_name)
 
 
 
@@ -21,21 +21,28 @@ class Performance(Base):
         self.is_click(app['供应商绩效'])
 
     def appraisal_page_title(self):
-       return self.find_element(app["供应商绩效标题"]).text
+        return self.find_element(app["供应商绩效标题"]).text
 
+
+    @allure.step("最小化供应商绩效考核窗口")
+    def MinWindows(self):
+        self.frame_exit()
+        self.is_click(app["供应商绩效考核--窗口最小化"])
+
+    def close_valuecode_page(self):
+        self.hover(app["评估代码供货品类配置-页面窗口标题"])
+        self.hover_click(app["评估代码供货品类配置-关闭页面"])
 
     def enter_SupplyCategory(self):
         self.frame_enter(app["供应商绩效iframe"])
         self.is_click(app["供应商绩效-评估代码供货品类配置"])
 
     def title_SupplyCategory(self):
-       return self.find_element(app["评估代码供货品类配置页面标题"]).text
-
+        return self.find_element(app["评估代码供货品类配置页面标题"]).text
 
     def creat_SupplyCategory(self):
         self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
         self.is_click(app["评估代码供货品类配置-新建"])
-
 
     def get_title_creat(self):
         return self.find_element(app["评估代码供货品类配置-新建弹窗标题"]).text
@@ -46,7 +53,6 @@ class Performance(Base):
         # time.sleep(2)
         self.is_click(app["评估代码供货品类配置-新建弹窗-关闭"])
         self.frame_back()
-
 
     def creat_SupplyCategory_cancel(self):
         # self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
@@ -59,7 +65,6 @@ class Performance(Base):
         self.is_click(app["评估代码供货品类配置-新建"])
         self.input_text(app['评估代码供货品类配置-新建-评估代码'],txt=code)
 
-
     def creat_select_material(self):
         self.is_click(app['评估代码供货品类配置-新建-小类搜索'])
         self.frame_back()
@@ -67,7 +72,6 @@ class Performance(Base):
         self.is_click(app['评估代码供货品类配置-新建-小类选择'])
         self.is_click(app['评估代码供货品类配置-新建-小类-确定'])
         self.frame_back()
-
 
     def creat_select_rule(self):
         self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
@@ -77,14 +81,12 @@ class Performance(Base):
         self.is_click(app["评估代码供货品类配置-新建-评分规则-选择"])
         self.is_click(app["评估代码供货品类配置-新建-评分规则-确定"])
 
-
     def creat_SelectOK(self):
         self.frame_back()
         self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
         self.is_click(app["评估代码供货品类配置-新建-确定"])
         self.frame_back()
         self.is_click(app["评估代码供货品类配置-新建-确定-保存确定"])
-
 
     @allure.step("获取新建成功弹窗提示内容")
     def get_alert_text(self):
@@ -115,8 +117,9 @@ class Performance(Base):
         self.input_text(app["评估代码供货品类配置-物料小类查询输入框"], material)
         self.is_click(app["评估代码供货品类配置-查询"])
 
+
     @allure.step("修改数据的评分规则")
-    def change_rule(self,code):
+    def change_rule(self, code):
         self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
         self.input_text(app["评估代码供货品类配置-评估代码查询输入框"], code)
         self.is_click(app["评估代码供货品类配置-查询"])
@@ -132,25 +135,89 @@ class Performance(Base):
         self.is_click(app["评估代码供货品类配置-新建-确定"])
         self.frame_back()
         self.is_click(app["评估代码供货品类配置-新建-确定-保存确定"])
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.clear_input(app["评估代码供货品类配置-评估代码查询输入框"])
+        self.is_click(app["评估代码供货品类配置-查询"])
+        self.frame_back()
 
-
+    @allure.step("导出模板")
     def export_template(self):
         self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
         self.is_click(app["评估代码供货品类配置-excel导出模板"])
+        time.sleep(2)
         self.frame_back()
 
 
-    def next_page(self):
+    @allure.step("跳转到列表某一页")
+    def input_page(self, page):
         self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.keyboard_backspace(app["评估代码供货品类配置-跳转到第几页"])
+        self.clear_input(app["评估代码供货品类配置-跳转到第几页"])
+        self.input_text(app["评估代码供货品类配置-跳转到第几页"], page)
+        # self.is_click(app["评估代码供货品类配置-跳转到第几页"])
+        self.keyboard_enter(app["评估代码供货品类配置-跳转到第几页"])
+        self.frame_back()
+
+
+    @allure.step("跳转到列表下一页")
+    def next_page(self, page):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.keyboard_backspace(app["评估代码供货品类配置-跳转到第几页"])
+        self.clear_input(app["评估代码供货品类配置-跳转到第几页"])
+        self.input_text(app["评估代码供货品类配置-跳转到第几页"], page)
+        self.keyboard_enter(app["评估代码供货品类配置-跳转到第几页"])
         self.is_click(app["评估代码供货品类配置-列表下一页"])
         self.frame_back()
 
 
+    @allure.step("跳转到列表尾页")
+    def end_page(self):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.is_click(app["评估代码供货品类配置-跳转到尾页"])
+        self.frame_back()
 
-    @allure.step("最小化供应商绩效考核窗口")
-    def MinWindows(self):
-        self.frame_exit()
-        self.is_click(app['窗口最小化'])
+    @allure.step("跳转到列表上一页")
+    def previous_page(self, page):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.keyboard_backspace(app["评估代码供货品类配置-跳转到第几页"])
+        self.clear_input(app["评估代码供货品类配置-跳转到第几页"])
+        self.input_text(app["评估代码供货品类配置-跳转到第几页"], page)
+        self.keyboard_enter(app["评估代码供货品类配置-跳转到第几页"])
+        self.is_click(app["评估代码供货品类配置-列表上一页"])
+        self.frame_back()
+
+
+    @allure.step("跳转到列表首页")
+    def first_page(self, page):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.keyboard_backspace(app["评估代码供货品类配置-跳转到第几页"])
+        self.clear_input(app["评估代码供货品类配置-跳转到第几页"])
+        self.input_text(app["评估代码供货品类配置-跳转到第几页"], page)
+        self.keyboard_enter(app["评估代码供货品类配置-跳转到第几页"])
+        self.is_click(app["评估代码供货品类配置-跳转到首页"])
+        self.frame_back()
+
+
+    @allure.step("筛选列表中评估代码列")
+    def current_page(self):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        a = self.find_element(app["评估代码供货品类配置-当前页"]).text
+        print("打印当前页码%s" % a)
+        return self.find_element(app["评估代码供货品类配置-当前页"]).text
+
+    def Frameback(self):
+        self.frame_back()
+
+
+    @allure.step("筛选列表中评估代码列")
+    def screening_valuecode(self):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.is_click(app["评估代码供货品类配置-评估代码列表筛选按钮"])
+        self.is_click(app["评估代码供货品类配置-评估代码筛选取消全选"])
+        self.is_click(app["评估代码供货品类配置-评估代码筛选第一个"])
+        self.is_click(app["评估代码供货品类配置-评估代码筛选确定"])
+        self.frame_back()
+
 
 
 
