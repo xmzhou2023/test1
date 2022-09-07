@@ -9,10 +9,13 @@ import allure
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
-def function_shop_mgt_fixture(drivers):
+def function_menu_fixture(drivers):
     yield
-    close = ShopManagementPage(drivers)
-    close.click_close_shop_management()
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @pytest.fixture(scope='function')
 def function_view_fixture(drivers):
@@ -24,9 +27,13 @@ def function_view_fixture(drivers):
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    close = ShopManagementPage(drivers)
-    close.click_close_export_record()
-    close.click_close_shop_management()
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
 
 @allure.feature("门店管理-门店管理(global)")
 class TestAddShop:
@@ -34,7 +41,7 @@ class TestAddShop:
     @allure.title("门店管理，新增门店操作")
     @allure.description("门店管理页面，新增门店操作成功后，筛选新增的门店是否加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_shop_mgt_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -96,7 +103,7 @@ class TestExpandBrandShop:
     @allure.title("门店管理页面，对新增的门店进行扩展itel品牌操作")
     @allure.description("门店管理页面，对新增的门店进行扩展品牌操作，扩展itel品牌提交后，列表展示扩展的门店品牌")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_shop_mgt_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -163,7 +170,7 @@ class TestDisableShop:
     @allure.title("门店管理页面，对新增的门店进行禁用操作")
     @allure.description("门店管理页面，对新增的门店进行禁用操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_shop_mgt_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -199,7 +206,7 @@ class TestQueryGlobalShop:
     @allure.title("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
     @allure.description("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_shop_mgt_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -289,7 +296,7 @@ class TestEditShop:
     @allure.title("门店管理页面，Edit编辑门店信息")
     @allure.description("门店管理页面，Edit编辑门店信息，提交后，返回列表显示编辑后的门店信息")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_shop_mgt_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_005_001(self, drivers):
         user5 = LoginPage(drivers)
         user5.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -333,7 +340,7 @@ class TestEnableShop:
     @allure.title("门店管理页面，对禁用的门店，进行启用操作")
     @allure.description("门店管理页面，对禁用的门店，进行启用操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_shop_mgt_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_006_001(self, drivers):
         user6 = LoginPage(drivers)
         user6.initialize_login(drivers, "lhmadmin", "dcr123456")
