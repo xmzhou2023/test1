@@ -19,6 +19,7 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
+
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield

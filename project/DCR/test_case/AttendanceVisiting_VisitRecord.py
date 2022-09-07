@@ -29,6 +29,7 @@ def function_export_fixture(drivers):
             menu.click_close_open_menu()
             sleep(1)
 
+
 @allure.feature("考勤&巡店-巡店记录")
 class TestQueryVisitRecord:
     @allure.story("查询巡店记录")

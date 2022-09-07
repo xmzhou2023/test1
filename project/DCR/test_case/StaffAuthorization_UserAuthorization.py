@@ -45,8 +45,7 @@ class TestDeleteBrandAuthorization:
             brand.click_cancel_association()
             brand.click_delete_brand()
             """断言页面是否存在Successfully成功提示语"""
-            domassert = DomAssert(drivers)
-            domassert.assert_att("Successfully")
+            DomAssert(drivers).assert_att("Successfully")
 
         """用户授权页面，新增Infinix品牌授权"""
         brand.click_add_brand()
@@ -55,8 +54,7 @@ class TestDeleteBrandAuthorization:
         brand.click_add_brand_checkbox()
         brand.click_save_brand()
 
-        domassert = DomAssert(drivers)
-        domassert.assert_att("Successfully")
+        DomAssert(drivers).assert_att("Successfully")
         list_infinix_text = brand.get_list_infinix_text()
         ValueAssert.value_assert_equal("Infinix", list_infinix_text)
 
@@ -89,8 +87,7 @@ class TestDeleteCustAuthorization:
         customer.click_cust_more_option()
         customer.click_cust_cancel_association()
         customer.click_cust_delete()
-        domassert = DomAssert(drivers)
-        domassert.assert_att("Successfully")
+        DomAssert(drivers).assert_att("Successfully")
 
         """新增CN20009客户授权"""
         customer.click_add_customer()
@@ -101,8 +98,7 @@ class TestDeleteCustAuthorization:
         if get_customer_id in "CN20009":
             customer.click_add_customer_checkbox()
             customer.click_cust_authoriz_select()
-            domassert = DomAssert(drivers)
-            domassert.assert_att("Successfully")
+            DomAssert(drivers).assert_att("Successfully")
 
 
 @allure.feature("员工授权-用户授权")
@@ -133,8 +129,7 @@ class TestDeleteWareAuthorization:
         ware.click_ware_cancel_association()
         ware.click_ware_delete()
 
-        domassert = DomAssert(drivers)
-        domassert.assert_att("Successfully")
+        DomAssert(drivers).assert_att("Successfully")
         get_no_data = ware.get_ware_dele_no_data()
         ValueAssert.value_assert_In(get_no_data, "No Data")
 
@@ -148,8 +143,7 @@ class TestDeleteWareAuthorization:
             ware.click_add_ware_checkbox()
         ware.click_add_ware_save()
 
-        domassert = DomAssert(drivers)
-        domassert.assert_att("Successfully")
+        DomAssert(drivers).assert_att("Successfully")
         get_list_ware2 = ware.get_list_warehouseID_text()
         ValueAssert.value_assert_equal(get_add_ware, get_list_ware2)
 
@@ -176,8 +170,7 @@ class TestAddRegionAuthorization:
         sale_region.click_east_africa_checkbox()
         sale_region.click_score_user_checkbox()
         sale_region.click_save_sales_region()
-        domassert = DomAssert(drivers)
-        domassert.assert_att("Successfully")
+        DomAssert(drivers).assert_att("Successfully")
 
 
 @allure.feature("员工授权-用户授权")
@@ -209,8 +202,7 @@ class TestDeleteShopAuthorization:
         shop.click_shop_cancel_association()
         shop.click_shop_delete()
 
-        domassert = DomAssert(drivers)
-        domassert.assert_att("Successfully")
+        DomAssert(drivers).assert_att("Successfully")
         get_shop_no_data = shop.get_shop_delete_no_data()
         ValueAssert.value_assert_In(get_shop_no_data, "No Data")
 
@@ -226,8 +218,7 @@ class TestDeleteShopAuthorization:
             shop.click_add_shop_checkbox()
         shop.click_add_shop_author_select()
 
-        domassert = DomAssert(drivers)
-        domassert.assert_att("Successfully")
+        DomAssert(drivers).assert_att("Successfully")
         get_list_shop_id = shop.get_list_shop_id_text("SN002331")
         ValueAssert.value_assert_equal(get_list_shop_id, "SN002331")
 

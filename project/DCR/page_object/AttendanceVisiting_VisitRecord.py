@@ -33,7 +33,6 @@ class VisitRecordPage(Base):
         sleep(3)
         Base.presence_sleep_dcr(self, user['Submit Start Date'])
         self.is_click(user['Submit Start Date'])
-        #sleep(1)
         self.input_text(user['Submit Start Date'], txt=content)
 
     @allure.step("Visit Record页面，点击Sales Region输入框")
