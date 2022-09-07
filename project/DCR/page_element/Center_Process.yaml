@@ -7,7 +7,7 @@ Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//
 Brand value: "xpath==//span[contains(text(),'TECNO')]"
 
 product: "xpath==//label[(text()='Product')]//parent::div// following-sibling::div//input"
-product value: "xpath==//span[(text()='SPARK 6 Go 64+4 AQUA BLUE')]"
+product value: "xpath==//span[(text()='variable')]"
 Quantity: "xpath==//label[(text()='Quantity')]//parent::div// following-sibling::div//input"
 
 Submit Sales: "xpath==//span[contains(text(),'Submit')]"
