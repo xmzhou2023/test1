@@ -5,7 +5,9 @@
 表格内容: "xpath==//div[starts-with(@class,'el-table__body-wrapper is-scrolling')]//tbody/tr[1]/td/*"
 查看: "xpath==//div[normalize-space(text())='variable']/../..//button/span[contains(text(),'查看')]"
 待办列表-我申请的-iframe: "xpath==//iframe"
-
+查询条件: "xpath==//label[normalize-space(text())='variable']/..//input"
+查询选择: "xpath==//li/span[normalize-space(text())='variable']"
+表格指定列内容: "xpath==//tbody/tr/td[variable]/div"
 #==========================================创建页面========================================
 提交: "xpath==//button/span[contains(text(),'提交')]"
 保存: "xpath==//button/span[contains(text(),'保存')]"

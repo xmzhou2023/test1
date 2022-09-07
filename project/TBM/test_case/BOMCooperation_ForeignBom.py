@@ -1,5 +1,7 @@
 import allure
 import pytest
+
+from libs.common.time_ui import sleep
 from project.TBM.page_object.BOMCooperation_ForeignBom import ForeignBom
 from public.base.assert_ui import DomAssert, ValueAssert
 
@@ -673,7 +675,7 @@ class TestProcessApprovalExceptionScenario:
         user.quit_oneworks()
 
 
-@allure.feature("外研BOM协作")  # 模块名称
+@allure.feature("BOM协作-外研BOM协作")  # 模块名称
 class TestProcessSearch:
     @allure.story("流程查询")  # 场景名称
     @allure.title("在查询页面，直接点击查询，页面默认时间倒序")  # 用例名称
@@ -685,5 +687,93 @@ class TestProcessSearch:
         user.refresh_webpage_click_menu()
         user.click_search()
         user.assert_search_time_desc()
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，标题查询结果正确")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入“李小素”，点击查询，查询结果为所有标题包含“李小素”的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_002(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '李小素')
+        user.click_search()
+        user.assert_search_result('标题', '李小素')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，查询不存在标题，结果为空")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入不存在的标题，点击查询，查询结果为空")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_003(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', 'sfdasdfwefw')
+        user.click_search()
+        DomAssert(drivers).assert_att('暂无数据')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，流程编码查询结果正确")  # 用例名称
+    @allure.description("在查询页面，流程编码输入框输入“1”，点击查询，查询结果为所有流程编码包含“1”的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_004(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('流程编码', '1')
+        user.click_search()
+        user.assert_search_result('流程编码', '1')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，查询不存在流程编码，结果为空")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入不存在的流程编码，点击查询，查询结果为空")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_005(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('流程编码', 'sfdasdfwefw')
+        user.click_search()
+        DomAssert(drivers).assert_att('暂无数据')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，客供BOM衍生查询结果正确")  # 用例名称
+    @allure.description("在查询页面，下拉框选择为客供BOM衍生，点击查询，查询结果为所有制作类型为客供BOM衍生的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_006(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('制作类型', '客供BOM衍生')
+        user.click_search()
+        user.assert_search_result('制作类型', '客供BOM衍生')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，客供BOM制作查询结果正确")  # 用例名称
+    @allure.description("在查询页面，下拉框选择为客供BOM制作，点击查询，查询结果为所有制作类型为客供BOM制作的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_007(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('制作类型', '客供BOM制作')
+        user.click_search()
+        user.assert_search_result('制作类型', '客供BOM制作')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，客供BOM制作查询结果正确")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入“李小素”，流程编码输入框输入“1”，BOM编码输入“2”，下拉框选择为客供BOM制作，点击查询，查询结果为所有标题包含“李小素”、流程编码包含“1”、物料编码包含“2”、制作类型为客供BOM制作的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_008(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '李小素')
+        user.input_search_info('流程编码', '1')
+        user.input_search_info('制作类型', '客供BOM制作')
+        user.click_search()
+        user.assert_search_result('制作类型', '客供BOM制作')
+        user.assert_search_result('流程编码', '1')
+        user.assert_search_result('标题', '李小素')
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_ForeignBom.py'])
