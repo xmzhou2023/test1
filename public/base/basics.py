@@ -615,7 +615,7 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
         actions.click(element).perform()
-        
+
 
     def keyboard_enter(self, locator):
         # 键盘回车
