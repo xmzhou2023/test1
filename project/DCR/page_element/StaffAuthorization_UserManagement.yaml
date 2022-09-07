@@ -18,8 +18,8 @@ Select Brand Value: "xpath==//div[@class='el-scrollbar']//ul//li//span[text()='v
 Edit Select Brand: "xpath==//div//..//input[@id='useredit_input_brandCodes']"
 
 Position: "xpath==//label[(text()='Position')]//parent::div//following-sibling::div//input"
-Position Value Transsion: "xpath==//span[(text()='lhmTecno促销员')]"
-Position Value Dealer: "xpath==//span[(text()='lhm二代')]"
+Position Value Transsion: "xpath==//span[(text()='variable')]"
+Position Value Dealer: "xpath==//span[(text()='variable')]"
 
 Superior: "xpath==//label[(text()='Superior')]//parent::div//following-sibling::div//input"
 Superior Value: "xpath==//span[contains(text(),'variable')]"

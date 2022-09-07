@@ -85,8 +85,8 @@ class UserManagementPage(Base):
         self.is_click(user['Position'])
         self.input_text(user['Position'], txt=content)
         sleep(1)
-        Base.presence_sleep_dcr(self, user['Position Value Transsion'])
-        self.is_click(user['Position Value Transsion'])
+        Base.presence_sleep_dcr(self, user['Position Value Transsion'], content)
+        self.is_click(user['Position Value Transsion'], content)
 
     @allure.step("Add user页面，输入上级领导，选中输入的上级领导")
     def input_superior(self, content):
@@ -223,7 +223,7 @@ class UserManagementPage(Base):
         self.is_click(user['Position'])
         self.input_text(user['Position'], txt=content)
         sleep(1)
-        self.is_click(user['Position Value Dealer'])
+        self.is_click(user['Position Value Dealer'], content)
 
 
     """查询列表用户"""
