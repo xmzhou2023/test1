@@ -66,7 +66,7 @@ class WOSerializedAssignToTech(Base):
             if status == "Created" and scope == "Scan":
                 """点击assign by scan后进入弹框页，输入10状态的工单可操作成功，此处校验了弹框页total数以及操作提示"""
                 self.wait.until(EC.presence_of_element_located(user['Assign By Scan弹框页表格中的删除键']), message='分派技术员列表数据未添加成功')
-                search_total = self.get_element_attribute(user['Assign By Scan弹框页的total数'], 'textContent')
+                search_total = self.get_element_attribute(user['Assign By Scan弹框页的total数'], 'textContent', choice='Total')
                 total = ''.join(filter(str.isdigit, search_total))
                 total = int(total)
                 if total >= 1:
