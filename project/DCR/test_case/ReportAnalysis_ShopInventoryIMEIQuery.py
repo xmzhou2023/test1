@@ -80,7 +80,7 @@ class TestExportShopInventoryIMEI:
 
         #点击Unfold展开筛选按钮
         export.click_unfold()
-        export.input_inbound_date("2022-06-01")
+        export.input_inbound_date("2022-08-01")
         export.click_fold()
         export.click_search()
 

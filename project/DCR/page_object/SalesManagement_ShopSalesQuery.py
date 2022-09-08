@@ -177,10 +177,10 @@ class ShopSaleQueryPage(Base):
 
     @allure.step("断言分页总数是否存在数据")
     def assert_total2(self, total):
-        if int(total) > 1000:
+        if int(total) > 100:
             logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
         else:
-            logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total))
+            logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
 
     @allure.step("断言文件或导出时间是否有数据 ")
     def assert_file_time_size(self, file_size, export_time):
