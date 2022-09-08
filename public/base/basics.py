@@ -94,13 +94,15 @@ class Base(object):
 
         return res
 
-    def find_element(self, locator, choice=None):
+    def find_element(self, locator, *choice):
         """寻找单个元素"""
-        if choice is not None:
+        logging.info(choice)
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
@@ -109,13 +111,14 @@ class Base(object):
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), locator)
 
-    def find_elements(self, locator, choice=None):
+    def find_elements(self, locator, *choice):
         """寻找多个相同的元素"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', str(choice))
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_all_elements_located(args)), Npath)
@@ -183,13 +186,14 @@ class Base(object):
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
             logging.info("滚动条至：{}".format(locator))
 
-    def scroll_into_view_CRM(self, locator, choice=None):
+    def scroll_into_view_CRM(self, locator, *choice):
         """滑动至出现元素"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             ele = self.find_element(Npath).click()
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
             logging.info("滚动条至：{}".format(Npath))
@@ -199,13 +203,14 @@ class Base(object):
             self.find_element(locator).click()
             logging.info("滚动条至：{}".format(locator))
 
-    def is_click(self, locator, choice=None):
+    def is_click(self, locator, *choice):
         """点击元素"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             sleep(2)
             self.find_element(Npath).click()
             logging.info("选择点击：{}".format(Npath))
