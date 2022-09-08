@@ -14,8 +14,9 @@ from project.CRM.page_object.RepairMgt_WOSerializedMgt_WOSerializedList import *
 
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
+    user = WOSerializedListAdd(drivers)
+    user.refresh_page()
     num = NavPage(drivers)
-    num.refresh_page()
     num.click_gotonav("WMS", "Stock In/Out Mgt", "Initialize Inventory")
     sleep(1)
     num = DomAssert(drivers)

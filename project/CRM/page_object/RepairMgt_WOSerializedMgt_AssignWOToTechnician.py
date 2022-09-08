@@ -1,5 +1,6 @@
 import string
 from datetime import datetime
+from selenium.webdriver.common.by import By
 
 import allure, os
 from public.base.basics import Base, sleep
@@ -42,7 +43,7 @@ class WOSerializedAssignToTech(Base):
 
         elif status != "Created" and scope == "single":
             """非10状态工单在分派技术员页无法查到，所以判断的是查询结果是否为0"""
-            search_total = self.get_element_attribute(user['序列化工单分派技术员页工单total数'], 'textContent')
+            search_total = self.get_element_attribute(user['序列化工单分派技术员页工单total数'], 'textContent', choice='Total')
             total = ''.join(filter(str.isdigit, search_total))
             total = int(total)
             logging.info('序列化工单分派技术员页工单查询total数量:{}'.format(total))
