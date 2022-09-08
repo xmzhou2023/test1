@@ -14,11 +14,10 @@ import allure
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
-    for i in range(1):
-        get_menu_class = menu.get_open_menu_class()
-        class_value = "tags-view-item router-link-exact-active router-link-active active"
-        if class_value == str(get_menu_class):
-            menu.click_close_open_menu()
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("销售管理-国包出库单")
 class TestQueryDistDelivery:
@@ -174,11 +173,9 @@ class TestAddDistDeliveryOrder:
 
 
         """二代账号, 进行退货操作"""
-        user1.initialize_login(drivers, "BD291501", "dcr123456")
-
+        Base(drivers).refresh()
         """打开Purchase Management菜单"""
         user1.click_gotomenu("Sales Management", "Return Order")
-
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
 
