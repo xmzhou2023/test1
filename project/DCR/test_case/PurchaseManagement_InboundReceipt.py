@@ -44,7 +44,7 @@ class TestQueryInboundReceipt:
 
         query = InboundReceiptPage(drivers)
         query.click_unfold()
-        query.input_delivery_date("2022-07-01")
+        query.input_delivery_date("2022-09-01")
         query.click_deliver_Order()
         query.click_select_brand()
         query.click_deliver_Order()
@@ -119,7 +119,7 @@ class TestQueryIMEIDetail:
 
 @allure.feature("采购管理-二代零售商收货")
 class TestScanIMEIInboundReceipt:
-    @allure.story("二代扫码收货")
+    @allure.story("扫码收货")
     @allure.title("二代用户进入Inbound Receipt页面，点击扫码收货操作")
     @allure.description("二代用户进入Inbound Receipt页面，点击Stock-in by Scan扫码收货操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
