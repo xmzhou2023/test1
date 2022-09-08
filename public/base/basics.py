@@ -632,6 +632,39 @@ class Base(object):
         element = self.find_element(locator)
         element.send_keys(Keys.BACK_SPACE)
 
+    def read_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0,
+                   end_row=None):
+        """
+        按行/列读取EXCEL数据
+        file_path:文件路径（XLS格式文件）
+        sheet_name：需要读取数据的sheet
+        mode：取值方式（row:按行  column：按列）
+        rows:按行读取数据时，起始行
+        cols:按列读取数据时，起始列
+        start_row、end_row：按列读取数据时，数据读取起止行
+        start_col、end_col：按行读取数据时，数据读取起止列
+        return:
+            values：读取的值，根据mode传参，按行/列返回，返回数据格式为列表中嵌套元组
+        """
+        data_excel = xlrd.open_workbook(file_path)
+        table = data_excel.sheet_by_name(sheet_name)
+        values = []
+        if mode == "row":
+            for i in range(table.nrows):
+                if i < rows:
+                    pass
+                else:
+                    values.append(tuple(table.row_values(i, start_col, end_col)))
+        elif mode == "column":
+            for i in range(table.ncols):
+                if i < cols:
+                    pass
+                else:
+                    values.append(tuple(table.col_values(i, start_row, end_row)))
+        else:
+            logging.info("excel取值方式错误")
+        return values
+
 
 if __name__ == "__main__":
     pass
