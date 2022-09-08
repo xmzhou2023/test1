@@ -595,10 +595,10 @@ class Base(object):
     def element_input_text(self, locator, *choice):
         """获取输入框当前的text"""
         if choice:
-        ele = self.find_element(locator, choice)
-        _text = ele.get_attribute('value')
-        logging.info("获取文本：{}".format(_text))
-        return _text
+            ele = self.find_element(locator, choice)
+            _text = ele.get_attribute('value')
+            logging.info("获取文本：{}".format(_text))
+            return _text
 
     def mouse_click(self,locator):
         """鼠标点击"""
