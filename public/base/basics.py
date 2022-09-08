@@ -108,7 +108,7 @@ class Base(object):
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', kwargs['choice'])
+            Npath[1] = Npath[1].replace('variable', str(kwargs['choice']))
             logging.info(Npath)
             sleep(2)
             self.find_element(Npath).click()
@@ -135,7 +135,7 @@ class Base(object):
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', kwargs['choice'])
+            Npath[1] = Npath[1].replace('variable', str(kwargs['choice']))
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
@@ -159,7 +159,7 @@ class Base(object):
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', kwargs['choice'])
+            Npath[1] = Npath[1].replace('variable', str(kwargs['choice']))
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_all_elements_located(args)), Npath)
