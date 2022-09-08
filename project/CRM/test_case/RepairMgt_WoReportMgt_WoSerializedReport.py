@@ -14,6 +14,7 @@ import pymysql
 """
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
+    sleep(1)
     logging.info("前置条件:进入序列化工单报表页")
     user = NavPage(drivers)
     user.refresh()
@@ -81,6 +82,7 @@ class TestWoReportExport:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke  # 用例标记
     def test_002_002(self, drivers):
+
         num = WOSerializedReport(drivers)
         num.download_report(scope='part')
         num = NavPage(drivers)

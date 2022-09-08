@@ -14,6 +14,7 @@ from project.CRM.page_object.RepairMgt_WOSerializedMgt_WOSerializedList import *
 
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
+    sleep(1)
     num = NavPage(drivers)
     num.refresh()
     sleep(1)
