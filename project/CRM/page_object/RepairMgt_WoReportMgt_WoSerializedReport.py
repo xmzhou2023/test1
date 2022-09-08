@@ -66,7 +66,6 @@ class WOSerializedReport(Base):
         num = ''.join(filter(str.isdigit, search_num))
         num = int(num)
         logging.info('序列化工单报表查询页查到的数量:{}'.format(num))
-
         return record_value, num
 
 

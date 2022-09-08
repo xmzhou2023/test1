@@ -24,7 +24,7 @@ class NavPage(Base):
     def refresh_page(self):
         self.is_click(user["Dashboard"])
         self.refresh()
-        self.wait.until(EC.presence_of_element_located(user["Dashboard"]),message="页面刷新失败")
+        self.wait.until(EC.presence_of_element_located(user["Dashboard"]), message="页面刷新失败")
 
 
         

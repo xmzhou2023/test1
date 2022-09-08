@@ -36,11 +36,6 @@ class WOSerializedListAdd(Base):
 
         self.is_click(user["序列化Search按钮"])
 
-    @allure.step("菜单刷新")
-    def refresh_page(self):
-        self.is_click(user['Dashboard'])
-        self.refresh()
-        self.wait.until(EC.presence_of_element_located(user['Dashboard']), message="页面刷新失败")
 
     @allure.step("新增物料库存")
     def add_material(self):
