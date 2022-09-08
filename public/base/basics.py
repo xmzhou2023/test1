@@ -193,13 +193,14 @@ class Base(object):
             self.find_element(locator).click()
             logging.info("滚动条至：{}".format(locator))
 
-    def is_click(self, locator, choice=None):
+    def is_click(self, locator, *choice):
         """点击元素"""
-        if choice is not None:
+        if choice or choice is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             sleep(2)
             self.find_element(Npath).click()
             logging.info("选择点击：{}".format(Npath))
