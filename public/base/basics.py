@@ -92,14 +92,50 @@ class Base(object):
 
         return res
 
-    def find_element(self, locator, *choice):
-        """寻找单个元素"""
-        if choice or choice is not None:
+    def is_click(self, locator, *args, **kwargs):
+        """点击元素"""
+        if args and args is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            for i in range(len(choice)):
-                Npath[1] = Npath[1].replace('variable', choice[i], 1)
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable', args[i], 1)
+            sleep(2)
+            self.find_element(Npath).click()
+            logging.info("选择点击：{}".format(Npath))
+
+        elif kwargs and kwargs is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', kwargs['choice'])
+            logging.info(Npath)
+            sleep(2)
+            self.find_element(Npath).click()
+            logging.info("选择点击：{}".format(Npath))
+
+        else:
+            self.find_element(locator).click()
+            logging.info("点击元素：{}".format(locator))
+            sleep(0.5)
+
+    def find_element(self, locator, *args, **kwargs):
+        """寻找单个元素"""
+        if args and args is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable', args[i], 1)
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.presence_of_element_located(args)), Npath)
+
+        elif kwargs and kwargs is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', kwargs['choice'])
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
@@ -108,14 +144,22 @@ class Base(object):
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), locator)
 
-    def find_elements(self, locator, *choice):
+    def find_elements(self, locator, *args, **kwargs):
         """寻找多个相同的元素"""
-        if choice or choice is not None:
+        if args and args is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            for i in range(len(choice)):
-                Npath[1] = Npath[1].replace('variable', choice[i], 1)
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable', args[i], 1)
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.presence_of_all_elements_located(args)), Npath)
+        elif kwargs and kwargs is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', kwargs['choice'])
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_all_elements_located(args)), Npath)
@@ -193,21 +237,6 @@ class Base(object):
             self.find_element(locator).click()
             logging.info("滚动条至：{}".format(locator))
 
-    def is_click(self, locator, *choice):
-        """点击元素"""
-        if choice or choice is not None:
-            Npath = []
-            Npath.append(locator[0])
-            Npath.append(locator[1])
-            for i in range(len(choice)):
-                Npath[1] = Npath[1].replace('variable', choice[i], 1)
-            sleep(2)
-            self.find_element(Npath).click()
-            logging.info("选择点击：{}".format(Npath))
-        else:
-            self.find_element(locator).click()
-            logging.info("点击元素：{}".format(locator))
-            sleep(0.5)
 
     def force_click(self, xpath, force=False, xpath_js=None):
         """点击元素(用js)"""
