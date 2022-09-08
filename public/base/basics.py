@@ -94,13 +94,14 @@ class Base(object):
 
         return res
 
-    def find_element(self, locator, choice=None):
+    def find_element(self, locator, *choice):
         """寻找单个元素"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
@@ -109,13 +110,14 @@ class Base(object):
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), locator)
 
-    def find_elements(self, locator, choice=None):
+    def find_elements(self, locator, *choice):
         """寻找多个相同的元素"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', str(choice))
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_all_elements_located(args)), Npath)
@@ -170,11 +172,12 @@ class Base(object):
 
     def scroll_into_view(self, locator, choice=None):
         """滑动至出现元素"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             ele = self.find_element(Npath)
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
             logging.info("滚动条至：{}".format(Npath))
@@ -183,13 +186,14 @@ class Base(object):
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
             logging.info("滚动条至：{}".format(locator))
 
-    def scroll_into_view_CRM(self, locator, choice=None):
+    def scroll_into_view_CRM(self, locator, *choice):
         """滑动至出现元素"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             ele = self.find_element(Npath).click()
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
             logging.info("滚动条至：{}".format(Npath))
@@ -199,13 +203,14 @@ class Base(object):
             self.find_element(locator).click()
             logging.info("滚动条至：{}".format(locator))
 
-    def is_click(self, locator, choice=None):
+    def is_click(self, locator, *choice):
         """点击元素"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             sleep(2)
             self.find_element(Npath).click()
             logging.info("选择点击：{}".format(Npath))
@@ -626,6 +631,39 @@ class Base(object):
         # 键盘删除键
         element = self.find_element(locator)
         element.send_keys(Keys.BACK_SPACE)
+
+    def data_driven_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0,
+                   end_row=None):
+        """
+        按行/列读取EXCEL数据
+        file_path:文件路径（XLS格式文件）
+        sheet_name：需要读取数据的sheet
+        mode：取值方式（row:按行  column：按列）
+        rows:按行读取数据时，起始行
+        cols:按列读取数据时，起始列
+        start_row、end_row：按列读取数据时，数据读取起止行
+        start_col、end_col：按行读取数据时，数据读取起止列
+        return:
+            values：读取的值，根据mode传参，按行/列返回，返回数据格式为列表中嵌套元组
+        """
+        data_excel = xlrd.open_workbook(file_path)
+        table = data_excel.sheet_by_name(sheet_name)
+        values = []
+        if mode == "row":
+            for i in range(table.nrows):
+                if i < rows:
+                    pass
+                else:
+                    values.append(tuple(table.row_values(i, start_col, end_col)))
+        elif mode == "column":
+            for i in range(table.ncols):
+                if i < cols:
+                    pass
+                else:
+                    values.append(tuple(table.col_values(i, start_row, end_row)))
+        else:
+            logging.info("excel取值方式错误")
+        return values
 
 
 if __name__ == "__main__":
