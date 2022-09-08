@@ -632,7 +632,7 @@ class Base(object):
         element = self.find_element(locator)
         element.send_keys(Keys.BACK_SPACE)
 
-    def read_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0,
+    def data_driven_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0,
                    end_row=None):
         """
         按行/列读取EXCEL数据
