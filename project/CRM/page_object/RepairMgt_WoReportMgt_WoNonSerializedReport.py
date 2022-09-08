@@ -40,7 +40,7 @@ class WONonSerializedReport(Base):
 
     @allure.step("菜单刷新")
     def refresh_page(self):
-        self.find_element(user['页签切换'], 'Dashboard').click()
+        self.is_click(user['Dashboard'])
         self.refresh()
         self.wait.until(EC.presence_of_element_located(user['Dashboard']), message="页面刷新失败")
 
