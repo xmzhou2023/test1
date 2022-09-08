@@ -78,6 +78,8 @@ class TestCheckDetails:
         assertValue = monSupResources.get_listText("itel")
         monSupResources.check_details()
         assertValue1 = monSupResources.retrun_listNum()
+        url = DomAssert(drivers)
+        url.assert_url("/dataManage/monSupResources/view?fyear={}&fmonth={}&brandCode={}".format("2022",2,"itel"))
         assert assertValue == assertValue1 ,logging.warning("断言失败")
         logging.info("断言成功，提报机型数量相等 {}，{}".format(assertValue,assertValue1))
         monSupResources.close_tab()
