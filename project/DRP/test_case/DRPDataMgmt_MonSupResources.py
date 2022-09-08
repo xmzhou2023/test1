@@ -62,7 +62,6 @@ class TestSearchReset:
         assert assertValue == assertSQL ,logging.warning("断言失败")
         logging.info("断言成功，提报机型数量相等 {}，{}".format(assertValue,assertSQL))
 
-
 @allure.feature("DRP数据管理-月度供应资源")
 class TestCheckDetails:
     @allure.story("查看按钮功能")
