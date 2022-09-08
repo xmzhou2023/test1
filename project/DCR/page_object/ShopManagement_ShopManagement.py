@@ -52,7 +52,7 @@ class ShopManagementPage(Base):
         self.input_text(user['Sales Region'], txt=content)
         sleep(1)
         self.is_click(user['Sales Region value'], "Barisal itel")
-        sleep(1)
+        #sleep(1)
 
     @allure.step("新建门店时，选择门店等级")
     def click_shop_grade(self):
@@ -138,7 +138,7 @@ class ShopManagementPage(Base):
     @allure.step("点击More Option更多操作按钮")
     def click_more_option(self):
         self.is_click(user['More Option'])
-        sleep(3.5)
+        sleep(1.7)
 
     @allure.step("点击delete 删除按钮")
     def click_delete(self):
@@ -206,7 +206,7 @@ class ShopManagementPage(Base):
     @allure.step("点击Reset重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(5)
+        sleep(4)
 
     # def query_sql_shopid(self):
     #     """查询最近新建的门店ID"""
