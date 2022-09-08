@@ -451,19 +451,33 @@ class Base(object):
         return Base.element_locator(lambda *args: self.wait.until(
             EC.visibility_of_any_elements_located(args)), locator)
 
-
-    def presence_sleep_dcr(self, locator, choice=None):
+    def presence_sleep_dcr(self, locator, *args, **kwargs):
         """通用的加载数据等待方法(DCR专用)"""
         txt = None
-        for i in range(20):
-            if txt is None:
-                txt = self.find_element(locator, choice)
-                sleep(1)
-                i += 1
-                logging.info("循环查找元素次数:{}".format(i))
-            else:
-                break
-
+        if args and args is not None:
+            for i in range(10):
+                if txt is None:
+                    txt = self.find_element(locator, args)
+                    sleep(1)
+                    i += 1
+                    logging.info("循环查找元素次数:{}".format(i))
+                else:
+                    break
+        elif kwargs and kwargs is not None:
+            for i in range(10):
+                if txt is None:
+                    txt = self.find_element(locator, kwargs['choice'])
+                    sleep(1)
+                    i += 1
+        else:
+            for i in range(10):
+                if txt is None:
+                    txt = self.find_element(locator)
+                    sleep(1)
+                    i += 1
+                    logging.info("循环查找元素次数:{}".format(i))
+                else:
+                    break
 
 
 
