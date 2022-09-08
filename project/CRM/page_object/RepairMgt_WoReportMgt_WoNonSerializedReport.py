@@ -38,6 +38,12 @@ class WONonSerializedReport(Base):
             self.is_click(user["Country下拉选择"])
             self.is_click(user['WO NonSerialized Report Search'])
 
+    @allure.step("菜单刷新")
+    def refresh_page(self):
+        self.find_element(user['页签切换'], 'Dashboard').click()
+        self.refresh()
+        self.wait.until(EC.presence_of_element_located(user['Dashboard']), message="页面刷新失败")
+
     @allure.step("查询非序列化工单报表数量")
     def search_stock(self, stock):
         sql = SQL('CRM', 'test')

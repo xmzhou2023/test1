@@ -93,7 +93,11 @@ class WOSerializedAssignToTech(Base):
             self.is_click(user["Re-Assigned弹框页Cancel按钮"])
             self.is_click(user["Re-Assigned弹框页的二次确认框Confirm按钮"])
 
-
+    @allure.step("菜单刷新")
+    def refresh_page(self):
+        self.find_element(user['页签切换'], 'Dashboard').click()
+        self.refresh()
+        self.wait.until(EC.presence_of_element_located(user['Dashboard']), message="页面刷新失败")
 
 
     @allure.step("获取序列化工单号")

@@ -21,7 +21,6 @@ class WOSerializedListAdd(Base):
     def add_woserlist(self, Warehouse=None, imei=None):
         self.refresh()
         self.is_click(user['序列化工单查询页Add按钮'])
-
         self.is_click(user['序列化工单新增页Warehouse Name搜索框'])
         self.input_text(user['序列化工单新增页Warehouse Name搜索框'], txt=Warehouse)
 
@@ -37,6 +36,11 @@ class WOSerializedListAdd(Base):
 
         self.is_click(user["序列化Search按钮"])
 
+    @allure.step("菜单刷新")
+    def refresh_page(self):
+        self.find_element(user['页签切换'], 'Dashboard').click()
+        self.refresh()
+        self.wait.until(EC.presence_of_element_located(user['Dashboard']), message="页面刷新失败")
 
     @allure.step("新增物料库存")
     def add_material(self):
