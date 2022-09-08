@@ -136,41 +136,41 @@ class Base(object):
         ActionChains(self).send_keys(Keys.ENTER)
 
 
-    def input_text(self, locator, txt, choice=None):
-        print(locator)
+    def input_text(self, locator, txt, *choice):
         """输入文本"""
-        if choice is None:
-            sleep(0.5)
-            ele = self.find_element(locator)
-            ele.clear()
-            ele.send_keys(txt)
-            logging.info("输入文本：{}".format(txt))
-        else:
+        if choice:
             """输入(输入前先清空)"""
             sleep(0.5)
             ele = self.find_element(locator, choice)
             ele.clear()
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
-
-    def readonly_input_text(self, locator, txt, choice=None):
-        """去除只读属性后输入"""
-        if choice is None:
+        else:
             sleep(0.5)
             ele = self.find_element(locator)
-            self.driver.execute_script("arguments[0].removeAttribute('readonly')", ele)
             ele.clear()
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
-        else:
+
+
+    def readonly_input_text(self, locator, txt, *choice):
+        """去除只读属性后输入"""
+        if choice:
             sleep(0.5)
             ele = self.find_element(locator, choice)
             self.driver.execute_script("arguments[0].removeAttribute('readonly')", ele)
             ele.clear()
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
+        else:
+            sleep(0.5)
+            ele = self.find_element(locator)
+            self.driver.execute_script("arguments[0].removeAttribute('readonly')", ele)
+            ele.clear()
+            ele.send_keys(txt)
+            logging.info("输入文本：{}".format(txt))
 
-    def scroll_into_view(self, locator, choice=None):
+    def scroll_into_view(self, locator, *choice):
         """滑动至出现元素"""
         if choice:
             Npath = []
@@ -256,7 +256,8 @@ class Base(object):
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             if pane is not None:
                 original = "@id='pane-1'"
                 pane_str = original.replace('1', str(pane))
@@ -288,13 +289,14 @@ class Base(object):
         else:
             logging.info("清除权限: 未勾选任何权限")
 
-    def tree_init(self, locator, choice=None):
+    def tree_init(self, locator, *choice):
         """编辑用户权限-初孡化勾选框(DRP专用)"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             self.find_element(Npath).click()
             self.find_element(Npath).click()
             logging.info("清除树勾选框状态：{}".format(Npath))
@@ -325,15 +327,15 @@ class Base(object):
         ActionChains(content).move_by_offset(700, 700).click().perform()
         sleep(10)
 
-    def element_text(self, locator, choice=None):
+    def element_text(self, locator, *choice):
         """获取元素的文本"""
-        if choice is None:
-            _text = self.find_element(locator).text.replace("\n", "|")
+        if choice:
+            ele = self.find_element(locator, choice)
+            _text = ele.text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
         else:
-            ele = self.find_element(locator, choice)
-            _text = ele.text.replace("\n", "|")
+            _text = self.find_element(locator).text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
 
@@ -359,19 +361,19 @@ class Base(object):
         self.driver.close()  # 关闭新页签
         self.driver.switch_to.window(self.driver.window_handles[0])  # 然后切换回原始页签
 
-    def hover(self,locator, choice=None):
+    def hover(self,locator, *choice):
         """鼠标悬停"""
-        if choice is None:
-            element = self.find_element(locator)
-            # 创建Action对象
-            actions = ActionChains(self.driver)
-            actions.move_to_element(element)
-        else:
+        if choice:
             element = self.find_element(locator, choice)
             # 创建Action对象
             actions = ActionChains(self.driver)
             actions.move_to_element(element).perform()
             sleep(1)
+        else:
+            element = self.find_element(locator)
+            # 创建Action对象
+            actions = ActionChains(self.driver)
+            actions.move_to_element(element)
 
     def clear_download(self, path):
         """清空下载路径"""
@@ -412,15 +414,16 @@ class Base(object):
         ele[0].send_keys(txt)
         logging.info("输入文本：{}".format(txt))
 
-    def is_click_dcr(self, locator, choice=None):
+    def is_click_dcr(self, locator, *choice):
         """点击元素(DCR专用)"""
-        if choice is not None:
+        if choice:
             logging.info(locator)
             logging.info(choice)
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             self.find_elements_dcr(Npath)[0].click()
             logging.info("下拉选择：{}".format(Npath))
         else:
@@ -432,22 +435,18 @@ class Base(object):
         return Base.element_locator(lambda *args: self.wait.until(
             EC.visibility_of_any_elements_located(args)), locator)
 
-
-    def presence_sleep_dcr(self, locator, choice=None):
+    def presence_sleep_dcr(self, locator, *choice):
         """通用的加载数据等待方法(DCR专用)"""
         txt = None
-        for i in range(20):
-            if txt is None:
-                txt = self.find_element(locator, choice)
-                sleep(1)
-                i += 1
-                logging.info("循环查找元素次数:{}".format(i))
-            else:
-                break
-
-
-
-
+        if choice:
+            for i in range(20):
+                if txt is None:
+                    txt = self.find_element(locator, choice)
+                    sleep(1)
+                    i += 1
+                    logging.info("循环查找元素次数:{}".format(i))
+                else:
+                    break
 
     def get_datetime_today(self):
         """获取当天日期(DCR专用)"""
@@ -514,45 +513,56 @@ class Base(object):
         finally:
             self.delete_excel(path, path_list[-1])
 
-    def element_exist(self, locator, choice=None):
+    def element_exist(self, locator, *choice):
         """校验元素是否存在"""
-        try:
-            self.find_element(locator, choice=choice)
-        except:
-            logging.error('{}元素不存在'.format(locator))
-            return False
-        else:
-            logging.info('存在元素：{}'.format(locator))
-            return True
+        if choice:
+            try:
+                self.find_element(locator, choice)
+            except:
+                logging.error('{}元素不存在'.format(locator))
+                return False
+            else:
+                logging.info('存在元素：{}'.format(locator))
+                return True
 
-    def upload_file(self, locator, file, choice=None):
+    def upload_file(self, locator, file, *choice):
         """上传"""
-        sleep(0.5)
-        ele = self.find_element(locator, choice)
-        ele.send_keys(file)
-        logging.info("上传文件：{}".format(file))
+        if choice:
+            sleep(0.5)
+            ele = self.find_element(locator, choice)
+            ele.send_keys(file)
+            logging.info("上传文件：{}".format(file))
 
-    def get_element_attribute(self, locator, attribute, choice=None):
+    def get_element_attribute(self, locator, attribute, *choice):
         """获取元素属性值"""
-        sleep(0.5)
-        ele = self.find_element(locator, choice)
-        attribute_value = ele.get_attribute('{}'.format(attribute))
-        logging.info("获取元素属性：{}，属性值为：{}".format(attribute, attribute_value))
-        return attribute_value
+        if choice:
+            sleep(0.5)
+            ele = self.find_element(locator, choice)
+            attribute_value = ele.get_attribute('{}'.format(attribute))
+            logging.info("获取元素属性：{}，属性值为：{}".format(attribute, attribute_value))
+            return attribute_value
+        else:
+            sleep(0.5)
+            ele = self.find_element(locator)
+            attribute_value = ele.get_attribute('{}'.format(attribute))
+            logging.info("获取元素属性：{}，属性值为：{}".format(attribute, attribute_value))
+            return attribute_value
 
-    def change_attribute_value(self, locator, choice=None, type='style', content='display: none;'):
+    def change_attribute_value(self, locator, *choice, type='style', content='display: none;'):
         """获取元素属性值"""
-        ele = self.find_element(locator, choice)
-        self.driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", ele, type, content)
-        logging.info("使用JS脚本修改属性")
+        if choice:
+            ele = self.find_element(locator, choice)
+            self.driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", ele, type, content)
+            logging.info("使用JS脚本修改属性")
 
-    def find_elements_tbm(self, locator, choice=None):
+    def find_elements_tbm(self, locator, *choice):
         """查找多个相同的元素（TBM专用）"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             logging.info("正在查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.visibility_of_all_elements_located(args)), Npath)
@@ -560,29 +570,31 @@ class Base(object):
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.visibility_of_all_elements_located(args)), locator)
 
-    def is_click_tbm(self, locator, choice=None):
+    def is_click_tbm(self, locator, *choice):
         """点击（TBM专用）"""
-        try:
-            ele = self.find_element(locator, choice)
+        if choice:
             try:
-                ele.click()
-                sleep(0.5)
+                ele = self.find_element(locator, choice)
+                try:
+                    ele.click()
+                    sleep(0.5)
+                except:
+                    self.driver.execute_script("arguments[0].click();", ele)
+                    sleep(0.5)
             except:
-                self.driver.execute_script("arguments[0].click();", ele)
-                sleep(0.5)
-        except:
-            ele = self.find_element(locator, choice)
-            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            try:
-                ele.click()
-                sleep(0.5)
-            except:
-                self.driver.execute_script("arguments[0].click();", ele)
-                sleep(0.5)
-        logging.info("点击元素：{}{}".format(locator, choice))
+                ele = self.find_element(locator, choice)
+                self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+                try:
+                    ele.click()
+                    sleep(0.5)
+                except:
+                    self.driver.execute_script("arguments[0].click();", ele)
+                    sleep(0.5)
+            logging.info("点击元素：{}{}".format(locator, choice))
 
-    def element_input_text(self, locator, choice=None):
+    def element_input_text(self, locator, *choice):
         """获取输入框当前的text"""
+        if choice:
         ele = self.find_element(locator, choice)
         _text = ele.get_attribute('value')
         logging.info("获取文本：{}".format(_text))

@@ -62,7 +62,7 @@ class WOSerializedReport(Base):
         print(dict_record)
         record_value = dict_record['count(*)']
         logging.info('数据库查询到的序列化工单报表数据为:{}'.format(record_value))
-        search_num = self.get_element_attribute(user['报表总数'], 'textContent')
+        search_num = self.get_element_attribute(user['报表总数'], 'textContent',choice='Total')
         num = ''.join(filter(str.isdigit, search_num))
         num = int(num)
         logging.info('序列化工单报表查询页查到的数量:{}'.format(num))
