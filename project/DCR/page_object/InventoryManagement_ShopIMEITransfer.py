@@ -21,7 +21,8 @@ class ShopIMEITransferPage(Base):
         Base.presence_sleep_dcr(self, user['Transfer To Shop Name'])
         self.is_click(user['Transfer To Shop Name'])
         self.input_text(user['Transfer To Shop Name'], info1)
-        sleep(4)
+        sleep(3)
+        Base.presence_sleep_dcr(self, user['Transfer To Shop Name value'], info1)
         self.is_click(user['Transfer To Shop Name value'], info1)
 
     @allure.step("输入ScanIMEI")
@@ -90,6 +91,7 @@ class ShopIMEITransferPage(Base):
         self.is_click_dcr(user['筛选门店'])
         self.input_text_dcr(user['筛选门店'], txt=to_shop)
         sleep(2)
+        Base.presence_sleep_dcr(self, user['选中筛选门店'], to_shop)
         self.is_click(user['选中筛选门店'], to_shop)
 
     @allure.step("Shop IMEI Transfer列表，输入状态进行筛选")
@@ -97,6 +99,7 @@ class ShopIMEITransferPage(Base):
         self.is_click(user['筛选状态'])
         self.input_text(user['筛选状态'], txt=status)
         sleep(1.5)
+        Base.presence_sleep_dcr(self, user['选中筛选状态'], status)
         self.is_click(user['选中筛选状态'], status)
 
     @allure.step("筛选出To Shop与pending状态的记录")
