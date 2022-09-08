@@ -14,10 +14,8 @@ from project.CRM.page_object.RepairMgt_WOSerializedMgt_AssignWOToTechnician impo
 
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
-    sleep(1)
     logging.info("前置条件:进入序列化工单列表页")
     user = NavPage(drivers)
-    user.refresh()
     sleep(1)
     user.click_gotonav("Repair Mgt", "WO Serialized Mgt", 'WO Serialized List')
     user = DomAssert(drivers)
