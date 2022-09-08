@@ -96,7 +96,6 @@ class Base(object):
 
     def find_element(self, locator, *choice):
         """寻找单个元素"""
-        logging.info(choice)
         if choice:
             Npath = []
             Npath.append(locator[0])
@@ -173,11 +172,12 @@ class Base(object):
 
     def scroll_into_view(self, locator, choice=None):
         """滑动至出现元素"""
-        if choice is not None:
+        if choice:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(choice)):
+                Npath[1] = Npath[1].replace('variable', choice[i], 1)
             ele = self.find_element(Npath)
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
             logging.info("滚动条至：{}".format(Npath))
