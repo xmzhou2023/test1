@@ -1,11 +1,13 @@
 from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
 from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
+from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.connect_sql import *
 from libs.common.logger_ui import log
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
+from public.base.basics import Base
 import pytest
 import allure
 
@@ -207,6 +209,75 @@ class TestScanIMEIInboundReceipt:
         ValueAssert.value_assert_equal(get_list_salesorder, order_code)
         ValueAssert.value_assert_equal(get_list_delivery, delivery_code)
         ValueAssert.value_assert_equal('Goods Receipt', get_list_status)
+        """ 关闭收货页面"""
+        scan_receipt.click_close_inbound_receipt()
+
+
+        """二代用户收货后，退货操作"""
+        Base(drivers).refresh()
+        """打开Purchase Management菜单"""
+        user.click_gotomenu("Sales Management", "Return Order")
+        """实例化 二代退货单类"""
+        return_order = ReturnOrderPage(drivers)
+
+        """退货单列表页面，二代或者零售商用户退货操作"""
+        """从数据库表，查询国包账号，最近新建的销售单ID与出库单ID"""
+        sql3 = SQL('DCR', 'test')
+        varsql3 = "select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200001 order by created_time desc limit 1"
+        result = sql3.query_db(varsql3)
+        delivery_code = result[0].get("delivery_code")
+
+        return_order.click_Add()
+        return_order.click_Return_Type()
+        return_order.radio_Delivery_order()
+        return_order.input_Delivery_order(delivery_code)
+        return_order.click_Check()
+        record = return_order.get_text_Record()
+        ValueAssert.value_assert_equal("Success", record)
+
+        return_order.click_Submit()
+        dom = DomAssert(drivers)
+        dom.assert_att("Submit Success!")
+
+        """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
+        return_order.input_Delivery_Orderid(delivery_code)
+        return_order.click_Search()
+
+        """筛选退货列表页，获取退货出库单ID文本 与数据库表中查询的出库单ID对比是否一致"""
+        Delivery_OrderID = return_order.get_text_deliveryID()
+        status = return_order.get_return_status()
+        ValueAssert.value_assert_equal(Delivery_OrderID, delivery_code)
+        ValueAssert.value_assert_equal("Pending Approval", status)
+        """关闭退货单页面"""
+        return_order.click_close_return_order()
+
+
+        """国包账号, 进行退货审核操作"""
+        user.initialize_login(drivers, "BD40344201", "dcr123456")
+        """打开Purchase Management菜单"""
+        user.click_gotomenu("Sales Management", "Return Order")
+        """实例化 Return order退货单类"""
+        return_approve = ReturnOrderPage(drivers)
+
+        """从数据库表，查询国包账号，最近新建的销售单ID与出库单ID"""
+        sql4 = SQL('DCR', 'test')
+        varsql4 = "select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200001 order by created_time desc limit 1"
+        result = sql4.query_db(varsql4)
+        delivery_code = result[0].get("delivery_code")
+
+        return_approve.input_Delivery_Orderid(delivery_code)
+        return_approve.click_Search()
+
+        return_approve.click_checkbox()
+        return_approve.click_Approve_button()
+        return_approve.input_remark("同意退货")
+        return_approve.click_agree()
+        """ 断言页面是否存在审核成功Approval successfully文本 """
+        dom = DomAssert(drivers)
+        dom.assert_att("Approval successfully")
+        """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
+        status = return_approve.get_text_Status()
+        ValueAssert.value_assert_equal("Approved", status)
 
 
 if __name__ == '__main__':

@@ -15,11 +15,10 @@ import allure
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
-    for i in range(1):
-        get_menu_class = menu.get_open_menu_class()
-        class_value = "tags-view-item router-link-exact-active router-link-active active"
-        if class_value == str(get_menu_class):
-            menu.click_close_open_menu()
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("销售管理-二代出库单")
 class TestQuerySubDelivery:
@@ -181,8 +180,7 @@ class TestAddSubDeliveryReceipt:
 
 
         """零售商EG00056201账号, 进行退货操作"""
-        user1.initialize_login(drivers, "EG00056201", "dcr123456")
-
+        Base(drivers).refresh()
         """打开Purchase Management菜单"""
         user1.click_gotomenu("Sales Management", "Return Order")
 
@@ -217,7 +215,6 @@ class TestAddSubDeliveryReceipt:
         ValueAssert.value_assert_equal("Pending Approval", status)
         """关闭退货页面"""
         return_order.click_close_return_order()
-
 
 
         """退货单列表页面，二代账号, 进行审核退货单操作"""
