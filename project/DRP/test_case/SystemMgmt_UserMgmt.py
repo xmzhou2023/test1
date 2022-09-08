@@ -17,7 +17,7 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")
         user = UserPage(drivers)
-        user.search_user(name=account[0]['username'])
+        user.search_user(name=account[4]['username'])
 
     @allure.story("查询用户")
     @allure.title("重置用户查询条件")
@@ -28,7 +28,7 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
         user = NavPage(drivers)
         user.click_gotonav("系统管理", "用户管理")
         user = UserPage(drivers)
-        user.search_user(jobnum=account[0]['usernum'])
+        user.search_user(jobnum=account[4]['usernum'])
         user.reset_account()
 
 @allure.feature("系统管理-用户管理")
@@ -41,7 +41,7 @@ class TestAppendUser:
     def test_002_001(self, drivers):
         """用户管理-新建用户"""
         user = UserPage(drivers)
-        user.append_account("18650893")
+        user.append_account("18649572")
 
 @allure.feature("系统管理-用户管理")
 class TestEditUser:
