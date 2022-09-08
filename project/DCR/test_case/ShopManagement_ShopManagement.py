@@ -46,7 +46,6 @@ class TestAddShop:
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Shop Management", "Shop Management(Global)")
 
@@ -80,9 +79,8 @@ class TestAddShop:
         shop_id1 = shop_id[1:]
         logging.info("从数据库查询Shop ID：{}".format(shop_id1))
 
-
         """筛选新建的门店ID与门店名称文本内容"""
-        add_shop.input_query_shop_name(shop_id1, shop_id1)
+        add_shop.input_query_shop_name(shop_id1)
         add_shop.click_query_search()
 
         shopid = add_shop.get_shop_id_text()
@@ -121,7 +119,7 @@ class TestExpandBrandShop:
         logging.info("从数据库查询Shop ID：{}".format(shop_code1))
 
         """筛选新建的门店ID与门店名称文本内容"""
-        expand_brand.input_query_shop_name(shop_code1, shop_code1)
+        expand_brand.input_query_shop_name(shop_code1)
         expand_brand.click_query_search()
 
         expand_brand.click_first_checkbox()
@@ -201,103 +199,13 @@ class TestDisableShop:
 
 
 @allure.feature("门店管理-门店管理(global)")
-class TestQueryGlobalShop:
-    @allure.story("查询全球门店")
-    @allure.title("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
-    @allure.description("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Shop Management", "Shop Management(Global)")
-
-        """实例化ShopManagementPage类，调用页面元素方法"""
-        query = ShopManagementPage(drivers)
-        today = Base(drivers).get_datetime_today()
-        logging.info("打印当前日期：{}".format(today))
-
-        query.click_unfold()
-        """门店列表，按日期筛选门店记录"""
-        query.input_create_date("2022-08-01", today)
-        query.click_status_attribute()
-        """点击查询按钮"""
-        query.click_query_search()
-        query.click_fold()
-
-        """断言筛选后列表是否存在门店记录，分页总数是否有记录"""
-        get_list_shop_id = query.get_list_shop_id_text()
-        get_list_shop_name = query.get_list_shop_name_text()
-        get_list_brand = query.get_list_brand_text()
-        get_public_id = query.get_list_public_id_text()
-
-        ValueAssert.value_assert_IsNoneNot(get_list_shop_id)
-        ValueAssert.value_assert_IsNoneNot(get_list_shop_name)
-        ValueAssert.value_assert_IsNoneNot(get_list_brand)
-        ValueAssert.value_assert_IsNoneNot(get_public_id)
-        total = query.get_total_text()
-        query.assert_total(total)
-        #query.click_close_shop_management()
-
-
-    @allure.story("查询全球门店")
-    @allure.title("门店管理页面，查看View门店详情信息是否正确")
-    @allure.description("门店管理页面，查看View门店详情信息是否正确")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_view_fixture')
-    def test_004_002(self, drivers):
-        user4 = LoginPage(drivers)
-        user4.initialize_login(drivers, "lhmadmin", "dcr123456")
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user4.click_gotomenu("Shop Management", "Shop Management(Global)")
-        """实例化ShopManagementPage类，调用页面元素方法"""
-        view = ShopManagementPage(drivers)
-        # """从数据库查询最近新建的门店ID"""
-        # user = SQL('DCR', 'test')
-        # shop_data = user.query_db(
-        #     "select public_code, shop_name from t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
-        # shop_id = shop_data[0].get("public_code")
-        # shop_name = shop_data[0].get("shop_name")
-        # logging.info("从数据库表查询最近新建的Shop ID{}".format(shop_id))
-        # logging.info("从数据库表查询最近新建的Shop ID{}".format(shop_name))
-
-        """筛选新建的门店ID记录"""
-        view.input_query_shop_name("BD026498", "BD026498")
-        view.click_status_filter("Disabled")
-        view.click_status_attribute()
-        view.click_query_search()
-
-        list_shop_name = view.get_list_shop_name_text()
-        list_public_id = view.get_list_public_id_text()
-        list_contact_name = view.get_list_contact_name_text()
-        list_contact_no = view.get_list_contact_no_text()
-
-        """点击view打开门店详情页"""
-        view.click_view_shop()
-        view_shop_name = view.get_view_shop_name_text()
-        view_contact_name = view.get_view_contact_name_text()
-        view_contact_no = view.get_view_contact_no_text()
-        view_public_id = view.get_view_public_id_text()
-
-        """断言获取列表的门店基本信息与 查看view详情页面的信息是否一致"""
-        ValueAssert.value_assert_equal(list_shop_name, view_shop_name)
-        ValueAssert.value_assert_equal(list_contact_name, view_contact_name)
-        ValueAssert.value_assert_equal(list_contact_no, view_contact_no)
-        ValueAssert.value_assert_equal(list_public_id, view_public_id)
-        """点击关闭view页面"""
-        #view.click_close_shop_view()
-        #view.click_close_shop_management()
-
-
-@allure.feature("门店管理-门店管理(global)")
 class TestEditShop:
     @allure.story("编辑门店信息")
     @allure.title("门店管理页面，Edit编辑门店信息")
     @allure.description("门店管理页面，Edit编辑门店信息，提交后，返回列表显示编辑后的门店信息")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_005_001(self, drivers):
+    def test_004_001(self, drivers):
         user5 = LoginPage(drivers)
         user5.initialize_login(drivers, "lhmadmin", "dcr123456")
 
@@ -314,7 +222,7 @@ class TestEditShop:
         # logging.info("从数据库表查询最近新建的Shop ID{}".format(shop_id))
         # logging.info("从数据库表查询最近新建的Shop ID{}".format(shop_name))
         """筛选新建的门店ID记录"""
-        edit.input_query_shop_name("BD026498", "BD026498")
+        edit.input_query_shop_name("BD026498")
         edit.click_status_filter("Disabled")
         edit.click_status_attribute()
         edit.click_query_search()
@@ -341,7 +249,7 @@ class TestEnableShop:
     @allure.description("门店管理页面，对禁用的门店，进行启用操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_006_001(self, drivers):
+    def test_005_001(self, drivers):
         user6 = LoginPage(drivers)
         user6.initialize_login(drivers, "lhmadmin", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例  BD026498"""
@@ -350,7 +258,7 @@ class TestEnableShop:
         enable = ShopManagementPage(drivers)
 
         """筛选门店，然后启用门店操作"""
-        enable.input_query_shop_name("BD026498", "BD026498")
+        enable.input_query_shop_name("BD026498")
         enable.click_status_filter("Disabled")
         enable.click_status_attribute()
         enable.click_query_search()
@@ -384,7 +292,7 @@ class TestExportShop:
     @allure.description("门店管理页面，根据门店创建日期筛选门店后，进行导出操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_007_001(self, drivers):
+    def test_006_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例  BD026498"""
@@ -430,7 +338,96 @@ class TestExportShop:
         #export.click_close_shop_management()
 
 
-#暂时无删除功能，用例留着
+@allure.feature("门店管理-门店管理(global)")
+class TestQueryGlobalShop:
+    @allure.story("查询全球门店")
+    @allure.title("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
+    @allure.description("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_007_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Shop Management", "Shop Management(Global)")
+
+        """实例化ShopManagementPage类，调用页面元素方法"""
+        query = ShopManagementPage(drivers)
+        today = Base(drivers).get_datetime_today()
+        logging.info("打印当前日期：{}".format(today))
+
+        query.click_unfold()
+        """门店列表，按日期筛选门店记录"""
+        query.input_create_date("2022-08-01", today)
+        query.click_status_attribute()
+        """点击查询按钮"""
+        query.click_query_search()
+        query.click_fold()
+
+        """断言筛选后列表是否存在门店记录，分页总数是否有记录"""
+        get_list_shop_id = query.get_list_shop_id_text()
+        get_list_shop_name = query.get_list_shop_name_text()
+        get_list_brand = query.get_list_brand_text()
+        get_public_id = query.get_list_public_id_text()
+
+        ValueAssert.value_assert_IsNoneNot(get_list_shop_id)
+        ValueAssert.value_assert_IsNoneNot(get_list_shop_name)
+        ValueAssert.value_assert_IsNoneNot(get_list_brand)
+        ValueAssert.value_assert_IsNoneNot(get_public_id)
+        total = query.get_total_text()
+        query.assert_total(total)
+
+
+    @allure.story("查询全球门店")
+    @allure.title("门店管理页面，查看View门店详情信息是否正确")
+    @allure.description("门店管理页面，查看View门店详情信息是否正确")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_view_fixture')
+    def test_007_002(self, drivers):
+        user4 = LoginPage(drivers)
+        user4.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user4.click_gotomenu("Shop Management", "Shop Management(Global)")
+        """实例化ShopManagementPage类，调用页面元素方法"""
+        view = ShopManagementPage(drivers)
+        # """从数据库查询最近新建的门店ID"""
+        # user = SQL('DCR', 'test')
+        # shop_data = user.query_db(
+        #     "select public_code, shop_name from t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
+        # shop_id = shop_data[0].get("public_code")
+        # shop_name = shop_data[0].get("shop_name")
+        # logging.info("从数据库表查询最近新建的Shop ID{}".format(shop_id))
+        # logging.info("从数据库表查询最近新建的Shop ID{}".format(shop_name))
+
+        """筛选新建的门店ID记录"""
+        view.input_query_shop_name("BD026498")
+        view.click_status_filter("Disabled")
+        view.click_status_attribute()
+        view.click_query_search()
+
+        list_shop_name = view.get_list_shop_name_text()
+        list_public_id = view.get_list_public_id_text()
+        list_contact_name = view.get_list_contact_name_text()
+        list_contact_no = view.get_list_contact_no_text()
+
+        """点击view打开门店详情页"""
+        view.click_view_shop()
+        view_shop_name = view.get_view_shop_name_text()
+        view_contact_name = view.get_view_contact_name_text()
+        view_contact_no = view.get_view_contact_no_text()
+        view_public_id = view.get_view_public_id_text()
+
+        """断言获取列表的门店基本信息与 查看view详情页面的信息是否一致"""
+        ValueAssert.value_assert_equal(list_shop_name, view_shop_name)
+        ValueAssert.value_assert_equal(list_contact_name, view_contact_name)
+        ValueAssert.value_assert_equal(list_contact_no, view_contact_no)
+        ValueAssert.value_assert_equal(list_public_id, view_public_id)
+        """点击关闭view页面"""
+        #view.click_close_shop_view()
+        #view.click_close_shop_management()
+
+
+# #暂时无删除功能，用例留着
 # @allure.feature("门店管理-门店管理(global)")
 # class TestDeleteShop:
 #     @allure.story("删除门店")
@@ -459,6 +456,7 @@ class TestExportShop:
 #         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
 #         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
 #         sleep(1)
+
 
 if __name__ == '__main__':
     pytest.main(['ShopManagement_ShopManagement.py'])

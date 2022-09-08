@@ -105,20 +105,21 @@ class ShopManagementPage(Base):
         return num
 
     @allure.step("根据门店名称查询，最近新建的门店ID")
-    def input_query_shop_name(self, content, content1):
+    def input_query_shop_name(self, content):
         Base.presence_sleep_dcr(self, user['点击门店输入框'])
         self.is_click_dcr(user['点击门店输入框'])
         self.input_text(user['门店输入框输入'], txt=content)
-        sleep(4)
-        Base.presence_sleep_dcr(self, user['选中门店值1'], content1)
-        self.is_click(user['选中门店值1'], content1)
+        sleep(3)
+        Base.presence_sleep_dcr(self, user['选中门店值1'], content)
+        self.is_click(user['选中门店值1'], content)
 
     @allure.step("根据门店名称查询，最近扩展门店品牌的的门店ID")
-    def extend_query_shop_name(self, content, content1):
+    def extend_query_shop_name(self, content):
         self.is_click(user['点击门店输入框'])
         self.input_text_dcr(user['点击门店输入框'], txt=content)
-        sleep(2.5)
-        self.is_click(user['选中门店值2'], content1)
+        sleep(2)
+        Base.presence_sleep_dcr(self, user['选中门店值1'], content)
+        self.is_click(user['选中门店值1'], content)
 
     @allure.step("点击Search查询门店信息")
     def click_query_search(self):
