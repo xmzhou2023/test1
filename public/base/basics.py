@@ -464,7 +464,6 @@ class Base(object):
         if args and args is not None:
             for i in range(10):
                 if txt is None:
-                    logging.info(args[0])
                     txt = self.find_element(locator, args[0])
                     sleep(1)
                     i += 1
