@@ -633,13 +633,24 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
 
-    def mouse_right_click(self, locator, choice=None):
+    def mouse_right_click(self, locator, *args, **kwargs):
         """鼠标右击"""
-        if choice is not None:
+        if args and args is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable', args[i], 1)
+            sleep(0.5)
+            element = self.find_element(Npath)
+            actions = ActionChains(self.driver)
+            actions.context_click(element).perform()
+            logging.info("选择点击：{}".format(Npath))
+        elif kwargs and kwargs is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', str(kwargs['choice']))
             sleep(0.5)
             element = self.find_element(Npath)
             actions = ActionChains(self.driver)
