@@ -635,11 +635,22 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         补充工厂页面 根据material点击指定复选框，默认全选
         @param code:物料编码，传入物料编码；默认‘all’表示点击全选复选框
         """
-        DomAssert(self.driver).assert_control(user['生产工厂信息Title'], True)
         if code == 'all':
             self.is_click_tbm(user['补充工厂复选框全选'])
         else:
             self.is_click_tbm(user['补充工厂复选框单选'], code)
+        logging.info('点击复选框')
+
+    @allure.step("补充工厂页面 根据material点击指定复选框")
+    def click_oneworks_bomtree_checkbox(self, code='all'):
+        """
+        补充工厂页面 根据material点击指定复选框，默认全选
+        @param code:物料编码，传入物料编码；默认‘all’表示点击全选复选框
+        """
+        if code == 'all':
+            self.is_click_tbm(user['BomTree复选框全选'])
+        else:
+            self.is_click_tbm(user['BomTree复选框单选'], code)
         logging.info('点击复选框')
 
     @allure.step("BOM工程师审批页面 点击BomTree全选框")
@@ -677,7 +688,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         """
         page_info = self.get_oneworks_approval_bomtree_info()
         DomAssert(self.driver).assert_control(user['BomTreeTitle'])
-        self.click_oneworks_checkbox()
+        self.click_oneworks_bomtree_checkbox()
         self.click_oneworks_approval_export()
         excel_info = self.read_excel_flow()
         try:

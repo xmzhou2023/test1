@@ -550,10 +550,10 @@ class Base(object):
         finally:
             self.delete_excel(path, path_list[-1])
 
-    def element_exist(self, locator, choice=None):
+    def element_exist(self, locator, *choice):
         """校验元素是否存在"""
         try:
-            self.find_element(locator, choice=choice)
+            self.find_element(locator, *choice)
         except:
             logging.error('{}元素不存在'.format(locator))
             return False
@@ -568,10 +568,10 @@ class Base(object):
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 
-    def get_element_attribute(self, locator, attribute, choice=None):
+    def get_element_attribute(self, locator, attribute, *choice):
         """获取元素属性值"""
         sleep(0.5)
-        ele = self.find_element(locator, choice)
+        ele = self.find_element(locator, *choice)
         attribute_value = ele.get_attribute('{}'.format(attribute))
         logging.info("获取元素属性：{}，属性值为：{}".format(attribute, attribute_value))
         return attribute_value
@@ -596,10 +596,10 @@ class Base(object):
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.visibility_of_all_elements_located(args)), locator)
 
-    def is_click_tbm(self, locator, choice=None):
+    def is_click_tbm(self, locator, *choice):
         """点击（TBM专用）"""
         try:
-            ele = self.find_element(locator, choice)
+            ele = self.find_element(locator, *choice)
             try:
                 ele.click()
                 sleep(0.5)
@@ -607,7 +607,7 @@ class Base(object):
                 self.driver.execute_script("arguments[0].click();", ele)
                 sleep(0.5)
         except:
-            ele = self.find_element(locator, choice)
+            ele = self.find_element(locator, *choice)
             self.driver.execute_script("arguments[0].scrollIntoView()", ele)
             try:
                 ele.click()

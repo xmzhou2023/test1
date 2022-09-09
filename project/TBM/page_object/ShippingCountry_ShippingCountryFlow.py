@@ -1,4 +1,5 @@
 import datetime
+import logging
 from time import sleep
 from libs.common.read_element import Element
 from project.TBM.page_object.Center_Component import CenterComponent
@@ -67,20 +68,19 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         """
         definition_dict = {'全球版本': '4', '市场名称': '5', '项目名称': '6', 'MEMORY': '7', 'BANDSTRATEGY': '8',
                            '产品经理': '9', '项目经理': '10', 'aaa': '12', 'bbb': '13'}
-        select_list = ['全球版本', 'MEMORY', 'BANDSTRATEGY']
-        select1_list = ['aaa', 'bbb']
-        input_list = ['市场名称', '项目名称']
+        select_list = ['全球版本', 'MEMORY', 'BAND STRATEGY', 'aaa', 'bbb', '再增']
+
+        input_list = ['市场名称', '项目名称', '摄像头', '型号', '新增']
         member_list = ['产品经理', '项目经理']
+        header_class = self.get_element_attribute(user['产品定义信息字段'], 'class', header)
+        column = header_class.split(' ')[0]
         if header in select_list:
-            self.is_click_tbm(user['产品定义信息输入框'], definition_dict[header])
-            self.is_click_tbm(user['产品定义信息选择'], content)
-        elif header in select1_list:
-            self.is_click_tbm(user['产品定义信息输入框2'], definition_dict[header])
+            self.is_click_tbm(user['产品定义信息输入'], column)
             self.is_click_tbm(user['产品定义信息选择'], content)
         elif header in input_list:
-            self.input_text(user['产品定义信息输入框'], content, definition_dict[header])
+            self.input_text(user['产品定义信息输入'], content, column)
         elif header in member_list:
-            self.is_click_tbm(user['产品定义信息输入框2'], definition_dict[header])
+            self.is_click_tbm(user['产品定义信息输入'], column)
             self.input_text(user['产品定义信息成员列表输入框'], content)
             sleep(1)
             self.is_click_tbm(user['成员选择'], content)

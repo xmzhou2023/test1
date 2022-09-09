@@ -90,9 +90,9 @@ class ForeignBom(CenterComponent):
 
     @allure.step("断言：查询结果")
     def assert_search_result(self, header, content):
-        form_header = {'标题': '2', '流程编码': '3', '制作类型': '4', '机型': '5', '品牌': '6', '市场': '7',
-                       '阶段': '8', '单据状态': '9', '同步状态': '10', '申请人': '11', '创建时间': '12'}
-        contents = self.find_elements_tbm(user['表格指定列内容'], form_header[header])
+        header_class = self.get_element_attribute(user['表格字段'], 'class', header)
+        column = header_class.split(' ')[0]
+        contents = self.find_elements_tbm(user['表格指定列内容'], column)
         content_list = []
         for i in contents:
             try:

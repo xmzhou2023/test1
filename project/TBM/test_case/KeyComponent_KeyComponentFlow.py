@@ -10,7 +10,7 @@ class TestCreateProcess:
     @allure.description("进入新增页面，输入项目信息（项目输入未存在的项目，其他随便填），填写业务审核，点击提交，提示操作成功")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_001_001(self, drivers):
+    def test_001_001(self, drivers, KeyDevice_SQL_50A712U):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()

@@ -303,6 +303,21 @@ def KeyDevice_SQL():
     logging.info('结束：调用sql脚本修改数据库数据')
 
 @pytest.fixture(scope='function', autouse=False)
+def KeyDevice_SQL_50A712U():
+    a = SQL('TBM', 'test')
+    a.change_db(
+        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
+        "= '50A712U')"
+    )
+    logging.info('开始：调用sql脚本修改数据库数据')
+    yield
+    a.change_db(
+        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
+        "= '50A712U')"
+    )
+    logging.info('结束：调用sql脚本修改数据库数据')
+
+@pytest.fixture(scope='function', autouse=False)
 def Foreign_API():
     logging.info('开始前置操作')
     user = APIRequest()
