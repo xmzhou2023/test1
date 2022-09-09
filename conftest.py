@@ -57,9 +57,9 @@ def drivers(request, remote_ui=True):
             option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
             # option.set_capability("browserVersion", "104.0")
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
-            # driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
-            # driver = webdriver.Remote("http://10.250.113.15:4444", options=option)
-            driver = webdriver.Remote("http://10.250.113.16:4444", options=option)
+            # driver = webdriver.Remote("http://10.250.101.58:4444", options=option)    # 远程DEV环境（linux服务器）
+            driver = webdriver.Remote("http://10.250.113.16:4444", options=option)      # 远程UAT环境（linux服务器）
+            # driver = webdriver.Remote("http://10.250.113.15:4444", options=option)    # 远程DEV环境（windows服务器）
             inspect_element() # page_element YMAL文件自检
         else:
             if remote_ui:
@@ -77,7 +77,9 @@ def drivers(request, remote_ui=True):
                 option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
                 # option.set_capability("browserVersion", "104.0")
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
-                driver = webdriver.Remote("http://10.250.101.58:4444", options=option)
+                driver = webdriver.Remote("http://10.250.101.58:4444", options=option)      # 远程DEV环境（linux服务器）
+                # driver = webdriver.Remote("http://10.250.113.16:4444", options=option)    # 远程UAT环境（linux服务器）
+                # driver = webdriver.Remote("http://10.250.113.15:4444", options=option)    # 远程环境（windows服务器）
                 inspect_element() # page_element YMAL文件自检
             else:
                 option = webdriver.ChromeOptions()
