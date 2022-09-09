@@ -1234,6 +1234,7 @@ class TestProcessInformationExport:
     @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_001(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1246,6 +1247,7 @@ class TestProcessInformationExport:
     @allure.description("在结构工程师审批页面中，在Bom Tree中点导出，导出的数据和Bom Tree的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_002(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1258,6 +1260,7 @@ class TestProcessInformationExport:
     @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_003(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1270,6 +1273,7 @@ class TestProcessInformationExport:
     @allure.description("在业务审核页面中，点击BOM Tree中的导出，导出文件中的数据和页面中的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_004(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1282,6 +1286,7 @@ class TestProcessInformationExport:
     @allure.description("在BOM工程师审批中，在BOM工程师审批中，点击导出，可以导出子阶BOM检查内容")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_005(self, drivers, BarePhone_Approval_Fail_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
