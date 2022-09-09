@@ -1,0 +1,27 @@
+#文件夹名称-input-add: "xpath==//form/./div[2]//input"
+#文件夹名称-input-edit: "xpath==//label/../div//input"
+#顶部文件搜索框: "xpath==//div[@class='right']//input"
+
+添加-确定: "xpath==//*[@at_my-file_add-dialog_confirm]"
+#重命名-确定: "xpath==//span[contains(text(), '重命名')]/../..//button/span[contains(text(), '确定')]"
+添加文件-取消: "xpath==//*[@at_my-file_add-dialog_cancel]"
+添加文件-x: "xpath==//div[@role='dialog']//span[contains(text(),'空间')]/..//button"
+删除确认: "xpath==//*[@aria-label='提示']//button[2]"
+
+文件Item: "xpath==//div[@class='card-item'][1]//div[@class='card-item__bg folder']"
+右键操作: "xpath==//ul[@class='tr-contextmenu']//li[3]"
+#文件新增_or_编辑-确定按钮: "xpath==//span[contains(text(), 'variable')]/../..//button/span[contains(text(), '确定')]"
+
+删除对话框Button: "xpath==//div[@aria-label='提示']//button/span[contains(text(), 'variable')]"
+一级菜单: "xpath==//ul[@class='menu-list']//span[contains(text(), 'variable')]"
+二级菜单: "xpath==//ul[@role='menubar']//span[contains(text(), 'variable')]"
+
+空间: "xpath==//*[@at_my-file_tree]//div//span[contains(text(), 'variable')]"
+新增: "xpath==//*[@at_my-file_add]"
+新增下拉选项: "xpath==//li[contains(text(), 'variable')]"
+文件操作input: "xpath==//*[@at_my-file_add-dialog_name]"
+新增文件夹: "xpath==//*[@at_my-file_add-file]"
+文件名称输入框: "xpath==//*[@at_my-file_add-dialog_name]"
+新增确定按钮: "xpath==//*[@at_my-file_add-dialog_confirm]"
+新增取消按钮: "xpath==//*[@at_my-file_add-dialog_cancel]"
+新增关闭X图标: "xpath==//*[@at_my-file_add-dialog]//button[@aria-label='Close']"
