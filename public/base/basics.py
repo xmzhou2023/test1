@@ -8,6 +8,7 @@ from libs.config.conf import LOCATE_MODE, DOWNLOAD_PATH, IMAGE_PATH, BASE_DIR
 from libs.common.time_ui import sleep
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 import os
 import logging
 import allure
@@ -91,6 +92,10 @@ class Base(object):
         res = ocr.classification(img_bytes)
 
         return res
+
+    def send_enter(self):  # 夏小珍新增 2022-9-2
+        """回车"""
+        ActionChains(self).send_keys(Keys.ENTER)
 
     def is_click(self, locator, *args, **kwargs):
         """点击元素"""

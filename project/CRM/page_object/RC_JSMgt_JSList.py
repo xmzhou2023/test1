@@ -211,8 +211,8 @@ class JSPage(Base):
     def Get_Document_Status_JS(self, status):
         self.is_click(user['Document_Status_Input'])
         self.input_text(user['Document_Status_Input'], txt=status)
-        self.hover(user['Document_Status_Select'], choice=status)
-        self.is_click(user['Document_Status_Select'], choice=status)
+        self.hover(user['Status_Select'], choice=status)
+        self.is_click(user['Status_Select'], choice=status)
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
@@ -220,24 +220,69 @@ class JSPage(Base):
         if number == 0:
             logging.info("查询无数据")
         else:
-            # self.scroll_into_view_CRM(user['Page_Num'])
-            # page_num = self.elements_num(user['Page_Num'])  #
-            # logging.info(page_num)
-            # txt = self.element_text(user['Page_Specified'], choice=f'{page_num}')  # 获取页码个数
-            # logging.info(txt)
-            # specified_page = random.randint(1, int(txt))
-            # logging.info("随机数为：")
-            # logging.info(specified_page)
-            # self.input_text(user['Page_Input'], txt=f'{specified_page}')  # 随机输入页码跳转
-            # sleep(20)
-            # self.send_enter()
             self.scroll_into_view_CRM(user['Page_Num'])
-            th_num = self.elements_num(user['Search_Data_Num'])
+            th_num = self.elements_num(user['Document_Data_Num'])
             for i in range(1, th_num+1):
                 txt = self.element_text(user['Search_Data'], choice=f'{i}')
                 logging.info(txt)
                 ValueAssert.value_assert_In(status, txt)
             self.refresh()
+        return number
+
+    @allure.step("JS页面，Shorage Status下拉框查询")
+    def Get_Shortage_Status_JS(self, status):
+        self.is_click(user['Status_Input'], choice="Shortage Status")
+        self.input_text(user['Status_Input'], txt=status, choice="Shortage Status")
+        self.hover(user['Status_Select'], choice=status)
+        self.is_click(user['Status_Select'], choice=status)
+        self.is_click(user['Search_Button'])
+        get_total = self.element_text(user['Data_Total'])
+        num = get_total.split(" ", 1)
+        number = num[1]
+        if number == 0:
+            logging.info("查询无数据")
+        else:
+            self.scroll_into_view_CRM(user['Page_Num'])
+            th_num = self.elements_num(user['Shortage_Data_Num'])
+            for i in range(1, th_num+1):
+                txt = self.element_text(user['Search_Shortage_Data'], choice=f'{i}')
+                logging.info(txt)
+                ValueAssert.value_assert_In(status, txt)
+            self.refresh()
+        return number
+
+    @allure.step("JS页面，Service Type下拉框查询")
+    def Get_Service_Status_JS(self, status):
+        self.is_click(user['Status_Input'], choice="Service Type")
+        self.input_text(user['Status_Input'], txt=status, choice="Service Type")
+        self.hover(user['Status_Select'], choice=status)
+        self.is_click(user['Status_Select'], choice=status)
+        self.is_click(user['Search_Button'])
+        get_total = self.element_text(user['Data_Total'])
+        num = get_total.split(" ", 1)
+        number = num[1]
+        if number == 0:
+            logging.info("查询无数据")
+        else:
+            self.scroll_into_view_CRM(user['Page_Num'])
+            th_num = self.elements_num(user['Service_Data_Num'])
+            for i in range(1, th_num+1):
+                txt = self.element_text(user['Service_Shortage_Data'], choice=f'{i}')
+                logging.info(txt)
+                ValueAssert.value_assert_In(status, txt)
+            self.refresh()
+        return number
+
+    @allure.step("JS页面，Quote Status下拉框查询")
+    def Get_Quote_Status_JS(self, status):
+        self.is_click(user['Status_Input'], choice="Quote Status")
+        self.input_text(user['Status_Input'], txt=status, choice="Quote Status")
+        self.hover(user['Status_Select'], choice=status)
+        self.is_click(user['Status_Select'], choice=status)
+        self.is_click(user['Search_Button'])
+        get_total = self.element_text(user['Data_Total'])
+        num = get_total.split(" ", 1)
+        number = num[1]
         return number
 
     @allure.step("查询JS，无数据返回")
