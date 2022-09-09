@@ -464,7 +464,8 @@ class Base(object):
         if args and args is not None:
             for i in range(10):
                 if txt is None:
-                    txt = self.find_element(locator, args)
+                    logging.info(args[0])
+                    txt = self.find_element(locator, args[0])
                     sleep(1)
                     i += 1
                     logging.info("循环查找元素次数:{}".format(i))
@@ -476,6 +477,9 @@ class Base(object):
                     txt = self.find_element(locator, kwargs['choice'])
                     sleep(1)
                     i += 1
+                    logging.info("循环查找元素次数:{}".format(i))
+                else:
+                    break
         else:
             for i in range(10):
                 if txt is None:
@@ -485,8 +489,6 @@ class Base(object):
                     logging.info("循环查找元素次数:{}".format(i))
                 else:
                     break
-
-
 
 
     def get_datetime_today(self):
