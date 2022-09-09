@@ -11,15 +11,14 @@ import pytest
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
-    for i in range(1):
-        get_menu_class = menu.get_open_menu_class()
-        class_value = "tags-view-item router-link-exact-active router-link-active active"
-        if class_value == str(get_menu_class):
-            menu.click_close_open_menu()
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("库存管理-调拨单")
 class TestNewRecallTransferOrder:
-    @allure.story("创建调拨单，测回调拨单")  # 场景名称
+    @allure.story("创建调拨单，撤回调拨单")  # 场景名称
     @allure.title("创建调拨单，撤回调拨单")  # 用例名称
     @allure.description("创建调拨单页面，两个不同客户之间的调拨，然后撤回调拨单，形成闭环")
     @allure.severity("critical")  # 用例等级

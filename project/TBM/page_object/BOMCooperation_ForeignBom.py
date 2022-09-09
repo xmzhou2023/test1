@@ -73,10 +73,36 @@ class ForeignBom(CenterComponent):
         self.is_click_tbm(user['刷新'])
         logging.info('点击刷新')
 
+    @allure.step("输入查询条件")
+    def input_search_info(self, type, info):
+        input_type = ['标题', '流程编码', 'BOM编码']
+        select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
+        if type in input_type:
+            self.readonly_input_text(user['查询条件'], info, type)
+        elif type in select_type:
+            self.is_click_tbm(user['查询条件'], type)
+            self.is_click_tbm(user['查询选择'], info)
+        logging.info('输入框：{}，输入内容：{}'.format(type, info))
     @allure.step("点击查询")
     def click_search(self):
         self.is_click_tbm(user['查询'])
         logging.info('点击查询')
+
+    @allure.step("断言：查询结果")
+    def assert_search_result(self, header, content):
+        form_header = {'标题': '2', '流程编码': '3', '制作类型': '4', '机型': '5', '品牌': '6', '市场': '7',
+                       '阶段': '8', '单据状态': '9', '同步状态': '10', '申请人': '11', '创建时间': '12'}
+        contents = self.find_elements_tbm(user['表格指定列内容'], form_header[header])
+        content_list = []
+        for i in contents:
+            try:
+                assert content in i.text
+            except:
+                logging.error("断言失败，结果不包含指定内容")
+                raise
+            content_list.append(i.text)
+        logging.info("断言成功，结果包含指定内容")
+        logging.info('获取表格执行列内容：{}'.format(content_list))
 
     @allure.step("点击新增bom")
     def click_add_bomtree(self):

@@ -52,7 +52,7 @@ class ShopManagementPage(Base):
         self.input_text(user['Sales Region'], txt=content)
         sleep(1)
         self.is_click(user['Sales Region value'], "Barisal itel")
-        sleep(1)
+        #sleep(1)
 
     @allure.step("新建门店时，选择门店等级")
     def click_shop_grade(self):
@@ -105,25 +105,26 @@ class ShopManagementPage(Base):
         return num
 
     @allure.step("根据门店名称查询，最近新建的门店ID")
-    def input_query_shop_name(self, content, content1):
+    def input_query_shop_name(self, content):
         Base.presence_sleep_dcr(self, user['点击门店输入框'])
         self.is_click_dcr(user['点击门店输入框'])
         self.input_text(user['门店输入框输入'], txt=content)
-        sleep(4)
-        Base.presence_sleep_dcr(self, user['选中门店值1'], content1)
-        self.is_click(user['选中门店值1'], content1)
+        sleep(3)
+        Base.presence_sleep_dcr(self, user['选中门店值1'], content)
+        self.is_click(user['选中门店值1'], content)
 
     @allure.step("根据门店名称查询，最近扩展门店品牌的的门店ID")
-    def extend_query_shop_name(self, content, content1):
+    def extend_query_shop_name(self, content):
         self.is_click(user['点击门店输入框'])
         self.input_text_dcr(user['点击门店输入框'], txt=content)
-        sleep(2.5)
-        self.is_click(user['选中门店值2'], content1)
+        sleep(2)
+        Base.presence_sleep_dcr(self, user['选中门店值1'], content)
+        self.is_click(user['选中门店值1'], content)
 
     @allure.step("点击Search查询门店信息")
     def click_query_search(self):
         self.is_click(user['Search'])
-        sleep(10)
+        sleep(4)
 
     @allure.step("筛选最近新建的门店ID后，勾线第一个复选框")
     def click_first_checkbox(self):
@@ -137,7 +138,7 @@ class ShopManagementPage(Base):
     @allure.step("点击More Option更多操作按钮")
     def click_more_option(self):
         self.is_click(user['More Option'])
-        sleep(3.5)
+        sleep(1.7)
 
     @allure.step("点击delete 删除按钮")
     def click_delete(self):
@@ -205,7 +206,7 @@ class ShopManagementPage(Base):
     @allure.step("点击Reset重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(5)
+        sleep(4)
 
     # def query_sql_shopid(self):
     #     """查询最近新建的门店ID"""

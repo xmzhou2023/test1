@@ -2,18 +2,15 @@
 点击门店输入框: "xpath==//label[(text()='Shop')]//parent::div// following-sibling::div//input"
 门店输入框输入: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[1]/div/div/div/div/div[2]/div/div[1]/input"
 选中门店值1: "xpath==//span[contains(text(),'variable')]"
-#选中门店值2: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[1]/div/div/div/div/div[2]/div/div[2]/div[1]/div[1]/ul/li[1]/span"
 选中门店值2: "xpath==//span[contains(text(),'variable')]"
 Search: "xpath==//span[contains(text(),'Search')]"
 
 获取ShopID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[1]/div[2]/table/tbody/tr[1]/td[2]/div/span"
 获取ShopName文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[2]/div[2]/div[1]/div[2]/table/tbody/tr[1]/td[3]/div/span"
-#获取Brand文本: "xpath==//div[@class='vxe-cell c--tooltip']//span[normalize-space(text())='itel']"
 获取Brand文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[2]/div[1]/div[2]/table/tbody/tr[1]/td[4]/div/span"
 获取Status文本: "xpath==//tr[@class='vxe-body--row']//td[5]//div//span"
 获取Public ID文本: "xpath==//tbody//tr[1]//td[8]//div[@class='vxe-cell c--tooltip']//span"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-
 
 #新建门店页面
 Add: "id==ShopManagement_add"

@@ -33,12 +33,12 @@ class ShopInventoryIMEIQueryPage(Base):
     @allure.step("Shop Inventory IMEI Query页面，点击Search按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        sleep(5)
 
     @allure.step("Shop Inventory IMEI Query页面，点击Search按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(8)
+        sleep(5)
 
     @allure.step("Shop Inventory IMEI Query页面，点击Fold收起筛选条件按钮")
     def click_fold(self):

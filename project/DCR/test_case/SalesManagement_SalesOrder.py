@@ -30,7 +30,7 @@ def function_menu_fixture(drivers):
 @allure.feature("销售管理-销售单")
 class TestAddSalesOrder:
     @allure.story("新增销售单")
-    @allure.title("国包用户创建销售单，产品为无码的，买方为临时客户,并直接出库操作")
+    @allure.title("国包用户,创建销售单，产品为无码的，买方为临时客户,并直接出库操作")
     @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为临时客户，并直接出库操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
@@ -380,7 +380,7 @@ class TestExportSalesOrder:
         """按销售单创建日期、Status条件筛选销售单"""
         export.click_sales_order_unfold()
         export.input_status_query("Delivered")
-        export.list_input_create_date("2022-07-30", today)
+        export.list_input_create_date("2022-09-01", today)
         export.click_search()
 
         """点击导出按钮"""
@@ -429,7 +429,7 @@ class TestExportSalesOrder:
         """按销售单创建日期、Status条件筛选销售单"""
         export.click_sales_order_unfold()
         export.input_status_query("Delivered")
-        export.list_input_create_date("2022-07-30", today)
+        export.list_input_create_date("2022-09-01", today)
         export.click_search()
 
         """点击导出按钮"""

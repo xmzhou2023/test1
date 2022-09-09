@@ -38,6 +38,7 @@ class WONonSerializedReport(Base):
             self.is_click(user["Country下拉选择"])
             self.is_click(user['WO NonSerialized Report Search'])
 
+
     @allure.step("查询非序列化工单报表数量")
     def search_stock(self, stock):
         sql = SQL('CRM', 'test')
@@ -50,8 +51,9 @@ class WONonSerializedReport(Base):
         dict_record = record[0]
         print(dict_record)
         record_value = dict_record['count(*)']
+        print(record_value)
         logging.info('数据库查询到的非序列化工单报表数据为:{}'.format(record_value))
-        search_num = self.get_element_attribute(user['报表总数'], 'textContent')
+        search_num = self.get_element_attribute(user['报表总数'], 'textContent', choice='Total')
         num = ''.join(filter(str.isdigit, search_num))
         num = int(num)
         logging.info('非序列化工单报表查询页查到的数量:{}'.format(num))

@@ -214,6 +214,53 @@ class InboundReceiptPage(Base):
         else:
             logging.info("查看Inbound Receipt列表，加载IMEI详情数据失败，分页总条数Total：{}".format(total1))
 
+    #扫码收货
+    @allure.step("点击Stock in by Scan 扫码收货按钮")
+    def click_scan_imei_receipt(self):
+        self.is_click(user['Stock in by Scan'])
+        sleep(2)
+
+    @allure.step("输入扫码的IMEI")
+    def input_scan_imei(self, imei):
+        self.is_click(user['Scan IMEI'])
+        self.input_text(user['Scan IMEI'], imei)
+
+    @allure.step("点击Check检查按钮")
+    def click_check(self):
+        self.is_click(user['Check'])
+        sleep(1.5)
+
+    @allure.step("点击Submit提交按钮")
+    def click_submit(self):
+        self.is_click(user['Submit'])
+
+    @allure.step("创建Inbound Order页面，点击check后，获取Scanned属性下显示出库数量")
+    def get_scanned(self):
+        get_scanned = self.element_text(user['Get Scanned'])
+        return get_scanned
+
+    @allure.step("创建Inbound Order页面，点击check后，获取Scan Record扫码记录下侧显示Success")
+    def get_inbound_scan_record_success(self):
+        Base.presence_sleep_dcr(self, user['Get Deli Scan Record Success'])
+        scan_record_success = self.element_text(user['Get Deli Scan Record Success'])
+        return scan_record_success
+
+    @allure.step("创建Inbound Order页面，点击check后，获取Scan Record扫码记录下侧出现显示IMEI")
+    def get_inbound_scan_record_imei(self, imei):
+        Base.presence_sleep_dcr(self, user['Get Deli Scan Record IMEI'], imei)
+        scan_record_imei = self.element_text(user['Get Deli Scan Record IMEI'], imei)
+        return scan_record_imei
+
+    @allure.step("创建Inbound Order页面，点击check后，获取Order Detail列表下显示Scanned字段")
+    def get_order_detail_scanned(self):
+        order_detail_scanned = self.element_text(user['Get Order Detail Scanned'])
+        return order_detail_scanned
+
+    @allure.step("Inbound Receipt页面，获取列表Status字段内容")
+    def get_list_status(self):
+        Base.presence_sleep_dcr(self, user['Get list Status'])
+        get_status = self.element_text(user['Get list Status'])
+        return get_status
 
 if __name__ == '__main__':
     pass

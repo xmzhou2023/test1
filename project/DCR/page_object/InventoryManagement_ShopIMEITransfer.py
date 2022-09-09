@@ -21,14 +21,13 @@ class ShopIMEITransferPage(Base):
         Base.presence_sleep_dcr(self, user['Transfer To Shop Name'])
         self.is_click(user['Transfer To Shop Name'])
         self.input_text(user['Transfer To Shop Name'], info1)
-        sleep(4)
+        sleep(3)
+        Base.presence_sleep_dcr(self, user['Transfer To Shop Name value'], info1)
         self.is_click(user['Transfer To Shop Name value'], info1)
-
 
     @allure.step("输入ScanIMEI")
     def input_scan_imei(self, imei):
         self.input_text(user['Scan IMEI Name'], imei)
-        sleep(1)
 
     @allure.step("点击check按钮")
     def click_check(self):
@@ -92,6 +91,7 @@ class ShopIMEITransferPage(Base):
         self.is_click_dcr(user['筛选门店'])
         self.input_text_dcr(user['筛选门店'], txt=to_shop)
         sleep(2)
+        Base.presence_sleep_dcr(self, user['选中筛选门店'], to_shop)
         self.is_click(user['选中筛选门店'], to_shop)
 
     @allure.step("Shop IMEI Transfer列表，输入状态进行筛选")
@@ -99,6 +99,7 @@ class ShopIMEITransferPage(Base):
         self.is_click(user['筛选状态'])
         self.input_text(user['筛选状态'], txt=status)
         sleep(1.5)
+        Base.presence_sleep_dcr(self, user['选中筛选状态'], status)
         self.is_click(user['选中筛选状态'], status)
 
     @allure.step("筛选出To Shop与pending状态的记录")
@@ -124,7 +125,6 @@ class ShopIMEITransferPage(Base):
     @allure.step("点击Checkbox勾选全选复选框")
     def click_check_box(self):
         self.is_click(user['勾选全选复选框'])
-        sleep(1)
 
     @allure.step("点击Approve或 reject按钮")
     def click_approve_reject(self, choose):

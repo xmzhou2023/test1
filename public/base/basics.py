@@ -92,13 +92,50 @@ class Base(object):
 
         return res
 
-    def find_element(self, locator, choice=None):
-        """寻找单个元素"""
-        if choice is not None:
+    def is_click(self, locator, *args, **kwargs):
+        """点击元素"""
+        if args and args is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable', args[i], 1)
+            sleep(2)
+            self.find_element(Npath).click()
+            logging.info("选择点击：{}".format(Npath))
+
+        elif kwargs and kwargs is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', str(kwargs['choice']))
+            logging.info(Npath)
+            sleep(2)
+            self.find_element(Npath).click()
+            logging.info("选择点击：{}".format(Npath))
+
+        else:
+            self.find_element(locator).click()
+            logging.info("点击元素：{}".format(locator))
+            sleep(0.5)
+
+    def find_element(self, locator, *args, **kwargs):
+        """寻找单个元素"""
+        if args and args is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable', args[i], 1)
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.presence_of_element_located(args)), Npath)
+
+        elif kwargs and kwargs is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', str(kwargs['choice']))
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
@@ -107,13 +144,22 @@ class Base(object):
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), locator)
 
-    def find_elements(self, locator, choice=None):
+    def find_elements(self, locator, *args, **kwargs):
         """寻找多个相同的元素"""
-        if choice is not None:
+        if args and args is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', str(choice))
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable', args[i], 1)
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.presence_of_all_elements_located(args)), Npath)
+        elif kwargs and kwargs is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', str(kwargs['choice']))
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_all_elements_located(args)), Npath)
@@ -191,20 +237,6 @@ class Base(object):
             self.find_element(locator).click()
             logging.info("滚动条至：{}".format(locator))
 
-    def is_click(self, locator, choice=None):
-        """点击元素"""
-        if choice is not None:
-            Npath = []
-            Npath.append(locator[0])
-            Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
-            sleep(2)
-            self.find_element(Npath).click()
-            logging.info("选择点击：{}".format(Npath))
-        else:
-            self.find_element(locator).click()
-            logging.info("点击元素：{}".format(locator))
-            sleep(0.5)
 
 
 
@@ -421,19 +453,33 @@ class Base(object):
         return Base.element_locator(lambda *args: self.wait.until(
             EC.visibility_of_any_elements_located(args)), locator)
 
-
-    def presence_sleep_dcr(self, locator, choice=None):
+    def presence_sleep_dcr(self, locator, *args, **kwargs):
         """通用的加载数据等待方法(DCR专用)"""
         txt = None
-        for i in range(20):
-            if txt is None:
-                txt = self.find_element(locator, choice)
-                sleep(1)
-                i += 1
-                logging.info("循环查找元素次数:{}".format(i))
-            else:
-                break
-
+        if args and args is not None:
+            for i in range(10):
+                if txt is None:
+                    txt = self.find_element(locator, args)
+                    sleep(1)
+                    i += 1
+                    logging.info("循环查找元素次数:{}".format(i))
+                else:
+                    break
+        elif kwargs and kwargs is not None:
+            for i in range(10):
+                if txt is None:
+                    txt = self.find_element(locator, kwargs['choice'])
+                    sleep(1)
+                    i += 1
+        else:
+            for i in range(10):
+                if txt is None:
+                    txt = self.find_element(locator)
+                    sleep(1)
+                    i += 1
+                    logging.info("循环查找元素次数:{}".format(i))
+                else:
+                    break
 
 
 
@@ -631,6 +677,37 @@ class Base(object):
 
 
 
+def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):
+    """
+    按行/列读取EXCEL数据
+    file_path:文件路径（XLS格式文件）
+    sheet_name：需要读取数据的sheet
+    mode：取值方式（row:按行  column：按列）
+    rows:按行读取数据时，起始行
+    cols:按列读取数据时，起始列
+    start_row、end_row：按列读取数据时，数据读取起止行
+    start_col、end_col：按行读取数据时，数据读取起止列
+    return:
+        values：读取的值，根据mode传参，按行/列返回，返回数据格式为列表中嵌套元组
+    """
+    data_excel = xlrd.open_workbook(file_path)
+    table = data_excel.sheet_by_name(sheet_name)
+    values = []
+    if mode == "row":
+        for i in range(table.nrows):
+            if i < rows:
+                pass
+            else:
+                values.append(tuple(table.row_values(i, start_col, end_col)))
+    elif mode == "column":
+        for i in range(table.ncols):
+            if i < cols:
+                pass
+            else:
+                values.append(tuple(table.col_values(i, start_row, end_row)))
+    else:
+        logging.info("excel取值方式错误")
+    return values
 
 if __name__ == "__main__":
     pass

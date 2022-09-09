@@ -14,7 +14,7 @@ class SalesOrderPage(Base):
         sleep(1.5)
         Base.presence_sleep_dcr(self, user['Add'])
         self.is_click(user['Add'])
-        sleep(2)
+        sleep(2.8)
 
     @allure.step("Add新增销售单页面，输入Buyer属性")
     def input_sales_buyer(self, content):
@@ -159,7 +159,7 @@ class SalesOrderPage(Base):
     @allure.step("IMEI库存页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(5)
+        sleep(4)
 
     @allure.step("获取IMEI库存页面，IMEI文本内容")
     def get_text_imei_inventory(self):
@@ -300,7 +300,7 @@ class SalesOrderPage(Base):
         sleep(1)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(7)
+        sleep(8)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

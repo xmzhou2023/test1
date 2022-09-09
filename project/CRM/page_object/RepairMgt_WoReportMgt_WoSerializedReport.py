@@ -41,6 +41,12 @@ class WOSerializedReport(Base):
             self.is_click(user['WO Serialized Report Search'])
             # self.wait.until(EC.presence_of_element_located(user['序列化工单查询页表格country字段']), message='数据未加载完成')
 
+    @allure.step("菜单刷新")
+    def refresh_page(self):
+        self.is_click(user['Dashboard'])
+        self.refresh()
+        self.wait.until(EC.presence_of_element_located(user['Dashboard']), message="页面刷新失败")
+
     @allure.step("数据库查询序列化工单报表数量")
     def search_stock(self, stock):
         sql = SQL('CRM', 'test')
@@ -56,11 +62,10 @@ class WOSerializedReport(Base):
         print(dict_record)
         record_value = dict_record['count(*)']
         logging.info('数据库查询到的序列化工单报表数据为:{}'.format(record_value))
-        search_num = self.get_element_attribute(user['报表总数'], 'textContent')
+        search_num = self.get_element_attribute(user['报表总数'], 'textContent',choice='Total')
         num = ''.join(filter(str.isdigit, search_num))
         num = int(num)
         logging.info('序列化工单报表查询页查到的数量:{}'.format(num))
-
         return record_value, num
 
 

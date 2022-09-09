@@ -23,26 +23,18 @@
 评估代码供货品类配置-新建: 'xpath==//li[@id="create"]/a'
 评估代码供货品类配置-新建弹窗标题: 'xpath==//span[text()="新增供货品类配置"]'
 评估代码供货品类配置-新建弹窗-关闭: 'xpath==//div[@id="btnAddClose"]'
-
 评估代码供货品类配置-新建-评估代码: 'xpath==//div[@title="评估代码"]/input[@class="easyui-textbox"]'
-
 评估代码供货品类配置-新建-大类: 'xpath==//input[@id="materialCateLevel1Name"]'
 评估代码供货品类配置-新建-中类: 'xpath==//input[@id="materialCateLevel2Name"]'
 评估代码供货品类配置-新建-小类: 'xpath==//input[@id="materialCateLevel3Name"]'
 评估代码供货品类配置-新建-小类搜索: 'xpath==//img[@id="searchMaterialCateLevel3Name"]'
-
 评估代码供货品类配置-新建-小类iframe: 'xpath==//iframe[@id="iframeApp_supplyCategoryNewSearch"]'
 评估代码供货品类配置-新建-小类选择: 'xpath==//*[@id="pq-body-cell-u0-8-0-right"]/input'
-
 评估代码供货品类配置-新建-小类-确定: 'xpath==//li[@id="confirmBtn"]'
-
-
 评估代码供货品类配置-新建-评分规则: 'xpath==//img[@id="searchScoreLevelRule"]'
 评估代码供货品类配置-新建-评分规则iframe: 'xpath==//iframe[@name="iframeApp_searchTemplate"]'
 评估代码供货品类配置-新建-评分规则-选择: 'xpath==//span[text()="RU002"]'
 评估代码供货品类配置-新建-评分规则-确定: 'xpath==//button[@id="btnSelectOK"]'
-
-
 评估代码供货品类配置-新建-确定: 'xpath==//button[@id="btnAddOK"]'
 评估代码供货品类配置-新建-确定-保存确定: 'xpath==//button[@i-id="ok"]'
 评估代码供货品类配置-新建-确定-保存取消: 'xpath==//button[@i-id="cancel"]'
@@ -61,9 +53,24 @@
 评估代码供货品类配置-评估代码查询输入框: 'xpath==//input[@name="evaluatedCode"]'
 评估代码供货品类配置-物料小类查询输入框: 'xpath==//input[@name="materialCateNumber"]'
 评估代码搜索结果第一条: 'xpath==//div[@id="pq-body-cell-u1-0--1-left"]'
-评估代码供货品类配置-列表下一页: 'xpath==//span[@class="ui-icon ui-icon-seek-next"]'
 
+评估代码供货品类配置-评估代码列表筛选按钮: 'xpath==//div[@pq-col-indx="1"]//span[@class="pq-menu-icon"]'
+评估代码供货品类配置-评估代码筛选取消全选: 'xpath==//span[text()="评估代码"]/input[@type="checkbox"]'
+评估代码供货品类配置-评估代码筛选第一个: 'xpath==//div[@id="pq-body-cell-u14-0-0-right"]'
+评估代码供货品类配置-评估代码筛选确定: 'xpath==//button[@data-rel="ok"]'
+评估代码供货品类配置-评估代码筛选结果: 'xpath==//div[@class="pq-grid-footer pq-pager"]/span[@class="pq-page-display"]'
 
+评估代码供货品类配置-列表下一页: 'xpath==//span[@tabindex="0"]//span[@class="ui-icon ui-icon-seek-next"]'
+评估代码供货品类配置-跳转到第几页: 'xpath==//input[@type="text"][@tabindex="0"]'
+评估代码供货品类配置-跳转到尾页: 'xpath==//span[@tabindex="0"]//span[@class="ui-icon ui-icon-seek-end"]'
+评估代码供货品类配置-跳转到首页: 'xpath==//span[@tabindex="0"]//span[@class="ui-icon ui-icon-seek-first"]'
+评估代码供货品类配置-当前页: 'xpath==//div[@class="pq-grid-footer pq-pager"]//span[@class="pq-page-display"]'
+评估代码供货品类配置-数据范围: 'xpath==//span[@tabindex="0"]//"]'
+
+评估代码供货品类配置-总页数量: 'xpath==//span//span[@class="pq-page-total"]'
+评估代码供货品类配置-列表上一页: 'xpath==//span[@tabindex="0"]//span[@class="ui-icon ui-icon-seek-prev"]'
 评估代码供货品类配置-excel导出模板: 'xpath==//li[@id="excelImportTemplate"]/a[text()=" Excel导出模版"]'
-窗口最小化: 'xpath==//div[@id="win_supplierPerformanceAppraisal"]//a[@title="最小化"]'
+供应商绩效考核--窗口最小化: 'xpath==//div[@id="win_supplierPerformanceAppraisal"]//a[@title="最小化"]'
 
+评估代码供货品类配置-页面窗口标题: 'xpath==//a[@title=" 评估代码供货品类配置"]'
+评估代码供货品类配置-关闭页面: 'xpath==//a[@title=" 评估代码供货品类配置"]//i[@title="关闭"]'

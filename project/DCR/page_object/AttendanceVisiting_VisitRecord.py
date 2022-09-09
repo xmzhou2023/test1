@@ -13,7 +13,7 @@ class VisitRecordPage(Base):
     @allure.step("Visit Record页面，点击unfold展开筛选条件")
     def click_unfold(self):
         self.is_click(user['Unfold'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("Visit Record页面，点击unfold展开筛选条件")
     def click_fold(self):
@@ -25,6 +25,7 @@ class VisitRecordPage(Base):
         self.is_click_dcr(user['Input Query Shop'])
         self.input_text_dcr(user['Input Query Shop'], txt=content)
         sleep(3)
+        Base.presence_sleep_dcr(self, user['Select Shop Value'])
         self.is_click(user['Select Shop Value'])
 
     @allure.step("Visit Record页面，输入Submit Start Date")
@@ -32,7 +33,6 @@ class VisitRecordPage(Base):
         sleep(3)
         Base.presence_sleep_dcr(self, user['Submit Start Date'])
         self.is_click(user['Submit Start Date'])
-        sleep(1)
         self.input_text(user['Submit Start Date'], txt=content)
 
     @allure.step("Visit Record页面，点击Sales Region输入框")
@@ -43,13 +43,13 @@ class VisitRecordPage(Base):
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(3)
+        sleep(3.8)
 
     @allure.step("Visit Record页面，点击Reset重置按钮")
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(4)
+        sleep(3.5)
 
     @allure.step("Visit Record页面，获取列表中Shop ID文本属性")
     def get_shop_id_text(self):
@@ -103,10 +103,10 @@ class VisitRecordPage(Base):
     @allure.step("点击Download Icon，点击More更多按钮")
     def click_download_more(self):
         self.is_click(user['Download Icon'])
-        sleep(1)
+        sleep(1.5)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(5)
+        sleep(4)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

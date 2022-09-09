@@ -1,0 +1,59 @@
+提示-form-input: "xpath==//div[@aria-label='提示']//label[contains(text(),'variable')]/..//input"
+
+form-input: "xpath==//label[normalize-space(text())='variable']/..//input"
+form-textarea: "xpath==//label[contains(text(),'variable')]/..//textarea"
+
+dropdown-value: "xpath==//body/div[last()]//li/span[normalize-space(text())='variable']"
+#dropdown-value: "xpath==//li/span[normalize-space(text())='variable']"
+
+提示-button: "xpath==//div[@aria-label='提示']//button//span[contains(text(),'variable')]"
+button: "xpath==//button//span[contains(text(),'variable')]"
+
+sku点击: "xpath==//div[@aria-label='选品']//tbody//td/div/label"
+
+# 融合了button
+#table-button-编辑: "xpath==//span[text()='variable']/../../../..//td[last()]//button//span[contains(text(),'编辑')]/.."
+table-button: "xpath==//div[@class='el-table__fixed-right']//span[text()='variable']/../../../..//td[last()]//button//span[contains(text(),'placeholder')]"
+#//span[text()='']/../../../..//td[last()]//button//span[contains(text(),'编辑')]
+message-box-button: "xpath==//div[@class='el-message-box__btns']/button//span[contains(text(),'variable')]"
+
+dropdown-search-value: "xpath==//li[normalize-space(text())='variable']"
+
+
+
+
+
+
+
+
+
+
+
+
+输入用户名: "css==.user-find input"
+选择用户: "xpath==//div[@class='user-list']/div[3]//div[normalize-space(text())='variable']"
+选择用户-确定: "xpath==//div[@class='user-list']/../../../..//button//span[contains(text(),'确 定')]"
+
+
+审核人设置-成员列表输入: "xpath==//div[@class='user-find']//input"
+
+
+流程编码: "xpath==//div[contains(text(),'variable')]/../..//td[placeholder]/div"
+#流程编码-2: "xpath==//div[contains(text(),'variable')]/../..//td[3]/div"
+
+oneworks-视图切换: "css==i.el-icon-menu"
+oneworks-视图切换2: "css==i.el-icon-s-unfold"
+oneworks-刷新按钮: "css==i.el-icon-refresh-right"
+oneworks-查看详情-by-code: "xpath==//td/div[text()='variable']/../..//span[text()='查看详情']"
+提示-确定撤回: "xpath==//div[@aria-label='提示']//span[normalize-space(text())='确定']"
+delete-by-code: "xpath==//div[text()='variable']/../..//button[not(contains(@style,'display: none;'))]//span[text()='删除']"
+iframe: "xpath==//iframe"
+
+oneworks-dropdown: "xpath==//div[@label='variable']//input[@placeholder='请输入']"
+
+
+oneworks-footer-dropdown: "xpath==//span[normalize-space(text())='variable']/..//div//div"
+
+
+
+确定同意: "xpath==//div//span[text()='提示']/../../..//span[normalize-space(text())='确定']"

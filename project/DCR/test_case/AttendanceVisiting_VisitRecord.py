@@ -10,17 +10,25 @@ import allure
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
-def function_query_fixture(drivers):
+def function_menu_fixture(drivers):
     yield
-    close = VisitRecordPage(drivers)
-    close.click_close_visit_record()
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    close = VisitRecordPage(drivers)
-    close.click_close_export_record()
-    close.click_close_visit_record()
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
+
 
 @allure.feature("考勤&巡店-巡店记录")
 class TestQueryVisitRecord:
@@ -28,7 +36,7 @@ class TestQueryVisitRecord:
     @allure.title("巡店记录页面，根据门店ID查询巡店记录列表数据加载")
     @allure.description("巡店记录页面，根据门店ID查询巡店记录列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_query_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -37,7 +45,7 @@ class TestQueryVisitRecord:
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
 
         all_visit = VisitRecordPage(drivers)
-        all_visit.input_submit_start_date("2022-06-01")
+        all_visit.input_submit_start_date("2022-08-01")
         all_visit.click_sales_region()
         all_visit.click_unfold()
         all_visit.click_search()
@@ -79,7 +87,7 @@ class TestExportVisitRecord:
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-06-01")
+        export.input_submit_start_date("2022-08-01")
         export.click_sales_region()
         export.click_search()
 
@@ -106,7 +114,6 @@ class TestExportVisitRecord:
         export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
         #export.click_close_visit_record()
-
 
 if __name__ == '__main__':
     pytest.main(['AttendanceVisiting_VisitRecord.py'])

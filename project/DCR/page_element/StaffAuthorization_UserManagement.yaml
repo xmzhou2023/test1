@@ -13,24 +13,19 @@ Sales Region Value: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[2]/
 Country City: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[7]/div/div/div/div[1]/input"
 Country City Value: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[7]/div/div/div/div[2]/div/div[1]/div[2]/div[8]/div[2]/div[4]/div[2]/div/div[1]/span[2]"
 
-Select Brand: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[9]/div/div/div/div/div[1]/input"
-Brand TECNO: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[9]/div/div/div/div/div[2]/div/div[3]/div[1]/div[1]/ul/li[2]"
-Brand itel: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[9]/div/div/div/div/div[2]/div/div[3]/div[1]/div[1]/ul/li[3]"
-Brand Infinix: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[9]/div/div/div/div/div[2]/div/div[3]/div[1]/div[1]/ul/li[1]"
-Brand oraimo: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[9]/div/div/div/div/div[2]/div/div[3]/div[1]/div[1]/ul/li[4]"
+Add Select Brand: "xpath==//div//..//input[@id='useradd_input_brandCodes']"
+Select Brand Value: "xpath==//div[@class='el-scrollbar']//ul//li//span[text()='variable']"
+Edit Select Brand: "xpath==//div//..//input[@id='useredit_input_brandCodes']"
 
 Position: "xpath==//label[(text()='Position')]//parent::div//following-sibling::div//input"
-Position Value Transsion: "xpath==//span[(text()='lhmTecno促销员')]"
-Position Value Dealer: "xpath==//span[(text()='lhm二代')]"
+Position Value Transsion: "xpath==//span[(text()='variable')]"
+Position Value Dealer: "xpath==//span[(text()='variable')]"
 
 Superior: "xpath==//label[(text()='Superior')]//parent::div//following-sibling::div//input"
 Superior Value: "xpath==//span[contains(text(),'variable')]"
 
 Email: "xpath==//label[(text()='Email')]//parent::div//following-sibling::div//input"
 Contact No: "xpath==//label[(text()='Contact No.')]//parent::div//following-sibling::div//input"
-
-#Marital Status: "xpath==//label[(text()='Marital Status')]//parent::div//following-sibling::div//input"
-#Marital Married: "xpath==/html/body/div[6]/div[1]/div[1]/ul/li[2]/span"
 
 Gender: "xpath==//label[(text()='Gender')]//parent::div//following-sibling::div//input"
 Gender Female: "xpath==//span[contains(text(),'variable')]"
@@ -79,7 +74,6 @@ Get Save successfully: "xpath==//p[normalize-space(text())='Save successfully!']
 Save successfully OK: "xpath==//span[normalize-space(text())='OK']"
 login Input Password: "xpath==//input[@name='password']"
 Click Login: "id==login_LOGIN"
-
 
 #导出用户
 Export: "id==userstaffmanagement_Export"

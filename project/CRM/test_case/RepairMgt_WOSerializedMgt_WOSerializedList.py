@@ -15,12 +15,11 @@ from project.CRM.page_object.RepairMgt_WOSerializedMgt_WOSerializedList import *
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
     num = NavPage(drivers)
-    num.refresh()
+    num.refresh_page()
     sleep(1)
     num.click_gotonav("WMS", "Stock In/Out Mgt", "Initialize Inventory")
     num = DomAssert(drivers)
     num.assert_url("/wms/stockInOutMgt/initializeInventory")
-
     logging.info("前置条件:添加物料库存")
     num = WOSerializedListAdd(drivers)
     num.add_material()

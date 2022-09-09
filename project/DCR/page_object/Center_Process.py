@@ -24,7 +24,7 @@ class SalesOrderPage(Base):
         self.input_text(user['Buyer'], txt=content)
         sleep(1)
         self.is_click(user['Buyer value'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("新增销售单页面，输入Brand属性")
     def input_sales_brand(self, content):
@@ -32,15 +32,15 @@ class SalesOrderPage(Base):
         self.input_text(user['Brand'], txt=content)
         sleep(1)
         self.is_click(user['Brand value'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("新增销售单页面，输入product属性")
     def input_sales_product(self, content):
         self.is_click(user['product'])
         self.input_text(user['product'], txt=content)
         sleep(3)
-        self.is_click(user['product value'])
-        sleep(1)
+        self.is_click(user['product value'], content)
+        #sleep(1)
 
     @allure.step("新增销售单页面，输入Quantity属性")
     def input_sales_quantity(self, content):
@@ -95,11 +95,11 @@ class SalesOrderPage(Base):
         self.is_click(user['Delivery button'])
         sleep(2)
 
-    @allure.step("Delivery Order页面，进入iframe")
-    def Sales_Delivery_iframe(self):
-        iframe2 = self.find_element(user['Sales Delivery iframe'])
-        self.driver.switch_to.frame(iframe2)
-        sleep(1)
+    # @allure.step("Delivery Order页面，进入iframe")
+    # def Sales_Delivery_iframe(self):
+    #     iframe2 = self.find_element(user['Sales Delivery iframe'])
+    #     self.driver.switch_to.frame(iframe2)
+    #     sleep(1)
 
     @allure.step("新建出库单页面，输入Payment Mode支持方式属性")
     def input_Payment_Mode(self, content):
@@ -150,12 +150,6 @@ class SalesOrderPage(Base):
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
-    @allure.step("IMEI Inventory Query页面，进入iframe")
-    def imei_inventory_iframe(self):
-        imei_iframe = self.find_element(user['imei inventory iframe'])
-        self.driver.switch_to.frame(imei_iframe)
-        sleep(1)
-
     @allure.step("IMEI Inventory Query页面，点击Unfold展开筛选按钮")
     def click_unfold(self):
         self.is_click(user['IMEI Inventory Unfold'])
