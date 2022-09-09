@@ -54,11 +54,11 @@ class TestEditUser:
         user = UserPage(drivers)
         user.edit_Permission(
             jobnum="18650893",
-            dimension={
-                '组织': ['itel事业部', '东非地区部'],
-                # '品牌': ['Infinix', 'itel', 'TECNO'],
-                # '区域': {'Infinix': ['利比亚', '土耳其']}
-            }
+            # dimension={
+            #     '组织': ['itel事业部', '东非地区部'],
+            #     # '品牌': ['Infinix', 'itel', 'TECNO'],
+            #     # '区域': {'Infinix': ['利比亚', '土耳其']}
+            # }
         )
 
 if __name__ == '__main__':
