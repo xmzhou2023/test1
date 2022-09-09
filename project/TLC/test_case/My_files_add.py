@@ -23,14 +23,15 @@ class TestMyFilesAdd:
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click_space('我的空间')
+
         tools.hover()
-        # tools.click_addButton_select()
-        tools.input('文件操作input', '自动化测试文件夹2', '新增到我的空间')
-        tools.confirm_click()
+        tools.click_addButton_select('文件夹')
+        tools.input('文件操作input', 'auto_test_add_My_files_private_001')
+        tools.click('新增对话框底部按钮', 'confirm')
         DomAssert(drivers).assert_att('新增成功')
-        # TODO： 删除
-        tools.handle_button_right_click()
-        tools.click('删除对话框Button', '确定')
+        tools.handle_button_right_click('文件Item')
+        tools.click('右键操作', '3')
+        tools.click('删除对话框Button', '2')
         pass
 
     @allure.story("我的文件新增")  # 场景名称
@@ -42,11 +43,11 @@ class TestMyFilesAdd:
         tools.click_menu('组件中心', '我的文件')
         tools.click_space('我的空间')
         tools.hover()
-        # tools.click_addButton_select()
-        tools.input('文件操作input', '', '新增到我的空间')
-        tools.confirm_click()
+        tools.click_addButton_select('文件夹')
+        tools.input('文件操作input', '')
+        tools.click('新增对话框底部按钮', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
-        tools.click('添加文件-取消')
+        tools.click('新增对话框底部按钮', 'cancel')
         pass
 
     @allure.story("我的文件新增")  # 场景名称
@@ -58,8 +59,8 @@ class TestMyFilesAdd:
         tools.click_menu('组件中心', '我的文件')
         tools.click_space('我的空间')
         tools.hover()
-        # tools.click_addButton_select()
-        tools.click('添加文件-取消')
+        tools.click_addButton_select('文件夹')
+        tools.click('新增对话框底部按钮', 'cancel')
         pass
 
     @allure.story("我的文件新增")  # 场景名称
@@ -71,8 +72,8 @@ class TestMyFilesAdd:
         tools.click_menu('组件中心', '我的文件')
         tools.click_space('我的空间')
         tools.hover()
-        # tools.click_addButton_select()
-        tools.click('添加文件-x')
+        tools.click_addButton_select('文件夹')
+        tools.click_close()
         pass
 
     @allure.story("公共新增")  # 场景名称
@@ -84,12 +85,13 @@ class TestMyFilesAdd:
         tools.click_menu('组件中心', '我的文件')
         tools.click_space('公共空间')
         tools.hover()
-        # tools.click_addButton_select()
-        tools.input('文件操作input', '自动化测试文件夹2', '新增到公共空间')
-        tools.confirm_click()
+        tools.click_addButton_select('文件夹')
+        tools.input('文件操作input', 'auto_test_add_My_files_public_001')
+        tools.click('新增对话框底部按钮', 'confirm')
         DomAssert(drivers).assert_att('新增成功')
-        tools.handle_button_right_click()
-        tools.click('删除对话框Button', '确定')
+        tools.handle_button_right_click('文件Item')
+        tools.click('右键操作', '3')
+        tools.click('删除对话框Button', '2')
         pass
 
     @allure.story("公共新增")  # 场景名称
@@ -101,11 +103,11 @@ class TestMyFilesAdd:
         tools.click_menu('组件中心', '我的文件')
         tools.click_space('公共空间')
         tools.hover()
-        # tools.click_addButton_select()
-        tools.input('文件操作input', '', '新增到公共空间')
-        tools.confirm_click()
+        tools.click_addButton_select('文件夹')
+        tools.input('文件操作input', '')
+        tools.click('新增对话框底部按钮', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
-        tools.click('添加文件-x')
+        tools.click('新增对话框底部按钮', 'cancel')
         pass
 
     @allure.story("我的文件新增")  # 场景名称
@@ -117,8 +119,8 @@ class TestMyFilesAdd:
         tools.click_menu('组件中心', '我的文件')
         tools.click_space('公共空间')
         tools.hover()
-        # tools.click_addButton_select()
-        tools.click('添加文件-取消')
+        tools.click_addButton_select('文件夹')
+        tools.click('新增对话框底部按钮', 'cancel')
         pass
 
     @allure.story("我的文件新增")  # 场景名称
@@ -130,9 +132,9 @@ class TestMyFilesAdd:
         tools.click_menu('组件中心', '我的文件')
         tools.click_space('公共空间')
         tools.hover()
-        # tools.click_addButton_select()
-        tools.click('添加文件-x')
+        tools.click_addButton_select('文件夹')
+        tools.click_close()
         pass
 
 if __name__ == '__main__':
-    pytest.main(['project/TLC/test_case/My_files_add.py'])
+    pytest.main(['project/DRP/testcase/My_files_add.py'])

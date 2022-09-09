@@ -33,13 +33,14 @@ class Tool(Base):
         sleep(0.5)
         self.is_click(user[yaml], choice)
 
-    @allure.step('点击新增按钮下的文件夹')
-    def click_addButton_select(self):
-        self.is_click(user['新增文件夹'])
+
+    @allure.step('点击新增按钮下的select')
+    def click_addButton_select(self, type):
+        self.is_click(user['新增下拉选项'], type)
 
     @allure.step('点击我的空间或公共空间')
-    def click_space(self, Type):
-        self.is_click(user['空间'], Type)
+    def click_space(self, type):
+        self.is_click(user['空间'], type)
 
     @allure.step('导航菜单')
     def click_menu(self, fType, sType):
@@ -50,28 +51,30 @@ class Tool(Base):
     @allure.step('hover新增按钮')
     def hover(self):
         self.mouse_hover(user['新增'])
-        self.is_click(user['新增文件夹'])
 
     @allure.step('双击元素')
     def double_click(self, yaml):
         self.double_click(user[yaml])
 
     @allure.step('点击确定')
-    def confirm_click(self):
-        self.is_click(user['添加-确定'])
+    def confirm_click(self, type):
+        self.is_click(user['文件新增_or_编辑-确定按钮'], type)
 
     @allure.step('输入框')
     def input(self, type, txt, yamlStr=None):
         self.input_text(user[type], txt, yamlStr)
 
     @allure.step('右键点击')
-    def handle_button_right_click(self):
-        self.mouse_right_click(user['文件Item'])
-        self.is_click(user['右键操作'])
+    def handle_button_right_click(self, fileName = None):
+        self.mouse_right_click(user['文件Item'], fileName)
 
     @allure.step('readonly输入')
     def readonly_input(self, yaml, txt):
         self.readonly_input_text(user[yaml], txt)
+
+    @allure.step('新增X关闭按钮')
+    def click_close(self):
+        self.is_click(user['添加文件-x'])
 
 if __name__ == '__main__':
     pass
