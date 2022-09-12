@@ -25,13 +25,13 @@ class VisitRecordPage(Base):
         self.is_click_dcr(user['Input Query Shop'])
         self.input_text_dcr(user['Input Query Shop'], txt=content)
         sleep(3)
-        Base.presence_sleep_dcr(self, user['Select Shop Value'])
+        self.presence_sleep_dcr(user['Select Shop Value'])
         self.is_click(user['Select Shop Value'])
 
     @allure.step("Visit Record页面，输入Submit Start Date")
     def input_submit_start_date(self, content):
         sleep(3)
-        Base.presence_sleep_dcr(self, user['Submit Start Date'])
+        self.presence_sleep_dcr(user['Submit Start Date'])
         self.is_click(user['Submit Start Date'])
         self.input_text(user['Submit Start Date'], txt=content)
 
@@ -54,7 +54,7 @@ class VisitRecordPage(Base):
     @allure.step("Visit Record页面，获取列表中Shop ID文本属性")
     def get_shop_id_text(self):
         """Visit Record页面，获取列表中Shop ID文本属性"""
-        Base.presence_sleep_dcr(self, user['获取Shop ID文本'])
+        self.presence_sleep_dcr(user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
 
@@ -96,7 +96,7 @@ class VisitRecordPage(Base):
     @allure.step("Visit Record页面，点击Export导出按钮")
     def click_export(self):
         """Visit Record页面，点击Export导出按钮"""
-        Base.presence_sleep_dcr(self, user['Export'])
+        self.presence_sleep_dcr(user['Export'])
         self.is_click(user['Export'])
         sleep(2)
 
@@ -104,7 +104,7 @@ class VisitRecordPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(4)
 
@@ -117,7 +117,7 @@ class VisitRecordPage(Base):
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        down_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return down_status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")

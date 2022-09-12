@@ -12,14 +12,6 @@ object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
 class CustomerManagementPage(Base):
-    # def gotomenu(self, metatitle, nestmenu):
-    #     self.is_click(user['一级菜单'], metatitle)
-    #     logging.info(f'点击一级菜单：{metatitle}')
-    #     self.is_click(user['二级菜单'], nestmenu)
-    #     logging.info(f'点击二级菜单：{nestmenu}')
-    #     sleep(1)
-    #     self.refresh()
-
     @allure.step("点击新增Add按钮")
     def click_add(self):
         self.is_click(user['Add'])
@@ -99,7 +91,7 @@ class CustomerManagementPage(Base):
         self.is_click_dcr(user['筛选Customer'])
         self.input_text_dcr(user['筛选Customer'], customer_id)
         sleep(2.5)
-        Base.presence_sleep_dcr(self, user['筛选Customer Select'], customer_id)
+        self.presence_sleep_dcr(user['筛选Customer Select'], customer_id)
         self.is_click(user['筛选Customer Select'], customer_id)
 
     @allure.step("客户列表页面，点击Search 查询按钮")
@@ -114,7 +106,7 @@ class CustomerManagementPage(Base):
 
     @allure.step("获取新增客户ID")
     def get_customer_id(self):
-        Base.presence_sleep_dcr(self, user['Get list Customer Id'])
+        self.presence_sleep_dcr(user['Get list Customer Id'])
         c_id = self.element_text(user['Get list Customer Id'])
         return c_id
 
@@ -180,7 +172,7 @@ class CustomerManagementPage(Base):
     def edit_form_info(self, edit_c_name, edit_contact_name, edit_contact_no):
         self.is_click_dcr(user['Edit'])
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['Customer Name'], edit_c_name)
+        self.presence_sleep_dcr(user['Customer Name'], edit_c_name)
         self.input_text(user['Customer Name'], edit_c_name)
         self.input_text(user['Contact Name'], edit_contact_name)
         self.input_text(user['Contact No'], edit_contact_no)
@@ -192,10 +184,10 @@ class CustomerManagementPage(Base):
         self.is_click_dcr(user['CheckBox'])
         self.is_click(user['More Options'])
         sleep(2)
-        Base.presence_sleep_dcr(self, user['Delete'])
+        self.presence_sleep_dcr(self, user['Delete'])
         self.is_click(user['Delete'])
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['Delete Confirm'])
+        self.presence_sleep_dcr(user['Delete Confirm'])
         self.is_click(user['Delete Confirm'])
 
     @allure.step("关闭导出记录菜单")
@@ -212,7 +204,7 @@ class CustomerManagementPage(Base):
         sleep(2)
         self.is_click(user['Enable'])
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['Enable Confirm'])
+        self.presence_sleep_dcr(user['Enable Confirm'])
         self.is_click(user['Enable Confirm'])
 
     @allure.step("点击禁用按钮")
@@ -223,7 +215,7 @@ class CustomerManagementPage(Base):
         sleep(2)
         self.is_click(user['Disable'])
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['Disable Yes'])
+        self.presence_sleep_dcr(user['Disable Yes'])
         self.is_click_dcr(user['Disable Yes'])
 
     @allure.step("客户列表，获取列表状态字段内容")
@@ -244,7 +236,7 @@ class CustomerManagementPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(2)
 
@@ -257,7 +249,7 @@ class CustomerManagementPage(Base):
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        download_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        download_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return download_status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")

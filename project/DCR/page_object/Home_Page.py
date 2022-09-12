@@ -11,7 +11,7 @@ class HomePagePage(Base):
 
     @allure.step("根据Time Period条件筛选")
     def click_time_period(self):
-        Base.presence_sleep_dcr(self, user['Input Time Period'])
+        self.presence_sleep_dcr(user['Input Time Period'])
         self.is_click(user['Input Time Period'])
         sleep(1)
         self.is_click(user['选择月份'])
@@ -84,14 +84,9 @@ class HomePagePage(Base):
     """查看Abnormal Data 指标定位"""
     @allure.step("获取abnormal data 文本内容")
     def get_abnormal_data_text(self):
-        Base.presence_sleep_dcr(self, user['Get Abnormal Data'])
+        self.presence_sleep_dcr(user['Get Abnormal Data'])
         abnormal_text = self.element_text(user['Get Abnormal Data'])
         return abnormal_text
-
-    # def get_start_end_date(self):
-    #     """ 获取Abnormal Data指标，开始与结束日期文本 """
-    #     start_end_data = self.element_text(user['Get start and end Data'])
-    #     return start_end_data
 
     @allure.step("获取Abnormal Data指标，国包出库单激活日期")
     def get_dist_deli_date(self):
@@ -150,7 +145,7 @@ class HomePagePage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(2)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(13)
 
@@ -164,7 +159,7 @@ class HomePagePage(Base):
 
     @allure.step("导出记录页面，点击Search按钮")
     def click_export_search(self):
-        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        down_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return down_status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")
@@ -349,7 +344,7 @@ class HomePagePage(Base):
 
     @allure.step("获取Total Shop指标值")
     def get_shop_days_no_upload_sales(self):
-        Base.presence_sleep_dcr(self, user['Get Shop Days No Upload Sales'])
+        self.presence_sleep_dcr(user['Get Shop Days No Upload Sales'])
         shop_days_no_upload = self.element_text(user['Get Shop Days No Upload Sales'])
         if int(shop_days_no_upload) > 0:
             logging.info("Shop Management卡片，加载Days No Upload Sales指标的值加载正常：{}".format(shop_days_no_upload))

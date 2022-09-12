@@ -34,7 +34,7 @@ class AttendanceRecordPage(Base):
 
     @allure.step("Attendance Records页面，获取列表Picture文本")
     def get_photo_text(self):
-        Base.presence_sleep_dcr(self, user['获取列表photo文本'])
+        self.presence_sleep_dcr(user['获取列表photo文本'])
         photo = self.element_text(user['获取列表photo文本'])
         return photo
 
@@ -45,7 +45,7 @@ class AttendanceRecordPage(Base):
 
     @allure.step("Attendance Records页面，获取列表User ID文本")
     def get_user_id_text(self):
-        Base.presence_sleep_dcr(self, user['获取列表UserID文本'])
+        self.presence_sleep_dcr(user['获取列表UserID文本'])
         userid = self.element_text(user['获取列表UserID文本'])
         return userid
 
@@ -82,7 +82,7 @@ class AttendanceRecordPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(4)
 
@@ -95,7 +95,7 @@ class AttendanceRecordPage(Base):
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        download_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        download_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return download_status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")
