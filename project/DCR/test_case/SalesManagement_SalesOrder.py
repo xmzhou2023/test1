@@ -13,9 +13,12 @@ import allure
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    close = SalesOrderPage(drivers)
-    close.click_close_export_record()
-    close.click_close_sales_order()
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
 
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
@@ -380,7 +383,7 @@ class TestExportSalesOrder:
         """按销售单创建日期、Status条件筛选销售单"""
         export.click_sales_order_unfold()
         export.input_status_query("Delivered")
-        export.list_input_create_date("2022-09-01", today)
+        export.list_input_create_date("2022-09-08", today)
         export.click_search()
 
         """点击导出按钮"""
@@ -429,7 +432,7 @@ class TestExportSalesOrder:
         """按销售单创建日期、Status条件筛选销售单"""
         export.click_sales_order_unfold()
         export.input_status_query("Delivered")
-        export.list_input_create_date("2022-09-01", today)
+        export.list_input_create_date("2022-09-08", today)
         export.click_search()
 
         """点击导出按钮"""

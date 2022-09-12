@@ -321,7 +321,7 @@ class ShopManagementPage(Base):
     @allure.step("门店管理页面，点击View查看门店详情")
     def click_view_shop(self):
         self.is_click(user['View Shop'])
-        sleep(2)
+        sleep(3.5)
 
     @allure.step("门店管理页面，获取列表Shop ID段内容")
     def get_list_shop_id_text(self):

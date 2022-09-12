@@ -184,7 +184,7 @@ class CustomerManagementPage(Base):
         self.is_click_dcr(user['CheckBox'])
         self.is_click(user['More Options'])
         sleep(2)
-        self.presence_sleep_dcr(self, user['Delete'])
+        self.presence_sleep_dcr(user['Delete'])
         self.is_click(user['Delete'])
         sleep(1.5)
         self.presence_sleep_dcr(user['Delete Confirm'])
