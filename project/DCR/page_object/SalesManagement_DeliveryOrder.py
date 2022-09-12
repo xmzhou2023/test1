@@ -33,22 +33,22 @@ class DeliveryOrderPage(Base):
 
     @allure.step("出库单页面，点击Add新增出库单")
     def click_add(self):
-        Base.presence_sleep_dcr(self, user['新增出库单'])
+        self.presence_sleep_dcr(user['新增出库单'])
         self.is_click(user['新增出库单'])
 
     @allure.step("Add新增出库单页面，输入国包账号的Buyer属性")
     def input_sub_buyer(self, content):
-        Base.presence_sleep_dcr(self, user['Buyer'])
+        self.presence_sleep_dcr(user['Buyer'])
         self.is_click(user['Buyer'])
         sleep(1)
         self.input_text(user['Buyer'], txt=content)
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['Buyer sub value'], content)
+        self.presence_sleep_dcr(user['Buyer sub value'], content)
         self.is_click(user['Buyer sub value'], content)
 
     @allure.step("Add新增出库单页面，输入二代账号的Buyer属性")
     def input_retail_buyer(self, content):
-        Base.presence_sleep_dcr(self, user['Buyer'])
+        self.presence_sleep_dcr(user['Buyer'])
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content)
         sleep(2)
@@ -56,7 +56,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("Add新增出库单页面，payment mode属性")
     def input_deli_pay_mode(self, content):
-        Base.presence_sleep_dcr(self, user['payment mode'])
+        self.presence_sleep_dcr(user['payment mode'])
         self.is_click(user['payment mode'])
         self.input_text(user['payment mode'], txt=content)
         sleep(1)
@@ -83,13 +83,13 @@ class DeliveryOrderPage(Base):
 
     @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧显示Success")
     def get_Deli_Scan_Record_Success(self):
-        Base.presence_sleep_dcr(self, user['Get Delivery Scan Record Success'])
+        self.presence_sleep_dcr(user['Get Delivery Scan Record Success'])
         scan_record_success = self.element_text(user['Get Delivery Scan Record Success'])
         return scan_record_success
 
     @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧出现显示IMEI")
     def get_Deli_Scan_Record_IMEI(self, imei):
-        Base.presence_sleep_dcr(self, user['Get Delivery Scan Record IMEI'], imei)
+        self.presence_sleep_dcr(user['Get Delivery Scan Record IMEI'], imei)
         scan_record_imei = self.element_text(user['Get Delivery Scan Record IMEI'], imei)
         return scan_record_imei
 
@@ -105,7 +105,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("Add新增出库单页面，确认Submit按钮")
     def get_text_submit_affirm(self):
-        Base.presence_sleep_dcr(self, user['Affirm Submit'])
+        self.presence_sleep_dcr(user['Affirm Submit'])
         affirm = self.element_text(user['Affirm Submit'])
         return affirm
 
@@ -116,13 +116,13 @@ class DeliveryOrderPage(Base):
 
     @allure.step("获取出库单列表的 销售单ID文本")
     def text_sales_order(self):
-        Base.presence_sleep_dcr(self, user['Get Sales Order ID Text'])
+        self.presence_sleep_dcr(user['Get Sales Order ID Text'])
         sales_order = self.element_text(user['Get Sales Order ID Text'])
         return sales_order
 
     @allure.step("获取出库单列表的 出库单ID文本")
     def text_delivery_order(self):
-        Base.presence_sleep_dcr(self, user['Get Delivery Order ID Text'])
+        self.presence_sleep_dcr(user['Get Delivery Order ID Text'])
         delivery_order = self.element_text(user['Get Delivery Order ID Text'])
         return delivery_order
 
@@ -167,13 +167,13 @@ class DeliveryOrderPage(Base):
 
     @allure.step("获取列表Sales Order ID文本内容")
     def get_sales_order_text(self):
-        Base.presence_sleep_dcr(self, user['Get Sales Order ID Text'])
+        self.presence_sleep_dcr(user['Get Sales Order ID Text'])
         sales_order = self.element_text(user['Get Sales Order ID Text'])
         return sales_order
 
     @allure.step("获取列表Delivery Order ID文本内容")
     def get_delivery_order_text(self):
-        Base.presence_sleep_dcr(self, user['Get Delivery Order ID Text'])
+        self.presence_sleep_dcr(user['Get Delivery Order ID Text'])
         delivery_order = self.element_text(user['Get Delivery Order ID Text'])
         return delivery_order
 
@@ -211,7 +211,7 @@ class DeliveryOrderPage(Base):
     #Delivery Order列表数据筛选后，导出操作成功后验证
     @allure.step("Delivery Order页面，点击导出功能")
     def click_export(self):
-        Base.find_element(self, user['Click Export'])
+        self.find_element(user['Click Export'])
         self.is_click(user['Click Export'])
         sleep(2)
 
@@ -219,7 +219,7 @@ class DeliveryOrderPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(5)
 
@@ -230,9 +230,9 @@ class DeliveryOrderPage(Base):
         sleep(2)
         self.is_click_dcr(user['Task Name value'], content)
 
-    @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
+    @allure.step("循Base环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        down_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return down_status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")
@@ -314,7 +314,7 @@ class DeliveryOrderPage(Base):
     @allure.step("输入出库单无码产品")
     def click_quantity_product(self, content):
         self.scroll_into_view(user['Quantity Input Product'])
-        Base.presence_sleep_dcr(self, user['Quantity Input Product'])
+        self.presence_sleep_dcr(user['Quantity Input Product'])
         self.is_click(user['Quantity Input Product'])
         sleep(2)
         self.is_click(user['Quantity Input Product Value'], content)
@@ -344,7 +344,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("输入临时客户名称")
     def input_temporary_customer_name(self, content):
-        Base.presence_sleep_dcr(self, user['Temporary Customer Name'])
+        self.presence_sleep_dcr(user['Temporary Customer Name'])
         self.is_click(user['Temporary Customer Name'])
         self.input_text(user['Temporary Customer Name'], content)
 
@@ -384,7 +384,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("IMEI Detail页面，获取Title标题的Sales Order")
     def get_detail_title_sale_text(self):
-        Base.presence_sleep_dcr(self, user['Get IMEI Detail Title'])
+        self.presence_sleep_dcr(user['Get IMEI Detail Title'])
         get_detail_title = self.element_text(user['Get IMEI Detail Title'])
         return get_detail_title
 

@@ -47,14 +47,14 @@ class ShopInventoryIMEIQueryPage(Base):
 
     @allure.step("Shop Inventory IMEI Query页面，获取分页功能总条数文本")
     def get_total_text(self):
-        Base.presence_sleep_dcr(self, user['获取总条数文本'])
+        self.presence_sleep_dcr(user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
         total1 = total[6:]
         return total1
 
     @allure.step("Shop Inventory IMEI Query页面，获取列表Shop ID文本")
     def get_shop_id_text(self):
-        Base.presence_sleep_dcr(self, user['获取Shop ID文本'])
+        self.presence_sleep_dcr(user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
 
@@ -104,7 +104,7 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(4)
 
@@ -118,7 +118,7 @@ class ShopInventoryIMEIQueryPage(Base):
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
-        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        down_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return down_status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")

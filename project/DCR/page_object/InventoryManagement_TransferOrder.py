@@ -14,7 +14,7 @@ user = Element(pro_name, object_name)
 class TransferOrderPage(Base):
     @allure.step("TransferOrder页面，点击Create新增TransferOrder")
     def click_create(self):
-        Base.presence_sleep_dcr(self, user['Create'])
+        self.presence_sleep_dcr(user['Create'])
         self.is_click(user['Create'])
         sleep(2)
 
@@ -83,13 +83,13 @@ class TransferOrderPage(Base):
 
     @allure.step("获取列表Transfer ID文本")
     def get_list_transfer_id(self):
-        Base.presence_sleep_dcr(self, user['Get list Transfer ID'])
+        self.presence_sleep_dcr(user['Get list Transfer ID'])
         get_transfer_id = self.element_text(user['Get list Transfer ID'])
         return get_transfer_id
 
     @allure.step("获取列表Order Status状态文本")
     def get_list_order_status(self):
-        Base.presence_sleep_dcr(self, user['Get list Order Status'])
+        self.presence_sleep_dcr(user['Get list Order Status'])
         get_order_status = self.element_text(user['Get list Order Status'])
         return get_order_status
 
@@ -126,7 +126,7 @@ class TransferOrderPage(Base):
 
     @allure.step("点击Receipt Status收货状态筛选项")
     def click_receipt_status_query(self, status):
-        Base.presence_sleep_dcr(self, user['点击收货状态筛选项'])
+        self.presence_sleep_dcr(user['点击收货状态筛选项'])
         self.is_click(user['点击收货状态筛选项'])
         sleep(0.6)
         self.is_click(user['选中Received状态'], status)
@@ -171,7 +171,7 @@ class TransferOrderPage(Base):
     #  对No Receive的调拨单进行撤回操作----------------------------------------------------------------------------------------------
     @allure.step("TransferOrder页面，勾选框")
     def choose_box(self):
-        Base.presence_sleep_dcr(self, user['撤回复选框勾选'])
+        self.presence_sleep_dcr(user['撤回复选框勾选'])
         self.is_click(user['撤回复选框勾选'])
         sleep(2)
 

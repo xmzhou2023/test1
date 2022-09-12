@@ -8,17 +8,6 @@ user = Element(pro_name, object_name)
 
 class CustomerSalesReportPage(Base):
     """InSCShopSalesQueryPage，印度生产环境，Shop Sales Query页面元素定位"""
-
-    @allure.step("Shop Sales Query页面，进入iframe")
-    def iframe_customer_sales_report(self):
-        self.frame_enter(user['iframe Customer Sales Report'])
-        sleep(1)
-
-    @allure.step("退出iframe")
-    def iframe_exit(self):
-        self.frame_exit()
-        sleep(1)
-
     @allure.step("输入客户销售报表开始与结束日期")
     def input_date(self, content1, content2):
         self.is_click(user['客户销售报表开始日期'])
@@ -39,7 +28,7 @@ class CustomerSalesReportPage(Base):
     @allure.step("获取出库总数文本")
     def get_delivery_sum_text(self):
         self.scroll_into_view(user['获取出库数量文本'])
-        Base.presence_sleep_dcr(self, user['获取出库数量文本'])
+        self.presence_sleep_dcr(user['获取出库数量文本'])
         delivery_total = self.element_text(user['获取出库数量文本'])
         delivery_total1 = int(delivery_total)
         return delivery_total1
