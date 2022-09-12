@@ -92,11 +92,6 @@ class CustomerPSIPage(Base):
         down_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return down_status
 
-    # def get_download_status_text(self):
-    #     """导出记录页面，获取列表 Download Status文本"""
-    #     status = self.element_text(user['获取下载状态文本'])
-    #     return status
-
     @allure.step("导出记录页面，获取列表 Task Name文本")
     def get_task_name_text(self):
         task_name = self.element_text(user['获取任务名称文本'])
