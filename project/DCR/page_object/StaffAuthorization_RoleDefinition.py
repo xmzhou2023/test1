@@ -11,11 +11,11 @@ class RoleDefinitionPage(Base):
 
     @allure.step("进入角色设置页面，根据Role角色筛选数据")
     def input_role_query(self, content):
-        Base.presence_sleep_dcr(self, user['Click Role'])
+        self.presence_sleep_dcr(user['Click Role'])
         self.is_click(user['Click Role'])
         self.input_text(user['Input Role'], txt=content)
         sleep(2)
-        Base.presence_sleep_dcr(self, user['Click Role value'])
+        self.presence_sleep_dcr(user['Click Role value'])
         self.is_click(user['Click Role value'])
 
     @allure.step("进入角色设置页面，点击查询按钮")
@@ -25,7 +25,7 @@ class RoleDefinitionPage(Base):
 
     @allure.step("进入角色设置页面，筛选角色后，点击第一个复选框")
     def click_first_checkbox(self):
-        Base.presence_sleep_dcr(self, user['第一个复选框'])
+        self.presence_sleep_dcr(user['第一个复选框'])
         self.is_click(user['第一个复选框'])
 
     @allure.step("点击Permission Setting权限设置按钮")
@@ -59,7 +59,7 @@ class RoleDefinitionPage(Base):
 
     @allure.step("获取复选框对应的 Class属性是否包含is-checked")
     def click_check_basic_data_mgt(self):
-        Base.presence_sleep_dcr(self, user['Basic Data Management'])
+        self.presence_sleep_dcr(user['Basic Data Management'])
         ss = self.find_element(user['Basic Data Management'])
         get_check_class = ss.get_attribute('class')
         if "is-checked" not in str(get_check_class):

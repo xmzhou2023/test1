@@ -14,11 +14,11 @@ class UserAuthorizationPage(Base):
 
     @allure.step("进入用户授权页面，根据User 筛选品牌、客户等数据")
     def input_dealer_user_query(self, content):
-        Base.presence_sleep_dcr(self, user['Input User'])
+        self.presence_sleep_dcr(user['Input User'])
         self.is_click_dcr(user['Input User'])
         self.input_text_dcr(user['Input User'], txt=content)
         sleep(3)
-        Base.presence_sleep_dcr(self, user['Click Dealer User Value'], content)
+        self.presence_sleep_dcr(user['Click Dealer User Value'], content)
         self.is_click(user['Click Dealer User Value'], content)
 
     @allure.step("根据传音用户筛选用户关联的数据")
@@ -27,7 +27,7 @@ class UserAuthorizationPage(Base):
         self.is_click_dcr(user['Input User'])
         self.input_text_dcr(user['Input User'], txt=content)
         sleep(3.5)
-        Base.presence_sleep_dcr(self, user['Click Trans User Value'], content)
+        self.presence_sleep_dcr(user['Click Trans User Value'], content)
         self.is_click(user['Click Trans User Value'], content)
 
     @allure.step("点击user对应的Search按钮")
@@ -39,7 +39,7 @@ class UserAuthorizationPage(Base):
     """删除与添加品牌定位方法"""
     @allure.step("获取列表Infinix品牌文本")
     def get_list_infinix_text(self):
-        Base.presence_sleep_dcr(self, user['获取列表Infinix文本'])
+        self.presence_sleep_dcr(user['获取列表Infinix文本'])
         infinix = self.element_text(user['获取列表Infinix文本'])
         return infinix
 
@@ -65,7 +65,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("Add Association页面，获取infinix品牌文本")
     def get_add_infinix_text(self):
-        Base.presence_sleep_dcr(self, user['获取添加页面Infinix文本'])
+        self.presence_sleep_dcr(user['获取添加页面Infinix文本'])
         add_infinix = self.element_text(user['获取添加页面Infinix文本'])
         return add_infinix
 
@@ -96,10 +96,10 @@ class UserAuthorizationPage(Base):
 
     @allure.step("添加客户页面，输入Customer ID筛选需要添加的客户")
     def click_input_customer(self, content):
-        Base.presence_sleep_dcr(self, user['Add Click Input Query Cust'])
+        self.presence_sleep_dcr(user['Add Click Input Query Cust'])
         self.is_click(user['Add Click Input Query Cust'])
         self.input_text_dcr(user['Add Input Query Cust'], txt=content)
-        Base.presence_sleep_dcr(self, user['Add Input Query Cust Value'])
+        self.presence_sleep_dcr(user['Add Input Query Cust Value'])
         self.is_click(user['Add Input Query Cust Value'])
 
     @allure.step("在添加客户页面，点击Search按钮")
@@ -109,7 +109,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在添加客户页面，获取Customer ID文本")
     def get_customer_id_text(self):
-        Base.presence_sleep_dcr(self, user['Add 获取CustomerID文本'], 'CN20009')
+        self.presence_sleep_dcr(user['Add 获取CustomerID文本'], 'CN20009')
         get_customer = self.element_text(user['Add 获取CustomerID文本'], 'CN20009')
         return get_customer
 
@@ -130,11 +130,11 @@ class UserAuthorizationPage(Base):
     #删除客户Customer定位方法
     @allure.step("在客户页签，输入Customer ID进行筛选需要删除的客户")
     def input_list_customer(self, content):
-        Base.presence_sleep_dcr(self, user['客户列表点击客户输入框'])
+        self.presence_sleep_dcr(self, user['客户列表点击客户输入框'])
         self.is_click_dcr(user['客户列表点击客户输入框'])
         self.input_text_dcr(user['客户列表输入客户'], txt=content)
         sleep(2.5)
-        Base.presence_sleep_dcr(self, user['客户列表选中输入的客户'], content)
+        self.presence_sleep_dcr(user['客户列表选中输入的客户'], content)
         self.is_click(user['客户列表选中输入的客户'], content)
 
     @allure.step("在客户页签，点击Search按钮")
@@ -144,7 +144,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在客户页签，获取客户列表的Customer ID")
     def get_list_customer_id(self):
-        Base.presence_sleep_dcr(self, user['获取客户列表CustomerID'], 'CN20009')
+        self.presence_sleep_dcr(user['获取客户列表CustomerID'], 'CN20009')
         get_list_cust = self.element_text(user['获取客户列表CustomerID'], 'CN20009')
         return get_list_cust
 
@@ -192,7 +192,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在仓库页签，输入Warehouse ID进行筛选需要删除的仓库")
     def input_list_query_ware(self, content):
-        Base.presence_sleep_dcr(self, user['仓库列表点击仓库输入框'])
+        self.presence_sleep_dcr(user['仓库列表点击仓库输入框'])
         self.is_click(user['仓库列表点击仓库输入框'])
         self.input_text_dcr(user['仓库列表点击仓库输入框'], txt=content)
         sleep(2)
@@ -220,7 +220,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在仓库页签，点击Batch Cancel Association 按钮")
     def click_ware_cancel_association(self):
-        Base.presence_sleep_dcr(self, user['Ware Batch Cancel Association'])
+        self.presence_sleep_dcr(user['Ware Batch Cancel Association'])
         self.is_click(user['Ware Batch Cancel Association'])
         sleep(1)
 
@@ -236,7 +236,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在仓库页签，获取删除仓库成功后的 No Data文本")
     def get_ware_dele_no_data(self):
-        Base.presence_sleep_dcr(self, user['获取仓库无数据文本'])
+        self.presence_sleep_dcr(user['获取仓库无数据文本'])
         get_ware_nodata = self.element_text(user['获取仓库无数据文本'])
         return get_ware_nodata
 
@@ -249,7 +249,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在新增仓库页面，Warehouse输入框输入需要筛选的仓库")
     def input_add_query_ware(self, content):
-        Base.presence_sleep_dcr(self, user['Add Click Input Query Ware'])
+        self.presence_sleep_dcr(user['Add Click Input Query Ware'])
         self.is_click(user['Add Click Input Query Ware'])
         self.input_text(user['Add Click Input Query Ware'], txt=content)
         sleep(3)
@@ -262,7 +262,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("新增仓库页面，获取warehouseID文本")
     def get_add_warehouseid_text(self):
-        Base.presence_sleep_dcr(self, user['Add 获取WarehouseID文本'], 'WNG2061304')
+        self.presence_sleep_dcr(user['Add 获取WarehouseID文本'], 'WNG2061304')
         get_add_ware = self.element_text(user['Add 获取WarehouseID文本'], 'WNG2061304')
         return get_add_ware
 
@@ -285,7 +285,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在门店页签，点击Shop 切换门店页签")
     def click_shop_tab(self):
-        Base.presence_sleep_dcr(self, user['切换门店页签'])
+        self.presence_sleep_dcr(user['切换门店页签'])
         self.is_click_dcr(user['切换门店页签'])
         sleep(2)
 
@@ -294,7 +294,7 @@ class UserAuthorizationPage(Base):
         self.is_click_dcr(user['门店列表点击门店输入框'])
         self.input_text_dcr(user['门店列表点击门店输入框'], txt=context)
         sleep(3)
-        Base.presence_sleep_dcr(self, user['门店列表选中输入的门店'], context)
+        self.presence_sleep_dcr(user['门店列表选中输入的门店'], context)
         self.is_click(user['门店列表选中输入的门店'], context)
 
     @allure.step("在门店页签，点击Search 查询按钮")
@@ -304,7 +304,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在门店页签，筛选Shop ID后，获取筛选到的Shop ID文本")
     def get_list_shop_text(self, shop):
-        Base.presence_sleep_dcr(self, user['list 获取ShopID文本'], shop)
+        self.presence_sleep_dcr(user['list 获取ShopID文本'], shop)
         get_list_shopid = self.element_text(user['list 获取ShopID文本'], shop)
         return get_list_shopid
 
@@ -319,7 +319,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在门店页签，点击 Batch Cancel Association取消关联按钮")
     def click_shop_cancel_association(self):
-        Base.presence_sleep_dcr(self, user['Shop Batch Cancel Association'])
+        self.presence_sleep_dcr(user['Shop Batch Cancel Association'])
         self.is_click(user['Shop Batch Cancel Association'])
         sleep(2)
 
@@ -335,7 +335,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在门店页签，获取删除仓库成功后的 No Data文本")
     def get_shop_delete_no_data(self):
-        Base.presence_sleep_dcr(self, user['获取门店无数据文本'])
+        self.presence_sleep_dcr(user['获取门店无数据文本'])
         get_shop_nodata = self.element_text(user['获取门店无数据文本'])
         return get_shop_nodata
 
@@ -348,7 +348,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在新增门店页面，Shop输入框输入需要筛选的门店")
     def input_add_query_shop(self, content):
-        Base.presence_sleep_dcr(self, user['Add Click Input Query Shop'])
+        self.presence_sleep_dcr(user['Add Click Input Query Shop'])
         self.is_click(user['Add Click Input Query Shop'])
         self.input_text(user['Add Input Query Shop'], txt=content)
         sleep(3)
@@ -361,7 +361,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("新增门店页面，获取Shop ID文本")
     def get_add_shop_id_text(self, shop):
-        Base.presence_sleep_dcr(self, user['add获取ShopID文本'], shop)
+        self.presence_sleep_dcr(user['add获取ShopID文本'], shop)
         get_add_shop_id = self.element_text(user['add获取ShopID文本'], shop)
         return get_add_shop_id
 
@@ -382,7 +382,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("门店页签，获取门店列表 Shop ID文本")
     def get_list_shop_id_text(self, shop):
-        Base.presence_sleep_dcr(self, user['门店列表获取ShopID文本'], shop)
+        self.presence_sleep_dcr(user['门店列表获取ShopID文本'], shop)
         get_list_shop = self.element_text(user['门店列表获取ShopID文本'], shop)
         return get_list_shop
 
@@ -390,13 +390,13 @@ class UserAuthorizationPage(Base):
     """ 添加销售区域Sales Region定位方法"""
     @allure.step("在销售页签，点击Sales Region 切换销售区域页签")
     def click_sales_region_tab(self):
-        Base.presence_sleep_dcr(self, user['切换销售区域页签'])
+        self.presence_sleep_dcr(user['切换销售区域页签'])
         self.is_click_dcr(user['切换销售区域页签'])
         sleep(2)
 
     @allure.step("在销售页签，勾选East Africa I 销售区域复选框")
     def click_east_africa_checkbox(self):
-        Base.presence_sleep_dcr(self, user['Select East AfricaI Checkbox'])
+        self.presence_sleep_dcr(user['Select East AfricaI Checkbox'])
         self.is_click(user['Select East AfricaI Checkbox'])
 
     @allure.step("在销售页签，勾选User 复选框")

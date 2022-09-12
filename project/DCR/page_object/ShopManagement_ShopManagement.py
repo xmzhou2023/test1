@@ -11,13 +11,13 @@ class ShopManagementPage(Base):
     """ShopManagementPage 页面元素类"""
     @allure.step("点击Add新建门店按钮")
     def click_add(self):
-        Base.presence_sleep_dcr(self, user['Add'])
+        self.presence_sleep_dcr(user['Add'])
         self.is_click(user['Add'])
         sleep(3)
 
     @allure.step("新建门店，输入门店名称")
     def input_shop_name(self, content):
-        Base.presence_sleep_dcr(self, user['Shop Name'])
+        self.presence_sleep_dcr(user['Shop Name'])
         self.input_text(user['Shop Name'], txt=content)
 
     @allure.step("新建门店，输入联系人")
@@ -106,11 +106,11 @@ class ShopManagementPage(Base):
 
     @allure.step("根据门店名称查询，最近新建的门店ID")
     def input_query_shop_name(self, content):
-        Base.presence_sleep_dcr(self, user['点击门店输入框'])
+        self.presence_sleep_dcr(user['点击门店输入框'])
         self.is_click_dcr(user['点击门店输入框'])
         self.input_text(user['门店输入框输入'], txt=content)
         sleep(3)
-        Base.presence_sleep_dcr(self, user['选中门店值1'], content)
+        self.presence_sleep_dcr(user['选中门店值1'], content)
         self.is_click(user['选中门店值1'], content)
 
     @allure.step("根据门店名称查询，最近扩展门店品牌的的门店ID")
@@ -118,7 +118,7 @@ class ShopManagementPage(Base):
         self.is_click(user['点击门店输入框'])
         self.input_text_dcr(user['点击门店输入框'], txt=content)
         sleep(2)
-        Base.presence_sleep_dcr(self, user['选中门店值1'], content)
+        self.presence_sleep_dcr(user['选中门店值1'], content)
         self.is_click(user['选中门店值1'], content)
 
     @allure.step("点击Search查询门店信息")
@@ -128,7 +128,7 @@ class ShopManagementPage(Base):
 
     @allure.step("筛选最近新建的门店ID后，勾线第一个复选框")
     def click_first_checkbox(self):
-        Base.presence_sleep_dcr(self, user['勾选第一个复选框'])
+        self.presence_sleep_dcr(user['勾选第一个复选框'])
         self.is_click(user['勾选第一个复选框'])
 
     @allure.step("勾选第二个复选框")
@@ -142,7 +142,7 @@ class ShopManagementPage(Base):
 
     @allure.step("点击delete 删除按钮")
     def click_delete(self):
-        Base.presence_sleep_dcr(self, user['Delete'])
+        self.presence_sleep_dcr(user['Delete'])
         self.is_click(user['Delete'])
         sleep(1)
 
@@ -169,19 +169,19 @@ class ShopManagementPage(Base):
     @allure.step("获取列表Shop ID文本")
     def get_shop_id_text(self):
         sleep(5)
-        Base.presence_sleep_dcr(self, user['获取ShopID文本'])
+        self.presence_sleep_dcr(user['获取ShopID文本'])
         get_shop_id = self.element_text(user['获取ShopID文本'])
         return get_shop_id
 
     @allure.step("获取列表Shop ID文本")
     def get_extend_shop_id_text(self):
-        Base.presence_sleep_dcr(self, user['获取ShopID文本'])
+        self.presence_sleep_dcr(user['获取ShopID文本'])
         get_shop_id = self.element_text(user['获取ShopID文本'])
         return get_shop_id
 
     @allure.step("获取列表Shop Name文本")
     def get_shop_name_text(self):
-        Base.presence_sleep_dcr(self, user['获取ShopName文本'])
+        self.presence_sleep_dcr(user['获取ShopName文本'])
         get_shop_name = self.element_text(user['获取ShopName文本'])
         return get_shop_name
 
@@ -193,7 +193,7 @@ class ShopManagementPage(Base):
 
     @allure.step("获取列表Status文本")
     def get_shop_status_text(self):
-        Base.presence_sleep_dcr(self, user['获取Status文本'])
+        self.presence_sleep_dcr(user['获取Status文本'])
         get_status = self.element_text(user['获取Status文本'])
         return get_status
 
@@ -208,17 +208,11 @@ class ShopManagementPage(Base):
         self.is_click(user['Reset'])
         sleep(4)
 
-    # def query_sql_shopid(self):
-    #     """查询最近新建的门店ID"""
-    #     shop_data = connect_sql.query_db("select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
-    #     shop_id = shop_data[0].get("public_code")
-    #     shop_name = shop_data[0].get("shop_name")
-    #     return shop_id, shop_name
 
     """门店扩展品牌"""
     @allure.step("点击More Option->Extend Brand扩展品牌按钮")
     def click_extend_brand(self):
-        Base.presence_sleep_dcr(self, user['Extend Brand'])
+        self.presence_sleep_dcr(user['Extend Brand'])
         self.is_click(user['Extend Brand'])
         sleep(1)
 
@@ -292,10 +286,10 @@ class ShopManagementPage(Base):
     """禁用门店"""
     @allure.step("点击禁用门店按钮")
     def click_disable_confirm(self):
-        Base.presence_sleep_dcr(self, user['Disable'])
+        self.presence_sleep_dcr(user['Disable'])
         self.is_click(user['Disable'])
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['Disable Confirm'])
+        self.presence_sleep_dcr(user['Disable Confirm'])
         self.is_click(user['Disable Confirm'])
         sleep(1)
 
@@ -303,10 +297,10 @@ class ShopManagementPage(Base):
     """启用门店Disabled"""
     @allure.step("点击启用门店按钮")
     def click_enable_confirm(self):
-        Base.presence_sleep_dcr(self, user['Enable'])
+        self.presence_sleep_dcr(user['Enable'])
         self.is_click(user['Enable'])
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['Enable Confirm'])
+        self.presence_sleep_dcr(user['Enable Confirm'])
         self.is_click(user['Enable Confirm'])
         sleep(1)
 
@@ -314,7 +308,7 @@ class ShopManagementPage(Base):
     def click_status_filter(self, status):
         self.is_click(user['门店列表筛选状态'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['筛选后选中禁用值'], status)
+        self.presence_sleep_dcr(user['筛选后选中禁用值'], status)
         self.is_click(user['筛选后选中禁用值'], status)
 
     @allure.step("点击Status筛选项后，点击Status属性名称，释放光标位置")
@@ -331,13 +325,13 @@ class ShopManagementPage(Base):
 
     @allure.step("门店管理页面，获取列表Shop ID段内容")
     def get_list_shop_id_text(self):
-        Base.presence_sleep_dcr(self, user['Get list Shop ID Text'])
+        self.presence_sleep_dcr(user['Get list Shop ID Text'])
         list_shop_id = self.element_text(user['Get list Shop ID Text'])
         return list_shop_id
 
     @allure.step("门店管理页面，获取列表Shop Name字段内容")
     def get_list_shop_name_text(self):
-        Base.presence_sleep_dcr(self, user['Get list Shop Name Text'])
+        self.presence_sleep_dcr(user['Get list Shop Name Text'])
         list_shop_name1 = self.element_text(user['Get list Shop Name Text'])
         return list_shop_name1
 
@@ -430,7 +424,7 @@ class ShopManagementPage(Base):
     """编辑门店信息"""
     @allure.step("门店列表页面，点击编辑门店功能")
     def click_edit_shop(self):
-        Base.presence_sleep_dcr(self, user['Edit Shop'])
+        self.presence_sleep_dcr(user['Edit Shop'])
         self.is_click(user['Edit Shop'])
         sleep(2)
 
@@ -445,7 +439,7 @@ class ShopManagementPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(4)
 
@@ -458,7 +452,7 @@ class ShopManagementPage(Base):
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        download_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        download_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return download_status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")

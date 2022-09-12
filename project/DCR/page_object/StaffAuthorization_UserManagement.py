@@ -17,7 +17,7 @@ class UserManagementPage(Base):
 
     @allure.step("进入Add user页面， 选择传音员工类型")
     def click_staff_type_value(self, type1):
-        Base.presence_sleep_dcr(self, user['Staff Type'])
+        self.presence_sleep_dcr(user['Staff Type'])
         self.is_click(user['Staff Type'])
         sleep(1)
         self.is_click(user['Transsion Staff'], type1)
@@ -29,7 +29,7 @@ class UserManagementPage(Base):
 
     @allure.step("Add user页面， 输入user Name字段")
     def input_user_name(self, content):
-        Base.presence_sleep_dcr(self, user['User Name'])
+        self.presence_sleep_dcr(user['User Name'])
         self.is_click(user['User Name'])
         self.input_text(user['User Name'], txt=content)
 
@@ -55,7 +55,7 @@ class UserManagementPage(Base):
     def click_select_brand(self):
         self.is_click(user['Add Select Brand'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['Select Brand Value'], 'Infinix')
+        self.presence_sleep_dcr(user['Select Brand Value'], 'Infinix')
         self.is_click(user['Select Brand Value'], 'Infinix')
         self.is_click(user['Select Brand Value'], 'TECNO')
         self.is_click(user['Select Brand Value'], 'itel')
@@ -70,14 +70,14 @@ class UserManagementPage(Base):
     def click_edit_trans_brand(self):
         self.is_click(user['Edit Select Brand'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['Select Brand Value'], 'oraimo')
+        self.presence_sleep_dcr(user['Select Brand Value'], 'oraimo')
         self.is_click(user['Select Brand Value'], 'oraimo')
 
     @allure.step("Edit user页面，选择点击品牌")
     def click_edit_dealer_brand(self):
         self.is_click(user['Edit Select Brand'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['Select Brand Value'], 'Infinix')
+        self.presence_sleep_dcr(user['Select Brand Value'], 'Infinix')
         self.is_click(user['Select Brand Value'], 'Infinix')
 
     @allure.step("Add user页面，输入职位，选中输入的职位")
@@ -85,7 +85,7 @@ class UserManagementPage(Base):
         self.is_click(user['Position'])
         self.input_text(user['Position'], txt=content)
         sleep(1)
-        Base.presence_sleep_dcr(self, user['Position Value Transsion'], content)
+        self.presence_sleep_dcr(user['Position Value Transsion'], content)
         self.is_click(user['Position Value Transsion'], content)
 
     @allure.step("Add user页面，输入上级领导，选中输入的上级领导")
@@ -93,7 +93,7 @@ class UserManagementPage(Base):
         self.is_click(user['Superior'])
         self.input_text(user['Superior'], txt=content)
         sleep(2.5)
-        Base.presence_sleep_dcr(self, user['Superior Value'], "lhmadmin lhmadmin")
+        self.presence_sleep_dcr(user['Superior Value'], "lhmadmin lhmadmin")
         self.is_click(user['Superior Value'], "lhmadmin lhmadmin")
 
     @allure.step("Add user页面，输入邮箱")
@@ -109,7 +109,7 @@ class UserManagementPage(Base):
     def click_gender_female(self, context):
         self.is_click(user['Gender'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['Gender Female'], context)
+        self.presence_sleep_dcr(user['Gender Female'], context)
         self.is_click(user['Gender Female'], context)
 
     @allure.step("Add user页面，点击Submit提交按钮")
@@ -119,7 +119,7 @@ class UserManagementPage(Base):
 
     @allure.step("获取列表User ID文本内容")
     def get_text_user_id(self):
-        Base.presence_sleep_dcr(self, user['获取列表文本User ID'])
+        self.presence_sleep_dcr(user['获取列表文本User ID'])
         userid = self.element_text(user['获取列表文本User ID'])
         return userid
 
@@ -156,7 +156,7 @@ class UserManagementPage(Base):
 
     @allure.step("点击编辑功能")
     def click_edit(self):
-        Base.presence_sleep_dcr(self, user['修改第一个Edit'])
+        self.presence_sleep_dcr(user['修改第一个Edit'])
         self.is_click_dcr(user['修改第一个Edit'])
         sleep(2)
 
@@ -173,7 +173,7 @@ class UserManagementPage(Base):
     def click_more_option_quit(self):
         self.is_click(user['More Option'])
         sleep(2)
-        Base.presence_sleep_dcr(self, user['Quit'])
+        self.presence_sleep_dcr(user['Quit'])
         self.is_click(user['Quit'])
         sleep(3)
         self.is_click(user['确认删除Yes'])
@@ -229,7 +229,7 @@ class UserManagementPage(Base):
     """查询列表用户"""
     @allure.step("用户管理页面，获取列表文本内容方法")
     def input_get_data(self, data):
-        Base.presence_sleep_dcr(self, user[data])
+        self.presence_sleep_dcr(user[data])
         get_data = self.element_text(user[data])
         return get_data
 
@@ -252,7 +252,7 @@ class UserManagementPage(Base):
     def click_more_reset_password(self):
         self.is_click(user['More Option'])
         sleep(2)
-        Base.presence_sleep_dcr(self, user['Reset Password'])
+        self.presence_sleep_dcr(user['Reset Password'])
         self.is_click(user['Reset Password'])
         sleep(1.5)
         self.is_click(user['Reset Password Yes'])
@@ -299,7 +299,7 @@ class UserManagementPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(2)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(3)
 
@@ -312,7 +312,7 @@ class UserManagementPage(Base):
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        download_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        download_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return download_status
 
     @allure.step("导出记录页面，获取列表 Task Name文本")
