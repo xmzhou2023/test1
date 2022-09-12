@@ -12,19 +12,22 @@ import allure
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    close = AttendanceRecordPage(drivers)
-    close.click_close_export_record()
-    close.click_close_atten_record()
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
 
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
-    for i in range(1):
-        get_menu_class = menu.get_open_menu_class()
-        class_value = "tags-view-item router-link-exact-active router-link-active active"
-        if class_value == str(get_menu_class):
-            menu.click_close_open_menu()
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("考勤&巡店-考勤记录")
 class TestQueryAttendanceRecord:
