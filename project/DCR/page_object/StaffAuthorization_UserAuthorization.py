@@ -130,7 +130,7 @@ class UserAuthorizationPage(Base):
     #删除客户Customer定位方法
     @allure.step("在客户页签，输入Customer ID进行筛选需要删除的客户")
     def input_list_customer(self, content):
-        self.presence_sleep_dcr(self, user['客户列表点击客户输入框'])
+        self.presence_sleep_dcr(user['客户列表点击客户输入框'])
         self.is_click_dcr(user['客户列表点击客户输入框'])
         self.input_text_dcr(user['客户列表输入客户'], txt=content)
         sleep(2.5)
