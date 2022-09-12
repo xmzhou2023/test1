@@ -45,7 +45,7 @@ class TestQueryVisitRecord:
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
 
         all_visit = VisitRecordPage(drivers)
-        all_visit.input_submit_start_date("2022-08-01")
+        all_visit.input_submit_start_date("2022-09-01")
         all_visit.click_sales_region()
         all_visit.click_unfold()
         all_visit.click_search()
@@ -87,7 +87,7 @@ class TestExportVisitRecord:
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-08-01")
+        export.input_submit_start_date("2022-09-01")
         export.click_sales_region()
         export.click_search()
 
