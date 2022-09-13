@@ -129,6 +129,26 @@ class SrmLoginPage(Base):
         return self.driver.current_url
 
 
+"""POP登陆类"""
+class PopLoginPage(Base):
+    # 输入账号
+    def input_pop_account(self,account):
+        self.input_text(login['pop账号输入框'],account)
+    # 输入密码
+    def input_pop_password(self,password):
+        self.input_text(login['pop密码输入框'],password)
+    # 切换语言--默认切换成中文
+    def switch_language(self):
+        self.is_click(login['pop切换语言框'])
+        self.is_click(login['pop选择中文'])
+    # 勾选隐私协议
+    def click_privacy_policy(self):
+        self.is_click(login['pop隐私协议勾选框'])
+    # 点击登录
+    def click_loginsubmit(self):
+        self.is_click(login['pop登录按钮'])
+
+
 
 
 

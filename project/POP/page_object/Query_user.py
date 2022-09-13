@@ -27,7 +27,6 @@ class Queryuser(Base):
         # 断言
         test = self.element_text(user['员工姓名'])
         ValueAssert.value_assert_equal(test,expect)
-        ValueAssert
 
 
 if __name__ == '__main__':

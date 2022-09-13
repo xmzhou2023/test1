@@ -26,3 +26,11 @@ zx扫码快捷登录: "id==tab-code"
 验证码srm: 'xpath==//img[@id="code"]'
 验证码框srm: 'xpath==//input[@id="identifyCode"]'
 登录srm: 'xpath==//button[@id="submit_btn"]'
+
+#POP登录定位元素
+pop切换语言框: "xpath==//*[@id='app']/div/div/div[2]/div/form/div[3]/div/div/div/input"
+pop选择中文: "xpath==//span[contains(text(),'中文')]"
+pop账号输入框: "xpath==//*[@id='app']/div/div/div[2]/div/form/div[1]/div/div/input"
+pop密码输入框: "xpath==//*[@id='app']/div/div/div[2]/div/form/div[2]/div/div/div[1]/input"
+pop隐私协议勾选框: "xpath==//span[@class='el-checkbox__inner']"
+pop登录按钮: "xpath==//button[@type='primary']"
