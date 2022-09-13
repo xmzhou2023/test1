@@ -119,7 +119,7 @@ class TestAddCustomer:
 
         """第一个参数为testName,第二个为testNo,第三个为country,第四个为testAddress"""
         add_customer.input_form_contact_info(contact_name, contact_no, email, '深圳2', "南山区深圳湾生态园9B5")
-
+        add_customer.click_search()
         get_customer_id1 = add_customer.get_customer_id()
         sql = SQLAssert('DCR', 'test')
         sql.assert_sql(get_customer_id1, "select enterprise_code from t_enterprise  where created_by='lhmadmin' order by created_time desc limit 1")

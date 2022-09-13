@@ -83,7 +83,7 @@ class CustomerManagementPage(Base):
         self.is_click(user['Country Select'], country)
         self.input_text(user['Customer Address'], addresss)
         self.is_click(user['Add Submit'])
-        sleep(3)
+        sleep(1)
 
 
     @allure.step("客户列表页面，根据客户ID条件筛选客户信息")
@@ -97,7 +97,7 @@ class CustomerManagementPage(Base):
     @allure.step("客户列表页面，点击Search 查询按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3.5)
+        sleep(3)
 
     @allure.step("客户列表页面，点击Reset 重置按钮")
     def click_reset(self):

@@ -248,6 +248,7 @@ class TestDeliveryBusinessProcess:
         user2.initialize_login(drivers, "BD40344201", "dcr123456")
         """1 国包用户，新增无码出库单操作"""
         user2.click_gotomenu("Sales Management", "Delivery Order")
+
         add = DeliveryOrderPage(drivers)
         add.click_add()
         add.input_sub_buyer("BD2915")

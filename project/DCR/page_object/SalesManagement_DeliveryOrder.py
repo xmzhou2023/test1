@@ -35,6 +35,7 @@ class DeliveryOrderPage(Base):
     def click_add(self):
         self.presence_sleep_dcr(user['新增出库单'])
         self.is_click(user['新增出库单'])
+        sleep(2)
 
     @allure.step("Add新增出库单页面，输入国包账号的Buyer属性")
     def input_sub_buyer(self, content):
