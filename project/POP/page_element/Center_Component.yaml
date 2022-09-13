@@ -1,0 +1,6 @@
+组织: "xpath==//span[contains(text(),'组织')]"
+组织->职员管理: "xpath==//span[@title='职员管理']"
+组织->区域: "xpath==//span[@title='区域']"
+
+商品: "xpath==//span[@class='route-item--title'][contains(text(),'商品')]"
+商品->商品参数: "xpath==//span[@title='商品参数']"

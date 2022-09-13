@@ -64,3 +64,20 @@ class Login(Base):
             else:
                 break
 
+
+    def pop_login(self,drivers,url,popaccount,poppasswd):
+        # 实例化调用public\libs\page_element\login.py里的封装的POP登录的类
+        user = PopLoginPage(drivers)
+        # 实例化调用PopLoginPage继承的Base类里面的方法：get_url
+        user.get_url(url)
+        # 输入账号
+        user.input_pop_account(popaccount)
+        # 输入密码
+        user.input_pop_password(poppasswd)
+        # 切换语言--默认切换成中文
+        user.switch_language()
+        # 勾选隐私协议
+        user.click_privacy_policy()
+        # 点击登录
+        user.click_loginsubmit()
+
