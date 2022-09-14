@@ -76,7 +76,7 @@ class OperationPage(Base):
 
     @allure.step("获取输入文本数字+字母的name1")
     def get_Numbersletters(self):
-        num = string.ascii_letters+string.digits
+        num = string.ascii_uppercase+string.digits
         Numbersletters = "".join(random.sample(num , 5))
         return Numbersletters
 
@@ -97,6 +97,7 @@ class OperationPage(Base):
 
     @allure.step("确认禁用弹框点击确定")
     def disable(self):
+        self.refresh()
         self.is_click(user["第一行enable按钮"])
         self.wait.until(EC.presence_of_element_located(user["确认disable弹窗的Yes按钮"]),message="确认禁用的弹窗未出现")
         self.is_click(user["确认disable弹窗的Yes按钮"])

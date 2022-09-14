@@ -20,6 +20,18 @@ class NavPage(Base):
             self.scroll_into_view_CRM(user[level[i]])
         sleep(2)
 
+    @allure.step("前往菜单")
+    def click_gotonav_CRM(self, *content,):
+        """前往菜单"""
+        level = []
+        navstr = ""
+        for i in range(len(content)):
+            navstr = navstr + '->' + content[i]
+            level.append(navstr[2:])
+        for i in range(len(content)):
+            self.is_click_tbm(user[level[i]])
+        sleep(2)
+
     @allure.step("刷新菜单")
     def refresh_page(self):
         self.is_click(user["Dashboard"])

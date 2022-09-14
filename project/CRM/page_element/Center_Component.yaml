@@ -4,6 +4,7 @@ OperationMgt->PolicyandProfits: 'xpath==//li[@aria-expanded="true"]//span[text()
 OperationMgt->PolicyandProfits->WarrantyDurationMgt: 'xpath==//li[@role="menuitem"]//span[text()="Warranty Duration Mgt"]'
 OperationMgt->PolicyandProfits->ProfitsTypeMgt: 'xpath==//li[@role="menuitem"]//span[text()="Profits Type Mgt"]'
 OperationMgt->PolicyandProfits->PolicyMgt: 'xpath==//li[@role="menuitem"]//span[text()="Policy Mgt"]'
+OperationMgt->PolicyandProfits->FGPolicyForsunking: 'xpath==//li[@role="menuitem"]//span[text()="FG Policy For sun king"]'
 
 Repair Mgt: "xpath==//span[contains(text(),'Repair Mgt')]"
 Repair Mgt->WO Report Mgt: "xpath==//span[contains(text(),'WO Report Mgt')]"
