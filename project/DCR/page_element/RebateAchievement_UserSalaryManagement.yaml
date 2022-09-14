@@ -1,0 +1,14 @@
+筛选User: "xpath==//label//..//div//input[@id='usersalarymanagement_input_userCodeList']"
+
+Import Button: "xpath==//button[@id='user_salary_management_import_']//span[normalize-space(text())='Import']"
+Import Upload: "xpath==//button//span[normalize-space(text())='Upload']"
+
+Edit: "xpath==//span[normalize-space(text())='Edit']"
+Delete: "xpath==//span[normalize-space(text())='Delete']"
+
+Search: "xpath==//span[contains(text(),'Search')]"
+Reset: "xpath==//span[contains(text(),'Reset')]"
+
+
+
+
