@@ -85,7 +85,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
 
     def assert_add_bomtree_exist(self, result):
         """点击新增bom"""
-        DomAssert(self.driver).assert_control(user['新增BomTree'], result)
+        DomAssert(self.driver).assert_control(user['新增BomTree'], result=result)
 
     @allure.step("根据Tree点击删除按钮")
     def click_bomtree_delete(self, tree):
@@ -315,11 +315,9 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             self.is_click_tbm(user['复选框单选'], material)
         sleep(0.5)
 
+    @allure.step("断言：判断是否存在批量删除")
     def assert_batch_delete(self, result):
-        """
-        断言：判断是否存在批量删除
-        """
-        DomAssert(self.driver).assert_control(user['批量删除'], result)
+        DomAssert(self.driver).assert_control(user['批量删除'], result=result)
 
     @allure.step("点击批量删除")
     def click_batch_delete(self):
@@ -636,9 +634,9 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         @param code:物料编码，传入物料编码；默认‘all’表示点击全选复选框
         """
         if code == 'all':
-            self.is_click_tbm(user['补充工厂复选框全选'])
+            self.is_click_tbm(user['生产工厂信息复选框全选'])
         else:
-            self.is_click_tbm(user['补充工厂复选框单选'], code)
+            self.is_click_tbm(user['生产工厂信息复选框单选'], code)
         logging.info('点击复选框')
 
     @allure.step("补充工厂页面 根据material点击指定复选框")
@@ -714,7 +712,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         state = self.get_element_attribute(user['补充工厂生产工厂信息明细折叠按钮'], 'class')
         if 'expand' not in state:
             self.is_click_tbm(user['补充工厂生产工厂信息'])
-        DomAssert(self.driver).assert_control(user['生产工厂信息Title'], True)
+        DomAssert(self.driver).assert_control(user['生产工厂信息Title'])
         info = self.find_elements_tbm(user['补充工厂生产工厂信息明细'])
         info_list = []
         for i in info:
@@ -744,7 +742,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         """
         self.mouse_double_click(user['物料编码编辑验证'])
         sleep(0.5)
-        DomAssert(self.driver).assert_control(user['物料编码编辑验证'], True)
+        DomAssert(self.driver).assert_control(user['物料编码编辑验证'])
 
     @allure.step("业务审核页面 点击 自检清单")
     def click_oneworks_self_inspection(self, box, option):

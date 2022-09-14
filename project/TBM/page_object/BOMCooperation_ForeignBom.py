@@ -67,11 +67,23 @@ class ForeignBom(CenterComponent):
         self.is_click_tbm(user['提交'])
         logging.info('点击提交')
 
+    @allure.step("点击保存")
+    def click_add_save(self):
+        self.scroll_into_view(user['保存'])
+        sleep(0.5)
+        self.is_click_tbm(user['保存'])
+        logging.info('点击保存')
+
     @allure.step("点击刷新")
     def click_refresh(self):
         self.scroll_into_view(user['刷新'])
         self.is_click_tbm(user['刷新'])
         logging.info('点击刷新')
+
+    @allure.step("点击编辑")
+    def click_edit(self, code):
+        self.is_click_tbm(user['编辑'], code)
+        logging.info('点击编辑')
 
     @allure.step("输入查询条件")
     def input_search_info(self, type, info):
@@ -90,19 +102,7 @@ class ForeignBom(CenterComponent):
 
     @allure.step("断言：查询结果")
     def assert_search_result(self, header, content):
-        header_class = self.get_element_attribute(user['表格字段'], 'class', header)
-        column = header_class.split(' ')[0]
-        contents = self.find_elements_tbm(user['表格指定列内容'], column)
-        content_list = []
-        for i in contents:
-            try:
-                assert content in i.text
-            except:
-                logging.error("断言失败，结果不包含指定内容")
-                raise
-            content_list.append(i.text)
-        logging.info("断言成功，结果包含指定内容")
-        logging.info('获取表格执行列内容：{}'.format(content_list))
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content)
 
     @allure.step("点击新增bom")
     def click_add_bomtree(self):
@@ -211,19 +211,17 @@ class ForeignBom(CenterComponent):
             self.is_click_tbm(user['成员确定'])
 
     @allure.step("获取外研BOM协作第一列内容")
-    def get_info(self):
+    def get_info(self, header):
         """
         获取外研BOM协作第一列内容
-        @return:返回文本及索引位置分别是'流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
+        @return:返回文本及索引位置分别是'流程编码':2; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
         """
+
         self.click_menu("BOM协作", "外研BOM协作")
         sleep(1)
-        info = self.find_elements_tbm(user['表格内容'])
-        infolist = []
-        for i in info:
-            infolist.append(i.get_attribute('innerText'))
-        logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
-        return infolist
+        column = self.get_table_info(user['表格字段'], header)
+        contents = self.find_element(user['表格指定列内容'], column).text
+        return contents
 
     def click_delete(self, code):
         """
@@ -231,13 +229,19 @@ class ForeignBom(CenterComponent):
         @param code:流程编码
         """
         self.is_click_tbm(user['删除'], code)
+
+    def click_delete_confirm(self):
         self.is_click_tbm(user['同意确定'])
+
+    def click_delete_cancel(self):
+        self.is_click_tbm(user['同意取消'])
 
     @allure.step("新建流程后的后置删除处理")
     def delete_flow(self, code):
         self.recall_process(code)
         self.click_menu("BOM协作", "外研BOM协作")
         self.click_delete(code)
+        self.click_delete_confirm()
         self.assert_toast('删除成功')
 
     @allure.step("断言单机头BOM协作新增成功后，页面表格内容是否正确")
@@ -336,6 +340,9 @@ class ForeignBom(CenterComponent):
     def click_bomtree_delete(self, tree):
         self.is_click_tbm(user['BOMTree删除'], tree)
         self.click_batch_confirm()
+
+    def assert_bomtree(self, tree):
+        DomAssert(self.driver).assert_control(user['BOMTree新增物料物料编码'], tree, result=False)
 
     @allure.step("点击确定")
     def click_batch_confirm(self):

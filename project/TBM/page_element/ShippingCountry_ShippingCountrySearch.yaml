@@ -32,6 +32,10 @@ oneworks-节点-产品经理修改-产品定义信息-变更-输入框: "xpath==
 oneworks-节点-产品经理修改-产品定义信息-变更-输入框删除: "xpath==//*[@id='app']//tr/td[variable][not(contains(@class,'is-hidden'))]/div//i[2]"
 oneworks-节点-产品经理修改-产品定义信息-变更-输入框2: "xpath==//*[@id='app']/div/div[2]/section//table/tbody/tr/td[variable][not(contains(@class,'is-hidden'))]/div//input"
 oneworks-节点-产品经理修改-产品定义信息-变更-操作框: "xpath==//div[@class='el-table__fixed-right']"
+产品定义信息字段: "xpath==//div[normalize-space(text())='variable']/.."
+产品定义信息输入: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]//input"
+产品定义信息选择: "xpath==//div[contains(@x-placement,'start')]//span[normalize-space(text())='variable']"
+
 ###==========================================产品定义信息========================================
 产品定义信息成员列表输入框: "xpath==//div[@aria-label='成员列表（单选）']//input"
 产品定义信息成员确定: "xpath==//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper user-dialog']//span[contains(text(),'确 定')]"
