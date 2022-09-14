@@ -18,6 +18,7 @@ def module_fixture(drivers):
     num.refresh_page()
     sleep(1)
     num.click_gotonav("WMS", "Stock In/Out Mgt", "Initialize Inventory")
+    sleep(2)
     num = DomAssert(drivers)
     num.assert_url("/wms/stockInOutMgt/initializeInventory")
     logging.info("前置条件:添加物料库存")
@@ -34,6 +35,7 @@ def module_setup_fixture(drivers):
     logging.info("前置条件:进入序列化工单列表页")
     user = NavPage(drivers)
     user.click_gotonav("Repair Mgt", "WO Serialized Mgt", 'WO Serialized List')
+    sleep(2)
     user = DomAssert(drivers)
     user.assert_url("/maintenanceMgt/workorderSerializedMgt/workorderSerializedList")
 
