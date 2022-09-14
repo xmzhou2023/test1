@@ -129,7 +129,7 @@ class TestWOSerializedAssignToTech:
         num = NavPage(drivers)
         num.click_gotonav("Assign WO To Technician")
         num = WOSerializedAssignToTech(drivers)
-        num.woreassigntotech(workorder=word, status="Created")
+        num.woreassigntotech(workorder=word, status=status)
         num = DomAssert(drivers)
         num.assert_att("cannot be re-assign to technician")
 
@@ -146,7 +146,7 @@ class TestWOSerializedAssignToTech:
         num = NavPage(drivers)
         num.click_gotonav("Assign WO To Technician")
         num = WOSerializedAssignToTech(drivers)
-        num.woreassigntotech(workorder=word, status="Assigned To Technician")
+        num.woreassigntotech(workorder=word, status="Assigned To Technician" )
         num = DomAssert(drivers)
         num.assert_att("Success")
 

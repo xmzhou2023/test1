@@ -62,7 +62,7 @@ class WOSerializedReport(Base):
         print(dict_record)
         record_value = dict_record['count(*)']
         logging.info('数据库查询到的序列化工单报表数据为:{}'.format(record_value))
-        search_num = self.get_element_attribute(user['报表总数'], 'textContent',choice='Total')
+        search_num = self.get_element_attribute(user['报表总数'], 'textContent')
         num = ''.join(filter(str.isdigit, search_num))
         num = int(num)
         logging.info('序列化工单报表查询页查到的数量:{}'.format(num))
@@ -98,8 +98,7 @@ class WOSerializedReport(Base):
     def download_task(self):
         self.is_click(user["导出列表页隐藏任务勾选框"])
         self.is_click(user['任务列表页查询按钮'])
-        # sleep(15)
-        # self.is_click(user['任务列表页查询按钮'])
+
 
 
 
