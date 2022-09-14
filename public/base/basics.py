@@ -618,9 +618,9 @@ class Base(object):
                 sleep(0.5)
         logging.info("点击元素：{}{}".format(locator, choice))
 
-    def element_input_text(self, locator):
+    def element_input_text(self, locator, *choice):
         """获取输入框当前的text"""
-        ele = self.find_element(locator)
+        ele = self.find_element(locator, *choice)
         _text = ele.get_attribute('value')
         logging.info("获取文本：{}".format(_text))
         return _text
