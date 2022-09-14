@@ -18,8 +18,8 @@ def setup_module(drivers):
 @allure.feature("DRP数据管理-月度供应资源")
 class TestSearchMonSupResources:
     @allure.story("查询月度供应资源数据")
-    @allure.title("按照颜提报周期 查询")
-    @allure.description("选择颜提报周期 查询月度供应资源数据 结果正确")
+    @allure.title("按照提报周期 查询")
+    @allure.description("选择提报周期 查询月度供应资源数据 结果正确")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_001(self, drivers):
@@ -30,6 +30,7 @@ class TestSearchMonSupResources:
         assertSQL = monSupResources.SQL_assert("2022","2","itel")
         assert assertValue == assertSQL ,logging.warning("断言失败")
         logging.info("断言成功，提报机型数量相等 {}，{}".format(assertValue,assertSQL))
+        monSupResources.reset_button()
 
     @allure.story("查询月度供应资源数据")
     @allure.title("按照品牌 查询")
@@ -45,13 +46,14 @@ class TestSearchMonSupResources:
         assertSQL = monSupResources.SQL_assert("2022","2","itel")
         assert assertValue == assertSQL ,logging.warning("断言失败")
         logging.info("断言成功，提报机型数量相等 {}，{}".format(assertValue,assertSQL))
+        monSupResources.reset_button()
 
 @allure.feature("DRP数据管理-月度供应资源")
 class TestSearchReset:
     @allure.story("重置按钮功能")
     @allure.title("点击重置按钮，列表展示所在年的所有月度供应资源")
     @allure.description("点击重置按钮，列表展示所在年（2022）的所有月度供应资源")
-    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_002_001(self, drivers):
         monSupResources = MonSupResources(drivers)
@@ -66,10 +68,9 @@ class TestCheckDetails:
     @allure.story("查看按钮功能")
     @allure.title("点击查看按钮，页面跳转至 月度供应资源查看 页签")
     @allure.description("点击查看按钮，页面跳转至 月度供应资源查看 页签，列表展示全部机型数据")
-    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_003_001(self, drivers):
-        monSupResources = MonSupResources(drivers)
         monSupResources = MonSupResources(drivers)
         monSupResources.choose_reportedCycle("2022","二月")
         monSupResources.choose_brand("itel")
