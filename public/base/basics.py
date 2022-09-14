@@ -196,7 +196,7 @@ class Base(object):
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
 
-    def readonly_input_text(self, locator, txt, choice=None):
+    def readonly_input_text(self, locator, txt, *choice):
         """去除只读属性后输入"""
         if choice is None:
             sleep(0.5)
@@ -208,7 +208,7 @@ class Base(object):
             logging.info("输入文本：{}".format(txt))
         else:
             sleep(0.5)
-            ele = self.find_element(locator, choice)
+            ele = self.find_element(locator, *choice)
             self.driver.execute_script("arguments[0].removeAttribute('readonly')", ele)
             ele.clear()
             ele.clear()
@@ -355,14 +355,14 @@ class Base(object):
         ActionChains(content).move_by_offset(700, 700).click().perform()
         sleep(10)
 
-    def element_text(self, locator, choice=None):
+    def element_text(self, locator, *choice):
         """获取元素的文本"""
         if choice is None:
             _text = self.find_element(locator).text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
         else:
-            ele = self.find_element(locator, choice)
+            ele = self.find_element(locator, *choice)
             _text = ele.text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
@@ -704,7 +704,7 @@ class Base(object):
         """
         header_class = self.get_element_attribute(locator, attr, *choice)
         column_class = header_class.split(' ')[int(index)]
-        logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, header_class))
+        logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))
         return column_class
 
 def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):

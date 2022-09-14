@@ -371,7 +371,7 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("断言：是否存在确定转交按钮")
     def assert_oneworks_comfirmrefer_exist(self, result):
-        DomAssert(self.driver).assert_control(user['oneworks-确定转交'], result)
+        DomAssert(self.driver).assert_control(user['oneworks-确定转交'], result=result)
 
     @allure.step("转交 输入转交人")
     def input_oneworks_refer(self, referrer):
@@ -406,12 +406,12 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("断言： 是否存在转交，回退按钮")
     def assert_oneworks_rollback_refer_exist(self, result):
-        DomAssert(self.driver).assert_control(user['oneworks-回退'], result)
-        DomAssert(self.driver).assert_control(user['oneworks-转交'], result)
+        DomAssert(self.driver).assert_control(user['oneworks-回退'], result=result)
+        DomAssert(self.driver).assert_control(user['oneworks-转交'], result=result)
 
     @allure.step("断言： 是否存在转交按钮")
     def assert_oneworks_rollback_refer(self, result):
-        DomAssert(self.driver).assert_control(user['oneworks-转交'], result)
+        DomAssert(self.driver).assert_control(user['oneworks-转交'], result=result)
 
     @allure.step("点击拒绝")
     def click_oneworks_refuse(self):
@@ -442,7 +442,6 @@ class CenterComponent(Base, APIRequest):
     @allure.step("点击新增")
     def click_add(self):
         self.is_click_tbm(user['新增'])
-        sleep(1)
         if self.element_exist(user['基本信息']) is False:
             self.is_click_tbm(user['新增'])
             sleep(1)

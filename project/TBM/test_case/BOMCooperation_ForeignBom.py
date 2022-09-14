@@ -166,15 +166,8 @@ class TestCreateProcess:
         user.input_optional_material('12004871', '用量', '1000')
         user.input_optional_material('12004871', '替代组', 'A1')
         user.input_optional_material('12004871', '份额', '20')
-        user.click_bomtree_delete('12004871')
-        amount = user.get_bomtree_info('电池')[4]
-        ValueAssert.value_assert_equal(amount, '')
-        amount = user.get_bomtree_info('电池')[7]
-        ValueAssert.value_assert_equal(amount, '')
-        amount = user.get_bomtree_info('电池')[8]
-        ValueAssert.value_assert_equal(amount, '')
-        amount = user.get_bomtree_info('电池')[9]
-        ValueAssert.value_assert_equal(amount, '')
+        user.click_bomtree_delete('12800002')
+        user.assert_bomtree('12800002')
 
     @allure.story("创建流程")
     @allure.title("选择正确的文件进行导入，并应用，显示的数据与模板的数据一致")
@@ -375,7 +368,7 @@ class TestCreateProcessExceptionScenario:
         DomAssert(drivers).assert_att('不能为空')
 
     @allure.story("创建流程异常场景")  # 场景名称
-    @allure.title("一键填写无内容提示内容不能为空")  # 用例名称
+    @allure.title("文件类型非excel")  # 用例名称
     @allure.description("进入新增页面制作类型选择外研BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择导入BOM选择一个错误的文件格式进行导入，不能导入成功并提示文件类型非excel!")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
@@ -388,7 +381,7 @@ class TestCreateProcessExceptionScenario:
         user.assert_toast('文件类型非excel!')
 
     @allure.story("创建流程异常场景")  # 场景名称
-    @allure.title("一键填写无内容提示内容不能为空")  # 用例名称
+    @allure.title("正确内容错误的文件进行导入，导入失败")  # 用例名称
     @allure.description("进入新增页面制作类型选择外研BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择导入BOM选择一个模板正确内容错误的文件进行导入，导入失败，并在校验结果给出相应错误提示，导出校验可点击并能成功下载文件")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
@@ -696,9 +689,9 @@ class TestProcessSearch:
     def test_005_002(self, drivers):
         user = ForeignBom(drivers)
         user.refresh_webpage_click_menu()
-        user.input_search_info('标题', '李小素')
+        user.input_search_info('标题', '自动化查询用例')
         user.click_search()
-        user.assert_search_result('标题', '李小素')
+        user.assert_search_result('标题', '自动化查询用例')
 
     @allure.story("流程查询")  # 场景名称
     @allure.title("在查询页面，查询不存在标题，结果为空")  # 用例名称
@@ -765,6 +758,7 @@ class TestProcessSearch:
     @allure.description("在查询页面，标题输入框输入“李小素”，流程编码输入框输入“1”，BOM编码输入“2”，下拉框选择为客供BOM制作，点击查询，查询结果为所有标题包含“李小素”、流程编码包含“1”、物料编码包含“2”、制作类型为客供BOM制作的信息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip
     def test_005_008(self, drivers):
         user = ForeignBom(drivers)
         user.refresh_webpage_click_menu()
@@ -775,5 +769,39 @@ class TestProcessSearch:
         user.assert_search_result('制作类型', '客供BOM制作')
         user.assert_search_result('流程编码', '1')
         user.assert_search_result('标题', '李小素')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，编辑正常")  # 用例名称
+    @allure.description("在查询页面，点击编辑，跳转至oneworks编辑页面，可以编辑页面信息、提交、保存")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_009(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '自动化查询用例')
+        user.click_search()
+        user.click_edit('自动化查询用例')
+        user.click_add_save()
+        DomAssert(drivers).assert_att('保存草稿成功')
+        user.click_edit('自动化查询用例')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('创建流程成功')
+        user.click_search()
+        code = user.get_info('流程编码')
+        user.recall_process(code)
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，删除取消无变动")  # 用例名称
+    @allure.description("在查询页面，点击删除，提示是否确认删除，点击取消，取消成功，页面无变动")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_010(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '自动化查询用例')
+        user.click_search()
+        user.click_delete('自动化查询用例')
+        user.click_delete_cancel()
+        DomAssert(drivers).assert_att('自动化查询用例')
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_ForeignBom.py'])

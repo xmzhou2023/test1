@@ -244,22 +244,43 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         :param header: 选择要输入的信息
         :param content: 选择信息内容
         """
+        # definition_dict = {'全球版本': '4', '市场名称': '5', '项目名称': '6', 'MEMORY': '7', 'BANDSTRATEGY': '8',
+        #                    '产品经理': '9', '项目经理': '10', 'aaa': '12', 'bbb': '13'}
+        # select_list = ['全球版本', 'MEMORY', 'BANDSTRATEGY']
+        # select1_list = ['aaa', 'bbb']
+        # input_list = ['市场名称', '项目名称']
+        # member_list = ['产品经理', '项目经理']
+        # if header in select_list:
+        #     self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
+        #     self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
+        # elif header in select1_list:
+        #     self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
+        #     self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
+        # elif header in input_list:
+        #     self.input_text(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], content, definition_dict[header])
+        # elif header in member_list:
+        #     self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
+        #     self.input_text(user['产品定义信息成员列表输入框'], content)
+        #     sleep(1)
+        #     self.is_click_tbm(user['成员选择'], content)
+        #     self.is_click_tbm(user['产品定义信息成员确定'])
+        # else:
+        #     print(f'请输入正确选项：{definition_dict}')
+
         definition_dict = {'全球版本': '4', '市场名称': '5', '项目名称': '6', 'MEMORY': '7', 'BANDSTRATEGY': '8',
                            '产品经理': '9', '项目经理': '10', 'aaa': '12', 'bbb': '13'}
-        select_list = ['全球版本', 'MEMORY', 'BANDSTRATEGY']
-        select1_list = ['aaa', 'bbb']
-        input_list = ['市场名称', '项目名称']
+        select_list = ['全球版本', 'MEMORY', 'BAND STRATEGY', 'aaa', 'bbb', '再增']
+
+        input_list = ['市场名称', '项目名称', '摄像头', '型号', '新增']
         member_list = ['产品经理', '项目经理']
+        column = self.get_table_info(user['产品定义信息字段'], header)
         if header in select_list:
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
-        elif header in select1_list:
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
+            self.is_click_tbm(user['产品定义信息输入'], column)
+            self.is_click_tbm(user['产品定义信息选择'], content)
         elif header in input_list:
-            self.input_text(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], content, definition_dict[header])
+            self.input_text(user['产品定义信息输入'], content, column)
         elif header in member_list:
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
+            self.is_click_tbm(user['产品定义信息输入'], column)
             self.input_text(user['产品定义信息成员列表输入框'], content)
             sleep(1)
             self.is_click_tbm(user['成员选择'], content)
