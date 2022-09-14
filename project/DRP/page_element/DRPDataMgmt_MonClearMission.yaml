@@ -1,0 +1,18 @@
+查询条件 提报周期: "xpath==//div//label[contains(text(),'提报周期')]/following-sibling::div//input[@type='text']"
+查询条件 品牌: "xpath==//div//label[contains(text(),'品牌')]/following-sibling::div//input[@type='text']"
+提报日期 年: "xpath==//div[@x-placement='bottom-start']//span[@role='button'][contains(text(),'年')]"
+选择提报日期 年: "xpath==//div[@x-placement='bottom-start']//table[@class='el-year-table']/tbody/tr/td//a[normalize-space(text())='variable']"
+选择提报日期 月: "xpath==//div[@x-placement='bottom-start']//table[@class='el-month-table']/tbody/tr/td//a[normalize-space(text())='variable']"
+品牌_下拉选项: "xpath==//div[@x-placement='bottom-start']//li[variable]"
+查询按钮: "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[1]//span[contains(text (), '查  询')]"
+重置按钮: "xpath==//form[@class='el-form form-item-less el-form--label-right']//button[2]//span[contains(text (), '重  置')]"
+
+获取某品牌提报数: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//td[3]"
+列表数据 断言: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]"
+点击 查看按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//td[8]//button"
+列表数据统计: "xpath==//span[contains(@class,'el-pagination__total')]"
+标签页: "xpath==//div[@class='tags-view-container']//span[normalize-space(text())='variable']"
+关闭标签页: "xpath==//div[@class='tags-view-container']//span[normalize-space(text())='variable']//span[@class='el-icon-close']"
+#月度清尾任务查看 、月度清尾任务
+
+
