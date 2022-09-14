@@ -17,7 +17,6 @@ def module_fixture(drivers):
     logging.info("前置条件:进入非序列化工单报表页")
     user = NavPage(drivers)
     user.refresh_page()
-    sleep(2)
     user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO NonSerialized Report')
     sleep(2)
     user = DomAssert(drivers)

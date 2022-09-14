@@ -16,7 +16,6 @@ from project.CRM.page_object.RepairMgt_WOSerializedMgt_WOSerializedList import *
 def module_fixture(drivers):
     num = NavPage(drivers)
     num.refresh_page()
-    sleep(1)
     num.click_gotonav("WMS", "Stock In/Out Mgt", "Initialize Inventory")
     sleep(2)
     num = DomAssert(drivers)

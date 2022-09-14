@@ -17,7 +17,6 @@ def module_fixture(drivers):
     logging.info("前置条件:进入序列化工单列表页")
     user = NavPage(drivers)
     user.refresh_page()
-    sleep(1)
     user.click_gotonav("Repair Mgt", "WO Serialized Mgt", 'WO Serialized List')
     sleep(2)
     user = DomAssert(drivers)
