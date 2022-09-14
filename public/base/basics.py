@@ -618,9 +618,9 @@ class Base(object):
                 sleep(0.5)
         logging.info("点击元素：{}{}".format(locator, choice))
 
-    def element_input_text(self, locator):
+    def element_input_text(self, locator, *choice):
         """获取输入框当前的text"""
-        ele = self.find_element(locator)
+        ele = self.find_element(locator, *choice)
         _text = ele.get_attribute('value')
         logging.info("获取文本：{}".format(_text))
         return _text
@@ -692,7 +692,16 @@ class Base(object):
         ele = self.find_element(xpath)
         ele.clear()
 
-
+    def get_table_info(self, locator, *choice, attr='class', index='0'):
+        """
+        获取指定定位的属性值，可用于获取表格每列内容，做查询断言，如：el-table_3_column_45
+        :param attr: 需要获取到的属性，默认是class
+        :param index: 需要获取到的属性索引位置，默认是0
+        """
+        header_class = self.get_element_attribute(locator, attr, *choice)
+        column_class = header_class.split(' ')[int(index)]
+        logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, header_class))
+        return column_class
 
 def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):
     """

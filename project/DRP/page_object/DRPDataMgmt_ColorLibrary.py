@@ -5,6 +5,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import logging
 from ..test_case.conftest import *
+import random
+import string
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
@@ -44,7 +46,6 @@ class ColorLibrary(Base):
     @allure.step("结果断言方法")
     def assert_method(self, color, num):
         colorList = self.find_elements(user['列表断言'], num)
-        print(colorList)
         resultList = []
         for i in range(len(colorList)):
             resultList.append(colorList[i].text)
@@ -82,31 +83,39 @@ class ColorLibrary(Base):
         logging.info("点击新增按钮，列表自动插入一行 可供编辑")
 
     @allure.step("输入颜色信息")
-    def input_colorinf(self, lis, beforevalue, value):
-        a = self.find_elements(user['获取列表指定列所有文本'], str(lis))
-        b = []  # 取出列表第n列的所有文本
-        for i in range(len(a)):
-            b.append(a[i].text)
-        if beforevalue in b:
-            c = b.index(beforevalue) + 1  # 取到所传参数所在行号
-            if lis == "3":
-                self.is_click(user['颜色名称Zh'], str(c))
-                self.readonly_input_text(user['颜色名称Zh'], value, str(c))
-            elif lis == "4":
-                self.is_click(user['颜色名称En'], str(c))
-                self.readonly_input_text(user['颜色名称En'], value, str(c))
-            elif lis == "5":
-                self.is_click(user['备注'], str(c))
-                self.readonly_input_text(user['备注'], value, str(c))
-            logging.info("颜色信息：由{}改为{}".format(beforevalue, value))
+    def input_colorinf(self, kwargs):
+        for lis, value in kwargs.items():
+            if lis == "颜色名称Zh":
+                self.input_text(user['颜色名称Zh'], value, "1")
+            elif lis == "颜色名称En":
+                self.input_text(user['颜色名称En'], value, "1")
+            elif lis == "备注":
+                self.input_text(user['备注'], value, "1")
+            logging.info("颜色信息：新增{}={}".format(lis,value))
+
+    @allure.step("造数据 超32位文本")
+    def build_testData(self, length):
+        result = ''.join(random.sample(string.ascii_letters + string.digits, length))
+        return result
+
 
     @allure.step("保存按钮")
     def save_button(self):
         try:
             self.is_click(user['保存按钮'])
             hint = self.element_text(user['提示信息'])
-            assert hint == "Success"
-            logging.info("断言通过 保存成功")
+            Nhint = hint[-4:]
+            if hint == "Success":
+                logging.info("断言通过 保存成功")
+            elif Nhint == "不能为空":
+                logging.info("断言通过 必填项未维护 保存失败")
+                self.is_click(user['取消按钮'])
+            elif hint == "不超过32个字符":
+                logging.info("断言通过 字符超长 保存失败")
+                self.is_click(user['取消按钮'])
+            elif hint == "请输入正确的英文名称":
+                logging.info("断言通过 字符超长 保存失败")
+                self.is_click(user['取消按钮'])
         except Exception:
             self.is_click(user['取消按钮'])
             logging.info("保存失败,颜色编码或者名称已存在")
@@ -120,15 +129,16 @@ class ColorLibrary(Base):
         return colorCodeList
 
     @allure.step("列表数据断言")
-    def list_assert(self,inputcolor,lis,colorcode):
+    def list_assert(self, inputcolor, kwargs):
         try:
             self.input_color(inputcolor)
             self.query_button()
-            if colorcode is not None:
-                s1 = self.list_retrun(lis)
-                assert colorcode in s1
-            logging.info("断言成功，颜色{}存在于列表中".format(colorcode))
-            self.reset_button()
+            for lis, colorcode in kwargs.items():
+                if colorcode is not None:
+                    s1 = self.list_retrun(lis)
+                    assert colorcode in s1
+                    logging.info("断言成功，颜色{}存在于列表中".format(colorcode))
+                    self.reset_button()
         except Exception:
             self.reset_button()
             logging.info("断言失败")
@@ -142,48 +152,74 @@ class ColorLibrary(Base):
         logging.info("清空测试数据")
 
     @allure.step("前置条件 新增")
-    def precondition_addtestdata(self,drivers):
+    def precondition_addtestdata(self, drivers):
         color = ColorLibrary(drivers)
         color.append_button()
-        color.input_colorinf("3", "", "123")
-        color.input_colorinf("4", "", "ABC")
-        color.input_colorinf("5", "", "123")
+        color.input_colorinf({"颜色名称Zh": "123","颜色名称En": "ABC","备注": "123"})
         color.save_button()
         logging.info("前置条件，新增测试数据完成")
 
     @allure.step("前置条件 页面查询测试数据")
-    def precondition_selecttestdata(self,inputcolor):
-        self.input_color(inputcolor)
+    def precondition_selecttestdata(self,inputcolor=None,state=None):
+        self.reset_button()
+        if inputcolor is not None:
+            self.input_color(inputcolor)
+        if state is not None:
+            self.choice_state(state)
         self.query_button()
         logging.info("前置条件，页面查询测试数据完成")
 
-    @allure.step("点击编辑按钮")
-    def edit_button(self,beforevalue):
+
+
+    @allure.step("根据颜色编码 获取列表行号")
+    def list_rowNum(self,searchcolor):
         a = self.find_elements(user['列表断言'], str(2))
         b = []  # 取出列表第n列的所有文本
         for i in range(len(a)):
             b.append(a[i].text)
-        if beforevalue in b:
-            c = b.index(beforevalue) + 1
-            print(c)
-            self.is_click(user['编辑按钮'],str(c))
-            logging.info("点击编辑按钮")
+        if searchcolor in b:
+            c = b.index(searchcolor) + 1
+            logging.info("获取颜色{}所在行号：{}".format(searchcolor,c))
             return c
 
-    @allure.step("编辑颜色信息")
-    def edit_color(self,searchcolor,lis,beforevalue,value):
-        c = self.edit_button(searchcolor)
-        print("edit_button返回的c:{}".format(c))
-        if lis == "3":
-            self.is_click(user['颜色名称Zh'], str(c))
-            self.readonly_input_text(user['颜色名称Zh'], value, str(c))
-        elif lis == "4":
-            self.is_click(user['颜色名称En'], str(c))
-            self.readonly_input_text(user['颜色名称En'], value, str(c))
-        elif lis == "5":
-            self.is_click(user['备注'], str(c))
-            self.readonly_input_text(user['备注'], value, str(c))
-        logging.info("颜色信息：由{}改为{}".format(beforevalue, value))
+    @allure.step("点击编辑按钮")
+    def edit_button(self,searchcolor):
+        c = self.list_rowNum(searchcolor)
+        self.is_click(user['编辑按钮'],str(c))
+        logging.info("点击编辑按钮")
+
+    @allure.step("编辑颜色")
+    def edit_color(self, searchcolor,  kwargs):
+        c = self.list_rowNum(searchcolor)
+        for lis, value in kwargs.items():
+            if lis == "颜色名称Zh":
+                self.input_text(user['颜色名称Zh'], value, str(c))
+            elif lis == "颜色名称En":
+                self.input_text(user['颜色名称En'], value, str(c))
+            elif lis == "备注":
+                self.input_text(user['备注'], value, str(c))
+            logging.info("颜色信息：{}改为{}".format(lis, value))
+
+
+    @allure.step("点击启用/禁用按钮")
+    def edit_state(self, searchcolor):
+        c = self.list_rowNum(searchcolor)
+        self.is_click(user['禁用/启用 按钮'], str(c))
+        sleep(1)
+        logging.info("点击禁用/启用按钮")
+
+
+    @allure.step("禁用-》启用，前置条件")
+    def edit_stateStart(self, drivers):
+        color = ColorLibrary(drivers)
+        color.precondition_addtestdata(drivers)
+        color.precondition_selecttestdata("ABC")
+        color.edit_state("ABC")
+        color.screen_assert("状态","禁用")
+        color.precondition_selecttestdata(state="禁用")
+        logging.info("前置条件 禁用数据创建完成")
+
+
 
 
 

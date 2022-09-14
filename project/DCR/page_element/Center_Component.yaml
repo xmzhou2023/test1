@@ -121,7 +121,7 @@ Attendance & Visiting->Attendance Statistics: "xpath==//span[(text()='Attendance
 Attendance & Visiting->Leave Application Records: "xpath==//span[(text()='Leave Application Records')]"
 Attendance & Visiting->Visiting Template: "xpath==//span[(text()='Visiting Template')]"
 Attendance & Visiting->Visit Record: "xpath==//span[(text()='Visit Record')]"
-Attendance & Visiting->Visitg Plan: "xpath==//span[(text()='Visit Plan')]"
+Attendance & Visiting->Visit Plan: "xpath==//span[(text()='Visit Plan')]"
 
 
 Report Analysis: "xpath==//span[(text()='Report Analysis')]"
