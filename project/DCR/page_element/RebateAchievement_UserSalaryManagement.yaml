@@ -13,7 +13,6 @@ Edit: "xpath==//span[normalize-space(text())='Edit']"
 Delete: "xpath==//span[normalize-space(text())='Delete']"
 Confirm Delete Yes: "xpath==//button//span[normalize-space(text())='Yes']"
 Confirm Delete No: "xpath==//button//span[normalize-space(text())='No']"
-#Deleted Successfully
 
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
