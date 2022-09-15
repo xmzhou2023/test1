@@ -1,14 +1,36 @@
-筛选User: "xpath==//label//..//div//input[@id='usersalarymanagement_input_userCodeList']"
-
+筛选用户: "xpath==//label//..//div//input[@id='usersalarymanagement_input_userCodeList']"
+输入筛选用户: "xpath==//div//input[@placeholder='Batch input content']"
+选中筛选用户: "xpath==//div//ul//li//span[contains(text(),'variable')]"
 Import Button: "xpath==//button[@id='user_salary_management_import_']//span[normalize-space(text())='Import']"
 Import Upload: "xpath==//button//span[normalize-space(text())='Upload']"
+Import Save: "xpath==//button[@id='usersalarymanagement_Save']//span[normalize-space(text())='Save']"
+Upload Confirm: "xpath==//button//span[normalize-space(text())='Confirm']"
 
 Edit: "xpath==//span[normalize-space(text())='Edit']"
+
+勾选第一条复选: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
+勾选第二条复选: "xpath==//tbody//tr[2]//td[1]//div//label//span[@class='el-checkbox__input']"
 Delete: "xpath==//span[normalize-space(text())='Delete']"
+Confirm Delete Yes: "xpath==//button//span[normalize-space(text())='Yes']"
+Confirm Delete No: "xpath==//button//span[normalize-space(text())='No']"
+#Deleted Successfully
 
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
 
+Get list User Name: "xpath==//tbody//tr[1]//td[2]//div"
+Get list User ID: "xpath==//tbody//tr[1]//td[3]//div"
+Get list YYYY MM: "xpath==//tbody//tr[1]//td[5]//div"
+Get list Position: "xpath==//tbody//tr[1]//td[6]//div"
+Get list Basic Salary: "xpath==//tbody//tr[1]//td[14]//div//span"
+Get list Bonus Incentive: "xpath==//tbody//tr[1]//td[15]//div"
 
 
-
+#Import Record
+Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
+Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"
+Get Import Record Total: "xpath==//tbody//tr[1]//td[4]//div"
+Get Import Record Success: "xpath==//tbody//tr[1]//td[5]//div"
+Get Import Record Failed: "xpath==//tbody//tr[1]//td[6]//div"
+Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
+Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"
