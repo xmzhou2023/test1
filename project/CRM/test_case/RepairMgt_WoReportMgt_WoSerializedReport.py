@@ -70,8 +70,8 @@ class TestWoReportExport:
         num.download_task()
         num = DomAssert(drivers)
         num.assert_point_att(1, 5, "100-Finished")
-        sleep(2)
         num = NavPage(drivers)
+        num.refresh_page()
         num.click_gotonav("Report Center")
         num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
 
@@ -93,8 +93,8 @@ class TestWoReportExport:
         num.download_task()
         num = DomAssert(drivers)
         num.assert_point_att(1, 5, '100-Finished')
-        sleep(2)
         num = NavPage(drivers)
+        num.refresh_page()
         num.click_gotonav("Report Center")
         num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
 
