@@ -16,8 +16,8 @@ Edit: "xpath==//button[@id='user_salary_management_edit_']//span[normalize-space
 Edit Basic Salary1: "xpath==//tbody//tr[1]//td[14]//div//input"
 Edit Basic Salary2: "xpath==//tbody//tr[2]//td[14]//div//input"
 
-勾选第一条复选: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
-勾选第二条复选: "xpath==//tbody//tr[2]//td[1]//div//label//span[@class='el-checkbox__input']"
+勾选第一条复选框: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
+勾选第二条复选框: "xpath==//tbody//tr[2]//td[1]//div//label//span[@class='el-checkbox__input']"
 Delete: "xpath==//span[normalize-space(text())='Delete']"
 Confirm Delete Yes: "xpath==//button//span[normalize-space(text())='Yes']"
 Confirm Delete No: "xpath==//button//span[normalize-space(text())='No']"

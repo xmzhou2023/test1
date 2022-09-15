@@ -99,14 +99,14 @@ class UserSalaryManagement(Base):
 
     @allure.step("User Salary Management页面，勾选第一个和第二个复选框")
     def click_first_checkbox1(self):
-        self.presence_sleep_dcr(user['勾选第一条复选'])
-        self.is_click_dcr(user['勾选第一条复选'])
+        self.presence_sleep_dcr(user['勾选第一条复选框'])
+        self.is_click_dcr(user['勾选第一条复选框'])
 
     @allure.step("User Salary Management页面，勾选第一个和第二个复选框")
     def click_first_checkbox2(self):
-        self.presence_sleep_dcr(user['勾选第一条复选'])
-        self.is_click_dcr(user['勾选第一条复选'])
-        self.is_click_dcr(user['勾选第二条复选'])
+        self.presence_sleep_dcr(user['勾选第一条复选框'])
+        self.is_click_dcr(user['勾选第一条复选框'])
+        self.is_click_dcr(user['勾选第二条复选框'])
 
     @allure.step("Import Record页面，点击Search 查询按钮")
     def click_search(self):
@@ -200,12 +200,12 @@ class UserSalaryManagement(Base):
         get_total1 = get_total[6:]
         return get_total1
 
-    @allure.step("User Salary Management页面，断言 Total字段文本")
+    @allure.step("User Salary Management页面，断言 Total分页总条数是否有数据")
     def assert_total(self, total):
-        if int(total) > 0:
-            logging.info("筛选考勤记录列表，分页总条数大于0，能查询到考勤记录数Total:{}".format(total))
+        if int(total) > 1:
+            logging.info("筛选User Salary Management页面，加载分页总条数Total:{}".format(total))
         else:
-            logging.info("筛选考勤记录列表，分页总条数为0，未查询到考勤记录数Total:{}:".format(total))
+            logging.info("筛选User Salary Management页面，加载分页总条数Total:{}:".format(total))
 
     @allure.step("User Salary Management页面，获取 Country字段文本")
     def get_list_country(self):
