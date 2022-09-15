@@ -73,6 +73,7 @@ class TestWoReportExport:
         num = NavPage(drivers)
         num.refresh_page()
         num.click_gotonav("Report Center")
+        sleep(1)
         num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
 
 
@@ -96,6 +97,7 @@ class TestWoReportExport:
         num = NavPage(drivers)
         num.refresh_page()
         num.click_gotonav("Report Center")
+        sleep(1)
         num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
 
 
