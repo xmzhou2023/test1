@@ -76,7 +76,7 @@ class WONonSerializedReport(Base):
             self.is_click(user['WO NonSerialized Report Export'], 'Export')
             self.is_click(user['确认导出'], 'OK')
         # logging.info("输入框键入{}".format(content))
-            self.refresh()
+
         else:
             self.is_click(user["Country搜索框"])
             self.input_text(user["Country搜索框"], txt='SL')
@@ -86,6 +86,6 @@ class WONonSerializedReport(Base):
             self.is_click(user['WO NonSerialized Report Search'])
             self.is_click(user['WO NonSerialized Report Export'], 'Export')
             self.is_click(user['确认导出'], 'OK')
-            self.refresh()
+
 if __name__ == '__main__':
     pass
