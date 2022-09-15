@@ -46,6 +46,7 @@ BOMTree份额: "xpath==//span[contains(text(),'variable')]/../../../..//div[@lab
 BOMTree确定: "xpath==//span[normalize-space(text())='variable']/../../../..//td[11]//span[contains(text(),'确定')]"
 BOMTree编辑: "xpath==//span[normalize-space(text())='variable']/../../../..//span[contains(text(),'编辑')]"
 BOMTree删除: "xpath==//span[normalize-space(text())='variable']/../../..//span[contains(text(),'删除')]"
+BOMTree指定Tree删除: "xpath==//span[normalize-space(text())='variable']/../../../..//span[contains(text(),'删除')]"
 新增BomTree: "xpath==//button/span[contains(text(),'新增Bom')]"
 新增物料: "xpath==//button/span[contains(text(),'新增物料')]"
 BOMTree新增物料物料编码: "xpath==//span[normalize-space(text())='variable']/../../../following-sibling::tr/td[5]//input"

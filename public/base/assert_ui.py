@@ -285,7 +285,7 @@ class DomAssert(object):
             raise
 
     @allure.step("页面是否存在控件")
-    def assert_control(self, element, *choice, result=True):
+    def assert_control(self, element, result=True, *choice):
         """
         断言：页面是否存在控件
         @element：元素定位
@@ -301,15 +301,17 @@ class DomAssert(object):
             raise
 
     @allure.step("断言：查询结果")
-    def assert_search_result(self, col_element, tb_element, header, content):
+    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0'):
         """
         断言：页面查询结果
         @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
         @tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
         @header：元素定位 表头字段名称
         @content：表格需要断言的内容
+        @attr：需要获取的属性
+        @index：属性值索引
         """
-        column = Base(self.driver).get_table_info(col_element, header)
+        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index)
         contents = Base(self.driver).find_elements_tbm(tb_element, column)
         content_list = []
         for i in contents:
@@ -319,8 +321,8 @@ class DomAssert(object):
                 logging.error("断言失败，结果不包含指定内容")
                 raise
             content_list.append(i.text)
+            logging.info('获取表格执行列内容：{}'.format(content_list))
         logging.info("断言成功，结果包含指定内容")
-        logging.info('获取表格执行列内容：{}'.format(content_list))
 
 
     """     数据库断言     """
