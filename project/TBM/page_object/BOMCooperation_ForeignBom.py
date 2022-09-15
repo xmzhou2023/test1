@@ -211,9 +211,23 @@ class ForeignBom(CenterComponent):
             self.is_click_tbm(user['成员确定'])
 
     @allure.step("获取外研BOM协作第一列内容")
-    def get_info(self, header):
+    def get_info(self):
         """
         获取外研BOM协作第一列内容
+        @return:返回文本及索引位置分别是'流程编码':2; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
+        """
+        self.click_menu("BOM协作", "外研BOM协作")
+        sleep(1)
+        info = self.find_elements_tbm(user['表格内容'])
+        infolist = []
+        for i in info:
+            infolist.append(i.get_attribute('innerText'))
+        logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
+        return infolist
+
+    def get_col_info(self, header):
+        """
+        获取外研BOM协作指定内容
         @return:返回文本及索引位置分别是'流程编码':2; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
         """
 
@@ -222,6 +236,7 @@ class ForeignBom(CenterComponent):
         column = self.get_table_info(user['表格字段'], header)
         contents = self.find_element(user['表格指定列内容'], column).text
         return contents
+
 
     def click_delete(self, code):
         """
@@ -337,12 +352,15 @@ class ForeignBom(CenterComponent):
         DomAssert(self.driver).assert_control(user['批量删除'], result)
 
     @allure.step("根据Tree点击删除按钮")
-    def click_bomtree_delete(self, tree):
-        self.is_click_tbm(user['BOMTree删除'], tree)
+    def click_bomtree_delete(self, tree, type='Tree'):
+        if type == 'Tree':
+            self.is_click_tbm(user['BOMTree指定Tree删除'], tree)
+        else:
+            self.is_click_tbm(user['BOMTree删除'], tree)
         self.click_batch_confirm()
 
     def assert_bomtree(self, tree):
-        DomAssert(self.driver).assert_control(user['BOMTree新增物料物料编码'], tree, result=False)
+        DomAssert(self.driver).assert_control(user['BOMTree新增物料物料编码'], False, tree)
 
     @allure.step("点击确定")
     def click_batch_confirm(self):

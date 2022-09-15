@@ -817,7 +817,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_toast('处理成功，审核拒绝')
         user.quit_oneworks()
         user.assert_my_application_flow(BarePhone_Approval_API[0], '审批拒绝')
-        process_status = user.get_info()
+        process_status = user.get_info()[8]
         ValueAssert.value_assert_In(process_status, '审批拒绝')
 
     @allure.story("流程审批")  # 场景名称
