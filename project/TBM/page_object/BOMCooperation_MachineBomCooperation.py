@@ -840,7 +840,7 @@ class MachineBOMCollaboration(CenterComponent):
         """
         self.mouse_double_click(user['业务审核编辑验证-用量'])
         sleep(0.5)
-        DomAssert(self.driver).assert_control(user['业务审核编辑验证-用量'], True)
+        DomAssert(self.driver).assert_control(user['业务审核编辑验证-用量'])
 
     @allure.step("业务审核页面 点击 自检清单")
     def click_oneworks_businessapprove_self_inspection(self, box, option):

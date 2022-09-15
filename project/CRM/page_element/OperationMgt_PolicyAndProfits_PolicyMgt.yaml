@@ -8,6 +8,8 @@ keywork筛选框: 'xpath==//label[@for="keyword"]//parent::div/div[1]//input[@ty
 下拉筛选框_第一条数据: 'xpath==//div[@x-placement="bottom-start"]//li[1]'
 下拉筛选框_第二条数据: 'xpath==//div[@x-placement="bottom-start"]//li[2]'
 
+下拉框_启用禁用切换: 'xpath==//div[@x-placement="bottom-start"]//li[3]'
+
 第一行edit按钮: 'xpath==//tr[@class="el-table__row statusenable"][1]//span[text()="Edit"]'
 
 total数量: 'xpath==//span[@class="el-pagination__total"]'

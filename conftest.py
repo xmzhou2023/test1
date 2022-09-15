@@ -7,7 +7,6 @@ from libs.common.inspect_ymal import inspect_element
 from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
 from selenium.webdriver.remote.file_detector import LocalFileDetector
 
-
 driver = None
 
 @pytest.fixture(scope='session', autouse=True)

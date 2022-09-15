@@ -1,0 +1,37 @@
+
+FG筛选框: 'xpath==//label[@for="variable"]//parent::div/div[1]//input[@type="text"]'
+
+搜索按钮: 'xpath==//span[text()="Search"]'
+
+下拉筛选框_第一条数据: 'xpath==//div[@x-placement="bottom-start"]//li[1]'
+下拉筛选框_第二条数据: 'xpath==//div[@x-placement="bottom-start"]//li[2]'
+
+下拉框_启用禁用切换: 'xpath==//div[@x-placement="bottom-start"]//li[3]'
+
+第一行edit按钮: 'xpath==//table[@class="el-table__body"]//tr[1]//button[@type="button"]//span[text()="Edit"]'
+第一行enble: 'xpath==//table[@class="el-table__body"]//tr[1]//div[@role="switch"]//span[text()="Enable"]'
+
+第4列文本: 'xpath==//tr[@class="el-table__row"]/td[variable]'
+第3列文本: 'xpath==//tr[@class="el-table__row"]/td[3]'
+
+total数量: 'xpath==//span[@class="el-pagination__total"]'
+
+add按钮: 'xpath==//button//span[normalize-space(text())="Add"]'
+batchNo: 'xpath==//label[@for="batchNo"]/following-sibling::div//input[@class="el-input__inner"]'
+countrycode: 'xpath==//div[@class="formContent"]//input[@class="el-input__inner"]'
+materialcode: 'xpath==//label[@for="materialId"]/following-sibling::div//input[@class="el-input__inner"]'
+date: 'xpath==//label[@for="variable"]/following-sibling::div//input[@class="el-input__inner"]'
+
+日期选择框上的OK: 'xpath==//div[@x-placement="bottom-start"]//span[normalize-space(text())="OK"]'
+
+selectdate: 'xpath==//div[@x-placement="bottom-start"]//input[@placeholder="variable"]'
+
+save: 'xpath==//span[text()="Save"]'
+cancel: 'xpath==//div[@aria-label="Add"]//span[text()="Cancel"]'
+关闭弹窗上的confirm: 'xpath==//div[@class="el-message-box__btns"]//span[normalize-space(text())="Confirm"]'
+
+第一行enable按钮: 'xpath==//table[@class="el-table__body"]//tr[1]//div[@role="switch"]//span[text()="Enable"]'
+确认disable弹窗的Yes按钮: 'xpath==//span[normalize-space(text())="Yes"]'
+
+
+

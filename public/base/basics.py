@@ -184,6 +184,7 @@ class Base(object):
             sleep(0.5)
             ele = self.find_element(locator)
             ele.clear()
+            ele.clear()
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
         else:
@@ -191,22 +192,25 @@ class Base(object):
             sleep(0.5)
             ele = self.find_element(locator, choice)
             ele.clear()
+            ele.clear()
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
 
-    def readonly_input_text(self, locator, txt, choice=None):
+    def readonly_input_text(self, locator, txt, *choice):
         """去除只读属性后输入"""
         if choice is None:
             sleep(0.5)
             ele = self.find_element(locator)
             self.driver.execute_script("arguments[0].removeAttribute('readonly')", ele)
             ele.clear()
+            ele.clear()
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
         else:
             sleep(0.5)
-            ele = self.find_element(locator, choice)
+            ele = self.find_element(locator, *choice)
             self.driver.execute_script("arguments[0].removeAttribute('readonly')", ele)
+            ele.clear()
             ele.clear()
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
@@ -351,14 +355,14 @@ class Base(object):
         ActionChains(content).move_by_offset(700, 700).click().perform()
         sleep(10)
 
-    def element_text(self, locator, choice=None):
+    def element_text(self, locator, *choice):
         """获取元素的文本"""
         if choice is None:
             _text = self.find_element(locator).text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
         else:
-            ele = self.find_element(locator, choice)
+            ele = self.find_element(locator, *choice)
             _text = ele.text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
@@ -618,9 +622,9 @@ class Base(object):
                 sleep(0.5)
         logging.info("点击元素：{}{}".format(locator, choice))
 
-    def element_input_text(self, locator):
+    def element_input_text(self, locator, *choice):
         """获取输入框当前的text"""
-        ele = self.find_element(locator)
+        ele = self.find_element(locator, *choice)
         _text = ele.get_attribute('value')
         logging.info("获取文本：{}".format(_text))
         return _text
@@ -692,28 +696,16 @@ class Base(object):
         ele = self.find_element(xpath)
         ele.clear()
 
-    def input_enter(self,locator,txt,choice=None):
+    def get_table_info(self, locator, *choice, attr='class', index='0'):
         """
-            POP专用输入框输入内容点击enter键。
-        :param locator: 根据yaml文件获取的定位的元素 ，xpath==XXX，
-        :param txt: 输入框内需要输入的字符
-        :param choice: 定位元素内的参数值：variable,默认为空
+        获取指定定位的属性值，可用于获取表格每列内容，做查询断言，如：el-table_3_column_45
+        :param attr: 需要获取到的属性，默认是class
+        :param index: 需要获取到的属性索引位置，默认是0
         """
-        if choice is None:
-            sleep(0.5)
-            ele = self.find_element(locator)
-            ele.clear()
-            ele.send_keys(txt + Keys.ENTER)
-            logging.info("输入文本：{}".format(txt))
-        else:
-            """输入(输入前先清空)"""
-            sleep(0.5)
-            ele = self.find_element(locator, choice)
-            ele.clear()
-            ele.send_keys(txt + Keys.ENTER)
-            logging.info("输入文本：{}".format(txt))
-
-
+        header_class = self.get_element_attribute(locator, attr, *choice)
+        column_class = header_class.split(' ')[int(index)]
+        logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))
+        return column_class
 
 def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):
     """

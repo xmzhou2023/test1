@@ -426,10 +426,6 @@ class TestProductInformationDelete:
         user.screen_reset()  # 点击重置按钮
 
 
-
-"""================================================产品配置页面================================================================="""
-
-
 @allure.feature("DRP数据管理-机型库-产品配置")
 class TestProductCofigStatusFilt:
     @allure.story("产品配置页面 状态过滤")

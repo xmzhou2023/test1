@@ -125,6 +125,8 @@ class ValueAssert(object):
 
 
 """     页面元素校验的方法     """
+
+
 class DomAssert(object):
 
     def __init__(self, driver):
@@ -282,15 +284,15 @@ class DomAssert(object):
             logging.error(e)
             raise
 
-    @allure.step("值为True值断言")
-    def assert_control(self, element, result=True):
+    @allure.step("页面是否存在控件")
+    def assert_control(self, element, result=True, *choice):
         """
         断言：页面是否存在控件
         @element：元素定位
         @result：断言结果，True表示断言存在； False表示断言不存在
         @choice：元素定位
         """
-        control = Base(self.driver).element_exist(element)
+        control = Base(self.driver).element_exist(element, *choice)
         try:
             assert control is result, logging.warning('断言失败，元素：{}存在结果与期望结果：{}不符'.format(element, result))
             logging.info('断言成功，元素：{}存在结果为：{}'.format(element, result))
@@ -298,8 +300,34 @@ class DomAssert(object):
             logging.error(e)
             raise
 
+    @allure.step("断言：查询结果")
+    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0'):
+        """
+        断言：页面查询结果
+        @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
+        @tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+        @header：元素定位 表头字段名称
+        @content：表格需要断言的内容
+        @attr：需要获取的属性
+        @index：属性值索引
+        """
+        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index)
+        contents = Base(self.driver).find_elements_tbm(tb_element, column)
+        content_list = []
+        for i in contents:
+            try:
+                assert content in i.text
+            except:
+                logging.error("断言失败，结果不包含指定内容")
+                raise
+            content_list.append(i.text)
+            logging.info('获取表格执行列内容：{}'.format(content_list))
+        logging.info("断言成功，结果包含指定内容")
+
 
     """     数据库断言     """
+
+
 class SQLAssert(object):
     def __init__(self, name, env, ini_name=None, values=None):  # 此处可以加入这个类中需要定义的参数
         self.name = name

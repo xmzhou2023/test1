@@ -572,6 +572,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
+        user.assert_toast()
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_Factory_API[0], '结构工程师审批', True)
 
@@ -689,6 +690,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
+        user.assert_toast()
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_StructureEnginner_API[0], '业务审核', True)
 
@@ -815,8 +817,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_toast('处理成功，审核拒绝')
         user.quit_oneworks()
         user.assert_my_application_flow(BarePhone_Approval_API[0], '审批拒绝')
-        process_status = user.get_info()
-        ValueAssert.value_assert_In('审批拒绝', process_status)
+        process_status = user.get_info()[8]
+        ValueAssert.value_assert_In(process_status, '审批拒绝')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("BOM工程师审批回退到结构工程师审批成功")  # 用例名称
@@ -881,6 +883,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
+        user.assert_toast()
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_Approval_API[0], 'BOM工程师审批', True)
 
@@ -967,6 +970,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
+        user.assert_toast()
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_bomEnginner_API[0], '数据组审批', True)
 
@@ -1294,4 +1298,4 @@ class TestProcessInformationExport:
         user.assert_oneworks_approval_bomcheck()
         user.quit_oneworks()
 if __name__ == '__main__':
-    pytest.main(['Test_module.py'])
+    pytest.main(['BareMobilePhoneBomCooperation.py'])

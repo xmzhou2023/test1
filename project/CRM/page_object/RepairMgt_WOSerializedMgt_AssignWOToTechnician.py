@@ -43,18 +43,11 @@ class WOSerializedAssignToTech(Base):
 
         elif status != "Created" and scope == "single":
             """非10状态工单在分派技术员页无法查到，所以判断的是查询结果是否为0"""
-            search_total = self.get_element_attribute(user['序列化工单分派技术员页工单total数'], 'textContent', choice='Total')
+            search_total = self.get_element_attribute(user['序列化工单分派技术员页工单total数'], 'textContent')
             total = ''.join(filter(str.isdigit, search_total))
             total = int(total)
             logging.info('序列化工单分派技术员页工单查询total数量:{}'.format(total))
             return total
-        elif status == "Created" and scope == "re-single":
-            self.is_click(user["序列化工单分派技术员页Re-Assigned按钮"])
-            self.is_click(user["Re-Assigned弹框页WO Serialized 输入框"])
-            self.input_text(user["Re-Assigned弹框页WO Serialized 输入框"], txt=workorder)
-            self.is_click(user["Re-Assigned弹框页Re-Assign To 输入框"])
-            self.is_click()
-
 
         else:
             self.is_click(user["序列化工单分派技术员页Assign By Scan按钮"])
@@ -67,7 +60,7 @@ class WOSerializedAssignToTech(Base):
             if status == "Created" and scope == "Scan":
                 """点击assign by scan后进入弹框页，输入10状态的工单可操作成功，此处校验了弹框页total数以及操作提示"""
                 self.wait.until(EC.presence_of_element_located(user['Assign By Scan弹框页表格中的删除键']), message='分派技术员列表数据未添加成功')
-                search_total = self.get_element_attribute(user['Assign By Scan弹框页的total数'], 'textContent', choice='Total')
+                search_total = self.get_element_attribute(user['Assign By Scan弹框页的total数'], 'textContent')
                 total = ''.join(filter(str.isdigit, search_total))
                 total = int(total)
                 if total >= 1:

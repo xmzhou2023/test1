@@ -72,8 +72,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
 
         input_list = ['市场名称', '项目名称', '摄像头', '型号', '新增']
         member_list = ['产品经理', '项目经理']
-        header_class = self.get_element_attribute(user['产品定义信息字段'], 'class', header)
-        column = header_class.split(' ')[0]
+        column = self.get_table_info(user['产品定义信息字段'], header)
         if header in select_list:
             self.is_click_tbm(user['产品定义信息输入'], column)
             self.is_click_tbm(user['产品定义信息选择'], content)
