@@ -18,7 +18,7 @@ def module_fixture(drivers):
     user = NavPage(drivers)
     user.refresh_page()
     user.click_gotonav("Repair Mgt", "WO Serialized Mgt", 'WO Serialized List')
-    sleep(2)
+    sleep(1)
     user = DomAssert(drivers)
     user.assert_url("/maintenanceMgt/workorderSerializedMgt/workorderSerializedList")
     yield
