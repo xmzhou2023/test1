@@ -14,8 +14,6 @@ class AddGoodParam(Base):
 
     @allure.step("点击新增")
     def click_add(self):
-        # 点击重置按钮是为了刷新取消模块浮窗
-        self.is_click(user['重置按钮'])
         self.is_click(user['参数新增按钮'])
 
     @allure.step("输入参数名称")

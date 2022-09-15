@@ -22,6 +22,8 @@ class NavPage(Base):
         for i in range(len(content)):
             self.is_click(user[level[i]])
         sleep(2)
+        # 点击重置按钮是为了刷新取消模块浮窗
+        self.is_click(user['系统通用重置按钮'])
 
 
 
