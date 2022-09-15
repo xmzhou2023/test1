@@ -225,7 +225,6 @@ class UserSalaryManagement(Base):
         self.presence_sleep_dcr(user['Edit Basic Salary1'])
         self.is_click(user['Edit Basic Salary1'])
         self.input_text(user['Edit Basic Salary1'], salary1)
-
         self.is_click(user['Edit Basic Salary2'])
         self.input_text(user['Edit Basic Salary2'], salary2)
 
