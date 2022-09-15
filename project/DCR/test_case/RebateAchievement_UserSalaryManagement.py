@@ -19,9 +19,9 @@ def function_menu_fixture(drivers):
 
 @allure.feature("返利模块-员工工资管理")
 class TestQueryUserSalaryMgt:
-    @allure.story("查询员工工资")
-    @allure.title("工资管理页面，根据国家筛选员工工资单")
-    @allure.description("工资管理页面，根据国家筛选员工工资单，断言列表是否显示导入的员工工资数据")
+    @allure.story("查询员工工资单")
+    @allure.title("工资管理页面，根据国家筛选员工工资单，列表数据加载")
+    @allure.description("工资管理页面，根据国家筛选员工工资单，断言列表是否能查询到数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
@@ -54,8 +54,8 @@ class TestQueryUserSalaryMgt:
 @allure.feature("返利模块-员工工资管理")
 class TestEditUserSalaryMgt:
     @allure.story("编辑员工工资")
-    @allure.title("员工工资管理页面，编辑员工工资操作")
-    @allure.description("员工工资管理页面，编辑员工工资操作，断言列表是否显示导入的员工工资数据")
+    @allure.title("员工工资管理页面，编辑员工基本工资操作")
+    @allure.description("员工工资管理页面，编辑员工基本工资操作，断言列表是否显示编辑后的基本工资")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
@@ -76,7 +76,7 @@ class TestEditUserSalaryMgt:
 
 @allure.feature("返利模块-员工工资管理")
 class TestImportDeleteSalaryMgt:
-    @allure.story("导入、删除员工工资")
+    @allure.story("导入、删除员工工资单")
     @allure.title("员工工资管理页面，导入、删除员工工资操作")
     @allure.description("员工工资管理页面，导入、删除员工工资操作，断言列表是否显示导入的员工工资数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
