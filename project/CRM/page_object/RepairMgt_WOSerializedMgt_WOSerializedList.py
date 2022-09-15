@@ -20,6 +20,7 @@ class WOSerializedListAdd(Base):
     @allure.step("新建序列化工单")
     def add_woserlist(self, Warehouse=None, imei=None):
         self.refresh()
+        self.wait.until(EC.presence_of_element_located(user["序列化工单查询页Add按钮"]), message="页面刷新失败")
         self.is_click(user['序列化工单查询页Add按钮'])
         self.is_click(user['序列化工单新增页Warehouse Name搜索框'])
         self.input_text(user['序列化工单新增页Warehouse Name搜索框'], txt=Warehouse)
@@ -40,7 +41,7 @@ class WOSerializedListAdd(Base):
     @allure.step("新增物料库存")
     def add_material(self):
         self.refresh()
-        sleep(2)
+        self.wait.until(EC.presence_of_element_located(user["序列化工单查询页Add按钮框"]), message="页面刷新失败")
         self.is_click(user['库存初始化查询页Add按钮'])
         # 记得修改成显示等待
         self.is_click(user['库存初始化新增页Warehouse Name搜索框'])
@@ -125,7 +126,7 @@ class WOSerializedListSearch(Base):
     def search_woserlist(self, scope):
         self.refresh()
         # 查询序列化工单所有数据
-        sleep(1)
+        self.wait.until(EC.presence_of_element_located(user["序列化工单查询页From Date输入框"]), message="页面刷新失败")
         self.is_click(user['序列化工单查询页From Date输入框'])
         self.hover(user['序列化工单查询页From Date输入框'])
         self.is_click(user['序列化工单查询页From Date清除按钮'])
