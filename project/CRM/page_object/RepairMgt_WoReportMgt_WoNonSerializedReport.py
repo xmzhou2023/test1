@@ -53,7 +53,7 @@ class WONonSerializedReport(Base):
         record_value = dict_record['count(*)']
         print(record_value)
         logging.info('数据库查询到的非序列化工单报表数据为:{}'.format(record_value))
-        search_num = self.get_element_attribute(user['报表总数'], 'textContent', choice='Total')
+        search_num = self.get_element_attribute(user['报表总数'], 'textContent')
         num = ''.join(filter(str.isdigit, search_num))
         num = int(num)
         logging.info('非序列化工单报表查询页查到的数量:{}'.format(num))
@@ -76,7 +76,7 @@ class WONonSerializedReport(Base):
             self.is_click(user['WO NonSerialized Report Export'], 'Export')
             self.is_click(user['确认导出'], 'OK')
         # logging.info("输入框键入{}".format(content))
-            self.refresh()
+
         else:
             self.is_click(user["Country搜索框"])
             self.input_text(user["Country搜索框"], txt='SL')
@@ -86,6 +86,6 @@ class WONonSerializedReport(Base):
             self.is_click(user['WO NonSerialized Report Search'])
             self.is_click(user['WO NonSerialized Report Export'], 'Export')
             self.is_click(user['确认导出'], 'OK')
-            self.refresh()
+
 if __name__ == '__main__':
     pass
