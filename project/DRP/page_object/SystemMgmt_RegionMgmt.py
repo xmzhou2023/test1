@@ -155,7 +155,7 @@ class AreaPage(Base):
     @allure.step("指定国家添加按钮")
     def add_list(self, num, area_name):
         """添加指定行数据"""
-        a = self.find_elements(user['国家列表第n列'], num)
+        a = self.find_elements(user['国家列表第n列'], str(num))
         b = []  # 取出列表第n列的所有文本
         for i in range(len(a)):
             b.append(a[i].text)
@@ -178,7 +178,7 @@ class AreaPage(Base):
     @allure.step("指定行编辑按钮")
     def update_list(self, num, area_name):
         """编辑列表指定行数据"""
-        a = self.find_elements(user['列表第n列'],num)
+        a = self.find_elements(user['列表第n列'],str(num))
         b = []  # 取出列表第n列的所有文本
 
         for i in range(len(a)):
@@ -202,7 +202,7 @@ class AreaPage(Base):
     @allure.step("指定行删除按钮")
     def del_list(self, num, area_name):
         """删除列表指定行数据"""
-        a = self.find_elements(user['列表第n列'], num)
+        a = self.find_elements(user['列表第n列'], str(num))
         b = []  # 取出列表第二列的所有文本
         for i in range(len(a)):
             b.append(a[i].text)

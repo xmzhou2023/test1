@@ -8,7 +8,7 @@ from project.DRP.page_object.DRPDataMgmt_MonClearMission import MonClearMission
 
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
-    logging.info("模块前置条件：前往“DRP数据管理-颜色库”页面")
+    logging.info("模块前置条件：前往“DRP数据管理-月度清尾任务”页面")
     user = NavPage(drivers)
     user.click_gotonav("DRP数据管理", "月度清尾任务")
     user = DomAssert(drivers)
