@@ -125,8 +125,6 @@ class ValueAssert(object):
 
 
 """     页面元素校验的方法     """
-
-
 class DomAssert(object):
 
     def __init__(self, driver):
@@ -300,9 +298,8 @@ class DomAssert(object):
             logging.error(e)
             raise
 
+
     """     数据库断言     """
-
-
 class SQLAssert(object):
     def __init__(self, name, env, ini_name=None, values=None):  # 此处可以加入这个类中需要定义的参数
         self.name = name

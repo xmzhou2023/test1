@@ -692,6 +692,27 @@ class Base(object):
         ele = self.find_element(xpath)
         ele.clear()
 
+    def input_enter(self,locator,txt,choice=None):
+        """
+            POP专用输入框输入内容点击enter键。
+        :param locator: 根据yaml文件获取的定位的元素 ，xpath==XXX，
+        :param txt: 输入框内需要输入的字符
+        :param choice: 定位元素内的参数值：variable,默认为空
+        """
+        if choice is None:
+            sleep(0.5)
+            ele = self.find_element(locator)
+            ele.clear()
+            ele.send_keys(txt + Keys.ENTER)
+            logging.info("输入文本：{}".format(txt))
+        else:
+            """输入(输入前先清空)"""
+            sleep(0.5)
+            ele = self.find_element(locator, choice)
+            ele.clear()
+            ele.send_keys(txt + Keys.ENTER)
+            logging.info("输入文本：{}".format(txt))
+
 
 
 def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):

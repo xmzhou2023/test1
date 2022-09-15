@@ -15,8 +15,6 @@ class Queryuser(Base):
 
     @allure.step("输入用户")
     def input_username(self,content,usernamecode):
-        # 点击重置按钮是为了刷新取消模块浮窗
-        self.is_click(user['重置按钮'])
         self.is_click(user['列表用户名输入框'])
         self.input_text(user['列表用户名输入框'],content)
         self.is_click(user['员工'],usernamecode)

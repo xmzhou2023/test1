@@ -14,8 +14,6 @@ class AddUser(Base):
 
     @allure.step("点击新增按钮")
     def click_add_button(self):
-        # 点击重置按钮是为了刷新取消模块浮窗
-        self.is_click(user['重置按钮'])
         self.is_click(user['新增按钮'])
 
     @allure.step("输入用户名")
