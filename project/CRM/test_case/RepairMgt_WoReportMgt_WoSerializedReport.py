@@ -73,7 +73,9 @@ class TestWoReportExport:
         num.assert_point_att(1, 5, "100-Finished")
         num = NavPage(drivers)
         num.refresh_page()
+        sleep(1)
         num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
+        sleep(1)
 
 
     @allure.story("序列化报表导出IN国家数据成功")  # 场景名称
@@ -95,7 +97,9 @@ class TestWoReportExport:
         num.assert_point_att(1, 5, '100-Finished')
         num = NavPage(drivers)
         num.refresh_page()
+        sleep(1)
         num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
+        sleep(1)
 
 
 # if __name__ == '__main__':
