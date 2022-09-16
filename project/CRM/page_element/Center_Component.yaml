@@ -15,6 +15,7 @@ WO Serialized List: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO 
 Repair Mgt->WO Serialized Mgt->Assign WO To Technician: "xpath==//div[@class='nest-menu']//span[contains(text(),'Assign WO To Technician')]"
 Repair Mgt->WO Report Mgt->WO Serialized Report: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO Serialized Report')]"
 Assign WO To Technician: "xpath==//div[@class='nest-menu']//span[contains(text(),'Assign WO To Technician')]"
+
 WMS: "xpath==//span[contains(text(),'WMS')]"
 WMS->Stock In/Out Mgt: "xpath==//span[contains(text(),'Stock In/Out Mgt')]"
 WMS->Stock In/Out Mgt->Initialize Inventory:  "xpath==//div[@class='nest-menu']//span[contains(text(),'Initialize Inventory')]"
