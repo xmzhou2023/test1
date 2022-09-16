@@ -27,7 +27,7 @@ class UserSalaryManagement(Base):
         self.presence_sleep_dcr(user['选中筛选用户'], userid)
         self.is_click(user['选中筛选用户'], userid)
         self.is_click(user['Search'])
-        sleep(3.5)
+        sleep(4)
 
     @allure.step("User Salary Management页面，点击Import 导入功能")
     def click_import_upload_save(self, file):

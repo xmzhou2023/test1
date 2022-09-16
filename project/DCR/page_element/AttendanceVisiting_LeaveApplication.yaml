@@ -1,7 +1,6 @@
 #休假申请记录
 筛选用户: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
 选中筛选用户: "xpath==//div//ul//li//span[contains(text(),'variable')]"
-
 Leave Start Date: "xpath==//div//input[@id='leaveapplicationrecords_input_leaveStartDate']"
 休假申请记录Search: "id==leaveapplicationrecords_search"
 

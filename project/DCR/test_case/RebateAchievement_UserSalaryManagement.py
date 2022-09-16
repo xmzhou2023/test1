@@ -67,7 +67,6 @@ class TestEditUserSalaryMgt:
         edit = UserSalaryManagement(drivers)
         """根据User ID，筛选导入的数据，然后进行删除操作"""
         edit.input_user_query_search('lhmdianzhang')
-        sleep(5)
         edit.click_edit()
         edit.input_edit_basic_salary('5588', '6050')
         edit.click_edit()
