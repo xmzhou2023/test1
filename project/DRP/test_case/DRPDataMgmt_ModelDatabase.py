@@ -7,12 +7,15 @@ from project.DRP.page_object.DRPDataMgmt_ModelDatabase import ModelDatabase
 
 @pytest.fixture(scope='module', autouse=True)
 def module_setup_fixture(drivers):
-    logging.info("模块前置条件：前往“DRP数据管理-机型库”页面")
+    logging.info("模块前置条件：前往 DRP数据管理-机型库 页面")
     user = NavPage(drivers)
     user.click_gotonav("DRP数据管理", "机型库")
-    user = DomAssert(drivers)
-    user.assert_url("/dataManage/modelLibrary")
-
+    dom = DomAssert(drivers)
+    dom.assert_url("/dataManage/modelLibrary")
+    yield
+    logging.info("后置条件:关闭 DRP数据管理-机型库 页面")
+    user.close_page()
+    dom.assert_url("/dashboard")
 
 @allure.feature("DRP数据管理-机型库-产品信息")
 class TestProductInformationSwitchMenu:

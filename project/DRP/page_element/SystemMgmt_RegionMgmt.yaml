@@ -46,5 +46,6 @@ tab区域菜单四级菜单: "xpath==//div[@tabindex='-1']//div[@tabindex='-1']/
 # 断言定位元素
 区域层级: "xpath==//span[@class='color-rgb166 marginLeft-33']"
 市场: "xpath==//thead[contains(@class,'has-gutter')]//th[3]//div"
-
+区域层级断言: "xpath==//div[@class='regional-style']//span[contains(text(),'区域层级')]/following-sibling::span"
+组织名称断言: "xpath==//div[@class='regional-style']//div[2]//span[contains(@class,'color-rgb')]"
 
