@@ -293,7 +293,7 @@ class UserAuthorizationPage(Base):
     def input_list_query_shop(self, context):
         self.is_click_dcr(user['门店列表点击门店输入框'])
         self.input_text_dcr(user['门店列表点击门店输入框'], txt=context)
-        sleep(3)
+        sleep(3.7)
         self.presence_sleep_dcr(user['门店列表选中输入的门店'], context)
         self.is_click(user['门店列表选中输入的门店'], context)
 

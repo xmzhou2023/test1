@@ -254,7 +254,8 @@ class UserManagementPage(Base):
         sleep(2)
         self.presence_sleep_dcr(user['Reset Password'])
         self.is_click(user['Reset Password'])
-        sleep(1.5)
+        sleep(1.4)
+        self.presence_sleep_dcr(user['Reset Password Yes'])
         self.is_click(user['Reset Password Yes'])
 
     @allure.step("登录时，弹出设置新密码窗口，获取New Password 标签")
@@ -286,7 +287,7 @@ class UserManagementPage(Base):
     @allure.step("登录页面，点击Login登录按钮")
     def click_login(self):
         self.is_click(user['Click Login'])
-        sleep(2)
+        sleep(3.5)
 
 
     """导出用户"""
