@@ -52,7 +52,6 @@ class ShopManagementPage(Base):
         self.input_text(user['Sales Region'], txt=content)
         sleep(1)
         self.is_click(user['Sales Region value'], "Barisal itel")
-        #sleep(1)
 
     @allure.step("新建门店时，选择门店等级")
     def click_shop_grade(self):
@@ -441,7 +440,7 @@ class ShopManagementPage(Base):
         sleep(1)
         self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        sleep(6)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -488,6 +487,7 @@ class ShopManagementPage(Base):
 
     @allure.step("导出记录页面，获取列表Complete Date文本")
     def get_complete_date_text(self):
+        self.scroll_into_view(user['获取完成日期文本'])
         complete_date = self.element_text(user['获取完成日期文本'])
         complete_date1 = complete_date[0:10]
         return complete_date1

@@ -43,8 +43,6 @@ class TestQueryAttendanceRecord:
         """考勤管理-打开考勤记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Attendance Records")
 
-        base = Base(drivers)
-        today = base.get_datetime_today()
         """查询考勤记录列表，是否存在当天考勤记录"""
         query_all = AttendanceRecordPage(drivers)
         picture = query_all.get_photo_text()
@@ -53,7 +51,7 @@ class TestQueryAttendanceRecord:
 
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
         ValueAssert.value_assert_equal(picture, "Picture")
-        ValueAssert.value_assert_equal(today, date)
+        ValueAssert.value_assert_IsNoneNot(date)
         query_all.assert_total2(total)
         #query_all.click_close_atten_record()
 
@@ -77,8 +75,6 @@ class TestExportAttendanceRecord:
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()
-        export.input_query_date(today)
-        export.click_search()
 
         user_id = export.get_user_id_text()
         export.input_user_id_query(user_id, user_id)
