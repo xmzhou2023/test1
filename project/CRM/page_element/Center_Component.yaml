@@ -18,7 +18,7 @@ Assign WO To Technician: "xpath==//div[@class='nest-menu']//span[contains(text()
 
 WMS: "xpath==//span[contains(text(),'WMS')]"
 WMS->Stock In/Out Mgt: 'xpath==//*[@id="sidebar-containerId"]/div/div[1]/div/ul/div[6]/li/ul/div[3]/li/div'
-WMS->Stock In/Out Mgt->Initialize Inventory:  'xpath==//*[@id="sidebar-containerId"]/div/div[1]/div/ul/div[6]/li/ul/div[3]/li/ul/div[7]'
+WMS->Stock In/Out Mgt->Initialize Inventory:  'xpath==//*[@id="sidebar-containerId"]/div/div[1]/div/ul/div[6]/li/ul/div[3]/li/ul/div[7]/li'
 切换语言按钮: "xpath==//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]"
 Report Center: "xpath==//span[contains(text(),'Report Center')]"
 Report Center->Asynchronous Report Mgt: "xpath==//span[contains(text(),'Asynchronous Report Mgt')]"
