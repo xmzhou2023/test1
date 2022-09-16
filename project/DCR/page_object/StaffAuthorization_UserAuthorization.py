@@ -208,9 +208,8 @@ class UserAuthorizationPage(Base):
         get_list_ware = self.element_text(user['list 获取Warehouse文本'], 'WNG2061304')
         return get_list_ware
 
-    @allure.step("")
+    @allure.step("在仓库页签，筛选Warehouse ID后，点击勾选仓库ID对应的复选框")
     def click_list_ware_checkbox(self):
-        """ 在仓库页签，筛选Warehouse ID后，点击勾选仓库ID对应的复选框 """
         self.is_click(user['仓库列表勾选仓库复选框'])
 
     @allure.step("在仓库页签，筛选Warehouse ID后，点击More Option按钮")
@@ -282,7 +281,6 @@ class UserAuthorizationPage(Base):
 
 
     """删除门店Shop 定位方法"""
-
     @allure.step("在门店页签，点击Shop 切换门店页签")
     def click_shop_tab(self):
         self.presence_sleep_dcr(user['切换门店页签'])
