@@ -30,6 +30,7 @@ class WOSerializedReport(Base):
             # 查询序列化工单报表所有数据
             self.is_click(user['WO Serialized Report Search'])
             self.wait.until(EC.presence_of_element_located(user["表格中的Seq字段"]), message="查询失败")
+            sleep(2)
         else:
             # 查询序列化工单报表当月IN国家的数据
             self.is_click(user['WO Serialized Date开始日期搜索框'])
@@ -41,6 +42,7 @@ class WOSerializedReport(Base):
             self.is_click(user["Country下拉选择"])
             self.is_click(user['WO Serialized Report Search'])
             self.wait.until(EC.presence_of_element_located(user["表格中的Seq字段"]), message="查询失败")
+            sleep(2)
 
     @allure.step("数据库查询序列化工单报表数量")
     def search_stock(self, stock):

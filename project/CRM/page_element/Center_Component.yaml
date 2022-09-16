@@ -7,13 +7,13 @@ OperationMgt->PolicyandProfits->PolicyMgt: 'xpath==//li[@role="menuitem"]//span[
 OperationMgt->PolicyandProfits->FGPolicyForsunking: 'xpath==//li[@role="menuitem"]//span[text()="FG Policy For sun king"]'
 
 Repair Mgt: "xpath==//span[contains(text(),'Repair Mgt')]"
-Repair Mgt->WO Report Mgt: "xpath==//span[contains(text(),'WO Report Mgt')]"
+Repair Mgt->WO Report Mgt: 'xpath==//*[@id="sidebar-containerId"]/div/div[1]/div/ul/div[18]/li/ul/div[5]/li/div'
 Repair Mgt->WO Report Mgt->WO NonSerialized Report: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO NonSerialized Report')]"
 Repair Mgt->WO Serialized Mgt: "xpath==//span[contains(text(),'WO Serialized Mgt')]"
 Repair Mgt->WO Serialized Mgt->WO Serialized List: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO Serialized List')]"
 WO Serialized List: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO Serialized List')]"
 Repair Mgt->WO Serialized Mgt->Assign WO To Technician: "xpath==//div[@class='nest-menu']//span[contains(text(),'Assign WO To Technician')]"
-Repair Mgt->WO Report Mgt->WO Serialized Report: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO Serialized Report')]"
+Repair Mgt->WO Report Mgt->WO Serialized Report: 'xpath==//*[@id="sidebar-containerId"]/div/div[1]/div/ul/div[18]/li/ul/div[5]/li/ul/div[1]'
 Assign WO To Technician: "xpath==//div[@class='nest-menu']//span[contains(text(),'Assign WO To Technician')]"
 
 WMS: "xpath==//span[contains(text(),'WMS')]"
