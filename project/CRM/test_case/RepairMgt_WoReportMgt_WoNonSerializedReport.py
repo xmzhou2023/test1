@@ -18,9 +18,8 @@ def module_fixture(drivers):
     user = NavPage(drivers)
     user.refresh_page()
     user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO NonSerialized Report')
-    sleep(1)
-    user = DomAssert(drivers)
-    user.assert_url("/maintenanceMgt/workOrderReportMgt/woNoSerializedReport")
+    # user = DomAssert(drivers)
+    # user.assert_url("/maintenanceMgt/workOrderReportMgt/woNoSerializedReport")
     yield
     logging.info("后置条件:合起菜单")
     user = NavPage(drivers)
