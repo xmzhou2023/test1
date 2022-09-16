@@ -441,7 +441,7 @@ class ShopManagementPage(Base):
         sleep(1)
         self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        sleep(6)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

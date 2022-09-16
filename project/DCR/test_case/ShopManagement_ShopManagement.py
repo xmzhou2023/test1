@@ -305,7 +305,7 @@ class TestExportShop:
 
         export.click_unfold()
         """门店列表，按日期筛选门店记录"""
-        export.input_create_date("2022-08-01", today)
+        export.input_create_date("2022-08-20", today)
         export.click_status_attribute()
         """点击查询按钮"""
         export.click_query_search()
@@ -358,7 +358,7 @@ class TestQueryGlobalShop:
 
         query.click_unfold()
         """门店列表，按日期筛选门店记录"""
-        query.input_create_date("2022-08-01", today)
+        query.input_create_date("2022-08-20", today)
         query.click_status_attribute()
         """点击查询按钮"""
         query.click_query_search()
