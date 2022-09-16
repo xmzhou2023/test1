@@ -204,7 +204,7 @@ class JSPage(Base):
         self.hover(user['Created_Date_Clear'], choice="Start Date")
         self.is_click(user['Created_Date_Clear'], choice="Start Date")  # 清空时间查询条件
         self.is_click(user['Hide_Return'])  # 取消隐藏100状态的
-        self.is_click(user['Scope_Select'])
+        self.is_click(user['Scope_Select'], choice="Scope")
         self.is_click(user['Scope_Select_Data'], choice="All")  # 设置范围为所有
 
     @allure.step("JS页面，Document Status下拉框查询")
@@ -228,6 +228,8 @@ class JSPage(Base):
                 ValueAssert.value_assert_In(status, txt)
             self.refresh()
         return number
+
+
 
     @allure.step("JS页面，Shorage Status下拉框查询")
     def Get_Shortage_Status_JS(self, status):
@@ -284,6 +286,117 @@ class JSPage(Base):
         num = get_total.split(" ", 1)
         number = num[1]
         return number
+
+
+    @allure.step("JS的Scope查询")
+    def Get_Scope_JS(self, condition, data):
+        self.is_click(user['Scope_Select'], choice=condition)
+        self.input_text(user['Scope_Select'], choice=condition, txt=data)
+        self.hover(user['Status_Select'], choice=data)
+        self.is_click(user['Status_Select'], choice=data)
+        self.is_click(user['Search_Button'])
+        get_total = self.element_text(user['Data_Total'])
+        num = get_total.split(" ", 1)
+        number = num[1]
+
+        if number == 0:
+            logging.info("查询无数据")
+        else:
+            self.scroll_into_view_CRM(user['Page_Num'])
+            th_num = self.elements_num(user['Scope_Data_Num'])
+            # onload = "document.body.scrollWidth,0"
+            # self.driver.execute_script(onload)
+            list1 = []
+            for i in range(1, th_num + 1):
+                logging.info(f'{i}')
+                txt = self.element_text(user['Current_Page_data'], choice=f'{i}')
+                logging.info(txt)
+                list1.append(txt)
+                logging.info(list1)
+            self.refresh()
+            return number, th_num, list1
+
+    def Get_IsEcalate_JS(self, data):
+        self.is_click(user['Scope_Select'], choice="IsEscalate")
+        self.input_text(user['Scope_Select'], choice="IsEscalate", txt=data)
+        self.hover(user['Is_Query_Select'], choice=data)
+        self.is_click(user['Is_Query_Select'], choice=data)
+        self.is_click(user['Search_Button'])
+        get_total = self.element_text(user['Data_Total'])
+        num = get_total.split(" ", 1)
+        number = num[1]
+
+        if number == 0:
+            logging.info("查询无数据")
+        else:
+            self.scroll_into_view_CRM(user['Page_Num'])
+            th_num = self.elements_num(user['Ecalate_Data_Num'])
+            # onload = "document.body.scrollWidth,0"
+            # self.driver.execute_script(onload)
+            list1 = []
+            for i in range(1, th_num + 1):
+                logging.info(f'{i}')
+                txt = self.element_text(user['Current_Ecalate_data'], choice=f'{i}')
+                logging.info(txt)
+                list1.append(txt)
+                logging.info(list1)
+            self.refresh()
+            return number, th_num, list1
+
+    def Get_IsQuickRepair_JS(self, data):
+        self.is_click(user['Scope_Select'], choice="Is Quick Repair")
+        self.input_text(user['Scope_Select'], choice="Is Quick Repair", txt=data)
+        self.hover(user['Is_Query_Select'], choice=data)
+        self.is_click(user['Is_Query_Select'], choice=data)
+        self.is_click(user['Search_Button'])
+        get_total = self.element_text(user['Data_Total'])
+        num = get_total.split(" ", 1)
+        number = num[1]
+
+        if number == 0:
+            logging.info("查询无数据")
+        else:
+            self.scroll_into_view_CRM(user['Page_Num'])
+            th_num = self.elements_num(user['QuickRepair_Data_Num'])
+            # onload = "document.body.scrollWidth,0"
+            # self.driver.execute_script(onload)
+            list1 = []
+            for i in range(1, th_num + 1):
+                logging.info(f'{i}')
+                txt = self.element_text(user['Current_QuickRepair_data'], choice=f'{i}')
+                logging.info(txt)
+                list1.append(txt)
+                logging.info(list1)
+            self.refresh()
+            return number, th_num, list1
+
+    def Get_Warranty_JS(self, data):
+        self.is_click(user['Scope_Select'], choice="Warranty Status")
+        self.input_text(user['Scope_Select'], choice="Warranty Status", txt=data)
+        self.hover(user['Is_Query_Select'], choice=data)
+        self.is_click(user['Is_Query_Select'], choice=data)
+        self.is_click(user['Search_Button'])
+        get_total = self.element_text(user['Data_Total'])
+        num = get_total.split(" ", 1)
+        number = num[1]
+
+        if number == 0:
+            logging.info("查询无数据")
+        else:
+            self.scroll_into_view_CRM(user['Page_Num'])
+            th_num = self.elements_num(user['Warranty_Data_Num'])
+            # onload = "document.body.scrollWidth,0"
+            # self.driver.execute_script(onload)
+            list1 = []
+            for i in range(1, th_num + 1):
+                logging.info(f'{i}')
+                txt = self.element_text(user['Current_Warranty_data'], choice=f'{i}')
+                logging.info(txt)
+                list1.append(txt)
+                logging.info(list1)
+            self.refresh()
+            return number, th_num, list1
+
 
     @allure.step("查询JS，无数据返回")
     def Get_No_Data(self, name):
