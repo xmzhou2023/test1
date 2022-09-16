@@ -13,7 +13,7 @@ Repair Mgt->WO Serialized Mgt: "xpath==//span[contains(text(),'WO Serialized Mgt
 Repair Mgt->WO Serialized Mgt->WO Serialized List: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO Serialized List')]"
 WO Serialized List: "xpath==//div[@class='nest-menu']//span[contains(text(),'WO Serialized List')]"
 Repair Mgt->WO Serialized Mgt->Assign WO To Technician: "xpath==//div[@class='nest-menu']//span[contains(text(),'Assign WO To Technician')]"
-Repair Mgt->WO Report Mgt->WO Serialized Report: 'xpath==//*[@id="sidebar-containerId"]/div/div[1]/div/ul/div[18]/li/ul/div[5]/li/ul/div[1]'
+Repair Mgt->WO Report Mgt->WO Serialized Report: 'xpath==//*[@id="sidebar-containerId"]/div/div[1]/div/ul/div[18]/li/ul/div[5]/li/ul/div[1]/li'
 Assign WO To Technician: "xpath==//div[@class='nest-menu']//span[contains(text(),'Assign WO To Technician')]"
 
 WMS: "xpath==//span[contains(text(),'WMS')]"
