@@ -65,3 +65,5 @@ BI报表->DPM迁移报表: 'xpath==/html/body/div[12]/ul/div[8]/li/div[1]/span'
 系统管理->维度管理: "xpath==//span[contains(text(),'维度管理')]"
 
 切换语言按钮: "xpath==//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]"
+
+关闭标签页: "xpath==//span[@class='el-icon-close']"

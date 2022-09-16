@@ -1,9 +1,22 @@
 import allure
 import pytest
 from public.data.unified_login.unified import *
-
+from public.base.assert_ui import *
 from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_UserMgmt import UserPage
+
+
+@pytest.fixture(scope='module', autouse=True)
+def module_setup_fixture(drivers):
+    logging.info("模块前置条件：前往 系统管理-用户管理 页面")
+    user = NavPage(drivers)
+    user.click_gotonav("系统管理", "用户管理")
+    dom = DomAssert(drivers)
+    dom.assert_url("/systemManage/areaManage")
+    yield
+    logging.info("后置条件:关闭 系统管理-用户管理 页面")
+    user.close_page()
+    dom.assert_url("/dashboard")
 
 @allure.feature("系统管理-用户管理")
 class TestSearchUser: # Test+(增，删，改，查，导入（上传），导出（下载）)
@@ -14,8 +27,6 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
     @allure.severity("minor")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_001(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "用户管理")
         user = UserPage(drivers)
         user.search_user(name=account[4]['username'])
 
@@ -25,8 +36,6 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     def test_001_002(self, drivers):
         """用户管理-查询用户"""
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "用户管理")
         user = UserPage(drivers)
         user.search_user(jobnum=account[4]['usernum'])
         user.reset_account()

@@ -8,12 +8,15 @@ from project.DRP.page_object.DRPDataMgmt_ColorLibrary import ColorLibrary
 
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
-    logging.info("模块前置条件：前往“DRP数据管理-颜色库”页面")
+    logging.info("模块前置条件：前往 DRP数据管理-颜色库 页面")
     user = NavPage(drivers)
     user.click_gotonav("DRP数据管理", "颜色库")
-    user = DomAssert(drivers)
-    user.assert_url("/dataManage/colorLibrary")
-
+    dom = DomAssert(drivers)
+    dom.assert_url("/dataManage/colorLibrary")
+    yield
+    logging.info("后置条件:关闭 DRP数据管理-颜色库 页面")
+    user.close_page()
+    dom.assert_url("/dashboard")
 
 @allure.feature("DRP数据管理-颜色库")
 class TestSearchColor:
