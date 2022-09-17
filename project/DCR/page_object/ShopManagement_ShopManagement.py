@@ -33,6 +33,7 @@ class ShopManagementPage(Base):
         self.is_click(user['Country City'])
         self.input_text(user['Country City'], txt=content)
         sleep(1)
+        self.presence_sleep_dcr(user['Country City value'])
         self.is_click(user['Country City value'])
 
     @allure.step("新建门店时，输入地址")
@@ -50,7 +51,7 @@ class ShopManagementPage(Base):
         self.scroll_into_view(user['Sales Region'])
         self.is_click(user['Sales Region'])
         self.input_text(user['Sales Region'], txt=content)
-        sleep(1)
+        sleep(2)
         self.is_click(user['Sales Region value'], "Barisal itel")
 
     @allure.step("新建门店时，选择门店等级")
@@ -220,6 +221,7 @@ class ShopManagementPage(Base):
         self.is_click(user['下拉选择扩展品牌'])
         self.input_text(user['下拉选择扩展品牌'], txt=content)
         sleep(2)
+        self.presence_sleep_dcr(user['选中扩展的品牌'], content)
         self.is_click(user['选中扩展的品牌'], content)
 
     @allure.step("点击增加扩展品牌时，弹出窗口选择品牌后，点击Save")
@@ -234,6 +236,7 @@ class ShopManagementPage(Base):
         self.is_click(user['Extend Sales Region'])
         self.input_text(user['Extend Sales Region'], txt=content)
         sleep(3.5)
+        self.presence_sleep_dcr(user['Extend Sales Region Value'], content)
         self.is_click(user['Extend Sales Region Value'], content)
         sleep(1)
 
@@ -313,7 +316,6 @@ class ShopManagementPage(Base):
     @allure.step("点击Status筛选项后，点击Status属性名称，释放光标位置")
     def click_status_attribute(self):
         self.is_click(user['Click Status Attribute'])
-        sleep(1)
 
 
     """View查看门店"""
