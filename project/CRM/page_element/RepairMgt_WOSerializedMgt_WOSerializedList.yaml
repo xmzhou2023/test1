@@ -16,7 +16,7 @@
 库存初始化查询页Add按钮: "xpath==//div[@class='formPage']//button[@type='button']/span[contains(text(),'Add')]"
 序列化工单新增页IMEI不在库存时的报错提示: "xpath==//div[@role='alert']//p[contains(@class,'message__content')]"
 库存初始化新增页Warehouse Name搜索框: "xpath==//div[@class='el-row'][2]//div[@class='el-col el-col-12'][1]//input[@class='el-input__inner']"
-库存初始化新增页Warehouse Name下拉选择: "xpath==//div[contains(@class,'el-popper')]//div[@class='el-scrollbar']//span[contains(text(),'API_母仓')]"
+库存初始化新增页Warehouse Name下拉选择: "xpath==//div[contains(@class,'el-popper')]//div[@class='el-scrollbar']//span[normalize-space(text())='API_母仓']"
 库存初始化新增页添加按钮: "xpath==//div[@class='codeListStyle'][2]//i[contains(@class,'circle-plus')]"
 库存初始化新增页物料搜索框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[3]/div/div/div/div/input'
 库存初始化新增页物料选择框: "xpath==//body/div[contains(@class,'el-select-dropdown el-popper')][2]//li[contains(@class,'dropdown__item')]"
