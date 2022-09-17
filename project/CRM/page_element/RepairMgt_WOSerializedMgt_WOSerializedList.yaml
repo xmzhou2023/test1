@@ -22,7 +22,7 @@
 库存初始化新增页物料选择框: "xpath==//body/div[contains(@class,'el-select-dropdown el-popper')][2]//li[contains(@class,'dropdown__item')]"
 库存初始化新增页物料状态搜索框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[5]/div/div/div/div/input'
 库存初始化新增页物料状态选择框: "xpath==//div[contains(@class,'el-popper')]//div[@class='el-scrollbar']//span[contains(text(),'Defective')]"
-库存初始化新增页IMEI输入框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[6]/div/div/div/input'
+库存初始化新增页IMEI输入框: 'xpath==//tbody/tr/td[6]'
 库存初始化新增页Zone搜索框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[9]/div/div/div/div[1]/input'
 库存初始化新增页Zone选择框: "xpath==//div[contains(@class,'el-popper')]//div[@class='el-scrollbar']//span[contains(text(),'Phone')]"
 库存初始化新增页Bin搜索框: 'xpath==//*[@id="main-containerId"]/section/div/div/div[3]/div[1]/div[3]/table/tbody/tr/td[10]/div/div/div/div/div[1]/input'
