@@ -359,6 +359,7 @@ class ShopManagementPage(Base):
 
     @allure.step("View详情页，获取Shop Name字段内容")
     def get_view_shop_name_text(self):
+        self.presence_sleep_dcr(user['Get View Shop Name Text'])
         view_shop_name = self.element_input_text(user['Get View Shop Name Text'])
         return view_shop_name
 

@@ -1,10 +1,10 @@
+import logging
 from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
 from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
 from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.connect_sql import *
-from libs.common.logger_ui import log
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
 from public.base.basics import Base
@@ -77,7 +77,6 @@ class TestQueryIMEIDetail:
     def test_002_001(self, drivers):
         user1 = LoginPage(drivers)
         user1.initialize_login(drivers, "BD291501", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user1.click_gotomenu("Purchase Management", "Inbound Receipt")
 
@@ -86,14 +85,16 @@ class TestQueryIMEIDetail:
         query.click_select_brand()
         query.click_deliver_Order()
         query.click_search()
+        sleep(1.5)
         query.click_fold()
 
         #获取Inbound Receipt列表字段文本
         list_brand = query.get_brand_text()
+        logging.info("获取列表Brand字段内容：{}".format(list_brand))
         #点击IMEI Detai功能按钮
         query.click_imei_detail()
-        select_record = query.get_please_select_record()
-        ValueAssert.value_assert_equal("Please select a record", select_record)
+        DomAssert(drivers).assert_att('Please select a record')
+
         #勾选第一条记录前的复选框
         query.select_checkbox()
         query.click_imei_detail()
@@ -108,7 +109,7 @@ class TestQueryIMEIDetail:
         query.assert_total_imei_detail(total)
 
         ValueAssert.value_assert_IsNoneNot(detail_product)
-        ValueAssert.value_assert_IsNoneNot(detail_itel )
+        ValueAssert.value_assert_IsNoneNot(detail_itel)
         ValueAssert.value_assert_equal(list_brand, detail_brand)
         ValueAssert.value_assert_IsNoneNot(detail_material)
         ValueAssert.value_assert_IsNoneNot(detail_imei)

@@ -19,7 +19,7 @@ class UserShopAssociaPage(Base):
     @allure.step("点击Search按钮筛选数据")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(2.5)
 
     @allure.step("获取分页总条数文本")
     def get_total_text(self):

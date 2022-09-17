@@ -16,7 +16,7 @@ class UserSalaryManagement(Base):
         sleep(1.5)
         self.is_click(user['选中筛选国家'], country)
         self.click_search()
-        sleep(2)
+        sleep(3)
 
     @allure.step("User Salary Management页面，输入User筛选，点击Search按钮查询")
     def input_user_query_search(self, userid):
@@ -168,6 +168,7 @@ class UserSalaryManagement(Base):
 
     @allure.step("User Salary Management页面，获取 User ID字段文本")
     def get_list_user_id(self):
+        self.presence_sleep_dcr(user['Get list User ID'])
         get_user_id = self.element_text(user['Get list User ID'])
         return get_user_id
 
