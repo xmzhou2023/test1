@@ -13,13 +13,14 @@ class UserShopAssociaPage(Base):
     def input_user_query(self, content):
         self.is_click_dcr(user['Input User'])
         self.input_text_dcr(user['Input User'], txt=content)
-        sleep(2)
-        self.is_click(user['User Select Value'])
+        sleep(2.2)
+        self.presence_sleep_dcr(user['User Select Value'], content)
+        self.is_click(user['User Select Value'], content)
 
     @allure.step("点击Search按钮筛选数据")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(2.5)
 
     @allure.step("获取分页总条数文本")
     def get_total_text(self):

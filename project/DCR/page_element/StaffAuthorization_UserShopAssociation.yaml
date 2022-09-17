@@ -1,15 +1,15 @@
 #筛选user与Shop关系定位
 Input User: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
-User Select Value: "xpath==//span[contains(text(),'lhmdianzhang')]"
+User Select Value: "xpath==//span[contains(text(),'variable')]"
 Search: "xpath==//span[contains(text(),'Search')]"
 Export: "id==staff_shop_association_export_"
 Get Total Text: "xpath==//span[contains(text(),'Total')]"
 
-Get list User ID: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div"
-Get list User Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[3]/div"
-Get list Position: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[4]/div"
-Get list Shop ID: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[5]/div"
-Get list Shop Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[6]/div"
+Get list User ID: "xpath==//tbody//tr[1]/td[2]/div"
+Get list User Name: "xpath==//tbody//tr[1]/td[3]/div"
+Get list Position: "xpath==//tbody//tr[1]/td[4]/div"
+Get list Shop ID: "xpath==//tbody//tr[1]/td[5]/div"
+Get list Shop Name: "xpath==//tbody//tr[1]/td[6]/div"
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭用户与门店关系菜单: "xpath==//span[normalize-space(text())='User And Shop Association']//span[@class='el-icon-close']"
 
