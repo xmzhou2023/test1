@@ -1,6 +1,6 @@
 #筛选user与Shop关系定位
 Input User: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
-User Select Value: "xpath==//span[contains(text(),'lhmdianzhang')]"
+User Select Value: "xpath==//span[contains(text(),'variable')]"
 Search: "xpath==//span[contains(text(),'Search')]"
 Export: "id==staff_shop_association_export_"
 Get Total Text: "xpath==//span[contains(text(),'Total')]"

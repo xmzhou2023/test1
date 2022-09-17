@@ -1,5 +1,5 @@
 Input User: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
-User Select Value: "xpath==//span[contains(text(),'NG2061301')]"
+User Select Value: "xpath==//span[contains(text(),'variable')]"
 Search: "xpath==//span[contains(text(),'Search')]"
 Get Total Text: "xpath==//span[contains(text(),'Total')]"
 Export: "id==staff_customer_association_export_"

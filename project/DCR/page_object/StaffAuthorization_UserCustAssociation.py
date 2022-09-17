@@ -14,8 +14,8 @@ class UserCustomerAssociaPage(Base):
         self.is_click_dcr(user['Input User'])
         self.input_text_dcr(user['Input User'], txt=content)
         sleep(2.2)
-        self.presence_sleep_dcr(user['User Select Value'])
-        self.is_click(user['User Select Value'])
+        self.presence_sleep_dcr(user['User Select Value'], content)
+        self.is_click(user['User Select Value'], content)
 
     @allure.step("点击Search按钮筛选数据")
     def click_search(self):
