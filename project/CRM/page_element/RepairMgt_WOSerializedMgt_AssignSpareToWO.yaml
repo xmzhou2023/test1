@@ -1,0 +1,12 @@
+
+序列化工单查询页Document Status输入框: "xpath==//div[contains(@class,'el-col-12')][2]//input[@class='el-input__inner']"
+序列化工单查询页Document Status下拉选择: "xpath==//div[@class='el-scrollbar']//li[normalize-space(text())='variable']"
+
+序列化工单查询页From Date输入框: "xpath==//div[contains(@class,'el-col-12')][3]//input[@class='el-input__inner']"
+序列化工单查询页From Date清除按钮: "xpath==//div[contains(@class,'el-col-12')][3]//div[contains(@class,'el-date-editor')]//span[contains(@class,'suffix-inner')]/i[contains(@class,'close')]"
+序列化工单查询页表格中工单号: "xpath==//tr[tr]/td[td]//div[normalize-space(text())]"
+
+序列化工单派料页单号输入框WO Serialized No: "xpath==//div[normalize-space(@class)='operateBox']//input"
+序列化工单派料页OK按钮: "xpath==//div[normalize-space(@class)='operateBox']//button"
+序列化工单派料页Add按钮: "xpath==//section[@class='app-main']//button/span[contains(text(),'Add')]"
+Search按钮: "xpath==//section[@class='app-main']//button/span[contains(text(),'Search')]"
