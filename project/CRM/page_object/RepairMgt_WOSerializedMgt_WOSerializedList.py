@@ -41,7 +41,7 @@ class WOSerializedListAdd(Base):
     @allure.step("新增物料库存")
     def add_material(self):
         self.refresh()
-        self.wait.until(EC.presence_of_element_located(user["库存初始化查询页Add按钮"]), message="页面刷新失败")
+        sleep(3)
         self.is_click(user['库存初始化查询页Add按钮'])
         # 记得修改成显示等待
         self.is_click(user['库存初始化新增页Warehouse Name搜索框'])
