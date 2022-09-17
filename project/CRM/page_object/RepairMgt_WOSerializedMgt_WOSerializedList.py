@@ -76,10 +76,7 @@ class WOSerializedListAdd(Base):
         self.is_click(user["库存初始化新增页Bin选择框"])
         self.is_click(user["库存初始化新增页Save按钮"])
         # 判断是否在库存初始化查询页
-        # self.switch_window(n=0)
         sleep(1)
-        # NavPage(self).switch_tab(txt='Initialize Inventory')
-
         self.find_element(user['页签切换'], 'Initialize Inventory').click()
 
         # self.is_click(user["库存初始化查询页签"])

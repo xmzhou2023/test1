@@ -17,8 +17,8 @@ def module_fixture(drivers):
     logging.info("前置条件:进入序列化工单报表页")
     user = NavPage(drivers)
     user.refresh_page()
-    sleep(1)
-    user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
+    user.list_search(content='WO Serialized Report')
+    # user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
     # user = DomAssert(drivers)
     # user.assert_url("/maintenanceMgt/workOrderReportMgt/woSerializedReport")
     yield
@@ -63,7 +63,8 @@ class TestWoReportExport:
         num = WOSerializedReport(drivers)
         num.download_report(scope=all)
         num = NavPage(drivers)
-        num.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
+        num.list_search(content='Task List')
+        # num.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
         num = DomAssert(drivers)
         num.assert_url("/reportCenter/asReportMgt/taskList")
         num= WOSerializedReport(drivers)
@@ -72,7 +73,8 @@ class TestWoReportExport:
         num.assert_point_att(1, 5, "100-Finished")
         num = NavPage(drivers)
         num.refresh_page()
-        num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
+        num.list_search(content='WO Serialized Report')
+        # num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
 
 
 
@@ -86,7 +88,8 @@ class TestWoReportExport:
         num = WOSerializedReport(drivers)
         num.download_report(scope='part')
         num = NavPage(drivers)
-        num.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
+        num.list_search(content='Task List')
+        # num.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
         num = DomAssert(drivers)
         num.assert_url("/reportCenter/asReportMgt/taskList")
         num = WOSerializedReport(drivers)
@@ -95,8 +98,8 @@ class TestWoReportExport:
         num.assert_point_att(1, 5, '100-Finished')
         num = NavPage(drivers)
         num.refresh_page()
-        num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
-
+        num.list_search(content='WO Serialized Report')
+        # num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
 
 
 # if __name__ == '__main__':

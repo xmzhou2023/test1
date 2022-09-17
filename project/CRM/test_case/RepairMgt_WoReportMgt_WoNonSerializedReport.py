@@ -17,7 +17,8 @@ def module_fixture(drivers):
     logging.info("前置条件:进入非序列化工单报表页")
     user = NavPage(drivers)
     user.refresh_page()
-    user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO NonSerialized Report')
+    user.list_search(content='WO NonSerialized Report')
+    # user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO NonSerialized Report')
     # user = DomAssert(drivers)
     # user.assert_url("/maintenanceMgt/workOrderReportMgt/woNoSerializedReport")
     yield

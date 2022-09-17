@@ -70,8 +70,8 @@ class WOSerializedReport(Base):
 
     @allure.step("序列化工单报表导出")
     def download_report(self, scope):
-        # self.refresh()
-        # self.wait.until(EC.presence_of_element_located(user["WO Serialized Date开始日期搜索框"]), message="页面刷新失败")
+        self.refresh()
+        self.wait.until(EC.presence_of_element_located(user["WO Serialized Date开始日期搜索框"]), message="页面刷新失败")
         self.is_click(user['WO Serialized Date开始日期搜索框'])
         self.hover(user['WO Serialized Date开始日期搜索框'])
         self.is_click(user['清除时间搜索框'])

@@ -38,6 +38,15 @@ class NavPage(Base):
         self.refresh()
         self.wait.until(EC.presence_of_element_located(user["Dashboard"]), message="页面刷新失败")
 
+    @allure.step("菜单搜索")
+    def list_search(self, content):
+        self.is_click(user["菜单搜索框"])
+        sleep(2)
+        self.input_text(user["菜单搜索框"], txt=content)
+        self.hover(user["菜单搜索下拉框"])
+        self.is_click(user["菜单搜索下拉框"])
+        sleep(1)
+
 
         
         
