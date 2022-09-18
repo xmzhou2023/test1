@@ -61,11 +61,11 @@ class WOSerializedListAdd(Base):
         self.input_text(user["库存初始化新增页物料状态搜索框"], txt='Defective')
         self.hover(user['库存初始化新增页物料状态选择框'], choice='Defective')
         self.is_click(user['库存初始化新增页物料状态选择框'])
+        sleep(1)
         # 这里要写个获取字符串的方法WS+一串数字且要先查询
-        self.is_click(user["库存初始化新增页IMEI输入框"])
         logging.info("开始输入imei号了")
-        wo = WOSerializedListAdd.add_imei(self)
-        self.input_text(user["库存初始化新增页IMEI输入框"], txt=wo)
+        self.is_click(user["库存初始化新增页IMEI输入框"])
+        self.input_text(user["库存初始化新增页IMEI输入框"], txt=WOSerializedListAdd.add_imei(self))
         logging.info("imei号输入完了")
         self.is_click(user["库存初始化新增页Zone搜索框"])
         # self.input_text(user["库存初始化新增页Zone搜索框"], txt='Phone')
@@ -79,10 +79,6 @@ class WOSerializedListAdd(Base):
         # 判断是否在库存初始化查询页
         sleep(1)
         self.find_element(user['页签切换'], 'Initialize Inventory').click()
-
-        # self.is_click(user["库存初始化查询页签"])
-        # logging.info('11111')
-
         self.wait.until(EC.presence_of_element_located(user['库存初始化查询页Add按钮']), message='当前不在查询页')
         self.is_click(user["库存初始化查询页confirm按钮"])
         self.is_click(user["库存初始化二次确认框Yes按钮"])
