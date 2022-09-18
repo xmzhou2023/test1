@@ -64,7 +64,8 @@ class WOSerializedListAdd(Base):
         # 这里要写个获取字符串的方法WS+一串数字且要先查询
         self.is_click(user["库存初始化新增页IMEI输入框"])
         logging.info("开始输入imei号了")
-        self.input_text(user["库存初始化新增页IMEI输入框"], txt=WOSerializedListAdd.add_imei(self))
+        wo = WOSerializedListAdd.add_imei(self)
+        self.input_text(user["库存初始化新增页IMEI输入框"], txt=wo)
         logging.info("imei号输入完了")
         self.is_click(user["库存初始化新增页Zone搜索框"])
         # self.input_text(user["库存初始化新增页Zone搜索框"], txt='Phone')
