@@ -52,7 +52,7 @@ class TestUtil:
         OA.click_date()
         if itexis:
             OA.click_Inspection("系统登陆正常")
-            OA.Messagefeishu("OA机器人自动巡检通知,今天OA系统登陆正常！已提交系统巡检报告")
+            OA.Messagefeishu("OA自动巡检通知\n今天OA系统登陆正常！已提交系统巡检报告")
             assert True
         else:
             OA.click_Inspection("系统登陆异常")
@@ -76,7 +76,7 @@ class TestUtil:
         itexis = OA.issign_login()
 
         if itexis:
-            OA.Messagefeishu("OA机器人自动巡检通知,今天深圳传音控股电子签署平台登陆正常!")
+            OA.Messagefeishu("契约锁自动巡检通知\n系统登陆正常!")
             assert True
         else:
             OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境深圳传音控股电子签署平台登录异常,请相关人员及时排查问题!")

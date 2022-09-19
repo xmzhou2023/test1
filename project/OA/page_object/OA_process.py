@@ -126,9 +126,9 @@ class OAUserPage(Base):
         OA流程开发组群聊中机器人调用，推送text消息
         """
         timestamp = round(time.time())
-        sign = self.gen_sign(timestamp, "GnJHMFrsFtP4o1IXlEc1Qf")
+        sign = self.gen_sign(timestamp, "SGtaWNm59KG22fKyFRFIu")
 
-        post_url = "https://open.feishu.cn/open-apis/bot/v2/hook/d0cf7aae-536e-49d9-80df-2c348c296e4c"
+        post_url = "https://open.feishu.cn/open-apis/bot/v2/hook/17490e59-2cdd-40cc-98da-edd949b4508e"
         request_param = {
             "timestamp": timestamp,
             "sign": sign,
