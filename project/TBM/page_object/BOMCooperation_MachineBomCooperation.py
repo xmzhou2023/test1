@@ -617,48 +617,6 @@ class MachineBOMCollaboration(CenterComponent):
         self.assert_toast()
         self.quit_oneworks()
 
-    @allure.step("点击查看")
-    def click_check(self, code):
-        """
-        根据流程编码点击查看 进行查看操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['查看'], code)
-
-    @allure.step("进入oneworks查看流程页面")
-    def enter_onework_check(self, code):
-        sleep(1)
-        self.click_check(code)
-        self.switch_window(1)
-        sleep(1)
-        self.frame_enter(user['待办列表-我申请的-iframe'])
-        sleep(2)
-        DomAssert(self.driver).assert_att('基本信息')
-
-    @allure.step("获取oneworks页面的Bom信息")
-    def get_onework_bominfo(self, select):
-        """
-        获取oneworks页面的Bom信息
-        @param select:需要获取的信息类型： 制作类型， 品牌， 机型， 阶段， 市场， 模板， 自研/外研
-        """
-        self.scroll_into_view(user['BOM工程师-BomTree'])
-        DomAssert(self.driver).assert_control(user['BOM工程师-BomTreeTitle'])
-        if select == '机型':
-            return self.element_text(user['OneworksBom信息-机型'])
-        else:
-            return self.element_input_text(user['BOM信息输入框'], select)
-
-    def get_oneworks_bomtree_info(self):
-        """
-        获取BOMTree所有内容
-        """
-        info = self.find_elements_tbm(user['OneworksBomTree全部内容'])
-        infolist = []
-        for i in info:
-            infolist.append(i.text.split('\n'))
-        logging.info('获取Oneworks-BOMTree所有内容{}'.format(infolist))
-        return infolist
-
     @allure.step("断言导入BOM-简易导入后，页面表格内容是否正确")
     def assert_oneworks_bomtree_result(self, *content):
         """

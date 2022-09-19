@@ -269,7 +269,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
 
         definition_dict = {'全球版本': '4', '市场名称': '5', '项目名称': '6', 'MEMORY': '7', 'BANDSTRATEGY': '8',
                            '产品经理': '9', '项目经理': '10', 'aaa': '12', 'bbb': '13'}
-        select_list = ['全球版本', 'MEMORY', 'BAND STRATEGY', 'aaa', 'bbb', '再增']
+        select_list = ['全球版本', 'MEMORY', 'BAND STRATEGY', 'aaa', 'bbb', '再增', '配色']
 
         input_list = ['市场名称', '项目名称', '摄像头', '型号', '新增']
         member_list = ['产品经理', '项目经理']

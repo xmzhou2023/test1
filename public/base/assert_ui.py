@@ -321,7 +321,7 @@ class DomAssert(object):
                 logging.error("断言失败，结果不包含指定内容")
                 raise
             content_list.append(i.text)
-            logging.info('获取表格执行列内容：{}'.format(content_list))
+        logging.info('获取表格执行列内容：{}'.format(content_list))
         logging.info("断言成功，结果包含指定内容")
 
 
