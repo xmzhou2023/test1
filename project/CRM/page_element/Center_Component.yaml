@@ -5,6 +5,10 @@ OperationMgt->PolicyandProfits->WarrantyDurationMgt: 'xpath==//li[@role="menuite
 OperationMgt->PolicyandProfits->ProfitsTypeMgt: 'xpath==//li[@role="menuitem"]//span[text()="Profits Type Mgt"]'
 OperationMgt->PolicyandProfits->PolicyMgt: 'xpath==//li[@role="menuitem"]//span[text()="Policy Mgt"]'
 OperationMgt->PolicyandProfits->FGPolicyForsunking: 'xpath==//li[@role="menuitem"]//span[text()="FG Policy For sun king"]'
+OperationMgt->PolicyandProfits->ProfitsMgt: 'xpath==//li[@role="menuitem"]//span[text()="Profits Mgt"]'
+OperationMgt->PolicyandProfits->ProfitsOverview: 'xpath==//li[@role="menuitem"]//span[text()="Profits Overview"]'
+
+
 
 Repair Mgt: "xpath==//span[contains(text(),'Repair Mgt')]"
 Repair Mgt->WO Report Mgt: "xpath==//span[contains(text(),'WO Report Mgt')]"
@@ -23,3 +27,5 @@ Report Center: "xpath==//span[contains(text(),'Report Center')]"
 Report Center->Asynchronous Report Mgt: "xpath==//span[contains(text(),'Asynchronous Report Mgt')]"
 Report Center->Asynchronous Report Mgt->Task List: "xpath==//div[@class='nest-menu']//span[contains(text(),'Task List')]"
 
+WMS->Warehouse Basic Info Mgt: "xpath==//span[contains(text(),'Warehouse Basic Info Mgt')]"
+WMS->Warehouse Basic Info Mgt->Warehouse List: "xpath==//li[@role='menuitem']/span[contains(text(),'Warehouse List')]"
