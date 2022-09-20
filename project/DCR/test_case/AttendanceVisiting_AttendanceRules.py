@@ -75,6 +75,7 @@ class TestAddDeleteAttendanceRules:
         add_rules.click_on_work_time_label()
         add_rules.input_on_work_time('09:00')
         add_rules.input_off_work_time('18:00')
+        """"Add考勤规则页面，检验工时"""
         add_rules.click_check_working_hours()
         add_rules.click_save()
         DomAssert(drivers).assert_att('Set Up Successfully')

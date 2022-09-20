@@ -191,6 +191,21 @@ class CustomerManagementPage(Base):
         self.presence_sleep_dcr(user['Delete Confirm'])
         self.is_click(user['Delete Confirm'])
 
+    @allure.step("删除有绑定订单数据的客户不能被删除")
+    def delete_have_records_customer(self):
+        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['More Options'])
+        sleep(1.7)
+        self.presence_sleep_dcr(user['Delete'])
+        self.is_click(user['Delete'])
+        sleep(1.5)
+        self.presence_sleep_dcr(user['Delete Confirm'])
+        self.is_click(user['Delete Confirm'])
+        sleep(2)
+        DomAssert(self.driver).assert_att("The following customers have delivery or receipt records and cannot be deleted!")
+        self.is_click_dcr(user['Delete Tips Close'])
+
+
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         """关闭导出记录菜单"""
