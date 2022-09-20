@@ -18,7 +18,7 @@ class NavPage(Base):
             level.append(navstr[2:])
         for i in range(len(content)):
             self.is_click(user[level[i]])
-        sleep(2)
+        sleep(4)
 
     @allure.step("关闭标签页")
     def close_page(self):
