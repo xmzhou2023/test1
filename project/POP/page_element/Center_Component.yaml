@@ -1,18 +1,14 @@
-系统通用重置按钮: "xpath==//span[contains(text(),'重置')]"
+系统通用重置按钮: "xpath==//div[@class='tr-filter-row el-row']//button[2]"
 
 组织: "xpath==//span[contains(text(),'组织')]"
 组织->职员管理: "xpath==//span[@title='职员管理']"
 组织->区域: "xpath==//span[@title='区域']"
 
-商品: "xpath==//span[contains(text(),'商品')]"
+商品: "xpath==//span[@class='route-item--title'][contains(text(),'商品')]"
 商品->商品参数: "xpath==//span[@title='商品参数']"
-商品->商品管理: "xpath==//span[@title='商品管理']"
 
-销售: "xpath==//span[contains(text(),'销售')]"
+销售: "xpath==//span[contains(@class,'route-item--title')][contains(text(),'销售')]"
 销售->销售订单: "xpath==//span[contains(@title,'销售订单')]"
 
-库存: "xpath==//span[contains(text(),'库存')]"
+库存: "xpath==//span[@class='route-item--title'][contains(text(),'库存')]"
 库存->仓库信息: "xpath==//span[@title='仓库信息']"
-
-会员: "xpath==//span[contains(text(),'会员')]"
-会员->会员信息: "xpath==//span[@title='会员信息']"
