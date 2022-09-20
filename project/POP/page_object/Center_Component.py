@@ -24,6 +24,8 @@ class NavPage(Base):
         sleep(2)
         # 点击重置按钮是为了刷新取消模块浮窗
         self.is_click(user['系统通用重置按钮'])
+        sleep(2)
+
 
 
 

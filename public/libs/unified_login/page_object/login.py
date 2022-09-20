@@ -56,6 +56,11 @@ class LoginPage(Base):
         self.is_click(login['登录'])
         sleep(6)
 
+    def input_imgcode(self):
+        """识别图形验证码，输入验证码"""
+        imgcode = self.get_graphical_code(login['图形验证码'])
+        self.input_text(login['图形验证码输入框'], imgcode)
+
 
 """DCR登录类"""
 class DcrLoginPage(Base):
@@ -147,7 +152,6 @@ class PopLoginPage(Base):
     # 点击登录
     def click_loginsubmit(self):
         self.is_click(login['pop登录按钮'])
-
 
 
 

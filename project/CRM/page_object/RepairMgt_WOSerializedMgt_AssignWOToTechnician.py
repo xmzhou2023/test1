@@ -20,6 +20,7 @@ class WOSerializedAssignToTech(Base):
     @allure.step("序列化工单分派技术员")
     def woassigntotech(self, workorder, status, scope="single", row=None, column=None):
         self.refresh()
+        self.wait.until(EC.presence_of_element_located(user["Assign To输入框"]), message="页面刷新失败")
         self.is_click(user["序列化工单分派技术员页Exact Word输入框"])
         logging.info("序列化工单号={}".format(workorder))
         self.input_text(user["序列化工单分派技术员页Exact Word输入框"], txt=workorder)
@@ -76,6 +77,7 @@ class WOSerializedAssignToTech(Base):
     @allure.step("序列化工单改派技术员")
     def woreassigntotech(self,workorder, status):
         self.refresh()
+        self.wait.until(EC.presence_of_element_located(user["Assign To输入框"]), message="页面刷新失败")
         self.is_click(user["序列化工单分派技术员页Re-Assigned按钮"])
         self.is_click(user["Re-Assigned弹框页WO Serialized 输入框"])
         self.input_text(user["Re-Assigned弹框页WO Serialized 输入框"], txt=workorder)
@@ -86,12 +88,6 @@ class WOSerializedAssignToTech(Base):
         else:
             self.is_click(user["Re-Assigned弹框页Cancel按钮"])
             self.is_click(user["Re-Assigned弹框页的二次确认框Confirm按钮"])
-
-    @allure.step("菜单刷新")
-    def refresh_page(self):
-        self.is_click(user['Dashboard'])
-        self.refresh()
-        self.wait.until(EC.presence_of_element_located(user['Dashboard']), message="页面刷新失败")
 
 
     @allure.step("获取序列化工单号")

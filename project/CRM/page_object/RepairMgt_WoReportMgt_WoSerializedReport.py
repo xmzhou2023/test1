@@ -21,13 +21,15 @@ class WOSerializedReport(Base):
     @allure.step("序列化工单报表页面查询")
     def Search_WoserlistReport(self, scope):
         self.refresh()
-        sleep(1)
+        self.wait.until(EC.presence_of_element_located(user["WO Serialized Date开始日期搜索框"]), message="页面刷新失败")
         self.is_click(user['WO Serialized Date开始日期搜索框'])
         self.hover(user['WO Serialized Date开始日期搜索框'])
         self.is_click(user['清除时间搜索框'])
+        self.wait.until(EC.presence_of_element_located(user["表格中的Seq字段"]), message="查询失败")
         if scope == all:
             # 查询序列化工单报表所有数据
             self.is_click(user['WO Serialized Report Search'])
+            self.wait.until(EC.presence_of_element_located(user["表格中的Seq字段"]), message="查询失败")
             sleep(2)
         else:
             # 查询序列化工单报表当月IN国家的数据
@@ -39,13 +41,8 @@ class WOSerializedReport(Base):
             self.hover(user['Country下拉选择'], choice='IN')
             self.is_click(user["Country下拉选择"])
             self.is_click(user['WO Serialized Report Search'])
-            # self.wait.until(EC.presence_of_element_located(user['序列化工单查询页表格country字段']), message='数据未加载完成')
-
-    @allure.step("菜单刷新")
-    def refresh_page(self):
-        self.is_click(user['Dashboard'])
-        self.refresh()
-        self.wait.until(EC.presence_of_element_located(user['Dashboard']), message="页面刷新失败")
+            self.wait.until(EC.presence_of_element_located(user["表格中的Seq字段"]), message="查询失败")
+            sleep(2)
 
     @allure.step("数据库查询序列化工单报表数量")
     def search_stock(self, stock):
@@ -74,7 +71,7 @@ class WOSerializedReport(Base):
     @allure.step("序列化工单报表导出")
     def download_report(self, scope):
         self.refresh()
-        sleep(1)
+        self.wait.until(EC.presence_of_element_located(user["WO Serialized Date开始日期搜索框"]), message="页面刷新失败")
         self.is_click(user['WO Serialized Date开始日期搜索框'])
         self.hover(user['WO Serialized Date开始日期搜索框'])
         self.is_click(user['清除时间搜索框'])

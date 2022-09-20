@@ -38,6 +38,7 @@ class TestCreateProcess:
         user.input_add_product_definition_info('型号', '型号')
         user.input_add_product_definition_info('新增', '新增')
         user.input_add_product_definition_info('再增', '2G')
+        user.input_add_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.click_product_definition_confirm()
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()

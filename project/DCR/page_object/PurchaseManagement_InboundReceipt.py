@@ -101,9 +101,10 @@ class InboundReceiptPage(Base):
     @allure.step("输入品牌条件，进行筛选操作")
     def click_select_brand(self):
         self.is_click_dcr(user['Click Select Brand'])
-        sleep(1.5)
-        self.is_click(user['Select TECNO'])
+        sleep(1)
+        self.presence_sleep_dcr(user['Select itel'])
         self.is_click(user['Select itel'])
+        self.is_click(user['Select TECNO'])
 
     @allure.step("获取列表Delivery Date文本")
     def get_delivery_date_text(self):
@@ -128,6 +129,8 @@ class InboundReceiptPage(Base):
 
     @allure.step("获取列表Product文本")
     def get_brand_text(self):
+        self.presence_sleep_dcr(user['Get Brand'])
+        self.scroll_into_view(user['Get Brand'])
         brand = self.element_text(user['Get Brand'])
         return brand
 
@@ -141,12 +144,6 @@ class InboundReceiptPage(Base):
     def click_imei_detail(self):
         self.is_click(user['IMEI Detail'])
         sleep(2)
-
-    @allure.step("获取请选择记录提示语")
-    def get_please_select_record(self):
-        """获取请选择记录提示语"""
-        select_record = self.element_text(user['Get Please select a record'])
-        return select_record
 
 
     #IMEI Detail页面元素定位方法

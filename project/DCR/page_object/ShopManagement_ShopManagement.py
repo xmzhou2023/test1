@@ -33,6 +33,7 @@ class ShopManagementPage(Base):
         self.is_click(user['Country City'])
         self.input_text(user['Country City'], txt=content)
         sleep(1)
+        self.presence_sleep_dcr(user['Country City value'])
         self.is_click(user['Country City value'])
 
     @allure.step("新建门店时，输入地址")
@@ -50,9 +51,8 @@ class ShopManagementPage(Base):
         self.scroll_into_view(user['Sales Region'])
         self.is_click(user['Sales Region'])
         self.input_text(user['Sales Region'], txt=content)
-        sleep(1)
+        sleep(2)
         self.is_click(user['Sales Region value'], "Barisal itel")
-        #sleep(1)
 
     @allure.step("新建门店时，选择门店等级")
     def click_shop_grade(self):
@@ -221,6 +221,7 @@ class ShopManagementPage(Base):
         self.is_click(user['下拉选择扩展品牌'])
         self.input_text(user['下拉选择扩展品牌'], txt=content)
         sleep(2)
+        self.presence_sleep_dcr(user['选中扩展的品牌'], content)
         self.is_click(user['选中扩展的品牌'], content)
 
     @allure.step("点击增加扩展品牌时，弹出窗口选择品牌后，点击Save")
@@ -235,6 +236,7 @@ class ShopManagementPage(Base):
         self.is_click(user['Extend Sales Region'])
         self.input_text(user['Extend Sales Region'], txt=content)
         sleep(3.5)
+        self.presence_sleep_dcr(user['Extend Sales Region Value'], content)
         self.is_click(user['Extend Sales Region Value'], content)
         sleep(1)
 
@@ -314,7 +316,6 @@ class ShopManagementPage(Base):
     @allure.step("点击Status筛选项后，点击Status属性名称，释放光标位置")
     def click_status_attribute(self):
         self.is_click(user['Click Status Attribute'])
-        sleep(1)
 
 
     """View查看门店"""
@@ -360,6 +361,7 @@ class ShopManagementPage(Base):
 
     @allure.step("View详情页，获取Shop Name字段内容")
     def get_view_shop_name_text(self):
+        self.presence_sleep_dcr(user['Get View Shop Name Text'])
         view_shop_name = self.element_input_text(user['Get View Shop Name Text'])
         return view_shop_name
 
@@ -441,7 +443,7 @@ class ShopManagementPage(Base):
         sleep(1)
         self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        sleep(6)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -488,6 +490,7 @@ class ShopManagementPage(Base):
 
     @allure.step("导出记录页面，获取列表Complete Date文本")
     def get_complete_date_text(self):
+        self.scroll_into_view(user['获取完成日期文本'])
         complete_date = self.element_text(user['获取完成日期文本'])
         complete_date1 = complete_date[0:10]
         return complete_date1

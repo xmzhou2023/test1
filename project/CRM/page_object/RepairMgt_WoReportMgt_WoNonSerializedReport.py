@@ -20,7 +20,7 @@ class WONonSerializedReport(Base):
     @allure.step("非序列化工单报表查询")
     def search_NonwoserlistReport(self, scope):
         self.refresh()
-        sleep(1)
+        self.wait.until(EC.presence_of_element_located(user["WO Non Serialized Date开始日期搜索框"]), message="页面刷新失败")
         self.is_click(user['WO Non Serialized Date开始日期搜索框'])
         self.hover(user['WO Non Serialized Date开始日期搜索框'])
         self.is_click(user['清除时间搜索框'])
@@ -66,7 +66,7 @@ class WONonSerializedReport(Base):
     @allure.step("报表导出")
     def download_report(self, scope):
         self.refresh()
-        sleep(1)
+        self.wait.until(EC.presence_of_element_located(user["WO Non Serialized Date开始日期搜索框"]), message="页面刷新失败")
         self.is_click(user['WO Non Serialized Date开始日期搜索框'])
         self.hover(user['WO Non Serialized Date开始日期搜索框'])
         self.is_click(user['清除时间搜索框'])
