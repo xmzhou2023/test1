@@ -202,6 +202,21 @@ class UserSalaryManagement(Base):
         get_total1 = get_total[6:]
         return get_total1
 
+    @allure.step("User Salary Management页面，导入前获取列表总条数，如果大于2条以上记录，先删除重复的工资单")
+    def delete_repetitive_salary(self, total):
+        logging.info("获取User Salary Management页面Total分页总条数：{}".format(total))
+        if int(total) == 4:
+            self.click_first_checkbox2()
+            self.click_delete()
+            DomAssert.assert_att('Deleted Successfully')
+        elif int(total) == 3:
+            self.click_first_checkbox1()
+            self.click_delete()
+            DomAssert.assert_att('Deleted Successfully')
+        else:
+            logging.info("获取User Salary Management页面Total分页总条数：{}".format(total))
+
+
     @allure.step("User Salary Management页面，断言 Total分页总条数是否有数据")
     def assert_total(self, total):
         if int(total) > 1:
