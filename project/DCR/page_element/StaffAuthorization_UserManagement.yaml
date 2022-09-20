@@ -61,7 +61,10 @@ Belong To Customer Value: "xpath==//span[contains(text(),'variable')]"
 Get Total: "xpath==//span[contains(text(),'Total')]"
 Get list Brand: "xpath==//tbody//tr[1 and @class='el-table__row']//td[5]//div[1 and @class='cell el-tooltip']"
 Get list Sales Region1: "xpath==//tbody//tr[1 and @class='el-table__row']//td[9]//div[1 and @class='cell el-tooltip']"
-Get list Country: "xpath==//tbody//tr[1 and @class='el-table__row']//td[15]//div[1 and @class='cell el-tooltip']"
+Get list Country: "xpath==//tbody//tr[1 and @class='el-table__row']//td[14]//div[1 and @class='cell el-tooltip']"
+Get list Position: "xpath==//tbody//tr[1]//td[19]//div"
+Get list Staff Status: "xpath==//tbody//tr[1]//td[4]//div"
+
 
 #用户重置密码
 Reset Password: "xpath==//li[normalize-space(text())='Reset Password']"
@@ -74,6 +77,21 @@ Get Save successfully: "xpath==//p[normalize-space(text())='Save successfully!']
 Save successfully OK: "xpath==//span[normalize-space(text())='OK']"
 login Input Password: "xpath==//input[@name='password']"
 Click Login: "id==login_LOGIN"
+
+#导入用户
+Import Button: "xpath==//button[@id='Employ_import_']//span[normalize-space(text())='Import']"
+Add Upload: "xpath==//button//span[normalize-space(text())='Add Upload']"
+Import Save: "xpath==//button[@id='userstaffmanagement_Save']//span[normalize-space(text())='Save']"
+Upload Confirm: "xpath==//button//span[normalize-space(text())='Confirm']"
+#Import Record
+Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
+Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"
+Get Import Record Total: "xpath==//tbody//tr[1]//td[4]//div"
+Get Import Record Success: "xpath==//tbody//tr[1]//td[5]//div"
+Get Import Record Failed: "xpath==//tbody//tr[1]//td[6]//div"
+Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
+Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"
+
 
 #导出用户
 Export: "id==userstaffmanagement_Export"

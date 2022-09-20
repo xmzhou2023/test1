@@ -45,14 +45,15 @@ class UserSalaryManagement(Base):
     @allure.step("User Salary Management页面，点击Import Payslip 导入工资明细单功能")
     def click_import_payslip_upload_save(self, file):
         self.is_click(user['Import Upload'])
-        sleep(1.5)
+        sleep(2)
         ele = self.driver.find_element('xpath', "//input[@name='file']")
         ele.send_keys(file)
         sleep(1)
         self.is_click(user['Import Save'])
-        sleep(1.5)
+        sleep(2)
         self.presence_sleep_dcr(user['Upload Confirm'])
         self.is_click(user['Upload Confirm'])
+        sleep(1)
 
     @allure.step("导入员工工资模板-上传正确的文件")
     def upload_true_file(self, file1):
