@@ -250,15 +250,12 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
-
-
     def click_delete(self, code):
         """
         根据流程编码点击删除 进行删除操作
         @param code:流程编码
         """
         self.is_click_tbm(user['删除'], code)
-        self.is_click_tbm(user['确定'])
 
     def click_one_press(self):
         """
@@ -485,6 +482,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.recall_process(code)
         self.click_menu("BOM协作", "单机头BOM协作")
         self.click_delete(code)
+        self.click_delete_confirm()
         self.assert_toast('删除成功')
 
     @allure.step("补充工厂页面-流程组合")
@@ -531,45 +529,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.enter_oneworks_iframe()
         self.assert_toast()
         self.quit_oneworks()
-
-
-    def click_check(self, code):
-        """
-        根据流程编码点击查看 进行查看操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['查看'], code)
-
-    @allure.step("进入oneworks查看流程页面")
-    def enter_onework_check(self, code):
-        sleep(1)
-        self.click_check(code)
-        self.switch_window(1)
-        sleep(1)
-        self.frame_enter(user['待办列表-我申请的-iframe'])
-        sleep(1)
-
-    @allure.step("获取oneworks页面的Bom信息")
-    def get_onework_bominfo(self, select):
-        """
-        获取oneworks页面的Bom信息
-        @param select:需要获取的信息类型： 制作类型， 品牌， 机型， 阶段， 市场， 模板， 自研/外研
-        """
-        if select == '机型':
-            return self.element_text(user['OneworksBom信息-机型'])
-        else:
-            return self.element_input_text(user['BOM信息输入框'], select)
-
-    def get_oneworks_bomtree_info(self):
-        """
-        获取BOMTree所有内容
-        """
-        info = self.find_elements_tbm(user['OneworksBomTree全部内容'])
-        infolist = []
-        for i in info:
-            infolist.append(i.text.split('\n'))
-        logging.info('获取Oneworks-BOMTree所有内容{}'.format(infolist))
-        return infolist
 
     @allure.step("断言导入BOM-导入后，页面表格内容是否正确")
     def assert_oneworks_bomtree_result(self, *content):
@@ -857,5 +816,43 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             self.base_get_img()
             logging.error('断言成功，导出的数据和BomTree的数据是不一致的')
             raise
+
+    @allure.step("点击编辑")
+    def click_edit(self, code):
+        self.is_click_tbm(user['编辑'], code)
+        logging.info('点击编辑')
+
+    @allure.step("输入查询条件")
+    def input_search_info(self, type, info):
+        input_type = ['标题', '流程编码', 'BOM编码']
+        select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
+        if type in input_type:
+            self.readonly_input_text(user['查询条件'], info, type)
+        elif type in select_type:
+            self.is_click_tbm(user['查询条件'], type)
+            self.is_click_tbm(user['查询选择'], info)
+        logging.info('输入框：{}，输入内容：{}'.format(type, info))
+
+    @allure.step("点击查询")
+    def click_search(self):
+        self.is_click_tbm(user['查询'])
+        logging.info('点击查询')
+
+    @allure.step("断言：查询结果")
+    def assert_search_result(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content)
+
+    @allure.step("点击保存")
+    def click_add_save(self):
+        self.scroll_into_view(user['保存'])
+        sleep(0.5)
+        self.is_click_tbm(user['保存'])
+        logging.info('点击保存')
+
+    def click_delete_confirm(self):
+        self.is_click_tbm(user['同意确定'])
+
+    def click_delete_cancel(self):
+        self.is_click_tbm(user['同意取消'])
 if __name__ == '__main__':
     pass

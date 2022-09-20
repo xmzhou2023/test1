@@ -49,7 +49,7 @@ class PCBABomCooperation(CenterComponent):
     def add_bom_info(self):
         self.click_add()
         self.input_add_bom_info('制作类型', 'PCBA BOM制作')
-        self.input_add_bom_info('品牌', 'itel')
+        self.input_add_bom_info('品牌', 'Infinix')
         self.input_add_bom_info('机型', 'JMB-01')
         self.input_add_bom_info('阶段', '试产阶段')
 
@@ -86,18 +86,17 @@ class PCBABomCooperation(CenterComponent):
         @param content:输入的内容
         """
         BomTree_dict = {'BOM状态': '2', '物料编码': '5', '数量': '8', '位号': '9', '替代组': '10', '份额': '11'}
-        if header == 'BOM状态':
+        select_list = ['BOM状态']
+        input_list = ['物料编码', '数量', '替代组', '份额', '位号']
+        if header in select_list:
             self.is_click_tbm(user['BOMTree填写'], tree, BomTree_dict[header])
             self.is_click_tbm(user['BOMTree输入框选择'], content)
-        elif header == '物料编码':
+        elif header in input_list:
             self.is_click_tbm(user['BOMTree编辑'], tree)
             self.readonly_input_text(user['BOMTree填写'], content, tree, BomTree_dict[header])
             sleep(1)
-            self.is_click_tbm(user['物料编码选择'], content)
-            self.is_click_tbm(user['BOMTree确定'], tree)
-        elif header == '数量' or header == '替代组' or header == '份额':
-            self.is_click_tbm(user['BOMTree编辑'], tree)
-            self.readonly_input_text(user['BOMTree填写'], content, tree, BomTree_dict[header])
+            if header == '物料编码':
+                self.is_click_tbm(user['物料编码选择'], content)
             self.is_click_tbm(user['BOMTree确定'], tree)
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
@@ -378,6 +377,24 @@ class PCBABomCooperation(CenterComponent):
         self.click_delete(code)
         self.assert_toast('删除成功')
 
-
+    @allure.step("断言:页面表格内容是否正确")
+    def assert_oneworks_bomtree_result(self, *content):
+        """
+        断言导入BOM-导入后，页面表格内容是否正确
+        :param content: 需要断言的内容，可以一次传入多个
+        """
+        try:
+            self.click_tree('PCBA')
+            contents = self.get_oneworks_bomtree_info()
+            content_list = []
+            for i in contents:
+                content_list.append(tuple(i))
+            assert set(content) <= set(content_list)
+            logging.info(content_list)
+            logging.info('断言成功，选项值包含：{}'.format(content))
+        except:
+            self.base_get_img()
+            logging.error('断言失败，选项值不包含：{}'.format(content))
+            raise
 if __name__ == '__main__':
     pass

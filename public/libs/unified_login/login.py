@@ -21,14 +21,12 @@ class Login(Base):
         user.click_loginsubmit()
 
 
-
     def dcr_login(self, drivers, url, username, passwd):
         user = DcrLoginPage(drivers)
         user.get_url(url)
-        sleep(7)
+        sleep(3)
         user.dcr_input_account(username)
         user.dcr_input_passwd(passwd)
-        sleep(1)
         get_check_class = user.dcr_get_check_box_class()
         if "is-checked" not in str(get_check_class):
             user.dcr_click_check_box()
@@ -81,3 +79,14 @@ class Login(Base):
         # 点击登录
         user.click_loginsubmit()
 
+    def OA_login(self, drivers, url, username, passwd):
+        """统一登录֤"""
+        user = LoginPage(drivers)
+        user.get_url(url)  # 跳转到指定网页
+        user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"
+        user.click_accountlogin()  # 点击帐户密码登录
+        user.input_account(username)  # 输入帐户名
+        user.input_passwd(passwd)  # 输入密码
+        user.input_imgcode()  # 输入验证码
+        user.click_checkbox()
+        user.click_loginsubmit()

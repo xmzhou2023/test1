@@ -246,20 +246,6 @@ class Base(object):
             self.find_element(locator).click()
             logging.info("滚动条至：{}".format(locator))
 
-
-
-    def get_table_info(self, locator, *choice, attr='class', index='0'):
-        """
-        获取指定定位的属性值，可用于获取表格每列内容，做查询断言，如：el-table_3_column_45
-        :param attr: 需要获取到的属性，默认是class
-        :param index: 需要获取到的属性索引位置，默认是0
-        """
-        header_class = self.get_element_attribute(locator, attr, *choice)
-        column_class = header_class.split(' ')[int(index)]
-        logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))
-        return column_class
-
-
     def force_click(self, xpath, force=False, xpath_js=None):
         """点击元素(用js)"""
         if xpath_js == None:
@@ -366,17 +352,23 @@ class Base(object):
         ActionChains(content).move_by_offset(700, 700).click().perform()
         sleep(10)
 
-    def element_text(self, locator, *choice):
+    def element_text(self, locator, *args, **kwargs):
         """获取元素的文本"""
-        if choice is None:
-            _text = self.find_element(locator).text.replace("\n", "|")
-            logging.info("获取文本：{}".format(_text))
-            return _text
-        else:
-            ele = self.find_element(locator, *choice)
+        if args and args is not None:
+            ele = self.find_element(locator, *args)
             _text = ele.text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
+        elif kwargs and kwargs is not None:
+            ele = self.find_element(locator, *kwargs)
+            _text = ele.text.replace("\n", "|")
+            logging.info("获取文本：{}".format(_text))
+            return _text
+        else:
+            _text = self.find_element(locator).text.replace("\n", "|")
+            logging.info("获取文本：{}".format(_text))
+            return _text
+
 
     def select_state(self, locator):
         """获取元素的选中状态"""

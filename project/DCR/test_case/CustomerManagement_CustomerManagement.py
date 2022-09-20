@@ -6,6 +6,7 @@ from project.DCR.page_object.CustomerManagement_CustomerManagement import Custom
 from public.base.assert_ui import DomAssert, ValueAssert
 from public.base.assert_ui import SQLAssert
 from libs.common.connect_sql import *
+from libs.common.time_ui import sleep
 from public.base.basics import Base
 """
     用例等级说明:
@@ -20,16 +21,22 @@ from public.base.basics import Base
 @pytest.fixture(scope='function')
 def function_customer_fixture(drivers):
     yield
-    close = CustomerManagementPage(drivers)
-    close.click_close_customer_mgt()
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    close = CustomerManagementPage(drivers)
-    close.click_close_export_record()
-    close.click_close_customer_mgt()
-
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
 
 @allure.feature("客户管理-客户管理(全球)")  # 模块名称
 class TestQueryGlobalCustomers:
@@ -344,6 +351,71 @@ class TestEnableCustomer:
         get_status = enable.get_list_status('Enable')
         logging.info("打印获取客户列表，启用操作后的最新状态{}".format(get_status))
         ValueAssert.value_assert_equal("Enable", get_status)
+
+
+@allure.feature("客户管理-客户管理(全球)")
+class TestImportCustomer:
+    @allure.story("导入客户操作")
+    @allure.title("，导入客户操作，然后删除导入的客户操作")
+    @allure.description("导入客户成功后，查看列表是否展示导入的客户信息；然后删除导入的客户操作")
+    @allure.severity("normal")
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_customer_fixture')
+    def test_008_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开客户管理菜单"""
+        user.click_gotomenu("Customer Management", "Customer Management(Global)")
+
+        upload = CustomerManagementPage(drivers)
+        upload.click_import()
+        upload.click_import_save()
+        DomAssert(drivers).assert_att('Please upload first.')
+        sleep(1)
+        upload.upload_true_file('CustomerTemplate.xlsx')
+        upload.click_import_record_search()
+
+        today = Base(drivers).get_datetime_today()
+        """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
+        get_file_name = upload.get_import_file_name()
+        get_status = upload.get_import_status()
+        get_total = upload.get_import_total()
+        get_success = upload.get_import_success()
+        get_failed = upload.get_import_failed()
+        get_import_date = upload.get_import_import_date()
+        ValueAssert.value_assert_equal('CustomerTemplate.xlsx', get_file_name)
+        ValueAssert.value_assert_equal('Upload Successfully', get_status)
+        ValueAssert.value_assert_equal('1', get_total)
+        ValueAssert.value_assert_equal('1', get_success)
+        ValueAssert.value_assert_equal('0', get_failed)
+        ValueAssert.value_assert_equal(today, get_import_date)
+        """关闭当前打开的菜单"""
+        menu = LoginPage(drivers)
+        menu.click_close_open_menu()
+        """根据导入的客户ID，筛选导入的数据，然后进行删除操作"""
+        upload.input_customer_query('Cus_test_itel')
+        upload.click_search()
+
+        """断言User Salary Management 页面，是否加载导入成的数据"""
+        get_brand = upload.get_list_brand()
+        get_cus_id = upload.get_customer_id()
+        get_cus_name = upload.get_customer_name()
+        get_contact_name = upload.get_contact_name()
+        get_contact_no = upload.get_contact_no()
+        logging.info("打印获取客户管理列表brand字段内容：{}".format(get_brand))
+        logging.info("打印获取客户管理列表brand字段内容：{}".format(get_cus_id))
+        logging.info("打印获取客户管理列表字段内容：{}".format(get_cus_name))
+        logging.info("打印获取客户管理列表字段内容：{}".format(get_contact_name))
+        logging.info("打印获取客户管理列表字段内容：{}".format(get_contact_no))
+        ValueAssert.value_assert_equal('itel', get_brand)
+        ValueAssert.value_assert_IsNoneNot(get_cus_id)
+        ValueAssert.value_assert_equal('Cus_test_itel', get_cus_name)
+        ValueAssert.value_assert_equal('test_lhm123', get_contact_name)
+        ValueAssert.value_assert_IsNoneNot(get_contact_no)
+
+        """删除导入的客户数据"""
+        upload.delete_customer()
+        DomAssert(drivers).assert_att('Successfully')
 
 
 if __name__ == '__main__':
