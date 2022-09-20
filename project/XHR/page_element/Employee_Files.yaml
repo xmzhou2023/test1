@@ -1,0 +1,6 @@
+XHR: "xpath==//span[@class='hamburger_icon']"
+一级菜单: "xpath==//span[contains(text(),'variable')]"
+职员管理: "xpath==//span[contains(text(),'职员管理')]"
+员工档案: "xpath==/html/body/div[1]/div/div[2]/section/div/div/div[2]/div[3]/div/div[1]/div[4]/div[2]/table/tbody/tr[1]/td[15]/div/span/span"
+导出档案: "xpath==//div//div//button[@data-v-23dc7fc3]"
+导出Excel: "xpath==//ul//li[@data-v-23dc7fc3]"
