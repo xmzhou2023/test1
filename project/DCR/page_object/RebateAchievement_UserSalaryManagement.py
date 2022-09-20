@@ -2,6 +2,8 @@ import logging
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from public.base.basics import Base
+from public.base.assert_ui import ValueAssert, DomAssert
+
 from ..test_case.conftest import *
 from libs.config.conf import BASE_DIR
 
@@ -114,6 +116,11 @@ class UserSalaryManagement(Base):
         self.is_click(user['Search'])
         sleep(3)
 
+    @allure.step("Import Record页面，点击Reset 重置按钮")
+    def click_reset(self):
+        self.is_click(user['Reset'])
+        sleep(3)
+
     @allure.step("Import Record页面，点击Search 查询按钮")
     def click_import_record_search(self):
         self.is_click(user['Search'])
@@ -202,17 +209,17 @@ class UserSalaryManagement(Base):
         get_total1 = get_total[6:]
         return get_total1
 
-    @allure.step("User Salary Management页面，导入前获取列表总条数，如果大于2条以上记录，先删除重复的工资单")
+    @allure.step("User Salary Management页面，导入前获取列表总条数，如果大于2条以上记录，先删除已存在的工资单")
     def delete_repetitive_salary(self, total):
         logging.info("获取User Salary Management页面Total分页总条数：{}".format(total))
         if int(total) == 4:
             self.click_first_checkbox2()
             self.click_delete()
-            DomAssert.assert_att('Deleted Successfully')
+            DomAssert(self.driver).assert_att('Deleted Successfully')
         elif int(total) == 3:
             self.click_first_checkbox1()
             self.click_delete()
-            DomAssert.assert_att('Deleted Successfully')
+            DomAssert(self.driver).assert_att('Deleted Successfully')
         else:
             logging.info("获取User Salary Management页面Total分页总条数：{}".format(total))
 
