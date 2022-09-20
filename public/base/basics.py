@@ -126,7 +126,7 @@ class Base(object):
 
     def find_element(self, locator, *args, **kwargs):
         """寻找单个元素"""
-        if args[0] and args is not None:
+        if args and args is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
@@ -151,7 +151,7 @@ class Base(object):
 
     def find_elements(self, locator, *args, **kwargs):
         """寻找多个相同的元素"""
-        if args[0] and args is not None:
+        if args and args is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
@@ -354,7 +354,7 @@ class Base(object):
 
     def element_text(self, locator, *args, **kwargs):
         """获取元素的文本"""
-        if args[0] and args is not None:
+        if args and args is not None:
             ele = self.find_element(locator, *args)
             _text = ele.text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
