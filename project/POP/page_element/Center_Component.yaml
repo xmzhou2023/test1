@@ -12,3 +12,9 @@
 
 库存: "xpath==//span[@class='route-item--title'][contains(text(),'库存')]"
 库存->仓库信息: "xpath==//span[@title='仓库信息']"
+
+会员: "xpath==//span[contains(text(),'会员')]"
+会员->会员信息: "xpath==//span[contains(@title='会员信息')]"
+
+门店: "xpath==//span[contains(@class,'route-item--title')][contains(text(),'门店')]"
+门店->门店列表: "xpath==//span[contains(@title,'门店列表')]"
