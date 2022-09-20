@@ -4,7 +4,6 @@ Add: "xpath==//button//span[contains(text(),'Add')]"
 一级菜单: "xpath==//div[@class='el-submenu__title']//span[contains(text(),'variable')]"
 二级菜单: "xpath==//div[@class='nest-menu']//span[text()='variable']"
 
-
 Customer Type: "xpath==//label//span[contains(text(),'Customer Type')]//..//..//input"
 Customer Type Select: "xpath==//ul[@class='el-scrollbar__view el-select-dropdown__list']//li//span[contains(text(),'variable')]"
 Brand: "xpath==//label//span[contains(text(),'Brand')]//..//..//input[@id='customermanagementadd_input_brandNames']"
@@ -39,14 +38,16 @@ Edit Submit: "xpath==//div[@class='area-add-btn']//..//button[@id='customermanag
 筛选Customer Select: "xpath==//span[contains(text(),'variable')]"
 Search: "xpath==//button//span[normalize-space(text())='Search']"
 Reset: "xpath==//span[normalize-space(text())='Reset']"
-Get list Customer Id: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div"
-#Get list Customer Name: "xpath==//tbody//tr[@class='el-table__row']//td[4]//div[text()='variable']"
-Get list Customer Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
+
+Get list Customer Id: "xpath==//tbody//tr[1]//td[5]//div"
+#Get list Customer Id: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div"
+Get list Customer Name: "xpath==//tbody//tr[1]//td[4]//div"
+#Get list Customer Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
 Get list New Brand: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div[@class='cell el-tooltip' and text()='variable']"
-#Get Contact Name: "xpath==//tbody//tr[@class='el-table__row']//td[15]//div[@class='cell el-tooltip' and text()='variable']"
-Get Contact Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[15]/div"
-#Get Contact No: "xpath==//tbody//tr[@class='el-table__row']//td[16]//div[@class='cell el-tooltip' and text()='variable']"
-Get Contact No: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr/td[16]/div"
+#Get Contact Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[15]/div"
+Get Contact Name: "xpath==//tbody//tr[1]//td[15]//div"
+#Get Contact No: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr/td[16]/div"
+Get Contact No: "xpath==//tbody//tr[1]//td[16]//div"
 Get Customer Type: "xpath==//tbody//tr[@class='el-table__row']//td[17]//div[@class='cell el-tooltip' and text()='variable']"
 
 Get list Brand: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div[@class='cell el-tooltip']"
@@ -71,6 +72,20 @@ Disable Yes: "xpath==//button[@class='el-button el-button--primary el-button--mi
 Get list Status: "xpath==//tbody//tr[@class='el-table__row']//td[38]//div[normalize-space(text())='variable']"
 #勾选复选框: "xpath==//tbody//tr[@class='el-table__row']//td[1]//div//label//..//span[@class='el-checkbox__inner']"
 
+#导入用户
+Import Button: "xpath==//button[@id='enterprise_import_']//span[normalize-space(text())='Import']"
+Add Upload: "xpath==//button//span[normalize-space(text())='Add Upload']"
+Edit Upload: "xpath==//button//span[normalize-space(text())='Edit Upload']"
+Import Save: "xpath==//button[@id='customermanagementglobal_Save']//span[normalize-space(text())='Save']"
+Upload Confirm: "xpath==//button//span[normalize-space(text())='Confirm']"
+#Import Record
+Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
+Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"
+Get Import Record Total: "xpath==//tbody//tr[1]//td[4]//div"
+Get Import Record Success: "xpath==//tbody//tr[1]//td[5]//div"
+Get Import Record Failed: "xpath==//tbody//tr[1]//td[6]//div"
+Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
+Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"
 
 #导出客户
 Export: "id==customermanagementglobal_Export"
