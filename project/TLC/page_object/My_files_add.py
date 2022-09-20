@@ -39,7 +39,7 @@ class Tool(Base):
 
     @allure.step('点击')
     def click(self, ymal, choice=None):
-        sleep(0.5)
+        sleep(1)
         self.is_click_dcr(user[ymal], choice)
         sleep(2)
 

@@ -24,7 +24,7 @@ class UserPage(Base):
 
     @allure.step('处理点击')
     def click(self, yaml, choice=None):
-        sleep(0.5)
+        sleep(1)
         self.is_click_dcr(user[yaml], choice)
         sleep(2)
 
