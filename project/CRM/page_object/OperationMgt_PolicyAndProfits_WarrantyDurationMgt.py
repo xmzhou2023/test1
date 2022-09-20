@@ -78,6 +78,7 @@ class OperationPage(Base):
     def get_Numbersletters(self):
         num = string.ascii_uppercase+string.digits
         Numbersletters = "".join(random.sample(num , 5))
+        logging.info("获取到的文本是{}".format(Numbersletters))
         return Numbersletters
 
     @allure.step("点击新增按钮")
