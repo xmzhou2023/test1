@@ -1,8 +1,4 @@
-关键字: "xpath==//span[contains(text(),'终审版报表')]"
-
 Add: "xpath==//button//span[contains(text(),'Add')]"
-一级菜单: "xpath==//div[@class='el-submenu__title']//span[contains(text(),'variable')]"
-二级菜单: "xpath==//div[@class='nest-menu']//span[text()='variable']"
 
 Customer Type: "xpath==//label//span[contains(text(),'Customer Type')]//..//..//input"
 Customer Type Select: "xpath==//ul[@class='el-scrollbar__view el-select-dropdown__list']//li//span[contains(text(),'variable')]"
@@ -59,7 +55,6 @@ Get Total: "xpath==//section//div//..//..//span[contains(text(),'Total')]"
 #删除客户信息
 More Options: "xpath==//button[@id='customermanagementglobal_More Option']//span"
 Delete: "xpath==//li[normalize-space(text())='Delete']"
-#//li[normalize-space(text())='Delete']//i[@class="el-icon-delete"]
 Delete Confirm: "xpath==//div[@class='el-dialog__body']//..//div[@class='el-dialog__footer']//button[@id='customermanagementglobal_Yes']"
 
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"

@@ -240,7 +240,7 @@ class CustomerManagementPage(Base):
     @allure.step("Customer Management页面，点击Import 导入功能")
     def click_import_upload_save(self, file1):
         self.is_click(user['Add Upload'])
-        sleep(6)
+        sleep(4)
         ele = self.driver.find_element('xpath', "//button//..//input[@name='file']")
         ele.send_keys(file1)
         sleep(1.5)
