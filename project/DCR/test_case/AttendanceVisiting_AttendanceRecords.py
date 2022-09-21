@@ -1,6 +1,6 @@
 from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.AttendanceVisiting_AttendanceRecords import AttendanceRecordPage
-from public.base.assert_ui import ValueAssert
+from public.base.assert_ui import ValueAssert, DomAssert
 import logging
 from libs.common.time_ui import sleep
 from public.base.basics import Base
@@ -56,6 +56,34 @@ class TestQueryAttendanceRecord:
         #query_all.click_close_atten_record()
 
 
+    @allure.story("查看考勤照片详情")
+    @allure.title("考勤记录页面，查看筛选用户的考勤照片详情")
+    @allure.description("考勤记录页面，查询筛选用户的，考勤照片详情")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """考勤管理-打开考勤记录页面"""
+        user.click_gotomenu("Attendance & Visiting", "Attendance Records")
+        """查询某个用户的，当天考勤记录用例"""
+        picture = AttendanceRecordPage(drivers)
+
+        user_id = picture.get_user_id_text()
+        picture.input_user_id_query(user_id)
+        picture.click_search()
+
+        picture.click_view_picture_button()
+        DomAssert(drivers).assert_att('Attendance Photo')
+
+        get_photo_user_id = picture.get_attendance_photo_user_id(user_id)
+        get_standard = picture.get_standard_photo()
+
+        ValueAssert.value_assert_In(user_id, get_photo_user_id)
+        ValueAssert.value_assert_In('Standard Photo', get_standard)
+        picture.click_close_attendance_photo()
+
+
 @allure.feature("考勤&巡店-考勤记录")
 class TestExportAttendanceRecord:
     @allure.story("导出考勤记录")
@@ -77,7 +105,7 @@ class TestExportAttendanceRecord:
         today = base.get_datetime_today()
 
         user_id = export.get_user_id_text()
-        export.input_user_id_query(user_id, user_id)
+        export.input_user_id_query(user_id)
         export.click_search()
 
         picture = export.get_photo_text()

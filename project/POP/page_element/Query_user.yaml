@@ -1,7 +1,0 @@
-列表用户名输入框: "xpath==//input[@placeholder='用户']"
-员工: "xpath==//span[contains(text(),'variable')]"
-查询按钮: "xpath==//i[@class='el-icon-search']"
-员工姓名: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div[1]/div[3]/table/tbody/tr/td[3]"
-组织: "xpath==//span[contains(text(),'组织')]"
-职员管理: "xpath==//span[@title='职员管理']"
-重置按钮: "xpath==//div[@class='tr-filter-row el-row']//button[2]"

@@ -241,6 +241,30 @@ class TestDeleteCustomer:
         #delete.click_close_customer_mgt()
 
 
+    @allure.story("删除客户")
+    @allure.title("删除有绑定订单数据的客户，不能被删除")
+    @allure.description("删除有绑定订单数据的客户，提示：不能被删除")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    @pytest.mark.usefixtures('function_customer_fixture')
+    def test_004_002(self, drivers):
+        """登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开客户管理菜单"""
+        user.click_gotomenu("Customer Management", "Customer Management(Global)")
+
+        delete2 = CustomerManagementPage(drivers)
+        """筛选新增的客户ID，然后删除此客户记录"""
+        delete2.input_customer_query('BD403442')
+        delete2.click_search()
+        delete2.delete_have_records_customer()
+        get_customer_id = delete2.get_customer_id()
+        get_customer_name = delete2.get_customer_name()
+        ValueAssert.value_assert_equal('BD403442', get_customer_id)
+        ValueAssert.value_assert_IsNoneNot(get_customer_name)
+
+
 @allure.feature("客户管理-客户管理(全球)") # 模块名称
 class TestExportCustomer:
     @allure.story("导出客户")
@@ -356,7 +380,7 @@ class TestEnableCustomer:
 @allure.feature("客户管理-客户管理(全球)")
 class TestImportCustomer:
     @allure.story("导入客户操作")
-    @allure.title("，导入客户操作，然后删除导入的客户操作")
+    @allure.title("导入客户操作，然后删除导入的客户操作")
     @allure.description("导入客户成功后，查看列表是否展示导入的客户信息；然后删除导入的客户操作")
     @allure.severity("normal")
     @pytest.mark.smoke  # 用例标记

@@ -126,15 +126,15 @@ class Base(object):
 
     def find_element(self, locator, *args, **kwargs):
         """寻找单个元素"""
-        if args and args is not None:
-            Npath = []
-            Npath.append(locator[0])
-            Npath.append(locator[1])
-            for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
-            logging.info("查找元素：{}".format(Npath))
-            return Base.element_locator(lambda *args: self.wait.until(
-                EC.presence_of_element_located(args)), Npath)
+        if args and args[0] is not None:
+                Npath = []
+                Npath.append(locator[0])
+                Npath.append(locator[1])
+                for i in range(len(args)):
+                    Npath[1] = Npath[1].replace('variable', args[i], 1)
+                logging.info("查找元素：{}".format(Npath))
+                return Base.element_locator(lambda *args: self.wait.until(
+                    EC.presence_of_element_located(args)), Npath)
 
         elif kwargs and kwargs is not None:
             Npath = []
@@ -215,20 +215,11 @@ class Base(object):
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
 
-    def scroll_into_view(self, locator, choice=None):
+    def scroll_into_view(self, locator, *args, **kwargs):
         """滑动至出现元素"""
-        if choice is not None:
-            Npath = []
-            Npath.append(locator[0])
-            Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
-            ele = self.find_element(Npath)
-            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            logging.info("滚动条至：{}".format(Npath))
-        else:
-            ele = self.find_element(locator)
-            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            logging.info("滚动条至：{}".format(locator))
+        ele = self.find_element(locator, *args, **kwargs)
+        self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+        logging.info("滚动条至：{}".format(locator))
 
     def scroll_into_view_CRM(self, locator, choice=None):
         """滑动至出现元素"""
@@ -569,10 +560,10 @@ class Base(object):
             logging.info('存在元素：{}'.format(locator))
             return True
 
-    def upload_file(self, locator, file, choice=None):
+    def upload_file(self, locator, file, *choice):
         """上传"""
         sleep(0.5)
-        ele = self.find_element(locator, choice)
+        ele = self.find_element(locator, *choice)
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 
@@ -639,9 +630,9 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.click(element).perform()
 
-    def mouse_double_click(self, locator):
+    def mouse_double_click(self, locator, *args, **kwargs):
         """鼠标双击"""
-        element = self.find_element(locator)
+        element = self.find_element(locator, *args, **kwargs)
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
@@ -701,6 +692,7 @@ class Base(object):
 
     def get_table_info(self, locator, *choice, attr='class', index='0'):
         """
+        表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
         获取指定定位的属性值，可用于获取表格每列内容，做查询断言，如：el-table_3_column_45
         :param attr: 需要获取到的属性，默认是class
         :param index: 需要获取到的属性索引位置，默认是0
@@ -710,12 +702,18 @@ class Base(object):
         logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))
         return column_class
 
+    # POP输入框输入文本按enter键专用方法
     def input_enter(self,locator,txt,choice=None):
-        """POP输入框输入文本按enter键专用方法"""
+        """
+            POP项目中输入框输入内容点击Enter键
+        :param locator: 定位元素-固定格式=>xx['']
+        :param txt: 参数值，例如输入框需要输入的内容
+        :param choice: 元素定位传入“variable”参数值
+        :return: 无
+        """
         if choice is None:
             sleep(0.5)
             ele = self.find_element(locator)
-            ele.clear()
             ele.clear()
             ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
@@ -724,9 +722,30 @@ class Base(object):
             sleep(0.5)
             ele = self.find_element(locator, choice)
             ele.clear()
-            ele.clear()
-            ele.send_keys(txt + txt + Keys.ENTER)
+            ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
+
+
+    def DivRolling(self, locator, direction='left', num=1000):
+        '''
+        内嵌div上下左右滑动
+        :param locator: 内嵌div
+        :param direction: 滚动条滚动方向
+        :param num: 内边距
+        '''
+        try:
+            ele = self.find_element(locator)
+            if direction == 'top':
+                self.driver.execute_script("arguments[0].scrollTop={}".format(num), ele)
+                logging.info('滚动条向下滑动：{}'.format(num))
+            elif direction == 'left':
+                self.driver.execute_script("arguments[0].scrollLeft={}".format(num), ele)
+                logging.info('滚动条向右滑动：{}'.format(num))
+            else:
+                logging.error('请输入direction参数：left or top')
+        except Exception as e:
+            raise e
+
 
 def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):
     """

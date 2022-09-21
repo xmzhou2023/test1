@@ -1,0 +1,53 @@
+WMS: "xpath==//span[contains(text(),'WMS')]"
+Warehouse Basic Info Mgt: "xpath==//span[contains(text(),'Warehouse Basic Info Mgt')]"
+Warehouse List: "xpath==//li[@role='menuitem']/span[contains(text(),'Warehouse List')]"
+Search Criteria: "xpath==//div[@class='el-collapse-item__header is-active']"
+
+Warehouse Type: "xpath==//label[@for='warehouseType']/parent::div//input[@class='el-input__inner']"
+下拉筛选第一条数据: "xpath==//div[@x-placement='bottom-start']//li[7]"
+total数量: "xpath==//span[@class='el-pagination__total']"
+
+Warehouse Code: "xpath==//label[@for='warehouseCode']/following-sibling::div/div/input[@type='text']"
+total数量2: "xpath==//span[@class='el-pagination__total']"
+Search: "xpath==//button[@class='el-button el-button--primary el-button--mini']//span[contains(text(),'Search')]"
+
+warehouse Name: "xpath==//label[@for='warehouseName']/following-sibling::div/div/input[@type='text']"
+
+#Add: "xpath==//div[@class='el-col el-col-12']//button[@class='el-button el-button--primary el-button--mini']//span[contains(text(),'Add')]"
+#新增code输入框: "xpath==//div[@class='dialog-style']//label[@for='warehouseCode']/following-sibling::div//input[@type='text']"
+#新增name输入框: "xpath==//div[@class='dialog-style']//label[@for='warehouseName']/following-sibling::div//input[@type='text']"
+#新增type下拉框: "xpath==//div[@class='dialog-style']//label[@for='warehouseTypeId']/following-sibling::div//input[@type='text']"
+#type下拉第一条数据: "xpath==//li[@class='el-cascader__suggestion-item']"
+#新增parent下拉框: "xpath==//div[@class='dialog-style']//label[@for='parentWarehouse']/following-sibling::div//input[@type='text']"
+#parent下拉第一条数据: "xpath==//div[@class='v-modal']/following-sibling::diV[2]/div[2]//li"
+#新增company搜索框: "xpath==//label[@for='companyCode']/following-sibling::div//input[@type='text']"
+#company搜索第一条数据: "xpath==//div[@class='v-modal']/following-sibling::div[3]//li[span[contains(text(),'2100-TRANSSION HOLDINGS SG')]]"
+#新增Assignment搜索框: "xpath==//label[@for='warehouseAssignmentName']/following-sibling::div//input[@type='text']"
+#Assignment下拉第五条数据: "xpath==//div[@class='v-modal']/following-sibling::div[4]//li[5]"
+#新增contacts搜索框: "xpath==//div[@class='dialog-style']//label[@for='contactPersonName']/following-sibling::div//input[@type='text']"
+#contacts搜索第一条数据: "xpath==//span[contains(text(),'18648216-艾珍')]"
+#新增contacts no输入框: "xpath==//div[@class='dialog-style']//label[@for='contactPersonPhone']/following-sibling::div//input[@type='text']"
+#新增address下拉框: "xpath==//div[@class='dialog-style']//label[@for='regionSelected']/following-sibling::div//input[@type='text']"
+#address下拉第一条数据: "xpath==//li[@id=‘]/span"
+#address详情: "xpath==//div[@class='el-textarea el-input--mini']/textarea"
+#新增keeper搜索框: "xpath==//div[@class='dialog-style']//label[@for='employeeNoList']/following-sibling::div//input[@readonly='readonly']"
+#keeper搜索第一条数据: "xpath==//li[@class='el-select-dropdown__item hover']"
+#新增保存: "xpath==//div[@class='el-dialog__footer']/div//button[2]//span[contains(text(),'Save')]"
+
+
+
+Import: "xpath==//button[@class='el-button el-button--primary el-button--mini']//span[contains(text(),'Import')]"
+Download Template: "xpath==//span[contains(text(),'Download Template')]"
+关闭下载框: "xpath==//div[@class='el-dialog__header']//span[text()='Import']//..//button"
+
+Show Table: "xpath==//button[@class='el-button el-button--primary el-button--mini']//span[contains(text(),'Show Table')]"
+
+Edit: "xpath==//div[normalize-space(text())='xiao_aa']/../../..//span[text()='Edit']"
+code输入框: "xpath==//div[contains(@aria-label,'Edit')]//div[contains(@class,'el-row')]/div[1]//input"
+save: "xpath==//div[@aria-label='Edit']//div//button[2]//span[contains(text(),'Save')]"
+
+Del: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//tr[1]//span[text()='Del']"
+KE100: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//tr[1]//td[3]//div[text()]"
+Show Tree: "xpath==//button[@type='button']//span[contains(text(),'Show Tree')]"
+页面切换<: "xpath==//button[@type='button']//i[@class='el-icon el-icon-arrow-left']"
+页面切换>: "xpath==//button[@type='button']//i[@class='el-icon el-icon-arrow-right']"

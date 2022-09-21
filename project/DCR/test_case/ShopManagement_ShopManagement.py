@@ -113,7 +113,10 @@ class TestExpandBrandShop:
         """从数据库查询最近新建的门店ID"""
         user = SQL('DCR', 'test')
         shop_data = user.query_db(
-            "delete from t_user where USER_CODE ='smarttest102'")
+            "select public_code,shop_name from  t_retail_shop_base where creator=99940 order by creation_time desc limit 1")
+        shop_code = shop_data[0].get("public_code")
+        shop_code1 = shop_code[1:]
+        logging.info("从数据库查询Shop ID：{}".format(shop_code1))
 
         """筛选新建的门店ID与门店名称文本内容"""
         expand_brand.input_query_shop_name(shop_code1)

@@ -1,8 +1,8 @@
 Input Query Shop: "xpath==//label[(text()='Shop')]//parent::div// following-sibling::div//input"
 Select Shop Value: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[2]/div[1]/div/div/div/div/div[2]/div/div[2]/div[1]/div[1]/ul/li/span"
 
-Submit Start Date: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[3]/div/div/div/div/div[1]/div/input"
-Sales Region: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[1]/div/div/div/div[1]/input"
+Submit Start Date: "xpath==//div//input[@id='visithistory_input_visitDate']"
+Click Submit Date: "xpath==//label[text()='Submit Date']"
 
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Fold: "xpath==//span[contains(text(),'Fold')]"
@@ -13,14 +13,16 @@ Fold: "xpath==//span[contains(text(),'Fold')]"
 Operation: "xpath==//tbody//tr[1]//td[35]//div//span[text()='View']" 
 获取总条数文本: "xpath==//span[contains(text(),'Total')]"
 
-Input Submit Start Date: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[3]/div/div/div/div/div[1]/div/input"
-Click Submit Date: "xpath==//label[text()='Submit Date']"
-
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
+
+#筛选Shop Self-inspection巡店记录
+Shop self-inspection: "xpath==//label//span[normalize-space(text())='variable']"
+
+Export Detail: "xpath==//button[@id='VisitHistory_export_detail']//span[normalize-space(text())='Export Detail']"
+
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭巡店记录菜单: "xpath==//span[normalize-space(text())='Visit Record']//span[@class='el-icon-close']"
-
 
 #巡店记录，导出功能
 Export: "id==VisitHistory_export"

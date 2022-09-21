@@ -182,11 +182,6 @@ class UserManagementPage(Base):
         del_success = self.element_text(user['Disabled Successfully'])
         return del_success
 
-    # @allure.step("进入Add user页面， 选择代理员工类型")
-    # def click_dealer_staff(self):
-    #     self.is_click(user['Staff Type'])
-    #     sleep(0.5)
-    #     self.is_click(user['Dealer Staff'])
 
     @allure.step("进入Add user页面， 输入客户ID")
     def input_belong_to_cust(self, content):
