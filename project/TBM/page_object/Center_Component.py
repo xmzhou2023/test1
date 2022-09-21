@@ -601,6 +601,46 @@ class CenterComponent(Base, APIRequest):
             self.base_get_img()
         logging.info('审核人填写:字段：{}， 审核人：{}'.format(type, audit))
 
+    @allure.step("断言：在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
+    def assert_oneworks_bomtree_edit(self, tree, header):
+        """
+        在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑
+        """
+        column_class = self.get_table_info(user['编辑验证表头'], header)
+        self.mouse_double_click(user['编辑验证'], tree, column_class)
+        sleep(0.5)
+        DomAssert(self.driver).assert_control(user['编辑验证'], tree, column_class)
+
+    @allure.step("业务审核页面 点击 自检清单")
+    def click_oneworks_businessapprove_self_inspection(self, box, option):
+        """
+        业务审核页面 点击 自检清单
+        @param box:输入框
+        @param option:选项
+        """
+        self.is_click_tbm(user['业务审核-自检清单-业务类型'], box)
+        self.is_click_tbm(user['业务审核-自检清单-检查角色'], option)
+
+    @allure.step("业务审核页面 滑动到 自检清单")
+    def scroll_oneworks_businessapprove_self_inspection(self):
+        self.scroll_into_view(user['业务审核-自检清单'])
+
+    @allure.step("业务审核页面 自检清单 点击输入检查结果")
+    def input_oneworks_businessapprove_inspection_result(self, rule='all', result='通过'):
+        if rule == 'all':
+            num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
+            for i in range(1, num + 1):
+                try:
+                    self.is_click_tbm(user['业务审核-自检清单-检查结果-选择'], str(i), result)
+                except:
+                    self.scroll_into_view(user['业务审核-自检清单-检查结果-选择'], str(i), result)
+                    self.is_click_tbm(user['业务审核-自检清单-检查结果-选择'], str(i), result)
+        else:
+            try:
+                self.is_click_tbm(user['业务审核-自检清单-指定规则-检查结果-选择'], rule, result)
+            except:
+                self.scroll_into_view(user['业务审核-自检清单-指定规则-检查结果-选择'], rule, result)
+                self.is_click_tbm(user['业务审核-自检清单-指定规则-检查结果-选择'], rule, result)
 
 if __name__ == '__main__':
     pass

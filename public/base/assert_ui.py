@@ -285,7 +285,7 @@ class DomAssert(object):
             raise
 
     @allure.step("页面是否存在控件")
-    def assert_control(self, element, result=True, *choice):
+    def assert_control(self, element, *choice, result=True):
         """
         断言：页面是否存在控件
         @element：元素定位
