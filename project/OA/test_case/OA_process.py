@@ -42,8 +42,7 @@ class TestUtil:
         OA.click_Next()
         OA.click_IMWAV()
         OA.click_account_password()
-        aa = OA.password()
-        OA.input_account_password(name=str(aa[0]).lstrip("b'").rstrip("'"), password=str(aa[1]).lstrip("b'").rstrip("'"))
+        OA.input_account_password('0', '1')
         OA.click_Login()
         # 提交系统巡检报告
         OA.click_Inspection("深圳")
@@ -69,9 +68,8 @@ class TestUtil:
     def test_001_002(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         OA = OAUserPage(drivers)
         OA.open_url("https://seal.transsion.com:9180/contractlist?pageNo=1")  # 打开应用系统巡检地址
-        bb = OA.password()
-        OA.input_username(str(bb[2]).lstrip("b'").rstrip("'"))
-        OA.input_password(str(bb[3]).lstrip("b'").rstrip("'"))
+        OA.input_username(2)
+        OA.input_password(3)
         OA.click_button()
         itexis = OA.issign_login()
 

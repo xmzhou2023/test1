@@ -19,6 +19,16 @@ user = Element(pro_name, object_name)
 class OAUserPage(Base):
     """用户类"""
 
+    def input_text_oa(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        pwd_list = self.password()
+        pwd_str = str(pwd_list[int(txt)]).lstrip("b'").rstrip("'")
+        ele.send_keys(pwd_str)
+
+
     @allure.step("判断OA是否登录成功，到home页面")
     def islogin(self):
         itexis = self.element_exist(user["OA登录成功界面"])
@@ -58,8 +68,8 @@ class OAUserPage(Base):
 
     @allure.step("输入账号密码进行登录飞书到应用系统巡检系统")
     def input_account_password(self, name, password):
-        self.input_text(user['工号'], name)
-        self.input_text(user['密码'], password)
+        self.input_text_oa(user['工号'], name)
+        self.input_text_oa(user['密码'], password)
 
     @allure.step("点击登录")
     def click_Login(self):
@@ -95,8 +105,6 @@ class OAUserPage(Base):
 
         # 对结果进行base64处理
         sign = base64.b64encode(hmac_code).decode('utf-8')
-        print("111111111111111111", sign)
-        print("222", timestamp)
         return sign
 
     def request_post(self, url, param):
@@ -143,11 +151,11 @@ class OAUserPage(Base):
     #
     @allure.step("输入签署平台用户名")
     def input_username(self, variables):
-        self.input_text(user['签署平台用户名'], variables)
+        self.input_text_oa(user['签署平台用户名'], variables)
 
     @allure.step("输入签署平台密码")
     def input_password(self, variables):
-        self.input_text(user['签署平台密码'], variables)
+        self.input_text_oa(user['签署平台密码'], variables)
 
     @allure.step("点击签署平台-登录按钮")
     def click_button(self):
