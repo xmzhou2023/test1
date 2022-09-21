@@ -187,7 +187,7 @@ class TestFGsunking_Download:
     @allure.title("sunking数据导出")  # 用例名称
     @allure.description("对所有数据点击导出")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.skip  # 跳过不执行
     def test_002_001(self,drivers):
         user = FGsunking(drivers)
         user.FG_export(country= None)
