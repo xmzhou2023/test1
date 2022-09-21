@@ -33,10 +33,11 @@ class TestLeaveApplicationRecords:
 
         query = LeaveApplicationRecords(drivers)
 
+        """根据user 或Position 条件筛选考勤统计信息"""
+        query.input_leave_date_query('2022-07-01')
         user_id = query.get_list_user_id()
         logging.info("打印列表获取的User ID：{}".format(user_id))
-        """根据user 或Position 条件筛选考勤统计信息"""
-        query.query_leave_application_records('2022-07-01', user_id)
+        query.input_user_query(user_id)
 
         get_leave_type = query.get_list_leave_type()
         get_leave_reason = query.get_list_leave_reason()

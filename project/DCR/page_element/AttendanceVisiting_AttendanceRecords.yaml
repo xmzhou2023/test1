@@ -1,9 +1,14 @@
 筛选用户: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
-#Select User Value: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[1]/div/div/div/div/div[2]/div/div[2]/div[1]/div[1]/ul/li"
 Select User Value: "xpath==//span[contains(text(),'variable')]"
 筛选开始日期: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/div[2]/div/div/div/div/div[1]/div/input"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
+
+Click Picture Button: "xpath==//tbody//tr[1]//td[2]//div//button//span[normalize-space(text())='Picture']"
+Get Attendance Photo User ID: "xpath==//div[@class='el-dialog__body']//span[contains(text(),'variable')]"
+Get Standard Photo: "xpath==//div//p[normalize-space(text())='Standard Photo']"
+Close Attendance Photo: "xpath==//div//button//i[@class='el-dialog__close el-icon el-icon-close']"
+
 
 获取列表photo文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[2]/div/button"
 获取列表日期文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[3]/div"

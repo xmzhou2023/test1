@@ -47,8 +47,14 @@ class ModelDatabase(Base):
 
     @allure.step("点击筛选按钮")
     def screen_button(self):
-        self.is_click(user['筛选按钮'])
-        logging.info("打开筛选框")
+        try:
+            self.is_click(user['筛选按钮'])
+            logging.info("打开筛选框")
+        except:
+            self.appendClose_button()
+            logging.info("重复新增失败,关闭新增弹窗")
+            self.is_click(user['筛选按钮'])
+            logging.info("打开筛选框")
         sleep(1)
 
     @allure.step("返回筛选弹窗文本，用做断言")
@@ -253,13 +259,17 @@ class ModelDatabase(Base):
                     self.appendClose_button()
                     logging.info("有必填项未维护,新增失败,关闭新增弹窗")
             elif caseType == "正例":
-                logging.info("新增保存成功")
+                try:
+                    logging.info("新增保存成功")
+                except:
+                    self.appendClose_button()
+                    logging.info("重复新增失败")
             elif caseType == "重复新增":
                 hint = self.element_text(user['断言（新增保存成功）'])
                 assert hint == "此机型已存在"
                 self.appendClose_button()
                 logging.info("重复新增失败")
-        except Exception:
+        except:
             self.appendClose_button()
             logging.info("重复新增失败")
         sleep(2)
@@ -406,6 +416,7 @@ class ModelDatabase(Base):
 
     @allure.step("筛选来源")
     def screen_source(self, source=None):
+        self.scroll_into_view(user['来源下拉框'])
         self.is_click(user['来源下拉框'])
         if source == "数仓":
             self.is_click(user['新增_下拉选项'], "1")
@@ -445,13 +456,13 @@ class ModelDatabase(Base):
         self.is_click(user['取消按钮'])
         logging.info("筛选取消")
 
-    @allure.step("获取单机头BOM协作第一列内容")
+    @allure.step("获取列表文本")
     def get_mobileTypeList(self, num):
         """
         获取机型列表
         @return:返回文本及索引位置;
         """
-        info = self.find_elements(user['列表第n列'], num)
+        info = self.find_elements(user['列表第n列'], str(num))
         infolist = []
         for i in info:
             infolist.append(i.get_attribute('innerText'))
@@ -479,7 +490,7 @@ class ModelDatabase(Base):
 
     @allure.step("点击指定行编辑按钮")
     def update_button(self, updateOne_name, num):
-        line = self.find_elements(user['列表第n列'], num)
+        line = self.find_elements(user['列表第n列'], str(num))
         name = []  # 取出列表第n列的所有文本
         for i in range(len(line)):
             name.append(line[i].text)
@@ -519,7 +530,7 @@ class ModelDatabase(Base):
 
     @allure.step("点击指定行删除按钮")
     def delete_button(self, updateOne_name, num):
-        line = self.find_elements(user['列表第n列'], num)
+        line = self.find_elements(user['列表第n列'], str(num))
         name = []  # 取出列表第n列的所有文本
         for i in range(len(line)):
             name.append(line[i].text)
@@ -607,7 +618,6 @@ class ModelDatabase(Base):
         user.save_color()  # 保存颜色
         user.state_option('MP')  # 选择状态
         user.save_button("正例")  # 新增保存完成
-
         sleep(2)
 
     @allure.step("产品配置页-状态过滤")
@@ -648,7 +658,7 @@ class ModelDatabase(Base):
 
     @allure.step("点击指定行编辑按钮")
     def edit_button(self, updateOne_name, num):
-        line = self.find_elements(user['列表第n列'], num)
+        line = self.find_elements(user['列表第n列'], str(num))
         name = []  # 取出列表第n列的所有文本
         for i in range(len(line)):
             name.append(line[i].text)

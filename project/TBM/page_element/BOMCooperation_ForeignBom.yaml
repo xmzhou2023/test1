@@ -74,8 +74,3 @@ BomTree全部内容: "xpath==//span[normalize-space(text())='Bom Tree']/../../..
 复制审批人-单据号内容: "xpath==//div[@aria-label='选择单据号']//tbody/tr"
 复制审批人-单据选择: "xpath==//div[text()='variable']/../..//span[text()='选择']"
 
-#==========================================oneworks========================================
-OneworksBomTree全部内容: "xpath==//span[normalize-space(text())='Bom Tree']/../../../..//tbody/*"
-OneworksBom信息-机型: "xpath==//label[text()='机型']/..//span/span/span"
-BOM工程师-BomTree: "xpath==//span[normalize-space(text())='Bom Tree']"
-BOM工程师-BomTreeTitle: "xpath==//span[normalize-space(text())='Bom Tree']/../../../..//span[@title]"

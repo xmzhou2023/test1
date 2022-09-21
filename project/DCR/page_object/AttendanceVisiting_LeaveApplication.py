@@ -15,6 +15,8 @@ class LeaveApplicationRecords(Base):
         sleep(2)
         self.presence_sleep_dcr(user['选中筛选用户'], user1)
         self.is_click(user['选中筛选用户'], user1)
+        sleep(2)
+        self.click_search()
 
     @allure.step("Leave Application Records页面，输入Leave Date开始日期")
     def input_leave_date(self, date):
@@ -22,18 +24,18 @@ class LeaveApplicationRecords(Base):
         self.input_text(user['Leave Start Date'], date)
 
     @allure.step("Leave Application Records页面，根据用户 筛选 休假申请记录")
-    def query_leave_application_records(self, date, user1):
+    def input_leave_date_query(self, date):
         self.input_leave_date(date)
-        self.input_user_query(user1)
         self.click_search()
 
     @allure.step("Leave Application Records页面，点击Search 查询按钮")
     def click_search(self):
         self.is_click(user['休假申请记录Search'])
-        sleep(2)
+        sleep(2.5)
 
     @allure.step("Leave Application Records页面，获取列表 Leave Type字段文本")
     def get_list_leave_type(self):
+        self.presence_sleep_dcr(user['Get Leave Type'])
         get_leave_type = self.element_text(user['Get Leave Type'])
         return get_leave_type
 

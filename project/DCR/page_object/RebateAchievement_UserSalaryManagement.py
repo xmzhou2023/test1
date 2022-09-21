@@ -2,6 +2,8 @@ import logging
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from public.base.basics import Base
+from public.base.assert_ui import ValueAssert, DomAssert
+
 from ..test_case.conftest import *
 from libs.config.conf import BASE_DIR
 
@@ -16,7 +18,7 @@ class UserSalaryManagement(Base):
         sleep(1.5)
         self.is_click(user['选中筛选国家'], country)
         self.click_search()
-        sleep(2)
+        sleep(3)
 
     @allure.step("User Salary Management页面，输入User筛选，点击Search按钮查询")
     def input_user_query_search(self, userid):
@@ -27,7 +29,7 @@ class UserSalaryManagement(Base):
         self.presence_sleep_dcr(user['选中筛选用户'], userid)
         self.is_click(user['选中筛选用户'], userid)
         self.is_click(user['Search'])
-        sleep(3.5)
+        sleep(4)
 
     @allure.step("User Salary Management页面，点击Import 导入功能")
     def click_import_upload_save(self, file):
@@ -45,14 +47,15 @@ class UserSalaryManagement(Base):
     @allure.step("User Salary Management页面，点击Import Payslip 导入工资明细单功能")
     def click_import_payslip_upload_save(self, file):
         self.is_click(user['Import Upload'])
-        sleep(1.5)
+        sleep(2)
         ele = self.driver.find_element('xpath', "//input[@name='file']")
         ele.send_keys(file)
         sleep(1)
         self.is_click(user['Import Save'])
-        sleep(1.5)
+        sleep(2)
         self.presence_sleep_dcr(user['Upload Confirm'])
         self.is_click(user['Upload Confirm'])
+        sleep(1)
 
     @allure.step("导入员工工资模板-上传正确的文件")
     def upload_true_file(self, file1):
@@ -113,6 +116,11 @@ class UserSalaryManagement(Base):
         self.is_click(user['Search'])
         sleep(3)
 
+    @allure.step("Import Record页面，点击Reset 重置按钮")
+    def click_reset(self):
+        self.is_click(user['Reset'])
+        sleep(3)
+
     @allure.step("Import Record页面，点击Search 查询按钮")
     def click_import_record_search(self):
         self.is_click(user['Search'])
@@ -168,6 +176,7 @@ class UserSalaryManagement(Base):
 
     @allure.step("User Salary Management页面，获取 User ID字段文本")
     def get_list_user_id(self):
+        self.presence_sleep_dcr(user['Get list User ID'])
         get_user_id = self.element_text(user['Get list User ID'])
         return get_user_id
 
@@ -199,6 +208,21 @@ class UserSalaryManagement(Base):
         get_total = self.element_text(user['Get list Total'])
         get_total1 = get_total[6:]
         return get_total1
+
+    @allure.step("User Salary Management页面，导入前获取列表总条数，如果大于2条以上记录，先删除已存在的工资单")
+    def delete_repetitive_salary(self, total):
+        logging.info("获取User Salary Management页面Total分页总条数：{}".format(total))
+        if int(total) == 4:
+            self.click_first_checkbox2()
+            self.click_delete()
+            DomAssert(self.driver).assert_att('Deleted Successfully')
+        elif int(total) == 3:
+            self.click_first_checkbox1()
+            self.click_delete()
+            DomAssert(self.driver).assert_att('Deleted Successfully')
+        else:
+            logging.info("获取User Salary Management页面Total分页总条数：{}".format(total))
+
 
     @allure.step("User Salary Management页面，断言 Total分页总条数是否有数据")
     def assert_total(self, total):

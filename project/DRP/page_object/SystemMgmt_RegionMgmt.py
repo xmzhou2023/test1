@@ -52,6 +52,16 @@ class AreaPage(Base):
         except Exception as e:
             print(str(e))
 
+    @allure.step("区域层级断言")
+    def assert_area(self,value1, value2):
+        tier = self.element_text(user['区域层级断言'])
+        org = self.element_text(user['组织名称断言'])
+        assert tier == value1,logging.warning("区域层级断言失败 {}!={}".format(value1,tier))
+        logging.info("区域层级断言成功 {}={}".format(value1,tier))
+        assert org == value2,logging.warning("组织名称断言失败 {}!={}".format(value2,org))
+        logging.info("组织名称断言成功 {}={}".format(value1,tier))
+
+
     @allure.step("查询区域")
     def search_area(self, content):
         """查询区域"""

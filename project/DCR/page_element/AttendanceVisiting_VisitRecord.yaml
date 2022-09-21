@@ -7,7 +7,7 @@ Sales Region: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[1]/di
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Fold: "xpath==//span[contains(text(),'Fold')]"
 
-获取Shop ID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[14]/div"
+获取Shop ID文本: "xpath==//tbody/tr[1]/td[14]/div"
 获取Submit Date文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[28]/div"
 获取Visit Date文本:  "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[30]/div"
 Operation: "xpath==//tbody//tr[1]//td[35]//div//span[text()='View']" 
