@@ -730,7 +730,7 @@ class Base(object):
             sleep(0.5)
             ele = self.find_element(locator, choice)
             ele.clear()
-            ele.send_keys(txt + txt + Keys.ENTER)
+            ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
 
 
