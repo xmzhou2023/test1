@@ -20,18 +20,35 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
     @allure.severity("minor")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_001(self, drivers):
-        pass
+        drivers.get("http://10.250.113.16/")
+        drivers.set_window_size(1936, 1056)
+        element = self.driver.find_element(By.CSS_SELECTOR, ".el-menu-item > .el-tooltip")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        element = self.driver.find_element(By.CSS_SELECTOR, "body")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element, 0, 0).perform()
     @allure.story("查询用户")
     @allure.title("重置用户查询条件")
     @allure.description("在输入框输入用户工号或名称，然后重置清除")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     def test_001_002(self, drivers):
-        """用户管理-查询用户"""
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "用户管理")
-        user = UserPage(drivers)
-        user.search_user(jobnum=account[0]['usernum'])
-        user.reset_account()
+        drivers.get("http://10.250.113.16/")
+        drivers.set_window_size(1936, 1056)
+        element = self.driver.find_element(By.CSS_SELECTOR, ".el-menu-item > .el-tooltip")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        element = self.driver.find_element(By.CSS_SELECTOR, "body")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element, 0, 0).perform()
+        drivers.find_element(By.CSS_SELECTOR, ".is-opened .svg-icon").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-opened > .el-submenu__title").click()
+        drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(13) .menu-wrapper:nth-child(4) span").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".hover").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".hover").click()
+        drivers.find_element(By.CSS_SELECTOR, ".el-button--primary:nth-child(1) > span").click()
 @allure.feature("系统管理-用户管理")
 class TestAppendUser:
     @allure.story("新建用户")

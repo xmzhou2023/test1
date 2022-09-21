@@ -27,54 +27,30 @@ user = Element(pro_name, object_name)
 
 
 class Tool(Base):
-    @allure.step('点击')
-    # TODO: yaml
-    def click(self, yaml, choice=None):
-        sleep(0.5)
-        self.is_click(user[yaml], choice)
-
-
-    @allure.step('点击新增按钮下的select')
-    def click_addButton_select(self, type):
-        self.is_click(user['新增下拉选项'], type)
-
-    @allure.step('点击我的空间或公共空间')
-    def click_space(self, type):
-        self.is_click(user['空间'], type)
-
     @allure.step('导航菜单')
     def click_menu(self, fType, sType):
         self.mouse_hover(user['一级菜单'], fType)
         self.is_click(user['二级菜单'], sType)
         self.refresh()
 
-    @allure.step('hover新增按钮')
-    def hover(self):
-        self.mouse_hover(user['新增'])
+    @allure.step('hover')
+    def hover(self, ymal, choice=None):
+        self.mouse_hover(user[ymal], choice)
 
-    @allure.step('双击元素')
-    def double_click(self, yaml):
-        self.double_click(user[yaml])
+    @allure.step('点击')
+    def click(self, ymal, choice=None):
+        sleep(1)
+        self.is_click_dcr(user[ymal], choice)
+        sleep(2)
 
-    @allure.step('点击确定')
-    def confirm_click(self, type):
-        self.is_click(user['文件新增_or_编辑-确定按钮'], type)
+    @allure.step('输入')
+    def input(self, ymal, txt, choice=None):
+        self.input_text(user[ymal], txt, choice)
 
-    @allure.step('输入框')
-    def input(self, type, txt, yamlStr=None):
-        self.input_text(user[type], txt, yamlStr)
+    @allure.step('跳转窗口')
+    def handle_switch_window(self, n):
+        self.switch_window(n)
 
-    @allure.step('右键点击')
-    def handle_button_right_click(self, fileName = None):
-        self.mouse_right_click(user['文件Item'], fileName)
-
-    @allure.step('readonly输入')
-    def readonly_input(self, yaml, txt):
-        self.readonly_input_text(user[yaml], txt)
-
-    @allure.step('新增X关闭按钮')
-    def click_close(self):
-        self.is_click(user['添加文件-x'])
 
 if __name__ == '__main__':
     pass

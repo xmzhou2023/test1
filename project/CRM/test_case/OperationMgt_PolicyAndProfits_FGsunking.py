@@ -80,8 +80,8 @@ class TestFGsunking:
     @pytest.mark.smoke # 用例标记
     def test_001_004(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = FGsunking(drivers)
-        batch = user.get_columnValue(choice="3")[2]
-        user.sunkingadd(batch=batch, country="EG", code="71", startdate="2019-9-5", enddate="2021-9-11")
+        repeatbatch = user.get_columnValue(choice="3")[2]
+        user.sunkingadd(batch=repeatbatch, country="EG", code="71", startdate="2019-9-5", enddate="2021-9-11")
         user = DomAssert(drivers)
         user.assert_exact_att("the BatchNo cannot be repeated")
         user = FGsunking(drivers)
@@ -96,8 +96,8 @@ class TestFGsunking:
         user = OperationPage(drivers)
         number = user.get_Numbersletters()
         user = FGsunking(drivers)
-        enddate = user.get_date()
-        user.sunkingadd(batch=number, country="EG", code="71", startdate=enddate, enddate="2019-9-11")
+        end = user.get_date()[0]
+        user.sunkingadd(batch=number, country="EG", code="71", startdate=end, enddate="2019-9-11")
         user = DomAssert(drivers)
         user.assert_exact_att("Start time is greater than the end time")  # 验证页面上有错误提示
         user = FGsunking(drivers)
@@ -139,46 +139,85 @@ class TestFGsunking:
         user = DomAssert(drivers)
         user.assert_exact_att("Disabled Successfully!")
 
-    # @allure.story("PolicyMgt_sunking") # 场景名称
-    # @allure.title("编辑sunking数据的BatchNo")  # 用例名称
-    # @allure.description("新增一条数据后，编辑数据修改BatchNo")
-    # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.smoke # 用例标记
-    # def test_001_008(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-    #     user = OperationPage(drivers)
-    #     number = user.get_Numbersletters()
-    #     user = FGsunking(drivers)
-    #     user.sunkingadd(batch=number,country="EG",code="71",startdate="2019-9-5",enddate="2021-9-11")  # 新增一条数据
-    #     user = SQL("CRM", "test")  # 链接数据库
-    #     sql = user.query_db('SELECT batch_no FROM crm_mdm_sunking_policy WHERE batch_no = "{}"'.format(number))
-    #     sql_batch = sql[0].get("COUNT(*)")
-    #     ValueAssert.value_assert_equal(sql_batch, number)  # 校验新增数据存在与数据库中
-    #     user = OperationPage(drivers)
-    #     numberedit = user.get_Numbersletters()
-    #     user = FGsunking(drivers)
-    #     user.sunkingedit(batch=numberedit, startdate= "2019-9-5", enddate="2021-9-11")  # 编辑数据
-    #     user = SQL("CRM", "test")  # 链接数据库
-    #     sql = user.query_db('SELECT COUNT(*) FROM crm_mdm_sunking_policy WHERE is_enable = "{}"'.format(numberedit))
-    #     sql_batch = sql[0].get("COUNT(*)")
-    #     ValueAssert.value_assert_equal(sql_batch, number)  # 校验新增数据存在与数据库中
-    #     user = FGsunking(drivers)
-    #     user.disable()
-    #
-    # @allure.story("PolicyMgt_sunking") # 场景名称
-    # @allure.title("编辑sunking数据的BatchNo")  # 用例名称
-    # @allure.description("新增一条数据后，编辑日期开始日期大于结束")
-    # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.smoke # 用例标记
-    # def test_001_009(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-    #     user = OperationPage(drivers)
-    #     number = user.get_Numbersletters()
-    #     user = FGsunking(drivers)
-    #     enddate = user.get_date()  #  zkajlfkjalfjdlakjsdljsdal
-    #     user.sunkingedit(batch=number,startdate=enddate,enddate="2019-9-11")
-    #     user = DomAssert(drivers)
-    #     user.assert_exact_att("Start time is greater than the end time")  # 验证页面上有错误提示
-    #     user = FGsunking(drivers)
-    #     user.click_cancel()
+    @allure.story("PolicyMgt_sunking") # 场景名称
+    @allure.title("编辑sunking数据的BatchNo")  # 用例名称
+    @allure.description("新增一条数据后，编辑数据修改BatchNo")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_001_008(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        user = OperationPage(drivers)
+        number = user.get_Numbersletters()
+        user = FGsunking(drivers)
+        user.sunkingadd(batch=number,country="EG",code="71",startdate="2019-9-5",enddate="2021-9-11")  # 新增一条数据
+        user = SQL("CRM", "test")  # 链接数据库
+        sql = user.query_db('SELECT batch_no FROM crm_mdm_sunking_policy WHERE batch_no = "{}"'.format(number))
+        sql_batch = sql[0].get("batch_no")
+        ValueAssert.value_assert_equal(sql_batch, number)  # 校验新增数据存在与数据库中
+        user = OperationPage(drivers)
+        numberedit = user.get_Numbersletters()
+        user = FGsunking(drivers)
+        user.sunkingedit(batch=numberedit, startdate="2019-9-5", enddate="2021-9-11")  # 编辑数据
+        user = SQL("CRM", "test")  # 链接数据库
+        sql = user.query_db('SELECT batch_no FROM crm_mdm_sunking_policy WHERE batch_no = "{}"'.format(numberedit))
+        sql_batch = sql[0].get("batch_no")
+        ValueAssert.value_assert_equal(sql_batch, numberedit)  # 校验新增数据存在与数据库中
+        user = FGsunking(drivers)
+        user.disable()
+
+    @allure.story("PolicyMgt_sunking") # 场景名称
+    @allure.title("编辑sunking数据的BatchNo")  # 用例名称
+    @allure.description("新增一条数据后，编辑日期开始日期大于结束")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_001_009(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        user = OperationPage(drivers)
+        number = user.get_Numbersletters()
+        user = FGsunking(drivers)
+        end = user.get_date()[0]
+        logging.info("获取的endedit值是{}".format(end))
+        user.sunkingedit(batch=number, startdate=end, enddate="2018-9-11")
+        user = DomAssert(drivers)
+        user.assert_exact_att("Start time is greater than the end time")  # 验证页面上有错误提示
+        user = FGsunking(drivers)
+        user.click_cancel()
+
+@allure.feature("Operation_FGsunking_download") # 模块名称
+class TestFGsunking_Download:
+    @allure.story("PolicyMgt_sunking_Download") # 场景名称
+    @allure.title("sunking数据导出")  # 用例名称
+    @allure.description("对所有数据点击导出")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.skip  # 跳过不执行
+    def test_002_001(self,drivers):
+        user = FGsunking(drivers)
+        user.FG_export(country= None)
+        user = NavPage(drivers)
+        user.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
+        user = DomAssert(drivers)
+        user.assert_url("/reportCenter/asReportMgt/taskList")
+        user = FGsunking(drivers)
+        user.task_download("king", "Sunking_Policy")
+        user = NavPage(drivers)
+        user.click_gotonav_CRM("OperationMgt", "PolicyandProfits", "FGPolicyForsunking")
+
+    @allure.story("PolicyMgt_sunking_Download") # 场景名称
+    @allure.title("sunking数据导出")  # 用例名称
+    @allure.description("对指定国家数据点击导出")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.skip  # 跳过不执行
+    def test_002_002(self,drivers):
+        user = FGsunking(drivers)
+        user.FG_export(country="EG")
+        user = NavPage(drivers)
+        user.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
+        user = DomAssert(drivers)
+        user.assert_url("/reportCenter/asReportMgt/taskList")
+        user = FGsunking(drivers)
+        user.task_download("king", "Sunking_Policy")
+        user = NavPage(drivers)
+        user.click_gotonav_CRM("OperationMgt", "PolicyandProfits", "FGPolicyForsunking")
+
+
 
 if __name__ == '__main__':
     pytest.main(['project/CRM/test_case/OperationMgt_PolicyAndProfits_ProfitsTypeMgt.py'])

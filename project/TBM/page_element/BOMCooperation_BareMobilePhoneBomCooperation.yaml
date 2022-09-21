@@ -6,12 +6,22 @@
 指定编码表格内容: "xpath==//div[normalize-space(text())='variable']/../../td"
 确定: "xpath==//button/span[contains(text(),'确定')]"
 查看: "xpath==//div[normalize-space(text())='variable']/../..//button/span[contains(text(),'查看')]"
+编辑: "xpath==//div[normalize-space(text())='variable']/../..//button[not(contains(@style,'display: none;'))]/span[contains(text(),'编辑')]"
 撤回流程-查看详情: "xpath==//*[@id='app']/div//div/table/tbody/tr[1]//div/div/button/span[contains(text(),'查看详情')]"
 回退: "xpath==//button/span[contains(text(),'回 退')]"
 转交: "xpath==//button/span[contains(text(),'转 交')]"
 回退到: "xpath==//div[@aria-label='回退到']//input"
 回退选择: "xpath==//span[contains(text(),'variable')]"
 回退确定: "xpath==//div[@aria-label='回退到']//span[contains(text(),'确定')]"
+
+查询条件: "xpath==//label[normalize-space(text())='variable']/..//input"
+查询选择: "xpath==//li/span[normalize-space(text())='variable']"
+
+
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格指定列内容: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+
+
 #==========================================创建页面========================================
 提交: "xpath==//button/span[contains(text(),'提交')]"
 保存: "xpath==//button/span[contains(text(),'保存')]"
@@ -94,6 +104,7 @@ OneworksBom信息-机型: "xpath==//label[text()='机型']/..//span/span/span"
 
 同意: "xpath==//button/span[contains(text(),'同 意')]"
 同意确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
+同意取消: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'取消')]"
 补充工厂一键填写: "xpath==//button/span[contains(text(),'一键填写')]/.."
 生产工厂信息输入框: "xpath==//div[@label='variable']//input[@placeholder='请输入']"
 生产工厂信息输入框选择: "xpath==/html/body//ul/li[normalize-space(text())='variable']"
