@@ -1,3 +1,4 @@
+# 新增仓库
 系统通用重置按钮: "xpath==//div[@class='tr-filter-row el-row']//button[2]"
 仓库新增按钮: "xpath==//button[contains(text(),'新增')]"
 仓库名称输入框: "xpath==//div[@class='el-input el-input--mini']//input[@type='text']"

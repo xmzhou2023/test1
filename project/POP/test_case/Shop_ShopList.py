@@ -1,7 +1,7 @@
 import allure
 import pytest,logging
 from project.POP.page_object.Center_Component import NavPage
-from project.POP.page_object.Query_Shop import Query_shop
+from project.POP.page_object.Shop_ShopList import Query_shop
 """
     用例等级说明:
         blocker级别:中断缺陷(客户端程序无响应，无法执行下一步操作)
@@ -31,4 +31,4 @@ class TestQuery_shop:
         user.click_query('仙桃体专店')
 
 if __name__ == '__main__':
-    pytest.main(['Query_Shop.py'])
+    pytest.main(['Shop_ShopList.py'])

@@ -1,7 +1,8 @@
 import allure,logging
 import pytest,random
 from project.POP.page_object.Center_Component import NavPage
-from project.POP.page_object.Sales_Billing import SalesBilling
+from project.POP.page_object.Sales_SalesOrder import *
+from public.base.assert_ui import *
 
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
@@ -27,7 +28,8 @@ class TestSaleBilling:
         user.input_money('666.66','777.77','888.88')
         user.input_remarks('有钱任性','这是一个大款')
         user.click_Collection()
-        user.assert_sales_order_num(drivers,'销售订单编号')
+        # 断言--开单成功跳转销售订单列表断言页面是否存在销售订单编号字段
+        DomAssert(drivers).assert_exact_att('销售订单编号')
 
 if __name__ == '__main__':
-    pytest.main(['Sales_Billing.py'])
+    pytest.main(['Sales_SalesOrder.py'])

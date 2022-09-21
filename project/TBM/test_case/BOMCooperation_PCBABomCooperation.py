@@ -15,7 +15,7 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.click_add()
         user.input_add_bom_info('制作类型', 'PCBA BOM制作')
-        user.input_add_bom_info('品牌', 'itel')
+        user.input_add_bom_info('品牌', 'Infinix')
         user.input_add_bom_info('机型', 'JMB-01')
         user.input_add_bom_info('阶段', '试产阶段')
         user.input_add_bom_info('制作虚拟贴片/套片', '否')
@@ -28,7 +28,7 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('PCBA BOM制作', 'JMB-01', 'itel', '试产阶段', '审批中', '未同步')
+        user.assert_add_result('PCBA BOM制作', 'JMB-01', 'Infinix', '试产阶段', '审批中', '未同步')
         process_code = user.get_info()[2]
         user.delete_flow(process_code)
 
@@ -42,7 +42,7 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.click_add()
         user.input_add_bom_info('制作类型', 'PCBA BOM制作')
-        user.input_add_bom_info('品牌', 'itel')
+        user.input_add_bom_info('品牌', 'Infinix')
         user.input_add_bom_info('机型', 'JMB-01')
         user.input_add_bom_info('阶段', '试产阶段')
         user.input_add_bom_info('制作虚拟贴片/套片', '否')
@@ -64,7 +64,7 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('PCBA BOM制作', 'JMB-01', 'itel', '试产阶段', '审批中', '未同步')
+        user.assert_add_result('PCBA BOM制作', 'JMB-01', 'Infinix', '试产阶段', '审批中', '未同步')
         process_code = user.get_info()[2]
         user.delete_flow(process_code)
 
@@ -135,10 +135,10 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('PCB', '物料编码', '25001649')
-        user.input_bomtree('PCB', '用量', '1000')
-        user.input_bomtree('PCB', '替代组', 'A1')
-        user.input_bomtree('PCB', '份额', '20')
+        user.input_bomtree('CPU', '物料编码', '25001649')
+        user.input_bomtree('CPU', '用量', '1000')
+        user.input_bomtree('CPU', '替代组', 'A1')
+        user.input_bomtree('CPU', '份额', '20')
         user.click_bomtree_delete('CPU')
         user.assert_BomTree_result('CPU', '物料编码', '', 'Tree')
         user.assert_BomTree_result('CPU', '数量', '', 'Tree')
@@ -162,7 +162,7 @@ class TestCreateProcess:
         user.click_apply()
         user.click_tree('PCBA')
         user.assert_tree_result(('1', 'PCBA', '12105866', '贴片主板_SU385_A1_32GB+2GB_V1.1_自制', '可选', '1', '编辑删除'),
-                                ('1.4', '其他', '15800619', '副板PCB_H6123_SUB_PCB_1_6LPTH_V1.1_ZBX', '可选', '1', '编辑删除'))
+                                ('1.1', 'PCB155/158', '15800619', '副板PCB_H6123_SUB_PCB_1_6LPTH_V1.1_ZBX', '可选', '1', '编辑删除'))
 
 
 @allure.feature("BOM协作-PCBA BOM协作")  # 模块名称
@@ -473,7 +473,357 @@ class TestTheProcessOfExaminationAndApproval:
         ValueAssert.value_assert_equal(info2, 'Infinix')
         ValueAssert.value_assert_equal(info3, 'JMB-01')
         ValueAssert.value_assert_equal(info4, '试产阶段')
-        user.assert_oneworks_bomtree_result(('1', 'PCBA', '12105695', '贴片副板_H850A_A1_TEST_PCBA_V3.0_自制', '可选', '1'), ('1.7', 'IC144', '14400003', 'IC-Gsensor,2axis,8bit,WLCSP6,H1.015', '可选', '5', 'U1001,U1002,U1003,U1004,U1005'))
+        user.assert_oneworks_bomtree_result(('1', 'PCBA', '12100001', 'PCBA_Mainboard_NL01_128MB+64MB_T630S', '可选', '1'), ('1.7', 'IC144', '14400003', 'IC-Gsensor,2axis,8bit,WLCSP6,H1.015', '可选', '5', 'U1001,U1002,U1003,U1004,U1005'))
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("补充工厂页面，审批成功")
+    @allure.description("在补充工厂页面，所有数据正确填写，点击同意，能成功提交，并给出提示“处理成功”，并且页面成功跳转，成功处理了补充工厂审核点，我的待办中不存在该条单据在补充工厂审核节点（建议：校验单据号和当前节点）")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_003_002(self, drivers, PCBA_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_API[0], '补充工厂', True)
+        user.enter_oneworks_edit(PCBA_API[0])
+        user.input_oneworks_plant_info('国内贴片工厂', '1001')
+        user.click_oneworks_slash()
+        user.click_oneworks_plant_check('贴片工厂正确')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_todo_node(PCBA_API[0], '补充工厂')
+        user.assert_my_todo_node(PCBA_API[0], '基带工程师审批', True)
+
+    @allure.story("流程审批")
+    @allure.title("补充工厂页面，审批成功")
+    @allure.description("在补充工厂页面，所有数据正确填写，点击同意，能成功提交，并给出提示“处理成功”，并且页面成功跳转，成功处理了补充工厂审核点，我的待办中不存在该条单据在补充工厂审核节点（建议：校验单据号和当前节点）")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_003_003(self, drivers, PCBA_Factory_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Factory_API[0], '基带工程师审批', True)
+        user.enter_oneworks_edit(PCBA_Factory_API[0])
+        user.select_business_review('李小素', 'all')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_todo_node(PCBA_Factory_API[0], '基带工程师审批')
+        user.assert_my_todo_node(PCBA_Factory_API[0], '采购审核（NPS）', True)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("基带工程师审批回退到业务审核成功")  # 用例名称
+    @allure.description("在基带工程师审批页面中，点击回退，选择回退到补充工厂页面，查看我的待办中存在补充工厂节点（校验：单据号和节点）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_004(self, drivers, PCBA_Factory_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Factory_API[0], '基带工程师审批', True)
+        user.enter_oneworks_edit(PCBA_Factory_API[0])
+        user.click_oneworks_rollback('补充工厂')
+        user.click_oneworks_rollback_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_todo_node(PCBA_Factory_API[0], '补充工厂', True)
+
+    @allure.story("流程审批")
+    @allure.title("在基带工程师审批页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
+    @allure.description("在基带工程师审批页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
+    @allure.severity("normal")
+    @pytest.mark.UT  # 用例标记
+    def test_003_005(self, drivers, PCBA_Factory_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Factory_API[0], '基带工程师审批', True)
+        user.enter_oneworks_edit(PCBA_Factory_API[0])
+        user.click_oneworks_refer()
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(False)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("在基带工程师审批页面中，选择转交人转交，存在确定转交按钮")
+    @allure.description("在基带工程师审批页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_006(self, drivers, PCBA_Factory_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Factory_API[0], '基带工程师审批', True)
+        user.enter_oneworks_edit(PCBA_Factory_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("在基带工程师审批页面中，选择转交人转交取消，存在转交，回退按钮")
+    @allure.description("在基带工程师审批页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_007(self, drivers, PCBA_Factory_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Factory_API[0], '基带工程师审批', True)
+        user.enter_oneworks_edit(PCBA_Factory_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_cancel()
+        user.assert_oneworks_rollback_refer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("在基带工程师审批页面中，转交单据成功")  # 用例名称
+    @allure.description("在基带工程师审批页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_008(self, drivers, PCBA_Factory_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Factory_API[0], '基带工程师审批', True)
+        user.enter_oneworks_edit(PCBA_Factory_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('陈月')
+        user.select_oneworks_refer('陈月')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_comfirmrefer()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_flow_deliver(PCBA_Factory_API[0], '陈月')
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("在基带工程师审批页面中，拒绝成功")  # 用例名称
+    @allure.description("在基带工程师审批页面中，点击拒绝，会显示处理成功，并且页面跳转")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_009(self, drivers, PCBA_Factory_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Factory_API[0], '基带工程师审批', True)
+        user.enter_oneworks_edit(PCBA_Factory_API[0])
+        user.click_oneworks_refuse()
+        user.assert_toast('处理成功，审核拒绝')
+        user.quit_oneworks()
+        user.assert_my_application_flow(PCBA_Factory_API[0], '审批拒绝')
+        process_status = user.get_info()[7]
+        ValueAssert.value_assert_In(process_status, '审批拒绝')
+
+    @allure.story("流程审批")
+    @allure.title("采购审核（NPS）页面中，审批成功")
+    @allure.description("在采购审核（NPS）页面中，点击同意，可以提交成功并给出提示“处理成功，审核通过”，页面成功跳转;成功处理了采购审核（NPS）节点，我的待办中不存在该条数据在采购审核（NPS）节点（建议：校验单据号和当前节点）")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_003_010(self, drivers, PCBA_Structure_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Structure_API[0], '采购审核（NPS）', True)
+        user.enter_oneworks_edit(PCBA_Structure_API[0])
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_todo_node(PCBA_Structure_API[0], '采购审核（NPS）')
+        user.assert_my_todo_node(PCBA_Structure_API[0], '业务审核', True)
+
+    @allure.story("流程审批")
+    @allure.title("采购审核（NPS）页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
+    @allure.description("采购审核（NPS）页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
+    @allure.severity("normal")
+    @pytest.mark.UT  # 用例标记
+    def test_003_011(self, drivers, PCBA_Structure_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Structure_API[0], '采购审核（NPS）', True)
+        user.enter_oneworks_edit(PCBA_Structure_API[0])
+        user.click_oneworks_refer()
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(False)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("采购审核（NPS）页面中，选择转交人转交，存在确定转交按钮")
+    @allure.description("采购审核（NPS）页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_012(self, drivers, PCBA_Structure_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Structure_API[0], '采购审核（NPS）', True)
+        user.enter_oneworks_edit(PCBA_Structure_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("采购审核（NPS）页面中，选择转交人转交取消，存在转交，回退按钮")
+    @allure.description("采购审核（NPS）页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_013(self, drivers, PCBA_Structure_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Structure_API[0], '采购审核（NPS）', True)
+        user.enter_oneworks_edit(PCBA_Structure_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_cancel()
+        user.assert_oneworks_rollback_refer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("采购审核（NPS）页面中，转交单据成功")  # 用例名称
+    @allure.description("采购审核（NPS）页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_014(self, drivers, PCBA_Structure_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Structure_API[0], '采购审核（NPS）', True)
+        user.enter_oneworks_edit(PCBA_Structure_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('陈月')
+        user.select_oneworks_refer('陈月')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_comfirmrefer()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_flow_deliver(PCBA_Structure_API[0], '陈月')
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("采购审核（NPS）页面中，拒绝成功")  # 用例名称
+    @allure.description("采购审核（NPS）页面中，点击拒绝，会显示处理成功，并且页面跳转")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_015(self, drivers, PCBA_Structure_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Structure_API[0], '基带工程师审批', True)
+        user.enter_oneworks_edit(PCBA_Structure_API[0])
+        user.click_oneworks_refuse()
+        user.assert_toast('处理成功，审核拒绝')
+        user.quit_oneworks()
+        user.assert_my_application_flow(PCBA_Structure_API[0], '审批拒绝')
+        process_status = user.get_info()[7]
+        ValueAssert.value_assert_In(process_status, '审批拒绝')
+@allure.feature("BOM协作-PCBA BOM协作")
+class TestProcessApprovalExceptionScenario:
+    @allure.story("流程审批异常场景")
+    @allure.title("【生产工厂信息】物料xxxxxx的组包工厂不能为空")
+    @allure.description("在补充工厂页面中，不进行填写任何数据，点击同意，不能提交成功，并给出提示【生产工厂信息】物料xxxxxx的贴片工厂不能为空")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_004_001(self, drivers, PCBA_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_API[0])
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('【生产工厂信息】物料12100001的贴片工厂不能为空')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")
+    @allure.title("未选择BOM,一键填写按钮无法被点击")
+    @allure.description("在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_004_002(self, drivers, PCBA_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_API[0])
+        user.assert_oneworks_onepress_write()
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")
+    @allure.title("请选择工厂分类/请选择工厂")
+    @allure.description("在补充工厂页面中，选择BOM，点击一键填写，直接点击确认，不能进行确认并给出必填提示“请选择工厂分类”、“请选择工厂”")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_004_003(self, drivers, PCBA_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_API[0])
+        user.click_oneworks_checkbox()
+        user.click_oneworks_onepress_write()
+        user.click_oneworks_onepress_write_confirm()
+        DomAssert(drivers).assert_att('请选择工厂分类')
+        DomAssert(drivers).assert_att('请选择工厂')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")
+    @allure.title("检查贴片工厂不能为空！")
+    @allure.description("在补充工厂页面中，不选择检查贴片工厂，点击同意，不能提交成功，并给出提示检查贴片工厂不能为空！")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_004_004(self, drivers, PCBA_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_API[0])
+        user.input_oneworks_plant_info('国内贴片工厂', '1001')
+        user.click_oneworks_slash()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('检查贴片工厂不能为空！')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")
+    @allure.title("检查贴片工厂不能为空！")
+    @allure.description("在补充工厂页面中，不填写贴片工厂直接点击一键/，给出提示XXX物料必填一个贴片工厂")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_004_005(self, drivers, PCBA_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_API[0])
+        user.click_oneworks_slash()
+        user.assert_toast('121物料必填一个贴片工厂')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")
+    @allure.title("14400003的数量和位号个数不一致")
+    @allure.description("在基带工程师审批页面中，点击编辑，将14400003数量改为1，点击同意，提示“14400003的数量和位号个数不一致”")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_004_006(self, drivers, PCBA_Factory_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_Factory_API[0])
+        user.click_tree('PCBA')
+        user.input_bomtree('IC144', '数量', '1')
+        user.select_business_review('李小素', 'all')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('14400003的数量和位号个数不一致')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")
+    @allure.title("业务审核的必填项需填写完整！")
+    @allure.description("在基带工程师审批页面中，业务审核不选择人，点击同意，提示“业务审核的必填项需填写完整！”")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_004_007(self, drivers, PCBA_Factory_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_Factory_API[0])
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('业务审核的必填项需填写完整！')
         user.quit_oneworks()
 
 

@@ -62,5 +62,5 @@ class Filter(Base):
         self.is_click(user["查询和重置"], location)
         self.is_click(user['叉号'])
 
-    if __name__ == '__main__':
-        pass
+if __name__ == '__main__':
+    pass

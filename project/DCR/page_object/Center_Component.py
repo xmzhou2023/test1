@@ -43,6 +43,7 @@ class LoginPage(Base):
     @allure.step("点击帐号密码登录")
     def click_loginsubmit(self):
         self.is_click(user['登录'])
+        sleep(4.3)
 
     @allure.step("点击退出登录")
     def click_loginOut(self):
@@ -65,7 +66,6 @@ class LoginPage(Base):
         get_menu_class = ss.get_attribute('class')
         return get_menu_class
 
-
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
         user = LoginPage(drivers)
@@ -73,11 +73,11 @@ class LoginPage(Base):
         sleep(3)
         user.input_account(account)
         user.input_passwd(passwd)
+        sleep(1)
         get_check_class = user.get_check_box_class()
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(4)
 
 
     @allure.step("退出重新登录，去掉打开登录地址")
@@ -85,11 +85,11 @@ class LoginPage(Base):
         user = LoginPage(drivers)
         user.input_account(account)
         user.input_passwd(passwd)
+        sleep(1)
         get_check_class = user.get_check_box_class()
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(4)
 
 
     @allure.step("查找菜单")

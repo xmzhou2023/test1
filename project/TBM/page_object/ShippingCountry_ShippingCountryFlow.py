@@ -84,7 +84,8 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
             self.is_click_tbm(user['成员选择'], content)
             self.is_click_tbm(user['产品定义信息成员确定'])
         else:
-            print(f'请输入正确选项：{definition_dict}')
+            logging.error(f'请输入正确选项：{definition_dict}')
+            raise
 
     @allure.step("产品定义信息-点击确定")
     def click_product_definition_confirm(self):

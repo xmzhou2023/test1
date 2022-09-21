@@ -60,8 +60,7 @@ class SalesBilling(Base):
         self.is_click(user['完成收款按钮'])
         sleep(3)
 
-    @allure.step("断言")
-    def assert_sales_order_num(self,drivers,expect):
-        DomAssert(drivers).assert_exact_att(expect)
+
+
 if __name__ == '__main__':
     pass

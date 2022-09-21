@@ -1,7 +1,8 @@
 import allure,logging
 import pytest,random
 from project.POP.page_object.Center_Component import NavPage
-from project.POP.page_object.Add_GoodParameter import AddGoodParam
+from project.POP.page_object.GoodParameter_Management import *
+from public.base.assert_ui import *
 
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
@@ -26,7 +27,23 @@ class TestAddGoodParam:
         user.switch_order("1")
         user.input_parameters("参数值1","参数值2","参数值3")
         user.click_submit()
-        user.sql_assert(1,content)
+        # 断言根据商品参数名数据库查询该参数并计数，判定返回值=1
+        sql = f"SELECT count(*) FROM `pop_data_db`.`goods_parameter_config` WHERE parameter_name='{content}';"
+        SQLAssert('POP', 'test').assert_sql_count(1, sql)
+
+@allure.feature("商品") # 模块名称
+class TestQueryDetail:
+    @allure.story("商品参数") # 场景名称
+    @allure.title("商品参数详情查看")  # 用例名称
+    @allure.description("点击商品参数列表详情，正常查看参数详情页")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_002_001(self,drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        users = Query_GoodDetail(drivers)
+        users.click_detail()
+        # 断言
+        test = users.element_text(user['参数详情'])
+        ValueAssert.value_assert_equal(test,'参数详情')
 
 if __name__ == '__main__':
-    pytest.main(['Add_GoodParameter.py'])
+    pytest.main(['GoodParameter_Management.py'])
