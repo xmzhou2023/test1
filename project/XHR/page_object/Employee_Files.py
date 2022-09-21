@@ -38,5 +38,5 @@ class EmployeeFiles(Base):
         self.is_click(user['导出Excel'])
 
 
-    if __name__ == '__main__':
-        pass
+if __name__ == '__main__':
+    pass

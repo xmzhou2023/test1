@@ -5,12 +5,13 @@ import pytest
 from public.base.assert_ui import DomAssert
 from project.XHR.page_object.Bloc_add import Bloc_add
 
-@allure.story("新增集团方案")  # 场景名称
-@allure.title("薪酬配置界面，新增集团方案")  # 用例名称
-@allure.description("薪酬配置界面进入集团方案，点击新增")
-@allure.severity("normal")  # 用例等级
-@pytest.mark.smoke  # 用例标记
+@allure.feature("新增集团方案") # 模块名称
 class TestUtil:
+    @allure.story("新增集团方案")  # 场景名称
+    @allure.title("薪酬配置界面，新增集团方案")  # 用例名称
+    @allure.description("薪酬配置界面进入集团方案，点击新增")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):  # 新增集团方案
         user = Bloc_add(drivers)
         user.click_menu()

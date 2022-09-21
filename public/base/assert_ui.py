@@ -301,7 +301,7 @@ class DomAssert(object):
             raise
 
     @allure.step("断言：查询结果")
-    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0'):
+    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0', sc_element=None):
         """
         断言：页面查询结果
         @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
@@ -310,9 +310,29 @@ class DomAssert(object):
         @content：表格需要断言的内容
         @attr：需要获取的属性
         @index：属性值索引
+        @sc_element：内嵌div中有滑动条的定位
         """
+        for i in range(1, 10):
+            if Base(self.driver).element_exist(col_element, header):
+                logging.info('表格字段存在，跳出循环')
+                break
+            else:
+                if sc_element:
+                    logging.info('表格字段不存在，向右滑动滚动条')
+                    Base(self.driver).DivRolling(sc_element, num=i*1000)
+                else:
+                    logging.error('表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动')
+                    raise
         column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index)
-        contents = Base(self.driver).find_elements_tbm(tb_element, column)
+        try:
+            contents = Base(self.driver).find_elements_tbm(tb_element, column)
+        except:
+            if sc_element:
+                Base(self.driver).DivRolling(sc_element, direction='top')
+                contents = Base(self.driver).find_elements_tbm(tb_element, column)
+            else:
+                logging.error('无法获取全部字段内容，请补充内嵌div：sc_element，以便上下滑动')
+                raise
         content_list = []
         for i in contents:
             try:

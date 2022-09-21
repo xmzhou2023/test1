@@ -748,7 +748,6 @@ class TestProcessSearch:
     @allure.description("在查询页面，标题输入框输入“李小素”，流程编码输入框输入“1”，BOM编码输入“2”，下拉框选择为客供BOM制作，点击查询，查询结果为所有标题包含“李小素”、流程编码包含“1”、物料编码包含“2”、制作类型为客供BOM制作的信息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    @pytest.mark.skip
     def test_005_007(self, drivers):
         user = ForeignBom(drivers)
         user.refresh_webpage_click_menu()

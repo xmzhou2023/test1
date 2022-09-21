@@ -734,6 +734,26 @@ class Base(object):
             logging.info("输入文本：{}".format(txt))
 
 
+    def DivRolling(self, locator, direction='left', num=1000):
+        '''
+        内嵌div上下左右滑动
+        :param locator: 内嵌div
+        :param direction: 滚动条滚动方向
+        :param num: 内边距
+        '''
+        try:
+            ele = self.find_element(locator)
+            if direction == 'top':
+                self.driver.execute_script("arguments[0].scrollTop={}".format(num), ele)
+                logging.info('滚动条向下滑动：{}'.format(num))
+            elif direction == 'left':
+                self.driver.execute_script("arguments[0].scrollLeft={}".format(num), ele)
+                logging.info('滚动条向右滑动：{}'.format(num))
+            else:
+                logging.error('请输入direction参数：left or top')
+        except Exception as e:
+            raise e
+
 
 def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):
     """

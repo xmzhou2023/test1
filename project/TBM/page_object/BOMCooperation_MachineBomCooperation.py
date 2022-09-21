@@ -131,35 +131,6 @@ class MachineBOMCollaboration(CenterComponent):
         copy_audit = self.element_input_text(user['审核人类别'], type)
         ValueAssert.value_assert_equal(audit, copy_audit)
 
-    @allure.step("审核人设置")
-    def select_business_review(self, audit, type='all'):
-        """
-        审核人设置-业务评审-：选择用户
-        @param type:选择的类别
-        @param audit:输入的用户名
-        """
-        self.scroll_into_view(user['审核人设置'])
-        if type == 'all':
-            info = self.find_elements_tbm(user['审核人名单'])
-            infolist = []
-            for i in info:
-                infolist.append(i.text)
-                self.is_click_tbm(user['审核人类别'], i.text)
-                self.input_text(user['成员列表输入框'], audit)
-                sleep(1)
-                self.is_click_tbm(user['成员选择'], audit)
-                self.is_click_tbm(user['成员确定'])
-            self.base_get_img()
-            logging.info('获取审核人名单:{}'.format(infolist))
-        else:
-            self.is_click_tbm(user['审核人类别'], type)
-            self.input_text(user['成员列表输入框'], audit)
-            sleep(1)
-            self.is_click_tbm(user['成员选择'], audit)
-            self.is_click_tbm(user['成员确定'])
-            self.base_get_img()
-        logging.info('审核人填写:字段{}， 审核人：{}'.format(type, audit))
-
     @allure.step("获取整机BOM协作第一列内容")
     def get_info(self):
         """
@@ -636,68 +607,6 @@ class MachineBOMCollaboration(CenterComponent):
             self.base_get_img()
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
-
-    @allure.step("补充工厂页面输入生产工厂信息")
-    def input_oneworks_plant_info(self, plant, content):
-        """
-        补充工厂页面输入生产工厂信息
-        :param plant: 选择工厂：国内组包工厂、 国内贴片工厂、 海外组包工厂、 海外贴片工厂
-        :param content: 需要输入的工厂编号
-        """
-        if plant in ('国内组包工厂', '国内贴片工厂', '海外组包工厂', '海外贴片工厂'):
-            self.readonly_input_text(user['生产工厂信息输入框'], content, plant)
-            self.is_click_tbm(user['生产工厂信息输入框选择'], content)
-        else:
-            print('请输入正确的工厂')
-
-    @allure.step("补充工厂页面点击-一键/")
-    def click_oneworks_slash(self):
-        self.is_click_tbm(user['补充工厂一键/'])
-
-    @allure.step("补充工厂页面点击 一键填写按钮")
-    def click_oneworks_onepress_write(self):
-        self.is_click_tbm(user['补充工厂一键填写'])
-
-    @allure.step("补充工厂页面点击 一键填写-确定按钮")
-    def click_oneworks_onepress_write_confirm(self):
-        """
-        补充工厂页面点击 一键填写-确定按钮
-        """
-        self.is_click_tbm(user['补充工厂一键填写确定'])
-
-    @allure.step("补充工厂页面点击检查贴片工厂，选择贴片工厂正确/不正确")
-    def click_oneworks_plant_check(self, select):
-        """
-        :param select: 输入贴片工厂不正确 或者 贴片工厂正确
-        """
-        if select in ('贴片工厂不正确', '贴片工厂正确'):
-            self.is_click_tbm(user['补充工厂检查贴片工厂'])
-            self.is_click_tbm(user['补充工厂检查贴片工厂选择'], select)
-        else:
-            print('请输入’贴片工厂不正确‘ 或者 ’贴片工厂正确‘')
-
-    @allure.step("在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击")
-    def assert_oneworks_onepress_write(self):
-        try:
-            write = self.find_element(user['补充工厂一键填写'])
-            assert 'is-disabled' in write.get_attribute('class')
-            logging.info('断言成功，一键填写按钮不可点击')
-        except:
-            self.base_get_img()
-            logging.error('断言失败，请检查按钮状态')
-            raise
-
-    @allure.step("补充工厂页面,点击指定复选框")
-    def click_oneworks_checkbox(self, code='all'):
-        """
-        补充工厂页面 根据material点击指定复选框，默认全选
-        @param code:物料编码，传入物料编码；默认‘all’表示点击全选复选框
-        """
-        sleep(3)
-        if code == 'all':
-            self.is_click_tbm(user['补充工厂复选框全选'])
-        else:
-            self.is_click_tbm(user['补充工厂复选框单选'], code)
 
     def click_oneworks_approval_checkbox(self):
         """

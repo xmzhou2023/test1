@@ -17,15 +17,16 @@ from public.base.assert_ui import DomAssert
 class TestUtil:
     @allure.story("员工档案导出")  # 场景名称
     @allure.title("三级标题")  # 用例名称
-    @allure.description(
-        "在当前页面，任意选择一位职员，点击员工档案图标，页面跳转到此员工详细页面。操作导出档案，数据导出与员工详细页面显示一致")
+    @allure.description("在当前页面，任意选择一位职员，点击员工档案图标，页面跳转到此员工详细页面。操作导出档案，数据导出与员工详细页面显示一致")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         user = EmployeeFiles(drivers)
         user.click_menu('组织人事')
-
         user.click_files()
         user.export_files()
         user.export_excel()
         # DomAssert(drivers).assert_att('员工_2022')
+
+if __name__ == '__main__':
+    pytest.main(['BareMobilePhoneBomCooperation.py'])
