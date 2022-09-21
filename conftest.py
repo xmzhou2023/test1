@@ -9,8 +9,23 @@ from selenium.webdriver.remote.file_detector import LocalFileDetector
 
 driver = None
 
+
+def pytest_addoption(parser):
+    parser.addoption("--env", action="store", default='test', help='环境操作')
+    parser.addoption("--remoteurl", action="store", default='http://10.250.113.16:4444', help='远程运行用例地址')
+
+
+@pytest.fixture(scope="session", autouse=True)
+def env_name(request):
+    return request.config.getoption("--env")
+
+
+@pytest.fixture(scope="session", autouse=True)
+def remote_url(request):
+    return request.config.getoption("--remoteurl")
+
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_ui=True):
+def drivers(request, remote_url, remote_ui=True):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
@@ -57,7 +72,8 @@ def drivers(request, remote_ui=True):
             # option.set_capability("browserVersion", "104.0")
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
             # driver = webdriver.Remote("http://10.250.101.58:4444", options=option)    # 远程DEV环境（linux服务器）
-            driver = webdriver.Remote("http://10.250.113.16:4444", options=option)      # 远程UAT环境（linux服务器）
+            # driver = webdriver.Remote("http://10.250.113.16:4444", options=option)      # 远程UAT环境（linux服务器）
+            driver = webdriver.Remote(remote_url, options=option)
             # driver = webdriver.Remote("http://10.250.113.15:4444", options=option)    # 远程DEV环境（windows服务器）
             inspect_element() # page_element YMAL文件自检
         else:
@@ -76,7 +92,9 @@ def drivers(request, remote_ui=True):
                 option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
                 # option.set_capability("browserVersion", "104.0")
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
-                driver = webdriver.Remote("http://10.250.101.58:4444", options=option)      # 远程DEV环境（linux服务器）
+                # driver = webdriver.Remote("http://10.250.101.58:4444", options=option)      # 远程DEV环境（linux服务器）
+                # print(remote_url)
+                driver = webdriver.Remote(remote_url, options=option)  # 远程DEV环境（linux服务器）
                 # driver = webdriver.Remote("http://10.250.113.16:4444", options=option)    # 远程UAT环境（linux服务器）
                 # driver = webdriver.Remote("http://10.250.113.15:4444", options=option)    # 远程环境（windows服务器）
                 inspect_element() # page_element YMAL文件自检
@@ -110,13 +128,6 @@ logging.basicConfig(level=logging.INFO,
                     encoding='utf-8',
                     filemode='a')
 
-
-def pytest_addoption(parser):
-    parser.addoption("--env", action="store", default='test', help='环境操作')
-
-@pytest.fixture(scope="session", autouse=True)
-def env_name(request):
-    return request.config.getoption("--env")
 
 @pytest.mark.hookwrapper
 def pytest_runtest_makereport(item):
