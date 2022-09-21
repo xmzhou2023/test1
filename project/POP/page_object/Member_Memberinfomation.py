@@ -24,10 +24,6 @@ class QueryMember(Base):
     def click_query(self):
         self.is_click(user['查询按钮'])
 
-    @allure.step("断言")
-    def assert_phone(self,expect):
-        test = self.element_text(user['查询后手机号'])
-        ValueAssert.value_assert_equal(test,expect)
 
 if __name__ == '__main__':
     pass

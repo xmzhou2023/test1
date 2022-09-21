@@ -50,10 +50,13 @@ class AddGoodParam(Base):
     def click_submit(self):
         self.is_click(user['提交按钮'])
 
-    @allure.step("数据库查询新增参数断言")
-    def sql_assert(self,count,paramname):   # 这里的paramname与新增参数输入的名称一致
-        sql = f"SELECT count(*) FROM `pop_data_db`.`goods_parameter_config` WHERE parameter_name='{paramname}';"
-        SQLAssert('POP','test').assert_sql_count(count,sql)
+class Query_GoodDetail(Base):
+    """查看参数详情类"""
+
+    @allure.step("点击详情")
+    def click_detail(self):
+        self.is_click(user['参数详情按钮'])
+        sleep(1)
 
 if __name__ == '__main__':
     pass

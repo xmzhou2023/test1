@@ -1,14 +1,17 @@
 import allure
 import pytest
-from project.POP.page_object.Query_Member import QueryMember
-from public.base.assert_ui import *
+from project.POP.page_object.Member_Memberinfomation import *
 from project.POP.page_object.Center_Component import NavPage
+from libs.common.read_element import Element
+from project.POP.test_case.conftest import *
+object_name = os.path.basename(__file__).split('.')[0]
+user = Element(pro_name, object_name)
 
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
     logging.info("模块前置条件：前往“POP会员-会员信息”页面")
-    user = NavPage(drivers)
-    user.click_gotonav("会员","会员信息")
+    nav = NavPage(drivers)
+    nav.click_gotonav("会员","会员信息")
 
 @allure.feature("会员") # 模块名称
 class TestQueryMember:
@@ -18,11 +21,13 @@ class TestQueryMember:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-        user = QueryMember(drivers)
-        user.input_phone('18323585901')
-        user.click_query()
-        user.assert_phone('18323585901')
+        users = QueryMember(drivers)
+        users.input_phone('18323585901')
+        users.click_query()
+        # 断言--输入手机号点击查询后列表展示手机号与输入的手机号一致
+        test = users.element_text(user['查询后手机号'])
+        ValueAssert.value_assert_equal(test,'18323585901')
 
 
 if __name__ == '__main__':
-    pytest.main(['Query_Member.py'])
+    pytest.main(['Member_Memberinfomation.py'])

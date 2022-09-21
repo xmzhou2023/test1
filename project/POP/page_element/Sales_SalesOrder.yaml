@@ -1,3 +1,4 @@
+# 销售开单
 开单按钮: "xpath==//button[contains(text(),'开单')]"
 门店输入框: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/form[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"
 开单选择的门店: "xpath==//span[contains(text(),'variable')]"

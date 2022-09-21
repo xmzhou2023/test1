@@ -54,9 +54,7 @@ class AddGood(Base):
         self.is_click(user['点击保存按钮'])
         sleep(3)
 
-    @allure.step("断言新增成功后跳转商品管理列表--商品管理字段")
-    def assert_goodmanage(self,drivers,expect):
-        DomAssert(drivers).assert_exact_att(expect)
+
 
 
 

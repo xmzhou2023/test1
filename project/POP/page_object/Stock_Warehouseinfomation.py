@@ -37,10 +37,6 @@ class AddWarehouse(Base):
         self.is_click(user['仓库信息新增提交按钮'])
         sleep(3)
 
-    @allure.step("断言")
-    def assert_warehouse_name(self,expect):
-        test = self.element_text(user['新增仓库名称'])
-        ValueAssert.value_assert_equal(test,expect)
 
 
 if __name__ == '__main__':

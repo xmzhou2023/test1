@@ -718,12 +718,18 @@ class Base(object):
         logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))
         return column_class
 
+    # POP输入框输入文本按enter键专用方法
     def input_enter(self,locator,txt,choice=None):
-        """POP输入框输入文本按enter键专用方法"""
+        """
+            POP项目中输入框输入内容点击Enter键
+        :param locator: 定位元素-固定格式=>xx['']
+        :param txt: 参数值，例如输入框需要输入的内容
+        :param choice: 元素定位传入“variable”参数值
+        :return: 无
+        """
         if choice is None:
             sleep(0.5)
             ele = self.find_element(locator)
-            ele.clear()
             ele.clear()
             ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
@@ -732,9 +738,10 @@ class Base(object):
             sleep(0.5)
             ele = self.find_element(locator, choice)
             ele.clear()
-            ele.clear()
             ele.send_keys(txt + txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
+
+
 
 def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):
     """

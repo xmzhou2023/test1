@@ -1,7 +1,8 @@
 import allure,logging
 import pytest,random
 from project.POP.page_object.Center_Component import NavPage
-from project.POP.page_object.Add_Good import AddGood
+from project.POP.page_object.Good_Management import AddGood
+from public.base.assert_ui import *
 
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
@@ -27,8 +28,9 @@ class TestAddGood:
         user.switch_imei('否')
         user.add_goodinfo()
         user.click_preserve()
-        user.assert_goodmanage(drivers,'商品管理')
+        # 断言--新增后页面返回商品管理页面判定页面是否存在商品管理字段
+        DomAssert(drivers).assert_exact_att('商品管理')
 
 
 if __name__ == '__main__':
-    pytest.main(['Add_Good.py'])
+    pytest.main(['Good_Management.py'])
