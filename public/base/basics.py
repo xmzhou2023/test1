@@ -126,15 +126,15 @@ class Base(object):
 
     def find_element(self, locator, *args, **kwargs):
         """寻找单个元素"""
-        if args and args is not None:
-            Npath = []
-            Npath.append(locator[0])
-            Npath.append(locator[1])
-            for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
-            logging.info("查找元素：{}".format(Npath))
-            return Base.element_locator(lambda *args: self.wait.until(
-                EC.presence_of_element_located(args)), Npath)
+        if args and args[0] is not None:
+                Npath = []
+                Npath.append(locator[0])
+                Npath.append(locator[1])
+                for i in range(len(args)):
+                    Npath[1] = Npath[1].replace('variable', args[i], 1)
+                logging.info("查找元素：{}".format(Npath))
+                return Base.element_locator(lambda *args: self.wait.until(
+                    EC.presence_of_element_located(args)), Npath)
 
         elif kwargs and kwargs is not None:
             Npath = []
