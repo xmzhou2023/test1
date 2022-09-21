@@ -67,7 +67,7 @@ class TestMyCollection:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.switch_window(0)
+        tools.close_switch(1)
         DomAssert(drivers).assert_att('新增成功')
 
 
@@ -123,6 +123,7 @@ class TestMyCollection:
 
         # 取消收藏操作
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
@@ -132,6 +133,7 @@ class TestMyCollection:
 
         # 删除
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
@@ -152,7 +154,7 @@ class TestMyCollection:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.switch_window(0)
+        tools.close_switch(1)
         DomAssert(drivers).assert_att('新增成功')
         # 收藏操作
         tools.click('空间', '公共空间')
@@ -163,6 +165,7 @@ class TestMyCollection:
         DomAssert(drivers).assert_att('auto_testing_add_components_pri_001')
         # 取消收藏操作
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -171,6 +174,7 @@ class TestMyCollection:
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
         # 删除
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
