@@ -85,6 +85,7 @@ class LoginPage(Base):
         user = LoginPage(drivers)
         user.input_account(account)
         user.input_passwd(passwd)
+        sleep(1)
         get_check_class = user.get_check_box_class()
         if "is-checked" not in str(get_check_class):
             user.click_check_box()

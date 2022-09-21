@@ -27,6 +27,7 @@ class Login(Base):
         sleep(3)
         user.dcr_input_account(username)
         user.dcr_input_passwd(passwd)
+        sleep(1.5)
         get_check_class = user.dcr_get_check_box_class()
         if "is-checked" not in str(get_check_class):
             user.dcr_click_check_box()
