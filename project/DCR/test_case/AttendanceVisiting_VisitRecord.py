@@ -32,53 +32,86 @@ def function_export_fixture(drivers):
 @allure.feature("考勤&巡店-巡店记录")
 class TestQueryVisitRecord:
     @allure.story("查询巡店记录")
-    @allure.title("巡店记录页面，根据门店ID查询巡店记录列表数据加载")
-    @allure.description("巡店记录页面，根据门店ID查询巡店记录列表数据加载，断言数据加载正常")
+    @allure.title("巡店记录页面，根据门店ID查询类型为Visit task的巡店记录，能正常加载筛选的巡店记录")
+    @allure.description("巡店记录页面，根据门店ID查询类型为Visit task的巡店记录，列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
 
-        all_visit = VisitRecordPage(drivers)
-        all_visit.input_submit_start_date("2022-09-01")
-        all_visit.click_sales_region()
-        all_visit.click_unfold()
-        all_visit.click_search()
-        shop_id = all_visit.get_shop_id_text()
-        all_visit.input_shop_id_query(shop_id)
-        all_visit.click_fold()
-        all_visit.click_search()
+        visit_task = VisitRecordPage(drivers)
+        visit_task.input_submit_start_date("2022-09-01")
+        visit_task.click_submit_date()
+        visit_task.click_unfold()
+        visit_task.click_search()
+        shop_id = visit_task.get_shop_id_text()
+        visit_task.input_shop_id_query(shop_id)
+        visit_task.click_fold()
+        visit_task.click_search()
 
-        shopid = all_visit.get_shop_id_text()
-        submit_date = all_visit.get_submit_date_text()
-        visit_date = all_visit.get_visit_date_text()
-        operation = all_visit.get_view_operation_text()
-        total = all_visit.get_total_text()
+        shop_id2 = visit_task.get_shop_id_text()
+        submit_date = visit_task.get_submit_date_text()
+        visit_date = visit_task.get_visit_date_text()
+        operation = visit_task.get_view_operation_text()
+        total = visit_task.get_total_text()
 
-        ValueAssert.value_assert_equal(shop_id, shopid)
+        ValueAssert.value_assert_equal(shop_id, shop_id2)
         ValueAssert.value_assert_IsNoneNot(submit_date)
         ValueAssert.value_assert_IsNoneNot(visit_date)
         ValueAssert.value_assert_In(operation, "View")
-        all_visit.assert_total(total)
+        visit_task.assert_total(total)
         #all_visit.click_close_visit_record()
+
+
+    @allure.story("查询巡店记录")
+    @allure.title("巡店记录页面，根据门店ID查询类型为Shop self-inspection的巡店记录，能正常加载筛选的巡店记录")
+    @allure.description("巡店记录页面，根据门店ID查询类型为Shop self-inspection的巡店记录，列表数据加载，断言数据加载正常")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user.click_gotomenu("Attendance & Visiting", "Visit Record")
+
+        visit = VisitRecordPage(drivers)
+        visit.click_unfold()
+        visit.input_submit_start_date("2022-08-22")
+        visit.click_shop_self_inspection()
+        visit.click_search()
+
+        shop_id = visit.get_shop_id_text()
+        visit.input_shop_id_query(shop_id)
+        visit.click_fold()
+        visit.click_search()
+
+        shop_id2 = visit.get_shop_id_text()
+        submit_date = visit.get_submit_date_text()
+        visit_date = visit.get_visit_date_text()
+        operation = visit.get_view_operation_text()
+        total = visit.get_total_text()
+
+        ValueAssert.value_assert_equal(shop_id, shop_id2)
+        ValueAssert.value_assert_IsNoneNot(submit_date)
+        ValueAssert.value_assert_IsNoneNot(visit_date)
+        ValueAssert.value_assert_In(operation, "View")
+        visit.assert_total(total)
 
 
 @allure.feature("考勤&巡店-巡店记录")
 class TestExportVisitRecord:
     @allure.story("导出巡店记录")
-    @allure.title("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录")
-    @allure.description("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
-    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @allure.title("巡店记录页面，按Submit Date条件筛选，导出筛选后的巡店记录")
+    @allure.description("巡店记录页面，按Submit Date条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """打开考勤与巡店管理-打开巡店记录页面"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
         """获取当天日期"""
@@ -87,7 +120,7 @@ class TestExportVisitRecord:
 
         export = VisitRecordPage(drivers)
         export.input_submit_start_date("2022-09-01")
-        export.click_sales_region()
+        export.click_submit_date()
         export.click_search()
 
         export.click_export()
@@ -113,6 +146,52 @@ class TestExportVisitRecord:
         export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
         #export.click_close_visit_record()
+
+
+    @allure.story("导出巡店记录")
+    @allure.title("巡店记录页面，按Submit Date条件筛选，导出筛选后的巡店记录详情数据")
+    @allure.description("巡店记录页面，按Submit Date条件筛选，导出筛选后的巡店记录详情数据，断言导出数据是否正常")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
+    def test_002_002(self, drivers):
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user.click_gotomenu("Attendance & Visiting", "Visit Record")
+        """获取当天日期"""
+        base = Base(drivers)
+        today = base.get_datetime_today()
+        export2 = VisitRecordPage(drivers)
+
+        export2.input_submit_start_date("2022-09-01")
+        export2.click_submit_date()
+        export2.click_search()
+
+        export2.click_export_detail()
+        export2.click_download_more()
+        export2.input_task_name("VisitingRecordDetails List")
+        down_status = export2.click_export_search()
+
+        task_name = export2.get_task_name_text()
+        file_size = export2.get_file_size_text()
+
+        task_id = export2.get_task_user_id_text()
+        create_date = export2.get_create_date_text()
+        complete_date = export2.get_complete_date_text()
+        export_time = export2.get_export_time_text()
+        operation = export2.get_export_operation_text()
+
+        ValueAssert.value_assert_equal(down_status, "COMPLETE")
+        ValueAssert.value_assert_equal(task_name, "VisitingRecordDetails List")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(operation, "Download")
+        export2.assert_file_time_size(file_size, export_time)
+        #export.click_close_export_record()
+        #export.click_close_visit_record()
+
 
 if __name__ == '__main__':
     pytest.main(['AttendanceVisiting_VisitRecord.py'])
