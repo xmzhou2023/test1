@@ -198,7 +198,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("User management")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("User management")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
 
         task_id = export.get_task_user_id_text()
