@@ -1,3 +1,5 @@
+import logging
+
 from libs.common.read_element import Element
 from ..test_case.conftest import *
 
@@ -581,17 +583,20 @@ class CenterComponent(Base, APIRequest):
         """
         self.scroll_into_view(user['审核人设置'])
         if type == 'all':
-            info = self.find_elements_tbm(user['审核人名单'])
-            infolist = []
-            for i in info:
-                infolist.append(i.text)
-                self.is_click_tbm(user['审核人类别'], i.text)
-                self.input_text(user['成员列表输入框'], audit)
-                sleep(1)
-                self.is_click_tbm(user['成员选择'], audit)
-                self.is_click_tbm(user['成员确定'])
-            self.base_get_img()
-            logging.info('获取审核人名单:{}'.format(infolist))
+            AuditGroup_list = self.find_elements(user['审核类别'])
+            for i in AuditGroup_list:
+                logging.info('审核组：{}'.format(i.text.strip()))
+                AuditGroup = self.find_elements(user['业务审核名单'], i.text.strip())
+                infolist = []
+                for i in AuditGroup:
+                    infolist.append(i.text)
+                    self.is_click_tbm(user['审核人类别'], i.text)
+                    self.input_text(user['成员列表输入框'], audit)
+                    sleep(1)
+                    self.is_click_tbm(user['成员选择'], audit)
+                    self.is_click_tbm(user['成员确定'])
+                self.base_get_img()
+                logging.info('获取审核人名单:{}'.format(infolist))
         else:
             self.is_click_tbm(user['审核人类别'], type)
             self.input_text(user['成员列表输入框'], audit)
@@ -642,5 +647,40 @@ class CenterComponent(Base, APIRequest):
                 self.scroll_into_view(user['业务审核-自检清单-指定规则-检查结果-选择'], rule, result)
                 self.is_click_tbm(user['业务审核-自检清单-指定规则-检查结果-选择'], rule, result)
 
+    @allure.step("产品定义信息-点击确定")
+    def click_product_definition_confirm(self):
+        self.is_click_tbm(user['产品定义信息确定'])
+
+    @allure.step("产品定义信息-点击确定")
+    def click_product_definition_edit(self):
+        sleep(2)
+        self.is_click_tbm(user['产品定义信息编辑'])
+
+    @allure.step("出货国家流程新增页面 - 新增产品定义信息")
+    def input_product_definition_info(self, header, content):
+        """
+        出货国家流程新增页面 - 新增产品定义信息
+        :param header: 选择要输入的信息
+        :param content: 选择信息内容
+        """
+        definition_dict = ['全球版本', '市场名称', '项目名称', 'MEMORY', 'BAND STRATEGY', '产品经理', '项目经理', 'aaa', 'bbb', '再增', '配色', '尺寸']
+        select_list = ['全球版本', 'MEMORY', 'BAND STRATEGY', 'aaa', 'bbb', '再增', '配色', '尺寸']
+        input_list = ['市场名称', '项目名称', '摄像头', '型号', '新增']
+        member_list = ['产品经理', '项目经理']
+        column = self.get_table_info(user['产品定义信息字段'], header)
+        if header in select_list:
+            self.is_click_tbm(user['产品定义信息输入'], column)
+            self.is_click_tbm(user['产品定义信息选择'], content)
+        elif header in input_list:
+            self.input_text(user['产品定义信息输入'], content, column)
+        elif header in member_list:
+            self.is_click_tbm(user['产品定义信息输入'], column)
+            self.input_text(user['产品定义信息成员列表输入框'], content)
+            sleep(1)
+            self.is_click_tbm(user['成员选择'], content)
+            self.is_click_tbm(user['产品定义信息成员确定'])
+        else:
+            logging.error(f'请输入正确选项：{definition_dict}')
+            raise
 if __name__ == '__main__':
     pass
