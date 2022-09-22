@@ -26,7 +26,7 @@ class TestCheckIMEIInventoryAlert:
     @allure.title("不选择日期，校验指定项目IMEI总数、库存数")
     @allure.description("切换tab到IMEI库存预警》选择项目》查询》检查该项目IMEI总数、库存数")
     @allure.severity("blocker")
-    @pytest.mark.parametrize("check_col", ["IMEl总数", "IMEl库存数"])
+    @pytest.mark.parametrize("check_col", ["IMEI总数", "IMEI库存数"])
     def test_291601(self, drivers, check_col):
         info = IMEIInventoryAlert(drivers)
         info.switch_tab("IMEI库存预警")
@@ -37,12 +37,12 @@ class TestCheckIMEIInventoryAlert:
         values = info.get_cols_values("市场", "频段配置", check_col, tab="pane-first")
         db = SQLAssert(pro_name, 'test')
         for i in range(len(values[check_col])):
-            if check_col == "IMEl总数":
+            if check_col == "IMEI总数":
                 db.assert_sql(values[check_col][i], "select count(xhir.IMEI1) from db_pldb_test.x556_h371_imei_record xhir "
                                                 "join db_pldb_test.t_bb_basedata tbb on xhir.market = tbb.ITEM_NO where "
                                                 "tbb.NAME = '%s' and xhir.band_config = '%s';" % (values["市场"][i],
                                                                                                   values["频段配置"][i]))
-            elif check_col == "IMEl库存数":
+            elif check_col == "IMEI库存数":
                 db.assert_sql(values[check_col][i], "select count(xhir.IMEI1) from db_pldb_test.x556_h371_imei_record xhir "
                                                 "join db_pldb_test.t_bb_basedata tbb on xhir.market = tbb.ITEM_NO where "
                                                 "tbb.NAME = '%s' and xhir.band_config = '%s' and xhir.is_print = 0;" % (
