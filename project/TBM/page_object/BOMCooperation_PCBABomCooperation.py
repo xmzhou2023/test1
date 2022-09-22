@@ -381,5 +381,12 @@ class PCBABomCooperation(CenterComponent):
             self.base_get_img()
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
+
+    def click_Accessory(self):
+        self.is_click_tbm(user['Oneworks附件'])
+
+    def send_Accessory(self, name):
+        Accessory_path = os.path.join(PEROJECT_PATH, 'TBM', 'data', name)
+        self.upload_file(user['Oneworks附件上传'], Accessory_path)
 if __name__ == '__main__':
     pass

@@ -322,7 +322,7 @@ class ForeignBom(CenterComponent):
 
     @allure.step("断言：判断是否存在批量删除")
     def assert_batch_delete(self, result):
-        DomAssert(self.driver).assert_control(user['批量删除'], result)
+        DomAssert(self.driver).assert_control(user['批量删除'], result=result)
 
     @allure.step("根据Tree点击删除按钮")
     def click_bomtree_delete(self, tree, type='Tree'):
@@ -333,7 +333,7 @@ class ForeignBom(CenterComponent):
         self.click_batch_confirm()
 
     def assert_bomtree(self, tree):
-        DomAssert(self.driver).assert_control(user['BOMTree新增物料物料编码'], False, tree)
+        DomAssert(self.driver).assert_control(user['BOMTree新增物料物料编码'], tree, result=False)
 
     @allure.step("点击确定")
     def click_batch_confirm(self):

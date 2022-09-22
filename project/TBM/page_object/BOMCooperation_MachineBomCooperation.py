@@ -709,48 +709,6 @@ class MachineBOMCollaboration(CenterComponent):
         sleep(0.5)
         DomAssert(self.driver).assert_control(user['业务审核编辑验证-用量'])
 
-    @allure.step("业务审核页面 点击 自检清单")
-    def click_oneworks_businessapprove_self_inspection(self, box, option):
-        """
-        业务审核页面 点击 自检清单
-        @param box:输入框
-        @param option:选项
-        """
-        self.is_click_tbm(user['业务审核-自检清单-输入框'], box)
-        self.is_click_tbm(user['业务审核-自检清单-选项'], option)
-
-    @allure.step("业务审核页面 滑动到 自检清单")
-    def scroll_oneworks_businessapprove_self_inspection(self):
-        self.scroll_into_view(user['业务审核-自检清单'])
-
-    @allure.step("业务审核页面 自检清单 点击输入检查结果")
-    def input_oneworks_businessapprove_inspection_result(self, rule='all', result='通过'):
-        if rule == 'all' and result == '通过':
-            num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
-            for i in range(1, num + 1):
-                if result == '通过':
-                    try:
-                        self.is_click_tbm(user['业务审核-自检清单-检查结果-通过'], str(i))
-                    except:
-                        self.scroll_into_view(user['业务审核-自检清单-检查结果-通过'], str(i))
-                        self.is_click_tbm(user['业务审核-自检清单-检查结果-通过'], str(i))
-        elif rule == 'all' and result == '不通过':
-            num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
-            for i in range(1, num + 1):
-                try:
-                    self.is_click_tbm(user['业务审核-自检清单-检查结果-不通过'], str(i))
-                except:
-                    self.scroll_into_view(user['业务审核-自检清单-检查结果-不通过'], str(i))
-                    self.is_click_tbm(user['业务审核-自检清单-检查结果-不通过'], str(i))
-        elif rule == 'all' and result == '不涉及':
-            num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
-            for i in range(1, num + 1):
-                try:
-                    self.is_click_tbm(user['业务审核-自检清单-检查结果-不涉及'], str(i))
-                except:
-                    self.scroll_into_view(user['业务审核-自检清单-检查结果-不涉及'], str(i))
-                    self.is_click_tbm(user['业务审核-自检清单-检查结果-不涉及'], str(i))
-
     @allure.step("数据组审批 页面 点击 生产工厂信息 全选框")
     def click_oneworks_datagroup_checkbox(self):
         self.is_click_tbm(user['oneworks-节点-数据组审批-生产工厂信息-复选框'])

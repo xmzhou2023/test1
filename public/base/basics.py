@@ -215,20 +215,11 @@ class Base(object):
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
 
-    def scroll_into_view(self, locator, choice=None):
+    def scroll_into_view(self, locator, *args, **kwargs):
         """滑动至出现元素"""
-        if choice is not None:
-            Npath = []
-            Npath.append(locator[0])
-            Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
-            ele = self.find_element(Npath)
-            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            logging.info("滚动条至：{}".format(Npath))
-        else:
-            ele = self.find_element(locator)
-            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            logging.info("滚动条至：{}".format(locator))
+        ele = self.find_element(locator, *args, **kwargs)
+        self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+        logging.info("滚动条至：{}".format(locator))
 
     def scroll_into_view_CRM(self, locator, choice=None):
         """滑动至出现元素"""
@@ -569,10 +560,10 @@ class Base(object):
             logging.info('存在元素：{}'.format(locator))
             return True
 
-    def upload_file(self, locator, file, choice=None):
+    def upload_file(self, locator, file, *choice):
         """上传"""
         sleep(0.5)
-        ele = self.find_element(locator, choice)
+        ele = self.find_element(locator, *choice)
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 
@@ -639,9 +630,9 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.click(element).perform()
 
-    def mouse_double_click(self, locator):
+    def mouse_double_click(self, locator, *args, **kwargs):
         """鼠标双击"""
-        element = self.find_element(locator)
+        element = self.find_element(locator, *args, **kwargs)
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
@@ -701,6 +692,7 @@ class Base(object):
 
     def get_table_info(self, locator, *choice, attr='class', index='0'):
         """
+        表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
         获取指定定位的属性值，可用于获取表格每列内容，做查询断言，如：el-table_3_column_45
         :param attr: 需要获取到的属性，默认是class
         :param index: 需要获取到的属性索引位置，默认是0

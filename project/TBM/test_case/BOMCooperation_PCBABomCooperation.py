@@ -680,7 +680,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.select_oneworks_refer('李小素')
         user.click_oneworks_refer_comfirm()
         user.click_oneworks_refer_cancel()
-        user.assert_oneworks_rollback_refer_exist(True)
+        user.assert_oneworks_rollback_refer(True)
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
@@ -710,7 +710,7 @@ class TestTheProcessOfExaminationAndApproval:
     def test_003_015(self, drivers, PCBA_Structure_API):
         user = PCBABomCooperation(drivers)
         user.refresh_webpage()
-        user.assert_my_todo_node(PCBA_Structure_API[0], '基带工程师审批', True)
+        user.assert_my_todo_node(PCBA_Structure_API[0], '采购审核（NPS）', True)
         user.enter_oneworks_edit(PCBA_Structure_API[0])
         user.click_oneworks_refuse()
         user.assert_toast('处理成功，审核拒绝')
@@ -718,6 +718,43 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_my_application_flow(PCBA_Structure_API[0], '审批拒绝')
         process_status = user.get_info()[7]
         ValueAssert.value_assert_In(process_status, '审批拒绝')
+
+    @allure.story("流程审批")
+    @allure.title("业务审核页面，产成品数据不能编辑")
+    @allure.description("在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_016(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Purchase_API[0], '业务审核', True)
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.assert_oneworks_bomtree_edit('PCBA', '物料编码')
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("业务审核成功")  # 用例名称
+    @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择检查人，在检查结果中选择通过，添加名字为检查结果的附件，点击同意按钮，给出提示，并且页面跳转成功，跳转成功后，我的待办中不存在该条业务审核单据")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_017(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Purchase_API[0], '业务审核', True)
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
+        user.click_oneworks_businessapprove_self_inspection('检查角色', '检查人')
+        user.scroll_oneworks_businessapprove_self_inspection()
+        user.input_oneworks_businessapprove_inspection_result()
+        user.click_Accessory()
+        user.send_Accessory()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_my_application_node(PCBA_Purchase_API[0], '数据组审批', True)
+
+
 @allure.feature("BOM协作-PCBA BOM协作")
 class TestProcessApprovalExceptionScenario:
     @allure.story("流程审批异常场景")
@@ -826,6 +863,115 @@ class TestProcessApprovalExceptionScenario:
         user.assert_toast('业务审核的必填项需填写完整！')
         user.quit_oneworks()
 
+    @allure.story("流程审批异常场景")  # 场景名称
+    @allure.title("自检清单检查角色未选择")  # 用例名称
+    @allure.description("在业务审核页面中，不填写任何内容，点击同意，不能提交成功，并给出提示“自检清单检查角色未选择”")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_004_008(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        DomAssert(drivers).assert_att('自检清单检查角色未选择')
+        user.quit_oneworks()
 
+    @allure.story("流程审批异常场景")  # 场景名称
+    @allure.title("自检清单第【1】行检查结果未选择")  # 用例名称
+    @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择检查人，选择后直接点击同意，不能提交成功，并给出提示“自检清单第【1】行检查结果未选择”")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_004_009(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
+        user.click_oneworks_businessapprove_self_inspection('检查角色', '检查人')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('自检清单第【1】行检查结果未选择')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")  # 场景名称
+    @allure.title("自检清单第【1】行检查结果为不通过需填写原因及修改建议")  # 用例名称
+    @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择检查人，在检查结果中选择不通过，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不通过需填写原因及修改建议")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_004_010(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
+        user.click_oneworks_businessapprove_self_inspection('检查角色', '检查人')
+        user.scroll_oneworks_businessapprove_self_inspection()
+        user.input_oneworks_businessapprove_inspection_result(result='不通过')
+        user.click_Accessory()
+        user.send_Accessory()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('自检清单第【1】行检查结果为不通过需填写原因及修改建议')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")  # 场景名称
+    @allure.title("自检清单第【1】行检查结果为不涉及需填写原因及修改建议")  # 用例名称
+    @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择检查人，在检查结果中选择不涉及，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不涉及需填写原因及修改建议")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_004_011(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
+        user.click_oneworks_businessapprove_self_inspection('检查角色', '检查人')
+        user.scroll_oneworks_businessapprove_self_inspection()
+        user.input_oneworks_businessapprove_inspection_result(result='不通过')
+        user.click_Accessory()
+        user.send_Accessory('检查结果.PNG')
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('自检清单第【1】行检查结果为不涉及需填写原因及修改建议')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")  # 场景名称
+    @allure.title("自请上传检查结果")  # 用例名称
+    @allure.description("在业务审核页面中，正确填写自检清单，不添加附件，点击同意，提示“请上传检查结果”")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_004_012(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
+        user.click_oneworks_businessapprove_self_inspection('检查角色', '检查人')
+        user.scroll_oneworks_businessapprove_self_inspection()
+        user.input_oneworks_businessapprove_inspection_result()
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('请上传检查结果')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")  # 场景名称
+    @allure.title("只能上传文件名为‘检查结果’的文件")  # 用例名称
+    @allure.description("在业务审核页面中，正确填写自检清单，添加名字不为检查结果的附件，提示“只能上传文件名为‘检查结果’的文件”")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_004_013(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
+        user.click_oneworks_businessapprove_self_inspection('检查角色', '检查人')
+        user.scroll_oneworks_businessapprove_self_inspection()
+        user.input_oneworks_businessapprove_inspection_result()
+        user.click_Accessory()
+        user.send_Accessory('worng_file_text.txt')
+        user.assert_toast('只能上传文件名为‘检查结果’的文件')
+        user.quit_oneworks()
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_PCBABomCooperation.py'])

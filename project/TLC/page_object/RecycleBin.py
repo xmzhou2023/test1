@@ -9,7 +9,7 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-class collection(Base):
+class RecycleBin(Base):
 
     @allure.step('导航菜单')
     def click_menu(self, fType, sType):
@@ -23,9 +23,9 @@ class collection(Base):
         self.input_text(user[yaml], txt, choice)
 
     @allure.step('处理点击')
-    def click(self, yaml,choice = None):
+    def click(self, yaml, choice = None):
         sleep(1)
-        self.is_click_dcr(user[yaml],choice)
+        self.is_click_dcr(user[yaml], choice)
         sleep(2)
 
     @allure.step('hover')

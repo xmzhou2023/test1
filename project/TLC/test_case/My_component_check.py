@@ -29,7 +29,7 @@ class TestMyComponentCheck:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.switch_window(0)
+        tools.close_switch(1)
 
         tools.click('空间', '公共空间')
         tools.hover('新增')
@@ -37,7 +37,7 @@ class TestMyComponentCheck:
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.switch_window(0)
+        tools.close_switch(1)
         tools.readonly_input('顶部搜索框', 'auto_testing_add_components', 'query')
         DomAssert(drivers).assert_att('auto_testing_add_components_pri_001')
         DomAssert(drivers).assert_att('auto_testing_add_components_pub_001')
@@ -72,7 +72,7 @@ class TestMyComponentCheck:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.switch_window(0)
+        tools.close_switch(1)
 
         tools.click('空间', '公共空间')
         tools.hover('新增')
@@ -80,7 +80,7 @@ class TestMyComponentCheck:
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.switch_window(0)
+        tools.close_switch(1)
         tools.readonly_input('顶部搜索框', 'auto_testing_add_components111111111111111', 'query')
         DomAssert(drivers).assert_att('无数据')
 
