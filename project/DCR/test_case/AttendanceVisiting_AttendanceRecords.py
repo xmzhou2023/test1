@@ -45,7 +45,9 @@ class TestQueryAttendanceRecord:
 
         """查询考勤记录列表，是否存在当天考勤记录"""
         query_all = AttendanceRecordPage(drivers)
+        sleep(2)
         picture = query_all.get_photo_text()
+        logging.info("获取考勤记录列表的Picture文本内容{}".format(picture))
         date = query_all.get_date_text()
         total = query_all.get_total_text()
 

@@ -138,6 +138,7 @@ class TestExportVisitRecord:
         complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
         operation = export.get_export_operation_text()
+        logging.info("获取导出记录列表的operation字段内容{}".format(operation))
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "History List")

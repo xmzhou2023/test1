@@ -40,7 +40,6 @@ class AttendanceRecordPage(Base):
 
     @allure.step("Attendance Records页面，获取列表Picture文本")
     def get_photo_text(self):
-        sleep(2)
         self.presence_sleep_dcr(user['获取列表photo文本'])
         photo = self.element_text(user['获取列表photo文本'])
         return photo
