@@ -352,7 +352,6 @@ class TestExportAllIndicatorsOnTheHomepage:
         # export.click_close_export_record()
         # export.click_close_customer_mgt()
 
-
     @allure.story("导出Shop Management卡片")
     @allure.title("Homepage首页，导出Shop Management卡片维度数据")
     @allure.description("Homepage首页，导出Shop Management卡片的各维度数据")
