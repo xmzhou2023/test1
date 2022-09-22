@@ -328,7 +328,7 @@ class Base(object):
         self.is_click(click_search)
         status = self.element_text(get_status)
         logging.info("循环前Download Status{}".format(status))
-        for i in range(20):
+        for i in range(30):
             if status != "COMPLETE":
                 self.is_click(click_search)
                 status = self.element_text(get_status)
