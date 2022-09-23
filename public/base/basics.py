@@ -126,12 +126,12 @@ class Base(object):
 
     def find_element(self, locator, *args, **kwargs):
         """寻找单个元素"""
-        if args and args[0] is not None:
+        if args and args is not None:
                 Npath = []
                 Npath.append(locator[0])
                 Npath.append(locator[1])
                 for i in range(len(args)):
-                    Npath[1] = Npath[1].replace('variable', args[i], 1)
+                    Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
                 logging.info("查找元素：{}".format(Npath))
                 return Base.element_locator(lambda *args: self.wait.until(
                     EC.presence_of_element_located(args)), Npath)
@@ -156,7 +156,7 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_all_elements_located(args)), Npath)
@@ -345,13 +345,15 @@ class Base(object):
 
     def element_text(self, locator, *args, **kwargs):
         """获取元素的文本"""
+        logging.info(args)
+        logging.info(kwargs)
         if args and args is not None:
             ele = self.find_element(locator, *args)
             _text = ele.text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
         elif kwargs and kwargs is not None:
-            ele = self.find_element(locator, *kwargs)
+            ele = self.find_element(locator, **kwargs)
             _text = ele.text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
