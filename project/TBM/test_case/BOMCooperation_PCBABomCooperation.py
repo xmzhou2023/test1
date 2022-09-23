@@ -757,22 +757,163 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在我的待办中审批从业务审核页面回退到补充工厂页面的单据，在补充工厂同意并审核成功，下个节点是业务审核节点，而不是BOM工程师节点")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_003_013(self, drivers, BarePhone_StructureEnginner_API):
-        user = BareMobilePhoneBomCooperation(drivers)
+    def test_003_018(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
         user.refresh_webpage()
-        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
+        user.assert_my_todo_node(PCBA_Purchase_API[0], '业务审核', True)
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
         user.click_oneworks_rollback('补充工厂')
         user.click_oneworks_rollback_confirm()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_my_todo_node(BarePhone_StructureEnginner_API[0], '补充工厂', True)
-        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
+        user.assert_my_todo_node(PCBA_Purchase_API[0], '补充工厂', True)
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.assert_toast()
         user.quit_oneworks()
-        user.assert_my_todo_node(BarePhone_StructureEnginner_API[0], '业务审核', True)
+        user.assert_my_todo_node(PCBA_Purchase_API[0], '业务审核', True)
+
+    @allure.story("流程审批")
+    @allure.title("在业务页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
+    @allure.description("在业务页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
+    @allure.severity("normal")
+    @pytest.mark.UT  # 用例标记
+    def test_003_019(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Purchase_API[0], '业务审核', True)
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_refer()
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(False)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("在业务页面中，选择转交人转交，存在确定转交按钮")
+    @allure.description("在业务页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_020(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Purchase_API[0], '业务审核', True)
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("在业务页面中，选择转交人转交取消，存在转交，回退按钮")
+    @allure.description("在业务页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_021(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Purchase_API[0], '业务审核', True)
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_cancel()
+        user.assert_oneworks_rollback_refer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("在业务页面中，转交单据成功")  # 用例名称
+    @allure.description("在业务页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_022(self, drivers, PCBA_Purchase_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Purchase_API[0], '业务审核', True)
+        user.enter_oneworks_edit(PCBA_Purchase_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('陈月')
+        user.select_oneworks_refer('陈月')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_comfirmrefer()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_flow_deliver(PCBA_Purchase_API[0], '陈月')
+
+    @allure.story("流程审批")
+    @allure.title("在数据组审核页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
+    @allure.description("在数据组审核页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
+    @allure.severity("normal")
+    @pytest.mark.UT  # 用例标记
+    def test_003_023(self, drivers, PCBA_Business_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Business_API[0], '数据组审批', True)
+        user.enter_oneworks_edit(PCBA_Business_API[0])
+        user.click_oneworks_refer()
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(False)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("在数据组审核页面中，选择转交人转交，存在确定转交按钮")
+    @allure.description("在数据组审核页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_024(self, drivers, PCBA_Business_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Business_API[0], '数据组审批', True)
+        user.enter_oneworks_edit(PCBA_Business_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.assert_oneworks_comfirmrefer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")
+    @allure.title("在数据组审核页面中，选择转交人转交取消，存在转交，回退按钮")
+    @allure.description("在数据组审核页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_025(self, drivers, PCBA_Business_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Business_API[0], '数据组审批', True)
+        user.enter_oneworks_edit(PCBA_Business_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('李小素')
+        user.select_oneworks_refer('李小素')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_cancel()
+        user.assert_oneworks_rollback_refer_exist(True)
+        user.quit_oneworks()
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("在数据组审核页面中，转交单据成功")  # 用例名称
+    @allure.description("在数据组审核页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_003_026(self, drivers, PCBA_Business_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(PCBA_Business_API[0], '数据组审批', True)
+        user.enter_oneworks_edit(PCBA_Business_API[0])
+        user.click_oneworks_refer()
+        user.input_oneworks_refer('陈月')
+        user.select_oneworks_refer('陈月')
+        user.click_oneworks_refer_comfirm()
+        user.click_oneworks_refer_comfirmrefer()
+        user.assert_toast()
+        user.quit_oneworks()
+        user.assert_flow_deliver(PCBA_Business_API[0], '陈月')
+
+
 @allure.feature("BOM协作-PCBA BOM协作")
 class TestProcessApprovalExceptionScenario:
     @allure.story("流程审批异常场景")
@@ -992,6 +1133,21 @@ class TestProcessApprovalExceptionScenario:
         user.click_Accessory()
         user.send_Accessory('worng_file_text.txt')
         user.assert_toast('只能上传文件名为‘检查结果’的文件')
+        user.quit_oneworks()
+
+    @allure.story("流程审批异常场景")  # 场景名称
+    @allure.title("数据组审批页面，检查失败项不为0，提交失败")  # 用例名称
+    @allure.description("在数据组审批页面中，子阶BOM检查有失败项，点击同意，不能提交成功，并且给出提交失败的提示")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_004_014(self, drivers, PCBA_Business_API):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(PCBA_Business_API[0])
+        user.click_oneworks_agree()
+        user.click_oneworks_confirm()
+        user.enter_oneworks_iframe()
+        user.assert_toast('bom检查失败，无法同步')
         user.quit_oneworks()
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_PCBABomCooperation.py'])
