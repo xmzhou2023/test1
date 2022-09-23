@@ -30,7 +30,6 @@ Quantity Add: "xpath==//button[@id='deliveryorderadd_Add']//span[normalize-space
 Quantity Input Product: "xpath==//div[@class='el-input el-input--medium el-input--suffix']//input"
 Quantity Input Product Value: "xpath==//span[text()='variable']"
 Delivery Input Quantity: "xpath==//div[@class='el-input el-input--medium']//input"
-#Get Delivery Quantity Text: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[4]/div[2]/div/div[2]"
 Get Delivery Quantity Text: "xpath==//div[@class='scanned-box']//div[@class='num']"
 
 
@@ -42,36 +41,33 @@ Business Type: "xpath==//input[@class='el-input__inner deliveryorderadd_input_tm
 Business Type value: "xpath==//span[normalize-space(text())='variable']"
 
 #查询IMEI Detail详情
-Click IMEI Detail: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[5]/div[2]/table/tbody/tr/td[43]/div/div/span[2]"
-Get List Product Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[7]/div/div/div"
-Get List Item Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[8]/div/div/div"
-Get IMEI Detail Product Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[1]/div"
-Get IMEI Detail Item Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div"
-Get IMEI Detail IMEI Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[5]/div"
-Get IMEI Detail Total Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[2]/div[2]/div[2]/span[1]"
+Click IMEI Detail: "xpath==//tbody//tr[1]//td[43]//div//div//span[2]"
+Get List Product Text: "xpath==//tbody//tr[1]//td[7]//div//div//div"
+Get List Item Text: "xpath==//tbody//tr[1]//td[8]//div//div//div"
+Get IMEI Detail Product Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[1]/div"
+Get IMEI Detail Item Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div"
+Get IMEI Detail IMEI Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[5]"
+Get IMEI Detail Total Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[2]/span[1]"
 Get IMEI Detail Title: "xpath==//span[contains(text(), 'IMEI Detail: ')]"
 
-
 #获取列表字段文本
-Get Sales Order ID Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]/div"
-Get Delivery Order ID Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[3]/div/div"
-Get Status Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[6]/div"
-Get Delivery Date Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
+Get Sales Order ID Text: "xpath==//tbody//tr[1]//td[2]//div"
+Get Delivery Order ID Text: "xpath==//tbody//tr[1]//td[3]//div//div"
+Get Status Text: "xpath==//tbody//tr[1]//td[6]//div"
+Get Delivery Date Text: "xpath==//tbody//tr[1]//td[4]//div"
 Get Delivery Status: "xpath==//div[text()='Goods Receipt']"
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭出库单菜单: "xpath==//span[normalize-space(text())='Delivery Order']//span[@class='el-icon-close']"
-关闭IMEI详情页: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div/div[1]/button/i"
-
+关闭IMEI详情页: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[1]/button/i"
 
 #测试环境，导出出库单定位
 Click Export: "id==Delivery_Order_export_"
 Unfold: "xpath==//span[contains(text(), 'Unfold')]"
 Fold: "xpath==//span[contains(text(), 'Fold')]"
-Delivery Start Date: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[2]/div[3]/div/div/div/div/div[1]/div/input"
-Delivery End Date: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[2]/div[3]/div/div/div/div/div[3]/div/input"
+Delivery Start Date: "xpath==//div//input[@id='deliveryorder_input_deliveryDate']"
+Delivery End Date: "xpath==//div//input[@id='deliveryorder_input_deliveryDate1']"
 Total: "xpath==//span[contains(text(), 'Total')]"
 点击状态输入框: "xpath==//label[contains(text(),'Status')]//parent::div//following-sibling::div//input"
-
 
 #列表导出出库单，导出成功后断言
 Download Icon: "id==download-icon"
