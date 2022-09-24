@@ -1,6 +1,3 @@
-#Click Input Query Shop: "xpath==//label[(text()='Shop')]//parent::div// following-sibling::div//input"
-#Input Query Shop: "xpath==//*[@id='mainContainer']/section/div[1]/form/div/div[2]/div[1]/div/div/div/div/div[2]/div/div[1]/input"
-#Select Shop Value: "xpath==//div//ul//li//span[contains(text(),'variable')]"
 Input Query Shop: "xpath==//label[(text()='Shop')]//parent::div// following-sibling::div//input"
 Select Shop Value: "xpath==//div//ul//li//span[contains(text(),'variable')]"
 

@@ -1,4 +1,3 @@
-#Input Query Shop: "xpath==//label[(text()='Shop')]//parent::div// following-sibling::div//input"
 Click Input Shop Query: "xpath==//label//..//div//input[@id='visithistory_input_shopCodes']"
 Input Shop Query: "xpath==//input[@class='el-input__inner visithistory_input_shopCodes1']"
 Select Shop Value: "xpath==//ul//li//span[contains(text(),'variable')]"
