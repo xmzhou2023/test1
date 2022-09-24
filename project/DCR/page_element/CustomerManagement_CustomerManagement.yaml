@@ -36,13 +36,9 @@ Search: "xpath==//button//span[normalize-space(text())='Search']"
 Reset: "xpath==//span[normalize-space(text())='Reset']"
 
 Get list Customer Id: "xpath==//tbody//tr[1]//td[5]//div"
-#Get list Customer Id: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[5]/div"
 Get list Customer Name: "xpath==//tbody//tr[1]//td[4]//div"
-#Get list Customer Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
 Get list New Brand: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div[@class='cell el-tooltip' and text()='variable']"
-#Get Contact Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[15]/div"
 Get Contact Name: "xpath==//tbody//tr[1]//td[15]//div"
-#Get Contact No: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr/td[16]/div"
 Get Contact No: "xpath==//tbody//tr[1]//td[16]//div"
 Get Customer Type: "xpath==//tbody//tr[@class='el-table__row']//td[17]//div[@class='cell el-tooltip' and text()='variable']"
 
