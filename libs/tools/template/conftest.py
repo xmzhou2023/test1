@@ -17,7 +17,7 @@ def __init__(drivers, env_name):
     """使用统一登录"""
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
-    user.login(drivers,ini.url, account[0]['usernum'], account[0]['passwd'])
+    user.login(drivers,ini.url, account[3]['usernum'], account[3]['passwd'])
     user = DomAssert(drivers)
     user.assert_url("{}/dashboard".format(ini.url))
     user = SQLAssert(pro_name, pro_env)

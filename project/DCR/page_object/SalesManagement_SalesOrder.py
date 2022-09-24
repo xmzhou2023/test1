@@ -12,13 +12,13 @@ class SalesOrderPage(Base):
     @allure.step("Sales Order页面，点击Add新增销售单按钮")
     def click_add_sales(self):
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['Add'])
+        self.presence_sleep_dcr(user['Add'])
         self.is_click(user['Add'])
-        sleep(2)
+        sleep(2.8)
 
     @allure.step("Add新增销售单页面，输入Buyer属性")
     def input_sales_buyer(self, content):
-        Base.presence_sleep_dcr(self, user['Buyer'])
+        self.presence_sleep_dcr(user['Buyer'])
         self.is_click(user['Buyer'])
         self.input_text(user['Buyer'], txt=content)
         sleep(2)
@@ -50,7 +50,7 @@ class SalesOrderPage(Base):
 
     @allure.step("新建销售单页面，点击确认OK按钮")
     def click_submit_OK(self):
-        Base.presence_sleep_dcr(self, user['保存成功确认OK'])
+        self.presence_sleep_dcr(user['保存成功确认OK'])
         self.is_click(user['保存成功确认OK'])
         sleep(3)
 
@@ -69,14 +69,14 @@ class SalesOrderPage(Base):
     @allure.step("获取列表Sales Order ID文本内容")
     def get_text_sales_id(self):
         """销售单页面，获取销售单ID文本"""
-        Base.presence_sleep_dcr(self, user['获取Sales Order ID文本'])
+        self.presence_sleep_dcr(user['获取Sales Order ID文本'])
         sales_order_id = self.element_text(user['获取Sales Order ID文本'])
         return sales_order_id
 
     @allure.step("销售单页面，获取销售单状态 Pending文本")
     def get_text_sales_status(self, status):
         """销售单页面，获取销售单状态文本"""
-        Base.presence_sleep_dcr(self, user['获取列表Status文本'], status)
+        self.presence_sleep_dcr(user['获取列表Status文本'], status)
         status = self.element_text(user['获取列表Status文本'], status)
         return status
 
@@ -84,7 +84,7 @@ class SalesOrderPage(Base):
     """勾选新建的销售单，直接出库"""
     @allure.step("勾选第一条销售单ID")
     def click_checkbox_orderID(self):
-        Base.presence_sleep_dcr(self, user['勾选第一条销售单ID'])
+        self.presence_sleep_dcr(user['勾选第一条销售单ID'])
         self.is_click(user['勾选第一条销售单ID'])
 
     @allure.step("点击Delivery button出库按钮")
@@ -94,7 +94,7 @@ class SalesOrderPage(Base):
 
     @allure.step("输入Payment Mode支付方式属性")
     def input_Payment_Mode(self, content):
-        Base.presence_sleep_dcr(self, user['Payment Mode'])
+        self.presence_sleep_dcr(user['Payment Mode'])
         self.is_click(user['Payment Mode'])
         self.input_text(user['Payment Mode'], txt=content)
         sleep(2)
@@ -151,7 +151,7 @@ class SalesOrderPage(Base):
 
     @allure.step("IMEI库存页面，输入Material ID 查询")
     def input_material_id(self, content1):
-        Base.presence_sleep_dcr(self, user['Material ID'])
+        self.presence_sleep_dcr(user['Material ID'])
         self.is_click(user['Material ID'])
         self.input_text(user['Material ID'], txt=content1)
         sleep(1)
@@ -159,11 +159,11 @@ class SalesOrderPage(Base):
     @allure.step("IMEI库存页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(5)
+        sleep(4)
 
     @allure.step("获取IMEI库存页面，IMEI文本内容")
     def get_text_imei_inventory(self):
-        Base.presence_sleep_dcr(self, user['获取IMEI文本内容'])
+        self.presence_sleep_dcr(user['获取IMEI文本内容'])
         imei = self.element_text(user['获取IMEI文本内容'])
         return imei
 
@@ -183,7 +183,7 @@ class SalesOrderPage(Base):
 
     @allure.step("点击确认删除按钮")
     def click_confirm_delete(self):
-        Base.presence_sleep_dcr(self, user['Confirm Delete'])
+        self.presence_sleep_dcr(user['Confirm Delete'])
         self.is_click(user['Confirm Delete'])
 
     @allure.step("点击Reset按钮")
@@ -201,13 +201,13 @@ class SalesOrderPage(Base):
     """新建出库单时，新建临时客户"""
     @allure.step("点击新建临时客户")
     def click_temporary_customer(self):
-        Base.presence_sleep_dcr(self, user['Create Temporary Customer'])
+        self.presence_sleep_dcr(user['Create Temporary Customer'])
         self.is_click(user['Create Temporary Customer'])
         sleep(1.5)
 
     @allure.step("输入临时客户名称")
     def input_temporary_customer_name(self, content):
-        Base.presence_sleep_dcr(self, user['Temporary Customer Name'])
+        self.presence_sleep_dcr(user['Temporary Customer Name'])
         self.is_click(user['Temporary Customer Name'])
         self.input_text(user['Temporary Customer Name'], content)
 
@@ -233,11 +233,10 @@ class SalesOrderPage(Base):
     @allure.step("点击无码单选按钮")
     def click_quantity_radio_button(self):
         self.is_click(user['Quantity Radio Button'])
-        #sleep(2)
 
     @allure.step("输入出库数量")
     def input_delivery_quantity(self, quantity):
-        Base.presence_sleep_dcr(self, user['Input Delivery Quantity'])
+        self.presence_sleep_dcr(user['Input Delivery Quantity'])
         self.is_click(user['Input Delivery Quantity'])
         self.input_text(user['Input Delivery Quantity'], txt=quantity)
         sleep(1)
@@ -268,7 +267,7 @@ class SalesOrderPage(Base):
 
     @allure.step("销售单页面，输入Create Date时间筛选")
     def list_input_create_date(self, date, date1):
-        Base.presence_sleep_dcr(self, user['列表筛选创建开始日期'])
+        self.presence_sleep_dcr(user['列表筛选创建开始日期'])
         self.is_click(user['列表筛选创建开始日期'])
         self.input_text(user['列表筛选创建开始日期'], date)
         self.is_click(user['列表筛选创建开始日期'])
@@ -298,9 +297,9 @@ class SalesOrderPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
-        sleep(7)
+        sleep(8)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -311,7 +310,7 @@ class SalesOrderPage(Base):
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        down_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return down_status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")

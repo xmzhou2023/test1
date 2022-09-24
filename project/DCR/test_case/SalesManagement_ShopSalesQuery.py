@@ -38,7 +38,7 @@ class TestShopSalesQuery:
 
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         shop_sales = ShopSaleQueryPage(drivers)
-        shop_sales.input_upload_start_date("2022-07-01")
+        shop_sales.input_upload_start_date("2022-09-01")
         shop_sales.click_search()
 
         shop_id = shop_sales.get_shop_id_text()
@@ -60,7 +60,7 @@ class TestShopSalesQuery:
 
 @allure.feature("销售管理-门店销售查询")
 class TestExportShopSalesQuery:
-    @allure.story("导出查询门店销量")
+    @allure.story("导出门店销量")
     @allure.title("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
@@ -78,9 +78,9 @@ class TestExportShopSalesQuery:
 
         export.click_unfold()
         """首先按日期筛选门店销量数据"""
-        export.input_upload_start_date("2022-07-01")
+        export.input_upload_start_date("2022-09-01")
         export.click_upload_end_date()
-        export.input_sales_date("2022-07-01", today)
+        export.input_sales_date("2022-09-01", today)
         export.click_fold()
         export.click_search()
         total = export.get_total_text()

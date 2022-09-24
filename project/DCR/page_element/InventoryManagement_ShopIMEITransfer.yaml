@@ -17,9 +17,6 @@ Get List To Shop ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[13]//d
 Get list Creator ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[4]//div"
 Get list Transfer ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div"
 
-#xvanze: "xpath==//label[contains(text(),'variable')]/..//input"
-#shopxvanze: "xpath==//span[contains(text(),'PK034552')]"
-
 筛选门店: "xpath==//label[contains(text(),'To Shop')]//parent::div// following-sibling::div//input"
 选中筛选门店: "xpath==//ul//li//span[contains(text(),'variable')]"
 筛选状态: "xpath==//label[(text()='Status')]//parent::div// following-sibling::div//input"

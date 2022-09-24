@@ -79,6 +79,20 @@ class TestPolicyMgt:
         sql_tatal = tatal[0].get("COUNT(*)")  # 执行sql后获取返回值的第一个值
         ValueAssert.value_assert_equal(sql_tatal, int(number))  # 校验获取的sql值与获取的total值相等
 
+    @allure.story("PolicyMgt_政策") # 场景名称
+    @allure.title("禁用数据筛选")  # 用例名称
+    @allure.description("对禁用数据查询")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_001_004(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        user = PolicyPage(drivers)
+        user.search_policy(status="0")
+        number = user.get_total()
+        user = SQL("CRM", "test")  # 链接数据库
+        tatal = user.query_db(
+                'SELECT COUNT(*) FROM crm_mdm_policy p WHERE p.is_enable = "0"')
+        sql_tatal = tatal[0].get("COUNT(*)")  # 执行sql后获取返回值的第一个值
+        ValueAssert.value_assert_equal(sql_tatal, int(number))  # 校验获取的sql值与获取的total值相等
 
 if __name__ == '__main__':
     pytest.main(['project/CRM/test_case/OperationMgt_PolicyAndProfits_ProfitsTypeMgt.py'])

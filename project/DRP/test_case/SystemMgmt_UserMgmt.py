@@ -1,9 +1,22 @@
 import allure
 import pytest
 from public.data.unified_login.unified import *
-
+from public.base.assert_ui import *
 from project.DRP.page_object.Center_Component import NavPage
 from project.DRP.page_object.SystemMgmt_UserMgmt import UserPage
+
+
+@pytest.fixture(scope='module', autouse=True)
+def module_setup_fixture(drivers):
+    logging.info("模块前置条件：前往 系统管理-用户管理 页面")
+    user = NavPage(drivers)
+    user.click_gotonav("系统管理", "用户管理")
+    dom = DomAssert(drivers)
+    dom.assert_url("/systemManage/userManage")
+    yield
+    logging.info("后置条件:关闭 系统管理-用户管理 页面")
+    user.close_page()
+    dom.assert_url("/dashboard")
 
 @allure.feature("系统管理-用户管理")
 class TestSearchUser: # Test+(增，删，改，查，导入（上传），导出（下载）)
@@ -14,10 +27,8 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
     @allure.severity("minor")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_001(self, drivers):
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "用户管理")
         user = UserPage(drivers)
-        user.search_user(name=account[0]['username'])
+        user.search_user(name=account[4]['username'])
 
     @allure.story("查询用户")
     @allure.title("重置用户查询条件")
@@ -25,10 +36,8 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     def test_001_002(self, drivers):
         """用户管理-查询用户"""
-        user = NavPage(drivers)
-        user.click_gotonav("系统管理", "用户管理")
         user = UserPage(drivers)
-        user.search_user(jobnum=account[0]['usernum'])
+        user.search_user(jobnum=account[4]['usernum'])
         user.reset_account()
 
 @allure.feature("系统管理-用户管理")
@@ -41,7 +50,7 @@ class TestAppendUser:
     def test_002_001(self, drivers):
         """用户管理-新建用户"""
         user = UserPage(drivers)
-        user.append_account("18650893")
+        user.append_account("18649572")
 
 @allure.feature("系统管理-用户管理")
 class TestEditUser:
@@ -54,11 +63,11 @@ class TestEditUser:
         user = UserPage(drivers)
         user.edit_Permission(
             jobnum="18650893",
-            dimension={
-                '组织': ['itel事业部', '东非地区部'],
-                # '品牌': ['Infinix', 'itel', 'TECNO'],
-                # '区域': {'Infinix': ['利比亚', '土耳其']}
-            }
+            # dimension={
+            #     '组织': ['itel事业部', '东非地区部'],
+            #     # '品牌': ['Infinix', 'itel', 'TECNO'],
+            #     # '区域': {'Infinix': ['利比亚', '土耳其']}
+            # }
         )
 
 if __name__ == '__main__':

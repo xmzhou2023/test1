@@ -248,13 +248,14 @@ class TestDeliveryBusinessProcess:
         user2.initialize_login(drivers, "BD40344201", "dcr123456")
         """1 国包用户，新增无码出库单操作"""
         user2.click_gotomenu("Sales Management", "Delivery Order")
+
         add = DeliveryOrderPage(drivers)
         add.click_add()
         add.input_sub_buyer("BD2915")
         add.input_deli_pay_mode("Online")
         add.click_quantity_radio_button()
         add.click_quantity_add()
-        add.click_quantity_product("TECNO B1 BLACK")
+        add.click_quantity_product("A2 se BLACK")
         add.input_delivery_quantity("1")
         add.click_delivery_quantity_text()
 
@@ -349,7 +350,7 @@ class TestDeliveryBusinessProcess:
         return_order.click_radio_quantity()
         return_order.input_quantity_customer("BD2915")
         return_order.input_quantity_delivery_order(delivery_code)
-        return_order.click_quantity_product("TECNO B1  BLACK")
+        return_order.click_quantity_product("A2 se  BLACK")
         return_order.input_return_quantity("1")
         """点击Check按钮后，断言Order Detail列表记录是否正确"""
         return_order.click_Check()

@@ -1,0 +1,16 @@
+Unfold: "xpath==//div//span[text()='Unfold']"
+Fold: "xpath==//div//span[text()='Fold']"
+筛选门店: "xpath==//input[@id='visitplan_input_shopCodes']"
+输入筛选用户: "xpath==//div//input[@placeholder='Batch input content']"
+选中筛选门店: "xpath==//div//ul//li//span[contains(text(),'variable')]"
+Search: "id==visitplan_Search"
+
+Get list Plan No: "xpath==//tbody//tr[1]//td[2]//div"
+Get list Shop Name: "xpath==//tbody//tr[1]//td[10]//div"
+Get list Shop ID: "xpath==//tbody//tr[1]//td[11]//div"
+Get list Status: "xpath==//tbody//tr[1]//td[16]//div"
+Get list Upload User: "xpath==//tbody//tr[1]//td[17]//div"
+Get list User Name: "xpath==//tbody//tr[1]//td[18]//div"
+Get list Position: "xpath==//tbody//tr[1]//td[19]//div"
+Get list Total: "xpath==//span[contains(text(),'Total')]"
+

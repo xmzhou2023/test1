@@ -13,8 +13,9 @@ class UserCustomerAssociaPage(Base):
     def input_user_query(self, content):
         self.is_click_dcr(user['Input User'])
         self.input_text_dcr(user['Input User'], txt=content)
-        sleep(2)
-        self.is_click(user['User Select Value'])
+        sleep(2.2)
+        self.presence_sleep_dcr(user['User Select Value'], content)
+        self.is_click(user['User Select Value'], content)
 
     @allure.step("点击Search按钮筛选数据")
     def click_search(self):
@@ -29,7 +30,7 @@ class UserCustomerAssociaPage(Base):
 
     @allure.step("获取列表User ID文本")
     def get_list_user_id(self):
-        Base.presence_sleep_dcr(self, user['Get list User ID'])
+        self.presence_sleep_dcr(user['Get list User ID'])
         get_userid = self.element_text(user['Get list User ID'])
         return get_userid
 
@@ -74,7 +75,7 @@ class UserCustomerAssociaPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1.5)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(6)
 
@@ -88,7 +89,7 @@ class UserCustomerAssociaPage(Base):
 
     @allure.step("导出页面，点击Search按钮")
     def click_export_search(self):
-        status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")
@@ -114,6 +115,7 @@ class UserCustomerAssociaPage(Base):
 
     @allure.step("导出记录页面，获取列表 Create Date文本")
     def get_create_date_text(self):
+        self.scroll_into_view(user['获取创建日期文本'])
         create_date = self.element_text(user['获取创建日期文本'])
         create_date1 = create_date[0:10]
         return create_date1

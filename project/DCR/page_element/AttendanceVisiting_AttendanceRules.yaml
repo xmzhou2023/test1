@@ -1,0 +1,60 @@
+Add AttendanceRules: "xpath==//button[@id='AttendanceRules_add']"
+Add Brand: "xpath==//*[@class='el-dialog__wrapper']//label[contains(text(),'Brand')]/..//*[@class='el-input el-input--mini el-input--suffix']//input"
+品牌输入项选择: "xpath==//div[@x-placement='bottom-start']//span[normalize-space(text())='variable']"
+
+国家: "xpath==//div[@class='el-form-item is-required el-form-item--mini']//label[contains(text(),'Country')]/..//input"
+国家输入项选择: "xpath==//div[@x-placement='bottom-start']//span[normalize-space(text())='variable']"
+
+职位: "xpath==//*[@class='el-dialog__wrapper']//label[contains(text(),'Position')]/..//*[@class='el-input el-input--mini el-input--suffix']//input"
+职位输入: "xpath==//div[@class='el-col el-col-8']//label[contains(text(),'Position')]/..//div[@class='el-select__tags']//input"
+职位输入项选择: "xpath==//div[@x-placement='bottom-start']//div//ul//li//span[normalize-space(text())='variable']"
+
+开始月份: "xpath==//div[@class='el-form-item is-required el-form-item--mini']//label[text()='Start Month']//..//input"
+选择开始月份: "xpath==//tbody//tr//td//div//a[text()='variable']"
+
+Remark: "xpath==//label//..//textarea[@class='el-textarea__inner']"
+Click Position label: "xpath==//div//label[text()='Position']"
+Click On Work Time: "xpath==//label//span[text()='On Work Time']"
+
+休息日: "xpath==//label[contains(text(),'Off Day')]/..//input"
+休息日选择: "xpath==//span[normalize-space()='variable']"
+休息日确定按钮: "xpath==//span[normalize-space()='OK']"
+
+检查工作时间: "xpath==//div[@class='el-form-item__content']//span[@class='el-checkbox__inner']"
+新增工作时长按钮: "xpath==//button[@class='el-button el-button--default el-button--mini is-plain is-circle']"
+
+上班打卡时间1: "xpath==//label[@for='schedulingTimeList.0.clockInTime']/../../../..//input[@placeholder='Start Time']"
+下班打卡时间1: "xpath==//label[@for='schedulingTimeList.0.clockInTime']/../../../..//input[@placeholder='End Time']"
+工作时长1: "xpath==//label[@for='schedulingTimeList.0.clockInTime']/../../../..//input[@type='number']"
+
+上班打卡时间2: "xpath==//label[@for='schedulingTimeList.1.clockInTime']/../../../..//input[@placeholder='Start Time']"
+下班打卡时间2: "xpath==//label[@for='schedulingTimeList.1.clockInTime']/../../../..//input[@placeholder='End Time']"
+工作时长2: "xpath==//label[@for='schedulingTimeList.1.clockInTime']/../../../..//input[@type='number']"
+时间2删除按钮: "xpath==//label[@for='schedulingTimeList.1.clockInTime']//button[@class='el-button el-button--default el-button--mini is-plain is-circle']"
+
+保存按钮: "xpath==//div[@aria-label='dialog']//span[contains(text(),'Save')]"
+取消保存按钮: "xpath==//button[@id='attendancerules_Cancel']//span[normalize-space(text())='Cancel']"
+
+##筛选考勤规则记录，获取列表字段内容断言
+Click Search: "xpath==//button[@id='attendancerules_search']//span[normalize-space()='Search']"
+Click Start Month lable: "xpath==//div//label[text()='Start Month']"
+Input Start Month query: "xpath==//div//input[@id='attendancerules_input_date']"
+Input Country query: "xpath==//input[@class='el-input__inner attendancerules_input_regionId']"
+Select Country Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Get list Start Mounth: "xpath==//tbody//tr[1]//td[3]//div[@class='cell el-tooltip']"
+Get list Country: "xpath==//tbody//tr[1]//td[4]//div[@class='cell el-tooltip']"
+Get list On Work Time: "xpath==//tbody//tr[1]//td[5]//div[@class='cell el-tooltip']"
+Get list Off Work Time: "xpath==//tbody//tr[1]//td[6]//div[@class='cell el-tooltip']"
+Get list Position: "xpath==//tbody//tr[1]//td[9]//div[@class='cell el-tooltip']"
+Add Page Click Cancel: "xpath==//button[@id='attendancerules_Cancel']//span[normalize-space()='Cancel']"
+
+#删除考勤规则记录
+勾选第一个复选框: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
+删除按钮: "xpath==//button[@id='AttendanceRules_delete']"
+删除确认按钮: "xpath==//button//span[normalize-space(text())='Confirm']"
+
+#编辑考勤规则记录
+编辑按钮: "xpath==//tbody/tr[1]/td[16]/div[1]//span[text()='Edit']"
+Operation Delete: "xpath==//tbody/tr[1]/td[16]/div[1]//span[text()='Delete']"
+Get Total: "xpath==//div//span[contains(text(),'Total')]"

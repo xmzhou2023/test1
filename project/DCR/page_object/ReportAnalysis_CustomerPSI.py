@@ -40,7 +40,7 @@ class CustomerPSIPage(Base):
 
     @allure.step("获取Sales Region2字段文本")
     def get_sales_region2_text(self):
-        Base.presence_sleep_dcr(self, user['获取Sales Region2文本'])
+        self.presence_sleep_dcr(user['获取Sales Region2文本'])
         sale_region2 = self.element_text(user['获取Sales Region2文本'])
         return sale_region2
 
@@ -68,7 +68,7 @@ class CustomerPSIPage(Base):
     #Customer PSI列表数据筛选后，导出操作成功后验证
     @allure.step("Customer PSI页面，点击Export导出按钮")
     def click_export(self):
-        Base.find_element(self, user['Export'])
+        self.find_element(user['Export'])
         self.is_click(user['Export'])
         sleep(2)
 
@@ -76,7 +76,7 @@ class CustomerPSIPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(4)
 
@@ -89,13 +89,8 @@ class CustomerPSIPage(Base):
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        down_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return down_status
-
-    # def get_download_status_text(self):
-    #     """导出记录页面，获取列表 Download Status文本"""
-    #     status = self.element_text(user['获取下载状态文本'])
-    #     return status
 
     @allure.step("导出记录页面，获取列表 Task Name文本")
     def get_task_name_text(self):
@@ -116,6 +111,7 @@ class CustomerPSIPage(Base):
 
     @allure.step("导出记录页面，获取列表 Create Date文本")
     def get_create_date_text(self):
+        self.scroll_into_view(user['获取创建日期文本'])
         create_date = self.element_text(user['获取创建日期文本'])
         create_date1 = create_date[0:10]
         return create_date1

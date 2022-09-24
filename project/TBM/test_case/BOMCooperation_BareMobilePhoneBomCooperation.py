@@ -25,7 +25,7 @@ class TestCreateProcess:
         user.input_bomtree('单机头', 'BOM状态', '试产')
         user.input_bomtree('单机头', '物料编码', '12011067')
         user.input_bomtree('单机头', '用量', '1000')
-        user.select_business_review('李小素')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
@@ -62,7 +62,7 @@ class TestCreateProcess:
         user.input_optional_material('17600563', '用量', '1000')
         user.input_optional_material('17600563', '替代组', 'A1')
         user.input_optional_material('17600563', '份额', '80')
-        user.select_business_review('李小素')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
@@ -233,7 +233,7 @@ class TestCreateProcessExceptionScenario:
         user.click_add_bomtree()
         user.input_bomtree('单机头', 'BOM状态', '试产')
         user.input_bomtree('单机头', '用量', '1000')
-        user.select_business_review('李小素')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         user.assert_toast('BOM编码[null]的物料组在对应的模板中未设置！')
 
@@ -249,7 +249,7 @@ class TestCreateProcessExceptionScenario:
         user.click_add_bomtree()
         user.input_bomtree('单机头', 'BOM状态', '试产')
         user.input_bomtree('单机头', '物料编码', '12011336')
-        user.select_business_review('李小素')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         user.assert_toast('[12011336]的数量为空!')
 
@@ -267,7 +267,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bomtree('单机头', '物料编码', '12011336')
         user.input_bomtree('单机头', '用量', '1')
         user.base_get_img()
-        user.select_business_review('李小素')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         user.assert_toast('父阶BOM料号12011336用量不为1000')
 
@@ -284,7 +284,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bomtree('单机头', 'BOM状态', '试产')
         user.input_bomtree('单机头', '物料编码', '12011336')
         user.input_bomtree('单机头', '用量', 'a')
-        user.select_business_review('李小素')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         user.assert_toast('用量只能填写非0数字(最多3位小数)')
 
@@ -303,7 +303,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bomtree('单机头', '用量', '1000')
         user.input_bomtree('PCBA', '物料编码', '12101691')
         user.input_bomtree('PCBA', '用量', '1')
-        user.select_business_review('李小素')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         user.assert_toast('父阶BOM料号12011336下的子阶BOM料号12101691用量不为1000')
 
@@ -375,7 +375,7 @@ class TestCreateProcessExceptionScenario:
         user.input_optional_material('25001649', '用量', '1000')
         user.input_optional_material('25001649', '替代组', 'A1')
         user.input_optional_material('25001649', '份额', '20')
-        user.select_business_review('李小素')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         user.assert_toast('[12011336] 替代组[A1]的份额总和不为100')
 
@@ -511,16 +511,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
-        user.select_business_review('李小素', '质量部')
-        user.select_business_review('李小素', '结构部')
-        user.select_business_review('李小素', '硬件')
-        user.select_business_review('李小素', '影像部')
-        user.select_business_review('李小素', '音频')
-        user.select_business_review('李小素', '预研组')
-        user.select_business_review('李小素', '中试部')
-        user.select_business_review('李小素', '采购部')
-        user.select_business_review('李小素', '结构经理')
-        user.select_business_review('李小素', '啊啊啊')
+        user.select_business_review('李小素')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.assert_toast()
@@ -572,6 +563,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
+        user.assert_toast()
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_Factory_API[0], '结构工程师审批', True)
 
@@ -689,6 +681,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
+        user.assert_toast()
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_StructureEnginner_API[0], '业务审核', True)
 
@@ -815,8 +808,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_toast('处理成功，审核拒绝')
         user.quit_oneworks()
         user.assert_my_application_flow(BarePhone_Approval_API[0], '审批拒绝')
-        process_status = user.get_info()
-        ValueAssert.value_assert_In('审批拒绝', process_status)
+        process_status = user.get_info()[8]
+        ValueAssert.value_assert_In(process_status, '审批拒绝')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("BOM工程师审批回退到结构工程师审批成功")  # 用例名称
@@ -881,6 +874,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
+        user.assert_toast()
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_Approval_API[0], 'BOM工程师审批', True)
 
@@ -967,6 +961,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_oneworks_plant_check('贴片工厂正确')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
+        user.assert_toast()
         user.quit_oneworks()
         user.assert_my_todo_node(BarePhone_bomEnginner_API[0], '数据组审批', True)
 
@@ -1122,7 +1117,7 @@ class TestProcessApprovalExceptionScenario:
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
         user.input_bomtree('单机头', '用量', '1')
-        user.select_business_review('李小素', 'all')
+        user.select_business_review('李小素')
         user.click_oneworks_agree()
         user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
@@ -1234,6 +1229,7 @@ class TestProcessInformationExport:
     @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_001(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1246,6 +1242,7 @@ class TestProcessInformationExport:
     @allure.description("在结构工程师审批页面中，在Bom Tree中点导出，导出的数据和Bom Tree的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_002(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1258,6 +1255,7 @@ class TestProcessInformationExport:
     @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_003(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1270,6 +1268,7 @@ class TestProcessInformationExport:
     @allure.description("在业务审核页面中，点击BOM Tree中的导出，导出文件中的数据和页面中的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_004(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1282,11 +1281,180 @@ class TestProcessInformationExport:
     @allure.description("在BOM工程师审批中，在BOM工程师审批中，点击导出，可以导出子阶BOM检查内容")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
+    @pytest.mark.skip
     def test_005_005(self, drivers, BarePhone_Approval_Fail_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Approval_Fail_API[0])
         user.assert_oneworks_approval_bomcheck()
         user.quit_oneworks()
+
+
+@allure.feature("BOM协作-单机头BOM协作")  # 模块名称
+class TestProcessSearch:
+
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，标题查询结果正确")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入“李小素”，点击查询，查询结果为所有标题包含“李小素”的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_001(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '李小素')
+        user.click_search()
+        user.assert_search_result('标题', '李小素')
+
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，查询不存在标题，结果为空")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入不存在的标题，点击查询，查询结果为空")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_002(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', 'sfdasdfwefw')
+        user.click_search()
+        DomAssert(drivers).assert_att('暂无数据')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，流程编码查询结果正确")  # 用例名称
+    @allure.description("在查询页面，流程编码输入框输入“1”，点击查询，查询结果为所有流程编码包含“1”的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_003(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('流程编码', '1')
+        user.click_search()
+        user.assert_search_result('流程编码', '1')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，查询不存在流程编码，结果为空")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入不存在的流程编码，点击查询，查询结果为空")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_004(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('流程编码', 'sfdasdfwefw')
+        user.click_search()
+        DomAssert(drivers).assert_att('暂无数据')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，单机头BOM制作查询结果正确")  # 用例名称
+    @allure.description("在查询页面，下拉框选择为单机头BOM制作，点击查询，查询结果为所有制作类型为单机头BOM制作的信息息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_005(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('制作类型', '单机头BOM制作')
+        user.click_search()
+        user.assert_search_result('制作类型', '单机头BOM制作')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，单机头BOM衍生查询结果正确")  # 用例名称
+    @allure.description("在查询页面，下拉框选择为单机头BOM衍生，点击查询，查询结果为所有制作类型为单机头BOM衍生的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_006(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('制作类型', '单机头BOM衍生')
+        user.click_search()
+        user.assert_search_result('制作类型', '单机头BOM衍生')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，二级BOM制作查询结果正确")  # 用例名称
+    @allure.description("在查询页面，下拉框选择为二级BOM制作，点击查询，查询结果为所有制作类型为二级BOM制作的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_007(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('制作类型', '二级BOM制作')
+        user.click_search()
+        user.assert_search_result('制作类型', '二级BOM制作')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，预加工件/虚拟件制作查询结果正确")  # 用例名称
+    @allure.description("在查询页面，下拉框选择为预加工件/虚拟件制作，点击查询，查询结果为所有制作类型为预加工件/虚拟件制作的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_008(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('制作类型', '预加工件/虚拟件制作')
+        user.click_search()
+        user.assert_search_result('制作类型', '预加工件/虚拟件制作')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，预加工件/虚拟件衍生查询结果正确")  # 用例名称
+    @allure.description("在查询页面，下拉框选择为预加工件/虚拟件衍生，点击查询，查询结果为所有制作类型为预加工件/虚拟件衍生的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_009(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('制作类型', '预加工件/虚拟件衍生')
+        user.click_search()
+        user.assert_search_result('制作类型', '预加工件/虚拟件衍生')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，组合查询结果正确")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入“李小素”，流程编码输入框输入“1”，下拉框选择为单机头BOM制作，点击查询，查询结果为所有标题包含“李小素”、流程编码包含“1”、制作类型为客供BOM制作的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_010(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '李小素')
+        user.input_search_info('流程编码', '1')
+        user.input_search_info('制作类型', '单机头BOM制作')
+        user.click_search()
+        user.assert_search_result('制作类型', '单机头BOM制作')
+        user.assert_search_result('流程编码', '1')
+        user.assert_search_result('标题', '李小素')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，编辑正常")  # 用例名称
+    @allure.description("在查询页面，点击编辑，跳转至oneworks编辑页面，可以编辑页面信息、提交、保存")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_011(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '自动化查询用例')
+        user.click_search()
+        user.click_edit('自动化查询用例')
+        user.select_business_review('李小素', 'MPM')
+        user.click_add_save()
+        DomAssert(drivers).assert_att('保存草稿成功')
+        user.click_edit('自动化查询用例')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('创建流程成功')
+        user.input_search_info('标题', '自动化查询用例')
+        user.click_search()
+        code = user.get_col_info('流程编码')
+        user.recall_process(code)
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，删除取消无变动")  # 用例名称
+    @allure.description("在查询页面，点击删除，提示是否确认删除，点击取消，取消成功，页面无变动")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_012(self, drivers):
+        user = BareMobilePhoneBomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '自动化查询用例')
+        user.click_search()
+        user.click_delete('自动化查询用例')
+        user.click_delete_cancel()
+        DomAssert(drivers).assert_att('自动化查询用例')
+
+
 if __name__ == '__main__':
-    pytest.main(['Test_module.py'])
+    pytest.main(['BareMobilePhoneBomCooperation.py'])

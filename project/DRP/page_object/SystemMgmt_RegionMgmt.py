@@ -52,6 +52,16 @@ class AreaPage(Base):
         except Exception as e:
             print(str(e))
 
+    @allure.step("区域层级断言")
+    def assert_area(self,value1, value2):
+        tier = self.element_text(user['区域层级断言'])
+        org = self.element_text(user['组织名称断言'])
+        assert tier == value1,logging.warning("区域层级断言失败 {}!={}".format(value1,tier))
+        logging.info("区域层级断言成功 {}={}".format(value1,tier))
+        assert org == value2,logging.warning("组织名称断言失败 {}!={}".format(value2,org))
+        logging.info("组织名称断言成功 {}={}".format(value1,tier))
+
+
     @allure.step("查询区域")
     def search_area(self, content):
         """查询区域"""
@@ -155,7 +165,7 @@ class AreaPage(Base):
     @allure.step("指定国家添加按钮")
     def add_list(self, num, area_name):
         """添加指定行数据"""
-        a = self.find_elements(user['国家列表第n列'], num)
+        a = self.find_elements(user['国家列表第n列'], str(num))
         b = []  # 取出列表第n列的所有文本
         for i in range(len(a)):
             b.append(a[i].text)
@@ -178,7 +188,7 @@ class AreaPage(Base):
     @allure.step("指定行编辑按钮")
     def update_list(self, num, area_name):
         """编辑列表指定行数据"""
-        a = self.find_elements(user['列表第n列'],num)
+        a = self.find_elements(user['列表第n列'],str(num))
         b = []  # 取出列表第n列的所有文本
 
         for i in range(len(a)):
@@ -202,7 +212,7 @@ class AreaPage(Base):
     @allure.step("指定行删除按钮")
     def del_list(self, num, area_name):
         """删除列表指定行数据"""
-        a = self.find_elements(user['列表第n列'], num)
+        a = self.find_elements(user['列表第n列'], str(num))
         b = []  # 取出列表第二列的所有文本
         for i in range(len(a)):
             b.append(a[i].text)

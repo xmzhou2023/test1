@@ -39,6 +39,7 @@ class TestSearchUserShopAssociation:
 
         """ 查询用户与门店关系列表,所有数据加载正常 """
         user_shop = UserShopAssociaPage(drivers)
+        sleep(2)
         userid = user_shop.get_list_user_id()
         username = user_shop.get_list_user_name()
         position = user_shop.get_list_position()

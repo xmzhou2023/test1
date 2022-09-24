@@ -28,7 +28,7 @@ class IMEIQueryPage(Base):
 
     @allure.step("找到数据来源")
     def get_code(self, type1):
-        Base.presence_sleep_dcr(self, user[type1])
+        self.presence_sleep_dcr(user[type1])
         return self.element_text(user[type1])
 
     @allure.step("关闭IMEI Inventory Query菜单")

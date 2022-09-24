@@ -12,16 +12,13 @@ ini = ReadConfig(pro_name, pro_env)
 
 class LoginPage(Base):
     """DCR登录类"""
-
     @allure.step("输入工号")
     def input_account(self, content):
         self.input_text(user['工号输入框'], txt=content)
-        sleep()
 
     @allure.step("输入密码")
     def input_passwd(self, content):
         self.input_text(user['密码输入框'], txt=content)
-        sleep()
 
     @allure.step("语言切换")
     def switch_lanuage(self, content):
@@ -31,7 +28,6 @@ class LoginPage(Base):
     @allure.step("判断是否被选中")
     def click_check_box(self):
         self.is_click(user['隐私保护勾选'])
-        sleep(1)
 
     @allure.step("获取复选框对应的 Class属性是否包含is-checked")
     def get_check_box_class(self):
@@ -47,6 +43,7 @@ class LoginPage(Base):
     @allure.step("点击帐号密码登录")
     def click_loginsubmit(self):
         self.is_click(user['登录'])
+        sleep(4.3)
 
     @allure.step("点击退出登录")
     def click_loginOut(self):
@@ -69,12 +66,11 @@ class LoginPage(Base):
         get_menu_class = ss.get_attribute('class')
         return get_menu_class
 
-
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
         user = LoginPage(drivers)
         user.get_url(ini.url)
-        sleep(5)
+        sleep(3)
         user.input_account(account)
         user.input_passwd(passwd)
         sleep(1)
@@ -82,7 +78,6 @@ class LoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(4)
 
 
     @allure.step("退出重新登录，去掉打开登录地址")
@@ -95,7 +90,6 @@ class LoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(4)
 
 
     @allure.step("查找菜单")
@@ -117,7 +111,6 @@ class LoginPage(Base):
     @allure.step("初始化登录方法")
     def initialize_login(self, drivers, account1, password):
         get_account = self.get_login_account()
-        sleep(1)
         if account1 != get_account:
             self.click_loginOut()
             self.dcr_again_login(drivers, account1, password)

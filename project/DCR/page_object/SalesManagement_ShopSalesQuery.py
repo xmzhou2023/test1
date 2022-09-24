@@ -50,7 +50,7 @@ class ShopSaleQueryPage(Base):
 
     @allure.step("Shop Sales Query页面，获取列表Shop ID 文本内容")
     def get_shop_id_text(self):
-        Base.presence_sleep_dcr(self, user['获取门店ID文本'])
+        self.presence_sleep_dcr(user['获取门店ID文本'])
         shop_id = self.element_text(user['获取门店ID文本'])
         return shop_id
 
@@ -76,7 +76,7 @@ class ShopSaleQueryPage(Base):
 
     @allure.step("Shop Sales Query页面，获取列表获取总条数文本")
     def get_total_text(self):
-        Base.presence_sleep_dcr(self, user['获取总条数文本'])
+        self.presence_sleep_dcr(user['获取总条数文本'])
         total = self.element_text(user['获取总条数文本'])
         total1 = total[6:]
         return total1
@@ -107,7 +107,7 @@ class ShopSaleQueryPage(Base):
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(1)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(5)
 
@@ -120,7 +120,7 @@ class ShopSaleQueryPage(Base):
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        down_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return down_status
 
     @allure.step("导出记录页面，获取列表 Download Status文本")
@@ -146,6 +146,7 @@ class ShopSaleQueryPage(Base):
 
     @allure.step("导出记录页面，获取列表 Create Date文本")
     def get_create_date_text(self):
+        self.scroll_into_view(user['获取创建日期文本'])
         create_date = self.element_text(user['获取创建日期文本'])
         create_date1 = create_date[0:10]
         return create_date1
@@ -177,10 +178,10 @@ class ShopSaleQueryPage(Base):
 
     @allure.step("断言分页总数是否存在数据")
     def assert_total2(self, total):
-        if int(total) > 1000:
+        if int(total) > 100:
             logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
         else:
-            logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total))
+            logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
 
     @allure.step("断言文件或导出时间是否有数据 ")
     def assert_file_time_size(self, file_size, export_time):

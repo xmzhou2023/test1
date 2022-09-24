@@ -846,6 +846,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip
     def test_005_019(self, drivers, Machine_Approval_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1198,6 +1199,7 @@ class TestProcessInformationExport:
     @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip
     def test_008_001(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1211,6 +1213,7 @@ class TestProcessInformationExport:
     @allure.description("在BOM工程师页面中，在Bom Tree中点导出，导出的数据和Bom Tree的数据是一致的")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip
     def test_008_002(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1225,6 +1228,7 @@ class TestProcessInformationExport:
     @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip
     def test_008_003(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1237,6 +1241,7 @@ class TestProcessInformationExport:
     @allure.description("在业务审核页面中，点击BOM Tree中的导出，导出文件中的数据和页面中的数据是一致的")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip
     def test_008_004(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -1251,6 +1256,7 @@ class TestProcessInformationExport:
     @allure.description("在数据组审批页面中，在生产工厂信息中点击导出，导出的文件中的数据和页面中的数据是一致的")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip
     def test_008_005(self, drivers, Machine_Approval_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()

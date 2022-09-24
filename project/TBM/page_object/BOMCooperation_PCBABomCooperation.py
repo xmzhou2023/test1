@@ -1,5 +1,9 @@
 from time import sleep
+
+from selenium.webdriver import Keys
+
 from libs.common.read_element import Element
+from libs.config.conf import BASE_DIR
 from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
 
@@ -45,10 +49,9 @@ class PCBABomCooperation(CenterComponent):
     def add_bom_info(self):
         self.click_add()
         self.input_add_bom_info('制作类型', 'PCBA BOM制作')
-        self.input_add_bom_info('品牌', 'itel')
+        self.input_add_bom_info('品牌', 'Infinix')
         self.input_add_bom_info('机型', 'JMB-01')
         self.input_add_bom_info('阶段', '试产阶段')
-        self.input_add_bom_info('制作虚拟贴片/套片', '否')
 
     @allure.step("点击提交")
     def click_add_submit(self):
@@ -63,57 +66,250 @@ class PCBABomCooperation(CenterComponent):
         logging.info('点击新增Bom')
         sleep(0.5)
 
+    @allure.step("点击新增bom")
+    def click_add_material(self):
+        self.is_click_tbm(user['新增物料'])
+        logging.info('点击新增物料')
+        sleep(0.5)
+
     @allure.step("断言新增bom是否存在")
     def assert_add_bomtree_exist(self, result):
         """断言 新增bom是否存在"""
-        DomAssert(self.driver).assert_control(user['新增BomTree'], result)
+        DomAssert(self.driver).assert_control(user['新增BomTree'], result=result)
 
     @allure.step("BomTree信息输入")
-    def input_bomtree(self, header, content):
+    def input_bomtree(self, tree, header, content):
         """
         模版信息根据条件输入内容并且点击
+        @param tree:Tree列，或者其他行内唯一的文本
+        @param header: BomTree要输入的表头
         @param content:输入的内容
-        @param header: BomTree要输入的表头；{'BOM类型':'2','BOM状态':'3','物料编码':'6','用量':'9','替代组':'10','份额':'11',}
         """
-        BomTree_dict = {'BOM状态': '2', '物料编码': '5',
-                        '用量': '8', '替代组': '9', '份额': '10', }
-        if header == 'BOM状态':
-            self.is_click_tbm(user['BOMTree输入框'], BomTree_dict[header])
-            sleep(0.5)
+        BomTree_dict = {'BOM状态': '2', '物料编码': '5', '数量': '8', '位号': '9', '替代组': '10', '份额': '11'}
+        select_list = ['BOM状态']
+        input_list = ['物料编码', '数量', '替代组', '份额', '位号']
+        if header in select_list:
+            self.is_click_tbm(user['BOMTree填写'], tree, BomTree_dict[header])
             self.is_click_tbm(user['BOMTree输入框选择'], content)
-        elif header == '物料编码':
-            self.is_click_tbm(user['BOM编辑'])
-            self.readonly_input_text(user['BOMTree输入框'], content, choice=BomTree_dict[header])
+        elif header in input_list:
+            self.is_click_tbm(user['BOMTree编辑'], tree)
+            self.readonly_input_text(user['BOMTree填写'], content, tree, BomTree_dict[header])
+            sleep(1)
+            if header == '物料编码':
+                self.is_click_tbm(user['物料编码选择'], content)
+            self.is_click_tbm(user['BOMTree确定'], tree)
+        else:
+            logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
+
+    @allure.step("新增物料输入内容")
+    def input_optional_material(self, tree, header, content):
+        """
+        新增物料后，模版信息根据条件在新增的物料输入内容并且点击
+        @param tree:点击新增物料后，需填写位置的上一个物料编码
+        @param content:输入的内容
+        @param header: BomTree要输入的表头
+        """
+        BomTree_dict = {'物料编码': '5', '数量': '8', '位号': '9', '替代组': '10', '份额': '11'}
+        if header == '物料编码':
+            self.is_click_tbm(user['BOMTree新增物料编辑'], tree)
+            self.readonly_input_text(user['BOMTree新增物料填写'], content, tree, BomTree_dict[header])
             sleep(1)
             self.is_click_tbm(user['物料编码选择'], content)
-            self.is_click_tbm(user['BOM确定'])
-        elif header == '用量' or header == '替代组' or header == '份额':
-            try:
-                self.is_click_tbm(user['BOM编辑'])
-                self.readonly_input_text(user['BOMTree输入框'], content, choice=BomTree_dict[header])
-                self.is_click_tbm(user['BOM确定'])
-            except:
-                self.is_click_tbm(user['BOM编辑'])
-                self.readonly_input_text(user['BOMTree输入框'], content,
-                                         choice=BomTree_dict[header])
-                self.is_click_tbm(user['BOM确定'])
-            sleep(0.5)
+            self.is_click_tbm(user['BOMTree新增物料确定'], tree)
+        elif header == '数量' or header == '位号' or header == '替代组' or header == '份额':
+            self.is_click_tbm(user['BOMTree新增物料编辑'], tree)
+            self.readonly_input_text(user['BOMTree新增物料填写'], content, tree, BomTree_dict[header])
+            self.is_click_tbm(user['BOMTree新增物料确定'], tree)
+        else:
+            logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
-    @allure.step("审核人设置")
-    def select_business_review(self, audit, type='MPM'):
+    @allure.step("点击一键填写")
+    def click_one_press(self):
+        self.is_click_tbm(user['BOM信息一键填写'])
+
+    @allure.step("BOM信息一键填写")
+    def input_one_press(self, key, value):
         """
-        审核人设置-业务评审-：选择用户
-        @param type:选择的类别
-        @param audit:输入的用户名
+        一键填写-根据key选择字段名称，根据value输入字段值
+        @param key:字段名称
+        @param value:字段值
         """
-        self.scroll_into_view(user['审核人设置'])
+        self.click_one_press()
         sleep(0.5)
-        self.is_click_tbm(user['审核人类别'], type)
-        self.input_text(user['成员列表输入框'], audit)
-        sleep(1)
-        self.is_click_tbm(user['成员选择'], audit)
+        self.is_click_tbm(user['BOM信息一键填写-字段名称'])
+        sleep(0.5)
+        self.is_click_tbm(user['BOM信息一键填写-字段名称选择'], key)
+        sleep(0.5)
+        if key == '数量':
+            if value == '':
+                self.find_element(user['BOM信息一键填写-字段值默认']).send_keys(Keys.CONTROL + 'a')
+                self.find_element(user['BOM信息一键填写-字段值默认']).send_keys(Keys.BACKSPACE)
+            self.input_text(user['BOM信息一键填写-字段值默认'], value)
+        else:
+            if value == '':
+                self.find_element(user['BOM信息一键填写-字段值']).send_keys(Keys.CONTROL + 'a')
+                self.find_element(user['BOM信息一键填写-字段值']).send_keys(Keys.BACKSPACE)
+            self.input_text(user['BOM信息一键填写-字段值'], value)
+        sleep(0.5)
+        self.is_click_tbm(user['确定'])
+        sleep(0.5)
+
+    @allure.step("点击复选框")
+    def click_checkbox(self, material='all'):
+        """
+        TOM Tree根据material点击指定复选框，默认全选
+        @param material:物料名，传入BomTree的物料名称；默认‘all’表示点击全选复选框
+        """
+        if material == 'all':
+            self.is_click_tbm(user['复选框全选'])
+        else:
+            self.is_click_tbm(user['复选框单选'], material)
+        sleep(0.5)
+
+    @allure.step("断言：BomTree数据")
+    def assert_BomTree_result(self, row, header, content, hearder_type=None):
+        column = self.get_table_info(user['BomTree表格字段'], header)
+        if hearder_type == 'Tree':
+            ac_content = self.element_text(user['BomTree表格指定Tree内容'], row, column)
+        else:
+            ac_content = self.element_text(user['BomTree表格指定内容'], row, column)
+        try:
+            assert content in ac_content
+        except:
+            logging.error("断言失败，结果不包含指定内容")
+            raise
+        logging.info("断言成功，结果:{}包含指定内容:{}".format(ac_content, content))
+
+    @allure.step("根据Tree点击删除按钮")
+    def click_bomtree_delete(self, tree):
+        self.is_click_tbm(user['BOMTree删除'], tree)
+
+    @allure.step("点击确定")
+    def click_batch_confirm(self):
+        self.is_click_tbm(user['确定'])
+        logging.info('确定')
+        sleep(0.5)
+
+    @allure.step("断言：判断是否存在批量删除")
+    def assert_batch_delete(self, result):
+        DomAssert(self.driver).assert_control(user['批量删除'], result=result)
+
+    @allure.step("导入-上传文件")
+    def upload_import(self, file):
+        ele = self.driver.find_element(By.XPATH,
+                                       "//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper']/div/div[2]/div[1]/div/input")
+        ele.send_keys(file)
+        logging.info('点击导入-上传文件')
+
+    @allure.step("导入BOM-上传正确文件")
+    def upload_true_file(self):
+        file_path = os.path.join(PEROJECT_PATH, 'TBM', 'data', 'PCBA发起导入模板.xlsx')
+        self.upload_import(file_path)
+        DomAssert(self.driver).assert_control(user['导入BOM校验结果成功状态'])
+
+    @allure.step("导入BOM-上传错误文件")
+    def upload_wrong_file(self):
+        file_path = os.path.join(PEROJECT_PATH, 'TBM', 'data', 'worng_file_text.txt')
+        self.upload_import(file_path)
+
+    @allure.step("导入BOM-上传错误内容文件")
+    def upload_wrongcontent_file(self):
+        file_path = os.path.join(PEROJECT_PATH, 'TBM', 'data', 'PCBA发起导入模板错误内容.xlsx')
+        self.upload_import(file_path)
         sleep(2)
-        self.is_click_tbm(user['成员确定'])
+        DomAssert(self.driver).assert_att('贴片主板_SU385_A1_32GB+2GB_V1.1_自制')
+        DomAssert(self.driver).assert_control(user['导入BOM校验结果失败状态'])
+
+    @allure.step("断言导入错误内容后，页面状态是否正确")
+    def assert_wrongcontent_upload_result(self):
+        try:
+            apply = self.find_element(user['导入BOM应用状态'])
+            check = self.find_element(user['导入BOM导出校验状态'])
+            assert 'is-disabled' in apply.get_attribute('class')
+            assert 'is-disabled' not in check.get_attribute('class')
+            logging.info('断言成功，导出校验可点击，应用不可点击')
+        except:
+            self.base_get_img()
+            logging.error('断言失败，请检查按钮状态')
+            raise
+
+    def get_bomtree_upload_info(self):
+        """
+        获取导入BOM-结果内容
+        """
+        info = self.find_elements_tbm(user['导入BOM内容'])
+        infolist = []
+        for i in info:
+            infolist.append(i.text.split('\n'))
+        logging.info('获取BOM导入结果{}'.format(infolist))
+        return infolist
+
+    @allure.step("断言导入后，页面表格内容是否正确")
+    def assert_upload_result(self, *content):
+        """
+        断言导入后，页面表格内容是否正确
+        :param content: 需要断言的内容，可以一次传入多个
+        """
+        try:
+            contents = self.get_bomtree_upload_info()
+            content_list = []
+            for i in contents:
+                content_list.append(tuple(i))
+            logging.info(content_list)
+            assert set(content) <= set(content_list)
+            logging.info('断言成功，选项值包含：{}'.format(content))
+        except:
+            self.base_get_img()
+            logging.error('断言失败，选项值不包含：{}'.format(content))
+            raise
+
+    @allure.step("点击应用")
+    def click_apply(self):
+        self.is_click_tbm(user['应用'])
+        logging.info('点击应用')
+
+    @allure.step("点击展开+图标")
+    def click_tree(self, tree):
+        """
+        点击展开+图标
+        :param tree: 物料名称
+        """
+        self.is_click_tbm(user['展开'], tree)
+        logging.info('点击展开')
+
+    def get_bomtree_tree_info(self):
+        """
+        获取BOMTree所有内容
+        """
+        info = self.find_elements_tbm(user['BomTree全部内容'])
+        infolist = []
+        for i in info:
+            infolist.append(i.text.split('\n'))
+        logging.info('获取BOMTree所有内容{}'.format(infolist))
+        return infolist
+
+
+    @allure.step("断言导入BOM-导入后，页面表格内容是否正确")
+    def assert_tree_result(self, *content):
+        """
+        断言导入BOM-导入后，页面表格内容是否正确
+        :param content: 需要断言的内容，可以一次传入多个
+        """
+        try:
+            contents = self.get_bomtree_tree_info()
+            content_list = []
+            for i in contents:
+                if len(i) <= 3:
+                    continue
+                content_list.append(tuple(i))
+            assert set(content) <= set(content_list)
+            logging.info(content_list)
+            logging.info('断言成功，选项值包含：{}'.format(content))
+        except:
+            self.base_get_img()
+            logging.error('断言失败，选项值不包含：{}'.format(content))
+            raise
+
 
     @allure.step("获取PCBA BOM协作第一列内容")
     def get_info(self):
@@ -166,6 +362,31 @@ class PCBABomCooperation(CenterComponent):
         self.click_delete(code)
         self.assert_toast('删除成功')
 
+    @allure.step("断言:页面表格内容是否正确")
+    def assert_oneworks_bomtree_result(self, *content):
+        """
+        断言导入BOM-导入后，页面表格内容是否正确
+        :param content: 需要断言的内容，可以一次传入多个
+        """
+        try:
+            self.click_tree('PCBA')
+            contents = self.get_oneworks_bomtree_info()
+            content_list = []
+            for i in contents:
+                content_list.append(tuple(i))
+            assert set(content) <= set(content_list)
+            logging.info(content_list)
+            logging.info('断言成功，选项值包含：{}'.format(content))
+        except:
+            self.base_get_img()
+            logging.error('断言失败，选项值不包含：{}'.format(content))
+            raise
 
+    def click_Accessory(self):
+        self.is_click_tbm(user['Oneworks附件'])
+
+    def send_Accessory(self, name):
+        Accessory_path = os.path.join(PEROJECT_PATH, 'TBM', 'data', name)
+        self.upload_file(user['Oneworks附件上传'], Accessory_path)
 if __name__ == '__main__':
     pass

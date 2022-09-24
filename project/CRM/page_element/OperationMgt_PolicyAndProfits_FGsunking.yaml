@@ -1,0 +1,47 @@
+
+FG筛选框: 'xpath==//label[@for="variable"]//parent::div/div[1]//input[@type="text"]'
+筛选框: 'xpath==//label[@for="variable"]//parent::div/div[1]//input[@type="text"]'
+
+搜索按钮: 'xpath==//span[text()="Search"]'
+
+下拉筛选框_第一条数据: 'xpath==//div[@x-placement="bottom-start"]//li[1]'
+下拉筛选框_第二条数据: 'xpath==//div[@x-placement="bottom-start"]//li[2]'
+
+下拉框_启用禁用切换: 'xpath==//div[@x-placement="bottom-start"]//li[3]'
+
+第一行edit按钮: 'xpath==//table[@class="el-table__body"]//tr[1]//button[@type="button"]//span[text()="Edit"]'
+第一行enble: 'xpath==//table[@class="el-table__body"]//tr[1]//div[@role="switch"]//span[text()="Enable"]'
+
+第4列文本: 'xpath==//tr[@class="el-table__row"]/td[variable]'
+第3列文本: 'xpath==//tr[@class="el-table__row"]/td[3]'
+
+total数量: 'xpath==//span[@class="el-pagination__total"]'
+
+add按钮: 'xpath==//button//span[normalize-space(text())="Add"]'
+batchNo: 'xpath==//label[@for="batchNo"]/following-sibling::div//input[@class="el-input__inner"]'
+countrycode: 'xpath==//div[@class="formContent"]//input[@class="el-input__inner"]'
+materialcode: 'xpath==//label[@for="materialId"]/following-sibling::div//input[@class="el-input__inner"]'
+date: 'xpath==//label[@for="variable"]/following-sibling::div//input[@class="el-input__inner"]'
+
+日期选择框上的OK: 'xpath==//div[@x-placement="bottom-start"]//span[normalize-space(text())="OK"]'
+
+selectdate: 'xpath==//div[@x-placement="bottom-start"]//input[@placeholder="variable"]'
+
+save: 'xpath==//span[text()="Save"]'
+cancel: 'xpath==//div[@class="el-dialog__body"]/parent::div//span[text()="Cancel"]'
+关闭弹窗上的confirm: 'xpath==//div[@class="el-message-box__btns"]//span[normalize-space(text())="Confirm"]'
+
+第一行enable按钮: 'xpath==//table[@class="el-table__body"]//tr[1]//div[@role="switch"]//span[text()="Enable"]'
+确认disable弹窗的Yes按钮: 'xpath==//span[normalize-space(text())="Yes"]'
+
+export: 'xpath==//div[@class="el-row el-row--flex"]//span[normalize-space(text())="Export"]'
+云文档上传下载按钮: 'xpath==//div[@aria-describedby="el-popover-7048"]'
+tasktips的ok按钮: 'xpath==//div[@class="dialog-footer"]//span[normalize-space(text())="OK"]'
+tasklist页createdOn: 'xpath==//input[@placeholder="Start Date"]'
+createdOn取消按钮: 'xpath==//input[@placeholder="Start Date"]/parent::div//span[@class="el-input__suffix-inner"]'
+取消全选按钮: 'xpath==//span[contains(@class,"el-checkbox__input")]'
+全选按钮已选中: 'xpath==//span[contains(@class,"is-checked")]'
+
+MenuName: 'xpath==//label[@for="menuName"]/parent::div//input[@class="el-input__inner"]'
+Task_Status: 'xpath==//tr[1]//span[@class="el-popover__reference-wrapper"]/button[contains(@aria-describedby,"el-popover")]'
+Download_Task: 'xpath==//tbody/tr[1]//td[@rowspan="1"]//img[@style="cursor: pointer;"]'

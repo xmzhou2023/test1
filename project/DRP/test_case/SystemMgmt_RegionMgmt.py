@@ -8,11 +8,15 @@ from project.DRP.page_object.SystemMgmt_RegionMgmt import AreaPage
 
 @pytest.fixture(scope='module', autouse=True)
 def module_setup_fixture(drivers):
-    logging.info("模块前置条件：前往“DRP数据管理-机型库”页面")
+    logging.info("模块前置条件：前往 DRP数据管理-机型库 页面")
     user = NavPage(drivers)
     user.click_gotonav("系统管理", "区域管理")
-    user = DomAssert(drivers)
-    user.assert_url("/systemManage/areaManage")
+    dom = DomAssert(drivers)
+    dom.assert_url("/systemManage/areaManage")
+    yield
+    logging.info("后置条件:关闭 DRP数据管理-机型库 页面")
+    user.close_page()
+    dom.assert_url("/dashboard")
 
 
 @allure.feature("系统管理-区域管理")
@@ -27,6 +31,7 @@ class TestSearchArea:
     def test_001_001(self, drivers):
         user = AreaPage(drivers)
         user.goto_tree('itel事业部')
+        user.assert_area('组织','itel事业部')
 
     @allure.story("查询区域")
     @allure.title("前往二级区域")
@@ -36,6 +41,7 @@ class TestSearchArea:
     def test_001_002(self, drivers):
         user = AreaPage(drivers)
         user.goto_tree('itel事业部', 'itel事业部')
+        user.assert_area('地区部','itel事业部')
 
     @allure.story("查询区域")
     @allure.title("前往三级区域")
@@ -45,6 +51,7 @@ class TestSearchArea:
     def test_001_003(self, drivers):
         user = AreaPage(drivers)
         user.goto_tree('itel事业部', 'itel事业部', 'itel事业部')
+        user.assert_area('大区','itel事业部')
 
     @allure.story("查询区域")
     @allure.title("前往四级区域")
@@ -55,6 +62,7 @@ class TestSearchArea:
     def test_001_004(self, drivers):
         user = AreaPage(drivers)
         user.goto_tree('itel事业部', 'itel事业部', 'itel事业部', '事业部备料')
+        user.assert_area('国家', '事业部备料')
 
     @allure.story("查询区域")
     @allure.title("精确搜索区域")
@@ -66,9 +74,8 @@ class TestSearchArea:
         user.goto_tree('itel事业部')
         user.search_area("巴基斯坦")
         allist = user.goto_tree()
-        res = user.check_tree("巴基斯坦", allist)
-        user = ValueAssert()
-        user.value_assert_equal(res)
+        user.check_tree("巴基斯坦", allist)
+
 
     @allure.story("查询区域")
     @allure.title("模糊搜索区域")
@@ -79,10 +86,8 @@ class TestSearchArea:
         user = AreaPage(drivers)
         user.goto_tree('itel事业部')
         user.search_area("巴基")
-        allist = user.goto_tree()
-        res = user.check_tree("巴基", allist)
-        user = ValueAssert()
-        user.value_assert_equal(res)
+        allist = user.goto_tree('itel事业部')
+        user.check_tree("巴基斯坦", allist)
 
     @allure.story("查询区域")
     @allure.title("清空搜索框内容")
@@ -94,10 +99,7 @@ class TestSearchArea:
         user.goto_tree('itel事业部')
         user.search_area("加纳")
         allist = user.goto_tree()
-        res = user.check_tree("加纳", allist)
-        user = ValueAssert()
-        user.value_assert_equal(res)
-        user = AreaPage(drivers)
+        user.check_tree("加纳", allist)
         user.clear_tree()
 
 

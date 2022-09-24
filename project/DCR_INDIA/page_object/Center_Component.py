@@ -18,12 +18,10 @@ class LoginPage(Base):
     def input_account(self, content):
         """输入工号"""
         self.input_text(user['工号输入框'], txt=content)
-        sleep(1)
 
     def input_passwd(self, content):
         """输入密码"""
         self.input_text(user['密码输入框'], txt=content)
-        sleep(1)
 
     def switch_lanuage(self, content):
         """语言切换"""
@@ -33,7 +31,6 @@ class LoginPage(Base):
     def click_check_box(self):
         """判断是否被选中"""
         self.is_click(user['隐私保护勾选'])
-        sleep(1)
 
     def get_check_box_class(self):
         """获取复选框对应的 Class属性是否包含is-checked"""
@@ -49,7 +46,7 @@ class LoginPage(Base):
     def click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(user['登录'])
-        sleep(8)
+        sleep(6)
 
     def click_loginOut(self):
         """点击退出登录"""
@@ -67,10 +64,10 @@ class LoginPage(Base):
     def dcr_login(self, drivers, account, passwd):
         #user = LoginPageDCR(drivers)
         self.get_url(ini.url)
-        sleep(7)
+        sleep(3)
         self.input_account(account)
         self.input_passwd(passwd)
-        sleep(1)
+        sleep(1.5)
         get_check_class = self.get_check_box_class()
         if "is-checked" not in str(get_check_class):
             self.click_check_box()

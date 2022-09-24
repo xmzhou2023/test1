@@ -14,14 +14,13 @@ import pymysql
 """
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
-    sleep(1)
     logging.info("前置条件:进入非序列化工单报表页")
     user = NavPage(drivers)
-    user.refresh()
-    sleep(1)
-    user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO NonSerialized Report')
-    user = DomAssert(drivers)
-    user.assert_url("/maintenanceMgt/workOrderReportMgt/woNoSerializedReport")
+    user.refresh_page()
+    user.list_search(content='WO NonSerialized Report')
+    # user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO NonSerialized Report')
+    # user = DomAssert(drivers)
+    # user.assert_url("/maintenanceMgt/workOrderReportMgt/woNoSerializedReport")
     yield
     logging.info("后置条件:合起菜单")
     user = NavPage(drivers)

@@ -1,6 +1,7 @@
 from libs.common.read_element import Element
 from public.base.basics import Base
 from libs.common.time_ui import sleep
+from libs.config.conf import BASE_DIR
 from ..test_case.conftest import *
 import random
 
@@ -13,23 +14,23 @@ class UserManagementPage(Base):
     @allure.step("user management页面，点击Add新增按钮")
     def click_add_user(self):
         self.is_click(user['Add'])
-        sleep(3.5)
+        sleep(2.5)
 
     @allure.step("进入Add user页面， 选择传音员工类型")
     def click_staff_type_value(self, type1):
+        self.presence_sleep_dcr(user['Staff Type'])
         self.is_click(user['Staff Type'])
-        sleep(0.8)
+        sleep(1)
         self.is_click(user['Transsion Staff'], type1)
 
     @allure.step("Add user页面， 输入user ID字段")
     def input_user_id(self, content):
         self.is_click(user['User ID'])
         self.input_text_dcr(user['User ID'], txt=content)
-        sleep(1)
 
     @allure.step("Add user页面， 输入user Name字段")
     def input_user_name(self, content):
-        Base.presence_sleep_dcr(self, user['User Name'])
+        self.presence_sleep_dcr(user['User Name'])
         self.is_click(user['User Name'])
         self.input_text(user['User Name'], txt=content)
 
@@ -53,41 +54,47 @@ class UserManagementPage(Base):
 
     @allure.step("Add user页面，选择点击品牌")
     def click_select_brand(self):
-        self.is_click(user['Select Brand'])
+        self.is_click(user['Add Select Brand'])
         sleep(1)
-        self.is_click(user['Brand TECNO'])
-        self.is_click(user['Brand itel'])
-        self.is_click(user['Brand Infinix'])
+        self.presence_sleep_dcr(user['Select Brand Value'], 'Infinix')
+        self.is_click(user['Select Brand Value'], 'Infinix')
+        self.is_click(user['Select Brand Value'], 'TECNO')
+        self.is_click(user['Select Brand Value'], 'itel')
+
 
     @allure.step("关闭User Management菜单")
     def click_close_user_mgt(self):
         self.is_click(user['关闭用户管理菜单'])
         sleep(1)
 
-    @allure.step("Add user页面，选择点击品牌")
-    def click_edit_brand(self):
-        self.is_click(user['Select Brand'])
+    @allure.step("Edit user页面，选择点击品牌")
+    def click_edit_trans_brand(self):
+        self.is_click(user['Edit Select Brand'])
         sleep(1)
-        self.is_click(user['Brand oraimo'])
+        self.presence_sleep_dcr(user['Select Brand Value'], 'oraimo')
+        self.is_click(user['Select Brand Value'], 'oraimo')
 
-    @allure.step("Add user页面，选择点击品牌")
+    @allure.step("Edit user页面，选择点击品牌")
     def click_edit_dealer_brand(self):
-        self.is_click(user['Select Brand'])
+        self.is_click(user['Edit Select Brand'])
         sleep(1)
-        self.is_click(user['Brand Infinix'])
+        self.presence_sleep_dcr(user['Select Brand Value'], 'Infinix')
+        self.is_click(user['Select Brand Value'], 'Infinix')
 
     @allure.step("Add user页面，输入职位，选中输入的职位")
     def input_position_transsion(self, content):
         self.is_click(user['Position'])
         self.input_text(user['Position'], txt=content)
         sleep(1)
-        self.is_click(user['Position Value Transsion'])
+        self.presence_sleep_dcr(user['Position Value Transsion'], content)
+        self.is_click(user['Position Value Transsion'], content)
 
     @allure.step("Add user页面，输入上级领导，选中输入的上级领导")
     def input_superior(self, content):
         self.is_click(user['Superior'])
         self.input_text(user['Superior'], txt=content)
-        sleep(3)
+        sleep(2.5)
+        self.presence_sleep_dcr(user['Superior Value'], "lhmadmin lhmadmin")
         self.is_click(user['Superior Value'], "lhmadmin lhmadmin")
 
     @allure.step("Add user页面，输入邮箱")
@@ -99,21 +106,21 @@ class UserManagementPage(Base):
     def input_contact_no(self, content):
         self.input_text(user['Contact No'], txt=content)
 
-
     @allure.step("Add user页面，选择性别")
     def click_gender_female(self, context):
         self.is_click(user['Gender'])
         sleep(1)
+        self.presence_sleep_dcr(user['Gender Female'], context)
         self.is_click(user['Gender Female'], context)
 
     @allure.step("Add user页面，点击Submit提交按钮")
     def click_add_user_submit(self):
         self.is_click(user['Add User Submit'])
-        sleep(2)
+        sleep(1.5)
 
     @allure.step("获取列表User ID文本内容")
     def get_text_user_id(self):
-        Base.presence_sleep_dcr(self, user['获取列表文本User ID'])
+        self.presence_sleep_dcr(user['获取列表文本User ID'])
         userid = self.element_text(user['获取列表文本User ID'])
         return userid
 
@@ -122,17 +129,10 @@ class UserManagementPage(Base):
         username = self.element_text(user['获取列表文本User Name'])
         return username
 
-    @allure.step("输入user ID属性筛选")
-    def input_query_userid(self, content1):
-        self.is_click(user['Input User ID'])
-        self.input_text(user['Input User ID'], txt=content1)
-        self.is_click(user['User ID Value'])
-        sleep(1)
-
     @allure.step("点击搜索功能")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(4.5)
+        sleep(4)
 
     @allure.step("点击重置按钮")
     def click_reset(self):
@@ -150,14 +150,13 @@ class UserManagementPage(Base):
 
     @allure.step("点击编辑功能")
     def click_edit(self):
-        Base.presence_sleep_dcr(self, user['修改第一个Edit'])
+        self.presence_sleep_dcr(user['修改第一个Edit'])
         self.is_click_dcr(user['修改第一个Edit'])
         sleep(2)
 
     @allure.step("点击第一个checkbox,对用户进行辞职操作")
     def click_first_checkbox(self):
         self.is_click(user['勾选第一个复选框'])
-        sleep(1)
 
     @allure.step("编辑用户提交成功提示语")
     def get_set_up_successfully(self):
@@ -168,7 +167,7 @@ class UserManagementPage(Base):
     def click_more_option_quit(self):
         self.is_click(user['More Option'])
         sleep(2)
-        Base.presence_sleep_dcr(self, user['Quit'])
+        self.presence_sleep_dcr(user['Quit'])
         self.is_click(user['Quit'])
         sleep(3)
         self.is_click(user['确认删除Yes'])
@@ -183,11 +182,6 @@ class UserManagementPage(Base):
         del_success = self.element_text(user['Disabled Successfully'])
         return del_success
 
-    # @allure.step("进入Add user页面， 选择代理员工类型")
-    # def click_dealer_staff(self):
-    #     self.is_click(user['Staff Type'])
-    #     sleep(0.5)
-    #     self.is_click(user['Dealer Staff'])
 
     @allure.step("进入Add user页面， 输入客户ID")
     def input_belong_to_cust(self, content):
@@ -218,13 +212,13 @@ class UserManagementPage(Base):
         self.is_click(user['Position'])
         self.input_text(user['Position'], txt=content)
         sleep(1)
-        self.is_click(user['Position Value Dealer'])
+        self.is_click(user['Position Value Dealer'], content)
 
 
     """查询列表用户"""
     @allure.step("用户管理页面，获取列表文本内容方法")
     def input_get_data(self, data):
-        Base.presence_sleep_dcr(self, user[data])
+        self.presence_sleep_dcr(user[data])
         get_data = self.element_text(user[data])
         return get_data
 
@@ -247,11 +241,11 @@ class UserManagementPage(Base):
     def click_more_reset_password(self):
         self.is_click(user['More Option'])
         sleep(2)
-        Base.presence_sleep_dcr(self, user['Reset Password'])
+        self.presence_sleep_dcr(user['Reset Password'])
         self.is_click(user['Reset Password'])
-        sleep(1.5)
+        sleep(1.4)
+        self.presence_sleep_dcr(user['Reset Password Yes'])
         self.is_click(user['Reset Password Yes'])
-        #sleep(0.5)
 
     @allure.step("登录时，弹出设置新密码窗口，获取New Password 标签")
     def get_new_password_label(self):
@@ -282,20 +276,117 @@ class UserManagementPage(Base):
     @allure.step("登录页面，点击Login登录按钮")
     def click_login(self):
         self.is_click(user['Click Login'])
-        sleep(2)
+        sleep(3.5)
 
+
+    """导入用户操作"""
+    @allure.step("User Management页面，点击Import 按钮")
+    def click_import(self):
+        self.is_click(user['Import Button'])
+        sleep(1.5)
+
+    @allure.step("User Management页面，点击Import Save 按钮")
+    def click_import_save(self):
+        self.is_click(user['Import Save'])
+
+    @allure.step("User Management页面，点击Import 导入功能")
+    def click_import_upload_save(self, file1):
+        self.is_click(user['Add Upload'])
+        sleep(4)
+        ele = self.driver.find_element('xpath', "//input[@name='file']")
+        ele.send_keys(file1)
+        sleep(1.5)
+        self.is_click(user['Import Save'])
+        sleep(2)
+        self.presence_sleep_dcr(user['Upload Confirm'])
+        self.is_click(user['Upload Confirm'])
+        sleep(1)
+
+    @allure.step("导入用户模板-上传正确的文件")
+    def upload_true_file(self, file1):
+        path1 = os.path.join(BASE_DIR, 'project', 'DCR', 'data', file1)
+        logging.info("打印上传的用户模板文件path：{}".format(path1))
+        self.click_import_upload_save(path1)
+
+    @allure.step("Import Record页面，点击Search 查询按钮")
+    def click_import_record_search(self):
+        self.is_click(user['Search'])
+        sleep(1.7)
+
+    """导入记录页面，获取列表字段断言是否导入成功"""
+    @allure.step("Import Record页面，获取File Name字段文本")
+    def get_import_file_name(self):
+        get_file_name = self.element_text(user['Get Import Record File Name'])
+        return get_file_name
+
+    @allure.step("Import Record页面，获取Status字段文本")
+    def get_import_status(self):
+        get_status = self.element_text(user['Get Import Record Status'])
+        return get_status
+
+    @allure.step("Import Record页面，获取Total字段文本")
+    def get_import_total(self):
+        get_total = self.element_text(user['Get Import Record Total'])
+        return get_total
+
+    @allure.step("Import Record页面，获取Total字段文本")
+    def get_import_success(self):
+        get_success = self.element_text(user['Get Import Record Success'])
+        return get_success
+
+    @allure.step("Import Record页面，获取Failed字段文本")
+    def get_import_failed(self):
+        get_failed = self.element_text(user['Get Import Record Failed'])
+        return get_failed
+
+    @allure.step("Import Record页面，获取 Fail Data字段文本")
+    def get_import_fail_data(self):
+        self.scroll_into_view(user['Get Import Fail Data'])
+        get_fail_data = self.element_text(user['Get Import Fail Data'])
+        return get_fail_data
+
+    @allure.step("Import Record页面，获取 Import Date字段文本")
+    def get_import_import_date(self):
+        self.scroll_into_view(user['Get Import Import Date'])
+        get_import_date = self.element_text(user['Get Import Import Date'])
+        get_import_date1 = get_import_date[0:10]
+        return get_import_date1
+
+    @allure.step("User Management页面页面，获取列表Brand字段内容")
+    def get_list_brand(self):
+        get_brand = self.element_text(user['Get list Brand'])
+        return get_brand
+
+    @allure.step("User Management页面页面，获取列表 Country字段内容")
+    def get_list_country(self):
+        sleep(1.5)
+        self.scroll_into_view(user['Get list Country'])
+        get_country = self.element_text(user['Get list Country'])
+        return get_country
+
+    @allure.step("User Management页面页面，获取列表 Position字段内容")
+    def get_list_position(self):
+        sleep(1.5)
+        self.scroll_into_view(user['Get list Position'])
+        get_position = self.element_text(user['Get list Position'])
+        return get_position
+
+    @allure.step("User Management页面页面，获取列表 Staff Status字段内容")
+    def get_list_staff_status(self):
+        get_staff_status = self.element_text(user['Get list Staff Status'])
+        return get_staff_status
 
     """导出用户"""
     @allure.step("User Management页面，点击Export 导出用户记录")
     def click_export(self):
         self.is_click(user['Export'])
-        sleep(2)
+        sleep(1.5)
 
-    @allure.step("Attendance Records页面，导出操作后，点击右上角下载图标,点击右上角more...")
+    @allure.step("User Management页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(2)
-        Base.presence_sleep_dcr(self, user['More'])
+        self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
         sleep(3)
 
@@ -308,7 +399,7 @@ class UserManagementPage(Base):
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
-        download_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])
+        download_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
         return download_status
 
     @allure.step("导出记录页面，获取列表 Task Name文本")
@@ -329,6 +420,7 @@ class UserManagementPage(Base):
 
     @allure.step("导出记录页面，获取列表 Create Date文本")
     def get_create_date_text(self):
+        self.scroll_into_view(user['获取创建日期文本'])
         create_date = self.element_text(user['获取创建日期文本'])
         create_date1 = create_date[0:10]
         return create_date1

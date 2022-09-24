@@ -19,3 +19,4 @@ Country下拉选择: "xpath==//body/div[contains(@class,'el-select-dropdown el-p
 页签关闭: "xpath==//div[contains(@class,'scrollbar__wrap')]//div[contains(@class,'scrollbar__view')]//span[normalize-space(text())='variable']//span[@class='el-icon-close']"
 Task list查询页scope查询输入框: "xpath==//div[@class='el-col el-col-12'][7]//input[@type='text']"
 Task list查询页scope下拉选择框: "xpath==//body/div[contains(@class,'el-select-dropdown el-popper')]//li[contains(text(),'All')]"
+表格中的Seq字段: "xpath==//tr[@class][1]/th[1]//div[normalize-space(text())='Seq']"

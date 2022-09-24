@@ -8,12 +8,15 @@ from project.DRP.page_object.DRPDataMgmt_ColorLibrary import ColorLibrary
 
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
-    logging.info("模块前置条件：前往“DRP数据管理-颜色库”页面")
+    logging.info("模块前置条件：前往 DRP数据管理-颜色库 页面")
     user = NavPage(drivers)
     user.click_gotonav("DRP数据管理", "颜色库")
-    user = DomAssert(drivers)
-    user.assert_url("/dataManage/colorLibrary")
-
+    dom = DomAssert(drivers)
+    dom.assert_url("/dataManage/colorLibrary")
+    yield
+    logging.info("后置条件:关闭 DRP数据管理-颜色库 页面")
+    user.close_page()
+    dom.assert_url("/dashboard")
 
 @allure.feature("DRP数据管理-颜色库")
 class TestSearchColor:
@@ -117,31 +120,117 @@ class TestAppendColor:
     def test_003_001(self, drivers):
         color = ColorLibrary(drivers)
         color.append_button()
-        color.input_colorinf("3", "", "123")
-        color.input_colorinf("4", "", "ABC")
-        color.input_colorinf("5", "", "123")
+        color.input_colorinf({"颜色名称Zh": "123","颜色名称En": "ABC","备注": "123"})
         color.save_button()
-        color.list_assert(inputcolor="AB", lis="2", colorcode="ABC")  # 页面列表数据断言
-        color.list_assert(inputcolor="AB", lis="3", colorcode="123")  # 页面列表数据断言
+        color.list_assert("AB", {"2":"ABC","3": "123"})  # 页面列表数据断言
         color.clear_testdata("123", "ABC", "123", "隆江")
+
+    @allure.story("新增颜色库数据")
+    @allure.title("[异常]未维护必填项,保存失败")
+    @allure.description("点击新增按钮，维护颜色信息 颜色名称Zh=123,不维护颜色名称En，保存失败")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_003_002(self, drivers):
+        color = ColorLibrary(drivers)
+        color.reset_button()
+        beforlistNum = color.listnum_assert()
+        color.append_button()
+        color.input_colorinf({"颜色名称Zh": "123"})  # 颜色名称Zh,颜色名称En 为必填项
+        color.save_button()
+        color.reset_button()
+        afterlistNum = color.listnum_assert()
+        ValueAssert.value_assert_equal(beforlistNum,afterlistNum)
+
+    @allure.story("新增颜色库数据")
+    @allure.title("[异常]输入文本超过32位,保存失败")
+    @allure.description("点击新增按钮，维护颜色信息 颜色名称Zh 输入超32位文本，保存失败")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_003_003(self, drivers):
+        color = ColorLibrary(drivers)
+        beforlistNum = color.listnum_assert()
+        color.append_button()
+        num = color.build_testData(33)
+        color.input_colorinf({"颜色名称Zh": num})  # 颜色名称Zh 输入超32位字符
+        color.save_button()
+        color.reset_button()
+        afterlistNum = color.listnum_assert()
+        ValueAssert.value_assert_equal(beforlistNum,afterlistNum)
+
+    @allure.story("新增颜色库数据")
+    @allure.title("[异常]颜色名称En 输入非字符型文本,保存失败")
+    @allure.description("点击新增按钮，维护颜色信息 颜色名称En 输入非字符型文本，保存失败")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_003_004(self, drivers):
+        color = ColorLibrary(drivers)
+        beforlistNum = color.listnum_assert()
+        color.append_button()
+        color.input_colorinf({"颜色名称Zh": "abc","颜色名称En": "123"})  # 颜色名称En 输入非字符型文本
+        color.save_button()
+        color.reset_button()
+        afterlistNum = color.listnum_assert()
+        ValueAssert.value_assert_equal(beforlistNum,afterlistNum)
+
 
 
 @allure.feature("DRP数据管理-颜色库")
 class TestEditColor:
     @allure.story("修改颜色库数据")
-    @allure.title("点击指定行编辑按钮，修改颜色信息 保存")
+    @allure.title("点击指定行编辑按钮，修改颜色信息 保存成功")
     @allure.description("点击指定行编辑按钮，修改颜色信息 颜色名称Zh=123->456,颜色名称Eh=ABC->zzz,备注=123->aaa，保存成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.skip
+    @pytest.mark.smoke
     def test_004_001(self, drivers):
         color = ColorLibrary(drivers)
-        # color.precondition_addtestdata(drivers)
+        color.precondition_addtestdata(drivers)
         color.precondition_selecttestdata("ABC")
         color.edit_button("ABC")
-        color.edit_color("ABC","3","123","456")
+        color.edit_color("ABC",{"颜色名称Zh":"456","颜色名称En":"EFG","备注":"456"})
         color.save_button()
-        color.list_assert(inputcolor="456", lis="3", colorcode="456")  # 页面列表数据断言
-        color.clear_testdata("456",  "隆江")
+        color.list_assert("456", {"3": "456"})  # 页面列表数据断言
+        color.clear_testdata("456", "EFG", "456", "隆江")
+
+    @allure.story("修改颜色库数据")
+    @allure.title("[异常]点击指定行编辑按钮，修改颜色信息必填项 为空 保存失败")
+    @allure.description("点击指定行编辑按钮，修改颜色信息 颜色名称Zh=123->空,保存失败")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_004_002(self, drivers):
+        color = ColorLibrary(drivers)
+        color.precondition_addtestdata(drivers)
+        color.precondition_selecttestdata("ABC")
+        color.edit_button("ABC")
+        color.edit_color("ABC",{"颜色名称Zh":""})
+        color.save_button()
+        color.clear_testdata("123", "ABC", "123", "隆江")
+
+    @allure.story("修改颜色库数据")
+    @allure.title("点击指定行编辑按钮，修改颜色状态为禁用")
+    @allure.description("点击指定行编辑按钮，修改颜色由启用 修改为禁用，保存成功")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_004_003(self, drivers):
+        color = ColorLibrary(drivers)
+        color.precondition_addtestdata(drivers)
+        color.precondition_selecttestdata("ABC")
+        color.edit_state("ABC")
+        color.screen_assert("状态","禁用")
+        color.clear_testdata("123", "ABC", "123", "隆江")
+
+    @allure.story("修改颜色库数据")
+    @allure.title("点击指定行编辑按钮，修改颜色状态由禁用 改为启用")
+    @allure.description("点击指定行编辑按钮，修改颜色由禁用 修改为启用，保存成功")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_004_004(self, drivers):
+        color = ColorLibrary(drivers)
+        color.edit_stateStart(drivers)
+        color.edit_state("ABC")
+        color.precondition_selecttestdata("ABC","启用")
+        color.screen_assert("状态","启用")
+        color.clear_testdata("123", "ABC", "123", "隆江")
+        color.reset_button()
 
 
 

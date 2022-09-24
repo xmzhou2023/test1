@@ -32,6 +32,10 @@ oneworks-节点-产品经理修改-产品定义信息-变更-输入框: "xpath==
 oneworks-节点-产品经理修改-产品定义信息-变更-输入框删除: "xpath==//*[@id='app']//tr/td[variable][not(contains(@class,'is-hidden'))]/div//i[2]"
 oneworks-节点-产品经理修改-产品定义信息-变更-输入框2: "xpath==//*[@id='app']/div/div[2]/section//table/tbody/tr/td[variable][not(contains(@class,'is-hidden'))]/div//input"
 oneworks-节点-产品经理修改-产品定义信息-变更-操作框: "xpath==//div[@class='el-table__fixed-right']"
+产品定义信息字段: "xpath==//div[normalize-space(text())='variable']/.."
+产品定义信息输入: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]//input"
+产品定义信息选择: "xpath==//div[contains(@x-placement,'start')]//span[normalize-space(text())='variable']"
+
 ###==========================================产品定义信息========================================
 产品定义信息成员列表输入框: "xpath==//div[@aria-label='成员列表（单选）']//input"
 产品定义信息成员确定: "xpath==//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper user-dialog']//span[contains(text(),'确 定')]"
@@ -43,20 +47,3 @@ oneworks-节点-产品经理修改-产品定义信息-变更-操作框: "xpath==
 成员列表清空: "xpath==//div[@aria-label='人员列表']//span[normalize-space(text())='清空']"
 成员选择: "xpath==//div[@class='user-list']/div[3]//div[normalize-space(text())='variable']"
 成员确定: "xpath==//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper user-dialog']//span[contains(text(),'确定')]"
-
-
-#==========================================待办列表========================================
-待办列表-我申请的-iframe: "xpath==//iframe"
-待办列表-我的待办: "xpath==//div[@id='tags-view-container']//span[normalize-space(text())='我的待办']"
-待办列表-刷新: "xpath==//i[@class='el-icon-refresh-right']"
-待办列表-筛选框: "xpath==//i[@class='el-icon-zoom-in']"
-待办列表-筛选框-单据号: "xpath==//label[normalize-space(text())='单据号']/..//input"
-待办列表-筛选框-筛选: "xpath==//button/span[contains(text(),'筛选')]"
-待办列表-我申请的-查看详情: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../..//button/span[text()='查看详情']"
-待办列表-我申请的-查看详情(节点名称): "xpath==//span[normalize-space(text())='variable']/../../../../..//span[normalize-space(text())='查看详情']"
-撤回: "xpath==//button/span[contains(text(),'撤回')]"
-撤回确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
-关闭我申请的: "xpath==//*[@id='tags-view-container']//span[contains(text(),'我申请的')]/span"
-待办列表-我的待办-当前节点: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../../td[2]//div[4]/span[2]"
-待办列表-我申请的-当前节点: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../../td[2]//div[3]/span[2]"
-待办列表-我申请的-当前流程: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../../td[3]//div[3]"

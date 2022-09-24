@@ -83,7 +83,7 @@ class DitributorReceiptPage(Base):
 
     @allure.step("国包收货页面，点击IMEI Detail按钮查看IMEI详情信息")
     def click_imei_detail(self):
-        Base.presence_sleep_dcr(self, user['点击IMEI Detail'])
+        self.presence_sleep_dcr(user['点击IMEI Detail'])
         self.is_click(user['点击IMEI Detail'])
         sleep(3)
 

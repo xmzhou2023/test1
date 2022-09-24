@@ -20,7 +20,7 @@ class WONonSerializedReport(Base):
     @allure.step("非序列化工单报表查询")
     def search_NonwoserlistReport(self, scope):
         self.refresh()
-        sleep(1)
+        self.wait.until(EC.presence_of_element_located(user["WO Non Serialized Date开始日期搜索框"]), message="页面刷新失败")
         self.is_click(user['WO Non Serialized Date开始日期搜索框'])
         self.hover(user['WO Non Serialized Date开始日期搜索框'])
         self.is_click(user['清除时间搜索框'])
@@ -38,6 +38,7 @@ class WONonSerializedReport(Base):
             self.is_click(user["Country下拉选择"])
             self.is_click(user['WO NonSerialized Report Search'])
 
+
     @allure.step("查询非序列化工单报表数量")
     def search_stock(self, stock):
         sql = SQL('CRM', 'test')
@@ -50,6 +51,7 @@ class WONonSerializedReport(Base):
         dict_record = record[0]
         print(dict_record)
         record_value = dict_record['count(*)']
+        print(record_value)
         logging.info('数据库查询到的非序列化工单报表数据为:{}'.format(record_value))
         search_num = self.get_element_attribute(user['报表总数'], 'textContent')
         num = ''.join(filter(str.isdigit, search_num))
@@ -64,7 +66,7 @@ class WONonSerializedReport(Base):
     @allure.step("报表导出")
     def download_report(self, scope):
         self.refresh()
-        sleep(1)
+        self.wait.until(EC.presence_of_element_located(user["WO Non Serialized Date开始日期搜索框"]), message="页面刷新失败")
         self.is_click(user['WO Non Serialized Date开始日期搜索框'])
         self.hover(user['WO Non Serialized Date开始日期搜索框'])
         self.is_click(user['清除时间搜索框'])
@@ -74,7 +76,7 @@ class WONonSerializedReport(Base):
             self.is_click(user['WO NonSerialized Report Export'], 'Export')
             self.is_click(user['确认导出'], 'OK')
         # logging.info("输入框键入{}".format(content))
-            self.refresh()
+
         else:
             self.is_click(user["Country搜索框"])
             self.input_text(user["Country搜索框"], txt='SL')
@@ -84,6 +86,6 @@ class WONonSerializedReport(Base):
             self.is_click(user['WO NonSerialized Report Search'])
             self.is_click(user['WO NonSerialized Report Export'], 'Export')
             self.is_click(user['确认导出'], 'OK')
-            self.refresh()
+
 if __name__ == '__main__':
     pass

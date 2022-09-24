@@ -25,7 +25,8 @@ class VisitRecordPage(Base):
         self.is_click_dcr(user['Input Query Shop'])
         self.input_text_dcr(user['Input Query Shop'], txt=content)
         sleep(3)
-        self.is_click(user['Select Shop Value'])
+        self.presence_sleep_dcr(user['Select Shop Value'], content)
+        self.is_click(user['Select Shop Value'], content)
 
     def input_submit_start_date(self, content):
         sleep(3)
@@ -64,8 +65,8 @@ class VisitRecordPage(Base):
         return visit_date
 
     def get_view_operation_text(self):
-        """Visit Record页面，获取列表中Visit Date文本属性"""
-        operation = self.element_text(user['Operation'])
+        """Visit Record页面，获取列表中Operation文本属性"""
+        operation = self.element_text(user['获取列表Operation文本'])
         return operation
 
     def get_total_text(self):
@@ -94,7 +95,7 @@ class VisitRecordPage(Base):
 
     def click_download_more(self):
         self.is_click(user['Download Icon'])
-        sleep(1)
+        sleep(1.5)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(5)

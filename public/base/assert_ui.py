@@ -284,21 +284,66 @@ class DomAssert(object):
             logging.error(e)
             raise
 
-    @allure.step("值为True值断言")
-    def assert_control(self, element, result=True):
+    @allure.step("页面是否存在控件")
+    def assert_control(self, element, *choice, result=True):
         """
         断言：页面是否存在控件
         @element：元素定位
         @result：断言结果，True表示断言存在； False表示断言不存在
         @choice：元素定位
         """
-        control = Base(self.driver).element_exist(element)
+        control = Base(self.driver).element_exist(element, *choice)
         try:
             assert control is result, logging.warning('断言失败，元素：{}存在结果与期望结果：{}不符'.format(element, result))
             logging.info('断言成功，元素：{}存在结果为：{}'.format(element, result))
         except Exception as e:
             logging.error(e)
             raise
+
+    @allure.step("断言：查询结果")
+    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0', sc_element=None):
+        """
+        断言：页面查询结果
+        @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
+        @tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+        @header：元素定位 表头字段名称
+        @content：表格需要断言的内容
+        @attr：需要获取的属性
+        @index：属性值索引
+        @sc_element：内嵌div中有滑动条的定位
+        """
+        for i in range(1, 10):
+            if Base(self.driver).element_exist(col_element, header):
+                logging.info('表格字段存在，跳出循环')
+                break
+            else:
+                if sc_element:
+                    logging.info('表格字段不存在，向右滑动滚动条')
+                    Base(self.driver).DivRolling(sc_element, num=i*1000)
+                else:
+                    logging.error('表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动')
+                    raise
+        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index)
+        try:
+            contents = Base(self.driver).find_elements_tbm(tb_element, column)
+        except:
+            if sc_element:
+                Base(self.driver).DivRolling(sc_element, direction='top')
+                contents = Base(self.driver).find_elements_tbm(tb_element, column)
+            else:
+                logging.error('无法获取全部字段内容，请补充内嵌div：sc_element，以便上下滑动')
+                raise
+        content_list = []
+        for i in contents:
+            try:
+                assert content in i.text
+            except:
+                logging.error("断言失败，结果不包含指定内容")
+                raise
+            content_list.append(i.text)
+        logging.info('获取表格执行列内容：{}'.format(content_list))
+        logging.info("断言成功，结果包含指定内容")
+
 
     """     数据库断言     """
 

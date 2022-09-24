@@ -41,7 +41,6 @@ class TestQueryUser:
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """用户授权-用户管理-查询用户管理列表数据用例"""
         user.click_gotomenu("Staff & Authorization", "User Management")
 
@@ -73,7 +72,7 @@ class TestQueryUser:
         get_total2 = query_user.get_total()
         ValueAssert.value_assert_equal(get_list_user_id, get_list_user_id2)
         ValueAssert.value_assert_equal(get_list_user_name, get_list_user_name2)
-        ValueAssert.value_assert_equal(get_list_brand, get_list_brand2)
+        ValueAssert.value_assert_IsNoneNot(get_list_brand2)
         ValueAssert.value_assert_equal(get_total2, '1')
         #query_user.click_close_user_mgt()
 
@@ -89,7 +88,6 @@ class TestAddEditQuitTranssionUser:
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Staff & Authorization", "User Management")
 
@@ -106,8 +104,8 @@ class TestAddEditQuitTranssionUser:
         add_transsion.input_sales_region("Barisal")
         add_transsion.input_country_city("Barisal")
         add_transsion.click_select_brand()
-        add_transsion.input_position_transsion("lhmTecno促销员")
         add_transsion.input_superior("lhmadmin")
+        add_transsion.input_position_transsion("lhmTecno促销员")
         add_transsion.input_email("646195353@163.com")
         num = add_transsion.user_id_random()
         add_transsion.input_contact_no("13762513" + num)
@@ -136,7 +134,7 @@ class TestAddEditQuitTranssionUser:
         username = add_transsion.user_name_random()
         add_transsion.click_edit()
         add_transsion.input_user_name(username)
-        add_transsion.click_edit_brand()
+        add_transsion.click_edit_trans_brand()
         add_transsion.click_user_name()
         add_transsion.input_email("646167867@qq.com")
         num = add_transsion.number_radom()
@@ -160,17 +158,16 @@ class TestAddEditQuitTranssionUser:
         sqlasser.assert_sql(user_name,
                             "select USER_NAME from t_user where created_by= 'lhmadmin'  order by created_time desc limit 1")
         sleep(1)
+
         """ 离职传音用户 """
         add_transsion.click_first_checkbox()
         add_transsion.click_more_option_quit()
-
         """用户离职是否成功，断言"""
         DomAssert(drivers).assert_att("Disabled Successfully")
         #点击重置按钮，断言列表是否不存在被删除的用户
         add_transsion.click_reset()
         user_id2 = add_transsion.get_text_user_id()
         ValueAssert.value_assert_IsNot(user_id1, user_id2)
-        #add_transsion.click_close_user_mgt()
 
 
 @allure.feature("员工授权-用户管理")
@@ -184,7 +181,6 @@ class TestAddEditQuitDealerUser:
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Staff & Authorization", "User Management")
 
@@ -199,10 +195,11 @@ class TestAddEditQuitDealerUser:
         dealer_user.input_country_city("Barisal")
         dealer_user.click_select_brand()
         dealer_user.input_position_dealer("lhm二代")
+        dealer_user.input_superior('lhmadmin')
         dealer_user.input_email("646195353@163.com")
         num = dealer_user.number_radom()
         dealer_user.input_contact_no("13896785" + num)
-        dealer_user.click_gender_female("Female")
+        dealer_user.click_gender_female('Female')
         dealer_user.click_add_user_submit()
 
         dealer_user.click_search()
@@ -227,6 +224,7 @@ class TestAddEditQuitDealerUser:
         sql_asser.assert_sql(user_name,
                              "select u.USER_NAME  from  t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin'  order by e.created_time desc limit 1")
         sleep(1)
+
         """ 编辑代理员工 """
         """筛选用户后，点击Search，进行编辑操作"""
         username = dealer_user.user_name_random()
@@ -258,17 +256,16 @@ class TestAddEditQuitDealerUser:
         sqlasser.assert_sql(user_name,
                             "select u.USER_NAME  from  t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin'  order by e.created_time desc limit 1")
         sleep(1)
+
         """ 离职代理员工 """
         dealer_user.click_first_checkbox()
         dealer_user.click_more_option_quit()
-
         """用户离职是否成功，断言"""
         DomAssert(drivers).assert_att("Disabled Successfully")
         """点击重置按钮，断言列表是否不存在被删除的用户"""
         dealer_user.click_reset()
         user_id2 = dealer_user.get_text_user_id()
         ValueAssert.value_assert_IsNot(user_id1, user_id2)
-        #dealer_user.click_close_user_mgt()
 
 
 @allure.feature("员工授权-用户管理")
@@ -323,12 +320,85 @@ class TestExportUser:
 
 
 @allure.feature("员工授权-用户管理")
+class TestImportUser:
+    @allure.story("导入用户")
+    @allure.title("用户管理页面，导入用户操作，查询列表是否存在导入的客户")
+    @allure.description("用户管理页面，导入用户成功后，查看列表是否展示导入的用户信息；然后删除导入的用户操作")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_005_001(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        """用户授权-用户管理-查询用户管理列表数据用例"""
+        user.click_gotomenu("Staff & Authorization", "User Management")
+        upload = UserManagementPage(drivers)
+
+        upload.click_import()
+        upload.click_import_save()
+        DomAssert(drivers).assert_att('Please upload first.')
+        sleep(1)
+        upload.upload_true_file('UserTemplate.xlsx')
+        upload.click_import_record_search()
+
+        today = Base(drivers).get_datetime_today()
+        """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
+        get_file_name = upload.get_import_file_name()
+        get_status = upload.get_import_status()
+        get_total = upload.get_import_total()
+        get_success = upload.get_import_success()
+        get_failed = upload.get_import_failed()
+        get_import_date = upload.get_import_import_date()
+        ValueAssert.value_assert_equal('UserTemplate.xlsx', get_file_name)
+        ValueAssert.value_assert_equal('Upload Successfully', get_status)
+        ValueAssert.value_assert_equal('1', get_total)
+        ValueAssert.value_assert_equal('1', get_success)
+        ValueAssert.value_assert_equal('0', get_failed)
+        ValueAssert.value_assert_equal(today, get_import_date)
+        """关闭当前打开的菜单"""
+        menu = LoginPage(drivers)
+        menu.click_close_open_menu()
+
+        """根据导入的客户ID，筛选导入的数据，然后进行删除操作"""
+        upload.input_query_User('smarttest102')
+        upload.click_search()
+
+        """断言User Salary Management 页面，是否加载导入成的数据"""
+        get_user_id1 = upload.get_text_user_id()
+        get_user_name = upload.get_text_user_name()
+        get_staff_status = upload.get_list_staff_status()
+        get_brand = upload.get_list_brand()
+        get_country = upload.get_list_country()
+        get_position = upload.get_list_position()
+        logging.info("打印获取用户管理列表User ID字段内容：{}".format(get_user_id1))
+        logging.info("打印获取用户管理列表User Name字段内容：{}".format(get_user_name))
+        logging.info("打印获取用户管理列表Staff Status字段内容：{}".format(get_staff_status))
+        logging.info("打印获取用户管理列表Brand字段内容：{}".format(get_brand))
+        logging.info("打印获取用户管理列表Country字段内容：{}".format(get_country))
+        logging.info("打印获取用户管理列表Position字段内容：{}".format(get_position))
+        ValueAssert.value_assert_equal('smarttest102', get_user_id1)
+        ValueAssert.value_assert_equal('smart_test102', get_user_name)
+        ValueAssert.value_assert_equal('On Service', get_staff_status)
+        ValueAssert.value_assert_equal('TECNO', get_brand)
+        ValueAssert.value_assert_equal('Bangladesh', get_country)
+        ValueAssert.value_assert_equal('lhm店长', get_position)
+
+        """ 在数据库表中，删除导入的用户 """
+        sql1 = SQL('DCR', 'test')
+        sql1.delete_db(
+            "delete from t_user where USER_CODE ='smarttest102'")
+        sql1.delete_db(
+            "delete from t_employee where EMP_CODE ='smarttest102'")
+
+
+@allure.feature("员工授权-用户管理")
 class TestResetPasswordUser:
     @allure.story("用户重置密码")
     @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
     @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
-    @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
-    def test_005_001(self, drivers):
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_006_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")

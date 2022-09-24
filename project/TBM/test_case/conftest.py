@@ -303,6 +303,21 @@ def KeyDevice_SQL():
     logging.info('结束：调用sql脚本修改数据库数据')
 
 @pytest.fixture(scope='function', autouse=False)
+def KeyDevice_SQL_50A712U():
+    a = SQL('TBM', 'test')
+    a.change_db(
+        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
+        "= '50A712U')"
+    )
+    logging.info('开始：调用sql脚本修改数据库数据')
+    yield
+    a.change_db(
+        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
+        "= '50A712U')"
+    )
+    logging.info('结束：调用sql脚本修改数据库数据')
+
+@pytest.fixture(scope='function', autouse=False)
 def Foreign_API():
     logging.info('开始前置操作')
     user = APIRequest()
@@ -313,7 +328,7 @@ def Foreign_API():
 
 @pytest.fixture(scope='function', autouse=False)
 def Foreign_Approval_API():
-    logging.info('开始前置操作')
+    logging.info('开始前置操作-新建流程-业务审核通过')
     user = APIRequest()
     api_response = user.API_Foreign_Add()
     user.API_Foreign_Approval(api_response[0], api_response[1], api_response[2])
@@ -327,6 +342,58 @@ def Foreign_Failed_API():
     user = APIRequest()
     api_response = user.API_Foreign_Failed_Add()
     user.API_Foreign_Approval(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def PCBA_API():
+    logging.info('开始前置操作')
+    user = APIRequest()
+    api_response = user.API_PCBA_Add()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def PCBA_Factory_API():
+    logging.info('开始前置操作-新建流程-补充工厂审批同意')
+    user = APIRequest()
+    api_response = user.API_PCBA_Add()
+    user.API_PCBA_Factory(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def PCBA_Structure_API():
+    logging.info('开始前置操作-新建流程-基带工程师审批同意')
+    user = APIRequest()
+    api_response = user.API_PCBA_Add()
+    user.API_PCBA_Structure(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def PCBA_Purchase_API():
+    logging.info('开始前置操作-新建流程-采购审核同意')
+    user = APIRequest()
+    api_response = user.API_PCBA_Add()
+    user.API_PCBA_Purchase(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def PCBA_Business_API():
+    logging.info('开始前置操作-新建流程-业务审核同意')
+    user = APIRequest()
+    api_response = user.API_PCBA_Add()
+    user.API_PCBA_Business(api_response[0], api_response[1], api_response[2])
     yield api_response
     logging.info('开始后置操作')
     user.API_Bom_Delete(api_response[1], api_response[2])

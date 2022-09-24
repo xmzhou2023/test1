@@ -14,14 +14,13 @@ import pymysql
 """
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
-    sleep(1)
     logging.info("前置条件:进入序列化工单报表页")
     user = NavPage(drivers)
-    user.refresh()
-    sleep(1)
-    user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
-    user = DomAssert(drivers)
-    user.assert_url("/maintenanceMgt/workOrderReportMgt/woSerializedReport")
+    user.refresh_page()
+    user.list_search(content='WO Serialized Report')
+    # user.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
+    # user = DomAssert(drivers)
+    # user.assert_url("/maintenanceMgt/workOrderReportMgt/woSerializedReport")
     yield
     logging.info("后置条件:合起菜单")
     user = NavPage(drivers)
@@ -64,7 +63,8 @@ class TestWoReportExport:
         num = WOSerializedReport(drivers)
         num.download_report(scope=all)
         num = NavPage(drivers)
-        num.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
+        num.list_search(content='Task List')
+        # num.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
         num = DomAssert(drivers)
         num.assert_url("/reportCenter/asReportMgt/taskList")
         num= WOSerializedReport(drivers)
@@ -72,8 +72,10 @@ class TestWoReportExport:
         num = DomAssert(drivers)
         num.assert_point_att(1, 5, "100-Finished")
         num = NavPage(drivers)
-        num.click_gotonav("Report Center")
-        num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
+        num.refresh_page()
+        num.list_search(content='WO Serialized Report')
+        # num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
+
 
 
     @allure.story("序列化报表导出IN国家数据成功")  # 场景名称
@@ -82,10 +84,12 @@ class TestWoReportExport:
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke  # 用例标记
     def test_002_002(self, drivers):
+
         num = WOSerializedReport(drivers)
         num.download_report(scope='part')
         num = NavPage(drivers)
-        num.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
+        num.list_search(content='Task List')
+        # num.click_gotonav("Report Center", "Asynchronous Report Mgt", 'Task List')
         num = DomAssert(drivers)
         num.assert_url("/reportCenter/asReportMgt/taskList")
         num = WOSerializedReport(drivers)
@@ -93,8 +97,9 @@ class TestWoReportExport:
         num = DomAssert(drivers)
         num.assert_point_att(1, 5, '100-Finished')
         num = NavPage(drivers)
-        num.click_gotonav("Report Center")
-        num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
+        num.refresh_page()
+        num.list_search(content='WO Serialized Report')
+        # num.click_gotonav("Repair Mgt", "WO Report Mgt", 'WO Serialized Report')
 
 
 # if __name__ == '__main__':

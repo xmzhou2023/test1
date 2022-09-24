@@ -20,8 +20,8 @@ class WOSerializedListAdd(Base):
     @allure.step("新建序列化工单")
     def add_woserlist(self, Warehouse=None, imei=None):
         self.refresh()
+        self.wait.until(EC.presence_of_element_located(user["序列化工单查询页Add按钮"]), message="页面刷新失败")
         self.is_click(user['序列化工单查询页Add按钮'])
-
         self.is_click(user['序列化工单新增页Warehouse Name搜索框'])
         self.input_text(user['序列化工单新增页Warehouse Name搜索框'], txt=Warehouse)
 
@@ -41,7 +41,7 @@ class WOSerializedListAdd(Base):
     @allure.step("新增物料库存")
     def add_material(self):
         self.refresh()
-        sleep(2)
+        sleep(3)
         self.is_click(user['库存初始化查询页Add按钮'])
         # 记得修改成显示等待
         self.is_click(user['库存初始化新增页Warehouse Name搜索框'])
@@ -61,9 +61,12 @@ class WOSerializedListAdd(Base):
         self.input_text(user["库存初始化新增页物料状态搜索框"], txt='Defective')
         self.hover(user['库存初始化新增页物料状态选择框'], choice='Defective')
         self.is_click(user['库存初始化新增页物料状态选择框'])
+        sleep(1)
         # 这里要写个获取字符串的方法WS+一串数字且要先查询
+        logging.info("开始输入imei号了")
         self.is_click(user["库存初始化新增页IMEI输入框"])
         self.input_text(user["库存初始化新增页IMEI输入框"], txt=WOSerializedListAdd.add_imei(self))
+        logging.info("imei号输入完了")
         self.is_click(user["库存初始化新增页Zone搜索框"])
         # self.input_text(user["库存初始化新增页Zone搜索框"], txt='Phone')
         self.hover(user['库存初始化新增页Zone选择框'], choice='Phone')
@@ -74,15 +77,8 @@ class WOSerializedListAdd(Base):
         self.is_click(user["库存初始化新增页Bin选择框"])
         self.is_click(user["库存初始化新增页Save按钮"])
         # 判断是否在库存初始化查询页
-        # self.switch_window(n=0)
         sleep(1)
-        # NavPage(self).switch_tab(txt='Initialize Inventory')
-
         self.find_element(user['页签切换'], 'Initialize Inventory').click()
-
-        # self.is_click(user["库存初始化查询页签"])
-        # logging.info('11111')
-
         self.wait.until(EC.presence_of_element_located(user['库存初始化查询页Add按钮']), message='当前不在查询页')
         self.is_click(user["库存初始化查询页confirm按钮"])
         self.is_click(user["库存初始化二次确认框Yes按钮"])
@@ -126,7 +122,7 @@ class WOSerializedListSearch(Base):
     def search_woserlist(self, scope):
         self.refresh()
         # 查询序列化工单所有数据
-        sleep(1)
+        self.wait.until(EC.presence_of_element_located(user["序列化工单查询页From Date输入框"]), message="页面刷新失败")
         self.is_click(user['序列化工单查询页From Date输入框'])
         self.hover(user['序列化工单查询页From Date输入框'])
         self.is_click(user['序列化工单查询页From Date清除按钮'])
