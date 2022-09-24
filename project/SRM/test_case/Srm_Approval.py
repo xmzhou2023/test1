@@ -31,54 +31,54 @@ class TestApproval:
         assert '审批列表' in page_title, '未进入到审批列表'
 
 
-    def test_approval_name(self, drivers):
-        user = ApprovalPage(drivers)
-        user.approval_search_name("采购执行主管")
-
-        # 修改断言方式
-        # name_title = user.get_name_title()
-        # assert '采购执行主管' in name_title, '搜索结果中没有此主题名数据'
-
-
-    @allure.story("审批列表")  # 场景名称
-    @allure.title("按主题名称搜索")  # 用例名称
-    @allure.description("输入主题名称进行搜索")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_approval_task(self,drivers):
-        user = ApprovalPage(drivers)
-        user.approval_search_task("20220628000011")
-        subject_title = user.get_subject_title()
-        assert '20220628000011'  in subject_title, '搜索结果中没有此主题数据'
-
-
-    @allure.story("审批列表")  # 场景名称
-    @allure.title("按发起人搜索")  # 用例名称
-    @allure.description("输入发起人进行搜索")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_approval_initiator(self, drivers):
-        user = ApprovalPage(drivers)
-        user.approval_search_initiator("管理员")
-
-
-    @allure.story("审批列表")  # 场景名称
-    @allure.title("审批历史")  # 用例名称
-    @allure.description("查看审批历史数据")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_approval_history(self, drivers):
-        user = ApprovalPage(drivers)
-        user.approval_history()
-        history = user.get_history_title()
-        assert '审批历史' in history, '未进入到审批历史界面'
-
-
-    #
-    # def test_approval_pass(self,drivers):
+    # def test_approval_name(self, drivers):
     #     user = ApprovalPage(drivers)
-    #     user.approval_pass()
-
+    #     user.approval_search_name("采购执行主管")
+    #
+    #     # 修改断言方式
+    #     # name_title = user.get_name_title()
+    #     # assert '采购执行主管' in name_title, '搜索结果中没有此主题名数据'
+    #
+    #
+    # @allure.story("审批列表")  # 场景名称
+    # @allure.title("按主题名称搜索")  # 用例名称
+    # @allure.description("输入主题名称进行搜索")
+    # @allure.severity("normal")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # def test_approval_task(self,drivers):
+    #     user = ApprovalPage(drivers)
+    #     user.approval_search_task("20220628000011")
+    #     subject_title = user.get_subject_title()
+    #     assert '20220628000011'  in subject_title, '搜索结果中没有此主题数据'
+    #
+    #
+    # @allure.story("审批列表")  # 场景名称
+    # @allure.title("按发起人搜索")  # 用例名称
+    # @allure.description("输入发起人进行搜索")
+    # @allure.severity("normal")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # def test_approval_initiator(self, drivers):
+    #     user = ApprovalPage(drivers)
+    #     user.approval_search_initiator("管理员")
+    #
+    #
+    # @allure.story("审批列表")  # 场景名称
+    # @allure.title("审批历史")  # 用例名称
+    # @allure.description("查看审批历史数据")
+    # @allure.severity("normal")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # def test_approval_history(self, drivers):
+    #     user = ApprovalPage(drivers)
+    #     user.approval_history()
+    #     history = user.get_history_title()
+    #     assert '审批历史' in history, '未进入到审批历史界面'
+    #
+    #
+    # #
+    # # def test_approval_pass(self,drivers):
+    # #     user = ApprovalPage(drivers)
+    # #     user.approval_pass()
+    #
 
 
 
