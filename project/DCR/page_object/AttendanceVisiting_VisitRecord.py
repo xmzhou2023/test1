@@ -71,9 +71,9 @@ class VisitRecordPage(Base):
         visit_date = self.element_text(user['获取Visit Date文本'])
         return visit_date
 
-    @allure.step("Visit Record页面，获取列表中Visit Date文本属性")
+    @allure.step("Visit Record页面，获取列表中Operation文本属性")
     def get_view_operation_text(self):
-        operation = self.element_text(user['Operation'])
+        operation = self.element_text(user['获取列表Operation文本'])
         return operation
 
     @allure.step("Visit Record页面，获取列表中Visit Date文本属性")
