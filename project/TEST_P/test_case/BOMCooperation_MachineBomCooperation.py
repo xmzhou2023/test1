@@ -490,15 +490,28 @@ class TestCreatingProcessImport:
         actions.move_to_element(element, 0, 0).perform()
     @allure.story("创建流程导入")  # 场景名称
     @allure.title("导入选择正确的文件进行导入成功")  # 用例名称
-    @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
+    @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，""选择导入BOM选择正确的文件进行导入，并能应用，点击应用后页面显示的数据与模板的数据一致")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
     def test_003_002(self, drivers):
+        user = MachineBOMCollaboration(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_bom_info('制作类型', '生产BOM')
+        user.input_add_bom_info('品牌', 'Infinix')
+        user.input_add_bom_info('机型', '1005G1')
+        user.input_add_bom_info('阶段', '量产阶段')
+        user.input_add_bom_info('市场', '孟加拉')
+        user.click_bom_import()
+        user.upload_true_file()
+        user.assert_upload_result(('1', '10000010', '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材', '未归档', '1', '国内生产BOM', '量产',
+                                   '孟加拉', '16+1', '12000001'), )
+
         user.click_apply()
         user.click_tree('产成品')
         user.assert_tree_result(('1', '产成品', '10000010',
-                                                         '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材',
-                                                         '可选', '编辑删除'), )
+                                 '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材',
+                                 '可选', '编辑删除'), )
 @allure.feature("BOM协作_整机BOM协作")  # 模块名称
 class TestCreateProcessImportExceptionScenario:
     @allure.story("创建流程导入异常场景")  # 场景名称
