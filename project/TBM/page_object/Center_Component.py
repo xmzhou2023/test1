@@ -682,5 +682,54 @@ class CenterComponent(Base, APIRequest):
         else:
             logging.error(f'请输入正确选项：{definition_dict}')
             raise
+
+    @allure.step("输入查询条件")
+    def input_search_info(self, type, info):
+        input_type = ['标题', '流程编码', 'BOM编码']
+        select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
+        if type in input_type:
+            self.readonly_input_text(user['查询条件'], info, type)
+        elif type in select_type:
+            self.is_click_tbm(user['查询条件'], type)
+            self.is_click_tbm(user['查询选择'], info)
+        logging.info('输入框：{}，输入内容：{}'.format(type, info))
+
+    @allure.step("点击查询")
+    def click_search(self):
+        self.is_click_tbm(user['查询'])
+        logging.info('点击查询')
+        self.base_get_img('result')
+
+    @allure.step("断言：查询结果")
+    def assert_search_result(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['滚动条'])
+
+    @allure.step("获得BOM列表指定内容")
+    def get_bom_info(self, menu, info, header, attr='class', index='0'):
+        self.click_menu("BOM协作", menu)
+        sleep(1)
+        column = self.get_table_info(user['表格字段'], header, attr=attr, index=index)
+        content = self.element_text(user['BOM列表指定内容'], info, column)
+        return content
+
+    @allure.step("新增页面-输入基本信息")
+    def input_basic_info(self, header, info):
+        """
+        单机头BOM协作新增页面-输入BOM信息
+        :param info: 选择要输入的信息
+        :param select: 选择信息内容
+        """
+        input_list = ['标题']
+        select_list = ['申请人']
+        if header in input_list:
+            sleep(2)
+            self.input_text(user['基本信息内容'], info, header)
+            logging.info('输入Bom信息 {}:{}'.format(header, info))
+        elif header in select_list:
+            self.is_click_tbm(user['基本信息内容'], header)
+            self.input_text(user['产品定义信息成员列表输入框'], info)
+            sleep(1)
+            self.is_click_tbm(user['成员选择'], info)
+            self.is_click_tbm(user['产品定义信息成员确定'])
 if __name__ == '__main__':
     pass

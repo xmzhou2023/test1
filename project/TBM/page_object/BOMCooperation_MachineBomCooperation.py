@@ -89,11 +89,6 @@ class MachineBOMCollaboration(CenterComponent):
             self.input_text(user['选择单据号输入框'], content, type)
         logging.info('单据号查询:查询字段{}， 查询内容：{}'.format(type, content))
 
-    @allure.step("点击查询")
-    def click_search(self):
-        self.is_click_tbm(user['查询'])
-        logging.info('点击查询')
-
     @allure.step("复制审批人-单据号内容")
     def get_doc_info(self):
         """

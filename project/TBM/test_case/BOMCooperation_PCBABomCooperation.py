@@ -14,6 +14,7 @@ class TestCreateProcess:
         user = PCBABomCooperation(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
         user.input_add_bom_info('制作类型', 'PCBA BOM制作')
         user.input_add_bom_info('品牌', 'Infinix')
         user.input_add_bom_info('机型', 'JMB-01')
@@ -27,8 +28,8 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('PCBA BOM制作', 'JMB-01', 'Infinix', '试产阶段', '审批中', '未同步')
-        process_code = user.get_info()[2]
+        user.assert_add_result('自动化新增用例', 'PCBA BOM制作', 'JMB-01', 'Infinix', '试产阶段', '审批中', '未同步')
+        process_code = user.get_bom_info('PCBA BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
     @allure.story("创建流程")  # 场景名称
@@ -40,6 +41,7 @@ class TestCreateProcess:
         user = PCBABomCooperation(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
         user.input_add_bom_info('制作类型', 'PCBA BOM制作')
         user.input_add_bom_info('品牌', 'Infinix')
         user.input_add_bom_info('机型', 'JMB-01')
@@ -62,8 +64,8 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('PCBA BOM制作', 'JMB-01', 'Infinix', '试产阶段', '审批中', '未同步')
-        process_code = user.get_info()[2]
+        user.assert_add_result('自动化新增用例', 'PCBA BOM制作', 'JMB-01', 'Infinix', '试产阶段', '审批中', '未同步')
+        process_code = user.get_bom_info('PCBA BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
     @allure.story("创建流程")
@@ -358,7 +360,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bomtree('PCBA', 'BOM状态', '试产')
         user.input_bomtree('PCBA', '物料编码', '12105866')
         user.input_one_press('数量', '1')
-        user.assert_BomTree_result('12105866','数量',  '')
+        user.assert_BomTree_result('12105866', '数量',  '')
 
     @allure.story("创建流程异常场景")
     @allure.title("不填写产成品数据，选择物料一键填写不生效")
@@ -450,6 +452,7 @@ class TestCreateProcessExceptionScenario:
         user.input_bomtree('IC144', '物料编码', '14400003')
         user.input_bomtree('IC144', '位号', 'U1001,U1002,U1003,U1004,U1005')
         user.assert_BomTree_result('14400003', '数量', '5')
+
 
 @allure.feature("BOM协作-PCBA BOM协作")
 class TestTheProcessOfExaminationAndApproval:
@@ -611,7 +614,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_toast('处理成功，审核拒绝')
         user.quit_oneworks()
         user.assert_my_application_flow(PCBA_Factory_API[0], '审批拒绝')
-        process_status = user.get_info()[7]
+        process_status = user.get_bom_info('PCBA BOM协作', PCBA_Factory_API[0], '单据状态')
         ValueAssert.value_assert_In(process_status, '审批拒绝')
 
     @allure.story("流程审批")
@@ -714,7 +717,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_toast('处理成功，审核拒绝')
         user.quit_oneworks()
         user.assert_my_application_flow(PCBA_Structure_API[0], '审批拒绝')
-        process_status = user.get_info()[7]
+        process_status = user.get_bom_info('PCBA BOM协作', PCBA_Structure_API[0], '单据状态')
         ValueAssert.value_assert_In(process_status, '审批拒绝')
 
     @allure.story("流程审批")
@@ -1149,5 +1152,24 @@ class TestProcessApprovalExceptionScenario:
         user.enter_oneworks_iframe()
         user.assert_toast('bom检查失败，无法同步')
         user.quit_oneworks()
+
+
+@allure.feature("BOM协作-单机头BOM协作")  # 模块名称
+class TestProcessSearch:
+
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，标题查询结果正确")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入“李小素”，点击查询，查询结果为所有标题包含“李小素”的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_006_001(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '李小素')
+        user.click_search()
+        user.assert_search_result('标题', '李小素')
+
+
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_PCBABomCooperation.py'])

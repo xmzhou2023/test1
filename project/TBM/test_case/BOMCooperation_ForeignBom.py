@@ -25,6 +25,7 @@ class TestCreateProcess:
         user = ForeignBom(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
         user.input_add_bom_info('制作类型', '客供BOM制作')
         user.input_add_bom_info('品牌', 'itel')
         user.input_add_bom_info('机型', 'JMB-01')
@@ -44,8 +45,8 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.click_search()
-        user.assert_add_result('客供BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
-        process_code = user.get_info()[2]
+        user.assert_add_result('自动化新增用例', '客供BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
     @allure.story("创建流程")  # 场景名称
@@ -57,6 +58,7 @@ class TestCreateProcess:
         user = ForeignBom(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
         user.input_add_bom_info('制作类型', '客供BOM制作')
         user.input_add_bom_info('品牌', 'itel')
         user.input_add_bom_info('机型', 'JMB-01')
@@ -84,8 +86,8 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('客供BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
-        process_code = user.get_info()[2]
+        user.assert_add_result('自动化新增用例', '客供BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
     @allure.story("创建流程")  # 场景名称
@@ -669,7 +671,6 @@ class TestProcessApprovalExceptionScenario:
 
 @allure.feature("BOM协作-外研BOM协作")  # 模块名称
 class TestProcessSearch:
-
 
     @allure.story("流程查询")  # 场景名称
     @allure.title("在查询页面，标题查询结果正确")  # 用例名称

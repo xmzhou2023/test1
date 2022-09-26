@@ -34,12 +34,6 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.assert_toast()
         logging.info('撤回删除流程成功')
 
-    @allure.step("点击查询")
-    def click_search(self):
-        """点击查询"""
-        self.is_click_tbm(user['查询'])
-        sleep(1)
-
     @allure.step("出货国家查询 根据条件选择输入框 输入/选择内容")
     def input_condition(self, codition, content):
         """

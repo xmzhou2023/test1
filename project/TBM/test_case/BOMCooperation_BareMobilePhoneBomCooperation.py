@@ -15,6 +15,7 @@ class TestCreateProcess:
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
         user.input_add_bom_info('制作类型', '单机头BOM制作')
         user.input_add_bom_info('品牌', 'itel')
         user.input_add_bom_info('机型', 'X572-1')
@@ -29,8 +30,8 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('单机头BOM制作', 'X572-1', 'itel', '埃塞本地', '试产阶段', '审批中','未同步')
-        process_code = user.get_info()[2]
+        user.assert_add_result('自动化新增用例', '单机头BOM制作', 'X572-1', 'itel', '埃塞本地', '试产阶段', '审批中','未同步')
+        process_code = user.get_bom_info('单机头BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
     @allure.story("创建流程")
@@ -42,6 +43,7 @@ class TestCreateProcess:
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
         user.input_add_bom_info('制作类型', '单机头BOM制作')
         user.input_add_bom_info('品牌', 'itel')
         user.input_add_bom_info('机型', 'X572-1')
@@ -66,8 +68,9 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('单机头BOM制作', 'X572-1', 'itel', '埃塞本地', '试产阶段', '审批中', '未同步')
-        process_code = user.get_info()[2]
+        user.assert_add_result('自动化新增用例', '单机头BOM制作', 'X572-1', 'itel', '埃塞本地', '试产阶段', '审批中', '未同步')
+        # process_code = user.get_info()[2]
+        process_code = user.get_bom_info('单机头BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
     @allure.story("创建流程")
@@ -1453,7 +1456,8 @@ class TestProcessSearch:
         user.click_search()
         user.click_delete('自动化查询用例')
         user.click_delete_cancel()
-        DomAssert(drivers).assert_att('自动化查询用例')
+        user.click_search()
+        user.assert_search_result('标题', '自动化查询用例')
 
 
 if __name__ == '__main__':
