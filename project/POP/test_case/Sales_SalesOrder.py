@@ -4,8 +4,8 @@ from project.POP.page_object.Center_Component import NavPage
 from project.POP.page_object.Sales_SalesOrder import *
 from public.base.assert_ui import *
 
-@pytest.fixture(scope='module', autouse=True)
-def setup_module(drivers):
+@pytest.fixture(scope='class', autouse=True)
+def setup_class(drivers):
     logging.info("模块前置条件：前往“POP销售-销售订单”页面")
     user = NavPage(drivers)
     user.click_gotonav("销售","销售订单")
