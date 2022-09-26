@@ -168,8 +168,8 @@ class HomePagePage(Base):
         return status
 
     @allure.step("导出记录页面，获取列表 Task Name文本")
-    def get_task_name_text(self, content):
-        task_name = self.element_text(user['获取任务名称文本'], content)
+    def get_task_name_text(self):
+        task_name = self.element_text(user['获取任务名称文本'])
         return task_name
 
     @allure.step("导出记录页面，获取列表 Task Name文本")

@@ -42,8 +42,7 @@ class TestUtil:
         OA.click_Next()
         OA.click_IMWAV()
         OA.click_account_password()
-        aa = OA.password()
-        OA.input_account_password(name=str(aa[0]).lstrip("b'").rstrip("'"), password=str(aa[1]).lstrip("b'").rstrip("'"))
+        OA.input_account_password('0', '1')
         OA.click_Login()
         # 提交系统巡检报告
         OA.click_Inspection("深圳")
@@ -52,7 +51,7 @@ class TestUtil:
         OA.click_date()
         if itexis:
             OA.click_Inspection("系统登陆正常")
-            OA.Messagefeishu("OA自动巡检通知\n今天OA系统登陆正常！已提交系统巡检报告")
+            # OA.Messagefeishu("OA自动巡检通知\n今天OA系统登陆正常！已提交系统巡检报告")
             assert True
         else:
             OA.click_Inspection("系统登陆异常")
@@ -69,14 +68,13 @@ class TestUtil:
     def test_001_002(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         OA = OAUserPage(drivers)
         OA.open_url("https://seal.transsion.com:9180/contractlist?pageNo=1")  # 打开应用系统巡检地址
-        bb = OA.password()
-        OA.input_username(str(bb[2]).lstrip("b'").rstrip("'"))
-        OA.input_password(str(bb[3]).lstrip("b'").rstrip("'"))
+        OA.input_username(2)
+        OA.input_password(3)
         OA.click_button()
         itexis = OA.issign_login()
 
         if itexis:
-            OA.Messagefeishu("契约锁自动巡检通知\n系统登陆正常!")
+            # OA.Messagefeishu("契约锁自动巡检通知\n系统登陆正常!")
             assert True
         else:
             OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境深圳传音控股电子签署平台登录异常,请相关人员及时排查问题!")

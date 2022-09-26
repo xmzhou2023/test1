@@ -198,7 +198,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("User management")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("User management")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
 
         task_id = export.get_task_user_id_text()
@@ -245,7 +245,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("Activation Abnormal Data")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("Activation Abnormal Data")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
@@ -291,7 +291,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("Customer management")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("Customer management")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
@@ -334,7 +334,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("Customer management")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("Customer management")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
@@ -351,7 +351,6 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.assert_file_time_size(file_size, export_time)
         # export.click_close_export_record()
         # export.click_close_customer_mgt()
-
 
     @allure.story("导出Shop Management卡片")
     @allure.title("Homepage首页，导出Shop Management卡片维度数据")
@@ -379,7 +378,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("Shop Manager List")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("Shop Manager List")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()

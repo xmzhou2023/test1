@@ -52,7 +52,7 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.input_add_item_info('生命周期', '1')
 
     @allure.step("业务审核")
-    def select_business_review(self, type, audit):
+    def select_business_review(self, audit, type):
         """
         业务审核 - 选择用户
         @param type:选择的类别
@@ -66,10 +66,10 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
 
     @allure.step("关键器件流程新增页面-业务审核组合")
     def add_business_review(self):
-        self.select_business_review('摄像头+闪光灯', '李小素')
-        self.select_business_review('硬件电子料-基带', '李小素')
-        self.select_business_review('标准化代表', '李小素')
-        self.select_business_review('采购代表', '李小素')
+        self.select_business_review('李小素', '摄像头+闪光灯')
+        self.select_business_review('李小素', '硬件电子料-基带')
+        self.select_business_review('李小素', '标准化代表')
+        self.select_business_review('李小素', '采购代表')
 
     @allure.step("点击提交")
     def click_submit(self):

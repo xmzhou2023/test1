@@ -17,8 +17,7 @@ from public.base.assert_ui import DomAssert
 class TestUtil:
     @allure.story("筛选导出数据")  # 场景名称
     @allure.title("导出")  # 用例名称
-    @allure.description(
-        "在当前页面，任意选择一位职员，点击员工档案图标，页面跳转到此员工详细页面。操作导出档案，数据导出与员工详细页面显示一致")
+    @allure.description("在当前页面，任意选择一位职员，点击员工档案图标，页面跳转到此员工详细页面。操作导出档案，数据导出与员工详细页面显示一致")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -31,3 +30,6 @@ class TestUtil:
         user.click_more('导出')
         user.click_reset('重置')
         # DomAssert.assert_filename()
+
+if __name__ == '__main__':
+    pytest.main(['BareMobilePhoneBomCooperation.py'])

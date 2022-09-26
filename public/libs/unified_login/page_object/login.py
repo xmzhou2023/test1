@@ -152,6 +152,14 @@ class PopLoginPage(Base):
 
 
 
+class OALoginPage(Base):
+    def input_passwd(self, content):
+        """输入密码"""
+        sleep(0.5)
+        ele = self.find_element(login['密码输入框'])
+        ele.clear()
+        ele.send_keys(content)
+        sleep(0.5)
 
 if __name__ == '__main__':
     pass
