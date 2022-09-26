@@ -104,7 +104,7 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
             sleep(2)
             self.find_element(Npath).click()
             logging.info("选择点击：{}".format(Npath))
@@ -131,7 +131,7 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable',args[i],1)
+                Npath[1] = Npath[1].replace('variable',str(args[i]),1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
@@ -156,7 +156,7 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_all_elements_located(args)), Npath)
@@ -721,7 +721,7 @@ class Base(object):
         """
         if choice is None:
             sleep(0.5)
-            ele = self.find_element(locator)
+            ele = self.find_element(locator,choice)
             ele.clear()
             ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
@@ -734,14 +734,14 @@ class Base(object):
             logging.info("输入文本：{}".format(txt))
 
     # POP专用文件上传方法
-    def pop_upload(self,locator,file):
+    def pop_upload(self,locator,file,choice=None):
         """
             POP专用文件上传
         :param locator: 元素定位固定格式xxx['sssss']
         :param file: 上传文件的路径
         :return: 上传文件成功
         """
-        ele = self.find_element(locator)
+        ele = self.find_element(locator,choice)
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 

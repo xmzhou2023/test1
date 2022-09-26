@@ -134,15 +134,15 @@ class AddShop(Base):
         sleep(2)
         # 滑动页面定位原型尺寸图纸上传图片按钮
         self.scroll_into_view(user['原型尺寸图纸'])
-        self.pop_upload(user['原型尺寸图纸上传'],drawing)
-        self.pop_upload(user['门头立面照片_远景上传'],drawing)
-        self.pop_upload(user['门头立面照片_近景上传'],drawing)
-        self.pop_upload(user['店内正视图上传'],drawing)
-        self.pop_upload(user['店铺实景图片上传'],drawing)
-        self.pop_upload(user['视频上传'],video)
+        self.upload_file(user['原型尺寸图纸上传'],drawing)
+        self.upload_file(user['门头立面照片_远景上传'],drawing)
+        self.upload_file(user['门头立面照片_近景上传'],drawing)
+        self.upload_file(user['店内正视图上传'],drawing)
+        self.upload_file(user['店铺实景图片上传'],drawing)
+        self.upload_file(user['视频上传'],video)
         # 滑动页面定位其他上传图片按钮
         self.scroll_into_view(user['其他'])
-        self.pop_upload(user['其他上传'],drawing)
+        self.upload_file(user['其他上传'],drawing)
         sleep(3)
 
     @allure.step("增加人员信息")
