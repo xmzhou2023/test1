@@ -1,6 +1,7 @@
 from libs.common.read_element import Element
 from public.base.basics import Base
 from libs.common.time_ui import sleep
+from libs.config.conf import BASE_DIR
 from ..test_case.conftest import *
 import random
 
@@ -128,13 +129,6 @@ class UserManagementPage(Base):
         username = self.element_text(user['获取列表文本User Name'])
         return username
 
-    @allure.step("输入user ID属性筛选")
-    def input_query_userid(self, content1):
-        self.is_click(user['Input User ID'])
-        self.input_text(user['Input User ID'], txt=content1)
-        sleep(1)
-        self.is_click(user['User ID Value'])
-
     @allure.step("点击搜索功能")
     def click_search(self):
         self.is_click(user['Search'])
@@ -188,11 +182,6 @@ class UserManagementPage(Base):
         del_success = self.element_text(user['Disabled Successfully'])
         return del_success
 
-    # @allure.step("进入Add user页面， 选择代理员工类型")
-    # def click_dealer_staff(self):
-    #     self.is_click(user['Staff Type'])
-    #     sleep(0.5)
-    #     self.is_click(user['Dealer Staff'])
 
     @allure.step("进入Add user页面， 输入客户ID")
     def input_belong_to_cust(self, content):
@@ -290,13 +279,110 @@ class UserManagementPage(Base):
         sleep(3.5)
 
 
+    """导入用户操作"""
+    @allure.step("User Management页面，点击Import 按钮")
+    def click_import(self):
+        self.is_click(user['Import Button'])
+        sleep(1.5)
+
+    @allure.step("User Management页面，点击Import Save 按钮")
+    def click_import_save(self):
+        self.is_click(user['Import Save'])
+
+    @allure.step("User Management页面，点击Import 导入功能")
+    def click_import_upload_save(self, file1):
+        self.is_click(user['Add Upload'])
+        sleep(4)
+        ele = self.driver.find_element('xpath', "//input[@name='file']")
+        ele.send_keys(file1)
+        sleep(1.5)
+        self.is_click(user['Import Save'])
+        sleep(2)
+        self.presence_sleep_dcr(user['Upload Confirm'])
+        self.is_click(user['Upload Confirm'])
+        sleep(1)
+
+    @allure.step("导入用户模板-上传正确的文件")
+    def upload_true_file(self, file1):
+        path1 = os.path.join(BASE_DIR, 'project', 'DCR', 'data', file1)
+        logging.info("打印上传的用户模板文件path：{}".format(path1))
+        self.click_import_upload_save(path1)
+
+    @allure.step("Import Record页面，点击Search 查询按钮")
+    def click_import_record_search(self):
+        self.is_click(user['Search'])
+        sleep(1.7)
+
+    """导入记录页面，获取列表字段断言是否导入成功"""
+    @allure.step("Import Record页面，获取File Name字段文本")
+    def get_import_file_name(self):
+        get_file_name = self.element_text(user['Get Import Record File Name'])
+        return get_file_name
+
+    @allure.step("Import Record页面，获取Status字段文本")
+    def get_import_status(self):
+        get_status = self.element_text(user['Get Import Record Status'])
+        return get_status
+
+    @allure.step("Import Record页面，获取Total字段文本")
+    def get_import_total(self):
+        get_total = self.element_text(user['Get Import Record Total'])
+        return get_total
+
+    @allure.step("Import Record页面，获取Total字段文本")
+    def get_import_success(self):
+        get_success = self.element_text(user['Get Import Record Success'])
+        return get_success
+
+    @allure.step("Import Record页面，获取Failed字段文本")
+    def get_import_failed(self):
+        get_failed = self.element_text(user['Get Import Record Failed'])
+        return get_failed
+
+    @allure.step("Import Record页面，获取 Fail Data字段文本")
+    def get_import_fail_data(self):
+        self.scroll_into_view(user['Get Import Fail Data'])
+        get_fail_data = self.element_text(user['Get Import Fail Data'])
+        return get_fail_data
+
+    @allure.step("Import Record页面，获取 Import Date字段文本")
+    def get_import_import_date(self):
+        self.scroll_into_view(user['Get Import Import Date'])
+        get_import_date = self.element_text(user['Get Import Import Date'])
+        get_import_date1 = get_import_date[0:10]
+        return get_import_date1
+
+    @allure.step("User Management页面页面，获取列表Brand字段内容")
+    def get_list_brand(self):
+        get_brand = self.element_text(user['Get list Brand'])
+        return get_brand
+
+    @allure.step("User Management页面页面，获取列表 Country字段内容")
+    def get_list_country(self):
+        sleep(1.5)
+        self.scroll_into_view(user['Get list Country'])
+        get_country = self.element_text(user['Get list Country'])
+        return get_country
+
+    @allure.step("User Management页面页面，获取列表 Position字段内容")
+    def get_list_position(self):
+        sleep(1.5)
+        self.scroll_into_view(user['Get list Position'])
+        get_position = self.element_text(user['Get list Position'])
+        return get_position
+
+    @allure.step("User Management页面页面，获取列表 Staff Status字段内容")
+    def get_list_staff_status(self):
+        get_staff_status = self.element_text(user['Get list Staff Status'])
+        return get_staff_status
+
     """导出用户"""
     @allure.step("User Management页面，点击Export 导出用户记录")
     def click_export(self):
         self.is_click(user['Export'])
         sleep(1.5)
 
-    @allure.step("Attendance Records页面，导出操作后，点击右上角下载图标,点击右上角more...")
+    @allure.step("User Management页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
         self.is_click(user['Download Icon'])
         sleep(2)

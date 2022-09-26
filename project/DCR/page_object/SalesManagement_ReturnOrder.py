@@ -100,7 +100,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单列表页面，点击Search")
     def click_Search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(3)
 
     @allure.step("退货单列表页面， 获取第筛选后的第一个出库单ID")
     def get_text_deliveryID(self):
@@ -122,8 +122,7 @@ class ReturnOrderPage(Base):
 
     @allure.step("退货单列表页面，勾选第一个复选框进行退货")
     def click_checkbox(self):
-        self.presence_sleep_dcr(user['退货复选框勾选'])
-        self.is_click(user['退货复选框勾选'])
+        self.is_click_dcr(user['退货复选框勾选'])
 
     @allure.step("退货单列表页面，点击Approve按钮")
     def click_Approve_button(self):

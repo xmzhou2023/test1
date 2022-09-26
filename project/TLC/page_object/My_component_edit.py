@@ -23,7 +23,7 @@ class UserPage(Base):
 
     @allure.step('点击')
     def click(self, ymal, choice=None, choice2=None):
-        sleep(0.5)
+        sleep(1)
         if choice2 is None:
             self.is_click_dcr(user[ymal], choice)
             sleep(1)

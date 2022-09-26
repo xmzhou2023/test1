@@ -1,3 +1,5 @@
+import logging
+
 from libs.common.read_element import Element
 from ..test_case.conftest import *
 
@@ -508,5 +510,226 @@ class CenterComponent(Base, APIRequest):
             infolist.append(i.text.split('\n'))
         logging.info('获取Oneworks-BOMTree所有内容{}'.format(infolist))
         return infolist
+
+    @allure.step("补充工厂页面输入生产工厂信息")
+    def input_oneworks_plant_info(self, plant, content):
+        """
+        补充工厂页面输入生产工厂信息
+        :param plant: 选择工厂：国内组包工厂、 国内贴片工厂、 海外组包工厂、 海外贴片工厂
+        :param content: 需要输入的工厂编号
+        """
+        if plant in ('国内组包工厂', '国内贴片工厂', '海外组包工厂', '海外贴片工厂'):
+            self.readonly_input_text(user['生产工厂信息输入框'], content, plant)
+            self.is_click_tbm(user['生产工厂信息输入框选择'], content)
+        else:
+            logging.error('请输入正确的工厂')
+            raise
+
+    @allure.step("补充工厂页面点击’一键/‘")
+    def click_oneworks_slash(self):
+        self.is_click_tbm(user['补充工厂一键/'])
+
+    @allure.step("补充工厂页面点击 一键填写按钮")
+    def click_oneworks_onepress_write(self):
+        self.is_click_tbm(user['补充工厂一键填写'])
+
+    @allure.step("补充工厂页面点击 一键填写-确定按钮")
+    def click_oneworks_onepress_write_confirm(self):
+        self.is_click_tbm(user['补充工厂一键填写确定'])
+
+    @allure.step("补充工厂页面点击检查贴片工厂，选择贴片工厂正确/不正确")
+    def click_oneworks_plant_check(self, select):
+        """
+        补充工厂页面点击检查贴片工厂，选择贴片工厂正确/不正确
+        :param select: 输入’贴片工厂不正确‘ 或者 ’贴片工厂正确‘
+        """
+        if select in ('贴片工厂不正确', '贴片工厂正确'):
+            self.is_click_tbm(user['补充工厂检查贴片工厂'])
+            self.is_click_tbm(user['补充工厂检查贴片工厂选择'], select)
+        else:
+            print('请输入’贴片工厂不正确‘ 或者 ’贴片工厂正确‘')
+
+    @allure.step("断言: 在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击")
+    def assert_oneworks_onepress_write(self):
+        try:
+            sleep(5)
+            write = self.find_element(user['补充工厂一键填写'])
+            assert 'is-disabled' in write.get_attribute('class')
+            logging.info('断言成功，一键填写按钮不可点击')
+        except:
+            self.base_get_img()
+            logging.error('断言失败，请检查按钮状态')
+            raise
+
+    @allure.step("补充工厂页面 根据material点击指定复选框")
+    def click_oneworks_checkbox(self, code='all'):
+        """
+        补充工厂页面 根据material点击指定复选框，默认全选
+        @param code:物料编码，传入物料编码；默认‘all’表示点击全选复选框
+        """
+        DomAssert(self.driver).assert_control(user['生产工厂信息Title'])
+        if code == 'all':
+            self.is_click_tbm(user['生产工厂信息复选框全选'])
+        else:
+            self.is_click_tbm(user['生产工厂信息复选框单选'], code)
+        logging.info('点击复选框')
+
+    @allure.step("审核人设置")
+    def select_business_review(self, audit, type='all'):
+        """
+        审核人设置-业务评审-：选择用户
+        @param type:选择的类别
+        @param audit:输入的用户名
+        """
+        self.scroll_into_view(user['审核人设置'])
+        if type == 'all':
+            AuditGroup_list = self.find_elements(user['审核类别'])
+            for i in AuditGroup_list:
+                logging.info('审核组：{}'.format(i.text.strip()))
+                AuditGroup = self.find_elements(user['业务审核名单'], i.text.strip())
+                infolist = []
+                for i in AuditGroup:
+                    infolist.append(i.text)
+                    self.is_click_tbm(user['审核人类别'], i.text)
+                    self.input_text(user['成员列表输入框'], audit)
+                    sleep(1)
+                    self.is_click_tbm(user['成员选择'], audit)
+                    self.is_click_tbm(user['成员确定'])
+                self.base_get_img()
+                logging.info('获取审核人名单:{}'.format(infolist))
+        else:
+            self.is_click_tbm(user['审核人类别'], type)
+            self.input_text(user['成员列表输入框'], audit)
+            sleep(1)
+            self.is_click_tbm(user['成员选择'], audit)
+            self.is_click_tbm(user['成员确定'])
+            self.base_get_img()
+        logging.info('审核人填写:字段：{}， 审核人：{}'.format(type, audit))
+
+    @allure.step("断言：在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
+    def assert_oneworks_bomtree_edit(self, tree, header):
+        """
+        在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑
+        """
+        column_class = self.get_table_info(user['编辑验证表头'], header)
+        self.mouse_double_click(user['编辑验证'], tree, column_class)
+        sleep(0.5)
+        DomAssert(self.driver).assert_control(user['编辑验证'], tree, column_class)
+
+    @allure.step("业务审核页面 点击 自检清单")
+    def click_oneworks_businessapprove_self_inspection(self, box, option):
+        """
+        业务审核页面 点击 自检清单
+        @param box:输入框
+        @param option:选项
+        """
+        self.is_click_tbm(user['业务审核-自检清单-业务类型'], box)
+        self.is_click_tbm(user['业务审核-自检清单-检查角色'], option)
+
+    @allure.step("业务审核页面 滑动到 自检清单")
+    def scroll_oneworks_businessapprove_self_inspection(self):
+        self.scroll_into_view(user['业务审核-自检清单'])
+
+    @allure.step("业务审核页面 自检清单 点击输入检查结果")
+    def input_oneworks_businessapprove_inspection_result(self, rule='all', result='通过'):
+        if rule == 'all':
+            num = self.elements_num(user['业务审核-自检清单-检查结果-规则数量'])
+            for i in range(1, num + 1):
+                try:
+                    self.is_click_tbm(user['业务审核-自检清单-检查结果-选择'], str(i), result)
+                except:
+                    self.scroll_into_view(user['业务审核-自检清单-检查结果-选择'], str(i), result)
+                    self.is_click_tbm(user['业务审核-自检清单-检查结果-选择'], str(i), result)
+        else:
+            try:
+                self.is_click_tbm(user['业务审核-自检清单-指定规则-检查结果-选择'], rule, result)
+            except:
+                self.scroll_into_view(user['业务审核-自检清单-指定规则-检查结果-选择'], rule, result)
+                self.is_click_tbm(user['业务审核-自检清单-指定规则-检查结果-选择'], rule, result)
+
+    @allure.step("产品定义信息-点击确定")
+    def click_product_definition_confirm(self):
+        self.is_click_tbm(user['产品定义信息确定'])
+
+    @allure.step("产品定义信息-点击确定")
+    def click_product_definition_edit(self):
+        sleep(2)
+        self.is_click_tbm(user['产品定义信息编辑'])
+
+    @allure.step("出货国家流程新增页面 - 新增产品定义信息")
+    def input_product_definition_info(self, header, content):
+        """
+        出货国家流程新增页面 - 新增产品定义信息
+        :param header: 选择要输入的信息
+        :param content: 选择信息内容
+        """
+        definition_dict = ['全球版本', '市场名称', '项目名称', 'MEMORY', 'BAND STRATEGY', '产品经理', '项目经理', 'aaa', 'bbb', '再增', '配色', '尺寸']
+        select_list = ['全球版本', 'MEMORY', 'BAND STRATEGY', 'aaa', 'bbb', '再增', '配色', '尺寸']
+        input_list = ['市场名称', '项目名称', '摄像头', '型号', '新增']
+        member_list = ['产品经理', '项目经理']
+        column = self.get_table_info(user['产品定义信息字段'], header)
+        if header in select_list:
+            self.is_click_tbm(user['产品定义信息输入'], column)
+            self.is_click_tbm(user['产品定义信息选择'], content)
+        elif header in input_list:
+            self.input_text(user['产品定义信息输入'], content, column)
+        elif header in member_list:
+            self.is_click_tbm(user['产品定义信息输入'], column)
+            self.input_text(user['产品定义信息成员列表输入框'], content)
+            sleep(1)
+            self.is_click_tbm(user['成员选择'], content)
+            self.is_click_tbm(user['产品定义信息成员确定'])
+        else:
+            logging.error(f'请输入正确选项：{definition_dict}')
+            raise
+
+    @allure.step("输入查询条件")
+    def input_search_info(self, type, info):
+        input_type = ['标题', '流程编码', 'BOM编码']
+        select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
+        if type in input_type:
+            self.readonly_input_text(user['查询条件'], info, type)
+        elif type in select_type:
+            self.is_click_tbm(user['查询条件'], type)
+            self.is_click_tbm(user['查询选择'], info)
+        logging.info('输入框：{}，输入内容：{}'.format(type, info))
+
+    @allure.step("点击查询")
+    def click_search(self):
+        self.is_click_tbm(user['查询'])
+        logging.info('点击查询')
+        self.base_get_img('result')
+
+    @allure.step("断言：查询结果")
+    def assert_search_result(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['滚动条'])
+
+    @allure.step("获得BOM列表指定内容")
+    def get_bom_info(self, menu, info, header, attr='class', index='0'):
+        self.click_menu("BOM协作", menu)
+        sleep(1)
+        column = self.get_table_info(user['表格字段'], header, attr=attr, index=index)
+        content = self.element_text(user['BOM列表指定内容'], info, column)
+        return content
+
+    @allure.step("新增页面-输入基本信息")
+    def input_basic_info(self, header, info):
+        """
+        单机头BOM协作新增页面-输入BOM信息
+        :param info: 选择要输入的信息
+        :param select: 选择信息内容
+        """
+        input_list = ['标题']
+        select_list = ['申请人']
+        if header in input_list:
+            sleep(2)
+            self.input_text(user['基本信息内容'], info, header)
+            logging.info('输入Bom信息 {}:{}'.format(header, info))
+        elif header in select_list:
+            self.is_click_tbm(user['基本信息内容'], header)
+            self.input_text(user['产品定义信息成员列表输入框'], info)
+            sleep(1)
+            self.is_click_tbm(user['成员选择'], info)
+            self.is_click_tbm(user['产品定义信息成员确定'])
 if __name__ == '__main__':
     pass

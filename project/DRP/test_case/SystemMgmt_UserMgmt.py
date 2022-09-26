@@ -12,7 +12,7 @@ def module_setup_fixture(drivers):
     user = NavPage(drivers)
     user.click_gotonav("系统管理", "用户管理")
     dom = DomAssert(drivers)
-    dom.assert_url("/systemManage/areaManage")
+    dom.assert_url("/systemManage/userManage")
     yield
     logging.info("后置条件:关闭 系统管理-用户管理 页面")
     user.close_page()

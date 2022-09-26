@@ -85,24 +85,7 @@ class ForeignBom(CenterComponent):
         self.is_click_tbm(user['编辑'], code)
         logging.info('点击编辑')
 
-    @allure.step("输入查询条件")
-    def input_search_info(self, type, info):
-        input_type = ['标题', '流程编码', 'BOM编码']
-        select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
-        if type in input_type:
-            self.readonly_input_text(user['查询条件'], info, type)
-        elif type in select_type:
-            self.is_click_tbm(user['查询条件'], type)
-            self.is_click_tbm(user['查询选择'], info)
-        logging.info('输入框：{}，输入内容：{}'.format(type, info))
-    @allure.step("点击查询")
-    def click_search(self):
-        self.is_click_tbm(user['查询'])
-        logging.info('点击查询')
 
-    @allure.step("断言：查询结果")
-    def assert_search_result(self, header, content):
-        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content)
 
     @allure.step("点击新增bom")
     def click_add_bomtree(self):
@@ -182,33 +165,6 @@ class ForeignBom(CenterComponent):
             self.is_click_tbm(user['BOMTree新增物料确定'], tree)
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
-
-    @allure.step("审核人设置")
-    def select_business_review(self, audit, type='all'):
-        """
-        审核人设置-业务评审-：选择用户
-        @param type:选择的类别
-        @param audit:输入的用户名
-        """
-        self.scroll_into_view(user['审核人设置'])
-        if type == 'all':
-            info = self.find_elements_tbm(user['审核人名单'])
-            infolist = []
-            for i in info:
-                infolist.append(i.text)
-                self.is_click_tbm(user['审核人类别'], i.text)
-                self.input_text(user['成员列表输入框'], audit)
-                sleep(1)
-                self.is_click_tbm(user['成员选择'], audit)
-                self.is_click_tbm(user['成员确定'])
-            self.base_get_img()
-            logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
-        else:
-            self.is_click_tbm(user['审核人类别'], type)
-            self.input_text(user['成员列表输入框'], audit)
-            sleep(1)
-            self.is_click_tbm(user['成员选择'], audit)
-            self.is_click_tbm(user['成员确定'])
 
     @allure.step("获取外研BOM协作第一列内容")
     def get_info(self):
@@ -349,7 +305,7 @@ class ForeignBom(CenterComponent):
 
     @allure.step("断言：判断是否存在批量删除")
     def assert_batch_delete(self, result):
-        DomAssert(self.driver).assert_control(user['批量删除'], result)
+        DomAssert(self.driver).assert_control(user['批量删除'], result=result)
 
     @allure.step("根据Tree点击删除按钮")
     def click_bomtree_delete(self, tree, type='Tree'):
@@ -360,7 +316,7 @@ class ForeignBom(CenterComponent):
         self.click_batch_confirm()
 
     def assert_bomtree(self, tree):
-        DomAssert(self.driver).assert_control(user['BOMTree新增物料物料编码'], False, tree)
+        DomAssert(self.driver).assert_control(user['BOMTree新增物料物料编码'], tree, result=False)
 
     @allure.step("点击确定")
     def click_batch_confirm(self):

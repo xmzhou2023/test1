@@ -91,35 +91,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
     def click_bomtree_delete(self, tree):
         self.is_click_tbm(user['BOMTree删除'], tree)
 
-    @allure.step("审核人设置")
-    def select_business_review(self, audit, type='MPM'):
-        """
-        审核人设置-业务评审-：选择用户
-        @param type:选择的类别
-        @param audit:输入的用户名
-        """
-        self.scroll_into_view(user['审核人设置'])
-        if type == 'all':
-            info = self.find_elements_tbm(user['审核人名单'])
-            infolist = []
-            for i in info:
-                infolist.append(i.text)
-                self.is_click_tbm(user['审核人类别'], i.text)
-                self.input_text(user['成员列表输入框'], audit)
-                sleep(1)
-                self.is_click_tbm(user['成员选择'], audit)
-                self.is_click_tbm(user['成员确定'])
-            self.base_get_img()
-            logging.info('获取审核人名单:{}'.format(infolist))
-        else:
-            self.is_click_tbm(user['审核人类别'], type)
-            self.input_text(user['成员列表输入框'], audit)
-            sleep(1)
-            self.is_click_tbm(user['成员选择'], audit)
-            self.is_click_tbm(user['成员确定'])
-            self.base_get_img()
-        logging.info('审核人填写:字段：{}， 审核人：{}'.format(type, audit))
-
     @allure.step("获取单机头BOM协作第一列内容")
     def get_info(self):
         """
@@ -550,66 +521,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
-    @allure.step("补充工厂页面输入生产工厂信息")
-    def input_oneworks_plant_info(self, plant, content):
-        """
-        补充工厂页面输入生产工厂信息
-        :param plant: 选择工厂：国内组包工厂、 国内贴片工厂、 海外组包工厂、 海外贴片工厂
-        :param content: 需要输入的工厂编号
-        """
-        if plant in ('国内组包工厂', '国内贴片工厂', '海外组包工厂', '海外贴片工厂'):
-            self.readonly_input_text(user['生产工厂信息输入框'], content, plant)
-            self.is_click_tbm(user['生产工厂信息输入框选择'], content)
-        else:
-            print('请输入正确的工厂')
-
-    @allure.step("补充工厂页面点击’一键/‘")
-    def click_oneworks_slash(self):
-        self.is_click_tbm(user['补充工厂一键/'])
-
-    @allure.step("补充工厂页面点击 一键填写按钮")
-    def click_oneworks_onepress_write(self):
-        self.is_click_tbm(user['补充工厂一键填写'])
-
-    @allure.step("补充工厂页面点击 一键填写-确定按钮")
-    def click_oneworks_onepress_write_confirm(self):
-        self.is_click_tbm(user['补充工厂一键填写确定'])
-
-    @allure.step("补充工厂页面点击检查贴片工厂，选择贴片工厂正确/不正确")
-    def click_oneworks_plant_check(self, select):
-        """
-        补充工厂页面点击检查贴片工厂，选择贴片工厂正确/不正确
-        :param select: 输入’贴片工厂不正确‘ 或者 ’贴片工厂正确‘
-        """
-        if select in ('贴片工厂不正确', '贴片工厂正确'):
-            self.is_click_tbm(user['补充工厂检查贴片工厂'])
-            self.is_click_tbm(user['补充工厂检查贴片工厂选择'], select)
-        else:
-            print('请输入’贴片工厂不正确‘ 或者 ’贴片工厂正确‘')
-
-    @allure.step("断言: 在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击")
-    def assert_oneworks_onepress_write(self):
-        try:
-            write = self.find_element(user['补充工厂一键填写'])
-            assert 'is-disabled' in write.get_attribute('class')
-            logging.info('断言成功，一键填写按钮不可点击')
-        except:
-            self.base_get_img()
-            logging.error('断言失败，请检查按钮状态')
-            raise
-
-    @allure.step("补充工厂页面 根据material点击指定复选框")
-    def click_oneworks_checkbox(self, code='all'):
-        """
-        补充工厂页面 根据material点击指定复选框，默认全选
-        @param code:物料编码，传入物料编码；默认‘all’表示点击全选复选框
-        """
-        if code == 'all':
-            self.is_click_tbm(user['生产工厂信息复选框全选'])
-        else:
-            self.is_click_tbm(user['生产工厂信息复选框单选'], code)
-        logging.info('点击复选框')
-
     @allure.step("补充工厂页面 根据material点击指定复选框")
     def click_oneworks_bomtree_checkbox(self, code='all'):
         """
@@ -705,15 +616,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             self.base_get_img()
             logging.error('断言成功，导出的数据和生产工厂信息的数据是不一致的')
             raise
-
-    @allure.step("断言：在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
-    def assert_oneworks_bomtree_edit(self):
-        """
-        在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑
-        """
-        self.mouse_double_click(user['物料编码编辑验证'])
-        sleep(0.5)
-        DomAssert(self.driver).assert_control(user['物料编码编辑验证'])
 
     @allure.step("业务审核页面 点击 自检清单")
     def click_oneworks_self_inspection(self, box, option):
@@ -821,26 +723,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
     def click_edit(self, code):
         self.is_click_tbm(user['编辑'], code)
         logging.info('点击编辑')
-
-    @allure.step("输入查询条件")
-    def input_search_info(self, type, info):
-        input_type = ['标题', '流程编码', 'BOM编码']
-        select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
-        if type in input_type:
-            self.readonly_input_text(user['查询条件'], info, type)
-        elif type in select_type:
-            self.is_click_tbm(user['查询条件'], type)
-            self.is_click_tbm(user['查询选择'], info)
-        logging.info('输入框：{}，输入内容：{}'.format(type, info))
-
-    @allure.step("点击查询")
-    def click_search(self):
-        self.is_click_tbm(user['查询'])
-        logging.info('点击查询')
-
-    @allure.step("断言：查询结果")
-    def assert_search_result(self, header, content):
-        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content)
 
     @allure.step("点击保存")
     def click_add_save(self):

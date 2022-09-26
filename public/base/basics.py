@@ -104,7 +104,7 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
             sleep(2)
             self.find_element(Npath).click()
             logging.info("选择点击：{}".format(Npath))
@@ -126,12 +126,12 @@ class Base(object):
 
     def find_element(self, locator, *args, **kwargs):
         """寻找单个元素"""
-        if args[0] and args is not None:
+        if args and args is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
+                Npath[1] = Npath[1].replace('variable',str(args[i]),1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
@@ -151,12 +151,12 @@ class Base(object):
 
     def find_elements(self, locator, *args, **kwargs):
         """寻找多个相同的元素"""
-        if args[0] and args is not None:
+        if args and args is not None:
             Npath = []
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_all_elements_located(args)), Npath)
@@ -354,7 +354,7 @@ class Base(object):
 
     def element_text(self, locator, *args, **kwargs):
         """获取元素的文本"""
-        if args[0] and args is not None:
+        if args and args is not None:
             ele = self.find_element(locator, *args)
             _text = ele.text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
@@ -569,10 +569,10 @@ class Base(object):
             logging.info('存在元素：{}'.format(locator))
             return True
 
-    def upload_file(self, locator, file, choice=None):
+    def upload_file(self,locator,file,choice=None):
         """上传"""
         sleep(0.5)
-        ele = self.find_element(locator, choice)
+        ele = self.find_element(locator,choice)
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 
@@ -639,9 +639,9 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.click(element).perform()
 
-    def mouse_double_click(self, locator):
+    def mouse_double_click(self, locator, *args, **kwargs):
         """鼠标双击"""
-        element = self.find_element(locator)
+        element = self.find_element(locator, *args, **kwargs)
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
@@ -710,23 +710,42 @@ class Base(object):
         logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))
         return column_class
 
+    # POP输入框输入文本按enter键专用方法
     def input_enter(self,locator,txt,choice=None):
-        """POP输入框输入文本按enter键专用方法"""
+        """
+            POP项目中输入框输入内容点击Enter键
+        :param locator: 定位元素-固定格式=>xx['']
+        :param txt: 参数值，例如输入框需要输入的内容
+        :param choice: 元素定位传入“variable”参数值
+        :return: 无
+        """
         if choice is None:
             sleep(0.5)
-            ele = self.find_element(locator)
-            ele.clear()
+            ele = self.find_element(locator,choice)
             ele.clear()
             ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
         else:
             """输入(输入前先清空)"""
             sleep(0.5)
-            ele = self.find_element(locator, choice)
+            ele = self.find_element(locator)
             ele.clear()
-            ele.clear()
-            ele.send_keys(txt + txt + Keys.ENTER)
+            ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
+
+    # POP专用文件上传方法
+    def pop_upload(self,locator,file,choice=None):
+        """
+            POP专用文件上传
+        :param locator: 元素定位固定格式xxx['sssss']
+        :param file: 上传文件的路径
+        :return: 上传文件成功
+        """
+        ele = self.find_element(locator,choice)
+        ele.send_keys(file)
+        logging.info("上传文件：{}".format(file))
+
+
 
 def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):
     """

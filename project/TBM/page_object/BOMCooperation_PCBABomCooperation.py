@@ -310,21 +310,6 @@ class PCBABomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
-    @allure.step("审核人设置")
-    def select_business_review(self, audit, type='MPM'):
-        """
-        审核人设置-业务评审-：选择用户
-        @param type:选择的类别
-        @param audit:输入的用户名
-        """
-        self.scroll_into_view(user['审核人设置'])
-        sleep(0.5)
-        self.is_click_tbm(user['审核人类别'], type)
-        self.input_text(user['成员列表输入框'], audit)
-        sleep(1)
-        self.is_click_tbm(user['成员选择'], audit)
-        sleep(2)
-        self.is_click_tbm(user['成员确定'])
 
     @allure.step("获取PCBA BOM协作第一列内容")
     def get_info(self):
@@ -396,5 +381,12 @@ class PCBABomCooperation(CenterComponent):
             self.base_get_img()
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
+
+    def click_Accessory(self):
+        self.is_click_tbm(user['Oneworks附件'])
+
+    def send_Accessory(self, name):
+        Accessory_path = os.path.join(PEROJECT_PATH, 'TBM', 'data', name)
+        self.upload_file(user['Oneworks附件上传'], Accessory_path)
 if __name__ == '__main__':
     pass
