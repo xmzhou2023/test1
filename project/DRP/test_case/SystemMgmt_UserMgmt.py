@@ -62,7 +62,7 @@ class TestEditUser:
     def test_003_001(self, drivers):
         user = UserPage(drivers)
         user.edit_Permission(
-            jobnum="18649572",
+            jobnum="18649324",
             dimension={
                 '组织': ['itel事业部', '东非地区部']
                 # ,
