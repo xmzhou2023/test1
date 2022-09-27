@@ -212,6 +212,10 @@ class AreaPage(Base):
     @allure.step("前置条件-新增目标区域")
     def precondition1(self,drivers):
         user = AreaPage(drivers)
+        user.goto_tree('Infinix事业部')
+        user.add_button()  # 点击新增按钮
+        user.add_area('新市场')  # 输入地区中英文名称
+        user.save_button()  # 点击保存按钮
         user.goto_tree('Infinix事业部','新市场')
         user.add_button()  # 点击新增按钮
         user.add_area('东非地区')  # 输入地区中英文名称
