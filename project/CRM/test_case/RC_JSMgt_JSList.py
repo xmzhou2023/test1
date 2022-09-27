@@ -8,6 +8,7 @@ import pytest, logging
 from public.base.basics import *
 from public.base.assert_ui import *
 from public.data.unified_login.unified import *
+from project.CRM.page_object.Center_Component import NavPage
 from public.libs.unified_login.login import Login
 from libs.common.read_config import *
 from datetime import *
@@ -28,8 +29,11 @@ num = string.ascii_letters + string.digits
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
     logging.info("前往RC中的JS Mgt的JS List")
-    user = JSPage(drivers)
-    user.GoTo_JS_List()  # 进入JS页面
+    user = NavPage(drivers)
+    user.refresh_page()
+    user.list_search(content='JS List')
+    #user = JSPage(drivers)
+    #user.GoTo_JS_List()  # 进入JS页面
     result = DomAssert(drivers)
     result.assert_url("/repairCenter/jobSheetMgt/jobSheetList")
     name = "".join(random.sample(num, 10))  # 名称使用随机数，以防重复名称添加失败
@@ -59,7 +63,7 @@ class TestGetJSList:
     @allure.title("查询工单")  # 用例名称
     @allure.description("JS页面，遍历Document Status下拉框查询正确")
     @allure.severity("critical")  # 用例等级
-    @pytest.mark.parametrize("status", ["5-Draft", "10-Open", "20-Assigned To Technician", "30-SWAP","35-SWAP Approved", "36-SWAP DisApproved", "40-Checked for SWAP", "45-SWAPPED", "90-Repair Completed", "95-Non Repairable","96-Re-open", "100-Returned", "110-DOA Certificate"])  # 30状态没有用全称的原因是前端空格处理有问题
+    @pytest.mark.parametrize("status", ["5-Draft", "10-Open", "20-Assigned To Technician", "30-SWAP","35-SWAP Approved", "36-SWAP DisApproved", "40-Checked for SWAP", "45-SWAPPED", "90-Repair Completed", "95-Non Repairable","96-Re-open", "100-Returned", "110-DOA Certificate"])
     @pytest.mark.smoke  # 用例标记
    # @pytest.mark.skip  # 跳过不执行
     def test_1750(self, drivers, class_fixture, status):   # 用例名称取名规范'test+场景编号+用例编号'
