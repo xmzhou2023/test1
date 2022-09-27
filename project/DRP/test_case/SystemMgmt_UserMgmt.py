@@ -28,7 +28,7 @@ class TestSearchUser: # Test+(增，删，改，查，导入（上传），导�
     @pytest.mark.smoke
     def test_001_001(self, drivers):
         user = UserPage(drivers)
-        user.search_user(name=account[4]['username'])
+        user.search_user(jobnum=account[4]['usernum'])
 
     @allure.story("查询用户")
     @allure.title("重置用户查询条件")
@@ -46,7 +46,7 @@ class TestAppendUser:
     @allure.title("根据姓名查询用户并添加456")
     @allure.description("查询工号为18650893，并添加该用户到系统")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.skip
     def test_002_001(self, drivers):
         """用户管理-新建用户"""
         user = UserPage(drivers)
@@ -62,12 +62,13 @@ class TestEditUser:
     def test_003_001(self, drivers):
         user = UserPage(drivers)
         user.edit_Permission(
-            jobnum="18650893",
-            # dimension={
-            #     '组织': ['itel事业部', '东非地区部'],
+            jobnum="18649572",
+            dimension={
+                '组织': ['itel事业部', '东非地区部']
+                # ,
             #     # '品牌': ['Infinix', 'itel', 'TECNO'],
             #     # '区域': {'Infinix': ['利比亚', '土耳其']}
-            # }
+            }
         )
 
 if __name__ == '__main__':
