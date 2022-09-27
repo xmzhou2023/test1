@@ -243,14 +243,6 @@ class MachineBOMCollaboration(CenterComponent):
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额')")
 
-    @allure.step("根据流程编码进行删除操作")
-    def click_delete(self, code):
-        """
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-        self.is_click_tbm(user['确定'])
-
     @allure.step("点击一键填写")
     def click_one_press(self):
         self.is_click_tbm(user['BOM信息一键填写'])

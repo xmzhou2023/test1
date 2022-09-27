@@ -778,7 +778,7 @@ class TestProcessSearch:
         DomAssert(drivers).assert_att('创建流程成功')
         user.input_search_info('标题', '自动化查询用例')
         user.click_search()
-        code = user.get_col_info('流程编码')
+        code = user.get_bom_info('外研BOM协作', '自动化查询用例', '流程编码')
         user.recall_process(code)
 
     @allure.story("流程查询")  # 场景名称
@@ -793,6 +793,6 @@ class TestProcessSearch:
         user.click_search()
         user.click_delete('自动化查询用例')
         user.click_delete_cancel()
-        DomAssert(drivers).assert_att('自动化查询用例')
+        user.assert_search_result('标题', '自动化查询用例')
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_ForeignBom.py'])

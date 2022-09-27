@@ -560,10 +560,12 @@ class Base(object):
 
     def element_exist(self, locator, *choice):
         """校验元素是否存在"""
+        self.base_get_img()
         try:
             self.find_element(locator, *choice)
         except:
             logging.error('{}元素不存在'.format(locator))
+            self.base_get_img()
             return False
         else:
             logging.info('存在元素：{}'.format(locator))

@@ -221,13 +221,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-
     def click_one_press(self):
         """
         点击一键填写
@@ -719,22 +712,5 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言成功，导出的数据和BomTree的数据是不一致的')
             raise
 
-    @allure.step("点击编辑")
-    def click_edit(self, code):
-        self.is_click_tbm(user['编辑'], code)
-        logging.info('点击编辑')
-
-    @allure.step("点击保存")
-    def click_add_save(self):
-        self.scroll_into_view(user['保存'])
-        sleep(0.5)
-        self.is_click_tbm(user['保存'])
-        logging.info('点击保存')
-
-    def click_delete_confirm(self):
-        self.is_click_tbm(user['同意确定'])
-
-    def click_delete_cancel(self):
-        self.is_click_tbm(user['同意取消'])
 if __name__ == '__main__':
     pass

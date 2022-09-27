@@ -321,6 +321,7 @@ class CenterComponent(Base, APIRequest):
             self.is_click_tbm(user['oneworks-撤回'])
             self.is_click_tbm(user['oneworks-撤回确定'])
         self.frame_exit()
+        DomAssert(self.driver).assert_att('操作成功')
         self.close_switch(1)
         self.frame_exit()
 
@@ -352,12 +353,12 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("oneworks点击确定")
     def click_oneworks_confirm(self):
-        self.is_click_tbm(user['oneworks-同意确定'])
+        self.is_click_tbm(user['同意确定'])
         logging.info('点击确定')
 
     @allure.step("oneworks点击取消")
     def click_oneworks_cancel(self):
-        self.is_click_tbm(user['oneworks-同意取消'])
+        self.is_click_tbm(user['同意取消'])
         logging.info('点击取消')
 
     @allure.step("oneworks点击转交")
@@ -731,5 +732,41 @@ class CenterComponent(Base, APIRequest):
             sleep(1)
             self.is_click_tbm(user['成员选择'], info)
             self.is_click_tbm(user['产品定义信息成员确定'])
+
+    @allure.step("点击编辑")
+    def click_edit(self, code):
+        self.is_click_tbm(user['编辑'], code)
+        logging.info('点击编辑')
+
+
+    @allure.step("点击保存")
+    def click_add_save(self):
+        self.scroll_into_view(user['保存'])
+        sleep(0.5)
+        self.is_click_tbm(user['保存'])
+        logging.info('点击保存')
+
+    @allure.step("点击刷新")
+    def click_refresh(self):
+        self.scroll_into_view(user['刷新'])
+        self.is_click_tbm(user['刷新'])
+        logging.info('点击刷新')
+
+    def click_delete(self, code):
+        """
+        根据流程编码点击删除 进行删除操作
+        @param code:流程编码
+        """
+        self.is_click_tbm(user['删除'], code)
+
+    def click_delete_confirm(self):
+        self.is_click_tbm(user['同意确定'])
+        logging.info('点击确定')
+
+    def click_delete_cancel(self):
+        self.is_click_tbm(user['同意取消'])
+        logging.info('点击取消')
+
+
 if __name__ == '__main__':
     pass

@@ -16,21 +16,13 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.refresh_webpage()
         self.click_menu("出货国家", "出货国家查询")
 
-    @allure.step("删除操作")
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-        self.is_click_tbm(user['确定'])
-
     @allure.step("新建流程后的后置删除处理")
     def delete_shipping_country_search(self, code):
         logging.info(f'开始撤回流程：{code}')
         self.recall_process(code)
         self.click_menu("出货国家", "出货国家流程")
         self.click_delete(code)
+        self.click_delete_confirm()
         self.assert_toast()
         logging.info('撤回删除流程成功')
 

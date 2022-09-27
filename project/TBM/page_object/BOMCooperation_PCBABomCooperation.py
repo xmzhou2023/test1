@@ -175,10 +175,10 @@ class PCBABomCooperation(CenterComponent):
             ac_content = self.element_text(user['BomTree表格指定内容'], row, column)
         try:
             assert content in ac_content
+            logging.info("断言成功，结果:{}包含指定内容:{}".format(ac_content, content))
         except:
             logging.error("断言失败，结果不包含指定内容")
             raise
-        logging.info("断言成功，结果:{}包含指定内容:{}".format(ac_content, content))
 
     @allure.step("根据Tree点击删除按钮")
     def click_bomtree_delete(self, tree):
@@ -340,15 +340,6 @@ class PCBABomCooperation(CenterComponent):
         except:
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
-
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-        sleep(1)
-        self.is_click_tbm(user['确定'])
 
     @allure.step("点击导入BOM")
     def click_bom_import(self):

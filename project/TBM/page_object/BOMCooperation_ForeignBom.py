@@ -67,25 +67,6 @@ class ForeignBom(CenterComponent):
         self.is_click_tbm(user['提交'])
         logging.info('点击提交')
 
-    @allure.step("点击保存")
-    def click_add_save(self):
-        self.scroll_into_view(user['保存'])
-        sleep(0.5)
-        self.is_click_tbm(user['保存'])
-        logging.info('点击保存')
-
-    @allure.step("点击刷新")
-    def click_refresh(self):
-        self.scroll_into_view(user['刷新'])
-        self.is_click_tbm(user['刷新'])
-        logging.info('点击刷新')
-
-    @allure.step("点击编辑")
-    def click_edit(self, code):
-        self.is_click_tbm(user['编辑'], code)
-        logging.info('点击编辑')
-
-
 
     @allure.step("点击新增bom")
     def click_add_bomtree(self):
@@ -180,32 +161,6 @@ class ForeignBom(CenterComponent):
             infolist.append(i.get_attribute('innerText'))
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
-
-    def get_col_info(self, header):
-        """
-        获取外研BOM协作指定内容
-        @return:返回文本及索引位置分别是'流程编码':2; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
-        """
-
-        self.click_menu("BOM协作", "外研BOM协作")
-        sleep(1)
-        column = self.get_table_info(user['表格字段'], header)
-        contents = self.find_element(user['表格指定列内容'], column).text
-        return contents
-
-
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-
-    def click_delete_confirm(self):
-        self.is_click_tbm(user['同意确定'])
-
-    def click_delete_cancel(self):
-        self.is_click_tbm(user['同意取消'])
 
     @allure.step("新建流程后的后置删除处理")
     def delete_flow(self, code):

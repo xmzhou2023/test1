@@ -1174,24 +1174,6 @@ class TestProcessApprovalExceptionScenario:
         DomAssert(drivers).assert_att('自检清单不能为空')
         user.quit_oneworks()
 
-@allure.feature("BOM协作_整机BOM协作")  # 模块名称
-class TestProcessSearch:
-
-    @allure.story("流程查询")  # 场景名称
-    @allure.title("输入标题查询成功")  # 用例名称
-    @allure.description("进入整机BOM协作页面，输入存在的标题，点击查询，下方会显示相应的数据")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    def test_007_001(self, drivers, Machine_API):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(Machine_API[0])
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.enter_oneworks_iframe()
-        user.assert_toast('【生产工厂信息】物料10026418的组包工厂不能为空')
-        user.quit_oneworks()
-
 
 @allure.feature("BOM协作_整机BOM协作")  # 模块名称
 class TestProcessInformationExport:
@@ -1205,7 +1187,6 @@ class TestProcessInformationExport:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_API[0])
-
         user.assert_oneworks_factoryinfo()
         user.quit_oneworks()
 

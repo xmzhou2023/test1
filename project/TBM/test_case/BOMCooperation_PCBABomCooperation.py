@@ -1163,13 +1163,122 @@ class TestProcessSearch:
     @allure.description("在查询页面，标题输入框输入“李小素”，点击查询，查询结果为所有标题包含“李小素”的信息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_006_001(self, drivers):
+    def test_005_001(self, drivers):
         user = PCBABomCooperation(drivers)
         user.refresh_webpage_click_menu()
         user.input_search_info('标题', '李小素')
         user.click_search()
         user.assert_search_result('标题', '李小素')
 
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，查询不存在标题，结果为空")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入不存在的标题，点击查询，查询结果为空")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_002(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', 'sfdasdfwefw')
+        user.click_search()
+        DomAssert(drivers).assert_att('暂无数据')
 
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，流程编码查询结果正确")  # 用例名称
+    @allure.description("在查询页面，流程编码输入框输入“1”，点击查询，查询结果为所有流程编码包含“1”的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_003(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('流程编码', '1')
+        user.click_search()
+        user.assert_search_result('流程编码', '1')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，查询不存在流程编码，结果为空")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入不存在的流程编码，点击查询，查询结果为空")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_004(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('流程编码', 'sfdasdfwefw')
+        user.click_search()
+        DomAssert(drivers).assert_att('暂无数据')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，PCBA BOM衍生查询结果正确")  # 用例名称
+    @allure.description("在查询页面，下拉框选择为客供BOM衍生，点击查询，查询结果为所有制作类型为PCBA BOM衍生的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_005(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('制作类型', 'PCBA BOM衍生')
+        user.click_search()
+        user.assert_search_result('制作类型', 'PCBA BOM衍生')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，PCBA BOM制作查询结果正确")  # 用例名称
+    @allure.description("在查询页面，下拉框选择为PCBA BOM制作，点击查询，查询结果为所有制作类型为PCBA BOM制作的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_006(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('制作类型', 'PCBA BOM制作')
+        user.click_search()
+        user.assert_search_result('制作类型', 'PCBA BOM制作')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，组合查询结果正确")  # 用例名称
+    @allure.description("在查询页面，标题输入框输入“李小素”，流程编码输入框输入“1”，BOM编码输入“2”，下拉框选择为PCBA BOM制作，点击查询，查询结果为所有标题包含“李小素”、流程编码包含“1”、物料编码包含“2”、制作类型为PCBA BOM制作的信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_007(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '李小素')
+        user.input_search_info('流程编码', '1')
+        user.input_search_info('制作类型', 'PCBA BOM制作')
+        user.click_search()
+        user.assert_search_result('制作类型', 'PCBA BOM制作')
+        user.assert_search_result('流程编码', '1')
+        user.assert_search_result('标题', '李小素')
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，编辑正常")  # 用例名称
+    @allure.description("在查询页面，点击编辑，跳转至oneworks编辑页面，可以编辑页面信息、提交、保存")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_008(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '自动化查询用例')
+        user.click_search()
+        user.click_edit('自动化查询用例')
+        user.click_add_save()
+        DomAssert(drivers).assert_att('保存草稿成功')
+        user.click_edit('自动化查询用例')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('创建流程成功')
+        user.input_search_info('标题', '自动化查询用例')
+        user.click_search()
+        code = user.get_bom_info('PCBA BOM协作', '自动化查询用例', '流程编码')
+        user.recall_process(code)
+
+    @allure.story("流程查询")  # 场景名称
+    @allure.title("在查询页面，删除取消无变动")  # 用例名称
+    @allure.description("在查询页面，点击删除，提示是否确认删除，点击取消，取消成功，页面无变动")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_005_009(self, drivers):
+        user = PCBABomCooperation(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_search_info('标题', '自动化查询用例')
+        user.click_search()
+        user.click_delete('自动化查询用例')
+        user.click_delete_cancel()
+        DomAssert(drivers).assert_att('自动化查询用例')
 if __name__ == '__main__':
     pytest.main(['BOMCooperation_PCBABomCooperation.py'])

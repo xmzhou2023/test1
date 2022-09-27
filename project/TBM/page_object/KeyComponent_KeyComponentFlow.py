@@ -103,23 +103,12 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
-    @allure.step("删除操作")
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-        self.is_click_tbm(user['确定'])
-
     @allure.step("新建流程后的后置删除处理")
     def delete_flow(self, code):
-        """
-        新建流程后的后置删除处理
-        """
         self.recall_process(code)
         self.click_menu("关键器件", "关键器件流程")
         self.click_delete(code)
+        self.click_delete_confirm()
         DomAssert(self.driver).assert_att('删除成功')
 
     @allure.step("点击指定关键器件左侧三角按钮展开")
