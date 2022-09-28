@@ -686,6 +686,10 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("输入查询条件")
     def input_search_info(self, type, info):
+        """
+        :param type: 查询字段
+        :param info: 查询内容
+        """
         input_type = ['标题', '流程编码', 'BOM编码']
         select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
         if type in input_type:
@@ -703,10 +707,21 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("断言：查询结果")
     def assert_search_result(self, header, content):
+        """
+        :param header: 需要断言的字段
+        :param content: 需要断言的内容
+        """
         DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['滚动条'])
 
     @allure.step("获得BOM列表指定内容")
     def get_bom_info(self, menu, info, header, attr='class', index='0'):
+        """
+        :param menu: 需要进入的BOM协作菜单
+        :param info: 输入指定内容查找 如：传入流程编码
+        :param header: 需要获取的指定字段
+        :param attr: 需要获取的属性 默认class属性
+        :param index: 属性索引位置 默认0
+        """
         self.click_menu("BOM协作", menu)
         sleep(1)
         column = self.get_table_info(user['表格字段'], header, attr=attr, index=index)
@@ -716,9 +731,8 @@ class CenterComponent(Base, APIRequest):
     @allure.step("新增页面-输入基本信息")
     def input_basic_info(self, header, info):
         """
-        单机头BOM协作新增页面-输入BOM信息
-        :param info: 选择要输入的信息
-        :param select: 选择信息内容
+        :param header: 基本信息字段
+        :param info: 输入内容
         """
         input_list = ['标题']
         select_list = ['申请人']

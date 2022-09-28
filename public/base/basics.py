@@ -215,20 +215,11 @@ class Base(object):
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
 
-    def scroll_into_view(self, locator, choice=None):
+    def scroll_into_view(self, locator, *args, **kwargs):
         """滑动至出现元素"""
-        if choice is not None:
-            Npath = []
-            Npath.append(locator[0])
-            Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
-            ele = self.find_element(Npath)
-            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            logging.info("滚动条至：{}".format(Npath))
-        else:
-            ele = self.find_element(locator)
-            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            logging.info("滚动条至：{}".format(locator))
+        ele = self.find_element(locator, *args, **kwargs)
+        self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+        logging.info("滚动条至：{}".format(locator, *args, **kwargs))
 
     def scroll_into_view_CRM(self, locator, choice=None):
         """滑动至出现元素"""

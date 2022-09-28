@@ -82,17 +82,27 @@ class TestUtil:
             OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境深圳传音控股电子签署平台登录异常,请相关人员及时排查问题!", "1")
             assert False
 
-    # @allure.story("二级标题：禅道平台登录巡检")  # 场景名称
-    # @allure.title("三级标题：禅道平台登录巡检， 调用飞书机器消息推送结果")  # 用例名称
-    # @allure.description("用例描述")
-    # @allure.severity("normal")  # 用例等级
-    # @pytest.mark.smoke  # 用例标记
-    # def test_001_003(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
-    #     a = SQL("OA", "test")
-    #     ie = a.query_db(
-    #         "select count(gdzt) from uf_gdcs where lcid in (select  requestid from workflow_requestbase where  "
-    #         "currentnodetype ='3'  and requestid in(select lcid from uf_gdcs )) and gdzt !='0'")
-    #     print(ie)
+    @allure.story("二级标题：禅道平台登录巡检")  # 场景名称
+    @allure.title("三级标题：禅道平台登录巡检， 调用飞书机器消息推送结果")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_003(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OA = OAUserPage(drivers)
+        a = SQL("OA", "test")
+        result = a.query_db(
+            "select count(gdzt) from ECOLOGY.uf_gdcs where lcid in (select requestid from "
+            "ECOLOGY.workflow_requestbase where currentnodetype ='3'  and requestid in(select lcid from "
+            "ECOLOGY.uf_gdcs )) and gdzt !='0'")
+
+        count = result[0].get("count(gdzt)")
+        logging.info('合同归档催收数据:{}'.format(count))
+        if count > 0:
+            OA.Messagefeishu("@吴军\n合同归档催收数据同步异常,异常个数共计：{}".format(count), "1")
+            assert False
+        elif count == 0:
+            # OA.Messagefeishu("@吴军\n合同归档催收数据同步正常", "1")
+            assert True
 
 
 if __name__ == '__main__':
