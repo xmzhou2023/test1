@@ -165,17 +165,31 @@ class TestCreateProcess:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_001_008(self, drivers):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage_click_menu()
-        user.add_bom_info()
-        user.click_copy_review()
-        user.doc_num_search('单据号', 'ZBOM20220824071208114316')
-        user.doc_num_search('机型名称', 'X572-1')
-        user.click_search()
-        user.assert_doc_result('ZBOM20220824071208114316','X572-1')
-        user.click_doc_select('ZBOM20220824071208114316')
-        user.assert_doc_copy('李小素', 'MPM')
-        user.assert_doc_copy('李小素', 'NPS')
+          drivers.get("http://bom-sit.transsion.com/")
+          drivers.set_window_size(1936, 1056)
+          drivers.find_element(By.CSS_SELECTOR, ".is-opened .one-children-icon").click()
+          drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(11) .menu-wrapper:nth-child(1) span").click()
+          element = drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(11) .menu-wrapper:nth-child(1) span")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element).perform()
+          element = drivers.find_element(By.CSS_SELECTOR, "body")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element, 0, 0).perform()
+          drivers.find_element(By.CSS_SELECTOR, ".is-opened .one-children-icon").click()
+          drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(12) .menu-wrapper:nth-child(1) span").click()
+          element = drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(12) .menu-wrapper:nth-child(1) span")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element).perform()
+          element = drivers.find_element(By.CSS_SELECTOR, "body")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element, 0, 0).perform()
+          drivers.find_element(By.CSS_SELECTOR, ".is-opened .meta-title").click()
+          drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(13) .menu-wrapper:nth-child(1) span").click()
+          element = drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(13) .menu-wrapper:nth-child(1) span")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element).perform()
+          element = drivers.find_element(By.CSS_SELECTOR, "body")
+         
 @allure.feature("BOM协作_整机BOM协作")  # 模块名称
 class TestCreateProcessExceptionScenario:
     @allure.story("创建流程异常场景")  # 场景名称
