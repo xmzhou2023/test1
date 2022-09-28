@@ -143,7 +143,31 @@ class TestCreateProcess:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_001_007(self, drivers):
-        pass
+          drivers.get("http://bom-sit.transsion.com/")
+          drivers.set_window_size(1936, 1056)
+          drivers.find_element(By.CSS_SELECTOR, ".is-opened .one-children-icon").click()
+          drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(11) .menu-wrapper:nth-child(1) span").click()
+          element = drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(11) .menu-wrapper:nth-child(1) span")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element).perform()
+          element = drivers.find_element(By.CSS_SELECTOR, "body")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element, 0, 0).perform()
+          drivers.find_element(By.CSS_SELECTOR, ".is-opened .one-children-icon").click()
+          drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(12) .menu-wrapper:nth-child(1) span").click()
+          element = drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(12) .menu-wrapper:nth-child(1) span")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element).perform()
+          element = drivers.find_element(By.CSS_SELECTOR, "body")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element, 0, 0).perform()
+          drivers.find_element(By.CSS_SELECTOR, ".is-opened .meta-title").click()
+          drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(13) .menu-wrapper:nth-child(1) span").click()
+          element = drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(13) .menu-wrapper:nth-child(1) span")
+          actions = ActionChains(drivers)
+          actions.move_to_element(element).perform()
+          element = drivers.find_element(By.CSS_SELECTOR, "body")
+         
     @allure.story("创建流程")  # 场景名称
     @allure.title("复制审批人成功")  # 用例名称
     @allure.description("进入新增页面制作类型选择生产BOM，正确填入数据后，在审核人设置中点击复制审批人，会弹出选择单据号页面，查询结果正确显示，并且选择生效")
