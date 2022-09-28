@@ -24,43 +24,43 @@ class TestSearchArea:
 
     @allure.story("查询区域")
     @allure.title("前往一级区域")
-    @allure.description("点击‘孟加拉地区部’前往一级区域‘")
+    @allure.description("点击‘TECNO事业部’前往一级区域‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_001(self, drivers):
         user = AreaPage(drivers)
-        user.goto_tree('孟加拉地区部')
-        user.assert_area('管理维度','孟加拉地区部','市场划分')
+        user.goto_tree('TECNO事业部')
+        user.assert_area('管理维度','TECNO事业部','市场划分')
 
     @allure.story("查询区域")
     @allure.title("前往二级区域")
-    @allure.description("点击‘孟加拉地区’前往二级区域")
+    @allure.description("点击‘非洲区’前往二级区域")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_002(self, drivers):
         user = AreaPage(drivers)
-        user.goto_tree('孟加拉地区部', '孟加拉地区')
-        user.assert_area('市场划分','孟加拉地区', '区域')
+        user.goto_tree('TECNO事业部', '非洲区')
+        user.assert_area('市场划分','非洲区', '区域')
 
     @allure.story("查询区域")
     @allure.title("前往三级区域")
-    @allure.description("点击‘孟加拉地区’前往三级区域")
+    @allure.description("点击‘东非地区’前往三级区域")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_003(self, drivers):
         user = AreaPage(drivers)
-        user.goto_tree('孟加拉地区部', '孟加拉地区', '孟加拉地区')
-        user.assert_area('区域','孟加拉地区', '大区')
+        user.goto_tree('TECNO事业部', '非洲区', '东非地区')
+        user.assert_area('区域','东非地区', '大区')
 
     @allure.story("查询区域")
     @allure.title("前往四级区域")
-    @allure.description("点击‘孟加拉地区’前往四级区域‘")
+    @allure.description("点击‘东非一区’前往四级区域‘")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_004(self, drivers):
         user = AreaPage(drivers)
-        user.goto_tree('孟加拉地区部', '孟加拉地区', '孟加拉地区', '孟加拉地区')
-        user.assert_area('大区', '孟加拉地区', '国家')
+        user.goto_tree('TECNO事业部', '非洲区', '东非地区', '东非一区')
+        user.assert_area('大区', '东非一区', '国家')
 
     @allure.story("查询区域")
     @allure.title("前往五级区域")
@@ -69,32 +69,32 @@ class TestSearchArea:
     @pytest.mark.smoke
     def test_001_005(self, drivers):
         user = AreaPage(drivers)
-        user.goto_tree('孟加拉地区部', '孟加拉地区', '孟加拉地区', '孟加拉地区', '孟加拉')
-        user.assert_area('国家', '孟加拉')
+        user.goto_tree('TECNO事业部', '非洲区', '东非地区', '东非一区', '卢旺达')
+        user.assert_area('国家', '卢旺达')
 
     @allure.story("查询区域")
     @allure.title("精确搜索区域")
-    @allure.description("区域搜索框，输入‘孟加拉’，可查到该区域")
+    @allure.description("区域搜索框，输入‘卢旺达’，可查到该区域")
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_006(self, drivers):
         user = AreaPage(drivers)
-        user.goto_tree('孟加拉地区部')
-        user.search_area("孟加拉")
+        user.goto_tree('TECNO事业部')
+        user.search_area("卢旺达")
         allist = user.goto_tree()
-        user.check_tree("孟加拉", allist)
+        user.check_tree("卢旺达", allist)
 
     @allure.story("查询区域")
     @allure.title("模糊搜索区域")
-    @allure.description("区域搜索框，输入‘孟加’，可查到该区域")
+    @allure.description("区域搜索框，输入‘卢旺’，可查到该区域")
     @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke
     def test_001_007(self, drivers):
         user = AreaPage(drivers)
-        user.goto_tree('孟加拉地区部')
-        user.search_area("孟加")
+        user.goto_tree('TECNO事业部')
+        user.search_area("卢旺")
         allist = user.goto_tree('Itel事业部')
-        user.check_tree("孟加", allist)
+        user.check_tree("卢旺", allist)
 
 
 @allure.feature("系统管理-区域管理")
@@ -140,10 +140,10 @@ class TestAppendArea:
         user.precondition(drivers,3)
         user.goto_tree('Infinix事业部','其他','其他')
         user.add_button()  # 点击新增按钮
-        user.add_area('摩洛哥')  # 输入地区中英文名称
+        user.add_area('迪拜')  # 输入地区中英文名称
         user.save_button()  # 点击保存按钮
         # 删除测试数据
-        user.del_list(2, '摩洛哥')  # 点击删除按钮
+        user.del_list(2, '迪拜')  # 点击删除按钮
         user.goto_tree('Infinix事业部', '其他')
         user.del_list(2, '其他')  # 点击删除按钮
         user.goto_tree('Infinix事业部')
@@ -157,7 +157,7 @@ class TestAppendArea:
     def test_002_004(self, drivers):
         user = AreaPage(drivers)
         user.precondition(drivers,4)
-        user.goto_tree('Infinix事业部','其他','其他', '摩洛哥')
+        user.goto_tree('Infinix事业部','其他','其他', '迪拜')
         user.add_button()  # 点击新增按钮
         user.add_area('贝宁')  # 输入地区中英文名称
         user.save_button()  # 点击保存按钮
@@ -172,7 +172,7 @@ class TestAppendArea:
     def test_002_005(self, drivers):
         user = AreaPage(drivers)
         user.precondition(drivers,5)
-        user.goto_tree('Infinix事业部','其他','其他', '摩洛哥','贝宁')
+        user.goto_tree('Infinix事业部','其他','其他', '迪拜','贝宁')
         user.add_button()  # 点击新增按钮
         user.add_area('Infinix','品牌')  # 选择品牌
         user.add_area('公开市场','市场分类')  # 选择市场分类
@@ -222,7 +222,7 @@ class TestAppendArea:
         user = AreaPage(drivers)
         user.precondition(drivers,4)
         user.add_button()  # 点击新增按钮
-        user.add_area('摩洛哥')  # 输入地区中英文名称
+        user.add_area('迪拜')  # 输入地区中英文名称
         user.save_button()  # 点击保存按钮
         user.assert_add()
         # 删除测试数据
@@ -277,7 +277,7 @@ class TestDeleteArea:
     def test_003_003(self, drivers):
         user = AreaPage(drivers)
         user.precondition(drivers,4)
-        user.del_list(2,'摩洛哥')
+        user.del_list(2,'迪拜')
         # 删除测试数据
         user.clear_testdata()
 
@@ -290,7 +290,7 @@ class TestDeleteArea:
         user = AreaPage(drivers)
         user.precondition(drivers,5)
         user.goto_tree('Infinix事业部','其他','其他')
-        user.del_list(2,'摩洛哥')
+        user.del_list(2,'迪拜')
         user.del_assert()
         # 删除测试数据
         user.clear_testdata()
