@@ -45,48 +45,44 @@ class TestCreateProcess:
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage_click_menu()
-        user.add_bom_info()
-        user.add_bomtree()
-        user.input_bomtree('充电器', '物料编码', '25101424')
-        user.input_bomtree('充电器', '用量', '1000')
-        user.input_bomtree('充电器', '替代组', 'A1')
-        user.input_bomtree('充电器', '份额', '20')
-        user.click_add_material()
-        user.move_to_add_material('25101424')
-        user.input_optional_material('25101424', '物料编码', '25101448')
-        user.input_optional_material('25101424', '用量', '1000')
-        user.input_optional_material('25101424', '替代组', 'A1')
-        user.input_optional_material('25101424', '份额', '80')
-        user.select_business_review('李小素', 'MPM')
-        user.select_business_review('李小素', 'NPS')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        user.assert_add_result('生产BOM', 'X572-1', 'Infinix', '埃塞本地', '试产阶段', '审批中', '未同步')
-        process_code = user.get_info()[1]
-        user.delete_flow(process_code)
+        drivers.get("http://10.250.113.16/")
+        drivers.set_window_size(1936, 1056)
+        element = self.driver.find_element(By.CSS_SELECTOR, ".el-menu-item > .el-tooltip")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        element = self.driver.find_element(By.CSS_SELECTOR, "body")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element, 0, 0).perform()
+        drivers.find_element(By.CSS_SELECTOR, ".is-opened .svg-icon").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-opened > .el-submenu__title").click()
+        drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(13) .menu-wrapper:nth-child(4) span").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".hover").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".hover").click()
+        drivers.find_element(By.CSS_SELECTOR, ".el-button--primary:nth-child(1) > span").click()
     @allure.story("创建流程")  # 场景名称
     @allure.title("正确选择物料编码，点击一键填写，填写内容保存正确")  # 用例名称
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，在产成品中和单机头中正确选择物料编码，选中两颗物料，点击一键填写，填写用量和1000点击确认，页面上显示两颗物料用量都为1000")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_001_003(self, drivers):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage_click_menu()
-        user.add_bom_info()
-        user.click_add_bomtree()
-        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
-        user.input_bomtree('产成品', 'BOM状态', '试产')
-        user.input_bomtree('产成品', '物料编码', '10000010')
-        user.input_bomtree('单机头', '物料编码', '10000011')
-        user.click_checkbox()
-        user.input_one_press('用量', '1000')
-        amount1 = user.get_bomtree_info('产成品')[8]
-        amount2 = user.get_bomtree_info('产成品')[8]
-        ValueAssert.value_assert_equal(amount1, '1000')
-        ValueAssert.value_assert_equal(amount2, '1000')
+        drivers.get("http://10.250.113.16/")
+        drivers.set_window_size(1936, 1056)
+        element = self.driver.find_element(By.CSS_SELECTOR, ".el-menu-item > .el-tooltip")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        element = self.driver.find_element(By.CSS_SELECTOR, "body")
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element, 0, 0).perform()
+        drivers.find_element(By.CSS_SELECTOR, ".is-opened .svg-icon").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-opened > .el-submenu__title").click()
+        drivers.find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(13) .menu-wrapper:nth-child(4) span").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".hover").click()
+        drivers.find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()
+        drivers.find_element(By.CSS_SELECTOR, ".hover").click()
+        drivers.find_element(By.CSS_SELECTOR, ".el-button--primary:nth-child(1) > span").click()
     @allure.story("创建流程")  # 场景名称
     @allure.title("BOM tree中不选择物料，页面上不存在删除按钮")  # 用例名称
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，不选择物料，页面上不存在删除按钮")
@@ -494,19 +490,6 @@ class TestCreatingProcessImport:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.FT  # 用例标记
     def test_003_002(self, drivers):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        user.input_add_bom_info('制作类型', '生产BOM')
-        user.input_add_bom_info('品牌', 'Infinix')
-        user.input_add_bom_info('机型', '1005G1')
-        user.input_add_bom_info('阶段', '量产阶段')
-        user.input_add_bom_info('市场', '孟加拉')
-        user.click_bom_import()
-        user.upload_true_file()
-        user.assert_upload_result(('1', '10000010', '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材', '未归档', '1', '国内生产BOM', '量产',
-                                   '孟加拉', '16+1', '12000001'), )
-
         user.click_apply()
         user.click_tree('产成品')
         user.assert_tree_result(('1', '产成品', '10000010',
