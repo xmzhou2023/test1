@@ -307,7 +307,7 @@ class TestProductInformationImportFile:
         afterListNum = user.listNum()
         ValueAssert.value_assert_Notequal(afterListNum,beforeListNum)
         user.screen_testData(drivers)
-        user.delete_button("隆江", num=22)
+        user.delete_button("秦海伦", num=22)
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_reset()  # 点击重置按钮
 
@@ -334,9 +334,9 @@ class TestProductInformationScreenFunction:
         user.screen_source("数仓")  # 选择来源
         user.screen_supplyType("自制")  # 选择供应类型
         user.screen_inquire()  # 点击查询按钮
-        user.assert_screen_result("隆江",num=22)
+        user.assert_screen_result("秦海伦",num=22)
         """清空测试数据"""
-        user.delete_button("隆江", num=22)  # 点击指定行删除按钮
+        user.delete_button("秦海伦", num=22)  # 点击指定行删除按钮
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_reset()  # 点击重置按钮
 
@@ -398,15 +398,15 @@ class TestProductInformationUpdate:
         user = ModelDatabase(drivers)
         user.insert_testData(drivers)  # 插入测试数据
         user.screen_testData(drivers)  # 筛选出测试数据
-        user.update_button("隆江", num=22)  # 点击指定行编辑按钮
+        user.update_button("秦海伦", num=22)  # 点击指定行编辑按钮
         user.update_something(2,"外购")
         user.update_save()
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_supplyType("外购")  # 选择供应类型
         user.screen_inquire()  # 点击查询按钮
-        user.assert_screen_result("隆江", num=22)
+        user.assert_screen_result("秦海伦", num=22)
         """清空测试数据"""
-        user.delete_button("隆江", num=22)  # 点击指定行删除按钮
+        user.delete_button("秦海伦", num=22)  # 点击指定行删除按钮
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_reset()  # 点击重置按钮
 
@@ -422,7 +422,7 @@ class TestProductInformationDelete:
         user.insert_testData(drivers)
         user.screen_testData(drivers)  # 筛选出测试数据
         beforeListNum = user.listNum()
-        user.delete_button("隆江", num=22)  # 点击指定行删除按钮
+        user.delete_button("秦海伦", num=22)  # 点击指定行删除按钮
         afterListNum = user.listNum()
         ValueAssert.value_assert_Notequal(beforeListNum, afterListNum)
         user.screen_button()  # 点击筛选按钮，弹出筛选框
@@ -503,7 +503,7 @@ class TestProductCofigEdit:
         user = ModelDatabase(drivers)
         user.insert_testData1(drivers)
         user.screenTestData(drivers)
-        user.edit_button("隆江",15)
+        user.edit_button("秦海伦",15)
         user.editData("套片", inputValue="123")
         user.editData("主板", "abc")
         user.editData("屏幕", "ABC")
