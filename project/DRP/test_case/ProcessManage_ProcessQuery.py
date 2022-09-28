@@ -28,7 +28,7 @@ class TestSearchProcess:
     @allure.description("选择流程分类查询，查询结果正确")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.parametrize("queryCondition, value", [("流程分类","itel事业部"),("流程名称","itel事业部备料审批"),
-                                                       ("节点名称","巴基斯坦-TECNO品牌经理"),("节点类型","提报节点"),("品牌","TECNO"),("负责人","邓佳鑫"),
+                                                       ("节点名称","巴基斯坦-TECNO品牌经理"),("节点类型","提报节点"),("品牌","TECNO"),
                                                        ("负责人","邓佳鑫"),("系统角色","品牌经理")])
     @pytest.mark.smoke
     def test_001_001(self, drivers,queryCondition, value):
