@@ -4,7 +4,6 @@
 
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-#获取分页总条数文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[2]/span[contains(text(),'Total')]"
 获取分页总条数文本: "xpath==//div//span[contains(text(),'Total')]"
 
 获取出库数量文本: "xpath==//*[@id='mainContainer']/section/div[2]/div[2]/div[1]/div/div[4]/table/tbody/tr/td[12]/div"
