@@ -324,3 +324,7 @@ project/DRP/test_case/ProcessManage_ProcessConfig.py::TestGotoUrl::test_005_001
 project/DRP/test_case/ProcessManage_ProcessConfig.py::TestGotoUrl::test_005_001
 project/DRP/test_case/ProcessManage_ProcessConfig.py::TestGotoUrl::test_005_001
 project/DRP/test_case/SystemMgmt_RegionMgmt.py::TestAppendArea::test_002_004
+project/DRP/test_case/ProcessManage_ProcessQuery.py::TestSearchProcess::test_001_001
+project/DRP/test_case/ProcessManage_ProcessQuery.py::TestSearchProcess::test_001_002
+project/DRP/test_case/ProcessManage_ProcessQuery.py::TestSearchProcess::test_001_002
+project/DRP/test_case/ProcessManage_ProcessQuery.py::TestSearchProcess::test_001_002
