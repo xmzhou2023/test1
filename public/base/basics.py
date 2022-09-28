@@ -569,6 +569,7 @@ class Base(object):
             return False
         else:
             logging.info('存在元素：{}'.format(locator))
+            self.base_get_img()
             return True
 
     def upload_file(self,locator,file,choice=None):

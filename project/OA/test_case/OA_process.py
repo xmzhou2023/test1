@@ -2,6 +2,8 @@ import allure
 import pytest
 import base64
 import pytest, logging
+
+from project.OA.page_object.OA_login import OAdnluPage
 from public.data.unified_login.unified import *
 from public.base.assert_ui import *
 from public.libs.unified_login.login import Login
@@ -31,9 +33,9 @@ class TestUtil:
     def test_001_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         OA = OAUserPage(drivers)
         OA.refresh()  # 刷新当前界面
+        sleep(30)
         itexis = OA.islogin()
         OA.open_url("https://wenjuan.feishu.cn/m/cfm?t=spxJpHryzfxi-qnnu")  # 打开应用系统巡检地址
-
         # 绕过【应用系统巡检】扫码登录
         OA.click_toggle()
         OA.click_read()
@@ -51,12 +53,12 @@ class TestUtil:
         OA.click_date()
         if itexis:
             OA.click_Inspection("系统登陆正常")
-            # OA.Messagefeishu("OA自动巡检通知\n今天OA系统登陆正常！已提交系统巡检报告")
+            # OA.Messagefeishu("OA自动巡检通知\n今天OA系统登陆正常！已提交系统巡检报告", "1")
             assert True
         else:
             OA.click_Inspection("系统登陆异常")
             OA.input_reason("OA机器人巡检，生产环境登录OA异常。登录OA地址[https://oa.transsion.com/wui/main.jsp]")
-            OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,发现系统登陆异常,请相关人员及时排查问题！已提交系统巡检报告！")
+            OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,发现系统登陆异常,请相关人员及时排查问题！已提交系统巡检报告！", "1")
             assert False
         OA.click_sumbmit()
 
@@ -74,11 +76,23 @@ class TestUtil:
         itexis = OA.issign_login()
 
         if itexis:
-            # OA.Messagefeishu("契约锁自动巡检通知\n系统登陆正常!")
+            # OA.Messagefeishu("契约锁自动巡检通知\n系统登陆正常!", "1")
             assert True
         else:
-            OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境深圳传音控股电子签署平台登录异常,请相关人员及时排查问题!")
+            OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境深圳传音控股电子签署平台登录异常,请相关人员及时排查问题!", "1")
             assert False
+
+    # @allure.story("二级标题：禅道平台登录巡检")  # 场景名称
+    # @allure.title("三级标题：禅道平台登录巡检， 调用飞书机器消息推送结果")  # 用例名称
+    # @allure.description("用例描述")
+    # @allure.severity("normal")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # def test_001_003(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+    #     a = SQL("OA", "test")
+    #     ie = a.query_db(
+    #         "select count(gdzt) from uf_gdcs where lcid in (select  requestid from workflow_requestbase where  "
+    #         "currentnodetype ='3'  and requestid in(select lcid from uf_gdcs )) and gdzt !='0'")
+    #     print(ie)
 
 
 if __name__ == '__main__':
