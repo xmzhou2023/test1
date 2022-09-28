@@ -351,6 +351,7 @@ class PCBABomCooperation(CenterComponent):
         self.recall_process(code)
         self.click_menu("BOM协作", "PCBA BOM协作")
         self.click_delete(code)
+        self.click_delete_confirm()
         self.assert_toast('删除成功')
 
     @allure.step("断言:页面表格内容是否正确")

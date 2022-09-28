@@ -519,6 +519,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.recall_process(code)
         self.click_menu("BOM协作", "整机BOM协作")
         self.click_delete(code)
+        self.click_delete_confirm()
         self.assert_toast('删除成功')
 
     @allure.step("发起流程,点击新增，输入BOM信息，输入BOMTree信息后点击提交")

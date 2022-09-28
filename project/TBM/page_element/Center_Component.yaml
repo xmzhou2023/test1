@@ -41,7 +41,7 @@ oneworks-拒绝: "xpath==//div[@class='btn-groups']//button/span[contains(text()
 oneworks-拒绝-确定: "xpath==//*[@aria-label='提示']//button/span[contains(text(),'确定')]"
 待办列表-我申请的-iframe: "xpath==//iframe"
 创建时间: "xpath==//tbody/tr/td[12]"
-
+刷新: "xpath==//button/span[contains(text(),'刷新')]"
 #==========================================oneworks========================================
 OneworksBomTree全部内容: "xpath==//span[normalize-space(text())='Bom Tree']/../../../..//tbody/*"
 OneworksBom信息-机型: "xpath==//label[text()='机型']/..//span/span/span"

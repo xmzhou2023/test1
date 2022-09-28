@@ -530,7 +530,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_Factory_API[0])
-        user.assert_oneworks_bomtree_edit()
+        user.assert_oneworks_bomtree_edit('单机头', '物料编码')
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
@@ -644,7 +644,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
-        user.assert_oneworks_bomtree_edit()
+        user.assert_oneworks_bomtree_edit('单机头', '物料编码')
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
