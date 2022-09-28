@@ -189,7 +189,7 @@ class AreaPage(Base):
             user.save_button()  # 点击保存按钮
             user.goto_tree('Infinix事业部','其他','其他')
             user.add_button()  # 点击新增按钮
-            user.add_area('摩洛哥')  # 输入地区中英文名称
+            user.add_area('迪拜')  # 输入地区中英文名称
             user.save_button()  # 点击保存按钮
         elif tier == 5:
             user.goto_tree('Infinix事业部')
@@ -202,9 +202,9 @@ class AreaPage(Base):
             user.save_button()  # 点击保存按钮
             user.goto_tree('Infinix事业部','其他','其他')
             user.add_button()  # 点击新增按钮
-            user.add_area('摩洛哥')  # 输入地区中英文名称
+            user.add_area('迪拜')  # 输入地区中英文名称
             user.save_button()  # 点击保存按钮
-            user.goto_tree('Infinix事业部','其他','其他','摩洛哥')
+            user.goto_tree('Infinix事业部','其他','其他','迪拜')
             user.add_button()  # 点击新增按钮
             user.add_area('贝宁')  # 输入地区中英文名称
             user.save_button()  # 点击保存按钮
@@ -236,13 +236,13 @@ class AreaPage(Base):
     def clear_testdata(self):
         user = SQL("DRP", "test")
         user.delete_db(
-            "DELETE from cd_dimension_area where creator_name = '隆江'")
+            "DELETE from cd_dimension_area where creator_name = '秦海伦'")
         logging.info("清空测试数据")
 
     @allure.step("前置条件-编辑国家信息")
     def precondition_contry(self, drivers):
         user = AreaPage(drivers)
-        user.goto_tree('Infinix事业部','其他','其他', '摩洛哥','贝宁')
+        user.goto_tree('Infinix事业部','其他','其他', '迪拜','贝宁')
         user.add_button()  # 点击新增按钮
         user.add_area('Infinix','品牌')  # 选择品牌
         user.add_area('公开市场','市场分类')  # 选择市场分类

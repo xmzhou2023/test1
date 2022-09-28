@@ -559,9 +559,9 @@ class ModelDatabase(Base):
         # user.screen_source(kwargs["source"])  # 选择来源
         # user.screen_supplyType(kwargs["supplyType"])  # 选择供应类型
         user.screen_inquire()  # 点击查询按钮
-        user.assert_screen_result("隆江", num=22)
+        user.assert_screen_result("秦海伦", num=22)
         logging.info('列表操作，前置条件过滤完成')
-        user.delete_button("隆江", num=22)  # 点击指定行删除按钮
+        user.delete_button("秦海伦", num=22)  # 点击指定行删除按钮
 
     @allure.step("造测试数据并筛选")
     def insert_testData(self, drivers):
@@ -595,7 +595,7 @@ class ModelDatabase(Base):
         # user.screen_source("数仓")  # 选择来源
         # user.screen_supplyType("自制")  # 选择供应类型
         user.screen_inquire()  # 点击查询按钮
-        user.assert_screen_result("隆江", num=22)
+        user.assert_screen_result("秦海伦", num=22)
         logging.info('列表操作，前置条件过滤完成')
 
     @allure.step("造测试数据")
