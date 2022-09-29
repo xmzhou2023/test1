@@ -11,9 +11,12 @@ driver = None
 
 def pytest_addoption(parser):
     parser.addoption("--env", action="store", default='test', help='环境操作')
-    parser.addoption("--remoteurl", action="store", default='http://10.250.101.58:4444', help='远程DEV环境（linux服务器）')
+
+    # -->默认请用DEV环境做代码调试<--
+    # parser.addoption("--remoteurl", action="store", default='http://10.250.101.58:4444', help='远程DEV环境（linux服务器）')
+    parser.addoption("--remoteurl", action="store", default='http://10.250.101.49:4444', help='远程DEV环境（windows服务器）')
+
     # parser.addoption("--remoteurl", action="store", default='http://10.250.113.16:4444', help='远程UAT环境（linux服务器）')
-    # parser.addoption("--remoteurl", action="store", default='http://10.250.101.49:4444', help='远程DEV环境（windows服务器）')
     # parser.addoption("--remoteurl", action="store", default='http://10.250.113.15:4444', help='远程UAT环境（windows服务器）')
 
 
