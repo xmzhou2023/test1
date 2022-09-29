@@ -14,7 +14,7 @@ class Countryprogrammes(Base):
 
     @allure.step("点击菜单")
     def click_menus(self, metatitle,nestmenu):
-        self.is_click(user['展示'])
+        self.hover(user['XHR'])
         self.is_click(user['一级菜单'],metatitle)
         logging.info(f'点击一级菜单：{metatitle}')
         self.is_click(user['二级菜单'], nestmenu)
