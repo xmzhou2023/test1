@@ -18,6 +18,8 @@
 班次: "xpath==//label[@for='attendanceClass']"
 关闭按钮: "xpath==//button[@aria-label='close 筛选']//i[@class='el-dialog__close el-icon el-icon-close']"
 二次确定按钮: "xpath==//div[@class='el-message-box__btns']//button[2]//span"
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格内容: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
 
 
 
