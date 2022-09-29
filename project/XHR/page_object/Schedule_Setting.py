@@ -67,7 +67,7 @@ class ScheduleSetting(Base):
     def click_sure(self):
         self.is_click(user['确定'])
 
-    @allure.step
+    @allure.step("输入时间组合方法")
     def input_alltime(self):
         self.click_selectcompany('Transsion_SN(XD)')
         self.input_atstime('考勤时间', '09:00', '18:00')
@@ -100,7 +100,9 @@ class ScheduleSetting(Base):
     def sure_del(self):
         self.is_click(user['二次确定按钮'])
 
-
+    @allure.step("断言查询结果")
+    def assert_search(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格内容'], header, content)
 
 
 if __name__ == '__main__':

@@ -83,6 +83,7 @@ class TestSearch:
         a.input_condition('SN_AUTOTEST')
         a.click_searchbutton()
         a.click_closebutton()
+        a.assert_search('班次名称', 'SN_AUTOTEST')
 
 @allure.feature("考勤管理-班次设置")  # 模块名称
 class TestDelete:
