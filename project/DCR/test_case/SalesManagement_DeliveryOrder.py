@@ -276,7 +276,7 @@ class TestAddDeliveryOrder:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             #dom.assert_att("Submit successfully")
-            logging.info("打印{}".format(e))
+            logging.info("打印日志{}".format(e))
         sleep(1)
         add.click_search()
         """断言查询新建的无码出库单"""

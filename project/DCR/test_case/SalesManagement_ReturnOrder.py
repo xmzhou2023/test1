@@ -182,7 +182,7 @@ class TestReturnOrder:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             #dom.assert_att("Submit successfully")
-            logging.info("打印异常日志{}".format(e))
+            logging.info("打印日志{}".format(e))
         sleep(5)
 
         """从数据库表中，获取国包出库单ID，传给出库单筛选方法"""
@@ -287,7 +287,7 @@ class TestReturnOrder:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             #dom.assert_att("Submit successfully")
-            logging.info("打印异常日志{}".format(e))
+            logging.info("打印日志{}".format(e))
         sleep(4)
 
         """从数据库表中，获取国包出库单ID，传给出库单筛选方法"""

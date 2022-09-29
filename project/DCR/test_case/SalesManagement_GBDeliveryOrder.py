@@ -101,7 +101,7 @@ class TestAddDistDeliveryOrder:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             #dom.assert_att("Submit successfully")
-            logging.info("打印{}".format(e))
+            logging.info("打印日志{}".format(e))
         sleep(1)
         add.click_search()
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
