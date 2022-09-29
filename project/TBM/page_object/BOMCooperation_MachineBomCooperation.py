@@ -89,11 +89,6 @@ class MachineBOMCollaboration(CenterComponent):
             self.input_text(user['选择单据号输入框'], content, type)
         logging.info('单据号查询:查询字段{}， 查询内容：{}'.format(type, content))
 
-    @allure.step("点击查询")
-    def click_search(self):
-        self.is_click_tbm(user['查询'])
-        logging.info('点击查询')
-
     @allure.step("复制审批人-单据号内容")
     def get_doc_info(self):
         """
@@ -247,14 +242,6 @@ class MachineBOMCollaboration(CenterComponent):
             self.is_click_tbm(user['BOMTree新增物料确定'], tree)
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额')")
-
-    @allure.step("根据流程编码进行删除操作")
-    def click_delete(self, code):
-        """
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-        self.is_click_tbm(user['确定'])
 
     @allure.step("点击一键填写")
     def click_one_press(self):
@@ -532,6 +519,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.recall_process(code)
         self.click_menu("BOM协作", "整机BOM协作")
         self.click_delete(code)
+        self.click_delete_confirm()
         self.assert_toast('删除成功')
 
     @allure.step("发起流程,点击新增，输入BOM信息，输入BOMTree信息后点击提交")

@@ -104,7 +104,7 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
             sleep(2)
             self.find_element(Npath).click()
             logging.info("选择点击：{}".format(Npath))
@@ -126,15 +126,15 @@ class Base(object):
 
     def find_element(self, locator, *args, **kwargs):
         """寻找单个元素"""
-        if args and args[0] is not None:
-                Npath = []
-                Npath.append(locator[0])
-                Npath.append(locator[1])
-                for i in range(len(args)):
-                    Npath[1] = Npath[1].replace('variable', args[i], 1)
-                logging.info("查找元素：{}".format(Npath))
-                return Base.element_locator(lambda *args: self.wait.until(
-                    EC.presence_of_element_located(args)), Npath)
+        if args and args is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable',str(args[i]),1)
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.presence_of_element_located(args)), Npath)
 
         elif kwargs and kwargs is not None:
             Npath = []
@@ -156,7 +156,7 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable', args[i], 1)
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_all_elements_located(args)), Npath)
@@ -219,7 +219,7 @@ class Base(object):
         """滑动至出现元素"""
         ele = self.find_element(locator, *args, **kwargs)
         self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-        logging.info("滚动条至：{}".format(locator))
+        logging.info("滚动条至：{}".format(locator, *args, **kwargs))
 
     def scroll_into_view_CRM(self, locator, choice=None):
         """滑动至出现元素"""
@@ -390,6 +390,8 @@ class Base(object):
             # 创建Action对象
             actions = ActionChains(self.driver)
             actions.move_to_element(element)
+            actions.move_to_element(element).perform()
+            sleep(1)
         else:
             element = self.find_element(locator, choice)
             # 创建Action对象
@@ -551,19 +553,22 @@ class Base(object):
 
     def element_exist(self, locator, *choice):
         """校验元素是否存在"""
+        self.base_get_img()
         try:
             self.find_element(locator, *choice)
         except:
             logging.error('{}元素不存在'.format(locator))
+            self.base_get_img()
             return False
         else:
             logging.info('存在元素：{}'.format(locator))
+            self.base_get_img()
             return True
 
-    def upload_file(self, locator, file, *choice):
+    def upload_file(self,locator,file,choice=None):
         """上传"""
         sleep(0.5)
-        ele = self.find_element(locator, *choice)
+        ele = self.find_element(locator,choice)
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 
@@ -692,7 +697,6 @@ class Base(object):
 
     def get_table_info(self, locator, *choice, attr='class', index='0'):
         """
-        表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
         获取指定定位的属性值，可用于获取表格每列内容，做查询断言，如：el-table_3_column_45
         :param attr: 需要获取到的属性，默认是class
         :param index: 需要获取到的属性索引位置，默认是0
@@ -713,18 +717,29 @@ class Base(object):
         """
         if choice is None:
             sleep(0.5)
-            ele = self.find_element(locator)
+            ele = self.find_element(locator,choice)
             ele.clear()
             ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
         else:
             """输入(输入前先清空)"""
             sleep(0.5)
-            ele = self.find_element(locator, choice)
+            ele = self.find_element(locator)
             ele.clear()
             ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
 
+    # POP专用文件上传方法
+    def pop_upload(self,locator,file,choice=None):
+        """
+            POP专用文件上传
+        :param locator: 元素定位固定格式xxx['sssss']
+        :param file: 上传文件的路径
+        :return: 上传文件成功
+        """
+        ele = self.find_element(locator,choice)
+        ele.send_keys(file)
+        logging.info("上传文件：{}".format(file))
 
     def DivRolling(self, locator, direction='left', num=1000):
         '''

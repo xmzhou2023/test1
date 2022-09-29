@@ -17,21 +17,13 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.refresh_webpage()
         self.click_menu("出货国家", "出货国家流程")
 
-    @allure.step("删除操作")
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-        self.is_click_tbm(user['确定'])
-
     @allure.step("新建流程后的后置删除处理")
     def delete_shipping_country_flow(self, code):
         logging.info(f'开始撤回流程：{code}')
         self.recall_process(code)
         self.click_menu("出货国家", "出货国家流程")
         self.click_delete(code)
+        self.click_delete_confirm()
         self.assert_toast()
         logging.info('撤回删除流程成功')
 
@@ -58,38 +50,6 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
             logging.info('输入项目信息 描述:{}'.format(select))
         else:
             print('请选择正确的项目信息输入：品牌 or 项目 or 描述')
-
-    @allure.step("出货国家流程新增页面 - 新增产品定义信息")
-    def input_add_product_definition_info(self, header, content):
-        """
-        出货国家流程新增页面 - 新增产品定义信息
-        :param header: 选择要输入的信息
-        :param content: 选择信息内容
-        """
-        definition_dict = {'全球版本': '4', '市场名称': '5', '项目名称': '6', 'MEMORY': '7', 'BANDSTRATEGY': '8',
-                           '产品经理': '9', '项目经理': '10', 'aaa': '12', 'bbb': '13'}
-        select_list = ['全球版本', 'MEMORY', 'BAND STRATEGY', 'aaa', 'bbb', '再增', '配色']
-        input_list = ['市场名称', '项目名称', '摄像头', '型号', '新增']
-        member_list = ['产品经理', '项目经理']
-        column = self.get_table_info(user['产品定义信息字段'], header)
-        if header in select_list:
-            self.is_click_tbm(user['产品定义信息输入'], column)
-            self.is_click_tbm(user['产品定义信息选择'], content)
-        elif header in input_list:
-            self.input_text(user['产品定义信息输入'], content, column)
-        elif header in member_list:
-            self.is_click_tbm(user['产品定义信息输入'], column)
-            self.input_text(user['产品定义信息成员列表输入框'], content)
-            sleep(1)
-            self.is_click_tbm(user['成员选择'], content)
-            self.is_click_tbm(user['产品定义信息成员确定'])
-        else:
-            logging.error(f'请输入正确选项：{definition_dict}')
-            raise
-
-    @allure.step("产品定义信息-点击确定")
-    def click_product_definition_confirm(self):
-        self.is_click_tbm(user['产品定义信息确定'])
 
     @allure.step("选择汇签/抄送人员")
     def select_signatory(self, choice, name):
@@ -138,14 +98,14 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
     @allure.step("出货国家流程新增页面 - 产品定义信息组合")
     def add_product_definition_info(self, item):
         self.click_add()
-        self.input_add_product_definition_info('全球版本', '版本1')
-        self.input_add_product_definition_info('市场名称', f'市场名称{item}')
-        self.input_add_product_definition_info('项目名称', item)
-        self.input_add_product_definition_info('MEMORY', '128+8')
-        self.input_add_product_definition_info('BANDSTRATEGY', '拉美市场')
-        self.input_add_product_definition_info('项目经理', '李小素')
-        self.input_add_product_definition_info('aaa', '2G')
-        self.input_add_product_definition_info('bbb', 'MT6761')
+        self.input_product_definition_info('全球版本', '版本1')
+        self.input_product_definition_info('市场名称', f'市场名称{item}')
+        self.input_product_definition_info('项目名称', item)
+        self.input_product_definition_info('MEMORY', '128+8')
+        self.input_product_definition_info('BANDSTRATEGY', '拉美市场')
+        self.input_product_definition_info('项目经理', '李小素')
+        self.input_product_definition_info('aaa', '2G')
+        self.input_product_definition_info('bbb', 'MT6761')
         self.click_product_definition_confirm()
 
     @allure.step("出货国家流程新增流程 组合")
@@ -177,15 +137,17 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
     @allure.step("出货国家流程 新增流程 产品经理修改 组合")
     def product_manager_modification(self, code):
         self.enter_oneworks_edit(code)
+        self.click_product_definition_edit()
         querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
-        self.input_oneworks_product_definition_info('全球版本', '版本2')
-        self.input_oneworks_product_definition_info('市场名称', f'市场名称test{querytime}')
-        self.input_oneworks_product_definition_info('项目名称', f'项目名称test{querytime}')
-        self.input_oneworks_product_definition_info('MEMORY', '64+8')
-        self.input_oneworks_product_definition_info('BANDSTRATEGY', '公开市场')
-        self.input_oneworks_product_definition_info('项目经理', '李小素')
-        self.input_oneworks_product_definition_info('aaa', '1G')
-        self.input_oneworks_product_definition_info('bbb', 'G70')
+        self.input_product_definition_info('全球版本', '版本2')
+        self.input_product_definition_info('市场名称', f'市场名称test{querytime}')
+        self.input_product_definition_info('项目名称', f'项目名称test{querytime}')
+        self.input_product_definition_info('MEMORY', '64+8')
+        self.input_product_definition_info('BAND STRATEGY', '公开市场')
+        self.input_product_definition_info('项目经理', '李小素')
+        self.input_product_definition_info('aaa', '1G')
+        self.input_product_definition_info('bbb', 'G70')
+        self.click_product_definition_confirm()
         self.click_onework_agree()
         self.assert_toast()
         self.quit_oneworks()
@@ -205,45 +167,6 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['同意'])
         self.is_click_tbm(user['确定'])
         logging.info('点击同意-确定')
-
-    @allure.step("oneworks-产品经理修改-编辑产品定义信息")
-    def input_oneworks_product_definition_info(self, header, content):
-        """
-        oneworks-节点：产品经理修改-查看详情页面
-        编辑产品定义信息
-        :param header: 选择要输入的信息
-        :param content: 选择信息内容
-        """
-        definition_dict = {'全球版本': '4', '市场名称': '5', '项目名称': '6', 'MEMORY': '7', 'BANDSTRATEGY': '8',
-                           '产品经理': '9', '项目经理': '10', 'aaa': '12', 'bbb': '13'}
-        select_list = ['全球版本', 'MEMORY', 'BANDSTRATEGY']
-        select1_list = ['aaa', 'bbb']
-        input_list = ['市场名称', '项目名称']
-        member_list = ['产品经理', '项目经理']
-        if header in select_list:
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-编辑'])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-输入框'], definition_dict[header])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
-        elif header in select1_list:
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-编辑'])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-输入框2'], definition_dict[header])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
-        elif header in input_list:
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-编辑'])
-            self.input_text(user['oneworks-节点-产品经理修改-产品定义信息-输入框'], content, definition_dict[header])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
-        elif header in member_list:
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-编辑'])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-输入框2'], definition_dict[header])
-            self.input_text(user['产品定义信息成员列表输入框'], content)
-            sleep(1)
-            self.is_click_tbm(user['成员选择'], content)
-            self.is_click_tbm(user['产品定义信息成员确定'])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
-        else:
-            print(f'请输入正确选项：{definition_dict}')
 
 
 if __name__ == '__main__':

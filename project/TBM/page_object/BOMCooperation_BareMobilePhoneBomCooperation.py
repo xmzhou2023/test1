@@ -221,13 +221,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-
     def click_one_press(self):
         """
         点击一键填写
@@ -617,15 +610,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言成功，导出的数据和生产工厂信息的数据是不一致的')
             raise
 
-    @allure.step("断言：在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
-    def assert_oneworks_bomtree_edit(self):
-        """
-        在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑
-        """
-        self.mouse_double_click(user['物料编码编辑验证'])
-        sleep(0.5)
-        DomAssert(self.driver).assert_control(user['物料编码编辑验证'])
-
     @allure.step("业务审核页面 点击 自检清单")
     def click_oneworks_self_inspection(self, box, option):
         """
@@ -728,43 +712,5 @@ class BareMobilePhoneBomCooperation(CenterComponent):
             logging.error('断言成功，导出的数据和BomTree的数据是不一致的')
             raise
 
-    @allure.step("点击编辑")
-    def click_edit(self, code):
-        self.is_click_tbm(user['编辑'], code)
-        logging.info('点击编辑')
-
-    @allure.step("输入查询条件")
-    def input_search_info(self, type, info):
-        input_type = ['标题', '流程编码', 'BOM编码']
-        select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
-        if type in input_type:
-            self.readonly_input_text(user['查询条件'], info, type)
-        elif type in select_type:
-            self.is_click_tbm(user['查询条件'], type)
-            self.is_click_tbm(user['查询选择'], info)
-        logging.info('输入框：{}，输入内容：{}'.format(type, info))
-
-    @allure.step("点击查询")
-    def click_search(self):
-        self.is_click_tbm(user['查询'])
-        logging.info('点击查询')
-        self.base_get_img('result')
-
-    @allure.step("断言：查询结果")
-    def assert_search_result(self, header, content):
-        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['滚动条'])
-
-    @allure.step("点击保存")
-    def click_add_save(self):
-        self.scroll_into_view(user['保存'])
-        sleep(0.5)
-        self.is_click_tbm(user['保存'])
-        logging.info('点击保存')
-
-    def click_delete_confirm(self):
-        self.is_click_tbm(user['同意确定'])
-
-    def click_delete_cancel(self):
-        self.is_click_tbm(user['同意取消'])
 if __name__ == '__main__':
     pass

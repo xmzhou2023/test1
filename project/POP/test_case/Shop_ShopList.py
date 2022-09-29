@@ -1,20 +1,18 @@
-import allure
-import pytest,logging
+import allure,os
+import pytest,logging,random
 from project.POP.page_object.Center_Component import NavPage
-from project.POP.page_object.Shop_ShopList import Query_shop
-"""
-    用例等级说明:
-        blocker级别:中断缺陷(客户端程序无响应，无法执行下一步操作)
-        critical级别: 临界缺陷(功能点缺失)
-        normal级别:普通缺陷(数值计算错误)
-        minor级别: 次要缺陷(界面错误与UI需求不符)
-        trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
-"""
-@pytest.fixture(scope='module', autouse=True)
-def setup_module(drivers):
+from project.POP.page_object.Shop_ShopList import *
+from libs.common.read_element import Element
+from project.POP.test_case.conftest import *
+object_name = os.path.basename(__file__).split('.')[0]
+user = Element(pro_name, object_name)
+
+
+@pytest.fixture(scope='class', autouse=True)
+def setup_class(drivers):
     logging.info("模块前置条件：前往“POP商品-商品参数”页面")
-    user = NavPage(drivers)
-    user.click_gotonav("门店","门店列表")
+    nav = NavPage(drivers)
+    nav.click_gotonav("门店","门店列表")
 
 
 @allure.feature("门店") # 模块名称
@@ -25,10 +23,49 @@ class TestQuery_shop:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-        user = Query_shop(drivers)
-        user.click_organization('TECNO事业部')
-        user.click_shop('仙桃')
-        user.click_query('仙桃体专店')
+        users = Query_shop(drivers)
+        users.click_organization('TECNO事业部')
+        users.click_shop('仙桃')
+        users.click_query('仙桃体专店')
+        # 断言
+        test = users.element_text(user['门店名称'])
+        ValueAssert.value_assert_equal(test,'仙桃体专店')
+
+@allure.feature("门店")
+class TestAddShop:
+    @allure.story("门店列表")
+    @allure.title("门店新增")
+    @allure.description("点击新增门店成功")
+    @pytest.mark.smoke
+    def test_002_001(self,drivers):
+        users = AddShop(drivers)
+        users.click_add()
+        # 利于随机数每次生成门店后缀数不一样，代码运行减少避免重复
+        shopname = "zwq测试门店" + str(random.randint(999,9999))
+        users.input_shopname(shopname)
+        users.switch_organization("TECNO事业部")
+        users.switch_country("China")
+        users.switch_province("重庆")
+        users.switch_city("沙坪坝区")
+        users.input_address("三峡广场")
+        users.switch_city_level("T1")
+        users.switch_region("China")
+        users.input_linkman("张文强")
+        users.input_phone("18323585901")
+        users.switch_shop_level("超级旗舰店")
+        users.switch_image_level("体验店")
+        users.switch_sales_volume_level("A")
+        users.switch_ownership("公司直营")
+        users.input_shop_square_measure("66.66")
+        users.input_shop_storey_height("5.25")
+        users.upload_drawing_video(r"C:\Users\wenqiang.zhang5\PycharmProjects\untitled\UIPOMTest\project\POP\data\123.png",r"C:\Users\wenqiang.zhang5\PycharmProjects\untitled\UIPOMTest\project\POP\data\300k.mp4")
+        users.add_userinformation("张文强")
+        users.input_shop_monthlysales("8888")
+        users.click_submit()
+        # 断言--提交成功弹窗提示”success“字样
+        DomAssert(drivers).assert_exact_att('门店ID')
+
+
 
 if __name__ == '__main__':
     pytest.main(['Shop_ShopList.py'])
