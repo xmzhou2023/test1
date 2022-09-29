@@ -29,7 +29,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("摄像头+闪光灯节点，关键器件中的摄像头+闪光灯节点，点击左侧三角，点击下面的模块，点击物料编码右侧的加号，物料编码下面出现一行，点击新出现这行的加号，填写代申请编码信息，点击其他模块保存成功（像这样随便填几个模块），点击同意，提示操作成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_002_001(self, drivers, KeyDevice_API):
+    def test_002_001(self, drivers, KeyDevice_SQL, KeyDevice_API):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(KeyDevice_API[0], '摄像头+闪光灯')

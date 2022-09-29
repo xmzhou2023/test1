@@ -1,0 +1,33 @@
+查询条件 提报周期: "xpath==//div//label[contains(text(),'提报周期')]/following-sibling::div//input[@type='text']"
+查询条件 品牌: "xpath==//div//label[contains(text(),'品牌')]/following-sibling::div//input[@type='text']"
+查询条件 创建人: "xpath==//div//label[contains(text(),'创建人')]/following-sibling::div//input[@type='text']"
+查询条件 通告标题: "xpath==//div//label[contains(text(),'通告标题')]/following-sibling::div//input[@type='text']"
+提报日期 年: "xpath==//div[@x-placement='bottom-start']//span[@role='button'][contains(text(),'年')]"
+选择提报日期 年: "xpath==//div[@x-placement='bottom-start']//table[@class='el-year-table']/tbody/tr/td//a[normalize-space(text())='variable']"
+选择提报日期 月: "xpath==//div[@x-placement='bottom-start']//table[@class='el-month-table']/tbody/tr/td//a[normalize-space(text())='variable']"
+品牌_下拉选项: "xpath==//div[@x-placement='bottom-start']//li[variable]"
+创建人_无下拉选项: "xpath==//p[@class='el-select-dropdown__empty']"
+查询按钮: "xpath==//form[@class='el-form tr-form']//button[1]//span[contains(text (), '查  询')]"
+重置按钮: "xpath==//form[@class='el-form tr-form']//button[2]//span[contains(text (), '重  置')]"
+新增按钮: "xpath==//div[@class='el-card__body']//div[@class='g-section']//button//span[contains(text (), '新 增')]"
+
+清空提报周期复选框: "xpath==//i[@class='el-input__icon el-icon-circle-close']"
+清空 品牌/创建人输入框: "xpath==//i[@class='el-select__caret el-input__icon el-icon-circle-close']"
+
+
+新增通告 标题输入框: "xpath==//div[contains(@class,'info_value el-col el-col')]//input[@placeholder='请输入']"
+新增通告 品牌下拉框: "xpath==//div[@class='el-row']//div//input[@readonly='readonly']"
+新增通告 内容输入框: "xpath==//div[@class='el-row']//div//p[@data-we-empty-p]"
+新增通告 上传按钮: "xpath==//button[@type='button']//span[contains(text(),'上传')]"
+新增通告 确定按钮: "xpath==//div[@aria-label='新增通告']//span[contains(text(),'确定')]"
+新增通告 取消按钮: "xpath==//div[@aria-label='新增通告']//span[contains(text(),'取消')]"
+新增通告 关闭按钮: "xpath==//div[@aria-label='新增通告']//i[@class='el-dialog__close el-icon el-icon-close']"
+
+列表数据统计: "xpath==//span[contains(@class,'el-pagination__total')]"
+
+获取通告标题: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//td[2]"
+
+点击 查看按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//table[@class='el-table__body']//tr[variable]//td[8]//button"
+获取查看通告文本 用做断言: "xpath==//span[contains(text(),'查看通告')]"
+查看通告 取消按钮: "xpath==//div[@class='el-dialog custom_view']//div[@class='el-dialog__footer']//button[@type='button']"
+查看通告 关闭按钮: "xpath==//div[@class='el-dialog custom_view']//i[@class='el-dialog__close el-icon el-icon-close']"

@@ -9,8 +9,8 @@ from project.POP.test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-@pytest.fixture(scope='module', autouse=True)
-def setup_module(drivers):
+@pytest.fixture(scope='class', autouse=True)
+def setup_class(drivers):
     logging.info("模块前置条件：前往“POP组织-职员管理”页面")
     nav = NavPage(drivers)
     nav.click_gotonav("组织","职员管理")

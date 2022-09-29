@@ -10,6 +10,7 @@ from public.data.unified_login.unified import *
 from public.base.assert_ui import *
 from public.libs.unified_login.login import Login
 from libs.common.read_config import *
+from project.CRM.page_object.Center_Component import NavPage
 from datetime import *
 from datetime import timedelta
 import math
@@ -28,8 +29,11 @@ num = string.ascii_letters + string.digits
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
     logging.info("前往RC中的Basic Data Mgt的Symptom Group Mgt")
+    user = NavPage(drivers)
+    user.refresh_page()
+    user.list_search(content='Symptom Group Mgt')
     user = SymPage(drivers)
-    user.GoTo_Symp()  # 进入现象组页面
+    #user.GoTo_Symp()  # 进入现象组页面
     result = DomAssert(drivers)
     result.assert_url("/repairCenter/RPCbasicDataMgt/SymptomGroupMgt")
     name = "".join(random.sample(num, 10))  # 名称使用随机数，以防重复名称添加失败
@@ -306,7 +310,10 @@ class TestExportSymptomGroup:
         user.GoTo_Task()   # 进入下载任务页面
         user.Download_Symp("Symptom_Group", "Symptom_Group")  # 下载导出的excel，同时判断文件名正确
         user.Close_Page()  # 关闭下载页面
-        user.GoTo_Symp()  # 回到现象组页面
+      #  user.GoTo_Symp()  # 回到现象组页面
+        user = NavPage(drivers)
+        user.refresh_page()
+        user.list_search(content='Symptom Group Mgt')
 
 
 

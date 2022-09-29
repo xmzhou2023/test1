@@ -32,10 +32,10 @@ DRP模板管理->国家平台: 'xpath==/html/body/div[9]/ul/div[3]/a/li/span'
 DRP模板管理->平台机型: 'xpath==/html/body/div[9]/ul/div[4]/a/li/span'
 
 DRP流程管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[8]/li/div/span'
-DRP流程管理->流程管理: 'xpath==/html/body/div[10]/ul/div[1]/a/li/span'
-DRP流程管理->流程配置: 'xpath==/html/body/div[10]/ul/div[2]/a/li/span'
-DRP流程管理->流程查询: 'xpath==/html/body/div[10]/ul/div[3]/a/li/span'
-DRP流程管理->节点配置: 'xpath==/html/body/div[10]/ul/div[4]/a/li/span'
+DRP流程管理->流程管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='流程管理']"
+DRP流程管理->流程配置: "xpath==//li[@role='menuitem']//span[contains(text(),'流程配置')]"
+DRP流程管理->流程查询: "xpath==//li[@role='menuitem']//span[contains(text(),'流程查询')]"
+DRP流程管理->节点配置: "xpath==//li[@role='menuitem']//span[contains(text(),'节点配置')]"
 
 DRP数据管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[9]/li/div/span'
 DRP数据管理->机型库: "xpath==//li[@role='menuitem']//span[contains(text(),'机型库')]"

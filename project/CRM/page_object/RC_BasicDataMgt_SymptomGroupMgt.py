@@ -35,7 +35,7 @@ class SymPage(Base):
         list1 = []
         for i in range(1, th_num+1):
             logging.info(f'{i}')
-            txt = self.element_text(user['表头字段'], choice=f'{i}')
+            txt = self.element_text(user['表头字段'], f'{i}')
             logging.info(txt)
             list1.append(txt)
             logging.info(list1)
@@ -130,17 +130,17 @@ class SymPage(Base):
     def Get_Symp(self, name):
         self.input_text(user['Search_Input'], txt=name)
         self.is_click(user['Search_Button'])
-        get_record = self.element_text(user['Search_Data_name'], choice='1')
+        get_record = self.element_text(user['Search_Data_name'], '1')
         return get_record
 
     @allure.step("查询现象组，返回查询到的现象组人、时间")
     def Get_Symp_DATE_BY(self, name):
         self.input_text(user['Search_Input'], txt=name)
         self.is_click(user['Search_Button'])
-        created_date = self.element_text(user['List_Tr1_Td'], choice="5")
-        created_by = self.element_text(user['List_Tr1_Td'], choice="6")
-        modified_on = self.element_text(user['List_Tr1_Td'], choice="7")
-        modified_by = self.element_text(user['List_Tr1_Td'], choice="8")
+        created_date = self.element_text(user['List_Tr1_Td'], "5")
+        created_by = self.element_text(user['List_Tr1_Td'], "6")
+        modified_on = self.element_text(user['List_Tr1_Td'], "7")
+        modified_by = self.element_text(user['List_Tr1_Td'], "8")
         return created_date, created_by, modified_on, modified_by
 
     @allure.step("Status Enable查询现象组")
@@ -153,7 +153,7 @@ class SymPage(Base):
         num = get_total.split(" ", 1)
         number = num[1]
         get_enable = self.element_text(user['Enable_Return'])
-        get_record = self.element_text(user['Search_Data_name'], choice="1")
+        get_record = self.element_text(user['Search_Data_name'], "1")
         return number, get_enable, get_record
 
     @allure.step("Status Disable查询现象组")

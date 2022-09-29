@@ -321,6 +321,7 @@ class CenterComponent(Base, APIRequest):
             self.is_click_tbm(user['oneworks-撤回'])
             self.is_click_tbm(user['oneworks-撤回确定'])
         self.frame_exit()
+        DomAssert(self.driver).assert_att('操作成功')
         self.close_switch(1)
         self.frame_exit()
 
@@ -352,12 +353,12 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("oneworks点击确定")
     def click_oneworks_confirm(self):
-        self.is_click_tbm(user['oneworks-同意确定'])
+        self.is_click_tbm(user['同意确定'])
         logging.info('点击确定')
 
     @allure.step("oneworks点击取消")
     def click_oneworks_cancel(self):
-        self.is_click_tbm(user['oneworks-同意取消'])
+        self.is_click_tbm(user['同意取消'])
         logging.info('点击取消')
 
     @allure.step("oneworks点击转交")
@@ -682,5 +683,104 @@ class CenterComponent(Base, APIRequest):
         else:
             logging.error(f'请输入正确选项：{definition_dict}')
             raise
+
+    @allure.step("输入查询条件")
+    def input_search_info(self, type, info):
+        """
+        :param type: 查询字段
+        :param info: 查询内容
+        """
+        input_type = ['标题', '流程编码', 'BOM编码']
+        select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
+        if type in input_type:
+            self.readonly_input_text(user['查询条件'], info, type)
+        elif type in select_type:
+            self.is_click_tbm(user['查询条件'], type)
+            self.is_click_tbm(user['查询选择'], info)
+        logging.info('输入框：{}，输入内容：{}'.format(type, info))
+
+    @allure.step("点击查询")
+    def click_search(self):
+        self.is_click_tbm(user['查询'])
+        logging.info('点击查询')
+        self.base_get_img('result')
+
+    @allure.step("断言：查询结果")
+    def assert_search_result(self, header, content):
+        """
+        :param header: 需要断言的字段
+        :param content: 需要断言的内容
+        """
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['滚动条'])
+
+    @allure.step("获得BOM列表指定内容")
+    def get_bom_info(self, menu, info, header, attr='class', index='0'):
+        """
+        :param menu: 需要进入的BOM协作菜单
+        :param info: 输入指定内容查找 如：传入流程编码
+        :param header: 需要获取的指定字段
+        :param attr: 需要获取的属性 默认class属性
+        :param index: 属性索引位置 默认0
+        """
+        self.click_menu("BOM协作", menu)
+        sleep(1)
+        column = self.get_table_info(user['表格字段'], header, attr=attr, index=index)
+        content = self.element_text(user['BOM列表指定内容'], info, column)
+        return content
+
+    @allure.step("新增页面-输入基本信息")
+    def input_basic_info(self, header, info):
+        """
+        :param header: 基本信息字段
+        :param info: 输入内容
+        """
+        input_list = ['标题']
+        select_list = ['申请人']
+        if header in input_list:
+            sleep(2)
+            self.input_text(user['基本信息内容'], info, header)
+            logging.info('输入Bom信息 {}:{}'.format(header, info))
+        elif header in select_list:
+            self.is_click_tbm(user['基本信息内容'], header)
+            self.input_text(user['产品定义信息成员列表输入框'], info)
+            sleep(1)
+            self.is_click_tbm(user['成员选择'], info)
+            self.is_click_tbm(user['产品定义信息成员确定'])
+
+    @allure.step("点击编辑")
+    def click_edit(self, code):
+        self.is_click_tbm(user['编辑'], code)
+        logging.info('点击编辑')
+
+
+    @allure.step("点击保存")
+    def click_add_save(self):
+        self.scroll_into_view(user['保存'])
+        sleep(0.5)
+        self.is_click_tbm(user['保存'])
+        logging.info('点击保存')
+
+    @allure.step("点击刷新")
+    def click_refresh(self):
+        self.scroll_into_view(user['刷新'])
+        self.is_click_tbm(user['刷新'])
+        logging.info('点击刷新')
+
+    def click_delete(self, code):
+        """
+        根据流程编码点击删除 进行删除操作
+        @param code:流程编码
+        """
+        self.is_click_tbm(user['删除'], code)
+
+    def click_delete_confirm(self):
+        self.is_click_tbm(user['同意确定'])
+        logging.info('点击确定')
+
+    def click_delete_cancel(self):
+        self.is_click_tbm(user['同意取消'])
+        logging.info('点击取消')
+
+
 if __name__ == '__main__':
     pass

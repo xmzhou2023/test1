@@ -112,11 +112,9 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['删除'], code)
         self.is_click_tbm(user['确定'])
 
+
     @allure.step("新建流程后的后置删除处理")
     def delete_flow(self, code):
-        """
-        新建流程后的后置删除处理
-        """
         self.recall_process(code)
         self.click_menu("关键器件", "关键器件流程")
         self.click_delete(code)
