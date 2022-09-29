@@ -15,7 +15,7 @@ class Bloc_add(Base):
 
     @allure.step("进入薪酬配置界面")
     def click_menu(self):
-        self.is_click(user['菜单'])
+        self.is_click(user['XHR'])
         self.is_click(user['薪酬管理'])
         self.is_click(user['薪酬配置'])
         sleep(1)

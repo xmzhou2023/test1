@@ -1,4 +1,4 @@
-菜单: "xpath==//span[@class='hamburger_icon']"
+XHR: "xpath==//span[@class='cn-hanburger-width hamburger_icon']"
 薪酬管理: "xpath==//span[contains(text(),'薪酬管理')]"
 薪酬配置: "xpath==//span[contains(text(),'薪酬配置')]"
 集团方案: "xpath==//span[contains(text(),'集团方案')]"

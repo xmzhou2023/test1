@@ -1,4 +1,4 @@
-展示: "xpath==//span[@class='hamburger_icon']"
+XHR: "xpath==//span[@class='cn-hanburger-width hamburger_icon']"
 一级菜单: "xpath==//span[contains(text(),'variable')]/../.."
 二级菜单: "xpath==//span[contains(text(),'variable')]/../../../div"
 薪酬配置选项: "xpath==//span[contains(text(),'variable')]/.."

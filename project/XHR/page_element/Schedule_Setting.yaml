@@ -1,0 +1,23 @@
+考勤管理: "xpath==//span[contains(text(),'考勤管理')]"
+班次设置: "xpath==//span[contains(text(),'班次设置')]"
+新增: "xpath==//i[@class = 'el-icon-plus']//following-sibling::span"
+班次名称: "xpath==//input[@type='text' and @maxlength='123']"
+适用公司: "xpath==//div[@class='employee-selector']/..//input"
+公司架构树: "xpath==//span[contains(text(),'深圳传音控股(测试环境)')]"
+选择适用公司选项: "xpath==//span[contains(text(),'variable')]/../../label/span/span"
+点击_班次新增: "xpath==//span[@class='el-dialog__title']"
+开始时间: "xpath==//label[contains(text(),'variable')]/..//div[@class='schedule__working']//div[@class='el-form-item__content']/div[contains(@class,'el-date-editor--time')]/input"
+结束时间: "xpath==//label[contains(text(),'variable')]/..//div[@class='schedule__working']//div[@class='el-form-item__content']/div/div[contains(@class,'el-date-editor--time')]/input"
+取卡时间: "xpath==//label[@for='variable']/..//input"
+确定: "xpath==//span[contains(text(),'确定')]"
+悬停xHR: "xpath==//span[@class='cn-hanburger-width hamburger_icon']"
+删除: "xpath==//div[normalize-space(text())='variable']/../..//td[not(contains(@class, 'is-hidden'))]//span[normalize-space(text())='删除']"
+查询抽屉: "xpath==//div[@class='el-badge filter-icon']"
+名称输入: "xpath==//div[@class='el-form-item__content'and @style='margin-left: 100px;']//div//input[@placeholder='请输入编码或名称']"
+查询按钮: "xpath==//button[@class='el-button el-button--primary el-button--mini']//span[contains(text(),'查询')]"
+班次: "xpath==//label[@for='attendanceClass']"
+关闭按钮: "xpath==//button[@aria-label='close 筛选']//i[@class='el-dialog__close el-icon el-icon-close']"
+二次确定按钮: "xpath==//div[@class='el-message-box__btns']//button[2]//span"
+
+
+
