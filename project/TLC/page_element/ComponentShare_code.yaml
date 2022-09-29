@@ -15,3 +15,6 @@
 分享: "xpath==//*[@xpath='at_my-file_contextmenu_share_variable']"
 复制链接: "xpath==//i[@title='复制链接']"
 复制弹框取消: "xpath==//div[@aria-label='链接分享']//button[2]"
+复制编码: "xpath==//*[@xpath='at_my-file_contextmenu_copy_variable']"
+预览: "xpath==//*[@xpath='at_my-file_contextmenu_preview_variable']"
+编码查看: "xpath==//div[@class='tool']//i[@tabindex='0']"
