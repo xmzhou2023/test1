@@ -8,6 +8,21 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import logging
 import pytest
+import time
+import openpyxl
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+from libs.config.conf import LOCATE_MODE, DOWNLOAD_PATH, IMAGE_PATH, BASE_DIR
+from libs.common.time_ui import sleep
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import os
+import logging
+import allure
+import datetime
+import ddddocr
 import random, string
 from ..test_case.conftest import *
 
@@ -37,12 +52,41 @@ class JSPage(Base):
         logging.info("获取列表数据")
         th_num = self.elements_num(user['表头字段个数'])
         list1 = []
-        for i in range(1, th_num+1):
+        for i in range(1, 10):
             logging.info(f'{i}')
             txt = self.element_text(user['表头字段'], f'{i}')
             logging.info(txt)
             list1.append(txt)
             logging.info(list1)
+        self.driver.execute_script("document.documentElement.scrollTop=600")
+       #  left = self.find_element(user['Scroll_Data'], 'is-scrolling')
+       #  # middle = self.find_element(user['Scroll_Data'], 'is-scrolling-middle')
+       #  # right = self.find_element(user['Scroll_Data'], 'is-scrolling-right')
+       # # self.drag_and_drop(user['Scroll_Data'], 'is-scrolling-left', 'is-scrolling-middle')
+       #  kw_x = left.location.get('x')#x坐标
+       #  kw_y = left.location.get('y')#y坐标
+       #  logging.info(kw_x)
+       #  logging.info(kw_y)
+       #  sleep(5)
+       #  self.click_and_hold(user['Scroll_Data'], 'is-scrolling', 500, kw_y)
+       #  #ActionChains(self).drag_and_drop_by_offset(left, kw_x+300, kw_y).perform()
+       #  for i in range(10, 16):
+       #      logging.info(f'{i}')
+       #      #self.scroll_into_view_CRM(user['表头字段'], f'{i}')
+       #      txt = self.element_text(user['表头字段'], f'{i}')
+       #      logging.info(txt)
+       #      list1.append(txt)
+       #      logging.info(list1)
+       #  sleep(5)
+       #  self.click_and_hold(user['Scroll_Data'], 'is-scrolling', 700, kw_y)
+       #  #ActionChains(self).drag_and_drop_by_offset(left, kw_x+600, kw_y).perform()
+       #  for i in range(16, th_num+1):
+       #      logging.info(f'{i}')
+       #      #self.scroll_into_view_CRM(user['表头字段'], f'{i}')
+       #      txt = self.element_text(user['表头字段'], f'{i}')
+       #      logging.info(txt)
+       #      list1.append(txt)
+       #      logging.info(list1)
         return th_num, list1
 
     @allure.step("进入下载任务页面")
@@ -74,7 +118,11 @@ class JSPage(Base):
         elif task_status == '100-Finished':
             self.check_download(user['Download_Task'], content)
 
-
+    @allure.step("工单save按钮")
+    def Save_JS(self):
+        self.is_click(user['JS_Save'])
+        self.is_click(user['JS_Save'])
+        self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='save不成功')
 
 
     @allure.step("添加JS,输入Basic Info信息")
@@ -84,45 +132,50 @@ class JSPage(Base):
         self.is_click(user['Reference_From'])
         self.hover(user['JS_From_Data'], choice=reference_from)
         self.is_click(user['JS_From_Data'], choice=reference_from)  # 选择方式
+        self.is_click(user['IMEI_Input'])
         self.input_text(user['IMEI_Input'], txt=imei)  # 添加页面输入JS IMEI
         self.hover(user['IMEI_Select'], choice=imei)
         self.is_click(user['IMEI_Select'], choice=imei)  # 点击查询到的IMEI
-        if self.find_element(user["Quickly_Repair_JS"]):
-            self.is_click(user['Quickly_Repair_JS'])
-        else:
-            self.is_click(user['Physical_Condition'])
-            self.input_text(user['Physical_Condition'], txt=physical)  # 添加页面输入physical
-            self.hover(user['JS_Data'], choice=physical)
-            self.is_click(user['JS_Data'], choice=physical)
-            self.is_click(user['Symptoms_List'])
-            self.input_text(user['Symptoms_List'], txt=symptom)  # 添加页面输入symptom
-            self.hover(user['JS_Data'], choice=symptom)
-            self.is_click(user['JS_Data'], choice=symptom)
-            self.is_click(user['Add_Symptom'])  # 点击+将选择的现象码加入列表
-            symptom_code = self.element_text(user["Symptom_Code"])
-            self.is_click(user['Item_Received'], choice=item)
-            return symptom_code
+        #self.find_element(user["Quickly_Repair_JS"])
+        #self.is_click(user['Quickly_Repair_JS'])
+        self.driver.execute_script("document.documentElement.scrollTop=300")  # 往下滑动以便找到Physical Condition
+        self.is_click(user['Physical_Condition'])
+        self.input_text(user['Physical_Condition'], txt=physical)  # 添加页面输入physical
+        self.hover(user['JS_Data'], choice=physical)
+        self.is_click(user['JS_Data'], physical)
+        self.driver.execute_script("document.documentElement.scrollTop=800")  # 往下滑动以便找到Symptoms List
+        self.is_click(user['Symptoms_List'])
+        self.input_text(user['Symptoms_List'], txt=symptom)  # 添加页面输入symptom
+        self.hover(user['JS_Data'], choice=symptom)
+        self.is_click(user['JS_Data'], symptom)
+        self.is_click(user['Add_Symptom'])  # 点击+将选择的现象码加入列表
+        symptom_code = self.element_text(user["Symptom_Code"])
+        self.is_click(user['Item_Received'], item)
+        return symptom_code
 
 
     @allure.step("添加JS,输入Customer Info信息")
-    def Add_JS_JS_Info(self, recevied_from, customer_name, country, mobile_no, mobile_area):
+    def Add_JS_Customer_Info(self, recevied_from, customer_name, country, mobile_area, mobile_no):
+        self.wait.until(EC.presence_of_element_located(user["Region"]), message='滑动页面不成功')
         self.is_click(user['JS_Info'], choice="receiveSourceCode")
         self.hover(user['JS_Data'], choice=recevied_from)
         self.is_click(user['JS_Data'], choice=recevied_from)  # 选择客户类型
+        self.driver.execute_script("document.documentElement.scrollTop=900")
+        self.is_click(user["JS_Info"], "customerName")
         self.input_text(user['JS_Info'], txt=customer_name, choice="customerName")  # 输入客户姓名
-        self.is_click(user['JS_Info'], choice="regionSelected")
+        self.is_click(user['JS_Info'], "regionSelected")
         self.input_text(user['JS_Info'], txt=country, choice="regionSelected")  # 添加页面输入客户国家
-        self.hover(user['JS_Data'], choice=country)
-        self.is_click(user['JS_Data'], choice=country)
-        self.is_click(user['Mobile_Area'])
-        self.input_text(user['Mobile_Area'], txt=mobile_area)  # 添加页面输入客户电话区号
+        self.hover(user['Region_Data'], country)
+        self.is_click(user['Region_Data'], country)
+        self.is_click(user['JS_Info'], "mobileNo")
+        self.input_text(user['JS_Info'], txt=mobile_area, choice="mobileNo")  # 添加页面输入客户电话区号
         self.hover(user['JS_Data'], choice=mobile_area)
         self.is_click(user['JS_Data'], choice=mobile_area)
         self.input_text(user['Mobile_No'], txt=mobile_no)  # 输入客户电话号码
 
 
     @allure.step("添加JS,输入报价信息")
-    def Add_JS_Quote_Info(self, approval_status, service_type, material, symptom, mobile_area):
+    def Add_JS_Quote_Info(self, approval_status, service_type, material, symptom):
         self.is_click(user['Quote'])
         self.is_click(user['JS_Info'], choice="approvalStatus")
         self.hover(user['JS_From_Data'], choice=approval_status)
@@ -254,9 +307,6 @@ class JSPage(Base):
         self.refresh()
 
 
-    @allure.step("默认条件查询JS，返回查询到的JS名称")
-    def Get_Defualt_Symp_Code(self):
-        self.is_click(user['Search_Button'])
 
     @allure.step("JS页面，清空查询条件")
     def JS_Clear_Query_Conditions(self):
@@ -266,6 +316,40 @@ class JSPage(Base):
         self.is_click(user['Hide_Return'])  # 取消隐藏100状态的
         self.is_click(user['Scope_Select'], choice="Scope")
         self.is_click(user['Scope_Select_Data'], choice="All")  # 设置范围为所有
+
+    @allure.step("产生新窗口时切换回原窗口")
+    def Swith_Original_Window(self):
+        self.driver.switch_to.window((self.driver.window_handles[-1]))
+        #self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        logging.info("回到原窗口")
+
+
+    @allure.step("默认条件查询JS，返回查询到的JS名称")
+    def Search_JS(self):
+        self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='界面加载不成功')
+        self.is_click(user['Search_Button'])
+
+    @allure.step("获取查询到的最新JS数据")
+    def Get_New_JS(self):
+        imei = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_21")
+        customer_name = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_17")
+        warranty_status = self.element_text(user["JS_List_Data"], "1", "el-table_3_column_13")
+        js_no = self.element_text(user['JS_NO'], "1", "el-table_3_column_7")
+        return imei, customer_name, js_no, warranty_status
+
+    @allure.step("JS页面，随机获取一个JS NO")
+    def Get_JS_No(self, i):
+        js_no = self.element_text(user['JS_NO'], i, "el-table_3_column_7")
+        return js_no
+
+    @allure.step("JS页面，Exact Word查询")
+    def Get_Exact_Word_JS(self, js_no):
+        self.is_click(user['JS_Info'], "keyword")
+        self.input_text(user['JS_Info'], txt=js_no, choice="keyword")
+        self.is_click(user['Search_Button'])
+        get_js_no = self.element_text(user['JS_NO'], "1", "el-table_3_column_7")
+        return get_js_no
 
     @allure.step("JS页面，Document Status下拉框查询")
     def Get_Document_Status_JS(self, status):
