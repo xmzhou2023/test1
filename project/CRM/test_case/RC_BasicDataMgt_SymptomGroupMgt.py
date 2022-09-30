@@ -29,8 +29,10 @@ num = string.ascii_letters + string.digits
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
     logging.info("前往RC中的Basic Data Mgt的Symptom Group Mgt")
+    user = SymCodePage(drivers)
+    user.GoTo_refresh()
     user = NavPage(drivers)
-    user.refresh_page()
+   # user.refresh_page()
     user.list_search(content='Symptom Group Mgt')
     user = SymPage(drivers)
     #user.GoTo_Symp()  # 进入现象组页面
@@ -312,7 +314,7 @@ class TestExportSymptomGroup:
         user.Close_Page()  # 关闭下载页面
       #  user.GoTo_Symp()  # 回到现象组页面
         user = NavPage(drivers)
-        user.refresh_page()
+        #user.refresh_page()
         user.list_search(content='Symptom Group Mgt')
 
 

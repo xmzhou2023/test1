@@ -29,8 +29,9 @@ digit_no = string.digits
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
     logging.info("前往RC中的JS Mgt的JS List")
+    user = JSPage(drivers)
+    user.Clear_Get()
     user = NavPage(drivers)
-    user.refresh_page()
     user.list_search(content='JS List')
     #user = JSPage(drivers)
     #user.GoTo_JS_List()  # 进入JS页面

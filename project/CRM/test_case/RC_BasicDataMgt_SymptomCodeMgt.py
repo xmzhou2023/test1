@@ -28,8 +28,10 @@ num = string.digits
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
     logging.info("前往现象组组页面添加现象组")  # 添加现象码前需要现象组
+    user = SymCodePage(drivers)
+    user.GoTo_refresh()
     user = NavPage(drivers)
-    user.refresh_page()
+   # user.refresh_page()
     user.list_search(content='Symptom Group Mgt')
     user = SymPage(drivers)
    # user.GoTo_Symp()
@@ -38,8 +40,10 @@ def module_fixture(drivers):
     logging.info("前往RC中的Basic Data Mgt的Symptom Code Mgt")
     user = SymCodePage(drivers)
     user.Close_Page()  # 关闭现象组页面
+    user = SymCodePage(drivers)
+    user.GoTo_refresh()
     user = NavPage(drivers)
-    user.refresh_page()
+   # user.refresh_page()
     user.list_search(content='Symptom Code Mgt')
     #user.GoTo_Symp_Code()  # 进入现象码页面
     result = DomAssert(drivers)
@@ -146,8 +150,10 @@ class TestAddSymptomCode:
         user = SymPage(drivers)
         user.Close_Up_First_Menu("Repair Center")  # 合起菜单
        # user.GoTo_Symp()
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
         user = NavPage(drivers)
-        user.refresh_page()
+       # user.refresh_page()
         user.list_search(content='Symptom Group Mgt')
         name_group1 = "".join(random.sample(num, 6))  # 名称使用随机数，以防重复名称添加失败
         user = SymPage(drivers)
@@ -156,8 +162,10 @@ class TestAddSymptomCode:
         user = SymCodePage(drivers)
         user.Close_Page()  # 关闭页面
         #user.GoTo_Symp_Code()  # 进入现象码页面
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
         user = NavPage(drivers)
-        user.refresh_page()
+       # user.refresh_page()
         user.list_search(content='Symptom Code Mgt')
         user = SymCodePage(drivers)
         group_name1 = user.Add_Interface_Grouping(get_record_group)  # 添加界面搜索前置条件中的group
@@ -170,16 +178,20 @@ class TestAddSymptomCode:
         user = SymPage(drivers)
         user.Close_Page()  # 关闭页面
         #user.GoTo_Symp()  # 进入现象组页面
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
         user = NavPage(drivers)
-        user.refresh_page()
+      #  user.refresh_page()
         user.list_search(content='Symptom Group Mgt')
         user = SymPage(drivers)
         user.Get_Symp(name_group1)
         user.Edit_Symp_Status("Enable")  # 将group disable
         user = SymCodePage(drivers)
         user.Close_Page()  # 关闭页面
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
         user = NavPage(drivers)
-        user.refresh_page()
+       # user.refresh_page()
         user.list_search(content='Symptom Code Mgt')
         user = SymCodePage(drivers)
         #user.GoTo_Symp_Code()  # 进入现象码页面
@@ -418,16 +430,20 @@ class TestEditSymptomCode:
 
         logging.info("步骤1：修改现象码所属现象组")
         user.Close_Page()  # 关闭现象码页面
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
         user = NavPage(drivers)
-        user.refresh_page()
+        #user.refresh_page()
         user.list_search(content='Symptom Group Mgt')
         user = SymPage(drivers)
         #user.GoTo_Symp()
         update_group = "".join(random.sample(num, 6))  # 名称使用随机数，以防重复名称添加失败
         user.Add_Symp(update_group)  # 更换现象码的现象组需要现象组
         user.Close_Page()  # 关闭现象组页面
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
         user = NavPage(drivers)
-        user.refresh_page()
+       # user.refresh_page()
         user.list_search(content='Symptom Code Mgt')
         user = SymCodePage(drivers)
         #user.GoTo_Symp_Code()  # 进入现象码页面
@@ -505,7 +521,6 @@ class TestExportSymptomCode:
         user.Close_Page()  # 关闭下载页面
        # user.GoTo_Symp_Code()  # 回到现象组页面
         user = NavPage(drivers)
-        user.refresh_page()
         user.list_search(content='Symptom Group Mgt')
 
 
