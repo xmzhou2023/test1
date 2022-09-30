@@ -26,15 +26,15 @@
 
 - **元素层**：如下图统一将一个页面的元素定位规范到一个文件中
 
-![img](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcn0qAaGilWpm5blCaoBV0gkf/?mount_node_token=doccn6IMEzfzCiZ057psRJMFKrf&mount_point=doc_image&policy=equal)
+![transsion2](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcn0qAaGilWpm5blCaoBV0gkf/?mount_node_token=doccn6IMEzfzCiZ057psRJMFKrf&mount_point=doc_image&policy=equal)
 
 - **页面层**：本类中主要实现页面元素、业务逻辑所需要的步骤方法的封装
 
-![img](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcnswCFfTKfJnNNbQvtZEjBkd/?mount_node_token=doccn6IMEzfzCiZ057psRJMFKrf&mount_point=doc_image&policy=equal)
+![transsion3](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcnswCFfTKfJnNNbQvtZEjBkd/?mount_node_token=doccn6IMEzfzCiZ057psRJMFKrf&mount_point=doc_image&policy=equal)
 
 - **用例层**：这一层输入POM的业务数据层，主要实现测试步骤及测试数据的
 
-![img](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcnvbNQa8xAciCx1P9cI6NoAh/?mount_node_token=doccn6IMEzfzCiZ057psRJMFKrf&mount_point=doc_image&policy=equal)
+![transsion4](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcnvbNQa8xAciCx1P9cI6NoAh/?mount_node_token=doccn6IMEzfzCiZ057psRJMFKrf&mount_point=doc_image&policy=equal)
 
 ## UIPOMTest使用及常用api
 
