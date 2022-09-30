@@ -30,11 +30,11 @@
 
 - **页面层**：本类中主要实现页面元素、业务逻辑所需要的步骤方法的封装
 
-![img](https://transsioner.feishu.cn/space/api/box/stream/download/asynccode/?code=MTM0YmQ5MTkyNTAyNzhiM2NlNDQyZmM2ZGMzOWQ2M2JfdEltWlNvSnpZWGxyNlhUV202VlZhclRReDNzSnBWbmJfVG9rZW46Ym94Y25zd0NGZlRLZkpuTk5iUXZ0WkVqQmtkXzE2NTgzODk2Mjk6MTY1ODM5MzIyOV9WNA)
+![img](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcnswCFfTKfJnNNbQvtZEjBkd/?mount_node_token=doccn6IMEzfzCiZ057psRJMFKrf&mount_point=doc_image&policy=equal)
 
 - **用例层**：这一层输入POM的业务数据层，主要实现测试步骤及测试数据的
 
-![img](https://transsioner.feishu.cn/space/api/box/stream/download/asynccode/?code=OGExMzE2MzI5MTM4N2I4YzI0YzVhYzIwZGU1ODI5M2JfN0V6aXFmd3lOUmVqSTNPdEJGeVlaRVJpdzZVQVpkTmdfVG9rZW46Ym94Y252Yk5RYTh4QWNpQ3gxUDljSTZOb0FoXzE2NTgzODk2Mjk6MTY1ODM5MzIyOV9WNA)
+![img](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcnvbNQa8xAciCx1P9cI6NoAh/?mount_node_token=doccn6IMEzfzCiZ057psRJMFKrf&mount_point=doc_image&policy=equal)
 
 ## UIPOMTest使用及常用api
 
