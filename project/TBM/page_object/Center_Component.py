@@ -751,6 +751,7 @@ class CenterComponent(Base, APIRequest):
     def click_edit(self, code):
         self.is_click_tbm(user['编辑'], code)
         logging.info('点击编辑')
+        sleep(2)
 
 
     @allure.step("点击保存")

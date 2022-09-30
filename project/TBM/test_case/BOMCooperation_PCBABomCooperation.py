@@ -1154,7 +1154,7 @@ class TestProcessApprovalExceptionScenario:
         user.quit_oneworks()
 
 
-@allure.feature("BOM协作-单机头BOM协作")  # 模块名称
+@allure.feature("BOM协作-PCBA BOM协作")  # 模块名称
 class TestProcessSearch:
 
 
