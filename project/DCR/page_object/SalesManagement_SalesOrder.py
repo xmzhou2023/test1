@@ -84,8 +84,8 @@ class SalesOrderPage(Base):
     """勾选新建的销售单，直接出库"""
     @allure.step("勾选第一条销售单ID")
     def click_checkbox_orderID(self):
-        sleep(1)
-        self.presence_sleep_dcr(user['勾选第一条销售单ID'])
+        sleep(1.5)
+        #self.presence_sleep_dcr(user['勾选第一条销售单ID'])
         self.is_click_dcr(user['勾选第一条销售单ID'])
 
     @allure.step("点击Delivery button出库按钮")
