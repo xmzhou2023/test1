@@ -79,6 +79,9 @@
 评估代码供货品类配置-评估代码查询输入框: 'xpath==//input[@name="evaluatedCode"]'
 评估代码供货品类配置-物料小类查询输入框: 'xpath==//input[@name="materialCateNumber"]'
 评估代码搜索结果第一条: 'xpath==//div[@id="pq-body-cell-u1-0--1-left"]'
+评估代码供货品类配置-修改成功提示消息关闭: 'xpath==//button[@class="action action-close close"]'
+
+
 
 评估代码供货品类配置-评估代码列表筛选按钮: 'xpath==//div[@pq-col-indx="1"]//span[@class="pq-menu-icon"]'
 评估代码供货品类配置-评估代码筛选取消全选: 'xpath==//span[text()="评估代码"]/input[@type="checkbox"]'

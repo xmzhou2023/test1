@@ -639,6 +639,7 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
 
+
     def mouse_right_click(self, locator, *args, **kwargs):
         """鼠标右击"""
         if args and args is not None:
@@ -691,6 +692,23 @@ class Base(object):
         # 清除文本框输入，srm使用
         ele = self.find_element(xpath)
         ele.clear()
+
+    def hover_click(self, locator):
+        # 鼠标悬停后点击
+        element = self.find_element(locator)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        actions.click(element).perform()
+
+    def keyboard_enter(self, locator):
+        # 键盘回车
+        element = self.find_element(locator)
+        element.send_keys(Keys.ENTER)
+
+    def keyboard_backspace(self, locator):
+        # 键盘删除键
+        element = self.find_element(locator)
+        element.send_keys(Keys.BACK_SPACE)
 
     def get_table_info(self, locator, *choice, attr='class', index='0'):
         """
