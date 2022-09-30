@@ -37,7 +37,7 @@ class SymCodePage(Base):
         list1 = []
         for i in range(1, th_num+1):
             logging.info(f'{i}')
-            txt = self.element_text(user['表头字段'], choice=f'{i}')
+            txt = self.element_text(user['表头字段'], f'{i}')
             logging.info(txt)
             list1.append(txt)
             logging.info(list1)
@@ -147,7 +147,7 @@ class SymCodePage(Base):
         self.is_click(user['Symptom_Code_Input'], choice='symptomGroupId')
         self.input_text(user['Symptom_Code_Input'], txt=grouping, choice='symptomGroupId')  # 添加页面输入grouping
         self.hover(user['Symptom_Grouping_Select'], choice=grouping)
-        grouping_name = self.element_text(user['Symptom_Grouping_Select'], choice=grouping)
+        grouping_name = self.element_text(user['Symptom_Grouping_Select'], grouping)
         self.is_click(user['Symptom_Grouping_Select'], choice=grouping)
         return grouping_name
 
@@ -205,16 +205,16 @@ class SymCodePage(Base):
     def Get_Symp_Code(self, name):
         self.input_text(user['Input_Exact_Word'], txt=name)
         self.is_click(user['Search_Button'])
-        get_record_code = self.element_text(user['Search_Data_name_tr1'], choice='3')
-        get_record_group = self.element_text(user['Search_Data_name_tr1'], choice='5')
-        get_record_description = self.element_text(user['Search_Data_name_tr1'], choice='4')
+        get_record_code = self.element_text(user['Search_Data_name_tr1'], '3')
+        get_record_group = self.element_text(user['Search_Data_name_tr1'], '5')
+        get_record_description = self.element_text(user['Search_Data_name_tr1'], '4')
         return get_record_code, get_record_group, get_record_description
 
     @allure.step("查询现象码，无数据返回")
     def Get_No_Data(self, name):
         self.input_text(user['Input_Exact_Word'], txt=name)
         self.is_click(user['Search_Button'])
-        get_record = self.element_text(user['Get_No_Data'], choice='No Data')
+        get_record = self.element_text(user['Get_No_Data'], 'No Data')
         return get_record
 
 
@@ -222,10 +222,10 @@ class SymCodePage(Base):
     def Get_Code_DATE_BY(self, name):
         self.input_text(user['Input_Exact_Word'], txt=name)
         self.is_click(user['Search_Button'])
-        created_date = self.element_text(user['List_Tr1_Td'], choice="6")
-        created_by = self.element_text(user['List_Tr1_Td'], choice="7")
-        modified_on = self.element_text(user['List_Tr1_Td'], choice="8")
-        modified_by = self.element_text(user['List_Tr1_Td'], choice="9")
+        created_date = self.element_text(user['List_Tr1_Td'], "6")
+        created_by = self.element_text(user['List_Tr1_Td'], "7")
+        modified_on = self.element_text(user['List_Tr1_Td'], "8")
+        modified_by = self.element_text(user['List_Tr1_Td'], "9")
         return created_date, created_by, modified_on, modified_by
 
     @allure.step("Status Enable查询现象码")
@@ -240,7 +240,7 @@ class SymCodePage(Base):
         self.scroll_into_view_CRM(user['Page_Num'])
         page_num = self.elements_num(user['Page_Num'])  #
         logging.info(page_num)
-        txt = self.element_text(user['Page_Specified'], choice=f'{page_num}')  # 获取页码个数
+        txt = self.element_text(user['Page_Specified'], f'{page_num}')  # 获取页码个数
         logging.info(txt)
         specified_page = random.randint(1, int(txt))
         logging.info("随机数为：")
@@ -252,7 +252,7 @@ class SymCodePage(Base):
         list1 = []
         for i in range(1, th_num + 1):
                 logging.info(f'{i}')
-                txt = self.element_text(user['Current_Page_Staus'], choice=f'{i}')
+                txt = self.element_text(user['Current_Page_Staus'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
                 logging.info(list1)

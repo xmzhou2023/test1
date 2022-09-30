@@ -1,0 +1,74 @@
+当前菜单: "xpath==//span[@class='tags-view-item router-link-exact-active router-link-active active']"
+新增: "xpath==//button/span[contains(text(),'新增')]"
+查询: "xpath==//button/span[contains(text(),'查询')]"
+重置: "xpath==//button/span[contains(text(),'重置')]"
+关闭: "xpath==//*[@id='tags-view-container']//span[contains(text(),'项目经理发起流程')]/span"
+表格内容: "xpath==//*[@id='app']/div/div[2]/section/div/div/div/div[3]/div[1]/div[3]/table/tbody/tr[1]/td"
+确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
+查看: "xpath==//div[normalize-space(text())='variable']/../..//button/span[contains(text(),'查看')]"
+删除: "xpath==//span[normalize-space(text())='variable']/../../..//span[contains(text(),'删除')]"
+同意: "xpath==//button/span[contains(text(),'同 意')]"
+#==========================================创建页面========================================
+提交: "xpath==//button/span[contains(text(),'提交')]"
+保存: "xpath==//button/span[contains(text(),'保存')]"
+
+###==========================================项目信息========================================
+项目信息输入框: "xpath==//label[contains(text(),'variable')]/..//input"
+项目信息输入框选择: "xpath==/html/body//div[1]/div[1]/ul//span[normalize-space(text())='variable']"
+
+###==========================================业务审核========================================
+业务审核: "xpath==//span[contains(text(),'业务审核')]"
+业务审核类别: "xpath==//label[contains(text(),'variable')]/..//input"
+成员列表输入框: "xpath==//div[@aria-label='人员列表']//input"
+成员选择: "xpath==//div[@class='user-list']/div[3]//div[normalize-space(text())='variable']"
+成员确定: "xpath==//div[not(contains(@style,'display: none')) and @class='el-dialog__wrapper user-dialog']//span[contains(text(),'确定')]"
+
+###==========================================oneworks========================================
+oneworks-节点-维护关键器件-关键器件展开: "xpath==//span[normalize-space(text())='variable']/../../../../span"
+oneworks-节点-维护关键器件-物料模块: "xpath==//span[normalize-space(text())='variable']"
+oneworks-节点-维护关键器件-物料模块-物料编码加号: "xpath==//div[@class='el-table__fixed']//label[normalize-space(text())='物料编码']/..//i"
+oneworks-节点-维护关键器件-物料模块-物料编码按钮组: "xpath==//div[@class='el-table__fixed']//span[normalize-space(text())='variable']"
+oneworks-节点-维护关键器件-物料模块-物料编码按钮组-加号: "xpath==//div[@class='el-table__fixed']//span[normalize-space(text())='variable']/..//button[@title='新增']//i"
+oneworks-节点-维护关键器件-物料模块-物料编码-待申请编码: "xpath==//div[@class='el-table__fixed']//span[normalize-space(text())='variable']/../../../../..//span/span[normalize-space(text())='待申请编码']"
+oneworks-节点-维护关键器件-物料模块-物料编码-物料详情: "xpath==//label[normalize-space(text())='variable']/..//input"
+oneworks-节点-物料模块-物料编码-物料详情-参数: "xpath==//*[@id='tab-parameter']"
+oneworks-节点-物料模块-物料编码-物料详情: "xpath==//span[normalize-space(text())='variable']"
+
+oneworks-节点-维护关键器件-物料模块-物料编码-物料参数: "xpath==//div[normalize-space(text())='variable']/../..//input"
+oneworks-节点-维护关键器件-物料模块-物料编码-物料参数选择: "xpath==//span[normalize-space(text())='variable']"
+oneworks-节点-评估关键器件-复选框全选: "xpath==//thead//span/span"
+oneworks-节点-评估关键器件-复选框单选: "xpath==//span[normalize-space(text())='variable']/../../..//span[@class='el-checkbox__inner']"
+oneworks-节点-评估关键器件-一键填写: "xpath==//div[@title='一键填写']/i"
+oneworks-节点-评估关键器件-一键填写-字段名称: "xpath==//div[@aria-label='一键填写']//label[normalize-space(text())='字段名称']/..//input"
+oneworks-节点-评估关键器件-一键填写-字段名称选择: "xpath==//li/span[normalize-space(text())='variable']"
+oneworks-节点-评估关键器件-一键填写-责任人: "xpath==//div[@aria-label='一键填写']//label[normalize-space(text())='责任人']/..//input"
+oneworks-节点-评估关键器件-一键填写-确定: "xpath==//div[@aria-label='一键填写']//span[normalize-space(text())='确定']"
+oneworks-节点-评估关键器件-一键填写-取消: "xpath==//div[@aria-label='一键填写']//span[normalize-space(text())='取消']"
+
+oneworks-节点-资源商务评估-采购评估-资源商务-输入框: "xpath==//span[normalize-space(text())='资源商务']/../../../..//label[normalize-space(text())='variable']/..//input[@class='el-input__inner']"
+oneworks-节点-下拉框-选择: "xpath==//div[not(contains(@style,'display: none')) and contains(@class,'el-select-dropdown el-popper')]//span[normalize-space(text())='variable']"
+
+
+oneworks-节点-资源商务评估-采购评估-采购执行-输入框: "xpath==//span[normalize-space(text())='采购执行']/../../../..//label[normalize-space(text())='variable']/..//input[@class='el-input__inner']"
+
+oneworks-节点-采购PTC评估-采购评估-PTC-输入框: "xpath==//span[normalize-space(text())='PTC']/../../../..//label[normalize-space(text())='variable']/..//input[@class='el-input__inner']"
+
+oneworks-节点-采购PTC评估-采购评估-SQM-输入框: "xpath==//span[normalize-space(text())='SQM']/../../../..//label[normalize-space(text())='variable']/..//input[@class='el-input__inner']"
+
+oneworks-节点-标准化部评估-标准化评估-输入框: "xpath==//*[@id='pane-standard']//label[normalize-space(text())='variable']/..//input"
+oneworks-节点-标准化部评估-标准化评估-文本框: "xpath==//*[@id='pane-standard']//label[normalize-space(text())='variable']/..//textarea"
+#==========================================待办列表========================================
+待办列表-我申请的-iframe: "xpath==//iframe"
+待办列表-我的待办: "xpath==//div[@id='tags-view-container']//span[normalize-space(text())='我的待办']"
+待办列表-刷新: "xpath==//i[@class='el-icon-refresh-right']"
+待办列表-筛选框: "xpath==//i[@class='el-icon-zoom-in']"
+待办列表-筛选框-单据号: "xpath==//label[normalize-space(text())='单据号']/..//input"
+待办列表-筛选框-筛选: "xpath==//button/span[contains(text(),'筛选')]"
+待办列表-我申请的-查看详情: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../..//button/span[text()='查看详情']"
+待办列表-我申请的-查看详情(节点名称): "xpath==//span[normalize-space(text())='variable']/../../../../..//span[normalize-space(text())='查看详情']"
+撤回: "xpath==//button/span[contains(text(),'撤回')]"
+撤回确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
+关闭我申请的: "xpath==//*[@id='tags-view-container']//span[contains(text(),'我申请的')]/span"
+待办列表-我的待办-当前节点: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../../td[2]//div[4]/span[2]"
+待办列表-我申请的-当前节点: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../../td[2]//div[3]/span[2]"
+待办列表-我申请的-当前流程: "xpath==//div[@class='row-code' and normalize-space(text())='variable']/../../../../td[3]//div[3]"

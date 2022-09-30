@@ -465,7 +465,7 @@ class TestCreatingProcessImport:
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，"
                         "选择导入BOM选择正确的文件进行导入，并能应用，点击应用后页面显示的数据与模板的数据一致")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.UT  # 用例标记
     def test_003_002(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -706,7 +706,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_toast('处理成功，审核拒绝')
         user.quit_oneworks()
         user.assert_my_application_flow(Machine_Factory_API[0], '审批拒绝')
-        process_status = user.get_info()[7]
+        # process_status = user.get_info()[7]
+        process_status = user.get_bom_info('整机BOM协作', Machine_Factory_API[0], '单据状态')
         ValueAssert.value_assert_equal(process_status, '审批拒绝')
 
     @allure.story("流程审批")  # 场景名称
@@ -1173,24 +1174,6 @@ class TestProcessApprovalExceptionScenario:
         DomAssert(drivers).assert_att('自检清单不能为空')
         user.quit_oneworks()
 
-@allure.feature("BOM协作_整机BOM协作")  # 模块名称
-class TestProcessSearch:
-
-    @allure.story("流程查询")  # 场景名称
-    @allure.title("输入标题查询成功")  # 用例名称
-    @allure.description("进入整机BOM协作页面，输入存在的标题，点击查询，下方会显示相应的数据")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    def test_007_001(self, drivers, Machine_API):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(Machine_API[0])
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.enter_oneworks_iframe()
-        user.assert_toast('【生产工厂信息】物料10026418的组包工厂不能为空')
-        user.quit_oneworks()
-
 
 @allure.feature("BOM协作_整机BOM协作")  # 模块名称
 class TestProcessInformationExport:
@@ -1204,7 +1187,6 @@ class TestProcessInformationExport:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_API[0])
-
         user.assert_oneworks_factoryinfo()
         user.quit_oneworks()
 

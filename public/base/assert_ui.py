@@ -337,8 +337,9 @@ class DomAssert(object):
         for i in contents:
             try:
                 assert content in i.text
+                logging.info("断言成功，结果:{}包含指定内容:{}".format(i.text, content))
             except:
-                logging.error("断言失败，结果不包含指定内容")
+                logging.error("断言失败，结果:{}不包含指定内容:{}".format(i.text, content))
                 raise
             content_list.append(i.text)
         logging.info('获取表格执行列内容：{}'.format(content_list))

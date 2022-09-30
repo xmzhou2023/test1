@@ -100,7 +100,7 @@ class TestProductInformationButtonFunction:
     @allure.title("产品信息，‘导出’按钮 功能验证")
     @allure.description("进入机型库-产品信息页面，点击‘导出’按钮，产品信息数据导出成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.skip
     def test_002_004(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
@@ -281,7 +281,7 @@ class TestProductInformationImportFile:
     @allure.title("产品信息，‘导入-下载模板’按钮 功能验证")
     @allure.description("进入导入弹窗，下载导入模板 成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.skip
     def test_004_001(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
@@ -294,7 +294,7 @@ class TestProductInformationImportFile:
     @allure.title("产品信息，导入文件成功")
     @allure.description("进入导入弹窗，选择导入文件，导入成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.skip
     def test_004_002(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
@@ -307,7 +307,7 @@ class TestProductInformationImportFile:
         afterListNum = user.listNum()
         ValueAssert.value_assert_Notequal(afterListNum,beforeListNum)
         user.screen_testData(drivers)
-        user.delete_button("隆江", num=22)
+        user.delete_button("秦海伦", num=22)
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_reset()  # 点击重置按钮
 
@@ -334,9 +334,9 @@ class TestProductInformationScreenFunction:
         user.screen_source("数仓")  # 选择来源
         user.screen_supplyType("自制")  # 选择供应类型
         user.screen_inquire()  # 点击查询按钮
-        user.assert_screen_result("隆江",num=22)
+        user.assert_screen_result("秦海伦",num=22)
         """清空测试数据"""
-        user.delete_button("隆江", num=22)  # 点击指定行删除按钮
+        user.delete_button("秦海伦", num=22)  # 点击指定行删除按钮
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_reset()  # 点击重置按钮
 
@@ -398,15 +398,15 @@ class TestProductInformationUpdate:
         user = ModelDatabase(drivers)
         user.insert_testData(drivers)  # 插入测试数据
         user.screen_testData(drivers)  # 筛选出测试数据
-        user.update_button("隆江", num=22)  # 点击指定行编辑按钮
+        user.update_button("秦海伦", num=22)  # 点击指定行编辑按钮
         user.update_something(2,"外购")
         user.update_save()
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_supplyType("外购")  # 选择供应类型
         user.screen_inquire()  # 点击查询按钮
-        user.assert_screen_result("隆江", num=22)
+        user.assert_screen_result("秦海伦", num=22)
         """清空测试数据"""
-        user.delete_button("隆江", num=22)  # 点击指定行删除按钮
+        user.delete_button("秦海伦", num=22)  # 点击指定行删除按钮
         user.screen_button()  # 点击筛选按钮，弹出筛选框
         user.screen_reset()  # 点击重置按钮
 
@@ -422,7 +422,7 @@ class TestProductInformationDelete:
         user.insert_testData(drivers)
         user.screen_testData(drivers)  # 筛选出测试数据
         beforeListNum = user.listNum()
-        user.delete_button("隆江", num=22)  # 点击指定行删除按钮
+        user.delete_button("秦海伦", num=22)  # 点击指定行删除按钮
         afterListNum = user.listNum()
         ValueAssert.value_assert_Notequal(beforeListNum, afterListNum)
         user.screen_button()  # 点击筛选按钮，弹出筛选框
@@ -503,7 +503,7 @@ class TestProductCofigEdit:
         user = ModelDatabase(drivers)
         user.insert_testData1(drivers)
         user.screenTestData(drivers)
-        user.edit_button("隆江",15)
+        user.edit_button("秦海伦",15)
         user.editData("套片", inputValue="123")
         user.editData("主板", "abc")
         user.editData("屏幕", "ABC")
