@@ -14,7 +14,7 @@ class SalesOrderPage(Base):
         sleep(1.5)
         self.presence_sleep_dcr(user['Add'])
         self.is_click(user['Add'])
-        sleep(2.8)
+        sleep(3)
 
     @allure.step("Add新增销售单页面，输入Buyer属性")
     def input_sales_buyer(self, content):

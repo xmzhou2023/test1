@@ -19,7 +19,7 @@ class ShopSaleQueryPage(Base):
     @allure.step("点击Unfold展开筛选项按钮")
     def click_unfold(self):
         self.is_click(user['Unfold'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("点击fold收起筛选项按钮")
     def click_fold(self):
