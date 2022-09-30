@@ -59,11 +59,11 @@ Pip install -r requirement.txt
 - 修改项目名称，将project下面默认的DRP修改成为XXX，XXX须大写
 - 修改conf.py 文件，如下图，将当前项目目录下面的DRP改成自己项目的名称
 
-![img](https://transsioner.feishu.cn/space/api/box/stream/download/asynccode/?code=NmI2N2VlNmFkMDFlNzRhNWQ2YTMwMzkzMDgwNTBiM2VfRUtpQnRKbDl0MmlsVWxtWVhSUU8zY2ZXSnFhanNmRWNfVG9rZW46Ym94Y25VV3pTRDBXYlBZVVBrMGhYTTZjVVFlXzE2NTgzODk3OTA6MTY1ODM5MzM5MF9WNA)
+![img](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcnUWzSD0WbPYUPk0hXM6cUQe/?mount_node_token=doccnAMEhPTv5SASQkRExa0agSc&mount_point=doc_image&policy=equal)
 
 - 修改项目配置文件中的host和sql 连接串，路径：project-->env-->test&&uat-->config.ini
 
-![img](https://transsioner.feishu.cn/space/api/box/stream/download/asynccode/?code=YmUxMTlhNjIwZTQwNGY3NGRlYTgzYmFkMDZiNjBjZGRfU2Q1ZlhpUW9MVlRNVE9IQmNienJISFFzQm1rSmZPQktfVG9rZW46Ym94Y245Mkk0QWkwZldjV0pnanZxWnhFV09mXzE2NTgzODk3OTA6MTY1ODM5MzM5MF9WNA)
+![img](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcn92I4Ai0fWcWJgjvqZxEWOf/?mount_node_token=doccnAMEhPTv5SASQkRExa0agSc&mount_point=doc_image&policy=equal)
 
 #### 3、创建testcase文件
 
@@ -832,4 +832,3 @@ print("Hello") ;  print("World")
 ### Contact - 联系
     自动化测试小组
 
-### 
