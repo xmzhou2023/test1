@@ -26,7 +26,7 @@
 
 - **元素层**：如下图统一将一个页面的元素定位规范到一个文件中
 
-![img](https://transsioner.feishu.cn/space/api/box/stream/download/asynccode/?code=YjI0MDFlYmQyMWViM2YwMWM1YmViZDQ4ZWQ4OGY1NGRfbEtpYzBkbVhMWGphcnkwMnpHbTBWUk1DS050aktZUnBfVG9rZW46Ym94Y24wcUFhR2lsV3BtNWJsQ2FvQlYwZ2tmXzE2NTgzODk2Mjk6MTY1ODM5MzIyOV9WNA)
+![img](https://internal-api-drive-stream.feishu.cn/space/api/box/stream/download/v2/cover/boxcn0qAaGilWpm5blCaoBV0gkf/?mount_node_token=doccn6IMEzfzCiZ057psRJMFKrf&mount_point=doc_image&policy=equal)
 
 - **页面层**：本类中主要实现页面元素、业务逻辑所需要的步骤方法的封装
 
