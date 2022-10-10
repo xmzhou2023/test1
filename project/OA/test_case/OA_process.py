@@ -82,9 +82,9 @@ class TestUtil:
             OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境深圳传音控股电子签署平台登录异常,请相关人员及时排查问题!", "1")
             assert False
 
-    @allure.story("二级标题：禅道平台登录巡检")  # 场景名称
-    @allure.title("三级标题：禅道平台登录巡检， 调用飞书机器消息推送结果")  # 用例名称
-    @allure.description("用例描述")
+    @allure.story("二级标题：合同归档催收数据监控")  # 场景名称
+    @allure.title("三级标题：合同归档催收数据监控，飞书推送消息给吴军")  # 用例名称
+    @allure.description("合同归档催收数据监控，数据库查询结果大于0异常，等于0正常")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_003(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -96,13 +96,60 @@ class TestUtil:
             "ECOLOGY.uf_gdcs )) and gdzt !='0'")
 
         count = result[0].get("count(gdzt)")
-        logging.info('合同归档催收数据:{}'.format(count))
         if count > 0:
             OA.Messagefeishu("@吴军\n合同归档催收数据同步异常,异常个数共计：{}".format(count), "1")
             assert False
         elif count == 0:
             # OA.Messagefeishu("@吴军\n合同归档催收数据同步正常", "1")
             assert True
+
+    @allure.story("二级标题：档案管理系统巡检")  # 场景名称
+    @allure.title("三级标题：档案管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_004(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OA = OAdnluPage(drivers)
+        OB = OAUserPage(drivers)
+        OA.open_url("http://10.248.39.80/AmsHome")  # 打开应用系统巡检地址
+        OA.click_accountuser()
+        OA.click_accountlogin()  # 点击帐户密码登录
+        OA.input_account_password_log('0', '1')
+        OA.input_imgcode()  # 输入验证码
+        OA.click_checkbox()
+        OA.click_checkbox()
+        OA.click_loginsubmit()
+        itexis = OA.isfile_login()
+        if itexis:
+            # OB.Messagefeishu("档案管理系统巡检通知\n系统登陆正常!", "1")
+            assert True
+        else:
+            OB.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境档案管理系统登录异常,请相关人员及时排查问题!", "1")
+            assert False
+
+    @allure.story("二级标题：传音知识产权管理系统巡检")  # 场景名称
+    @allure.title("三级标题：传音知识产权管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_005(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OA = OAdnluPage(drivers)
+        OB = OAUserPage(drivers)
+        OA.open_url("https://ipr.transsion.com:8060/login.html")  # 打开应用系统巡检地址
+        OA.click_accountuser()
+        OA.click_accountlogin()  # 点击帐户密码登录
+        OA.input_account_password_log('0', '1')
+        OA.input_imgcode()  # 输入验证码
+        OA.click_checkbox()
+        OA.click_checkbox()
+        OA.click_loginsubmit()
+        itexis = OA.ispatent_login()
+        if itexis:
+            # OB.Messagefeishu("传音知识产权管理系统巡检通知\n系统登陆正常!", "1")
+            assert True
+        else:
+            OB.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境传音知识产权管理系统登录异常,请相关人员及时排查问题!", "1")
+            assert False
 
 
 if __name__ == '__main__':
