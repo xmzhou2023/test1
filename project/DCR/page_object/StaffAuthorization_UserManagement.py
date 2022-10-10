@@ -170,7 +170,7 @@ class UserManagementPage(Base):
         self.presence_sleep_dcr(user['Quit'])
         self.is_click(user['Quit'])
         sleep(3)
-        self.is_click(user['确认删除Yes'])
+        self.is_click_dcr(user['确认删除Yes'])
 
     @allure.step("获取无数据文本")
     def get_text_nodata(self):
