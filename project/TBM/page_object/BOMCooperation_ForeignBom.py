@@ -416,5 +416,42 @@ class ForeignBom(CenterComponent):
             self.base_get_img()
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
+
+    @allure.step("点击衍生BOM制作需求-新增")
+    def click_Derived_add(self):
+        self.is_click_tbm(user['衍生BOM制作需求-新增'])
+        logging.info('点击衍生BOM制作需求-新增')
+        sleep(0.5)
+
+    @allure.step("输入衍生BOM制作需求信息")
+    def input_Derived_info(self, header, info):
+        select_list = ['操作']
+        input_list = ['用量', '替代组', '份额']
+        if header in select_list:
+            column = self.get_table_info(user['衍生BOM制作需求-操作'])
+            self.is_click_tbm(user['衍生BOM制作需求-输入框'], column)
+            self.is_click_tbm(user['衍生BOM制作需求-操作选择'], info)
+        elif header in input_list:
+            column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+            self.input_text(user['衍生BOM制作需求-输入框'], info, column)
+        else:
+            column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+            self.is_click_tbm(user['衍生BOM制作需求-输入框'], column)
+            self.input_text(user['衍生BOM制作需求-输入框'], info, column)
+            self.is_click_tbm(user['衍生BOM制作需求-选择'], info)
+
+    @allure.step("点击衍生差异")
+    def click_Derived_differ(self):
+        self.is_click_tbm(user['衍生差异'])
+        logging.info('点击衍生差异')
+        sleep(0.5)
+
+    @allure.step("点击生成BOM")
+    def click_Creat_BOM(self):
+        self.is_click_tbm(user['生成BOM'])
+        logging.info('点击生成BOM')
+        sleep(1)
+
+
 if __name__ == '__main__':
     pass

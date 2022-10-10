@@ -187,6 +187,43 @@ class TestCreateProcess:
         user.click_tree('客供BOM')
         user.assert_tree_result(('1', '客供BOM', '12004871', '外购单机头_TECNO_W1_B40030_埃塞_新客供', '外研', '1000', '编辑删除'), ('1.1', '12800002', '整机外包料Infinix_X5010_AW878_黑_A欧_P02_Ⅰ', '外研', '1000', '编辑删除'))
 
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("客供BOM衍生,创建流程成功")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息填写完整，在衍生BOM制作需求中点击新增，输入物料信息，点击衍生差异输入物料信息包含新增为128开头的物料，点击生成BOM，点击生产工厂信息中的刷新，输入业务审核的必填项，点击提交，提示发起成功")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_009(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
+        user.input_add_bom_info('制作类型', '客供BOM衍生')
+        user.input_add_bom_info('品牌', 'itel')
+        user.input_add_bom_info('机型', 'JMB-01')
+        user.input_add_bom_info('阶段', '量产阶段')
+        user.input_add_bom_info('市场', '埃塞本地')
+        user.input_add_bom_info('模式', '零价值客供')
+        user.click_Derived_add()
+        user.input_Derived_info('新BOM编码', '12000003')
+        user.input_Derived_info('原始BOM编码', '12014351')
+        user.input_Derived_info('原始BOM工厂', 'PL01')
+        user.click_Derived_differ()
+        user.click_Derived_add()
+        user.input_Derived_info('BOM编码', '12000003')
+        user.input_Derived_info('操作', '新增物料')
+        user.input_Derived_info('处理物料编码', '12800001')
+        user.input_Derived_info('用量', '1000')
+        user.click_Creat_BOM()
+        user.click_refresh()
+        user.select_business_review('李小素', 'PPM')
+        user.select_business_review('李小素', 'QPM')
+        user.click_add_submit()
+        user.assert_toast('创建流程成功')
+        user.refresh()
+        user.assert_add_result('自动化新增用例', '客供BOM衍生', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
+        user.delete_flow(process_code)
+        #
 
 @allure.feature("BOM协作-外研BOM协作")
 class TestCreateProcessExceptionScenario:
@@ -436,7 +473,81 @@ class TestCreateProcessExceptionScenario:
         user.click_add_submit()
         user.assert_toast('BomTree与生产工厂信息数据不一致，请点击刷新按钮')
 
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("请先选择制作类型")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，不选择制作类型，点击新增BOM，提示请先选择制作类型!")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_016(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.click_add_bomtree()
+        user.assert_toast('请先选择制作类型!')
 
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("[xxxxx]下必须存在物料组为128的子阶物料")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，选择一个存在模板的品牌，在衍生BOM制作需求中点击新增，输入物料信息，点击衍生差异输入物料信息不包含新增为128开头的物料，点击生成BOM，点击生产工厂信息中的刷新，输入业务审核的必填项，点击提交，提示[xxxxxx]下必须存在物料组为128的子阶物料")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_017(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
+        user.input_add_bom_info('制作类型', '客供BOM衍生')
+        user.input_add_bom_info('品牌', 'itel')
+        user.input_add_bom_info('机型', 'JMB-01')
+        user.input_add_bom_info('阶段', '量产阶段')
+        user.input_add_bom_info('市场', '埃塞本地')
+        user.input_add_bom_info('模式', '零价值客供')
+        user.click_Derived_add()
+        user.input_Derived_info('新BOM编码', '12000003')
+        user.input_Derived_info('原始BOM编码', '12014351')
+        user.input_Derived_info('原始BOM工厂', 'PL01')
+        user.click_Derived_differ()
+        user.click_Derived_add()
+        user.input_Derived_info('BOM编码', '12000003')
+        user.input_Derived_info('操作', '新增物料')
+        user.input_Derived_info('处理物料编码', '12700001')
+        user.input_Derived_info('用量', '1000')
+        user.click_Creat_BOM()
+        user.click_refresh()
+        user.select_business_review('李小素', 'PPM')
+        user.select_business_review('李小素', 'QPM')
+        user.click_add_submit()
+        user.assert_toast('[12000003]下必须存在物料组为128的子阶物料')
+
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("请完善Bom信息！")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息不填写完整，输入业务审核必填项，点击提交，提示请完善Bom信息！")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_018(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_bom_info('制作类型', '客供BOM衍生')
+        user.click_add_submit()
+        user.assert_toast('请完善Bom信息！')
+
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("Bom Tree不能为空！")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息填写完整，输入业务审核必填项，不填写BOM Tree点击提交，提示Bom Tree不能为空！")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_019(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_bom_info('制作类型', '客供BOM衍生')
+        user.input_add_bom_info('品牌', 'itel')
+        user.input_add_bom_info('机型', 'JMB-01')
+        user.input_add_bom_info('阶段', '量产阶段')
+        user.input_add_bom_info('市场', '埃塞本地')
+        user.input_add_bom_info('模式', '零价值客供')
+        user.click_add_submit()
+        user.assert_toast('Bom Tree不能为空！')
 @allure.feature("BOM协作-外研BOM协作")  # 模块名称
 class TestTheProcessOfExaminationAndApproval:
 

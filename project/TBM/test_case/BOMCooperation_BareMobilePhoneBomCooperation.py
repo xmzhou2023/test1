@@ -1441,7 +1441,7 @@ class TestProcessSearch:
         DomAssert(drivers).assert_att('创建流程成功')
         user.input_search_info('标题', '自动化查询用例')
         user.click_search()
-        code = user.get_col_info('流程编码')
+        code = user.get_bom_info('单机头BOM协作', '自动化查询用例', '流程编码')
         user.recall_process(code)
 
     @allure.story("流程查询")  # 场景名称

@@ -782,6 +782,26 @@ class CenterComponent(Base, APIRequest):
         self.is_click_tbm(user['同意取消'])
         logging.info('点击取消')
 
+    @allure.step("获取行内容")
+    def get_col_content(self, locator):
+        info = self.find_elements_tbm(locator)
+        infolist = []
+        for i in info:
+            infolist.append(i.text)
+        logging.info('获取结果{}'.format(infolist))
+        return infolist
+
+    @allure.step("获取整个元素内容")
+    def get_table_content(self, locator):
+        info = self.find_elements(locator)
+        infolist = []
+        for i in info:
+            content_list = i.get_attribute('innerText').replace("\t","").split('\n')
+            infolist += content_list
+        while "" in infolist:
+            infolist.remove("")
+        logging.info('获取结果{}'.format(infolist))
+        return infolist
 
 if __name__ == '__main__':
     pass

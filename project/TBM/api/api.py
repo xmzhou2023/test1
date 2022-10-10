@@ -1309,6 +1309,15 @@ class APIRequest:
         logging.info('发起请求：出货国家查询列表查询接口')
         return self.api_request('出货国家查询列表查询接口', data, headers)
 
+    def Request_SaleCountry_getScFlowInfoFirst(self, data, headers):
+        """
+        TBM 出货国家查询 列表查询
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家查询信息获取接口')
+        return self.api_request('出货国家查询信息获取接口', data, headers)
+
     def Request_SaleCountry_Info(self, bid, headers):
         """
         TBM 出货国家流程 获取单据信息
@@ -1527,6 +1536,283 @@ class APIRequest:
                     "fieldTypeRef": "Chipset",
                     "necessary": 1,
                     "fieldOrder": 1,
+                    "valid": True,
+                    "constraint": "{\"key\": \"Chipset\"}",
+                    "value": None
+                }
+            ]
+        }
+        search_data = {"param": {"title": "", "flowNo": "", "projectName": projectName, "brandCode": "",
+                                 "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
+                                 "flowStartdate": ""}, "current": 1, "size": 10}
+        self.Request_Change_Product(change_data, headers)
+        search_response = self.Request_SaleCountry_Search(search_data, headers)
+        for i in range(20):
+            if len(search_response['data']['data']) == 0:
+                sleep(1)
+                search_response = self.Request_SaleCountry_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(search_response_data[0]['flowNo'],
+                                                                    search_response_data[0]['instanceId'],
+                                                                    search_response_data[0]['bid']))
+        logging.info('流程接口结束：出货国家查询变更产品接口')
+        return search_response_data[0]['flowNo'], search_response_data[0]['instanceId'], search_response_data[0]['bid']
+
+    @allure.step("出货国家查询变更国家接口")
+    def API_Change_Country(self, projectName):
+        logging.info('发起流程接口：出货国家查询变更国家接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        PageList_body = {
+            "current": 1,
+            "size": 10,
+            "param": {
+                "brandCode": "infinix",
+                "nationCodes": [],
+                "projectName": projectName
+            }
+        }
+        PageList = self.Request_SaleCountry_PageList(PageList_body, headers)
+        getScFlowInfoFirst_body = {
+            "archBids": [
+                PageList['data']['data'][0]['bid']
+            ],
+            "brandCode": "infinix",
+            "templateBid": "1022146928508538880",
+            "areaCodes": [
+                "B12270"
+            ],
+            "itemType": "updCountry"
+        }
+        getScFlowInfoFirst = self.Request_SaleCountry_getScFlowInfoFirst(getScFlowInfoFirst_body, headers)
+        titletime = datetime.now().strftime('%Y-%m-%d')
+        flowStartdate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        change_data = {
+            "prdInfoVOS": [
+                {
+                    "scPrdBaseInfoVO": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdBaseInfoVO'],
+                    "scPrdUniversalInfoMap": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdUniversalInfoMap'],
+                    "countryProperties": {
+                        "1231": "attestationBackups"
+                    }
+                }
+            ],
+            "flowMainVO": {
+                "title": f"[李小素]-[{titletime}]",
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowDept": "PI_系统四部",
+                "flowStartdate": flowStartdate,
+                "remark": "",
+                "busiType": "updCountry",
+                "flowProposerName": "李小素"
+            },
+            "scProjectVO": getScFlowInfoFirst['data']['scProjectVO'],
+            "submitType": "submit",
+            "approvers": {
+                "bisSupplyApprovers": [
+                    {
+                        "role": "",
+                        "roleKey": "verb",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ],
+                "bisSupplySenders": [
+                    {
+                        "role": "",
+                        "roleKey": "verc",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ]
+            },
+            "areas": [
+                {
+                    "id": None,
+                    "bid": "111111162",
+                    "areaBid": "111111162",
+                    "areaOrder": 0,
+                    "areaColor": "#FF4400",
+                    "areaNameZh": "东亚",
+                    "areaNameEn": "A23372",
+                    "areaCode": "B12270",
+                    "nations": [
+                        {
+                            "nationBid": "965571404990910464",
+                            "nationOrder": 0,
+                            "nationNameZh": "中国",
+                            "nationNameEn": "China001",
+                            "nationCode": "1231",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111215",
+                            "nationOrder": 1,
+                            "nationNameZh": "柬埔寨",
+                            "nationNameEn": "Cambodia",
+                            "nationCode": "KHA",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "945678738367057920",
+                            "nationOrder": 2,
+                            "nationNameZh": "日本2",
+                            "nationNameEn": "jp",
+                            "nationCode": "jp",
+                            "value": None
+                        }
+                    ]
+                },
+                {
+                    "id": None,
+                    "bid": "911371279385366528",
+                    "areaBid": "911371279385366528",
+                    "areaOrder": 1,
+                    "areaColor": "#00FF51",
+                    "areaNameZh": "东非",
+                    "areaNameEn": "B2",
+                    "areaCode": "B2",
+                    "nations": [
+                        {
+                            "nationBid": "111295",
+                            "nationOrder": 0,
+                            "nationNameZh": "乍得",
+                            "nationNameEn": "Chad",
+                            "nationCode": "TD",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111118",
+                            "nationOrder": 1,
+                            "nationNameZh": "安哥拉",
+                            "nationNameEn": "Angola",
+                            "nationCode": "AGO",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111134",
+                            "nationOrder": 2,
+                            "nationNameZh": "布隆迪",
+                            "nationNameEn": "Burundi",
+                            "nationCode": "BDI",
+                            "value": None
+                        }
+                    ]
+                },
+                {
+                    "id": None,
+                    "bid": "111111154",
+                    "areaBid": "111111154",
+                    "areaOrder": 2,
+                    "areaColor": "#0059FF",
+                    "areaNameZh": "欧洲东欧",
+                    "areaNameEn": "A23364",
+                    "areaCode": "B12262",
+                    "nations": [
+                        {
+                            "nationBid": "978957925726949376",
+                            "nationOrder": 0,
+                            "nationNameZh": "EE1",
+                            "nationNameEn": "Russia",
+                            "nationCode": "EE1",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111116",
+                            "nationOrder": 1,
+                            "nationNameZh": "阿尔巴尼亚",
+                            "nationNameEn": "Albania",
+                            "nationCode": "ALB",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111117",
+                            "nationOrder": 2,
+                            "nationNameZh": "亚美尼亚",
+                            "nationNameEn": "Armenia",
+                            "nationCode": "ARM",
+                            "value": None
+                        }
+                    ]
+                }
+            ],
+            "uploadList": [],
+            "fields": [
+                {
+                    "id": None,
+                    "bid": "1022146929804578816",
+                    "fieldName": "摄像头",
+                    "fieldIdent": "camera",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 0,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1022146929804578817",
+                    "fieldName": "型号",
+                    "fieldIdent": "type",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 1,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1022146929804578818",
+                    "fieldName": "新增",
+                    "fieldIdent": "new",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 2,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1022146929804578819",
+                    "fieldName": "再增",
+                    "fieldIdent": "anthor",
+                    "fieldType": "select",
+                    "fieldTypeRef": "Standard",
+                    "necessary": 1,
+                    "fieldOrder": 3,
+                    "valid": True,
+                    "constraint": "{\"key\": \"Standard\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1022146929804578820",
+                    "fieldName": "配色",
+                    "fieldIdent": "Color",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "colorSet",
+                    "necessary": 1,
+                    "fieldOrder": 4,
+                    "valid": True,
+                    "constraint": "{\"key\": \"colorSet\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1022146929804578821",
+                    "fieldName": "尺寸",
+                    "fieldIdent": "inch",
+                    "fieldType": "select",
+                    "fieldTypeRef": "Chipset",
+                    "necessary": 1,
+                    "fieldOrder": 5,
                     "valid": True,
                     "constraint": "{\"key\": \"Chipset\"}",
                     "value": None

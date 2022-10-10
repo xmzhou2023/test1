@@ -234,6 +234,16 @@ def SaleCountry_ProductChange_API():
 
 
 @pytest.fixture(scope='function', autouse=False)
+def SaleCountry_CountryChange_API():
+    logging.info('开始前置操作-变更国家')
+    user = APIRequest()
+    api_response = user.API_Change_Country('出货国家查询变更产品部分流程')
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
 def SaleCountry_ProductChange_All_API():
     logging.info('开始前置操作-变更产品')
     user = APIRequest()
