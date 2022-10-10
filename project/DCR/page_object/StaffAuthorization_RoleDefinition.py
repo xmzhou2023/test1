@@ -25,7 +25,6 @@ class RoleDefinitionPage(Base):
 
     @allure.step("进入角色设置页面，筛选角色后，点击第一个复选框")
     def click_first_checkbox(self):
-        #self.presence_sleep_dcr(user['第一个复选框'])
         self.is_click_dcr(user['第一个复选框'])
 
     @allure.step("点击Permission Setting权限设置按钮")
