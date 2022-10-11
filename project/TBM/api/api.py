@@ -1358,28 +1358,152 @@ class APIRequest:
         flowStartdate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         querytime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         add_data = {
-            "prdInfoVOS": [{"scPrdBaseInfoVO": {"bizType": "create", "globalVersion": "ver1",
-                                                "marketName": f"市场名称{querytime}",
-                                                "projectName": f"项目名称{querytime}", "memory": "128+8",
-                                                "bandStrategy": "latinAmericaMarket",
-                                                "productManager": "18645960", "projectManager": "18645960",
-                                                "brandCode": "infinix", "editStatus": 'true', "isAdd": 'true'},
-                            "scPrdUniversalInfoMap": {"aaaa": "Standard1", "bbb": "Chipset1"},
-                            "countryProperties": {}}],
-            "flowMainVO": {"title": f"[李小素]-[{titletime}]", "flowNo": "", "flowProposer": "18645960",
-                           "flowDept": "PI_系统四部", "flowStartdate": f"{flowStartdate}", "remark": "",
-                           "busiType": "", "flowProposerName": "李小素"},
-            "scProjectVO": {"brandCode": "infinix", "projectName": f"项目名称{querytime}",
-                            "templateBid": "989123709249916928"}, "submitType": "submit", "approvers": {
-                "bisSupplyApprovers": [{"role": "", "roleKey": "verb", "userName": "", "userNo": "18645960"}],
-                "bisSupplySenders": [{"role": "", "roleKey": "verc", "userName": "", "userNo": "18645960"}]},
-            "areas": [], "uploadList": [], "fields": [
-                {"id": None, "bid": "989123712022351872", "fieldName": "aaa", "fieldIdent": "aaaa",
-                 "fieldType": "select", "fieldTypeRef": "Standard", "necessary": 1, "fieldOrder": 0, "valid": 'true',
-                 "constraint": "{\"key\": \"Standard\"}", "value": None},
-                {"id": None, "bid": "989123712022351873", "fieldName": "bbb", "fieldIdent": "bbb",
-                 "fieldType": "select", "fieldTypeRef": "Chipset", "necessary": 1, "fieldOrder": 1, "valid": 'true',
-                 "constraint": "{\"key\": \"Chipset\"}", "value": None}]}
+            "prdInfoVOS": [
+                {
+                    "scPrdBaseInfoVO": {
+                        "bizType": "create",
+                        "globalVersion": "ver1",
+                        "marketName": f"市场名称{querytime}",
+                        "projectName": f"项目名称{querytime}",
+                        "memory": "128+8",
+                        "bandStrategy": "latinAmericaMarket",
+                        "productManager": "18645960",
+                        "projectManager": "18645960",
+                        "brandCode": "infinix",
+                        "editStatus": False,
+                        "isAdd": True
+                    },
+                    "scPrdUniversalInfoMap": {
+                        "camera": "摄像头",
+                        "type": "型号",
+                        "new": "新增",
+                        "anthor": "Standard2",
+                        "Color": [
+                            "Aqua Blue"
+                        ],
+                        "inch": "Chipset3"
+                    },
+                    "countryProperties": {}
+                }
+            ],
+            "flowMainVO": {
+                "title": f"[李小素]-[{titletime}]",
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowDept": "PI_系统四部",
+                "flowStartdate": flowStartdate,
+                "remark": "",
+                "busiType": "",
+                "type": "frontEnd",
+                "flowProposerName": "李小素"
+            },
+            "scProjectVO": {
+                "brandCode": "infinix",
+                "projectName": f"项目名称{querytime}",
+                "templateBid": "1029349848463314944"
+            },
+            "submitType": "submit",
+            "approvers": {
+                "bisSupplyApprovers": [
+                    {
+                        "role": "",
+                        "roleKey": "verb",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ],
+                "bisSupplySenders": [
+                    {
+                        "role": "",
+                        "roleKey": "verc",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ]
+            },
+            "areas": [],
+            "uploadList": [],
+            "fields": [
+                {
+                    "id": None,
+                    "bid": "1029349849134403584",
+                    "fieldName": "摄像头",
+                    "fieldIdent": "camera",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 0,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403585",
+                    "fieldName": "型号",
+                    "fieldIdent": "type",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 1,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403586",
+                    "fieldName": "新增",
+                    "fieldIdent": "new",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 2,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403587",
+                    "fieldName": "再增",
+                    "fieldIdent": "anthor",
+                    "fieldType": "select",
+                    "fieldTypeRef": "Standard",
+                    "necessary": 1,
+                    "fieldOrder": 3,
+                    "valid": True,
+                    "constraint": "{\"key\": \"Standard\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403588",
+                    "fieldName": "配色",
+                    "fieldIdent": "Color",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "colorSet",
+                    "necessary": 1,
+                    "fieldOrder": 4,
+                    "valid": True,
+                    "constraint": "{\"key\": \"colorSet\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403589",
+                    "fieldName": "尺寸",
+                    "fieldIdent": "inch",
+                    "fieldType": "select",
+                    "fieldTypeRef": "Chipset",
+                    "necessary": 1,
+                    "fieldOrder": 5,
+                    "valid": True,
+                    "constraint": "{\"key\": \"Chipset\"}",
+                    "value": None
+                }
+            ]
+        }
         search_data = {"param": {"title": "", "flowNo": "", "projectName": f"项目名称{querytime}", "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
                                  "flowStartdate": ""}, "current": 1, "size": 10}
@@ -1459,8 +1583,14 @@ class APIRequest:
                         "editStatus": False
                     },
                     "scPrdUniversalInfoMap": {
-                        "aaaa": "Standard6",
-                        "bbb": "Chipset3"
+                        "camera": "摄像头test",
+                        "type": "型号test",
+                        "new": "新增test",
+                        "anthor": "Standard2",
+                        "Color": [
+                            "Aqua Blue"
+                        ],
+                        "inch": "Chipset3"
                     },
                     "countryProperties": {}
                 }
@@ -1472,6 +1602,7 @@ class APIRequest:
                 "flowDept": "PI_系统四部",
                 "flowStartdate": flowStartdate,
                 "remark": "",
+                "type": "frontEnd",
                 "busiType": "insOrUpdProduct",
                 "flowProposerName": "李小素"
             },
@@ -1513,34 +1644,7 @@ class APIRequest:
             },
             "areas": [],
             "uploadList": [],
-            "fields": [
-                {
-                    "id": None,
-                    "bid": "989123712022351872",
-                    "fieldName": "aaa",
-                    "fieldIdent": "aaaa",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Standard",
-                    "necessary": 1,
-                    "fieldOrder": 0,
-                    "valid": True,
-                    "constraint": "{\"key\": \"Standard\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "989123712022351873",
-                    "fieldName": "bbb",
-                    "fieldIdent": "bbb",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Chipset",
-                    "necessary": 1,
-                    "fieldOrder": 1,
-                    "valid": True,
-                    "constraint": "{\"key\": \"Chipset\"}",
-                    "value": None
-                }
-            ]
+            "fields": queryArchDetail['data']['fields']
         }
         search_data = {"param": {"title": "", "flowNo": "", "projectName": projectName, "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
@@ -1933,8 +2037,14 @@ class APIRequest:
                         "editStatus": False
                     },
                     "scPrdUniversalInfoMap": {
-                        "bbb": "Chipset2",
-                        "aaaa": "Standard4"
+                        "camera": "摄像头test",
+                        "type": "型号test",
+                        "new": "新增test",
+                        "anthor": "Standard2",
+                        "Color": [
+                            "Aqua Blue"
+                        ],
+                        "inch": "Chipset3"
                     },
                     "countryProperties": {}
                 }
@@ -1963,26 +2073,78 @@ class APIRequest:
             "fields": [
                 {
                     "id": None,
-                    "bid": "989123712022351872",
-                    "fieldName": "aaa",
-                    "fieldIdent": "aaaa",
+                    "bid": "1029349849134403584",
+                    "fieldName": "摄像头",
+                    "fieldIdent": "camera",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 0,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403585",
+                    "fieldName": "型号",
+                    "fieldIdent": "type",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 1,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403586",
+                    "fieldName": "新增",
+                    "fieldIdent": "new",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 2,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403587",
+                    "fieldName": "再增",
+                    "fieldIdent": "anthor",
                     "fieldType": "select",
                     "fieldTypeRef": "Standard",
                     "necessary": 1,
-                    "fieldOrder": 0,
+                    "fieldOrder": 3,
                     "valid": True,
                     "constraint": "{\"key\": \"Standard\"}",
                     "value": None
                 },
                 {
                     "id": None,
-                    "bid": "989123712022351873",
-                    "fieldName": "bbb",
-                    "fieldIdent": "bbb",
+                    "bid": "1029349849134403588",
+                    "fieldName": "配色",
+                    "fieldIdent": "Color",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "colorSet",
+                    "necessary": 1,
+                    "fieldOrder": 4,
+                    "valid": True,
+                    "constraint": "{\"key\": \"colorSet\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403589",
+                    "fieldName": "尺寸",
+                    "fieldIdent": "inch",
                     "fieldType": "select",
                     "fieldTypeRef": "Chipset",
                     "necessary": 1,
-                    "fieldOrder": 1,
+                    "fieldOrder": 5,
                     "valid": True,
                     "constraint": "{\"key\": \"Chipset\"}",
                     "value": None

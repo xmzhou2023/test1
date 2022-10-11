@@ -548,6 +548,64 @@ class TestCreateProcessExceptionScenario:
         user.input_add_bom_info('模式', '零价值客供')
         user.click_add_submit()
         user.assert_toast('Bom Tree不能为空！')
+
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("不点击生成BOM，Bom Tree不能为空！")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息填写完整，输入业务审核必填项，填写衍生BOM制作需求，不点击生成BOM，点击提交，提示Bom Tree不能为空！")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_020(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_bom_info('制作类型', '客供BOM衍生')
+        user.input_add_bom_info('品牌', 'itel')
+        user.input_add_bom_info('机型', 'JMB-01')
+        user.input_add_bom_info('阶段', '量产阶段')
+        user.input_add_bom_info('市场', '埃塞本地')
+        user.input_add_bom_info('模式', '零价值客供')
+        user.click_Derived_add()
+        user.input_Derived_info('新BOM编码', '12000003')
+        user.input_Derived_info('原始BOM编码', '12014351')
+        user.input_Derived_info('原始BOM工厂', 'PL01')
+        user.click_Derived_differ()
+        user.click_Derived_add()
+        user.input_Derived_info('BOM编码', '12000003')
+        user.input_Derived_info('操作', '新增物料')
+        user.input_Derived_info('处理物料编码', '12800001')
+        user.input_Derived_info('用量', '1000')
+        user.click_add_submit()
+        user.assert_toast('Bom Tree不能为空！')
+
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("生产工厂信息不能为空！")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息填写完整，输入业务审核必填项，填写衍生BOM制作需求，不点击生成BOM，点击提交，提示Bom Tree不能为空！")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_021(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_bom_info('制作类型', '客供BOM衍生')
+        user.input_add_bom_info('品牌', 'itel')
+        user.input_add_bom_info('机型', 'JMB-01')
+        user.input_add_bom_info('阶段', '量产阶段')
+        user.input_add_bom_info('市场', '埃塞本地')
+        user.input_add_bom_info('模式', '零价值客供')
+        user.click_Derived_add()
+        user.input_Derived_info('新BOM编码', '12000003')
+        user.input_Derived_info('原始BOM编码', '12014351')
+        user.input_Derived_info('原始BOM工厂', 'PL01')
+        user.click_Derived_differ()
+        user.click_Derived_add()
+        user.input_Derived_info('BOM编码', '12000003')
+        user.input_Derived_info('操作', '新增物料')
+        user.input_Derived_info('处理物料编码', '12800001')
+        user.input_Derived_info('用量', '1000')
+        user.click_Creat_BOM()
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('生产工厂信息不能为空！')
+
 @allure.feature("BOM协作-外研BOM协作")  # 模块名称
 class TestTheProcessOfExaminationAndApproval:
 

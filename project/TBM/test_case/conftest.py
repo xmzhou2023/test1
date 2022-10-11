@@ -247,7 +247,7 @@ def SaleCountry_CountryChange_API():
 def SaleCountry_ProductChange_All_API():
     logging.info('开始前置操作-变更产品')
     user = APIRequest()
-    api_response = user.API_Change_Product('出货国家查询变更产品自动化全流程测试')
+    api_response = user.API_Change_Product('出货国家查询-变更产品自动化全流程测试')
     yield api_response
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])

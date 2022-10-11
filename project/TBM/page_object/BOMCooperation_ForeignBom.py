@@ -450,7 +450,7 @@ class ForeignBom(CenterComponent):
     def click_Creat_BOM(self):
         self.is_click_tbm(user['生成BOM'])
         logging.info('点击生成BOM')
-        sleep(1)
+        sleep(2)
 
 
 if __name__ == '__main__':

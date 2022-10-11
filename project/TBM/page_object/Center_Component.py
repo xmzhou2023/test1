@@ -187,6 +187,7 @@ class CenterComponent(Base, APIRequest):
         try:
             att = self.wait.until(
                     EC.visibility_of_element_located((By.XPATH, "//div[@role='alert']/p"))).text
+            self.base_get_img()
             logging.info('获取toast提示语：{}'.format(att))
             try:
                 if content is None:
@@ -448,7 +449,6 @@ class CenterComponent(Base, APIRequest):
         if self.element_exist(user['基本信息']) is False:
             self.is_click_tbm(user['新增'])
             sleep(1)
-        self.base_get_img()
         DomAssert(self.driver).assert_att('基本信息')
 
     @allure.step("断言：区域配置数据按照时间降序排序")
