@@ -95,13 +95,27 @@ class DcrLoginPage(Base):
     def dcr_click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(login['登录dcr'])
-        sleep(6)
+        sleep(4)
 
     def dcr_click_loginOut(self):
         """点击退出登录"""
         sleep(2)
         self.is_click(login['退出登录dcr'])
         sleep(2)
+
+    def dcr_get_yinsizhengce(self):
+        """获取页面是否有隐私政策内容"""
+        yinsizhengce = self.element_text(login['DCR隐私政策'])
+        return yinsizhengce
+
+    def dcr_click_agree(self):
+        """同意按钮"""
+        self.is_click(login['agree button'])
+
+    def dcr_get_home_page_customer(self):
+        """获取页面是否有隐私政策内容"""
+        home_page_cust = self.element_text(login['Home Page Customer'])
+        return home_page_cust
 
 
 

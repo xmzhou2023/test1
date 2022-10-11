@@ -19,6 +19,10 @@ zx扫码快捷登录: "id==tab-code"
 登录dcr: "xpath==//span[contains(text(),'LOGIN')]"
 退出登录dcr: "id==LoginOut"
 #退出登录dcr: "css==[id='LoginOut']"
+Home Page Customer: "xpath==//li//span[text()='Home Page-Customer']"
+DCR隐私政策: "xpath==//span[text()='隐私政策']"
+agree button: "xpath==//div[@class='pr-dialog_footer']//button[text()='同意']"
+
 
 #SRM定位元素
 主账号srm: 'xpath==//input[@id="elsAccount"]'

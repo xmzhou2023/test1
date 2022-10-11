@@ -1,3 +1,5 @@
+import logging
+
 from public.base.basics import Base
 # from libs.common.read_config import ini
 from public.libs.unified_login.page_object.login import LoginPage, SrmLoginPage, PopLoginPage, OALoginPage
@@ -32,6 +34,16 @@ class Login(Base):
         if "is-checked" not in str(get_check_class):
             user.dcr_click_check_box()
         user.dcr_click_loginsubmit()
+
+        """判断是否弹出DCR隐私政策页面"""
+        get_home_page = user.dcr_get_home_page_customer()
+        if get_home_page != 'Home Page-Customer':
+            get_yinsizhegnce = user.dcr_get_yinsizhengce()
+            if get_yinsizhegnce == '隐私政策':
+                user.get_yinsizhegnce()
+        else:
+            logging.info("打印获取的内容：{}".format(get_home_page))
+
 
     def crm_login(self, drivers, url, username, passwd):
         """统一登录֤"""
