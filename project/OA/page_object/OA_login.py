@@ -115,8 +115,8 @@ class OAdnluPage(Base):
     def password(self):
         aa = base64.decodebytes(bytes("MTg2NDcyMjA=\n", 'utf-8'))
         pa = base64.decodebytes(bytes("dGVkZHlAMjg2Mw==\n", 'utf-8'))
-
-        return aa, pa
+        DA = base64.decodebytes(bytes("VGVkZHlAMjg2Mw==\n", 'utf-8'))
+        return aa, pa, DA
 
     def input_text_log_oa(self, locator, txt, *choice):
         """输入文本"""
