@@ -1430,18 +1430,18 @@ class TestProcessSearch:
     def test_006_011(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.input_search_info('标题', '自动化查询用例')
+        user.input_search_info('标题', '自动化查询用例test')
         user.click_search()
-        user.click_edit('自动化查询用例')
+        user.click_edit('自动化查询用例test')
         user.select_business_review('李小素', 'MPM')
         user.click_add_save()
         DomAssert(drivers).assert_att('保存草稿成功')
-        user.click_edit('自动化查询用例')
+        user.click_edit('自动化查询用例test')
         user.click_add_submit()
         DomAssert(drivers).assert_att('创建流程成功')
-        user.input_search_info('标题', '自动化查询用例')
+        user.input_search_info('标题', '自动化查询用例test')
         user.click_search()
-        code = user.get_bom_info('单机头BOM协作', '自动化查询用例', '流程编码')
+        code = user.get_bom_info('单机头BOM协作', '自动化查询用例test', '流程编码')
         user.recall_process(code)
 
     @allure.story("流程查询")  # 场景名称
@@ -1452,12 +1452,12 @@ class TestProcessSearch:
     def test_006_012(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.input_search_info('标题', '自动化查询用例')
+        user.input_search_info('标题', '自动化查询用例test')
         user.click_search()
-        user.click_delete('自动化查询用例')
+        user.click_delete('自动化查询用例test')
         user.click_delete_cancel()
         user.click_search()
-        user.assert_search_result('标题', '自动化查询用例')
+        user.assert_search_result('标题', '自动化查询用例test')
 
 
 if __name__ == '__main__':

@@ -150,7 +150,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.input_product_definition_info('新增', '新增test')
         self.input_product_definition_info('再增', '1G')
         self.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
-        self.input_product_definition_info('尺寸', 'MT6761')
+        self.input_product_definition_info('尺寸', '4M')
         self.click_product_definition_confirm()
         self.click_onework_agree()
         self.assert_toast()

@@ -1370,7 +1370,7 @@ class APIRequest:
                         "productManager": "18645960",
                         "projectManager": "18645960",
                         "brandCode": "infinix",
-                        "editStatus": False,
+                        "editStatus": True,
                         "isAdd": True
                     },
                     "scPrdUniversalInfoMap": {
@@ -1381,7 +1381,9 @@ class APIRequest:
                         "Color": [
                             "Aqua Blue"
                         ],
-                        "inch": "Chipset3"
+                        "inch": [
+                            "RearCamera1"
+                        ]
                     },
                     "countryProperties": {}
                 }
@@ -1400,7 +1402,7 @@ class APIRequest:
             "scProjectVO": {
                 "brandCode": "infinix",
                 "projectName": f"项目名称{querytime}",
-                "templateBid": "1029349848463314944"
+                "templateBid": "1029692351762796544"
             },
             "submitType": "submit",
             "approvers": {
@@ -1426,7 +1428,7 @@ class APIRequest:
             "fields": [
                 {
                     "id": None,
-                    "bid": "1029349849134403584",
+                    "bid": "1029692352958173184",
                     "fieldName": "摄像头",
                     "fieldIdent": "camera",
                     "fieldType": "text",
@@ -1439,7 +1441,7 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1029349849134403585",
+                    "bid": "1029692352958173185",
                     "fieldName": "型号",
                     "fieldIdent": "type",
                     "fieldType": "text",
@@ -1452,7 +1454,7 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1029349849134403586",
+                    "bid": "1029692352958173186",
                     "fieldName": "新增",
                     "fieldIdent": "new",
                     "fieldType": "text",
@@ -1465,7 +1467,7 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1029349849134403587",
+                    "bid": "1029692352958173187",
                     "fieldName": "再增",
                     "fieldIdent": "anthor",
                     "fieldType": "select",
@@ -1478,7 +1480,7 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1029349849134403588",
+                    "bid": "1029692352958173188",
                     "fieldName": "配色",
                     "fieldIdent": "Color",
                     "fieldType": "select_multiple",
@@ -1491,19 +1493,20 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1029349849134403589",
+                    "bid": "1029692352958173189",
                     "fieldName": "尺寸",
                     "fieldIdent": "inch",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Chipset",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "RearCamera",
                     "necessary": 1,
                     "fieldOrder": 5,
                     "valid": True,
-                    "constraint": "{\"key\": \"Chipset\"}",
+                    "constraint": "{\"key\": \"RearCamera\"}",
                     "value": None
                 }
             ]
         }
+
         search_data = {"param": {"title": "", "flowNo": "", "projectName": f"项目名称{querytime}", "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
                                  "flowStartdate": ""}, "current": 1, "size": 10}
@@ -1590,7 +1593,7 @@ class APIRequest:
                         "Color": [
                             "Aqua Blue"
                         ],
-                        "inch": "Chipset3"
+                        "inch": "RearCamera1"
                     },
                     "countryProperties": {}
                 }
@@ -1845,7 +1848,7 @@ class APIRequest:
             "fields": [
                 {
                     "id": None,
-                    "bid": "1022146929804578816",
+                    "bid": "1029692352958173184",
                     "fieldName": "摄像头",
                     "fieldIdent": "camera",
                     "fieldType": "text",
@@ -1858,7 +1861,7 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1022146929804578817",
+                    "bid": "1029692352958173185",
                     "fieldName": "型号",
                     "fieldIdent": "type",
                     "fieldType": "text",
@@ -1871,7 +1874,7 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1022146929804578818",
+                    "bid": "1029692352958173186",
                     "fieldName": "新增",
                     "fieldIdent": "new",
                     "fieldType": "text",
@@ -1884,7 +1887,7 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1022146929804578819",
+                    "bid": "1029692352958173187",
                     "fieldName": "再增",
                     "fieldIdent": "anthor",
                     "fieldType": "select",
@@ -1897,7 +1900,7 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1022146929804578820",
+                    "bid": "1029692352958173188",
                     "fieldName": "配色",
                     "fieldIdent": "Color",
                     "fieldType": "select_multiple",
@@ -1910,15 +1913,15 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1022146929804578821",
+                    "bid": "1029692352958173189",
                     "fieldName": "尺寸",
                     "fieldIdent": "inch",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Chipset",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "RearCamera",
                     "necessary": 1,
                     "fieldOrder": 5,
                     "valid": True,
-                    "constraint": "{\"key\": \"Chipset\"}",
+                    "constraint": "{\"key\": \"RearCamera\"}",
                     "value": None
                 }
             ]
@@ -2044,7 +2047,7 @@ class APIRequest:
                         "Color": [
                             "Aqua Blue"
                         ],
-                        "inch": "Chipset3"
+                        "inch": "RearCamera1"
                     },
                     "countryProperties": {}
                 }
@@ -2138,15 +2141,15 @@ class APIRequest:
                 },
                 {
                     "id": None,
-                    "bid": "1029349849134403589",
+                    "bid": "1029692352958173189",
                     "fieldName": "尺寸",
                     "fieldIdent": "inch",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Chipset",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "RearCamera",
                     "necessary": 1,
                     "fieldOrder": 5,
                     "valid": True,
-                    "constraint": "{\"key\": \"Chipset\"}",
+                    "constraint": "{\"key\": \"RearCamera\"}",
                     "value": None
                 }
             ]
