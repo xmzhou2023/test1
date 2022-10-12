@@ -40,7 +40,7 @@ class Login(Base):
         if get_home_page != 'Home Page-Customer':
             get_yinsizhegnce = user.dcr_get_yinsizhengce()
             if get_yinsizhegnce == '隐私政策':
-                user.get_yinsizhegnce()
+                user.dcr_click_agree()
         else:
             logging.info("打印获取的内容：{}".format(get_home_page))
 
