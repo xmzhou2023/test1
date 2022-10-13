@@ -636,7 +636,7 @@ class TestCreateProcessExceptionScenario:
         user.click_add()
         user.input_add_bom_info('制作类型', '客供BOM衍生')
         user.click_add_submit()
-        user.assert_toast('请完善基本信息！')
+        user.assert_toast('请完善Bom信息！')
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("Bom Tree不能为空！")  # 用例名称
@@ -798,8 +798,17 @@ class TestCreateProcessExceptionScenario:
         user.input_Derived_info('操作', '新增物料')
         user.input_Derived_info('处理物料编码', '12800001')
         user.input_Derived_info('用量', '10')
+        user.click_Derived_add()
+        user.input_Derived_info('BOM编码', '12000003', 2)
+        user.input_Derived_info('操作', '新增物料', 2)
+        user.input_Derived_info('处理物料编码', '12100001', 2)
+        user.input_Derived_info('用量', '10', 2)
         user.click_Creat_BOM()
-        user.assert_toast('父阶BOM料号12000003下的子阶BOM料号12800001用量不为1000')
+        user.click_refresh()
+        user.select_business_review('李小素', 'PPM')
+        user.select_business_review('李小素', 'QPM')
+        user.click_add_submit()
+        user.assert_toast('父阶BOM料号12000003下的子阶BOM料号12100001用量不为1000')
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("业务审核必填项需填写完整！")  # 用例名称
@@ -1264,7 +1273,7 @@ class TestProcessSearch:
         user.refresh_webpage_click_menu()
         user.input_search_info('标题', '自动化查询用例test')
         user.click_search()
-        user.click_delete('自动化查询用例')
+        user.click_delete('自动化查询用例test')
         user.click_delete_cancel()
         user.assert_search_result('标题', '自动化查询用例test')
 if __name__ == '__main__':

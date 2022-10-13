@@ -282,30 +282,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         sleep(60)
         self.assert_my_application_flow(code, '审批完成')
 
-    @allure.step("点击变更已有产品")
-    def click_products(self):
-        self.is_click_tbm(user['变更已有产品'])
-        logging.info('点击变更已有产品')
 
-    @allure.step("输入已有产品")
-    def search_products(self, header, txt):
-        self.input_text(user['变更已有产品输入框'], txt, header)
-        self.is_click_tbm(user['查询'])
-
-    @allure.step("选择已有产品")
-    def select_products(self, name):
-        self.is_click_tbm(user['变更已有产品选择'], name)
-        logging.info('选择已有产品:{}'.format(name))
-
-    @allure.step("断言变更国家增加已变更产品成功")
-    def assert_change_success(self, content):
-        ac_content = self.get_table_content(user['产品定义信息内容'])
-        try:
-            assert content in ac_content
-            logging.info('断言成功，结果包含内容')
-        except:
-            logging.info('断言失败，结果不包含内容')
-            raise
 
     @allure.step("点击市场名称，跳转连接")
     def click_TableLink(self, name):

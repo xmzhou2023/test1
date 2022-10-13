@@ -3413,5 +3413,56 @@ class APIRequest:
         self.Request_PCBA_Approve(approve_data, headers)
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：PCBABOM协作-业务审核通过流程')
+
+    def Request_TBM_ServiceDictList(self, data, headers):
+        """
+        TBM 字典服务接口
+        @param data: 接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：TBM字典服务列表接口')
+        return self.api_request('TBM字典服务列表接口', data, headers)
+
+    @allure.step("TBM字典服务列表接口")
+    def API_TBM_ServiceDictList(self):
+        logging.info('发起流程接口：TBM字典服务接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        search_data = {
+            "param": {
+                "refAppCode": "TBM"
+            },
+            "current": 1,
+            "size": 10
+        }
+        return self.Request_TBM_ServiceDictList(search_data, headers)
+
+    @allure.step("TBM字典服务数据接口")
+    def API_TBM_ServiceDictData(self, codes, appCode='tbm', status='enable'):
+        logging.info('发起流程接口：TBM字典服务数据接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-base-dictionary/base/dictionaries?codes={codes}&appCode={appCode}&status={status}')
+        history_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/service-base-dictionary/base/dictionaries?codes={codes}&appCode={appCode}&status={status}',
+            headers=headers)
+        response_dicts = history_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：TBM字典服务数据接口')
+        return response_dicts
+
+    @allure.step("员工查询接口")
+    def API_queryDeptAndEmployee(self, code):
+        """
+        @param code: 工号
+        """
+        logging.info('发起请求：员工查询接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        response = requests.post(
+            url=eval(ini._get('API', '员工查询接口')),
+            data=code.encode('utf-8'), headers=headers).json()
+        logging.info('获取审批人：%s', response)
+        return response
 if __name__ == '__main__':
     a = APIRequest()

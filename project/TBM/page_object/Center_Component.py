@@ -657,6 +657,10 @@ class CenterComponent(Base, APIRequest):
         sleep(2)
         self.is_click_tbm(user['产品定义信息编辑'])
 
+    @allure.step("产品定义信息-点击复制")
+    def click_product_definition_copy(self):
+        self.is_click_tbm(user['产品定义信息复制'])
+
     @allure.step("出货国家流程新增页面 - 新增产品定义信息")
     def input_product_definition_info(self, header, content):
         """
@@ -803,5 +807,65 @@ class CenterComponent(Base, APIRequest):
         logging.info('获取结果{}'.format(infolist))
         return infolist
 
+    @allure.step("断言：出货国家选择全球版本，汇签人员会自动获取人员")
+    def assert_version_get_member(self, ver):
+        ver_dict = {'版本1': 'ver1', '版本2': 'ver2', '版本3': 'ver3'}
+        Employee_list = []
+        ServiceDictData = self.API_TBM_ServiceDictData('GLOBAL_VERB')
+        for i in ServiceDictData['data'][0]['values']:
+            if i['key'] == ver_dict[ver]:
+                member_list = i['chValue'].split(',')
+                logging.info('获取字典服务汇签人员工号：{}'.format(member_list))
+                for j in member_list:
+                    Employee_Name = self.API_queryDeptAndEmployee(j)['data'][0]['employeeName']
+                    Employee_list.append(Employee_Name)
+                logging.info('获取字典服务汇签人员名字：{}'.format(Employee_list))
+        self.assert_member('汇签人员', Employee_list)
+
+    @allure.step("断言：出货国家选择全球版本，汇签人员会自动获取人员")
+    def assert_member(self, type, member):
+        signatory_List = self.element_input_text(user['汇签/抄送人员选择框'], type).split(';')
+        try:
+            assert set(member) <= set(signatory_List)
+            logging.info('断言成功，{}：{} 包含人员：{}'.format(type, signatory_List, member))
+        except:
+            logging.error('断言失败，{}：{} 不包含人员：{}'.format(type, signatory_List, member))
+            raise
+
+    @allure.step("断言变更国家增加已变更产品成功")
+    def assert_change_success(self, content):
+        ac_content = self.get_table_content(user['产品定义信息内容'])
+        try:
+            assert content in ac_content
+            logging.info('断言成功，结果包含内容')
+        except:
+            logging.info('断言失败，结果不包含内容')
+            raise
+
+    @allure.step("断言产品定义信息复制成功")
+    def assert_copy_success(self, content):
+        ac_content = self.get_table_content(user['产品定义信息内容'])
+        content_num = ac_content.count(content)
+        try:
+            assert content_num == 2
+            logging.info('断言成功，{} 存在{}条数据'.format(content, content_num))
+        except:
+            logging.info('断言失败，{} 存在{}条数据'.format(content, content_num))
+            raise
+
+    @allure.step("点击变更已有产品")
+    def click_products(self):
+        self.is_click_tbm(user['变更已有产品'])
+        logging.info('点击变更已有产品')
+
+    @allure.step("输入已有产品")
+    def search_products(self, header, txt):
+        self.input_text(user['变更已有产品输入框'], txt, header)
+        self.is_click_tbm(user['查询'])
+
+    @allure.step("选择已有产品")
+    def select_products(self, name):
+        self.is_click_tbm(user['变更已有产品选择'], name)
+        logging.info('选择已有产品:{}'.format(name))
 if __name__ == '__main__':
     pass

@@ -47,6 +47,88 @@ class TestCreateProcess:
         process_code = user.get_info(f'项目名称{querytime}')[2]
         user.delete_shipping_country_flow(process_code)
 
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("选择全球版本，汇签人员会自动获取人员")  # 用例名称
+    @allure.description("进入出货国家流程后，点击进行新增，新增页面选择品牌后，在产品定义信息中点击新增，新增时选择全球版本，选择全球版本后，汇签人员会自动获取人员")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_002(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', f'项目名称{querytime}')
+        user.click_add()
+        user.input_product_definition_info('全球版本', '版本1')
+        user.assert_version_get_member('版本1')
+        user.input_product_definition_info('全球版本', '版本2')
+        user.assert_version_get_member('版本2')
+        user.input_product_definition_info('全球版本', '版本3')
+        user.assert_version_get_member('版本3')
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("新增产品经理和项目经理，查看抄送人员是自动添加登录人+产品经理+项目经理")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，在产品定义信息中，新增产品经理和项目经理，查看抄送人员是自动添加登录人+产品经理+项目经理")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_003(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', f'项目名称{querytime}')
+        user.click_add()
+        user.input_product_definition_info('产品经理', '陈月')
+        user.input_product_definition_info('项目经理', '潘美佳')
+        user.assert_member('抄送人员', ['陈月', '潘美佳', '李小素'])
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("产品定义信息中存在该条已选择的数据")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，在产品定义信息中，点击变更已有产品，会弹出选择框，选中其中一条数据，点击选择，产品定义信息中存在该条已选择的数据")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_004(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', f'项目名称{querytime}')
+        user.click_products()
+        user.search_products('市场名称', '出货国家查询-变更产品-全流程-自动化测试项目-市场名称')
+        user.select_products('出货国家查询-变更产品-全流程-自动化测试项目-市场名称')
+        user.assert_change_success('出货国家查询-变更产品-全流程-自动化测试项目-市场名称')
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("产品定义信息中新增一条数据，新增后点击复制成功")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，在产品定义信息中新增一条数据，新增后点击复制，查看是会出现一条相同的数据")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_005(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '项目名称测试复制')
+        user.click_add()
+        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('市场名称', '市场名称测试复制')
+        user.input_product_definition_info('项目名称', '项目名称测试复制')
+        user.input_product_definition_info('MEMORY', '128+8')
+        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('项目经理', '李小素')
+        user.input_product_definition_info('摄像头', '摄像头')
+        user.input_product_definition_info('型号', '型号')
+        user.input_product_definition_info('新增', '新增')
+        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
+        user.input_product_definition_info('尺寸', '64M')
+        user.click_product_definition_confirm()
+        user.click_product_definition_copy()
+        user.assert_toast('复制产品成功！')
+        user.assert_copy_success('项目名称测试复制')
 
 @allure.feature("出货国家-出货国家流程")  # 模块名称
 class TestTheProcessOfExaminationAndApproval:

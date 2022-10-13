@@ -4,7 +4,7 @@
 重置: "xpath==//button/span[contains(text(),'重置')]"
 关闭: "xpath==//*[@id='tags-view-container']//span[contains(text(),'项目经理发起流程')]/span"
 表格内容: "xpath==//*[@id='app']/div/div[2]/section/div/div/div/div/div[3]/div[3]/table/tbody/tr[1]/td"
-表格指定行内容: "xpath==//div[text()='variable']/../..//td"
+表格指定行内容: "xpath==//div[text()='variable']/../../..//td"
 确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
 查看: "xpath==//div[normalize-space(text())='variable']/../..//button/span[contains(text(),'查看')]"
 删除: "xpath==//div[normalize-space(text())='variable']/../..//button[not(contains(@style,'display: none;'))]/span[text()='删除']"

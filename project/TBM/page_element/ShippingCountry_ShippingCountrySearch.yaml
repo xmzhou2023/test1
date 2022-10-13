@@ -3,7 +3,7 @@
 重置: "xpath==//button/span[contains(text(),'重置')]"
 关闭: "xpath==//*[@id='tags-view-container']//span[contains(text(),'项目经理发起流程')]/span"
 表格内容: "xpath==//*[@id='app']/div/div[2]/section/div/div/div/div/div[3]/div[3]/table/tbody/tr[1]/td"
-表格指定行内容: "xpath==//div[text()='variable']/../..//td"
+表格指定行内容: "xpath==//div[text()='variable']/../../..//td"
 确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
 查看: "xpath==//div[normalize-space(text())='variable']/../..//button/span[contains(text(),'查看')]"
 删除: "xpath==//div[normalize-space(text())='variable']/../..//button[not(contains(@style,'display: none;'))]/span[text()='删除']"
@@ -58,8 +58,6 @@ oneworks-节点-产品经理修改-产品定义信息-变更-操作框: "xpath==
 变更已有产品: "xpath==//span[normalize-space(text())='变更已有产品']"
 变更已有产品输入框: "xpath==//div[@aria-label='选择变更产品']//label[normalize-space(text())='variable']/..//input"
 变更已有产品选择: "xpath==//div[@aria-label='选择变更产品']//span[normalize-space(text())='variable']/../../..//span[normalize-space(text())='选择']"
-产品定义信息内容: "xpath==//span[normalize-space(text())='产品定义信息']/../../../..//div[@class='el-table__fixed']//tbody/tr"
-
 
 ###==========================================汇签/抄送人员========================================
 汇签/抄送人员选择框: "xpath==//span[text()='汇签/抄送人员']/../../../..//label[text()='variable']/..//input"
