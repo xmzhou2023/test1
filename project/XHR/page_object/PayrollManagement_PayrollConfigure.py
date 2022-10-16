@@ -9,12 +9,13 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-class Countryprogrammes(Base):
+class PayrollConfigure(Base):
     """用户类"""
 
     @allure.step("点击菜单")
     def click_menus(self, metatitle,nestmenu):
-        self.is_click(user['展示'])
+        self.refresh()
+        self.hover(user['XHR'])
         self.is_click(user['一级菜单'],metatitle)
         logging.info(f'点击一级菜单：{metatitle}')
         self.is_click(user['二级菜单'], nestmenu)
@@ -57,9 +58,6 @@ class Countryprogrammes(Base):
     def click_sure(self, type):
         self.is_click(user['确定或取消'],type)
         # DomAssert(self.driver).assert_att('编码已存在')
-        
-
-
 
 if __name__ == '__main__':
     pass

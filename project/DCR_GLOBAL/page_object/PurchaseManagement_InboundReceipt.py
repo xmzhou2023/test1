@@ -86,7 +86,6 @@ class InboundReceiptPage(Base):
         """ 输入品牌条件，进行筛选操作 """
         self.is_click_dcr(user['Click Select Brand'])
         sleep(1.5)
-        self.is_click(user['Select itel'])
         self.is_click(user['Select TECNO'])
 
     def get_delivery_date_text(self):

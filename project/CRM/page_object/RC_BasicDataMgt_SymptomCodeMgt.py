@@ -18,7 +18,9 @@ class SymCodePage(Base):
     """现象码"""
 
 
-
+    @allure.step("刷新页面")
+    def GoTo_refresh(self):
+        self.refresh()
 
 
     @allure.step("进入现象码页面")

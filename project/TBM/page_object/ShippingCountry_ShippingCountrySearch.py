@@ -1,5 +1,8 @@
 import logging
 from time import sleep
+
+from selenium.webdriver import Keys
+
 from libs.common.read_element import Element
 from project.TBM.page_object.Center_Component import CenterComponent
 from ..test_case.conftest import *
@@ -223,7 +226,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
 
     @allure.step("编辑修改产品定义信息-区域")
-    def edit_product_definition_ctyinfo(self, header, content):
+    def edit_product_definition_ctyinfo(self, item, header, content):
         """
         国家出货查询 变更国家 进入流程页面
         编辑修改产品定义信息
@@ -231,8 +234,11 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         :param content: 选择信息内容
         """
         definition_dict = {'EE1': '14', '乍得': '15', '中国': '16', '2马其顿2': '17', '孟加拉': '18', '韩国': '19'}
-        self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
+        self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-指定-编辑'], item)
+        col = self.get_table_info(user['产品定义信息表格字段'], header)
+        self.is_click_tbm(user['产品定义信息表格指定内容'], item, col)
         self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-选择'], content)
+        self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
 
     @allure.step("编辑修改产品定义信息-删除区域信息")
     def edit_product_definition_closed_ctyinfo(self, header='all'):
@@ -278,5 +284,59 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
 
 
 
+    @allure.step("点击市场名称，跳转连接")
+    def click_TableLink(self, name):
+        self.is_click_tbm(user['跳转连接'], name)
+        sleep(1)
+
+    @allure.step("点击变更记录")
+    def click_ChangeHistory(self, name):
+        self.is_click_tbm(user['变更记录'], name)
+
+    @allure.step("断言版本记录有内容")
+    def assert_VersionHistory(self):
+        DomAssert(self.driver).assert_control(user['版本记录内容'], result=True)
+
+    @allure.step("断言变更记录有内容")
+    def assert_ChangeHistory(self):
+        DomAssert(self.driver).assert_control(user['变更记录内容'], result=True)
+
+    @allure.step("点击信息复选框全选")
+    def click_InfoCheckBox(self):
+        self.is_click_tbm(user['复选框全选'])
+
+    @allure.step("点击批量修改")
+    def click_Bulk_Editing(self):
+        self.is_click_tbm(user['批量修改'])
+
+    @allure.step("批量修改选择地区")
+    def select_Bulk_Editing_cty(self, cty):
+        """
+        @param cty: 国家区域
+        """
+        self.is_click_tbm(user['国家区域'])
+        cty_text = self.element_text(user['国家区域文本'])
+        if cty_text == cty:
+            self.is_click_tbm(user['国家区域选择'], cty)
+        else:
+            self.is_click_tbm(user['国家区域展开'])
+            self.is_click_tbm(user['国家区域选择'], cty)
+        self.is_click_tbm(user['一键填写标题'])
+
+    @allure.step("批量修改选择出货/认证备份")
+    def select_Bulk_Editing_status(self, status):
+        """
+        @param status: 出货/认证备份
+        """
+        self.is_click_tbm(user['出货/认证备份'])
+        self.is_click_tbm(user['出货/认证备份选择'], status)
+
+    @allure.step("批量修改确定")
+    def select_Bulk_Editing_confirm(self):
+        self.is_click_tbm(user['一键填写确定'])
+
+    @allure.step("批量修改取消")
+    def select_Bulk_Editing_cancel(self):
+        self.is_click_tbm(user['一键填写取消'])
 if __name__ == '__main__':
     pass

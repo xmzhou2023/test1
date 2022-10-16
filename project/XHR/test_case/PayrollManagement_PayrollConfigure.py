@@ -1,11 +1,10 @@
-import time
 import datetime
-import random
+
 import allure
 import pytest
 
-from public.base.assert_ui import *
-from project.XHR.page_object.Country_programmes import Countryprogrammes
+from project.XHR.page_object.PayrollManagement_PayrollConfigure import PayrollConfigure
+from public.base.assert_ui import DomAssert
 
 """
     用例等级说明:
@@ -25,7 +24,7 @@ class TestUtil:
     @pytest.mark.smoke # 用例标记
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         # 打开薪酬配置页面
-        user = Countryprogrammes(drivers)
+        user = PayrollConfigure(drivers)
         user.click_menus('薪酬管理','薪酬配置')
         # 打开集团方案页面
         user.click_slalary_setting('集团方案')
@@ -43,7 +42,19 @@ class TestUtil:
         user.click_sure('确定')
         DomAssert(drivers).assert_att('编码已存在')
 
-
+    @allure.story("新增集团方案")  # 场景名称
+    @allure.title("薪酬配置界面，新增集团方案")  # 用例名称
+    @allure.description("薪酬配置界面进入集团方案，点击新增")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_002(self, drivers):  # 新增集团方案
+        user = PayrollConfigure(drivers)
+        user.click_menus('薪酬管理','薪酬配置')
+        user.click_slalary_setting('集团方案')  # 点击集团方案
+        user.click_add()
+        user.input_code('6911t')  # 输入集团方案编码
+        user.click_sure('确定')
+        DomAssert(drivers).assert_att('请输入4位方案编码，由数字、字母组成')
 
 if __name__ == '__main__':
-    pytest.main(['project/XHR/test_case/Country_programmes.py'])
+    pytest.main(['project/DRP/testcase/run_code.py'])

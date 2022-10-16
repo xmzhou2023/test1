@@ -106,32 +106,6 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
-    def get_col_info(self, header):
-        """
-        获取单机头BOM协作指定内容
-        @return:返回文本及索引位置分别是'流程编码':2; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
-        """
-
-        self.click_menu("BOM协作", "单机头BOM协作")
-        sleep(1)
-        column = self.get_table_info(user['表格字段'], header)
-        contents = self.find_element(user['表格指定列内容'], column).text
-        return contents
-
-    def get_specify_info(self, code):
-        """
-        获取单机头BOM协作指定流程编码的表格内容
-        @return:返回文本及索引位置分别是'流程编码':1; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
-        """
-        self.click_menu("BOM协作", "单机头BOM协作")
-        sleep(1)
-        info = self.find_elements_tbm(user['指定编码表格内容'], code)
-        infolist = []
-        for i in info:
-            infolist.append(i.get_attribute('innerText'))
-        logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
-        return infolist
-
     @allure.step("断言单机头BOM协作新增成功后，页面表格内容是否正确")
     def assert_add_result(self, *content):
         """

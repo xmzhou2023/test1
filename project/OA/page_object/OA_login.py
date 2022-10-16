@@ -114,6 +114,30 @@ class OAdnluPage(Base):
 
     def password(self):
         aa = base64.decodebytes(bytes("MTg2NDcyMjA=\n", 'utf-8'))
-        pa = base64.decodebytes(bytes("VGVkZHlAMjg2Mw==\n", 'utf-8'))
+        pa = base64.decodebytes(bytes("dGVkZHlAMjg2Mw==\n", 'utf-8'))
+        DA = base64.decodebytes(bytes("VGVkZHlAMjg2Mw==\n", 'utf-8'))
+        return aa, pa, DA
 
-        return aa, pa
+    def input_text_log_oa(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        pwd_list = self.password()
+        pwd_str = str(pwd_list[int(txt)]).lstrip("b'").rstrip("'")
+        ele.send_keys(pwd_str)
+
+    @allure.step("输入账号密码进行登录飞书到应用系统巡检系统")
+    def input_account_password_log(self, name, password):
+        self.input_text_oa(user['工号输入框'], name)
+        self.input_text_oa(user['密码输入框'], password)
+
+    @allure.step("判断档案管理系统是否登录成功到home页面")
+    def isfile_login(self):
+        itexis = self.element_exist(user["利用首页"])
+        return itexis
+
+    @allure.step("判断传音知识产权管理系统是否登录成功到home页面")
+    def ispatent_login(self):
+        itexis = self.element_exist(user["我的专利提案"])
+        return itexis

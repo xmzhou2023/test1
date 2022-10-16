@@ -34,7 +34,7 @@ class TestZenUtil:
         OB = OAUserPage(drivers)
         OA = OAdnluPage(drivers)
         OA.open_url("http://zentao.transsion.com:9090")  # 打开禅道地址
-        OA.input_Zenuser(0, 1)
+        OA.input_Zenuser(0, 2)
         OA.click_Zencheckbox()
         OA.click_Zensubmit()
         sleep(10)

@@ -178,7 +178,7 @@ class Base(object):
         logging.info("相同元素：{}".format((locator, number)))
         return number
 
-    def input_text(self, locator, txt, choice=None):
+    def input_text(self, locator, txt, *choice):
         """输入文本"""
         if choice is None:
             sleep(0.5)
@@ -190,7 +190,7 @@ class Base(object):
         else:
             """输入(输入前先清空)"""
             sleep(0.5)
-            ele = self.find_element(locator, choice)
+            ele = self.find_element(locator, *choice)
             ele.clear()
             ele.clear()
             ele.send_keys(txt)
@@ -642,6 +642,7 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
 
+
     def mouse_right_click(self, locator, *args, **kwargs):
         """鼠标右击"""
         if args and args is not None:
@@ -694,6 +695,23 @@ class Base(object):
         # 清除文本框输入，srm使用
         ele = self.find_element(xpath)
         ele.clear()
+
+    def hover_click(self, locator):
+        # 鼠标悬停后点击
+        element = self.find_element(locator)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        actions.click(element).perform()
+
+    def keyboard_enter(self, locator):
+        # 键盘回车
+        element = self.find_element(locator)
+        element.send_keys(Keys.ENTER)
+
+    def keyboard_backspace(self, locator):
+        # 键盘删除键
+        element = self.find_element(locator)
+        element.send_keys(Keys.BACK_SPACE)
 
     def get_table_info(self, locator, *choice, attr='class', index='0'):
         """
