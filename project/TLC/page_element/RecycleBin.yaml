@@ -20,3 +20,5 @@
 彻底删除: "xpath==//*[@xpath='at_my-file_contextmenu_remove-completely_variable']"
 预览: "xpath==//*[@xpath='at_my-file_contextmenu_preview_variable']"
 编码查看: "xpath==//div[@class='tool']//i[@tabindex='0']"
+一键清空: "xpath==//span[contains(text(), '一键清空')]"
+一键清空确认: "xpath==//*[@aria-label='提示']//button[2]"
