@@ -393,3 +393,5 @@ project/DRP/test_case/SystemMgmt_DimensionManage.py::TestAddDimension::test_002_
 project/DRP/test_case/SystemMgmt_DimensionManage.py::TestAddDimension::test_002_001
 project/DRP/test_case/SystemMgmt_DimensionManage.py::TestAddDimension::test_002_001
 project/DRP/test_case/SystemMgmt_DimensionManage.py::TestAddDimension::test_002_001
+project/DRP/test_case/SystemMgmt_DimensionManage.py::TestGotoLabelPage::test_001_001[\u533a\u57df]
+project/DRP/test_case/SystemMgmt_DimensionManage.py::TestAddDimension::test_002_001
