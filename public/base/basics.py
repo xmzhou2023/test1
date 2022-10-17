@@ -537,19 +537,21 @@ class Base(object):
         try:
             path = DOWNLOAD_PATH
             path_list = os.listdir(path)
+            logging.info(path)
             logging.info('download文件夹内有文件：{}'.format(path_list))
             assert len(path_list) != 0
         except:
             path = os.path.join(BASE_DIR)
             path_list = os.listdir(DOWNLOAD_PATH)
+            logging.info(path)
             logging.info('download文件夹内有文件：{}'.format(path_list))
         try:
             return self.read_excel(path, path_list[-1])
         except Exception as e:
             logging.error(e)
             raise
-        finally:
-            self.delete_excel(path, path_list[-1])
+        # finally:
+            # self.delete_excel(path, path_list[-1])
 
     def element_exist(self, locator, *choice):
         """校验元素是否存在"""
@@ -565,10 +567,10 @@ class Base(object):
             self.base_get_img()
             return True
 
-    def upload_file(self,locator,file,choice=None):
+    def upload_file(self,locator,file, *choice):
         """上传"""
         sleep(0.5)
-        ele = self.find_element(locator,choice)
+        ele = self.find_element(locator,*choice)
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 
