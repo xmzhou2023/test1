@@ -1232,7 +1232,7 @@ class TestProcessInformationExport:
     @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
-    # @pytest.mark.skip
+    @pytest.mark.skip
     def test_005_001(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()

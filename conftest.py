@@ -68,7 +68,6 @@ def drivers(request, remote_url, remote_ui=True):
             prefs["credentials_enable_service"] = False
             prefs["profile.password_manager_enabled"] = False
             prefs["download.prompt_for_download"] = False
-            prefs["download.default_directory"] = DOWNLOAD_PATH
             option.add_experimental_option("prefs", prefs)  # 屏蔽'保存密码'提示框
 
             option.add_argument('–lang=zh-CN')  # 设置语言
@@ -87,7 +86,6 @@ def drivers(request, remote_url, remote_ui=True):
                 prefs["intl.accept_languages"] = 'zh-CN,zh'
                 prefs["credentials_enable_service"] = False
                 prefs["profile.password_manager_enabled"] = False
-                prefs["download.default_directory"] = DOWNLOAD_PATH
                 option.add_experimental_option("prefs", prefs)  # 屏蔽'保存密码'提示框
 
                 option.add_argument('–lang=zh-CN')  # 设置语言
