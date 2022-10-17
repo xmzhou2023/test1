@@ -60,9 +60,10 @@ BI报表->IMEI全生命周期: 'xpath==/html/body/div[12]/ul/div[7]/li/div[1]/sp
 BI报表->DPM迁移报表: 'xpath==/html/body/div[12]/ul/div[8]/li/div[1]/span'
 
 系统管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span'
-系统管理->用户管理: 'xpath==//span[contains(text(),"用户管理")]'
-系统管理->区域管理: "xpath==//a[@href='#/systemManage/areaManage']//li[@role='menuitem']"
-系统管理->维度管理: "xpath==//span[contains(text(),'维度管理')]"
+系统管理->用户管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='用户管理']"
+系统管理->区域管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='区域管理']"
+系统管理->维度管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='维度管理']"
+系统管理->评审管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='评审管理']"
 
 切换语言按钮: "xpath==//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]"
 
