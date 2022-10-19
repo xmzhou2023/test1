@@ -236,7 +236,7 @@ class AreaPage(Base):
     def clear_testdata(self):
         user = SQL("DRP", "test")
         user.delete_db(
-            "DELETE from cd_dimension_area where creator_name = '秦海伦'")
+            "DELETE from cd_dimension_area where creator_name = '隆江'")
         logging.info("清空测试数据")
 
     @allure.step("前置条件-编辑国家信息")
