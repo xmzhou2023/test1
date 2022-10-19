@@ -19,7 +19,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.click_menu("BOM协作", "单机头BOM协作")
 
     @allure.step("单机头BOM协作新增页面-输入BOM信息")
-    def input_add_bom_info(self, info, select):
+    def input_bom_info(self, info, select):
         """
         单机头BOM协作新增页面-输入BOM信息
         :param info: 选择要输入的信息
@@ -42,23 +42,23 @@ class BareMobilePhoneBomCooperation(CenterComponent):
     @allure.step("单机头BOM协作新增页面-输入BOM信息组合")
     def add_bom_info(self):
         self.click_add()
-        self.input_add_bom_info('制作类型', '单机头BOM制作')
-        self.input_add_bom_info('品牌', 'itel')
-        self.input_add_bom_info('机型', 'X572-1')
-        self.input_add_bom_info('阶段', '试产阶段')
-        self.input_add_bom_info('市场', '埃塞本地')
-        self.input_add_bom_info('同时做衍生BOM', '否')
+        self.input_bom_info('制作类型', '单机头BOM制作')
+        self.input_bom_info('品牌', 'itel')
+        self.input_bom_info('机型', 'X572-1')
+        self.input_bom_info('阶段', '试产阶段')
+        self.input_bom_info('市场', '埃塞本地')
+        self.input_bom_info('同时做衍生BOM', '否')
         self.base_get_img()
 
     @allure.step("单机头BOM协作新增组合")
     def add_bom(self):
         self.click_add()
-        self.input_add_bom_info('制作类型', '单机头BOM制作')
-        self.input_add_bom_info('品牌', 'itel')
-        self.input_add_bom_info('机型', 'X572-1')
-        self.input_add_bom_info('阶段', '试产阶段')
-        self.input_add_bom_info('市场', '埃塞本地')
-        self.input_add_bom_info('同时做衍生BOM', '否')
+        self.input_bom_info('制作类型', '单机头BOM制作')
+        self.input_bom_info('品牌', 'itel')
+        self.input_bom_info('机型', 'X572-1')
+        self.input_bom_info('阶段', '试产阶段')
+        self.input_bom_info('市场', '埃塞本地')
+        self.input_bom_info('同时做衍生BOM', '否')
         self.base_get_img()
         self.click_add_bomtree()
         self.input_bomtree('单机头', 'BOM状态', '试产')
@@ -153,10 +153,8 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
-    def click_optional_material(self):
-        """
-        点击新增物料
-        """
+    @allure.step("点击新增物料")
+    def click_add_material(self):
         self.is_click_tbm(user['新增物料'])
         logging.info('点击新增物料')
 
@@ -168,7 +166,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
         self.is_click_tbm(user['BOMTree新增物料对焦'], tree)
 
     @allure.step("新增物料输入内容")
-    def input_optional_material(self, tree, header, content):
+    def input_add_material(self, tree, header, content):
         """
         新增物料后，模版信息根据条件在新增的物料输入内容并且点击
         @param content:输入的内容

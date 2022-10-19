@@ -2336,6 +2336,411 @@ class APIRequest:
                 logging.info('流程结束：外研BOM协作新增接口')
                 return i['flowNo'], i['instanceId'], flowId
 
+    @allure.step("外研BOM协作-衍生-新增接口")
+    def API_Foreign_Derived_Add(self):
+        logging.info('发起流程：外研BOM协作新增接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        add_data = {
+            "flowId": None,
+            "flowNodeName": "start",
+            "bomArchive": {
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowProposerName": "李小素",
+                "flowStartdate": querytime,
+                "bomVer": "",
+                "bomVersion": "batch",
+                "brandCode": "itel",
+                "market": "ET",
+                "produceClass": "userProviDerive",
+                "templateId": None,
+                "templateName": "",
+                "isLocalPurchase": "",
+                "bomClass": "",
+                "model": "JMB-01",
+                "note": "",
+                "title": f"[李小素]-[{querytime[:10]}]",
+                "flowDept": "PI_系统四部",
+                "bomModel": "retailValueModel",
+                "curFlowCode": "structureStart"
+            },
+            "bomDeriveList": [
+                {
+                    "no": None,
+                    "newBomCode": "12000003",
+                    "newBomName": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "rightBomName": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "originalBomCode": "12014351",
+                    "originalBomName": "单机头_TECNO_AC8_H853_A1_莫奈之夏_PK_256+8",
+                    "rightOriginalBomName": "单机头_TECNO_AC8_H853_A1_莫奈之夏_PK_256+8",
+                    "originalBomFactory": "PL01",
+                    "checkResultMessage": "",
+                    "matMap": {
+                        "originalBomCode": "单机头_TECNO_AC8_H853_A1_莫奈之夏_PK_256+8",
+                        "newBomCode_matAttr": "可选",
+                        "newBomCode": "单机头_TECNO_T722_E680B1_红色_4G",
+                        "originalBomCode_matAttr": "可选"
+                    }
+                }
+            ],
+            "otherDeriveList": [
+                {
+                    "no": "1",
+                    "pMatCode": "12000003",
+                    "pMatNote": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "rightBomName": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "operation": "add",
+                    "childMaterialCode": "12800001",
+                    "childMaterialNote": "整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ",
+                    "rightMatDescZh": "整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ",
+                    "baseQty": "1000",
+                    "replaceGroup": None,
+                    "usePercent": None,
+                    "checkResultMessage": "",
+                    "matMap": {
+                        "pMatCode_matAttr": "可选",
+                        "pMatCode": "单机头_TECNO_T722_E680B1_红色_4G",
+                        "childMaterialCode_matAttr": "外研",
+                        "childMaterialCode": "整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ"
+                    }
+                }
+            ],
+            "refFactoryList": [
+                {
+                    "checkResultMessage": "",
+                    "num": 1,
+                    "matCode": "12000003",
+                    "note": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "statusCode": "batch",
+                    "homePackagingFactory": "1201",
+                    "homeChipFactory": "/",
+                    "overseasPackagingFactory": "/",
+                    "overseasChipFactory": "/",
+                    "rightNote": None,
+                    "matMap": {
+                        "matCode_matAttr": "可选",
+                        "matCode": "单机头_TECNO_T722_E680B1_红色_4G"
+                    },
+                    "statusCodeLabel": "量产"
+                }
+            ],
+            "bomDeriveTreeVOList": [
+                {
+                    "bomNodeCode": "1030523214364807229",
+                    "bomNo": "1",
+                    "bomName": "客供BOM",
+                    "isArchive": 0,
+                    "applyScope": "userProviDerive",
+                    "matCode": "12000003",
+                    "baseQty": "1000",
+                    "note": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "statusCode": "batch",
+                    "isRoot": True,
+                    "matAttr": "可选",
+                    "bomUseage": "1",
+                    "isDerive": 1,
+                    "nativePcbfactory": "PL01",
+                    "childNodes": [
+                        {
+                            "bomNodeCode": "1030523214532579328",
+                            "matCode": "12800001",
+                            "baseQty": "1000",
+                            "note": "整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ",
+                            "matAttr": "外研",
+                            "dealDelFlag": False,
+                            "operation": "add",
+                            "id": "1030523214532579328",
+                            "index": 0,
+                            "serialNo": "1.1"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807575",
+                            "isArchive": 0,
+                            "matCode": "12106748",
+                            "baseQty": "1000",
+                            "note": "贴片副板_H853_FLASH_1_A_V1.2_自制",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807575",
+                            "index": 1,
+                            "serialNo": "1.2"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807341",
+                            "isArchive": 0,
+                            "matCode": "12106917",
+                            "baseQty": "1000",
+                            "note": "贴片主板_H853_A1_256GB+8GB_V1.4_自制",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807341",
+                            "index": 2,
+                            "serialNo": "1.3"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807300",
+                            "isArchive": 0,
+                            "matCode": "12106918",
+                            "baseQty": "1000",
+                            "note": "贴片副板_H853_1_A1_V1.3_自制",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807300",
+                            "index": 3,
+                            "serialNo": "1.4"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807289",
+                            "isArchive": 0,
+                            "matCode": "12202727",
+                            "baseQty": "1000",
+                            "note": "预加工_中框+组合件(触摸屏+显示屏)_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807289",
+                            "index": 4,
+                            "serialNo": "1.5"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807238",
+                            "isArchive": 0,
+                            "matCode": "12304722",
+                            "baseQty": "1000",
+                            "note": "虚拟共用件_TECNO_AC8",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807238",
+                            "index": 5,
+                            "serialNo": "1.6"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807237",
+                            "isArchive": 0,
+                            "matCode": "21204821",
+                            "baseQty": "1000",
+                            "note": "电池盖组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807237",
+                            "index": 6,
+                            "serialNo": "1.7"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807236",
+                            "isArchive": 0,
+                            "matCode": "21303385",
+                            "baseQty": "1000",
+                            "note": "音量键组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807236",
+                            "index": 7,
+                            "serialNo": "1.8"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807235",
+                            "isArchive": 0,
+                            "matCode": "21303386",
+                            "baseQty": "1000",
+                            "note": "电源键组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807235",
+                            "index": 8,
+                            "serialNo": "1.9"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807234",
+                            "isArchive": 0,
+                            "matCode": "23202306",
+                            "baseQty": "1000",
+                            "note": "后摄像头镜片_AC8_康宁3代_0.6mm_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807234",
+                            "index": 9,
+                            "serialNo": "1.10"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807233",
+                            "isArchive": 0,
+                            "matCode": "23504286",
+                            "baseQty": "1000",
+                            "note": "后摄装饰件组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807233",
+                            "index": 10,
+                            "serialNo": "1.11"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807232",
+                            "isArchive": 0,
+                            "matCode": "23504287",
+                            "baseQty": "1000",
+                            "note": "卡托组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807232",
+                            "index": 11,
+                            "serialNo": "1.12"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807231",
+                            "isArchive": 0,
+                            "matCode": "23603441",
+                            "baseQty": "1000",
+                            "note": "保护膜_三层_AC8_透明",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807231",
+                            "index": 12,
+                            "serialNo": "1.13"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807230",
+                            "isArchive": 0,
+                            "matCode": "23603454",
+                            "baseQty": "1000",
+                            "note": "单层膜_全包膜_AC8",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807230",
+                            "index": 13,
+                            "serialNo": "1.14"
+                        }
+                    ],
+                    "parentNodeCode": "0",
+                    "nodeName": "单机头",
+                    "sapLevel": 0,
+                    "dealDelFlag": False,
+                    "id": "1030523214364807229",
+                    "index": 0,
+                    "serialNo": 1
+                }
+            ],
+            "approvers": {
+                "bisReviewApprovers": [
+                    {
+                        "role": "qpm_review",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "ppm_review",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "foreign_purchase",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "hardware",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "rf_review",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "video",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "structure",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "skd_mpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "ckd_mpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "other",
+                        "userNo": ""
+                    }
+                ],
+                "bisSupplyApprovers": []
+            },
+            "uploadList": [],
+            "submitType": "submit"
+        }
+        search_data = {
+            "param": {
+                "bomCode": "12000003",
+                "bomType": "foreignBom",
+                "createdTimeFrom": "",
+                "createdTimeTo": ""
+            },
+            "current": 1,
+            "size": 10
+        }
+        add_response = self.Request_Foreign_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_Bom_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
+            if i['flowId'] == flowId:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
+                logging.info('流程结束：外研BOM协作新增接口')
+                return i['flowNo'], i['instanceId'], flowId
+
     @allure.step("外研BOM协作新增接口")
     def API_Foreign_Failed_Add(self):
         logging.info('发起流程：外研BOM协作新增接口')
@@ -2515,14 +2920,17 @@ class APIRequest:
                 BomForeignInfo['data']['bomTreeVOList'],
             "refFactoryList":
                 BomForeignInfo['data']['refFactoryList'],
-            "bomDeriveList": [],
+            "bomDeriveList":
+                BomForeignInfo['data']['bomDeriveList'],
             "copyRuleList": [],
-            "otherDeriveList": [],
+            "otherDeriveList":
+                BomForeignInfo['data']['otherDeriveList'],
             "uploadList": [],
             "bomImportKeyDeviceList": [],
             "purchaseList": None,
             "role": "qpm_review,ppm_review",
-            "bomDeriveTreeVOList": [],
+            "bomDeriveTreeVOList":
+                BomForeignInfo['data']['bomDeriveTreeVOList'],
             "virtualChipList": None,
             "diffCollectList": None
         }

@@ -103,9 +103,9 @@ class TestCreateProcess:
         user = ShippingCountrySearch(drivers)
         user.refresh_webpage_click_menu()
         user.input_condition('品牌', 'Infinix')
-        user.input_condition('项目名称', '出货国家查询变更产品自动化全流程测试')
+        user.input_condition('项目名称', '出货国家查询-变更产品自动化全流程测试')
         user.click_search()
-        user.click_TableLink('出货国家查询变更产品自动化全流程测试')
+        user.click_TableLink('出货国家查询-变更产品自动化全流程测试')
         user.click_ChangeHistory('查看变更记录')
         user.assert_ChangeHistory()
 

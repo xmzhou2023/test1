@@ -172,6 +172,9 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['确定'])
         logging.info('点击同意-确定')
 
-
+    @allure.step("衍生BOM制作需求-导入-上传正确文件")
+    def upload_Flow_file(self, name):
+        self.upload_file_tbm(user['Oneworks附件上传'], name)
+        DomAssert(self.driver).assert_control(user['应用成功状态'])
 if __name__ == '__main__':
     pass

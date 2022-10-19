@@ -1,6 +1,7 @@
 import logging
 
 from libs.common.read_element import Element
+from libs.config.conf import BASE_DIR
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -9,6 +10,8 @@ user = Element(pro_name,object_name)
 
 class CenterComponent(Base, APIRequest):
     """用户类"""
+    # 审核人
+    review = '李小素'
 
     @allure.step("点击菜单")
     def click_menu(self, metatitle, nestmenu):
@@ -72,6 +75,11 @@ class CenterComponent(Base, APIRequest):
         self.frame_enter(user['待办列表-iframe'])
         self.is_click_tbm(user['待办列表-刷新'])
 
+    @allure.step("点击提交")
+    def click_add_submit(self):
+        self.scroll_into_view(user['提交'])
+        sleep(0.5)
+        self.is_click_tbm(user['提交'])
 
     @allure.step("待办列表 根据单据号 筛选")
     def screening_code(self, code):
@@ -609,9 +617,6 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("断言：在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
     def assert_oneworks_bomtree_edit(self, tree, header):
-        """
-        在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑
-        """
         column_class = self.get_table_info(user['编辑验证表头'], header)
         self.mouse_double_click(user['编辑验证'], tree, column_class)
         sleep(0.5)
@@ -652,7 +657,7 @@ class CenterComponent(Base, APIRequest):
     def click_product_definition_confirm(self):
         self.is_click_tbm(user['产品定义信息确定'])
 
-    @allure.step("产品定义信息-点击确定")
+    @allure.step("产品定义信息-点击编辑")
     def click_product_definition_edit(self):
         sleep(2)
         self.is_click_tbm(user['产品定义信息编辑'])
@@ -660,6 +665,10 @@ class CenterComponent(Base, APIRequest):
     @allure.step("产品定义信息-点击复制")
     def click_product_definition_copy(self):
         self.is_click_tbm(user['产品定义信息复制'])
+
+    @allure.step("产品定义信息-点击删除")
+    def click_product_definition_delete(self):
+        self.is_click_tbm(user['产品定义信息删除'])
 
     @allure.step("出货国家流程新增页面 - 新增产品定义信息")
     def input_product_definition_info(self, header, content):
@@ -867,5 +876,22 @@ class CenterComponent(Base, APIRequest):
     def select_products(self, name):
         self.is_click_tbm(user['变更已有产品选择'], name)
         logging.info('选择已有产品:{}'.format(name))
+
+    @allure.step("上传文件")
+    def upload_file_tbm(self, locator, file):
+        file_path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', file)
+        logging.info("文件地址：{}".format(file_path))
+        self.upload_file(locator, file_path)
+
+    @allure.step("清空汇签/抄送人员")
+    def clear_member(self, type):
+        self.hover(user['汇签/抄送人员选择框'], type)
+        self.is_click_tbm(user['汇签/抄送人员清空'], type)
+
+    @allure.step("创建上传文件")
+    def add_upload_file(self, name):
+        self.upload_file_tbm(user['附件'], name)
+        DomAssert(self.driver).assert_control(user['上传成功'])
+
 if __name__ == '__main__':
     pass
