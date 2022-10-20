@@ -396,12 +396,14 @@ class Base(object):
     def hover(self,locator, choice=None):
         """鼠标悬停"""
         if choice is None:
+            sleep(1)
             element = self.find_element(locator)
             # 创建Action对象
             actions = ActionChains(self.driver)
             actions.move_to_element(element).perform()
             sleep(1)
         else:
+            sleep(1)
             element = self.find_element(locator, choice)
             # 创建Action对象
             actions = ActionChains(self.driver)
