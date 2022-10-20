@@ -1,5 +1,3 @@
-import logging
-
 from public.base.basics import Base, sleep
 from libs.common.read_public_element import Element
 
@@ -58,30 +56,21 @@ class LoginPage(Base):
         self.is_click(login['登录'])
         sleep(6)
 
-    def input_verify_code(self):
-        """输入验证码，生产环境用 2022-9-30,熊文敏"""
-        logging.info("开始获取验证码")
-        verify_code = self.get_graphical_code(login["验证码图标"])
-        logging.info("获取验证码结束")
-        self.is_click(login['验证码输入框'])
-        self.input_text(login["验证码输入框"], verify_code)
-        sleep(2)
+    def input_imgcode(self):
+        """识别图形验证码，输入验证码"""
+        imgcode = self.get_graphical_code(login['图形验证码'])
+        self.input_text(login['图形验证码输入框'], imgcode)
 
-    def code_clear(self):
-        self.clear_code(login["验证码输入框"])
-        sleep(0.5)
 
 """DCR登录类"""
 class DcrLoginPage(Base):
     def dcr_input_account(self, content):
         """输入工号"""
         self.input_text(login['工号输入框dcr'], txt=content)
-        sleep(1)
 
     def dcr_input_passwd(self, content):
         """输入密码"""
         self.input_text(login['密码输入框dcr'], txt=content)
-        sleep(1)
 
     def dcr_switch_lanuage(self, content):
         """语言切换"""
@@ -91,7 +80,6 @@ class DcrLoginPage(Base):
     def dcr_click_check_box(self):
         """判断是否被选中"""
         self.is_click(login['隐私保护勾选dcr'])
-        sleep(1)
 
     def dcr_get_check_box_class(self):
         """获取复选框对应的 Class属性是否包含is-checked"""
@@ -107,13 +95,27 @@ class DcrLoginPage(Base):
     def dcr_click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(login['登录dcr'])
-        sleep(8)
+        sleep(4)
 
     def dcr_click_loginOut(self):
         """点击退出登录"""
         sleep(2)
         self.is_click(login['退出登录dcr'])
         sleep(2)
+
+    def dcr_get_yinsizhengce(self):
+        """获取页面是否有隐私政策内容"""
+        yinsizhengce = self.element_text(login['DCR隐私政策'])
+        return yinsizhengce
+
+    def dcr_click_agree(self):
+        """同意按钮"""
+        self.is_click(login['agree button'])
+
+    def dcr_get_home_page_customer(self):
+        """获取页面是否有隐私政策内容"""
+        home_page_cust = self.element_text(login['Home Page Customer'])
+        return home_page_cust
 
 
 
@@ -164,7 +166,14 @@ class PopLoginPage(Base):
 
 
 
-
+class OALoginPage(Base):
+    def input_passwd(self, content):
+        """输入密码"""
+        sleep(0.5)
+        ele = self.find_element(login['密码输入框'])
+        ele.clear()
+        ele.send_keys(content)
+        sleep(0.5)
 
 if __name__ == '__main__':
     pass

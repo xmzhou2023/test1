@@ -142,14 +142,14 @@ class TestDelBoardUserSetting:
         db.assert_sql_count(0, "SELECT count(EMP_ID) FROM db_pldb_test.dt_pv_employees WHERE EMP_CODE ='19950109';")
 
 
-@allure.feature("基础信息-看板人员维护")
-class TestExportBoardUserSetting:
-    @allure.story("导出看板人员")
-    @allure.title("全量导出看板人员")
-    @allure.description("进入看板人员维护>重置查询条件>查询全量数据>点击导出按钮")
-    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    def test_1029085(self, drivers):
-        info = BoardUserSetting(drivers)
-        info.click_reset()
-        info.click_search()
-        info.click_export(content="ExportUser")
+# @allure.feature("基础信息-看板人员维护")
+# class TestExportBoardUserSetting:
+#     @allure.story("导出看板人员")
+#     @allure.title("全量导出看板人员")
+#     @allure.description("进入看板人员维护>重置查询条件>查询全量数据>点击导出按钮")
+#     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+#     def test_1029085(self, drivers):
+#         info = BoardUserSetting(drivers)
+#         info.click_reset()
+#         info.click_search()
+#         info.click_export(content="ExportUser")

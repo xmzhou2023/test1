@@ -100,7 +100,7 @@ class TestProductInformationButtonFunction:
     @allure.title("产品信息，‘导出’按钮 功能验证")
     @allure.description("进入机型库-产品信息页面，点击‘导出’按钮，产品信息数据导出成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.skip
     def test_002_004(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
@@ -281,7 +281,7 @@ class TestProductInformationImportFile:
     @allure.title("产品信息，‘导入-下载模板’按钮 功能验证")
     @allure.description("进入导入弹窗，下载导入模板 成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.skip
     def test_004_001(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
@@ -294,7 +294,7 @@ class TestProductInformationImportFile:
     @allure.title("产品信息，导入文件成功")
     @allure.description("进入导入弹窗，选择导入文件，导入成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.smoke
+    @pytest.mark.skip
     def test_004_002(self, drivers):
         user = ModelDatabase(drivers)
         user.goto_tab('产品信息')  # 切换到产品信息tab页
@@ -505,6 +505,7 @@ class TestProductCofigEdit:
         user.screenTestData(drivers)
         user.edit_button("隆江",15)
         user.editData("套片", inputValue="123")
+        user.editData("主板", "abc")
         user.editData("主板", "abc")
         user.editData("屏幕", "ABC")
         user.editSave()

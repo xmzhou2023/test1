@@ -9,6 +9,7 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
+
 class ForeignBom(CenterComponent):
     """用户类"""
 
@@ -18,7 +19,7 @@ class ForeignBom(CenterComponent):
         self.click_menu("BOM协作", "外研BOM协作")
 
     @allure.step("外研BOM协作新增页面-输入BOM信息")
-    def input_add_bom_info(self, info, select):
+    def input_bom_info(self, info, select):
         """
         外研BOM协作新增页面-输入BOM信息
         :param info: 选择要输入的信息
@@ -41,23 +42,23 @@ class ForeignBom(CenterComponent):
     @allure.step("外研BOM协作新增页面-输入BOM信息组合")
     def add_bom_info(self):
         self.click_add()
-        self.input_add_bom_info('制作类型', '客供BOM制作')
-        self.input_add_bom_info('品牌', 'itel')
-        self.input_add_bom_info('机型', 'JMB-01')
-        self.input_add_bom_info('阶段', '量产阶段')
-        self.input_add_bom_info('市场', '埃塞本地')
-        self.input_add_bom_info('模式', '零价值客供')
+        self.input_bom_info('制作类型', '客供BOM制作')
+        self.input_bom_info('品牌', 'itel')
+        self.input_bom_info('机型', 'JMB-01')
+        self.input_bom_info('阶段', '量产阶段')
+        self.input_bom_info('市场', '埃塞本地')
+        self.input_bom_info('模式', '零价值客供')
         self.base_get_img()
 
     @allure.step("外研BOM协作新增页面-输入BOMtree组合")
     def add_bomtree_info(self):
         self.click_add_bomtree()
-        self.input_bomtree('客供BOM','BOM状态', '量产')
-        self.input_bomtree('客供BOM','物料编码', '12004871')
-        self.input_bomtree('客供BOM','用量', '1000')
-        self.click_optional_material()
-        self.input_optional_material('12004871', '物料编码', '12800002')
-        self.input_optional_material('12004871', '用量', '1000')
+        self.input_bomtree('客供BOM', 'BOM状态', '量产')
+        self.input_bomtree('客供BOM', '物料编码', '12004871')
+        self.input_bomtree('客供BOM', '用量', '1000')
+        self.click_add_material()
+        self.input_add_material('12004871', '物料编码', '12800002')
+        self.input_add_material('12004871', '用量', '1000')
         self.base_get_img()
 
     @allure.step("点击提交")
@@ -66,43 +67,6 @@ class ForeignBom(CenterComponent):
         sleep(0.5)
         self.is_click_tbm(user['提交'])
         logging.info('点击提交')
-
-    @allure.step("点击保存")
-    def click_add_save(self):
-        self.scroll_into_view(user['保存'])
-        sleep(0.5)
-        self.is_click_tbm(user['保存'])
-        logging.info('点击保存')
-
-    @allure.step("点击刷新")
-    def click_refresh(self):
-        self.scroll_into_view(user['刷新'])
-        self.is_click_tbm(user['刷新'])
-        logging.info('点击刷新')
-
-    @allure.step("点击编辑")
-    def click_edit(self, code):
-        self.is_click_tbm(user['编辑'], code)
-        logging.info('点击编辑')
-
-    @allure.step("输入查询条件")
-    def input_search_info(self, type, info):
-        input_type = ['标题', '流程编码', 'BOM编码']
-        select_type = ['制作类型', '品牌', '阶段', '市场', '单据状态', '同步状态']
-        if type in input_type:
-            self.readonly_input_text(user['查询条件'], info, type)
-        elif type in select_type:
-            self.is_click_tbm(user['查询条件'], type)
-            self.is_click_tbm(user['查询选择'], info)
-        logging.info('输入框：{}，输入内容：{}'.format(type, info))
-    @allure.step("点击查询")
-    def click_search(self):
-        self.is_click_tbm(user['查询'])
-        logging.info('点击查询')
-
-    @allure.step("断言：查询结果")
-    def assert_search_result(self, header, content):
-        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content)
 
     @allure.step("点击新增bom")
     def click_add_bomtree(self):
@@ -115,36 +79,29 @@ class ForeignBom(CenterComponent):
         """
         BomTree信息根据Tree在指定列表输入内容
         @param tree:输入选择
-        @param header: BomTree要输入的表头；【BOM类型， BOM状态， 物料编码， 用量， 替代组， 份额】
+        @param header: BomTree要输入的表头；【BOM状态， 物料编码， 用量， 替代组， 份额】
         @param content:输入的内容
         """
-        if header == '物料编码':
+        select_list = ['物料编码']
+        click_list = ['BOM状态']
+        input_list = ['用量', '替代组', '份额']
+        if header in select_list:
             self.is_click_tbm(user['BOMTree编辑'], tree)
-            self.readonly_input_text(user['BOMTree物料编码'], content, tree)
+            self.readonly_input_text(user['BOMTree输入框'], content, tree, header)
             sleep(1)
             self.is_click_tbm(user['物料编码选择'], content)
             self.is_click_tbm(user['BOMTree确定'], tree)
-        elif header == 'BOM状态':
+        elif header in click_list:
             self.is_click_tbm(user['BOMTreeBOM状态'], tree)
             sleep(0.5)
             self.is_click_tbm(user['BOMTree输入框选择'], content)
-        elif header == '用量':
+        elif header in input_list:
             self.is_click_tbm(user['BOMTree编辑'], tree)
-            self.readonly_input_text(user['BOMTree用量'], content, tree)
+            self.readonly_input_text(user['BOMTree输入框'], content, tree, header)
             self.is_click_tbm(user['BOMTree确定'], tree)
-        elif header == '替代组':
-            self.is_click_tbm(user['BOMTree编辑'], tree)
-            self.readonly_input_text(user['BOMTree替代组'], content, tree)
-            self.is_click_tbm(user['BOMTree确定'], tree)
-        elif header == '份额':
-            self.is_click_tbm(user['BOMTree编辑'], tree)
-            self.readonly_input_text(user['BOMTree份额'], content, tree)
-            self.is_click_tbm(user['BOMTree确定'], tree)
-        else:
-            logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
 
     @allure.step("点击新增物料")
-    def click_optional_material(self):
+    def click_add_material(self):
         self.is_click_tbm(user['新增物料'])
         logging.info('点击新增物料')
 
@@ -156,59 +113,28 @@ class ForeignBom(CenterComponent):
         self.is_click_tbm(user['BOMTree物料对焦'], tree)
 
     @allure.step("新增物料输入内容")
-    def input_optional_material(self, tree, header, content):
+    def input_add_material(self, tree, header, content):
         """
         新增物料后，模版信息根据条件在新增的物料输入内容并且点击
+        @param tree:上一级物料编码
         @param content:输入的内容
-        @param header: BomTree要输入的表头；{'BOM类型':'2','BOM状态':'3','物料编码':'6','用量':'9','替代组':'10','份额':'11',}
+        @param header: BomTree要输入的表头；{'物料编码':'5','用量':'8','替代组':'9','份额':'10',}
         """
-        if header == '物料编码':
+        material_dict = {'物料编码': '5', '用量': '8', '替代组': '9', '份额': '10'}
+        select_list = ['物料编码']
+        input_list = ['用量', '替代组', '份额']
+        if header in select_list:
             self.is_click_tbm(user['BOMTree新增物料编辑'], tree)
-            self.readonly_input_text(user['BOMTree新增物料物料编码'], content, tree)
+            self.readonly_input_text(user['BOMTree新增物料输入框'], content, tree, material_dict[header])
             sleep(1)
             self.is_click_tbm(user['物料编码选择'], content)
             self.is_click_tbm(user['BOMTree新增物料确定'], tree)
-        elif header == '用量':
+        elif header in input_list:
             self.is_click_tbm(user['BOMTree新增物料编辑'], tree)
-            self.readonly_input_text(user['BOMTree新增物料用量'], content, tree)
-            self.is_click_tbm(user['BOMTree新增物料确定'], tree)
-        elif header == '替代组':
-            self.is_click_tbm(user['BOMTree新增物料编辑'], tree)
-            self.readonly_input_text(user['BOMTree新增物料替代组'], content, tree)
-            self.is_click_tbm(user['BOMTree新增物料确定'], tree)
-        elif header == '份额':
-            self.is_click_tbm(user['BOMTree新增物料编辑'], tree)
-            self.readonly_input_text(user['BOMTree新增物料份额'], content, tree)
+            self.readonly_input_text(user['BOMTree新增物料输入框'], content, tree, material_dict[header])
             self.is_click_tbm(user['BOMTree新增物料确定'], tree)
         else:
             logging.info("输入需要操作的表头：('BOM类型','BOM状态','物料编码','用量','替代组','份额',)")
-
-    @allure.step("审核人设置")
-    def select_business_review(self, audit, type='all'):
-        """
-        审核人设置-业务评审-：选择用户
-        @param type:选择的类别
-        @param audit:输入的用户名
-        """
-        self.scroll_into_view(user['审核人设置'])
-        if type == 'all':
-            info = self.find_elements_tbm(user['审核人名单'])
-            infolist = []
-            for i in info:
-                infolist.append(i.text)
-                self.is_click_tbm(user['审核人类别'], i.text)
-                self.input_text(user['成员列表输入框'], audit)
-                sleep(1)
-                self.is_click_tbm(user['成员选择'], audit)
-                self.is_click_tbm(user['成员确定'])
-            self.base_get_img()
-            logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
-        else:
-            self.is_click_tbm(user['审核人类别'], type)
-            self.input_text(user['成员列表输入框'], audit)
-            sleep(1)
-            self.is_click_tbm(user['成员选择'], audit)
-            self.is_click_tbm(user['成员确定'])
 
     @allure.step("获取外研BOM协作第一列内容")
     def get_info(self):
@@ -224,32 +150,6 @@ class ForeignBom(CenterComponent):
             infolist.append(i.get_attribute('innerText'))
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
-
-    def get_col_info(self, header):
-        """
-        获取外研BOM协作指定内容
-        @return:返回文本及索引位置分别是'流程编码':2; '制作类型':2; '机型'：3; '品牌':4; '市场':5; '阶段':6; '单据状态':7; '同步状态':8; '申请人':9; '创建时间':10;
-        """
-
-        self.click_menu("BOM协作", "外研BOM协作")
-        sleep(1)
-        column = self.get_table_info(user['表格字段'], header)
-        contents = self.find_element(user['表格指定列内容'], column).text
-        return contents
-
-
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-
-    def click_delete_confirm(self):
-        self.is_click_tbm(user['同意确定'])
-
-    def click_delete_cancel(self):
-        self.is_click_tbm(user['同意取消'])
 
     @allure.step("新建流程后的后置删除处理")
     def delete_flow(self, code):
@@ -349,7 +249,7 @@ class ForeignBom(CenterComponent):
 
     @allure.step("断言：判断是否存在批量删除")
     def assert_batch_delete(self, result):
-        DomAssert(self.driver).assert_control(user['批量删除'], result)
+        DomAssert(self.driver).assert_control(user['批量删除'], result=result)
 
     @allure.step("根据Tree点击删除按钮")
     def click_bomtree_delete(self, tree, type='Tree'):
@@ -360,7 +260,7 @@ class ForeignBom(CenterComponent):
         self.click_batch_confirm()
 
     def assert_bomtree(self, tree):
-        DomAssert(self.driver).assert_control(user['BOMTree新增物料物料编码'], False, tree)
+        DomAssert(self.driver).assert_control(user['BOMTree新增物料物料编码'], tree, result=False)
 
     @allure.step("点击确定")
     def click_batch_confirm(self):
@@ -381,10 +281,10 @@ class ForeignBom(CenterComponent):
         logging.info('点击导入-上传文件')
 
     @allure.step("导入BOM-上传正确文件")
-    def upload_true_file(self):
+    def upload_bom_file(self):
         path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', '外研客供BOM导入模板.xlsx')
         self.upload_import(path)
-        DomAssert(self.driver).assert_control(user['导入BOM校验结果成功状态'])
+        DomAssert(self.driver).assert_control(user['应用成功状态'])
 
     @allure.step("导入BOM-上传错误文件")
     def upload_wrong_file(self):
@@ -443,8 +343,19 @@ class ForeignBom(CenterComponent):
 
     @allure.step("点击应用")
     def click_apply(self):
-        self.is_click_tbm(user['应用'])
-        logging.info('点击应用')
+        for i in range(10):
+            apply = self.find_element(user['应用状态'])
+            if 'is-disabled' not in apply.get_attribute('class'):
+                self.is_click_tbm(user['应用'])
+                logging.info('点击应用')
+                break
+            else:
+                sleep(1)
+
+    @allure.step("点击应用")
+    def click_applyCancel(self):
+        self.is_click_tbm(user['应用取消'])
+        logging.info('点击应用取消')
 
     @allure.step("点击展开+图标")
     def click_tree(self, tree):
@@ -466,7 +377,6 @@ class ForeignBom(CenterComponent):
         logging.info('获取BOMTree所有内容{}'.format(infolist))
         return infolist
 
-
     @allure.step("断言导入BOM-导入后，页面表格内容是否正确")
     def assert_tree_result(self, *content):
         """
@@ -485,50 +395,6 @@ class ForeignBom(CenterComponent):
             self.base_get_img()
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
-
-    @allure.step("点击查看")
-    def click_check(self, code):
-        """
-        根据流程编码点击查看 进行查看操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['查看'], code)
-
-    @allure.step("进入oneworks查看流程页面")
-    def enter_onework_check(self, code):
-        sleep(1)
-        self.click_check(code)
-        self.switch_window(1)
-        sleep(1)
-        self.frame_enter(user['待办列表-我申请的-iframe'])
-        sleep(2)
-        DomAssert(self.driver).assert_att('基本信息')
-
-    @allure.step("获取oneworks页面的Bom信息")
-    def get_onework_bominfo(self, select):
-        """
-        获取oneworks页面的Bom信息
-        @param select:需要获取的信息类型： 制作类型， 品牌， 机型， 阶段， 市场， 模板， 自研/外研
-        """
-        self.scroll_into_view(user['BOM工程师-BomTree'])
-        DomAssert(self.driver).assert_control(user['BOM工程师-BomTreeTitle'])
-        if select == '机型':
-            BomInfo = self.element_text(user['OneworksBom信息-机型'])
-            logging.info('获取Bom信息：{}'.format(BomInfo))
-            return BomInfo
-        else:
-            BomInfo = self.element_input_text(user['BOM信息输入框'], select)
-            logging.info('获取Bom信息：{}'.format(BomInfo))
-            return BomInfo
-
-    @allure.step("获取BOMTree所有内容")
-    def get_oneworks_bomtree_info(self):
-        info = self.find_elements_tbm(user['OneworksBomTree全部内容'])
-        infolist = []
-        for i in info:
-            infolist.append(i.text.split('\n'))
-        logging.info('获取Oneworks-BOMTree所有内容{}'.format(infolist))
-        return infolist
 
     @allure.step("断言：页面表格内容是否正确")
     def assert_oneworks_bomtree_result(self, *content):
@@ -549,5 +415,89 @@ class ForeignBom(CenterComponent):
             self.base_get_img()
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
+
+    @allure.step("点击衍生BOM制作需求-新增")
+    def click_Derived_add(self):
+        self.is_click_tbm(user['衍生BOM制作需求-新增'])
+        logging.info('点击衍生BOM制作需求-新增')
+        sleep(0.5)
+
+    @allure.step("输入衍生BOM制作需求信息")
+    def input_Derived_info(self, header, info, serial=1):
+        select_list = ['操作']
+        input_list = ['用量', '替代组', '份额']
+        if serial == 1:
+            if header in select_list:
+                column = self.get_table_info(user['衍生BOM制作需求-操作'])
+                self.is_click_tbm(user['衍生BOM制作需求-输入框'], column)
+                self.is_click_tbm(user['衍生BOM制作需求-操作选择'], info)
+            elif header in input_list:
+                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+                self.input_text(user['衍生BOM制作需求-输入框'], info, column)
+            else:
+                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+                self.is_click_tbm(user['衍生BOM制作需求-输入框'], column)
+                self.input_text(user['衍生BOM制作需求-输入框'], info, column)
+                self.is_click_tbm(user['衍生BOM制作需求-选择'], info)
+        else:
+            if header in select_list:
+                column = self.get_table_info(user['衍生BOM制作需求-操作'])
+                self.is_click_tbm(user['衍生BOM制作需求-输入框2'], column, serial, column)
+                self.is_click_tbm(user['衍生BOM制作需求-操作选择'], info)
+            elif header in input_list:
+                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+                self.input_text(user['衍生BOM制作需求-输入框2'], info, column, serial, column)
+            else:
+                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+                self.is_click_tbm(user['衍生BOM制作需求-输入框2'], column, serial, column)
+                self.input_text(user['衍生BOM制作需求-输入框2'], info, column, serial, column)
+                self.is_click_tbm(user['衍生BOM制作需求-选择'], info)
+
+    @allure.step("删除衍生BOM制作需求信息")
+    def delete_Derived_info(self):
+        column = self.get_table_info(user['衍生BOM制作需求-操作删除框'])
+        self.is_click_tbm(user['衍生BOM制作需求-删除'], column)
+
+    @allure.step("断言：衍生BOM制作需求-暂无数据")
+    def assert_Derived_None(self):
+        DomAssert(self.driver).assert_control(user['衍生BOM制作需求-暂无数据'])
+
+    @allure.step("断言：生产工厂信息-暂无数据")
+    def assert_Factory_None(self):
+        DomAssert(self.driver).assert_control(user['生产工厂信息-暂无数据'])
+
+    @allure.step("点击衍生差异")
+    def click_Derived_differ(self):
+        self.is_click_tbm(user['衍生差异'])
+        logging.info('点击衍生差异')
+        sleep(0.5)
+
+    @allure.step("点击生成BOM")
+    def click_Creat_BOM(self):
+        self.is_click_tbm(user['生成BOM'])
+        logging.info('点击生成BOM')
+        sleep(2)
+
+    @allure.step("点击衍生需求导入")
+    def click_Derived_import(self):
+        self.is_click_tbm(user['衍生BOM制作需求-导入'])
+        logging.info('点击衍生BOM制作需求-导入')
+
+    @allure.step("衍生BOM制作需求-导入-上传正确文件")
+    def upload_Derived_file(self, name):
+        self.upload_file_tbm(user['衍生BOM制作需求-选择文件'], name)
+        DomAssert(self.driver).assert_control(user['应用成功状态'])
+
+    @allure.step("点击生产工厂信息导入")
+    def click_Factory_import(self):
+        self.is_click_tbm(user['生产工厂信息-导入'])
+        logging.info('点击生产工厂信息-导入')
+
+    @allure.step("生产工厂信息-导入-上传正确文件")
+    def upload_Factory_file(self, name):
+        self.upload_file_tbm(user['生产工厂信息-选择文件'], name)
+        DomAssert(self.driver).assert_control(user['应用成功状态'])
+
+
 if __name__ == '__main__':
     pass

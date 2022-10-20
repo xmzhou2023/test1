@@ -1,6 +1,8 @@
+import logging
+
 from public.base.basics import Base
 # from libs.common.read_config import ini
-from public.libs.unified_login.page_object.login import LoginPage,SrmLoginPage,PopLoginPage
+from public.libs.unified_login.page_object.login import LoginPage, SrmLoginPage, PopLoginPage, OALoginPage
 from public.libs.unified_login.page_object.login import DcrLoginPage
 
 from time import sleep
@@ -21,18 +23,27 @@ class Login(Base):
         user.click_loginsubmit()
 
 
-
     def dcr_login(self, drivers, url, username, passwd):
         user = DcrLoginPage(drivers)
         user.get_url(url)
-        sleep(7)
+        sleep(3)
         user.dcr_input_account(username)
         user.dcr_input_passwd(passwd)
-        sleep(1)
+        sleep(1.5)
         get_check_class = user.dcr_get_check_box_class()
         if "is-checked" not in str(get_check_class):
             user.dcr_click_check_box()
         user.dcr_click_loginsubmit()
+
+        """判断是否弹出DCR隐私政策页面"""
+        get_home_page = user.dcr_get_home_page_customer()
+        if get_home_page != 'Home Page-Customer':
+            get_yinsizhegnce = user.dcr_get_yinsizhengce()
+            if get_yinsizhegnce == '隐私政策':
+                user.dcr_click_agree()
+        else:
+            logging.info("打印获取的内容：{}".format(get_home_page))
+
 
     def crm_login(self, drivers, url, username, passwd):
         """统一登录֤"""
@@ -126,3 +137,15 @@ class Login(Base):
         # 点击登录
         user.click_loginsubmit()
 
+    def OA_login(self, drivers, url, username, passwd):
+        """统一登录֤"""
+        user = LoginPage(drivers)
+        pwd = OALoginPage(drivers)
+        user.get_url(url)  # 跳转到指定网页
+        user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"
+        user.click_accountlogin()  # 点击帐户密码登录
+        user.input_account(username)  # 输入帐户名
+        pwd.input_passwd(passwd)  # 输入密码
+        user.input_imgcode()  # 输入验证码
+        user.click_checkbox()
+        user.click_loginsubmit()

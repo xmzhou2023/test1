@@ -3,6 +3,7 @@ import pytest
 from project.DRP.page_object.Center_Component import NavPage
 from project.CRM.page_object.RC_BasicDataMgt_SymptomCodeMgt import SymCodePage
 from project.CRM.page_object.RC_BasicDataMgt_SymptomGroupMgt import SymPage
+from project.CRM.page_object.Center_Component import NavPage
 from public.base.assert_ui import ValueAssert
 import random, string
 import pytest, logging
@@ -27,18 +28,29 @@ num = string.digits
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
     logging.info("前往现象组组页面添加现象组")  # 添加现象码前需要现象组
+    user = SymCodePage(drivers)
+    user.GoTo_refresh()
+    user = NavPage(drivers)
+   # user.refresh_page()
+    user.list_search(content='Symptom Group Mgt')
     user = SymPage(drivers)
-    user.GoTo_Symp()
+   # user.GoTo_Symp()
     name_group = "".join(random.sample(num, 6))  # 名称使用随机数，以防重复名称添加失败
     user.Add_Symp(name_group)  # 添加现象码时需要现象组
     logging.info("前往RC中的Basic Data Mgt的Symptom Code Mgt")
     user = SymCodePage(drivers)
     user.Close_Page()  # 关闭现象组页面
-    user.GoTo_Symp_Code()  # 进入现象码页面
+    user = SymCodePage(drivers)
+    user.GoTo_refresh()
+    user = NavPage(drivers)
+   # user.refresh_page()
+    user.list_search(content='Symptom Code Mgt')
+    #user.GoTo_Symp_Code()  # 进入现象码页面
     result = DomAssert(drivers)
     result.assert_url("/repairCenter/RPCbasicDataMgt/symptomCodeMgt")
     name_code = "".join(random.sample(num, 6))  # 名称使用随机数，以防重复名称添加失败
     name_description = "auto_test"+"".join(random.sample(num, 6))  # 描述使用随机数，以防重复名称添加失败
+    user = SymCodePage(drivers)
     user.Add_Symp_Code(name_code, name_group, name_description)
     yield name_code, name_group, name_description
     logging.info("\n在当前模块完成后执行的teardown")
@@ -137,14 +149,25 @@ class TestAddSymptomCode:
         user.Close_Page()  # 关闭页面
         user = SymPage(drivers)
         user.Close_Up_First_Menu("Repair Center")  # 合起菜单
-        user = SymPage(drivers)
-        user.GoTo_Symp()
+       # user.GoTo_Symp()
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
+        user = NavPage(drivers)
+       # user.refresh_page()
+        user.list_search(content='Symptom Group Mgt')
         name_group1 = "".join(random.sample(num, 6))  # 名称使用随机数，以防重复名称添加失败
+        user = SymPage(drivers)
         user.Add_Symp(name_group1)
         logging.info("步骤1：添加界面，Grouping下拉框能搜索出Symptom Group Mgt的enable的Grouping")
         user = SymCodePage(drivers)
         user.Close_Page()  # 关闭页面
-        user.GoTo_Symp_Code()  # 进入现象码页面
+        #user.GoTo_Symp_Code()  # 进入现象码页面
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
+        user = NavPage(drivers)
+       # user.refresh_page()
+        user.list_search(content='Symptom Code Mgt')
+        user = SymCodePage(drivers)
         group_name1 = user.Add_Interface_Grouping(get_record_group)  # 添加界面搜索前置条件中的group
         ValueAssert.value_assert_equal(group_name1, get_record_group)  # Grouping下拉框能搜索出的group名称正确
         user.Close_Symp("Add")  # 关闭添加界面
@@ -154,12 +177,24 @@ class TestAddSymptomCode:
         logging.info("步骤2：添加界面，Grouping下拉框无法搜索出Symptom Group Mgt的disable的Grouping")
         user = SymPage(drivers)
         user.Close_Page()  # 关闭页面
-        user.GoTo_Symp()  # 进入现象组页面
+        #user.GoTo_Symp()  # 进入现象组页面
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
+        user = NavPage(drivers)
+      #  user.refresh_page()
+        user.list_search(content='Symptom Group Mgt')
+        user = SymPage(drivers)
         user.Get_Symp(name_group1)
         user.Edit_Symp_Status("Enable")  # 将group disable
         user = SymCodePage(drivers)
         user.Close_Page()  # 关闭页面
-        user.GoTo_Symp_Code()  # 进入现象码页面
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
+        user = NavPage(drivers)
+       # user.refresh_page()
+        user.list_search(content='Symptom Code Mgt')
+        user = SymCodePage(drivers)
+        #user.GoTo_Symp_Code()  # 进入现象码页面
         group_name1 = user.Add_No_Grouping(name_group1)  # 添加界面搜索状态为disable的grouping
         logging.info(group_name1)
         ValueAssert.value_assert_equal(group_name1, "No data")  # 搜索无数据
@@ -395,13 +430,23 @@ class TestEditSymptomCode:
 
         logging.info("步骤1：修改现象码所属现象组")
         user.Close_Page()  # 关闭现象码页面
+        user = SymCodePage(drivers)
+        user.GoTo_refresh()
+        user = NavPage(drivers)
+        #user.refresh_page()
+        user.list_search(content='Symptom Group Mgt')
         user = SymPage(drivers)
-        user.GoTo_Symp()
+        #user.GoTo_Symp()
         update_group = "".join(random.sample(num, 6))  # 名称使用随机数，以防重复名称添加失败
         user.Add_Symp(update_group)  # 更换现象码的现象组需要现象组
         user.Close_Page()  # 关闭现象组页面
         user = SymCodePage(drivers)
-        user.GoTo_Symp_Code()  # 进入现象码页面
+        user.GoTo_refresh()
+        user = NavPage(drivers)
+       # user.refresh_page()
+        user.list_search(content='Symptom Code Mgt')
+        user = SymCodePage(drivers)
+        #user.GoTo_Symp_Code()  # 进入现象码页面
         user.Get_Symp_Code(name_code2)  # 查询出来方便编辑
         user.Edit_Code_Grouping(update_group)  # 修改现象组
         get_record4, get_group4, get_description4 = user.Get_Symp_Code(name_code2)
@@ -474,7 +519,9 @@ class TestExportSymptomCode:
         user.Download_Symp_Code("Symptom_Code", "Symptom_Code")  # 下载导出的excel，同时判断文件名正确
 
         user.Close_Page()  # 关闭下载页面
-        user.GoTo_Symp_Code()  # 回到现象组页面
+       # user.GoTo_Symp_Code()  # 回到现象组页面
+        user = NavPage(drivers)
+        user.list_search(content='Symptom Group Mgt')
 
 
 

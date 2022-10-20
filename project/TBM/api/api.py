@@ -41,9 +41,9 @@ class APIRequest:
         logging.info('接口响应内容为：%s', response_dicts)
         return response_dicts
 
+    @allure.step("TBM登录接口")
     def tbm_login(self):
         """
-        TBM登录接口
         return token
         """
         logging.info('发起请求：TBM登录接口')
@@ -74,6 +74,7 @@ class APIRequest:
         logging.info('发起请求：BOM协作查询接口')
         return self.api_request('BOM协作查询接口', data, headers)
 
+    @allure.step("Oneworks撤回接口")
     def Oneworks_Recall(self, instanceId, headers):
         """
         oneworks TBM BOM协作流程撤回接口
@@ -127,9 +128,6 @@ class APIRequest:
 
     @allure.step("整机BOM协作新增接口")
     def API_Machine_Add(self):
-        """
-        TBM BOM整机BOM协作新增接口
-        """
         logging.info('发起流程：整机BOM协作新增流程')
         token = self.tbm_login()
         querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -280,7 +278,7 @@ class APIRequest:
 
     @allure.step("整机BOM协作-BOM工程师审批通过接口")
     def API_Machine_bomEnginner(self, flowNo, instanceid, flowid):
-        logging.info('发起流程接口：单机头BOM协作-结构工程师审批通过流程')
+        logging.info('发起流程接口：整机BOM协作-结构工程师审批通过流程')
         self.API_Machine_Factory(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
         headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
@@ -311,11 +309,11 @@ class APIRequest:
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
         self.Request_Machine_bomEnginner(approve_data, headers)
         self.Request_Oneworks_Complete(complete_data, headers)
-        logging.info('流程接口结束：单机头BOM协作-结构工程师审批通过流程')
+        logging.info('流程接口结束：整机BOM协作-结构工程师审批通过流程')
 
     @allure.step("整机BOM协作-业务审核通过接口")
     def API_Machine_Approval(self, flowNo, instanceid, flowid):
-        logging.info('发起流程接口：单机头BOM协作-结构工程师审批通过流程')
+        logging.info('发起流程接口：整机BOM协作-业务审核通过流程')
         self.API_Machine_bomEnginner(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
         headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
@@ -415,7 +413,7 @@ class APIRequest:
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
         self.Request_Machine_Approve(approve_data, headers)
         self.Request_Oneworks_Complete(complete_data, headers)
-        logging.info('流程接口结束：单机头BOM协作-结构工程师审批通过流程')
+        logging.info('流程接口结束：整机BOM协作业务审核通过流程')
 
     @allure.step("BOM协作撤回删除接口")
     def API_Bom_Delete(self, instanceid, flowid):
@@ -441,6 +439,7 @@ class APIRequest:
         logging.info('发起请求：单机头BOM协作新增接口')
         return self.api_request('单机头BOM协作新增接口', data, headers)
 
+    @allure.step("Oneworks查询流程历史")
     def Oneworks_History(self, instanceId, headers):
         """
         TBM oneworks 查询流程历史
@@ -457,20 +456,21 @@ class APIRequest:
         logging.info('请求结束：oneworks查询流程历史接口')
         return response_dicts
 
+    @allure.step("Oneworks-查询单机头流程历史")
     def Oneworks_queryBomSingleHeadInfo(self, flowId, headers):
         """
         TBM oneworks 查询流程历史
         @param flowId:oneworks  流程实例id
         @param headers:接口头部
         """
-        logging.info('发起请求：oneworks查询流程历史接口')
+        logging.info('发起请求：oneworks查询单机头流程历史接口')
         logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-bom-archive/bom-singleHead/bomSingleHead/queryBomSingleHeadInfoByFlowId?flowId={flowId}&esId=')
         history_response = requests.get(
             url=f'http://pfgatewayidct.transsion.com:9088/service-bom-archive/bom-singleHead/bomSingleHead/queryBomSingleHeadInfoByFlowId?flowId={flowId}&esId=',
             headers=headers)
         response_dicts = history_response.json()
         logging.info('接口响应内容为：%s', response_dicts)
-        logging.info('请求结束：oneworks查询流程历史接口')
+        logging.info('请求结束：oneworks查询单机头流程历史接口')
         return response_dicts
 
     def Oneworks_queryInfo(self, flowId, headers):
@@ -561,9 +561,6 @@ class APIRequest:
 
     @allure.step("单机头BOM协作新增接口")
     def API_BarePhone_Add(self):
-        """
-        TBM 单机头BOM协作新增接口
-        """
         logging.info('发起流程接口：单机头BOM协作新增流程')
         token = self.tbm_login()
         titletime = datetime.now().strftime('%Y-%m-%d')
@@ -1026,7 +1023,6 @@ class APIRequest:
             if i['bid'] == bid:
                 logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(i['flowNo'], i['instanceId'], i['bid']))
                 logging.info('流程接口结束：关键器件流程新增流程')
-                print(i['flowNo'], i['instanceId'], i['bid'])
                 return i['flowNo'], i['instanceId'], i['bid']
 
     @allure.step("关键器件流程：摄像头+闪光灯审批接口")
@@ -1113,15 +1109,15 @@ class APIRequest:
             "kdDeviceVO": flowInfo_response['data']['deviceVO'],
             "kdFlowMainVO": flowInfo_response['data']['flowMainVO']
         }
-        print(self.Request_KeyDevice_nodeMatAdd(nodeMatAdd_body, headers))
+        self.Request_KeyDevice_nodeMatAdd(nodeMatAdd_body, headers)
         nodeMatSubmit_body = {
             "domainNodeVOList": domainNodeVOList,
             "deviceBid": flowInfo_response['data']['flowMainVO']['deviceBid']
         }
-        print(self.Request_KeyDevice_nodeMatSubmit(nodeMatSubmit_body, headers))
+        self.Request_KeyDevice_nodeMatSubmit(nodeMatSubmit_body, headers)
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
                          "comment": ""}
-        print(self.Request_Oneworks_Complete(complete_data, headers))
+        self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：关键器件流程：摄像头+闪光灯审批接口')
 
     @allure.step("关键器件流程：硬件电子料-基带审批接口")
@@ -1177,15 +1173,15 @@ class APIRequest:
             "kdDeviceVO": flowInfo_response['data']['deviceVO'],
             "kdFlowMainVO": flowInfo_response['data']['flowMainVO']
         }
-        print(self.Request_KeyDevice_nodeMatAdd(nodeMatAdd_body, headers))
+        self.Request_KeyDevice_nodeMatAdd(nodeMatAdd_body, headers)
         nodeMatSubmit_body = {
             "domainNodeVOList": domainNodeVOList,
             "deviceBid": flowInfo_response['data']['flowMainVO']['deviceBid']
         }
-        print(self.Request_KeyDevice_nodeMatSubmit(nodeMatSubmit_body, headers))
+        self.Request_KeyDevice_nodeMatSubmit(nodeMatSubmit_body, headers)
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
                          "comment": ""}
-        print(self.Request_Oneworks_Complete(complete_data, headers))
+        self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：关键器件流程：硬件电子料-基带审批接口')
 
     @allure.step("关键器件流程：标准化代表审批接口")
@@ -1204,10 +1200,10 @@ class APIRequest:
         for i in FlowDetail_response['data']:
             for j in i['childList']:
                 j['standardBehalf'] = "18645960"
-        print(self.Request_KeyDevice_Approver(Approver_body, headers))
+        self.Request_KeyDevice_Approver(Approver_body, headers)
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
                          "comment": ""}
-        print(self.Request_Oneworks_Complete(complete_data, headers))
+        self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：关键器件流程：标准化代表审批接口')
 
     @allure.step("关键器件流程：采购代表审批接口")
@@ -1229,10 +1225,10 @@ class APIRequest:
                 j['procurementExecution'] = "18645960"
                 j['procurementPtc'] = "18645960"
                 j['procurementSqm'] = "18645960"
-        print(self.Request_KeyDevice_Approver(Approver_body, headers))
+        self.Request_KeyDevice_Approver(Approver_body, headers)
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
                          "comment": ""}
-        print(self.Request_Oneworks_Complete(complete_data, headers))
+        self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：关键器件流程：采购代表审批接口')
 
     @allure.step("关键器件流程撤回删除接口")
@@ -1313,6 +1309,15 @@ class APIRequest:
         logging.info('发起请求：出货国家查询列表查询接口')
         return self.api_request('出货国家查询列表查询接口', data, headers)
 
+    def Request_SaleCountry_getScFlowInfoFirst(self, data, headers):
+        """
+        TBM 出货国家查询 列表查询
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家查询信息获取接口')
+        return self.api_request('出货国家查询信息获取接口', data, headers)
+
     def Request_SaleCountry_Info(self, bid, headers):
         """
         TBM 出货国家流程 获取单据信息
@@ -1347,37 +1352,161 @@ class APIRequest:
 
     @allure.step("出货国家流程新增接口")
     def API_SaleCountry_Add(self):
-        """
-        TBM 出货国家流程新增接口
-        """
         logging.info('发起流程接口：出货国家流程新增流程')
         token = self.tbm_login()
         titletime = datetime.now().strftime('%Y-%m-%d')
         flowStartdate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         querytime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         add_data = {
-            "prdInfoVOS": [{"scPrdBaseInfoVO": {"bizType": "create", "globalVersion": "ver1",
-                                                "marketName": f"市场名称{querytime}",
-                                                "projectName": f"项目名称{querytime}", "memory": "128+8",
-                                                "bandStrategy": "latinAmericaMarket",
-                                                "productManager": "18645960", "projectManager": "18645960",
-                                                "brandCode": "infinix", "editStatus": 'true', "isAdd": 'true'},
-                            "scPrdUniversalInfoMap": {"aaaa": "Standard1", "bbb": "Chipset1"},
-                            "countryProperties": {}}],
-            "flowMainVO": {"title": f"[李小素]-[{titletime}]", "flowNo": "", "flowProposer": "18645960",
-                           "flowDept": "PI_系统四部", "flowStartdate": f"{flowStartdate}", "remark": "",
-                           "busiType": "", "flowProposerName": "李小素"},
-            "scProjectVO": {"brandCode": "infinix", "projectName": f"项目名称{querytime}",
-                            "templateBid": "989123709249916928"}, "submitType": "submit", "approvers": {
-                "bisSupplyApprovers": [{"role": "", "roleKey": "verb", "userName": "", "userNo": "18645960"}],
-                "bisSupplySenders": [{"role": "", "roleKey": "verc", "userName": "", "userNo": "18645960"}]},
-            "areas": [], "uploadList": [], "fields": [
-                {"id": None, "bid": "989123712022351872", "fieldName": "aaa", "fieldIdent": "aaaa",
-                 "fieldType": "select", "fieldTypeRef": "Standard", "necessary": 1, "fieldOrder": 0, "valid": 'true',
-                 "constraint": "{\"key\": \"Standard\"}", "value": None},
-                {"id": None, "bid": "989123712022351873", "fieldName": "bbb", "fieldIdent": "bbb",
-                 "fieldType": "select", "fieldTypeRef": "Chipset", "necessary": 1, "fieldOrder": 1, "valid": 'true',
-                 "constraint": "{\"key\": \"Chipset\"}", "value": None}]}
+            "prdInfoVOS": [
+                {
+                    "scPrdBaseInfoVO": {
+                        "bizType": "create",
+                        "globalVersion": "ver1",
+                        "marketName": f"市场名称{querytime}",
+                        "projectName": f"项目名称{querytime}",
+                        "memory": "128+8",
+                        "bandStrategy": "latinAmericaMarket",
+                        "productManager": "18645960",
+                        "projectManager": "18645960",
+                        "brandCode": "infinix",
+                        "editStatus": True,
+                        "isAdd": True
+                    },
+                    "scPrdUniversalInfoMap": {
+                        "camera": "摄像头",
+                        "type": "型号",
+                        "new": "新增",
+                        "anthor": "Standard2",
+                        "Color": [
+                            "Aqua Blue"
+                        ],
+                        "inch": [
+                            "RearCamera1"
+                        ]
+                    },
+                    "countryProperties": {}
+                }
+            ],
+            "flowMainVO": {
+                "title": f"[李小素]-[{titletime}]",
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowDept": "PI_系统四部",
+                "flowStartdate": flowStartdate,
+                "remark": "",
+                "busiType": "",
+                "type": "frontEnd",
+                "flowProposerName": "李小素"
+            },
+            "scProjectVO": {
+                "brandCode": "infinix",
+                "projectName": f"项目名称{querytime}",
+                "templateBid": "1029692351762796544"
+            },
+            "submitType": "submit",
+            "approvers": {
+                "bisSupplyApprovers": [
+                    {
+                        "role": "",
+                        "roleKey": "verb",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ],
+                "bisSupplySenders": [
+                    {
+                        "role": "",
+                        "roleKey": "verc",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ]
+            },
+            "areas": [],
+            "uploadList": [],
+            "fields": [
+                {
+                    "id": None,
+                    "bid": "1029692352958173184",
+                    "fieldName": "摄像头",
+                    "fieldIdent": "camera",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 0,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173185",
+                    "fieldName": "型号",
+                    "fieldIdent": "type",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 1,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173186",
+                    "fieldName": "新增",
+                    "fieldIdent": "new",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 2,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173187",
+                    "fieldName": "再增",
+                    "fieldIdent": "anthor",
+                    "fieldType": "select",
+                    "fieldTypeRef": "Standard",
+                    "necessary": 1,
+                    "fieldOrder": 3,
+                    "valid": True,
+                    "constraint": "{\"key\": \"Standard\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173188",
+                    "fieldName": "配色",
+                    "fieldIdent": "Color",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "colorSet",
+                    "necessary": 1,
+                    "fieldOrder": 4,
+                    "valid": True,
+                    "constraint": "{\"key\": \"colorSet\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173189",
+                    "fieldName": "尺寸",
+                    "fieldIdent": "inch",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "RearCamera",
+                    "necessary": 1,
+                    "fieldOrder": 5,
+                    "valid": True,
+                    "constraint": "{\"key\": \"RearCamera\"}",
+                    "value": None
+                }
+            ]
+        }
+
         search_data = {"param": {"title": "", "flowNo": "", "projectName": f"项目名称{querytime}", "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
                                  "flowStartdate": ""}, "current": 1, "size": 10}
@@ -1457,8 +1586,14 @@ class APIRequest:
                         "editStatus": False
                     },
                     "scPrdUniversalInfoMap": {
-                        "aaaa": "Standard6",
-                        "bbb": "Chipset3"
+                        "camera": "摄像头test",
+                        "type": "型号test",
+                        "new": "新增test",
+                        "anthor": "Standard2",
+                        "Color": [
+                            "Aqua Blue"
+                        ],
+                        "inch": "RearCamera1"
                     },
                     "countryProperties": {}
                 }
@@ -1470,6 +1605,7 @@ class APIRequest:
                 "flowDept": "PI_系统四部",
                 "flowStartdate": flowStartdate,
                 "remark": "",
+                "type": "frontEnd",
                 "busiType": "insOrUpdProduct",
                 "flowProposerName": "李小素"
             },
@@ -1511,31 +1647,281 @@ class APIRequest:
             },
             "areas": [],
             "uploadList": [],
+            "fields": queryArchDetail['data']['fields']
+        }
+        search_data = {"param": {"title": "", "flowNo": "", "projectName": projectName, "brandCode": "",
+                                 "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
+                                 "flowStartdate": ""}, "current": 1, "size": 10}
+        self.Request_Change_Product(change_data, headers)
+        search_response = self.Request_SaleCountry_Search(search_data, headers)
+        for i in range(20):
+            if len(search_response['data']['data']) == 0:
+                sleep(1)
+                search_response = self.Request_SaleCountry_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(search_response_data[0]['flowNo'],
+                                                                    search_response_data[0]['instanceId'],
+                                                                    search_response_data[0]['bid']))
+        logging.info('流程接口结束：出货国家查询变更产品接口')
+        return search_response_data[0]['flowNo'], search_response_data[0]['instanceId'], search_response_data[0]['bid']
+
+    @allure.step("出货国家查询变更国家接口")
+    def API_Change_Country(self, projectName):
+        logging.info('发起流程接口：出货国家查询变更国家接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        PageList_body = {
+            "current": 1,
+            "size": 10,
+            "param": {
+                "brandCode": "infinix",
+                "nationCodes": [],
+                "projectName": projectName
+            }
+        }
+        PageList = self.Request_SaleCountry_PageList(PageList_body, headers)
+        getScFlowInfoFirst_body = {
+            "archBids": [
+                PageList['data']['data'][0]['bid']
+            ],
+            "brandCode": "infinix",
+            "templateBid": "1022146928508538880",
+            "areaCodes": [
+                "B12270"
+            ],
+            "itemType": "updCountry"
+        }
+        getScFlowInfoFirst = self.Request_SaleCountry_getScFlowInfoFirst(getScFlowInfoFirst_body, headers)
+        titletime = datetime.now().strftime('%Y-%m-%d')
+        flowStartdate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        change_data = {
+            "prdInfoVOS": [
+                {
+                    "scPrdBaseInfoVO": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdBaseInfoVO'],
+                    "scPrdUniversalInfoMap": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdUniversalInfoMap'],
+                    "countryProperties": {
+                        "1231": "attestationBackups"
+                    }
+                }
+            ],
+            "flowMainVO": {
+                "title": f"[李小素]-[{titletime}]",
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowDept": "PI_系统四部",
+                "flowStartdate": flowStartdate,
+                "remark": "",
+                "busiType": "updCountry",
+                "flowProposerName": "李小素"
+            },
+            "scProjectVO": getScFlowInfoFirst['data']['scProjectVO'],
+            "submitType": "submit",
+            "approvers": {
+                "bisSupplyApprovers": [
+                    {
+                        "role": "",
+                        "roleKey": "verb",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ],
+                "bisSupplySenders": [
+                    {
+                        "role": "",
+                        "roleKey": "verc",
+                        "userName": "",
+                        "userNo": "18645960"
+                    }
+                ]
+            },
+            "areas": [
+                {
+                    "id": None,
+                    "bid": "111111162",
+                    "areaBid": "111111162",
+                    "areaOrder": 0,
+                    "areaColor": "#FF4400",
+                    "areaNameZh": "东亚",
+                    "areaNameEn": "A23372",
+                    "areaCode": "B12270",
+                    "nations": [
+                        {
+                            "nationBid": "965571404990910464",
+                            "nationOrder": 0,
+                            "nationNameZh": "中国",
+                            "nationNameEn": "China001",
+                            "nationCode": "1231",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111215",
+                            "nationOrder": 1,
+                            "nationNameZh": "柬埔寨",
+                            "nationNameEn": "Cambodia",
+                            "nationCode": "KHA",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "945678738367057920",
+                            "nationOrder": 2,
+                            "nationNameZh": "日本2",
+                            "nationNameEn": "jp",
+                            "nationCode": "jp",
+                            "value": None
+                        }
+                    ]
+                },
+                {
+                    "id": None,
+                    "bid": "911371279385366528",
+                    "areaBid": "911371279385366528",
+                    "areaOrder": 1,
+                    "areaColor": "#00FF51",
+                    "areaNameZh": "东非",
+                    "areaNameEn": "B2",
+                    "areaCode": "B2",
+                    "nations": [
+                        {
+                            "nationBid": "111295",
+                            "nationOrder": 0,
+                            "nationNameZh": "乍得",
+                            "nationNameEn": "Chad",
+                            "nationCode": "TD",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111118",
+                            "nationOrder": 1,
+                            "nationNameZh": "安哥拉",
+                            "nationNameEn": "Angola",
+                            "nationCode": "AGO",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111134",
+                            "nationOrder": 2,
+                            "nationNameZh": "布隆迪",
+                            "nationNameEn": "Burundi",
+                            "nationCode": "BDI",
+                            "value": None
+                        }
+                    ]
+                },
+                {
+                    "id": None,
+                    "bid": "111111154",
+                    "areaBid": "111111154",
+                    "areaOrder": 2,
+                    "areaColor": "#0059FF",
+                    "areaNameZh": "欧洲东欧",
+                    "areaNameEn": "A23364",
+                    "areaCode": "B12262",
+                    "nations": [
+                        {
+                            "nationBid": "978957925726949376",
+                            "nationOrder": 0,
+                            "nationNameZh": "EE1",
+                            "nationNameEn": "Russia",
+                            "nationCode": "EE1",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111116",
+                            "nationOrder": 1,
+                            "nationNameZh": "阿尔巴尼亚",
+                            "nationNameEn": "Albania",
+                            "nationCode": "ALB",
+                            "value": None
+                        },
+                        {
+                            "nationBid": "111117",
+                            "nationOrder": 2,
+                            "nationNameZh": "亚美尼亚",
+                            "nationNameEn": "Armenia",
+                            "nationCode": "ARM",
+                            "value": None
+                        }
+                    ]
+                }
+            ],
+            "uploadList": [],
             "fields": [
                 {
                     "id": None,
-                    "bid": "989123712022351872",
-                    "fieldName": "aaa",
-                    "fieldIdent": "aaaa",
+                    "bid": "1029692352958173184",
+                    "fieldName": "摄像头",
+                    "fieldIdent": "camera",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 0,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173185",
+                    "fieldName": "型号",
+                    "fieldIdent": "type",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 1,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173186",
+                    "fieldName": "新增",
+                    "fieldIdent": "new",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 2,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173187",
+                    "fieldName": "再增",
+                    "fieldIdent": "anthor",
                     "fieldType": "select",
                     "fieldTypeRef": "Standard",
                     "necessary": 1,
-                    "fieldOrder": 0,
+                    "fieldOrder": 3,
                     "valid": True,
                     "constraint": "{\"key\": \"Standard\"}",
                     "value": None
                 },
                 {
                     "id": None,
-                    "bid": "989123712022351873",
-                    "fieldName": "bbb",
-                    "fieldIdent": "bbb",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Chipset",
+                    "bid": "1029692352958173188",
+                    "fieldName": "配色",
+                    "fieldIdent": "Color",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "colorSet",
                     "necessary": 1,
-                    "fieldOrder": 1,
+                    "fieldOrder": 4,
                     "valid": True,
-                    "constraint": "{\"key\": \"Chipset\"}",
+                    "constraint": "{\"key\": \"colorSet\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173189",
+                    "fieldName": "尺寸",
+                    "fieldIdent": "inch",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "RearCamera",
+                    "necessary": 1,
+                    "fieldOrder": 5,
+                    "valid": True,
+                    "constraint": "{\"key\": \"RearCamera\"}",
                     "value": None
                 }
             ]
@@ -1654,8 +2040,14 @@ class APIRequest:
                         "editStatus": False
                     },
                     "scPrdUniversalInfoMap": {
-                        "bbb": "Chipset2",
-                        "aaaa": "Standard4"
+                        "camera": "摄像头test",
+                        "type": "型号test",
+                        "new": "新增test",
+                        "anthor": "Standard2",
+                        "Color": [
+                            "Aqua Blue"
+                        ],
+                        "inch": "RearCamera1"
                     },
                     "countryProperties": {}
                 }
@@ -1684,28 +2076,80 @@ class APIRequest:
             "fields": [
                 {
                     "id": None,
-                    "bid": "989123712022351872",
-                    "fieldName": "aaa",
-                    "fieldIdent": "aaaa",
+                    "bid": "1029349849134403584",
+                    "fieldName": "摄像头",
+                    "fieldIdent": "camera",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 0,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403585",
+                    "fieldName": "型号",
+                    "fieldIdent": "type",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 1,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403586",
+                    "fieldName": "新增",
+                    "fieldIdent": "new",
+                    "fieldType": "text",
+                    "fieldTypeRef": "",
+                    "necessary": 1,
+                    "fieldOrder": 2,
+                    "valid": True,
+                    "constraint": "{\"key\": \"\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029349849134403587",
+                    "fieldName": "再增",
+                    "fieldIdent": "anthor",
                     "fieldType": "select",
                     "fieldTypeRef": "Standard",
                     "necessary": 1,
-                    "fieldOrder": 0,
+                    "fieldOrder": 3,
                     "valid": True,
                     "constraint": "{\"key\": \"Standard\"}",
                     "value": None
                 },
                 {
                     "id": None,
-                    "bid": "989123712022351873",
-                    "fieldName": "bbb",
-                    "fieldIdent": "bbb",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Chipset",
+                    "bid": "1029349849134403588",
+                    "fieldName": "配色",
+                    "fieldIdent": "Color",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "colorSet",
                     "necessary": 1,
-                    "fieldOrder": 1,
+                    "fieldOrder": 4,
                     "valid": True,
-                    "constraint": "{\"key\": \"Chipset\"}",
+                    "constraint": "{\"key\": \"colorSet\"}",
+                    "value": None
+                },
+                {
+                    "id": None,
+                    "bid": "1029692352958173189",
+                    "fieldName": "尺寸",
+                    "fieldIdent": "inch",
+                    "fieldType": "select_multiple",
+                    "fieldTypeRef": "RearCamera",
+                    "necessary": 1,
+                    "fieldOrder": 5,
+                    "valid": True,
+                    "constraint": "{\"key\": \"RearCamera\"}",
                     "value": None
                 }
             ]
@@ -1892,6 +2336,411 @@ class APIRequest:
                 logging.info('流程结束：外研BOM协作新增接口')
                 return i['flowNo'], i['instanceId'], flowId
 
+    @allure.step("外研BOM协作-衍生-新增接口")
+    def API_Foreign_Derived_Add(self):
+        logging.info('发起流程：外研BOM协作新增接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        add_data = {
+            "flowId": None,
+            "flowNodeName": "start",
+            "bomArchive": {
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowProposerName": "李小素",
+                "flowStartdate": querytime,
+                "bomVer": "",
+                "bomVersion": "batch",
+                "brandCode": "itel",
+                "market": "ET",
+                "produceClass": "userProviDerive",
+                "templateId": None,
+                "templateName": "",
+                "isLocalPurchase": "",
+                "bomClass": "",
+                "model": "JMB-01",
+                "note": "",
+                "title": f"[李小素]-[{querytime[:10]}]",
+                "flowDept": "PI_系统四部",
+                "bomModel": "retailValueModel",
+                "curFlowCode": "structureStart"
+            },
+            "bomDeriveList": [
+                {
+                    "no": None,
+                    "newBomCode": "12000003",
+                    "newBomName": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "rightBomName": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "originalBomCode": "12014351",
+                    "originalBomName": "单机头_TECNO_AC8_H853_A1_莫奈之夏_PK_256+8",
+                    "rightOriginalBomName": "单机头_TECNO_AC8_H853_A1_莫奈之夏_PK_256+8",
+                    "originalBomFactory": "PL01",
+                    "checkResultMessage": "",
+                    "matMap": {
+                        "originalBomCode": "单机头_TECNO_AC8_H853_A1_莫奈之夏_PK_256+8",
+                        "newBomCode_matAttr": "可选",
+                        "newBomCode": "单机头_TECNO_T722_E680B1_红色_4G",
+                        "originalBomCode_matAttr": "可选"
+                    }
+                }
+            ],
+            "otherDeriveList": [
+                {
+                    "no": "1",
+                    "pMatCode": "12000003",
+                    "pMatNote": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "rightBomName": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "operation": "add",
+                    "childMaterialCode": "12800001",
+                    "childMaterialNote": "整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ",
+                    "rightMatDescZh": "整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ",
+                    "baseQty": "1000",
+                    "replaceGroup": None,
+                    "usePercent": None,
+                    "checkResultMessage": "",
+                    "matMap": {
+                        "pMatCode_matAttr": "可选",
+                        "pMatCode": "单机头_TECNO_T722_E680B1_红色_4G",
+                        "childMaterialCode_matAttr": "外研",
+                        "childMaterialCode": "整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ"
+                    }
+                }
+            ],
+            "refFactoryList": [
+                {
+                    "checkResultMessage": "",
+                    "num": 1,
+                    "matCode": "12000003",
+                    "note": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "statusCode": "batch",
+                    "homePackagingFactory": "1201",
+                    "homeChipFactory": "/",
+                    "overseasPackagingFactory": "/",
+                    "overseasChipFactory": "/",
+                    "rightNote": None,
+                    "matMap": {
+                        "matCode_matAttr": "可选",
+                        "matCode": "单机头_TECNO_T722_E680B1_红色_4G"
+                    },
+                    "statusCodeLabel": "量产"
+                }
+            ],
+            "bomDeriveTreeVOList": [
+                {
+                    "bomNodeCode": "1030523214364807229",
+                    "bomNo": "1",
+                    "bomName": "客供BOM",
+                    "isArchive": 0,
+                    "applyScope": "userProviDerive",
+                    "matCode": "12000003",
+                    "baseQty": "1000",
+                    "note": "单机头_TECNO_T722_E680B1_红色_4G",
+                    "statusCode": "batch",
+                    "isRoot": True,
+                    "matAttr": "可选",
+                    "bomUseage": "1",
+                    "isDerive": 1,
+                    "nativePcbfactory": "PL01",
+                    "childNodes": [
+                        {
+                            "bomNodeCode": "1030523214532579328",
+                            "matCode": "12800001",
+                            "baseQty": "1000",
+                            "note": "整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ",
+                            "matAttr": "外研",
+                            "dealDelFlag": False,
+                            "operation": "add",
+                            "id": "1030523214532579328",
+                            "index": 0,
+                            "serialNo": "1.1"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807575",
+                            "isArchive": 0,
+                            "matCode": "12106748",
+                            "baseQty": "1000",
+                            "note": "贴片副板_H853_FLASH_1_A_V1.2_自制",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807575",
+                            "index": 1,
+                            "serialNo": "1.2"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807341",
+                            "isArchive": 0,
+                            "matCode": "12106917",
+                            "baseQty": "1000",
+                            "note": "贴片主板_H853_A1_256GB+8GB_V1.4_自制",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807341",
+                            "index": 2,
+                            "serialNo": "1.3"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807300",
+                            "isArchive": 0,
+                            "matCode": "12106918",
+                            "baseQty": "1000",
+                            "note": "贴片副板_H853_1_A1_V1.3_自制",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807300",
+                            "index": 3,
+                            "serialNo": "1.4"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807289",
+                            "isArchive": 0,
+                            "matCode": "12202727",
+                            "baseQty": "1000",
+                            "note": "预加工_中框+组合件(触摸屏+显示屏)_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807289",
+                            "index": 4,
+                            "serialNo": "1.5"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807238",
+                            "isArchive": 0,
+                            "matCode": "12304722",
+                            "baseQty": "1000",
+                            "note": "虚拟共用件_TECNO_AC8",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807238",
+                            "index": 5,
+                            "serialNo": "1.6"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807237",
+                            "isArchive": 0,
+                            "matCode": "21204821",
+                            "baseQty": "1000",
+                            "note": "电池盖组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807237",
+                            "index": 6,
+                            "serialNo": "1.7"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807236",
+                            "isArchive": 0,
+                            "matCode": "21303385",
+                            "baseQty": "1000",
+                            "note": "音量键组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807236",
+                            "index": 7,
+                            "serialNo": "1.8"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807235",
+                            "isArchive": 0,
+                            "matCode": "21303386",
+                            "baseQty": "1000",
+                            "note": "电源键组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807235",
+                            "index": 8,
+                            "serialNo": "1.9"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807234",
+                            "isArchive": 0,
+                            "matCode": "23202306",
+                            "baseQty": "1000",
+                            "note": "后摄像头镜片_AC8_康宁3代_0.6mm_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807234",
+                            "index": 9,
+                            "serialNo": "1.10"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807233",
+                            "isArchive": 0,
+                            "matCode": "23504286",
+                            "baseQty": "1000",
+                            "note": "后摄装饰件组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807233",
+                            "index": 10,
+                            "serialNo": "1.11"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807232",
+                            "isArchive": 0,
+                            "matCode": "23504287",
+                            "baseQty": "1000",
+                            "note": "卡托组件_AC8_莫奈之夏",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807232",
+                            "index": 11,
+                            "serialNo": "1.12"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807231",
+                            "isArchive": 0,
+                            "matCode": "23603441",
+                            "baseQty": "1000",
+                            "note": "保护膜_三层_AC8_透明",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807231",
+                            "index": 12,
+                            "serialNo": "1.13"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1030523214364807230",
+                            "isArchive": 0,
+                            "matCode": "23603454",
+                            "baseQty": "1000",
+                            "note": "单层膜_全包膜_AC8",
+                            "matAttr": "可选",
+                            "bomUseage": "1",
+                            "parentNodeCode": "1030523214364807229",
+                            "sapLevel": 1,
+                            "dealDelFlag": False,
+                            "id": "1030523214364807230",
+                            "index": 13,
+                            "serialNo": "1.14"
+                        }
+                    ],
+                    "parentNodeCode": "0",
+                    "nodeName": "单机头",
+                    "sapLevel": 0,
+                    "dealDelFlag": False,
+                    "id": "1030523214364807229",
+                    "index": 0,
+                    "serialNo": 1
+                }
+            ],
+            "approvers": {
+                "bisReviewApprovers": [
+                    {
+                        "role": "qpm_review",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "ppm_review",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "foreign_purchase",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "hardware",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "rf_review",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "video",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "structure",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "skd_mpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "ckd_mpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "other",
+                        "userNo": ""
+                    }
+                ],
+                "bisSupplyApprovers": []
+            },
+            "uploadList": [],
+            "submitType": "submit"
+        }
+        search_data = {
+            "param": {
+                "bomCode": "12000003",
+                "bomType": "foreignBom",
+                "createdTimeFrom": "",
+                "createdTimeTo": ""
+            },
+            "current": 1,
+            "size": 10
+        }
+        add_response = self.Request_Foreign_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_Bom_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
+            if i['flowId'] == flowId:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
+                logging.info('流程结束：外研BOM协作新增接口')
+                return i['flowNo'], i['instanceId'], flowId
+
     @allure.step("外研BOM协作新增接口")
     def API_Foreign_Failed_Add(self):
         logging.info('发起流程：外研BOM协作新增接口')
@@ -2027,12 +2876,11 @@ class APIRequest:
             if i['flowId'] == flowId:
                 logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
                 logging.info('流程结束：外研BOM协作新增接口')
-                print(i['flowNo'], i['instanceId'], flowId)
                 return i['flowNo'], i['instanceId'], flowId
 
     def Request_Foreign_Approval(self, data, headers):
         """
-        TBM 外研BOM协作 新增流程
+        TBM 外研BOM协作 业务审核流程
         @param data: 接口body
         @param headers:接口头部
         """
@@ -2072,14 +2920,17 @@ class APIRequest:
                 BomForeignInfo['data']['bomTreeVOList'],
             "refFactoryList":
                 BomForeignInfo['data']['refFactoryList'],
-            "bomDeriveList": [],
+            "bomDeriveList":
+                BomForeignInfo['data']['bomDeriveList'],
             "copyRuleList": [],
-            "otherDeriveList": [],
+            "otherDeriveList":
+                BomForeignInfo['data']['otherDeriveList'],
             "uploadList": [],
             "bomImportKeyDeviceList": [],
             "purchaseList": None,
             "role": "qpm_review,ppm_review",
-            "bomDeriveTreeVOList": [],
+            "bomDeriveTreeVOList":
+                BomForeignInfo['data']['bomDeriveTreeVOList'],
             "virtualChipList": None,
             "diffCollectList": None
         }
@@ -2088,6 +2939,938 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：外研BOM协作-业务审核通过流程')
 
+    def Request_PCBA_Add(self, data, headers):
+        """
+        TBM PCBABOM协作 新增流程
+        @param data: 接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：PCBABOM协作新增接口')
+        return self.api_request('PCBABOM协作新增接口', data, headers)
 
+    @allure.step("PCBABOM协作新增接口")
+    def API_PCBA_Add(self):
+        logging.info('发起流程：外研BOM协作新增接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        add_data = {
+            "flowId": None,
+            "flowNodeName": "start",
+            "bomArchive": {
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowProposerName": "李小素",
+                "flowStartdate": querytime,
+                "bomVer": "",
+                "bomVersion": "trial",
+                "brandCode": "infinix",
+                "produceClass": "pcba",
+                "templateId": 1017727,
+                "templateName": "infinix_001_临时模板",
+                "isLocalPurchase": "",
+                "doVirtualChip": False,
+                "checkKeyDevice": True,
+                "bomClass": "",
+                "model": "JMB-01",
+                "note": "",
+                "title": f"[李小素]-[{querytime[:10]}]",
+                "researchType": "selfResearch",
+                "flowDept": "PI_系统四部",
+                "curFlowCode": "structureStart"
+            },
+            "bomDeriveList": [],
+            "otherDeriveList": [],
+            "bomTreeVOList": [
+                {
+                    "id": "new_bom_3000",
+                    "matGroup": "121,123,129,131,144",
+                    "bomName": "PCBA",
+                    "statusCode": "trial",
+                    "matCount": "1",
+                    "nodeClass": "actual",
+                    "businessRole": "rf,baseBand,nps,structure,mpm,other",
+                    "tempNodeId": 3649,
+                    "childNodes": [
+                        {
+                            "id": "new_bom_3001",
+                            "matGroup": "155,158",
+                            "bomName": "PCB155/158",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3650,
+                            "childNodes": [],
+                            "index": 0,
+                            "serialNo": "1.1"
+                        },
+                        {
+                            "id": "new_bom_3002",
+                            "matGroup": "140,156",
+                            "bomName": "CPU",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3651,
+                            "childNodes": [],
+                            "index": 1,
+                            "serialNo": "1.2"
+                        },
+                        {
+                            "id": "new_bom_3003",
+                            "matGroup": "142",
+                            "bomName": "存储器142",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3652,
+                            "childNodes": [],
+                            "index": 2,
+                            "serialNo": "1.3"
+                        },
+                        {
+                            "id": "new_bom_3004",
+                            "matGroup": "141,157",
+                            "bomName": "套片141/157",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3653,
+                            "childNodes": [],
+                            "index": 3,
+                            "serialNo": "1.4"
+                        },
+                        {
+                            "id": "new_bom_3005",
+                            "matGroup": "156",
+                            "bomName": "IC器件156",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3654,
+                            "childNodes": [],
+                            "index": 4,
+                            "serialNo": "1.5"
+                        },
+                        {
+                            "id": "new_bom_3006",
+                            "matGroup": "143",
+                            "bomName": "IC143",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3655,
+                            "childNodes": [],
+                            "index": 5,
+                            "serialNo": "1.6"
+                        },
+                        {
+                            "id": "new_bom_3007",
+                            "matGroup": "144",
+                            "bomName": "IC144",
+                            "matCount": 5,
+                            "position": "U1001,U1002,U1003,U1004,U1005",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand,nps",
+                            "tempNodeId": 3656,
+                            "childNodes": [],
+                            "index": 6,
+                            "serialNo": "1.7",
+                            "matCode": "14400003",
+                            "deleteValidate": False,
+                            "note": "IC-Gsensor,2axis,8bit,WLCSP6,H1.015",
+                            "matAttr": "可选",
+                            "positionCount": 5
+                        },
+                        {
+                            "id": "new_bom_3008",
+                            "matGroup": "145",
+                            "bomName": "IC145",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3657,
+                            "childNodes": [],
+                            "index": 7,
+                            "serialNo": "1.8"
+                        },
+                        {
+                            "id": "new_bom_3009",
+                            "matGroup": "146",
+                            "bomName": "IC146",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3658,
+                            "childNodes": [],
+                            "index": 8,
+                            "serialNo": "1.9"
+                        },
+                        {
+                            "id": "new_bom_3010",
+                            "matGroup": "147",
+                            "bomName": "IC147",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3659,
+                            "childNodes": [],
+                            "index": 9,
+                            "serialNo": "1.10"
+                        },
+                        {
+                            "id": "new_bom_3011",
+                            "matGroup": "148",
+                            "bomName": "IC148",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3660,
+                            "childNodes": [],
+                            "index": 10,
+                            "serialNo": "1.11"
+                        },
+                        {
+                            "id": "new_bom_3012",
+                            "matGroup": "149",
+                            "bomName": "晶体149",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3661,
+                            "childNodes": [],
+                            "index": 11,
+                            "serialNo": "1.12"
+                        },
+                        {
+                            "id": "new_bom_3013",
+                            "matGroup": "150",
+                            "bomName": "二极管",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3662,
+                            "childNodes": [],
+                            "index": 12,
+                            "serialNo": "1.13"
+                        },
+                        {
+                            "id": "new_bom_3014",
+                            "matGroup": "151",
+                            "bomName": "磁珠151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3663,
+                            "childNodes": [],
+                            "index": 13,
+                            "serialNo": "1.14"
+                        },
+                        {
+                            "id": "new_bom_3015",
+                            "matGroup": "151",
+                            "bomName": "电感151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3664,
+                            "childNodes": [],
+                            "index": 14,
+                            "serialNo": "1.15"
+                        },
+                        {
+                            "id": "new_bom_3016",
+                            "matGroup": "151",
+                            "bomName": "电容151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3665,
+                            "childNodes": [],
+                            "index": 15,
+                            "serialNo": "1.16"
+                        },
+                        {
+                            "id": "new_bom_3017",
+                            "matGroup": "151",
+                            "bomName": "电阻151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3666,
+                            "childNodes": [],
+                            "index": 16,
+                            "serialNo": "1.17"
+                        },
+                        {
+                            "id": "new_bom_3018",
+                            "matGroup": "151",
+                            "bomName": "功率电感151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3667,
+                            "childNodes": [],
+                            "index": 17,
+                            "serialNo": "1.18"
+                        },
+                        {
+                            "id": "new_bom_3019",
+                            "matGroup": "151",
+                            "bomName": "其他151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3668,
+                            "childNodes": [],
+                            "index": 18,
+                            "serialNo": "1.19"
+                        },
+                        {
+                            "id": "new_bom_3020",
+                            "matGroup": "192",
+                            "bomName": "MIC192",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3669,
+                            "childNodes": [],
+                            "index": 19,
+                            "serialNo": "1.20"
+                        },
+                        {
+                            "id": "new_bom_3021",
+                            "matGroup": "152,153",
+                            "bomName": "结构贴片料",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3670,
+                            "childNodes": [],
+                            "index": 20,
+                            "serialNo": "1.21"
+                        },
+                        {
+                            "id": "new_bom_3022",
+                            "matGroup": "154",
+                            "bomName": "弹片/屏蔽罩",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3671,
+                            "childNodes": [],
+                            "index": 21,
+                            "serialNo": "1.22"
+                        }
+                    ],
+                    "isRoot": True,
+                    "index": 0,
+                    "serialNo": 1,
+                    "matCode": "12100001",
+                    "deleteValidate": False,
+                    "note": "PCBA_Mainboard_NL01_128MB+64MB_T630S",
+                    "matAttr": "可选"
+                }
+            ],
+            "bomDeriveTreeVOList": [
+                {
+                    "id": "new_bom_3000",
+                    "matGroup": "121,123,129,131,144",
+                    "bomName": "PCBA",
+                    "statusCode": "trial",
+                    "matCount": "1",
+                    "nodeClass": "actual",
+                    "businessRole": "rf,baseBand,nps,structure,mpm,other",
+                    "tempNodeId": 3649,
+                    "childNodes": [
+                        {
+                            "id": "new_bom_3001",
+                            "matGroup": "155,158",
+                            "bomName": "PCB155/158",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3650,
+                            "childNodes": [],
+                            "index": 0,
+                            "serialNo": "1.1"
+                        },
+                        {
+                            "id": "new_bom_3002",
+                            "matGroup": "140,156",
+                            "bomName": "CPU",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3651,
+                            "childNodes": [],
+                            "index": 1,
+                            "serialNo": "1.2"
+                        },
+                        {
+                            "id": "new_bom_3003",
+                            "matGroup": "142",
+                            "bomName": "存储器142",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3652,
+                            "childNodes": [],
+                            "index": 2,
+                            "serialNo": "1.3"
+                        },
+                        {
+                            "id": "new_bom_3004",
+                            "matGroup": "141,157",
+                            "bomName": "套片141/157",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3653,
+                            "childNodes": [],
+                            "index": 3,
+                            "serialNo": "1.4"
+                        },
+                        {
+                            "id": "new_bom_3005",
+                            "matGroup": "156",
+                            "bomName": "IC器件156",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3654,
+                            "childNodes": [],
+                            "index": 4,
+                            "serialNo": "1.5"
+                        },
+                        {
+                            "id": "new_bom_3006",
+                            "matGroup": "143",
+                            "bomName": "IC143",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3655,
+                            "childNodes": [],
+                            "index": 5,
+                            "serialNo": "1.6"
+                        },
+                        {
+                            "id": "new_bom_3007",
+                            "matGroup": "144",
+                            "bomName": "IC144",
+                            "matCount": 5,
+                            "position": "U1001,U1002,U1003,U1004,U1005",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand,nps",
+                            "tempNodeId": 3656,
+                            "childNodes": [],
+                            "index": 6,
+                            "serialNo": "1.7",
+                            "matCode": "14400003",
+                            "deleteValidate": False,
+                            "note": "IC-Gsensor,2axis,8bit,WLCSP6,H1.015",
+                            "matAttr": "可选",
+                            "positionCount": 5
+                        },
+                        {
+                            "id": "new_bom_3008",
+                            "matGroup": "145",
+                            "bomName": "IC145",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3657,
+                            "childNodes": [],
+                            "index": 7,
+                            "serialNo": "1.8"
+                        },
+                        {
+                            "id": "new_bom_3009",
+                            "matGroup": "146",
+                            "bomName": "IC146",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3658,
+                            "childNodes": [],
+                            "index": 8,
+                            "serialNo": "1.9"
+                        },
+                        {
+                            "id": "new_bom_3010",
+                            "matGroup": "147",
+                            "bomName": "IC147",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3659,
+                            "childNodes": [],
+                            "index": 9,
+                            "serialNo": "1.10"
+                        },
+                        {
+                            "id": "new_bom_3011",
+                            "matGroup": "148",
+                            "bomName": "IC148",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3660,
+                            "childNodes": [],
+                            "index": 10,
+                            "serialNo": "1.11"
+                        },
+                        {
+                            "id": "new_bom_3012",
+                            "matGroup": "149",
+                            "bomName": "晶体149",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3661,
+                            "childNodes": [],
+                            "index": 11,
+                            "serialNo": "1.12"
+                        },
+                        {
+                            "id": "new_bom_3013",
+                            "matGroup": "150",
+                            "bomName": "二极管",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3662,
+                            "childNodes": [],
+                            "index": 12,
+                            "serialNo": "1.13"
+                        },
+                        {
+                            "id": "new_bom_3014",
+                            "matGroup": "151",
+                            "bomName": "磁珠151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3663,
+                            "childNodes": [],
+                            "index": 13,
+                            "serialNo": "1.14"
+                        },
+                        {
+                            "id": "new_bom_3015",
+                            "matGroup": "151",
+                            "bomName": "电感151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3664,
+                            "childNodes": [],
+                            "index": 14,
+                            "serialNo": "1.15"
+                        },
+                        {
+                            "id": "new_bom_3016",
+                            "matGroup": "151",
+                            "bomName": "电容151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3665,
+                            "childNodes": [],
+                            "index": 15,
+                            "serialNo": "1.16"
+                        },
+                        {
+                            "id": "new_bom_3017",
+                            "matGroup": "151",
+                            "bomName": "电阻151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3666,
+                            "childNodes": [],
+                            "index": 16,
+                            "serialNo": "1.17"
+                        },
+                        {
+                            "id": "new_bom_3018",
+                            "matGroup": "151",
+                            "bomName": "功率电感151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3667,
+                            "childNodes": [],
+                            "index": 17,
+                            "serialNo": "1.18"
+                        },
+                        {
+                            "id": "new_bom_3019",
+                            "matGroup": "151",
+                            "bomName": "其他151",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3668,
+                            "childNodes": [],
+                            "index": 18,
+                            "serialNo": "1.19"
+                        },
+                        {
+                            "id": "new_bom_3020",
+                            "matGroup": "192",
+                            "bomName": "MIC192",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3669,
+                            "childNodes": [],
+                            "index": 19,
+                            "serialNo": "1.20"
+                        },
+                        {
+                            "id": "new_bom_3021",
+                            "matGroup": "152,153",
+                            "bomName": "结构贴片料",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3670,
+                            "childNodes": [],
+                            "index": 20,
+                            "serialNo": "1.21"
+                        },
+                        {
+                            "id": "new_bom_3022",
+                            "matGroup": "154",
+                            "bomName": "弹片/屏蔽罩",
+                            "nodeClass": "actual",
+                            "businessRole": "baseBand",
+                            "tempNodeId": 3671,
+                            "childNodes": [],
+                            "index": 21,
+                            "serialNo": "1.22"
+                        }
+                    ],
+                    "isRoot": True,
+                    "index": 0,
+                    "serialNo": 1,
+                    "matCode": "12100001",
+                    "deleteValidate": False,
+                    "note": "PCBA_Mainboard_NL01_128MB+64MB_T630S",
+                    "matAttr": "可选"
+                }
+            ],
+            "virtualChipList": [],
+            "approvers": {
+                "bisReviewApprovers": [],
+                "bisSupplyApprovers": [
+                    {
+                        "role": "mpm",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "rf",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "pm",
+                        "userNo": ""
+                    }
+                ]
+            },
+            "uploadList": [],
+            "submitType": "submit"
+        }
+        search_data = {
+            "param": {
+                "title": "",
+                "flowNo": "",
+                "bomCode": "",
+                "produceClass": "",
+                "model": "",
+                "brandCode": "",
+                "bomVer": "",
+                "statusCode": "",
+                "synStatus": "",
+                "createdBy": "",
+                "createdTimeFrom": "",
+                "createdTimeTo": "",
+                "bomType": "pcba"
+            },
+            "current": 1,
+            "size": 10
+        }
+        add_response = self.Request_PCBA_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_Bom_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
+            if i['flowId'] == flowId:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
+                logging.info('流程结束：外研BOM协作新增接口')
+                return i['flowNo'], i['instanceId'], flowId
+
+    def Oneworks_queryPCBAInfo(self, flowId, headers):
+        """
+        TBM oneworks 查询流程历史
+        @param flowId:oneworks  流程实例id
+        @param headers:接口头部
+        """
+        logging.info('发起请求：oneworks查询流程历史接口')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-bom-archive/bom-arc/pcba/queryBomInfoByFlowId?flowId={flowId}')
+        history_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/service-bom-archive/bom-arc/pcba/queryBomInfoByFlowId?flowId={flowId}',
+            headers=headers)
+        response_dicts = history_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：oneworks查询流程历史接口')
+        return response_dicts
+
+    def Request_PCBA_Factory(self, data, headers):
+        """
+        TBM 单机头BOM协作 oneworks 补充工厂
+        @param data: 接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：PCBABOM协作补充工厂接口')
+        return self.api_request('PCBABOM协作补充工厂接口', data, headers)
+
+    @allure.step("PCBABOM协作-补充工厂审批通过接口")
+    def API_PCBA_Factory(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：PCBABOM协作-补充工厂审批通过流程')
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        BomPCBAInfo = self.Oneworks_queryPCBAInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "refFactoryList": [
+                {
+                    "note": BomPCBAInfo['data']['bomTreeVOList'][0]['note'],
+                    "matCode": BomPCBAInfo['data']['bomTreeVOList'][0]['matCode'],
+                    "isOversea": None,
+                    "homePackagingFactory": "/",
+                    "homeChipFactory": "1001",
+                    "overseasPackagingFactory": "/",
+                    "overseasChipFactory": "1001",
+                    "applyScope": "pcbaBom",
+                    "bomNodeCode": None,
+                    "statusCode": "trial",
+                    "bomNo": "1",
+                    "factory": None,
+                    "applyScopeList": None,
+                    "childNodes": None,
+                    "existFactory": False,
+                    "statusCodeLabel": "试产",
+                    "deleteValidate": False
+                }
+            ],
+            "produceClass": "pcba"
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_PCBA_Factory(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：PCBABOM协作-补充工厂审批通过流程')
+
+    def Request_PCBA_structure(self, data, headers):
+        """
+        TBM PCBABOM协作 oneworks 基带工程师审批接口
+        @param data: 接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：PCBABOM协作基带工程师审批接口')
+        return self.api_request('PCBABOM协作基带工程师审批接口', data, headers)
+
+    def Oneworks_PCBA_queryInfo(self, flowId, headers):
+        """
+        TBM oneworks 查询流程历史
+        @param flowId:oneworks  流程实例id
+        @param headers:接口头部
+        """
+        logging.info('发起请求：oneworks查询流程历史接口')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-bom-archive/bom-arc/pcba/queryBomInfoByFlowId?flowId={flowId}')
+        history_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/service-bom-archive/bom-arc/pcba/queryBomInfoByFlowId?flowId={flowId}',
+            headers=headers)
+        response_dicts = history_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：oneworks查询流程历史接口')
+        return response_dicts
+
+    @allure.step("PCBABOM协作-基带工程师审批通过接口")
+    def API_PCBA_Structure(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：PCBABOM协作-基带工程师审批通过流程')
+        self.API_PCBA_Factory(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "baseBandReview",
+            "bomArchive": PCBAInfo['data']['bomArchive'],
+            "approvers": {
+                "bisReviewApprovers": [
+                    {
+                        "role": "pm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "structure",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "nps",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "rf",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "other",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "check",
+                        "userNo": "18645960"
+                    }
+                ],
+                "bisSupplyApprovers": []
+            },
+            "bomTreeVOList": PCBAInfo['data']['bomTreeVOList'],
+            "refFactoryList": PCBAInfo['data']['refFactoryList'],
+            "bomDeriveList": [],
+            "copyRuleList": [],
+            "otherDeriveList": [],
+            "uploadList": [],
+            "bomImportKeyDeviceList": [],
+            "purchaseList": None,
+            "role": "mpm",
+            "bomDeriveTreeVOList": None,
+            "virtualChipList": [],
+            "diffCollectList": [],
+            "bomVersionList": PCBAInfo['data']['bomVersionList'],
+            "produceClass": "pcba"
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_PCBA_structure(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：PCBABOM协作-基带工程师审批通过流程')
+
+    def Request_PCBA_Approve(self, data, headers):
+        """
+        TBM PCBABOM协作 oneworks 采购&业务审核接口
+        @param data: 接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：PCBABOM协作采购&业务审核接口')
+        return self.api_request('PCBABOM协作采购&业务审核接口', data, headers)
+
+    @allure.step("PCBABOM协作-采购审核通过接口")
+    def API_PCBA_Purchase(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：PCBABOM协作-采购审核通过流程')
+        self.API_PCBA_Structure(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "nps",
+            "bomArchive": PCBAInfo['data']['bomArchive'],
+            "approvers": PCBAInfo['data']['approvers'],
+            "bomTreeVOList": PCBAInfo['data']['bomTreeVOList'],
+            "refFactoryList": PCBAInfo['data']['refFactoryList'],
+            "bomDeriveList": [],
+            "copyRuleList": [],
+            "otherDeriveList": [],
+            "uploadList": [],
+            "bomImportKeyDeviceList": [],
+            "purchaseList": None,
+            "role": "mpm,structure,nps,check",
+            "bomDeriveTreeVOList": None,
+            "virtualChipList": [],
+            "diffCollectList": [],
+            "bomVersionList": PCBAInfo['data']['bomVersionList']
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_PCBA_Approve(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：PCBABOM协作-采购审核通过流程')
+
+    @allure.step("PCBABOM协作-业务审核通过接口")
+    def API_PCBA_Business(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：PCBABOM协作-业务审核通过流程')
+        self.API_PCBA_Purchase(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "bisReview",
+            "bomArchive": PCBAInfo['data']['bomArchive'],
+            "approvers": PCBAInfo['data']['approvers'],
+            "bomTreeVOList": PCBAInfo['data']['bomTreeVOList'],
+            "refFactoryList": PCBAInfo['data']['refFactoryList'],
+            "bomDeriveList": [],
+            "copyRuleList": [],
+            "otherDeriveList": [],
+            "uploadList": [
+                {
+                    "id": None,
+                    "mime": "image/png",
+                    "flowBid": None,
+                    "name": "检查结果.PNG",
+                    "size": "0",
+                    "uploadTime": None,
+                    "uploader": None,
+                    "url": "https://oss-sz-test-01.oss-cn-shenzhen.aliyuncs.com/plm-bom/bom/doc/20220919/202209191151-1021388177098805248/%E6%A3%80%E6%9F%A5%E7%BB%93%E6%9E%9C.PNG",
+                    "systemName": None
+                }
+            ],
+            "bomImportKeyDeviceList": [],
+            "purchaseList": None,
+            "role": "mpm,structure,nps,check",
+            "bomDeriveTreeVOList": None,
+            "virtualChipList": [],
+            "diffCollectList": [],
+            "bomVersionList": PCBAInfo['data']['bomVersionList'],
+            "recordReqVO": {
+                "checkRole": "mpm",
+                "listBid": "922546228208734208",
+                "listName": "32213",
+                "records": [
+                    {
+                        "checkResult": 1,
+                        "remark": "",
+                        "ruleBid": "922546228284231680",
+                        "ruleName": "弱方法"
+                    },
+                    {
+                        "checkResult": 1,
+                        "remark": "",
+                        "ruleBid": "922546228284231681",
+                        "ruleName": "测试1"
+                    }
+                ],
+                "bomLevel": "pcba",
+                "checker": "18645960",
+                "flowId": "16075"
+            }
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_PCBA_Approve(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：PCBABOM协作-业务审核通过流程')
+
+    def Request_TBM_ServiceDictList(self, data, headers):
+        """
+        TBM 字典服务接口
+        @param data: 接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：TBM字典服务列表接口')
+        return self.api_request('TBM字典服务列表接口', data, headers)
+
+    @allure.step("TBM字典服务列表接口")
+    def API_TBM_ServiceDictList(self):
+        logging.info('发起流程接口：TBM字典服务接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        search_data = {
+            "param": {
+                "refAppCode": "TBM"
+            },
+            "current": 1,
+            "size": 10
+        }
+        return self.Request_TBM_ServiceDictList(search_data, headers)
+
+    @allure.step("TBM字典服务数据接口")
+    def API_TBM_ServiceDictData(self, codes, appCode='tbm', status='enable'):
+        logging.info('发起流程接口：TBM字典服务数据接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-base-dictionary/base/dictionaries?codes={codes}&appCode={appCode}&status={status}')
+        history_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/service-base-dictionary/base/dictionaries?codes={codes}&appCode={appCode}&status={status}',
+            headers=headers)
+        response_dicts = history_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：TBM字典服务数据接口')
+        return response_dicts
+
+    @allure.step("员工查询接口")
+    def API_queryDeptAndEmployee(self, code):
+        """
+        @param code: 工号
+        """
+        logging.info('发起请求：员工查询接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        response = requests.post(
+            url=eval(ini._get('API', '员工查询接口')),
+            data=code.encode('utf-8'), headers=headers).json()
+        logging.info('获取审批人：%s', response)
+        return response
 if __name__ == '__main__':
     a = APIRequest()

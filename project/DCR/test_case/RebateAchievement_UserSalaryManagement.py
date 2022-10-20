@@ -35,7 +35,7 @@ class TestQueryUserSalaryMgt:
         query.input_country_query_search('China')
 
         get_total = query.get_list_total()
-        logging.info("获取Total分页总条数：{}".format(get_total))
+        logging.info("获取User Salary Management页面Total分页总条数：{}".format(get_total))
         query.assert_total(get_total)
         get_user_id = query.get_list_user_id()
         get_yyyy_mm = query.get_list_yyyy_mm()
@@ -85,8 +85,15 @@ class TestImportDeleteSalaryMgt:
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Rebate & Achievement", "User Salary Management")
-
         upload = UserSalaryManagement(drivers)
+
+        """根据导入的员工ID，筛选导入的数据，然后进行删除操作"""
+        upload.input_user_query_search('lhmdianzhang')
+        total1 = upload.get_list_total()
+        """" User Salary Management页面，导入前获取列表总条数，如果大于2条以上记录，先删除已存在的工资单 """
+        upload.delete_repetitive_salary(total1)
+        upload.click_reset()
+
         upload.click_import()
         upload.click_import_save()
         DomAssert(drivers).assert_att('Please upload first.')
@@ -102,7 +109,7 @@ class TestImportDeleteSalaryMgt:
         get_success = upload.get_import_success()
         get_failed = upload.get_import_failed()
         get_import_date = upload.get_import_import_date()
-        ValueAssert.value_assert_In('StaffSalaryTemplate', get_file_name)
+        ValueAssert.value_assert_equal('StaffSalaryTemplate.xlsx', get_file_name)
         ValueAssert.value_assert_equal('Upload Successfully', get_status)
         ValueAssert.value_assert_equal('2', get_total)
         ValueAssert.value_assert_equal('2', get_success)
@@ -163,7 +170,7 @@ class TestImportDeleteSalaryMgt:
         get_failed = upload.get_import_failed()
         get_fail_data = upload.get_import_fail_data()
         get_import_date = upload.get_import_import_date()
-        ValueAssert.value_assert_In('CustomerTemplate1', get_file_name)
+        ValueAssert.value_assert_equal('CustomerTemplate1.xlsx', get_file_name)
         ValueAssert.value_assert_equal('Upload Successfully', get_status)
         ValueAssert.value_assert_equal('1', get_total)
         ValueAssert.value_assert_equal('0', get_success)
@@ -185,8 +192,15 @@ class TestImportDeleteSalaryMgt:
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Rebate & Achievement", "User Salary Management")
-
         upload2 = UserSalaryManagement(drivers)
+
+        """根据导入的员工ID，筛选导入的数据，然后进行删除操作"""
+        upload2.input_user_query_search('lhmdianzhang')
+        total2 = upload2.get_list_total()
+        """" User Salary Management页面，导入前获取列表总条数，如果大于2条以上记录，先删除已存在的工资单 """
+        upload2.delete_repetitive_salary(total2)
+        upload2.click_reset()
+
         upload2.click_import_payslip()
         upload2.click_import_save()
         DomAssert(drivers).assert_att('Please upload first.')
@@ -263,7 +277,7 @@ class TestImportDeleteSalaryMgt:
         get_failed = upload.get_import_failed()
         get_fail_data = upload.get_import_fail_data()
         get_import_date = upload.get_import_import_date()
-        ValueAssert.value_assert_In('CustomerTemplate2', get_file_name)
+        ValueAssert.value_assert_equal('CustomerTemplate2.xlsx', get_file_name)
         ValueAssert.value_assert_equal('Upload Successfully', get_status)
         ValueAssert.value_assert_equal('1', get_total)
         ValueAssert.value_assert_equal('0', get_success)

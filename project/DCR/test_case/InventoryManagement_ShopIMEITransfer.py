@@ -74,16 +74,16 @@ class TestNewRejectIMEITransfer:
         """新建门店调度单"""
         shop_transfer.click_add_imei_transfer()
         shop_transfer.input_shop_transfer('NG003965')
-        shop_transfer.input_scan_imei('350644371718900')
+        shop_transfer.input_scan_imei('352802482806943')
         """点击Check检查按钮"""
         shop_transfer.click_check()
         """断言输入的IMEI是否验证通过"""
         get_scanned = shop_transfer.get_scanned_value()
         get_order_detail_scanned = shop_transfer.get_order_detail_scanned()
-        get_imei = shop_transfer.get_scan_record_imei('350644371718900')
+        get_imei = shop_transfer.get_scan_record_imei('352802482806943')
         get_success = shop_transfer.get_scan_record_success()
         ValueAssert.value_assert_equal(get_order_detail_scanned, get_scanned)
-        ValueAssert.value_assert_equal('350644371718900', get_imei)
+        ValueAssert.value_assert_equal('352802482806943', get_imei)
         ValueAssert.value_assert_In('Success', get_success)
         """点击提交按钮"""
         shop_transfer.click_add_submit_ok()

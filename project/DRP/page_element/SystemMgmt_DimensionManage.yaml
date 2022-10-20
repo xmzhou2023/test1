@@ -1,0 +1,21 @@
+标签页: "xpath==//div[@class='warp-menu']//span[contains(text(),'variable')]"
+新增按钮: "xpath==//button[@type='button']//span[contains(text(),'新 增')]"
+查询搜索框: "xpath==//section[@class='dimension-table__section']//input[@placeholder='请输入']"
+
+
+编码输入: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr[variable]//td[3]//input"
+名称（Zh）输入: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr[variable]//td[4]//input"
+名称（En）输入: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr[variable]//td[5]//input"
+
+列表某列数据: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr//td[variable]//span"
+列表 编辑按钮: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr[variable]//td[8]//span[contains(text(),'编辑')]"
+列表 保存按钮: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr//td[8]//button//span[contains(text(),'保存')]"
+列表 取消按钮: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr//td[8]//button//span[contains(text(),'取消')]"
+列表 禁用按钮: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr[variable]//td[8]//span[contains(text(),'禁用')]"
+列表 启用按钮: "xpath==//div[@class='el-table__body-wrapper is-scrolling-none']//table[@class='el-table__body']//tr[variable]//td[8]//span[contains(text(),'启用')]"
+
+错误提示: "xpath==//p[@class='el-message__content']"
+列表数据数量: "xpath==//span[@class='el-pagination__total']"
+暂无数据 断言: "xpath==//span[contains(text(),'暂无数据')]"
+
+

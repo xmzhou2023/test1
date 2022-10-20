@@ -1,0 +1,5 @@
+#==========================================关键器件查询========================================
+项目操作: "xpath==//span[normalize-space(text())='variable']/../../..//span[normalize-space(text())='variable']"
+修订关键器件-复选框: "xpath==//span[normalize-space(text())='variable']/../../../..//label/span/span"
+修订关键器件-确定: "xpath==//div[@aria-label='修订关键器件']//button/span[contains(text(),'确 定')]"
+修订关键器件-业务审核: "xpath==//label[normalize-space(text())='variable']"

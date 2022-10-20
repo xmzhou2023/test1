@@ -127,7 +127,6 @@ class TestSalesBusinessProcess:
         ValueAssert.value_assert_equal(text_status, "Delivered")
 
 
-
         """3 采购管理页面，零售商用户快速收货操作"""
         user.initialize_login(drivers, "EG00056201", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例"""
@@ -255,7 +254,7 @@ class TestDeliveryBusinessProcess:
         add.input_deli_pay_mode("Online")
         add.click_quantity_radio_button()
         add.click_quantity_add()
-        add.click_quantity_product("TECNO B1 BLACK")
+        add.click_quantity_product("A2 se BLACK")
         add.input_delivery_quantity("1")
         add.click_delivery_quantity_text()
 
@@ -350,7 +349,7 @@ class TestDeliveryBusinessProcess:
         return_order.click_radio_quantity()
         return_order.input_quantity_customer("BD2915")
         return_order.input_quantity_delivery_order(delivery_code)
-        return_order.click_quantity_product("TECNO B1  BLACK")
+        return_order.click_quantity_product("A2 se  BLACK")
         return_order.input_return_quantity("1")
         """点击Check按钮后，断言Order Detail列表记录是否正确"""
         return_order.click_Check()
