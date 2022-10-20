@@ -178,7 +178,7 @@ class Base(object):
         logging.info("相同元素：{}".format((locator, number)))
         return number
 
-    def input_text(self, locator, txt, *choice):
+    def input_text(self, locator, txt, choice=None):
         """输入文本"""
         if choice is None:
             sleep(0.5)
@@ -190,7 +190,7 @@ class Base(object):
         else:
             """输入(输入前先清空)"""
             sleep(0.5)
-            ele = self.find_element(locator, *choice)
+            ele = self.find_element(locator, choice)
             ele.clear()
             ele.clear()
             ele.send_keys(txt)
@@ -390,7 +390,6 @@ class Base(object):
             # 创建Action对象
             actions = ActionChains(self.driver)
             actions.move_to_element(element)
-            actions.move_to_element(element).perform()
             sleep(1)
         else:
             element = self.find_element(locator, choice)
