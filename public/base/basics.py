@@ -387,8 +387,6 @@ class Base(object):
         """鼠标悬停"""
         if choice is None:
             element = self.find_element(locator)
-            logging.info('222222222222222222222222')
-            logging.info(element)
             # 创建Action对象
             actions = ActionChains(self.driver)
             actions.move_to_element(element)
