@@ -389,7 +389,7 @@ class Base(object):
             element = self.find_element(locator)
             # 创建Action对象
             actions = ActionChains(self.driver)
-            actions.move_to_element(element)
+            actions.move_to_element(element).perform()
             sleep(1)
         else:
             element = self.find_element(locator, choice)
