@@ -9,6 +9,8 @@ zx扫码快捷登录: "id==tab-code"
 隐私保护勾选框_英文: "xpath==//span[text()='I have read and accept']/../label/span/span"
 图形验证码: "xpath==//img[@slot='suffix']"
 图形验证码输入框: "xpath==//input[@placeholder='请输入验证码']"
+验证码输入框: "xpath==//*[@id='pane-account']/form/div[3]/div/div[1]/input"
+验证码图标: "xpath==//*[@id='pane-account']/form/div[3]/div/div[2]/img"
 
 ####======DCR定位登录元素============================================
 工号输入框dcr: "name==username"
