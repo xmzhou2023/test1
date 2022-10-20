@@ -42,12 +42,12 @@ class APIRequest:
         return response_dicts
 
     @allure.step("TBM登录接口")
-    def tbm_login(self):
+    def tbm_login(self, username='18645960'):
         """
         return token
         """
         logging.info('发起请求：TBM登录接口')
-        data = {'lang': 'zh', 'pwd': 'eExpbHk2eA==', 'username': '18645960', 'privacyAgreement': 'true',
+        data = {'lang': 'zh', 'pwd': 'eExpbHk2eA==', 'username': username, 'privacyAgreement': 'true',
                 'redirect': 'http://bom-sit.transsion.com', 'source': 'TBM',
                 'verifyKey': 'edbae420160748f48107e693ffeb1582', 'readVersion': '1.1.0'}
         headers = {'Content-Type': 'application/json'}
@@ -456,6 +456,24 @@ class APIRequest:
         logging.info('请求结束：oneworks查询流程历史接口')
         return response_dicts
 
+    @allure.step("流程查询接口")
+    def API_getHistoric(self, flowNo, node=None):
+        logging.info('发起流程接口：TBM-流程查询接口')
+        Search_Result = self.API_MyApply_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        History_response = self.Oneworks_History(Search_Result[0], headers)
+        if node is None:
+            assignee = History_response['data']['historyCourse'][0]['assignee']
+            logging.info('审批人：{}'.format(assignee))
+            logging.info('流程接口结束：TBM-我的待办-查询')
+            return assignee
+        historyCourse_list = History_response['data']['historyCourse']
+        for i in historyCourse_list:
+            if i['taskName'] == node:
+                logging.info('节点：{}的审批人：{}'.format(node, i['assignee']))
+                logging.info('流程接口结束：TBM-我的待办-查询')
+                return i['assignee']
+
     @allure.step("Oneworks-查询单机头流程历史")
     def Oneworks_queryBomSingleHeadInfo(self, flowId, headers):
         """
@@ -543,10 +561,19 @@ class APIRequest:
         logging.info('发起请求：我的待办查询接口')
         return self.api_request('我的待办查询接口', data, headers)
 
+    def Request_Apply_Search(self, data, headers):
+        """
+        TBM 我申请的 查询
+        @param data:接口body
+        @param headers:接口头部
+        """
+        logging.info('发起请求：我申请的查询接口')
+        return self.api_request('我申请的查询接口', data, headers)
+
     @allure.step("TBM-我的待办-查询")
-    def API_Mytodu_Search(self, flowNo):
+    def API_Mytodu_Search(self, flowNo, username='18645960'):
         logging.info('发起流程接口：TBM-我的待办-查询')
-        token = self.tbm_login()
+        token = self.tbm_login(username)
         search_data = {"code": flowNo}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         search_response = self.Request_Todo_Search(search_data, headers)
@@ -558,6 +585,22 @@ class APIRequest:
         logging.info('接口返回数据：taskId：{}'.format(response_data['taskId']))
         logging.info('流程接口结束：TBM-我的待办-查询')
         return response_data['taskId'], token
+
+    @allure.step("TBM-我申请的-查询")
+    def API_MyApply_Search(self, flowNo):
+        logging.info('发起流程接口：TBM-我的待办-查询')
+        token = self.tbm_login()
+        search_data = {"code": flowNo}
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        search_response = self.Request_Apply_Search(search_data, headers)
+        for i in range(20):
+            if len(search_response['data']['list']) == 0:
+                sleep(1)
+                search_response = self.Request_Apply_Search(search_data, headers)
+        response_data = search_response['data']['list'][0]
+        logging.info('接口返回数据：instanceId：{}'.format(response_data['instanceId']))
+        logging.info('流程接口结束：TBM-我的待办-查询')
+        return response_data['instanceId'], token
 
     @allure.step("单机头BOM协作新增接口")
     def API_BarePhone_Add(self):
@@ -1025,6 +1068,210 @@ class APIRequest:
                 logging.info('流程接口结束：关键器件流程新增流程')
                 return i['flowNo'], i['instanceId'], i['bid']
 
+    @allure.step("关键器件流程新增接口")
+    def API_KeyDevice_Revise(self):
+        logging.info('发起流程接口：关键器件流程新增流程')
+        token = self.tbm_login()
+        querytime = datetime.now().strftime('%Y-%m-%d')
+        revise_data = {
+            "flowMainVO": {
+                "flowProposer": "18645960",
+                "flowProposerName": "李小素",
+                "flowDept": "PI_系统四部",
+                "title": f"修订-[50A710U]-[李小素]-[{querytime}]",
+                "businissType": "2",
+                "deviceBid": "1032318756598190080"
+            },
+            "deviceVO": {
+                "brand": "itel",
+                "model": "50A710U",
+                "basiclineName": None,
+                "note": "",
+                "platform": "1",
+                "onMarketDate": "1",
+                "monthNeeds": "1",
+                "totalNeeds": "1",
+                "targetMarket": "1",
+                "lifecycle": "1",
+                "templateBid": "956136840950321152",
+                "version": "V1.0"
+            },
+            "approvers": {
+                "domainRole": [
+                    {
+                        "domainName": "摄像头+闪光灯",
+                        "domainCode": "dev_image",
+                        "approver": "18645960"
+                    },
+                    {
+                        "domainName": "硬件电子料-基带",
+                        "domainCode": "dev_hardware",
+                        "approver": "18651509"
+                    }
+                ],
+                "assessRole": [
+                    {
+                        "domainName": "标准化代表",
+                        "domainCode": "standard_deputy",
+                        "approver": "18645960"
+                    },
+                    {
+                        "domainName": "采购代表",
+                        "domainCode": "purchase_deputy",
+                        "approver": "18645960"
+                    }
+                ]
+            },
+            "uploadList": [],
+            "saveType": "submit",
+            "kdNodeAuthVO": [
+                {
+                    "nodeName": "摄像头+闪光灯",
+                    "nodeBid": "956136841009041409"
+                },
+                {
+                    "nodeName": "LCM！",
+                    "nodeBid": "956136841009041410",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "CTP",
+                    "nodeBid": "956136841009041426",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "前摄1",
+                    "nodeBid": "956136841009041440",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "前摄2",
+                    "nodeBid": "956136841009041453",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "后摄1",
+                    "nodeBid": "956136841009041466",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "后摄2",
+                    "nodeBid": "956136841009041479",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "后摄3",
+                    "nodeBid": "956136841009041493",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "后摄4",
+                    "nodeBid": "956136841009041506",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "后摄5",
+                    "nodeBid": "956136841009041519",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "前闪1",
+                    "nodeBid": "956136841009041532",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "前闪2",
+                    "nodeBid": "956136841009041536",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "后闪1",
+                    "nodeBid": "956136841009041540",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "后闪2",
+                    "nodeBid": "956136841013235715",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "后闪3",
+                    "nodeBid": "956136841013235719",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "指纹",
+                    "nodeBid": "956136841013235723",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "摄像头+闪光灯_16",
+                    "nodeBid": "956136841013235729",
+                    "parentName": "摄像头+闪光灯"
+                },
+                {
+                    "nodeName": "硬件电子料-基带",
+                    "nodeBid": "956136841013235731"
+                },
+                {
+                    "nodeName": "PCB",
+                    "nodeBid": "956136841013235732",
+                    "parentName": "硬件电子料-基带"
+                },
+                {
+                    "nodeName": "CPU",
+                    "nodeBid": "956136841013235735",
+                    "parentName": "硬件电子料-基带"
+                },
+                {
+                    "nodeName": "Memory",
+                    "nodeBid": "956136841013235740",
+                    "parentName": "硬件电子料-基带"
+                },
+                {
+                    "nodeName": "晶体振",
+                    "nodeBid": "956136841013235755",
+                    "parentName": "硬件电子料-基带"
+                },
+                {
+                    "nodeName": "音频PA1",
+                    "nodeBid": "956136841013235763",
+                    "parentName": "硬件电子料-基带"
+                },
+                {
+                    "nodeName": "音频PA2",
+                    "nodeBid": "956136841013235771",
+                    "parentName": "硬件电子料-基带"
+                },
+                {
+                    "nodeName": "Sensor",
+                    "nodeBid": "956136841013235779",
+                    "parentName": "硬件电子料-基带"
+                },
+                {
+                    "nodeName": "电源类",
+                    "nodeBid": "956136841013235786",
+                    "parentName": "硬件电子料-基带"
+                },
+                {
+                    "nodeName": "驱动IC",
+                    "nodeBid": "956136841013235803",
+                    "parentName": "硬件电子料-基带"
+                }
+            ]
+        }
+        search_data = {"current": 1, "size": 10, "param": {}}
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        add_response = self.Request_KeyDevice_Add(revise_data, headers)
+        bid = add_response['data']['bid']
+        search_response = self.Request_KeyDevice_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
+            if i['bid'] == bid:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(i['flowNo'], i['instanceId'], i['bid']))
+                logging.info('流程接口结束：关键器件流程新增流程')
+                return i['flowNo'], i['instanceId'], i['bid']
+
     @allure.step("关键器件流程：摄像头+闪光灯审批接口")
     def API_KeyDevice_image(self, flowNo, instanceid, bid):
         logging.info('发起流程接口：关键器件流程：摄像头+闪光灯审批接口')
@@ -1121,9 +1368,9 @@ class APIRequest:
         logging.info('流程接口结束：关键器件流程：摄像头+闪光灯审批接口')
 
     @allure.step("关键器件流程：硬件电子料-基带审批接口")
-    def API_KeyDevice_hardware(self, flowNo, instanceid, bid):
+    def API_KeyDevice_hardware(self, flowNo, instanceid, bid, username='18645960'):
         logging.info('发起流程接口：关键器件流程：硬件电子料-基带审批接口')
-        Search_Result = self.API_Mytodu_Search(flowNo)
+        Search_Result = self.API_Mytodu_Search(flowNo, username)
         headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
         flowInfo_body = {"flowBid": bid}
         flowInfo_response = self.Request_KeyDevice_flowInfo(flowInfo_body, headers)

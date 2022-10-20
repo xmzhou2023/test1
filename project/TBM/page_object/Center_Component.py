@@ -13,6 +13,47 @@ class CenterComponent(Base, APIRequest):
     # 审核人
     review = '李小素'
 
+    def click_logout(self):
+        """点击退出登录"""
+        self.is_click(user['头像'])
+        self.is_click_tbm(user['退出登录'])
+
+    def click_accountlogin(self):
+        """点击帐号密码登录"""
+        self.is_click(user['账号密码登录'])
+
+    def input_account(self, content):
+        """输入工号"""
+        self.input_text(user['工号输入框'], txt=content)
+        sleep()
+
+    def input_passwd(self, content):
+        """输入密码"""
+        self.input_text(user['密码输入框'], txt=content)
+        sleep()
+
+    def check_box(self):
+        """判断是否被选中"""
+        return self.select_state(user['隐私保护勾选框'])
+
+    def click_checkbox(self):
+        """点击复选框"""
+        if not self.check_box():
+            self.is_click(user['隐私保护勾选框'])
+
+    def click_loginsubmit(self):
+        """点击帐号密码登录"""
+        self.is_click(user['登录'])
+        sleep(6)
+
+    def relogin(self, username):
+        """统一登录֤"""
+        self.click_logout() # 退出登录
+        self.click_accountlogin() # 点击帐户密码登录
+        self.input_account(username) # 输入帐户名
+        self.input_passwd('xLily6x') # 输入密码
+        self.click_loginsubmit()
+
     @allure.step("点击菜单")
     def click_menu(self, metatitle, nestmenu):
         """点击菜单"""
@@ -124,6 +165,23 @@ class CenterComponent(Base, APIRequest):
                 self.refresh_todo_list()
 
     @allure.step("点击 查看详情 进入 oneworks 页面")
+    def loginUser_judge(self, code, node=None):
+        """
+        判断节点审批人与当前登录人是否一致
+        @param code:流程编码
+        @param node:节点名称
+        """
+        assignee = self.API_getHistoric(code, node)
+        assignee = assignee[:assignee.index('[')]
+        logging.info('节点：{} 当前审批人是：{}'.format(node, assignee))
+        User = self.find_element(user['登录人']).get_attribute('innerText')
+        User = User[:User.index('，')]
+        logging.info('当前登录人是：{}'.format(User))
+        if assignee != User:
+            Employee_Number = self.API_queryDeptAndEmployee(assignee)['data'][0]['employeeNo']
+            self.relogin(Employee_Number)
+
+    @allure.step("点击 查看详情 进入 oneworks 页面")
     def enter_oneworks_edit(self, code, node=None):
         """
         点击 查看详情 进入 oneworks 页面
@@ -131,6 +189,7 @@ class CenterComponent(Base, APIRequest):
         @param code:流程编码
         @param node:节点名称
         """
+        self.loginUser_judge(code, node)
         self.enter_my_todo()
         self.screening_code(code)
         if node is not None:

@@ -59,7 +59,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         :param name: 人员名字
         """
         self.is_click_tbm(user['汇签/抄送人员选择框'], choice)
-        self.is_click_tbm(user['成员列表清空'], choice)
+        self.is_click_tbm(user['成员列表清空'])
         self.input_text(user['成员列表输入框'], name)
         sleep(1)
         self.is_click_tbm(user['成员选择'], name)
