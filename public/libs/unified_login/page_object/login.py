@@ -1,3 +1,5 @@
+import logging
+
 from public.base.basics import Base, sleep
 from libs.common.read_public_element import Element
 
@@ -56,6 +58,18 @@ class LoginPage(Base):
         self.is_click(login['登录'])
         sleep(6)
 
+    def input_verify_code(self):
+        """输入验证码，生产环境用 2022-9-30,熊文敏"""
+        logging.info("开始获取验证码")
+        verify_code = self.get_graphical_code(login["验证码图标"])
+        logging.info("获取验证码结束")
+        self.is_click(login['验证码输入框'])
+        self.input_text(login["验证码输入框"], verify_code)
+        sleep(2)
+
+    def code_clear(self):
+        self.clear_code(login["验证码输入框"])
+        sleep(0.5)
 
 """DCR登录类"""
 class DcrLoginPage(Base):

@@ -46,6 +46,51 @@ class Login(Base):
         user.click_checkbox_en()
         user.click_loginsubmit()
 
+    def crm_pro_login(self, drivers, url, username, passwd):
+        """生产登录,2022-9-30,熊文敏"""
+        user = LoginPage(drivers)
+        user.get_url(url)  # 跳转到指定网页
+        user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
+        user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
+        user.click_accountlogin()  # 点击帐户密码登录
+        user.input_account(username)  # 输入帐户名
+        user.input_passwd(passwd)  # 输入密码
+        user.click_checkbox_en()
+        n = 1
+        while n < 6:
+            user.input_verify_code()
+            sleep(1)
+            user.click_loginsubmit()
+            sleep(1)
+            if 'login' in self.driver.current_url:
+                n += 1
+                user.code_clear()
+                continue
+            else:
+                break
+
+    def crm_pro_9s_login(self,drivers, url, username, passwd):
+        """生产登录,2022-10-20,熊文敏"""
+        user = LoginPage(drivers)
+        user.get_url(url)  # 跳转到指定网页
+        # user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
+        # user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
+        user.click_accountlogin()  # 点击帐户密码登录
+        user.input_account(username)  # 输入帐户名
+        user.input_passwd(passwd)  # 输入密码
+        user.click_checkbox_en()
+        n = 1
+        while n < 6:
+            user.input_verify_code()
+            sleep(1)
+            user.click_loginsubmit()
+            sleep(1)
+            if 'login' in self.driver.current_url:
+                n += 1
+                user.code_clear()
+                continue
+            else:
+                break
 
     def srm_login(self, drivers, url, elsAccount, elsSubAccount):
         user = SrmLoginPage(drivers)

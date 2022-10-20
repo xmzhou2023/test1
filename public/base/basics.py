@@ -14,6 +14,8 @@ import logging
 import allure
 import datetime
 import ddddocr
+from selenium.webdriver.chrome.options import Options
+
 
 import warnings
 from PIL import Image
@@ -195,6 +197,14 @@ class Base(object):
             ele.clear()
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
+
+    def clear_code(self, locator):
+        sleep(0.5)
+        ele = self.find_element(locator)
+        ele.clear()
+        ele.clear()
+        return ele
+
 
     def readonly_input_text(self, locator, txt, *choice):
         """去除只读属性后输入"""
