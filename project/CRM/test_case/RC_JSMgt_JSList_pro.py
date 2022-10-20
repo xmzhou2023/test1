@@ -47,7 +47,7 @@ def module_fixture(drivers):
 
 
 
-@allure.feature("JSList") # 模块名称
+@allure.feature("JSList_pro") # 模块名称
 class TestGetJSList:
     @pytest.fixture()
     def class_fixture(self, drivers):
