@@ -1,7 +1,7 @@
 import allure
 import pytest
 from project.DRP.page_object.Center_Component import NavPage
-from project.CRM.page_object.RC_JSMgt_JSList import JSPage
+from project.CRM.page_object.RC_JSMgt_JSList_pro import JSPage
 from public.base.assert_ui import ValueAssert
 import random, string
 import pytest, logging
@@ -188,7 +188,7 @@ class TestGetJSList:
         user = JSPage(drivers)
         logging.info("使用Scope中的下拉框Mine查询")
         user.JS_Clear_Query_Conditions()  # 清空其他查询条件
-        number, th_num, list1 = user.Get_Scope_JS("Scope", "Mine")  # 查询成功
+        number, th_num, list1 = user.Get_Scope_JS("scopeType", "Mine")  # 查询成功
         # user = SQL('CRM', 'test')
         # js_data = user.query_db('select count(creator) from crm_rc_job_sheet where creator="{}"'.format(account[7]['usernum']))
         # sql_get_data = js_data[0].get("count(creator)")

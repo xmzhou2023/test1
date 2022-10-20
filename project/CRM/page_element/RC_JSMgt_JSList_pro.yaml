@@ -28,7 +28,7 @@ Status_Input: 'xpath==//label[contains(text(),"variable")]/following-sibling::di
 Status_Select: 'xpath==//li[contains(@class,"el-select-dropdown__item")][contains(text(),"variable")]'
 Search_Button: 'xpath==//button[@type="button"]//span[text()="Search"]'
 Hide_Return: 'xpath==//span[@class="el-checkbox__label"]'
-Scope_Select: 'xpath==//label[contains(text(),"variable")]/following-sibling::div//input[@type="text"]'
+Scope_Select: 'xpath==//label[contains(@for,"variable")]/following-sibling::div//input[@type="text"]'
 Is_Query_Select: 'xpath==//div[@x-placement="bottom-start"]//li[contains(text(),"variable")][contains(@class,"el-select-dropdown__item")]'
 Scope_Select_Data: 'xpath==//li[contains(text(),"variable")][contains(@class,"el-select-dropdown__item")]'
 Created_Date_Input: 'xpath==//input[@placeholder="variable"]'

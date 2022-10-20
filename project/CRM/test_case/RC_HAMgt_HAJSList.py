@@ -45,7 +45,7 @@ def module_fixture(drivers):
 
 
 
-@allure.feature("JSList") # 模块名称
+@allure.feature("HAJSList") # 模块名称
 class TestGetJSList:
     @pytest.fixture()
     def class_fixture(self, drivers):
@@ -115,14 +115,14 @@ class TestGetJSList:
         get_record = user.Get_Document_Status_JS(status)  # 查询成功
         num = status.split("-", 2)
         logging.info(num[0])
-        if get_record != 0:
-            user = SQL('CRM', 'test')
-            js_data = user.query_db('select count(status_code) from crm_rc_ha_job_sheet where status_code="{}"'.format(num[0]))
-            sql_get_data = js_data[0].get("count(status_code)")
-            sql_get = int(sql_get_data)
-            logging.info(type(get_record))
-            logging.info(type(sql_get))
-            ValueAssert.value_assert_equal(sql_get, get_record)  # 判断查询出的数据量与数据库一致
+        # if get_record != 0:
+        #     user = SQL('CRM', 'test')
+        #     js_data = user.query_db('select count(status_code) from crm_rc_ha_job_sheet where status_code="{}"'.format(num[0]))
+        #     sql_get_data = js_data[0].get("count(status_code)")
+        #     sql_get = int(sql_get_data)
+        #     logging.info(type(get_record))
+        #     logging.info(type(sql_get))
+        #     ValueAssert.value_assert_equal(sql_get, get_record)  # 判断查询出的数据量与数据库一致
 
     # @allure.story("查询家电工单")  # 场景名称,中文
     # @allure.title("查询家电工单")  # 用例名称
@@ -156,14 +156,14 @@ class TestGetJSList:
         user = HAJSPage(drivers)
         user.JS_Clear_Query_Conditions()
         get_record = user.Get_Service_Status_JS(status)  # 查询成功
-        if get_record != 0:
-            user = SQL('CRM', 'test')
-            js_data = user.query_db('select count(service_type) from crm_rc_ha_job_sheet where service_type="{}"'.format(status))
-            sql_get_data = js_data[0].get("count(service_type)")
-            sql_get = int(sql_get_data)
-            logging.info(type(get_record))
-            logging.info(type(sql_get))
-            ValueAssert.value_assert_equal(sql_get, get_record)  # 判断查询出的数据量与数据库一致
+        # if get_record != 0:
+        #     user = SQL('CRM', 'test')
+        #     js_data = user.query_db('select count(service_type) from crm_rc_ha_job_sheet where service_type="{}"'.format(status))
+        #     sql_get_data = js_data[0].get("count(service_type)")
+        #     sql_get = int(sql_get_data)
+        #     logging.info(type(get_record))
+        #     logging.info(type(sql_get))
+        #     ValueAssert.value_assert_equal(sql_get, get_record)  # 判断查询出的数据量与数据库一致
 
 
     @allure.story("查询家电工单")  # 场景名称,中文
@@ -197,11 +197,11 @@ class TestGetJSList:
         logging.info("步骤1 使用IsEscatale中的下拉框Yes/No查询")
         user.JS_Clear_Query_Conditions()  # 清空其他查询条件
         number, th_num, list1 = user.Get_IsEcalate_JS(query_status)  # IsEscatale下拉框查询
-        user = SQL('CRM', 'test')
-        js_data = user.query_db('select count(is_escalate) from crm_rc_ha_job_sheet where is_escalate="{}"'.format(sql_status))
-        sql_get_data = js_data[0].get("count(is_escalate)")
-        sql_get = int(sql_get_data)
-        ValueAssert.value_assert_equal(sql_get, number)  # 判断查询出的数据量与数据库一致
+        # user = SQL('CRM', 'test')
+        # js_data = user.query_db('select count(is_escalate) from crm_rc_ha_job_sheet where is_escalate="{}"'.format(sql_status))
+        # sql_get_data = js_data[0].get("count(is_escalate)")
+        # sql_get = int(sql_get_data)
+        # ValueAssert.value_assert_equal(sql_get, number)  # 判断查询出的数据量与数据库一致
         for i in range(0, th_num):
             ValueAssert.value_assert_equal(list1[i], query_status)  # 判断查询出来的与查询条件一致
 
@@ -216,11 +216,11 @@ class TestGetJSList:
         user = HAJSPage(drivers)
         user.JS_Clear_Query_Conditions()  # 清空其他查询条件
         number, th_num, list1 = user.Get_IsOnSiteService_JS(query_status)  # 查询成功
-        user = SQL('CRM', 'test')
-        js_data = user.query_db('select count(is_on_site_service) from crm_rc_ha_job_sheet where is_on_site_service="{}"'.format(sql_status))
-        sql_get_data = js_data[0].get("count(is_on_site_service)")
-        sql_get = int(sql_get_data)
-        ValueAssert.value_assert_equal(sql_get, number)  # 判断查询出的数据量与数据库一致
+        # user = SQL('CRM', 'test')
+        # js_data = user.query_db('select count(is_on_site_service) from crm_rc_ha_job_sheet where is_on_site_service="{}"'.format(sql_status))
+        # sql_get_data = js_data[0].get("count(is_on_site_service)")
+        # sql_get = int(sql_get_data)
+        # ValueAssert.value_assert_equal(sql_get, number)  # 判断查询出的数据量与数据库一致
         for i in range(0, th_num):
             ValueAssert.value_assert_equal(list1[i], query_status)  # 判断查询出来的HA JS与输入条件一致
 
@@ -236,14 +236,14 @@ class TestGetJSList:
             user = HAJSPage(drivers)
             user.JS_Clear_Query_Conditions()
             number, th_num, list1 = user.Get_Warranty_JS(query_status)  # 查询成功
-            user = SQL('CRM', 'test')
-            js_data = user.query_db(
-                'select count(warranty_status) from crm_rc_ha_job_sheet where warranty_status="{}"'.format(sql_status))
-            logging.info(query_status)
-            sql_get_data = js_data[0].get("count(warranty_status)")
-            sql_get = int(sql_get_data)
-            logging.info(sql_get)
-            ValueAssert.value_assert_equal(sql_get, number)  # 判断查询出的数据量与数据库一致
+            # user = SQL('CRM', 'test')
+            # js_data = user.query_db(
+            #     'select count(warranty_status) from crm_rc_ha_job_sheet where warranty_status="{}"'.format(sql_status))
+            # logging.info(query_status)
+            # sql_get_data = js_data[0].get("count(warranty_status)")
+            # sql_get = int(sql_get_data)
+            # logging.info(sql_get)
+            # ValueAssert.value_assert_equal(sql_get, number)  # 判断查询出的数据量与数据库一致
             for i in range(0, th_num):
                 ValueAssert.value_assert_equal(query_status, list1[i])  # 判断查询出来的HA JS跟输入的条件一致
 #
