@@ -1,7 +1,7 @@
 import allure
 import pytest
 from project.DRP.page_object.Center_Component import NavPage
-from project.CRM.page_object.RC_HAMgt_HAJSList import HAJSPage
+from project.CRM.page_object.RC_HAMgt_HAJSList_pro import HAJSPage
 from public.base.assert_ui import ValueAssert
 import random, string
 import pytest, logging
@@ -45,7 +45,7 @@ def module_fixture(drivers):
 
 
 
-@allure.feature("JSList") # 模块名称
+@allure.feature("HAJSList_Pro") # 模块名称
 class TestGetJSList:
     @pytest.fixture()
     def class_fixture(self, drivers):

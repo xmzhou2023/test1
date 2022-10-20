@@ -29,8 +29,8 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-class JSPage(Base):
-    """JS手机工单"""
+class HAJSPage(Base):
+    """家电工单"""
 
 
     @allure.step("合起菜单")
@@ -39,12 +39,12 @@ class JSPage(Base):
 
 
     @allure.step("进入JS List页面")
-    def GoTo_JS_List(self):
+    def GoTo_HAJS_List(self):
         self.refresh()
         self.driver.implicitly_wait(5)  # 隐式等待页面加载成功
         self.is_click(user['一级菜单'], choice='Repair Center')
-        self.is_click(user['二级菜单'], choice='JS Mgt')
-        self.is_click(user['三级菜单'], choice='JS List')
+        self.is_click(user['二级菜单'], choice='HA Mgt')
+        self.is_click(user['三级菜单'], choice='HA Job Sheet List')
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
 
     @allure.step("获取页面列表表头")
@@ -52,7 +52,7 @@ class JSPage(Base):
         logging.info("获取列表数据")
         th_num = self.elements_num(user['表头字段个数'])
         list1 = []
-        for i in range(1, 10):
+        for i in range(1, 11):
             logging.info(f'{i}')
             txt = self.element_text(user['表头字段'], f'{i}')
             logging.info(txt)
@@ -125,7 +125,7 @@ class JSPage(Base):
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='save不成功')
 
 
-    @allure.step("添加JS,输入Basic Info信息")
+    @allure.step("添加HAJS,输入Basic Info信息")
     def Add_JS_Basic_Info(self, reference_from, imei, physical, symptom, item):
         self.is_click(user['JS_Add'])
         self.wait.until(EC.presence_of_element_located(user["Reference_From"]), message='添加页面加载不成功')  # 显示等待页面加载成功
@@ -313,7 +313,6 @@ class JSPage(Base):
         self.is_click(user['Created_Date_Input'], choice="Start Date")
         self.hover(user['Created_Date_Clear'], choice="Start Date")
         self.is_click(user['Created_Date_Clear'], choice="Start Date")  # 清空时间查询条件
-        self.is_click(user['Hide_Return'])  # 取消隐藏100状态的
         self.is_click(user['Scope_Select'], choice="scopeType")
         self.is_click(user['Scope_Select_Data'], choice="All")  # 设置范围为所有
 
@@ -413,7 +412,7 @@ class JSPage(Base):
             self.scroll_into_view_CRM(user['Page_Num'])
             th_num = self.elements_num(user['Service_Data_Num'])
             for i in range(1, th_num+1):
-                txt = self.element_text(user['Service_Shortage_Data'], f'{i}')
+                txt = self.element_text(user['Service_Type_Data'], f'{i}')
                 logging.info(txt)
                 ValueAssert.value_assert_In(status, txt)
             self.refresh()
@@ -433,7 +432,7 @@ class JSPage(Base):
 
 
     @allure.step("JS的Scope查询")
-    def Get_Scope_JS(self, condition, data):
+    def Get_Scope_HAJS(self, condition, data):
         self.is_click(user['Scope_Select'], choice=condition)
         self.input_text(user['Scope_Select'], choice=condition, txt=data)
         self.hover(user['Status_Select'], choice=data)
@@ -462,7 +461,7 @@ class JSPage(Base):
 
     def Get_IsEcalate_JS(self, data):
         self.is_click(user['Scope_Select'], choice="isEscalate")
-        self.input_text(user['Scope_Select'], txt=data, choice="isEscalate")
+        self.input_text(user['Scope_Select'], choice="isEscalate", txt=data)
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
@@ -487,9 +486,9 @@ class JSPage(Base):
             self.refresh()
             return number, th_num, list1
 
-    def Get_IsQuickRepair_JS(self, data):
-        self.is_click(user['Scope_Select'], choice="isQuickRepair")
-        self.input_text(user['Scope_Select'], choice="isQuickRepair", txt=data)
+    def Get_IsOnSiteService_JS(self, data):
+        self.is_click(user['Scope_Select'], choice="isOnSiteService")
+        self.input_text(user['Scope_Select'], choice="isOnSiteService", txt=data)
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
@@ -501,7 +500,7 @@ class JSPage(Base):
             logging.info("查询无数据")
         else:
             self.scroll_into_view_CRM(user['Page_Num'])
-            th_num = self.elements_num(user['QuickRepair_Data_Num'])
+            th_num = self.elements_num(user['OnSite_Data_Num'])
             # onload = "document.body.scrollWidth,0"
             # self.driver.execute_script(onload)
             list1 = []
