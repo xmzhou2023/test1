@@ -26,7 +26,7 @@ def __init__(drivers, env_name):
     elif pro_env == "pro_9s":
         logging.info("前置条件：传音统一登录开始")
         user = Login(drivers)
-        user.crm_pro_9s_login(drivers, ini.url, account[7]['usernum'], account[11]['passwd'])
+        user.crm_pro_9s_login(drivers, ini.url, account[7]['usernum'], account[13]['passwd'])
         user = DomAssert(drivers)
         user.assert_url("{}".format(ini.url))
         logging.info("前置条件：传音统一登录成功")
@@ -34,7 +34,7 @@ def __init__(drivers, env_name):
     else:
         logging.info("前置条件：传音统一登录开始")
         user = Login(drivers)
-        user.crm_pro_login(drivers, ini.url, account[7]['usernum'], account[11]['passwd'])
+        user.crm_pro_login(drivers, ini.url, account[7]['usernum'], account[13]['passwd'])
         user = DomAssert(drivers)
         user.assert_url("{}".format(ini.url))
         # user.assert_exact_att('18646156')
