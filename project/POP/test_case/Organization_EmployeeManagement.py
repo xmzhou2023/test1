@@ -77,7 +77,7 @@ class TestAddUser:
         sleep(5)
 
 @allure.feature("组织") # 模块名称
-class TestExportList:
+class TestExportEmployee:
     @allure.story("职员管理")  # 场景名称
     @allure.title("导出职员管理列表")  # 用例名称
     @allure.description("点击导出，导出职员管理列表")

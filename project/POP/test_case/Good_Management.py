@@ -37,7 +37,7 @@ class TestAddGood:
         DomAssert(drivers).assert_exact_att('商品管理')
 
 @allure.feature("商品") # 模块名称
-class TestAddGood:
+class TestExportGood:
     @allure.story("商品管理") # 场景名称
     @allure.title("商品管理导出")  # 用例名称
     @allure.description("点击导出，商品管理列表导出成功")
