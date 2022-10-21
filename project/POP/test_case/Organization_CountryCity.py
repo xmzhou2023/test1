@@ -29,7 +29,7 @@ class TestQueryCountry:
         ValueAssert.value_assert_equal(test,"China")
 
 @allure.feature("组织") # 模块名称
-class TestExportList:
+class TestExportCoutrycity:
     @allure.story("国家城市")  # 场景名称
     @allure.title("导出国家城市列表")  # 用例名称
     @allure.description("点击导出，导出国家城市列表")
