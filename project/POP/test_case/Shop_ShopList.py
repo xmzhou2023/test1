@@ -1,5 +1,5 @@
 import allure,os
-import pytest,logging,random
+import pytest,logging,random,time
 from project.POP.page_object.Center_Component import NavPage
 from project.POP.page_object.Shop_ShopList import *
 from libs.common.read_element import Element
@@ -8,7 +8,7 @@ object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
 
-@pytest.fixture(scope='class', autouse=True)
+@pytest.fixture(scope='function', autouse=True)
 def setup_class(drivers):
     logging.info("模块前置条件：前往“POP商品-商品参数”页面")
     nav = NavPage(drivers)
@@ -27,6 +27,7 @@ class TestQuery_shop:
         users.click_organization('TECNO事业部')
         users.click_shop('仙桃')
         users.click_query('仙桃体专店')
+        sleep(0.5)
         # 断言
         test = users.element_text(user['门店名称'])
         ValueAssert.value_assert_equal(test,'仙桃体专店')
@@ -41,7 +42,7 @@ class TestAddShop:
         users = AddShop(drivers)
         users.click_add()
         # 利于随机数每次生成门店后缀数不一样，代码运行减少避免重复
-        shopname = "zwq测试门店" + str(random.randint(999,9999))
+        shopname = "zwq测试门店" + str(int(time.time()))
         users.input_shopname(shopname)
         users.switch_organization("TECNO事业部")
         users.switch_country("China")
@@ -50,8 +51,8 @@ class TestAddShop:
         users.input_address("三峡广场")
         users.switch_city_level("T1")
         users.switch_region("China")
-        users.input_linkman("张文强")
-        users.input_phone("18323585901")
+        users.input_linkman("朱星宇")
+        users.input_phone("18110875832")
         users.switch_shop_level("超级旗舰店")
         users.switch_image_level("体验店")
         users.switch_sales_volume_level("A")
@@ -62,7 +63,8 @@ class TestAddShop:
         users.add_userinformation("张文强")
         users.input_shop_monthlysales("8888")
         users.click_submit()
-        # 断言--提交成功弹窗提示”success“字样
+        sleep(0.5)
+        # 断言--提交成功，页面跳转门店列表，判断门店ID字段是否存在
         DomAssert(drivers).assert_exact_att('门店ID')
 
 

@@ -728,22 +728,11 @@ class Base(object):
         else:
             """输入(输入前先清空)"""
             sleep(0.5)
-            ele = self.find_element(locator)
+            ele = self.find_element(locator,choice)
             ele.clear()
             ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
 
-    # POP专用文件上传方法
-    def pop_upload(self,locator,file,choice=None):
-        """
-            POP专用文件上传
-        :param locator: 元素定位固定格式xxx['sssss']
-        :param file: 上传文件的路径
-        :return: 上传文件成功
-        """
-        ele = self.find_element(locator,choice)
-        ele.send_keys(file)
-        logging.info("上传文件：{}".format(file))
 
 
 
