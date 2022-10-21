@@ -68,5 +68,12 @@ class Queryuser(Base):
     def click_query(self):
         self.is_click(user['查询按钮'])
 
+class ExportEmployee(Base):
+    """职员导出类"""
+
+    @allure.step("点击导出按钮")
+    def click_export(self):
+        self.is_click_tbm(user['导出'])
+
 if __name__ == '__main__':
     pass

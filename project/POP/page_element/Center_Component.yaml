@@ -3,10 +3,12 @@
 组织: "xpath==//span[contains(text(),'组织')]"
 组织->职员管理: "xpath==//span[@title='职员管理']"
 组织->区域: "xpath==//span[@title='区域']"
+组织->国家城市: "xpath==//span[@title='国家城市']"
 
 商品: "xpath==//span[contains(text(),'商品')]"
 商品->商品参数: "xpath==//span[@title='商品参数']"
 商品->商品管理: "xpath==//span[@title='商品管理']"
+商品->物料信息: "xpath==//span[@title='物料信息']"
 
 销售: "xpath==//span[contains(text(),'销售')]"
 销售->销售订单: "xpath==//span[@title='销售订单']"
