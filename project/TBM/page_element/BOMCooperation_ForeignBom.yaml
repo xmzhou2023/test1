@@ -73,5 +73,6 @@ BOMTree物料对焦: "xpath==//span[normalize-space(text())='variable']"
 BomTree内容: "xpath==//span[normalize-space(text())='variable']/../../../../*"
 展开: "xpath==//span[normalize-space(text())='variable']/../i"
 BomTree全部内容: "xpath==//span[normalize-space(text())='Bom Tree']/../../../..//div[@row-key='id']//tbody/*"
+BOMTree新增物料物料编码: "xpath==//span[normalize-space(text())='variable']/../../../following-sibling::tr/td[5]//input"
 
 

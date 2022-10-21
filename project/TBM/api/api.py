@@ -463,16 +463,17 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
         History_response = self.Oneworks_History(Search_Result[0], headers)
         if node is None:
-            assignee = History_response['data']['historyCourse'][0]['assignee']
-            logging.info('审批人：{}'.format(assignee))
+            assignee = History_response['data']['historyCourse'][-1]['assignee']
+            logging.info('发起人：{}'.format(assignee))
             logging.info('流程接口结束：TBM-我的待办-查询')
             return assignee
-        historyCourse_list = History_response['data']['historyCourse']
-        for i in historyCourse_list:
-            if i['taskName'] == node:
-                logging.info('节点：{}的审批人：{}'.format(node, i['assignee']))
-                logging.info('流程接口结束：TBM-我的待办-查询')
-                return i['assignee']
+        else:
+            historyCourse_list = History_response['data']['historyCourse']
+            for i in historyCourse_list:
+                if i['taskName'] == node:
+                    logging.info('节点：{}的审批人：{}'.format(node, i['assignee']))
+                    logging.info('流程接口结束：TBM-我的待办-查询')
+                    return i['assignee']
 
     @allure.step("Oneworks-查询单机头流程历史")
     def Oneworks_queryBomSingleHeadInfo(self, flowId, headers):

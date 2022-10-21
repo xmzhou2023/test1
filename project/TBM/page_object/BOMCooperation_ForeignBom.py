@@ -252,7 +252,7 @@ class ForeignBom(CenterComponent):
         DomAssert(self.driver).assert_control(user['批量删除'], result=result)
 
     @allure.step("根据Tree点击删除按钮")
-    def click_bomtree_delete(self, tree, type='Tree'):
+    def click_bomtree_delete(self, tree, type=None):
         if type == 'Tree':
             self.is_click_tbm(user['BOMTree指定Tree删除'], tree)
         else:
