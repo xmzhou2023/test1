@@ -2,7 +2,7 @@ import allure
 import pytest
 from project.DRP.page_object.Center_Component import NavPage
 from project.CRM.page_object.RC_JSMgt_JSList_pro import JSPage
-from public.base.assert_ui import ValueAssert
+from public.base.assert_ui import *
 import random, string
 import pytest, logging
 from public.base.basics import *
@@ -62,26 +62,17 @@ class TestGetJSList:
     @allure.title("查询工单")  # 用例名称
     @allure.description("JS页面，遍历Document Status下拉框查询正确")
     @allure.severity("critical")  # 用例等级
-    @pytest.mark.parametrize("status", ["5-Draft", "30-SWAP","35-SWAP Approve"])
+    @pytest.mark.parametrize("status", ["5-Draft", "30-SWAP", "35-SWAP Approve"])
     @pytest.mark.smoke  # 用例标记
    # @pytest.mark.skip  # 跳过不执行
     def test_1750(self, drivers, class_fixture, status):   # 用例名称取名规范'test+场景编号+用例编号'
         user = JSPage(drivers)
         user.JS_Clear_Query_Conditions()
         user.Get_Document_Status_JS(status)  # 查询成功
+        user = DomAssert(drivers)
+        user.assert_att("Total")
 
 
-    @allure.story("查询工单")  # 场景名称,中文
-    @allure.title("查询工单")  # 用例名称
-    @allure.description("JS页面，遍历Service Type下拉框查询正确")
-    @allure.severity("critical")  # 用例等级
-    @pytest.mark.parametrize("status", ["RWR", "DAP"])  # DOA、SWAP需要单独判断
-    @pytest.mark.smoke  # 用例标记
-    # @pytest.mark.skip  # 跳过不执行
-    def test_2395(self, drivers, class_fixture, status):   # 用例名称取名规范'test+场景编号+用例编号'
-        user = JSPage(drivers)
-        user.JS_Clear_Query_Conditions()
-        user.Get_Service_Status_JS(status)  # 查询成功
 
 
 

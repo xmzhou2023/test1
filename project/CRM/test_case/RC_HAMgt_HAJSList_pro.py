@@ -2,7 +2,7 @@ import allure
 import pytest
 from project.DRP.page_object.Center_Component import NavPage
 from project.CRM.page_object.RC_HAMgt_HAJSList_pro import HAJSPage
-from public.base.assert_ui import ValueAssert
+from public.base.assert_ui import *
 import random, string
 import pytest, logging
 from public.base.basics import *
@@ -66,17 +66,10 @@ class TestGetJSList:
     def test_9390(self, drivers, class_fixture, status):   # 用例名称取名规范'test+场景编号+用例编号'
         user = HAJSPage(drivers)
         user.JS_Clear_Query_Conditions()
-        user.Get_Document_Status_JS(status)  # 查询成功
+        user.Get_Document_Status_JS(state=status)  # 查询成功
+        user = DomAssert(drivers)
+        user.assert_att("Total")
 
-    @allure.story("查询家电工单")  # 场景名称,中文
-    @allure.title("查询家电工单")  # 用例名称
-    @allure.description("HA JS页面，遍历Service Type下拉框查询正确")
-    @allure.severity("critical")  # 用例等级
-    @pytest.mark.parametrize("status", ["RWR", "DOA", "DAP"])  # SWAP需要单独判断
-    @pytest.mark.smoke  # 用例标记
-    def test_2395(self, drivers, class_fixture, status):   # 用例名称取名规范'test+场景编号+用例编号'
-        user = HAJSPage(drivers)
-        user.JS_Clear_Query_Conditions()
 
 
 
