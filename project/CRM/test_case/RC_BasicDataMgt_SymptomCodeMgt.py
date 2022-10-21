@@ -332,20 +332,20 @@ class TestGetSymptomGroup:
         total1, current_num1, get_record1 = user.Get_Status_Code("Enable")  # 查询Enable的成功
         for i in range(0, current_num1):
             ValueAssert.value_assert_equal(get_record1[i], "Enable")  ##判断查询出来的数据状态为Enable
-        user = SQL('CRM', 'test')
-        group_data1 = user.query_db('select count(symptom_code) from crm_mdm_symptom where is_enable = 1')
-        sql_data1 = str(group_data1[0].get("count(symptom_code)"))
-        ValueAssert.value_assert_equal(total1, sql_data1)  # 判断查询总的Enable数据与数据库里的一致
+        # user = SQL('CRM', 'test')
+        # group_data1 = user.query_db('select count(symptom_code) from crm_mdm_symptom where is_enable = 1')
+        # sql_data1 = str(group_data1[0].get("count(symptom_code)"))
+        # ValueAssert.value_assert_equal(total1, sql_data1)  # 判断查询总的Enable数据与数据库里的一致
         logging.info("步骤2：Disable查询")
         user = SymCodePage(drivers)
         total2, current_num2, get_record2 = user.Get_Status_Code("Disable")  # 查询Disable的成功
         for i in range(0, current_num2):
             ValueAssert.value_assert_equal(get_record2[i], "Disable")  ##判断查询出来的数据状态为Disable
 
-        user = SQL('CRM', 'test')
-        group_data2 = user.query_db('select count(symptom_code) from crm_mdm_symptom where is_enable = 0')
-        sql_data2 = str(group_data2[0].get("count(symptom_code)"))
-        ValueAssert.value_assert_equal(total2, sql_data2)  # 判断查询总的Disable数据与数据库里的一致
+        # user = SQL('CRM', 'test')
+        # group_data2 = user.query_db('select count(symptom_code) from crm_mdm_symptom where is_enable = 0')
+        # sql_data2 = str(group_data2[0].get("count(symptom_code)"))
+        # ValueAssert.value_assert_equal(total2, sql_data2)  # 判断查询总的Disable数据与数据库里的一致
         ## 恢复为默认查询条件
         user = SymCodePage(drivers)
         user.Code_Clear_Get()
