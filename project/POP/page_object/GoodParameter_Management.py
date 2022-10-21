@@ -58,17 +58,5 @@ class Query_GoodDetail(Base):
         self.is_click(user['参数详情按钮'])
         sleep(1)
 
-    @allure.step("关闭详情窗口")
-    def close_detail(self):
-        self.is_click(user['关闭详情'])
-
-class ExportGood(Base):
-    """商品参数导出类"""
-
-    @allure.step("点击导出按钮")
-    def click_export(self):
-        self.is_click_tbm(user['导出'])
-
-
 if __name__ == '__main__':
     pass

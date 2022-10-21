@@ -12,6 +12,3 @@ IMEI/SN管理: "xpath==//span[contains(text(),'variable')]"
 商品信息新增按钮: "xpath==//button[@type='button']//span[contains(text(),'新增')]"
 点击保存按钮: "xpath==//span[contains(text(),'保存')]"
 
-# 商品管理导出
-导出: "xpath==//button[contains(text(),'导出')]"
-导出成功提示: "class==el-message__content"
