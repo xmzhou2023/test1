@@ -145,7 +145,7 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.click_bomtree_delete('客供BOM')
+        user.click_bomtree_delete('客供BOM', 'Tree')
         DomAssert(drivers).assert_att('暂无数据')
 
     @allure.story("创建流程")

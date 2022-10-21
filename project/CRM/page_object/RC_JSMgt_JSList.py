@@ -314,7 +314,7 @@ class JSPage(Base):
         self.hover(user['Created_Date_Clear'], choice="Start Date")
         self.is_click(user['Created_Date_Clear'], choice="Start Date")  # 清空时间查询条件
         self.is_click(user['Hide_Return'])  # 取消隐藏100状态的
-        self.is_click(user['Scope_Select'], choice="Scope")
+        self.is_click(user['Scope_Select'], choice="scopeType")
         self.is_click(user['Scope_Select_Data'], choice="All")  # 设置范围为所有
 
     @allure.step("产生新窗口时切换回原窗口")
@@ -461,8 +461,8 @@ class JSPage(Base):
             return number, th_num, list1
 
     def Get_IsEcalate_JS(self, data):
-        self.is_click(user['Scope_Select'], choice="IsEscalate")
-        self.input_text(user['Scope_Select'], choice="IsEscalate", txt=data)
+        self.is_click(user['Scope_Select'], choice="isEscalate")
+        self.input_text(user['Scope_Select'], txt=data, choice="isEscalate")
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
@@ -488,8 +488,8 @@ class JSPage(Base):
             return number, th_num, list1
 
     def Get_IsQuickRepair_JS(self, data):
-        self.is_click(user['Scope_Select'], choice="Is Quick Repair")
-        self.input_text(user['Scope_Select'], choice="Is Quick Repair", txt=data)
+        self.is_click(user['Scope_Select'], choice="isQuickRepair")
+        self.input_text(user['Scope_Select'], choice="isQuickRepair", txt=data)
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
@@ -515,8 +515,8 @@ class JSPage(Base):
             return number, th_num, list1
 
     def Get_Warranty_JS(self, data):
-        self.is_click(user['Scope_Select'], choice="Warranty Status")
-        self.input_text(user['Scope_Select'], choice="Warranty Status", txt=data)
+        self.is_click(user['Scope_Select'], choice="warrantyStatus")
+        self.input_text(user['Scope_Select'], choice="warrantyStatus", txt=data)
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
