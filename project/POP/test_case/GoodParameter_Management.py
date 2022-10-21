@@ -54,7 +54,7 @@ class TestExportGoodParam:
     @allure.title("商品参数导出")
     @allure.description("点击导出，商品参数列表导出")
     @allure.severity("normal")
-    @pytest.mark.smoke("商品参数")
+    @pytest.mark.smoke # 用例标记
     def test_003_001(self,drivers):
         users = ExportGood(drivers)
         users.click_export()
