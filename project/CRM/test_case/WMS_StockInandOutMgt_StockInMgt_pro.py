@@ -35,7 +35,7 @@ class TestStockInSearch:
     @pytest.mark.parametrize("type", ["Purchase In", "Work Order In", "Verification In", "Allocation In"])
     def test_001_001(self, drivers, type):  # 用例名称取名规范'test+场景编号+用例编号'
         num = StockInSearch(drivers)
-        num.stockinsearch(scope='allocation',type=type)
+        num.stockinsearch(Type=type)
         num = DomAssert(drivers)
         num.assert_att("Stock In No")
 
