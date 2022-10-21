@@ -92,6 +92,7 @@ class WOSerializedAssignToTech(Base):
 
     @allure.step("获取序列化工单号")
     def getworkorderno(self, row=None, column=None, status=None):
+        self.refresh()
         self.is_click(user['序列化工单查询页From Date输入框'])
         self.hover(user['序列化工单查询页From Date输入框'])
         self.is_click(user['序列化工单查询页From Date清除按钮'])
