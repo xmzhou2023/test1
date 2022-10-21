@@ -23,7 +23,7 @@ class StockInSearch(Base):
     logging.info('本月的第一天是:{}'.format(first_day_of_month))
 
     @allure.step("入库单查询")
-    def stockinsearch(self, scope):
+    def stockinsearch(self, scope, type=None):
         self.refresh()
         self.wait.until(EC.presence_of_element_located(user["入库单开始日期搜索框"]), message="页面刷新失败")
         self.is_click(user['入库单开始日期搜索框'])
@@ -32,16 +32,9 @@ class StockInSearch(Base):
         self.is_click(user['入库单开始日期搜索框'])
         self.input_text(user['入库单开始日期搜索框'], txt=str(StockInSearch.first_day_of_month))
         sleep(2)
-        self.is_click(user['入库单type字段输入框'])
-        if scope == 'allocation':
-            self.input_text(user['入库单type字段输入框'], txt='Allocation In')
-            self.hover(user["入库单type字段下拉选择框"], choice='Allocation In')
-            self.find_element(user['入库单type字段下拉选择框'], 'Allocation In').click()
-
-        elif scope == 'disassemble':
-            self.input_text(user['入库单type字段输入框'], txt='Disassemble In')
-            self.hover(user["入库单type字段下拉选择框"], choice='Disassemble In')
-            self.find_element(user['入库单type字段下拉选择框'], 'Disassemble In').click()
+        self.input_text(user['入库单type字段输入框'], txt=type)
+        self.hover(user["入库单type字段下拉选择框"], choice=type)
+        self.find_element(user['入库单type字段下拉选择框'], type).click()
         self.is_click(user['Search按钮'])
         sleep(10)
 
