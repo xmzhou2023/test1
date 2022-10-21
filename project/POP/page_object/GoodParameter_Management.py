@@ -23,6 +23,7 @@ class AddGoodParam(Base):
     @allure.step("选择商品类目")
     def switch_category(self):
         self.is_click(user['商品类目选择框'])
+        sleep(1)
         # 由于商品类目输入框不能输入参数，下拉框展示数据不能定位元素，暂定措施默认全选所有类目（定位输入框，点击回车键即可）
         key = PyKeyboard()  # 实例化一个键盘
         key.press_key(key.enter_key)  # 按下enter键
@@ -57,6 +58,13 @@ class Query_GoodDetail(Base):
     def click_detail(self):
         self.is_click(user['参数详情按钮'])
         sleep(1)
+
+class ExportGoodParam(Base):
+    """导出商品参数类"""
+
+    @allure.step("点击导出")
+    def click_export(self):
+        self.is_click_tbm(user['导出'])
 
 if __name__ == '__main__':
     pass

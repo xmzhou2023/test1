@@ -28,5 +28,6 @@ class TestGoodSearch:
         test = users.element_text(user['列表展示商品类目'])
         ValueAssert.value_assert_equal(test,"qwz")
 
+
 if __name__ == '__main__':
     pytest.main(['Good_List.py'])

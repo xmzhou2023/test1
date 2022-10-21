@@ -46,17 +46,17 @@ class TestQueryDetail:
         # 断言
         test = users.element_text(user['参数详情'])
         ValueAssert.value_assert_equal(test,'参数详情')
-        users.close_detail()
-
+        users.refresh()
+        sleep(3)
 @allure.feature("商品")
 class TestExportGoodParam:
     @allure.story("商品参数")
     @allure.title("商品参数导出")
     @allure.description("点击导出，商品参数列表导出")
     @allure.severity("normal")
-    @pytest.mark.smoke("商品参数")
+    @pytest.mark.smoke # 用例标记
     def test_003_001(self,drivers):
-        users = ExportGood(drivers)
+        users = ExportGoodParam(drivers)
         users.click_export()
         sleep(0.5)
         # 断言

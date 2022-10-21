@@ -5,7 +5,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import logging
 from ..test_case.conftest import *
-
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
@@ -18,6 +17,7 @@ class GoodSearch(Base):
         self.input_text(user['商品类目搜索框'],category)
         sleep(1)
         self.is_click_tbm(user['搜索的商品类目'],category)
+
 
 
 

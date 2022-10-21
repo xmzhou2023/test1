@@ -8,3 +8,4 @@
 仓库类型: "xpath==//span[contains(text(),'分仓')]"
 仓库信息新增提交按钮: "xpath==//span[contains(text(),'提交')]"
 新增仓库名称: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[3]"
+

@@ -9,6 +9,7 @@
 商品->商品参数: "xpath==//span[@title='商品参数']"
 商品->商品管理: "xpath==//span[@title='商品管理']"
 商品->物料信息: "xpath==//span[@title='物料信息']"
+商品->商品列表: "xpath==//span[@title='商品列表']"
 
 销售: "xpath==//span[contains(text(),'销售')]"
 销售->销售订单: "xpath==//span[@title='销售订单']"
@@ -21,4 +22,6 @@
 
 门店: "xpath==//span[contains(text(),'门店')]"
 门店->门店列表: "xpath==//span[@title='门店列表']"
+
+
 
