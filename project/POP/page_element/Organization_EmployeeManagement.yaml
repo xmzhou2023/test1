@@ -23,7 +23,3 @@
 组织: "xpath==//span[contains(text(),'组织')]"
 职员管理: "xpath==//span[@title='职员管理']"
 重置按钮: "xpath==//div[@class='tr-filter-row el-row']//button[2]"
-
-# 导出--导出职员管理列表
-导出: "xpath==//button[@type='primary']"
-导出成功提示: "class==el-message__content"
