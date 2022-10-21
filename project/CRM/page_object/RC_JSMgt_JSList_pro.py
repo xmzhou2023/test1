@@ -400,7 +400,7 @@ class JSPage(Base):
     @allure.step("JS页面，Service Type下拉框查询")
     def Get_Service_Status_JS(self, status):
         self.is_click(user['Status_Input'], choice="Service Type")
-        self.input_text(user['Status_Input'], txt=status, choice="Service Type")
+        self.input_text(user['Status_Input'], txt=status)
         self.hover(user['Status_Select'], choice=status)
         self.is_click(user['Status_Select'], choice=status)
         self.is_click(user['Search_Button'])
