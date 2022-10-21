@@ -153,6 +153,25 @@ def KeyDevice_API():
     logging.info('开始后置操作')
     user.API_KeyDevice_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def KeyDevice_Revise_API():
+    logging.info('开始前置操作')
+    user = APIRequest()
+    api_response = user.API_KeyDevice_Revise()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_KeyDevice_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def KeyDevice_Revise_nodeMat_API():
+    logging.info('开始前置操作-nodeMat审批')
+    user = APIRequest()
+    api_response = user.API_KeyDevice_Revise()
+    user.API_KeyDevice_image(api_response[0], api_response[1], api_response[2])
+    user.API_KeyDevice_hardware(api_response[0], api_response[1], api_response[2], username='18651509')
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_KeyDevice_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def KeyDevice_nodeMat_API():
@@ -234,10 +253,20 @@ def SaleCountry_ProductChange_API():
 
 
 @pytest.fixture(scope='function', autouse=False)
+def SaleCountry_CountryChange_API():
+    logging.info('开始前置操作-变更国家')
+    user = APIRequest()
+    api_response = user.API_Change_Country('出货国家查询变更产品部分流程')
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
 def SaleCountry_ProductChange_All_API():
     logging.info('开始前置操作-变更产品')
     user = APIRequest()
-    api_response = user.API_Change_Product('出货国家查询变更产品自动化全流程测试')
+    api_response = user.API_Change_Product('出货国家查询-变更产品自动化全流程测试')
     yield api_response
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])
@@ -291,14 +320,24 @@ def SaleCountry_ProductChange_Audit2_API():
 def KeyDevice_SQL():
     a = SQL('TBM', 'test')
     a.change_db(
-        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
-        "= '50A1S')"
+        "delete from kd_flow_main  where device_bid in (select t.bid from kd_device_info t where t.brand='itel' and t.model='50A1S')"
+    )
+    a.change_db(
+        "delete from kd_device_arch_info where brand ='itel' and model='50A1S'"
+    )
+    a.change_db(
+        "delete from kd_device_info where brand ='itel' and model='50A1S'"
     )
     logging.info('开始：调用sql脚本修改数据库数据')
     yield
     a.change_db(
-        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
-        "= '50A1S')"
+        "delete from kd_flow_main  where device_bid in (select t.bid from kd_device_info t where t.brand='itel' and t.model='50A1S')"
+    )
+    a.change_db(
+        "delete from kd_device_arch_info where brand ='itel' and model='50A1S'"
+    )
+    a.change_db(
+        "delete from kd_device_info where brand ='itel' and model='50A1S'"
     )
     logging.info('结束：调用sql脚本修改数据库数据')
 
@@ -306,14 +345,24 @@ def KeyDevice_SQL():
 def KeyDevice_SQL_50A712U():
     a = SQL('TBM', 'test')
     a.change_db(
-        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
-        "= '50A712U')"
+        "delete from kd_flow_main  where device_bid in (select t.bid from kd_device_info t where t.brand='itel' and t.model='50A712U')"
+    )
+    a.change_db(
+        "delete from kd_device_arch_info where brand ='itel' and model='50A712U'"
+    )
+    a.change_db(
+        "delete from kd_device_info where brand ='itel' and model='50A712U'"
     )
     logging.info('开始：调用sql脚本修改数据库数据')
     yield
     a.change_db(
-        "UPDATE kd_flow_main SET is_deleted = 1 WHERE device_bid IN ( SELECT bid FROM kd_device_info WHERE model "
-        "= '50A712U')"
+        "delete from kd_flow_main  where device_bid in (select t.bid from kd_device_info t where t.brand='itel' and t.model='50A712U')"
+    )
+    a.change_db(
+        "delete from kd_device_arch_info where brand ='itel' and model='50A712U'"
+    )
+    a.change_db(
+        "delete from kd_device_info where brand ='itel' and model='50A712U'"
     )
     logging.info('结束：调用sql脚本修改数据库数据')
 
@@ -322,6 +371,25 @@ def Foreign_API():
     logging.info('开始前置操作')
     user = APIRequest()
     api_response = user.API_Foreign_Add()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def Foreign_Derived_API():
+    logging.info('开始前置操作')
+    user = APIRequest()
+    api_response = user.API_Foreign_Derived_Add()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def Foreign_Derived_Approval_API():
+    logging.info('开始前置操作-新建流程-业务审核通过')
+    user = APIRequest()
+    api_response = user.API_Foreign_Derived_Add()
+    user.API_Foreign_Approval(api_response[0], api_response[1], api_response[2])
     yield api_response
     logging.info('开始后置操作')
     user.API_Bom_Delete(api_response[1], api_response[2])

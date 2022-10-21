@@ -1,0 +1,41 @@
+关键字: "xpath==//span[contains(text(),'终审版报表')]"
+
+# 进入页面
+xHr: "xpath==//span[@class='cn-hanburger-width hamburger_icon']//img"
+
+# 到中方入职候选人页面
+中方入职: "xpath==//div[@class='index-module-group']//span[normalize-space(text())='中方入职']"
+候选人: "xpath==//div[@class='menu-wrapper-div']//span[normalize-space(text())='候选人']"
+
+# 点击筛选按钮
+点击筛选按钮: "xpath==//div[@class='el-badge filter-icon']"
+# 筛选
+筛选输入筛选文本: "xpath==//label[text()='variable']/../..//input[contains(@placeholder,'请输入')]"
+输入值后点击查询: "xpath==//span[normalize-space(text())='查询']"
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格内容: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+
+# 新增候选人
+新增候选人按钮: "xpath==//button//span[normalize-space(text())='新增候选人']"
+文本框输入: "xpath==//label[text()='variable']/..//input"
+输入对接HR姓名: "xpath==//input[@placeholder='请输入工号或姓名']/..//input"
+选择人: "xpath==//div[@class='user-member']//div[normalize-space(text())='18647883']"
+选择HR后点击确定: "xpath==//div[@role='dialog']/div[3]//button//span[normalize-space(text())='确定']"
+输入下拉框值: "xpath==//label[text()='variable']/..//input[contains(@placeholder,'请选择')]"
+选择下拉框值: "xpath==//li/span[normalize-space(text())='variable']"
+性别: "xpath==//span[normalize-space(text())='女']"
+保存候选人按钮: "xpath==//button//span[normalize-space(text())='保存']"
+出生年份点击空白: "xpath==//label[text()='候选人编号']"
+
+# 删除
+点击删除: "xpath==//div[normalize-space(text())='variable']/../..//td[not(contains(@class,'is-hidden'))]//span[normalize-space(text())='删除']"
+确定删除: "xpath==//button//span[normalize-space(text())='确定']"
+
+
+
+
+
+
+
+
+

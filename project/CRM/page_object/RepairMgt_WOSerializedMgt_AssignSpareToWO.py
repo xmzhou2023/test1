@@ -36,6 +36,7 @@ class WOSerializedAssignSpareToWO(Base):
         self.is_click(user['序列化工单查询页Document Status输入框'])
         self.hover(user['序列化工单查询页Document Status下拉选择'], choice=status)
         self.find_element(user['序列化工单查询页Document Status下拉选择'], status).click()
+        self.is_click(user['序列化工单Hide Completed勾选框'])
         self.is_click(user["Search按钮"])
         logging.info("开始获取第一行序列化工单号")
         word = self.driver.find_element(By.XPATH, "//tr[{}]/td[{}]//div[normalize-space(text())]".format(row, column)).text

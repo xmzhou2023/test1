@@ -12,10 +12,10 @@ Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 
 #根据筛选功能，查询销售订单ID
 按销售单ID筛选: "xpath==//label[contains(text(),'Sales Order ID')]//parent::div//following-sibling::div//input"
-Search: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[4]/button[1]//span[contains(text(),'Search')]"
-获取Sales Order ID文本: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div/div"
+Search: "xpath==//button[1]//span[contains(text(),'Search')]"
+获取Sales Order ID文本: "xpath==//tbody//tr[1]//td[2]//div//div"
 获取列表Status文本: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//div[normalize-space(text())='variable']"
-Get list Status Text: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
+Get list Status Text: "xpath==//tbody//tr[1]//td[4]//div"
 列表筛选创建开始日期: "id==salesorder_input_createDate"
 列表筛选创建截止日期: "id==salesorder_input_createDate1"
 Sales Order Unfold: "xpath==//span[normalize-space(text())='Unfold']"
@@ -30,12 +30,12 @@ list Click Status Value: "xpath==//span[normalize-space(text())='variable']"
 
 
 #勾选新建的销售单，直接出库
-勾选第一条销售单ID: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span/span"
+勾选第一条销售单ID: "xpath==//tbody//tr[1]//td[1]//div//label//span//span"
 Delivery button: "id==saler_order_scanImei_"
 Sales Delivery iframe:  "id==iframe_sales_order_delivery"
 Payment Mode: "xpath==//label[contains(text(),'Payment Mode')]//parent::div//following-sibling::div//input"
 Payment Mode value: "xpath==//span[contains(text(),'variable')]"
-Input IMEI: "css==[placeholder='Please enter IMEI/BoxID,press enter or Check button to check']"
+Input IMEI: "css==[placeholder='Please enter IMEI/BoxID/SN, press enter or Check button to check']"
 Check: "xpath==//span[contains(text(),'Check')]"
 Submit Delivery: "xpath==//span[contains(text(),'Submit')]"
 
@@ -48,10 +48,9 @@ Get Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
 #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Material ID: "xpath==//input[@id='imeiinventoryquery_input_materialId']"
-IMEI库存点击Brand: "xpath==//*[@id='app']/div/div[2]/section/div/div[1]/form/div/div[2]/div[9]/div/div/div/div/div[1]/input"
+IMEI库存点击Brand: "xpath==//div//input[@id='imeiinventoryquery_input_brandCodes']"
 IMEI库存选中Brand: "xpath==//*[@id='app']/div/div[2]/section/div/div[1]/form/div/div[2]/div[9]/div/div/div/div/div[2]/div/div[3]/div[1]/div[1]/ul/li[3]/span"
 IMEI库存查询按钮: "xpath==//span[contains(text(),'Search')]"
-#获取IMEI文本内容: "xpath==//*[@id='mainContainer']/section/div[1]/div[3]/div[1]/div/div[3]/table/tbody/tr[1]/td[4]/div"
 获取IMEI文本内容: "xpath==//tbody//tr[1]//td[4]//div"
 关闭IMEI Inventory Query: "xpath==//span[normalize-space(text())='IMEI Inventory Query']//span[@class='el-icon-close']"
 

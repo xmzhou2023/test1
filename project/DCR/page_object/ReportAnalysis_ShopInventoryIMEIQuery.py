@@ -22,7 +22,7 @@ class ShopInventoryIMEIQueryPage(Base):
         sleep(1)
         self.input_text_dcr(user['筛选门店'], txt=content)
         sleep(3)
-        self.is_click_dcr(user['选中筛选门店值'])
+        self.is_click_dcr(user['选中筛选门店值'], content)
 
     @allure.step("Shop Inventory IMEI Query页面，输入筛选开始日期")
     def input_inbound_date(self, content):

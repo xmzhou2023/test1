@@ -160,7 +160,7 @@ class TestAppraisal:
     @allure.title("点击下一页")  # 用例名称
     @allure.description("首页点击下一页-到第二页")
     @allure.severity("normal")  # 用例等级
-    def test_next_page(self, valuecode_fixture, drivers):
+    def test_next_page(self, valuecode_fixture,drivers):
         app = Performance(drivers)
         app.next_page("1")
         page = app.current_page()

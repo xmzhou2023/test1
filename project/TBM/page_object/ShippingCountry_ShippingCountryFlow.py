@@ -17,21 +17,13 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.refresh_webpage()
         self.click_menu("出货国家", "出货国家流程")
 
-    @allure.step("删除操作")
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-        self.is_click_tbm(user['确定'])
-
     @allure.step("新建流程后的后置删除处理")
     def delete_shipping_country_flow(self, code):
         logging.info(f'开始撤回流程：{code}')
         self.recall_process(code)
         self.click_menu("出货国家", "出货国家流程")
         self.click_delete(code)
+        self.click_delete_confirm()
         self.assert_toast()
         logging.info('撤回删除流程成功')
 
@@ -67,7 +59,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         :param name: 人员名字
         """
         self.is_click_tbm(user['汇签/抄送人员选择框'], choice)
-        self.is_click_tbm(user['成员列表清空'], choice)
+        self.is_click_tbm(user['成员列表清空'])
         self.input_text(user['成员列表输入框'], name)
         sleep(1)
         self.is_click_tbm(user['成员选择'], name)
@@ -153,8 +145,12 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.input_product_definition_info('MEMORY', '64+8')
         self.input_product_definition_info('BAND STRATEGY', '公开市场')
         self.input_product_definition_info('项目经理', '李小素')
-        self.input_product_definition_info('aaa', '1G')
-        self.input_product_definition_info('bbb', 'G70')
+        self.input_product_definition_info('摄像头', '摄像头test')
+        self.input_product_definition_info('型号', '型号test')
+        self.input_product_definition_info('新增', '新增test')
+        self.input_product_definition_info('再增', '1G')
+        self.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
+        self.input_product_definition_info('尺寸', '4M')
         self.click_product_definition_confirm()
         self.click_onework_agree()
         self.assert_toast()
@@ -176,6 +172,9 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['确定'])
         logging.info('点击同意-确定')
 
-
+    @allure.step("衍生BOM制作需求-导入-上传正确文件")
+    def upload_Flow_file(self, name):
+        self.upload_file_tbm(user['Oneworks附件上传'], name)
+        DomAssert(self.driver).assert_control(user['应用成功状态'])
 if __name__ == '__main__':
     pass

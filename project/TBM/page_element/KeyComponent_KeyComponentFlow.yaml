@@ -33,6 +33,7 @@ oneworks-节点-维护关键器件-物料模块-物料编码-待申请编码: "x
 oneworks-节点-维护关键器件-物料模块-物料编码-物料详情: "xpath==//label[normalize-space(text())='variable']/..//input"
 oneworks-节点-物料模块-物料编码-物料详情-参数: "xpath==//*[@id='tab-parameter']"
 oneworks-节点-物料模块-物料编码-物料详情: "xpath==//span[normalize-space(text())='variable']"
+oneworks-节点-评估关键器件-Title: "xpath==//div[contains(text(),'责任人')]/../../../..//span[normalize-space(text())='摄像头+闪光灯']"
 
 oneworks-节点-维护关键器件-物料模块-物料编码-物料参数: "xpath==//div[normalize-space(text())='variable']/../..//input"
 oneworks-节点-维护关键器件-物料模块-物料编码-物料参数选择: "xpath==//span[normalize-space(text())='variable']"

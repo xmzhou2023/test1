@@ -164,6 +164,10 @@ class Performance(Base):
         self.clear_input(app["评估代码供货品类配置-评估代码查询输入框"])
         self.is_click(app["评估代码供货品类配置-查询"])
         self.frame_back()
+        self.is_click(app["评估代码供货品类配置-修改成功提示消息关闭"])
+
+
+
 
     @allure.step("导出模板")
     def export_template(self):

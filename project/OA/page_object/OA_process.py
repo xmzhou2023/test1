@@ -10,6 +10,7 @@ from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import logging
+from public.libs.unified_login.login import Login
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -27,7 +28,6 @@ class OAUserPage(Base):
         pwd_list = self.password()
         pwd_str = str(pwd_list[int(txt)]).lstrip("b'").rstrip("'")
         ele.send_keys(pwd_str)
-
 
     @allure.step("判断OA是否登录成功，到home页面")
     def islogin(self):
@@ -129,14 +129,26 @@ class OAUserPage(Base):
                 break
         return text
 
-    def Messagefeishu(self, text):
+    def Messagefeishu(self, text, choose):
         """
-        OA流程开发组群聊中机器人调用，推送text消息
+        OA流程开发组群聊中机器人调用，推送text消息,
+        OA开发大群：SGtaWNm59KG22fKyFRFIu  https://open.feishu.cn/open-apis/bot/v2/hook/17490e59-2cdd-40cc-98da-edd949b4508e
+        OA测试群：wc1EQGbcebUVGmZMBPhbUe  https://open.feishu.cn/open-apis/bot/v2/hook/ca9f9bbc-6bc0-4c15-b0b0-66f82f17f8d9
+        禅道大群： TI382IhVUAI6FtxqAWb3Vh   https://open.feishu.cn/open-apis/bot/v2/hook/5e74a61c-b59c-4fa3-bad5-c87db5eefe49
+
         """
         timestamp = round(time.time())
-        sign = self.gen_sign(timestamp, "SGtaWNm59KG22fKyFRFIu")
+        if choose == "1":  # OA测试群
+            sign = self.gen_sign(timestamp, "wc1EQGbcebUVGmZMBPhbUe")
+            post_url = "https://open.feishu.cn/open-apis/bot/v2/hook/ca9f9bbc-6bc0-4c15-b0b0-66f82f17f8d9"
+        elif choose == "2":  # 禁用 OA开发大群
+            sign = self.gen_sign(timestamp, "SGtaWNm59KG22fKyFRFIu")
+            post_url = "https://open.feishu.cn/open-apis/bot/v2/hook/17490e59-2cdd-40cc-98da-edd949b4508e"
+        elif choose == "3":  # 禁用 禅道大群
+            sign = self.gen_sign(timestamp, "TI382IhVUAI6FtxqAWb3Vh")
+            post_url = "https://open.feishu.cn/open-apis/bot/v2/hook/5e74a61c-b59c-4fa3-bad5-c87db5eefe49"
 
-        post_url = "https://open.feishu.cn/open-apis/bot/v2/hook/17490e59-2cdd-40cc-98da-edd949b4508e"
+
         request_param = {
             "timestamp": timestamp,
             "sign": sign,
