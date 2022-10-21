@@ -357,6 +357,7 @@ class HAJSPage(Base):
         self.hover(user['Status_Select'], choice=status)
         self.is_click(user['Status_Select'], choice=status)
         self.is_click(user['Search_Button'])
+        sleep(5)
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
         number = int(num[1])
