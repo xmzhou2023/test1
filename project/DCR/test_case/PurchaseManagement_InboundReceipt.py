@@ -100,7 +100,7 @@ class TestQueryIMEIDetail:
         query.select_checkbox()
         query.click_imei_detail()
 
-        detail_material = query.get_imei_detail_material_id()
+        detail_material_id = query.get_imei_detail_material_id()
         detail_product = query.get_imei_detail_product()
         detail_itel = query.get_imei_detail_itel()
         detail_brand = query.get_imei_detail_brand()
@@ -112,7 +112,7 @@ class TestQueryIMEIDetail:
         ValueAssert.value_assert_IsNoneNot(detail_product)
         ValueAssert.value_assert_IsNoneNot(detail_itel)
         ValueAssert.value_assert_equal(list_brand, detail_brand)
-        ValueAssert.value_assert_IsNoneNot(detail_material)
+        ValueAssert.value_assert_IsNoneNot(detail_material_id)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
         ValueAssert.value_assert_equal("Export", detail_export)
         #query.click_close_inbound_imei_detail()
