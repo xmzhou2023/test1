@@ -111,6 +111,13 @@ class AttendanceRecordPage(Base):
         file_size1 = file_size[0:1]
         return file_size1
 
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], txt=content)
+        sleep(2)
+        self.is_click(user['Task Name value'], content)
+
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
         user_id = self.element_text(user['获取用户ID文本'])

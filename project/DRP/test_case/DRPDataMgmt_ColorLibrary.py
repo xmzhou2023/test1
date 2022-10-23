@@ -123,7 +123,7 @@ class TestAppendColor:
         color.input_colorinf({"颜色名称Zh": "123","颜色名称En": "ABC","备注": "123"})
         color.save_button()
         color.list_assert("AB", {"2":"ABC","3": "123"})  # 页面列表数据断言
-        color.clear_testdata("123", "ABC", "123", "秦海伦")
+        color.clear_testdata("123", "ABC", "123", "隆江")
 
     @allure.story("新增颜色库数据")
     @allure.title("[异常]未维护必填项,保存失败")
@@ -189,7 +189,7 @@ class TestEditColor:
         color.edit_color("ABC",{"颜色名称Zh":"456","颜色名称En":"EFG","备注":"456"})
         color.save_button()
         color.list_assert("456", {"3": "456"})  # 页面列表数据断言
-        color.clear_testdata("456", "EFG", "456", "秦海伦")
+        color.clear_testdata("456", "EFG", "456", "隆江")
 
     @allure.story("修改颜色库数据")
     @allure.title("[异常]点击指定行编辑按钮，修改颜色信息必填项 为空 保存失败")
@@ -203,7 +203,7 @@ class TestEditColor:
         color.edit_button("ABC")
         color.edit_color("ABC",{"颜色名称Zh":""})
         color.save_button()
-        color.clear_testdata("123", "ABC", "123", "秦海伦")
+        color.clear_testdata("123", "ABC", "123", "隆江")
 
     @allure.story("修改颜色库数据")
     @allure.title("点击指定行编辑按钮，修改颜色状态为禁用")
@@ -216,7 +216,7 @@ class TestEditColor:
         color.precondition_selecttestdata("ABC")
         color.edit_state("ABC")
         color.screen_assert("状态","禁用")
-        color.clear_testdata("123", "ABC", "123", "秦海伦")
+        color.clear_testdata("123", "ABC", "123", "隆江")
 
     @allure.story("修改颜色库数据")
     @allure.title("点击指定行编辑按钮，修改颜色状态由禁用 改为启用")
@@ -229,7 +229,7 @@ class TestEditColor:
         color.edit_state("ABC")
         color.precondition_selecttestdata("ABC","启用")
         color.screen_assert("状态","启用")
-        color.clear_testdata("123", "ABC", "123", "秦海伦")
+        color.clear_testdata("123", "ABC", "123", "隆江")
         color.reset_button()
 
 

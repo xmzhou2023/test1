@@ -233,7 +233,7 @@ class TestCreateProcessExceptionScenario:
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("请完善Bom信息")  # 用例名称
-    @allure.description("进入新增页面制作类型选择PCBA BOM制作，在BOM tree中点击新增BOM，不填写物料编码，其他内容正确填写，点击提交，提示BOM编码空的物料组在对应的模板中未设置！")
+    @allure.description("进入新增页面制作类型选择PCBA BOM制作，选择一个不存在模板的品牌，其他内容正确填写，点击提交，不能提交成功并给出提示请完善Bom信息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_005(self, drivers):
@@ -246,7 +246,7 @@ class TestCreateProcessExceptionScenario:
         user.input_add_bom_info('阶段', '试产阶段')
         user.input_add_bom_info('制作虚拟贴片/套片', '否')
         user.click_add_submit()
-        user.assert_toast('请完善Bom信息')
+        user.assert_toast('请完善Bom信息！')
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("BOM状态不能为空")  # 用例名称
@@ -437,11 +437,11 @@ class TestCreateProcessExceptionScenario:
         user.assert_toast('[12105695] 替代组[A1]只有一颗物料')
 
     @allure.story("创建流程异常场景")  # 场景名称
-    @allure.title("[XXXXX] 替代组[XX]只有一颗物料")  # 用例名称
+    @allure.title("输入位号U1001,U1002,U1003,U1004,U1005，数量自动变为5")  # 用例名称
     @allure.description("进入新增页面制作类型选择PCBA BOM协作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，输入正确的PCBA物料用量为1，在IC144输入物料编码为14400003，输入位号U1001,U1002,U1003,U1004,U1005，数量自动变为5")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_002_017(self, drivers):
+    def test_002_018(self, drivers):
         user = PCBABomCooperation(drivers)
         user.refresh_webpage_click_menu()
         user.add_bom_info()

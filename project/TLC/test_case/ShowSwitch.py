@@ -25,9 +25,9 @@ class TestShowSwitch:
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
         tools.click('图标列表切换按钮')
-        DomAssert(drivers).assert_att('更新时间')
+        DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
-        DomAssert(drivers).assert_page_source('更新时间')
+        DomAssert(drivers).assert_page_source('所有者')
         pass
 
     @allure.story("图标列表切换")  # 场景名称
@@ -39,9 +39,9 @@ class TestShowSwitch:
         tools = ShowSwitch(drivers)
         tools.click_menu('组件中心', '我的收藏')
         tools.click('图标列表切换按钮')
-        DomAssert(drivers).assert_att('收藏时间')
+        DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
-        DomAssert(drivers).assert_page_source('收藏时间')
+        DomAssert(drivers).assert_page_source('所有者')
         pass
 
     @allure.story("图标列表切换")  # 场景名称
@@ -53,9 +53,23 @@ class TestShowSwitch:
         tools = ShowSwitch(drivers)
         tools.click_menu('组件中心', '回收站')
         tools.click('图标列表切换按钮')
-        DomAssert(drivers).assert_att('更新时间')
+        DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
-        DomAssert(drivers).assert_page_source('更新时间')
+        DomAssert(drivers).assert_page_source('所有者')
+        pass
+
+    @allure.story("与我协作切换")  # 场景名称
+    @allure.title("与我协作-图标列表切换")  # 用例名称
+    @allure.description("与我协作页面操作图标列表切换")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_004(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        tools = ShowSwitch(drivers)
+        tools.click_menu('组件中心', '与我协作')
+        tools.click('图标列表切换按钮')
+        DomAssert(drivers).assert_att('所有者')
+        tools.click('图标列表切换按钮')
+        DomAssert(drivers).assert_page_source('所有者')
         pass
 
 if __name__ == '__main__':

@@ -374,11 +374,15 @@ class PCBABomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
+    @allure.step("点击附件")
     def click_Accessory(self):
         self.is_click_tbm(user['Oneworks附件'])
 
+    @allure.step("上传附件")
     def send_Accessory(self, name):
         Accessory_path = os.path.join(PEROJECT_PATH, 'TBM', 'data', name)
         self.upload_file(user['Oneworks附件上传'], Accessory_path)
+        logging.info('上传附件')
+
 if __name__ == '__main__':
     pass

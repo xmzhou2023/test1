@@ -1,6 +1,7 @@
 import logging
 
 from libs.common.read_element import Element
+from libs.config.conf import BASE_DIR
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -9,6 +10,57 @@ user = Element(pro_name,object_name)
 
 class CenterComponent(Base, APIRequest):
     """用户类"""
+    # 审核人
+    review = '李小素'
+
+    def input_text(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        ele.send_keys(txt)
+        logging.info("输入文本：{}".format(txt))
+
+    def click_logout(self):
+        """点击退出登录"""
+        self.is_click(user['头像'])
+        self.is_click_tbm(user['退出登录'])
+
+    def click_accountlogin(self):
+        """点击帐号密码登录"""
+        self.is_click(user['账号密码登录'])
+
+    def input_account(self, content):
+        """输入工号"""
+        self.input_text(user['工号输入框'], txt=content)
+        sleep()
+
+    def input_passwd(self, content):
+        """输入密码"""
+        self.input_text(user['密码输入框'], txt=content)
+        sleep()
+
+    def check_box(self):
+        """判断是否被选中"""
+        return self.select_state(user['隐私保护勾选框'])
+
+    def click_checkbox(self):
+        """点击复选框"""
+        if not self.check_box():
+            self.is_click(user['隐私保护勾选框'])
+
+    def click_loginsubmit(self):
+        """点击帐号密码登录"""
+        self.is_click(user['登录'])
+        sleep(6)
+
+    def relogin(self, username):
+        """统一登录֤"""
+        self.click_logout() # 退出登录
+        self.click_accountlogin() # 点击帐户密码登录
+        self.input_account(username) # 输入帐户名
+        self.input_passwd('xLily6x') # 输入密码
+        self.click_loginsubmit()
 
     @allure.step("点击菜单")
     def click_menu(self, metatitle, nestmenu):
@@ -72,6 +124,11 @@ class CenterComponent(Base, APIRequest):
         self.frame_enter(user['待办列表-iframe'])
         self.is_click_tbm(user['待办列表-刷新'])
 
+    @allure.step("点击提交")
+    def click_add_submit(self):
+        self.scroll_into_view(user['提交'])
+        sleep(0.5)
+        self.is_click_tbm(user['提交'])
 
     @allure.step("待办列表 根据单据号 筛选")
     def screening_code(self, code):
@@ -116,6 +173,23 @@ class CenterComponent(Base, APIRequest):
                 self.refresh_todo_list()
 
     @allure.step("点击 查看详情 进入 oneworks 页面")
+    def loginUser_judge(self, code, node=None):
+        """
+        判断节点审批人与当前登录人是否一致
+        @param code:流程编码
+        @param node:节点名称
+        """
+        assignee = self.API_getHistoric(code, node)
+        assignee = assignee[:assignee.index('[')]
+        logging.info('节点：{} 当前审批人是：{}'.format(node, assignee))
+        User = self.find_element(user['登录人']).get_attribute('innerText')
+        User = User[:User.index('，')]
+        logging.info('当前登录人是：{}'.format(User))
+        if assignee != User:
+            Employee_Number = self.API_queryDeptAndEmployee(assignee)['data'][0]['employeeNo']
+            self.relogin(Employee_Number)
+
+    @allure.step("点击 查看详情 进入 oneworks 页面")
     def enter_oneworks_edit(self, code, node=None):
         """
         点击 查看详情 进入 oneworks 页面
@@ -123,6 +197,7 @@ class CenterComponent(Base, APIRequest):
         @param code:流程编码
         @param node:节点名称
         """
+        self.loginUser_judge(code, node)
         self.enter_my_todo()
         self.screening_code(code)
         if node is not None:
@@ -187,6 +262,7 @@ class CenterComponent(Base, APIRequest):
         try:
             att = self.wait.until(
                     EC.visibility_of_element_located((By.XPATH, "//div[@role='alert']/p"))).text
+            self.base_get_img()
             logging.info('获取toast提示语：{}'.format(att))
             try:
                 if content is None:
@@ -448,7 +524,6 @@ class CenterComponent(Base, APIRequest):
         if self.element_exist(user['基本信息']) is False:
             self.is_click_tbm(user['新增'])
             sleep(1)
-        self.base_get_img()
         DomAssert(self.driver).assert_att('基本信息')
 
     @allure.step("断言：区域配置数据按照时间降序排序")
@@ -609,9 +684,6 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("断言：在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑")
     def assert_oneworks_bomtree_edit(self, tree, header):
-        """
-        在业务审核页面中，多次点击产成品一列数据，该列数据是不能再进行编辑
-        """
         column_class = self.get_table_info(user['编辑验证表头'], header)
         self.mouse_double_click(user['编辑验证'], tree, column_class)
         sleep(0.5)
@@ -652,10 +724,18 @@ class CenterComponent(Base, APIRequest):
     def click_product_definition_confirm(self):
         self.is_click_tbm(user['产品定义信息确定'])
 
-    @allure.step("产品定义信息-点击确定")
+    @allure.step("产品定义信息-点击编辑")
     def click_product_definition_edit(self):
         sleep(2)
         self.is_click_tbm(user['产品定义信息编辑'])
+
+    @allure.step("产品定义信息-点击复制")
+    def click_product_definition_copy(self):
+        self.is_click_tbm(user['产品定义信息复制'])
+
+    @allure.step("产品定义信息-点击删除")
+    def click_product_definition_delete(self):
+        self.is_click_tbm(user['产品定义信息删除'])
 
     @allure.step("出货国家流程新增页面 - 新增产品定义信息")
     def input_product_definition_info(self, header, content):
@@ -782,6 +862,103 @@ class CenterComponent(Base, APIRequest):
         self.is_click_tbm(user['同意取消'])
         logging.info('点击取消')
 
+    @allure.step("获取行内容")
+    def get_col_content(self, locator):
+        info = self.find_elements_tbm(locator)
+        infolist = []
+        for i in info:
+            infolist.append(i.text)
+        logging.info('获取结果{}'.format(infolist))
+        return infolist
+
+    @allure.step("获取整个元素内容")
+    def get_table_content(self, locator):
+        info = self.find_elements(locator)
+        infolist = []
+        for i in info:
+            content_list = i.get_attribute('innerText').replace("\t","").split('\n')
+            infolist += content_list
+        while "" in infolist:
+            infolist.remove("")
+        logging.info('获取结果{}'.format(infolist))
+        return infolist
+
+    @allure.step("断言：出货国家选择全球版本，汇签人员会自动获取人员")
+    def assert_version_get_member(self, ver):
+        ver_dict = {'版本1': 'ver1', '版本2': 'ver2', '版本3': 'ver3'}
+        Employee_list = []
+        ServiceDictData = self.API_TBM_ServiceDictData('GLOBAL_VERB')
+        for i in ServiceDictData['data'][0]['values']:
+            if i['key'] == ver_dict[ver]:
+                member_list = i['chValue'].split(',')
+                logging.info('获取字典服务汇签人员工号：{}'.format(member_list))
+                for j in member_list:
+                    Employee_Name = self.API_queryDeptAndEmployee(j)['data'][0]['employeeName']
+                    Employee_list.append(Employee_Name)
+                logging.info('获取字典服务汇签人员名字：{}'.format(Employee_list))
+        self.assert_member('汇签人员', Employee_list)
+
+    @allure.step("断言：出货国家选择全球版本，汇签人员会自动获取人员")
+    def assert_member(self, type, member):
+        signatory_List = self.element_input_text(user['汇签/抄送人员选择框'], type).split(';')
+        try:
+            assert set(member) <= set(signatory_List)
+            logging.info('断言成功，{}：{} 包含人员：{}'.format(type, signatory_List, member))
+        except:
+            logging.error('断言失败，{}：{} 不包含人员：{}'.format(type, signatory_List, member))
+            raise
+
+    @allure.step("断言变更国家增加已变更产品成功")
+    def assert_change_success(self, content):
+        ac_content = self.get_table_content(user['产品定义信息内容'])
+        try:
+            assert content in ac_content
+            logging.info('断言成功，结果包含内容')
+        except:
+            logging.info('断言失败，结果不包含内容')
+            raise
+
+    @allure.step("断言产品定义信息复制成功")
+    def assert_copy_success(self, content):
+        ac_content = self.get_table_content(user['产品定义信息内容'])
+        content_num = ac_content.count(content)
+        try:
+            assert content_num == 2
+            logging.info('断言成功，{} 存在{}条数据'.format(content, content_num))
+        except:
+            logging.info('断言失败，{} 存在{}条数据'.format(content, content_num))
+            raise
+
+    @allure.step("点击变更已有产品")
+    def click_products(self):
+        self.is_click_tbm(user['变更已有产品'])
+        logging.info('点击变更已有产品')
+
+    @allure.step("输入已有产品")
+    def search_products(self, header, txt):
+        self.input_text(user['变更已有产品输入框'], txt, header)
+        self.is_click_tbm(user['查询'])
+
+    @allure.step("选择已有产品")
+    def select_products(self, name):
+        self.is_click_tbm(user['变更已有产品选择'], name)
+        logging.info('选择已有产品:{}'.format(name))
+
+    @allure.step("上传文件")
+    def upload_file_tbm(self, locator, file):
+        file_path = os.path.join(BASE_DIR, 'project', 'TBM', 'data', file)
+        logging.info("文件地址：{}".format(file_path))
+        self.upload_file(locator, file_path)
+
+    @allure.step("清空汇签/抄送人员")
+    def clear_member(self, type):
+        self.hover(user['汇签/抄送人员选择框'], type)
+        self.is_click_tbm(user['汇签/抄送人员清空'], type)
+
+    @allure.step("创建上传文件")
+    def add_upload_file(self, name):
+        self.upload_file_tbm(user['附件'], name)
+        DomAssert(self.driver).assert_control(user['上传成功'])
 
 if __name__ == '__main__':
     pass

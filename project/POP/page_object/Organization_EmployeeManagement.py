@@ -57,7 +57,6 @@ class AddUser(Base):
 class Queryuser(Base):
     """查询员工类"""
 
-
     @allure.step("输入用户")
     def input_username(self,content,usernamecode):
         self.is_click(user['列表用户名输入框'])
@@ -67,6 +66,13 @@ class Queryuser(Base):
     @allure.step('点击查询')
     def click_query(self):
         self.is_click(user['查询按钮'])
+
+class ExportEmployee(Base):
+    """导出职员管理类"""
+
+    @allure.step("点击导出")
+    def click_export(self):
+        self.is_click_tbm(user['导出'])
 
 if __name__ == '__main__':
     pass

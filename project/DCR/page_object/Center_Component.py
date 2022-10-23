@@ -43,7 +43,7 @@ class LoginPage(Base):
     @allure.step("点击帐号密码登录")
     def click_loginsubmit(self):
         self.is_click(user['登录'])
-        sleep(4.3)
+        sleep(4)
 
     @allure.step("点击退出登录")
     def click_loginOut(self):
@@ -65,6 +65,21 @@ class LoginPage(Base):
         ss = self.find_element(user['打开状态的菜单'])
         get_menu_class = ss.get_attribute('class')
         return get_menu_class
+
+    @allure.step("获取页面是否有隐私政策内容")
+    def dcr_get_yinsizhengce(self):
+        yinsizhengce = self.element_text(user['DCR隐私政策'])
+        return yinsizhengce
+
+    @allure.step("同意按钮")
+    def dcr_click_agree(self):
+        self.is_click(user['agree button'])
+
+    @allure.step("获取页面是否有隐私政策内容")
+    def dcr_get_home_page_customer(self):
+        home_page_cust = self.element_text(user['Home Page Customer'])
+        return home_page_cust
+
 
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
@@ -90,6 +105,15 @@ class LoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
+
+        """判断是否弹出DCR隐私政策页面"""
+        get_home_page = user.dcr_get_home_page_customer()
+        if get_home_page != 'Home Page-Customer':
+            get_yinsizhegnce = user.dcr_get_yinsizhengce()
+            if get_yinsizhegnce == '隐私政策':
+                user.dcr_click_agree()
+        else:
+            logging.info("打印获取的内容：{}".format(get_home_page))
 
 
     @allure.step("查找菜单")
@@ -117,6 +141,7 @@ class LoginPage(Base):
         else:
             ref = Base(drivers)
             ref.refresh()
+
 
 
 if __name__ == '__main__':

@@ -146,7 +146,5 @@ class TestExportSubCustomerPSI:
         export.click_close_export_record()
         export.click_close_customerPSI()
 
-
-
 if __name__ == '__main__':
     pytest.main(['ReportAnalysis_CustomerPSI.py'])

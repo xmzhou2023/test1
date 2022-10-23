@@ -25,5 +25,6 @@ class QueryMember(Base):
         self.is_click(user['查询按钮'])
 
 
+
 if __name__ == '__main__':
     pass

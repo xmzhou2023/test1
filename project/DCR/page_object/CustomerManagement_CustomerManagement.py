@@ -66,7 +66,7 @@ class CustomerManagementPage(Base):
             self.input_text(user['SAP Customer ID'], sapid)
         """点击客户等级属性"""
         self.is_click(user['Customer Grade'])
-        self.is_click(user['Customer Grade Select'], 'A')
+        self.is_click(user['Customer Grade Select'], 'B')
         sleep(0.8)
         """选择销售业务类型属性"""
         self.is_click(user['Business Type'])

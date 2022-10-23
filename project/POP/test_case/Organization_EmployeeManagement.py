@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import allure,random
+import allure,random,time
 import pytest,logging
 from project.POP.page_object.Center_Component import NavPage
 from project.POP.page_object.Organization_EmployeeManagement import *
@@ -9,7 +9,7 @@ from project.POP.test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-@pytest.fixture(scope='class', autouse=True)
+@pytest.fixture(scope='function', autouse=True)
 def setup_class(drivers):
     logging.info("模块前置条件：前往“POP组织-职员管理”页面")
     nav = NavPage(drivers)
@@ -26,6 +26,7 @@ class Testqueryuser:
         users = Queryuser(drivers)
         users.input_username("张文强","张文强 18651297")
         users.click_query()   # 期望值用户姓名与输入查询的用户姓名一致
+        sleep(0.5)
         # 断言
         test = users.element_text(user['员工姓名'])
         ValueAssert.value_assert_equal(test,"张文强")
@@ -39,27 +40,28 @@ class TestAddUser:
     @allure.description("输入必填项新增职员")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
-    def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_002_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         users = AddUser(drivers)
         users.click_add_button()
-        content = 'zwq测试账号' + str(random.randint(1,100))
+        content = 'zwq测试账号' + str(int(time.time()))
         users.input_username(content)
         users.switch_division('TECNO事业部')
         users.switch_region('China')
         users.switch_role('test1')
         users.switch_country('Malta')  # 国家与区域建议不能一样
         users.click_preservation_button()  # 这里输入期望结果：新增时输入的员工姓名，断言期望结果与列表显示的最新的员工姓名是否一致
+        sleep(0.5)
         # 断言
         test = users.element_text(user['列表页新增用户名字段'])
         ValueAssert.value_assert_equal(test,content)
-        sleep(5)
+        sleep(3)
 
     @allure.story("职员管理")  # 场景名称
     @allure.title("职员姓名不输入新增")  # 用例名称
     @allure.description("职员姓名不输入，其余必填项合法输入，点击提交，页面友好提示")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_001_002(self,drivers):
+    def test_002_002(self,drivers):
         users = AddUser(drivers)
         users.click_add_button()
         users.switch_division('TECNO事业部')
@@ -73,5 +75,21 @@ class TestAddUser:
         expect = "此项为必填项"
         ValueAssert.value_assert_equal(test,expect)
         sleep(5)
+
+@allure.feature("组织") # 模块名称
+class TestExportEmployee:
+    @allure.story("职员管理")  # 场景名称
+    @allure.title("导出职员管理列表")  # 用例名称
+    @allure.description("点击导出，导出职员管理列表")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        users = ExportEmployee(drivers)
+        users.click_export()
+        sleep(0.5)
+        # 断言--提示：XXXX导出成功
+        test = users.element_text(user['导出成功提示'])
+        ValueAssert.value_assert_equal(test,'创建导出任务成功！')
+
 if __name__ == '__main__':
     pytest.main(['Organization_EmployeeManagement.py'])

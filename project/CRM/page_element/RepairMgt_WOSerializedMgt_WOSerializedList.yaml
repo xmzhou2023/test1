@@ -12,6 +12,7 @@
 序列化工单查询页Document Status下拉选择框: "xpath==//div[@class='el-scrollbar']//li[normalize-space(text())='Created']"
 序列化工单查询页Document Status清除按钮: "xpath==//div[contains(@class,'el-col-12')][2]//div[contains(@class,'is-focus')]//span[contains(@class,'inner')]//i[contains(@class,'close')]"
 序列化工单total数: "xpath==//div[@class='formPage']//span[@class='el-pagination__total']"
+序列化工单Hide Completed勾选框: "xpath==//div[contains(@class,'el-col-12')][6]//span[contains(@class,'input')]"
 
 库存初始化查询页Add按钮: "xpath==//div[@class='formPage']//button[@type='button']/span[contains(text(),'Add')]"
 序列化工单新增页IMEI不在库存时的报错提示: "xpath==//div[@role='alert']//p[contains(@class,'message__content')]"

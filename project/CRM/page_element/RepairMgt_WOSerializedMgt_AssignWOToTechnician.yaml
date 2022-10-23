@@ -6,6 +6,7 @@
 序列化工单查询页From Date清除按钮: "xpath==//div[contains(@class,'el-col-12')][3]//div[contains(@class,'el-date-editor')]//span[contains(@class,'suffix-inner')]/i[contains(@class,'close')]"
 序列化工单查询页表格中工单号: "xpath==//tr[tr]/td[td]//div[normalize-space(text())]"
 序列化工单分派技术员页Exact Word输入框: "xpath==//div[contains(@class,'collapse')]//div[contains(@class,'__content')]//input"
+序列化工单Hide Completed勾选框: "xpath==//div[contains(@class,'el-col-12')][6]//span[contains(@class,'input')]"
 
 Search按钮: "xpath==//button/span[contains(text(),'Search')]"
 Assign To输入框: "xpath==//form[contains(@class,'inline')]//input"

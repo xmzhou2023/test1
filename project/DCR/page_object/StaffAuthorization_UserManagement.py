@@ -120,7 +120,7 @@ class UserManagementPage(Base):
 
     @allure.step("获取列表User ID文本内容")
     def get_text_user_id(self):
-        self.presence_sleep_dcr(user['获取列表文本User ID'])
+        sleep(1.5)
         userid = self.element_text(user['获取列表文本User ID'])
         return userid
 
@@ -156,7 +156,7 @@ class UserManagementPage(Base):
 
     @allure.step("点击第一个checkbox,对用户进行辞职操作")
     def click_first_checkbox(self):
-        self.is_click(user['勾选第一个复选框'])
+        self.is_click_dcr(user['勾选第一个复选框'])
 
     @allure.step("编辑用户提交成功提示语")
     def get_set_up_successfully(self):
@@ -170,7 +170,7 @@ class UserManagementPage(Base):
         self.presence_sleep_dcr(user['Quit'])
         self.is_click(user['Quit'])
         sleep(3)
-        self.is_click(user['确认删除Yes'])
+        self.is_click_dcr(user['确认删除Yes'])
 
     @allure.step("获取无数据文本")
     def get_text_nodata(self):

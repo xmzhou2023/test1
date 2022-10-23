@@ -43,3 +43,8 @@ pop登录按钮: "xpath==//button[@type='primary']"
 禅道保持登录勾选: 'xpath==//input[@id="keepLoginon"]'
 禅道登录按钮: 'xpath==//button[@id="submit"]'
 禅道登录成功界面: 'xpath==//span[text()="地盘" and @class="text"]'
+
+
+
+利用首页: 'xpath==//span[text()="利用首页"]'
+我的专利提案: 'xpath==//span[text()="我的专利提案"]'

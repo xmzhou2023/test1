@@ -81,6 +81,8 @@ BOMTree新增物料对焦: "xpath==//span[normalize-space(text())='variable']/..
 子阶BOM检查-更多操作-更新子阶BOM: "xpath==//li[normalize-space(text())='更新子阶BOM']"
 子阶BOM检查-导出: "xpath==//div[@class='m-header']//span[text()='导出']"
 子阶BOM检查信息: "xpath==//span[normalize-space(text())='子阶BOM检查']/../../../..//div/div[3]/table/tbody/tr"
+补充工厂生产工厂信息-导出: "xpath==//span[normalize-space(text())='生产工厂信息']/../../../..//button/span[contains(text(),'导出')]"
+
 ###==========================================Auditor setting========================================
 审核人设置: "xpath==//span[contains(text(),'审核人设置')]"
 审核人名单: "xpath==//div[normalize-space(text())='业务审核']/..//label"

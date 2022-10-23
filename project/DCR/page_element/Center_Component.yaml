@@ -8,6 +8,11 @@
 获取登录账号: "xpath==//span[@class='el-dropdown-link el-dropdown-selfdefine']"
 退出登录: "xpath==//div[@class='right-menu-item']//img"
 
+#获取页面所有文本: "xpath==//*[contains(text(),'')]"
+Home Page Customer: "xpath==//li//span[text()='Home Page-Customer']"
+DCR隐私政策: "xpath==//span[text()='隐私政策']"
+agree button: "xpath==//div[@class='pr-dialog_footer']//button[text()='同意']"
+
 关闭当前打开的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']//span[@class='el-icon-close']"
 打开状态的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']"
 

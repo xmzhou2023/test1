@@ -112,7 +112,6 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['删除'], code)
         self.is_click_tbm(user['确定'])
 
-
     @allure.step("新建流程后的后置删除处理")
     def delete_flow(self, code):
         self.recall_process(code)
@@ -416,7 +415,8 @@ class KeyComponentsFlow(CenterComponent, APIRequest):
         点击复选框
         @param sort:物料编码，传入物料编码；默认‘all’表示点击全选复选框
         """
-        sleep(3)
+        # sleep(5)
+        DomAssert(self.driver).assert_control(user['oneworks-节点-评估关键器件-Title'])
         if sort == 'all':
             self.is_click_tbm(user['oneworks-节点-评估关键器件-复选框全选'])
         else:

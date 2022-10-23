@@ -59,7 +59,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         :param name: 人员名字
         """
         self.is_click_tbm(user['汇签/抄送人员选择框'], choice)
-        self.is_click_tbm(user['成员列表清空'], choice)
+        self.is_click_tbm(user['成员列表清空'])
         self.input_text(user['成员列表输入框'], name)
         sleep(1)
         self.is_click_tbm(user['成员选择'], name)
@@ -145,8 +145,12 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.input_product_definition_info('MEMORY', '64+8')
         self.input_product_definition_info('BAND STRATEGY', '公开市场')
         self.input_product_definition_info('项目经理', '李小素')
-        self.input_product_definition_info('aaa', '1G')
-        self.input_product_definition_info('bbb', 'G70')
+        self.input_product_definition_info('摄像头', '摄像头test')
+        self.input_product_definition_info('型号', '型号test')
+        self.input_product_definition_info('新增', '新增test')
+        self.input_product_definition_info('再增', '1G')
+        self.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
+        self.input_product_definition_info('尺寸', '4M')
         self.click_product_definition_confirm()
         self.click_onework_agree()
         self.assert_toast()
@@ -168,6 +172,9 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.is_click_tbm(user['确定'])
         logging.info('点击同意-确定')
 
-
+    @allure.step("衍生BOM制作需求-导入-上传正确文件")
+    def upload_Flow_file(self, name):
+        self.upload_file_tbm(user['Oneworks附件上传'], name)
+        DomAssert(self.driver).assert_control(user['应用成功状态'])
 if __name__ == '__main__':
     pass

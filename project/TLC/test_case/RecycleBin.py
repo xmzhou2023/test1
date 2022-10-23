@@ -412,5 +412,18 @@ class TestRecycleBin:
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
         pass
 
+    @allure.story("公共空间-回收站操作")  # 场景名称
+    @allure.title("一键清空")  # 用例名称
+    @allure.description("回收站一键清空")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_003_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        tools = RecycleBin(drivers)
+        tools.click_menu('组件中心', '回收站')
+        tools.click('一键清空')
+        tools.click('一键清空确认')
+        DomAssert(drivers).assert_att('删除成功')
+        pass
+
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/RecycleBin.py'])

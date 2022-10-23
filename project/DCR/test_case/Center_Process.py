@@ -127,7 +127,6 @@ class TestSalesBusinessProcess:
         ValueAssert.value_assert_equal(text_status, "Delivered")
 
 
-
         """3 采购管理页面，零售商用户快速收货操作"""
         user.initialize_login(drivers, "EG00056201", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例"""

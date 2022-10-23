@@ -14,6 +14,8 @@ import logging
 import allure
 import datetime
 import ddddocr
+from selenium.webdriver.chrome.options import Options
+
 
 import warnings
 from PIL import Image
@@ -195,6 +197,14 @@ class Base(object):
             ele.clear()
             ele.send_keys(txt)
             logging.info("输入文本：{}".format(txt))
+
+    def clear_code(self, locator):
+        sleep(0.5)
+        ele = self.find_element(locator)
+        ele.clear()
+        ele.clear()
+        return ele
+
 
     def readonly_input_text(self, locator, txt, *choice):
         """去除只读属性后输入"""
@@ -386,13 +396,14 @@ class Base(object):
     def hover(self,locator, choice=None):
         """鼠标悬停"""
         if choice is None:
+            sleep(1)
             element = self.find_element(locator)
             # 创建Action对象
             actions = ActionChains(self.driver)
             actions.move_to_element(element)
-            actions.move_to_element(element).perform()
             sleep(1)
         else:
+            sleep(1)
             element = self.find_element(locator, choice)
             # 创建Action对象
             actions = ActionChains(self.driver)
@@ -537,19 +548,21 @@ class Base(object):
         try:
             path = DOWNLOAD_PATH
             path_list = os.listdir(path)
+            logging.info(path)
             logging.info('download文件夹内有文件：{}'.format(path_list))
             assert len(path_list) != 0
         except:
             path = os.path.join(BASE_DIR)
             path_list = os.listdir(DOWNLOAD_PATH)
+            logging.info(path)
             logging.info('download文件夹内有文件：{}'.format(path_list))
         try:
             return self.read_excel(path, path_list[-1])
         except Exception as e:
             logging.error(e)
             raise
-        finally:
-            self.delete_excel(path, path_list[-1])
+        # finally:
+            # self.delete_excel(path, path_list[-1])
 
     def element_exist(self, locator, *choice):
         """校验元素是否存在"""
@@ -565,10 +578,10 @@ class Base(object):
             self.base_get_img()
             return True
 
-    def upload_file(self,locator,file,choice=None):
+    def upload_file(self,locator,file, *choice):
         """上传"""
         sleep(0.5)
-        ele = self.find_element(locator,choice)
+        ele = self.find_element(locator,*choice)
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 
@@ -742,22 +755,11 @@ class Base(object):
         else:
             """输入(输入前先清空)"""
             sleep(0.5)
-            ele = self.find_element(locator)
+            ele = self.find_element(locator,choice)
             ele.clear()
             ele.send_keys(txt + Keys.ENTER)
             logging.info("输入文本：{}".format(txt))
 
-    # POP专用文件上传方法
-    def pop_upload(self,locator,file,choice=None):
-        """
-            POP专用文件上传
-        :param locator: 元素定位固定格式xxx['sssss']
-        :param file: 上传文件的路径
-        :return: 上传文件成功
-        """
-        ele = self.find_element(locator,choice)
-        ele.send_keys(file)
-        logging.info("上传文件：{}".format(file))
 
     def DivRolling(self, locator, direction='left', num=1000):
         '''

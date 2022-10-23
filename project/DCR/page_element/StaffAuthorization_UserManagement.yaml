@@ -1,16 +1,16 @@
 #新建传音员工
 Add:  "id==employee__add__"
 
-Staff Type:  "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[1]/div/div/div/div[1]/input"
+Staff Type:  "xpath==//div//input[@class='el-input__inner useradd_input_employeeType']"
 Transsion Staff: "xpath==//span[contains(text(),'variable')]"
 
 User ID: "xpath==//label[(text()='User ID')]//parent::div// following-sibling::div//input"
 User Name: "xpath==//label[(text()='User Name')]//parent::div// following-sibling::div//input"
 
-Sales Region: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[6]/div/div/div/div[1]/input"
-Sales Region Value: "xpath==//*[@id='mainContainer']/section/div[1]/form/div[2]/div[6]/div/div/div[1]/div[2]/div/div[1]/div[2]/div[4]/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/span[2]"
+Sales Region: "xpath==//div//input[@id='useradd_input_areaId']"
+Sales Region Value: "xpath==//*[@id='mainContainer']/section/div[2]/form/div[2]/div[6]/div/div/div[1]/div[2]/div/div[1]/div[2]/div[4]/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/span[2]"
 
-Country City: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[7]/div/div/div/div[1]/input"
+Country City: "xpath==//div//input[@id='useradd_input_regionId']"
 Country City Value: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[7]/div/div/div/div[2]/div/div[1]/div[2]/div[8]/div[2]/div[4]/div[2]/div/div[1]/span[2]"
 
 Add Select Brand: "xpath==//div//..//input[@id='useradd_input_brandCodes']"
@@ -34,21 +34,22 @@ Add User Submit: "xpath==//*[@id='app']/div/div[2]/section/div/div/div/button[1]
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 
 #获取用户列表文本内容，断言是否存在
-获取列表文本User ID: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[2]/div"
-获取列表文本User Name: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[3]/div"
+获取列表文本User ID: "xpath==//*[@id='mainContainer']/section/div[2]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[2]/div"
+#获取列表文本User Name: "xpath==//table//tbody//tr[1]//td[3]//div"
+获取列表文本User Name: "xpath==//*[@id='mainContainer']/section/div[2]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr/td[3]/div"
 点击筛选用户输入框: "xpath==//label[(text()='User')]//parent::div//following-sibling::div//input"
-Input User ID: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[1]/div[1]/div/div/div/div/div[1]/input"
 Input User ID Value: "xpath==//span[contains(text(),'variable')]"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
 
 修改第一个Edit: "id==employee_update_"
-勾选第一个复选框: "xpath==//*[@id='mainContainer']/section/div[1]/div[2]/div[1]/div/div[4]/div[2]/table/tbody/tr[1]/td[1]/div/label/span/span"
+勾选第一个复选框: "xpath==//table//tbody//tr[1]//td[1]//div//label//span//span"
 More Option: "xpath==//span[contains(text(),'More Option')]"
 Set Up Successfully: "xpath==//p[(text()='Set Up Successfully')]"
 
 Quit: "id==employee_leave_"
-确认删除Yes: "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[3]/div/button[1]/span"
+#确认删除Yes: "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[3]/div/button[1]/span"
+确认删除Yes: "xpath==//button[@id='userstaffmanagement_Yes']//span[normalize-space(text())='Yes']"
 No Data: "xpath==//*[@id='app']/div/div[2]/section/div/div[2]/div[1]/div[3]/div/span"
 Disabled Successfully: "xpath==//p[(text()='Disabled Successfully')]"
 
@@ -107,4 +108,4 @@ Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取创建日期文本: "xpath==//tbody//tr[1]//td[10]//div"
 获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
 获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
-获取操作按钮文本: "xpath==/html/body/div[1]/div/div[2]/section/div[2]/div[2]/div[1]/div/div[5]/div[2]/table/tbody/tr[1]/td[14]/div/button/span/span"
+获取操作按钮文本: "xpath==//button[@id='exportrecord_Download']"
