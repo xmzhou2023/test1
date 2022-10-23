@@ -30,7 +30,7 @@ def remote_url(request):
     return request.config.getoption("--remoteurl")
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_url, remote_ui=True):
+def drivers(request, remote_url, remote_ui=False):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
