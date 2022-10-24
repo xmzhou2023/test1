@@ -63,4 +63,4 @@ class TestExportGoodParam:
         test = users.element_text(user['导出成功提示'])
         ValueAssert.value_assert_equal(test,"创建导出任务成功！")
 if __name__ == '__main__':
-    pytest.main(['GoodParameter_Management.py::TestExportGoodParam'])
+    pytest.main(['GoodParameter_Management.py::TestAddGoodParam'])
