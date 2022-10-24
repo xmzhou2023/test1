@@ -126,7 +126,7 @@ class WOSerializedListSearch(Base):
         self.is_click(user['序列化工单查询页From Date输入框'])
         self.hover(user['序列化工单查询页From Date输入框'])
         self.is_click(user['序列化工单查询页From Date清除按钮'])
-
+        self.is_click(user['序列化工单Hide Completed勾选框'])
         while True:
             if scope == all:
 

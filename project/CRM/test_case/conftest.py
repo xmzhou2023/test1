@@ -15,10 +15,27 @@ def __init__(drivers, env_name):
     ini = ReadConfig(pro_name, pro_env)
 
     """使用统一登录"""
-    logging.info("前置条件：传音统一登录开始")
-    user = Login(drivers)
-    user.crm_login(drivers,ini.url, account[7]['usernum'], account[7]['passwd'])
-    user = DomAssert(drivers)
-    user.assert_url("{}".format(ini.url))
-    # user.assert_exact_att('18646156')
-    logging.info("前置条件：传音统一登录成功")
+    if pro_env == 'test':
+        logging.info("前置条件：传音统一登录开始")
+        user = Login(drivers)
+        user.crm_login(drivers,ini.url, account[7]['usernum'], account[7]['passwd'])
+        user = DomAssert(drivers)
+        user.assert_url("{}".format(ini.url))
+        logging.info("前置条件：传音统一登录成功")
+
+    elif pro_env == "pro_9s":
+        logging.info("前置条件：传音统一登录开始")
+        user = Login(drivers)
+        user.crm_pro_9s_login(drivers, ini.url, account[7]['usernum'], account[13]['passwd'])
+        user = DomAssert(drivers)
+        user.assert_url("{}".format(ini.url))
+        logging.info("前置条件：传音统一登录成功")
+
+    else:
+        logging.info("前置条件：传音统一登录开始")
+        user = Login(drivers)
+        user.crm_pro_login(drivers, ini.url, account[7]['usernum'], account[13]['passwd'])
+        user = DomAssert(drivers)
+        user.assert_url("{}".format(ini.url))
+        # user.assert_exact_att('18646156')
+        logging.info("前置条件：传音统一登录成功")

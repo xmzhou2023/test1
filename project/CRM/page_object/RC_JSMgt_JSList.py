@@ -8,6 +8,21 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import logging
 import pytest
+import time
+import openpyxl
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+from libs.config.conf import LOCATE_MODE, DOWNLOAD_PATH, IMAGE_PATH, BASE_DIR
+from libs.common.time_ui import sleep
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import os
+import logging
+import allure
+import datetime
+import ddddocr
 import random, string
 from ..test_case.conftest import *
 
@@ -37,12 +52,41 @@ class JSPage(Base):
         logging.info("获取列表数据")
         th_num = self.elements_num(user['表头字段个数'])
         list1 = []
-        for i in range(1, th_num+1):
+        for i in range(1, 10):
             logging.info(f'{i}')
-            txt = self.element_text(user['表头字段'], choice=f'{i}')
+            txt = self.element_text(user['表头字段'], f'{i}')
             logging.info(txt)
             list1.append(txt)
             logging.info(list1)
+        self.driver.execute_script("document.documentElement.scrollTop=600")
+       #  left = self.find_element(user['Scroll_Data'], 'is-scrolling')
+       #  # middle = self.find_element(user['Scroll_Data'], 'is-scrolling-middle')
+       #  # right = self.find_element(user['Scroll_Data'], 'is-scrolling-right')
+       # # self.drag_and_drop(user['Scroll_Data'], 'is-scrolling-left', 'is-scrolling-middle')
+       #  kw_x = left.location.get('x')#x坐标
+       #  kw_y = left.location.get('y')#y坐标
+       #  logging.info(kw_x)
+       #  logging.info(kw_y)
+       #  sleep(5)
+       #  self.click_and_hold(user['Scroll_Data'], 'is-scrolling', 500, kw_y)
+       #  #ActionChains(self).drag_and_drop_by_offset(left, kw_x+300, kw_y).perform()
+       #  for i in range(10, 16):
+       #      logging.info(f'{i}')
+       #      #self.scroll_into_view_CRM(user['表头字段'], f'{i}')
+       #      txt = self.element_text(user['表头字段'], f'{i}')
+       #      logging.info(txt)
+       #      list1.append(txt)
+       #      logging.info(list1)
+       #  sleep(5)
+       #  self.click_and_hold(user['Scroll_Data'], 'is-scrolling', 700, kw_y)
+       #  #ActionChains(self).drag_and_drop_by_offset(left, kw_x+600, kw_y).perform()
+       #  for i in range(16, th_num+1):
+       #      logging.info(f'{i}')
+       #      #self.scroll_into_view_CRM(user['表头字段'], f'{i}')
+       #      txt = self.element_text(user['表头字段'], f'{i}')
+       #      logging.info(txt)
+       #      list1.append(txt)
+       #      logging.info(list1)
         return th_num, list1
 
     @allure.step("进入下载任务页面")
@@ -74,22 +118,91 @@ class JSPage(Base):
         elif task_status == '100-Finished':
             self.check_download(user['Download_Task'], content)
 
+    @allure.step("工单save按钮")
+    def Save_JS(self):
+        self.is_click(user['JS_Save'])
+        self.is_click(user['JS_Save'])
+        self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='save不成功')
+
+
+    @allure.step("添加JS,输入Basic Info信息")
+    def Add_JS_Basic_Info(self, reference_from, imei, physical, symptom, item):
+        self.is_click(user['JS_Add'])
+        self.wait.until(EC.presence_of_element_located(user["Reference_From"]), message='添加页面加载不成功')  # 显示等待页面加载成功
+        self.is_click(user['Reference_From'])
+        self.hover(user['JS_From_Data'], choice=reference_from)
+        self.is_click(user['JS_From_Data'], choice=reference_from)  # 选择方式
+        self.is_click(user['IMEI_Input'])
+        self.input_text(user['IMEI_Input'], txt=imei)  # 添加页面输入JS IMEI
+        self.hover(user['IMEI_Select'], choice=imei)
+        self.is_click(user['IMEI_Select'], choice=imei)  # 点击查询到的IMEI
+        #self.find_element(user["Quickly_Repair_JS"])
+        #self.is_click(user['Quickly_Repair_JS'])
+        self.driver.execute_script("document.documentElement.scrollTop=300")  # 往下滑动以便找到Physical Condition
+        self.is_click(user['Physical_Condition'])
+        self.input_text(user['Physical_Condition'], txt=physical)  # 添加页面输入physical
+        self.hover(user['JS_Data'], choice=physical)
+        self.is_click(user['JS_Data'], physical)
+        self.driver.execute_script("document.documentElement.scrollTop=800")  # 往下滑动以便找到Symptoms List
+        self.is_click(user['Symptoms_List'])
+        self.input_text(user['Symptoms_List'], txt=symptom)  # 添加页面输入symptom
+        self.hover(user['JS_Data'], choice=symptom)
+        self.is_click(user['JS_Data'], symptom)
+        self.is_click(user['Add_Symptom'])  # 点击+将选择的现象码加入列表
+        symptom_code = self.element_text(user["Symptom_Code"])
+        self.is_click(user['Item_Received'], item)
+        return symptom_code
+
+
+    @allure.step("添加JS,输入Customer Info信息")
+    def Add_JS_Customer_Info(self, recevied_from, customer_name, country, mobile_area, mobile_no):
+        self.wait.until(EC.presence_of_element_located(user["Region"]), message='滑动页面不成功')
+        self.is_click(user['JS_Info'], choice="receiveSourceCode")
+        self.hover(user['JS_Data'], choice=recevied_from)
+        self.is_click(user['JS_Data'], choice=recevied_from)  # 选择客户类型
+        self.driver.execute_script("document.documentElement.scrollTop=900")
+        self.is_click(user["JS_Info"], "customerName")
+        self.input_text(user['JS_Info'], txt=customer_name, choice="customerName")  # 输入客户姓名
+        self.is_click(user['JS_Info'], "regionSelected")
+        self.input_text(user['JS_Info'], txt=country, choice="regionSelected")  # 添加页面输入客户国家
+        self.hover(user['Region_Data'], country)
+        self.is_click(user['Region_Data'], country)
+        self.is_click(user['JS_Info'], "mobileNo")
+        self.input_text(user['JS_Info'], txt=mobile_area, choice="mobileNo")  # 添加页面输入客户电话区号
+        self.hover(user['JS_Data'], choice=mobile_area)
+        self.is_click(user['JS_Data'], choice=mobile_area)
+        self.input_text(user['Mobile_No'], txt=mobile_no)  # 输入客户电话号码
+
+
+    @allure.step("添加JS,输入报价信息")
+    def Add_JS_Quote_Info(self, approval_status, service_type, material, symptom):
+        self.is_click(user['Quote'])
+        self.is_click(user['JS_Info'], choice="approvalStatus")
+        self.hover(user['JS_From_Data'], choice=approval_status)
+        self.is_click(user['JS_From_Data'], choice=approval_status)  # 选择报价状态
+        self.is_click(user['JS_Info'], choice="typeName")
+        self.hover(user['JS_From_Data'], choice=service_type)
+        self.is_click(user['JS_From_Data'], choice=service_type)  # 选择报价类型
+        self.is_click(user['JS_Info'], choice="selectMaterial")
+        self.input_text(user['JS_Info'], txt=material, choice="selectMaterial")
+        self.hover(user['JS_Data'], choice=material)
+        self.is_click(user['JS_Data'], choice=material)  # 选择物料组
+        self.is_click(user['JS_Info'], choice="symptomId")
+        self.input_text(user['JS_Info'], txt=symptom, choice="symptomId")
+        self.hover(user['JS_Data'], choice=symptom)
+        self.is_click(user['JS_Data'], choice=symptom)  # 选择现象组
+        self.is_click(user['JS_Info'], choice="faultId")
+        self.input_text(user['JS_Info'], txt=symptom, choice="faultId")  #
+        self.hover(user['JS_Data'], choice=symptom)
+        self.is_click(user['JS_Data'], choice=symptom)  # 选择手机问题
+        self.is_click(user['JS_From_Data'], choice="Add To List")  # 加入列表
 
 
 
-    @allure.step("添加JS")
-    def Add_Symp_Code(self, code, grouping, description):
-        self.is_click(user['Symptom_Code_Add'])
-        self.wait.until(EC.presence_of_element_located(user["Symptom_Code_Add"]), message='添加页面加载不成功')  # 显示等待页面加载成功
-        self.input_text(user['Symptom_Code_Input'], txt=code, choice='symptomCode')  # 添加页面输入JSCode
-        self.is_click(user['Symptom_Code_Input'], choice='symptomGroupId')
-        self.input_text(user['Symptom_Code_Input'], txt=grouping, choice='symptomGroupId')  # 添加页面输入grouping
-        self.hover(user['Symptom_Grouping_Select'], choice=grouping)
-        self.is_click(user['Symptom_Grouping_Select'], choice=grouping)
-        self.input_text(user['Symptom_Code_Input'], txt=description, choice='description')  # 添加页面输入描述
-        self.wait.until(EC.presence_of_element_located(user["Symptom_Code_Save"]), message='save未出现')  # 显示等待页面加载成功
-        self.is_click(user['Symptom_Code_Save'])
-        self.wait.until(EC.presence_of_element_located(user["Input_Exact_Word"]), message='添加页面未关闭')  # 显示等待页面加载成功
+
+
+
+
 
 
     @allure.step("save&add添加JS")
@@ -189,14 +302,11 @@ class JSPage(Base):
         except:
             logging.info("搜索框无数据")
 
-    @allure.step("清空现象组查询框，恢复查询条件为默认值")
+    @allure.step("清空查询框，恢复查询条件为默认值")
     def Clear_Get(self):
         self.refresh()
 
 
-    @allure.step("默认条件查询JS，返回查询到的JS名称")
-    def Get_Defualt_Symp_Code(self):
-        self.is_click(user['Search_Button'])
 
     @allure.step("JS页面，清空查询条件")
     def JS_Clear_Query_Conditions(self):
@@ -204,8 +314,42 @@ class JSPage(Base):
         self.hover(user['Created_Date_Clear'], choice="Start Date")
         self.is_click(user['Created_Date_Clear'], choice="Start Date")  # 清空时间查询条件
         self.is_click(user['Hide_Return'])  # 取消隐藏100状态的
-        self.is_click(user['Scope_Select'], choice="Scope")
+        self.is_click(user['Scope_Select'], choice="scopeType")
         self.is_click(user['Scope_Select_Data'], choice="All")  # 设置范围为所有
+
+    @allure.step("产生新窗口时切换回原窗口")
+    def Swith_Original_Window(self):
+        self.driver.switch_to.window((self.driver.window_handles[-1]))
+        #self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
+        logging.info("回到原窗口")
+
+
+    @allure.step("默认条件查询JS，返回查询到的JS名称")
+    def Search_JS(self):
+        self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='界面加载不成功')
+        self.is_click(user['Search_Button'])
+
+    @allure.step("获取查询到的最新JS数据")
+    def Get_New_JS(self):
+        imei = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_21")
+        customer_name = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_17")
+        warranty_status = self.element_text(user["JS_List_Data"], "1", "el-table_3_column_13")
+        js_no = self.element_text(user['JS_NO'], "1", "el-table_3_column_7")
+        return imei, customer_name, js_no, warranty_status
+
+    @allure.step("JS页面，随机获取一个JS NO")
+    def Get_JS_No(self, i):
+        js_no = self.element_text(user['JS_NO'], i, "el-table_3_column_7")
+        return js_no
+
+    @allure.step("JS页面，Exact Word查询")
+    def Get_Exact_Word_JS(self, js_no):
+        self.is_click(user['JS_Info'], "keyword")
+        self.input_text(user['JS_Info'], txt=js_no, choice="keyword")
+        self.is_click(user['Search_Button'])
+        get_js_no = self.element_text(user['JS_NO'], "1", "el-table_3_column_7")
+        return get_js_no
 
     @allure.step("JS页面，Document Status下拉框查询")
     def Get_Document_Status_JS(self, status):
@@ -216,14 +360,14 @@ class JSPage(Base):
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
         if number == 0:
             logging.info("查询无数据")
         else:
             self.scroll_into_view_CRM(user['Page_Num'])
             th_num = self.elements_num(user['Document_Data_Num'])
             for i in range(1, th_num+1):
-                txt = self.element_text(user['Search_Data'], choice=f'{i}')
+                txt = self.element_text(user['Search_Data'], f'{i}')
                 logging.info(txt)
                 ValueAssert.value_assert_In(status, txt)
             self.refresh()
@@ -240,14 +384,14 @@ class JSPage(Base):
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
         if number == 0:
             logging.info("查询无数据")
         else:
             self.scroll_into_view_CRM(user['Page_Num'])
             th_num = self.elements_num(user['Shortage_Data_Num'])
             for i in range(1, th_num+1):
-                txt = self.element_text(user['Search_Shortage_Data'], choice=f'{i}')
+                txt = self.element_text(user['Search_Shortage_Data'], f'{i}')
                 logging.info(txt)
                 ValueAssert.value_assert_In(status, txt)
             self.refresh()
@@ -262,14 +406,14 @@ class JSPage(Base):
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
         if number == 0:
             logging.info("查询无数据")
         else:
             self.scroll_into_view_CRM(user['Page_Num'])
             th_num = self.elements_num(user['Service_Data_Num'])
             for i in range(1, th_num+1):
-                txt = self.element_text(user['Service_Shortage_Data'], choice=f'{i}')
+                txt = self.element_text(user['Service_Shortage_Data'], f'{i}')
                 logging.info(txt)
                 ValueAssert.value_assert_In(status, txt)
             self.refresh()
@@ -284,7 +428,7 @@ class JSPage(Base):
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
         return number
 
 
@@ -297,7 +441,7 @@ class JSPage(Base):
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
 
         if number == 0:
             logging.info("查询无数据")
@@ -309,7 +453,7 @@ class JSPage(Base):
             list1 = []
             for i in range(1, th_num + 1):
                 logging.info(f'{i}')
-                txt = self.element_text(user['Current_Page_data'], choice=f'{i}')
+                txt = self.element_text(user['Current_Page_data'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
                 logging.info(list1)
@@ -317,14 +461,14 @@ class JSPage(Base):
             return number, th_num, list1
 
     def Get_IsEcalate_JS(self, data):
-        self.is_click(user['Scope_Select'], choice="IsEscalate")
-        self.input_text(user['Scope_Select'], choice="IsEscalate", txt=data)
+        self.is_click(user['Scope_Select'], choice="isEscalate")
+        self.input_text(user['Scope_Select'], txt=data, choice="isEscalate")
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
 
         if number == 0:
             logging.info("查询无数据")
@@ -336,7 +480,7 @@ class JSPage(Base):
             list1 = []
             for i in range(1, th_num + 1):
                 logging.info(f'{i}')
-                txt = self.element_text(user['Current_Ecalate_data'], choice=f'{i}')
+                txt = self.element_text(user['Current_Ecalate_data'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
                 logging.info(list1)
@@ -344,14 +488,14 @@ class JSPage(Base):
             return number, th_num, list1
 
     def Get_IsQuickRepair_JS(self, data):
-        self.is_click(user['Scope_Select'], choice="Is Quick Repair")
-        self.input_text(user['Scope_Select'], choice="Is Quick Repair", txt=data)
+        self.is_click(user['Scope_Select'], choice="isQuickRepair")
+        self.input_text(user['Scope_Select'], choice="isQuickRepair", txt=data)
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
 
         if number == 0:
             logging.info("查询无数据")
@@ -363,7 +507,7 @@ class JSPage(Base):
             list1 = []
             for i in range(1, th_num + 1):
                 logging.info(f'{i}')
-                txt = self.element_text(user['Current_QuickRepair_data'], choice=f'{i}')
+                txt = self.element_text(user['Current_QuickRepair_data'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
                 logging.info(list1)
@@ -371,14 +515,14 @@ class JSPage(Base):
             return number, th_num, list1
 
     def Get_Warranty_JS(self, data):
-        self.is_click(user['Scope_Select'], choice="Warranty Status")
-        self.input_text(user['Scope_Select'], choice="Warranty Status", txt=data)
+        self.is_click(user['Scope_Select'], choice="warrantyStatus")
+        self.input_text(user['Scope_Select'], choice="warrantyStatus", txt=data)
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
 
         if number == 0:
             logging.info("查询无数据")
@@ -390,7 +534,7 @@ class JSPage(Base):
             list1 = []
             for i in range(1, th_num + 1):
                 logging.info(f'{i}')
-                txt = self.element_text(user['Current_Warranty_data'], choice=f'{i}')
+                txt = self.element_text(user['Current_Warranty_data'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
                 logging.info(list1)
@@ -402,7 +546,7 @@ class JSPage(Base):
     def Get_No_Data(self, name):
         self.input_text(user['Input_Exact_Word'], txt=name)
         self.is_click(user['Search_Button'])
-        get_record = self.element_text(user['Get_No_Data'], choice='No Data')
+        get_record = self.element_text(user['Get_No_Data'], 'No Data')
         return get_record
 
 
@@ -410,10 +554,10 @@ class JSPage(Base):
     def Get_Code_DATE_BY(self, name):
         self.input_text(user['Input_Exact_Word'], txt=name)
         self.is_click(user['Search_Button'])
-        created_date = self.element_text(user['List_Tr1_Td'], choice="6")
-        created_by = self.element_text(user['List_Tr1_Td'], choice="7")
-        modified_on = self.element_text(user['List_Tr1_Td'], choice="8")
-        modified_by = self.element_text(user['List_Tr1_Td'], choice="9")
+        created_date = self.element_text(user['List_Tr1_Td'], "6")
+        created_by = self.element_text(user['List_Tr1_Td'], "7")
+        modified_on = self.element_text(user['List_Tr1_Td'], "8")
+        modified_by = self.element_text(user['List_Tr1_Td'], "9")
         return created_date, created_by, modified_on, modified_by
 
     @allure.step("Status Enable查询JS")
@@ -424,11 +568,11 @@ class JSPage(Base):
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Symptom_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
         self.scroll_into_view_CRM(user['Page_Num'])
         page_num = self.elements_num(user['Page_Num'])  #
         logging.info(page_num)
-        txt = self.element_text(user['Page_Specified'], choice=f'{page_num}')  # 获取页码个数
+        txt = self.element_text(user['Page_Specified'], f'{page_num}')  # 获取页码个数
         logging.info(txt)
         specified_page = random.randint(1, int(txt))
         logging.info("随机数为：")
@@ -440,7 +584,7 @@ class JSPage(Base):
         list1 = []
         for i in range(1, th_num + 1):
                 logging.info(f'{i}')
-                txt = self.element_text(user['Current_Page_Staus'], choice=f'{i}')
+                txt = self.element_text(user['Current_Page_Staus'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
                 logging.info(list1)
@@ -454,9 +598,9 @@ class JSPage(Base):
         self.hover(user['Symptom_Grouping_Select'], choice=grouping)
         self.is_click(user['Symptom_Grouping_Select'], choice=grouping)
         self.is_click(user['Search_Button'])
-        get_record_code = self.element_text(user['Search_Data_name_tr1'], choice='3')
-        get_record_group = self.element_text(user['Search_Data_name_tr1'], choice='5')
-        get_record_description = self.element_text(user['Search_Data_name_tr1'], choice='4')
+        get_record_code = self.element_text(user['Search_Data_name_tr1'], '3')
+        get_record_group = self.element_text(user['Search_Data_name_tr1'], '5')
+        get_record_description = self.element_text(user['Search_Data_name_tr1'], '4')
         return get_record_code, get_record_group, get_record_description
 
 
@@ -472,7 +616,7 @@ class JSPage(Base):
         self.is_click(user['Search_Button'])
         get_total = self.element_text(user['Symptom_Total'])
         num = get_total.split(" ", 1)
-        number = num[1]
+        number = int(num[1])
         get_record = self.element_text(user['Disable_Return'])
         return number, get_record
 
@@ -484,7 +628,7 @@ class JSPage(Base):
     #     self.is_click(user['Search_Button'])
     #     get_total = self.element_text(user['Symptom_Total'])
     #     num = get_total.split(" ", 1)
-    #     number = num[1]
+    #     number = int(num[1])
     #     # get_enable = self.element_text(user['Enable_Return'])
     #     # get_record = self.element_text(user['Search_Data_name'], choice="1")
     #     th_num = self.elements_num(user['页码个数'])  #

@@ -9,12 +9,12 @@ class AttendanceRecordPage(Base):
     """ AttendanceRecord类，Attendance Records考勤记录页面元素定位"""
 
     @allure.step("Attendance Records页面，输入User ID筛选用户的考勤记录")
-    def input_user_id_query(self, content, content1):
+    def input_user_id_query(self, content):
         self.is_click_dcr(user['筛选用户'])
         sleep(1)
         self.input_text_dcr(user['筛选用户'], txt=content)
         sleep(3)
-        self.is_click_dcr(user['Select User Value'], content1)
+        self.is_click_dcr(user['Select User Value'], content)
 
     @allure.step("Attendance Records页面，输入筛选开始日期")
     def input_query_date(self, content):
@@ -25,18 +25,25 @@ class AttendanceRecordPage(Base):
     @allure.step("Attendance Records页面，点击 Search筛选考勤记录")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(3)
 
     @allure.step("Attendance Records页面，点击Reset重置筛选条件")
     def click_reset(self):
         self.is_click(user['Reset'])
         sleep(5)
 
+    @allure.step("Attendance Records页面，点击Picture 查看考勤照片详情")
+    def click_view_picture_button(self):
+        self.presence_sleep_dcr(user['Click Picture Button'])
+        self.is_click_dcr(user['Click Picture Button'])
+        sleep(0.6)
+
     @allure.step("Attendance Records页面，获取列表Picture文本")
     def get_photo_text(self):
         self.presence_sleep_dcr(user['获取列表photo文本'])
         photo = self.element_text(user['获取列表photo文本'])
         return photo
+
 
     @allure.step("Attendance Records页面，获取列表Date日期文本")
     def get_date_text(self):
@@ -70,6 +77,22 @@ class AttendanceRecordPage(Base):
     def get_home_page_cust(self):
         homepage = self.element_text(user['Get Home Page Customer'])
         return homepage
+
+    @allure.step("查看考勤 Picture详情页，获取user ID文本内容")
+    def get_attendance_photo_user_id(self, content):
+        self.presence_sleep_dcr(user['Get Attendance Photo User ID'], content)
+        get_user_id = self.element_text(user['Get Attendance Photo User ID'], content)
+        return get_user_id
+
+    @allure.step("查看考勤 Picture详情页，获取列表 Standard Photo文本")
+    def get_standard_photo(self):
+        standard = self.element_text(user['Get Standard Photo'])
+        return standard
+
+
+    @allure.step("查看考勤 Picture详情页，点击关闭窗口按钮")
+    def click_close_attendance_photo(self):
+        self.is_click_dcr(user['Close Attendance Photo'])
 
 
     """导出考勤记录功能"""

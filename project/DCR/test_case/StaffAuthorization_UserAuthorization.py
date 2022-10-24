@@ -80,7 +80,7 @@ class TestDeleteCustAuthorization:
         customer.input_list_customer("CN20009")
 
         customer.click_customer_search()
-        get_cust = customer.get_list_customer_id()
+        get_cust = customer.get_list_customer_id("CN20009")
         if get_cust == "CN20009":
             customer.click_list_cust_checkbox()
         customer.click_cust_more_option()

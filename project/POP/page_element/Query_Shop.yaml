@@ -1,7 +1,0 @@
-门店列表输入框: "xpath==//input[@placeholder='门店']"
-门店: "xpath==//span[contains(text(),'variable')]"
-门店名称: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[3]/div[1]"
-组织下拉按钮: "xpath==//form[@class='el-form tr-filter']//span[2]//div[1]//div[1]//input[1]"
-TECNO组织: "xpath==//span[contains(text(),'variable')]"
-查询按钮: "xpath==//div[@class='btn-wrap']//span[contains(text(),'查询')]"
-组织名称: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[4]/div[1]"
