@@ -222,5 +222,300 @@ class KeyComponentsSearch(CenterComponent, APIRequest):
         sleep(1)
         self.is_click_tbm(user['成员选择'], name)
         self.is_click_tbm(user['成员确定'])
+
+    @allure.step("资源商务评估-输入资源商务内容")
+    def input_onework_procurement_evaluation(self, choice, details, mode=True):
+        """
+        oneworks-节点：资源商务评估-查看详情页面
+        物料详情-采购评估
+        @param details:内容
+        @param choice:参数名称
+        @param mode:默认True为输入框，如果是选择框则输入False
+        """
+        if mode is True:
+            self.readonly_input_text(user['oneworks-节点-资源商务评估-采购评估-资源商务-输入框'], details, choice)
+        else:
+            self.is_click_tbm(user['oneworks-节点-资源商务评估-采购评估-资源商务-输入框'], choice)
+            try:
+                self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
+            except:
+                self.scroll_into_view(user['oneworks-节点-下拉框-选择'], details)
+                self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
+
+    @allure.step("资源商务评估-输入采购执行内容")
+    def input_onework_procurement_execution(self, choice, details, mode=True):
+        """
+        oneworks-节点：采购执行评估-查看详情页面
+        物料详情-采购执行
+        @param details:内容
+        @param choice:参数名称
+        @param mode:默认True为输入框，如果是选择框则输入False
+        """
+        if mode is True:
+            self.readonly_input_text(user['oneworks-节点-资源商务评估-采购评估-采购执行-输入框'], details, choice)
+        else:
+            self.is_click_tbm(user['oneworks-节点-资源商务评估-采购评估-采购执行-输入框'], choice)
+            try:
+                self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
+            except:
+                self.scroll_into_view(user['oneworks-节点-下拉框-选择'], details)
+                self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
+
+    @allure.step("采购PTC评估-输入PTC内容")
+    def input_onework_ptc(self, choice, details):
+        """
+        oneworks-节点：采购PTC评估-查看详情页面
+        物料详情-采购PTC评估
+        @param details:内容
+        @param choice:参数名称
+        """
+        if choice == '原因及修改建议':
+            self.readonly_input_text(user['oneworks-节点-采购PTC评估-采购评估-PTC-输入框'], details, choice)
+        elif choice == '评审结论':
+            self.is_click_tbm(user['oneworks-节点-采购PTC评估-采购评估-PTC-输入框'], choice)
+            self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
+
+    @allure.step("采购PTC评估-输入SQM内容")
+    def input_onework_sqm(self, choice, details):
+        """
+        oneworks-节点：采购SQM评估-查看详情页面
+        物料详情-采购SQM评估
+        @param details:内容
+        @param choice:参数名称
+        """
+        if choice == '原因及修改建议':
+            self.readonly_input_text(user['oneworks-节点-采购PTC评估-采购评估-SQM-输入框'], details, choice)
+        elif choice == '评审结论':
+            self.is_click_tbm(user['oneworks-节点-采购PTC评估-采购评估-SQM-输入框'], choice)
+            self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
+
+    @allure.step("标准化评估-输入标准化评估内容")
+    def input_onework_standardized_evaluation(self, choice, details):
+        """
+        oneworks-节点：标准化评估-查看详情页面
+        物料详情-标准化评估
+        @param details:内容
+        @param choice:参数名称
+        """
+        if choice == '原因及修改建议':
+            self.readonly_input_text(user['oneworks-节点-标准化部评估-标准化评估-文本框'], details, choice)
+        elif choice == '认证状态' or '评审结论':
+            self.is_click_tbm(user['oneworks-节点-标准化部评估-标准化评估-输入框'], choice)
+            self.is_click_tbm(user['oneworks-节点-下拉框-选择'], details)
+
+    @allure.step("摄像头+闪光灯节点审批")
+    def KD_image(self, code):
+        self.refresh_webpage()
+        self.enter_oneworks_edit(code, '摄像头+闪光灯')
+        self.click_onework_unfold('摄像头+闪光灯')
+        self.click_onework_module('CTP')
+        self.click_onework_code_add()
+        self.click_onework_material_add('CTP(1供)')
+        self.click_onework_material_pending_code('CTP(1供)')
+        self.input_onework_material_details('物料属性', '属性test')
+        self.scroll_onework_material_param()
+        self.input_onework_material_parameter('技术类型', 'GFF', False)
+        self.input_onework_material_parameter('CG颜色', 'CG颜色test')
+        self.input_onework_material_parameter('接口类型', '接口类型test')
+        self.input_onework_material_parameter('连接方式', '焊接', False)
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("硬件电子料-基带节点审批")
+    def KD_hardware(self, code):
+        self.refresh_webpage()
+        self.enter_oneworks_edit(code, '硬件电子料-基带')
+        self.click_onework_unfold('硬件电子料-基带')
+        self.click_onework_module('CPU')
+        self.click_onework_code_add()
+        self.click_onework_material_add('CPU(1供)')
+        self.click_onework_material_pending_code('CPU(1供)')
+        self.input_onework_material_details('物料属性', '属性test')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("标准化代表节点审批")
+    def KD_standard(self, code):
+        self.refresh_webpage()
+        self.enter_oneworks_edit(code, '标准化代表')
+        self.click_onework_checkbox()
+        self.click_onework_onepress()
+        self.input_onework_onepress('责任人', '李小素')
+        self.click_onework_onepress_confirm()
+        self.click_onework_onepress_cancel()
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("采购代表节点审批")
+    def KD_purchase(self, code):
+        self.refresh_webpage()
+        self.enter_oneworks_edit(code, '采购代表')
+        self.click_onework_checkbox()
+        self.click_onework_onepress()
+        self.input_onework_onepress('资源商务', '李小素')
+        self.click_onework_onepress_confirm()
+        DomAssert(self.driver).assert_att('已选分类的审批人设置成功')
+        self.input_onework_onepress('采购执行', '李小素')
+        self.click_onework_onepress_confirm()
+        DomAssert(self.driver).assert_att('已选分类的审批人设置成功')
+        self.input_onework_onepress('采购PTC', '李小素')
+        self.click_onework_onepress_confirm()
+        DomAssert(self.driver).assert_att('已选分类的审批人设置成功')
+        self.input_onework_onepress('采购SQM', '李小素')
+        self.click_onework_onepress_confirm()
+        DomAssert(self.driver).assert_att('已选分类的审批人设置成功')
+        self.click_onework_onepress_cancel()
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("资源商务评估节点审批")
+    def KD_Resources(self, code):
+        self.refresh_webpage()
+        self.enter_oneworks_edit(code, '资源商务评估')
+        self.click_onework_unfold('摄像头+闪光灯')
+        self.click_onework_module('CTP')
+        self.click_onework_material_pending_code('CTP(1供)')
+        self.input_onework_procurement_evaluation('供应商名称', 'TEST', False)
+        self.input_onework_procurement_evaluation('是否新供应商', '否', False)
+        self.input_onework_procurement_evaluation('国产化属性', '0', False)
+        self.input_onework_procurement_evaluation('供应商选择原因类别', '成本因素', False)
+        self.input_onework_procurement_evaluation('供应商选择原因', '供应商选择原因TEST')
+        self.input_onework_procurement_evaluation('份额', '50')
+        self.input_onework_procurement_evaluation('是否客供物料', '是', False)
+        self.input_onework_procurement_evaluation('价格趋势（6个月）', '持平', False)
+        self.input_onework_procurement_evaluation('是否NUDD', '是', False)
+        self.input_onework_procurement_evaluation('NUDD说明', 'NUDD说明TEST')
+        self.input_onework_procurement_evaluation('NUDD管理方案', 'NUDD管理方案TEST')
+        self.input_onework_procurement_evaluation('评审结论', '通过', False)
+        self.input_onework_procurement_evaluation('原因及修改建议', '原因及修改建议TEST')
+        self.click_onework_unfold('硬件电子料-基带')
+        self.click_onework_module('CPU')
+        self.click_onework_material_pending_code('CPU(1供)')
+        self.input_onework_procurement_evaluation('供应商名称', 'TEST', False)
+        self.input_onework_procurement_evaluation('是否新供应商', '否', False)
+        self.input_onework_procurement_evaluation('国产化属性', '0', False)
+        self.input_onework_procurement_evaluation('供应商选择原因类别', '成本因素', False)
+        self.input_onework_procurement_evaluation('供应商选择原因', '供应商选择原因TEST')
+        self.input_onework_procurement_evaluation('份额', '50')
+        self.input_onework_procurement_evaluation('是否客供物料', '是', False)
+        self.input_onework_procurement_evaluation('价格趋势（6个月）', '持平', False)
+        self.input_onework_procurement_evaluation('是否NUDD', '是', False)
+        self.input_onework_procurement_evaluation('NUDD说明', 'NUDD说明TEST')
+        self.input_onework_procurement_evaluation('NUDD管理方案', 'NUDD管理方案TEST')
+        self.input_onework_procurement_evaluation('评审结论', '通过', False)
+        self.input_onework_procurement_evaluation('原因及修改建议', '原因及修改建议TEST')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("采购执行评估节点审批")
+    def KD_Executive(self, code):
+        self.refresh_webpage()
+        self.enter_oneworks_edit(code, '采购执行评估')
+        self.click_onework_unfold('摄像头+闪光灯')
+        self.click_onework_module('CTP')
+        self.click_onework_material_pending_code('CTP(1供)')
+        self.scroll_onework_material_details('采购执行')
+        self.input_onework_procurement_execution('L/T(天)', '1')
+        self.input_onework_procurement_execution('最小下单量(pcs)', '1')
+        self.input_onework_procurement_execution('此项目峰值需求(K/M)', '1')
+        self.input_onework_procurement_execution('供应商总产能(K/M)', '1')
+        self.input_onework_procurement_execution('分配传音产能(K/M)', '1')
+        self.input_onework_procurement_execution('供应弹性(%)', '1')
+        self.input_onework_procurement_execution('共用项目需求合计(K/M)', '1')
+        self.input_onework_procurement_execution('此项目产能分配(K/M)', '1')
+        self.input_onework_procurement_execution('共用项目名', '共用项目名test')
+        self.input_onework_procurement_execution('产能评审结论', '通过', False)
+        self.input_onework_procurement_execution('原因及修改建议', '原因及修改建议test')
+        self.input_onework_procurement_execution('备料建议', '备料建议test')
+        self.click_onework_unfold('硬件电子料-基带')
+        self.click_onework_module('CPU')
+        self.click_onework_material_pending_code('CPU(1供)')
+        self.scroll_onework_material_details('采购执行')
+        self.input_onework_procurement_execution('L/T(天)', '1')
+        self.input_onework_procurement_execution('最小下单量(pcs)', '1')
+        self.input_onework_procurement_execution('此项目峰值需求(K/M)', '1')
+        self.input_onework_procurement_execution('供应商总产能(K/M)', '1')
+        self.input_onework_procurement_execution('分配传音产能(K/M)', '1')
+        self.input_onework_procurement_execution('供应弹性(%)', '1')
+        self.input_onework_procurement_execution('共用项目需求合计(K/M)', '1')
+        self.input_onework_procurement_execution('此项目产能分配(K/M)', '1')
+        self.input_onework_procurement_execution('共用项目名', '共用项目名test')
+        self.input_onework_procurement_execution('产能评审结论', '通过', False)
+        self.input_onework_procurement_execution('原因及修改建议', '原因及修改建议test')
+        self.input_onework_procurement_execution('备料建议', '备料建议test')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("采购PTC评估节点审批")
+    def KD_PTC(self, code):
+        self.refresh_webpage()
+        self.enter_oneworks_edit(code, '采购PTC评估')
+        self.click_onework_unfold('摄像头+闪光灯')
+        self.click_onework_module('CTP')
+        self.click_onework_material_pending_code('CTP(1供)')
+        self.scroll_onework_material_details('PTC')
+        self.input_onework_ptc('评审结论', '同意')
+        self.input_onework_ptc('原因及修改建议', '原因及修改建议test')
+        self.click_onework_unfold('硬件电子料-基带')
+        self.click_onework_module('CPU')
+        self.click_onework_material_pending_code('CPU(1供)')
+        self.scroll_onework_material_details('PTC')
+        self.input_onework_ptc('评审结论', '同意')
+        self.input_onework_ptc('原因及修改建议', '原因及修改建议test')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("采购SQM评估节点审批")
+    def KD_SQM(self, code):
+        self.refresh_webpage()
+        self.enter_oneworks_edit(code, '采购SQM评估')
+        self.click_onework_unfold('摄像头+闪光灯')
+        self.click_onework_module('CTP')
+        self.click_onework_material_pending_code('CTP(1供)')
+        self.scroll_onework_material_details('SQM')
+        self.input_onework_sqm('评审结论', '同意')
+        self.input_onework_sqm('原因及修改建议', '原因及修改建议test')
+        self.click_onework_unfold('硬件电子料-基带')
+        self.click_onework_module('CPU')
+        self.click_onework_material_pending_code('CPU(1供)')
+        self.scroll_onework_material_details('SQM')
+        self.input_onework_sqm('评审结论', '同意')
+        self.input_onework_sqm('原因及修改建议', '原因及修改建议test')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("标准化部评估节点审批")
+    def KD_standard_evaluation(self, code):
+        self.enter_oneworks_edit(code, '标准化部评估')
+        self.click_onework_unfold('摄像头+闪光灯')
+        self.click_onework_module('CTP')
+        self.click_onework_material_pending_code('CTP(1供)')
+        self.input_onework_standardized_evaluation('认证状态', '认证通过')
+        self.input_onework_standardized_evaluation('原因及修改建议', '原因及修改建议test')
+        self.click_onework_unfold('硬件电子料-基带')
+        self.click_onework_module('CPU')
+        self.click_onework_material_pending_code('CPU(1供)')
+        self.input_onework_standardized_evaluation('认证状态', '认证通过')
+        self.input_onework_standardized_evaluation('原因及修改建议', '原因及修改建议test')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
 if __name__ == '__main__':
     pass
