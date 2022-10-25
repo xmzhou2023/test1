@@ -3,6 +3,7 @@
 参数新增按钮: "xpath==//button[contains(text(),'新增')]"
 参数名称输入框: "xpath==//input[contains(@placeholder,'请输入')]"
 商品类目选择框: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[3]/div[1]/div[2]/div[1]/form[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]/div[1]"
+选择商品类目: "xpath==//span[contains(text(),'variable')]"
 展示形式选择框: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[3]/div[1]/div[2]/div[1]/form[1]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"
 展示形式: "xpath==//span[contains(text(),'variable')]"
 展示顺序输入框: "xpath==//input[@placeholder='数值越小，展示位置越靠前']"

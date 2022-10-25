@@ -201,6 +201,7 @@ class HomePagePage(Base):
 
     @allure.step("导出记录页面，获取列表 Operation文本")
     def get_export_operation_text(self):
+        sleep(1)
         operation = self.element_text(user['获取操作按钮文本'])
         return operation
 

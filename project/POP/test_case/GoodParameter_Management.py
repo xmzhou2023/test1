@@ -10,27 +10,27 @@ def setup_class(drivers):
     user = NavPage(drivers)
     user.click_gotonav("商品","商品参数")
 
-@allure.feature("商品") # 模块名称
-class TestAddGoodParam:
-    @allure.story("商品参数") # 场景名称
-    @allure.title("商品参数新增")  # 用例名称
-    @allure.description("输入必填项新增商品参数")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
-    def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-        user= AddGoodParam(drivers)
-        user.click_add()
-        content = '测试新增参数' + str(int(time.time()))
-        user.input_paramname(content)
-        user.switch_category()
-        user.switch_display_form("单选框")
-        user.switch_order("1")
-        user.input_parameters("参数值1","参数值2","参数值3")
-        user.click_submit()
-        sleep(0.5)
-        # 断言根据商品参数名数据库查询该参数并计数，判定返回值=1
-        sql = f"SELECT count(*) FROM `pop_data_db`.`goods_parameter_config` WHERE parameter_name='{content}';"
-        SQLAssert('POP', 'test').assert_sql_count(1, sql)
+# @allure.feature("商品") # 模块名称
+# class TestAddGoodParam:
+#     @allure.story("商品参数") # 场景名称
+#     @allure.title("商品参数新增")  # 用例名称
+#     @allure.description("输入必填项新增商品参数")
+#     @allure.severity("normal")  # 用例等级
+#     @pytest.mark.smoke # 用例标记
+#     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+#         user= AddGoodParam(drivers)
+#         user.click_add()
+#         content = '测试新增参数' + str(int(time.time()))
+#         user.input_paramname(content)
+#         user.switch_category()
+#         user.switch_display_form("单选框")
+#         user.switch_order("1")
+#         user.input_parameters("参数值1","参数值2","参数值3")
+#         user.click_submit()
+#         sleep(0.5)
+#         # 断言根据商品参数名数据库查询该参数并计数，判定返回值=1
+#         sql = f"SELECT count(*) FROM `pop_data_db`.`goods_parameter_config` WHERE parameter_name='{content}';"
+#         SQLAssert('POP', 'test').assert_sql_count(1, sql)
 
 @allure.feature("商品") # 模块名称
 class TestQueryDetail:
@@ -63,4 +63,4 @@ class TestExportGoodParam:
         test = users.element_text(user['导出成功提示'])
         ValueAssert.value_assert_equal(test,"创建导出任务成功！")
 if __name__ == '__main__':
-    pytest.main(['GoodParameter_Management.py::TestExportGoodParam'])
+    pytest.main(['GoodParameter_Management.py::TestAddGoodParam'])

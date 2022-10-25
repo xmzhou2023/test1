@@ -22,7 +22,7 @@ class TestQueryMaterial:
     @pytest.mark.smoke # 用例标记
     def test_001_001(self,drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         users = QueryMaterial(drivers)
-        users.input_good("Syinix WMFL4812(S)","PA00010262")
+        users.input_good("itel L4050 BLACK","PA00010262")
         users.click_query()
         sleep(0.5)
         # 断言--查询出的商品编码与查询的一致

@@ -7,6 +7,11 @@ from project.POP.test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
+# 获取上传图片、视频文件在项目中的路径
+path = os.path.dirname(os.path.abspath(__file__))
+pthoto_path = os.path.join(os.path.dirname(path),"data/photo.png")
+video_path = os.path.join(os.path.dirname(path),"data/video.mp4")
+
 
 @pytest.fixture(scope='function', autouse=True)
 def setup_class(drivers):
@@ -40,7 +45,7 @@ class TestAddShop:
     def test_002_001(self,drivers):
         users = AddShop(drivers)
         users.click_add()
-        # 利于随机数每次生成门店后缀数不一样，代码运行减少避免重复
+        # 利于时间戳取数每次生成门店后缀数不一样，代码运行减少避免重复
         shopname = "zwq测试门店" + str(int(time.time()))
         users.input_shopname(shopname)
         users.switch_organization("TECNO事业部")
@@ -58,7 +63,9 @@ class TestAddShop:
         users.switch_ownership("公司直营")
         users.input_shop_square_measure("66.66")
         users.input_shop_storey_height("5.25")
-        users.upload_drawing_video(r"C:\Users\wenqiang.zhang5\PycharmProjects\untitled\UIPOMTest\project\POP\data\123.png",r"C:\Users\wenqiang.zhang5\PycharmProjects\untitled\UIPOMTest\project\POP\data\300k.mp4")
+
+        # 根据获取的图片、视频路径上传图片
+        users.upload_drawing_video(pthoto_path,video_path)
         users.add_userinformation("张文强")
         users.input_shop_monthlysales("8888")
         users.click_submit()
@@ -67,7 +74,11 @@ class TestAddShop:
         # 断言--提交成功弹窗提示”success“字样
         DomAssert(drivers).assert_exact_att('门店ID')
 
+        # 数据清理--数据库删除门店
+        sql = f'DELETE from shop WHERE `name` = "{shopname}";'
+        SQL("POP","test").delete_db(sql)
+
 
 
 if __name__ == '__main__':
-    pytest.main(['Shop_ShopList.py'])
+    pytest.main(['Shop_ShopList.py::TestAddShop'])

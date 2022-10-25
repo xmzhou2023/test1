@@ -1,8 +1,6 @@
 import pymysql
 import cx_Oracle
 from libs.common.read_config import *
-
-
 class SQL(object):
     def __init__(self, name, env, ini_name=None, values=None):  # 此处可以加入这个类中需要定义的参数
         self.name = name

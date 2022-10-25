@@ -14,7 +14,7 @@ from public.base.basics import Base
         critical级别: 临界缺陷(功能点缺失)
         normal级别:普通缺陷(数值计算错误)
         minor级别: 次要缺陷(界面错误与UI需求不符)
-        trivial级别:轻微缺陷(必输项无提示， 或者提示不规范) 
+        trivial级别:轻微缺陷(必输项无提示， 或者提示不规范) 删除功能屏蔽了，注释了删除用例
 """
 
 """后置关闭菜单方法"""
