@@ -1,6 +1,7 @@
 # -*- coding=utf-8 -*-
 import os
 import re
+import sys
 
 # 项目目录
 import pymysql
@@ -12,11 +13,16 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 # 当前项目目录
 PEROJECT_PATH = os.path.join(BASE_DIR, 'project')
 
-sql = {'host': '10.250.113.16', 'port': 3306, 'user_name': 'root', 'password': '123456', 'db_name': 'TranDesk',
-       'drive': 'mysql'}
+sql = ''
 
-# sql = {'host': '10.250.101.58', 'port': 3306, 'user_name': 'root', 'password': '123456', 'db_name': 'TranDesk',
-#        # 'drive': 'mysql'}
+def run_env(env_name):
+    global sql
+    if env_name == 'uat':
+        sql = {'host': '10.250.113.16', 'port': 3306, 'user_name': 'root', 'password': '123456', 'db_name': 'TranDesk',
+               'drive': 'mysql'}
+    else:
+        sql = {'host': '10.250.101.58', 'port': 3306, 'user_name': 'root', 'password': '123456', 'db_name': 'TranTest',
+               'drive': 'mysql'}
 
 def get_db_conn():
     conn = pymysql.connect(
@@ -859,8 +865,15 @@ def clear_data():
     del_data('mark', case_id_list)
 
 if __name__ == '__main__':
+    # 区分环境选择配置
+    run_env(sys.argv[1])
+
     # print(get_env())
     # print(get_Data())
+
+    # 同步所有数据（覆盖）
     # sync_AllData(get_Data(),get_env())
+
+    # 同步所有数据（增量）
     sync_Data(get_Data(), get_env())
     clear_data()

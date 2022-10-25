@@ -15,16 +15,21 @@ class collection(Base):
     def click_menu(self, fType, sType):
         self.mouse_hover(user['一级菜单'], fType)
         self.is_click(user['二级菜单'], sType)
+        sleep(1)
         self.refresh()
 
     @allure.step('处理输入')
     def input(self, yaml, txt, choice=None):
         self.input_text(user[yaml], txt, choice)
 
+    def readonly_input(self, ymal, txt, choice = None):
+        self.readonly_input_text(user[ymal], txt, choice)
+        sleep(3)
+
     @allure.step('处理点击')
-    def click(self, yaml, choice = None):
+    def click(self, yaml,choice = None):
         sleep(1)
-        self.is_click_dcr(user[yaml], choice)
+        self.is_click_dcr(user[yaml],choice)
         sleep(2)
 
     @allure.step('hover')

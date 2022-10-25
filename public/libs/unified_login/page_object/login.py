@@ -61,6 +61,17 @@ class LoginPage(Base):
         imgcode = self.get_graphical_code(login['图形验证码'])
         self.input_text(login['图形验证码输入框'], imgcode)
 
+    def input_verify_code(self):
+        """输入验证码，生产环境用 2022-9-30,熊文敏"""
+        verify_code = self.get_graphical_code(login["验证码图标"])
+        self.is_click(login['验证码输入框'])
+        self.input_text(login["验证码输入框"], verify_code)
+        sleep(2)
+
+    def code_clear(self):
+        self.clear_code(login["验证码输入框"])
+        sleep(0.5)
+
 
 """DCR登录类"""
 class DcrLoginPage(Base):
@@ -95,13 +106,27 @@ class DcrLoginPage(Base):
     def dcr_click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(login['登录dcr'])
-        sleep(6)
+        sleep(4)
 
     def dcr_click_loginOut(self):
         """点击退出登录"""
         sleep(2)
         self.is_click(login['退出登录dcr'])
         sleep(2)
+
+    def dcr_get_yinsizhengce(self):
+        """获取页面是否有隐私政策内容"""
+        yinsizhengce = self.element_text(login['DCR隐私政策'])
+        return yinsizhengce
+
+    def dcr_click_agree(self):
+        """同意按钮"""
+        self.is_click(login['agree button'])
+
+    def dcr_get_home_page_customer(self):
+        """获取页面是否有隐私政策内容"""
+        home_page_cust = self.element_text(login['Home Page Customer'])
+        return home_page_cust
 
 
 
@@ -152,6 +177,14 @@ class PopLoginPage(Base):
 
 
 
+class OALoginPage(Base):
+    def input_passwd(self, content):
+        """输入密码"""
+        sleep(0.5)
+        ele = self.find_element(login['密码输入框'])
+        ele.clear()
+        ele.send_keys(content)
+        sleep(0.5)
 
 if __name__ == '__main__':
     pass

@@ -69,6 +69,8 @@ BomTree表格指定Tree内容: "xpath==//span[normalize-space(text())='variable'
 #==========================================oneworks========================================
 OneworksBomTree全部内容: "xpath==//*[@id='app']/div/div[4]/div[2]/div/div[1]/div[2]/div/div[3]/table/tbody/*"
 OneworksBom信息-机型: "xpath==//label[text()='机型']/..//span/span/span"
+Oneworks附件: "xpath==//span[normalize-space(text())='附件']"
+Oneworks附件上传: "xpath==//div[@class='tr-upload']//input"
 
 #==========================================补充工厂========================================
 补充工厂同意: "xpath==//button/span[contains(text(),'同 意')]"

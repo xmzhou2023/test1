@@ -13,7 +13,7 @@ class VisitRecordPage(Base):
     @allure.step("Visit Record页面，点击unfold展开筛选条件")
     def click_unfold(self):
         self.is_click(user['Unfold'])
-        sleep(1)
+        sleep(2)
 
     @allure.step("Visit Record页面，点击unfold展开筛选条件")
     def click_fold(self):
@@ -22,11 +22,12 @@ class VisitRecordPage(Base):
 
     @allure.step("Visit Record页面，筛选Shop ID的巡店记录")
     def input_shop_id_query(self, content):
-        self.is_click_dcr(user['Input Query Shop'])
-        self.input_text_dcr(user['Input Query Shop'], txt=content)
+        self.presence_sleep_dcr(user['Click Input Shop Query'])
+        self.is_click(user['Click Input Shop Query'])
+        self.input_text(user['Input Shop Query'], txt=content)
         sleep(3)
-        self.presence_sleep_dcr(user['Select Shop Value'])
-        self.is_click(user['Select Shop Value'])
+        self.presence_sleep_dcr(user['Select Shop Value'], content)
+        self.is_click(user['Select Shop Value'], content)
 
     @allure.step("Visit Record页面，输入Submit Start Date")
     def input_submit_start_date(self, content):
@@ -35,9 +36,9 @@ class VisitRecordPage(Base):
         self.is_click(user['Submit Start Date'])
         self.input_text(user['Submit Start Date'], txt=content)
 
-    @allure.step("Visit Record页面，点击Sales Region输入框")
-    def click_sales_region(self):
-        self.is_click(user['Sales Region'])
+    @allure.step("Visit Record页面，点击 Submit Date输入框释放光标位置")
+    def click_submit_date(self):
+        self.is_click(user['Click Submit Date'])
 
     @allure.step("Visit Record页面，点击Search查询按钮")
     def click_search(self):
@@ -53,26 +54,26 @@ class VisitRecordPage(Base):
 
     @allure.step("Visit Record页面，获取列表中Shop ID文本属性")
     def get_shop_id_text(self):
-        """Visit Record页面，获取列表中Shop ID文本属性"""
+        self.scroll_into_view(user['获取Shop ID文本'])
         self.presence_sleep_dcr(user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
 
     @allure.step("Visit Record页面，获取列表中submit time文本属性")
     def get_submit_date_text(self):
-        """Visit Record页面，获取列表中submit time文本属性"""
+        self.scroll_into_view(user['获取Submit Date文本'])
         submit_date = self.element_text(user['获取Submit Date文本'])
         return submit_date
 
     @allure.step("Visit Record页面，获取列表中Visit Date文本属性")
     def get_visit_date_text(self):
-        """Visit Record页面，获取列表中Visit Date文本属性"""
+        self.scroll_into_view(user['获取Visit Date文本'])
         visit_date = self.element_text(user['获取Visit Date文本'])
         return visit_date
 
-    @allure.step("Visit Record页面，获取列表中Visit Date文本属性")
+    @allure.step("Visit Record页面，获取列表中Operation文本属性")
     def get_view_operation_text(self):
-        operation = self.element_text(user['Operation'])
+        operation = self.element_text(user['获取列表Operation文本'])
         return operation
 
     @allure.step("Visit Record页面，获取列表中Visit Date文本属性")
@@ -80,6 +81,11 @@ class VisitRecordPage(Base):
         total = self.element_text(user['获取总条数文本'])
         total1 = total[6:]
         return total1
+
+    @allure.step("Visit Record页面，点击Shop self-inspection 条件筛选")
+    def click_shop_self_inspection(self):
+        self.is_click(user['Shop self-inspection'], 'Shop self-inspection')
+        sleep(0.5)
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
@@ -95,10 +101,14 @@ class VisitRecordPage(Base):
     #巡店记录，导出功能验证
     @allure.step("Visit Record页面，点击Export导出按钮")
     def click_export(self):
-        """Visit Record页面，点击Export导出按钮"""
         self.presence_sleep_dcr(user['Export'])
         self.is_click(user['Export'])
-        sleep(2)
+        sleep(1)
+
+    @allure.step("Visit Record页面，点击 Export Detail导出按钮")
+    def click_export_detail(self):
+        self.is_click(user['Export Detail'])
+        sleep(1)
 
     @allure.step("点击Download Icon，点击More更多按钮")
     def click_download_more(self):

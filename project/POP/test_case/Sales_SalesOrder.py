@@ -4,8 +4,8 @@ from project.POP.page_object.Center_Component import NavPage
 from project.POP.page_object.Sales_SalesOrder import *
 from public.base.assert_ui import *
 
-@pytest.fixture(scope='module', autouse=True)
-def setup_module(drivers):
+@pytest.fixture(scope='function', autouse=True)
+def setup_class(drivers):
     logging.info("模块前置条件：前往“POP销售-销售订单”页面")
     user = NavPage(drivers)
     user.click_gotonav("销售","销售订单")
@@ -28,6 +28,7 @@ class TestSaleBilling:
         user.input_money('666.66','777.77','888.88')
         user.input_remarks('有钱任性','这是一个大款')
         user.click_Collection()
+        sleep(0.5)
         # 断言--开单成功跳转销售订单列表断言页面是否存在销售订单编号字段
         DomAssert(drivers).assert_exact_att('销售订单编号')
 

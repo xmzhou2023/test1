@@ -47,6 +47,7 @@ class TestQueryUser:
         """用户管理页面，获取列表字段内容"""
         query_user = UserManagementPage(drivers)
         get_list_user_id = query_user.get_text_user_id()
+        logging.info("获取列表User ID字段内容：{}".format(get_list_user_id))
         get_list_user_name = query_user.get_text_user_name()
         get_list_brand = query_user.input_get_data("Get list Brand")
         get_list_sales_region1 = query_user.input_get_data("Get list Sales Region1")
@@ -119,6 +120,7 @@ class TestAddEditQuitTranssionUser:
         """首先根据新建的User ID筛选，然后获取列表新增的User ID，User name，进行断言比较是否存在新建的用户"""
         user_id = add_transsion.get_text_user_id()
         user_name = add_transsion.get_text_user_name()
+        logging.info("获取用户管理列表User Name字段内容：{}".format(user_name))
         ValueAssert.value_assert_equal(user_id, userid)
         ValueAssert.value_assert_equal(user_name, username)
         """查询数据库用户表的userid,username是否存在断言"""

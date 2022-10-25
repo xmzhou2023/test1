@@ -175,10 +175,10 @@ class PCBABomCooperation(CenterComponent):
             ac_content = self.element_text(user['BomTree表格指定内容'], row, column)
         try:
             assert content in ac_content
+            logging.info("断言成功，结果:{}包含指定内容:{}".format(ac_content, content))
         except:
             logging.error("断言失败，结果不包含指定内容")
             raise
-        logging.info("断言成功，结果:{}包含指定内容:{}".format(ac_content, content))
 
     @allure.step("根据Tree点击删除按钮")
     def click_bomtree_delete(self, tree):
@@ -310,21 +310,6 @@ class PCBABomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
-    @allure.step("审核人设置")
-    def select_business_review(self, audit, type='MPM'):
-        """
-        审核人设置-业务评审-：选择用户
-        @param type:选择的类别
-        @param audit:输入的用户名
-        """
-        self.scroll_into_view(user['审核人设置'])
-        sleep(0.5)
-        self.is_click_tbm(user['审核人类别'], type)
-        self.input_text(user['成员列表输入框'], audit)
-        sleep(1)
-        self.is_click_tbm(user['成员选择'], audit)
-        sleep(2)
-        self.is_click_tbm(user['成员确定'])
 
     @allure.step("获取PCBA BOM协作第一列内容")
     def get_info(self):
@@ -356,15 +341,6 @@ class PCBABomCooperation(CenterComponent):
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
 
-    def click_delete(self, code):
-        """
-        根据流程编码点击删除 进行删除操作
-        @param code:流程编码
-        """
-        self.is_click_tbm(user['删除'], code)
-        sleep(1)
-        self.is_click_tbm(user['确定'])
-
     @allure.step("点击导入BOM")
     def click_bom_import(self):
         self.is_click_tbm(user['导入BOM'])
@@ -375,6 +351,7 @@ class PCBABomCooperation(CenterComponent):
         self.recall_process(code)
         self.click_menu("BOM协作", "PCBA BOM协作")
         self.click_delete(code)
+        self.click_delete_confirm()
         self.assert_toast('删除成功')
 
     @allure.step("断言:页面表格内容是否正确")
@@ -396,5 +373,16 @@ class PCBABomCooperation(CenterComponent):
             self.base_get_img()
             logging.error('断言失败，选项值不包含：{}'.format(content))
             raise
+
+    @allure.step("点击附件")
+    def click_Accessory(self):
+        self.is_click_tbm(user['Oneworks附件'])
+
+    @allure.step("上传附件")
+    def send_Accessory(self, name):
+        Accessory_path = os.path.join(PEROJECT_PATH, 'TBM', 'data', name)
+        self.upload_file(user['Oneworks附件上传'], Accessory_path)
+        logging.info('上传附件')
+
 if __name__ == '__main__':
     pass

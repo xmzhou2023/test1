@@ -15,4 +15,5 @@
 取消收藏: "xpath==//*[@xpath='at_my-file_contextmenu_unfavorite_variable']"
 删除: "xpath==//*[@xpath='at_my-file_contextmenu_remove_variable']"
 删除确认: "xpath==//*[@aria-label='提示']//button[2]"
+顶部搜索框: "xpath==//input[@readonly]"
 

@@ -12,29 +12,23 @@ import allure
 @pytest.fixture(scope='function')
 def function_user_fixture(drivers):
     yield
-    close = HomePagePage(drivers)
-    close.click_close_export_record()
-    close.click_close_user_management()
-
-@pytest.fixture(scope='function')
-def function_customer_fixture(drivers):
-    yield
-    close = HomePagePage(drivers)
-    close.click_close_export_record()
-    close.click_close_customer_mgt()
-
-@pytest.fixture(scope='function')
-def function_shop_fixture(drivers):
-    yield
-    close = HomePagePage(drivers)
-    close.click_close_export_record()
-    close.click_close_shop_mgt()
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
 
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    close = HomePagePage(drivers)
-    close.click_close_export_record()
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
 
 @allure.feature("首页")
 class TestQueryAllIndicatorsOnTheHomepage:
@@ -198,7 +192,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("User management")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("User management")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
 
         task_id = export.get_task_user_id_text()
@@ -245,7 +239,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("Activation Abnormal Data")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("Activation Abnormal Data")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
@@ -261,14 +255,14 @@ class TestExportAllIndicatorsOnTheHomepage:
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
-        sleep(1)
+
 
 
     @allure.story("导出Sub-dealer Management卡片")
     @allure.title("Homepage首页，导出Sub-dealer Management卡片维度数据")
     @allure.description("Homepage首页，导出Sub-dealer Management卡片的各维度数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_customer_fixture')
+    @pytest.mark.usefixtures('function_user_fixture')
     def test_002_003(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -291,7 +285,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("Customer management")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("Customer management")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
@@ -314,7 +308,7 @@ class TestExportAllIndicatorsOnTheHomepage:
     @allure.title("Homepage首页，导出Distributor Management卡片维度数据")
     @allure.description("Homepage首页，导出Distributor Management卡片的各维度数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_customer_fixture')
+    @pytest.mark.usefixtures('function_user_fixture')
     def test_002_004(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -334,7 +328,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("Customer management")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("Customer management")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
@@ -357,7 +351,7 @@ class TestExportAllIndicatorsOnTheHomepage:
     @allure.title("Homepage首页，导出Shop Management卡片维度数据")
     @allure.description("Homepage首页，导出Shop Management卡片的各维度数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_shop_fixture')
+    @pytest.mark.usefixtures('function_user_fixture')
     def test_002_005(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -379,7 +373,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.input_task_name("Shop Manager List")
         down_status = export.click_export_search()
 
-        task_name = export.get_task_name_text("Shop Manager List")
+        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()

@@ -23,7 +23,7 @@ class CustomerPSIPage(Base):
 
     def click_sub_dealer(self):
         """点击Sub-dealer按钮筛选二代数据"""
-        Base.find_element(self, user['Sub dealer'])
+        self.presence_sleep_dcr(user['Sub dealer'])
         self.is_click(user['Sub dealer'])
         sleep(4)
 

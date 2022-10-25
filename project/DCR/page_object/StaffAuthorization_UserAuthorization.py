@@ -45,7 +45,7 @@ class UserAuthorizationPage(Base):
 
     @allure.step("点击Cancel Association 删除品牌按钮")
     def click_cancel_association(self):
-        self.is_click(user['infinix Cancel Association'])
+        self.is_click_dcr(user['infinix Cancel Association'])
         sleep(1.5)
 
     @allure.step("点击Delete 确认删除品牌按钮")
@@ -99,8 +99,8 @@ class UserAuthorizationPage(Base):
         self.presence_sleep_dcr(user['Add Click Input Query Cust'])
         self.is_click(user['Add Click Input Query Cust'])
         self.input_text_dcr(user['Add Input Query Cust'], txt=content)
-        self.presence_sleep_dcr(user['Add Input Query Cust Value'])
-        self.is_click(user['Add Input Query Cust Value'])
+        sleep(2)
+        self.is_click_dcr(user['Add Input Query Cust Value'], content)
 
     @allure.step("在添加客户页面，点击Search按钮")
     def click_add_customer_search(self):
@@ -143,9 +143,9 @@ class UserAuthorizationPage(Base):
         sleep(2)
 
     @allure.step("在客户页签，获取客户列表的Customer ID")
-    def get_list_customer_id(self):
-        self.presence_sleep_dcr(user['获取客户列表CustomerID'], 'CN20009')
-        get_list_cust = self.element_text(user['获取客户列表CustomerID'], 'CN20009')
+    def get_list_customer_id(self, context):
+        self.presence_sleep_dcr(user['获取客户列表CustomerID'], context)
+        get_list_cust = self.element_text(user['获取客户列表CustomerID'], context)
         return get_list_cust
 
     @allure.step("在客户页签，筛选Customer ID后，点击勾选客户的复选框")

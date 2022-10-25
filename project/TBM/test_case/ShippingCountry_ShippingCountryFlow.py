@@ -28,23 +28,145 @@ class TestCreateProcess:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', f'项目名称{querytime}')
         user.click_add()
-        user.input_add_product_definition_info('全球版本', '版本1')
-        user.input_add_product_definition_info('市场名称', f'市场名称{querytime}')
-        user.input_add_product_definition_info('项目名称', f'项目名称{querytime}')
-        user.input_add_product_definition_info('MEMORY', '128+8')
-        user.input_add_product_definition_info('BAND STRATEGY', '拉美市场')
-        user.input_add_product_definition_info('项目经理', '李小素')
-        user.input_add_product_definition_info('摄像头', '摄像头')
-        user.input_add_product_definition_info('型号', '型号')
-        user.input_add_product_definition_info('新增', '新增')
-        user.input_add_product_definition_info('再增', '2G')
-        user.input_add_product_definition_info('配色', '魅海蓝/Aqua Blue')
+        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('市场名称', f'市场名称{querytime}')
+        user.input_product_definition_info('项目名称', f'项目名称{querytime}')
+        user.input_product_definition_info('MEMORY', '128+8')
+        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('项目经理', '李小素')
+        user.input_product_definition_info('摄像头', '摄像头')
+        user.input_product_definition_info('型号', '型号')
+        user.input_product_definition_info('新增', '新增')
+        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
+        user.input_product_definition_info('尺寸', '64M')
         user.click_product_definition_confirm()
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
         DomAssert(drivers).assert_att('请求成功')
         process_code = user.get_info(f'项目名称{querytime}')[2]
         user.delete_shipping_country_flow(process_code)
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("选择全球版本，汇签人员会自动获取人员")  # 用例名称
+    @allure.description("进入出货国家流程后，点击进行新增，新增页面选择品牌后，在产品定义信息中点击新增，新增时选择全球版本，选择全球版本后，汇签人员会自动获取人员")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_002(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', f'项目名称{querytime}')
+        user.click_add()
+        user.input_product_definition_info('全球版本', '版本1')
+        user.assert_version_get_member('版本1')
+        user.input_product_definition_info('全球版本', '版本2')
+        user.assert_version_get_member('版本2')
+        user.input_product_definition_info('全球版本', '版本3')
+        user.assert_version_get_member('版本3')
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("新增产品经理和项目经理，查看抄送人员是自动添加登录人+产品经理+项目经理")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，在产品定义信息中，新增产品经理和项目经理，查看抄送人员是自动添加登录人+产品经理+项目经理")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_003(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', f'项目名称{querytime}')
+        user.click_add()
+        user.input_product_definition_info('产品经理', '陈月')
+        user.input_product_definition_info('项目经理', '潘美佳')
+        user.assert_member('抄送人员', ['陈月', '潘美佳', '李小素'])
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("产品定义信息中存在该条已选择的数据")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，在产品定义信息中，点击变更已有产品，会弹出选择框，选中其中一条数据，点击选择，产品定义信息中存在该条已选择的数据")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_004(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', f'项目名称{querytime}')
+        user.click_products()
+        user.search_products('市场名称', '出货国家查询-变更产品-全流程-自动化测试项目-市场名称')
+        user.select_products('出货国家查询-变更产品-全流程-自动化测试项目-市场名称')
+        user.assert_change_success('出货国家查询-变更产品-全流程-自动化测试项目-市场名称')
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("产品定义信息中新增一条数据，新增后点击复制成功")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，在产品定义信息中新增一条数据，新增后点击复制，查看是会出现一条相同的数据")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_005(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '项目名称测试复制')
+        user.click_add()
+        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('市场名称', '市场名称测试复制')
+        user.input_product_definition_info('项目名称', '项目名称测试复制')
+        user.input_product_definition_info('MEMORY', '128+8')
+        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('项目经理', '李小素')
+        user.input_product_definition_info('摄像头', '摄像头')
+        user.input_product_definition_info('型号', '型号')
+        user.input_product_definition_info('新增', '新增')
+        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
+        user.input_product_definition_info('尺寸', '64M')
+        user.click_product_definition_confirm()
+        user.click_product_definition_copy()
+        user.assert_toast('复制产品成功！')
+        user.assert_copy_success('项目名称测试复制')
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("产品定义信息中新增一条数据，删除成功")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，在产品定义信息中，新增多条数据，新增后选择一条进行删除，删除时会弹出提示框“确定删除吗?”，点击确定，该条数据会被删除，页面上不存在该条数据")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_006(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '项目名称测试删除')
+        user.click_add()
+        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('市场名称', '市场名称测试删除')
+        user.input_product_definition_info('项目名称', '项目名称测试删除')
+        user.input_product_definition_info('MEMORY', '128+8')
+        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.click_product_definition_confirm()
+        user.click_product_definition_delete()
+        DomAssert(drivers).assert_att('确定删除吗?')
+        user.click_delete_confirm()
+        DomAssert(drivers).assert_att('暂无数据')
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("上传附件成功")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，新增页面所有内容正确填写，点击附件，并且进行选择一个文件上传，能上传成功")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_007(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '项目名称测试复制')
+        user.add_upload_file('检查结果.PNG')
+
+
 
 
 @allure.feature("出货国家-出货国家流程")  # 模块名称
@@ -87,15 +209,21 @@ class TestTheProcessOfExaminationAndApproval:
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(SaleCountry_Join_API[0])
+        user.click_product_definition_edit()
         querytime2 = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-        user.input_oneworks_product_definition_info('全球版本', '版本2')
-        user.input_oneworks_product_definition_info('市场名称', f'市场名称{querytime2}')
-        user.input_oneworks_product_definition_info('项目名称', f'项目名称{querytime2}')
-        user.input_oneworks_product_definition_info('MEMORY', '64+8')
-        user.input_oneworks_product_definition_info('BANDSTRATEGY', '公开市场')
-        user.input_oneworks_product_definition_info('项目经理', '李小素')
-        user.input_oneworks_product_definition_info('aaa', '1G')
-        user.input_oneworks_product_definition_info('bbb', 'G70')
+        user.input_product_definition_info('全球版本', '版本2')
+        user.input_product_definition_info('市场名称', f'市场名称{querytime2}')
+        user.input_product_definition_info('项目名称', f'项目名称{querytime2}')
+        user.input_product_definition_info('MEMORY', '64+8')
+        user.input_product_definition_info('BAND STRATEGY', '公开市场')
+        user.input_product_definition_info('项目经理', '李小素')
+        user.input_product_definition_info('摄像头', '摄像头test')
+        user.input_product_definition_info('型号', '型号test')
+        user.input_product_definition_info('新增', '新增test')
+        user.input_product_definition_info('再增', '1G')
+        user.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
+        user.input_product_definition_info('尺寸', '8M')
+        user.click_product_definition_confirm()
         user.click_onework_agree()
         user.assert_toast()
         user.quit_oneworks()
@@ -138,6 +266,120 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_my_application_flow(SaleCountry_API[0], '审批完成')
         document_status = user.get_info(SaleCountry_API[0])[6]
         ValueAssert.value_assert_equal(document_status, '审批通过')
+
+@allure.feature("出货国家-出货国家流程")
+class TestCreateProcessExceptionScenario:
+    @allure.story("创建流程异常场景")
+    @allure.title("请完善项目信息！")
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，不填写项目名称，在产品定义信息中进行新增一条数据，点击提交，会提示“请完善项目信息！”")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_003_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.click_add_submit()
+        user.assert_toast('请完善项目信息！')
+
+    @allure.story("创建流程异常场景")
+    @allure.title("产品定义信息不能为空")
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，填写项目名称后，不进行新增产品定义信息，点击提交，会给出提示“产品定义信息不能为空”")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_003_002(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '产品定义信息不能为空')
+        user.click_add_submit()
+        user.assert_toast('产品定义信息不能为空')
+
+    @allure.story("创建流程异常场景")
+    @allure.title("No.1行xxxxx不能为空")
+    @allure.description("进入出货国家流程，点击新增，新增页面选择品牌后，填写项目名称，在产品定义信息中点击新增，其中一项内容不填写，其他内容正确填写，点击提交，给出提示No.1行xxxxx不能为空")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_003_003(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '产品定义信息不能为空')
+        user.click_add()
+        user.click_add_submit()
+        user.assert_toast('No.1行全球版本不能为空')
+        user.input_product_definition_info('全球版本', '版本1')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('No.1行市场名称不能为空')
+        user.input_product_definition_info('市场名称', '市场名称测试删除')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('No.1行项目名称不能为空')
+        user.input_product_definition_info('项目名称', '项目名称测试删除')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('No.1行MEMORY不能为空')
+        user.input_product_definition_info('MEMORY', '128+8')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('No.1行BAND STRATEGY不能为空')
+
+    @allure.story("创建流程异常场景")
+    @allure.title("汇签人不能为空")
+    @allure.description("进入出货国家流程，点击新增，所有内容都正确填写，汇签人员进行全部删除，点击提交，会给出提示“汇签人不能为空”")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_003_004(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '汇签人不能为空')
+        user.click_add()
+        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('市场名称', '汇签人不能为空')
+        user.input_product_definition_info('项目名称', '汇签人不能为空')
+        user.input_product_definition_info('MEMORY', '128+8')
+        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('项目经理', '李小素')
+        user.input_product_definition_info('摄像头', '摄像头')
+        user.input_product_definition_info('型号', '型号')
+        user.input_product_definition_info('新增', '新增')
+        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
+        user.input_product_definition_info('尺寸', '64M')
+        user.click_product_definition_confirm()
+        user.clear_member('汇签人员')
+        user.click_add_submit()
+        user.assert_toast('汇签人不能为空')
+
+    @allure.story("创建流程异常场景")
+    @allure.title("抄送人不能为空")
+    @allure.description("进入出货国家流程，点击新增，所有内容都正确填写，汇签人员进行全部删除，点击提交，会给出提示“抄送人不能为空”")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.UT
+    def test_003_005(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '抄送人不能为空')
+        user.click_add()
+        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('市场名称', '抄送人不能为空')
+        user.input_product_definition_info('项目名称', '抄送人不能为空')
+        user.input_product_definition_info('MEMORY', '128+8')
+        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('项目经理', '李小素')
+        user.input_product_definition_info('摄像头', '摄像头')
+        user.input_product_definition_info('型号', '型号')
+        user.input_product_definition_info('新增', '新增')
+        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
+        user.input_product_definition_info('尺寸', '64M')
+        user.click_product_definition_confirm()
+        user.clear_member('抄送人员')
+        user.click_add_submit()
+        user.assert_toast('抄送人不能为空')
 
 
 if __name__ == '__main__':
