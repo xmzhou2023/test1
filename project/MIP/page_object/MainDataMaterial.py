@@ -262,6 +262,7 @@ class MainDataMaterial(Base):
             result = self.element_text(data['获取上/下架状态'])
             assert result == "已上架", logging.warning("断言失败，主数据上架失败")
             logging.info("断言成功，主数据上架成功")
+        self.refresh()
 
 
 
