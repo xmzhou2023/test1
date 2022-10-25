@@ -46,5 +46,6 @@ class ShopReceipt(Base):
         self.is_click(user['点击提交'], button)
 
 
+
 if __name__ == '__main__':
     pass

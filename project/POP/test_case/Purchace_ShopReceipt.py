@@ -43,5 +43,6 @@ class TestUtil:
         test = user.element_text(users['新增自采收货'])
         ValueAssert.value_assert_equal(test, '提交成功')
 
+
 if __name__ == '__main__':
     pytest.main(['Purchace_ShopReceipt.py::TestUtil::test_100_100'])

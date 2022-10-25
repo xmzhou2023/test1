@@ -7,3 +7,4 @@
 添加商品数量: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[7]/div/div/div/span[2]"
 点击提交: "xpath==//span[contains(text(),'variable')]"
 新增自采收货: "class==el-message__content"
+
