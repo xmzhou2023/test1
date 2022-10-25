@@ -49,6 +49,8 @@ class TestSearchMenu:
         menu.search_menu("审批流设定","系统管理 > 审批流设定")
         dom = DomAssert(drivers)
         dom.assert_url("/sys/approvalFlowSetting")
+        goto_menu = NavPage(drivers)
+        goto_menu.back_homepage()
 
     @allure.story("搜索菜单")
     @allure.title("模糊搜索菜单，进入指定菜单页面")
@@ -60,6 +62,8 @@ class TestSearchMenu:
         menu.search_menu("我的","流程中心 > 我的审批")
         dom = DomAssert(drivers)
         dom.assert_url("/process-center/myApproval")
+        goto_menu = NavPage(drivers)
+        goto_menu.back_homepage()
 
 if __name__ == '__main__':
     pytest.main(['project/MIP/testcase/dashboard.py'])
