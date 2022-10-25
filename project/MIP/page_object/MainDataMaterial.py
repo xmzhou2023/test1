@@ -38,6 +38,7 @@ class MainDataMaterial(Base):
             logging.info("选择一级类目：{}".format(level1))
         elif level1 is None:
             try:
+                self.refresh()
                 self.is_click(data['类目下拉框 右'])
                 txt = self.element_text(data['下拉列表无数据'])
                 assert txt == "无数据", logging.warning("断言失败")

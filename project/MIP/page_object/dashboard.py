@@ -34,11 +34,11 @@ class dashboard(Base):
     def search_menu(self, Menu,exactmenu):
         self.is_click(menu['菜单搜索按钮'])
         self.input_text(menu['菜单搜索输入框'],Menu)
+        sleep(1)
         option = self.find_elements(menu['菜单下拉选项'])
         lis = []
         for i in range(len(option)):
             lis.append(option[i].text)
-        print(lis)
         if exactmenu in lis:
             num = lis.index(exactmenu) + 1
             self.is_click(menu['选择菜单下拉选项'],str(num))
