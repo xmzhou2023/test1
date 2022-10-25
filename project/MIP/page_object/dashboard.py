@@ -38,12 +38,13 @@ class dashboard(Base):
         lis = []
         for i in range(len(option)):
             lis.append(option[i].text)
+        print(lis)
         if exactmenu in lis:
             num = lis.index(exactmenu) + 1
             self.is_click(menu['选择菜单下拉选项'],str(num))
             logging.info("选择菜单：{}".format(exactmenu))
         else:
-            self.is_click(menu['可输入下拉框'])
+            self.is_click(menu['菜单搜索输入框'])
             logging.info("下拉列表无{}此选项，请重新选择".format(exactmenu))
         sleep(1)
 
