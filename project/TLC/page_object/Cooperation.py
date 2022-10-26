@@ -76,6 +76,7 @@ class Cooperater(Base):
     def relogin(self, username):
         """统一登录֤"""
         self.logout() # 退出登录
+        DomAssert(self.driver).assert_url('https://pfuacuat.transsion.com:10201/#')
         self.click_accountlogin() # 点击帐户密码登录
         self.input_account(username) # 输入帐户名
         self.input_passwd('xLily6x') # 输入密码
