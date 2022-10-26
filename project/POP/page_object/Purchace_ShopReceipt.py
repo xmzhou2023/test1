@@ -18,14 +18,14 @@ class ShopReceipt(Base):
         self.is_click(user['菜单按钮'], menu)
 
     @allure.step('选择收货门店')
-    def receipt_input_shop(self, shopname):
+    def receipt_select_shop(self, shopname):
         self.is_click(user['自采收货-门店'])
         self.input_text(user['自采收货-门店'], shopname)
         sleep(2)
         self.is_click_dcr(user['选择搜索结果'], shopname)
 
     @allure.step('选择收货商品')
-    def receipt_input_goods(self, goodsname):
+    def receipt_select_goods(self, goodsname):
         self.is_click(user['自采收货-商品'])
         self.input_text(user['自采收货-商品'], goodsname)
         sleep(1)
@@ -37,22 +37,25 @@ class ShopReceipt(Base):
 
     @allure.step('点击添加单个/多个收货商品')
     def receipt_add_goods(self):
-        self.is_click_tbm(user['点击+添加商品'])
-        self.is_click_tbm(user['添加商品数量'])
+        for i in range(1, 3):
+            self.is_click_tbm(user['点击+添加商品'], str(i))
+            self.is_click_tbm(user['添加商品数量'])
 
     @allure.step('点击提交')
     def receipt_click_submit(self, button):
         self.is_click(user['点击提交'], button)
 
-    @allure.step('选择筛选项后续优化')
-    def select_filter_item(self, item):
-        self.is_click(user['筛选条件'])
-        self.input_text(user['筛选条件'], item)
+class QueryReceipt(Base):
+    """查询收货单类"""
 
-    @allure.step('选择筛选项')
-    def select_filter(self):
-        self.is_click(user['筛选项'])
-        self.input_text()
+    @allure.step("输入收货单")
+    def input_receiptnum(self,receiptnum):
+        self.is_click_tbm(user['收货单号输入框'])
+        self.input_text(user['收货单号输入框'],receiptnum)
+
+    @allure.step("点击查询")
+    def click_query(self):
+        self.is_click_tbm(user['查询按钮'])
 
 
 

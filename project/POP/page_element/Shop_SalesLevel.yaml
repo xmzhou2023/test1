@@ -13,3 +13,6 @@
 新增数据选中按钮: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div[1]/div[4]/div[2]/table/tbody/tr[1]/td[1]/div/label/span/span"
 删除按钮: "xpath==//button[contains(text(),'删除')]"
 二次弹窗确定: "xpath==//div[@class='el-message-box']/div[3]/button[2]"
+
+# 删除
+删除提示: "class==el-message__content"

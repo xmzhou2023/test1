@@ -1,5 +1,5 @@
+# 新增自采收货
 菜单按钮: "xpath==//button[contains(text(),'variable')]"
-
 自采收货-门店: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/form/div/div[1]/div/div/div/div/div/input"
 自采收货-商品: "xpath==//input[@placeholder='产品/商品名称']"
 选择搜索结果: "xpath==//span[contains(text(),'variable')]"
@@ -7,7 +7,10 @@
 点击+添加商品: "xpath==//tbody/tr[variable]/td[1]/div[1]/div[1]"
 添加商品数量: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[7]/div/div/div/span[2]"
 点击提交: "xpath==//span[contains(text(),'variable')]"
-新增自采收货成功: "class==el-message__content"
+新增自采收货: "class==el-message__content"
 
-筛选条件: "xpath==//div['variable']//div[1]//div[1]//div[1]//div[1]//div[1]//input[1]"
-筛选项: "xpath==//input[@placeholder='variable']"
+# 查询收货单
+收货单号输入框: "xpath==//input[@placeholder='收货单单号']"
+查询按钮: "xpath==//div[@class='btn-wrap']//span[contains(text(),'查询')]"
+查询收货单号: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[2]/div[1]"
+
