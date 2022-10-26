@@ -21,6 +21,7 @@ class AddDefineSuggestedPrice(Base):
 
     @allure.step("新增页面-输入商品名称")
     def click_productname(self,content):
+        sleep(1)
         self.is_click(user["商品名称输入框"])
         self.input_text(user["商品名称输入框"],content)
         sleep(2)
@@ -34,7 +35,7 @@ class AddDefineSuggestedPrice(Base):
         self.is_click_tbm(user["商品"],content)
 
     @allure.step("产品名称筛选")
-    def click_productname(self,content):
+    def click_productnamechoice(self,content):
         self.is_click_tbm(user["产品名称筛选框"])
         self.input_text(user["产品名称筛选框"],content)
         sleep(1)
@@ -89,7 +90,7 @@ class AddDefineSuggestedPrice(Base):
 
     @allure.step("数据库查询新增定义建议价格断言")
     def sql_priceassert(self,count,good,region):
-        sql = f"SELECT count(*) FROM `goods_price` WHERE `goods_id` = '{good}' AND `area_id`='{region}';"
+        sql = f"SELECT count(*) FROM `goods_price` WHERE `goods_id` = {good} AND `area_id`={region} AND `enabled_flag`=1;"
         SQLAssert('POP','test').assert_sql_count(count, sql)
 
 class ExportPrice(Base):

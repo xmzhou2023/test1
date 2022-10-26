@@ -23,6 +23,10 @@
 
 门店: "xpath==//span[contains(text(),'门店')]"
 门店->门店列表: "xpath==//span[@title='门店列表']"
+门店->门店销售等级: "xpath==//span[@title='门店销售等级']"
+
+采购: "xpath==//span[contains(text(),'采购')]"
+采购->门店收货单: "xpath==//span[@title='门店收货单']"
 
 
 
