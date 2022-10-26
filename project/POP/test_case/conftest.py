@@ -20,6 +20,6 @@ def __init__(drivers, env_name):
     user.pop_login(drivers,ini.url, account[10]['usernum'], account[10]['passwd'])
     user = DomAssert(drivers)
     user.assert_url(ini.url)
-    # user = SQLAssert(pro_name, pro_env)
-    # user.assert_sql(word=account[10]['username'],sql='SELECT user_name from `user` where id="28";')
+    user = SQLAssert(pro_name, pro_env)
+    user.assert_sql(word=account[10]['username'],sql='SELECT user_name from `user` where id="28";')
     logging.info("前置条件：传音体专店登录成功")
