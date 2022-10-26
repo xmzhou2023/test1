@@ -53,6 +53,7 @@ class TestAddSalesLevel:
         users.switch_level("S")
         users.input_salesdata(10000, 20000)
         users.click_preservation()
+        users.delete_data()
         sleep(1)
         # 断言--删除提示
         test = users.element_text(user['删除提示'])
