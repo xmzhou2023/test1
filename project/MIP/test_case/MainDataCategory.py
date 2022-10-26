@@ -1,0 +1,107 @@
+import allure
+import pytest
+
+from public.base.assert_ui import *
+from project.MIP.page_object.Center_Component import NavPage
+from project.MIP.page_object.MainDataCategory import MainDataCategory
+
+
+@pytest.fixture(scope='module', autouse=True)
+def setup_module(drivers):
+    logging.info("模块前置条件：前往 主数据-类目管理 页面")
+    menu = NavPage(drivers)
+    menu.click_gotonav("主数据","类目管理")
+    dom = DomAssert(drivers)
+    dom.assert_url("/main-data/category")
+    yield
+    logging.info("后置条件:返回 首页 页面")
+    menu.back_homepage()
+    dom.assert_url("/dashboard")
+
+
+@allure.feature("类目管理")
+class TestQueryCategory:
+    @allure.story("查询功能验证")
+    @allure.title("输入一级类目名称-易耗品，查询结果正确")
+    @allure.description("输入类目名称，查询结果正确")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_001_001(self, drivers):
+        category = MainDataCategory(drivers)
+        listValue = category.input_categoryName("易耗品")
+        sqlResult = category.get_sqlResult("select category_name from bb_category where category_name = '易耗品'")
+        ValueAssert.value_assert_equal(sqlResult,listValue)  # 断言
+        category.button_reset()
+
+    @allure.story("查询功能验证")
+    @allure.title("输入二级类目名称，查询结果正确")
+    @allure.description("输入二级类目名称-手机配件，查询结果正确")
+    @allure.severity("normal")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_001_002(self, drivers):
+        category = MainDataCategory(drivers)
+        listValue = category.input_categoryName("手机配件")
+        sqlResult = category.get_sqlResult("select category_name from bb_category where category_name = '手机配件'")
+        ValueAssert.value_assert_equal(sqlResult,listValue)
+        category.button_reset()
+
+
+@allure.feature("类目管理")
+class TestAddCategory:
+    @allure.story("新增功能验证")
+    @allure.title("新增一级类目，新增成功")
+    @allure.description("新增一级类目，新增成功")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_002_001(self, drivers):
+        category = MainDataCategory(drivers)
+        category.button_add()
+        category.maintain_category('','测试01','test01','正例')
+        listValue = category.input_categoryName("测试01")
+        sqlResult = category.get_sqlResult("select category_name from bb_category where category_name = '测试01'")
+        ValueAssert.value_assert_equal(sqlResult,listValue)
+        category.button_reset()
+        category.clear_testData("测试01")
+
+    @allure.story("新增功能验证")
+    @allure.title("新增二级类目，新增成功")
+    @allure.description("新增二级类目，新增成功")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_002_002(self, drivers):
+        category = MainDataCategory(drivers)
+        category.button_add()
+        category.maintain_category('牛','测试01','test01','正例')
+        listValue = category.input_categoryName("测试01")
+        sqlResult = category.get_sqlResult("select category_name from bb_category where category_name = '测试01'")
+        ValueAssert.value_assert_equal(sqlResult,listValue)
+        category.button_reset()
+        category.clear_testData("测试01")
+
+    @allure.story("新增功能验证")
+    @allure.title("[异常]必填项未维护，新增失败")
+    @allure.description("必填项未维护，新增失败")
+    @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.parametrize("superiorCategory,name_zh,name_en",[("","",""),("","测试01",""),("","","test01"),("牛","测试01",""),("牛","","test01")])
+    @pytest.mark.smoke
+    def test_002_003(self, drivers,superiorCategory,name_zh,name_en):
+        category = MainDataCategory(drivers)
+        category.button_add()
+        category.maintain_category(superiorCategory,name_zh,name_en,'反例 必填验证')
+
+    @allure.story("新增功能验证")
+    @allure.title("[异常]重复新增，新增保存失败")
+    @allure.description("重复新增，新增保存失败")
+    @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.parametrize("superiorCategory,name_zh,name_en",[("","电子产品","No.1"),("","电子产品","electronics"),("","测试01","No.1"),
+                                                                 ("精美礼品","小香灯","light"),("精美礼品","小香灯","test01"),("精美礼品","测试01","light"),
+                                                                 ("精美礼品","无线耳机","test01"),("精美礼品","测试01","wireless earphone")])
+    @pytest.mark.smoke
+    def test_002_004(self, drivers,superiorCategory,name_zh,name_en):
+        category = MainDataCategory(drivers)
+        category.button_add()
+        category.maintain_category(superiorCategory,name_zh,name_en,'反例 重复新增')
+
+
+if __name__ == '__main__':
+    pytest.main(['project/MIP/testcase/MainDataCategory.py'])
