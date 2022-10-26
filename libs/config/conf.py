@@ -18,7 +18,7 @@ LOG_PATH = os.path.join(BASE_DIR, 'log')
 
 
 # excel目录
-TESTCASE_PATH = os.path.join(PEROJECT_PATH, 'DRP', 'excel_drive', 'TestCase.xlsx')
+TESTCASE_PATH = os.path.join(PEROJECT_PATH, 'POP', 'excel_drive', 'TestCase.xlsx')
 
 # 公共路径
 PUBLIC_PATH = os.path.join(BASE_DIR, 'public')
@@ -44,7 +44,7 @@ LOCATE_MODE = {
 
 # 邮件信息
 EMAIL_INFO = {
-    'username': '756978382@qq.com',  # 切换成你自己的地址
+    'username': '897979156@qq.com',  # 切换成你自己的地址
     'password': 'QQ邮箱授权码',
     'smtp_host': 'smtp.qq.com',
     'smtp_port': 465
