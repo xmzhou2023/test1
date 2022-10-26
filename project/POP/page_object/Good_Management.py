@@ -54,7 +54,12 @@ class AddGood(Base):
         self.is_click(user['点击保存按钮'])
         sleep(3)
 
+class ExportGood(Base):
+    """导出商品管理类"""
 
+    @allure.step("点击导出")
+    def click_export(self):
+        self.is_click_tbm(user['导出'])
 
 
 

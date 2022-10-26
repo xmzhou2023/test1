@@ -198,6 +198,18 @@ def KeyDevice_Approver_API():
     logging.info('开始后置操作')
     user.API_KeyDevice_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def KeyDevice_Revise_Approver_API():
+    logging.info('开始前置操作-代表审批')
+    user = APIRequest()
+    api_response = user.API_KeyDevice_Revise()
+    user.API_KeyDevice_image(api_response[0], api_response[1], api_response[2])
+    user.API_KeyDevice_hardware(api_response[0], api_response[1], api_response[2], username='18651509')
+    user.API_KeyDevice_StandardDeputy(api_response[0], api_response[1], api_response[2])
+    user.API_KeyDevice_PurchaseDeputy(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_KeyDevice_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def SaleCountry_API():

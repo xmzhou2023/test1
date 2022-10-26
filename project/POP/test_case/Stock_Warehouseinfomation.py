@@ -7,7 +7,7 @@ from project.POP.test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-@pytest.fixture(scope='class', autouse=True)
+@pytest.fixture(scope='function', autouse=True)
 def setup_class(drivers):
     logging.info("模块前置条件：前往“POP库存-仓库信息”页面")
     nav = NavPage(drivers)
@@ -29,6 +29,7 @@ class TestAddWarehouse:
         users.switch_shop('不差钱的门店','PCN00149')
         users.switch_warehouse_type()
         users.click_submit()
+        sleep(0.5)
         # 断言--新增仓库后页面跳转仓库列表断言最新展示仓库名称与新增一直
         test = users.element_text(user['新增仓库名称'])
         ValueAssert.value_assert_equal(test,content)

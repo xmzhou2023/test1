@@ -13,6 +13,14 @@ class CenterComponent(Base, APIRequest):
     # 审核人
     review = '李小素'
 
+    def input_text(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        ele.send_keys(txt)
+        logging.info("输入文本：{}".format(txt))
+
     def click_logout(self):
         """点击退出登录"""
         self.is_click(user['头像'])

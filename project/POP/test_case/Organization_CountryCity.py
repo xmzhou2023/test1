@@ -29,7 +29,7 @@ class TestQueryCountry:
         ValueAssert.value_assert_equal(test,"China")
 
 @allure.feature("组织") # 模块名称
-class TestExportList:
+class TestExportCoutrycity:
     @allure.story("国家城市")  # 场景名称
     @allure.title("导出国家城市列表")  # 用例名称
     @allure.description("点击导出，导出国家城市列表")
@@ -42,6 +42,8 @@ class TestExportList:
         # 断言--提示：XXXX导出成功
         test = users.element_text(user['导出成功提示'])
         ValueAssert.value_assert_equal(test,'创建导出任务成功！')
+
+
 
 if __name__ == '__main__':
     pytest.main(['test_case'])

@@ -35,3 +35,15 @@ oneworks-节点-评估关键器件-一键填写-字段名称选择: "xpath==//li
 oneworks-节点-评估关键器件-一键填写-责任人: "xpath==//div[@aria-label='一键填写']//label[normalize-space(text())='责任人']/..//input"
 oneworks-节点-评估关键器件-一键填写-确定: "xpath==//div[@aria-label='一键填写']//span[normalize-space(text())='确定']"
 oneworks-节点-评估关键器件-一键填写-取消: "xpath==//div[@aria-label='一键填写']//span[normalize-space(text())='取消']"
+oneworks-节点-资源商务评估-采购评估-资源商务-输入框: "xpath==//span[normalize-space(text())='资源商务']/../../../..//label[normalize-space(text())='variable']/..//input[@class='el-input__inner']"
+oneworks-节点-下拉框-选择: "xpath==//div[not(contains(@style,'display: none')) and contains(@class,'el-select-dropdown el-popper')]//span[normalize-space(text())='variable']"
+
+
+oneworks-节点-资源商务评估-采购评估-采购执行-输入框: "xpath==//span[normalize-space(text())='采购执行']/../../../..//label[normalize-space(text())='variable']/..//input[@class='el-input__inner']"
+
+oneworks-节点-采购PTC评估-采购评估-PTC-输入框: "xpath==//span[normalize-space(text())='PTC']/../../../..//label[normalize-space(text())='variable']/..//input[@class='el-input__inner']"
+
+oneworks-节点-采购PTC评估-采购评估-SQM-输入框: "xpath==//span[normalize-space(text())='SQM']/../../../..//label[normalize-space(text())='variable']/..//input[@class='el-input__inner']"
+
+oneworks-节点-标准化部评估-标准化评估-输入框: "xpath==//*[@id='pane-standard']//label[normalize-space(text())='variable']/..//input"
+oneworks-节点-标准化部评估-标准化评估-文本框: "xpath==//*[@id='pane-standard']//label[normalize-space(text())='variable']/..//textarea"
