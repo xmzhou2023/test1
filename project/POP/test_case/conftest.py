@@ -6,6 +6,7 @@ from libs.common.read_config import *
 
 pro_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+
 @pytest.fixture(scope='session',autouse=True)
 def __init__(drivers, env_name):
     """初始化"""
@@ -17,7 +18,8 @@ def __init__(drivers, env_name):
     """使用统一登录"""
     logging.info("前置条件：传音体专店登录开始")
     user = Login(drivers)
-    user.pop_login(drivers,ini.url, account[11]['usernum'], account[11]['passwd'])
+
+    user.pop_login(drivers,ini.url,account[11]['usernum'],account[11]['passwd'])
     user = DomAssert(drivers)
     user.assert_url(ini.url)
     # user = SQLAssert(pro_name, pro_env)
