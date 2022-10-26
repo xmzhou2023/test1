@@ -17,6 +17,7 @@ users = Element(pro_name, object_name)
         minor级别: 次要缺陷(界面错误与UI需求不符)
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
+
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
     logging.info("前置条件：进入’采购-门店收货单‘页面")
@@ -42,6 +43,7 @@ class TestUtil:
         sleep()
         test = user.element_text(users['新增自采收货'])
         ValueAssert.value_assert_equal(test, '提交成功')
+
 
 
 if __name__ == '__main__':
