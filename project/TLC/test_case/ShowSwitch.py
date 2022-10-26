@@ -72,5 +72,32 @@ class TestShowSwitch:
         DomAssert(drivers).assert_page_source('所有者')
         pass
 
+    @allure.story("我的文件夹界面切换")  # 场景名称
+    @allure.title("文件夹界面-图标列表切换")  # 用例名称
+    @allure.description("文件夹界面操作图标列表切换")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_005(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        tools = ShowSwitch(drivers)
+        tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
+        tools.hover('新增')
+        tools.click('新增文件夹')
+        tools.input('新增输入框', 'auto_testing_add_files_pri_001', 'name')
+        tools.click('新增对话框按钮', 'confirm')
+        DomAssert(drivers).assert_att('新增成功')
+        tools.click('图标列表切换按钮')
+        DomAssert(drivers).assert_att('所有者')
+        tools.click('图标列表切换按钮')
+        DomAssert(drivers).assert_page_source('所有者')
+        # 删除
+        tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
+        tools.hover('文件Item')
+        tools.click('文件Item more')
+        tools.click('删除', 'auto_testing_add_files_pri_001')
+        tools.click('删除确认')
+        pass
+
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/ShowSwitch.py'])

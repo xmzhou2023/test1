@@ -1,0 +1,10 @@
+菜单按钮: "xpath==//button[contains(text(),'variable')]"
+自采收货-门店: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/form/div/div[1]/div/div/div/div/div/input"
+自采收货-商品: "xpath==//input[@placeholder='产品/商品名称']"
+选择搜索结果: "xpath==//span[contains(text(),'variable')]"
+查询重置按钮: "xpath==//div[@class='btn-wrap']//span[contains(text(),'variable')]"
+点击+添加商品: "xpath==//tbody/tr[variable]/td[1]/div[1]/div[1]"
+添加商品数量: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[7]/div/div/div/span[2]"
+点击提交: "xpath==//span[contains(text(),'variable')]"
+新增自采收货: "class==el-message__content"
+

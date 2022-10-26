@@ -6,7 +6,6 @@ from libs.common.read_config import *
 
 pro_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-
 @pytest.fixture(scope='session',autouse=True)
 def __init__(drivers, env_name):
     """初始化"""
@@ -16,12 +15,12 @@ def __init__(drivers, env_name):
     ini = ReadConfig(pro_name, pro_env)
 
     """使用统一登录"""
-    logging.info("前置条件：传音体专店登录开始")
+    logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
-
-    user.pop_login(drivers,ini.url,account[11]['usernum'],account[11]['passwd'])
+    user.login(drivers, ini.url, account[4]['usernum'], account[4]['passwd'])
+    # sleep(5)
     user = DomAssert(drivers)
-    user.assert_url(ini.url)
+    user.assert_url("{}#/dashboard".format(ini.url))
     user = SQLAssert(pro_name, pro_env)
-    user.assert_sql(word=account[10]['username'],sql='SELECT user_name from `user` where id="28";')
-    logging.info("前置条件：传音体专店登录成功")
+    user.assert_sql(word=account[4]['username'], sql='select name from uc_user where enable_flag=1')
+    logging.info("前置条件：传音统一登录成功")

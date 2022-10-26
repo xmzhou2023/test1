@@ -69,5 +69,35 @@ class TestComponentPreview:
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
         pass
+
+    @allure.story("组件加锁")  # 场景名称
+    @allure.title("组件加锁/解锁")  # 用例名称
+    @allure.description("我的空间，新增组件，组件默认为加锁状态,点击加锁,组件变为解锁状态")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        tools = ComponentPreview(drivers)
+        tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
+        tools.hover('新增')
+        tools.click('新增组件')
+        tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
+        tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
+        tools.click('新增对话框按钮', 'confirm')
+        tools.switch_window(1)
+        DomAssert(drivers).assert_att('自动解锁时间为:')
+        tools.click('加锁按钮')
+        DomAssert(drivers).assert_att('解锁成功')
+        tools.close_switch(1)
+        # 删除
+        tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
+        tools.hover('组件Item')
+        tools.click('组件Item more')
+        tools.click('删除', 'auto_testing_add_components_pri_001')
+        tools.click('删除确认')
+        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        pass
+
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/ComponentPreview.py'])
