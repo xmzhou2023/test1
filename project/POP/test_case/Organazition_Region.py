@@ -32,7 +32,7 @@ class TestExportRegion:
     @allure.description("根据筛选条件导出区域列表")
     @allure.severity("normol")
     @pytest.mark.smoke
-    def test_300_100(self, drivers):
+    def test_001_001(self, drivers):
         user = Region(drivers)
         user.click_dropdown('国家', 'China')
         user.click_search('查询')
