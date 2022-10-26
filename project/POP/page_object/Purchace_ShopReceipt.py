@@ -45,6 +45,18 @@ class ShopReceipt(Base):
     def receipt_click_submit(self, button):
         self.is_click(user['点击提交'], button)
 
+class QueryReceipt(Base):
+    """查询收货单类"""
+
+    @allure.step("输入收货单")
+    def input_receiptnum(self,receiptnum):
+        self.is_click_tbm(user['收货单号输入框'])
+        self.input_text(user['收货单号输入框'],receiptnum)
+
+    @allure.step("点击查询")
+    def click_query(self):
+        self.is_click_tbm(user['查询按钮'])
+
 
 
 if __name__ == '__main__':
