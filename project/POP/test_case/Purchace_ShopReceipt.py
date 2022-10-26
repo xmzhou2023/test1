@@ -28,15 +28,15 @@ def setup_module(drivers):
 @allure.feature("采购") # 模块名称
 class TestUtil:
     @allure.story("门店收货单") # 场景名称
-    @allure.title("ShopReceipt")  # 用例名称
+    @allure.title('ShopReceipt')  # 用例名称
     @allure.description("新增自采收货：添加单个或者多个商品进行收货") #用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
     def test_100_100(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ShopReceipt(drivers)
         user.receipt_click_menu_self_purchase('自采收货')
-        user.receipt_select_shop('TECNO江北旗舰店')
-        user.receipt_select_goods('礼品1123')
+        user.receipt_input_shop('TECNO江北旗舰店')
+        user.receipt_input_goods('礼品1123')
         user.receipt_search_goods('查询')
         user.receipt_add_goods()
         user.receipt_click_submit('提交')
