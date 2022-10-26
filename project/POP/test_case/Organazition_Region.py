@@ -32,7 +32,7 @@ class TestExportRegion:
     @allure.description("根据筛选条件导出区域列表")
     @allure.severity("normol")
     @pytest.mark.smoke
-    def test_300_100(self, drivers):
+    def test_001_001(self, drivers):
         user = Region(drivers)
         user.click_dropdown('国家', 'China')
         user.click_search('查询')
@@ -40,6 +40,7 @@ class TestExportRegion:
         user.click_button('导出')
         test = user.element_text(users['断言'])
         ValueAssert.value_assert_equal(test, '创建导出任务成功！')
+
 
 
 if __name__ == '__main__':
