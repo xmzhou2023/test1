@@ -19,7 +19,7 @@ def __init__(drivers, env_name):
     logging.info("前置条件：传音体专店登录开始")
     user = Login(drivers)
 
-    user.pop_login(drivers,ini.url,account[11]['usernum'],account[11]['passwd'])
+    user.pop_login(drivers,ini.url,account[10]['usernum'],account[10]['passwd'])
     user = DomAssert(drivers)
     user.assert_url(ini.url)
     user = SQLAssert(pro_name, pro_env)
