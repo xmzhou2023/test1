@@ -28,7 +28,7 @@ def setup_module(drivers):
 @allure.feature("采购") # 模块名称
 class TestUtil:
     @allure.story("门店收货单") # 场景名称
-    @allure.title('ShopReceipt')  # 用例名称
+    @allure.title("ShopReceipt")  # 用例名称
     @allure.description("新增自采收货：添加单个或者多个商品进行收货") #用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
