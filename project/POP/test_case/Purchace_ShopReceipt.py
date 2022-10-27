@@ -33,7 +33,7 @@ class TestPurchaseReceipt:
         users.receipt_search_goods('查询')
         users.receipt_add_goods()
         users.receipt_click_submit('提交')
-        sleep(0.5)
+        sleep(1)
         test = users.element_text(user['新增自采收货'])
         ValueAssert.value_assert_equal(test, '提交成功')
 
@@ -48,7 +48,7 @@ class TestQueryReceipt:
         users = QueryReceipt(drivers)
         users.input_receiptnum("PI221026000001")
         users.click_query()
-        sleep(0.5)
+        sleep(1)
         # 断言-查询的收货单与输入的一致
         test = users.element_text(user['查询收货单号'])
         ValueAssert.value_assert_equal(test,"PI221026000001")
