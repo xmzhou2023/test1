@@ -82,6 +82,7 @@ class MainDataCategory(Base):
             self.is_click(category['关闭弹窗'])  # 必填项未维护，关闭新增窗口
             logging.info("存在必填项未维护，关闭新增窗口")
         elif type == "反例 重复新增":
+            sleep(1)
             txt = self.element_text(category['断言 保存提示信息'])
             result = re.findall('"message": "(.*?)" }', txt)[0]
             assert result == "编辑或新增失败，当前类目已存在！",logging.warning("断言失败，提示信息与预期不符")
@@ -145,34 +146,29 @@ class MainDataCategory(Base):
     def window_status(self,status):
         txt = self.element_text(category['获取 失效/启用 窗口文本'])
         if status == "失效":
-            assert txt == "你确定要禁用该类目吗?", logging.warning("断言失败，打开窗口失败")
+            assert txt == "你确定要启用该类目吗?", logging.warning("断言失败，打开窗口失败")
             logging.info("断言成功，打开状态修改窗口")
         else:
-            assert txt == "你确定要启用该类目吗?", logging.warning("断言失败，打开窗口失败")
+            assert txt == "你确定要禁用该类目吗?", logging.warning("断言失败，打开窗口失败")
             logging.info("断言成功，打开状态修改窗口")
         self.is_click(category['状态窗口 确定按钮'])
         sleep(1)
 
-    @allure.step("操作类目状态按钮")
-    def button_status(self, name_zh):
-        txt = self.element_text(category['列表数据断言'], 1, 3)
-        if txt != name_zh:
-            self.is_click(category['展开/收起 某行一级类目'], str(1))
-            logging.info("展开二级类目")
-        num = self.get_rowNum(name_zh)
-        self.is_click(category['某行 编辑按钮'],str(num))
-        txt1 = self.element_text(category['列表数据断言'],str(num),5)
-        self.is_click(category['某行 失效/启用按钮'], str(num))
-        if txt1 == "失效":
-            self.window_status("启用")
-            result = self.element_text(category['列表数据断言'], str(num), 5)
-            assert result == "启用",logging.warning("断言失败，状态为 失效")
-            logging.info("断言成功，操作类目启用成功")
-        else:
-            self.window_status("失效")
-            result = self.element_text(category['列表数据断言'], str(num), 5)
-            assert result == "失效",logging.warning("断言失败，状态为 启用")
-            logging.info("断言成功，操作类目失效成功")
+    @allure.step("点击失效/启用按钮")
+    def button_status(self,name_zh):
+        rowNum = self.get_rowNum(name_zh)
+        Npath = category['某行 失效/启用按钮'][1]
+        Npath1 = Npath.replace('variable', str(rowNum))
+        status = self.element_text(category['列表数据断言'],str(rowNum),str(5))
+        self.force_click(Npath1, xpath_js=True)
+        sleep(1)
+        self.window_status(status)
+
+    @allure.step("返回修改后的状态，用做断言")
+    def return_status(self, name_zh):
+        rowNum = self.get_rowNum(name_zh)
+        status = self.element_text(category['列表数据断言'],str(rowNum),str(5))
+        return status
 
     @allure.step("查询数据库 用做断言")
     def get_sqlResult(self, sql):

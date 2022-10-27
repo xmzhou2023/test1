@@ -168,5 +168,38 @@ class TestEditCategory:
         category.clear_testData("测试01")
 
 
+@allure.feature("主数据-类目管理")
+class TestChangeStatus:
+    @allure.story("启用/禁用 功能验证")
+    @allure.title("启用状态的类目，点击失效按钮，禁用成功")
+    @allure.description("启用状态的类目，点击失效按钮，禁用成功")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_004_001(self, drivers):
+        category = MainDataCategory(drivers)
+        category.creat_testData(drivers,"",'测试01','test01')
+        category.input_categoryName("测试01")
+        category.button_status("测试01")
+        status = category.return_status("测试01")
+        ValueAssert.value_assert_equal(status,"失效")
+        category.clear_testData("测试01")
+
+    @allure.story("启用/禁用 功能验证")
+    @allure.title("禁用状态的类目，点击启用按钮，启用成功")
+    @allure.description("禁用状态的类目，点击启用按钮，启用成功")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_004_002(self, drivers):
+        category = MainDataCategory(drivers)
+        category.creat_testData(drivers,"",'测试01','test01')
+        category.input_categoryName("测试01")
+        category.button_status("测试01")
+        """前置条件 造出状态为失效的测试数据"""
+        category.button_status("测试01")
+        status = category.return_status("测试01")
+        ValueAssert.value_assert_equal(status,"启用")
+        category.clear_testData("测试01")
+
+
 if __name__ == '__main__':
     pytest.main(['project/MIP/testcase/MainDataCategory.py'])
