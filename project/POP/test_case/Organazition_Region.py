@@ -22,8 +22,8 @@ users = Element(pro_name, object_name)
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
     logging.info("前置条件：进入’组织-区域‘页面")
-    userss = NavPage(drivers)
-    userss.click_gotonav("组织", "区域")
+    users = NavPage(drivers)
+    users.click_gotonav("组织", "区域")
 
 @allure.feature("组织")    #模块名
 class TestExportRegion:
