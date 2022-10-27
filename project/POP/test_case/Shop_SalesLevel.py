@@ -53,12 +53,13 @@ class TestAddSalesLevel:
         users.switch_level("S")
         users.input_salesdata(10000, 20000)
         users.click_preservation()
-        users.delete_data()
         sleep(1)
+        users.delete_data()
+        sleep(0.5)
         # 断言--删除提示
         test = users.element_text(user['删除提示'])
         ValueAssert.value_assert_equal(test,"操作成功")
 
 
 if __name__ == '__main__':
-    pytest.main(['Shop_SalesLevel.py::TestAddSalesLevel::test_001_002'])
+    pytest.main(['Shop_SalesLevel.py'])
