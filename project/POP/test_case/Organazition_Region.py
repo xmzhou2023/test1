@@ -17,15 +17,17 @@ session 每个session只运行一次，在自动化测试时，登录步骤可�
 """
 
 object_name = os.path.basename(__file__).split('.')[0]
-users = Element(pro_name, object_name)
+user = Element(pro_name, object_name)
 
-@pytest.fixture(scope='module', autouse=True)
+
+@pytest.fixture(scope='function', autouse=True)
 def setup_module(drivers):
     logging.info("前置条件：进入’组织-区域‘页面")
-    users = NavPage(drivers)
-    users.click_gotonav("组织", "区域")
+    nav = NavPage(drivers)
+    nav.click_gotonav("组织", "区域")
 
-@allure.feature("组织")    #模块名
+
+@allure.feature("组织")  # 模块名
 class TestExportRegion:
     @allure.story("区域")
     @allure.title("Region")
@@ -33,14 +35,13 @@ class TestExportRegion:
     @allure.severity("normol")
     @pytest.mark.smoke
     def test_001_001(self, drivers):
-        user = Region(drivers)
-        user.click_dropdown('国家', 'China')
-        user.click_search('查询')
+        users = Region(drivers)
+        users.click_dropdown('国家', 'China')
+        users.click_search('查询')
         sleep()
-        user.click_button('导出')
-        test = user.element_text(users['断言'])
+        users.click_button('导出')
+        test = users.element_text(user['断言'])
         ValueAssert.value_assert_equal(test, '创建导出任务成功！')
-
 
 
 if __name__ == '__main__':
