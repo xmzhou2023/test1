@@ -32,7 +32,7 @@ class TestExportRegion:
     @allure.story("区域")
     @allure.title("Region")
     @allure.description("根据筛选条件导出区域列表")
-    @allure.severity("normol")
+    @allure.severity("normal")
     @pytest.mark.smoke
     def test_001_001(self, drivers):
         users = Region(drivers)
