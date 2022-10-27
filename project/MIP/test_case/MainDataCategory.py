@@ -101,7 +101,8 @@ class TestAddCategory:
         category = MainDataCategory(drivers)
         category.button_add()
         category.maintain_category(superiorCategory,name_zh,name_en,'反例 重复新增')
-
+        category.button_reset()
+        sleep(2)
 
 @allure.feature("主数据-类目管理")
 class TestEditCategory:
