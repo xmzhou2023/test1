@@ -13,6 +13,7 @@ class Region(Base):
         self.is_click(user['菜单按钮'], variable)
         sleep(2)
 
+
     @allure.step('新增搜索框输入区域')
     def input_region(self, region):
         self.is_click_tbm(user['新增搜索框'])
