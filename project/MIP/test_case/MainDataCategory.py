@@ -103,5 +103,70 @@ class TestAddCategory:
         category.maintain_category(superiorCategory,name_zh,name_en,'反例 重复新增')
 
 
+@allure.feature("主数据-类目管理")
+class TestEditCategory:
+    @allure.story("编辑功能验证")
+    @allure.title("编辑一级类目，编辑保存成功")
+    @allure.description("编辑一级类目，编辑保存成功")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_003_001(self, drivers):
+        category = MainDataCategory(drivers)
+        category.creat_testData(drivers,"",'测试01','test01')
+        category.input_categoryName("测试01")
+        category.button_edit("测试01")
+        category.edit_categoryInf("测试02","test02")
+        listValue = category.input_categoryName("测试02")
+        sqlResult = category.get_sqlResult("select category_name from bb_category where category_name = '测试02'")
+        ValueAssert.value_assert_equal(sqlResult,listValue)
+        category.button_reset()
+        category.clear_testData("测试02")
+
+    @allure.story("编辑功能验证")
+    @allure.title("编辑二级类目，编辑保存成功")
+    @allure.description("编辑二级类目，编辑保存成功")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_003_002(self, drivers):
+        category = MainDataCategory(drivers)
+        category.creat_testData(drivers,"牛",'测试01','test01')
+        category.input_categoryName("测试01")
+        category.button_edit("测试01")
+        category.edit_categoryInf("测试02","test02")
+        listValue = category.input_categoryName("测试02")
+        sqlResult = category.get_sqlResult("select category_name from bb_category where category_name = '测试02'")
+        ValueAssert.value_assert_equal(sqlResult,listValue)
+        category.button_reset()
+        category.clear_testData("测试02")
+
+    @allure.story("编辑功能验证")
+    @allure.title("[异常]编辑类目信息，清空必填项，编辑保存失败")
+    @allure.description("编辑类目信息，清空必填项，编辑保存失败")
+    @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.parametrize("name_zh,name_en",[(None,"test02"),("测试02",None),(None,None)])
+    @pytest.mark.smoke
+    def test_003_003(self, drivers,name_zh,name_en):
+        category = MainDataCategory(drivers)
+        category.creat_testData(drivers,"",'测试01','test01')
+        category.input_categoryName("测试01")
+        category.button_edit("测试01")
+        category.edit_categoryInf(name_zh,name_en,type="反例 必填校验")
+        category.clear_testData("测试01")
+
+    @allure.story("编辑功能验证")
+    @allure.title("[异常]编辑类目信息，与原类目信息重复，编辑保存失败")
+    @allure.description("编辑类目信息，与原类目信息重复，编辑保存失败")
+    @allure.severity("trivial")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.parametrize("name_zh,name_en",[("测试01","test01"),("赠品","food"),("牛","No.3-1"),("传音手机","Phone")])
+    @pytest.mark.smoke
+    def test_003_004(self, drivers,name_zh,name_en):
+        category = MainDataCategory(drivers)
+        category.creat_testData(drivers,"",'测试01','test01')
+        category.input_categoryName("测试01")
+        category.button_edit("测试01")
+        category.edit_categoryInf(name_zh,name_en,type="反例 重复")
+        category.clear_testData("测试01")
+
+
 if __name__ == '__main__':
     pytest.main(['project/MIP/testcase/MainDataCategory.py'])
