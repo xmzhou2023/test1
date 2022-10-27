@@ -19,11 +19,13 @@ session 每个session只运行一次，在自动化测试时，登录步骤可�
 object_name = os.path.basename(__file__).split('.')[0]
 users = Element(pro_name, object_name)
 
+
 @pytest.fixture(scope='module', autouse=True)
 def setup_module(drivers):
     logging.info("前置条件：进入’组织-区域‘页面")
-    users = NavPage(drivers)
-    users.click_gotonav("组织", "区域")
+    user = NavPage(drivers)
+    user.click_gotonav("组织", "区域")
+
 
 @allure.feature("组织")    #模块名
 class TestExportRegion:
