@@ -15,11 +15,11 @@ def setup_module(drivers):
     dom.assert_url("/main-data/category")
     yield
     logging.info("后置条件:返回 首页 页面")
-    menu.back_homepage()
+    menu.back_homepage("主数据")
     dom.assert_url("/dashboard")
 
 
-@allure.feature("类目管理")
+@allure.feature("主数据-类目管理")
 class TestQueryCategory:
     @allure.story("查询功能验证")
     @allure.title("输入一级类目名称-易耗品，查询结果正确")
@@ -46,7 +46,7 @@ class TestQueryCategory:
         category.button_reset()
 
 
-@allure.feature("类目管理")
+@allure.feature("主数据-类目管理")
 class TestAddCategory:
     @allure.story("新增功能验证")
     @allure.title("新增一级类目，新增成功")

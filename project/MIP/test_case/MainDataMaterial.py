@@ -15,11 +15,11 @@ def setup_module(drivers):
     dom.assert_url("/main-data/material")
     yield
     logging.info("后置条件:返回 首页 页面")
-    menu.back_homepage()
+    menu.back_homepage("主数据")  # 收起菜单报错！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！
     dom.assert_url("/dashboard")
 
 
-@allure.feature("物料主数据")
+@allure.feature("主数据-物料主数据")
 class TestQueryItemData:
     @allure.story("查询功能验证")
     @allure.title("输入物料编码范围，查询物料主数据结果正确")
@@ -256,7 +256,7 @@ class TestQueryItemData:
         dom.assert_url("/main-data/matDetail")
         data.return_itemPage()
 
-@allure.feature("物料主数据")
+@allure.feature("主数据-物料主数据")
 class TestEditItemData:
     @allure.story("编辑功能验证")
     @allure.title("点击指定行编辑按钮，跳转至对应商品明细页")
@@ -289,7 +289,7 @@ class TestEditItemData:
         data.close_newWindow()
 
 
-@allure.feature("物料主数据")
+@allure.feature("主数据-物料主数据")
 class TestPutawayItemData:
     @allure.story("上/下架功能验证")
     @allure.title("勾选指定主数据，点击上架/下架按钮，更新上/下架状态")
