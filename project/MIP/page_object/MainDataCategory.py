@@ -39,6 +39,7 @@ class MainDataCategory(Base):
     def button_reset(self):
         self.is_click(category['重置 按钮'])
         logging.info("点击重置按钮")
+        self.refresh()
         sleep(1)
 
     @allure.step("点击新增按钮")
