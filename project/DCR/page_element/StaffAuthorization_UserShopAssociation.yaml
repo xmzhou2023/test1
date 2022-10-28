@@ -26,4 +26,4 @@ Export Record Search: "css==[class='el-button btn-blue el-button--primary el-but
 获取创建日期文本: "xpath==//tbody//tr[1]//td[10]//div"
 获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
 获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
-获取操作按钮文本: "xpath==//button[@id='exportrecord_Download']"
+获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@id='exportrecord_Download']/span/span"

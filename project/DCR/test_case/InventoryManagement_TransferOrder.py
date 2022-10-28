@@ -235,12 +235,14 @@ class TestRecallTransferOrder:
         recall = TransferOrderPage(drivers)
         """筛选Transfer Order页面，Received已经收货状态数据"""
         recall.click_unfold()
+        recall.input_create_start_date("2022-09-01")
         recall.click_receipt_status_query('Received')
         recall.click_search()
         recall.click_first_checkbox()
         """对已收货Received状态的数据，进行Recall撤回操作"""
         recall.click_more_option_recall()
         DomAssert(drivers).assert_att('Only No Receive or Audited can confirm receipt')
+
 
 if __name__ == '__main__':
     pytest.main(['InventoryManagement_TransferOrder.py'])

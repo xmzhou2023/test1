@@ -7,8 +7,8 @@ from public.base.assert_ui import *
 @pytest.fixture(scope='function', autouse=True)
 def setup_class(drivers):
     logging.info("模块前置条件：前往“POP销售-销售订单”页面")
-    user = NavPage(drivers)
-    user.click_gotonav("销售","销售订单")
+    nav = NavPage(drivers)
+    nav.click_gotonav("销售","销售订单")
 
 @allure.feature("销售") # 模块名称
 class TestSaleBilling:
@@ -18,19 +18,19 @@ class TestSaleBilling:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-        user = SalesBilling(drivers)
-        user.click_billing()
-        user.switch_shop('Supper Big Shop','PPK00100')
-        user.switch_promoter('Wenqiang Zhang','PEEC000010')
-        user.input_phone('15001600123')
-        user.input_goodscode('11234')
-        user.input_price('8888.88')
-        user.input_money('666.66','777.77','888.88')
-        user.input_remarks('有钱任性','这是一个大款')
-        user.click_Collection()
-        sleep(0.5)
+        users = SalesBilling(drivers)
+        users.click_billing()
+        users.switch_shop('Supper Big Shop','PPK00100')
+        users.switch_promoter('Wenqiang Zhang','PEEC000010')
+        users.input_phone('15001600123')
+        users.input_goodscode('11234')
+        users.input_price('8888.88')
+        users.input_money('666.66','777.77','888.88')
+        users.input_remarks('有钱任性','这是一个大款')
+        users.click_Collection()
         # 断言--开单成功跳转销售订单列表断言页面是否存在销售订单编号字段
-        DomAssert(drivers).assert_exact_att('销售订单编号')
+        test = users.element_text(user['开单成功提示'])
+        ValueAssert.value_assert_equal(test,'SUCCESS')
 
 if __name__ == '__main__':
     pytest.main(['Sales_SalesOrder.py'])

@@ -120,6 +120,12 @@ class TransferOrderPage(Base):
         self.is_click(user['Unfold'])
         sleep(1.5)
 
+    @allure.step("按Create Date字段筛选，Received 状态的数据")
+    def input_create_start_date(self, create_date):
+        self.is_click(user['Create Start Date'])
+        self.input_text(user['Create Start Date'], create_date)
+
+
     @allure.step("输入Transfer ID筛选项条件，进行筛选")
     def input_transfer_id_query(self, context):
         self.input_text(user['点击调拨单筛选项'], context)

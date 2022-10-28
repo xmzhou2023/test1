@@ -14,3 +14,4 @@
 客户备注输入框: "xpath==//div[@class='tr-form-row el-row']//div[1]//div[1]//div[1]//div[1]//div[1]//div[1]//textarea[1]"
 销售备注输入框: "xpath==//div[@class='el-card__body']//div[2]//div[1]//div[1]//div[1]//div[1]//div[1]//textarea[1]"
 完成收款按钮: "xpath==//button[@type='primary']"
+开单成功提示: "class==el-message__content"
