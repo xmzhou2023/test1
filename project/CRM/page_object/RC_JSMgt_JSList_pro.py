@@ -313,6 +313,14 @@ class JSPage(Base):
         self.is_click(user['Created_Date_Input'], choice="Start Date")
         self.hover(user['Created_Date_Clear'], choice="Start Date")
         self.is_click(user['Created_Date_Clear'], choice="Start Date")  # 清空时间查询条件
+        self.input_text(user['Created_Date_Input'], choice="Start Date", txt='2022-09-01')
+        sleep(1)
+        self.is_click(user['Created_Date_Input'], choice="End Date")
+        self.hover(user['Created_Date_Clear'], choice="End Date")
+        self.is_click(user['Created_Date_Clear'], choice="End Date")  # 清空时间查询条件
+        self.input_text(user['Created_Date_Input'], choice="End Date", txt='2022-09-30')
+        sleep(1)
+
         self.is_click(user['Hide_Return'])  # 取消隐藏100状态的
         self.is_click(user['Scope_Select'], choice="scopeType")
         self.is_click(user['Scope_Select_Data'], choice="All")  # 设置范围为所有

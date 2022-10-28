@@ -2,6 +2,8 @@ Search按钮: "xpath==//section[@class='app-main']//button/span[contains(text(),
 入库单总数: "xpath==//div[@class='formPage']//span[@class='el-pagination__total']"
 入库单开始日期搜索框: "xpath==//div[@class='el-col el-col-12'][6]//input[contains(@placeholder,'Start')]"
 清除时间搜索框: "xpath==//div[@class='el-col el-col-12'][6]//span[contains(@class,'suffix-inner')]/i[contains(@class,'circle-close')]"
+入库单结束日期搜索框: "xpath==//div[@class='el-col el-col-12'][6]//input[contains(@placeholder,'End')]"
+清除结束日期搜索框: "xpath==//div[@class='el-col el-col-12'][6]//div[contains(@class,'editor')][2]/span[2]/span"
 表格中的Seq字段: "xpath==//tr[@class][1]/th[1]//div[normalize-space(text())='Seq']"
 入库单type字段输入框: "xpath==//div[@class='el-col el-col-12'][4]//input"
 入库单type字段下拉选择框: "xpath==//body/div[contains(@class,'el-select-dropdown el-popper')]//li[normalize-space(text())='variable']"
