@@ -83,7 +83,7 @@ class TestExportEmployee:
     @allure.description("点击导出，导出职员管理列表")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+    def test_003_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         users = ExportEmployee(drivers)
         users.click_export()
         sleep(0.5)
@@ -92,4 +92,4 @@ class TestExportEmployee:
         ValueAssert.value_assert_equal(test,'创建导出任务成功！')
 
 if __name__ == '__main__':
-    pytest.main(['Organization_EmployeeManagement.py'])
+    pytest.main(['Organization_EmployeeManagement.py::TestAddUser::test_002_001'])
