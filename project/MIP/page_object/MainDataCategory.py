@@ -122,6 +122,7 @@ class MainDataCategory(Base):
             self.input_text(category['类目名称(中文)文本框'], name_zh)
             self.input_text(category['类目名称(英文)文本框'], name_en)
             self.is_click(category['保存按钮'])
+            sleep(1)
             txt = self.element_text(category['断言 保存提示信息'])
             if type == "反例 重复":
                 result = re.findall('"message": "(.*?)" }', txt)[0]
