@@ -33,7 +33,7 @@ class TestWOSerializedAssignToWO:
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.parametrize("status", ["Created", "Repair Completed", "Non Repairable", "Damage"])
-    def test_001_005(self, drivers, status):  # 用例名称取名规范'test+场景编号+用例编号'
+    def test_001_001(self, drivers, status):  # 用例名称取名规范'test+场景编号+用例编号'
         num = NavPage(drivers)
         num.click_gotonav("WO Serialized List")
         num = WOSerializedAssignSpareToWO(drivers)
@@ -44,6 +44,25 @@ class TestWOSerializedAssignToWO:
         num.woassigntowo(workorder=word,  status=status)
         num = DomAssert(drivers)
         num.assert_att("not allowed in the current status of Serialize workorder")
+
+    @allure.story("成功进入派料新增页")  # 场景名称
+    @allure.title("从工单列表页复制20状态的工单，进行派料时可正常跳转")  # 用例名称
+    @allure.description("从工单列表页复制一个20状态的工单，点击add或者直接从操作区输入工单号，确认可跳转到派料页")
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.parametrize("status", ["Created", "Repair Completed", "Non Repairable", "Damage"])
+    def test_001_002(self, drivers, status):  # 用例名称取名规范'test+场景编号+用例编号'
+        num = NavPage(drivers)
+        num.click_gotonav("WO Serialized List")
+        num = WOSerializedAssignSpareToWO(drivers)
+        word = num.getworkorderno(row=1, column=3, status="Assigned To Technician")
+        num = NavPage(drivers)
+        num.click_gotonav("Assign Spare To WO")
+        num = WOSerializedAssignSpareToWO(drivers)
+        num.woassigntowo(workorder=word)
+        # num.woassigntowo(workorder=word, status="Assigned To Technician")
+        num = DomAssert(drivers)
+        num.assert_att("Spare Parts")
 
 
 
