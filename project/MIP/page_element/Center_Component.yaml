@@ -37,3 +37,4 @@ MRP计算报表: "xpath==//div[@class='el-submenu__title']//span[contains(text()
 
 切换语言按钮: "xpath==//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]"
 返回首页: "xpath==//a[contains(text(),'首页')]"
+收起二级菜单: "xpath==//li[contains(@class,'open')]//i[@class='el-submenu__icon-arrow el-icon-arrow-down']"

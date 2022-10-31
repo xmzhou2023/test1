@@ -15,8 +15,8 @@
 弹出窗 清空文本框: "xpath==//i[@class='el-select__caret el-input__icon el-icon-circle-close']"
 
 弹出窗 关闭按钮: "xpath==//div[@aria-label='variable']//i[@class='el-dialog__close el-icon el-icon-close']"
-弹出窗 保存按钮: "xpath==//div[@aria-label='新增']//div[@class='el-dialog__footer']//button[1]"
-弹出窗 取消按钮: "xpath==//div[@aria-label='新增']//div[@class='el-dialog__footer']//button[2]"
+弹出窗 取消按钮: "xpath==//div[@aria-label='新增']//div[@class='el-dialog__footer']//button[1]"
+弹出窗 保存按钮: "xpath==//div[@aria-label='新增']//div[@class='el-dialog__footer']//button[2]"
 
 列表文本断言: "xpath==//div[@class='el-table__fixed-body-wrapper']//tr[variable]//td[variable]/div/div"
 获取行号: "xpath==//div[@class='el-table__fixed-body-wrapper']//tr[variable]//td[variable]/div/div"
