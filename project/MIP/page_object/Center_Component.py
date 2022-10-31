@@ -24,11 +24,11 @@ class NavPage(Base):
         sleep(2)
 
     @allure.step("返回首页")
-    def back_homepage(self, *content):
+    def back_homepage(self):
         get_url = self.driver.current_url
         if "/dashboard" not in get_url:
             self.is_click(user['返回首页'])
-            self.click_gotonav(*content)  # 收起二级菜单
+            self.is_click(user['收起二级菜单'])
             logging.info("返回首页 完成")
         else:
             pass

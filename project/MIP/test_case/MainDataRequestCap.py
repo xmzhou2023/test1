@@ -15,7 +15,7 @@ def setup_module(drivers):
     dom.assert_url("/main-data/requestCap")
     yield
     logging.info("后置条件:返回 首页 页面")
-    menu.back_homepage("主数据")
+    menu.back_homepage()
     dom.assert_url("/dashboard")
 
 
@@ -48,12 +48,12 @@ class TestAddRequestCap:
     def test_002_001(self, drivers):
         requestCap = MainDataRequestCap(drivers)
         requestCap.button_newly()
-
+        requestCap.edit_info("41500100034", "200")
         requestCap.input_itemCode("41500100034")
-        requestCap.choice_brand("TECNO")
-        requestCap.choice_status("删除")
+        requestCap.choice_status("启用")
         requestCap.button_query()
         listNum = requestCap.get_listNum()
-        sqlNum = requestCap.get_sqlResult("select count(mat_code) from mm_req_list_limit where mat_code = '41500100034';")
+        sqlNum = requestCap.get_sqlResult("select count(mat_code) from mm_req_list_limit where mat_code = '41500100034' and enable_flag ='1';")
         ValueAssert.value_assert_equal(listNum, sqlNum)
         requestCap.button_reset()
+        requestCap.clear_testData("41500100034")
