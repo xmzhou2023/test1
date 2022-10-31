@@ -1,5 +1,0 @@
-类别名称 文本框: "xpath==//label[contains(text(),'类别名称')]//following-sibling::div//input"
-查询按钮: "xpath==//form//button//span[contains(text(),'查询')]"
-新增按钮: "xpath==//form//button//span[contains(text(),'新增')]"
-修改按钮: "xpath==//form//button//span[contains(text(),'修改')]"
-删除按钮: "xpath==//form//button//span[contains(text(),'删除')]"
