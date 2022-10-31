@@ -381,6 +381,51 @@ class TestCreateProcessExceptionScenario:
         user.click_add_submit()
         user.assert_toast('抄送人不能为空')
 
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("第2行与第1行产品重复！")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，所有内容都正确填写，将已经填写好的产品定义信息再复制一行，直接提交，会给出提示“第2行与第1行产品重复！”")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_003_006(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '项目名称测试复制')
+        user.click_add()
+        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('市场名称', '市场名称测试复制')
+        user.input_product_definition_info('项目名称', '项目名称测试复制')
+        user.input_product_definition_info('MEMORY', '128+8')
+        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('项目经理', '李小素')
+        user.input_product_definition_info('摄像头', '摄像头')
+        user.input_product_definition_info('型号', '型号')
+        user.input_product_definition_info('新增', '新增')
+        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
+        user.input_product_definition_info('尺寸', '64M')
+        user.click_product_definition_confirm()
+        user.click_product_definition_copy()
+        user.select_signatory('汇签人员', '李小素')
+        user.click_add_submit()
+        user.assert_toast('第2行与第1行产品重复！')
+
+    @allure.story("创建流程异常场景")  # 场景名称
+    @allure.title("产品定义信息不能为空")  # 用例名称
+    @allure.description("进入出货国家流程，点击新增，新增后产品定义信息不进行新增，直接点击提交，会给出提示“产品定义信息不能为空”")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_003_006(self, drivers):
+        user = ShippingCountryFlow(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_add_item_info('品牌', 'Infinix')
+        user.input_add_item_info('项目', '项目名称测试复制')
+        user.select_signatory('汇签人员', '李小素')
+        user.click_add_submit()
+        user.assert_toast('产品定义信息不能为空')
+
 
 if __name__ == '__main__':
     pytest.main(['ShippingCountry_ShippingCountryFlow.py'])

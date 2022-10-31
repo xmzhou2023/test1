@@ -498,6 +498,13 @@ class ForeignBom(CenterComponent):
         self.upload_file_tbm(user['生产工厂信息-选择文件'], name)
         DomAssert(self.driver).assert_control(user['应用成功状态'])
 
-
+    @allure.step("业务审核审批页面-流程组合")
+    def business_approve_flow(self, code):
+        self.assert_my_todo_node(code, '业务审核', True)
+        self.enter_oneworks_edit(code)
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
 if __name__ == '__main__':
     pass
