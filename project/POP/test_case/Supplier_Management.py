@@ -38,7 +38,7 @@ class TestQuerySupplier:
         users = SupplierManagement(drivers)
         users.switch_sellertype("国包")
         users.click_query()
-        sleep(0.5)
+        sleep(1)
         # 断言--查询的卖家类型与输入的一致
         test = users.element_text(user['查询的卖家类型'])
         ValueAssert.value_assert_equal(test,"国包")
@@ -52,7 +52,7 @@ class TestQuerySupplier:
         users = SupplierManagement(drivers)
         users.switch_sellercountry("Bangladesh")
         users.click_query()
-        sleep(0.5)
+        sleep(1)
         # 断言--查询的卖家类型与输入的一致
         test = users.element_text(user['查询的卖家所属国家'])
         ValueAssert.value_assert_equal(test, "Bangladesh")
@@ -66,7 +66,7 @@ class TestQuerySupplier:
         users = SupplierManagement(drivers)
         users.switch_shop("Wanzhou Popcorn")
         users.click_query()
-        sleep(0.5)
+        sleep(1)
         # 断言--查询的卖家类型与输入的一致
         test = users.element_text(user['查询的门店'])
         ValueAssert.value_assert_equal(test, "Wanzhou Popcorn")
