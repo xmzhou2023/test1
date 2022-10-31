@@ -19,10 +19,10 @@ def setup_class(drivers):
     nav.click_gotonav("库存","仓库查询")
 
 
-@allure.feature("库存")  # 模块名称
+@allure.feature("库存-库存查询")  # 模块名称
 class TestInventoryQuery:
-    @allure.story("门店列表")  # 场景名称
-    @allure.title("门店列表查看")  # 用例名称
+    @allure.story("库存查询")  # 场景名称
+    @allure.title("门店库存查询")  # 用例名称
     @allure.description("点击查询按钮，正常查看门店列表库存信息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记

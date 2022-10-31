@@ -18,7 +18,7 @@ def setup_module(drivers):
     nav.click_gotonav("采购", "门店收货单")
 
 
-@allure.feature("采购") # 模块名称
+@allure.feature("采购-门店收货单") # 模块名称
 class TestPurchaseReceipt:
     @allure.story("门店收货单") # 场景名称
     @allure.title("ShopReceipt")  # 用例名称
@@ -37,7 +37,7 @@ class TestPurchaseReceipt:
         test = users.element_text(user['新增自采收货'])
         ValueAssert.value_assert_equal(test, '提交成功')
 
-@allure.feature("采购") # 模块名称
+@allure.feature("采购-门店收货单") # 模块名称
 class TestQueryReceipt:
     @allure.story("门店收货单")  # 场景名称
     @allure.title("ShopReceipt")  # 用例名称

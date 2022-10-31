@@ -13,7 +13,7 @@ def setup_class(drivers):
     nav = NavPage(drivers)
     nav.click_gotonav("组织","供应商管理")
 
-@allure.feature("组织") # 模块名称
+@allure.feature("组织-供应商管理") # 模块名称
 class TestQuerySupplier:
     @allure.story("供应商管理") # 场景名称
     @allure.title("查询卖家")  # 用例名称
@@ -118,7 +118,7 @@ class TestQuerySupplier:
 
 
 
-@allure.feature("组织") # 模块名称
+@allure.feature("组织-供应商管理") # 模块名称
 class TestExportSupplier:
     @allure.story("供应商管理") # 场景名称
     @allure.title("导出供应商管理")  # 用例名称

@@ -14,7 +14,7 @@ def setup_class(drivers):
     nav.click_gotonav("库存","仓库信息")
 
 
-@allure.feature("库存") # 模块名称
+@allure.feature("库存-仓库信息") # 模块名称
 class TestAddWarehouse:
     @allure.story("仓库信息") # 场景名称
     @allure.title("仓库新增")  # 用例名称

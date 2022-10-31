@@ -28,7 +28,7 @@ def setup_class(drivers):
     nav.click_gotonav("门店","门店列表")
 
 
-@allure.feature("门店") # 模块名称
+@allure.feature("门店-门店列表") # 模块名称
 class TestQuery_shop:
     @allure.story("门店列表") # 场景名称
     @allure.title("门店列表查看")  # 用例名称
@@ -44,7 +44,7 @@ class TestQuery_shop:
         test = users.element_text(user['门店名称'])
         ValueAssert.value_assert_equal(test,'仙桃体专店')
 
-@allure.feature("门店")
+@allure.feature("门店-门店列表")
 @pytest.mark.parametrize("shopname,organization,country,province,city,address,city_level,region,linkman,phone,"
                          "shop_level,image_level,sales_volume_level,ownership,shop_square_measure,shop_storey_height,userinformation,monthlysales,expect",data)  # 通过parametrize装饰器传入数据
 class TestAddShop:

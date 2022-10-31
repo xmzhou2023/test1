@@ -10,7 +10,7 @@ def setup_class(drivers):
     user = NavPage(drivers)
     user.click_gotonav("商品","商品参数")
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-商品参数") # 模块名称
 class TestAddGoodParam:
     @allure.story("商品参数") # 场景名称
     @allure.title("商品参数新增")  # 用例名称
@@ -33,7 +33,7 @@ class TestAddGoodParam:
         sql = f"SELECT count(*) FROM `pop_data_db`.`goods_parameter_config` WHERE parameter_name='{content}';"
         SQLAssert('POP', 'test').assert_sql_count(1, sql)
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-商品参数") # 模块名称
 class TestQueryDetail:
     @allure.story("商品参数") # 场景名称
     @allure.title("商品参数详情查看")  # 用例名称
@@ -49,7 +49,7 @@ class TestQueryDetail:
         ValueAssert.value_assert_equal(test,'参数详情')
         users.refresh()
         sleep(3)
-@allure.feature("商品")
+@allure.feature("商品-商品参数")
 class TestExportGoodParam:
     @allure.story("商品参数")
     @allure.title("商品参数导出")

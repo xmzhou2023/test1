@@ -10,7 +10,7 @@ def setup_class(drivers):
     nav = NavPage(drivers)
     nav.click_gotonav("销售","销售订单")
 
-@allure.feature("销售") # 模块名称
+@allure.feature("销售-销售订单") # 模块名称
 class TestSaleBilling:
     @allure.story("销售订单") # 场景名称
     @allure.title("商品销售开单")  # 用例名称

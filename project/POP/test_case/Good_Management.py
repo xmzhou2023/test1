@@ -14,7 +14,7 @@ def setup_class(drivers):
     user = NavPage(drivers)
     user.click_gotonav("商品","商品管理")
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-商品参数") # 模块名称
 class TestAddGood:
     @allure.story("商品管理") # 场景名称
     @allure.title("商品新增")  # 用例名称
@@ -36,7 +36,7 @@ class TestAddGood:
         # 断言--新增后页面返回商品管理页面判定页面是否存在商品管理字段
         DomAssert(drivers).assert_exact_att('商品管理')
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-商品参数") # 模块名称
 class TestExportGood:
     @allure.story("商品管理") # 场景名称
     @allure.title("商品管理导出")  # 用例名称
