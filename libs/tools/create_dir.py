@@ -81,7 +81,7 @@ if __name__ == '__main__':
     generate_module("element")
     generate_module("object")
     generate_module("testcase")
-    # generate_env()
+    generate_env()
 
 
 
