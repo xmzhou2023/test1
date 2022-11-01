@@ -20,7 +20,7 @@ class PCBABomCooperation(CenterComponent):
         self.click_menu("BOM协作", "PCBA BOM协作")
 
     @allure.step("BOM协作新增页面，输入BOM信息")
-    def input_add_bom_info(self, info, select):
+    def input_bom_info(self, info, select):
         """
         PCBA BOM协作新增页面 - 输入BOM信息
         :param info: 选择要输入的信息
@@ -48,10 +48,10 @@ class PCBABomCooperation(CenterComponent):
     @allure.step("PCBA BOM协作新增页面 - 输入BOM信息 组合方法")
     def add_bom_info(self):
         self.click_add()
-        self.input_add_bom_info('制作类型', 'PCBA BOM制作')
-        self.input_add_bom_info('品牌', 'Infinix')
-        self.input_add_bom_info('机型', 'JMB-01')
-        self.input_add_bom_info('阶段', '试产阶段')
+        self.input_bom_info('制作类型', 'PCBA BOM制作')
+        self.input_bom_info('品牌', 'Infinix')
+        self.input_bom_info('机型', 'JMB-01')
+        self.input_bom_info('阶段', '试产阶段')
 
     @allure.step("点击提交")
     def click_add_submit(self):
@@ -384,5 +384,135 @@ class PCBABomCooperation(CenterComponent):
         self.upload_file(user['Oneworks附件上传'], Accessory_path)
         logging.info('上传附件')
 
+    @allure.step("点击衍生BOM制作需求-新增")
+    def click_Derived_add(self):
+        self.is_click_tbm(user['衍生BOM制作需求-新增'])
+        logging.info('点击衍生BOM制作需求-新增')
+        sleep(0.5)
+
+    @allure.step("输入衍生BOM制作需求信息")
+    def input_Derived_info(self, header, info, serial=1):
+        select_list = ['操作']
+        input_list = ['数量', '替代组', '份额', '位号']
+        if serial == 1:
+            if header in select_list:
+                column = self.get_table_info(user['衍生BOM制作需求-操作'])
+                self.is_click_tbm(user['衍生BOM制作需求-输入框'], column)
+                self.is_click_tbm(user['衍生BOM制作需求-操作选择'], info)
+            elif header in input_list:
+                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+                self.input_text(user['衍生BOM制作需求-输入框'], info, column)
+            else:
+                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+                self.is_click_tbm(user['衍生BOM制作需求-输入框'], column)
+                self.input_text(user['衍生BOM制作需求-输入框'], info, column)
+                self.is_click_tbm(user['衍生BOM制作需求-选择'], info)
+        else:
+            if header in select_list:
+                column = self.get_table_info(user['衍生BOM制作需求-操作'])
+                self.is_click_tbm(user['衍生BOM制作需求-输入框2'], column, serial, column)
+                self.is_click_tbm(user['衍生BOM制作需求-操作选择'], info)
+            elif header in input_list:
+                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+                self.input_text(user['衍生BOM制作需求-输入框2'], info, column, serial, column)
+            else:
+                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+                self.is_click_tbm(user['衍生BOM制作需求-输入框2'], column, serial, column)
+                self.input_text(user['衍生BOM制作需求-输入框2'], info, column, serial, column)
+                self.is_click_tbm(user['衍生BOM制作需求-选择'], info)
+
+    @allure.step("删除衍生BOM制作需求信息")
+    def delete_Derived_info(self):
+        column = self.get_table_info(user['衍生BOM制作需求-操作删除框'])
+        self.is_click_tbm(user['衍生BOM制作需求-删除'], column)
+
+    @allure.step("断言：衍生BOM制作需求-暂无数据")
+    def assert_Derived_None(self):
+        DomAssert(self.driver).assert_control(user['衍生BOM制作需求-暂无数据'])
+
+    @allure.step("断言：生产工厂信息-暂无数据")
+    def assert_Factory_None(self):
+        DomAssert(self.driver).assert_control(user['生产工厂信息-暂无数据'])
+
+    @allure.step("点击衍生差异")
+    def click_Derived_differ(self):
+        self.is_click_tbm(user['衍生差异'])
+        logging.info('点击衍生差异')
+        sleep(0.5)
+
+    @allure.step("点击生成BOM")
+    def click_Creat_BOM(self):
+        self.is_click_tbm(user['生成BOM'])
+        logging.info('点击生成BOM')
+        sleep(2)
+
+    @allure.step("点击衍生需求导入")
+    def click_Derived_import(self):
+        self.is_click_tbm(user['衍生BOM制作需求-导入'])
+        logging.info('点击衍生BOM制作需求-导入')
+
+    @allure.step("衍生BOM制作需求-导入-上传正确文件")
+    def upload_Derived_file(self, name):
+        self.upload_file_tbm(user['衍生BOM制作需求-选择文件'], name)
+        DomAssert(self.driver).assert_control(user['应用成功状态'])
+
+    @allure.step("点击生产工厂信息导入")
+    def click_Factory_import(self):
+        self.is_click_tbm(user['生产工厂信息-导入'])
+        logging.info('点击生产工厂信息-导入')
+
+    @allure.step("生产工厂信息-导入-上传正确文件")
+    def upload_Factory_file(self, name):
+        self.upload_file_tbm(user['生产工厂信息-选择文件'], name)
+        DomAssert(self.driver).assert_control(user['应用成功状态'])
+
+    @allure.step("在补充BOM页面，填写信息，点击同意")
+    def supplement_bom_flow(self, code):
+        self.enter_oneworks_edit(code)
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("在补充工厂页面，填写信息，点击同意")
+    def supplementary_factory_flow(self, code):
+        self.enter_oneworks_edit(code)
+        self.input_oneworks_plant_info('国内贴片工厂', '1051')
+        self.click_oneworks_slash()
+        self.click_oneworks_plant_check('贴片工厂正确')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("基带工程师审批页面中，填写信息，点击同意")
+    def Structure_flow(self, code):
+        self.enter_oneworks_edit(code)
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("采购审核（NPS）审批页面中，填写信息，点击同意")
+    def Purchase_flow(self, code):
+        self.enter_oneworks_edit(code)
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("在业务审批页面，填写信息，点击同意")
+    def business_approve_flow(self, code):
+        self.enter_oneworks_edit(code)
+        self.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
+        self.click_oneworks_businessapprove_self_inspection('检查角色', '检查人')
+        self.scroll_oneworks_businessapprove_self_inspection()
+        self.input_oneworks_businessapprove_inspection_result()
+        self.click_Accessory()
+        self.send_Accessory('检查结果.PNG')
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
 if __name__ == '__main__':
     pass

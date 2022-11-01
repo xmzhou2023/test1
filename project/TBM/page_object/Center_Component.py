@@ -489,7 +489,7 @@ class CenterComponent(Base, APIRequest):
         DomAssert(self.driver).assert_control(user['oneworks-转交'], result=result)
 
     @allure.step("断言： 是否存在转交按钮")
-    def assert_oneworks_rollback_refer(self, result):
+    def assert_oneworks_refer_exist(self, result):
         DomAssert(self.driver).assert_control(user['oneworks-转交'], result=result)
 
     @allure.step("点击拒绝")
@@ -784,6 +784,17 @@ class CenterComponent(Base, APIRequest):
         self.is_click_tbm(user['查询'])
         logging.info('点击查询')
         self.base_get_img('result')
+
+    @allure.step("点击重置")
+    def click_reset(self):
+        self.is_click_tbm(user['重置'])
+        logging.info('点击重置')
+        self.base_get_img('result')
+
+    @allure.step("断言：表格内容行数")
+    def assert_search_row(self, row):
+        search_row = self.elements_num(user['表格内容行'])
+        ValueAssert.value_assert_equal(search_row, row)
 
     @allure.step("断言：查询结果")
     def assert_search_result(self, header, content):

@@ -15,7 +15,7 @@ def setup_module(drivers):
     dom.assert_url("/main-data/category")
     yield
     logging.info("后置条件:返回 首页 页面")
-    menu.back_homepage("主数据")
+    menu.back_homepage()
     dom.assert_url("/dashboard")
 
 
