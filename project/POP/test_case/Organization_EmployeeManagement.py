@@ -26,7 +26,7 @@ class Testqueryuser:
         users = Queryuser(drivers)
         users.input_username("张文强","张文强 18651297")
         users.click_query()   # 期望值用户姓名与输入查询的用户姓名一致
-        sleep(0.5)
+        sleep(5)
         # 断言
         test = users.element_text(user['员工姓名'])
         ValueAssert.value_assert_equal(test,"张文强")

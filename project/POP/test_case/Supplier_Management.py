@@ -66,11 +66,10 @@ class TestQuerySupplier:
         users = SupplierManagement(drivers)
         users.switch_shop("Wanzhou Popcorn")
         users.click_query()
-        sleep(1)
-        # 断言--查询的卖家类型与输入的一致
-        test = users.element_text(user['查询的门店'])
-        ValueAssert.value_assert_equal(test, "Wanzhou Popcorn")
         sleep(5)
+        # 断言--查询的门店与输入的一致
+        test = users.element_text(user['查询的门店'])
+        ValueAssert.value_assert_equal(test,"Wanzhou Popcorn")
 
     @allure.step("供应商管理")
     @allure.title("验证更多筛选条件框")  # 用例名称
@@ -84,7 +83,6 @@ class TestQuerySupplier:
         DomAssert(drivers).assert_exact_att('筛选')
         # 页面清理关闭筛选字样
         users.refresh()
-        sleep(5)
 
     @allure.story("供应商管理")  # 场景名称
     @allure.title("查询门店国家")  # 用例名称
