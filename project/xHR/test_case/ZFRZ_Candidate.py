@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from project.XHR.page_object.ZFRZ_Candidate import Candidate
+from project.xHR.page_object.ZFRZ_Candidate import Candidate
 from public.base.assert_ui import DomAssert
 
 """

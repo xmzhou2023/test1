@@ -1,0 +1,30 @@
+物料编码文本框: "xpath==//label[normalize-space(text())='物料编码']/following-sibling::div//div[contains(@class,'el-input')]//input"
+品牌下拉: "xpath==//label[normalize-space(text())='品牌']/following-sibling::div//div[contains(@class,'el-input')]//input"
+状态下拉: "xpath==//label[normalize-space(text())='状态']/following-sibling::div//div[contains(@class,'el-input')]//input"
+查询 按钮: "xpath==//button[@type='button']//span[contains(text(),'查询')]"
+重置 按钮: "xpath==//button[@type='button']//span[contains(text(),'重置')]"
+新增 按钮: "xpath==//button[@type='button']//span[contains(text(),'新增')]"
+下载 按钮: "xpath==//button[@type='button']//span[contains(text(),'下载')]"
+导入 按钮: "xpath==//button[@type='button']//span[contains(text(),'导入')]"
+
+下拉选项: "xpath==//div[@x-placement='bottom-start']//li//span[contains(text(),'variable')]"
+
+弹出窗 断言: "xpath==//span[@class='el-dialog__title']"
+弹出窗 物料编码文本框: "xpath==//div[@class='el-dialog__body']//label[normalize-space(text())='物料编码']/following-sibling::div//div[contains(@class,'el-input')]//input"
+弹出窗 申请上限(箱)文本框: "xpath==//div[@class='el-dialog__body']//label[normalize-space(text())='申请上限(箱)']/following-sibling::div//div[contains(@class,'el-input')]//input"
+弹出窗 清空文本框: "xpath==//i[@class='el-select__caret el-input__icon el-icon-circle-close']"
+
+弹出窗 关闭按钮: "xpath==//div[@aria-label='variable']//i[@class='el-dialog__close el-icon el-icon-close']"
+弹出窗 取消按钮: "xpath==//div[@aria-label='新增']//div[@class='el-dialog__footer']//button[1]"
+弹出窗 保存按钮: "xpath==//div[@aria-label='新增']//div[@class='el-dialog__footer']//button[2]"
+
+列表文本断言: "xpath==//div[@class='el-table__fixed-body-wrapper']//tr[variable]//td[variable]/div/div"
+获取行号: "xpath==//div[@class='el-table__fixed-body-wrapper']//tr[variable]//td[variable]/div/div"
+列表 编辑按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//tr[variable]//td[12]//button[1]"
+列表 删除按钮: "xpath==//div[@class='el-table__fixed-body-wrapper']//tr[variable]//td[12]//button[2]"
+
+
+获取列表数量: "xpath==//span[@class='el-pagination__total']"
+
+
+

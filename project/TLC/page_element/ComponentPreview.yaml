@@ -14,3 +14,4 @@
 彻底删除: "xpath==//*[@xpath='at_my-file_contextmenu_remove-completely_variable']"
 预览: "xpath==//*[@xpath='at_my-file_contextmenu_preview_variable']"
 编码查看: "xpath==//div[@class='tool']//i[@tabindex='0']"
+加锁按钮: "xpath==//button[@title='加锁']"

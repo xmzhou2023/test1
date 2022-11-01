@@ -32,12 +32,12 @@ class TestStockInSearch:
     @allure.description("type选择各种业务类型,时间默认为当前月，其余条件为空进行查询")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    @pytest.mark.parametrize("type", ["Purchase In", "Work Order In", "Verification In", "Allocation In"])
+    @pytest.mark.parametrize("type", ["Purchase In", "JobSheet In", "Verification In", "Allocation In"])
     def test_001_001(self, drivers, type):  # 用例名称取名规范'test+场景编号+用例编号'
         num = StockInSearch(drivers)
         num.stockinsearch(Type=type)
         num = DomAssert(drivers)
-        num.assert_att("Stock In No")
+        num.assert_point_att(1, 3, 'STI')
 
     # @allure.story("查询当月Disassemble In In类型的数据")  # 场景名称
     # @allure.title("根据type和时间筛选值进行查询")  # 用例名称

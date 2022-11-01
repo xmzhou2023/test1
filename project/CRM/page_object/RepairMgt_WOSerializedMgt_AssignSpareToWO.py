@@ -19,14 +19,16 @@ class WOSerializedAssignSpareToWO(Base):
     """序列化工单派料类"""
 
     @allure.step("序列化工单派料")
-    def woassigntowo(self, workorder, status):
+    def woassigntowo(self, workorder):
         self.refresh()
         self.wait.until(EC.presence_of_element_located(user["序列化工单派料页Add按钮"]), message="页面刷新失败")
         self.is_click(user["序列化工单派料页单号输入框WO Serialized No"])
         logging.info("序列化工单号={}".format(workorder))
         self.input_text(user["序列化工单派料页单号输入框WO Serialized No"], txt=workorder)
-        if status != "Assigned To Technician":
-            self.is_click(user["序列化工单派料页OK按钮"])
+        # if status != "Assigned To Technician":
+        self.is_click(user["序列化工单派料页OK按钮"])
+
+
 
     @allure.step("获取序列化工单号")
     def getworkorderno(self, row=None, column=None, status=None):

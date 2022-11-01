@@ -138,7 +138,7 @@ class ShopManagementPage(Base):
     @allure.step("点击More Option更多操作按钮")
     def click_more_option(self):
         self.is_click(user['More Option'])
-        sleep(1.7)
+        sleep(1)
 
     @allure.step("点击delete 删除按钮")
     def click_delete(self):

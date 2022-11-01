@@ -4,8 +4,10 @@
 组织->职员管理: "xpath==//span[@title='职员管理']"
 组织->区域: "xpath==//span[@title='区域']"
 组织->国家城市: "xpath==//span[@title='国家城市']"
+组织->供应商管理: "xpath==//span[@title='供应商管理']"
 
 商品: "xpath==//span[contains(text(),'商品')]"
+商品->定义建议价格: "xpath==//span[@title='定义建议价格']"
 商品->商品参数: "xpath==//span[@title='商品参数']"
 商品->商品管理: "xpath==//span[@title='商品管理']"
 商品->物料信息: "xpath==//span[@title='物料信息']"
@@ -16,12 +18,17 @@
 
 库存: "xpath==//span[contains(text(),'库存')]"
 库存->仓库信息: "xpath==//span[@title='仓库信息']"
+库存->仓库查询: "xpath==//span[@title='库存查询']"
 
 会员: "xpath==//span[contains(text(),'会员')]"
 会员->会员信息: "xpath==//span[@title='会员信息']"
 
 门店: "xpath==//span[contains(text(),'门店')]"
 门店->门店列表: "xpath==//span[@title='门店列表']"
+门店->门店销售等级: "xpath==//span[@title='门店销售等级']"
+
+采购: "xpath==//span[contains(text(),'采购')]"
+采购->门店收货单: "xpath==//span[@title='门店收货单']"
 
 
 

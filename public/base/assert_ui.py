@@ -177,7 +177,7 @@ class DomAssert(object):
         n = 1
         while n < 6:
             attr = self.driver.find_element(By.XPATH, "//tr[{0}]/td[{1}]//*".format(variable1, variable2)).text
-            if attr == word:
+            if word in attr:
                 logging.info("断言成功：页面存在该标识{} | 关键字:{}".format(attr, word))
                 break
             else:
@@ -190,7 +190,7 @@ class DomAssert(object):
         try:
             Base(self.driver).base_get_img('result')
             att = self.wait.until(
-                EC.visibility_of_element_located((By.XPATH, "//tr[{0}]/td[{1}]//*[normalize-space(text())='{2}']".format(variable1, variable2, word))), message='你要的值未找到').text
+                EC.visibility_of_element_located((By.XPATH, "//tr[{0}]/td[{1}]//*[contains(text(),'{2}')]".format(variable1, variable2, word))), message='你要的值未找到').text
             assert word in att, logging.warning("断言失败：页面不存在该标识{} | 关键字:'{}'".format(att, word))
             logging.info("断言成功：页面存在该标识'{}' | 关键字:'{}'".format(att, word))
         except Exception as e:

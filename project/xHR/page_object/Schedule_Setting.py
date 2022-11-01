@@ -1,4 +1,6 @@
 import allure, os
+
+from project.xHR.page_object.Center_Component import CenterComponent
 from public.base.basics import Base, sleep
 from libs.common.read_element import Element
 from selenium.webdriver.common.keys import Keys
@@ -9,7 +11,7 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-class ScheduleSetting(Base):
+class ScheduleSetting(CenterComponent):
     """用户类"""
 
     @allure.step("查找工号")

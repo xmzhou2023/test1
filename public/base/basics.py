@@ -1,6 +1,7 @@
 import datetime
 import time
 import openpyxl
+import xlrd
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
@@ -738,11 +739,11 @@ class Base(object):
         return column_class
 
     # POP输入框输入文本按enter键专用方法
-    def input_enter(self,locator,txt,choice=None):
+    def input_enter(self,locator,content=None,choice=None):
         """
             POP项目中输入框输入内容点击Enter键
         :param locator: 定位元素-固定格式=>xx['']
-        :param txt: 参数值，例如输入框需要输入的内容
+        :param content: 参数值，例如输入框需要输入的内容
         :param choice: 元素定位传入“variable”参数值
         :return: 无
         """
@@ -750,15 +751,15 @@ class Base(object):
             sleep(0.5)
             ele = self.find_element(locator,choice)
             ele.clear()
-            ele.send_keys(txt + Keys.ENTER)
-            logging.info("输入文本：{}".format(txt))
+            ele.send_keys(content + Keys.ENTER)
+            logging.info("输入文本：{}".format(content))
         else:
             """输入(输入前先清空)"""
             sleep(0.5)
             ele = self.find_element(locator,choice)
             ele.clear()
-            ele.send_keys(txt + Keys.ENTER)
-            logging.info("输入文本：{}".format(txt))
+            ele.send_keys(content + Keys.ENTER)
+            logging.info("输入文本：{}".format(content))
 
 
     def DivRolling(self, locator, direction='left', num=1000):
@@ -781,8 +782,38 @@ class Base(object):
         except Exception as e:
             raise e
 
+def read_excel(file_path,sheet_name,data_num=7,expect_num=8):
+    """
+        读取excel表测试数据
+    @param file_path: 测试数据文件保存地址
+    @param sheet_name: 测试数据表对应sheet名称
+    @param data_num: 测试参数的数据所在测试数据表格的列数，以索引计算，起始数字为0
+    @param expect_num: 测试预期结果的数据所在测试数据表格的列数，以索引计算，起始数字为0
+    @return: 测试数据值--列表套元组
+    """
+    # 打开文件
+    workbook = xlrd.open_workbook(file_path)
+    # 读取第一张表
+    sheet = workbook.sheet_by_name(sheet_name)
+    # 获取行数
+    row = sheet.nrows
+    # 声明一个空列表用于保存处理后需要的数据
+    li = []
+    # 获取每行数据--从第三行开始的所以数据（0--对应第一行，1--对应第二行）
+    for i in range(1, row):
+        # 获取每行数据
+        each_row = sheet.row_values(i)
+        print(each_row)
+        # 定位到测试步骤参数列，并以\n换行隔开返回为列表
+        data = each_row[data_num].split("\n")
+        # 将预期结果列添加到data表格中
+        data.append(each_row[expect_num])
+        # 在家data列表添加到li列表形成二维列表--[[]]
+        li.append(tuple(data))
+    return li
 
-def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):
+
+def data_drive_excel(file_path, sheet_name, mode, rows=0, cols=0, start_col=0, end_col=None, start_row=0, end_row=None):
     """
     按行/列读取EXCEL数据
     file_path:文件路径（XLS格式文件）
@@ -815,4 +846,4 @@ def data_drive_excel(self, file_path, sheet_name, mode, rows=0, cols=0, start_co
     return values
 
 if __name__ == "__main__":
-    pass
+    print(read_excel(r"C:\Users\wenqiang.zhang5\PycharmProjects\untitled\UIPOMTest\project\POP\data\test_data.xls","测试用例数据"))

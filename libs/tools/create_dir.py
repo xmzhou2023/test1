@@ -5,7 +5,7 @@ import os
 import shutil
 
 # 自动新增文件夹
-PERO_PATH = os.path.join(PEROJECT_PATH, 'TES')
+PERO_PATH = os.path.join(PEROJECT_PATH, 'pop')
 # 创建文件依据
 path = os.path.join('template/modle_name.csv')
 
@@ -59,9 +59,9 @@ def text_create(name, type="case"):
     else:
         desktop_path = CASE_PATH     # 新创建的txt文件的存放路径
         mk_dir(desktop_path)
-        full_path = desktop_path + name + '.py'
-        msg = read_file(CASE_TEMPLATE_PATH)
-        mk_file(full_path, msg)
+        # full_path = desktop_path + name + '.py'
+        # msg = read_file(CASE_TEMPLATE_PATH)
+        # mk_file(full_path, msg)
         conftest_path = desktop_path + 'conftest.py'
         msg = read_file(CONFTEST_TEMPLATE_PATH)
         mk_file(conftest_path, msg)
@@ -78,9 +78,9 @@ def generate_env():
         print(e)
 
 if __name__ == '__main__':
-    # generate_module("element")
-    # generate_module("object")
-    # generate_module("testcase")
+    generate_module("element")
+    generate_module("object")
+    generate_module("testcase")
     generate_env()
 
 
