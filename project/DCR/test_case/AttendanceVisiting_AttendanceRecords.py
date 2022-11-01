@@ -29,6 +29,7 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
+
 @allure.feature("考勤&巡店-考勤记录")
 class TestQueryAttendanceRecord:
     @allure.story("查询考勤记录")
