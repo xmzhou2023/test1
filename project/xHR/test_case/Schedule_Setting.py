@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from project.XHR.page_object.Schedule_Setting import ScheduleSetting
+from project.xHR.page_object.Schedule_Setting import ScheduleSetting
 from public.base.assert_ui import DomAssert
 
 """
