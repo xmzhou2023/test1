@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from project.xHR.page_object.Schedule_Setting import ScheduleSetting
+from project.XHR.page_object.Schedule_Setting import ScheduleSetting
 from public.base.assert_ui import DomAssert
 
 """
@@ -109,4 +109,4 @@ class TestDelete:
 
 
 if __name__ == '__main__':
-    pytest.main(['project/xHR/testcase/run_code.py'])
+    pytest.main(['project/XHR/testcase/run_code.py'])
