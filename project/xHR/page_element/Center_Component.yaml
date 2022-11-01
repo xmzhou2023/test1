@@ -1,0 +1,8 @@
+关键字: "xpath==//span[contains(text(),'终审版报表')]"
+筛选按钮: "xpath==//div[@class='el-badge filter-icon']"
+测评类型筛选项: "xpath==//div[@class='search__conditions']/form/div/div[1]//input"
+筛选项空白处: "xpath==//span[@role='heading']"
+查询按钮: "xpath==//span[contains(text(),'查询')]"
+关闭按钮: "xpath==//button[@aria-label='close 筛选']//i[@class='el-dialog__close el-icon el-icon-close']"
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格内容: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
