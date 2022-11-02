@@ -20,6 +20,7 @@
 查询的门店: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/article[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[10]/div[1]"
 查询的门店所属国家: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/article[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[11]/div[1]"
 查询的归属组织: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/article[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[15]/div[1]"
+关闭筛选页按钮: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/article[1]/form[1]/div[2]/div[1]/div[1]/button[1]/i[1]"
 
 # 导出
 导出按钮: "xpath==//button[contains(text(),'导出')]"

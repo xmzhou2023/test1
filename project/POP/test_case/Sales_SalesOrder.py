@@ -30,7 +30,7 @@ class TestSaleBilling:
         users.click_Collection()
         # 断言--开单成功跳转销售订单列表断言页面是否存在销售订单编号字段
         test = users.element_text(user['开单成功提示'])
-        ValueAssert.value_assert_equal(test,'SUCCESS')
+        ValueAssert.value_assert_equal(test,'提交成功')
 
 if __name__ == '__main__':
     pytest.main(['Sales_SalesOrder.py'])

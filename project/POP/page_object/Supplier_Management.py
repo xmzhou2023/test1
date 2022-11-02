@@ -59,6 +59,10 @@ class SupplierManagement(Base):
     def click_morequery(self):
         self.is_click_tbm(user['更多筛选页查询按钮'])
 
+    @allure.step("点击关闭更多筛选页")
+    def click_close(self):
+        self.is_click_tbm(user['关闭筛选页按钮'])
+
 
 class ExportSupplier(Base):
     """供应商导出类"""

@@ -82,7 +82,7 @@ class TestQuerySupplier:
         # 断言--弹窗页面有筛选字样
         DomAssert(drivers).assert_exact_att('筛选')
         # 页面清理关闭筛选字样
-        users.refresh()
+        users.click_close()
 
     @allure.story("供应商管理")  # 场景名称
     @allure.title("查询门店国家")  # 用例名称
