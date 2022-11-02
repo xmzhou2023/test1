@@ -302,12 +302,19 @@ class SalesOrderPage(Base):
         self.is_click(user['More'])
         sleep(8)
 
-    @allure.step("输入Task Name筛选该任务的导出记录")
-    def input_task_name(self, content):
-        self.is_click(user['Input Task Name'])
-        self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
-        self.is_click(user['Task Name value'], content)
+    @allure.step("下拉输入选择的值的文本框，公共方法")
+    def click_input_text(self, yamal1, yamal2, content1):
+        self.is_click(user[yamal1])
+        self.input_text(user[yamal1], content1)
+        sleep(1.5)
+        self.is_click(user[yamal2], content1)
+
+    # @allure.step("输入Task Name筛选该任务的导出记录")
+    # def input_task_name(self, content):
+    #     self.is_click(user['Input Task Name'])
+    #     self.input_text(user['Input Task Name'], txt=content)
+    #     sleep(2)
+    #     self.is_click(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):

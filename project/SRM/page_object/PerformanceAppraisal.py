@@ -131,6 +131,34 @@ class Performance(Base):
         # time.sleep(3)
         # self.find_elements_choice('//button[text()=" 查询"]',1)
 
+    @allure.step("通过物料小类查询")
+    def search_cate(self, cate):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.input_text(app["评估代码供货品类配置-物料小类查询输入框"], cate)
+        self.is_click(app["评估代码供货品类配置-查询"])
+
+    @allure.step("输入内容")
+    def Clear_input(self,text):
+        self.clear_input(app[text])
+
+    @allure.step("通过物料小类查询结果")
+    def search_cate_number(self):
+        return self.find_element(app["评估代码供货品类配置-物料小类查询结果"]).text
+
+
+
+
+    @allure.step("通过物料小类和评估代码查询")
+    def search_cate_code(self, code, cate):
+        self.frame_enter(app["评估代码供货品类配置页面内容iframe"])
+        self.input_text(app["评估代码供货品类配置-评估代码查询输入框"], code)
+        self.input_text(app["评估代码供货品类配置-物料小类查询输入框"], cate)
+        self.is_click(app["评估代码供货品类配置-查询"])
+
+
+
+
+
     @allure.step("通过评估代码查询结果")
     def search_code_number(self):
         return self.find_element(app["评估代码搜索结果"]).text
@@ -341,6 +369,8 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-新建-成本选择放大镜"])
         self.frame_back()
         self.frame_enter(app["评估代码管理人员配置-新建-选择内容弹窗iframe"])
+        self.input_text(app["评估代码管理人员配置-新建-评估人搜索输入框"], "1001")
+        self.is_click(app["评估代码管理人员配置-新建-评估人搜索查询"])
         self.is_click(app["评估代码管理人员配置-新建-成本选择1001"])
         self.is_click(app["评估代码管理人员配置-新建-成本选择确定"])
         self.frame_back()
@@ -379,6 +409,8 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-新建-成本选择放大镜"])
         self.frame_back()
         self.frame_enter(app["评估代码管理人员配置-新建-选择内容弹窗iframe"])
+        self.input_text(app["评估代码管理人员配置-新建-评估人搜索输入框"], "1001")
+        self.is_click(app["评估代码管理人员配置-新建-评估人搜索查询"])
         self.is_click(app["评估代码管理人员配置-新建-成本选择1001"])
         self.is_click(app["评估代码管理人员配置-新建-成本选择确定"])
         self.frame_back()
@@ -387,6 +419,8 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-新建-交付选择放大镜"])
         self.frame_back()
         self.frame_enter(app["评估代码管理人员配置-新建-选择内容弹窗iframe"])
+        self.input_text(app["评估代码管理人员配置-新建-评估人搜索输入框"], "1001")
+        self.is_click(app["评估代码管理人员配置-新建-评估人搜索查询"])
         self.is_click(app["评估代码管理人员配置-新建-交付选择1001"])
         self.is_click(app["评估代码管理人员配置-新建-交付选择确定"])
         self.frame_back()
@@ -417,6 +451,8 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-新建-成本选择放大镜"])
         self.frame_back()
         self.frame_enter(app["评估代码管理人员配置-新建-选择内容弹窗iframe"])
+        self.input_text(app["评估代码管理人员配置-新建-评估人搜索输入框"], "1001")
+        self.is_click(app["评估代码管理人员配置-新建-评估人搜索查询"])
         self.is_click(app["评估代码管理人员配置-新建-成本选择1001"])
         self.is_click(app["评估代码管理人员配置-新建-成本选择确定"])
         self.frame_back()
@@ -425,6 +461,8 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-新建-交付选择放大镜"])
         self.frame_back()
         self.frame_enter(app["评估代码管理人员配置-新建-选择内容弹窗iframe"])
+        self.input_text(app["评估代码管理人员配置-新建-评估人搜索输入框"], "1001")
+        self.is_click(app["评估代码管理人员配置-新建-评估人搜索查询"])
         self.is_click(app["评估代码管理人员配置-新建-交付选择1001"])
         self.is_click(app["评估代码管理人员配置-新建-交付选择确定"])
         self.frame_back()
@@ -433,7 +471,9 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-新建-质量选择放大镜"])
         self.frame_back()
         self.frame_enter(app["评估代码管理人员配置-新建-选择内容弹窗iframe"])
-        self.is_click(app["评估代码管理人员配置-新建-质量选择1002"])
+        self.input_text(app["评估代码管理人员配置-新建-评估人搜索输入框"], "1001")
+        self.is_click(app["评估代码管理人员配置-新建-评估人搜索查询"])
+        self.is_click(app["评估代码管理人员配置-新建-质量选择1001"])
         self.is_click(app["评估代码管理人员配置-新建-质量选择确定"])
         self.frame_back()
         # 选择管理评估人
@@ -441,7 +481,9 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-新建-管理选择放大镜"])
         self.frame_back()
         self.frame_enter(app["评估代码管理人员配置-新建-选择内容弹窗iframe"])
-        self.is_click(app["评估代码管理人员配置-新建-管理选择1002"])
+        self.input_text(app["评估代码管理人员配置-新建-评估人搜索输入框"], "1005")
+        self.is_click(app["评估代码管理人员配置-新建-评估人搜索查询"])
+        self.is_click(app["评估代码管理人员配置-新建-管理选择1005"])
         self.is_click(app["评估代码管理人员配置-新建-管理选择确定"])
         self.frame_back()
         # 选择技术评估人
@@ -449,6 +491,8 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-新建-技术选择放大镜"])
         self.frame_back()
         self.frame_enter(app["评估代码管理人员配置-新建-选择内容弹窗iframe"])
+        self.input_text(app["评估代码管理人员配置-新建-评估人搜索输入框"], "1005")
+        self.is_click(app["评估代码管理人员配置-新建-评估人搜索查询"])
         self.is_click(app["评估代码管理人员配置-新建-技术选择1005"])
         self.is_click(app["评估代码管理人员配置-新建-技术选择确定"])
         self.frame_back()
@@ -457,6 +501,8 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-新建-技术2选择放大镜"])
         self.frame_back()
         self.frame_enter(app["评估代码管理人员配置-新建-选择内容弹窗iframe"])
+        self.input_text(app["评估代码管理人员配置-新建-评估人搜索输入框"], "1009")
+        self.is_click(app["评估代码管理人员配置-新建-评估人搜索查询"])
         self.is_click(app["评估代码管理人员配置-新建-技术2选择1009"])
         self.is_click(app["评估代码管理人员配置-新建-技术2选择确定"])
         self.frame_back()

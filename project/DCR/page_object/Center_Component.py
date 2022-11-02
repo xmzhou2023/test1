@@ -143,6 +143,5 @@ class LoginPage(Base):
             ref.refresh()
 
 
-
 if __name__ == '__main__':
     pass

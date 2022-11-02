@@ -11,7 +11,7 @@ from libs.common.connect_sql import SQL
 def valuecode_module_fixture(drivers):
     app = Performance(drivers)
     app.PerformanceAppraisal()
-    # print("进入供应商绩效考核模块")
+    print("进入供应商绩效考核模块")
     yield
     app = Performance(drivers)
     app.MinWindows()
@@ -48,7 +48,7 @@ class TestAppraisal:
     @allure.title("根据评估代码搜索-搜索结果正确")  # 用例名称
     @allure.description("根据评估代码进行搜索-搜索结果正确")
     @allure.severity("normal")  # 用例等级
-    def test_SearcCcode_001(self, valuecode_fixture, drivers):
+    def test_SearchCode_001(self, valuecode_fixture, drivers):
         app = Performance(drivers)
         app.search_code("T0007")
         # DomAssert.assert_point_att()
@@ -60,7 +60,7 @@ class TestAppraisal:
     @allure.title("根据评估代码查询-查询结果正确")  # 用例名称
     @allure.description("根据评估代码进行模糊查询-查询结果正确")
     @allure.severity("normal")  # 用例等级
-    def test_SearcCcode_002(self, valuecode_fixture,drivers):
+    def test_Searchcode_002(self, valuecode_fixture,drivers):
         app = Performance(drivers)
         app.search_code("a0101")
 
@@ -69,9 +69,72 @@ class TestAppraisal:
     @allure.title("根据评估代码查询-查询结果正确")  # 用例名称
     @allure.description("查询不存在评估代码-查询结果正确")
     @allure.severity("normal")  # 用例等级
-    def test_SearcCcode_003(self,valuecode_fixture, drivers):
+    def test_Searchcode_003(self, valuecode_fixture, drivers):
         app = Performance(drivers)
         app.search_code("A01")
+
+    @allure.story("估代码供货品类配置")  # 场景名称
+    @allure.title("根据物料小类查询-查询结果正确")  # 用例名称
+    @allure.description("查询正确物料小类-查询结果正确")
+    @allure.severity("normal")  # 用例等级
+    def test_Search_Cate01(self, valuecode_fixture, drivers):
+        app = Performance(drivers)
+        app.search_cate("大电流BTB")
+        sql1 = SQL("SRM", "test")
+        sql_val1 = "select count(materialCateLevel3Name) from evaluate_supply_category_configuration where materialCateLevel3Name='大电流BTB'"
+        result = sql1.query_db(sql_val1)
+        a = result[0]
+        b = a["count(materialCateLevel3Name)"]
+        print(b)
+        search_val = app.search_cate_number()
+        print(search_val)
+        ValueAssert.value_assert_In(str(b),search_val)
+        app.Clear_input("评估代码供货品类配置-物料小类查询输入框")
+        app.frame_back()
+
+
+    @allure.story("估代码供货品类配置")  # 场景名称
+    @allure.title("根据物料小类模糊查询-查询结果正确")  # 用例名称
+    @allure.description("模糊查询物料小类-查询结果正确")
+    @allure.severity("normal")  # 用例等级
+    def test_Search_Cate02(self, valuecode_fixture, drivers):
+        app = Performance(drivers)
+        app.search_cate("IOT")
+        sql1 = SQL("SRM", "test")
+        sql_val1 = "select count(materialCateLevel3Name) " \
+                   "from evaluate_supply_category_configuration where materialCateLevel3Name like '%IOT%'"
+        result = sql1.query_db(sql_val1)
+        a = result[0]
+        b = a["count(materialCateLevel3Name)"]
+        print(b)
+        search_val = app.search_cate_number()
+        print(search_val)
+        ValueAssert.value_assert_In(str(b), search_val)
+        app.Clear_input("评估代码供货品类配置-物料小类查询输入框")
+        app.frame_back()
+
+
+
+    @allure.story("估代码供货品类配置")  # 场景名称
+    @allure.title("根据物料小类和代码组合查询-查询结果正确")  # 用例名称
+    @allure.description("物料小类和代码组合查询-查询结果正确")
+    @allure.severity("normal")  # 用例等级
+    def test_Search_combine(self, valuecode_fixture, drivers):
+        app = Performance(drivers)
+        app.search_cate_code("A0207", "大电流BTB")
+        sql1 = SQL("SRM", "test")
+        sql_val1 = "select count(materialCateLevel3Name) " \
+                   "from evaluate_supply_category_configuration where materialCateLevel3Name = '大电流BTB' and evaluatedCode = 'A0207'"
+        result = sql1.query_db(sql_val1)
+        a = result[0]
+        b = a["count(materialCateLevel3Name)"]
+        print(b)
+        search_val = app.search_cate_number()
+        print(search_val)
+        ValueAssert.value_assert_In(str(b), search_val)
+        app.Clear_input("评估代码供货品类配置-物料小类查询输入框")
+        app.Clear_input("评估代码供货品类配置-评估代码查询输入框")
+        app.frame_back()
 
 
 
@@ -140,9 +203,9 @@ class TestAppraisal:
     @allure.severity("normal")  # 用例等级
     def test_change_rule(self, valuecode_fixture, drivers):
         app = Performance(drivers)
-        app.change_rule("H0101")
+        app.change_rule("C0001")
 
-
+    # 此功能已经删除
     # @allure.story("估代码供货品类配置")  # 场景名称
     # @allure.title("导出模板")  # 用例名称
     # @allure.description("导出模板")
@@ -216,7 +279,6 @@ class TestAppraisal:
         app = Performance(drivers)
         app.screening_valuecode()
 
-#
 
 @allure.feature("供应商绩效考核--评估代码管理人员配置")  # 模块名称
 class TestPersonManage:
@@ -251,7 +313,7 @@ class TestPersonManage:
         app.get_message_close()
         app.enter_iframe()
         app.create_cancel()
-    #
+
     #
     @allure.story("评估代码管理人员配置")  # 场景名称
     @allure.title("新建评估代码人员配置不填内容-新增失败")  # 用例名称
@@ -288,7 +350,7 @@ class TestPersonManage:
         app = Performance(drivers)
         app.create_blank_evaluator01()
         me = app.get_blank_massage01()
-        assert "不允许添加相同有效的评估代码+供应商类别+供应商账号" in me, "未提示为空内容"
+        assert "不允许添加相同有效的评估代码+业务类型+供应商账号" in me, "未提示为空内容"
         app.close_blank_mass()
         app.create_cancel01()
 
@@ -300,7 +362,7 @@ class TestPersonManage:
         app = Performance(drivers)
         app.create_blank_evaluator02()
         me = app.get_blank_massage01()
-        assert "不允许添加相同有效的评估代码+供应商类别+供应商账号" in me, "未提示为空内容"
+        assert "不允许添加相同有效的评估代码+业务类型+供应商账号" in me, "未提示为空内容"
         app.close_blank_mass()
         app.create_cancel01()
 
@@ -460,16 +522,6 @@ class TestPersonManage:
     def test_pick_code(self, drivers, PersonManage_fixture):
         app = Performance(drivers)
         app.pick_code()
-
-
-
-
-    # XIUGAIXIUAGI
-
-    # # 10月15日
-
-
-
 
 
 
