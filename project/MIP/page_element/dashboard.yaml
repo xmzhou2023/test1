@@ -1,6 +1,0 @@
-快捷菜单: "xpath==//div[@class='dashboard-editor-container']//div//div[variable]//a[variable]//div[@class='card-panel']"
-
-菜单搜索按钮: "xpath==//div[@class='right-menu']//div[2]//*[name()='svg']"
-菜单搜索输入框: "xpath==//input[@placeholder='Search']"
-菜单下拉选项: "xpath==//div[@class='el-scrollbar']//div[@class='el-select-dropdown__wrap el-scrollbar__wrap']//li//span"
-选择菜单下拉选项: "xpath==//div[@class='el-scrollbar']//div[@class='el-select-dropdown__wrap el-scrollbar__wrap']//li[variable]"
