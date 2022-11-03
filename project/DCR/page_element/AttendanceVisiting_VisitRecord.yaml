@@ -1,0 +1,42 @@
+Click Input Shop Query: "xpath==//label//..//div//input[@id='visithistory_input_shopCodes']"
+Input Shop Query: "xpath==//input[@class='el-input__inner visithistory_input_shopCodes1']"
+Select Shop Value: "xpath==//ul//li//span[contains(text(),'variable')]"
+
+Submit Start Date: "xpath==//div//input[@id='visithistory_input_visitDate']"
+Click Submit Date: "xpath==//label[text()='Submit Date']"
+
+Unfold: "xpath==//span[contains(text(),'Unfold')]"
+Fold: "xpath==//span[contains(text(),'Fold')]"
+
+获取Shop ID文本: "xpath==//tbody/tr[1]/td[14]/div"
+获取Submit Date文本: "xpath==//tbody//tr[1]//td[31]/div"
+获取Visit Date文本: "xpath==//tbody//tr[1]//td[33]/div"
+获取列表Operation文本: "xpath==//tbody//tr[1]//td[35]//div//span[text()='View']"
+获取总条数文本: "xpath==//span[contains(text(),'Total')]"
+
+Search: "xpath==//span[contains(text(),'Search')]"
+Reset: "xpath==//span[contains(text(),'Reset')]"
+
+#筛选Shop Self-inspection巡店记录
+Shop self-inspection: "xpath==//label//span[normalize-space(text())='variable']"
+
+Export Detail: "xpath==//button[@id='VisitHistory_export_detail']//span[normalize-space(text())='Export Detail']"
+
+关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
+关闭巡店记录菜单: "xpath==//span[normalize-space(text())='Visit Record']//span[@class='el-icon-close']"
+
+#巡店记录，导出功能
+Export: "id==VisitHistory_export"
+Download Icon: "id==download-icon"
+More: "xpath==//span[contains(text(),'More...')]"
+Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
+Task Name value: "xpath==//span[text()='variable']"
+Export Record Search: "xpath==//span[contains(text(),'Search')]"
+获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
+获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
+获取文件大小文本: "xpath==//tbody//tr[1]//td[7]//div"
+获取用户ID文本:  "xpath==//tbody//tr[1]//td[8]//div"
+获取创建日期文本: "xpath==//tbody//tr[1]//td[10]//div"
+获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
+获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
+获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"

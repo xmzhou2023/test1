@@ -1,0 +1,113 @@
+#筛选User字段
+Input User: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
+Click Dealer User Value: "xpath==//span[contains(text(),'variable')]"
+#Click Trans User Value: "xpath==//span[contains(text(),'lihongmei10')]"
+Click Trans User Value: "xpath==//span[contains(text(),'variable')]"
+User Search: "css==[class='el-button el-button--primary el-button--mini']"
+
+
+#添加授权品牌Brand
+Add Association Brand: "xpath==//span[contains(text(),'Add Association')]"
+获取列表Infinix文本: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div[contains(text(),'Infinix')]"
+infinix Cancel Association: "xpath==//tbody//tr[@class='el-table__row']//td[5]//..//button//span[normalize-space(text())='Cancel Association']"
+点击添加品牌的复选框: "xpath==//*[@id='userAuthBrand']/div[3]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[1]/div/label/span/span"
+获取添加页面Infinix文本: "xpath==//tbody//tr[1]//td[2]//div[contains(text(),'Infinix')]"
+确认删除品牌按钮: "xpath==//span[contains(text(),'Delete')]"
+获取删除品牌成功提示: "xpath==//p[text()='Successfully']"
+获取添加品牌成功提示: "xpath==//p[text()='Successfully']"
+保存品牌: "xpath==//span//button[1]//span[contains(text(),'Save')]"
+
+
+#添加与删除授权客户Customer
+切换客户页签: "id==tab-customer"
+Add Association Customer: "xpath==//span[contains(text(),'Add Association')]"
+#添加客户元素
+Add Click Input Query Cust: "xpath==//*[@id='userAuthCustomer']/div[3]/div/div[2]/form/div/div/div/div[1]/div/div/div/div/div[1]/input"
+Add Input Query Cust: "css==[placeholder='Batch input content']"
+Add Input Query Cust Value: "xpath==//ul//li//span[contains(text(),'variable')]"
+
+Add Customer Search: "xpath==//*[@id='userAuthCustomer']/div[3]/div/div[2]/form/div/div/div/button/span[contains(text(),'Search')]"
+Add Cust Authorized Selected: "xpath==//span[contains(text(),'Authorized Selected')]"
+添加客户勾选复选框: "xpath==//*[@id='userAuthCustomer']/div[3]/div/div[2]/div/div[1]/div[3]/table/tbody/tr/td[1]/div/label/span"
+Add 获取CustomerID文本: "xpath==//div[text()='variable']"
+获取添加客户成功提示: "xpath==//p[text()='Successfully']"
+
+#删除客户元素
+客户列表点击客户输入框: "xpath==//label[(text()='Customer')]//parent::div// following-sibling::div//input"
+客户列表输入客户: "css==[placeholder='Batch input content']"
+客户列表选中输入的客户: "xpath==//span[contains(text(),'variable')]"
+Customer list Search: "xpath==//*[@id='userAuthCustomer']/form/div/div/button"
+客户列表勾选客户复选框: "xpath==//*[@id='userAuthCustomer']/div[2]/div[1]/div[3]/table/tbody/tr/td[1]/div/label/span/span"
+获取客户列表CustomerID: "xpath==//div[text()='variable']"
+Customer More Option: "xpath==//span[contains(text(),'More Option')]"
+Cust Batch Cancel Association: "id==user_auth_customer_batch_cancel_association"
+Customer Delete: "xpath==//span[contains(text(),'Delete')]"
+获取删除客户成功提示: "xpath==//p[text()='Successfully']"
+获取客户无数据文本: "xpath==//*[@id='userAuthCustomer']/div[2]/div[1]/div[3]/div/span[contains(text(),'No Data')]"
+点击品牌页签: "id==tab-brand"
+
+
+#仓库添加与删除授权仓库Warehouse
+#删除授权的仓库
+切换仓库页签: "id==tab-warehouse"
+仓库列表点击仓库输入框: "xpath==//label[(text()='Warehouse')]//parent::div// following-sibling::div//input"
+仓库列表选中输入的仓库: "xpath==//span[normalize-space(text())='variable']"
+Warehouse list Search: "xpath==//*[@id='userAuthWarehouse']/form/div/div/button"
+list 获取Warehouse文本: "xpath==//div[contains(text(),'variable')]"
+仓库列表勾选仓库复选框: "xpath==//*[@id='userAuthWarehouse']/div[2]/div[1]/div[3]/table/tbody/tr/td[1]/div/label/span/span"
+Warehouse More Option: "xpath==//span[contains(text(),'More Option')]"
+Ware Batch Cancel Association: "id==user_auth_warehouse_batch_cancel_association"
+Warehouse Delete: "css==[class='el-button el-button--default el-button--small el-button--primary ']"
+获取成功提示语: "xpath==//p[text()='Successfully']"
+获取仓库无数据文本: "xpath==//span[contains(text(),'No Data')]"
+#Warehouse No Data: "xpath==//*[@id="userAuthWarehouse"]/div[2]/div[1]/div[3]/div/span[contains(text(),'No Data')]"
+#添加授权的仓库
+Add Association Warehouse: "xpath==//span[contains(text(),'Add Association')]"
+Add Click Input Query Ware: "xpath==//*[@id='userAuthWarehouse']/div[3]/div/div[2]/form/div/div/div/div/div[3]/div/div/div/div[1]/input"
+Add Input Query Ware Value: "xpath==//span[normalize-space(text())='variable']"
+Add Warehouse Search: "xpath==//*[@id='userAuthWarehouse']/div[3]/div/div[2]/form/div/div/div/div/button/span[contains(text(),'Search')]"
+Add 获取WarehouseID文本: "xpath==//div[text()='variable']"
+添加仓库勾选复选框: "xpath==//*[@id='userAuthWarehouse']/div[3]/div/div[2]/div/div[1]/div[3]/table/tbody/tr/td[1]/div/label/span/span"
+Add Warehouse Save: "xpath==//span[contains(text(),'Save')]"
+
+
+#添加与删除授权门店Shop
+#删除授权的门店
+切换门店页签: "id==tab-shop"
+门店列表点击门店输入框: "xpath==//label[(text()='Shop')]//parent::div// following-sibling::div//input"
+门店列表选中输入的门店: "xpath==//span[contains(text(),'variable')]"
+Shop list Search: "xpath==//*[@id='userAuthShop']/form/div/div/button"
+list 获取ShopID文本: "xpath==//tbody//tr//td[2]//div[contains(text(),'variable')]"
+门店列表勾选门店复选框: "xpath==//*[@id='userAuthShop']/div[2]/div[1]/div[3]/table/tbody/tr/td[1]/div/label/span"
+Shop More Option: "xpath==//span[contains(text(),'More Option')]"
+Shop Batch Cancel Association: "id==user_auth_shop_batch_cancel_association"
+Shop Delete: "css==[class='el-button el-button--default el-button--small el-button--primary ']"
+获取门店无数据文本: "xpath==//span[contains(text(),'No Data')]"
+#添加收起的门店
+Add Association Shop: "xpath==//span[contains(text(),'Add Association')]"
+Add Click Input Query Shop: "xpath==//*[@id='userAuthShop']/div[3]/div/div[2]/form/div/div/div/div[1]/div/div/div/div/div[1]/input"
+Add Input Query Shop: "xpath==//*[@id='userAuthShop']/div[3]/div/div[2]/form/div/div/div/div[1]/div/div/div/div/div[2]/div/div[1]/input"
+Add Input Query Shop Value: "xpath==//span[contains(text(),'variable')]"
+Add Shop Search: "xpath==//form//div//div//div//button//span[normalize-space(text())='Search']"
+添加门店勾选复选框: "xpath==//*[@id='userAuthShop']/div[3]/div/div[2]/div/div[1]/div[3]/table/tbody/tr/td[1]/div/label/span/span"
+Add Shop Authorized Selected: "xpath==//span[contains(text(),'Authorized Selected')]"
+add获取ShopID文本: "xpath==//table//tbody//tr//td[2]//div[text()='variable']"
+门店列表获取ShopID文本: "xpath==//tbody//tr//td[2]//div[text()='variable']"
+
+
+#添加并保存销售区域Sales Region
+切换销售区域页签: "id==tab-salesRegion"
+Select East AfricaI Checkbox: "xpath==//*[@id='userSalesRegion']/div[2]/div[1]/div[1]/div[2]/div/div[1]/div[2]/div[6]/div[1]/label/span"
+Select Scope Shop Checkbox: "xpath==//*[@id='userSalesRegion']/div[2]/div[2]/div/div/div[2]/div/label[1]/span[1]"
+Select Scope user Checkbox: "xpath==//*[@id='userSalesRegion']/div[2]/div[2]/div/div/div[2]/div/label[2]/span[1]"
+Sales Region Save: "xpath==//span[contains(text(),'Save')]"
+获取未授权范围提示语: "xpath==//p[contains(text(), 'Please select sales region and scope of authorization')]"
+获取销售区域成功提示: "xpath==//p[text()='Successfully']"
+获取授权的销售区域文本: "xpath==//*[@id='userSalesRegion']/div[2]/div[1]/div[2]/div[2]/div/div[1]/div[2]/div/div/span[2]/span"
+
+关闭用户授权菜单: "xpath==//span[normalize-space(text())='User Authorization']//span[@class='el-icon-close']"
+
+
+
+
+
