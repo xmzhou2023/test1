@@ -5,6 +5,7 @@
 组织->区域: "xpath==//span[@title='区域']"
 组织->国家城市: "xpath==//span[@title='国家城市']"
 组织->供应商管理: "xpath==//span[@title='供应商管理']"
+组织->角色管理: "xpath==//span[@title='角色管理']"
 
 商品: "xpath==//span[contains(text(),'商品')]"
 商品->定义建议价格: "xpath==//span[@title='定义建议价格']"
