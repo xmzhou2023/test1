@@ -16,7 +16,7 @@ def setup_class(drivers):
 @allure.feature("组织-供应商管理") # 模块名称
 class TestQuerySupplier:
     @allure.story("供应商管理") # 场景名称
-    @allure.title("查询卖家")  # 用例名称
+    @allure.title("查询卖家姓名")  # 用例名称
     @allure.description("根据卖家姓名查询供应商信息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
@@ -30,7 +30,7 @@ class TestQuerySupplier:
         ValueAssert.value_assert_equal(test,"BD405358")
 
     @allure.story("供应商管理")  # 场景名称
-    @allure.title("查询卖家")  # 用例名称
+    @allure.title("查询卖家类型")  # 用例名称
     @allure.description("根据卖家类型查询供应商信息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -58,7 +58,7 @@ class TestQuerySupplier:
         ValueAssert.value_assert_equal(test, "Bangladesh")
 
     @allure.story("供应商管理")  # 场景名称
-    @allure.title("查询卖家")  # 用例名称
+    @allure.title("查询门店")  # 用例名称
     @allure.description("根据门店查询供应商信息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
