@@ -37,9 +37,11 @@ class AddRole(Base):
         self.is_click_tbm(user['提交按钮'])
 
     @allure.step("新增数据删除")
-    def delete_data(self):
+    def delete_data(self,role):
+        self.is_click_tbm(user['选择新增的角色组'],role)
+        sleep(2)
         self.is_click_tbm(user['禁用按钮'])
-        sleep(1)
+        sleep(2)
         self.is_click_tbm(user['二次弹窗确定'])
 
 

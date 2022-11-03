@@ -32,9 +32,10 @@ class TestAddRole:
         # 断言-查询卖家编码与输入编码一致
         test = users.element_text(user['提交成功按钮'])
         ValueAssert.value_assert_equal(test,"新增成功")
+        sleep(3)
 
         # 数据处理删除新增角色
-        users.delete_data()
+        users.delete_data(name)
 
 if __name__ == '__main__':
     pytest.main(['Role_Management.py'])

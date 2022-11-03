@@ -7,3 +7,4 @@
 提交成功按钮: "class==el-message__content"
 禁用按钮: "xpath==//button[contains(text(),'禁用')]"
 二次弹窗确定: "xpath==//div[@class='el-message-box']/div[3]/button[2]"
+选择新增的角色组: "xpath==//span[contains(text(),'variable')]"
