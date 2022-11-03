@@ -1,0 +1,17 @@
+#休假申请记录
+筛选用户: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
+选中筛选用户: "xpath==//div//ul//li//span[contains(text(),'variable')]"
+Leave Start Date: "xpath==//div//input[@id='leaveapplicationrecords_input_leaveStartDate']"
+休假申请记录Search: "id==leaveapplicationrecords_search"
+
+Get Leave Type: "xpath==//tbody//tr[1]//td[2]//div"
+Get Leave Reason: "xpath==//tbody//tr[1]//td[3]//div"
+Get Start Date: "xpath==//tbody//tr[1]//td[4]//div"
+Get Start Time: "xpath==//tbody//tr[1]//td[5]//div"
+Get End Date: "xpath==//tbody//tr[1]//td[6]//div"
+Get End Time: "xpath==//tbody//tr[1]//td[7]//div"
+Get Duration: "xpath==//tbody//tr[1]//td[8]//div"
+Get Status: "xpath==//tbody//tr[1]//td[9]//div"
+Get User ID: "xpath==//tbody//tr[1]//td[10]//div"
+Get Total: "xpath==//span[contains(text(),'Total')]"
+

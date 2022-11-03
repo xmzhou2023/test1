@@ -1,0 +1,97 @@
+Add: "xpath==//button//span[contains(text(),'Add')]"
+
+Customer Type: "xpath==//label//span[contains(text(),'Customer Type')]//..//..//input"
+Customer Type Select: "xpath==//ul[@class='el-scrollbar__view el-select-dropdown__list']//li//span[contains(text(),'variable')]"
+Brand: "xpath==//label//span[contains(text(),'Brand')]//..//..//input[@id='customermanagementadd_input_brandNames']"
+Brand Select: "xpath==//div[@class='el-select-dropdown__wrap el-scrollbar__wrap']//li//span[text()='variable']"
+Brand finish: "xpath==//span[@class='el-tag el-tag--info el-tag--mini el-tag--light']//..//..//input"
+Customer Name: "xpath==//label//span[contains(text(),'Customer Name')]//..//..//input"
+SAP Customer ID: "xpath==//label//span[contains(text(),'SAP Customer ID')]//..//..//input"
+
+Sales Region: "xpath==//label//span[contains(text(),'Sales Region')]//..//..//input"
+Sales Region Select: "xpath==//div[@class='select-region-box']//span[(text()='variable')]"
+Customer Grade: "xpath==//label//span[contains(text(),'Customer Grade')]//..//..//input"
+Customer Grade Select: "xpath==//ul[@class='el-scrollbar__view el-select-dropdown__list']//span[text()='variable']"
+Business Type: "xpath==//label//span[contains(text(),'Business Type')]//..//..//input"
+Business Type Selecte: "xpath==//span[contains(text(),'variable')]"
+
+Contact Name: "xpath==//span[text()='Contact Name']//..//..//div//input"
+Contact No: "xpath==//span[text()='Contact No.']//..//..//div//input"
+Email: "xpath==//span[text()='Email']//..//..//div//input"
+Country: "xpath==//label//span[contains(text(),'Country')]//..//..//input"
+Country Select: "xpath==//div[@class='el-tree-node__content']//span[(text()='variable')]"
+Customer Address: "xpath==//span[text()='Customer Address']//..//..//div//input"
+Add Submit: "xpath==//div[@class='area-add-btn']//..//button[@id='customermanagementadd_Submit']"
+
+#编辑客户信息
+CheckBox: "xpath==//table[@class='el-table__body']//tbody//tr[1]//td//div//label[@class='el-checkbox']"
+
+Edit: "xpath==//span[@id='enterprise_update']"
+Edit Submit: "xpath==//div[@class='area-add-btn']//..//button[@id='customermanagementedit_Submit']"
+
+#筛选客户信息
+筛选Customer: "xpath==//label//span[text()='Customer']//..//..//input"
+筛选Customer Select: "xpath==//span[contains(text(),'variable')]"
+Search: "xpath==//button//span[normalize-space(text())='Search']"
+Reset: "xpath==//span[normalize-space(text())='Reset']"
+
+Get list Customer Id: "xpath==//tbody//tr[1]//td[5]//div"
+Get list Customer Name: "xpath==//tbody//tr[1]//td[4]//div"
+Get list New Brand: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div[@class='cell el-tooltip' and text()='variable']"
+Get Contact Name: "xpath==//tbody//tr[1]//td[15]//div"
+Get Contact No: "xpath==//tbody//tr[1]//td[16]//div"
+Get Customer Type: "xpath==//tbody//tr[@class='el-table__row']//td[17]//div[@class='cell el-tooltip' and text()='variable']"
+
+Get list Brand: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div[@class='cell el-tooltip']"
+Get Warehouse ID: "xpath==//tbody//tr[@class='el-table__row']//td[10]//div[@class='cell el-tooltip']"
+Get Warehouse Name: "xpath==//tbody//tr[@class='el-table__row']//td[11]//div[@class='cell el-tooltip']"
+Get Total: "xpath==//section//div//..//..//span[contains(text(),'Total')]"
+
+
+#删除客户信息
+More Options: "xpath==//button[@id='customermanagementglobal_More Option']//span"
+Delete: "xpath==//li[normalize-space(text())='Delete']"
+Delete Confirm: "xpath==//div[@class='el-dialog__body']//..//div[@class='el-dialog__footer']//button[@id='customermanagementglobal_Yes']"
+Delete Tips Close: "xpath==//button//span[normalize-space(text())='Close']"
+
+
+关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
+关闭客户管理菜单: "xpath==//span[normalize-space(text())='Customer Management (global)']//span[@class='el-icon-close']"
+
+Enable: "xpath==//li[normalize-space(text())='Enable']"
+Disable: "xpath==//li[normalize-space(text())='Disable']"
+Enable Confirm: "xpath==//span[normalize-space(text())='Confirm']"
+Disable Yes: "xpath==//button[@class='el-button el-button--primary el-button--mini']//span[normalize-space(text())='Yes']"
+Get list Status: "xpath==//tbody//tr[@class='el-table__row']//td[38]//div[normalize-space(text())='variable']"
+#勾选复选框: "xpath==//tbody//tr[@class='el-table__row']//td[1]//div//label//..//span[@class='el-checkbox__inner']"
+
+#导入用户
+Import Button: "xpath==//button[@id='enterprise_import_']//span[normalize-space(text())='Import']"
+Add Upload: "xpath==//button//span[normalize-space(text())='Add Upload']"
+Edit Upload: "xpath==//button//span[normalize-space(text())='Edit Upload']"
+Import Save: "xpath==//button[@id='customermanagementglobal_Save']//span[normalize-space(text())='Save']"
+Upload Confirm: "xpath==//button//span[normalize-space(text())='Confirm']"
+#Import Record
+Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
+Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"
+Get Import Record Total: "xpath==//tbody//tr[1]//td[4]//div"
+Get Import Record Success: "xpath==//tbody//tr[1]//td[5]//div"
+Get Import Record Failed: "xpath==//tbody//tr[1]//td[6]//div"
+Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
+Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"
+
+#导出客户
+Export: "id==customermanagementglobal_Export"
+Download Icon: "id==download-icon"
+More: "xpath==//span[contains(text(),'More...')]"
+Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
+Task Name value: "xpath==//span[text()='variable']"
+Export Record Search: "xpath==//span[contains(text(),'Search')]"
+获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
+获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
+获取文件大小文本: "xpath==//tbody//tr[1]//td[7]//div"
+获取用户ID文本:  "xpath==//tbody//tr[1]//td[8]//div"
+获取创建日期文本: "xpath==//tbody//tr[1]//td[10]//div"
+获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
+获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
+获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"

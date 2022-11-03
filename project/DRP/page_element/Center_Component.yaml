@@ -1,0 +1,70 @@
+Dashboard: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[1]/li/div/span'
+Dashboard->Dashboard: 'xpath==/html/body/div[4]/ul/div/a/li/span'
+
+DRP提报: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[2]/li/div/span'
+DRP提报->DRP提报: "xpath==//li[@class='el-menu-item']//span[contains(text(),'DRP提报')]"
+
+DRP报表: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[3]/li/div/span'
+DRP报表->DRP0报表: 'xpath==//a[@href='#/reportQuery/reportQuery']//li[@role='menuitem']'
+DRP报表->终审版报表: "xpath==//span[contains(text(),'终审版报表')]"
+DRP报表->综合报表: "xpath==//span[contains(text(),'综合报表')]"
+
+提报管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[4]/li/div/span'
+提报管理->DRP0: "xpath==//span[contains(text(),'DRP0报表')]"
+提报管理->DRP1: "xpath==//body/div[5]/ul[1]/div[2]/a[1]/li[1]"
+提报管理->终审版: "xpath==//body/div[5]/ul[1]/div[3]/a[1]/li[1]"
+
+DRP评审: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[5]/li/div/span'
+DRP评审->DRP1评审: 'xpath==/html/body/div[6]/ul/div[1]/a/li/span'
+DRP评审->DRP1评审-品牌: 'xpath==/html/body/div[6]/ul/div[2]/a/li/span'
+DRP评审->终审差异确认: 'xpath==/html/body/div[6]/ul/div[3]/a/li/span'
+
+流程中心: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[6]/li/div/span'
+流程中心->我的待办: 'xpath==/html/body/div[8]/ul/div[1]/a/li/span'
+流程中心->我的申请: 'xpath==/html/body/div[8]/ul/div[2]/a/li/span'
+流程中心->我的审批: 'xpath==/html/body/div[8]/ul/div[3]/a/li/span'
+流程中心->我的抄送: 'xpath==/html/body/div[8]/ul/div[4]/a/li/span'
+
+DRP模板管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[7]/li/div/span'
+DRP模板管理->DRP模板配置: 'xpath==/html/body/div[9]/ul/div[1]/a/li/span'
+DRP模板管理->国家机型: 'xpath==/html/body/div[9]/ul/div[2]/a/li/span'
+DRP模板管理->国家平台: 'xpath==/html/body/div[9]/ul/div[3]/a/li/span'
+DRP模板管理->平台机型: 'xpath==/html/body/div[9]/ul/div[4]/a/li/span'
+
+DRP流程管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[8]/li/div/span'
+DRP流程管理->流程管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='流程管理']"
+DRP流程管理->流程配置: "xpath==//li[@role='menuitem']//span[contains(text(),'流程配置')]"
+DRP流程管理->流程查询: "xpath==//li[@role='menuitem']//span[contains(text(),'流程查询')]"
+DRP流程管理->节点配置: "xpath==//li[@role='menuitem']//span[contains(text(),'节点配置')]"
+
+DRP数据管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[9]/li/div/span'
+DRP数据管理->机型库: "xpath==//li[@role='menuitem']//span[contains(text(),'机型库')]"
+DRP数据管理->平台库: "xpath==//li[@role='menuitem']//span[contains(text(),'平台库')]"
+DRP数据管理->颜色库: "xpath==//li[@role='menuitem']//span[contains(text(),'颜色库')]"
+DRP数据管理->月度供应资源: "xpath==//li[@role='menuitem']//span[contains(text(),'月度供应资源')]"
+DRP数据管理->月度销售订单: "xpath==//li[@role='menuitem']//span[contains(text(),'月度销售订单')]"
+DRP数据管理->月度清尾任务: "xpath==//li[@role='menuitem']//span[contains(text(),'月度清尾任务')]"
+DRP数据管理->通告板: "xpath==//li[@role='menuitem']//span[contains(text(),'通告板')]"
+DRP数据管理->销售版DRP: "xpath==//li[@role='menuitem']//span[contains(text(),'销售版DRP')]"
+DRP数据管理->通知管理: "xpath==//li[@role='menuitem']//span[contains(text(),'通知管理')]"
+DRP数据管理->集成数据管理: "xpath==//li[@role='menuitem']//span[contains(text(),'集成数据管理')]"
+
+BI报表: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[10]/li/div/span'
+BI报表->发货/激活分析: 'xpath==/html/body/div[12]/ul/div[1]/li/div[1]/span'
+BI报表->渠道库存分析: 'xpath==/html/body/div[12]/ul/div[2]/li/div[1]/span'
+BI报表->对比分析: 'xpath==/html/body/div[12]/ul/div[3]/li/div[1]/span'
+BI报表->PSI报表: 'xpath==/html/body/div[12]/ul/div[4]/li/div[1]/span'
+BI报表->KOM零售分析: 'xpath==/html/body/div[12]/ul/div[5]/li/div[1]/span'
+BI报表->铺货率分析: 'xpath==/html/body/div[12]/ul/div[6]/li/div[1]/span'
+BI报表->IMEI全生命周期: 'xpath==/html/body/div[12]/ul/div[7]/li/div[1]/span'
+BI报表->DPM迁移报表: 'xpath==/html/body/div[12]/ul/div[8]/li/div[1]/span'
+
+系统管理: 'xpath==//*[@id="app"]/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span'
+系统管理->用户管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='用户管理']"
+系统管理->区域管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='区域管理']"
+系统管理->维度管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='维度管理']"
+系统管理->评审管理: "xpath==//li[@role='menuitem']//span[normalize-space(text())='评审管理']"
+
+切换语言按钮: "xpath==//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]"
+
+关闭标签页: "xpath==//span[@class='el-icon-close']"

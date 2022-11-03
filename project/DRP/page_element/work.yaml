@@ -1,0 +1,41 @@
+
+#登录页面
+语言展开: 'xpath==//div[normalize-space(text())="中文版"]'
+选择中文: 'xpath==//li[normalize-space(text())="中文版"]'
+选择密码输入框: 'xpath==//div[text()="账号密码登录"]'
+账号输入框: 'xpath==//input[@placeholder="请输入账号/工号"]'
+密码输入框: 'xpath==//input[@placeholder="请输入密码"]'
+登录按钮: 'xpath==//button[@type="submit"]'
+隐私勾选: 'xpath==//div[@aria-labelledby="tab-account"]//span[@class="el-checkbox__inner"]'
+
+#DRP系统管理用户管理页面
+工号输入框: 'xpath==//label[text()="工号"]/following-sibling::*//input[@placeholder="请输入"]'
+姓名输入框: 'xpath==//label[text()="姓名"]/following-sibling::*//input[@placeholder="请输入"]'
+查询按钮: 'xpath==//div[@class="filter-form-btn"]//button[@class="el-button el-button--primary el-button--mini"]'
+重置按钮: 'xpath==//button[@class="el-button el-button--mini"]'
+新增按钮: 'xpath==//div[@class="btn-tool-system"]//button[@class="el-button el-button--primary el-button--mini"]'
+权限管理-配置: 'xpath==//tr[2]//button[@class="el-button eidt-button-text el-button--text el-button--small edit-country-btn"]'
+权限管理-编辑: 'xpath==//tr[1]//button[@class="el-button eidt-button-text el-button--text el-button--small"]'
+分页条数展开: 'xpath==//i[@class="el-select__caret el-input__icon el-icon-arrow-up"]'
+选择20条/页: 'xpath==//li[@class="el-select-dropdown__item"]//span[text()="20条/页"]'
+下一页图标: 'xpath==//i[@class="el-icon el-icon-arrow-right"]'
+页面选择输入框: 'xpath==//div[@class="el-input el-input--medium el-pagination__editor is-in-pagination"]'
+
+#DRP系统管理区域管理
+表头itel事业部: 'xpath==//div[@class="main-top-left"]//div[normalize-space(text())="variable"]'
+一级itel事业部: 'xpath==//div[@tabindex="0"]/div[@class="el-tree-node__content"]//span[normalize-space(text())="variable"]'
+二级itel事业部: 'xpath==//div[@tabindex="0"]/div[@role="group"]/div[@tabindex="-1"]/div[@class="el-tree-node__content"]//span[normalize-space(text())="variable"]'
+三级itel事业部: 'xpath==//div[@tabindex="0"]/div[@role="group"]/div[@tabindex="-1"]//div[@tabindex="-1"]/div[@class="el-tree-node__content"]//span[normalize-space(text())="variable"]'
+四级itel事业部: 'xpath==//div[@tabindex="0"]/div[@role="group"]/div[@tabindex="-1"]//div[@tabindex="-1"]//div[@tabindex="-1"]//span[normalize-space(text())="variable"]'
+
+
+
+
+
+
+
+
+
+
+
+
