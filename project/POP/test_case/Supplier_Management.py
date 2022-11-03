@@ -66,7 +66,7 @@ class TestQuerySupplier:
         users = SupplierManagement(drivers)
         users.switch_shop("Wanzhou Popcorn")
         users.click_query()
-        sleep(5)
+        sleep(10)
         # 断言--查询的门店与输入的一致
         test = users.element_text(user['查询的门店'])
         ValueAssert.value_assert_equal(test,"Wanzhou Popcorn")
