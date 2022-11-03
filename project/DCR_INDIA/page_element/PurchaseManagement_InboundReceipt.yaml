@@ -29,12 +29,13 @@ Get Item: "xpath==//table//tbody//tr[1]//td[7]//div//div//div"
 Get Brand: "xpath==//table//tbody//tr[1]//td[11]//div//div//div"
 
 #IMEI Detail详情页，获取列表字段内容，元素定位
-Get IMEI Detail Material ID: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[1]/div"
-Get IMEI Detail Product: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr[1]/td[2]/div"
-Get IMEI Detail Item: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[3]/div"
-Get IMEI Detail Brand: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[5]/div"
-Get IMEI: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[6]/div"
-Get IMEI Detail Total: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/span[contains(text(),'Total')]"
+Get IMEI Detail Material ID: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[1]/div"
+Get IMEI Detail Product: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr[1]/td[2]/div"
+Get IMEI Detail Item: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[3]/div"
+Get IMEI Detail Brand: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[5]/div"
+Get IMEI: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[6]/div"
+Get IMEI Detail Total: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[3]/span[contains(text(),'Total')]"
 Get IMEI Detail Export: "id==inbound_receipt_imei_export_"
+
 
 收货第一个复选框: "xpath==//table//tbody//tr[1]//td[1]//div//label//span//span"
