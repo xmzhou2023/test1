@@ -78,7 +78,7 @@ class testhaha:
     @allure.severity("critical")  # blocker\critical\normal\minor\trivial
     @pytest.mark.RT
     def test_003_001(self, drivers):
-        pass
+        dsfpass
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])
 

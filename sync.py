@@ -177,7 +177,6 @@ def get_PyClass(filepath):
             if re.match("        (.*)", line):
                 status_name = re.match("        (.*)", line)
                 status_name = status_name.group(1)
-                print(status_name)
                 if 'pass' == status_name:
                     class_list[class_name]['value'][function_name]['status'] = 0
 
