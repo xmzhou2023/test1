@@ -70,15 +70,6 @@ class TestEditUser:
             #     # '区域': {'Infinix': ['利比亚', '土耳其']}
             }
         )
-
-class testhaha:
-    @allure.story("编辑用户")
-    @allure.title("查找到指定用户并配置菜单权限")
-    @allure.description("更新工号为18650893的用户添加组织权限为‘itel事业部’和‘东非地区部‘")
-    @allure.severity("critical")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.RT
-    def test_003_001(self, drivers):
-        pass
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])
 
