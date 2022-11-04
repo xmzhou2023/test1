@@ -1,3 +1,7 @@
+import sys
+import os
+base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(base_path)
 from libs.common.read_csv import *
 from libs.config.conf import PEROJECT_PATH, BASE_DIR
 import logging
