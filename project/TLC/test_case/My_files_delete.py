@@ -35,7 +35,7 @@ class TestMyFilesDelete:
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除弹框', '确定')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的文件删除")  # 场景名称
     @allure.title("文件删除-我的空间_删除对话框取消")  # 用例名称
@@ -60,7 +60,7 @@ class TestMyFilesDelete:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除弹框', '确定')
-        pass
+      
 
     @allure.story("我的文件删除")  # 场景名称
     @allure.title("文件删除-我的空间_删除对话框关闭")  # 用例名称
@@ -85,7 +85,7 @@ class TestMyFilesDelete:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除弹框', '确定')
-        pass
+      
 
     @allure.story("我的文件删除")  # 场景名称
     @allure.title("文件删除-公共空间_正例")  # 用例名称
@@ -107,7 +107,7 @@ class TestMyFilesDelete:
         tools.click('删除', 'auto_testing_add_files_pub_001')
         tools.click('删除弹框', '确定')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的文件删除")  # 场景名称
     @allure.title("文件删除-公共空间_删除对话框取消")  # 用例名称
@@ -133,7 +133,7 @@ class TestMyFilesDelete:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pub_001')
         tools.click('删除弹框', '确定')
-        pass
+      
 
     @allure.story("我的文件删除")  # 场景名称
     @allure.title("文件删除-公共空间_删除对话框关闭")  # 用例名称
@@ -159,6 +159,6 @@ class TestMyFilesDelete:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pub_001')
         tools.click('删除弹框', '确定')
-        pass
+      
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_files_delete.py'])

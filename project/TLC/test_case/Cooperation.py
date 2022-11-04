@@ -70,7 +70,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("添加协作者")  # 场景名称
     @allure.title("组件添加协作者-阅读者权限")  # 用例名称
@@ -128,7 +128,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("协作者权限变更")  # 场景名称
     @allure.title("协作者权限编辑者更改为阅读者")  # 用例名称
@@ -203,7 +203,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("协作者权限变更")  # 场景名称
     @allure.title("协作者权限阅读者更改为编辑者")  # 用例名称
@@ -278,7 +278,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("组件删除-与我协作界面")  # 场景名称
     @allure.title("组件添加协作者-删除组件")  # 用例名称
@@ -335,7 +335,7 @@ class Testcooperator:
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
         # 切换创建者登录
         tools.relogin('18647503')
-        pass
+      
 
     @allure.story("组件删除-与我协作界面")  # 场景名称
     @allure.title("组件添加协作者-删除组件后还原组件")  # 用例名称
@@ -411,7 +411,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("组件删除-我的收藏界面")  # 场景名称
     @allure.title("协作者收藏组件-组件删除")  # 用例名称
@@ -472,7 +472,7 @@ class Testcooperator:
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
         # 切换创建者登录
         tools.relogin('18647503')
-        pass
+      
 
     @allure.story("组件删除-我的收藏界面")  # 场景名称
     @allure.title("协作者收藏组件-组件删除后还原")  # 用例名称
@@ -552,7 +552,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("删除协作者")  # 场景名称
     @allure.title("删除协助者-编辑者权限")  # 用例名称
@@ -620,7 +620,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("删除协作者")  # 场景名称
     @allure.title("删除协助者-阅读者权限")  # 用例名称
@@ -688,7 +688,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("与我协作界面-组件查询")  # 场景名称
     @allure.title("组件查询_正例")  # 用例名称
@@ -742,7 +742,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("与我协作界面-组件查询")  # 场景名称
     @allure.title("组件查询_反例")  # 用例名称
@@ -796,7 +796,7 @@ class Testcooperator:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
 
 

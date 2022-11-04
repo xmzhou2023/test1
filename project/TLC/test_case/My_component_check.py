@@ -56,7 +56,7 @@ class TestMyComponentCheck:
         tools.click('删除确定')
 
 
-        pass
+      
 
     @allure.story("我的文件-组件查询")  # 场景名称
     @allure.title("组件查询_反例")  # 用例名称
@@ -95,7 +95,7 @@ class TestMyComponentCheck:
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_component_check.py'])

@@ -42,7 +42,7 @@ class TestRecycleBin:
         tools.click('文件Item more')
         tools.click('彻底删除', 'auto_testing_add_files_pri_001')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的空间-回收站操作")  # 场景名称
     @allure.title("我的空间-回收站彻底删除组件")  # 用例名称
@@ -74,7 +74,7 @@ class TestRecycleBin:
         tools.click('组件Item more')
         tools.click('彻底删除', 'auto_testing_add_components_pri_001')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的空间-回收站操作")  # 场景名称
     @allure.title("我的空间-回收站还原文件夹")  # 用例名称
@@ -112,7 +112,7 @@ class TestRecycleBin:
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_files_pri_001')
-        pass
+      
 
     @allure.story("我的空间-回收站操作")  # 场景名称
     @allure.title("我的空间-回收站还原组件")  # 用例名称
@@ -152,7 +152,7 @@ class TestRecycleBin:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("我的空间-回收站操作")  # 场景名称
     @allure.title("我的空间-回收站还原组件code相同场景")  # 用例名称
@@ -209,7 +209,7 @@ class TestRecycleBin:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("公共空间-回收站操作")  # 场景名称
     @allure.title("公共空间-回收站彻底删除文件夹")  # 用例名称
@@ -239,7 +239,7 @@ class TestRecycleBin:
         tools.click('文件Item more')
         tools.click('彻底删除', 'auto_testing_add_files_pri_001')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("公共空间-回收站操作")  # 场景名称
     @allure.title("公共空间-回收站彻底删除组件")  # 用例名称
@@ -271,7 +271,7 @@ class TestRecycleBin:
         tools.click('组件Item more')
         tools.click('彻底删除', 'auto_testing_add_components_pri_001')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("公共空间-回收站操作")  # 场景名称
     @allure.title("公共空间-回收站还原文件夹")  # 用例名称
@@ -310,7 +310,7 @@ class TestRecycleBin:
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_files_pri_001')
-        pass
+      
 
     @allure.story("公共空间-回收站操作")  # 场景名称
     @allure.title("公共空间-回收站还原组件")  # 用例名称
@@ -351,7 +351,7 @@ class TestRecycleBin:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("公共空间-回收站操作")  # 场景名称
     @allure.title("公共空间-回收站还原组件code相同场景")  # 用例名称
@@ -410,7 +410,7 @@ class TestRecycleBin:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("公共空间-回收站操作")  # 场景名称
     @allure.title("一键清空")  # 用例名称
@@ -423,7 +423,7 @@ class TestRecycleBin:
         tools.click('一键清空')
         tools.click('一键清空确认')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/RecycleBin.py'])

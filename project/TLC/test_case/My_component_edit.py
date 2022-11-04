@@ -41,7 +41,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pri_002')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-我的空间_组件名称编辑_反例1")  # 用例名称
@@ -70,7 +70,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
-        pass
+      
 
 
     @allure.story("我的文件-组件编辑")  # 场景名称
@@ -97,7 +97,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-我的空间_组件名称编辑对话框关闭")  # 用例名称
@@ -123,7 +123,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-公共空间_组件名称编辑_正例")  # 用例名称
@@ -153,7 +153,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pub_002')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-公共空间_组件名称编辑_反例")  # 用例名称
@@ -185,7 +185,7 @@ class TestMyComponentEdit:
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
 
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-我的空间_组件名称编辑对话框取消")  # 用例名称
@@ -213,7 +213,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-公共空间_组件名称编辑对话框关闭")  # 用例名称
@@ -241,7 +241,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
-        pass
+      
 
 
 if __name__ == '__main__':

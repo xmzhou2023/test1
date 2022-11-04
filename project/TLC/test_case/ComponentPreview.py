@@ -40,7 +40,7 @@ class TestComponentPreview:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("公共空间-组件预览")  # 场景名称
     @allure.title("公共空间-组件code校验")  # 用例名称
@@ -68,7 +68,7 @@ class TestComponentPreview:
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("组件加锁")  # 场景名称
     @allure.title("组件加锁/解锁")  # 用例名称
@@ -97,7 +97,7 @@ class TestComponentPreview:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/ComponentPreview.py'])

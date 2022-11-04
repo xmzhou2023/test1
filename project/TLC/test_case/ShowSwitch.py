@@ -28,7 +28,7 @@ class TestShowSwitch:
         DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
         DomAssert(drivers).assert_page_source('所有者')
-        pass
+      
 
     @allure.story("图标列表切换")  # 场景名称
     @allure.title("我的收藏-图标列表切换")  # 用例名称
@@ -42,7 +42,7 @@ class TestShowSwitch:
         DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
         DomAssert(drivers).assert_page_source('所有者')
-        pass
+      
 
     @allure.story("图标列表切换")  # 场景名称
     @allure.title("回收站-图标列表切换")  # 用例名称
@@ -56,7 +56,7 @@ class TestShowSwitch:
         DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
         DomAssert(drivers).assert_page_source('所有者')
-        pass
+      
 
     @allure.story("与我协作切换")  # 场景名称
     @allure.title("与我协作-图标列表切换")  # 用例名称
@@ -70,7 +70,7 @@ class TestShowSwitch:
         DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
         DomAssert(drivers).assert_page_source('所有者')
-        pass
+      
 
     @allure.story("我的文件夹界面切换")  # 场景名称
     @allure.title("文件夹界面-图标列表切换")  # 用例名称
@@ -97,7 +97,7 @@ class TestShowSwitch:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/ShowSwitch.py'])

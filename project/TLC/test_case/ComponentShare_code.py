@@ -47,7 +47,7 @@ class TestComponentSharing:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 
     @allure.story("公共空间-组件分享")  # 场景名称
     @allure.title("公共空间-组件分享")  # 用例名称
@@ -82,7 +82,7 @@ class TestComponentSharing:
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pub_001')
-        pass
+      
 
     @allure.story("组件code校验")  # 场景名称
     @allure.title("组件code查看与复制")  # 用例名称
@@ -118,6 +118,6 @@ class TestComponentSharing:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
-        pass
+      
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/ComponentShare_code.py'])

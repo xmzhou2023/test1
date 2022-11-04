@@ -60,7 +60,7 @@ class TestComponentTransfer:
         tools.click('删除', 'auto_testing_add_components_in_file_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的空间-组件迁移")  # 场景名称
     @allure.title("我的空间-组件迁移到我的空间文件夹下")  # 用例名称
@@ -115,7 +115,7 @@ class TestComponentTransfer:
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的空间-组件迁移")  # 场景名称
     @allure.title("我的空间-空间下组件迁移到公共空间下")  # 用例名称
@@ -154,7 +154,7 @@ class TestComponentTransfer:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的空间-组件迁移")  # 场景名称
     @allure.title("我的空间-组件迁移到公共空间文件夹下")  # 用例名称
@@ -208,7 +208,7 @@ class TestComponentTransfer:
         tools.click('删除', 'auto_testing_add_files_pub_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("公共空间-组件迁移")  # 场景名称
     @allure.title("公共空间-文件夹下组件迁移到公共空间")  # 用例名称
@@ -256,7 +256,7 @@ class TestComponentTransfer:
         tools.click('删除', 'auto_testing_add_components_in_file_pub_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("公共空间-组件迁移")  # 场景名称
     @allure.title("公共空间-组件迁移到公共空间文件夹下")  # 用例名称
@@ -310,7 +310,7 @@ class TestComponentTransfer:
         tools.click('删除', 'auto_testing_add_files_pub_001')
         tools.click('删除确认')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/ComponentTransfer.py'])

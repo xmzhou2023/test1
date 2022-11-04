@@ -39,7 +39,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pri_002')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-文件重命名_反例")  # 用例名称
@@ -67,7 +67,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-我的空间-文件名修改_删除对话框取消")  # 用例名称
@@ -92,7 +92,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-我的空间-文件名修改对话框关闭")  # 用例名称
@@ -117,7 +117,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-我的空间-文件名修改_正例")  # 用例名称
@@ -145,7 +145,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pub_002')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-公共空间_文件名修改_反例")  # 用例名称
@@ -176,7 +176,7 @@ class TestMyFilesEdit:
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pub_001')
         tools.click('删除确定')
 
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-公共空间-文件名修改对话框取消")  # 用例名称
@@ -202,7 +202,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pub_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-公共空间_文件名修改对话框关闭")  # 用例名称
@@ -228,7 +228,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pub_001')
         tools.click('删除确定')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_files_edit.py'])

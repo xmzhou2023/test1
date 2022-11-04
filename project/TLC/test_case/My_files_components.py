@@ -46,7 +46,7 @@ class TestMyfileAddComponents:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("文件-组件增删")  # 场景名称
     @allure.title("文件_组件增删-公共空间")  # 用例名称
@@ -80,7 +80,7 @@ class TestMyfileAddComponents:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pub_001')
         tools.click('删除确认')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_files_components.py'])

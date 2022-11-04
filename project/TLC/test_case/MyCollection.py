@@ -50,7 +50,7 @@ class TestMyCollection:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
 
     @allure.story("我的空间收藏操作") # 场景名称
@@ -95,7 +95,7 @@ class TestMyCollection:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        pass
+      
 
 
     @allure.story("公共空间收藏操作")  # 场景名称
@@ -180,7 +180,7 @@ class TestMyCollection:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的空间收藏操作")  # 场景名称
     @allure.title("我的收藏界面查询组件功能正例")  # 用例名称
@@ -215,7 +215,7 @@ class TestMyCollection:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的空间收藏操作")  # 场景名称
     @allure.title("我的收藏界面查询组件功能反例")  # 用例名称
@@ -245,7 +245,7 @@ class TestMyCollection:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的空间收藏操作")  # 场景名称
     @allure.title("我的收藏界面查询文件夹功能正例")  # 用例名称
@@ -280,7 +280,7 @@ class TestMyCollection:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的空间收藏操作")  # 场景名称
     @allure.title("我的收藏界面查询文件夹功能反例")  # 用例名称
@@ -308,7 +308,7 @@ class TestMyCollection:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/MyCollection.py'])

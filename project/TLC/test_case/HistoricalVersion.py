@@ -61,7 +61,7 @@ class TestHistoricalVersion:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("组件回退")  # 场景名称
     @allure.title("我的文件-组件回退")  # 用例名称
@@ -132,7 +132,7 @@ class TestHistoricalVersion:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除确认')
-        pass
+      
 
 
 if __name__ == '__main__':

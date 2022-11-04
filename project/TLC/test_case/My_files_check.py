@@ -52,7 +52,7 @@ class TestMyFilesCheck:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的文件查询")  # 场景名称
     @allure.title("文件查询_反例")  # 用例名称
@@ -91,7 +91,7 @@ class TestMyFilesCheck:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_files_check.py'])

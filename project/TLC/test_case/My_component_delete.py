@@ -36,7 +36,7 @@ class TestMyComponentDelete:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除弹框', '确定')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -62,7 +62,7 @@ class TestMyComponentDelete:
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除弹框', '确定')
-    pass
+  
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -89,7 +89,7 @@ class TestMyComponentDelete:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除弹框', '确定')
 
-        pass
+      
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -113,7 +113,7 @@ class TestMyComponentDelete:
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除弹框', '确定')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -141,7 +141,7 @@ class TestMyComponentDelete:
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除弹框', '确定')
-        pass
+      
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -169,7 +169,7 @@ class TestMyComponentDelete:
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除弹框', '确定')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_component_delete.py'])

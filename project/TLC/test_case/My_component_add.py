@@ -36,7 +36,7 @@ class TestMyComponentAdd:
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_反例1")  # 用例名称
@@ -55,7 +55,7 @@ class TestMyComponentAdd:
         tools.click('新增Button', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_反例2")  # 用例名称
@@ -84,7 +84,7 @@ class TestMyComponentAdd:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
 
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_反例3")  # 用例名称
@@ -103,7 +103,7 @@ class TestMyComponentAdd:
         tools.click('新增Button', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_新增对话框关闭")  # 用例名称
@@ -118,7 +118,7 @@ class TestMyComponentAdd:
         tools.hover('新增')
         tools.click('新增组件')
         tools.click('x')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_新增对话框取消")  # 用例名称
@@ -133,7 +133,7 @@ class TestMyComponentAdd:
         tools.hover('新增')
         tools.click('新增组件')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_正例")  # 用例名称
@@ -157,7 +157,7 @@ class TestMyComponentAdd:
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_反例1")  # 用例名称
@@ -176,7 +176,7 @@ class TestMyComponentAdd:
         tools.click('新增Button', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_反例2")  # 用例名称
@@ -206,7 +206,7 @@ class TestMyComponentAdd:
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_反例3")  # 用例名称
@@ -225,7 +225,7 @@ class TestMyComponentAdd:
         tools.click('新增Button', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_新增对话框关闭")  # 用例名称
@@ -240,7 +240,7 @@ class TestMyComponentAdd:
         tools.hover('新增')
         tools.click('新增组件')
         tools.click('x')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_新增对话框取消")  # 用例名称
@@ -255,6 +255,6 @@ class TestMyComponentAdd:
         tools.hover('新增')
         tools.click('新增组件')
         tools.click('新增Button', 'cancel')
-        pass
+      
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_component_add.py'])
