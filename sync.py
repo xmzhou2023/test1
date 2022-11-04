@@ -174,8 +174,8 @@ def get_PyClass(filepath):
                     print('请检查指定代码格式{}'.format(class_list))
 
             """获取用例状态(是否是pass)def"""
-            if re.match("        (.*)", line):
-                status_name = re.match("        (.*)", line)
+            if re.match("z(.*)", line):
+                status_name = re.match("\s+(.*)\s+", line)
                 status_name = status_name.group(1)
                 if 'pass' in status_name:
                     class_list[class_name]['value'][function_name]['status'] = 0
