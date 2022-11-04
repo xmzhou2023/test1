@@ -121,6 +121,7 @@ def get_PyClass(filepath):
             if re.match("    @allure.story\(\"(.*)\"\)", line):
                 story_name = re.match("    @allure.story\(\"(.*)\"\)", line)
                 story_name = story_name.group(1)
+                story_name = story_name.replace('\\\\', '\\')
                 class_list[class_name]['att'] = story_name
                 mark_name = [] # 初始化mark_name
                 # print(story_name)
@@ -147,7 +148,7 @@ def get_PyClass(filepath):
             if re.match("    @pytest.mark.([^\s]+)", line):
                 mark_value = re.match("    @pytest.mark.([^\s]+)", line)
                 mark_value = mark_value.group(1)
-                if 'run' not in mark_value and 'skip' not in mark_value and 'usefixtures(' not in mark_value and 'parametrize(' not in mark_value:
+                if 'run' not in mark_value and 'skip' not in mark_value and 'usefixtures(' not in mark_value and 'parametrize(' not in mark_value and 'xfail' not in mark_value:
                     mark_name.append(mark_value)
                     # print(mark_name)
 
@@ -168,8 +169,17 @@ def get_PyClass(filepath):
                     class_list[class_name]['value'][function_name]['description'] = description_name
                     class_list[class_name]['value'][function_name]['severity'] = severity_name
                     class_list[class_name]['value'][function_name]['mark'] = mark_name
+                    class_list[class_name]['value'][function_name]['status'] = 1
                 except UnboundLocalError as e:
                     print('请检查指定代码格式{}'.format(class_list))
+
+            """获取用例状态(是否是pass)def"""
+            if re.match("        (.*)", line):
+                status_name = re.match("        (.*)", line)
+                status_name = status_name.group(1)
+                if 'pass' in status_name:
+                    class_list[class_name]['value'][function_name]['status'] = 0
+
     return class_list, feature_name
 
 def get_env():
@@ -239,7 +249,7 @@ def sync_AllData(data_list, env_list):
 
         # 模块数据
         for mod_index, mod_code in enumerate(data_list[pro_code], 1):
-            module_zh = data_list[pro_code][mod_code]['att'].replace('\"', '')
+            module_zh = data_list[pro_code][mod_code]['att'].replace('\"', '').replace("\'", "\\'")
             sql_mod = "INSERT INTO ts_module(module_code,module_name,p_id,created_by,updated_by,enabled_flag) VALUES ('{}','{}','{}','自动化平台','自动化平台',1)".format(mod_code,module_zh ,pro_id)
             sql_execute.append(sql_mod)
 
@@ -253,7 +263,7 @@ def sync_AllData(data_list, env_list):
 
             # 场景数据
             for sce_index, sce_code in enumerate(data_list[pro_code][mod_code]['value'], 1):
-                sce_zh = data_list[pro_code][mod_code]['value'][sce_code]['att'].replace('\"', '')
+                sce_zh = data_list[pro_code][mod_code]['value'][sce_code]['att'].replace('\"', '').replace("\'", "\\'")
                 sql_sce = "INSERT INTO scene(scene_code,scene_name,m_id,scene_level,created_by,updated_by,enabled_flag,scene_type) VALUES('{}','{}',{},1,'自动化平台','自动化平台',1,2)".format(sce_code, sce_zh, mod_id)
                 sql_execute.append(sql_sce)
 
@@ -262,16 +272,21 @@ def sync_AllData(data_list, env_list):
 
                     try:
                         # 添加用例描述
-                        case_zh = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['title'].replace('\"', '')
-                        case_desc = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['description']
+                        case_zh = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['title'].replace("\\", "\\\\").replace('\"', '').replace("\'", "\\'")
+                        case_desc = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['description'].replace("\\", "\\\\").replace('\"', '').replace("\'", "\\'")
 
                         # 设置用例等级
                         severity_level = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['severity'].replace('\"', '')
                         case_level_id = case_level[severity_level]
 
+                        # 设置用例等级
+                        case_status = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['status']
+
                         # 添加用例数据
-                        sql_case = "INSERT INTO ts_case(case_code,case_name,case_des,case_status,s_id,case_level,manager_id,created_by,updated_by,enabled_flag,meta_status) VALUES('{}','{}','{}',1,{},{},1,'自动化平台','自动化平台',1,'unexecuted')".format(case_code, case_zh, case_desc, sce_id, case_level_id)
+                        sql_case = "INSERT INTO ts_case(case_code,case_name,case_des,case_status,s_id,case_level,manager_id,created_by,updated_by,enabled_flag,meta_status) VALUES('{}','{}','{}',{},{},{},1,'自动化平台','自动化平台',1,'unexecuted')".format(case_code, case_zh, case_desc, case_status, sce_id, case_level_id)
+                        print(sql_case)
                         sql_execute.append(sql_case)
+
 
                         # 添加用例等级
                         severity_level = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['mark']
@@ -474,11 +489,12 @@ def algo_data(type, sql_data, data_list, parm=None):
 
         for case_code in inp_data:
             print('更新后增加用例 {} '.format(case_code))
-            case_zh = data_list[case_code]['title'].replace('\"','').replace('\'','')
-            case_desc = data_list[case_code]['description'].replace('\"','').replace('\'','')
+            case_zh = data_list[case_code]['title'].replace("\\", "\\\\").replace('\"','').replace('\'','')
+            case_desc = data_list[case_code]['description'].replace("\\", "\\\\").replace('\"','').replace('\'','')
             severity_level = data_list[case_code]['severity'].replace('\"','').replace('\'','')
             case_level_id = case_level[severity_level]
-            sql_pro = "INSERT INTO ts_case(case_code,case_name,case_des,case_status,s_id,case_level,manager_id,created_by,updated_by,enabled_flag,meta_status) VALUES('{}','{}','{}',1,{},{},1,'自动化平台','自动化平台',1,'unexecuted')".format(case_code, case_zh, case_desc, parm, case_level_id)
+            case_status = data_list[case_code]['status']
+            sql_pro = "INSERT INTO ts_case(case_code,case_name,case_des,case_status,s_id,case_level,manager_id,created_by,updated_by,enabled_flag,meta_status) VALUES('{}','{}','{}',{},{},{},1,'自动化平台','自动化平台',1,'unexecuted')".format(case_code, case_zh, case_desc, case_status, parm, case_level_id)
             sql_execute.append(sql_pro)
             print(sql_pro)
         change_db(sql_execute)
@@ -579,7 +595,7 @@ def update_data(type, sql_data, data_list, parm=None):
     case_mark = {
         'smoke': 1,
         'RT': 2,
-        'UT': 3,
+        'UT': 3
     }
 
     if type == 'mod':
@@ -635,7 +651,7 @@ def update_data(type, sql_data, data_list, parm=None):
 
         for sce_id, sce_code, in enumerate(data_list.keys(), 1):
             list_py.append(sce_code)
-            scene_list_py[sce_code] = data_list[sce_code]['att'].replace('\"','').replace('\'','')
+            scene_list_py[sce_code] = data_list[sce_code]['att'].replace("\\", "\\\\").replace('\"','').replace('\'','')
         scene_list_py = sorted(scene_list_py.items())
         # 格式化字典
         scene_list_py_json = {k: v for k, v in scene_list_py}
@@ -651,7 +667,7 @@ def update_data(type, sql_data, data_list, parm=None):
 
         for scene_key in scene_list_py_json:
             if scene_list_sq_json[scene_key] != scene_list_py_json[scene_key]:
-                print('更新场景描述 {} '.format(scene_key))
+                # print('更新场景描述 {} '.format(scene_key))
                 sql_pro = 'UPDATE scene SET scene_name="{}" WHERE scene_code="{}" AND m_id={}'.format(scene_list_py_json[scene_key], scene_key, parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
@@ -664,6 +680,7 @@ def update_data(type, sql_data, data_list, parm=None):
             python_list = []
             python_list.append(data_list[case_code]['title'].replace('\"','').replace('\'',''))
             python_list.append(data_list[case_code]['description'].replace('\"','').replace('\'',''))
+            python_list.append(data_list[case_code]['status'])
             python_list.append(str(case_level[data_list[case_code]['severity']]))
             case_list_py[case_code] = python_list
 
@@ -677,6 +694,7 @@ def update_data(type, sql_data, data_list, parm=None):
             sqldata_list = []
             sqldata_list.append(i['case_name'])
             sqldata_list.append(i['case_des'])
+            sqldata_list.append(i['case_status'])
             sqldata_list.append(i['case_level'])
             case_list_sq[i['case_code']] = sqldata_list
 
@@ -688,7 +706,7 @@ def update_data(type, sql_data, data_list, parm=None):
         for case_key in case_list_py_json:
             if case_list_sq_json[case_key] != case_list_py_json[case_key]:
                 print('更新模块描述 {} '.format(case_key))
-                sql_pro = 'UPDATE ts_case SET case_name="{}",case_des="{}",case_level={} WHERE case_code="{}" AND s_id={}'.format(case_list_py_json[case_key][0], case_list_py_json[case_key][1], case_list_py_json[case_key][2], case_key, parm)
+                sql_pro = 'UPDATE ts_case SET case_name="{}",case_des="{}",case_status={},case_level={} WHERE case_code="{}" AND s_id={}'.format(case_list_py_json[case_key][0], case_list_py_json[case_key][1], case_list_py_json[case_key][2],case_list_py_json[case_key][3], case_key, parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
         change_db(sql_execute)
@@ -786,7 +804,7 @@ def sync_Data(data_list, env_list=None):
                 sce_data_list = mod_data_list[sce_code]['value']
 
                 # 用例查询sql
-                case_sql = "SELECT id,case_code,case_name,case_des,case_level from ts_case where s_id = {}".format(sce_id)
+                case_sql = "SELECT id,case_code,case_name,case_des,case_status,case_level from ts_case where s_id = {}".format(sce_id)
 
                 # 查找出py文件和数据库项目数据的差异并进行操作
                 algo_data('case', query_db(case_sql), sce_data_list, sce_id)
