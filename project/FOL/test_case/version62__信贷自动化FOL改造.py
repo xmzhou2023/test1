@@ -8,7 +8,7 @@ class Teststory_410:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_5696(self, drivers):
-        12pass312
+        pass
 
 
 if __name__ == '__main__':
