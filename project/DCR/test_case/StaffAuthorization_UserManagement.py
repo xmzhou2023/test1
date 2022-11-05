@@ -358,7 +358,7 @@ class TestImportUser:
         ValueAssert.value_assert_equal('1', get_success)
         ValueAssert.value_assert_equal('0', get_failed)
         ValueAssert.value_assert_equal(today, get_import_date)
-        """关闭当前打开的菜单"""
+        """关闭当前打开的导入记录菜单"""
         menu = LoginPage(drivers)
         menu.click_close_open_menu()
 

@@ -169,7 +169,7 @@ class UserManagementPage(Base):
         sleep(2)
         self.presence_sleep_dcr(user['Quit'])
         self.is_click(user['Quit'])
-        sleep(3)
+        sleep(2)
         self.is_click_dcr(user['确认删除Yes'])
 
     @allure.step("获取无数据文本")
@@ -293,14 +293,14 @@ class UserManagementPage(Base):
     def click_import_upload_save(self, file1):
         self.is_click(user['Add Upload'])
         sleep(4)
-        ele = self.driver.find_element('xpath', "//input[@name='file']")
+        ele = self.driver.find_element('xpath', "//button//..//input[@name='file']")
         ele.send_keys(file1)
-        sleep(1.5)
+        sleep(3)
         self.is_click(user['Import Save'])
         sleep(2)
         self.presence_sleep_dcr(user['Upload Confirm'])
         self.is_click(user['Upload Confirm'])
-        sleep(1)
+
 
     @allure.step("导入用户模板-上传正确的文件")
     def upload_true_file(self, file1):
