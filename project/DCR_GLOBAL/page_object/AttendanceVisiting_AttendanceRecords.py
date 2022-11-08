@@ -12,22 +12,21 @@ user = Element(pro_name, object_name)
 
 class AttendanceRecordPage(Base):
     """ AttendanceRecord类，生产环境，Attendance Records考勤记录页面元素定位"""
-    def input_user_id_query(self, content, content1):
+    def input_user_id_query(self, content):
         """Attendance Records页面，输入User ID筛选用户的考勤记录"""
         self.is_click_dcr(user['筛选用户'])
-        sleep(1)
         self.input_text_dcr(user['筛选用户'], txt=content)
         sleep(3)
-        self.is_click_dcr(user['Select User Value'], content1)
+        self.is_click_dcr(user['Select User Value'], content)
 
     def input_query_date(self, content):
         self.is_click(user['筛选开始日期'])
-        sleep(1)
-        self.input_text(user['筛选开始日期'], txt=content)
+        self.input_text(user['筛选开始日期'], content)
 
     def click_search(self):
         """Attendance Records页面，点击Seasrch筛选考勤记录"""
         self.is_click(user['Search'])
+        sleep(3.5)
 
     def click_reset(self):
         """Attendance Records页面，点击Reset重置筛选条件"""
@@ -46,11 +45,17 @@ class AttendanceRecordPage(Base):
         date = self.element_text(user['获取列表日期文本'])
         return date
 
-    def get_user_id_text(self):
+    def get_user_id_text2(self):
         """Attendance Records页面，获取列表User ID文本"""
-        Base.presence_sleep_dcr(self, user['获取列表UserID文本'])
-        userid = self.element_text(user['获取列表UserID文本'])
-        return userid
+        Base.presence_sleep_dcr(self, user['获取列表UserID文本2'])
+        userid2 = self.element_text(user['获取列表UserID文本2'])
+        return userid2
+
+    def get_user_id_text1(self):
+        """Attendance Records页面，获取列表User ID文本"""
+        Base.presence_sleep_dcr(self, user['获取列表UserID文本1'])
+        userid1 = self.element_text(user['获取列表UserID文本1'])
+        return userid1
 
     def get_total_text(self):
         """Attendance Records页面，获取列表Total总条数文本"""
@@ -66,7 +71,7 @@ class AttendanceRecordPage(Base):
     def click_close_atten_record(self):
         """关闭考勤记录菜单"""
         self.is_click(user['关闭考勤记录菜单'])
-        sleep(2)
+        sleep(1)
 
     def get_home_page_cust(self):
         homepage = self.element_text(user['Get Home Page Customer'])
@@ -77,7 +82,7 @@ class AttendanceRecordPage(Base):
     def click_export(self):
         """Attendance Records页面，点击Export 导出考勤记录"""
         self.is_click(user['Export'])
-        sleep(2)
+        sleep(1)
 
     def click_download_more(self):
         """导出操作后，点击右上角下载图标,点击右上角more..."""
@@ -85,7 +90,7 @@ class AttendanceRecordPage(Base):
         sleep(1)
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        sleep(3.5)
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
@@ -114,8 +119,8 @@ class AttendanceRecordPage(Base):
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
-        self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
         self.is_click(user['Task Name value'], content)
 
     def get_task_user_id_text(self):

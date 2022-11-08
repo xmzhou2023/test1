@@ -50,6 +50,7 @@ class VisitRecordPage(Base):
 
     def get_shop_id_text(self):
         """Visit Record页面，获取列表中Shop ID文本属性"""
+        self.scroll_into_view(user['获取Shop ID文本'])
         Base.presence_sleep_dcr(self, user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id

@@ -52,13 +52,13 @@ class TestExportAttendanceRecord:
         export.input_query_date(today)
         export.click_search()
 
-        user_id = export.get_user_id_text()
-        export.input_user_id_query(user_id, user_id)
+        user_id = export.get_user_id_text2()
+        export.input_user_id_query(user_id)
         export.click_search()
 
         picture = export.get_photo_text()
         date = export.get_date_text()
-        userid = export.get_user_id_text()
+        userid = export.get_user_id_text1()
         total = export.get_total_text()
 
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
