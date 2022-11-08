@@ -94,6 +94,7 @@ class TestAddDistDeliveryOrder:
         add.click_check()
         add.click_submit()
         dom = DomAssert(drivers)
+        #可能发生错误的语句放在try模块里，用except来处理异常
         try:
             affirm = add.get_text_submit_affirm()
             if affirm == "Submit":
