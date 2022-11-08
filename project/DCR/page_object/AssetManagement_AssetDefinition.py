@@ -43,10 +43,10 @@ class AssetDefinitionPage(Base):
         self.scroll_into_view(user['Upload Picture'])
         path1 = os.path.join(BASE_DIR, 'project', 'DCR', 'data', picture)
         logging.info("打印上传的文件path：{}".format(path1))
-        self.click_upload_payslip(path1)
+        self.upload_picture_method(path1)
 
     @allure.step("Asset Add页面,上传图片")
-    def click_upload_payslip(self, file):
+    def upload_picture_method(self, file):
         self.is_click(user['Upload Picture'])
         sleep(2)
         ele = self.driver.find_element('xpath', "//div/..//input[@name='files']")
@@ -67,7 +67,7 @@ class AssetDefinitionPage(Base):
     @allure.step("Asset Definition列表, 筛选Category")
     def query_category(self, category):
         self.is_click(user['Cagegory Query'])
-        self.is_click(user['Asset Category Value'],category)
+        self.is_click(user['Asset Category Value'], category)
 
     @allure.step("Asset Definition列表, 点击Search")
     def click_search(self):

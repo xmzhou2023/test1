@@ -13,7 +13,7 @@ class VisitRecordPage(Base):
     def click_unfold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
         self.is_click(user['Unfold'])
-        sleep(2)
+        sleep(1.6)
 
     def click_fold(self):
         """Visit Record页面，点击unfold展开筛选条件"""

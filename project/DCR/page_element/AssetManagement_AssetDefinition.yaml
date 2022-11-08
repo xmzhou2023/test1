@@ -21,11 +21,7 @@ Status China Enable: "xpath==//span[text()='variable']/../..//label[@class='el-r
 Status Canada Enable: "xpath==//span[text()='variable']/../..//label[@class='el-radio-button el-radio-button--small']//span[normalize-space(text())='Enable']"
 
 Upload Picture: "xpath==//div//ul[@class='el-upload-list el-upload-list--picture-card']/..//i"
-
 Submit: "xpath==//button[@id='assetadd_Submit']//span[normalize-space(text())='Submit']"
-
-
-
 
 #断言查询列表是否加载新增的资产
 Create Start Date: "xpath==//input[@class='el-input__inner assetdefinition_input_createDateBegin']"
