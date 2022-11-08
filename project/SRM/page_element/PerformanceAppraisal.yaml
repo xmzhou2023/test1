@@ -12,8 +12,32 @@
 供应商绩效->二级供应商问卷调查: 'xpath==//a[@data-name="supplierOpinionManage"]//span'
 供应商绩效->二级供应商意见模板管理: 'xpath==//a[@data-name="supplierOpinionTemplateManage"]//span'
 供应商绩效->评估项管理: 'xpath==//a[@data-name="assessment"]//span'
+
 供应商绩效->评估模板管理: 'xpath==//a[@data-name="evaluationTemplate"]//span'
+供应商绩效->评估模板iframe: 'xpath==//iframe[@id="tab-iframe-evaluationTemplate"]'
+评估模板管理-页面窗口标题: 'xpath==//span[text()=" 评估模板管理"]'
+评估模板管理-关闭页面: 'xpath==//i[@title="关闭"]'
+评估模板管理-新增: 'xpath==//a[text()=" 新增"]'
+评估模板管理-查看: 'xpath==//a[text()=" 查看"]'
+评估模板管理-编辑: 'xpath==//a[text()=" 编辑"]'
+评估模板管理-删除: 'xpath==//a[text()=" 删除"]'
+评估模板管理-同步模板: 'xpath==//a[text()=" 同步模板"]'
+评估模板管理-模板编号查询输入: 'xpath==//input[@name="templateNumber"]'
+评估模板管理-模板名称查询输入: 'xpath==//input[@name="templateName"]'
+评估模板管理-查询: 'xpath==//button[@id="queryBtn"]'
+
+
+
+
+
 供应商绩效->评分等级规则管理: 'xpath==//a[@data-name="assessmentRule"]//span'
+
+
+
+
+
+
+
 
 
 供应商绩效->评估代码管理人员配置: 'xpath==//a[@data-name="evaluatorCodeConfigurationManager"]//span'
