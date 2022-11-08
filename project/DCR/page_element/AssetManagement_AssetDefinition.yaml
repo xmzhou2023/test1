@@ -1,0 +1,46 @@
+Add Asset Definition: "xpath==//button[@id='AssetDefinition_add']//span[normalize-space(text())='Add']"
+
+Brand Select: "xpath==//div//input[@class='el-input__inner assetadd_input_brand']"
+Brand Select Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Design By: "xpath==//label//span[normalize-space(text())='variable']"
+
+Asset Category: "xpath==//div//input[@class='el-input__inner assetadd_input_category']"
+Asset Category Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Asset Name EN: "xpath==//div//input[@class='el-input__inner assetadd_input_assetNameEn']"
+Asset Name CN: "xpath==//div//input[@class='el-input__inner assetadd_input_assetNameCn']"
+
+Version: "xpath==//div//input[@class='el-input__inner assetadd_input_version']"
+Has ASN: "xpath==//div//input[@class='el-input__inner assetadd_input_hasAsn']"
+Has ASN Yes: "xpath==//div//ul//li//span[text()='Yes']"
+
+Bangladesh Lable: "xpath==//div//span[text()='Bangladesh']"
+Status Bangladesh Enable: "xpath==//span[text()='variable']/../..//label[@class='el-radio-button el-radio-button--small']//span[normalize-space(text())='Enable']"
+Status China Enable: "xpath==//span[text()='variable']/../..//label[@class='el-radio-button el-radio-button--small']//span[normalize-space(text())='Enable']"
+Status Canada Enable: "xpath==//span[text()='variable']/../..//label[@class='el-radio-button el-radio-button--small']//span[normalize-space(text())='Enable']"
+
+Upload Picture: "xpath==//div//ul[@class='el-upload-list el-upload-list--picture-card']/..//i"
+
+Submit: "xpath==//button[@id='assetadd_Submit']//span[normalize-space(text())='Submit']"
+
+
+
+
+#断言查询列表是否加载新增的资产
+Create Start Date: "xpath==//input[@class='el-input__inner assetdefinition_input_createDateBegin']"
+Create End Date: "xpath==//input[@class='el-input__inner assetdefinition_input_createDateBegin1']"
+Cagegory Query: "xpath==//div//input[@class='el-input__inner assetdefinition_input_category']"
+Search: "xpath==//button//span[normalize-space(text())='Search']"
+
+#获取列表字段内容
+Get list Brand: "xpath==//tbody//tr[1]//td[2]//div"
+Get list Design By: "xpath==//tbody//tr[1]//td[4]//div"
+Get list Category: "xpath==//tbody//tr[1]//td[5]//div"
+Get list Version: "xpath==//tbody//tr[1]//td[6]//div"
+Get list Asset Name CN: "xpath==//tbody//tr[1]//td[7]//div"
+Get list Asset Name EN: "xpath==//tbody//tr[1]//td[8]//div"
+Get list Create Date: "xpath==//tbody//tr[1]//td[16]//div"
+
+
+
