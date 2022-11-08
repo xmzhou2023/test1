@@ -41,6 +41,18 @@ def PersonManage_fixture(drivers):
     print("关闭评估代码人员管理配置")
 
 
+
+@pytest.fixture(scope="class" )
+def ValueTemplate_fixture(drivers):
+    app = Performance(drivers)
+    app.enter_Value_Template()
+    print("进入评估模板模块")
+    yield
+    app.close_Value_Template()
+    print("关闭评估模板模块")
+
+
+
 @allure.feature("供应商绩效考核--评估代码供货品类配置")  # 模块名称
 class TestAppraisal:
 
@@ -282,7 +294,6 @@ class TestAppraisal:
 
 @allure.feature("供应商绩效考核--评估代码管理人员配置")  # 模块名称
 class TestPersonManage:
-
     @allure.story("评估代码管理人员配置")  # 场景名称
     @allure.title("新建评估代码人员配置")  # 用例名称
     @allure.description("新建评估代码人员配置--成功")
@@ -300,11 +311,11 @@ class TestPersonManage:
         sql.delete_db("delete from  evaluator_code_configuration where evaluatedCode ='A0101' AND supplierClass = '2'")
 
 
-
     @allure.story("评估代码管理人员配置")  # 场景名称
     @allure.title("新建评估代码人员配置不填内容-新增失败")  # 用例名称
     @allure.description("新建评估代码人员配置失败--不填所有内容")
     @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke
     def test_create_002(self, drivers, PersonManage_fixture):
         app = Performance(drivers)
         app.create_blank_all()
@@ -522,6 +533,64 @@ class TestPersonManage:
     def test_pick_code(self, drivers, PersonManage_fixture):
         app = Performance(drivers)
         app.pick_code()
+
+
+
+
+@allure.feature("供应商绩效考核--评估模板管理")  # 模块名称
+class TestValueTemplate:
+
+    @allure.story("评估模板管理")  # 场景名称
+    @allure.title("查询评估模板编号")  # 用例名称
+    @allure.description("根据正确评估模板查询")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke
+    def test_search_template_number01(self, drivers, ValueTemplate_fixture):
+        app = Performance(drivers)
+        app.search_template("NO202004090002")
+
+    @allure.story("评估模板管理")  # 场景
+    @allure.title("查询评估模板编号")  # 用例名称
+    @allure.description("根据错误评估模板查询")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke
+    def test_search_template_number02(self, drivers, ValueTemplate_fixture):
+        app = Performance(drivers)
+        app.search_template("NO202004090")
+
+
+    @allure.story("评估模板管理")  # 场景
+    @allure.title("查询评估模板")  # 用例名称
+    @allure.description("根据评估模板模糊查询")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke
+    def test_search_template_name01(self, drivers, ValueTemplate_fixture):
+        app = Performance(drivers)
+        app.search_template_name("年度绩效考核")
+
+
+    @allure.story("评估模板管理")  # 场景
+    @allure.title("查询评估模板")  # 用例名称
+    @allure.description("根据评估模板精准查询")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke
+    def test_search_template_name02(self, drivers, ValueTemplate_fixture):
+        app = Performance(drivers)
+        app.search_template_name("供应商季度绩效考核（家电类）")
+
+    @allure.story("评估模板管理")  # 场景
+    @allure.title("评估模板+编号组合查询")  # 用例名称
+    @allure.description("根据评估模板+编号组合查询")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke
+    def test_search_template_combined(self, drivers, ValueTemplate_fixture):
+        app = Performance(drivers)
+        app.search_template_combined("NO202007020005", "供应商季度绩效考核（家电类）")
+
+
+
+
+
 
 
 

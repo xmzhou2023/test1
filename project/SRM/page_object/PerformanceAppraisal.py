@@ -287,7 +287,7 @@ class Performance(Base):
         self.frame_back()
         self.hover(app["评估代码管理人员配置-页面窗口标题"])
         self.hover_click(app["评估代码管理人员配置-关闭页面"])
-
+        self.frame_exit()
 
 
 
@@ -636,8 +636,6 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-查询"])
 
 
-
-
     @allure.step("评估代码管理人员配置-列表筛选评估代码")
     def pick_code(self):
         self.is_click(app["评估代码管理人员配置-评估代码筛选"])
@@ -649,6 +647,45 @@ class Performance(Base):
         self.is_click(app["评估代码管理人员配置-评估代码筛选重置"])
         self.is_click(app["评估代码管理人员配置-评估代码筛选确定"])
 
+
+
+    @allure.step("进入评估模板管理")
+    def enter_Value_Template(self):
+        self.frame_enter(app["供应商绩效iframe"])
+        self.is_click(app["供应商绩效->评估模板管理"])
+        self.frame_enter(app["供应商绩效->评估模板iframe"])
+
+
+
+    @allure.step("进入评估模板管理-")
+    def close_Value_Template(self):
+        self.frame_back()
+        self.hover(app["评估模板管理-页面窗口标题"])
+        self.hover_click(app["评估模板管理-关闭页面"])
+
+    @allure.step("评估模板管理-根据模板编号查询")
+    def search_template(self,number):
+        self.input_text(app["评估模板管理-模板编号查询输入"], number)
+        self.is_click(app["评估模板管理-查询"])
+        self.clear_input(app["评估模板管理-模板编号查询输入"])
+        self.is_click(app["评估模板管理-查询"])
+
+
+    @allure.step("评估模板管理-根据模板名称查询")
+    def search_template_name(self, name):
+        self.input_text(app["评估模板管理-模板名称查询输入"], name)
+        self.is_click(app["评估模板管理-查询"])
+        self.clear_input(app["评估模板管理-模板名称查询输入"])
+        self.is_click(app["评估模板管理-查询"])
+
+    @allure.step("评估模板管理-根据模板名称+编号组合查询")
+    def search_template_combined(self,number,name):
+        self.input_text(app["评估模板管理-模板编号查询输入"], number)
+        self.input_text(app["评估模板管理-模板名称查询输入"], name)
+        self.is_click(app["评估模板管理-查询"])
+        self.clear_input(app["评估模板管理-模板编号查询输入"])
+        self.clear_input(app["评估模板管理-模板名称查询输入"])
+        self.is_click(app["评估模板管理-查询"])
 
 
 
