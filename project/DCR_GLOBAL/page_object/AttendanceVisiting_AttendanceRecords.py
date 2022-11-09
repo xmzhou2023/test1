@@ -12,12 +12,13 @@ user = Element(pro_name, object_name)
 
 class AttendanceRecordPage(Base):
     """ AttendanceRecord类，生产环境，Attendance Records考勤记录页面元素定位"""
-    def input_user_id_query(self, content):
+    def input_user_id_query(self, userid, userid_name):
         """Attendance Records页面，输入User ID筛选用户的考勤记录"""
         self.is_click_dcr(user['筛选用户'])
-        self.input_text_dcr(user['筛选用户'], txt=content)
+        self.input_text_dcr(user['筛选用户'], userid)
         sleep(3)
-        self.is_click_dcr(user['Select User Value'], content)
+        self.is_click_dcr(user['Select User Value'], userid_name)
+
 
     def input_query_date(self, content):
         self.is_click(user['筛选开始日期'])
@@ -45,16 +46,15 @@ class AttendanceRecordPage(Base):
         date = self.element_text(user['获取列表日期文本'])
         return date
 
-    def get_user_id_text2(self):
-        """Attendance Records页面，获取列表User ID文本"""
-        Base.presence_sleep_dcr(self, user['获取列表UserID文本2'])
-        userid2 = self.element_text(user['获取列表UserID文本2'])
-        return userid2
+    @allure.step("Attendance Records页面，获取列表User name文本")
+    def get_user_name_text(self):
+        user_name = self.element_text(user['获取列表UserName文本'])
+        return user_name
 
-    def get_user_id_text1(self):
+    def get_user_id_text(self):
         """Attendance Records页面，获取列表User ID文本"""
-        Base.presence_sleep_dcr(self, user['获取列表UserID文本1'])
-        userid1 = self.element_text(user['获取列表UserID文本1'])
+        Base.presence_sleep_dcr(self, user['获取列表UserID文本'])
+        userid1 = self.element_text(user['获取列表UserID文本'])
         return userid1
 
     def get_total_text(self):
