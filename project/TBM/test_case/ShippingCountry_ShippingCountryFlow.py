@@ -11,7 +11,7 @@ from project.TBM.page_object.ShippingCountry_ShippingCountryFlow import Shipping
         minor级别: 次要缺陷(界面错误与UI需求不符)
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
-
+querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 
 @allure.feature("出货国家-出货国家流程")  # 模块名称
 class TestCreateProcess:
@@ -23,7 +23,6 @@ class TestCreateProcess:
     def test_001_001(self, drivers):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage_click_menu()
-        querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         user.click_add()
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', f'项目名称{querytime}')
@@ -40,6 +39,7 @@ class TestCreateProcess:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
@@ -125,6 +125,7 @@ class TestCreateProcess:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.click_product_definition_copy()
         user.assert_toast('复制产品成功！')
@@ -165,8 +166,7 @@ class TestCreateProcess:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', '项目名称测试复制')
         user.add_upload_file('检查结果.PNG')
-
-
+        user.assert_upload('检查结果.PNG')
 
 
 @allure.feature("出货国家-出货国家流程")  # 模块名称
@@ -223,6 +223,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_product_definition_info('再增', '1G')
         user.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
         user.input_product_definition_info('尺寸', '8M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.click_onework_agree()
         user.assert_toast()
@@ -347,6 +348,7 @@ class TestCreateProcessExceptionScenario:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.clear_member('汇签人员')
         user.click_add_submit()
@@ -376,6 +378,7 @@ class TestCreateProcessExceptionScenario:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.clear_member('抄送人员')
         user.click_add_submit()
@@ -405,6 +408,7 @@ class TestCreateProcessExceptionScenario:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.click_product_definition_copy()
         user.select_signatory('汇签人员', '李小素')

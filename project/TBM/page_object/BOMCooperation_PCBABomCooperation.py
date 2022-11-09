@@ -394,32 +394,18 @@ class PCBABomCooperation(CenterComponent):
     def input_Derived_info(self, header, info, serial=1):
         select_list = ['操作']
         input_list = ['数量', '替代组', '份额', '位号']
-        if serial == 1:
-            if header in select_list:
-                column = self.get_table_info(user['衍生BOM制作需求-操作'])
-                self.is_click_tbm(user['衍生BOM制作需求-输入框'], column)
-                self.is_click_tbm(user['衍生BOM制作需求-操作选择'], info)
-            elif header in input_list:
-                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
-                self.input_text(user['衍生BOM制作需求-输入框'], info, column)
-            else:
-                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
-                self.is_click_tbm(user['衍生BOM制作需求-输入框'], column)
-                self.input_text(user['衍生BOM制作需求-输入框'], info, column)
-                self.is_click_tbm(user['衍生BOM制作需求-选择'], info)
+        if header in select_list:
+            column = self.get_table_info(user['衍生BOM制作需求-操作'])
+            self.is_click_tbm(user['衍生BOM制作需求-输入框2'], column, serial, column)
+            self.is_click_tbm(user['衍生BOM制作需求-操作选择'], info)
+        elif header in input_list:
+            column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+            self.input_text(user['衍生BOM制作需求-输入框2'], info, column, serial, column)
         else:
-            if header in select_list:
-                column = self.get_table_info(user['衍生BOM制作需求-操作'])
-                self.is_click_tbm(user['衍生BOM制作需求-输入框2'], column, serial, column)
-                self.is_click_tbm(user['衍生BOM制作需求-操作选择'], info)
-            elif header in input_list:
-                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
-                self.input_text(user['衍生BOM制作需求-输入框2'], info, column, serial, column)
-            else:
-                column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
-                self.is_click_tbm(user['衍生BOM制作需求-输入框2'], column, serial, column)
-                self.input_text(user['衍生BOM制作需求-输入框2'], info, column, serial, column)
-                self.is_click_tbm(user['衍生BOM制作需求-选择'], info)
+            column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+            self.is_click_tbm(user['衍生BOM制作需求-输入框2'], column, serial, column)
+            self.input_text(user['衍生BOM制作需求-输入框2'], info, column, serial, column)
+            self.is_click_tbm(user['衍生BOM制作需求-选择'], info)
 
     @allure.step("删除衍生BOM制作需求信息")
     def delete_Derived_info(self):

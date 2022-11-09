@@ -389,7 +389,6 @@ class TestCreateProcessExceptionScenario:
     def test_002_006(self, drivers):
         user = PCBABomCooperation(drivers)
         user.refresh_webpage_click_menu()
-        user.click_add()
         user.add_bom_info()
         user.click_add_bomtree()
         user.click_add_submit()

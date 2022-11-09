@@ -47,7 +47,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
             self.input_text(user['输入框'], content, codition)
 
     @allure.step("出货国家查询 获取国家状态")
-    def get_cty_status(self, item):
+    def assert_status(self, item, cty, status):
         """
         获取出货国家查询指定列内容
         @parma item:项目名称
@@ -58,13 +58,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.input_condition('品牌', 'Infinix')
         self.input_condition('项目名称', item)
         self.click_search()
-        info = self.find_elements_tbm(user['表格指定行内容'], item)
-        infolist = []
-        for i in info:
-            infolist.append(i.get_attribute('innerText'))
-        logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
-        logging.info('返回表格搜索结果的国家状态{}'.format(infolist[5:11]))
-        return infolist[5:11]
+        self.assert_search_result(cty, status)
 
     @allure.step("选择汇签/抄送人员")
     def select_signatory(self, choice, name):
@@ -106,58 +100,47 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
     @allure.step("检查出货国家查询地区状态是否为未配置状态，如果是否则清除配置")
     def check_reset_cty_status(self, item, cty):
         """
-        待修改！！！！！！！！！！！！！
         检查出货国家查询地区状态是否为未配置状态，如果是否则清除配置
         @parma item:项目名称
         @parma cty:区域
         """
-        cty_status = self.get_cty_status(item)
+        # cty_status = self.get_cty_status(item)
+        logging.info('检查出货国家查询地区状态是否为未配置状态，如果是否则清除配置')
         status_result = [True, True, True]
         x = 0
         z = 0
-        if cty == '东亚':
-            for i in cty_status[0:3]:
-                if i != '':
-                    status_result[x] = False
-                x += 1
-            if False in status_result:
-                self.click_checkbox(item)
-                self.click_change('变更国家')
-                self.click_change_select('东亚')
-                self.click_oneworks_product_definition_info_edit(item)
-                ctr = ['EE1', '乍得', '中国']
-                for i in status_result:
-                    if i is False:
-                        self.edit_product_definition_closed_ctyinfo(ctr[z])
-                    z += 1
-                self.click_oneworks_product_definition_info_confirm()
-                self.select_signatory('汇签人员', '李小素')
-                self.click_add_submit()
-                DomAssert(self.driver).assert_att('请求成功')
-                process_code = self.get_info(item)[2]
-                self.onework_agree_flow(process_code, '产品部管理员审核')
-                self.onework_agree_flow(process_code, '产品部汇签')
-                self.onework_agree_flow(process_code, '产品经理修改')
-                self.onework_agree_flow(process_code, '项目经理审批')
-                self.refresh_webpage_click_menu()
-                self.input_condition('品牌', 'Infinix')
-                self.input_condition('项目名称', item)
-                self.click_search()
-
-    @allure.step("获取 出货国家查询 第一列项目名称")
-    def get_project_name(self):
-        """
-        获取 出货国家查询 第一列项目名称
-        @return:'项目名称'
-        """
-        self.click_menu("出货国家", "出货国家查询")
-        sleep(1)
-        info = self.find_elements_tbm(user['表格内容'])
-        infolist = []
-        for i in info:
-            infolist.append(i.get_attribute('innerText'))
-        logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
-        return infolist[4]
+        cty_dict = {'东亚': ['中国', '柬埔寨', '日本2'], '东非': ['乍得', '安哥拉', '布隆迪'], '欧洲东欧': ['EE1', '阿尔巴尼亚', '亚美尼亚']}
+        for i in cty_dict[cty]:
+            col = self.get_table_info(user['产品定义信息表格字段'], i)
+            cty_status = self.element_text(user['查询列表指定内容'], item, col)
+            if cty_status != '':
+                status_result[x] = False
+                logging.info('{} ： {} 存在非未配置状态'.format(cty, i))
+            x += 1
+        if False in status_result:
+            self.click_checkbox(item)
+            self.click_change('变更国家')
+            self.click_change_select(cty)
+            for i in status_result:
+                if i is False:
+                    logging.info('{} ： {} 重置配置状态'.format(cty, cty_dict[cty][z]))
+                    self.edit_product_definition_closed_ctyinfo(item, cty_dict[cty][z])
+                z += 1
+            self.select_signatory('汇签人员', '李小素')
+            self.click_add_submit()
+            DomAssert(self.driver).assert_att('请求成功')
+            process_code = self.get_info(item)[2]
+            self.onework_agree_flow(process_code, '产品部管理员审核')
+            self.onework_agree_flow(process_code, '产品部汇签')
+            self.onework_agree_flow(process_code, '产品经理修改')
+            self.onework_agree_flow(process_code, '项目经理审批')
+            self.refresh_webpage_click_menu()
+            self.input_condition('品牌', 'Infinix')
+            self.input_condition('项目名称', item)
+            self.click_search()
+            self.click_checkbox(item)
+        else:
+            logging.info('该地区状态为未配置状态')
 
     @allure.step("勾选复选框")
     def click_checkbox(self, name):
@@ -166,6 +149,15 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         @name:'表格内容名称'
         """
         self.is_click_tbm(user['指定复选框'], name)
+
+    @allure.step("获取页面第一个数据")
+    def get_first_info(self, header):
+        """
+        出货国家查询 勾选第一个项目复选框
+        @name:'表格内容名称'
+        """
+        col = self.get_table_info(user['产品定义信息表格字段'], header)
+        return self.element_text(user['表格首行内容'], col)
 
     @allure.step("点击变更产品/变更国家")
     def click_change(self, type):
@@ -206,6 +198,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         """
         self.is_click_tbm(user['变更国家选择'], cty)
         self.is_click_tbm(user['变更国家选择确定'])
+        sleep(2)
 
     @allure.step("oneworks-国家出货查询 变更产品/国家点击产品定义信息-编辑按钮")
     def click_oneworks_product_definition_info_edit(self, item):
@@ -233,7 +226,6 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         :param header: 选择要选择的区域
         :param content: 选择信息内容
         """
-        definition_dict = {'EE1': '14', '乍得': '15', '中国': '16', '2马其顿2': '17', '孟加拉': '18', '韩国': '19'}
         self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-指定-编辑'], item)
         col = self.get_table_info(user['产品定义信息表格字段'], header)
         self.is_click_tbm(user['产品定义信息表格指定内容'], item, col)
@@ -241,25 +233,30 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
         self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
 
     @allure.step("编辑修改产品定义信息-删除区域信息")
-    def edit_product_definition_closed_ctyinfo(self, header='all'):
+    def edit_product_definition_closed_ctyinfo(self, item, header='all'):
         """
         oneworks-国家出货查询 变更国家 进入流程页面
         编辑修改产品定义信息
         :param header: 选择要选择的区域
         """
+        self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-指定-编辑'], item)
         ele = self.find_element(user['oneworks-节点-产品经理修改-产品定义信息-变更-操作框'])
         self.driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", ele, 'style',
                                    'display: none;')
-        definition_dict = {'EE1': '14', '乍得': '15', '中国': '16', '2马其顿2': '17', '孟加拉': '18', '韩国': '19'}
         if header == 'all':
-            for header in ['EE1', '乍得', '中国']:
-                self.hover(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
-                self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框删除'], definition_dict[header])
+            ctr = ['中国', '柬埔寨', '日本2']
+            for i in ctr:
+                col = self.get_table_info(user['产品定义信息表格字段'], i)
+                self.hover(user['产品定义信息表格指定内容'], item, col)
+                self.is_click_tbm(user['产品定义信息表格指定内容'], item, col)
         else:
-            self.hover(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框'], definition_dict[header])
-            self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-变更-输入框删除'], definition_dict[header])
+            col = self.get_table_info(user['产品定义信息表格字段'], header)
+            self.hover(user['产品定义信息表格指定内容'], item, col)
+            self.is_click_tbm(user['产品定义信息表格指定内容'], item, col)
         self.driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", ele, 'style',
                                    'width: 120px; bottom: 5px;')
+        self.is_click_tbm(user['oneworks-节点-产品经理修改-产品定义信息-确定'])
+
 
     @allure.step("点击同意-确定")
     def click_onework_agree(self):
@@ -270,12 +267,12 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
 
     @allure.step("点击同意-确定")
     def onework_agree_flow(self, code, node=None):
+        if node is not None:
+            self.assert_my_todo_node(code, node, True)
         self.enter_oneworks_edit(code)
         self.click_onework_agree()
         self.assert_toast()
         self.quit_oneworks()
-        if node is not None:
-            self.assert_my_todo_node(code, node, True)
 
     def assert_flow_compelete(self, code):
         logging.info('等待一分钟，流程抄送到审批完成流转')
@@ -338,5 +335,7 @@ class ShippingCountrySearch(CenterComponent, APIRequest):
     @allure.step("批量修改取消")
     def select_Bulk_Editing_cancel(self):
         self.is_click_tbm(user['一键填写取消'])
+
+
 if __name__ == '__main__':
     pass

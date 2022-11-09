@@ -56,6 +56,8 @@ oneworks-拒绝-确定: "xpath==//*[@aria-label='提示']//button/span[contains(
 创建时间: "xpath==//tbody/tr/td[12]"
 刷新: "xpath==//button/span[contains(text(),'刷新')]"
 附件: "xpath==//input[@class='el-upload__input']"
+指定附件: "xpath==//span[normalize-space(text())='variable']/../div/img"
+附件删除: "xpath==//span[normalize-space(text())='variable']/..//i[@class='el-icon-delete']"
 上传成功: "xpath==//li[contains(@class,'is-success')]"
 导入校验结果成功状态: "xpath==//i[@class='el-icon-success success']"
 导入按钮: "xpath==//span[normalize-space(text())='variable']/../../../..//span[normalize-space(text())='导入']"

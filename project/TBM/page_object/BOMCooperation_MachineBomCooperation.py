@@ -17,7 +17,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.click_menu("BOM协作", "整机BOM协作")
 
     @allure.step("整机BOM协作新增页面-输入BOM信息")
-    def input_add_bom_info(self, type, content):
+    def input_bom_info(self, type, content):
         """
         整机BOM协作新增页面 - 输入BOM信息
         :param type: 字段名
@@ -37,19 +37,13 @@ class MachineBOMCollaboration(CenterComponent):
     @allure.step("整机BOM协作新增页面-输入BOM信息 组合方法")
     def add_bom_info(self):
         self.click_add()
-        self.input_add_bom_info('制作类型', '生产BOM')
-        self.input_add_bom_info('品牌', 'Infinix')
-        self.input_add_bom_info('机型', 'X572-1')
-        self.input_add_bom_info('阶段', '试产阶段')
-        self.input_add_bom_info('市场', '埃塞本地')
+        self.input_bom_info('制作类型', '生产BOM')
+        self.input_bom_info('品牌', 'Infinix')
+        self.input_bom_info('机型', 'X572-1')
+        self.input_bom_info('阶段', '试产阶段')
+        self.input_bom_info('市场', '埃塞本地')
         self.base_get_img()
         logging.info('整机BOM协作新增页面-输入BOM信息 组合方法')
-
-    @allure.step("点击提交")
-    def click_add_submit(self):
-        self.scroll_into_view(user['提交'])
-        sleep(0.5)
-        self.is_click_tbm(user['提交'])
 
     @allure.step("点击新增bom")
     def click_add_bomtree(self):
@@ -377,36 +371,6 @@ class MachineBOMCollaboration(CenterComponent):
             logging.error('断言失败，请检查按钮状态')
             raise
 
-    def get_bomtree_simple_upload_info(self):
-        """
-        获取导入BOM-结果内容
-        """
-        info = self.find_elements_tbm(user['简易导入内容'])
-        infolist = []
-        for i in info:
-            infolist.append(i.text.split('\n'))
-        logging.info('获取BOM导入结果{}'.format(infolist))
-        return infolist
-
-    @allure.step("断言导入BOM-简易导入后，页面表格内容是否正确")
-    def assert_simple_upload_result(self, *content):
-        """
-        断言导入BOM-简易导入后，页面表格内容是否正确
-        :param content: 需要断言的内容，可以一次传入多个
-        """
-        try:
-            contents = self.get_bomtree_simple_upload_info()
-            content_list = []
-            for i in contents:
-                content_list.append(tuple(i))
-            assert set(content) <= set(content_list)
-            logging.info(content_list)
-            logging.info('断言成功，选项值包含：{}'.format(content))
-        except:
-            self.base_get_img()
-            logging.error('断言失败，选项值不包含：{}'.format(content))
-            raise
-
     @allure.step("点击应用")
     def click_apply(self):
         self.is_click_tbm(user['应用'])
@@ -484,7 +448,7 @@ class MachineBOMCollaboration(CenterComponent):
         self.upload_import(path)
         sleep(5)
 
-    def get_bomtree_upload_info(self):
+    def get_upload_info(self):
         """
         获取导入BOM-结果内容
         """
@@ -502,7 +466,7 @@ class MachineBOMCollaboration(CenterComponent):
         :param content: 需要断言的内容，可以一次传入多个
         """
         try:
-            contents = self.get_bomtree_upload_info()
+            contents = self.get_upload_info()
             content_list = []
             for i in contents:
                 content_list.append(tuple(i))
@@ -529,11 +493,11 @@ class MachineBOMCollaboration(CenterComponent):
         点击新增，输入BOM信息，输入BOMTree信息后点击提交
         """
         self.click_add()
-        self.input_add_bom_info('制作类型', '生产BOM')
-        self.input_add_bom_info('品牌', 'itel')
-        self.input_add_bom_info('机型', 'X572-1')
-        self.input_add_bom_info('阶段', '试产阶段')
-        self.input_add_bom_info('市场', '埃塞本地')
+        self.input_bom_info('制作类型', '生产BOM')
+        self.input_bom_info('品牌', 'itel')
+        self.input_bom_info('机型', 'X572-1')
+        self.input_bom_info('阶段', '试产阶段')
+        self.input_bom_info('市场', '埃塞本地')
         self.click_add_bomtree()
         self.input_bomtree('BOM类型', '国内生产BOM')
         self.input_bomtree('BOM状态', '试产')
@@ -559,6 +523,16 @@ class MachineBOMCollaboration(CenterComponent):
     @allure.step("在BOM工程师审批页面，填写信息，点击同意")
     def engineer_approve_flow(self, code):
         self.enter_oneworks_edit(code)
+        self.click_oneworks_agree()
+        self.click_oneworks_confirm()
+        self.assert_toast()
+        self.quit_oneworks()
+
+    @allure.step("在BOM工程师审批页面，填写信息，点击同意")
+    def engineer_Derivedapprove_flow(self, code):
+        self.enter_oneworks_edit(code)
+        self.click_handle_bom()
+        self.assert_toast('处理成功，请检查！')
         self.click_oneworks_agree()
         self.click_oneworks_confirm()
         self.assert_toast()
@@ -762,6 +736,65 @@ class MachineBOMCollaboration(CenterComponent):
             self.base_get_img()
             raise
 
+    @allure.step("点击衍生BOM制作需求-新增")
+    def click_Derived_add(self):
+        self.is_click_tbm(user['衍生BOM制作需求-新增'])
+        logging.info('点击衍生BOM制作需求-新增')
+        sleep(0.5)
 
+    @allure.step("点击衍生BOM处理信息-新增")
+    def click_OneworksDerived_add(self):
+        self.is_click_tbm(user['衍生BOM处理信息-新增'])
+        logging.info('衍生BOM处理信息-新增')
+        sleep(0.5)
+
+    @allure.step("输入衍生BOM制作需求信息")
+    def input_Derived_info(self, header, info, serial=1):
+        click_list = ['新BOM类型', 'BOM类型', '操作']
+        select_list = ['新BOM编码', '原始BOM编码', '原始BOM工厂', '父阶物料编码', '子阶物料编码']
+        input_list = ['用量', '替代组', '份额']
+        column = self.get_table_info(user['衍生BOM制作需求-字段'], header)
+        if header in click_list:
+            self.is_click_tbm(user['衍生BOM制作需求-输入框'], serial, column)
+            self.is_click_tbm(user['衍生BOM制作需求-选择'], info)
+        elif header in select_list:
+            self.is_click_tbm(user['衍生BOM制作需求-输入框'], serial, column)
+            self.input_text(user['衍生BOM制作需求-输入框'], info, serial, column)
+            self.is_click_tbm(user['衍生BOM制作需求-选择2'], info)
+        elif header in input_list:
+            self.input_text(user['衍生BOM制作需求-输入框'], info, serial, column)
+
+    @allure.step("输入衍生BOM处理信息")
+    def input_OneworksDerived_info(self, header, info, serial=1):
+        click_list = ['新BOM类型', 'BOM类型', '操作']
+        select_list = ['新BOM编码', '原始BOM编码', '原始BOM工厂', '父阶物料编码', '子阶物料编码']
+        input_list = ['用量', '替代组', '份额']
+        column = self.get_table_info(user['衍生BOM处理信息-字段'], header)
+        if header in click_list:
+            self.is_click_tbm(user['衍生BOM处理信息-输入框'], serial, column)
+            self.is_click_tbm(user['衍生BOM处理信息-选择'], info)
+        elif header in select_list:
+            self.is_click_tbm(user['衍生BOM处理信息-输入框'], serial, column)
+            self.input_text(user['衍生BOM处理信息-输入框'], info, serial, column)
+            self.is_click_tbm(user['衍生BOM处理信息-选择2'], info)
+        elif header in input_list:
+            self.input_text(user['衍生BOM处理信息-输入框'], info, serial, column)
+
+    @allure.step("点击衍生需求导入")
+    def click_Derived_import(self):
+        self.is_click_tbm(user['衍生BOM制作需求-导入'])
+        logging.info('点击衍生BOM制作需求-导入')
+
+    @allure.step("衍生BOM制作需求-导入-上传正确文件")
+    def upload_Derived_file(self, name):
+        self.upload_file_tbm(user['衍生BOM制作需求-选择文件'], name)
+
+    @allure.step("断言：导入状态")
+    def assert_upload_status(self):
+        DomAssert(self.driver).assert_control(user['应用成功状态'])
+
+    @allure.step("点击处理BOM")
+    def click_handle_bom(self):
+        self.is_click_tbm(user['处理BOM'])
 if __name__ == '__main__':
     pass

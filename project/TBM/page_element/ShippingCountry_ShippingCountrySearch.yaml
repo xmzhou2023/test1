@@ -3,7 +3,8 @@
 重置: "xpath==//button/span[contains(text(),'重置')]"
 关闭: "xpath==//*[@id='tags-view-container']//span[contains(text(),'项目经理发起流程')]/span"
 表格内容: "xpath==//*[@id='app']/div/div[2]/section/div/div/div/div/div[3]/div[3]/table/tbody/tr[1]/td"
-表格指定行内容: "xpath==//div[text()='variable']/../../..//td"
+表格指定行内容: "xpath==//div[text()='variable']/../../..//td[not(contains(@class,'is-hidden'))]"
+表格首行内容: "xpath==//tbody/tr[1]//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]"
 确定: "xpath==//div[@aria-label='提示']//button/span[contains(text(),'确定')]"
 查看: "xpath==//div[normalize-space(text())='variable']/../..//button/span[contains(text(),'查看')]"
 删除: "xpath==//div[normalize-space(text())='variable']/../..//button[not(contains(@style,'display: none;'))]/span[text()='删除']"
@@ -68,4 +69,5 @@ oneworks-节点-产品经理修改-产品定义信息-变更-操作框: "xpath==
 
 
 产品定义信息表格字段: "xpath==//thead[@class='is-group has-gutter']//div[normalize-space(text())='variable']/.."
-产品定义信息表格指定内容: "xpath==//span[normalize-space(text())='variable']/../../..//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]//i"
+产品定义信息表格指定内容: "xpath==//span[normalize-space(text())='variable']/../../..//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]//i[not(contains(@style,'display: none;'))]"
+查询列表指定内容: "xpath==//div[normalize-space(text())='variable']/../..//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"

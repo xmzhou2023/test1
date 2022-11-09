@@ -305,7 +305,7 @@ class TestCreateProcess:
         user.delete_flow(process_code)
 
     @allure.story("创建流程")  # 场景名称
-    @allure.title("客供BOM衍生,创建流程成功")  # 用例名称
+    @allure.title("客供BOM衍生,物料信息删除成功")  # 用例名称
     @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息填写完整，在衍生BOM制作需求中新增物料后，点击删除按钮，物料信息删除成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -447,6 +447,20 @@ class TestCreateProcess:
         user.upload_Derived_file('外研BOM衍生需求导入模板.xlsx')
         user.click_applyCancel()
         user.assert_Factory_None()
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("客供BOM衍生,附件删除成功")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，点击附件的加号，选择文件，上传成功后点击删除，文件删除成功")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_017(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.add_upload_file('worng_file_text.txt')
+        user.delete_upload_file('worng_file_text.txt')
+        user.assert_upload('worng_file_text.txt', False)
+
 
 @allure.feature("BOM协作-外研BOM协作")
 class TestCreateProcessExceptionScenario:

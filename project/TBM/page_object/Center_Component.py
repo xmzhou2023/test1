@@ -1,5 +1,7 @@
 import logging
 
+from selenium.webdriver import ActionChains
+
 from libs.common.read_element import Element
 from libs.config.conf import BASE_DIR
 from ..test_case.conftest import *
@@ -12,6 +14,15 @@ class CenterComponent(Base, APIRequest):
     """用户类"""
     # 审核人
     review = '李小素'
+
+    def hover(self, locator, *choice):
+        """鼠标悬停"""
+        sleep(1)
+        element = self.find_element(locator, *choice)
+        # 创建Action对象
+        actions = ActionChains(self.driver)
+        actions.move_to_element(element).perform()
+        sleep(1)
 
     def input_text(self, locator, txt, *choice):
         """输入文本"""
@@ -746,7 +757,7 @@ class CenterComponent(Base, APIRequest):
         """
         definition_dict = ['全球版本', '市场名称', '项目名称', 'MEMORY', 'BAND STRATEGY', '产品经理', '项目经理', 'aaa', 'bbb', '再增', '配色', '尺寸']
         select_list = ['全球版本', 'MEMORY', 'BAND STRATEGY', 'aaa', 'bbb', '再增', '配色', '尺寸']
-        input_list = ['市场名称', '项目名称', '摄像头', '型号', '新增']
+        input_list = ['市场名称', '项目名称', '摄像头', '型号', '新增', '首单量产时间']
         member_list = ['产品经理', '项目经理']
         column = self.get_table_info(user['产品定义信息字段'], header)
         if header in select_list:
@@ -966,10 +977,20 @@ class CenterComponent(Base, APIRequest):
         self.hover(user['汇签/抄送人员选择框'], type)
         self.is_click_tbm(user['汇签/抄送人员清空'], type)
 
-    @allure.step("创建上传文件")
+    @allure.step("创建页面上传附件")
     def add_upload_file(self, name):
         self.upload_file_tbm(user['附件'], name)
-        DomAssert(self.driver).assert_control(user['上传成功'])
+
+    @allure.step("删除上传附件")
+    def delete_upload_file(self, name):
+        self.hover(user['指定附件'], name)
+        self.is_click_tbm(user['附件删除'], name)
+        sleep(2)
+
+    @allure.step("断言：是否存在指定附件")
+    def assert_upload(self, name, result=True):
+        DomAssert(self.driver).assert_control(user['指定附件'], name, result=result)
+
 
 if __name__ == '__main__':
     pass
