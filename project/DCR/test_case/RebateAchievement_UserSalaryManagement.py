@@ -99,8 +99,9 @@ class TestImportDeleteSalaryMgt:
         DomAssert(drivers).assert_att('Please upload first.')
         sleep(1)
         upload.upload_true_file('StaffSalaryTemplate.xlsx')
+        """ 循环点击查询，直到获取到导入记录状态为Upload Successfully """
+        upload.click_import_status_search()
 
-        upload.click_import_record_search()
         today = Base(drivers).get_datetime_today()
         """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
         get_file_name = upload.get_import_file_name()
@@ -160,7 +161,8 @@ class TestImportDeleteSalaryMgt:
         upload.click_import()
         upload.upload_wrong_file('CustomerTemplate1.xlsx')
 
-        upload.click_import_record_search()
+        """循环点击查询，直到获取到导入记录状态为Upload Successfully"""
+        upload.click_import_status_search()
         today = Base(drivers).get_datetime_today()
         """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
         get_file_name = upload.get_import_file_name()
@@ -206,8 +208,9 @@ class TestImportDeleteSalaryMgt:
         DomAssert(drivers).assert_att('Please upload first.')
         sleep(1)
         upload2.upload_true_file('PaySlipTemplate.xlsx')
+        """循环点击查询，直到获取到导入记录状态为Upload Successfully"""
+        upload2.click_import_status_search()
 
-        upload2.click_import_record_search()
         today = Base(drivers).get_datetime_today()
         """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
         get_file_name = upload2.get_import_file_name()
@@ -266,8 +269,9 @@ class TestImportDeleteSalaryMgt:
         upload = UserSalaryManagement(drivers)
         upload.click_import_payslip()
         upload.upload_wrong_file('CustomerTemplate2.xlsx')
+        """循环点击查询，直到获取到导入记录状态为Upload Successfully"""
+        upload.click_import_status_search()
 
-        upload.click_import_record_search()
         today = Base(drivers).get_datetime_today()
         """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
         get_file_name = upload.get_import_file_name()

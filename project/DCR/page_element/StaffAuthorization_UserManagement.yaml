@@ -59,7 +59,7 @@ Belong To Customer: "xpath==//label[(text()='Belong To Customer')]//parent::div/
 Belong To Customer Value: "xpath==//span[contains(text(),'variable')]"
 
 #查询用户列表
-Get Total: "xpath==//span[contains(text(),'Total')]"
+Get Total: "xpath==//div//span[contains(text(),'Total')]"
 Get list Brand: "xpath==//tbody//tr[1 and @class='el-table__row']//td[5]//div[1 and @class='cell el-tooltip']"
 Get list Sales Region1: "xpath==//tbody//tr[1 and @class='el-table__row']//td[9]//div[1 and @class='cell el-tooltip']"
 Get list Country: "xpath==//tbody//tr[1 and @class='el-table__row']//td[14]//div[1 and @class='cell el-tooltip']"
@@ -85,6 +85,7 @@ Add Upload: "xpath==//button//span[normalize-space(text())='Add Upload']"
 Import Save: "xpath==//button[@id='userstaffmanagement_Save']//span[normalize-space(text())='Save']"
 Upload Confirm: "xpath==//button//span[normalize-space(text())='Confirm']"
 #Import Record
+Import Search: "xpath==//button//span[normalize-space(text())='Search']"
 Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
 Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"
 Get Import Record Total: "xpath==//tbody//tr[1]//td[4]//div"

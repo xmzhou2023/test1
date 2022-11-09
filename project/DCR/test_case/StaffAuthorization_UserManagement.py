@@ -337,12 +337,16 @@ class TestImportUser:
         user.click_gotomenu("Staff & Authorization", "User Management")
         upload = UserManagementPage(drivers)
 
+        """User Management页面，导入前获取列表筛选的User ID，如果能筛选到1条记录，先删除已存在的用户"""
+        upload.delete_repetitive_user()
+
         upload.click_import()
         upload.click_import_save()
         DomAssert(drivers).assert_att('Please upload first.')
         sleep(1)
         upload.upload_true_file('UserTemplate.xlsx')
-        upload.click_import_record_search()
+        """循环点击查询，直到获取到导入记录状态为Upload Successfully"""
+        upload.click_import_status_search()
 
         today = Base(drivers).get_datetime_today()
         """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""

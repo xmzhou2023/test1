@@ -349,6 +349,21 @@ class Base(object):
                 logging.info("打印循环执行查询次数{}".format(i))
         return status
 
+    def import_record_status(self, click_search, get_status):
+        """DCR通用的导出，等待导入状态更新(DRP专用)"""
+        self.is_click(click_search)
+        status = self.element_text(get_status)
+        logging.info("循环前Download Status{}".format(status))
+        for i in range(10):
+            if status != "Upload Successfully":
+                self.is_click(click_search)
+                status = self.element_text(get_status)
+                logging.info("循环后Import Status{}".format(status))
+                sleep(1)
+                i += 1
+                logging.info("打印循环执行查询次数{}".format(i))
+        return status
+
     def move_house(self, content):
         """点击空白区域，用于取消释法"""
         ActionChains(content).move_by_offset(700, 700).click().perform()

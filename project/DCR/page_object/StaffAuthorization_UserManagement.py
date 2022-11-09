@@ -142,11 +142,11 @@ class UserManagementPage(Base):
 
     """编辑用户时，筛选用户"""
     @allure.step("用户管理列表页面，筛选User，进行编辑或者删除")
-    def input_query_User(self, content):
+    def input_query_User(self, userid):
         self.is_click_dcr(user['点击筛选用户输入框'])
-        self.input_text_dcr(user['点击筛选用户输入框'], txt=content)
+        self.input_text_dcr(user['点击筛选用户输入框'], userid)
         sleep(3)
-        self.is_click(user['Input User ID Value'], content)
+        self.is_click(user['Input User ID Value'], userid)
 
     @allure.step("点击编辑功能")
     def click_edit(self):
@@ -302,16 +302,46 @@ class UserManagementPage(Base):
         self.is_click(user['Upload Confirm'])
 
 
+    @allure.step("User Management页面，获取Total分页总条数")
+    def get_list_total(self):
+        self.presence_sleep_dcr(user['Get Total'])
+        get_total = self.element_text(user['Get Total'])
+        get_total1 = get_total[6:]
+        return get_total1
+
+    @allure.step("User Management页面，导入前获取列表筛选的User ID，如果能筛选到1条记录，先删除已存在的用户")
+    def delete_repetitive_user(self):
+        sql1 = SQL('DCR', 'test')
+        try:
+            varsql1 = "select USER_CODE from t_user where USER_CODE ='smarttest102'"
+            varsql2 = "select EMP_CODE from t_employee where EMP_CODE ='smarttest102'"
+            result_user = sql1.query_db(varsql1)
+            result_emp = sql1.query_db(varsql2)
+            user_code = result_user[0].get("USER_CODE")
+            emp_code = result_emp[0].get("EMP_CODE")
+            if user_code == 'smarttest102':
+                """ 在数据库表中，删除导入的用户 """
+                sql1.delete_db(
+                    "delete from t_user where USER_CODE ='smarttest102'")
+            elif emp_code == 'smarttest102':
+                sql1.delete_db(
+                    "delete from t_employee where EMP_CODE ='smarttest102'")
+            else:
+                logging.info("获取User Management页面user_code与emp_code字段内容：{}".format(user_code, emp_code))
+        except Exception as e:
+            logging.info("如有异常打印日志{}".format(e))
+
+
     @allure.step("导入用户模板-上传正确的文件")
     def upload_true_file(self, file1):
         path1 = os.path.join(BASE_DIR, 'project', 'DCR', 'data', file1)
         logging.info("打印上传的用户模板文件path：{}".format(path1))
         self.click_import_upload_save(path1)
 
-    @allure.step("Import Record页面，点击Search 查询按钮")
-    def click_import_record_search(self):
-        self.is_click(user['Search'])
-        sleep(1.7)
+    @allure.step("循环点击查询，直到获取到导入记录状态为Upload Successfully")
+    def click_import_status_search(self):
+        import_status = self.import_record_status(user['Import Search'], user['Get Import Record Status'])
+        return import_status
 
     """导入记录页面，获取列表字段断言是否导入成功"""
     @allure.step("Import Record页面，获取File Name字段文本")
