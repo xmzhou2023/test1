@@ -148,16 +148,13 @@ class ShopIMEITransferPage(Base):
         sleep(1)
         self.is_click(user['Yes Cancel按钮'], yes_cancel)
         sleep(0.6)
-        #self.is_click(user['Approve OK按钮'])
-        #sleep(1)
 
     @allure.step("点击Reject按钮,输入拒绝原因，点击OK")
     def input_reject_reason(self, reason, cancel_or_yes):
         self.is_click(user['输入拒绝原因'])
         self.input_text(user['输入拒绝原因'], txt=reason)
         self.is_click(user['Yes Cancel按钮'], cancel_or_yes)
-        #sleep(1)
-        #self.is_click(user['Reject OK按钮'])
+    
 
     @allure.step("点击Reset按钮")
     def click_reset(self):
