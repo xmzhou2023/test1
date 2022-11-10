@@ -1,7 +1,5 @@
-
 FG筛选框: 'xpath==//label[@for="variable"]//parent::div/div[1]//input[@type="text"]'
 筛选框: 'xpath==//label[@for="variable"]//parent::div/div[1]//input[@type="text"]'
-
 搜索按钮: 'xpath==//span[text()="Search"]'
 
 下拉筛选框_第一条数据: 'xpath==//div[@x-placement="bottom-start"]//li[1]'
