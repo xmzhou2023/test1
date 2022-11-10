@@ -81,7 +81,7 @@ Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
 Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"
 
 #导出客户
-Export: "id==customermanagementglobal_Export"
+Export: "xpath==//button//span[normalize-space(text())='Export']"
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
 Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"

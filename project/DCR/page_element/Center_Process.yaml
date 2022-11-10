@@ -42,6 +42,7 @@ Warehouse: "xpath==//label//..//div//input[@class='el-input__inner imeiinventory
 Select Warehouse Value: "xpath==//ul//li//span[contains(text(),'variable')]"
 IMEI库存点击Brand: "xpath==//label//..//div//input[@id='imeiinventoryquery_input_brandCodes']"
 IMEI库存选中Brand: "xpath==//div//ul//li[3]//span[text()='itel']"
+IMEI库存select brand: "xpath==//div//ul//li[3]//span[text()='variable']"
 IMEI库存查询按钮: "xpath==//span[contains(text(),'Search')]"
 获取IMEI文本内容: "xpath==//tbody//tr[1]//td[4]//div"
 

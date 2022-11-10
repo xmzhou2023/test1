@@ -149,27 +149,32 @@ class SalesOrderPage(Base):
     @allure.step("IMEI Inventory Query页面，点击Unfold展开筛选按钮")
     def click_unfold(self):
         self.is_click(user['IMEI Inventory Unfold'])
-        sleep(2)
+        sleep(1.5)
 
     @allure.step("IMEI Inventory Query页面，输入material字段 ")
     def input_material_id(self, content1):
         self.presence_sleep_dcr(user['Material ID'])
         self.is_click(user['Material ID'])
         self.input_text(user['Material ID'], txt=content1)
-        sleep(1)
 
-    @allure.step("IMEI库存页面，输入Warehouse 查询仓库下的IMEI")
-    def input_warehouse_query(self, context):
+    @allure.step("IMEI库存页面，输入Warehouse查询仓库下的IMEI")
+    def input_warehouse_query(self, warehouse):
         self.is_click(user['Warehouse'])
-        self.input_text(user['Warehouse'], context)
+        self.input_text(user['Warehouse'], warehouse)
         sleep(2.5)
-        self.presence_sleep_dcr(user['Select Warehouse Value'], context)
-        self.is_click_dcr(user['Select Warehouse Value'], context)
+        self.presence_sleep_dcr(user['Select Warehouse Value'], warehouse)
+        self.is_click_dcr(user['Select Warehouse Value'], warehouse)
+
+
+    @allure.step("IMEI库存页面，根据Brand 查询仓库下的IMEI")
+    def select_brand_query(self, brand):
+        self.is_click(user['IMEI库存点击Brand'])
+        self.is_click(user['IMEI库存select brand'], brand)
 
     @allure.step("IMEI Inventory Query页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(5)
+        sleep(4.5)
 
     @allure.step("IMEI Inventory Query页面，获取列表IMEI文本内容")
     def get_text_imei_inventory(self):
