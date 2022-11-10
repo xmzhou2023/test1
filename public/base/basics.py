@@ -720,6 +720,7 @@ class Base(object):
             actions.move_to_element(element).perform()
             logging.info("hover元素：{}".format(locator))
             sleep(0.5)
+
     def clear_input(self, xpath):
         # 清除文本框输入，srm使用
         ele = self.find_element(xpath)
@@ -731,6 +732,28 @@ class Base(object):
         actions = ActionChains(self.driver)
         actions.move_to_element(element).perform()
         actions.click(element).perform()
+
+    def mouse_hover_click(self, locator, choice=None):
+        """DCR专用鼠标悬停然后点击方法"""
+        if choice is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', choice)
+            sleep(0.5)
+            element = self.find_element(Npath)
+            actions = ActionChains(self.driver)
+            actions.move_to_element(element).perform()
+            actions.click(element).perform()
+            logging.info("hover元素：{}".format(Npath))
+            sleep(0.7)
+        else:
+            element = self.find_element(locator)
+            actions = ActionChains(self.driver)
+            actions.move_to_element(element).perform()
+            actions.click(element).perform()
+            logging.info("hover元素：{}".format(locator))
+            sleep(0.7)
 
     def keyboard_enter(self, locator):
         # 键盘回车

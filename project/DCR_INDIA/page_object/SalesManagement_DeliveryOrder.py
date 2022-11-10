@@ -88,8 +88,7 @@ class DeliveryOrderPage(Base):
 
     def click_download_more(self):
         """点击more更多按钮"""
-        self.is_click(user['Download Icon'])
-        sleep(2)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(6)

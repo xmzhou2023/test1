@@ -93,8 +93,7 @@ class ShopInventoryIMEIQueryPage(Base):
 
     def click_download_more(self):
         """点击下载-更多按钮"""
-        self.is_click(user['Download Icon'])
-        sleep(1.5)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(5)
