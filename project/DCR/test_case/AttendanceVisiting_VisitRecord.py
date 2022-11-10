@@ -103,182 +103,182 @@ class TestQueryVisitRecord:
         visit.assert_total(total)
 
 
-# @allure.feature("考勤&巡店-巡店记录")
-# class TestExportVisitRecord:
-#     @allure.story("导出巡店记录")
-#     @allure.title("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录")
-#     @allure.description("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
-#     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-#     @pytest.mark.usefixtures('function_export_fixture')
-#     def test_002_001(self, drivers):
-#         """打开考勤与巡店管理-打开巡店记录页面"""
-#         user = LoginPage(drivers)
-#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-#         """打开考勤与巡店管理-打开巡店记录页面"""
-#         user.click_gotomenu("Attendance & Visiting", "Visit Record")
-#         """获取当天日期"""
-#         base = Base(drivers)
-#         today = base.get_datetime_today()
-#
-#         export = VisitRecordPage(drivers)
-#         export.input_submit_start_date("2022-09-01")
-#         export.click_submit_date()
-#         export.click_search()
-#
-#         export.click_export()
-#         export.click_download_more()
-#         export.input_task_name("History List")
-#         down_status = export.click_export_search()
-#
-#         task_name = export.get_task_name_text()
-#         file_size = export.get_file_size_text()
-#
-#         task_id = export.get_task_user_id_text()
-#         create_date = export.get_create_date_text()
-#         complete_date = export.get_complete_date_text()
-#         export_time = export.get_export_time_text()
-#         operation = export.get_export_operation_text()
-#         logging.info("获取导出记录列表的operation字段内容{}".format(operation))
-#
-#         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-#         ValueAssert.value_assert_equal(task_name, "History List")
-#         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-#         ValueAssert.value_assert_equal(create_date, today)
-#         ValueAssert.value_assert_equal(complete_date, today)
-#         ValueAssert.value_assert_equal(operation, "Download")
-#         export.assert_file_time_size(file_size, export_time)
-#
-#
-#     @allure.story("导出巡店记录")
-#     @allure.title("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录详情数据")
-#     @allure.description("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录详情数据，断言导出数据是否正常")
-#     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-#     @pytest.mark.usefixtures('function_export_fixture')
-#     def test_002_002(self, drivers):
-#         """打开考勤与巡店管理-打开巡店记录页面"""
-#         user = LoginPage(drivers)
-#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-#         """打开考勤与巡店管理-打开巡店记录页面"""
-#         user.click_gotomenu("Attendance & Visiting", "Visit Record")
-#         """获取当天日期"""
-#         base = Base(drivers)
-#         today = base.get_datetime_today()
-#         export2 = VisitRecordPage(drivers)
-#
-#         export2.input_submit_start_date("2022-09-01")
-#         export2.click_submit_date()
-#         export2.click_search()
-#
-#         export2.click_export_detail()
-#         export2.click_download_more()
-#         export2.input_task_name("VisitingRecordDetails List")
-#         down_status = export2.click_export_search()
-#
-#         task_name = export2.get_task_name_text()
-#         file_size = export2.get_file_size_text()
-#
-#         task_id = export2.get_task_user_id_text()
-#         create_date = export2.get_create_date_text()
-#         complete_date = export2.get_complete_date_text()
-#         export_time = export2.get_export_time_text()
-#         operation = export2.get_export_operation_text()
-#
-#         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-#         ValueAssert.value_assert_equal(task_name, "VisitingRecordDetails List")
-#         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-#         ValueAssert.value_assert_equal(create_date, today)
-#         ValueAssert.value_assert_equal(complete_date, today)
-#         ValueAssert.value_assert_equal(operation, "Download")
-#         export2.assert_file_time_size(file_size, export_time)
-#
-#
-#     @allure.story("导出巡店记录")
-#     @allure.title("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店记录")
-#     @allure.description("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
-#     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-#     @pytest.mark.usefixtures('function_export_fixture')
-#     def test_002_003(self, drivers):
-#         """打开考勤与巡店管理-打开巡店记录页面"""
-#         user = LoginPage(drivers)
-#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-#         """打开考勤与巡店管理-打开巡店记录页面"""
-#         user.click_gotomenu("Attendance & Visiting", "Visit Record")
-#         """获取当天日期"""
-#         base = Base(drivers)
-#         today = base.get_datetime_today()
-#
-#         export = VisitRecordPage(drivers)
-#         export.input_submit_start_date("2022-08-22")
-#         export.click_submit_date()
-#         export.click_shop_self_inspection()
-#         export.click_search()
-#
-#         export.click_export()
-#         export.click_download_more()
-#         export.input_task_name("History List")
-#         down_status = export.click_export_search()
-#
-#         task_name = export.get_task_name_text()
-#         file_size = export.get_file_size_text()
-#
-#         task_id = export.get_task_user_id_text()
-#         create_date = export.get_create_date_text()
-#         complete_date = export.get_complete_date_text()
-#         export_time = export.get_export_time_text()
-#         operation = export.get_export_operation_text()
-#
-#         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-#         ValueAssert.value_assert_equal(task_name, "History List")
-#         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-#         ValueAssert.value_assert_equal(create_date, today)
-#         ValueAssert.value_assert_equal(complete_date, today)
-#         ValueAssert.value_assert_equal(operation, "Download")
-#         export.assert_file_time_size(file_size, export_time)
-#
-#
-#     @allure.story("导出巡店记录")
-#     @allure.title("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店详情记录")
-#     @allure.description("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店详情记录，断言导出数据是否正常")
-#     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-#     @pytest.mark.usefixtures('function_export_fixture')
-#     def test_002_004(self, drivers):
-#         """打开考勤与巡店管理-打开巡店记录页面"""
-#         user = LoginPage(drivers)
-#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-#         """打开考勤与巡店管理-打开巡店记录页面"""
-#         user.click_gotomenu("Attendance & Visiting", "Visit Record")
-#         """获取当天日期"""
-#         base = Base(drivers)
-#         today = base.get_datetime_today()
-#
-#         export = VisitRecordPage(drivers)
-#         export.input_submit_start_date("2022-08-22")
-#         export.click_submit_date()
-#         export.click_shop_self_inspection()
-#         export.click_search()
-#
-#         export.click_export_detail()
-#         export.click_download_more()
-#         export.input_task_name("VisitingRecordDetails List")
-#         down_status = export.click_export_search()
-#
-#         task_name = export.get_task_name_text()
-#         file_size = export.get_file_size_text()
-#
-#         task_id = export.get_task_user_id_text()
-#         create_date = export.get_create_date_text()
-#         complete_date = export.get_complete_date_text()
-#         export_time = export.get_export_time_text()
-#         operation = export.get_export_operation_text()
-#
-#         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-#         ValueAssert.value_assert_equal(task_name, "VisitingRecordDetails List")
-#         ValueAssert.value_assert_equal(task_id, "lhmadmin")
-#         ValueAssert.value_assert_equal(create_date, today)
-#         ValueAssert.value_assert_equal(complete_date, today)
-#         ValueAssert.value_assert_equal(operation, "Download")
-#         export.assert_file_time_size(file_size, export_time)
-#
+@allure.feature("考勤&巡店-巡店记录")
+class TestExportVisitRecord:
+    @allure.story("导出巡店记录")
+    @allure.title("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录")
+    @allure.description("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
+    def test_002_001(self, drivers):
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user.click_gotomenu("Attendance & Visiting", "Visit Record")
+        """获取当天日期"""
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
+        export = VisitRecordPage(drivers)
+        export.input_submit_start_date("2022-09-01")
+        export.click_submit_date()
+        export.click_search()
+
+        export.click_export()
+        export.click_download_more()
+        export.input_task_name("History List")
+        down_status = export.click_export_search()
+
+        task_name = export.get_task_name_text()
+        file_size = export.get_file_size_text()
+
+        task_id = export.get_task_user_id_text()
+        create_date = export.get_create_date_text()
+        complete_date = export.get_complete_date_text()
+        export_time = export.get_export_time_text()
+        operation = export.get_export_operation_text()
+        logging.info("获取导出记录列表的operation字段内容{}".format(operation))
+
+        ValueAssert.value_assert_equal(down_status, "COMPLETE")
+        ValueAssert.value_assert_equal(task_name, "History List")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(operation, "Download")
+        export.assert_file_time_size(file_size, export_time)
+
+
+    @allure.story("导出巡店记录")
+    @allure.title("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录详情数据")
+    @allure.description("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录详情数据，断言导出数据是否正常")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
+    def test_002_002(self, drivers):
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user.click_gotomenu("Attendance & Visiting", "Visit Record")
+        """获取当天日期"""
+        base = Base(drivers)
+        today = base.get_datetime_today()
+        export2 = VisitRecordPage(drivers)
+
+        export2.input_submit_start_date("2022-09-01")
+        export2.click_submit_date()
+        export2.click_search()
+
+        export2.click_export_detail()
+        export2.click_download_more()
+        export2.input_task_name("VisitingRecordDetails List")
+        down_status = export2.click_export_search()
+
+        task_name = export2.get_task_name_text()
+        file_size = export2.get_file_size_text()
+
+        task_id = export2.get_task_user_id_text()
+        create_date = export2.get_create_date_text()
+        complete_date = export2.get_complete_date_text()
+        export_time = export2.get_export_time_text()
+        operation = export2.get_export_operation_text()
+
+        ValueAssert.value_assert_equal(down_status, "COMPLETE")
+        ValueAssert.value_assert_equal(task_name, "VisitingRecordDetails List")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(operation, "Download")
+        export2.assert_file_time_size(file_size, export_time)
+
+
+    @allure.story("导出巡店记录")
+    @allure.title("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店记录")
+    @allure.description("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
+    def test_002_003(self, drivers):
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user.click_gotomenu("Attendance & Visiting", "Visit Record")
+        """获取当天日期"""
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
+        export = VisitRecordPage(drivers)
+        export.input_submit_start_date("2022-08-22")
+        export.click_submit_date()
+        export.click_shop_self_inspection()
+        export.click_search()
+
+        export.click_export()
+        export.click_download_more()
+        export.input_task_name("History List")
+        down_status = export.click_export_search()
+
+        task_name = export.get_task_name_text()
+        file_size = export.get_file_size_text()
+
+        task_id = export.get_task_user_id_text()
+        create_date = export.get_create_date_text()
+        complete_date = export.get_complete_date_text()
+        export_time = export.get_export_time_text()
+        operation = export.get_export_operation_text()
+
+        ValueAssert.value_assert_equal(down_status, "COMPLETE")
+        ValueAssert.value_assert_equal(task_name, "History List")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(operation, "Download")
+        export.assert_file_time_size(file_size, export_time)
+
+
+    @allure.story("导出巡店记录")
+    @allure.title("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店详情记录")
+    @allure.description("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店详情记录，断言导出数据是否正常")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
+    def test_002_004(self, drivers):
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开考勤与巡店管理-打开巡店记录页面"""
+        user.click_gotomenu("Attendance & Visiting", "Visit Record")
+        """获取当天日期"""
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
+        export = VisitRecordPage(drivers)
+        export.input_submit_start_date("2022-08-22")
+        export.click_submit_date()
+        export.click_shop_self_inspection()
+        export.click_search()
+
+        export.click_export_detail()
+        export.click_download_more()
+        export.input_task_name("VisitingRecordDetails List")
+        down_status = export.click_export_search()
+
+        task_name = export.get_task_name_text()
+        file_size = export.get_file_size_text()
+
+        task_id = export.get_task_user_id_text()
+        create_date = export.get_create_date_text()
+        complete_date = export.get_complete_date_text()
+        export_time = export.get_export_time_text()
+        operation = export.get_export_operation_text()
+
+        ValueAssert.value_assert_equal(down_status, "COMPLETE")
+        ValueAssert.value_assert_equal(task_name, "VisitingRecordDetails List")
+        ValueAssert.value_assert_equal(task_id, "lhmadmin")
+        ValueAssert.value_assert_equal(create_date, today)
+        ValueAssert.value_assert_equal(complete_date, today)
+        ValueAssert.value_assert_equal(operation, "Download")
+        export.assert_file_time_size(file_size, export_time)
+
 
 if __name__ == '__main__':
     pytest.main(['AttendanceVisiting_VisitRecord.py'])
