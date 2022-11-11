@@ -112,9 +112,8 @@ class VisitRecordPage(Base):
 
     @allure.step("点击Download Icon，点击More更多按钮")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1.5)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(4)
 

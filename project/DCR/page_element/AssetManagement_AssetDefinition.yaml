@@ -48,3 +48,6 @@ Edit Version: "xpath==//div//input[@class='el-input__inner assetedit_input_versi
 Edit Cost: "xpath==//div//input[@class='el-input__inner assetedit_input_cost']"
 Edit Submit: "xpath==//button[@id='assetedit_Submit']//span[normalize-space(text())='Submit']"
 
+#筛选资产信息
+Get list Total: "xpath==//div//span[contains(text(),'Total')]"
+

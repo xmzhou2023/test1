@@ -61,24 +61,34 @@ class AssetDefinitionPage(Base):
         self.is_click(user['Add Submit'])
 
     @allure.step("Asset Definition列表, 筛选当天的日期，查看资产信息")
-    def query_create_date(self, start_date):
+    def query_create_date(self, start_date, end_date):
         self.is_click(user['Create Start Date Query'])
         self.input_text(user['Create Start Date Query'], start_date)
         self.is_click(user['Create End Date Query'])
-        self.input_text(user['Create End Date Query'], start_date)
+        self.input_text(user['Create End Date Query'], end_date)
 
     @allure.step("Asset Definition列表, 点击Search")
     def click_search(self):
         self.is_click(user['Search'])
         sleep(1.5)
 
+    @allure.step("Asset Definition列表, 根据Create Date或者category条件筛选资产信息")
+    def query_createdate_category(self, start_date, end_date, category):
+        self.is_click(user['Unfold'])
+        sleep(1)
+        self.query_create_date(start_date, end_date)
+        self.is_click(user['Cagegory Query'])
+        self.is_click(user['Asset Category Value'], category)
+        self.click_search()
+
+
     @allure.step("Asset Definition列表, 根据Create Date,Category,Asset Name字段筛选新增的资产")
-    def query_asset_info(self, start_date, category, asset_name):
+    def query_asset_info(self, start_date, end_date, category, asset_name):
         #点击Unfold 展开筛选条件
         self.is_click(user['Unfold'])
         sleep(1)
         #调用筛选创建日期方法
-        self.query_create_date(start_date)
+        self.query_create_date(start_date, end_date)
         self.is_click(user['Cagegory Query'])
         self.is_click(user['Asset Category Value'], category)
         #筛选资产名称
@@ -87,12 +97,12 @@ class AssetDefinitionPage(Base):
         self.is_click(user['Fold'])
 
     @allure.step("Asset Definition列表, 根据Create Date,Category 字段筛选新增的资产")
-    def query_asset_info_edit(self, start_date, category):
+    def query_asset_info_edit(self, start_date, end_date, category):
         # 点击Unfold 展开筛选条件
         self.is_click(user['Unfold'])
         sleep(1)
         # 调用筛选创建日期方法
-        self.query_create_date(start_date)
+        self.query_create_date(start_date, end_date)
         self.is_click(user['Cagegory Query'])
         self.is_click(user['Asset Category Value'], category)
 
@@ -126,6 +136,18 @@ class AssetDefinitionPage(Base):
     def click_edit_submit(self):
         self.is_click(user['Edit Submit'])
 
+    @allure.step("Asset Definition页面, 获取列表Total总条数")
+    def get_list_total(self):
+        total = self.element_text(user['Get list Total'])
+        total1 = total[6:]
+        return total1
+
+    @allure.step("断言分页总数是否存在数据")
+    def assert_total(self, total):
+        if int(total) >= 1:
+            logging.info("筛选考勤记录列表，分页总条数大于0，能查询到考勤记录数Total:{}".format(total))
+        else:
+            logging.info("筛选考勤记录列表，分页总条数为0，未查询到考勤记录数Total:{}:".format(total))
 
 
 if __name__ == '__main__':

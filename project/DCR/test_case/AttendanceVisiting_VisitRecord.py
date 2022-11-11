@@ -121,7 +121,7 @@ class TestExportVisitRecord:
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-09-01")
+        export.input_submit_start_date("2022-11-01")
         export.click_submit_date()
         export.click_search()
 
@@ -208,9 +208,9 @@ class TestExportVisitRecord:
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-08-22")
+        export.input_submit_start_date("2022-09-01")
         export.click_submit_date()
-        export.click_shop_self_inspection()
+        export.click_shop_self_inspection('Shop self-inspection')
         export.click_search()
 
         export.click_export()
@@ -252,9 +252,9 @@ class TestExportVisitRecord:
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-08-22")
+        export.input_submit_start_date("2022-09-01")
         export.click_submit_date()
-        export.click_shop_self_inspection()
+        export.click_shop_self_inspection('Shop self-inspection')
         export.click_search()
 
         export.click_export_detail()

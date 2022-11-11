@@ -30,13 +30,44 @@ def function_menu_fixture(drivers):
         menu.click_close_open_menu()
 
 @allure.feature("资产管理-资产定义")
+class TestQueryAsset:
+    @allure.story("查询资产")
+    @allure.title("资产管理页面，查询资产")
+    @allure.description("资产管理页面，根据创建日期与资产名称筛选资产，断言列表是否能正常查询指定的资产")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """考勤管理-打开考勤记录页面"""
+        user.click_gotomenu("Asset Management", "Asset Definition")
+
+        query = AssetDefinitionPage(drivers)
+        """获取当天日期"""
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
+        query.query_createdate_category('2022-11-01', today, 'Promotion Gift')
+        get_asset_name_cn = query.get_list_field_content('Get list Asset Name CN')
+        query.query_asset_name(get_asset_name_cn)
+        query.click_search()
+
+        get_category = query.get_list_field_content('Get list Category')
+        get_asset_name_cn2 = query.get_list_field_content('Get list Asset Name CN')
+        ValueAssert.value_assert_equal(get_asset_name_cn, get_asset_name_cn2)
+        ValueAssert.value_assert_equal('Promotion Gift', get_category)
+        get_total = query.get_list_total()
+        query.assert_total(get_total)
+
+
+@allure.feature("资产管理-资产定义")
 class TestAddAsset:
     @allure.story("新增资产")
     @allure.title("资产管理页面，新增资产")
     @allure.description("资产管理页面，新增资产操作，断言资产管理列表是否加载新增的资产信息")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_001_001(self, drivers):
+    def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """考勤管理-打开考勤记录页面"""
@@ -64,7 +95,7 @@ class TestAddAsset:
         base = Base(drivers)
         today = base.get_datetime_today()
         #根据Create Date,Category,Asset Name字段筛选新增的资产数据
-        add.query_asset_info(today, 'Promotion Gift', name_en)
+        add.query_asset_info(today, today, 'Promotion Gift', name_en)
         add.click_search()
 
         #返回Asset Definition列表，查询是否加载新增的资产信息
@@ -94,7 +125,7 @@ class TestEditAsset:
     @allure.description("资产管理页面，对新增的资产，进行修改操作，断言资产管理列表是否更新修改后的资产信息")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_001_002(self, drivers):
+    def test_003_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """考勤管理-打开考勤记录页面"""
@@ -106,7 +137,7 @@ class TestEditAsset:
         today = base.get_datetime_today()
 
         #根据Create Date,Category,Asset Name字段筛选新增的资产数据，进行编辑操作
-        edit.query_asset_info_edit(today, 'Promotion Gift')
+        edit.query_asset_info_edit(today, today, 'Promotion Gift')
         edit.click_search()
         get_asset_name_en1 = edit.get_list_field_content('Get list Asset Name EN')
         edit.query_asset_name(get_asset_name_en1)
@@ -126,7 +157,7 @@ class TestEditAsset:
         DomAssert(drivers).assert_att("Edited Successfully")
         sleep(1)
         #根据修改后的资产名称，筛查修改后的资产数据
-        edit.query_asset_info(today, 'Promotion Gift', name_en)
+        edit.query_asset_info(today, today, 'Promotion Gift', name_en)
         edit.click_search()
 
         #断言列表是否更新修改后的内容

@@ -21,37 +21,37 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
-# @allure.feature("销售管理-国包出库单")
-# class TestQueryDistDelivery:
-#     @allure.story("国包查询出库单")
-#     @allure.title("国包用户按出库单条件筛选，出库单列表数据")
-#     @allure.description("根据销售单与出库单条件，筛选出库单列表数据")
-#     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-#     @pytest.mark.usefixtures('function_menu_fixture')
-#     def test_001_001(self, drivers):
-#         """DCR 国包账号登录"""
-#         user = LoginPage(drivers)
-#         user.initialize_login(drivers, "BD40344201", "dcr123456")
-#
-#         """销售管理菜单-出库单列表-筛选出库单数据用例"""
-#         user.click_gotomenu("Sales Management", "Delivery Order")
-#
-#         """出库单页面 实例化销售管理页面组件类"""
-#         query = DeliveryOrderPage(drivers)
-#         """出库单页面，筛选出库单用例"""
-#         salesorder = query.text_sales_order()
-#         deliveryorder = query.text_delivery_order()
-#         query.input_salesorder(salesorder)
-#         query.input_deliveryorder(deliveryorder)
-#         query.click_search()
-#
-#         salesorder2 = query.text_sales_order()
-#         deliveryorder2 = query.text_delivery_order()
-#         """出库单页面，调用断言封装的方法，比较页面获取的文本是否与查询的结果相等"""
-#         ValueAssert.value_assert_equal(salesorder, salesorder2)
-#         ValueAssert.value_assert_equal(deliveryorder, deliveryorder2)
-#         #query.click_close_delivery_order()
-#
+@allure.feature("销售管理-国包出库单")
+class TestQueryDistDelivery:
+    @allure.story("国包查询出库单")
+    @allure.title("国包用户按出库单条件筛选，出库单列表数据")
+    @allure.description("根据销售单与出库单条件，筛选出库单列表数据")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_001(self, drivers):
+        """DCR 国包账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "BD40344201", "dcr123456")
+
+        """销售管理菜单-出库单列表-筛选出库单数据用例"""
+        user.click_gotomenu("Sales Management", "Delivery Order")
+
+        """出库单页面 实例化销售管理页面组件类"""
+        query = DeliveryOrderPage(drivers)
+        """出库单页面，筛选出库单用例"""
+        salesorder = query.text_sales_order()
+        deliveryorder = query.text_delivery_order()
+        query.input_salesorder(salesorder)
+        query.input_deliveryorder(deliveryorder)
+        query.click_search()
+
+        salesorder2 = query.text_sales_order()
+        deliveryorder2 = query.text_delivery_order()
+        """出库单页面，调用断言封装的方法，比较页面获取的文本是否与查询的结果相等"""
+        ValueAssert.value_assert_equal(salesorder, salesorder2)
+        ValueAssert.value_assert_equal(deliveryorder, deliveryorder2)
+        #query.click_close_delivery_order()
+
 
 @allure.feature("销售管理-国包出库单")
 class TestAddDistDeliveryOrder:
