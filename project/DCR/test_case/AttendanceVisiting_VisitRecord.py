@@ -47,6 +47,7 @@ class TestQueryVisitRecord:
         visit_task.click_submit_date()
         visit_task.click_shop_self_inspection('Visit task')
         visit_task.click_search()
+
         shop_id = visit_task.get_shop_id_text()
         logging.info("获取Visit task的巡店记录列表Shop ID字段文本{}".format(shop_id))
         visit_task.click_unfold()
@@ -123,6 +124,7 @@ class TestExportVisitRecord:
         export = VisitRecordPage(drivers)
         export.input_submit_start_date("2022-11-01")
         export.click_submit_date()
+        export.click_shop_self_inspection('Visit task')
         export.click_search()
 
         export.click_export()
@@ -167,6 +169,7 @@ class TestExportVisitRecord:
 
         export2.input_submit_start_date("2022-09-01")
         export2.click_submit_date()
+        export2.click_shop_self_inspection('Visit task')
         export2.click_search()
 
         export2.click_export_detail()
