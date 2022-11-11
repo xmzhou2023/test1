@@ -29,7 +29,7 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
-@allure.feature("考勤&巡店-考勤记录")
+@allure.feature("资产管理-资产定义")
 class TestAddAsset:
     @allure.story("新增资产")
     @allure.title("资产管理页面，新增资产")
@@ -87,7 +87,7 @@ class TestAddAsset:
         ValueAssert.value_assert_In(today, create_date)
 
 
-@allure.feature("考勤&巡店-考勤记录")
+@allure.feature("资产管理-资产定义")
 class TestEditAsset:
     @allure.story("修改资产")
     @allure.title("资产管理页面，修改资产")

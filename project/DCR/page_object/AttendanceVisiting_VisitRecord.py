@@ -83,8 +83,8 @@ class VisitRecordPage(Base):
         return total1
 
     @allure.step("Visit Record页面，点击Shop self-inspection 条件筛选")
-    def click_shop_self_inspection(self):
-        self.is_click(user['Shop self-inspection'], 'Shop self-inspection')
+    def click_shop_self_inspection(self, content):
+        self.is_click(user['Shop self-inspection'], content)
         sleep(0.5)
 
     @allure.step("关闭导出记录菜单")

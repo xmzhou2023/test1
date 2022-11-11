@@ -439,11 +439,10 @@ class ShopManagementPage(Base):
 
     @allure.step("门店列表页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(6)
+        sleep(3)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

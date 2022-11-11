@@ -41,13 +41,13 @@ Business Type: "xpath==//input[@class='el-input__inner deliveryorderadd_input_tm
 Business Type value: "xpath==//span[normalize-space(text())='variable']"
 
 #查询IMEI Detail详情
-Click IMEI Detail: "xpath==//tbody//tr[1]//td[43]//div//div//span[2]"
+Click IMEI Detail: "xpath==//tbody//tr[1]//td[44]//div//div//span[text()='IMEI Detail']"
 Get List Product Text: "xpath==//tbody//tr[1]//td[7]//div//div//div"
 Get List Item Text: "xpath==//tbody//tr[1]//td[8]//div//div//div"
-Get IMEI Detail Product Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[1]/div"
-Get IMEI Detail Item Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[2]/div"
-Get IMEI Detail IMEI Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[1]/div/div[3]/table/tbody/tr/td[5]"
-Get IMEI Detail Total Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[2]/span[1]"
+Get IMEI Detail Product Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[1]/div"
+Get IMEI Detail Item Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div"
+Get IMEI Detail IMEI Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[5]"
+Get IMEI Detail Total Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[3]/span[1]"
 Get IMEI Detail Title: "xpath==//span[contains(text(), 'IMEI Detail: ')]"
 
 #获取列表字段文本
@@ -61,7 +61,7 @@ Get Delivery Status: "xpath==//div[text()='Goods Receipt']"
 关闭IMEI详情页: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[1]/button/i"
 
 #测试环境，导出出库单定位
-Click Export: "id==Delivery_Order_export_"
+Click Export: "xpath==//button//span[normalize-space(text())='Export']"
 Unfold: "xpath==//span[contains(text(), 'Unfold')]"
 Fold: "xpath==//span[contains(text(), 'Fold')]"
 Delivery Start Date: "xpath==//div//input[@id='deliveryorder_input_deliveryDate']"

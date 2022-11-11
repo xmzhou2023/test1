@@ -296,9 +296,8 @@ class SalesOrderPage(Base):
 
     @allure.step("点击下载Download Icon,more更多按钮")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(8)
 
@@ -309,12 +308,12 @@ class SalesOrderPage(Base):
         sleep(1.5)
         self.is_click(user[yamal2], content1)
 
-    # @allure.step("输入Task Name筛选该任务的导出记录")
-    # def input_task_name(self, content):
-    #     self.is_click(user['Input Task Name'])
-    #     self.input_text(user['Input Task Name'], txt=content)
-    #     sleep(2)
-    #     self.is_click(user['Task Name value'], content)
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(2)
+        self.is_click(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
