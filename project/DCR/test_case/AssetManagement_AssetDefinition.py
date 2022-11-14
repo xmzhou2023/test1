@@ -10,17 +10,6 @@ import allure
 
 """后置关闭菜单方法  pytest.fixture(scope='作用域' function函数级别  """
 @pytest.fixture(scope='function')
-def function_export_fixture(drivers):
-    yield
-    menu = LoginPage(drivers)
-    for i in range(2):
-        get_menu_class = menu.get_open_menu_class()
-        class_value = "tags-view-item router-link-exact-active router-link-active active"
-        if class_value == str(get_menu_class):
-            menu.click_close_open_menu()
-            sleep(1)
-
-@pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
