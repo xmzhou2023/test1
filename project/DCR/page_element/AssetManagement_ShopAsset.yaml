@@ -1,0 +1,25 @@
+Import: "xpath==//button//span[normalize-space(text())='Import']"
+Create start Date: "xpath==//div//input[@class='el-input__inner shopassetlist_input_createDateBegin']"
+Create end Date: "xpath==//div//input[@class='el-input__inner shopassetlist_input_createDateBegin1']"
+query Shop: "xpath==//div//input[@class='el-input__inner shopassetlist_input_shopCode']"
+Unfold: "xpath==//div//span[text()='Unfold']"
+Fold: "xpath==//div//span[text()='Fold']"
+Search: "xpath==//button//span[normalize-space(text())='Search']"
+
+#查询
+Get list Shop ID: "xpath==//tbody//tr[1]//td[6]//div"
+Get list Asset Name: "xpath==//tbody//tr[1]//td[17]//div"
+Get list Has ASN: "xpath==//tbody//tr[1]//td[20]//div"
+Get list Status: "xpath==//tbody//tr[1]//td[19]//div"
+Get Picture: "xpath==//body//tr[1]//td[not(contains(@class ,'is-hidden'))]//button//span[normalize-space(text())='Picture']"
+
+#删除
+勾选第复选框: "xpath==//tbody//tr[1]//td[1]//label//span[@class='el-checkbox__input']"
+Delete: "xpath==//button//span[normalize-space(text())='Delete']"
+
+
+
+
+
+
+

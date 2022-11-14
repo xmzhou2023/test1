@@ -27,22 +27,30 @@ class UserManagementPage(Base):
     def input_user_id(self, content):
         self.is_click(user['User ID'])
         self.input_text_dcr(user['User ID'], txt=content)
+        sleep(1.5)
 
     @allure.step("Add user页面， 输入user Name字段")
-    def input_user_name(self, content):
-        self.presence_sleep_dcr(user['User Name'])
-        self.is_click(user['User Name'])
-        self.input_text(user['User Name'], txt=content)
+    def input_add_user_name(self, content):
+        self.presence_sleep_dcr(user['Add User Name'])
+        self.is_click(user['Add User Name'])
+        self.input_text(user['Add User Name'], txt=content)
+
+    @allure.step("Edit user页面， 输入user Name字段")
+    def input_edit_user_name(self, content):
+        self.presence_sleep_dcr(user['Edit User Name'])
+        self.is_click(user['Edit User Name'])
+        self.input_text(user['Edit User Name'], txt=content)
+
 
     @allure.step("Add user页面，点击user Name属性，释放光标")
     def click_user_name(self):
-        self.is_click(user['User Name'])
+        self.is_click(user['Edit User Name'])
 
     @allure.step("Add user页面， 输入销售区域，然后选中输入的销售区域")
     def input_sales_region(self, content):
         self.is_click(user['Sales Region'])
         self.input_text(user['Sales Region'], txt=content)
-        sleep(2)
+        sleep(3)
         self.is_click(user['Sales Region Value'])
 
     @allure.step("Add user页面， 输入国家城市，然后选中输入的国家城市")
@@ -109,7 +117,7 @@ class UserManagementPage(Base):
     @allure.step("Add user页面，选择性别")
     def click_gender_female(self, context):
         self.is_click(user['Gender'])
-        sleep(1)
+        sleep(0.5)
         self.presence_sleep_dcr(user['Gender Female'], context)
         self.is_click(user['Gender Female'], context)
 
@@ -193,13 +201,13 @@ class UserManagementPage(Base):
     @allure.step("随机生成userid")
     def user_id_random(self):
         num = str(random.randint(100, 999))
-        userid = '19851' + num
+        userid = '202211' + num
         return userid
 
     @allure.step("随机生成username")
     def user_name_random(self):
         num = str(random.randint(100, 999))
-        username = "user_test" + num
+        username = "smart_test_user" + num
         return username
 
     @allure.step("随机生成电话号码尾号")

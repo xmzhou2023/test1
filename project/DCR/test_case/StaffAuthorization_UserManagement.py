@@ -96,12 +96,15 @@ class TestAddEditQuitTranssionUser:
         """随机生成数字"""
         add_transsion = UserManagementPage(drivers)
         userid = add_transsion.user_id_random()
+        logging.info("打印新建传音员工时，输入的user id{}".format(userid))
         username = add_transsion.user_name_random()
         logging.info("打印新建传音员工时，输入的user name{}".format(username))
         add_transsion.click_add_user()
         add_transsion.click_staff_type_value("Transsion Staff")
         add_transsion.input_user_id(userid)
-        add_transsion.input_user_name(username)
+
+        add_transsion.input_add_user_name(username)
+
         add_transsion.input_sales_region("Barisal")
         add_transsion.input_country_city("Barisal")
         add_transsion.click_select_brand()
@@ -135,7 +138,7 @@ class TestAddEditQuitTranssionUser:
         """筛选用户后，点击Search，进行编辑"""
         username = add_transsion.user_name_random()
         add_transsion.click_edit()
-        add_transsion.input_user_name(username)
+        add_transsion.input_edit_user_name(username)
         add_transsion.click_edit_trans_brand()
         add_transsion.click_user_name()
         add_transsion.input_email("646167867@qq.com")
@@ -192,7 +195,7 @@ class TestAddEditQuitDealerUser:
         username = dealer_user.user_name_random()
         dealer_user.click_staff_type_value("Dealer Staff")
         dealer_user.input_belong_to_cust("UG4019912")
-        dealer_user.input_user_name(username)
+        dealer_user.input_add_user_name(username)
         dealer_user.input_sales_region("Barisal")
         dealer_user.input_country_city("Barisal")
         dealer_user.click_select_brand()
@@ -232,7 +235,7 @@ class TestAddEditQuitDealerUser:
         username = dealer_user.user_name_random()
         logging.info("打印编辑代理员工时，输入的User Name{}".format(username))
         dealer_user.click_edit()
-        dealer_user.input_user_name(username)
+        dealer_user.input_edit_user_name(username)
         dealer_user.click_edit_dealer_brand()
         """点击user name属性，将光标从品牌字段移开"""
         dealer_user.click_user_name()

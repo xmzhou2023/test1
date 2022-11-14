@@ -5,13 +5,13 @@ Staff Type:  "xpath==//div//input[@class='el-input__inner useradd_input_employee
 Transsion Staff: "xpath==//span[contains(text(),'variable')]"
 
 User ID: "xpath==//label[(text()='User ID')]//parent::div// following-sibling::div//input"
-User Name: "xpath==//label[(text()='User Name')]//parent::div// following-sibling::div//input"
+Add User Name: "xpath==//div//input[@class='el-input__inner useradd_input_empName']"
 
 Sales Region: "xpath==//div//input[@id='useradd_input_areaId']"
 Sales Region Value: "xpath==//*[@id='mainContainer']/section/div[2]/form/div[2]/div[6]/div/div/div[1]/div[2]/div/div[1]/div[2]/div[4]/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/span[2]"
 
 Country City: "xpath==//div//input[@id='useradd_input_regionId']"
-Country City Value: "xpath==//*[@id='app']/div/div[2]/section/div/form/div[2]/div[7]/div/div/div/div[2]/div/div[1]/div[2]/div[8]/div[2]/div[4]/div[2]/div/div[1]/span[2]"
+Country City Value: "xpath==//*[@id='mainContainer']/section/div[2]/form/div[2]/div[7]/div/div/div[1]/div[2]/div/div[1]/div[2]/div[8]/div[2]/div[4]/div[2]/div/div[1]/span[2]"
 
 Add Select Brand: "xpath==//div//..//input[@id='useradd_input_brandCodes']"
 Select Brand Value: "xpath==//div[@class='el-scrollbar']//ul//li//span[text()='variable']"
@@ -29,7 +29,7 @@ Contact No: "xpath==//label[(text()='Contact No.')]//parent::div//following-sibl
 
 Gender: "xpath==//label[(text()='Gender')]//parent::div//following-sibling::div//input"
 Gender Female: "xpath==//span[contains(text(),'variable')]"
-Add User Submit: "xpath==//*[@id='app']/div/div[2]/section/div/div/div/button[1]/span[contains(text(),'Submit')]"
+Add User Submit: "xpath==//button[@class='el-button el-button--primary el-button--small']//span[contains(text(),'Submit')]"
 关闭用户管理菜单: "xpath==//span[normalize-space(text())='User Management']//span[@class='el-icon-close']"
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 
@@ -42,8 +42,10 @@ Input User ID Value: "xpath==//span[contains(text(),'variable')]"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
 
+#编辑用户
 修改第一个Edit: "id==employee_update_"
 勾选第一个复选框: "xpath==//table//tbody//tr[1]//td[1]//div//label//span//span"
+Edit User Name: "xpath==//div//input[@class='el-input__inner useredit_input_empName']"
 More Option: "xpath==//span[contains(text(),'More Option')]"
 Set Up Successfully: "xpath==//p[(text()='Set Up Successfully')]"
 
