@@ -107,6 +107,7 @@ class TestAddAsset:
         asset_name_en = add.get_list_field_content('Get list Asset Name EN')
         get_cost = add.get_list_field_content('Get list Cost')
         create_date = add.get_list_field_content('Get list Create Date')
+        get_picture = add.get_list_field_content('Get list Picture')
         #断言相等比较列表字段内容是否一致
         ValueAssert.value_assert_equal(brand, 'Infinix')
         ValueAssert.value_assert_equal(design_by, 'Headquarters')
@@ -116,6 +117,7 @@ class TestAddAsset:
         ValueAssert.value_assert_equal(asset_name_en, name_en)
         ValueAssert.value_assert_In(get_cost, '88')
         ValueAssert.value_assert_In(today, create_date)
+        ValueAssert.value_assert_equal("Picture", get_picture)
 
 
 @allure.feature("资产管理-资产定义")

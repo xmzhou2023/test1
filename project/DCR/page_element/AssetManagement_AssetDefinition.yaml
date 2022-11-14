@@ -50,4 +50,4 @@ Edit Submit: "xpath==//button[@id='assetedit_Submit']//span[normalize-space(text
 
 #筛选资产信息
 Get list Total: "xpath==//div//span[contains(text(),'Total')]"
-
+Get list Picture: "xpath==//body//tr[1]//td[not(contains(@class ,'is-hidden'))]//button//span[normalize-space(text())='Picture']"

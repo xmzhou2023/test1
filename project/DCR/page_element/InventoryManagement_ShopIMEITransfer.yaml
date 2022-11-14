@@ -13,7 +13,7 @@ Add Submit: "xpath==//button[@id='shopimeitransferadd_Submit']"
 Add OK: "xpath==//button[contains(@class,'el-button el-button--default el-button--small el-button--primary ')]"
 
 Get List Status Text: "xpath==//tbody//tr[1]//td[3]//div[text()='variable']"
-Get List To Shop ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[13]//div[text()='variable']"
+Get List To Shop ID Text: "xpath==//tbody//tr[1]//td[13]//div"
 Get list Creator ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[4]//div"
 Get list Transfer ID Text: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div"
 

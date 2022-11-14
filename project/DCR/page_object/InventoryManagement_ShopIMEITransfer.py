@@ -76,9 +76,9 @@ class ShopIMEITransferPage(Base):
         return get_status
 
     @allure.step("获取列表To Shop文本内容")
-    def get_list_to_shop_text(self, shop):
-        self.scroll_into_view(user['Get List To Shop ID Text'], shop)
-        get_to_shop = self.element_text(user['Get List To Shop ID Text'], shop)
+    def get_list_to_shop_text(self):
+        self.scroll_into_view(user['Get List To Shop ID Text'])
+        get_to_shop = self.element_text(user['Get List To Shop ID Text'])
         return get_to_shop
 
     @allure.step("获取列表Creator ID文本内容")
