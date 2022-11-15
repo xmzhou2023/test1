@@ -282,6 +282,5 @@ class TestExportVisitRecord:
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
 
-
 if __name__ == '__main__':
     pytest.main(['AttendanceVisiting_VisitRecord.py'])

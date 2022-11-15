@@ -136,23 +136,22 @@ class HomePagePage(Base):
     @allure.step("点击导出Abnormal Data指标数据")
     def click_export_abnormal_data(self):
         self.is_click(user['Abnormal Data Export'])
-        sleep(2)
+        sleep(1)
 
 
 
     #HomePage首页，导出功能验证
     @allure.step("点击导出查看more更多按钮")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(2)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(13)
+        sleep(3)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
-        self.input_text(user['Input Task Name'], txt=content)
+        self.input_text(user['Input Task Name'], content)
         sleep(2)
         self.is_click(user['Task Name value'], content)
 
@@ -357,12 +356,12 @@ class HomePagePage(Base):
     @allure.step("点击Shop Management Export导出按钮")
     def click_shop_export(self):
         self.is_click(user['Shop Management Export'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("关闭Shop Management global菜单")
     def click_close_shop_mgt(self):
         self.is_click(user['关闭门店管理菜单'])
-        sleep(2)
+        sleep(1)
 
 
     @allure.step("断言文件下载时长")
@@ -376,7 +375,6 @@ class HomePagePage(Base):
             logging.info("User Management & Authorization卡片数据导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("User Management & Authorization卡片数据导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(2)
 
 
 if __name__ == '__main__':

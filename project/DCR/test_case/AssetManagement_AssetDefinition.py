@@ -164,6 +164,34 @@ class TestEditAsset:
         ValueAssert.value_assert_In(get_cost, '93')
         ValueAssert.value_assert_In(today, create_date)
 
+#
+# @allure.feature("资产管理-资产定义")
+# class TestAddAsset:
+#     @allure.story("删除资产")
+#     @allure.title("资产管理页面，删除资产操作")
+#     @allure.description("资产管理页面，对新增的资产进行删除操作，断言是否删除成功")
+#     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+#     @pytest.mark.usefixtures('function_menu_fixture')
+#     def test_003_001(self, drivers):
+#         user = LoginPage(drivers)
+#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
+#         """考勤管理-打开考勤记录页面"""
+#         user.click_gotomenu("Asset Management", "Asset Definition")
+#
+#         delete = AssetDefinitionPage(drivers)
+#
+#         """获取当天日期"""
+#         base = Base(drivers)
+#         today = base.get_datetime_today()
+#
+#         # 根据Create Date,Category,Asset Name字段筛选新增的资产数据，进行删除操作
+#         delete.query_asset_info_edit(today, today, 'Promotion Gift')
+#         delete.click_search()
+#         get_asset_name_en1 = delete.get_list_field_content('Get list Asset Name EN')
+#         delete.query_asset_name(get_asset_name_en1)
+#         delete.click_search()
+#
+
 
 if __name__ == '__main__':
     pytest.main(['AssetManagement_AssetDefinition.py'])
