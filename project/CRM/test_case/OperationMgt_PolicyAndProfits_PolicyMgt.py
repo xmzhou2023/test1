@@ -42,7 +42,7 @@ class TestPolicyMgt:
         number = user.get_total()
         user = SQL("CRM", "test")  # 链接数据库
         tatal = user.query_db(
-            'SELECT COUNT(*) FROM crm_mdm_policy p WHERE p.country_code LIKE "%EG%" AND p.brand_category_id LIKE "%cb9400ceef01cb7f2be358457d6918e3%"')
+            'SELECT COUNT(*) FROM crm_mdm_policy p WHERE p.country_code LIKE "%EG%" AND p.brand_category_id LIKE "%cb9400ceef01cb7f2be358457d6918e3%" AND p.is_enable = 1')
         sql_tatal = tatal[0].get("COUNT(*)")  # 执行sql后获取返回值的第一个值
         ValueAssert.value_assert_equal(sql_tatal, int(number))  # 校验获取的sql值与获取的total值相等
 
@@ -57,7 +57,7 @@ class TestPolicyMgt:
         number = user.get_total()
         user = SQL("CRM", "test")  # 链接数据库
         tatal = user.query_db(
-                'SELECT COUNT(*) FROM crm_mdm_policy p WHERE p.country_code LIKE "%EG%"')
+                'SELECT COUNT(*) FROM crm_mdm_policy p WHERE p.country_code LIKE "%EG%" AND p.is_enable = 1')
         sql_tatal = tatal[0].get("COUNT(*)")  # 执行sql后获取返回值的第一个值
         ValueAssert.value_assert_equal(sql_tatal, int(number))  # 校验获取的sql值与获取的total值相等
 
@@ -75,7 +75,7 @@ class TestPolicyMgt:
 
         user = SQL("CRM", "test")  # 链接数据库
         tatal = user.query_db(
-                'SELECT COUNT(*) FROM crm_mdm_policy p WHERE p.country_code LIKE "%EG%" AND p.brand_category_id LIKE "%cb9400ceef01cb7f2be358457d6918e3%" AND p.policy_no = "{}"'.format(keyword_txt))
+                'SELECT COUNT(*) FROM crm_mdm_policy p WHERE p.country_code LIKE "%EG%" AND p.brand_category_id LIKE "%cb9400ceef01cb7f2be358457d6918e3%" AND p.is_enable = 1 AND p.policy_no = "{}"'.format(keyword_txt))
         sql_tatal = tatal[0].get("COUNT(*)")  # 执行sql后获取返回值的第一个值
         ValueAssert.value_assert_equal(sql_tatal, int(number))  # 校验获取的sql值与获取的total值相等
 
