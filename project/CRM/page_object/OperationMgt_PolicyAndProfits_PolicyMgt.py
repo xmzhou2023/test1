@@ -26,7 +26,7 @@ class PolicyPage(Base):
             self.input_text(user["筛选框"],choice="brandCategory", txt=brand)
             logging.info("品牌品类筛选框输入{}".format(brand))
             sleep(0.5)
-            self.is_click(user["下拉筛选框_第二条数据"])
+            self.is_click_tbm(user["下拉筛选框_第二条数据"])
         if project is not None:
             self.is_click(user["筛选框"],choice="projectName")
             self.input_text(user["筛选框"],choice="projectName", txt=project)
