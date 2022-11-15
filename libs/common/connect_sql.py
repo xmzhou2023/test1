@@ -7,7 +7,7 @@ class SQL(object):
         self.env = env
         self.ini_name = ini_name
         self.values = values
-        self.ini = ReadConfig(self.name, self.env)
+        self.ini = ReadConfig(self.name, self.env, self.ini_name, self.values)
         self.sql = ast.literal_eval(self.ini.db)
 
     # 获取连接方法
@@ -142,3 +142,8 @@ if __name__ == '__main__':
     ie = a.query_db(
         "select count(gdzt) from ECOLOGY.uf_gdcs where lcid in (select requestid from ECOLOGY.workflow_requestbase where currentnodetype ='3'  and requestid in(select lcid from ECOLOGY.uf_gdcs )) and gdzt !='0'")
     print(ie)
+
+    # sql = SQL('DCR', 'test')
+    # sql_val = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
+    # order = sql.query_db(sql_val)
+    # print(order)

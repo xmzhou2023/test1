@@ -216,6 +216,7 @@ class TestAddSalesOrder:
         sql_val = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
         result = sql.query_db(sql_val)
         order_code = result[0].get("order_code")
+        logging.info("打印查询脚本返回值order_code:{}".format(order_code))
         # status = result[0].get("status")
         # if status == 80200000:
         #     sales_status = "Delivered"
@@ -273,8 +274,7 @@ class TestAddSalesOrder:
 
         """点击提交按钮"""
         return_order.click_Submit()
-        dom = DomAssert(drivers)
-        dom.assert_att("Submit Success!")
+        DomAssert(drivers).assert_att("Submit Success!")
 
         """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
         return_order.input_Delivery_Orderid(delivery_code)

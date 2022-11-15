@@ -19,12 +19,17 @@ class ShopAssetPage(Base):
     def click_import_save(self):
         self.is_click(user['Import Save'])
 
-    @allure.step("导Shop Asset模板-上传正确的文件")
+    @allure.step("导Shop Asset模板-上传正确的模板文件")
     def upload_true_file(self, file1):
         path1 = os.path.join(BASE_DIR, 'project', 'DCR', 'data', file1)
         logging.info("打印上传的用户模板文件path：{}".format(path1))
         self.click_import_upload_save(path1)
 
+    @allure.step("导Shop Asset模板-上传错误的模板文件")
+    def upload_error_file(self, file1):
+        path1 = os.path.join(BASE_DIR, 'project', 'DCR', 'data', file1)
+        logging.info("打印上传的用户模板文件path：{}".format(path1))
+        self.click_import_upload_save(path1)
 
     @allure.step("Shop Asset页面，点击Import 导入功能上传文件")
     def click_import_upload_save(self, file1):
@@ -118,6 +123,20 @@ class ShopAssetPage(Base):
         self.scroll_into_view(user[field])
         field = self.element_text(user[field])
         return field
+
+    @allure.step("Asset Definition页面, 获取列表Total总条数")
+    def get_list_total(self):
+        total = self.element_text(user['Get list Total'])
+        total1 = int(total[6:])
+        return total1
+
+    @allure.step("断言分页总数是否存在数据")
+    def assert_total(self, total):
+        if int(total) >= 1:
+            logging.info("门店资产列表，分页总条数大于0，能查询到考勤记录数Total:{}".format(total))
+        else:
+            logging.info("门店资产列表，分页总条数为0，未查询到考勤记录数Total:{}:".format(total))
+
 
 if __name__ == '__main__':
     pass

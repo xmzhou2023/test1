@@ -139,15 +139,15 @@ class AssetDefinitionPage(Base):
     @allure.step("Asset Definition页面, 获取列表Total总条数")
     def get_list_total(self):
         total = self.element_text(user['Get list Total'])
-        total1 = total[6:]
+        total1 = int(total[6:])
         return total1
 
     @allure.step("断言分页总数是否存在数据")
     def assert_total(self, total):
         if int(total) >= 1:
-            logging.info("筛选考勤记录列表，分页总条数大于0，能查询到考勤记录数Total:{}".format(total))
+            logging.info("资产定义列表，分页总条数大于0，能查询到考勤记录数Total:{}".format(total))
         else:
-            logging.info("筛选考勤记录列表，分页总条数为0，未查询到考勤记录数Total:{}:".format(total))
+            logging.info("资产定义列表，分页总条数为0，未查询到考勤记录数Total:{}:".format(total))
 
 
 if __name__ == '__main__':

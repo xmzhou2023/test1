@@ -84,7 +84,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单页面，点击Submit")
     def click_Submit(self):
         self.is_click(user['Submit'])
-        sleep(0.7)
+        sleep(0.5)
 
     @allure.step("获取提交退货成功提示语")
     def get_submit_success_text(self):

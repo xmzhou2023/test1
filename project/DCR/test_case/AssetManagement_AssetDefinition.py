@@ -2,6 +2,7 @@ from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.AssetManagement_AssetDefinition import AssetDefinitionPage
 from public.base.assert_ui import ValueAssert, DomAssert
 import logging
+from libs.common.connect_sql import *
 from libs.common.time_ui import sleep
 from public.base.basics import Base
 import datetime
@@ -164,33 +165,47 @@ class TestEditAsset:
         ValueAssert.value_assert_In(get_cost, '93')
         ValueAssert.value_assert_In(today, create_date)
 
-#
-# @allure.feature("资产管理-资产定义")
-# class TestAddAsset:
-#     @allure.story("删除资产")
-#     @allure.title("资产管理页面，删除资产操作")
-#     @allure.description("资产管理页面，对新增的资产进行删除操作，断言是否删除成功")
-#     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-#     @pytest.mark.usefixtures('function_menu_fixture')
-#     def test_003_001(self, drivers):
-#         user = LoginPage(drivers)
-#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-#         """考勤管理-打开考勤记录页面"""
-#         user.click_gotomenu("Asset Management", "Asset Definition")
-#
-#         delete = AssetDefinitionPage(drivers)
-#
-#         """获取当天日期"""
-#         base = Base(drivers)
-#         today = base.get_datetime_today()
-#
-#         # 根据Create Date,Category,Asset Name字段筛选新增的资产数据，进行删除操作
-#         delete.query_asset_info_edit(today, today, 'Promotion Gift')
-#         delete.click_search()
-#         get_asset_name_en1 = delete.get_list_field_content('Get list Asset Name EN')
-#         delete.query_asset_name(get_asset_name_en1)
-#         delete.click_search()
-#
+
+@allure.feature("资产管理-资产定义")
+class TestDeleteAsset:
+    @allure.story("删除资产")
+    @allure.title("资产定义页面，删除当前新增的资产")
+    @allure.description("资产定义页面，对新增的资产进行删除操作，断言是否删除成功")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_004_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """考勤管理-打开考勤记录页面"""
+        user.click_gotomenu("Asset Management", "Asset Definition")
+        delete = AssetDefinitionPage(drivers)
+
+        """获取当天日期"""
+        base = Base(drivers)
+        today = base.get_datetime_today()
+
+        #根据Create Date,Category,Asset Name字段筛选新增的资产数据，进行删除操作
+        delete.query_asset_info_edit(today, today, 'Promotion Gift')
+        delete.click_search()
+        get_asset_name_en1 = delete.get_list_field_content('Get list Asset Name EN')
+        delete.query_asset_name(get_asset_name_en1)
+        delete.click_search()
+
+        get_total = delete.get_list_total()
+        logging.info("获取Asset Definition列表总条数为：{}".format(get_total))
+        if int(get_total) >= 1:
+            sql1 = SQL('DCR', 'test', 'SQL', 'db2')
+            sql_query_id = f"select id from t_retail_asset_definition where asset_name_en='{get_asset_name_en1}'"
+            result = sql1.query_db(sql_query_id)
+            logging.info("打印返回值result:{}".format(result))
+            asset_id = result[0].get("id")
+            logging.info("打印结果asset_id:{}".format(asset_id))
+            sql1.delete_db(
+                    f"delete from t_retail_asset_definition where asset_name_en='{get_asset_name_en1}'")
+            sql1.delete_db(
+                    f"delete from t_retail_asset_definition_country  where  asset_id='{asset_id}'")
+        else:
+            logging.info("打印Asset Definition列表总条数为：{}".format(get_total))
 
 
 if __name__ == '__main__':
