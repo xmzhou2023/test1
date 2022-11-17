@@ -218,13 +218,18 @@ class Teststory_172:
     def test_10474(self, drivers):
         robot = KeyWord(drivers)
         robot.AI_get("http://10.250.112.166:9000/#/systemManage/userManage")
-        robot.AI_find_element(By.XPATH, "//form/div/div/div/div/div/div/input").click()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").click()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").send_keys("18647045")
         robot.AI_find_element(By.XPATH, "//span[contains(.,'18647045')]").click()
-        robot.AI_find_element(By.XPATH, "//form/div/div[3]/button/span").click()
-        robot.AI_find_element(By.XPATH, "//form/div/div[3]/button[2]").click()
-        robot.AI_find_element(By.XPATH, "//form/div/div[2]/div/div/div/div/input").click()
+        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div/div[2]/section/div/div/div/form/div/div[3]/button/span").click()
+        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div/div[2]/section/div/div/div/form/div/div[3]/button[2]/span").click()
+        element = robot.AI_find_element(By.XPATH, "(//button[@type='button'])[6]")
+        actions = ActionChains(robot)
+        actions.move_to_element(element).perform()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[3]").click()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[3]").send_keys("黄")
         robot.AI_find_element(By.XPATH, "//span[contains(.,'黄盼盼')]").click()
-        robot.AI_find_element(By.XPATH, "//form/div/div[3]/button/span").click()
+        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div/div[2]/section/div/div/div/form/div/div[3]/button/span").click()
         robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div/div[2]/section/div/div/div/form/div/div[3]/button[2]/span").click()
 
 
