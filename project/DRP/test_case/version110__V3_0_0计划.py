@@ -1,15 +1,5 @@
-import pytest
-import time
-import json
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from libs.common.action import KeyWord
 import allure
+import pytest
 @allure.feature("V3_0_0计划")  # 迭代名称
 class Teststory_1786:
     @allure.story("DRP2国家销售版增加【日志】功能")  # 用户故事名称
@@ -18,20 +8,7 @@ class Teststory_1786:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_10565(self, drivers):
-        robot = KeyWord(drivers)
-        robot.AI_get("http://10.250.112.166:9000/")
-        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div/div[2]/div/div/ul/div[11]/li/div").click()
-        robot.AI_find_element(By.XPATH, "//li[contains(.,'用户管理')]").click()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").click()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").send_keys("186")
-        robot.AI_find_element(By.XPATH, "//li[contains(.,'18649495')]").click()
-        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div[2]/div[2]/section/div/div/div/form/div/div[3]/button/span").click()
-        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div[2]/div[2]/section/div/div/div/form/div/div[3]/button[2]/span").click()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[3]").click()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[3]").send_keys("史")
-        robot.AI_find_element(By.XPATH, "//li[contains(.,'史红丽')]").click()
-        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div[2]/div[2]/section/div/div/div/form/div/div[3]/button/span").click()
-        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div[2]/div[2]/section/div/div/div/form/div/div[3]/button[2]/span").click()
+        pass
 
 
     @allure.story("DRP2国家销售版增加【日志】功能")  # 用户故事名称
