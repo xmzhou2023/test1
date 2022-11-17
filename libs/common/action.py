@@ -13,7 +13,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 # from webdriver_helper import get_webdriver
 
-from public.base.Basics import Base
+# from public.base.Basics import Base
 
 
 class KeyWord:
