@@ -420,7 +420,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入出货国家流程，点击新增，新增后产品定义信息不进行新增，直接点击提交，会给出提示“产品定义信息不能为空”")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_003_006(self, drivers):
+    def test_003_007(self, drivers):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()
