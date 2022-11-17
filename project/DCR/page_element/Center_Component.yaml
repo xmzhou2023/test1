@@ -156,9 +156,9 @@ IMEI Management: "xpath==//span[(text()='IMEI Management')]"
 IMEI Management->IMEI Query: "xpath==//span[(text()='IMEI Query')]"
 IMEI History Query: "css=='/IMEIHistoryQuery'"
 
-GTM Management: "css=='/GTMManagement'"
-Monitoring Template: "css=='/MonitoringTemplate'"
-Inventory Shortage Report: "css==' /InventoryShortageReport'"
+GTM Management: "xpath==//span[(text()='GTM Management')]"
+GTM Management->Monitoring Template: "xpath==//span[(text()='Monitoring Template')]"
+GTM Management->Inventory Shortage Report: "xpath==//span[(text()='Inventory Shortage Report')]"
 
 Asset Management: "xpath==//div//li//span[text()='Asset Management']"
 Asset Management->Asset Definition: "xpath==//div//li//span[text()='Asset Definition']"
