@@ -1,5 +1,15 @@
-import allure
 import pytest
+import time
+import json
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from libs.common.action import KeyWord
+import allure
 @allure.feature("V2_10_8_2计划")  # 迭代名称
 class Teststory_172:
     @allure.story("用户管理查询界面及功能优化")  # 用户故事名称
@@ -206,7 +216,16 @@ class Teststory_172:
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_10474(self, drivers):
-        pass
+        robot = KeyWord(drivers)
+        robot.AI_get("http://10.250.112.166:9000/#/systemManage/userManage")
+        robot.AI_find_element(By.XPATH, "//form/div/div/div/div/div/div/input").click()
+        robot.AI_find_element(By.XPATH, "//span[contains(.,'18647045')]").click()
+        robot.AI_find_element(By.XPATH, "//form/div/div[3]/button/span").click()
+        robot.AI_find_element(By.XPATH, "//form/div/div[3]/button[2]").click()
+        robot.AI_find_element(By.XPATH, "//form/div/div[2]/div/div/div/div/input").click()
+        robot.AI_find_element(By.XPATH, "//span[contains(.,'黄盼盼')]").click()
+        robot.AI_find_element(By.XPATH, "//form/div/div[3]/button/span").click()
+        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div/div[2]/section/div/div/div/form/div/div[3]/button[2]/span").click()
 
 
     @allure.story("用户管理查询界面及功能优化")  # 用户故事名称
