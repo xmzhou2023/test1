@@ -22,6 +22,7 @@ class TestAddMonitorTemplate:
     @allure.description("预警模板页面，新增预警模板操作，断言列表是否加载新增的预警模板")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -80,6 +81,7 @@ class TestAddMonitorTemplate:
     @allure.description("预警模板页面，新增预警模板操作，断言列表是否加载新增的预警模板")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -125,6 +127,7 @@ class TestEditMonitorTemplate:
     @allure.description("预警模板页面，编辑预警模板操作，断言列表是否加载新增的预警模板")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -168,6 +171,7 @@ class TestDisableMonitorTemplate:
     @allure.description("预警模板页面，将新增的预警模板失效操作,断言列表该记录是否更新为Disabled状态")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_003_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")

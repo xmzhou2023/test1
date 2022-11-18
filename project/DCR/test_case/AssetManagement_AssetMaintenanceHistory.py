@@ -20,13 +20,14 @@ def function_menu_fixture(drivers):
 class TestQueryAssetMaintenanceHistory:
     @allure.story("资产维护历史")
     @allure.title("资产维护历史页面，根据国家、品牌、状态查询资产维护数据")
-    @allure.description("库存不足报告页面，根据品牌、国家、时间查询资产维护历史数据")
+    @allure.description("库存不足报告页面，根据国家、品牌、状态查询资产维护历史数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-        """考勤管理-打开考勤记录页面"""
+
         user.click_gotomenu("Asset Management", "Asset Maintenance History")
 
         query = AssetMaintenanceHistoryPage(drivers)
