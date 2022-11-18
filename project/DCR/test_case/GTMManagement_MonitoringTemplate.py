@@ -1,11 +1,6 @@
 from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.GTMManagement_MonitoringTemplate import MonitoringTemplatePage
 from public.base.assert_ui import ValueAssert, DomAssert
-import logging
-from libs.common.connect_sql import *
-from libs.common.time_ui import sleep
-from public.base.basics import Base
-import datetime
 import pytest
 import allure
 
