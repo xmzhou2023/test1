@@ -1,0 +1,21 @@
+品牌下拉: "xpath==//label[normalize-space(text())='品牌']/following-sibling::div//div[contains(@class,'el-input')]//input"
+所属组织下拉: "xpath==//label[normalize-space(text())='所属组织']/following-sibling::div//div[contains(@class,'el-input')]//input"
+审批人文本框: "xpath==//label[normalize-space(text())='审批人']/following-sibling::div//div[contains(@class,'el-input')]//input"
+审批节点下拉: "xpath==//label[normalize-space(text())='审批节点']/following-sibling::div//div[contains(@class,'el-input')]//input"
+地区下拉: "xpath==//label[normalize-space(text())='地区']/following-sibling::div//div[contains(@class,'el-input')]//input"
+
+下拉选项: "xpath==//div[@x-placement='bottom-start']//li//span[contains(text(),'variable')]"
+
+搜索 按钮: "xpath==//button[@type='button']//span[contains(text(),'搜索')]"
+重置 按钮: "xpath==//button[@type='button']//span[contains(text(),'重置')]"
+新增 按钮: "xpath==//button[@type='button']//span[contains(text(),'新增')]"
+
+新增 列表某列数据: "xpath==//table[@class='el-table__body']//tr[1]//td[variable]//input"
+新增 审批人输入框: "xpath==//div[@class='el-input el-input--mini el-input--suffix is-focus']//input[@placeholder='请选择']"
+新增 保存按钮: "xpath==//table[@class='el-table__body']//tr[1]//td[9]//button[1]"
+新增 取消按钮: "xpath==//table[@class='el-table__body']//tr[1]//td[9]//button[2]"
+
+编辑按钮: "xpath==//table[@class='el-table__body']//tr[1]//td[9]//button[1]"
+获取提示信息 断言: "xpath==//div[@role='alert']//p"
+
+获取列表数量: "xpath==//span[@class='el-pagination__total']"
