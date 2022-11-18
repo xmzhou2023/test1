@@ -100,7 +100,7 @@ class MainDataRequestCap(Base):
         return num1[0]
 
     @allure.step("清空测试数据")
-    def clear_testData(self, itemcode,status):
+    def clear_testData(self, itemcode,status=None):
         user = SQL("MIP", "test")
         if status is None:
             user.delete_db("DELETE from mm_req_list_limit where mat_code = '{}' and enable_flag ='1'".format(itemcode))
