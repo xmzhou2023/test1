@@ -1,5 +1,4 @@
 import datetime
-import logging
 from time import sleep
 from libs.common.read_element import Element
 from project.TBM.page_object.Center_Component import CenterComponent
@@ -23,7 +22,7 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.recall_process(code)
         self.click_menu("出货国家", "出货国家流程")
         self.click_delete(code)
-        self.click_delete_confirm()
+        self.click_dialog_confirm()
         self.assert_toast()
         logging.info('撤回删除流程成功')
 
@@ -41,7 +40,6 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
             sleep(1)
             self.is_click_tbm(user['项目信息输入框选择'], select)
             logging.info('选择项目信息 品牌:{}'.format(select))
-
         elif info == '项目':
             self.input_text(user['项目信息输入框'], select, info)
             logging.info('输入项目信息 项目:{}'.format(select))
@@ -49,28 +47,14 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
             self.input_text(user['项目信息文本框'], select, info)
             logging.info('输入项目信息 描述:{}'.format(select))
         else:
-            print('请选择正确的项目信息输入：品牌 or 项目 or 描述')
+            logging.error('请选择正确的项目信息输入：品牌 or 项目 or 描述')
+            raise ValueError('请选择正确的项目信息输入：品牌 or 项目 or 描述')
 
-    @allure.step("选择汇签/抄送人员")
-    def select_signatory(self, choice, name):
-        """
-        出货国家流程新增页面 - 选择汇签/抄送人员
-        :param choice: 汇签/抄送人员选择框
-        :param name: 人员名字
-        """
-        self.is_click_tbm(user['汇签/抄送人员选择框'], choice)
-        self.is_click_tbm(user['成员列表清空'])
-        self.input_text(user['成员列表输入框'], name)
-        sleep(1)
-        self.is_click_tbm(user['成员选择'], name)
-        self.is_click_tbm(user['成员确定'])
-
-    @allure.step("点击提交")
-    def click_add_submit(self):
-        """点击提交"""
-        self.scroll_into_view(user['提交'])
-        sleep(0.5)
-        self.is_click_tbm(user['提交'])
+    @allure.step("出货国家流程新增页面 - 项目信息组合")
+    def add_item_info(self, item):
+        self.input_add_item_info('品牌', 'Infinix')
+        self.input_add_item_info('项目', item)
+        self.input_add_item_info('描述', '出货国家流程新增描述test')
 
     @allure.step("获取出货国家流程第一列内容")
     def get_info(self, item):
@@ -89,11 +73,6 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         logging.info('获取表格搜索结果的所有信息文本{}'.format(infolist))
         return infolist
 
-    @allure.step("出货国家流程新增页面 - 项目信息组合")
-    def add_item_info(self, item):
-        self.input_add_item_info('品牌', 'Infinix')
-        self.input_add_item_info('项目', item)
-        self.input_add_item_info('描述', '出货国家流程新增描述test')
 
     @allure.step("出货国家流程新增页面 - 产品定义信息组合")
     def add_product_definition_info(self, item):
@@ -121,17 +100,13 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
     def product_department_administrator_review(self, code):
         self.assert_my_todo_node(code, '产品部管理员审核', True)
         self.enter_oneworks_edit(code)
-        self.click_onework_agree()
-        self.assert_toast()
-        self.quit_oneworks()
+        self.assert_OneWorks_AgreeFlow()
         self.assert_my_todo_node(code, '产品部汇签', True)
 
     @allure.step("出货国家流程 新增流程 产品部汇签 组合")
     def product_department_sign(self, code):
         self.enter_oneworks_edit(code)
-        self.click_onework_agree()
-        self.assert_toast()
-        self.quit_oneworks()
+        self.assert_OneWorks_AgreeFlow()
         self.assert_my_todo_node(code, '产品经理修改', True)
 
     @allure.step("出货国家流程 新增流程 产品经理修改 组合")
@@ -152,29 +127,15 @@ class ShippingCountryFlow(CenterComponent, APIRequest):
         self.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
         self.input_product_definition_info('尺寸', '4M')
         self.click_product_definition_confirm()
-        self.click_onework_agree()
-        self.assert_toast()
-        self.quit_oneworks()
+        self.assert_OneWorks_AgreeFlow()
         self.assert_my_todo_node(code, '产品部管理员复核', True)
 
     @allure.step("出货国家流程 新增流程 产品经理修改 组合")
     def product_department_administrator_re_review(self, code):
         self.enter_oneworks_edit(code)
-        self.click_onework_agree()
-        self.assert_toast()
-        self.quit_oneworks()
+        self.assert_OneWorks_AgreeFlow()
         self.assert_my_todo_node(code, '项目经理审批', True)
 
-    @allure.step("点击同意-确定")
-    def click_onework_agree(self):
-        self.frame_exit()
-        self.is_click_tbm(user['同意'])
-        self.is_click_tbm(user['确定'])
-        logging.info('点击同意-确定')
 
-    @allure.step("衍生BOM制作需求-导入-上传正确文件")
-    def upload_Flow_file(self, name):
-        self.upload_file_tbm(user['Oneworks附件上传'], name)
-        DomAssert(self.driver).assert_control(user['应用成功状态'])
 if __name__ == '__main__':
     pass

@@ -151,7 +151,7 @@ class TestCreateProcess:
         user.click_product_definition_confirm()
         user.click_product_definition_delete()
         DomAssert(drivers).assert_att('确定删除吗?')
-        user.click_delete_confirm()
+        user.click_dialog_confirm()
         DomAssert(drivers).assert_att('暂无数据')
 
     @allure.story("创建流程")  # 场景名称
@@ -181,9 +181,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.refresh_webpage()
         user.assert_my_todo_node(SaleCountry_API[0], '产品部管理员审核', True)
         user.enter_oneworks_edit(SaleCountry_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_API[0], '产品部汇签', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -195,9 +193,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(SaleCountry_Audit_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_Audit_API[0], '产品经理修改', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -225,9 +221,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_product_definition_info('尺寸', '8M')
         user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_Join_API[0], '产品部管理员复核', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -239,9 +233,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(SaleCountry_managerModify_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_managerModify_API[0], '项目经理审批', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -259,14 +251,13 @@ class TestTheProcessOfExaminationAndApproval:
         user.product_manager_modification(SaleCountry_API[0])
         user.product_department_administrator_re_review(SaleCountry_API[0])
         user.enter_oneworks_edit(SaleCountry_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_application_node(SaleCountry_API[0], '抄送', True)
         sleep(60)
         user.assert_my_application_flow(SaleCountry_API[0], '审批完成')
         document_status = user.get_info(SaleCountry_API[0])[6]
         ValueAssert.value_assert_equal(document_status, '审批通过')
+
 
 @allure.feature("出货国家-出货国家流程")
 class TestCreateProcessExceptionScenario:

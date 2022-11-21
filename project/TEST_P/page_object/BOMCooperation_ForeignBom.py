@@ -1,4 +1,3 @@
-import logging
 from time import sleep
 from selenium.webdriver import Keys
 from libs.common.read_element import Element
