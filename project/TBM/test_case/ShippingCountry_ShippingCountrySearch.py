@@ -463,7 +463,7 @@ class TestCreateProcessExceptionScenario:
         user.click_checkbox(pro_name)
         user.click_change('变更国家')
         user.click_change_select('东亚')
-        user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '√')
+        user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '✔')
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
         DomAssert(drivers).assert_att('请求成功')
@@ -490,7 +490,7 @@ class TestCreateProcessExceptionScenario:
         user.assert_my_todo_node(process_code, '产品经理修改', True)
         user.enter_oneworks_edit(process_code)
         """将东亚柬埔寨更改为认证备份，点击提交提示重复"""
-        user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '√')
+        user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '✔')
         user.click_oneworks_agree()
         user.enter_oneworks_iframe()
         user.assert_toast('第1行产品国家【柬埔寨】已经存在流程中单据【{}】！'.format(process_code1))

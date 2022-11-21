@@ -89,6 +89,7 @@ class MachineBOMCollaboration(CenterComponent):
     def click_doc_select(self, doc):
         self.is_click_tbm(user['复制审批人-单据选择'], doc)
         logging.info('选择单据：{}'.format(doc))
+        sleep(2)
 
     @allure.step("断言：复制审批人成功，审核人正确设置")
     def assert_doc_copy(self, audit, type):
