@@ -29,5 +29,14 @@ class Teststory_2467:
         pass
 
 
+    @allure.story("新版DRP权限调整切面部分")  # 用户故事名称
+    @allure.title("测试平台4")  # 用例名称
+    @allure.description("查询工号==查询姓名")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_19966(self, drivers):
+        pass
+
+
 if __name__ == '__main__':
       pass
