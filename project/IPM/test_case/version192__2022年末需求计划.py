@@ -20,20 +20,12 @@ class Teststory_2760:
     def test_18778(self, drivers):
         robot = KeyWord(drivers)
         robot.AI_get("http://ipm-uat.transsion.com/")
-        element = robot.AI_find_element(By.XPATH, "//div[@id='app']/main/aside/div/ul/li[3]/a/span")
-        actions = ActionChains(robot)
-        actions.move_to_element(element).perform()
         robot.AI_find_element(By.LINK_TEXT, "项目管理").click()
         robot.AI_find_element(By.XPATH, "//button[contains(.,' 新增')]").click()
-        element = robot.AI_find_element(By.XPATH, "//button[contains(.,' 新增')]")
-        actions = ActionChains(robot)
-        actions.move_to_element(element).perform()
-        element = robot.AI_find_element(By.XPATH, "//button[contains(.,' 新增')]")
-        actions = ActionChains(robot)
-        actions.move_to_element(element, 0, 0).perform()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").click()
         robot.AI_find_element(By.XPATH, "//img").click()
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").click()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").send_keys("UI自动化")
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").send_keys("UI自动化111")
         robot.AI_find_element(By.XPATH, "//button[contains(.,'保存')]").click()
 
 
