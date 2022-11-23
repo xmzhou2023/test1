@@ -11,5 +11,14 @@ class Teststory_2760:
         pass
 
 
+    @allure.story("高级搜索优化")  # 用户故事名称
+    @allure.title("IPM流程测试")  # 用例名称
+    @allure.description("发起==流程审批==断言")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_19625(self, drivers):
+        pass
+
+
 if __name__ == '__main__':
       pass
