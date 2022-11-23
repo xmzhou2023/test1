@@ -1,5 +1,15 @@
-import allure
 import pytest
+import time
+import json
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from libs.common.action import KeyWord
+import allure
 @allure.feature("V3_0_0计划")  # 迭代名称
 class Teststory_1786:
     @allure.story("DRP2国家销售版增加【日志】功能")  # 用户故事名称
@@ -28,7 +38,9 @@ class Teststory_1811:
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_10573(self, drivers):
-        pass
+        robot = KeyWord(drivers)
+        robot.AI_get("http://10.250.112.166:9000/")
+        robot.AI_find_element(By.XPATH, "(//button[@type='button'])[6]").click()
 
 
     @allure.story("DRP提报批量提交功能支持校验oneworks审批流程是否已经发起")  # 用户故事名称
