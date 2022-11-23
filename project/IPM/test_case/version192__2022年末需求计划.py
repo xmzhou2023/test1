@@ -10,6 +10,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from libs.common.action import KeyWord
 import allure
+
+from libs.common.time_ui import now_time
+
+
 @allure.feature("2022年末需求计划")  # 迭代名称
 class Teststory_2760:
     @allure.story("高级搜索优化")  # 用户故事名称
@@ -25,7 +29,7 @@ class Teststory_2760:
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").click()
         robot.AI_find_element(By.XPATH, "//img").click()
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").click()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").send_keys("UI自动化111")
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").send_keys(f"UI自动化{now_time}")
         robot.AI_find_element(By.XPATH, "//button[contains(.,'保存')]").click()
 
 
