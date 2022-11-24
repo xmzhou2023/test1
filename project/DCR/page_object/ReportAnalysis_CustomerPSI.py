@@ -57,12 +57,10 @@ class CustomerPSIPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
 
     @allure.step("关闭客户PSI菜单")
     def click_close_customerPSI(self):
         self.is_click(user['关闭客户PSI菜单'])
-        sleep(1)
 
 
     #Customer PSI列表数据筛选后，导出操作成功后验证

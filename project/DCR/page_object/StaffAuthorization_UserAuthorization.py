@@ -424,7 +424,7 @@ class UserAuthorizationPage(Base):
     @allure.step("关闭用户授权菜单")
     def click_close_user_authorization(self):
         self.is_click(user['关闭用户授权菜单'])
-        sleep(2)
+        #sleep(2)
 
 
 if __name__ == '__main__':

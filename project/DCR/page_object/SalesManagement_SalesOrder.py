@@ -175,7 +175,6 @@ class SalesOrderPage(Base):
     @allure.step("关闭Sales Order 菜单")
     def click_close_sales_order(self):
         self.is_click(user['关闭销售单菜单'])
-        sleep(1)
 
     @allure.step("点击删除按钮")
     def click_delete_sales(self):
@@ -282,7 +281,6 @@ class SalesOrderPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
 
     @allure.step("销售单页面，点击Export导出按钮")
     def click_export(self):

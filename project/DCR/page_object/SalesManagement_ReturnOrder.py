@@ -215,7 +215,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货页面，点击关闭退货菜单")
     def click_close_return_order(self):
         self.is_click(user['关闭退货菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("退货单页面，点击More Option，然后点击Recall按钮")
     def click_more_option_recall(self):

@@ -71,12 +71,12 @@ class AttendanceRecordPage(Base):
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("关闭考勤记录菜单")
     def click_close_atten_record(self):
         self.is_click(user['关闭考勤记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("获取首页Get Home Page Customer文本内容")
     def get_home_page_cust(self):

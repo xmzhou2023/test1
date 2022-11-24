@@ -73,7 +73,7 @@ class UserManagementPage(Base):
     @allure.step("关闭User Management菜单")
     def click_close_user_mgt(self):
         self.is_click(user['关闭用户管理菜单'])
-        sleep(1)
+
 
     @allure.step("Edit user页面，选择点击品牌")
     def click_edit_trans_brand(self):
@@ -510,7 +510,6 @@ class UserManagementPage(Base):
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
 
 
 if __name__ == '__main__':

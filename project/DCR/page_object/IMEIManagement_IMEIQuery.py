@@ -34,12 +34,12 @@ class IMEIQueryPage(Base):
     @allure.step("关闭IMEI Inventory Query菜单")
     def click_close_imei_inven_query(self):
         self.is_click(user['关闭IMEI Inventory Query菜单'])
-        sleep(1.5)
+
 
     @allure.step("关闭IMEI Query菜单")
     def click_close_imei_query(self):
         self.is_click(user['关闭IMEI Query菜单'])
-        sleep(1.5)
+
 
 if __name__ == '__main__':
     pass

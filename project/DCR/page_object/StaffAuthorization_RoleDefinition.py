@@ -70,7 +70,7 @@ class RoleDefinitionPage(Base):
     @allure.step("关闭角色授权菜单")
     def click_close_role_definition(self):
         self.is_click(user['关闭角色授权菜单'])
-        sleep(1)
+
 
 if __name__ == '__main__':
     pass

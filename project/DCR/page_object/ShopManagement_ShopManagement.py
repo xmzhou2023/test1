@@ -277,13 +277,13 @@ class ShopManagementPage(Base):
     @allure.step("关闭门店管理菜单")
     def click_close_shop_management(self):
         self.is_click(user['关闭门店管理菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     """禁用门店"""
     @allure.step("点击禁用门店按钮")
@@ -383,7 +383,7 @@ class ShopManagementPage(Base):
     @allure.step("View详情页面，关闭门店View页面")
     def click_close_shop_view(self):
         self.is_click(user['Close Shop View'])
-        sleep(3)
+        #sleep(2)
 
 
     """查询门店信息"""
