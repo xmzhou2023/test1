@@ -1230,6 +1230,7 @@ class Teststory_3247:
     @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20273(self, drivers, BarePhone_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1242,6 +1243,7 @@ class Teststory_3247:
     @allure.description("在结构工程师审批页面中，在BomTree中点导出，导出的数据和BomTree的数据是一致的")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20274(self, drivers, BarePhone_Factory_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1254,6 +1256,7 @@ class Teststory_3247:
     @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20275(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1266,6 +1269,7 @@ class Teststory_3247:
     @allure.description("在业务审核页面中，点击BOMTree中的导出，导出文件中的数据和页面中的数据是一致的")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20276(self, drivers, BarePhone_StructureEnginner_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -1278,6 +1282,7 @@ class Teststory_3247:
     @allure.description("在BOM工程师审批中，在BOM工程师审批中，点击导出，可以导出子阶BOM检查内容")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20277(self, drivers, BarePhone_Approval_Fail_API):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage()
@@ -3003,6 +3008,7 @@ class Teststory_3247:
     @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20360(self, drivers):
         user = ForeignBom(drivers)
         user.refresh_webpage_click_menu()
@@ -3044,6 +3050,7 @@ class Teststory_3247:
     @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20361(self, drivers):
         user = ForeignBom(drivers)
         user.refresh_webpage_click_menu()
@@ -4276,6 +4283,7 @@ class Teststory_3247:
     @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20430(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -4429,6 +4437,7 @@ class Teststory_3247:
     @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20438(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -4441,6 +4450,7 @@ class Teststory_3247:
     @allure.description("在BOM工程师页面中，在BomTree中点导出，导出的数据和BomTree的数据是一致的")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20439(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -4455,6 +4465,7 @@ class Teststory_3247:
     @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20440(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -4467,6 +4478,7 @@ class Teststory_3247:
     @allure.description("在业务审核页面中，点击BOMTree中的导出，导出文件中的数据和页面中的数据是一致的")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20441(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -4481,6 +4493,7 @@ class Teststory_3247:
     @allure.description("在数据组审批页面中，在生产工厂信息中点击导出，导出的文件中的数据和页面中的数据是一致的")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20442(self, drivers, Machine_Approval_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
@@ -4811,6 +4824,7 @@ class Teststory_3247:
     @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20458(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
@@ -6908,6 +6922,7 @@ class Teststory_3247:
     @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20574(self, drivers):
         user = PCBABomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -6950,6 +6965,7 @@ class Teststory_3247:
     @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20575(self, drivers):
         user = PCBABomCooperation(drivers)
         user.refresh_webpage_click_menu()
