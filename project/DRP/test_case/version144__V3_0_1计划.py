@@ -44,7 +44,18 @@ class Teststory_2467:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_18522(self, drivers):
-        pass
+        robot = KeyWord(drivers)
+        robot.AI_get("http://10.250.112.166:9000/")
+        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div/div[2]/div/div/ul/div[11]/li/div").click()
+        robot.AI_find_element(By.XPATH, "//span[contains(.,'用户管理')]").click()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").click()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").send_keys("1865")
+        robot.AI_find_element(By.XPATH, "//span[contains(.,'18653013')]").click()
+        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div[2]/div[2]/section/div/div/div/form/div/div[3]/button[2]/span").click()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[3]").click()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[3]").send_keys("黄")
+        robot.AI_find_element(By.XPATH, "//span[contains(.,'黄曦蓉')]").click()
+        robot.AI_find_element(By.XPATH, "(//button[@type='button'])[7]").click()
 
 
     @allure.story("新版DRP权限调整切面部分")  # 用户故事名称
