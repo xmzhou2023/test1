@@ -84,12 +84,12 @@ class ShopSaleQueryPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("关闭门店销售查询菜单")
     def click_close_shop_sales_query(self):
         self.is_click(user['关闭门店销售查询菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("点击Upload Date结束时间日期框")
     def click_upload_end_date(self):

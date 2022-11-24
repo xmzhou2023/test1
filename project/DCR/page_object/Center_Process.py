@@ -91,12 +91,6 @@ class SalesOrderPage(Base):
         self.is_click(user['Delivery button'])
         sleep(2)
 
-    # @allure.step("Delivery Order页面，进入iframe")
-    # def Sales_Delivery_iframe(self):
-    #     iframe2 = self.find_element(user['Sales Delivery iframe'])
-    #     self.driver.switch_to.frame(iframe2)
-    #     sleep(1)
-
     @allure.step("新建出库单页面，输入Payment Mode支持方式属性")
     def input_Payment_Mode(self, content):
         self.presence_sleep_dcr(user['Payment Mode'])
@@ -109,7 +103,7 @@ class SalesOrderPage(Base):
     @allure.step("新建出库单页面，输入IMEI属性")
     def input_imei(self, content):
         self.is_click(user['Input IMEI'])
-        self.input_text(user['Input IMEI'], txt=content)
+        self.input_text(user['Input IMEI'], content)
         sleep(1)
 
     @allure.step("新建出库单页面，点击check检查IMEI按钮")
@@ -151,36 +145,53 @@ class SalesOrderPage(Base):
         self.is_click(user['IMEI Inventory Unfold'])
         sleep(1.5)
 
+    @allure.step("IMEI Inventory Query页面，点击Fold收起筛选按钮")
+    def click_fold(self):
+        self.is_click(user['IMEI Inventory Fold'])
+
     @allure.step("IMEI Inventory Query页面，输入material字段 ")
     def input_material_id(self, content1):
-        self.presence_sleep_dcr(user['Material ID'])
-        self.is_click(user['Material ID'])
-        self.input_text(user['Material ID'], txt=content1)
+        self.presence_sleep_dcr(user['IMEI Inventory Material ID'])
+        self.is_click(user['IMEI Inventory Material ID'])
+        self.input_text(user['IMEI Inventory Material ID'], txt=content1)
 
     @allure.step("IMEI库存页面，输入Warehouse查询仓库下的IMEI")
     def input_warehouse_query(self, warehouse):
-        self.is_click(user['Warehouse'])
-        self.input_text(user['Warehouse'], warehouse)
-        sleep(2.5)
-        self.presence_sleep_dcr(user['Select Warehouse Value'], warehouse)
-        self.is_click_dcr(user['Select Warehouse Value'], warehouse)
-
+        self.is_click(user['IMEI Inventory Warehouse'])
+        self.input_text(user['IMEI Inventory Warehouse'], warehouse)
+        sleep(2)
+        self.presence_sleep_dcr(user['IMEI Inventory Warehouse Value'], warehouse)
+        self.is_click_dcr(user['IMEI Inventory Warehouse Value'], warehouse)
 
     @allure.step("IMEI库存页面，根据Brand 查询仓库下的IMEI")
     def select_brand_query(self, brand):
         self.is_click(user['IMEI库存点击Brand'])
         self.is_click(user['IMEI库存select brand'], brand)
 
+    @allure.step("IMEI库存页面，根据Box_ID 查询箱号下的IMEI")
+    def input_box_id_query(self, box_id):
+        self.input_text(user['Query Box ID'], box_id)
+
     @allure.step("IMEI Inventory Query页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(4.5)
+        sleep(4)
 
     @allure.step("IMEI Inventory Query页面，获取列表IMEI文本内容")
     def get_text_imei_inventory(self):
         self.presence_sleep_dcr(user['获取IMEI文本内容'])
         imei = self.element_text(user['获取IMEI文本内容'])
         return imei
+
+    @allure.step("IMEI Inventory Query页面，获取列表IMEI文本内容")
+    def get_text_imei_inventory2(self):
+        imei2 = self.element_text(user['获取IMEI文本内容2'])
+        return imei2
+
+    @allure.step("IMEI Inventory Query页面，获取列表box id文本内容")
+    def get_list_box_id_text(self):
+        box_id = self.element_text(user['Get list Box ID text'])
+        return box_id
 
     @allure.step("刷新页面")
     def click_refresh(self, drivers):
@@ -189,17 +200,88 @@ class SalesOrderPage(Base):
     @allure.step("关闭Sales Order销售单菜单")
     def click_close_sales_order(self):
         self.is_click(user['关闭销售单菜单'])
-        sleep(1)
+
 
     @allure.step("关闭IMEI Inventory query菜单")
     def click_close_imei_inventory(self):
         self.is_click(user['关闭IMEI Inventory Query'])
-        sleep(1)
+
+
+    @allure.step("IMEI Inventory Query菜单, 根据box id筛选指定箱号记录")
+    def query_inventory_box_id(self, box_id):
+        self.input_box_id_query(box_id)
+        self.click_inventory_search()
+
+    @allure.step("IMEI Inventory Query菜单，获取列表total文本内容")
+    def get_inventory_list_total(self):
+        get_list_total = self.element_text(user['Get list Total'])
+        get_list_total1 = get_list_total[6:]
+        return get_list_total1
+
+    @allure.step("IMEI Inventory Query菜单, 根据IMEI条件筛选库存IMEI记录")
+    def imei_inventory_query_imei(self, imei):
+        self.click_unfold()
+        self.input_text(user['IMEI Inventory Query IMEI'], imei)
+        self.click_fold()
+        self.click_inventory_search()
+
+    @allure.step("IMEI Inventory Query菜单, 根据Warehouse、brand与Activated条件筛选库存IMEI记录")
+    def imei_inventory_query_imei2(self, warehouse, brand, activated):
+        self.click_unfold()
+        self.is_click(user['IMEI Inventory Warehouse'])
+        self.is_click(user['IMEI Inventory Warehouse Value'], warehouse)
+        self.is_click(user['IMEI库存点击Brand'])
+        self.is_click(user['IMEI库存select brand'], brand)
+        self.is_click(user['IMEI Inventory Activated'])
+        self.is_click(user['IMEI Inventory Activated Value'], activated)
+        self.click_fold()
+        self.click_inventory_search()
+
+
+    # 筛选Shop Sales Query页面，IMEI 条件的门店销量数据
+    @allure.step("Shop Sales Query菜单, 根据Shop 与IMEI 筛选列表门店销量IMEI记录")
+    def shop_sales_query_imei(self, imei):
+        self.input_text(user['Shop Sales Query IMEI SN'], imei)
+        self.is_click(user['IMEI库存查询按钮'])
+        sleep(4)
+
+    @allure.step("Shop Sales Query菜单, 获取列表分页总条数")
+    def shop_sales_assert_total(self):
+        get_total = self.element_text(user['Get Shop Sales list Total'])
+        get_total1 = get_total[6:]
+        return get_total1
+
+    @allure.step("Shop Sales Query菜单, 获取列表字段内容")
+    def get_list_field_text(self, field):
+        get_field = self.element_text(user[field])
+        return get_field
+
+    @allure.step("Shop Sales Query菜单, 勾选记录，然后点击删除功能")
+    def shop_sales_query_delete(self):
+        self.is_click(user['Shop Sales Query check box'])
+        self.is_click(user['Shop Sales Query Delete'])
+        sleep(0.5)
+        self.is_click(user['Shop Sales Query Confirm Del'])
+
+
+    # 筛选Shop Purchase Query页面，IMEI 条件的数据门店采购数据
+    @allure.step("Shop Purchase Query菜单, 根据Shop 与IMEI 筛选列表门店销量IMEI记录")
+    def shop_purchase_query_imei(self, imei):
+        self.input_text(user['Shop Purchase Query IMEI'], imei)
+        self.is_click(user['IMEI库存查询按钮'])
+        sleep(3)
+
+    @allure.step("Shop Sales Query菜单, 勾选记录，然后点击删除功能")
+    def shop_purchase_query_delete(self):
+        self.is_click(user['Shop Purchase Query check box'])
+        self.is_click(user['Shop Purchase Query Cancel'])
+        sleep(0.5)
+        self.is_click(user['Shop Sales Query Confirm Del'])
+
 
 
 class InboundReceiptPage(Base):
     """InboundReceiptPage快速收货定位方法"""
-
     @allure.step("快速收货页面，输入销售单ID条件筛选")
     def input_salesOrder(self, content):
         self.input_text(user['Sales Order ID'], txt=content)
@@ -258,7 +340,6 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
     def click_close_inbound_receipt(self):
         self.is_click(user['关闭二代收货菜单'])
-        sleep(1)
 
 
 if __name__ == '__main__':

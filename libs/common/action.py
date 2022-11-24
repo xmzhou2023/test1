@@ -4,6 +4,7 @@
 @Time:        2022/4/19 20:10
 @Describe:    封装了关键字驱动的相关代码
 """
+import logging
 import time
 
 from selenium.webdriver import Chrome
@@ -11,9 +12,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from webdriver_helper import get_webdriver
+# from webdriver_helper import get_webdriver
+from time import sleep
 
-from public.base.Basics import Base
+# from public.base.Basics import Base
 
 
 class KeyWord:
@@ -27,14 +29,25 @@ class KeyWord:
         :param driver:
         """
         if not driver:
-            driver = get_webdriver()
+            # driver = get_webdriver()
             driver.maximize_window()
 
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)  # 可复用的等待策略，最长等待10秒
         self.__vars = {}  # 存储变量
 
-    def find_element(self, xpath) -> WebElement:
+    def AI_get(self, url):
+        """
+        关键字： get
+        跳转到指定的页面
+        :param url: 指定页面的url
+        :return:
+        """
+        sleep(1)
+        logging.info("回放脚本：操作 {} 对象 {}".format('get', url))
+        return self.driver.get(url)
+
+    def AI_find_element(self, key, xpath) -> WebElement:
         """
         封装元素定位方法，自动使用xpath，自动使用显式等待
         :param xpath: 定位表达式
@@ -42,7 +55,9 @@ class KeyWord:
         """
 
         def f(_):
-            return self.driver.find_element(By.XPATH, xpath)
+            sleep(1)
+            logging.info("回放脚本：操作 {} 对象 {}".format('find_element', xpath))
+            return self.driver.find_element(key, xpath)
 
         return self.wait.until(f)
 
@@ -59,7 +74,7 @@ class KeyWord:
         _all_keyword = []  # 所有可以用关键字
 
         for attr in dir(cls):  # 遍历自己的所有成员
-            if attr.startswith("key_"):  # 关键字前缀
+            if attr.startswith("AI_"):  # 关键字前缀
                 method = getattr(cls, attr)
                 if callable(method):  # 如果是可调用的
                     _all_keyword.append(attr[4:])

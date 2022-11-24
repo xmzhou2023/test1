@@ -1,0 +1,22 @@
+Unfold: "xpath==//div//span[text()='Unfold']"
+Fold: "xpath==//div//span[text()='Fold']"
+
+Query Brand: "xpath==//div//input[@class='el-input__inner inventoryshortagereport_input_brand']"
+Query Brand Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Query Country: "xpath==//div//input[@class='el-input__inner inventoryshortagereport_input_regionId']"
+Query Country Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Statistical start Date: "xpath==//div//input[@class='el-input__inner inventoryshortagereport_input_statisticalDateBegin']"
+Statistical end Date: "xpath==//div//input[@class='el-input__inner inventoryshortagereport_input_statisticalDateBegin1']"
+Statistical Date Label: "xpath==//div//label[text()='Statistical Date']"
+
+Search: "xpath==//button//span[normalize-space(text())='Search']"
+
+Get list Total: "xpath==//div//span[contains(text(), 'Total')]"
+Get list Shop ID: "xpath==//tbody//tr[1]//td[2]//div"
+Get list Shop Name: "xpath==//tbody//tr[1]//td[3]//div"
+Get list Inventory Quantity: "xpath==//tbody//tr[1]//td[4]//div"
+Get list Frequency: "xpath==//tbody//tr[1]//td[6]//div"
+Get list Brand: "xpath==//tbody//tr[1]//td[9]//div"
+Get list Country: "xpath==//tbody//tr[1]//td[28]//div"

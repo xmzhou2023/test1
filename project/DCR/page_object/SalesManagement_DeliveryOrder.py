@@ -37,12 +37,17 @@ class DeliveryOrderPage(Base):
         self.is_click(user['新增出库单'])
         sleep(2)
 
+    @allure.step("Add新增出库单页面，选择仓库")
+    def select_warehouse_name(self, warehouse):
+        self.is_click(user['Warehouse Name'])
+        sleep(1)
+        self.is_click(user['Warehouse Name Value'], warehouse)
+
     @allure.step("Add新增出库单页面，输入国包账号的Buyer属性")
     def input_sub_buyer(self, content):
         self.presence_sleep_dcr(user['Buyer'])
         self.is_click(user['Buyer'])
-        sleep(1)
-        self.input_text(user['Buyer'], txt=content)
+        self.input_text(user['Buyer'], content)
         sleep(1.5)
         self.presence_sleep_dcr(user['Buyer sub value'], content)
         self.is_click(user['Buyer sub value'], content)
@@ -51,7 +56,7 @@ class DeliveryOrderPage(Base):
     def input_retail_buyer(self, content):
         self.presence_sleep_dcr(user['Buyer'])
         self.is_click(user['Buyer'])
-        self.input_text(user['Buyer'], txt=content)
+        self.input_text(user['Buyer'], content)
         sleep(2)
         self.is_click(user['Buyer retail value'], content)
 
@@ -59,13 +64,13 @@ class DeliveryOrderPage(Base):
     def input_deli_pay_mode(self, content):
         self.presence_sleep_dcr(user['payment mode'])
         self.is_click(user['payment mode'])
-        self.input_text(user['payment mode'], txt=content)
+        self.input_text(user['payment mode'], content)
         sleep(1)
         self.is_click(user['payment mode Online'], content)
 
     @allure.step("Add新增出库单页面，IMEI属性")
     def input_imei(self, content):
-        self.input_text(user['Input IMEI'], txt=content)
+        self.input_text(user['Input IMEI'], content)
 
     @allure.step("Add新增出库单页面，Check按钮")
     def click_check(self):
@@ -196,17 +201,17 @@ class DeliveryOrderPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("出库单页面，关闭出库单菜单")
     def click_close_delivery_order(self):
         self.is_click(user['关闭出库单菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("出库单页面，关闭IMEI Detail详情页")
     def click_close_imei_detail(self):
         self.is_click(user['关闭IMEI详情页'])
-        sleep(1.5)
+        #sleep(1)
 
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
@@ -300,8 +305,60 @@ class DeliveryOrderPage(Base):
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
         sleep(1)
 
+    @allure.step("获取出库单列表，字段内容")
+    def get_list_field_text(self, field):
+        self.scroll_into_view(user[field])
+        get_field = self.element_text(user[field])
+        return get_field
 
-    """#创建出库单，产品为无码的出库单"""
+    @allure.step("获取复选框对应的 Class属性是否包含is-checked")
+    def get_field_style_color(self, field):
+        ss = self.find_element(user[field])
+        get_check_style = ss.get_attribute('style')
+        return get_check_style
+
+
+    @allure.step("后端断言，创建出库单成功后，数据库表是否新增出库单记录")
+    def select_sql_delivery_order(self, warehouse, seller, buyer):
+        """断言查询新建的无码出库单"""
+        sql2 = SQL('DCR', 'test')
+        #varsql2 = "select order_code, delivery_code from t_channel_delivery_ticket where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200000 order by created_time desc limit 1"
+        varsql2 = f"select order_code, delivery_code from t_channel_delivery_ticket where warehouse_id='{warehouse}' and seller_id='{seller}' and buyer_id='{buyer}' and status=80200000 order by created_time desc limit 1"
+        result = sql2.query_db(varsql2)
+        order_code = result[0].get("order_code")
+        delivery_code = result[0].get("delivery_code")
+        logging.info("打印数据库查询的销售单ID order_code{}".format(order_code))
+        logging.info("打印数据库查询的出库单ID delivery_code{}".format(delivery_code))
+        ValueAssert.value_assert_equal(order_code, delivery_code)
+        return order_code
+
+    #sql_query_id = f"select id from t_retail_asset_definition where asset_name_en='{get_asset_name_en1}'"
+
+
+    @allure.step("创建出库单的操作步骤,封装公共方法")
+    def create_delivery_order(self, buyer, pay, box_id):
+        self.click_add()
+        self.input_retail_buyer(buyer)
+        self.input_deli_pay_mode(pay)
+        self.input_imei(box_id)
+        self.click_check()
+        sleep(0.8)
+
+    @allure.step("创建出库单，选择卖家仓库，输入多个IMEI 场景操作步骤,封装公共方法")
+    def create_delivery_order_many_imei(self, warehouse, buyer, pay, imei1, imei2):
+        self.click_add()
+        self.select_warehouse_name(warehouse)
+        self.input_retail_buyer(buyer)
+        self.input_deli_pay_mode(pay)
+        self.input_imei(imei1)
+        self.click_check()
+        sleep(0.8)
+        self.input_imei(imei2)
+        self.click_check()
+        sleep(0.8)
+
+
+    """创建出库单，产品为无码的出库单"""
     @allure.step("点击无码单选按钮")
     def click_quantity_radio_button(self):
         self.is_click(user['Quantity Radio Button'])
@@ -410,6 +467,14 @@ class DeliveryOrderPage(Base):
     def get_detail_total_text(self):
         get_detail_total = self.element_text(user['Get IMEI Detail Total Text'])
         return get_detail_total
+
+    @allure.step("Delivery Order页面，根据销售单与出库单号筛选新增的出库单记录")
+    def query_delivery_order(self, order_code, delivery_code):
+        self.input_salesorder(order_code)
+        self.input_deliveryorder(delivery_code)
+        self.click_search()
+
+
 
 
 if __name__ == '__main__':

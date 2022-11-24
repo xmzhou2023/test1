@@ -30,8 +30,8 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('生产BOM', 'X572-1', 'itel', '埃塞本地', '试产阶段', '审批中', '未同步')
-        process_code = user.get_info()[1]
+        user.assert_add_result("BOM协作", "整机BOM协作", '生产BOM', 'X572-1', 'itel', '埃塞本地', '试产阶段', '审批中', '未同步')
+        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
         user.delete_flow(process_code)
 
     @allure.story("创建流程")  # 场景名称
@@ -49,18 +49,17 @@ class TestCreateProcess:
         user.input_bomtree('充电器', '替代组', 'A1')
         user.input_bomtree('充电器', '份额', '20')
         user.click_add_material()
-        user.move_to_add_material('25101424')
-        user.input_optional_material('25101424', '物料编码', '25101448')
-        user.input_optional_material('25101424', '用量', '1000')
-        user.input_optional_material('25101424', '替代组', 'A1')
-        user.input_optional_material('25101424', '份额', '80')
+        user.input_add_material('25101424', '物料编码', '25101448')
+        user.input_add_material('25101424', '用量', '1000')
+        user.input_add_material('25101424', '替代组', 'A1')
+        user.input_add_material('25101424', '份额', '80')
         user.select_business_review('李小素', 'MPM')
         user.select_business_review('李小素', 'NPS')
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('生产BOM', 'X572-1', 'Infinix', '埃塞本地', '试产阶段', '审批中', '未同步')
-        process_code = user.get_info()[1]
+        user.assert_add_result("BOM协作", "整机BOM协作", '生产BOM', 'X572-1', 'Infinix', '埃塞本地', '试产阶段', '审批中', '未同步')
+        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
         user.delete_flow(process_code)
 
     @allure.story("创建流程")  # 场景名称
@@ -77,10 +76,10 @@ class TestCreateProcess:
         user.input_bomtree('产成品', 'BOM状态', '试产')
         user.input_bomtree('产成品', '物料编码', '10000010')
         user.input_bomtree('单机头', '物料编码', '10000011')
-        user.click_checkbox()
-        user.input_one_press('用量', '1000')
-        amount1 = user.get_bomtree_info('产成品')[8]
-        amount2 = user.get_bomtree_info('产成品')[8]
+        user.click_BOMTree_checkbox()
+        user.input_OnePress('用量', '1000')
+        amount1 = user.get_bomtree_info('产成品', '用量')
+        amount2 = user.get_bomtree_info('产成品', '用量')
         ValueAssert.value_assert_equal(amount1, '1000')
         ValueAssert.value_assert_equal(amount2, '1000')
 
@@ -106,7 +105,7 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.click_checkbox()
+        user.click_BOMTree_checkbox()
         user.assert_batch_delete(True)
 
     @allure.story("创建流程")  # 场景名称
@@ -122,7 +121,7 @@ class TestCreateProcess:
         user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
         user.input_bomtree('产成品', 'BOM状态', '试产')
         user.input_bomtree('产成品', '物料编码', '10000010')
-        user.click_checkbox()
+        user.click_BOMTree_checkbox()
         user.click_batch_delete()
         user.click_batch_confirm()
         DomAssert(drivers).assert_att('暂无数据')
@@ -141,14 +140,13 @@ class TestCreateProcess:
         user.input_bomtree('充电器', '用量', '1000')
         user.input_bomtree('充电器', '替代组', 'A1')
         user.input_bomtree('充电器', '份额', '20')
-        user.click_checkbox('充电器')
+        user.click_BOMTree_checkbox('充电器', 'Tree')
         user.click_batch_delete()
         user.click_batch_confirm()
-        data_list = user.get_bomtree_info('充电器')
-        ValueAssert.value_assert_equal(data_list[5], '')
-        ValueAssert.value_assert_equal(data_list[8], '')
-        ValueAssert.value_assert_equal(data_list[9], '')
-        ValueAssert.value_assert_equal(data_list[10], '')
+        ValueAssert.value_assert_equal(user.get_bomtree_info('充电器', '物料编码'), '')
+        ValueAssert.value_assert_equal(user.get_bomtree_info('充电器', '用量'), '')
+        ValueAssert.value_assert_equal(user.get_bomtree_info('充电器', '替代组'), '')
+        ValueAssert.value_assert_equal(user.get_bomtree_info('充电器', '份额'), '')
 
     @allure.story("创建流程")  # 场景名称
     @allure.title("复制审批人成功")  # 用例名称
@@ -193,8 +191,8 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
-        process_code = user.get_info()[1]
+        user.assert_add_result("BOM协作", "整机BOM协作", '衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
         user.delete_flow(process_code)
 
     @allure.story("创建流程")
@@ -213,8 +211,8 @@ class TestCreateProcess:
         user.input_bom_info('阶段', '量产阶段')
         user.input_bom_info('市场', '埃塞本地')
         user.click_Derived_import()
-        user.upload_Derived_file('衍生bom项目经理导入模板.xls')
-        user.assert_upload_status()
+        user.add_import_file('衍生bom项目经理导入模板.xls')
+        user.assert_import_success()
         user.assert_upload_result(('1', '发货BOM', '11000002', 'CKD_itel_A44_F3706_玫瑰金_IN_BCFL_8+1_P05_E', '10026373', '整机_Infinix_PR652C_F6319_B1_海洋之心32+2_欧规_Ⅰ', 'PL01'),)
         user.click_apply()
         user.select_business_review('李小素', 'MPM')
@@ -222,8 +220,8 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
-        process_code = user.get_info()[1]
+        user.assert_add_result("BOM协作", "整机BOM协作", '衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
         user.delete_flow(process_code)
 
     @allure.story("创建流程")  # 场景名称
@@ -236,11 +234,12 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_simple_import()
-        user.simple_upload_true_file()
-        user.assert_upload_result(('国内生产BOM', '试产', '10000010', '12000002', '单机头_TECNO_T722_E680B1_白色_4G', '2000'), ('国内生产BOM', '试产', '10000010', '12000001', '单机头_TECNO_T722_E680B1_咖啡色_4G', '1000'))
+        user.add_import_file('生产BOM项目经理简易模式导入.xls')
+        user.assert_import_success()
+        user.assert_upload_result(('国内生产BOM', '试产', '10000010', '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材', '12000002', '单机头_TECNO_T722_E680B1_白色_4G', '2000'), ('国内生产BOM', '试产', '10000010', '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材', '12000001', '单机头_TECNO_T722_E680B1_咖啡色_4G', '1000'))
         user.click_apply()
         user.click_tree('产成品')
-        user.assert_tree_result(('1.1.1', '12000001', '单机头_TECNO_T722_E680B1_咖啡色_4G', '可选', '1000', '编辑删除'), ('1.1.2', '12000002', '单机头_TECNO_T722_E680B1_白色_4G', '可选', '2000', '编辑删除'))
+        user.assert_tree_result(('1', '产成品', '10000010', '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材', '可选', '1000', '编辑删除'), ('1.1.1', '12000001', '单机头_TECNO_T722_E680B1_咖啡色_4G', '可选', '1000', '编辑删除'), ('1.1.2', '12000002', '单机头_TECNO_T722_E680B1_白色_4G', '可选', '2000', '编辑删除'))
 
     @allure.story("创建流程")  # 场景名称
     @allure.title("导入选择正确的文件进行导入成功")  # 用例名称
@@ -257,7 +256,8 @@ class TestCreateProcess:
         user.input_bom_info('阶段', '量产阶段')
         user.input_bom_info('市场', '孟加拉')
         user.click_bom_import()
-        user.upload_true_file()
+        user.add_import_file('生产bom项目经理导入模板.xlsx')
+        # user.assert_import_success()
         user.assert_upload_result(('1', '10000010', '1单机头(无卡)1移动电源1充电器1数据线1耳机1皮套1套包材', '未归档', '1', '国内生产BOM', '量产', '孟加拉', '16+1', '12000001'), )
         user.click_apply()
         user.click_tree('产成品')
@@ -479,11 +479,10 @@ class TestCreateProcessExceptionScenario:
         user.input_bomtree('充电器', '替代组', 'A1')
         user.input_bomtree('充电器', '份额', '20')
         user.click_add_material()
-        user.move_to_add_material('10000011')
-        user.input_optional_material('10000011', '物料编码', '10000012')
-        user.input_optional_material('10000011', '用量', '1000')
-        user.input_optional_material('10000011', '替代组', 'A1')
-        user.input_optional_material('10000011', '份额', '20')
+        user.input_add_material('10000011', '物料编码', '10000012')
+        user.input_add_material('10000011', '用量', '1000')
+        user.input_add_material('10000011', '替代组', 'A1')
+        user.input_add_material('10000011', '份额', '20')
         user.select_business_review('李小素', 'MPM')
         user.select_business_review('李小素', 'NPS')
         user.click_add_submit()
@@ -502,8 +501,8 @@ class TestCreateProcessExceptionScenario:
         user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
         user.input_bomtree('产成品', 'BOM状态', '试产')
         user.input_bomtree('产成品', '物料编码', '10000010')
-        user.input_one_press('用量', '1000')
-        amount = user.get_bomtree_info('产成品')[8]
+        user.input_OnePress('用量', '1000')
+        amount = user.get_bomtree_info('产成品', '用量')
         ValueAssert.value_assert_equal(amount, '')
 
     @allure.story("创建流程异常场景")  # 场景名称
@@ -516,9 +515,9 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.click_checkbox()
-        user.input_one_press('用量', '1000')
-        amount = user.get_bomtree_info('产成品')[8]
+        user.click_BOMTree_checkbox()
+        user.input_OnePress('用量', '1000')
+        amount = user.get_bomtree_info('产成品', '用量')
         ValueAssert.value_assert_equal(amount, '')
 
     @allure.story("创建流程异常场景")  # 场景名称
@@ -531,10 +530,10 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.add_bomtree()
-        user.click_checkbox()
-        user.input_one_press('用量', '')
+        user.click_BOMTree_checkbox()
+        user.input_OnePress('用量', '')
         DomAssert(drivers).assert_att('不能为空')
-        user.click_one_press_cancel()
+        user.click_OnePress_cancel()
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("[XXXXX] 替代组[XX]只有一颗物料")  # 用例名称
@@ -674,12 +673,12 @@ class TestCreateProcessExceptionScenario:
         user.input_bom_info('阶段', '量产阶段')
         user.input_bom_info('市场', '埃塞本地')
         user.click_Derived_import()
-        user.upload_Derived_file('worng_file_text.txt')
+        user.add_import_file('worng_file_text.txt')
         DomAssert(drivers).assert_att('文件类型非excel!')
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("正确内容错误的文件进行导入，导入失败")  # 用例名称
-    @allure.description("进入新增页面制作类型选择外研BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择导入BOM选择一个模板正确内容错误的文件进行导入，导入失败，并在校验结果给出相应错误提示，导出校验可点击并能成功下载文件")
+    @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择导入BOM选择一个模板正确内容错误的文件进行导入，导入失败，并在校验结果给出相应错误提示，导出校验可点击并能成功下载文件")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_002_022(self, drivers):
@@ -687,7 +686,8 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_bom_import()
-        user.upload_wrongcontent_file()
+        user.add_import_file('生产bom项目经理导入模板错误内容.xlsx')
+        user.assert_import_fail()
         user.assert_wrongcontent_upload_result()
 
     @allure.story("创建流程异常场景")  # 场景名称
@@ -700,7 +700,7 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_simple_import()
-        user.simple_upload_wrong_file()
+        user.add_import_file('worng_file_text.txt')
         user.assert_toast('文件类型非excel!')
 
     @allure.story("创建流程异常场景")  # 场景名称
@@ -713,7 +713,8 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_simple_import()
-        user.simple_upload_wrongcontent_file()
+        user.add_import_file('生产BOM项目经理简易模式导入错误内容.xls')
+        user.assert_import_fail()
         user.assert_wrongcontent_upload_result()
 
     @allure.story("创建流程异常场景")  # 场景名称
@@ -727,20 +728,26 @@ class TestCreateProcessExceptionScenario:
         user.add_bom_info()
         sleep(1)
         user.click_bom_import()
-        user.upload_wrong_file()
+        user.add_import_file('worng_file_text.txt')
         user.assert_toast('文件类型非excel!')
 
     @allure.story("创建流程异常场景")  # 场景名称
-    @allure.title("选择内容错误的文件进行导入，导入失败")  # 用例名称
-    @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，选择导入BOM选择一个模板正确内容错误的文件进行导入，导入失败，并在校验结果给出相应错误提示，导出校验可点击并能成功下载文件")
+    @allure.title("衍生BOM，选择内容错误的文件进行导入，导入失败")  # 用例名称
+    @allure.description("进入新增页面制作类型选择衍生BOM，选择一个存在模板的品牌，在衍生BOM列表中点击新增BOM，选择导入BOM选择一个模板正确内容错误的文件进行导入，导入失败，并在校验结果给出相应错误提示，导出校验可点击并能成功下载文件")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_002_026(self, drivers):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage_click_menu()
-        user.add_bom_info()
-        user.click_bom_import()
-        user.upload_wrongcontent_file()
+        user.click_add()
+        user.input_bom_info('制作类型', '衍生BOM')
+        user.input_bom_info('品牌', 'itel')
+        user.input_bom_info('机型', 'X572-1')
+        user.input_bom_info('阶段', '量产阶段')
+        user.input_bom_info('市场', '埃塞本地')
+        user.click_Derived_import()
+        user.add_import_file('衍生bom错误模板项目经理导入模板.xls')
+        user.assert_import_fail()
         user.assert_wrongcontent_upload_result()
 
 
@@ -766,7 +773,7 @@ class TestTheProcessOfExaminationAndApproval:
         ValueAssert.value_assert_equal(info3, 'X572-1')
         ValueAssert.value_assert_equal(info4, '试产阶段')
         ValueAssert.value_assert_equal(info5, '埃塞本地')
-        user.assert_oneworks_bomtree_result(('1', '产成品', '10026418', '整机_Infinix_X695D_H854_N1_7度紫_PH_128+8_Ⅰ', '可选', '1000'), )
+        user.assert_oneworks_bomtree_result('产成品', ('1', '产成品', '10026418', '整机_Infinix_X695D_H854_N1_7度紫_PH_128+8_Ⅰ', '可选', '1000'), )
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
@@ -781,10 +788,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_oneworks_plant_info('国内组包工厂', '1051')
         user.click_oneworks_slash()
         user.click_oneworks_plant_check('贴片工厂正确')
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Machine_API[0], '补充工厂')
 
     @allure.story("流程审批")  # 场景名称
@@ -796,10 +800,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Factory_API[0])
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Machine_Factory_API[0], 'BOM工程师审批')
 
     @allure.story("流程审批")  # 场景名称
@@ -922,7 +923,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_bomEnginner_API[0])
-        user.assert_oneworks_businessapprove_bomtree_edit()
+        user.assert_oneworks_bomtree_edit('产成品', '物料编码')
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
@@ -936,14 +937,11 @@ class TestTheProcessOfExaminationAndApproval:
         user.supplementary_factory_flow(Machine_API[0])
         user.engineer_approve_flow(Machine_API[0])
         user.enter_oneworks_edit(Machine_API[0])
-        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
-        user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
-        user.scroll_oneworks_businessapprove_self_inspection()
-        user.input_oneworks_businessapprove_inspection_result()
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.click_self_inspection('业务类型', '手机')
+        user.click_self_inspection('检查角色', '音频')
+        user.scroll_self_inspection()
+        user.input_self_inspection_result()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_application_node(Machine_API[0], '数据组审批', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -975,10 +973,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
         user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_plant_check('贴片工厂正确')
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Machine_bomEnginner_API[0], '业务审核', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -1074,15 +1069,12 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        process_code = user.get_info()[1]
+        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
         user.supplementary_factory_flow(process_code)
         user.engineer_approve_flow(process_code)
         user.business_approve_flow(process_code)
         user.enter_oneworks_edit(process_code)
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_application_node(process_code, '审批通知', True)
         sleep(60)
         user.assert_my_application_flow(process_code, '审批完成')
@@ -1119,10 +1111,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
         user.enter_oneworks_edit(Machine_Approval_API[0])
         user.click_oneworks_plant_check('贴片工厂正确')
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Machine_Approval_API[0], '数据组审批', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -1201,8 +1190,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_tree('产成品')
         user.input_bomtree('充电器', '物料编码', '25001673')
         user.click_add_material()
-        user.move_to_add_material('25001673')
-        user.input_optional_material('25001673', '物料编码', '25001674')
+        user.input_add_material('25001673', '物料编码', '25001674')
         user.assert_oneworks_add_material(['1.2.1.2', '25001674', '电池_TECNO_BL_49FT_4900mAh_FH_IN_W10', '外研', '编辑删除'])
         user.quit_oneworks()
 
@@ -1229,7 +1217,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Factory_API[0])
-        user.click_oneworks_approval_checkbox()
+        user.click_BOMTree_checkbox()
         user.click_oneworks_approval_export()
         user.assert_oneworks_approval_bominfo()
         user.quit_oneworks()
@@ -1257,7 +1245,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_bomEnginner_API[0])
-        user.click_oneworks_approval_checkbox()
+        user.click_BOMTree_checkbox()
         user.click_oneworks_approval_export()
         user.assert_oneworks_approval_bominfo()
         user.quit_oneworks()
@@ -1272,7 +1260,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Approval_API[0])
-        user.click_oneworks_datagroup_checkbox()
+        user.click_Factory_checkbox()
         user.click_oneworks_factory_export()
         user.assert_oneworks_factoryinfo()
         user.quit_oneworks()
@@ -1302,8 +1290,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
-        process_code = user.get_info()[1]
+        user.assert_add_result("BOM协作", "整机BOM协作", '衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
         user.enter_onework_check(process_code)
         info1 = user.get_onework_bominfo('制作类型')
         info2 = user.get_onework_bominfo('品牌')
@@ -1315,7 +1303,7 @@ class TestTheProcessOfExaminationAndApproval:
         ValueAssert.value_assert_equal(info3, 'X572-1')
         ValueAssert.value_assert_equal(info4, '量产阶段')
         ValueAssert.value_assert_equal(info5, '埃塞本地')
-        user.assert_oneworks_bomtree_result(('1', '产成品', '11000002', 'CKD_itel_A44_F3706_玫瑰金_IN_BCFL_8+1_P05_E', '可选'))
+        user.assert_oneworks_bomtree_result('产成品', ('1', '产成品', '11000002', 'CKD_itel_A44_F3706_玫瑰金_IN_BCFL_8+1_P05_E', '可选'))
         user.quit_oneworks()
         user.delete_flow(process_code)
 
@@ -1332,10 +1320,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_oneworks_plant_info('国内组包工厂', '1051')
         user.click_oneworks_slash()
         user.click_oneworks_plant_check('贴片工厂正确')
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Machine_Derive_API[0], 'BOM工程师审批', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -1351,7 +1336,6 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_handle_bom()
         user.assert_toast('处理成功，请检查！')
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         DomAssert(drivers).assert_att('处理成功，审核通过')
         user.quit_oneworks()
         user.assert_my_todo_node(Machine_Derive_Factory_API[0], 'BOM工程师审批')
@@ -1494,19 +1478,16 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
-        process_code = user.get_info()[1]
+        user.assert_add_result("BOM协作", "整机BOM协作", '衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
         user.supplementary_factory_flow(process_code)
         user.engineer_Derivedapprove_flow(process_code)
         user.enter_oneworks_edit(process_code)
-        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
-        user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
-        user.scroll_oneworks_businessapprove_self_inspection()
-        user.input_oneworks_businessapprove_inspection_result()
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.click_self_inspection('业务类型', '手机')
+        user.click_self_inspection('检查角色', '音频')
+        user.scroll_self_inspection()
+        user.input_self_inspection_result()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_application_node(process_code, '数据组审批', True)
         user.delete_flow(process_code)
 
@@ -1527,10 +1508,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_my_todo_node(Machine_Derive_bomEnginner_API[0], '补充工厂', True)
         user.enter_oneworks_edit(Machine_Derive_bomEnginner_API[0])
         user.click_oneworks_plant_check('贴片工厂正确')
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Machine_Derive_bomEnginner_API[0], '业务审核', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -1628,16 +1606,13 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
-        process_code = user.get_info()[1]
+        user.assert_add_result("BOM协作", "整机BOM协作", '衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
         user.supplementary_factory_flow(process_code)
         user.engineer_Derivedapprove_flow(process_code)
         user.business_approve_flow(process_code)
         user.enter_oneworks_edit(process_code)
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_application_node(process_code, '审批通知', True)
         sleep(60)
         user.assert_my_application_flow(process_code, '审批完成')
@@ -1661,10 +1636,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.assert_my_todo_node(Machine_Derive_Approval_API[0], '补充工厂', True)
         user.enter_oneworks_edit(Machine_Derive_Approval_API[0])
         user.click_oneworks_plant_check('贴片工厂正确')
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Machine_Derive_Approval_API[0], '数据组审批', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -1730,7 +1702,6 @@ class TestProcessApprovalExceptionScenario:
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_API[0])
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('【生产工厂信息】物料10026418的组包工厂不能为空')
         user.quit_oneworks()
@@ -1756,7 +1727,7 @@ class TestProcessApprovalExceptionScenario:
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_API[0])
-        user.click_oneworks_checkbox()
+        user.click_Factory_checkbox()
         user.click_oneworks_onepress_write()
         user.click_oneworks_onepress_write_confirm()
         DomAssert(drivers).assert_att('请选择工厂分类')
@@ -1768,14 +1739,13 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在补充工厂页面中，不选择检查贴片工厂，点击同意，不能提交成功，并给出提示检查贴片工厂不能为空！")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_005(self, drivers, Machine_API):
+    def test_004_004(self, drivers, Machine_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_API[0])
         user.input_oneworks_plant_info('国内组包工厂', '1051')
         user.click_oneworks_slash()
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('检查贴片工厂不能为空！')
         user.quit_oneworks()
@@ -1785,13 +1755,12 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在BOM工程师页面中，在Bom Tree中点编辑，将用量编辑为“1”，点击同意，不能提交成功页面给出提示父阶BOM料号xxxxxxxx用量不为1000")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_006(self, drivers, Machine_Factory_API):
+    def test_004_005(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Factory_API[0])
         user.input_bomtree('产成品', '用量', '1')
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('父阶BOM料号10026418用量不为1000')
         user.quit_oneworks()
@@ -1801,11 +1770,11 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在BOM工程师页面中，在产成品中点击删除按钮，不能进行删除，并且给出提示不能删除BOM！")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_007(self, drivers, Machine_Factory_API):
+    def test_004_006(self, drivers, Machine_Factory_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Factory_API[0])
-        user.click_oneworks_approval_delete('产成品')
+        user.click_bomtree_delete('产成品')
         user.assert_toast('不能删除BOM！')
         user.quit_oneworks()
 
@@ -1814,12 +1783,11 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，不填写任何内容，点击同意，不能提交成功，并给出提示自检清单检查角色未选择")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_008(self, drivers, Machine_bomEnginner_API):
+    def test_004_007(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_bomEnginner_API[0])
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('自检清单检查角色未选择')
         user.quit_oneworks()
@@ -1829,14 +1797,13 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，选择后直接点击同意，不能提交成功，并给出提示自检清单第【1】行检查结果未选择")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_009(self, drivers, Machine_bomEnginner_API):
+    def test_004_008(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_bomEnginner_API[0])
-        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
-        user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
+        user.click_self_inspection('业务类型', '手机')
+        user.click_self_inspection('检查角色', '音频')
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('自检清单第【1】行检查结果未选择')
         user.quit_oneworks()
@@ -1846,16 +1813,15 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不通过，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不通过需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_010(self, drivers, Machine_bomEnginner_API):
+    def test_004_009(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_bomEnginner_API[0])
-        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
-        user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
-        user.scroll_oneworks_businessapprove_self_inspection()
-        user.input_oneworks_businessapprove_inspection_result(result='不通过')
+        user.click_self_inspection('业务类型', '手机')
+        user.click_self_inspection('检查角色', '音频')
+        user.scroll_self_inspection()
+        user.input_self_inspection_result(result='不通过')
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('自检清单第【1】行检查结果为不通过需填写原因及修改建议')
         user.quit_oneworks()
@@ -1865,16 +1831,15 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不涉及，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不涉及需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_011(self, drivers, Machine_bomEnginner_API):
+    def test_004_010(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_bomEnginner_API[0])
-        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
-        user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
-        user.scroll_oneworks_businessapprove_self_inspection()
-        user.input_oneworks_businessapprove_inspection_result(result='不涉及')
+        user.click_self_inspection('业务类型', '手机')
+        user.click_self_inspection('检查角色', '音频')
+        user.scroll_self_inspection()
+        user.input_self_inspection_result(result='不涉及')
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('自检清单第【1】行检查结果为不涉及需填写原因及修改建议')
         user.quit_oneworks()
@@ -1884,15 +1849,14 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，选择检查角色没有配置的自检清单的检查角色，会提示[手机_itel_预研组_整机BOM]未配置自检清单！，直接点击同意，会提示自检清单不能为空")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_012(self, drivers, Machine_bomEnginner_API):
+    def test_004_011(self, drivers, Machine_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_bomEnginner_API[0])
-        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
-        user.click_oneworks_businessapprove_self_inspection('检查角色', 'MPM')
+        user.click_self_inspection('业务类型', '手机')
+        user.click_self_inspection('检查角色', 'MPM')
         user.assert_toast('[手机_itel_MPM_整机BOM]未配置自检清单！')
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         DomAssert(drivers).assert_att('自检清单不能为空')
         user.quit_oneworks()
@@ -1902,12 +1866,11 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在补充工厂页面中，不进行填写任何数据，点击同意，不能提交成功，并给出提示【生产工厂信息】物料xxxxxx的组包工厂不能为空")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_013(self, drivers, Machine_Derive_API):
+    def test_004_012(self, drivers, Machine_Derive_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Derive_API[0])
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('【生产工厂信息】物料11000002的组包工厂不能为空')
         user.quit_oneworks()
@@ -1917,7 +1880,7 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在补充工厂页面中，未进行选择BOM，点击一键填写按钮，按钮无法被点击")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_014(self, drivers, Machine_Derive_API):
+    def test_004_013(self, drivers, Machine_Derive_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Derive_API[0])
@@ -1929,11 +1892,11 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在补充工厂页面中，选择BOM，点击一键填写，不进行工厂分类，不进行选择工厂，点击确认，不能进行确认并给出必填提示请选择工厂分类，请选择工厂")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_015(self, drivers, Machine_Derive_API):
+    def test_004_014(self, drivers, Machine_Derive_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Derive_API[0])
-        user.click_oneworks_checkbox()
+        user.click_Factory_checkbox()
         user.click_oneworks_onepress_write()
         user.click_oneworks_onepress_write_confirm()
         DomAssert(drivers).assert_att('请选择工厂分类')
@@ -1945,14 +1908,13 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在补充工厂页面中，不选择检查贴片工厂，点击同意，不能提交成功，并给出提示检查贴片工厂不能为空！")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_016(self, drivers, Machine_Derive_API):
+    def test_004_015(self, drivers, Machine_Derive_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Derive_API[0])
         user.input_oneworks_plant_info('国内组包工厂', '1051')
         user.click_oneworks_slash()
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('检查贴片工厂不能为空！')
         user.quit_oneworks()
@@ -1962,14 +1924,13 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，选择后直接点击同意，不能提交成功，并给出提示自检清单第【1】行检查结果未选择")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_017(self, drivers, Machine_Derive_bomEnginner_API):
+    def test_004_016(self, drivers, Machine_Derive_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Derive_bomEnginner_API[0])
-        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
-        user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
+        user.click_self_inspection('业务类型', '手机')
+        user.click_self_inspection('检查角色', '音频')
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('自检清单第【1】行检查结果未选择')
         user.quit_oneworks()
@@ -1979,16 +1940,15 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不通过，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不通过需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_018(self, drivers, Machine_Derive_bomEnginner_API):
+    def test_004_017(self, drivers, Machine_Derive_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Derive_bomEnginner_API[0])
-        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
-        user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
-        user.scroll_oneworks_businessapprove_self_inspection()
-        user.input_oneworks_businessapprove_inspection_result(result='不通过')
+        user.click_self_inspection('业务类型', '手机')
+        user.click_self_inspection('检查角色', '音频')
+        user.scroll_self_inspection()
+        user.input_self_inspection_result(result='不通过')
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('自检清单第【1】行检查结果为不通过需填写原因及修改建议')
         user.quit_oneworks()
@@ -1998,16 +1958,15 @@ class TestProcessApprovalExceptionScenario:
     @allure.description("在业务审核页面中，在自检清单中业务类型选择手机，检查角色选择音频，在检查结果中选择不涉及，不填写原因及修改意见，直接点击同意按钮，不能提交成功，并给出提示自检清单第【1】行检查结果为不涉及需填写原因及修改建议")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
-    def test_004_019(self, drivers, Machine_Derive_bomEnginner_API):
+    def test_004_018(self, drivers, Machine_Derive_bomEnginner_API):
         user = MachineBOMCollaboration(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Machine_Derive_bomEnginner_API[0])
-        user.click_oneworks_businessapprove_self_inspection('业务类型', '手机')
-        user.click_oneworks_businessapprove_self_inspection('检查角色', '音频')
-        user.scroll_oneworks_businessapprove_self_inspection()
-        user.input_oneworks_businessapprove_inspection_result(result='不涉及')
+        user.click_self_inspection('业务类型', '手机')
+        user.click_self_inspection('检查角色', '音频')
+        user.scroll_self_inspection()
+        user.input_self_inspection_result(result='不涉及')
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('自检清单第【1】行检查结果为不涉及需填写原因及修改建议')
         user.quit_oneworks()
@@ -2017,7 +1976,7 @@ class TestProcessApprovalExceptionScenario:
 class TestProcessSearch:
 
     @allure.story("流程查询")  # 场景名称
-    @allure.title("在查询页面，标题查询结果正确")  # 用例名称
+    @allure.title("在查询页面，制作类型和流程编码查询结果正确")  # 用例名称
     @allure.description("进入整机BOM协作页面，输入存在的制作类型和流程编码，点击查询，下方会显示相应的数据（建议：校验制作类型和流程编码）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
@@ -2031,7 +1990,7 @@ class TestProcessSearch:
         user.assert_search_result('流程编码', 'ZBOM20220516083131304353')
 
     @allure.story("流程查询")  # 场景名称
-    @allure.title("在查询页面，标题查询结果正确")  # 用例名称
+    @allure.title("在查询页面，查询后点击重置，下方会显示所有的数据")  # 用例名称
     @allure.description("进入整机BOM协作页面，输入存在的流程编码和BOM编码，点击查询，查询后点击重置，下方会显示所有的数据")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记

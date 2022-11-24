@@ -688,6 +688,7 @@ class APIRequest:
         delete_data = {"id": flowid}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         self.Oneworks_Recall(instanceid, headers)
+        sleep(1)
         self.Request_Bom_Delete(delete_data, headers)
         logging.info('流程结束：BOM协作撤回流程')
 
@@ -1830,7 +1831,7 @@ class APIRequest:
     def Request_SaleCountry_LastedTemp(self, brandCode, headers):
         """
         TBM 出货国家流程 品牌模板
-        @param bid:流程bid
+        @param brandCode:品牌模板
         @param headers:接口头部
         """
         logging.info('发起请求：出货国家流程获取品牌模板接口')
@@ -1897,7 +1898,7 @@ class APIRequest:
                         "productManager": "18645960",
                         "projectManager": "18645960",
                         "brandCode": "infinix",
-                        "editStatus": True,
+                        "editStatus": False,
                         "isAdd": True
                     },
                     "scPrdUniversalInfoMap": {
@@ -1911,7 +1912,7 @@ class APIRequest:
                         "inch": [
                             "RearCamera1"
                         ],
-                        "FirstProductionTime": titletime
+                        "FirstOrderMassProdTime": titletime
                     },
                     "countryProperties": {}
                 }
@@ -2043,7 +2044,7 @@ class APIRequest:
                             "Aqua Blue"
                         ],
                         "inch": ["RearCamera1"],
-                        "FirstProductionTime": titletime
+                        "FirstOrderMassProdTime": titletime
                     },
                     "countryProperties": {}
                 }
@@ -2095,7 +2096,7 @@ class APIRequest:
                     }
                 ]
             },
-            "areas": [],
+            "areas": LastedTemp['data']['areas'],
             "uploadList": [],
             "fields": LastedTemp['data']['fields']
         }
@@ -2151,7 +2152,7 @@ class APIRequest:
                     "scPrdBaseInfoVO": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdBaseInfoVO'],
                     "scPrdUniversalInfoMap": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdUniversalInfoMap'],
                     "countryProperties": {
-                        "1231": "attestationBackups"
+                        "KHA": "attestationBackups"
                     }
                 }
             ],
@@ -2163,6 +2164,7 @@ class APIRequest:
                 "flowStartdate": flowStartdate,
                 "remark": "",
                 "busiType": "updCountry",
+                "type": "frontEnd",
                 "flowProposerName": "李小素"
             },
             "scProjectVO": getScFlowInfoFirst['data']['scProjectVO'],
@@ -2264,7 +2266,7 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：出货国家流程产品部汇签审核接口')
 
-    @allure.step("出货国家流程产品经理修改审核接口")
+    @allure.step("出货国家流程-产品-产品经理修改审核接口")
     def API_Change_managerModify(self, flowNo, instanceid, bid):
         logging.info('发起流程接口：出货国家流程产品经理修改审核接口')
         self.API_Change_Join(flowNo, instanceid, bid)
@@ -2313,34 +2315,46 @@ class APIRequest:
                             "Aqua Blue"
                         ],
                         "inch": "RearCamera1",
-                        "FirstProductionTime": titletime
+                        "FirstOrderMassProdTime": titletime
                     },
                     "countryProperties": {}
                 }
             ],
             "flowMainVO": Info['data']['flowMainVO'],
             "scProjectVO": Info['data']['scProjectVO'],
-            "approvers": {
-                "bisSupplyApprovers": [
-                    {
-                        "role": "",
-                        "roleKey": "verb",
-                        "userName": "",
-                        "userNo": "18645960"
-                    }
-                ],
-                "bisSupplySenders": [
-                    {
-                        "role": "",
-                        "roleKey": "verc",
-                        "userName": "",
-                        "userNo": "18645960"
-                    }
-                ]
-            },
-            "areas": [],
+            "approvers": Info['data']['approvers'],
+            "areas": Info['data']['areas'],
             "fields": LastedTemp['data']['fields']
         }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        self.Request_SaleCountry_managerModify(change_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：出货国家流程产品经理修改审核接口')
+
+    @allure.step("出货国家流程-国家-产品经理修改审核接口")
+    def API_ChangeCountry_managerModify(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：出货国家流程产品经理修改审核接口')
+        self.API_Change_Join(flowNo, instanceid, bid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        Info = self.Request_SaleCountry_Info(bid, headers)
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
+        change_data = {
+            "prdInfoVOS": [
+                {
+                    "scPrdBaseInfoVO": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO'],
+                    "scPrdUniversalInfoMap": Info['data']['prdInfoVOS'][0]['scPrdUniversalInfoMap'],
+                    "countryProperties": {"KHA": "deliver"}
+                }
+            ],
+            "flowMainVO": Info['data']['flowMainVO'],
+            "scProjectVO": Info['data']['scProjectVO'],
+            "approvers": Info['data']['approvers'],
+            "areas": Info['data']['areas'],
+            "fields": LastedTemp['data']['fields']
+        }
+        change_data['prdInfoVOS'][0]['scPrdBaseInfoVO']['editStatus'] = False
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
                          "comment": ""}
         self.Request_SaleCountry_managerModify(change_data, headers)

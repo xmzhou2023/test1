@@ -57,13 +57,12 @@ class UserCustomerAssociaPage(Base):
     @allure.step("关闭用户与客户关系菜单")
     def click_close_user_cust_assoc(self):
         self.is_click(user['关闭用户与客户关系菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
-        """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     # User and Customer Association列表数据筛选后，导出操作成功后验证
     @allure.step("点击Export导出按钮")

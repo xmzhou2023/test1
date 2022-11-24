@@ -15,13 +15,13 @@ class TestCreateProcess:
         user = ShippingCountrySearch(drivers)
         user.refresh_webpage_click_menu()
         user.input_condition('品牌', 'Infinix')
-        user.input_condition('项目名称', '12232eeee')
+        user.input_condition('项目名称', 'oioio')
         user.click_search()
-        user.click_checkbox('12232eeee')
+        user.click_checkbox('oioio')
         user.input_condition('品牌', 'Infinix')
-        user.input_condition('项目名称', 'vsdfgvs')
+        user.input_condition('项目名称', 'qq-insert')
         user.click_search()
-        user.click_checkbox('vsdfgvs')
+        user.click_checkbox('qq-insert')
         user.click_change('变更产品')
         user.assert_change_tip()
         DomAssert(drivers).assert_att('单据发起流程')
@@ -40,22 +40,20 @@ class TestCreateProcess:
         pro_name = user.get_first_info('项目名称')
         user.click_checkbox(pro_name)
         user.click_change('变更产品')
-        user.click_oneworks_product_definition_info_edit(pro_name)
-        querytime = datetime.now().strftime('%Y%m%d%H%M%S')
+        user.click_product_definition_edit(pro_name)
+        querytime = datetime.now().strftime('%Y-%m-%d%H%M%S')
         user.input_product_definition_info('全球版本', '版本3')
         user.input_product_definition_info('市场名称', f'市场名称test{querytime}')
         user.input_product_definition_info('项目名称', f'项目名称test{querytime}')
         user.input_product_definition_info('MEMORY', '64+6')
         user.input_product_definition_info('BAND STRATEGY', '拉美市场')
-        user.input_product_definition_info('项目经理', '李小素')
         user.input_product_definition_info('摄像头', '摄像头')
         user.input_product_definition_info('型号', '型号')
         user.input_product_definition_info('新增', '新增')
         user.input_product_definition_info('再增', '2G')
-        user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
+        user.input_product_definition_info('配色', '炭蓝灰/Charcoal Blue')
         user.input_product_definition_info('尺寸', '8M')
-        user.input_product_definition_info('首单量产时间', querytime[0:10])
-        user.click_oneworks_product_definition_info_confirm()
+        user.click_product_definition_confirm()
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
         user.assert_toast()
@@ -63,7 +61,7 @@ class TestCreateProcess:
         user.delete_shipping_country_search(process_code)
 
     @allure.story("创建流程")
-    @allure.title("变更已有产品成功")
+    @allure.title("变更国家，变更已有产品成功")
     @allure.description("选择一条数据点击变更国家，进入变更国家页面，点击变更已有产品，选择一个产品，页面上会多一条选择的产品")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
@@ -132,16 +130,15 @@ class TestCreateProcess:
         user.click_Bulk_Editing()
         user.select_Bulk_Editing_cty('柬埔寨')
         user.select_Bulk_Editing_status('●')
-        user.select_Bulk_Editing_confirm()
-        user.select_Bulk_Editing_cancel()
-        # user.assert_search_result('中国', '✔')
+        user.click_OnePress_confirm()
+        user.click_OnePress_cancel()
         user.assert_search_result('柬埔寨', '●')
 
 
 @allure.feature("出货国家-出货国家查询")  # 模块名称
 class TestTheProcessOfExaminationAndApproval:
     @allure.story("流程审批")  # 场景名称
-    @allure.title("产品部管理员审核成功")  # 用例名称
+    @allure.title("变更产品，产品部管理员审核成功")  # 用例名称
     @allure.description("产品部管理员审核: 点击同意，提示请求成功")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.UT  # 用例标记
@@ -150,14 +147,12 @@ class TestTheProcessOfExaminationAndApproval:
         user.refresh_webpage()
         user.assert_my_todo_node(SaleCountry_ProductChange_API[0], '产品部管理员审核', True)
         user.enter_oneworks_edit(SaleCountry_ProductChange_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_ProductChange_API[0], '产品部管理员审核')
         user.assert_my_todo_node(SaleCountry_ProductChange_API[0], '产品部汇签', True)
 
     @allure.story("流程审批")  # 场景名称
-    @allure.title("产品部汇签审核成功")  # 用例名称
+    @allure.title("变更产品，产品部汇签审核成功")  # 用例名称
     @allure.description("产品部汇签：点击同意，提示请求成功")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.UT  # 用例标记
@@ -166,14 +161,12 @@ class TestTheProcessOfExaminationAndApproval:
         user.refresh_webpage()
         user.assert_my_todo_node(SaleCountry_ProductChange_Audit_API[0], '产品部汇签', True)
         user.enter_oneworks_edit(SaleCountry_ProductChange_Audit_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_ProductChange_Audit_API[0], '产品部汇签')
         user.assert_my_todo_node(SaleCountry_ProductChange_Audit_API[0], '产品经理修改', True)
 
     @allure.story("流程审批")  # 场景名称
-    @allure.title("产品经理修改审核成功")  # 用例名称
+    @allure.title("变更产品，产品经理修改审核成功")  # 用例名称
     @allure.description("产品经理修改：产品定义信息：点击编辑，修改信息后，点击确定，点击同意")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.UT  # 用例标记
@@ -181,28 +174,25 @@ class TestTheProcessOfExaminationAndApproval:
         user = ShippingCountrySearch(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(SaleCountry_ProductChange_Join_API[0])
-        user.click_oneworks_product_definition_info_edit('出货国家查询变更产品部分流程')
-        querytime = datetime.now().strftime('%Y%m%d%H%M%S')
+        user.click_product_definition_edit('出货国家查询变更产品部分流程')
+        querytime = datetime.now().strftime('%Y-%m-%d%H%M%S')
         user.input_product_definition_info('全球版本', '版本2')
         user.input_product_definition_info('市场名称', f'修改市场名称{querytime}')
         user.input_product_definition_info('项目名称',  f'修改项目名称{querytime}')
         user.input_product_definition_info('MEMORY', '128+8')
         user.input_product_definition_info('BAND STRATEGY', '公开市场')
-        user.input_product_definition_info('摄像头', '摄像头test')
-        user.input_product_definition_info('型号', '型号test')
-        user.input_product_definition_info('新增', '新增test')
+        user.input_product_definition_info('摄像头', '摄像头test_002_003')
+        user.input_product_definition_info('型号', '型号test_002_003')
+        user.input_product_definition_info('新增', '新增test_002_003')
         user.input_product_definition_info('再增', '1G')
         user.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
         user.input_product_definition_info('尺寸', '8M')
-        user.input_product_definition_info('首单量产时间', querytime[0:10])
-        user.click_oneworks_product_definition_info_confirm()
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.click_product_definition_confirm()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_ProductChange_Join_API[0], '产品部管理员复核', True)
 
     @allure.story("流程审批")  # 场景名称
-    @allure.title("产品部管理员复核审核成功")  # 用例名称
+    @allure.title("变更产品，产品部管理员复核审核成功")  # 用例名称
     @allure.description("产品部管理员复核：点击同意，提示请求成功")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.UT  # 用例标记
@@ -211,9 +201,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.refresh_webpage()
         user.assert_my_todo_node(SaleCountry_ProductChange_managerModify_API[0], '产品部管理员复核', True)
         user.enter_oneworks_edit(SaleCountry_ProductChange_managerModify_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_ProductChange_managerModify_API[0], '产品部管理员复核')
         user.assert_my_todo_node(SaleCountry_ProductChange_managerModify_API[0], '项目经理审批', True)
 
@@ -222,27 +210,42 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("变更产品：抄送-自动抄送，不需要操作：出货国家-出货国家流程，查看单据状态已变为审批通过")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_002_005(self, drivers, SaleCountry_ProductChange_All_API):  # 用例名称取名规范'test+场景编号+用例编号'
+    def test_002_005(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         user = ShippingCountrySearch(drivers)
-        user.refresh_webpage()
-        user.onework_agree_flow(SaleCountry_ProductChange_All_API[0], '产品部管理员审核')
-        user.onework_agree_flow(SaleCountry_ProductChange_All_API[0], '产品部汇签')
-        user.onework_agree_flow(SaleCountry_ProductChange_All_API[0], '产品经理修改')
-        user.onework_agree_flow(SaleCountry_ProductChange_All_API[0], '产品部管理员复核')
-        user.onework_agree_flow(SaleCountry_ProductChange_All_API[0], '项目经理审批')
-        user.assert_my_application_node(SaleCountry_ProductChange_All_API[0], '抄送', True)
-        user.assert_flow_compelete(SaleCountry_ProductChange_All_API[0])
-        document_status = user.get_info(SaleCountry_ProductChange_All_API[0])[6]
+        user.refresh_webpage_click_menu()
+        user.input_condition('品牌', 'Infinix')
+        user.input_condition('项目名称', '出货国家查询-变更产品自动化全流程测试')
+        user.click_search()
+        user.click_checkbox('出货国家查询-变更产品自动化全流程测试')
+        user.click_change('变更产品')
+        user.click_product_definition_edit('出货国家查询-变更产品自动化全流程测试')
+        querytime = datetime.now().strftime('%Y-%m-%d%H%M%S')
+        user.input_product_definition_info('全球版本', '版本3')
+        user.input_product_definition_info('摄像头', f'{querytime}摄像头test_002_005')
+        user.input_product_definition_info('型号', f'{querytime}型号test_002_005')
+        user.input_product_definition_info('新增', f'{querytime}新增test_002_005')
+        user.click_product_definition_confirm()
+        user.select_signatory('汇签人员', '李小素')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('请求成功')
+        process_code = user.get_info('出货国家查询-变更产品自动化全流程测试')[2]
+        user.onework_agree_flow(process_code, '产品部管理员审核')
+        user.onework_agree_flow(process_code, '产品部汇签')
+        user.onework_agree_flow(process_code, '产品经理修改')
+        user.onework_agree_flow(process_code, '产品部管理员复核')
+        user.onework_agree_flow(process_code, '项目经理审批')
+        user.assert_my_application_node(process_code, '抄送', True)
+        user.assert_flow_compelete(process_code)
+        document_status = user.get_info(process_code)[6]
         ValueAssert.value_assert_equal(document_status, '审批通过')
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("变更国家成功,区域配置生效")  # 用例名称
-    @allure.description("用例：流程未配置区域：  发起流程 EE1更改为  认证备份，走完流程检查EE1是否为  认证备份；发起流程 乍得更改为  认证备份，走完流程检查乍得是否为  认证备份；发起流程 中国更改为  认证备份，走完流程检查中国是否为  认证备份；")
+    @allure.description("用例：流程未配置区域：发起流程更改为认证备份，走完流程检查是否为认证备份；")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_002_006(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         user = ShippingCountrySearch(drivers)
-        """发起流程 中国更改为  认证备份，走完流程检查中国是否为 认证备份；"""
         user.refresh_webpage_click_menu()
         user.input_condition('品牌', 'Infinix')
         user.input_condition('项目名称', '项目名称test')
@@ -252,24 +255,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.check_reset_cty_status(pro_name, '东亚')
         user.click_change('变更国家')
         user.click_change_select('东亚')
-        user.edit_product_definition_ctyinfo(pro_name, '中国', '●')
-        user.select_signatory('汇签人员', '李小素')
-        user.click_add_submit()
-        DomAssert(drivers).assert_att('请求成功')
-        process_code = user.get_info(pro_name)[2]
-        user.onework_agree_flow(process_code, '产品部管理员审核')
-        user.onework_agree_flow(process_code, '产品部汇签')
-        user.onework_agree_flow(process_code, '产品经理修改')
-        user.onework_agree_flow(process_code, '项目经理审批')
-        user.assert_status(pro_name, '中国', '●')
         """发起流程 柬埔寨 更改为  认证备份，走完流程检查 柬埔寨 是否为  认证备份；"""
-        user.refresh_webpage_click_menu()
-        user.input_condition('品牌', 'Infinix')
-        user.input_condition('项目名称', pro_name)
-        user.click_search()
-        user.click_checkbox(pro_name)
-        user.click_change('变更国家')
-        user.click_change_select('东亚')
         user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '●')
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
@@ -316,11 +302,120 @@ class TestTheProcessOfExaminationAndApproval:
         user.onework_agree_flow(process_code, '产品经理修改')
         user.onework_agree_flow(process_code, '项目经理审批')
 
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("变更国家，发起流程，流程流转到产品部管理员审核")  # 用例名称
+    @allure.description("选择一条数据点击变更国家，进行变更国家页面进行发起流程，流程流转到产品部管理员审核")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_007(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountrySearch(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_condition('品牌', 'Infinix')
+        user.input_condition('项目名称', '出货国家查询变更产品部分流程')
+        user.click_search()
+        user.click_checkbox('出货国家查询变更产品部分流程')
+        user.check_reset_cty_status('出货国家查询变更产品部分流程', '东亚')
+        user.click_change('变更国家')
+        user.click_change_select('东亚')
+        user.edit_product_definition_ctyinfo('出货国家查询变更产品部分流程', '柬埔寨', '●')
+        user.select_signatory('汇签人员', '李小素')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('请求成功')
+        process_code = user.get_info('出货国家查询变更产品部分流程')[2]
+        user.assert_my_todo_node(process_code, '产品部管理员审核', True)
+        user.delete_shipping_country_search(process_code)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("变更国家，产品部管理员审核成功")  # 用例名称
+    @allure.description("变更国家发起流程后，流程流转到产品部管理员审核，产品部管理员审核点击同意后，流程流转到产品部汇签")
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_002_008(self, drivers, SaleCountry_CountryChange_API):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountrySearch(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(SaleCountry_CountryChange_API[0], '产品部管理员审核', True)
+        user.enter_oneworks_edit(SaleCountry_CountryChange_API[0])
+        user.assert_OneWorks_AgreeFlow()
+        user.assert_my_todo_node(SaleCountry_CountryChange_API[0], '产品部管理员审核')
+        user.assert_my_todo_node(SaleCountry_CountryChange_API[0], '产品部汇签', True)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("变更国家，产品部汇签审核成功")  # 用例名称
+    @allure.description("变更国家发起流程后，流程流转到产品部汇签点击同意后，流程流转到产品经理修改")
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_002_009(self, drivers, SaleCountry_CountryChange_Audit_API):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountrySearch(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(SaleCountry_CountryChange_Audit_API[0], '产品部汇签', True)
+        user.enter_oneworks_edit(SaleCountry_CountryChange_Audit_API[0])
+        user.assert_OneWorks_AgreeFlow()
+        user.assert_my_todo_node(SaleCountry_CountryChange_Audit_API[0], '产品部汇签')
+        user.assert_my_todo_node(SaleCountry_CountryChange_Audit_API[0], '产品经理修改', True)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("变更国家，产品经理修改审核成功")  # 用例名称
+    @allure.description("变更国家发起流程后，流程流转到产品经理修改点击同意后，流程流转到产品部管理员复核")
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_002_010(self, drivers, SaleCountry_CountryChange_Join_API):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountrySearch(drivers)
+        user.refresh_webpage()
+        user.enter_oneworks_edit(SaleCountry_CountryChange_Join_API[0])
+        user.edit_product_definition_ctyinfo('出货国家查询变更产品部分流程', '日本2', '●')
+        user.assert_OneWorks_AgreeFlow()
+        user.assert_my_todo_node(SaleCountry_CountryChange_Join_API[0], '产品部管理员复核', True)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("变更国家，产品部管理员复核审核成功")  # 用例名称
+    @allure.description("变更国家发起流程后，流程流转到产品部管理员复核点击同意后，流程流转到项目经理审批")
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    def test_002_011(self, drivers, SaleCountry_CountryChange_managerModify_API):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountrySearch(drivers)
+        user.refresh_webpage()
+        user.assert_my_todo_node(SaleCountry_CountryChange_managerModify_API[0], '产品部管理员复核', True)
+        user.enter_oneworks_edit(SaleCountry_CountryChange_managerModify_API[0])
+        user.assert_OneWorks_AgreeFlow()
+        user.assert_my_todo_node(SaleCountry_CountryChange_managerModify_API[0], '产品部管理员复核')
+        user.assert_my_todo_node(SaleCountry_CountryChange_managerModify_API[0], '项目经理审批', True)
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("变更国家，单据状态已变为审批通过")  # 用例名称
+    @allure.description("变更国家发起流程后，流程流转到产品部管理员复核点击同意后，流程流转直接进行抄送")
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_012(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = ShippingCountrySearch(drivers)
+        user.refresh_webpage_click_menu()
+        user.input_condition('品牌', 'Infinix')
+        user.input_condition('项目名称', '项目名称test')
+        user.click_search()
+        pro_name = user.get_first_info('项目名称')
+        user.click_checkbox(pro_name)
+        user.check_reset_cty_status(pro_name, '东亚')
+        user.click_change('变更国家')
+        user.click_change_select('东亚')
+        user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '●')
+        user.select_signatory('汇签人员', '李小素')
+        user.click_add_submit()
+        DomAssert(drivers).assert_att('请求成功')
+        process_code = user.get_info(pro_name)[2]
+        user.onework_agree_flow(process_code, '产品部管理员审核')
+        user.onework_agree_flow(process_code, '产品部汇签')
+        user.onework_agree_flow(process_code, '产品经理修改')
+        user.onework_agree_flow(process_code, '项目经理审批')
+        user.assert_my_application_node(process_code, '抄送', True)
+        user.assert_flow_compelete(process_code)
+        document_status = user.get_info(process_code)[6]
+        ValueAssert.value_assert_equal(document_status, '审批通过')
+        user.assert_status(pro_name, '柬埔寨', '●')
+
 
 @allure.feature("出货国家-出货国家查询")
 class TestCreateProcessExceptionScenario:
     @allure.story("创建流程异常场景")
-    @allure.title("【xxxxx】产品存在在途单据【xxxxxx】")
+    @allure.title("变更产品，【xxxxx】产品存在在途单据【xxxxxx】")
     @allure.description("选中一条数据点击变更产品，进行发起后，再次选中该条数据点击进行变更产品，不能进行发起，并提示【xxxxx】产品存在在途单据【xxxxxx】")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
@@ -332,10 +427,10 @@ class TestCreateProcessExceptionScenario:
         user.click_search()
         user.click_checkbox('出货国家查询变更产品部分流程')
         user.click_change('变更产品')
-        DomAssert(drivers).assert_att(f'【出货国家查询变更产品部分流程_出货国家查询变更产品部分流程_128+8_拉美市场】产品存在在途单据【{SaleCountry_ProductChange_API[0]}】')
+        DomAssert(drivers).assert_att(f'【出货国家查询变更产品部分流程_出货国家查询变更产品部分流程_64+6_公开市场】产品存在在途单据【{SaleCountry_ProductChange_API[0]}】')
 
     @allure.story("创建流程异常场景")
-    @allure.title("第1行产品国家【xxxxx】已经存在流程中单据【xxxxxxx】！")
+    @allure.title("变更国家，第1行产品国家【xxxxx】已经存在流程中单据【xxxxxxx】！")
     @allure.description("选中一条数据点击变更国家，进行发起后，再次选中该条数据点击变更国家还是变更一样的国家，发起时会给出提示第1行产品国家【xxxxx】已经存在流程中单据【xxxxxxx】！")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
@@ -348,13 +443,13 @@ class TestCreateProcessExceptionScenario:
         user.click_checkbox('出货国家查询变更产品部分流程')
         user.click_change('变更国家')
         user.click_change_select('东亚')
-        user.edit_product_definition_ctyinfo('出货国家查询变更产品部分流程', '中国', '●')
+        user.edit_product_definition_ctyinfo('出货国家查询变更产品部分流程', '柬埔寨', '●')
         user.click_add_submit()
-        user.assert_toast(f'第1行产品国家【中国】已经存在流程中单据【{SaleCountry_CountryChange_API[0]}】！')
+        user.assert_toast(f'第1行产品国家【柬埔寨】已经存在流程中单据【{SaleCountry_CountryChange_API[0]}】！')
 
     @allure.story("流程审批异常场景")  # 场景名称
-    @allure.title("项目经理修改页面，修改重复区域提示“第1行产品国家【XXX】已经存在流程中单据”")  # 用例名称
-    @allure.description("流程未配置区域：发起变更国家流程，东亚EE1更改为认证备份；再次发起变更国家流程，中国更改为认证备份，点击提交，流程走到项目经理修改，将东亚EE1更改为认证备份，点击提交提示重复")
+    @allure.title("变更国家，项目经理修改页面，修改重复区域提示“第1行产品国家【XXX】已经存在流程中单据”")  # 用例名称
+    @allure.description("流程未配置区域：发起变更国家流程，柬埔寨更改为认证备份；再次发起变更国家流程，日本更改为认证备份，点击提交，流程走到项目经理修改，将柬埔寨更改为认证备份，点击提交提示重复")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_003_003(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -368,12 +463,12 @@ class TestCreateProcessExceptionScenario:
         user.click_checkbox(pro_name)
         user.click_change('变更国家')
         user.click_change_select('东亚')
-        user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '●')
+        user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '✔')
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
         DomAssert(drivers).assert_att('请求成功')
         process_code1 = user.get_info(pro_name)[2]
-        """再次发起变更国家流程，中国更改为认证备份"""
+        """再次发起变更国家流程，日本更改为认证备份"""
         user.refresh_webpage_click_menu()
         user.input_condition('品牌', 'Infinix')
         user.input_condition('项目名称', pro_name)
@@ -381,26 +476,22 @@ class TestCreateProcessExceptionScenario:
         user.click_checkbox(pro_name)
         user.click_change('变更国家')
         user.click_change_select('东亚')
-        user.edit_product_definition_ctyinfo(pro_name, '中国', '●')
+        user.edit_product_definition_ctyinfo(pro_name, '日本2', '●')
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
         DomAssert(drivers).assert_att('请求成功')
         """流程走到项目经理修改"""
         process_code = user.get_info(pro_name)[2]
         user.enter_oneworks_edit(process_code)
-        user.click_onework_agree()
-        DomAssert(drivers).assert_att('审核通过')
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(process_code, '产品部汇签', True)
         user.enter_oneworks_edit(process_code)
-        user.click_onework_agree()
-        DomAssert(drivers).assert_att('审核通过')
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(process_code, '产品经理修改', True)
         user.enter_oneworks_edit(process_code)
         """将东亚柬埔寨更改为认证备份，点击提交提示重复"""
-        user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '●')
-        user.click_onework_agree()
+        user.edit_product_definition_ctyinfo(pro_name, '柬埔寨', '✔')
+        user.click_oneworks_agree()
         user.enter_oneworks_iframe()
         user.assert_toast('第1行产品国家【柬埔寨】已经存在流程中单据【{}】！'.format(process_code1))
         user.quit_oneworks()

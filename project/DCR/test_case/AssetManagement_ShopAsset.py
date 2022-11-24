@@ -24,6 +24,7 @@ class TestQueryShopAsset:
     @allure.description("门店资产页面，查询门店资产，断言列表是否加载查询的数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -64,6 +65,7 @@ class TestImportShopAsset:
     @allure.description("门店资产页面，导入门店资产正确的模板数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -105,6 +107,7 @@ class TestImportShopAsset:
     @allure.description("门店资产页面，导入门店资产错误的模板，断言是否导入失败")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_002_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -144,6 +147,7 @@ class TestDeleteShopAsset:
     @allure.description("门店资产页面，有效状态的门店资产不支持删除")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_003_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")

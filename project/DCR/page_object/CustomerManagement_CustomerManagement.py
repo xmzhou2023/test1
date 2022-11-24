@@ -167,7 +167,6 @@ class CustomerManagementPage(Base):
     @allure.step("关闭客户管理菜单")
     def click_close_customer_mgt(self):
         self.is_click(user['关闭客户管理菜单'])
-        sleep(1)
 
     @allure.step("修改编辑二代表单,客户名称、联系人、联系电话")
     def edit_form_info(self, edit_c_name, edit_contact_name, edit_contact_no):
@@ -208,9 +207,8 @@ class CustomerManagementPage(Base):
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
-        """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+
 
     @allure.step("点击启用按钮")
     def click_more_option_enable(self):

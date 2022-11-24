@@ -329,6 +329,15 @@ def SaleCountry_ProductChange_Audit_API():
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_CountryChange_Audit_API():
+    logging.info('开始前置操作-变更国家-产品部管理员审核同意')
+    user = APIRequest()
+    api_response = user.API_Change_Country('出货国家查询变更产品部分流程')
+    user.API_Change_Audit(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def SaleCountry_ProductChange_Join_API():
@@ -340,6 +349,15 @@ def SaleCountry_ProductChange_Join_API():
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_CountryChange_Join_API():
+    logging.info('开始前置操作-变更国家-产品部汇签同意')
+    user = APIRequest()
+    api_response = user.API_Change_Country('出货国家查询变更产品部分流程')
+    user.API_Change_Join(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def SaleCountry_ProductChange_managerModify_API():
@@ -351,13 +369,12 @@ def SaleCountry_ProductChange_managerModify_API():
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
-
 @pytest.fixture(scope='function', autouse=False)
-def SaleCountry_ProductChange_Audit2_API():
-    logging.info('开始前置操作-变更产品-产品部管理员复核同意')
+def SaleCountry_CountryChange_managerModify_API():
+    logging.info('开始前置操作-变更国家-产品经理修改同意')
     user = APIRequest()
-    api_response = user.API_Change_Product('出货国家查询变更产品部分流程')
-    user.API_Change_managerModify(api_response[0], api_response[1], api_response[2])
+    api_response = user.API_Change_Country('出货国家查询变更产品部分流程')
+    user.API_ChangeCountry_managerModify(api_response[0], api_response[1], api_response[2])
     yield api_response
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])

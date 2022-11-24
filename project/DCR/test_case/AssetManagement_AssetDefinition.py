@@ -26,6 +26,7 @@ class TestQueryAsset:
     @allure.description("资产管理页面，根据创建日期与资产名称筛选资产，断言列表是否能正常查询指定的资产")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -57,6 +58,7 @@ class TestAddAsset:
     @allure.description("资产管理页面，新增资产操作，断言资产管理列表是否加载新增的资产信息")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -117,6 +119,7 @@ class TestEditAsset:
     @allure.description("资产管理页面，对新增的资产，进行修改操作，断言资产管理列表是否更新修改后的资产信息")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_003_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -173,6 +176,7 @@ class TestDeleteAsset:
     @allure.description("资产定义页面，对新增的资产进行删除操作，断言是否删除成功")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
     def test_004_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
