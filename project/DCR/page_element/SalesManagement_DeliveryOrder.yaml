@@ -7,6 +7,8 @@ Reset: "xpath==//span[contains(text(),'Reset')]"
 
 
 #创建出库单定位元素
+Warehouse Name: "xpath==//div//input[@class='el-input__inner deliveryorderadd_input_warehouseId']"
+Warehouse Name Value: "xpath==//div//ul//li//span[contains (text(), 'variable')]"
 Buyer: "xpath==//label[contains(text(),'Buyer')]//parent::div//following-sibling::div//input"
 Buyer1: "xpath==//input[@class='el-input__inner deliveryorderadd_input_buyerId']"
 Buyer sub value: "xpath==//li[contains(text(),'variable')]"
@@ -21,7 +23,7 @@ Get Order Detail Deli Quantity: "xpath==//button[@class='el-button el-button--te
 Get Delivery Scan Record IMEI: "xpath==//div[normalize-space(text())='variable']"
 Get Delivery Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
 Submit: "xpath==//button[@class='el-button el-button--primary el-button--small']"
-Affirm Submit: "xpath==//span[text()='Submit']"
+Affirm Submit: "xpath==//button//span[text()='Submit']"
 
 
 #创建出库单，产品为无码的，买方为系统中二级客户
@@ -44,11 +46,12 @@ Business Type value: "xpath==//span[normalize-space(text())='variable']"
 Click IMEI Detail: "xpath==//tbody//tr[1]//td[44]//div//div//span[text()='IMEI Detail']"
 Get List Product Text: "xpath==//tbody//tr[1]//td[7]//div//div//div"
 Get List Item Text: "xpath==//tbody//tr[1]//td[8]//div//div//div"
-Get IMEI Detail Product Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[1]/div"
-Get IMEI Detail Item Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div"
-Get IMEI Detail IMEI Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[5]"
-Get IMEI Detail Total Text: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[2]/div[2]/div[3]/span[1]"
+Get IMEI Detail Product Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[1]//div"
+Get IMEI Detail Item Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[2]//div"
+Get IMEI Detail IMEI Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[5]//div"
+Get IMEI Detail Total Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//div//span[contains(text(),'Total')]"
 Get IMEI Detail Title: "xpath==//span[contains(text(), 'IMEI Detail: ')]"
+
 
 #获取列表字段文本
 Get Sales Order ID Text: "xpath==//tbody//tr[1]//td[2]//div"
@@ -56,6 +59,10 @@ Get Delivery Order ID Text: "xpath==//tbody//tr[1]//td[3]//div//div"
 Get Status Text: "xpath==//tbody//tr[1]//td[6]//div"
 Get Delivery Date Text: "xpath==//tbody//tr[1]//td[4]//div"
 Get Delivery Status: "xpath==//div[text()='Goods Receipt']"
+Get list Product text: "xpath==//tbody//tr[1]//td[7]//div[contains(@style, 'color: red')]"
+Get list Delivery Quantity: "xpath==//tbody//tr[1]//td[13]//div[contains(@style, 'color: red')]"
+Get list Return Quantity: "xpath==//tbody//tr[1]//td[14]//div[contains(@style, 'color: red')]"
+
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭出库单菜单: "xpath==//span[normalize-space(text())='Delivery Order']//span[@class='el-icon-close']"
 关闭IMEI详情页: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[1]/button/i"
