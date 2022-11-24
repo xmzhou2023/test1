@@ -31,6 +31,7 @@ class TestMyFilesCheck:
         tools.click('新增确认')
 
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
@@ -42,6 +43,7 @@ class TestMyFilesCheck:
         DomAssert(drivers).assert_att('auto_testing_add_files_pub_001')
 
         # 删除
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
@@ -71,6 +73,7 @@ class TestMyFilesCheck:
         tools.input('新增输入框', 'auto_testing_add_files_pri_001', 'name')
         tools.click('新增确认')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
@@ -81,6 +84,7 @@ class TestMyFilesCheck:
         DomAssert(drivers).assert_att('无数据')
 
         # 删除
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')

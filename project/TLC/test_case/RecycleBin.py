@@ -35,7 +35,7 @@ class TestRecycleBin:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_files_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 彻底删除
         tools.click_menu('组件中心', '回收站')
         tools.hover('文件Item')
@@ -58,8 +58,8 @@ class TestRecycleBin:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 删除
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
@@ -67,7 +67,7 @@ class TestRecycleBin:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 彻底删除
         tools.click_menu('组件中心', '回收站')
         tools.hover('组件Item')
@@ -97,7 +97,7 @@ class TestRecycleBin:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_files_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 还原
         tools.click_menu('组件中心', '回收站')
         tools.hover('文件Item')
@@ -111,7 +111,7 @@ class TestRecycleBin:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_files_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
       
 
     @allure.story("我的空间-回收站操作")  # 场景名称
@@ -128,8 +128,8 @@ class TestRecycleBin:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 删除
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
@@ -137,7 +137,7 @@ class TestRecycleBin:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 还原
         tools.click_menu('组件中心', '回收站')
         tools.hover('组件Item')
@@ -151,7 +151,7 @@ class TestRecycleBin:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
       
 
     @allure.story("我的空间-回收站操作")  # 场景名称
@@ -168,8 +168,8 @@ class TestRecycleBin:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 删除
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
@@ -177,7 +177,7 @@ class TestRecycleBin:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 新增相同code组件
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
@@ -186,8 +186,8 @@ class TestRecycleBin:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 还原
         tools.click_menu('组件中心', '回收站')
         tools.hover('组件Item')
@@ -208,7 +208,7 @@ class TestRecycleBin:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
       
 
     @allure.story("公共空间-回收站操作")  # 场景名称
@@ -220,6 +220,7 @@ class TestRecycleBin:
         tools = RecycleBin(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pri_001', 'name')
@@ -228,11 +229,12 @@ class TestRecycleBin:
         # 删除
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_files_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 彻底删除
         tools.click_menu('组件中心', '回收站')
         tools.hover('文件Item')
@@ -250,21 +252,23 @@ class TestRecycleBin:
         tools = RecycleBin(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 删除
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 彻底删除
         tools.click_menu('组件中心', '回收站')
         tools.hover('组件Item')
@@ -282,6 +286,7 @@ class TestRecycleBin:
         tools = RecycleBin(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pri_001', 'name')
@@ -290,11 +295,12 @@ class TestRecycleBin:
         # 删除
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_files_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 还原
         tools.click_menu('组件中心', '回收站')
         tools.hover('文件Item')
@@ -305,11 +311,12 @@ class TestRecycleBin:
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_files_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
       
 
     @allure.story("公共空间-回收站操作")  # 场景名称
@@ -321,21 +328,23 @@ class TestRecycleBin:
         tools = RecycleBin(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 删除
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 还原
         tools.click_menu('组件中心', '回收站')
         tools.hover('组件Item')
@@ -346,11 +355,12 @@ class TestRecycleBin:
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
       
 
     @allure.story("公共空间-回收站操作")  # 场景名称
@@ -362,31 +372,34 @@ class TestRecycleBin:
         tools = RecycleBin(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 删除
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
         # 新增相同code组件
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 还原
         tools.click_menu('组件中心', '回收站')
         tools.hover('组件Item')
@@ -398,6 +411,7 @@ class TestRecycleBin:
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
@@ -405,11 +419,12 @@ class TestRecycleBin:
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
       
 
     @allure.story("公共空间-回收站操作")  # 场景名称

@@ -87,6 +87,7 @@ class TestMyFilesAdd:
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('名称输入框', 'auto_testing_add_files_pub_001')
@@ -94,6 +95,7 @@ class TestMyFilesAdd:
         DomAssert(drivers).assert_att('新增成功')
 
         # 删除
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
@@ -108,6 +110,7 @@ class TestMyFilesAdd:
     def test_001_006(self, drivers):
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
@@ -125,6 +128,7 @@ class TestMyFilesAdd:
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.click('新增对话框按钮', 'cancel')
@@ -137,6 +141,7 @@ class TestMyFilesAdd:
     def test_001_008(self, drivers):
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')

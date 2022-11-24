@@ -33,8 +33,7 @@ class TestComponentTransfer:
         tools.input('新增输入框', 'auto_testing_add_components_in_file_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_in_file_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
         # 迁移
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -84,8 +83,7 @@ class TestComponentTransfer:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
         # 迁移
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
@@ -132,8 +130,7 @@ class TestComponentTransfer:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
         # 迁移
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
@@ -148,6 +145,7 @@ class TestComponentTransfer:
 
         # 删除组件
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -165,6 +163,7 @@ class TestComponentTransfer:
         tools = Transfer(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
@@ -178,8 +177,7 @@ class TestComponentTransfer:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
         # 迁移
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
@@ -194,6 +192,7 @@ class TestComponentTransfer:
         # 删除组件
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.click('文件Item')
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -202,6 +201,7 @@ class TestComponentTransfer:
         DomAssert(drivers).assert_att('删除成功')
         # 删除文件夹
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
@@ -219,6 +219,7 @@ class TestComponentTransfer:
         tools = Transfer(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
@@ -229,8 +230,7 @@ class TestComponentTransfer:
         tools.input('新增输入框', 'auto_testing_add_components_in_file_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_in_file_pub_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
         # 迁移
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -243,6 +243,7 @@ class TestComponentTransfer:
         # 删除文件夹
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pub_001')
@@ -250,6 +251,7 @@ class TestComponentTransfer:
         DomAssert(drivers).assert_att('删除成功')
         # 删除组件
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -267,6 +269,7 @@ class TestComponentTransfer:
         tools = Transfer(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
@@ -275,15 +278,16 @@ class TestComponentTransfer:
         # 新增组件
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
         # 迁移
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -296,6 +300,7 @@ class TestComponentTransfer:
         # 删除组件
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.click('文件Item')
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -304,6 +309,7 @@ class TestComponentTransfer:
         DomAssert(drivers).assert_att('删除成功')
         # 删除文件夹
         tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')

@@ -16,4 +16,5 @@
 删除: "xpath==//*[@xpath='at_my-file_contextmenu_remove_variable']"
 删除确认: "xpath==//*[@aria-label='提示']//button[2]"
 顶部搜索框: "xpath==//input[@readonly]"
+下载: "xpath==//*[@xpath='at_my-file_contextmenu_download__json_variable']"
 
