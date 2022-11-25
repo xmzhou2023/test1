@@ -64,9 +64,23 @@ class SalesOrderPage(Base):
 
     @allure.step("销售单页面，点击Search查询按钮")
     def click_search(self):
-        """销售单页面，点击Search查询按钮"""
         self.is_click(user['Sales Order Search'])
         sleep(2)
+
+    @allure.step("销售单页面，点击IMEI Detail打开详情页")
+    def click_sales_order_imei_detail(self):
+        self.is_click_dcr(user['Sales Order IMEI Detail'])
+        sleep(1.5)
+
+    @allure.step("销售单页面，点击关闭IMEI Detail详情页")
+    def close_sales_order_imei_detail(self):
+        self.is_click(user['Close Sales Order IMEI Detail'])
+
+    @allure.step("销售单页面，打开IMEI Detail详情页，获取分页总条数")
+    def get_sales_imei_detail_total(self):
+        get_total = self.element_text(user['Get Sales IMEI Detail Total'])
+        get_total1 = get_total[6:]
+        return get_total1
 
     @allure.step("销售单页面，获取销售单ID文本")
     def get_text_sales_id(self):
@@ -212,7 +226,7 @@ class SalesOrderPage(Base):
         self.input_box_id_query(box_id)
         self.click_inventory_search()
 
-    @allure.step("IMEI Inventory Query菜单，获取列表total文本内容")
+    @allure.step("IMEI Inventory Query菜单，获取列表total分页总条数")
     def get_inventory_list_total(self):
         get_list_total = self.element_text(user['Get list Total'])
         get_list_total1 = get_list_total[6:]
@@ -253,6 +267,7 @@ class SalesOrderPage(Base):
 
     @allure.step("Shop Sales Query菜单, 获取列表字段内容")
     def get_list_field_text(self, field):
+        self.presence_sleep_dcr(user[field])
         get_field = self.element_text(user[field])
         return get_field
 

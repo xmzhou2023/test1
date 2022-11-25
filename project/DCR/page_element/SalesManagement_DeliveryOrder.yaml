@@ -22,6 +22,7 @@ Get Delivery Quantity: "xpath==//div[@class='scanned-box']/..//div[@class='num']
 Get Order Detail Deli Quantity: "xpath==//button[@class='el-button el-button--text el-button--mini']"
 Get Delivery Scan Record IMEI: "xpath==//div[normalize-space(text())='variable']"
 Get Delivery Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
+Get Delivery Order Detail Product: "xpath==//div//span[text()='Order Detail']/../..//tbody//tr[1]//td[1]//div//span"
 Submit: "xpath==//button[@class='el-button el-button--primary el-button--small']"
 Affirm Submit: "xpath==//button//span[text()='Submit']"
 

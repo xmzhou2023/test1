@@ -93,6 +93,12 @@ class DeliveryOrderPage(Base):
         scan_record_success = self.element_text(user['Get Delivery Scan Record Success'])
         return scan_record_success
 
+    @allure.step("Add新增出库单页面，点击Check按钮后，获取Order Detail列表Product内容")
+    def get_delivery_order_detail_product(self):
+        get_delivery_product = self.element_text(user['Get Delivery Order Detail Product'])
+        return get_delivery_product
+
+
     @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧出现显示IMEI")
     def get_Deli_Scan_Record_IMEI(self, imei):
         self.presence_sleep_dcr(user['Get Delivery Scan Record IMEI'], imei)
@@ -354,6 +360,16 @@ class DeliveryOrderPage(Base):
         self.click_check()
         sleep(0.8)
         self.input_imei(imei2)
+        self.click_check()
+        sleep(0.8)
+
+    @allure.step("创建出库单，选择卖家仓库，输入一个IMEI 场景操作步骤,封装公共方法")
+    def create_delivery_order_imei(self, warehouse, buyer, pay, imei1):
+        self.click_add()
+        self.select_warehouse_name(warehouse)
+        self.input_retail_buyer(buyer)
+        self.input_deli_pay_mode(pay)
+        self.input_imei(imei1)
         self.click_check()
         sleep(0.8)
 
