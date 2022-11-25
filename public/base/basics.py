@@ -369,6 +369,23 @@ class Base(object):
         ActionChains(content).move_by_offset(700, 700).click().perform()
         sleep(10)
 
+    def inner_text(self, locator, *args):
+        """获取元素的文本"""
+        ele = self.find_element(locator, *args)
+        _text = ele.get_attribute('innerText').replace("\n", "|")
+        logging.info("获取文本：{}".format(_text))
+        return _text
+
+    def elements_inner_text(self, locator, *args):
+        """获取元素的文本"""
+        text_list = []
+        eles = self.find_elements(locator, *args)
+        for i in eles:
+            _text = i.get_attribute('innerText').replace("\n", "|")
+            text_list.append(_text)
+        logging.info("获取文本：{}".format(text_list))
+        return text_list
+
     def element_text(self, locator, *args, **kwargs):
         """获取元素的文本"""
         if args and args is not None:
@@ -765,12 +782,38 @@ class Base(object):
         element = self.find_element(locator)
         element.send_keys(Keys.BACK_SPACE)
 
-    def get_table_info(self, locator, *choice, attr='class', index='0'):
+    def get_table_info(self, locator, *choice, attr='class', index='0', sc_element=None, h_element=None):
         """
         获取指定定位的属性值，可用于获取表格每列内容，做查询断言，如：el-table_3_column_45
         :param attr: 需要获取到的属性，默认是class
         :param index: 需要获取到的属性索引位置，默认是0
         """
+        for i in range(1, 10):
+
+            #
+            if h_element:
+                heard_list = Base(self.driver).elements_inner_text(h_element)
+                if set(choice) <= set(heard_list):
+                    logging.info('{}表格字段存在，跳出循环'.format(choice))
+                    break
+                else:
+                    if sc_element:
+                        logging.info('{}表格字段不存在，向右滑动滚动条'.format(choice))
+                        Base(self.driver).DivRolling(sc_element, num=i*1000)
+                    else:
+                        logging.error('{}表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动'.format(*choice))
+                        raise
+            else:
+                if Base(self.driver).element_exist(locator, *choice):
+                    logging.info('{}表格字段存在，跳出循环'.format(choice))
+                    break
+                else:
+                    if sc_element:
+                        logging.info('{}表格字段不存在，向右滑动滚动条'.format(choice))
+                        Base(self.driver).DivRolling(sc_element, num=i * 1000)
+                    else:
+                        logging.error('{}表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动'.format(*choice))
+                        raise
         header_class = self.get_element_attribute(locator, attr, *choice)
         column_class = header_class.split(' ')[int(index)]
         logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))

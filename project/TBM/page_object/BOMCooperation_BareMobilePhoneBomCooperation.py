@@ -84,6 +84,7 @@ class BareMobilePhoneBomCooperation(CenterComponent):
     @allure.step("BOM工程师审批页面-流程组合")
     def bom_approve_flow(self, code):
         self.assert_my_todo_node(code, 'BOM工程师审批', True)
+        self.enter_oneworks_edit(code)
         self.assert_OneWorks_AgreeFlow()
 
     def click_oneworks_approval_export(self):

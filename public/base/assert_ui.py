@@ -312,18 +312,7 @@ class DomAssert(object):
         @index：属性值索引
         @sc_element：内嵌div中有滑动条的定位
         """
-        for i in range(1, 10):
-            if Base(self.driver).element_exist(col_element, header):
-                logging.info('表格字段存在，跳出循环')
-                break
-            else:
-                if sc_element:
-                    logging.info('表格字段不存在，向右滑动滚动条')
-                    Base(self.driver).DivRolling(sc_element, num=i*1000)
-                else:
-                    logging.error('表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动')
-                    raise
-        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index)
+        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element)
         try:
             contents = Base(self.driver).find_elements_tbm(tb_element, column)
         except:
