@@ -113,7 +113,7 @@ Get Shop Purchase list Status: "xpath==//tbody//tr[1]//td[4]//span"
 Get Shop Purchase list Total: "xpath==//div/..//div//span[contains(text(), 'Total')]"
 Shop Purchase Query check box: "xpath==//tbody//tr[1]//td[1]//div//span[@class='vxe-checkbox--icon vxe-checkbox--unchecked-icon']"
 Shop Purchase Query Cancel: "xpath==//div//button[@id='ShopStockInRecord_cancel']//span[normalize-space(text())='Cancel']"
-
+Shop Purchase Query Confirm Cancel: "xpath==//div//div[3]//button[2]//span[normalize-space(text())='Confirm']"
 
 #Shop Inventory IMEI Query 页面，筛选IMEI门店库存记录
 Shop Inventory Query IMEI: "xpath==//div//input[@class='el-input__inner shopinventoryimeilist_input_codes']"
@@ -125,6 +125,13 @@ Get Sales IMEI Detail Product: "xpath==//div//span[text()='IMEI Detail']/../..//
 Get Sales IMEI Detail Brand: "xpath==//div//span[text()='IMEI Detail']/../..//tbody//tr[1]//td[5]"
 Get Sales IMEI Detail Total: "xpath==//div//span[text()='IMEI Detail']/../..//div//span[contains(text(),'Total')]"
 Close Sales Order IMEI Detail: "xpath==//div//span[text()='IMEI Detail']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+
+
+#Shop Inventory IMEI Query页面，根据IMEI筛选门店库存
+Shop Inventory IMEI Query IMEI1: "xpath==//div//label[text()='IMEI']/..//div/..//input[@class='el-input__inner shopinventoryimeilist_input_codes']"
+Shop Inventory IMEI Query IMEI2: "xpath==//div//label[text()='IMEI']/..//div//textarea[@placeholder='Batch input content']"
+Get Shop Inventory IMEI list IMEI: "xpath==//tbody//tr[1]//td[13]//div"
+Get Shop Inventory IMEI Total: "xpath==//div//span[contains(text(), 'Total')]"
 
 
 

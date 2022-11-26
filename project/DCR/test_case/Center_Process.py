@@ -145,7 +145,7 @@ class TestSalesBusinessProcess:
 
         receipt.input_salesOrder(salesid)
         receipt.input_deliveryOrder(deliveryid)
-        receipt.click_search()
+        receipt.click_inbound_receipt_search()
         receipt.click_checkbox()
         receipt.click_quick_received()
         receipt.click_save()
@@ -308,7 +308,7 @@ class TestDeliveryBusinessProcess:
         receipt.input_salesOrder(order_code)
         receipt.input_deliveryOrder(delivery_code)
         """点击筛选查询按钮"""
-        receipt.click_search()
+        receipt.click_inbound_receipt_search
 
         receipt.click_checkbox()
         receipt.click_quick_received()

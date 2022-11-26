@@ -129,7 +129,7 @@ class TestExpandBrandShop:
         expand_brand.extend_brand_save()
 
         expand_brand.input_extend_sales_region("Barisal itel")
-        expand_brand.click_extend_shop_grade()
+        expand_brand.click_extend_shop_grade('A 10-20')
         expand_brand.click_extend_shop_type()
         expand_brand.click_extend_image_type()
         expand_brand.extend_retail_customer("SN455338")

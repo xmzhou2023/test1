@@ -17,7 +17,7 @@ Close Attendance Photo: "xpath==//div//button//i[@class='el-dialog__close el-ico
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭考勤记录菜单: "xpath==//span[normalize-space(text())='Attendance Records']//span[@class='el-icon-close']"
 
-Get Home Page Customer: "xpath==/html/body/div[1]/div/div[2]/div/div[2]/div/div[1]/div/span[1]"
+Get Home Page Customer: "xpath==//ul//div//a//li//span[text()='Home Page-Customer']"
 
 #考勤记录，导出功能
 Export: "id==AttendanceRecords_export"

@@ -241,12 +241,12 @@ class ShopManagementPage(Base):
         sleep(1)
 
     @allure.step("扩展门店等级属性")
-    def click_extend_shop_grade(self):
+    def click_extend_shop_grade(self, grade):
         self.scroll_into_view(user['Extend Shop Grade'])
         sleep(1)
         self.is_click(user['Extend Shop Grade'])
         sleep(2.5)
-        self.is_click(user['Extend Shop Grade Value'], "A 10-20 ")
+        self.is_click(user['Extend Shop Grade Value'], grade)
 
     @allure.step("扩展门店类型属性")
     def click_extend_shop_type(self):
