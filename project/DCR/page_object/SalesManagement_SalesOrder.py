@@ -438,12 +438,12 @@ class SalesOrderPage(Base):
     @allure.step("查询买家类型信息")
     def search_buyer_type(self, type):
         self.is_click(user['买家类型'])
-        self.is_click(user['买卖家类型选择'], type)
+        self.is_click(user['买家类型选择'], type)
 
     @allure.step("查询卖家类型信息")
     def search_seller_type(self, type):
         self.is_click(user['卖家类型'])
-        self.is_click(user['买卖家类型选择'], type)
+        self.is_click(user['卖家类型选择'], type)
 
     @allure.step("点击IMEI Deatail信息")
     def click_imei_detail(self):
