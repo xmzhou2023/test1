@@ -15,13 +15,24 @@ from project.DCR.page_object.Center_Component import LoginPage
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 
+#后置处理关闭菜单
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
+
 @allure.feature("销售管理-竞品销售查询") # 模块名称
 class TestQueryCompe:
     @allure.story("查询竞品销售信息") # 场景名称
     @allure.title("查询各个常用条件下销售信息")  # 用例名称
     @allure.description("查询后检查结果中是否有对应字段信息")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.RT # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -54,7 +65,7 @@ class TestQueryCompe:
     @allure.title("查询各个不常用条件下的销售信息")  # 用例名称
     @allure.description("查询后检查结果中是否有对应字段信息")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.RT # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture') # 用例标记
     def test_001_002(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -83,7 +94,7 @@ class TestExportCompe:
     @allure.title("导出固定条件下的销售信息")  # 用例名称
     @allure.description("导出页面数据保证功能可用")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.RT # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture') # 用例标记
     def test_002_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
