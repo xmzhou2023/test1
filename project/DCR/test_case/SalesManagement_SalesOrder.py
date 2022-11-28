@@ -464,5 +464,139 @@ class TestExportSalesOrder:
         #export.click_close_sales_order()
 
 
+@allure.feature("销售管理-销售单")
+class TestQuerySalesOrder:
+    @allure.story("销售单查询")
+    @allure.title("销售单页面，各个条件进行筛选销售单")
+    @allure.description("销售单页面，在各个条件下筛选销售单，筛选条件和列表查询结果一致")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
+    def test_004_001(self, drivers):
+        """DCR 国包账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """销售管理菜单-打开销售单菜单"""
+        user.click_gotomenu("Sales Management", "Sales Order")
+        page = SalesOrderPage(drivers)
+        page.click_unfold()
+
+
+        """按销售单创建日期、Status条件筛选销售单"""
+        page.search_sales_status('Delivered')
+        page.click_search()
+        result_data = page.get_table_txt(4)
+        ValueAssert.value_assert_In('Delivered', result_data)
+        page.click_reset()
+
+        """按销售单创建日期、Buyer条件筛选销售单"""
+        page.search_sales_buyer('zhaoerdai2')
+        page.list_input_create_date('2022-08-15','2022-08-18')
+        page.click_search()
+        result_data = page.get_table_txt(21)
+        ValueAssert.value_assert_In('zhaoerdai2', result_data)
+        sleep(4)
+        page.click_reset()
+
+        """按销售单创建日期、seller条件筛选销售单"""
+        page.search_sales_seller('zhaoguobao1')
+        page.list_input_create_date('2022-08-15','2022-08-18')
+        page.click_search()
+        result_data = page.get_table_txt(18)
+        ValueAssert.value_assert_In('zhaoguobao1', result_data)
+        page.click_reset()
+
+        """按销售单创建日期、brand条件筛选销售单"""
+        page.list_input_create_date('2022-11-25', '2022-11-25')
+        page.search_brand('TECNO')
+        page.click_search()
+        result_data = page.get_table_txt(10)
+        ValueAssert.value_assert_In('TECNO', result_data)
+        page.click_reset()
+
+        """按销售单创建日期、model条件筛选销售单"""
+        page.list_input_create_date('2022-11-25', '2022-11-25')
+        page.click_material()              #点击取消日期弹出框
+        page.search_model('KF8')
+        page.click_search()
+        result_data = page.get_table_txt(7)
+        ValueAssert.value_assert_In('KF8', result_data)
+        page.click_reset()
+
+        """按销售单创建日期、MarketName条件筛选销售单"""
+        page.list_input_create_date('2022-11-25', '2022-11-25')
+        page.click_material()              #点击取消日期弹出框
+        page.search_market('ACE 2N')
+        page.click_search()
+        result_data = page.get_table_txt(9)
+        ValueAssert.value_assert_In('ACE 2N', result_data)
+        page.click_reset()
+
+        """按销售单创建日期、创建人筛选销售单"""
+        page.list_input_create_date('2022-08-17', '2022-08-17')
+        page.click_material()              #点击取消日期弹出框
+        page.search_creator('xiongbo92')
+        page.click_search()
+        result_data = page.get_table_txt(24)
+        ValueAssert.value_assert_In('xiongbo92', result_data)
+        page.click_reset()
+
+        """按销售单创建日期、订单类型筛选销售单"""
+        page.list_input_create_date('2022-11-25', '2022-11-25')
+        page.click_material()              #点击取消日期弹出框
+        page.search_type('Purchase Order')
+        page.click_search()
+        result_data = page.get_table_txt(26)
+        ValueAssert.value_assert_In('Purchase Order', result_data)
+        page.click_reset()
+
+        """按销售单创建日期、买家类型筛选销售单"""
+        page.list_input_create_date('2022-11-25', '2022-11-25')
+        page.click_material()              #点击取消日期弹出框
+        page.search_buyer_type('Retailer')
+        page.click_search()
+        result_data = page.get_table_txt(22)
+        ValueAssert.value_assert_In('Retailer', result_data)
+        page.click_reset()
+
+        """按销售单创建日期、卖家类型筛选销售单"""
+        page.list_input_create_date('2022-11-25', '2022-11-25')
+        page.click_material()              #点击取消日期弹出框
+        page.search_seller_type('Sub-dealer')
+        page.click_search()
+        result_data = page.get_table_txt(19)
+        ValueAssert.value_assert_In('Sub-dealer', result_data)
+        page.click_reset()
+
+    def test_004_002(self, drivers):
+        """DCR 国包账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """销售管理菜单-打开销售单菜单"""
+        user.click_gotomenu("Sales Management", "Sales Order")
+        page = SalesOrderPage(drivers)
+        page.click_unfold()
+
+
+        """按销售单创建日期、物料ID条件筛选销售单"""
+        page.search_material('11001953')
+        page.list_input_create_date('2022-11-25', '2022-11-25')
+        page.click_search()
+        page.click_imei_detail()
+        result_data = page.get_detail_txt(2)
+        ValueAssert.value_assert_In('11001953', result_data)
+        page.click_reset()
+
+
+        """按销售单创建日期、是否丢失激活筛选销售单"""
+        page.list_input_create_date('2022-06-08', '2022-06-09')
+        page.click_material()              #点击取消日期弹出框
+        page.search_active('Yes')
+        page.click_search()
+        result_data = page.get_table_txt(20)
+        ValueAssert.value_assert_In('System virtual customer', result_data)
+        page.click_reset()
+
+
+
 if __name__ == '__main__':
     pytest.main(['SalesManagement_SalesOrder.py'])
