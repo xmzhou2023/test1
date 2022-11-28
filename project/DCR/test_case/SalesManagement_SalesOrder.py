@@ -567,6 +567,11 @@ class TestQuerySalesOrder:
         ValueAssert.value_assert_In('Sub-dealer', result_data)
         page.click_reset()
 
+    @allure.story("销售单查询")
+    @allure.title("销售单页面，物料和丢失激活条件进行筛选销售单")
+    @allure.description("销售单页面，在物料和丢失激活条件下筛选销售单，筛选条件和列表查询结果一致")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_004_002(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
