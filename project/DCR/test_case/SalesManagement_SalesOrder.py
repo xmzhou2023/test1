@@ -548,23 +548,6 @@ class TestQuerySalesOrder:
         ValueAssert.value_assert_In('Purchase Order', result_data)
         page.click_reset()
 
-        """按销售单创建日期、买家类型筛选销售单"""
-        page.list_input_create_date('2022-11-25', '2022-11-25')
-        page.click_material()              #点击取消日期弹出框
-        page.search_buyer_type('Retailer')
-        page.click_search()
-        result_data = page.get_table_txt(22)
-        ValueAssert.value_assert_In('Retailer', result_data)
-        page.click_reset()
-
-        """按销售单创建日期、卖家类型筛选销售单"""
-        page.list_input_create_date('2022-11-25', '2022-11-25')
-        page.click_material()              #点击取消日期弹出框
-        page.search_seller_type('Sub-dealer')
-        page.click_search()
-        result_data = page.get_table_txt(19)
-        ValueAssert.value_assert_In('Sub-dealer', result_data)
-        page.click_reset()
 
     @allure.story("销售单查询")
     @allure.title("销售单页面，物料和丢失激活条件进行筛选销售单")
@@ -600,6 +583,23 @@ class TestQuerySalesOrder:
         ValueAssert.value_assert_In('System virtual customer', result_data)
         page.click_reset()
 
+        """按销售单创建日期、买家类型筛选销售单"""
+        page.list_input_create_date('2022-11-25', '2022-11-25')
+        page.click_material()              #点击取消日期弹出框
+        page.search_buyer_type('Retailer')
+        page.click_search()
+        result_data = page.get_table_txt(22)
+        ValueAssert.value_assert_In('Retailer', result_data)
+        page.click_reset()
+
+        """按销售单创建日期、卖家类型筛选销售单"""
+        page.list_input_create_date('2022-11-25', '2022-11-25')
+        page.click_material()              #点击取消日期弹出框
+        page.search_seller_type('Sub-dealer')
+        page.click_search()
+        result_data = page.get_table_txt(19)
+        ValueAssert.value_assert_In('Sub-dealer', result_data)
+        page.click_reset()
 
 
 if __name__ == '__main__':
