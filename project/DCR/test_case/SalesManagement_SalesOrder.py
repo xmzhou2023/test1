@@ -24,11 +24,10 @@ def function_export_fixture(drivers):
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
-    for i in range(1):
-        get_menu_class = menu.get_open_menu_class()
-        class_value = "tags-view-item router-link-exact-active router-link-active active"
-        if class_value == str(get_menu_class):
-            menu.click_close_open_menu()
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("销售管理-销售单")
 class TestAddSalesOrder:
@@ -470,7 +469,7 @@ class TestQuerySalesOrder:
     @allure.title("销售单页面，各个条件进行筛选销售单")
     @allure.description("销售单页面，在各个条件下筛选销售单，筛选条件和列表查询结果一致")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_export_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_001(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
@@ -571,7 +570,7 @@ class TestQuerySalesOrder:
     @allure.title("销售单页面，物料和丢失激活条件进行筛选销售单")
     @allure.description("销售单页面，在物料和丢失激活条件下筛选销售单，筛选条件和列表查询结果一致")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_export_fixture')
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_002(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
