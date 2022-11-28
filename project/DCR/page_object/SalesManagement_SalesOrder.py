@@ -7,8 +7,10 @@ import random
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
+
 class SalesOrderPage(Base):
     """SalesOrderPage页面定位方法"""
+
     @allure.step("Sales Order页面，点击Add新增销售单按钮")
     def click_add_sales(self):
         sleep(1.5)
@@ -80,12 +82,12 @@ class SalesOrderPage(Base):
         status = self.element_text(user['获取列表Status文本'], status)
         return status
 
-
     """勾选新建的销售单，直接出库"""
+
     @allure.step("勾选第一条销售单ID")
     def click_checkbox_orderID(self):
         sleep(1.5)
-        #self.presence_sleep_dcr(user['勾选第一条销售单ID'])
+        # self.presence_sleep_dcr(user['勾选第一条销售单ID'])
         self.is_click_dcr(user['勾选第一条销售单ID'])
 
     @allure.step("点击Delivery button出库按钮")
@@ -137,8 +139,7 @@ class SalesOrderPage(Base):
         get_imei = self.element_text(user['Get Scan Record IMEI'], imei)
         return get_imei
 
-
-    #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
+    # 筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
     @allure.step("IMEI Inventory Query页面，进入iframe")
     def imei_inventory_iframe(self):
         imei_iframe = self.find_element(user['imei inventory iframe'])
@@ -197,8 +198,8 @@ class SalesOrderPage(Base):
         sleep(1.5)
         self.is_click(user['list Click Status Value'], status)
 
-
     """新建出库单时，新建临时客户"""
+
     @allure.step("点击新建临时客户")
     def click_temporary_customer(self):
         self.presence_sleep_dcr(user['Create Temporary Customer'])
@@ -227,9 +228,8 @@ class SalesOrderPage(Base):
         num = str(random.randint(100, 999))
         return num
 
-
-
     """对销售单进行出库操作，产品为无码的出库单"""
+
     @allure.step("点击无码单选按钮")
     def click_quantity_radio_button(self):
         self.is_click(user['Quantity Radio Button'])
@@ -251,15 +251,13 @@ class SalesOrderPage(Base):
         quantity = self.element_text(user['Get New Delivery Quantity'])
         return quantity
 
-
     @allure.step("新建无码出库单时，点击delivery quantity属性")
     def click_delivery_quantity(self):
         self.is_click(user['Get New Delivery Quantity'])
         sleep(1)
 
-
-
     """Sales Order页面，导出销售单记录，操作成功后验证"""
+
     @allure.step("销售单页面，点击Unfold展开筛选条件")
     def click_sales_order_unfold(self):
         self.is_click(user['Sales Order Unfold'])
@@ -375,6 +373,94 @@ class SalesOrderPage(Base):
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
         sleep(1)
+
+    @allure.step("查询订单状态")
+    def search_sales_status(self, status):
+        self.is_click(user['订单状态查询'])
+        self.is_click(user['状态_品牌_model_ActivatedLossOrNot_单据类型_选择'], status)
+
+    @allure.step("查询买家信息")
+    def search_sales_buyer(self, buyer):
+        self.is_click(user['订单买家点击'])
+        self.input_text(user['订单买家查询'], buyer)
+        self.is_click(user['订单买家和卖家选择'], buyer)
+
+    @allure.step("查询卖家信息")
+    def search_sales_seller(self, seller):
+        self.is_click(user['订单卖家点击'])
+        self.input_text(user['订单卖家查询'], seller)
+        self.is_click(user['订单买家和卖家选择'], seller)
+
+    @allure.step("查询物料ID信息")
+    def search_material(self, material):
+        self.is_click(user['物料ID查询'])
+        self.input_text(user['物料ID查询'], material)
+
+    @allure.step("点击物料ID信息")
+    def click_material(self):
+        self.is_click(user['物料ID查询'])
+
+    @allure.step("查询品牌信息")
+    def search_brand(self, brand):
+        self.is_click(user['品牌查询'])
+        self.is_click(user['状态_品牌_model_ActivatedLossOrNot_单据类型_选择'], brand)
+
+    @allure.step("查询model信息")
+    def search_model(self, model):
+        self.is_click(user['Model点击'])
+        logging.info('click succ')
+        self.input_text(user['Model输入'], model)
+        logging.info('input succ')
+        self.is_click(user['状态_品牌_model_ActivatedLossOrNot_单据类型_选择'], model)
+
+    @allure.step("查询Market Name信息")
+    def search_market(self, market):
+        self.is_click(user['MarketName查询'])
+        self.input_text(user['MarketName输入'], market)
+        self.is_click(user['状态_品牌_model_ActivatedLossOrNot_单据类型_选择'], market)
+
+    @allure.step("查询丢失激活信息")
+    def search_active(self, active):
+        self.is_click(user['ActivatedLossOrNot查询'])
+        self.is_click(user['状态_品牌_model_ActivatedLossOrNot_单据类型_选择'], active)
+
+    @allure.step("查询创建人信息")
+    def search_creator(self, creator):
+        self.is_click(user['创建人查询'])
+        self.input_text(user['创建人输入'], creator)
+        self.is_click(user['订单买家和卖家选择'], creator)
+
+    @allure.step("查询订单类型信息")
+    def search_type(self, type):
+        self.is_click(user['订单类型查询'])
+        self.is_click(user['状态_品牌_model_ActivatedLossOrNot_单据类型_选择'], type)  # type不能为sales order，否则不能唯一定位
+
+    @allure.step("查询买家类型信息")
+    def search_buyer_type(self, type):
+        self.is_click(user['买家类型'])
+        self.is_click(user['买卖家类型选择'], type)
+
+    @allure.step("查询卖家类型信息")
+    def search_seller_type(self, type):
+        self.is_click(user['卖家类型'])
+        self.is_click(user['买卖家类型选择'], type)
+
+    @allure.step("点击IMEI Deatail信息")
+    def click_imei_detail(self):
+        self.is_click(user['第一行的IMEIDeatail'])
+        sleep()
+
+    @allure.step("获取列表第一行数据")
+    def get_table_txt(self, num):
+        txt = self.element_text(user['获取列表第一行数据'], num)
+        return txt
+
+    @allure.step("获取IMEI Deatail页面的物料信息")
+    def get_detail_txt(self,num):
+        txt = self.element_text(user['IMEIDeatail页面的物料id'],num)
+        self.is_click(user['IMEIDeatail页面关闭按钮'])
+        return txt
+
 
 if __name__ == '__main__':
     pass
