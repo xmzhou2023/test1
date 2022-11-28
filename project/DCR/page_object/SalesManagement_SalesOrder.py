@@ -16,7 +16,7 @@ class SalesOrderPage(Base):
         sleep(1.5)
         self.presence_sleep_dcr(user['Add'])
         self.is_click(user['Add'])
-        sleep(3)
+        sleep(2.5)
 
     @allure.step("Add新增销售单页面，输入Buyer属性")
     def input_sales_buyer(self, content):
@@ -30,7 +30,7 @@ class SalesOrderPage(Base):
     def input_sales_brand(self, content):
         self.is_click(user['Brand'])
         self.input_text(user['Brand'], txt=content)
-        sleep(1.5)
+        sleep(0.8)
         self.is_click(user['Brand value'], content)
 
     @allure.step("新建销售单页面，输入product属性")
@@ -59,8 +59,7 @@ class SalesOrderPage(Base):
     @allure.step("销售单页面，按销售单ID条件筛选")
     def input_sales_order_ID(self, content):
         self.is_click(user['按销售单ID筛选'])
-        self.input_text(user['按销售单ID筛选'], txt=content)
-        sleep(2)
+        self.input_text(user['按销售单ID筛选'], content)
 
     @allure.step("销售单页面，点击Search查询按钮")
     def click_search(self):
@@ -139,7 +138,32 @@ class SalesOrderPage(Base):
         get_imei = self.element_text(user['Get Scan Record IMEI'], imei)
         return get_imei
 
+<<<<<<< Updated upstream
     # 筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
+=======
+    @allure.step("销售单页面，点击IMEI Detail打开详情页")
+    def click_sales_order_imei_detail(self):
+        self.is_click_dcr(user['Sales Order IMEI Detail'])
+        sleep(1.5)
+
+    @allure.step("销售单页面，打开IMEI Detail打开详情页,获取对话框头文本")
+    def get_sales_order_imei_detail_header(self):
+        get_header = self.element_text(user['Sales Order IMEI Detail Header'])
+        return get_header
+
+    @allure.step("销售单页面，打开IMEI Detail打开详情页, 获取分页总条数文本")
+    def get_sales_order_imei_detail_total(self):
+        get_imei_detail_total = self.element_text(user['Sales Order IMEI Detail Total'])
+        get_imei_detail_total1 = get_imei_detail_total[6:]
+        return get_imei_detail_total1
+
+    @allure.step("销售单页面，点击关闭IMEI Detail详情页")
+    def close_sales_order_imei_detail(self):
+        self.is_click(user['Close Sales Order IMEI Detail'])
+
+
+    #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
+>>>>>>> Stashed changes
     @allure.step("IMEI Inventory Query页面，进入iframe")
     def imei_inventory_iframe(self):
         imei_iframe = self.find_element(user['imei inventory iframe'])
@@ -218,10 +242,10 @@ class SalesOrderPage(Base):
         self.input_text(user['Temporary Contact No'], content)
 
     @allure.step("点击业务类型下拉框")
-    def click_business_type(self):
+    def click_business_type(self, business):
         self.is_click(user['Business Type'])
-        sleep(2)
-        self.is_click(user['Business Type value'], "Retail&Wholesale")
+        sleep(1)
+        self.is_click(user['Business Type value'], business)
 
     @allure.step("随机生成数字")
     def customer_random(self):
@@ -372,7 +396,18 @@ class SalesOrderPage(Base):
             logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
+
+
+    @allure.step("后端断言，创建销售单成功后，数据库表是否新增销售单记录")
+    def select_sql_sales_order(self, warehouse, seller, buyer):
+        sql2 = SQL('DCR', 'test')
+        varsql1 = f"select order_code from t_channel_sale_ticket where warehouse_id = '{warehouse}' and seller_id = '{seller}' and buyer_id = '{buyer}' and status = 0 order by created_time desc limit 1"
+        result = sql2.query_db(varsql1)
+        order_code = result[0].get("order_code")
+        logging.info("打印数据库查询的销售单ID order_code{}".format(order_code))
+        return order_code
+
+
 
     @allure.step("查询订单状态")
     def search_sales_status(self, status):

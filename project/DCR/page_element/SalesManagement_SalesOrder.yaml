@@ -93,6 +93,12 @@ Get Order Detail Product: "xpath==//div[@class='cell el-tooltip']"
 Get New Delivery Quantity: "xpath==//div[normalize-space(text())='Delivery Quantity']/..//div[@class='num']"
 Submit: "id==salesorderdelivery_Submit"
 
+#Sales Order页面，打开IMEI Detail详情页断言
+Sales Order IMEI Detail: "xpath==//tbody//tr[1]//td[27]//div//div//span[text()='IMEI Detail']"
+Sales Order IMEI Detail Header: "xpath==//div/..//div[@class='el-dialog__header']//span[text()='IMEI Detail']"
+Sales Order IMEI Detail Total: "xpath==//span[text()='IMEI Detail']/../..//div//span[contains(text(), 'Total')]"
+Close Sales Order IMEI Detail: "xpath==//div//span[text()='IMEI Detail']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+
 
 #列表导出销售单，导出成功后断言
 More Option: "xpath==//span[normalize-space(text())='More Option']"

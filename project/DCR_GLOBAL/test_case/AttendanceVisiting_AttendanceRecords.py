@@ -90,7 +90,7 @@ class TestExportAttendanceRecord:
         operation = export.get_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "attendance record")
+        ValueAssert.value_assert_equal(task_name, "Attendance Records")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)

@@ -326,9 +326,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("后端断言，创建出库单成功后，数据库表是否新增出库单记录")
     def select_sql_delivery_order(self, warehouse, seller, buyer):
-        """断言查询新建的无码出库单"""
         sql2 = SQL('DCR', 'test')
-        #varsql2 = "select order_code, delivery_code from t_channel_delivery_ticket where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200000 order by created_time desc limit 1"
         varsql2 = f"select order_code, delivery_code from t_channel_delivery_ticket where warehouse_id='{warehouse}' and seller_id='{seller}' and buyer_id='{buyer}' and status=80200000 order by created_time desc limit 1"
         result = sql2.query_db(varsql2)
         order_code = result[0].get("order_code")
@@ -337,8 +335,6 @@ class DeliveryOrderPage(Base):
         logging.info("打印数据库查询的出库单ID delivery_code{}".format(delivery_code))
         ValueAssert.value_assert_equal(order_code, delivery_code)
         return order_code
-
-    #sql_query_id = f"select id from t_retail_asset_definition where asset_name_en='{get_asset_name_en1}'"
 
 
     @allure.step("创建出库单的操作步骤,封装公共方法")
@@ -428,10 +424,10 @@ class DeliveryOrderPage(Base):
         self.input_text(user['Temporary Contact No'], content)
 
     @allure.step("点击业务类型下拉框")
-    def click_business_type(self):
+    def click_business_type(self, business):
         self.is_click(user['Business Type'])
-        sleep(2)
-        self.is_click(user['Business Type value'], "Retail&Wholesale")
+        sleep(1)
+        self.is_click(user['Business Type value'], business)
 
     @allure.step("随机生成数字")
     def customer_random(self):

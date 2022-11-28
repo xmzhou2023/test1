@@ -49,7 +49,7 @@ class TestAddSalesOrder:
         add.click_temporary_customer()
         add.input_temporary_customer_name("testcodeless" + num)
         add.input_customer_contact_no("13988776" + num)
-        add.click_business_type()
+        add.click_business_type('Retail&Wholesale')
 
         add.input_sales_brand("oraimo")
         add.input_sales_product("OEB-E75D  BLACK")
@@ -86,12 +86,57 @@ class TestAddSalesOrder:
         #add.click_close_sales_order()
 
 
+@allure.feature("销售管理-销售单")
+class TestAddSalesOrder:
+    @allure.story("新增销售单")
+    @allure.title("国包用户,创建销售单，产品为有码的，买方为临时客户，不出库")
+    @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为临时客户，并直接出库操作")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "BD40344201", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Sales Order")
+        temporary_cust = SalesOrderPage(drivers)
+        num = temporary_cust.customer_random()
+        """点击add新建销售单按钮"""
+        temporary_cust.click_add_sales()
+        """添加临时客户"""
+        temporary_cust.click_temporary_customer()
+        temporary_cust.input_temporary_customer_name("testTemporaryCust" + num)
+        temporary_cust.input_customer_contact_no("13873776" + num)
+        temporary_cust.click_business_type('Retail&Wholesale')
+        """填写产品信息"""
+        temporary_cust.input_sales_brand('TECNO')
+        temporary_cust.input_sales_product('SPARK Go 2022 32+2 ATLANBLUE')
+        temporary_cust.input_sales_quantity('1')
+        temporary_cust.click_submit()
+        temporary_cust.click_submit_OK()
+        """查询后端数据库，最新新建的销售单ID，然后筛选新建的销售单，买家为临时客户可为空"""
+        order_code = temporary_cust.select_sql_sales_order('62139', '1596874516539667', '')
+        temporary_cust.input_sales_order_ID(order_code)
+        temporary_cust.click_search()
+        """断言获取列表销售单ID、状态，与查询数据库表里的销售单ID与状态是否一致"""
+        get_sales_id = temporary_cust.get_text_sales_id()
+        get_sales_status = temporary_cust.get_list_status_text()
+        ValueAssert.value_assert_equal('Pending', get_sales_status)
+        ValueAssert.value_assert_equal(order_code, get_sales_id)
+        """查看Pending 状态的 IMEI Detail 详情,未出库IMEI，IMEI Detail详情显示No Data"""
+        temporary_cust.click_sales_order_imei_detail()
+        get_imei_detail_header = temporary_cust.get_sales_order_imei_detail_header()
+        ValueAssert.value_assert_equal("IMEI Detail", get_imei_detail_header)
+        get_imei_detail_total = temporary_cust.get_sales_order_imei_detail_total()
+        ValueAssert.value_assert_equal('0', get_imei_detail_total)
+        temporary_cust.close_sales_order_imei_detail()
+
+
     @allure.story("新增销售单")
     @allure.title("国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库操作")
     @allure.description("销售单页面，国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_001_002(self, drivers):
+    def test_001_003(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -155,7 +200,7 @@ class TestAddSalesOrder:
     @allure.description("销售单页面，二代用户新增有码销售单操作成功后，然后进行出库操作,最后进行退货操作，闭环流程")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_001_003(self, drivers):
+    def test_001_004(self, drivers):
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD291501", "dcr123456")
@@ -318,10 +363,9 @@ class TestDeleteSalesOrder:
         """销售单页面，按销售单ID筛选销售单信息"""
         delete.input_sales_order_ID(get_sales_order)
         delete.click_search()
-
         get_query_sales_order = delete.get_text_sales_id()
         ValueAssert.value_assert_equal(get_query_sales_order, get_sales_order)
-
+        """点击删除销售单功能，能删除成功"""
         delete.click_delete_sales()
         delete.click_confirm_delete()
         dom.assert_att("Successfully")

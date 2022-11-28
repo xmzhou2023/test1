@@ -77,7 +77,7 @@ class TestExportVisitRecord:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "History List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
