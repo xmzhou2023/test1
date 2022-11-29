@@ -81,7 +81,7 @@ class UserShopAssociaPage(Base):
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
+        sleep(0.5)
         self.is_click(user['Task Name value'], content)
 
     @allure.step("导出页面，点击Search按钮")

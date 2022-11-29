@@ -138,9 +138,8 @@ class SalesOrderPage(Base):
         get_imei = self.element_text(user['Get Scan Record IMEI'], imei)
         return get_imei
 
-<<<<<<< Updated upstream
+
     # 筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
-=======
     @allure.step("销售单页面，点击IMEI Detail打开详情页")
     def click_sales_order_imei_detail(self):
         self.is_click_dcr(user['Sales Order IMEI Detail'])
@@ -163,7 +162,6 @@ class SalesOrderPage(Base):
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
->>>>>>> Stashed changes
     @allure.step("IMEI Inventory Query页面，进入iframe")
     def imei_inventory_iframe(self):
         imei_iframe = self.find_element(user['imei inventory iframe'])
@@ -332,7 +330,7 @@ class SalesOrderPage(Base):
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], content)
-        sleep(2)
+        sleep(0.5)
         self.is_click(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")

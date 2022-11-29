@@ -485,7 +485,7 @@ class TestExportSalesOrder:
 
         export.click_download_more()
         #输入Task Name筛选该任务的导出记录
-        export.input_task_name("Sales Detail")
+        export.input_task_name("Sales Order Detail")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
@@ -497,7 +497,7 @@ class TestExportSalesOrder:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Sales Detail")
+        ValueAssert.value_assert_equal(task_name, "Sales Order Detail")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
@@ -522,7 +522,6 @@ class TestQuerySalesOrder:
         user.click_gotomenu("Sales Management", "Sales Order")
         page = SalesOrderPage(drivers)
         page.click_unfold()
-
 
         """按销售单创建日期、Status条件筛选销售单"""
         page.search_sales_status('Delivered')
@@ -607,7 +606,6 @@ class TestQuerySalesOrder:
         page = SalesOrderPage(drivers)
         page.click_unfold()
 
-
         """按销售单创建日期、物料ID条件筛选销售单"""
         page.search_material('11001953')
         page.list_input_create_date('2022-11-25', '2022-11-25')
@@ -616,7 +614,6 @@ class TestQuerySalesOrder:
         result_data = page.get_detail_txt(2)
         ValueAssert.value_assert_In('11001953', result_data)
         page.click_reset()
-
 
         """按销售单创建日期、是否丢失激活筛选销售单"""
         page.list_input_create_date('2022-06-08', '2022-06-09')

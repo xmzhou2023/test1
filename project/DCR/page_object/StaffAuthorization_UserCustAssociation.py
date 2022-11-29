@@ -57,12 +57,10 @@ class UserCustomerAssociaPage(Base):
     @allure.step("关闭用户与客户关系菜单")
     def click_close_user_cust_assoc(self):
         self.is_click(user['关闭用户与客户关系菜单'])
-        #sleep(1)
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        #sleep(1)
 
     # User and Customer Association列表数据筛选后，导出操作成功后验证
     @allure.step("点击Export导出按钮")
@@ -81,7 +79,7 @@ class UserCustomerAssociaPage(Base):
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
+        sleep(0.5)
         self.is_click(user['Task Name value'], content)
 
 
