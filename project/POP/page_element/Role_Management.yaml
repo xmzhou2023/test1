@@ -1,10 +1,22 @@
-新增按钮: "xpath==//div[4]//div[1]//div[1]//span[2]//button[1]"
+# 新增角色操作元素
+新增按钮: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[1]/div[1]/div[2]/div[4]/div[1]/div[1]/span[2]/button[1]"
 角色名称输入框: "xpath==//input[@placeholder='请输入']"
 角色组选择框: "xpath==//input[@placeholder='请选择']"
 选择角色: "xpath==//span[normalize-space()='variable']"
 备注框: "xpath==//textarea[@placeholder='请输入']"
 提交按钮: "xpath==//button[@type='button']//span[contains(text(),'提交')]"
-提交成功按钮: "class==el-message__content"
+提交成功提示: "class==el-message__content"
+选择新增的角色组: "xpath==//span[contains(text(),'variable')]"
+重复提交提示: "class==el-message__content"
+
+# 编辑角色操作
+选择角色组: "xpath==//span[contains(text(),'variable')]"
+查询角色输入框: "xpath==//input[@placeholder='请输入要查询的角色']"
+查询的角色: "xpath==//span[contains(text(),'variable')]"
+编辑按钮: "xpath==//button[contains(text(),'编辑')]"
+编辑提交按钮: "xpath==//div[@class='el-dialog__wrapper']//button[2]"
+编辑成功提示: "class==el-message__content"
+# 禁用角色操作元素
 禁用按钮: "xpath==//button[contains(text(),'禁用')]"
 二次弹窗确定: "xpath==//div[@class='el-message-box']/div[3]/button[2]"
-选择新增的角色组: "xpath==//span[contains(text(),'variable')]"
+存在人员禁用提示: "class==el-message__content"

@@ -49,12 +49,33 @@ class TestAddUser:
         users.switch_region('China')
         users.switch_role('test1')
         users.switch_country('Malta')  # 国家与区域建议不能一样
+        users.switch_superior('18651297')
+        users.switch_shop('PCN00192')
         users.click_preservation_button()  # 这里输入期望结果：新增时输入的员工姓名，断言期望结果与列表显示的最新的员工姓名是否一致
         sleep(0.5)
         # 断言
         test = users.element_text(user['列表页新增用户名字段'])
         ValueAssert.value_assert_equal(test,content)
         sleep(3)
+
+
+        # for i in range(17,18):
+            # users.click_add_button()
+            # content = 'zwq请假测试账号' + str(i)
+            # role = "zwq_test" + str(i)
+            # users.input_username(content)
+            # users.switch_division('TECNO事业部')
+            # users.switch_region('China')
+            # users.switch_role(role)
+            # users.switch_country('China')  # 国家与区域建议不能一样
+            # users.switch_superior('18651297')
+            # users.switch_shop('PCN00192')
+            # users.click_preservation_button()  # 这里输入期望结果：新增时输入的员工姓名，断言期望结果与列表显示的最新的员工姓名是否一致
+            # # sleep(0.5)
+            # # 断言
+            # # test = users.element_text(user['列表页新增用户名字段'])
+            # # ValueAssert.value_assert_equal(test,content)
+            # sleep(3)
 
     @allure.story("职员管理")  # 场景名称
     @allure.title("职员姓名不输入新增")  # 用例名称
@@ -65,9 +86,9 @@ class TestAddUser:
         users = AddUser(drivers)
         users.click_add_button()
         users.switch_division('TECNO事业部')
-        users.switch_region('China')
-        users.switch_role('test1')
-        users.switch_country('Malta')  # 国家与区域建议不能一样
+        users.switch_region('重庆')
+        users.switch_role('保安')
+        users.switch_country('China')  # 国家与区域建议不能一样
         users.click_preservation_button()
         # 断言
         test = users.element_text(user['必填项不填提示'])
