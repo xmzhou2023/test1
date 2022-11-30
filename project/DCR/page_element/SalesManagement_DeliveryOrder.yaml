@@ -51,7 +51,7 @@ Get IMEI Detail Product Text: "xpath==//div/..//span[contains(text(), 'IMEI Deta
 Get IMEI Detail Item Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[2]//div"
 Get IMEI Detail IMEI Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[5]//div"
 Get IMEI Detail Total Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//div//span[contains(text(),'Total')]"
-Get IMEI Detail Title: "xpath==//span[contains(text(), 'IMEI Detail: ')]"
+Get Delivery IMEI Detail Title: "xpath==//span[contains(text(), 'IMEI Detail: ')]"
 
 
 #获取列表字段文本

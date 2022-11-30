@@ -90,8 +90,8 @@ class TestAddSalesOrder:
 class TestAddSalesOrder:
     @allure.story("新增销售单")
     @allure.title("国包用户,创建销售单，产品为有码的，买方为临时客户，不出库")
-    @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为临时客户，并直接出库操作")
-    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @allure.description("国包用户,创建销售单，产品为有码的，买方为临时客户，不出库")
+    @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)

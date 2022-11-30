@@ -21,28 +21,43 @@ class SalesOrderPage(Base):
     def input_sales_buyer(self, content):
         self.presence_sleep_dcr(user['Buyer'])
         self.is_click(user['Buyer'])
-        self.input_text(user['Buyer'], txt=content)
+        self.input_text(user['Buyer'], content)
         sleep(1)
-        self.is_click(user['Buyer value'])
+        self.is_click(user['Buyer value'], content)
 
     @allure.step("新增销售单页面，输入Brand属性")
     def input_sales_brand(self, content):
-        self.is_click(user['Brand'])
-        self.input_text(user['Brand'], txt=content)
-        sleep(1)
-        self.is_click(user['Brand value'])
+        self.is_click(user['Sales Order Add Brand'])
+        self.is_click_dcr(user['Sales Order Add Brand value'], content)
 
     @allure.step("新增销售单页面，输入product属性")
     def input_sales_product(self, content):
-        self.is_click(user['product'])
-        self.input_text(user['product'], txt=content)
-        sleep(3)
-        self.is_click(user['product value'], content)
+        self.is_click(user['Sales Order Add product'])
+        self.input_text(user['Sales Order Add product'], content)
+        sleep(2)
+        self.is_click(user['Sales Order Add product value'], content)
 
     @allure.step("新增销售单页面，输入Quantity属性")
     def input_sales_quantity(self, content):
         self.is_click(user['Quantity'])
-        self.input_text(user['Quantity'], txt=content)
+        self.input_text(user['Quantity'], content)
+
+    @allure.step("新增销售单页面，点击Add Product添加多品牌按钮")
+    def click_sales_order_add_product_button(self):
+        self.is_click(user['Sales Order Add Product Button'])
+        sleep(1)
+
+    @allure.step("新增销售单页面，点击Add Product按钮后，选择第二个Brand值")
+    def click_sales_order_add_brand2(self, itel):
+        self.is_click(user['Sales Order Add Brand2'])
+        self.is_click_dcr(user['Sales Order Add Brand value'], itel)
+
+    @allure.step("新增销售单页面，点击Add Product按钮后，选择第二个Product值")
+    def input_sales_order_add_product2(self, product):
+        self.is_click(user['Sales Order Add product2'])
+        self.input_text(user['Sales Order Add product2'], product)
+        sleep(2)
+        self.is_click(user['Sales Order Add product value'], product)
 
     @allure.step("新建销售单页面，点击提交按钮")
     def click_submit(self):
@@ -59,7 +74,7 @@ class SalesOrderPage(Base):
     @allure.step("销售单页面，按销售单ID条件筛选")
     def input_sales_order_ID(self, content):
         self.is_click(user['按销售单ID筛选'])
-        self.input_text(user['按销售单ID筛选'], txt=content)
+        self.input_text(user['按销售单ID筛选'], content)
         sleep(2)
 
     @allure.step("销售单页面，点击Search查询按钮")
@@ -89,9 +104,9 @@ class SalesOrderPage(Base):
         return sales_order_id
 
     @allure.step("销售单页面，获取销售单状态文本")
-    def get_sales_status_text(self, status):
-        self.presence_sleep_dcr(user['获取列表Status文本'], status)
-        status = self.element_text(user['获取列表Status文本'], status)
+    def get_sales_status_text(self):
+        self.presence_sleep_dcr(user['获取列表Status文本'])
+        status = self.element_text(user['获取列表Status文本'])
         return status
 
 
@@ -150,7 +165,34 @@ class SalesOrderPage(Base):
     @allure.step("新建出库单页面，点击Submit Delivery提交出库单按钮")
     def click_submit_delivery(self):
         self.is_click_dcr(user['Submit Delivery'])
-        sleep(2)
+        sleep(0.6)
+
+
+    @allure.step("查询数据库,最近新建的销售单ID")
+    def query_sql_sales_order_id(self, warehouse, seller, buyer, status):
+        sql1 = SQL('DCR', 'test')
+        sql_val1 = f"select order_code from t_channel_sale_ticket where warehouse_id = '{warehouse}' and seller_id = '{seller}' and buyer_id = '{buyer}' and status = {status} order by created_time desc limit 1"
+        result = sql1.query_db(sql_val1)
+        sales_order = result[0].get("order_code")
+        return sales_order
+
+    @allure.step("查询数据库,最近新建的出库单ID，返回销售单ID与出库单id")
+    def query_sql_delivery_order_id2(self, warehouse, seller, buyer, status):
+        sql3 = SQL('DCR', 'test')
+        var_sql3 = f"select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='{warehouse}' and seller_id='{seller}' and buyer_id='{buyer}' and status={status} order by created_time desc limit 1"
+        result = sql3.query_db(var_sql3)
+        sales_id = result[0].get("order_code")
+        delivery_id = result[0].get("delivery_code")
+        return sales_id, delivery_id
+
+    @allure.step("查询数据库,最近新建的出库单ID，返回出库单id")
+    def query_sql_delivery_order_id1(self, warehouse, seller, buyer, status):
+        sql4 = SQL('DCR', 'test')
+        var_sql4 = f"select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='{warehouse}' and seller_id='{seller}' and buyer_id='{buyer}' and status={status} order by created_time desc limit 1"
+        result = sql4.query_db(var_sql4)
+        delivery_code = result[0].get("delivery_code")
+        return delivery_code
+
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
@@ -370,6 +412,7 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
     def click_close_inbound_receipt(self):
         self.is_click(user['关闭二代收货菜单'])
+
 
 
 if __name__ == '__main__':

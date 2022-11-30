@@ -10,21 +10,18 @@ user = Element(pro_name, object_name)
 
 class DeliveryOrderPage(Base):
     """DeliveryOrderPage类，Delivery Order页面，查询与新建出库单功能 元素定位"""
-
-    @allure.step("出库单页面，输入销售订单号")
+    @allure.step("出库单页面，输入销售订单号查询")
     def input_salesorder(self, content):
         self.input_text(user['Input Sales Order ID'], txt=content)
-        sleep(1)
 
-    @allure.step("出库单页面，输入出库订单号")
+    @allure.step("出库单页面，输入出库订单号查询")
     def input_deliveryorder(self, content):
         self.input_text(user['Input Delivery Order ID'], txt=content)
-        sleep(1)
 
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(4)
+        sleep(3)
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
@@ -194,7 +191,7 @@ class DeliveryOrderPage(Base):
         deli_date = self.element_text(user['Get Delivery Date Text'])
         return deli_date
 
-    @allure.step("获取列表Status文本内容")
+    @allure.step("获取出库单列表Status文本内容")
     def get_status_text(self):
         status = self.element_text(user['Get Status Text'])
         return status
@@ -207,17 +204,14 @@ class DeliveryOrderPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        #sleep(1)
 
     @allure.step("出库单页面，关闭出库单菜单")
     def click_close_delivery_order(self):
         self.is_click(user['关闭出库单菜单'])
-        #sleep(1)
 
     @allure.step("出库单页面，关闭IMEI Detail详情页")
     def click_close_imei_detail(self):
         self.is_click(user['关闭IMEI详情页'])
-        #sleep(1)
 
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
@@ -436,10 +430,10 @@ class DeliveryOrderPage(Base):
 
 
     """查询出库单的IMEI Detail 详情信息"""
-    @allure.step("点击出库单的IMEI Detail 详情信息")
+    @allure.step("点击出库单页面的IMEI Detail 查看详情信息")
     def click_imei_detail(self):
         self.is_click_dcr(user['Click IMEI Detail'])
-        sleep(2.5)
+        sleep(2)
 
     @allure.step("获取列表Product文本")
     def get_list_product_text(self):
@@ -454,10 +448,10 @@ class DeliveryOrderPage(Base):
         return get_list_item
 
 
-    @allure.step("IMEI Detail页面，获取Title标题的Sales Order")
-    def get_detail_title_sale_text(self):
-        self.presence_sleep_dcr(user['Get IMEI Detail Title'])
-        get_detail_title = self.element_text(user['Get IMEI Detail Title'])
+    @allure.step("IMEI Detail页面，获取Title标题的Delivery Order ID")
+    def get_detail_title_delivery_id_text(self):
+        self.presence_sleep_dcr(user['Get Delivery IMEI Detail Title'])
+        get_detail_title = self.element_text(user['Get Delivery IMEI Detail Title'])
         return get_detail_title
 
     @allure.step("IMEI Detail页面，获取Product文本")

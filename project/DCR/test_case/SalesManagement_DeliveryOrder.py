@@ -89,7 +89,7 @@ class TestViewDeliveryIMEIDetails:
 
         """点击IMEI Detail查看按钮"""
         imei_detail.click_imei_detail()
-        detail_title_sale = imei_detail.get_detail_title_sale_text()
+        detail_title_sale = imei_detail.get_detail_title_delivery_id_text()
         detail_product = imei_detail.get_detail_product_text()
         detail_item = imei_detail.get_detail_item_text()
         detail_imei = imei_detail.get_detail_imei_text()
@@ -842,7 +842,7 @@ class TestAddDeliveryOrder:
 
 
         """退货单列表页面，指定传音人员审核, 退货单操作"""
-        user5.initialize_login(drivers, "lhmdianzhang", "dcr123456")
+        user5.initialize_login(drivers, "186489011", "dcr123456")
         """打开Purchase Management菜单"""
         user5.click_gotomenu("Sales Management", "Return Order")
         """查询二代账号，最近新建的出库单ID"""

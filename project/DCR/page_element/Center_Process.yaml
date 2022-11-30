@@ -1,12 +1,16 @@
 #新增销售订单元素
 Add: "id==saler_order_createSalesOrder_"
 Buyer: "xpath==//label[(text()='Buyer')]//parent::div// following-sibling::div//input"
-Buyer value: "xpath==//li[contains(text(),'EG000562')]"
-Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
-Brand value: "xpath==//span[contains(text(),'TECNO')]"
-product: "xpath==//label[(text()='Product')]//parent::div// following-sibling::div//input"
-product value: "xpath==//span[(text()='variable')]"
+Buyer value: "xpath==//li[contains(text(),'variable')]"
+Sales Order Add Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
+Sales Order Add Brand value: "xpath==//div//ul/li//span[text()='variable']"
+Sales Order Add product: "xpath==//label[(text()='Product')]//parent::div// following-sibling::div//input"
+Sales Order Add product value: "xpath==//div//ul/li//span[text()='variable']"
 Quantity: "xpath==//label[(text()='Quantity')]//parent::div// following-sibling::div//input"
+
+Sales Order Add Product Button: "xpath==//div//button/..//span[normalize-space(text())='Add Product']"
+Sales Order Add Brand2: "xpath==//*[@id='mainContainer']/section/div[2]/form/div[5]/div[1]/div/div/div/div[1]/input"
+Sales Order Add product2: "xpath==//*[@id='mainContainer']/section/div[2]/form/div[5]/div[2]/div/div/div/div[1]/input"
 Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 保存成功确认OK: "xpath==//span[contains(text(),'OK')]"
 
@@ -14,7 +18,7 @@ Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 按销售单ID筛选: "xpath==//label[contains(text(),'Sales Order ID')]//parent::div//following-sibling::div//input"
 Sales Order Search: "xpath==//span[contains(text(),'Search')]"
 获取Sales Order ID文本: "xpath==//tbody//tr[1]//td[2]//div//div"
-获取列表Status文本: "xpath==//tbody//tr[1]//td[4]//div[normalize-space(text())='variable']"
+获取列表Status文本: "xpath==//tbody//tr[1]//td[4]//div"
 
 #勾选新建的销售单，直接出库
 勾选第一条销售单ID: "xpath==//tbody//tr[1]//td[1]//div//label//span//span"
@@ -27,7 +31,7 @@ Check: "xpath==//span[contains(text(),'Check')]"
 Get Delivery Quantity: "xpath==//div[normalize-space(text())='Delivery Quantity']/..//div[@class='num']"
 Get Order Detail Deli Quantity: "xpath==//table[@class='el-table__body']//tr[1]//td[5]"
 Get Delivery Scan Record IMEI: "xpath==//div[normalize-space(text())='variable']"
-Get Delivery Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
+Get Delivery Scan Record Success: "xpath==//div//ul//li/..//div[normalize-space(text())='Success']"
 Submit Delivery: "xpath==//span[contains(text(),'Submit')]"
 
 
