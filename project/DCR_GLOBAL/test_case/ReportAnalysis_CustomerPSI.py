@@ -65,7 +65,7 @@ class TestExportDistiCustomerPSI:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Customer Psi")
+        ValueAssert.value_assert_equal(task_name, "Customer PSI")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
@@ -137,7 +137,7 @@ class TestExportSubCustomerPSI:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Customer Psi")
+        ValueAssert.value_assert_equal(task_name, "Customer PSI")
         ValueAssert.value_assert_equal(user_id, "testsupervisor")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)

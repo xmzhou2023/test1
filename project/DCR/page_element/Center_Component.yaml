@@ -74,7 +74,6 @@ Customer Management->Share Inventory Set: "xpath==//span[(text()='Share Inventor
 Customer Management->Customer Authorized List: "xpath==//span[(text()='Customer Authorized List')]"
 Customer Management->Customer Grade: "xpath==//span[(text()='Customer Grade')]"
 
-
 Shop Management: "xpath==//span[(text()='Shop Management')]"
 Shop Management->Shop Management(Global): "xpath==//span[(text()='Shop Management (global)')]"
 Shop Management->Shop Grade: "xpath==//span[(text()='Shop Grade')]"
@@ -83,14 +82,12 @@ Shop Management->Shop ROI: "xpath==//span[(text()='Shop Roi')]"
 Shop Management->Shop Census Template: "xpath==//span[(text()='Shop Census Template')]"
 Shop Management->Shop Census Record: "xpath==//span[(text()='Shop Census Record')]"
 
-
 Purchase Management: "xpath==//span[(text()='Purchase Management')]"
 Purchase Management->Customer Invoice: "xpath==//span[(text()='Customer Invoice')]"
 Purchase Management->Distributor Receipt: "xpath==//span[(text()='Distributor Receipt')]"
 Purchase Management->Inbound Receipt: "xpath==//span[(text()='Inbound Receipt')]"
 Purchase Management->Shop Purchase Query: "xpath==//span[(text()='Shop Purchase Query')]"
 Purchase Management->Inbound Order: "xpath==//span[(text()='Inbound Order')]"
-
 
 Sales Management: "xpath==//span[contains(text(),'Sales Management')]"
 Sales Management->Sales Order: "xpath==//span[(text()='Sales Order')]"
@@ -143,6 +140,7 @@ Report Analysis->Shop Inventory Query: "xpath==//span[(text()='Shop Inventory Qu
 Report Analysis->Shop Inventory Counting: "css==[route='/ShopInventoryCounting']"
 Report Analysis->Shop PSI: "xpath==//span[(text()='Shop PSI')]"
 Report Analysis->Working Statistics: "xpath==//span[(text()='Working Statistics')]"
+
 Stock Ageing Query: "xpath==//span[(text()='Stock Ageing Query')]"
 Customer Stock Coverage: "xpath==//span[(text()='Customer Stock Coverage')]"
 Staff Wise Stock Coverage: "css==[route='/StaffStockCoverage']"
@@ -153,15 +151,18 @@ Shop Replenishment Report: "xpath==//span[(text()='Shop Replenishment Report')]"
 Shop Activation PSI: "xpath==//span[(text()='Shop Activation PSI')]"
 Customer Activation PSI: "xpath==//span[(text()='Customer Activation PSI')]"
 CMS/TBY Historical Data Report: "xpath==//span[(text()='CMS/TBY Historical Data Report')]"
+
 IMEI Management: "xpath==//span[(text()='IMEI Management')]"
 IMEI Management->IMEI Query: "xpath==//span[(text()='IMEI Query')]"
 IMEI History Query: "css=='/IMEIHistoryQuery'"
-GTM Management: "css=='/GTMManagement'"
-Monitoring Template: "css=='/MonitoringTemplate'"
-Inventory Shortage Report: "css==' /InventoryShortageReport'"
-Asset Management: "css=='/demoPhoneManagement'"
-Asset Definition: "css=='/AssetDefinition'"
-Shop Asset: "css=='/ShopAssetList'"
-Asset Maintenance History: "css=='/AssetEditStatus'"
-Asset Counting: "css=='/AssetCounting'"
-Demo Phone Query: "css=='/DemoPhoneQuery'"
+
+GTM Management: "xpath==//span[(text()='GTM Management')]"
+GTM Management->Monitoring Template: "xpath==//span[(text()='Monitoring Template')]"
+GTM Management->Inventory Shortage Report: "xpath==//span[(text()='Inventory Shortage Report')]"
+
+Asset Management: "xpath==//div//li//span[text()='Asset Management']"
+Asset Management->Asset Definition: "xpath==//div//li//span[text()='Asset Definition']"
+Asset Management->Shop Asset: "xpath==//div//li//span[text()='Shop Asset']"
+Asset Management->Asset Maintenance History: "xpath==//div//li//span[text()='Asset Maintenance History']"
+Asset Management->Asset Counting: "xpath==//div//li//span[text()='Asset Counting']"
+Asset Management->Demo Phone Query: "xpath==//div//li//span[text()='Demo Phone Query']"

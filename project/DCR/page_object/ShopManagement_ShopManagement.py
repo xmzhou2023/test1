@@ -241,12 +241,12 @@ class ShopManagementPage(Base):
         sleep(1)
 
     @allure.step("扩展门店等级属性")
-    def click_extend_shop_grade(self):
+    def click_extend_shop_grade(self, grade):
         self.scroll_into_view(user['Extend Shop Grade'])
         sleep(1)
         self.is_click(user['Extend Shop Grade'])
         sleep(2.5)
-        self.is_click(user['Extend Shop Grade Value'], "A 10-20 ")
+        self.is_click(user['Extend Shop Grade Value'], grade)
 
     @allure.step("扩展门店类型属性")
     def click_extend_shop_type(self):
@@ -277,13 +277,13 @@ class ShopManagementPage(Base):
     @allure.step("关闭门店管理菜单")
     def click_close_shop_management(self):
         self.is_click(user['关闭门店管理菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     """禁用门店"""
     @allure.step("点击禁用门店按钮")
@@ -383,7 +383,7 @@ class ShopManagementPage(Base):
     @allure.step("View详情页面，关闭门店View页面")
     def click_close_shop_view(self):
         self.is_click(user['Close Shop View'])
-        sleep(3)
+        #sleep(2)
 
 
     """查询门店信息"""
@@ -439,18 +439,17 @@ class ShopManagementPage(Base):
 
     @allure.step("门店列表页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(6)
+        sleep(3)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
-        self.is_click(user['Task Name value'], content)
+        sleep(0.5)
+        self.is_click_dcr(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):

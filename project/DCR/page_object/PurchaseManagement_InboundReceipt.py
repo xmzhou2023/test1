@@ -28,7 +28,8 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(4)
+        #sleep(4)
+        sleep(3)
 
     @allure.step("获取列表第一个销售单ID")
     def text_salesOrder(self):
@@ -41,15 +42,20 @@ class InboundReceiptPage(Base):
         deliveryorder = self.element_text(user['获取列表第一个出库单ID'])
         return deliveryorder
 
+    @allure.step("获取列表文本字段内容")
+    def get_list_field_text(self, context):
+        self.presence_sleep_dcr(user[context])
+        field = self.element_text(user[context])
+        return field
+
     @allure.step("快速收货页面，勾选第一个复选框")
     def select_checkbox(self):
-        self.presence_sleep_dcr(user['收货第一个复选框'])
         self.is_click_dcr(user['收货第一个复选框'])
 
     @allure.step("快速收货页面，点击Quick Received按钮")
     def click_quick_received(self):
         self.is_click_dcr(user['快速收货按钮'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("点击快速收货按钮后，弹出快速收货窗口，有多个仓库时需要选择仓库")
     def input_select_warehouse(self, warehouse):
@@ -63,7 +69,7 @@ class InboundReceiptPage(Base):
     def click_save(self):
         self.presence_sleep_dcr(user['保存'])
         self.is_click(user['保存'])
-        sleep(0.6)
+        sleep(0.5)
 
     @allure.step("快速收货页面，提交成功后获取提交成功提示语")
     def get_successfully_text(self):
@@ -72,7 +78,6 @@ class InboundReceiptPage(Base):
 
     @allure.step("快速收货页面，获取列表第一条记录的最新状态")
     def text_status(self):
-        self.presence_sleep_dcr(user['获取列表状态'])
         status = self.element_text(user['获取列表状态'])
         return status
 
@@ -170,14 +175,13 @@ class InboundReceiptPage(Base):
 
     @allure.step("获取IMEI Detail页面 IMEI字段内容")
     def get_imei_detail_imei(self):
-        imei = self.element_text(user['Get IMEI'])
+        imei = self.element_text(user['Get IMEI Detail IMEI'])
         return imei
 
     @allure.step("获取IMEI Detail页面 total字段内容")
     def get_imei_detail_total(self):
-        """获取IMEI Detail页面 total字段内容"""
         total = self.element_text(user['Get IMEI Detail Total'])
-        total1 = total[6:7]
+        total1 = total[6:]
         return total1
 
     @allure.step("获取IMEI Detail页面 Export字段内容")
@@ -188,12 +192,10 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
     def click_close_inbound_receipt(self):
         self.is_click(user['关闭二代收货菜单'])
-        sleep(1)
 
     @allure.step("快速收货页面，点击关闭IMEI Detail窗口")
     def click_close_inbound_imei_detail(self):
         self.is_click(user['关闭二代收货IMEI Detail'])
-        sleep(1)
 
 
     @allure.step("断言 列表取分页总数判断是否有数据")
@@ -258,6 +260,15 @@ class InboundReceiptPage(Base):
         self.presence_sleep_dcr(user['Get list Status'])
         get_status = self.element_text(user['Get list Status'])
         return get_status
+
+    @allure.step("查询最近新建的销售单ID与出库单ID,进行快速收货")
+    def inbound_quick_received(self, order_code, delivery_code):
+        self.input_salesOrder(order_code)
+        self.input_deliveryOrder(delivery_code)
+        self.click_search()
+        self.select_checkbox()
+        self.click_quick_received()
+
 
 if __name__ == '__main__':
     pass

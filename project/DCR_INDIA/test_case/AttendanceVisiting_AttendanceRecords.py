@@ -48,23 +48,34 @@ class TestExportAttendanceRecord:
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()
+        """按当前日期筛选"""
         export.input_query_date(today)
+        """点击查询"""
         export.click_search()
 
+        """ 获取列表User Name """
         user_id = export.get_user_id_text()
-        export.input_user_id_query(user_id, user_id)
+        """ 获取列表User Name """
+        user_name = export.get_user_name_text()
+        userid_name = user_id + " " + user_name
+        """根据UserID+UserName条件精确筛选数据"""
+        export.input_user_id_query(user_id, userid_name)
         export.click_search()
 
+        """获取列表字段内容，进行断言"""
         picture = export.get_photo_text()
         date = export.get_date_text()
         userid = export.get_user_id_text()
+        username = export.get_user_name_text()
         total = export.get_total_text()
 
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
         ValueAssert.value_assert_In(picture, "Picture")
         ValueAssert.value_assert_equal(user_id, userid)
+        ValueAssert.value_assert_equal(user_name, username)
         ValueAssert.value_assert_equal(today, date)
         export.assert_total(total)
+
         """点击导出"""
         export.click_export()
         export.click_download_more()
@@ -73,7 +84,6 @@ class TestExportAttendanceRecord:
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
         complete_date = export.get_complete_date_text()
@@ -81,7 +91,7 @@ class TestExportAttendanceRecord:
         operation = export.get_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "attendance record")
+        ValueAssert.value_assert_equal(task_name, "Attendance Records")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)

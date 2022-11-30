@@ -51,43 +51,50 @@ class TestExportAttendanceRecord:
 
         export.input_query_date(today)
         export.click_search()
-
+        """ 获取列表User Name """
         user_id = export.get_user_id_text()
-        export.input_user_id_query(user_id, user_id)
+        """ 获取列表User Name """
+        user_name = export.get_user_name_text()
+        userid_name = user_id+" "+user_name
+        """根据UserID+UserName条件精确筛选数据"""
+        export.input_user_id_query(user_id, userid_name)
+        """点击查询按钮"""
         export.click_search()
-
+        """获取列表字段文本内容，进行断言比较是否一致"""
         picture = export.get_photo_text()
         date = export.get_date_text()
         userid = export.get_user_id_text()
+        username = export.get_user_name_text()
         total = export.get_total_text()
 
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
         ValueAssert.value_assert_In(picture, "Picture")
         ValueAssert.value_assert_equal(user_id, userid)
+        ValueAssert.value_assert_equal(user_name, username)
         ValueAssert.value_assert_equal(today, date)
         export.assert_total(total)
+
         """点击导出"""
         export.click_export()
         export.click_download_more()
-        export.input_task_name("attendance record")
+        export.input_task_name('Attendance Records')
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
         complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
         operation = export.get_operation_text()
 
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "attendance record")
-        ValueAssert.value_assert_equal(task_id, "testsupervisor")
+        ValueAssert.value_assert_equal(down_status, 'COMPLETE')
+        ValueAssert.value_assert_equal(task_name, 'Attendance Records')
+        ValueAssert.value_assert_equal(task_id, 'testsupervisor')
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
+        ValueAssert.value_assert_equal(operation, 'Download')
         export.assert_file_time_size(file_size, export_time)
         export.click_close_export_record()
         export.click_close_atten_record()

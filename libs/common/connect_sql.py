@@ -7,7 +7,7 @@ class SQL(object):
         self.env = env
         self.ini_name = ini_name
         self.values = values
-        self.ini = ReadConfig(self.name, self.env)
+        self.ini = ReadConfig(self.name, self.env, self.ini_name, self.values)
         self.sql = ast.literal_eval(self.ini.db)
 
     # 获取连接方法

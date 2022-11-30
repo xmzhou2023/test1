@@ -8,6 +8,7 @@ Input Delivery Order: "css==[placeholder='Please enter delivery order ID,press e
 Click Check: "xpath==//span[contains(text(),'Check')]"
 Get Scan Record: "xpath==//div[contains(text(),'variable')]"
 Get Scan Record IMEI: "xpath==//ul//li//div[text()='variable']"
+Get Scanned number: "xpath==//div[normalize-space(text())='Scanned']/..//div[@class='num']"
 Submit: "id==returnorderadd_Submit"
 获取退货成功提示: "xpath==//p[text()='Submit Success!']"
 Get Order Detail Deli Order ID: "xpath==//tr[@class='el-table__row']//td[1]//div[@class='cell el-tooltip']"
@@ -38,6 +39,7 @@ Input Delivery Order ID: "xpath==//label[(text()='Delivery/DN Order ID')]//paren
 Search: "xpath==//span[contains(text(),'Search')]"
 获取列表第一个出库单: "xpath==//tbody//tr[1]//td[4]//div"
 获取列表退货状态: "xpath==//tbody//tr[1]//td[6]//div"
+获取列表退货类型: "xpath==//tbody//tr[1]//td[7]//div"
 获取列表第一个退货单: "xpath==//tbody//tr[1]//td[2]//div"
 
 #审核退货单定位

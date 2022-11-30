@@ -43,10 +43,11 @@ class TestQueryVisitRecord:
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
 
         visit_task = VisitRecordPage(drivers)
-        visit_task.input_submit_start_date("2022-09-01")
+        visit_task.input_submit_start_date("2022-11-01")
         visit_task.click_submit_date()
+        visit_task.click_shop_self_inspection('Visit task')
         visit_task.click_search()
-        sleep(2)
+
         shop_id = visit_task.get_shop_id_text()
         logging.info("获取Visit task的巡店记录列表Shop ID字段文本{}".format(shop_id))
         visit_task.click_unfold()
@@ -79,8 +80,8 @@ class TestQueryVisitRecord:
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
 
         visit = VisitRecordPage(drivers)
-        visit.input_submit_start_date("2022-08-22")
-        visit.click_shop_self_inspection()
+        visit.input_submit_start_date("2022-09-01")
+        visit.click_shop_self_inspection('Shop self-inspection')
         visit.click_search()
         sleep(2)
         shop_id = visit.get_shop_id_text()
@@ -121,13 +122,14 @@ class TestExportVisitRecord:
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-09-01")
+        export.input_submit_start_date("2022-11-01")
         export.click_submit_date()
+        export.click_shop_self_inspection('Visit task')
         export.click_search()
 
         export.click_export()
         export.click_download_more()
-        export.input_task_name("History List")
+        export.input_task_name("Visit Record")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
@@ -141,7 +143,7 @@ class TestExportVisitRecord:
         logging.info("获取导出记录列表的operation字段内容{}".format(operation))
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "History List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
@@ -167,11 +169,12 @@ class TestExportVisitRecord:
 
         export2.input_submit_start_date("2022-09-01")
         export2.click_submit_date()
+        export2.click_shop_self_inspection('Visit task')
         export2.click_search()
 
         export2.click_export_detail()
         export2.click_download_more()
-        export2.input_task_name("VisitingRecordDetails List")
+        export2.input_task_name("Visit Record Details List")
         down_status = export2.click_export_search()
 
         task_name = export2.get_task_name_text()
@@ -184,7 +187,7 @@ class TestExportVisitRecord:
         operation = export2.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "VisitingRecordDetails List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record Details List")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
@@ -208,14 +211,14 @@ class TestExportVisitRecord:
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-08-22")
+        export.input_submit_start_date("2022-09-01")
         export.click_submit_date()
-        export.click_shop_self_inspection()
+        export.click_shop_self_inspection('Shop self-inspection')
         export.click_search()
 
         export.click_export()
         export.click_download_more()
-        export.input_task_name("History List")
+        export.input_task_name("Visit Record")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
@@ -228,7 +231,7 @@ class TestExportVisitRecord:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "History List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
@@ -252,14 +255,14 @@ class TestExportVisitRecord:
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-08-22")
+        export.input_submit_start_date("2022-09-01")
         export.click_submit_date()
-        export.click_shop_self_inspection()
+        export.click_shop_self_inspection('Shop self-inspection')
         export.click_search()
 
         export.click_export_detail()
         export.click_download_more()
-        export.input_task_name("VisitingRecordDetails List")
+        export.input_task_name("Visit Record Details List")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
@@ -272,13 +275,12 @@ class TestExportVisitRecord:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "VisitingRecordDetails List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record Details List")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-
 
 if __name__ == '__main__':
     pytest.main(['AttendanceVisiting_VisitRecord.py'])

@@ -11,7 +11,7 @@ from project.TBM.page_object.ShippingCountry_ShippingCountryFlow import Shipping
         minor级别: 次要缺陷(界面错误与UI需求不符)
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
-
+querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 
 @allure.feature("出货国家-出货国家流程")  # 模块名称
 class TestCreateProcess:
@@ -23,7 +23,6 @@ class TestCreateProcess:
     def test_001_001(self, drivers):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage_click_menu()
-        querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         user.click_add()
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', f'项目名称{querytime}')
@@ -40,6 +39,7 @@ class TestCreateProcess:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
@@ -125,6 +125,7 @@ class TestCreateProcess:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.click_product_definition_copy()
         user.assert_toast('复制产品成功！')
@@ -150,7 +151,7 @@ class TestCreateProcess:
         user.click_product_definition_confirm()
         user.click_product_definition_delete()
         DomAssert(drivers).assert_att('确定删除吗?')
-        user.click_delete_confirm()
+        user.click_dialog_confirm()
         DomAssert(drivers).assert_att('暂无数据')
 
     @allure.story("创建流程")  # 场景名称
@@ -165,8 +166,7 @@ class TestCreateProcess:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', '项目名称测试复制')
         user.add_upload_file('检查结果.PNG')
-
-
+        user.assert_upload('检查结果.PNG')
 
 
 @allure.feature("出货国家-出货国家流程")  # 模块名称
@@ -181,9 +181,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.refresh_webpage()
         user.assert_my_todo_node(SaleCountry_API[0], '产品部管理员审核', True)
         user.enter_oneworks_edit(SaleCountry_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_API[0], '产品部汇签', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -195,9 +193,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(SaleCountry_Audit_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_Audit_API[0], '产品经理修改', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -223,10 +219,9 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_product_definition_info('再增', '1G')
         user.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
         user.input_product_definition_info('尺寸', '8M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_Join_API[0], '产品部管理员复核', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -238,9 +233,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(SaleCountry_managerModify_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_managerModify_API[0], '项目经理审批', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -258,14 +251,13 @@ class TestTheProcessOfExaminationAndApproval:
         user.product_manager_modification(SaleCountry_API[0])
         user.product_department_administrator_re_review(SaleCountry_API[0])
         user.enter_oneworks_edit(SaleCountry_API[0])
-        user.click_onework_agree()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_application_node(SaleCountry_API[0], '抄送', True)
         sleep(60)
         user.assert_my_application_flow(SaleCountry_API[0], '审批完成')
         document_status = user.get_info(SaleCountry_API[0])[6]
         ValueAssert.value_assert_equal(document_status, '审批通过')
+
 
 @allure.feature("出货国家-出货国家流程")
 class TestCreateProcessExceptionScenario:
@@ -347,6 +339,7 @@ class TestCreateProcessExceptionScenario:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.clear_member('汇签人员')
         user.click_add_submit()
@@ -376,6 +369,7 @@ class TestCreateProcessExceptionScenario:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.clear_member('抄送人员')
         user.click_add_submit()
@@ -405,6 +399,7 @@ class TestCreateProcessExceptionScenario:
         user.input_product_definition_info('再增', '2G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
         user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.click_product_definition_copy()
         user.select_signatory('汇签人员', '李小素')
@@ -416,7 +411,7 @@ class TestCreateProcessExceptionScenario:
     @allure.description("进入出货国家流程，点击新增，新增后产品定义信息不进行新增，直接点击提交，会给出提示“产品定义信息不能为空”")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_003_006(self, drivers):
+    def test_003_007(self, drivers):
         user = ShippingCountryFlow(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()

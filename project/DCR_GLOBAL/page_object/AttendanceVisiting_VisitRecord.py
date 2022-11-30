@@ -13,7 +13,7 @@ class VisitRecordPage(Base):
     def click_unfold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
         self.is_click(user['Unfold'])
-        sleep(2)
+        sleep(1.6)
 
     def click_fold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
@@ -50,6 +50,7 @@ class VisitRecordPage(Base):
 
     def get_shop_id_text(self):
         """Visit Record页面，获取列表中Shop ID文本属性"""
+        self.scroll_into_view(user['获取Shop ID文本'])
         Base.presence_sleep_dcr(self, user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
@@ -94,8 +95,7 @@ class VisitRecordPage(Base):
         sleep(2)
 
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1.5)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(5)

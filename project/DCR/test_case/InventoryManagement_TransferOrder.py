@@ -108,6 +108,7 @@ class TestConfirmReceiptTransferOrder:
         """查询IMEI Inventory Query页面 指定product的IMEI"""
         get_imei.click_unfold()
         get_imei.input_warehouse_query('WNG2061301')
+        get_imei.select_brand_query('itel')
         get_imei.click_inventory_search()
         imei = get_imei.get_text_imei_inventory()
         logging.info("打印从IMEI Inventory Query页面，获取的imei:{}".format(imei))

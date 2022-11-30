@@ -76,7 +76,6 @@ class Cooperater(Base):
     def relogin(self, username):
         """统一登录֤"""
         self.logout() # 退出登录
-        DomAssert(self.driver).assert_url('https://pfuacuat.transsion.com:10201/#')
         self.click_accountlogin() # 点击帐户密码登录
         self.input_account(username) # 输入帐户名
         self.input_passwd('xLily6x') # 输入密码
@@ -105,6 +104,20 @@ class Cooperater(Base):
         except Exception as e:
             logging.error(e)
             raise
+
+    @allure.step('切换窗口')
+    def switch_window_tlc(self, n):
+        """切换窗口"""
+        sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[n])
+
+    @allure.step('关闭窗口')
+    def close_switch_tlc(self, n):
+        """关闭窗口"""
+        sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[n])  # 切换到新页签
+        self.driver.close()  # 关闭新页签
+        self.driver.switch_to.window(self.driver.window_handles[0])  # 然后切换回原始页签
 
 
 if __name__ == '__main__':

@@ -29,7 +29,6 @@ def function_export_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
-
 @allure.feature("首页")
 class TestQueryAllIndicatorsOnTheHomepage:
     @allure.story("查询User Management& Authorization卡片")
@@ -56,7 +55,6 @@ class TestQueryAllIndicatorsOnTheHomepage:
         page_user_mgt.get_no_menu()
         page_user_mgt.get_no_auth_cust_wh()
         page_user_mgt.get_cust_days_no_login()
-        sleep(1)
 
 
     @allure.story("查询Abnormal Data卡片")
@@ -85,7 +83,6 @@ class TestQueryAllIndicatorsOnTheHomepage:
         abnormal.get_factory_deli_date()
         abnormal.get_shop_sales_date()
         abnormal.get_infiltration_sales_pcs()
-        sleep(1)
 
 
     @allure.story("查询Sub-dealer Management卡片")
@@ -110,8 +107,6 @@ class TestQueryAllIndicatorsOnTheHomepage:
         query.get_number_of_rebated_user()
         query.get_days_no_stock_in_out()
         query.get_no_permission_seller_buyer()
-        sleep(1)
-
 
     @allure.story("查询Distributor Management卡片")
     @allure.title("Homepage首页，查询Distributor Management卡片维度数据加载")
@@ -135,7 +130,6 @@ class TestQueryAllIndicatorsOnTheHomepage:
         query_dist.get_dist_number_of_rebated_user()
         query_dist.get_dist_days_no_stock_in_out()
         query_dist.get_dist_no_permission_buyer()
-        sleep(1)
 
 
     @allure.story("查询Shop Management卡片")
@@ -159,7 +153,6 @@ class TestQueryAllIndicatorsOnTheHomepage:
         query_shop.get_total_shop()
         #query_shop.get_shop_number_of_rebated_user()
         query_shop.get_shop_days_no_upload_sales()
-        sleep(1)
 
 
 @allure.feature("首页")
@@ -188,7 +181,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.click_search()
         export.click_user_mgt_export()
         export.click_download_more()
-        sleep(48)
+        sleep(53)
         export.input_task_name("User management")
         down_status = export.click_export_search()
 
@@ -236,6 +229,7 @@ class TestExportAllIndicatorsOnTheHomepage:
         export.click_search()
         export.click_export_abnormal_data()
         export.click_download_more()
+        sleep(2)
         export.input_task_name("Activation Abnormal Data")
         down_status = export.click_export_search()
 
@@ -255,7 +249,6 @@ class TestExportAllIndicatorsOnTheHomepage:
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
-
 
 
     @allure.story("导出Sub-dealer Management卡片")
@@ -282,6 +275,7 @@ class TestExportAllIndicatorsOnTheHomepage:
 
         export.click_sub_dealer_export()
         export.click_download_more()
+        sleep(11)
         export.input_task_name("Customer management")
         down_status = export.click_export_search()
 
@@ -325,6 +319,7 @@ class TestExportAllIndicatorsOnTheHomepage:
 
         export.click_distributor_export()
         export.click_download_more()
+        sleep(11)
         export.input_task_name("Customer management")
         down_status = export.click_export_search()
 
@@ -369,7 +364,7 @@ class TestExportAllIndicatorsOnTheHomepage:
 
         export.click_shop_export()
         export.click_download_more()
-        sleep(42)
+        sleep(45)
         export.input_task_name("Shop Manager List")
         down_status = export.click_export_search()
 

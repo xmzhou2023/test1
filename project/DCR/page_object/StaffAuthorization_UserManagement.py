@@ -27,22 +27,30 @@ class UserManagementPage(Base):
     def input_user_id(self, content):
         self.is_click(user['User ID'])
         self.input_text_dcr(user['User ID'], txt=content)
+        sleep(1.5)
 
     @allure.step("Add user页面， 输入user Name字段")
-    def input_user_name(self, content):
-        self.presence_sleep_dcr(user['User Name'])
-        self.is_click(user['User Name'])
-        self.input_text(user['User Name'], txt=content)
+    def input_add_user_name(self, content):
+        self.presence_sleep_dcr(user['Add User Name'])
+        self.is_click(user['Add User Name'])
+        self.input_text(user['Add User Name'], txt=content)
+
+    @allure.step("Edit user页面， 输入user Name字段")
+    def input_edit_user_name(self, content):
+        self.presence_sleep_dcr(user['Edit User Name'])
+        self.is_click(user['Edit User Name'])
+        self.input_text(user['Edit User Name'], txt=content)
+
 
     @allure.step("Add user页面，点击user Name属性，释放光标")
     def click_user_name(self):
-        self.is_click(user['User Name'])
+        self.is_click(user['Edit User Name'])
 
     @allure.step("Add user页面， 输入销售区域，然后选中输入的销售区域")
     def input_sales_region(self, content):
         self.is_click(user['Sales Region'])
         self.input_text(user['Sales Region'], txt=content)
-        sleep(2)
+        sleep(3)
         self.is_click(user['Sales Region Value'])
 
     @allure.step("Add user页面， 输入国家城市，然后选中输入的国家城市")
@@ -65,7 +73,7 @@ class UserManagementPage(Base):
     @allure.step("关闭User Management菜单")
     def click_close_user_mgt(self):
         self.is_click(user['关闭用户管理菜单'])
-        sleep(1)
+
 
     @allure.step("Edit user页面，选择点击品牌")
     def click_edit_trans_brand(self):
@@ -109,7 +117,7 @@ class UserManagementPage(Base):
     @allure.step("Add user页面，选择性别")
     def click_gender_female(self, context):
         self.is_click(user['Gender'])
-        sleep(1)
+        sleep(0.5)
         self.presence_sleep_dcr(user['Gender Female'], context)
         self.is_click(user['Gender Female'], context)
 
@@ -142,11 +150,11 @@ class UserManagementPage(Base):
 
     """编辑用户时，筛选用户"""
     @allure.step("用户管理列表页面，筛选User，进行编辑或者删除")
-    def input_query_User(self, content):
+    def input_query_User(self, userid):
         self.is_click_dcr(user['点击筛选用户输入框'])
-        self.input_text_dcr(user['点击筛选用户输入框'], txt=content)
+        self.input_text_dcr(user['点击筛选用户输入框'], userid)
         sleep(3)
-        self.is_click(user['Input User ID Value'], content)
+        self.is_click(user['Input User ID Value'], userid)
 
     @allure.step("点击编辑功能")
     def click_edit(self):
@@ -169,7 +177,7 @@ class UserManagementPage(Base):
         sleep(2)
         self.presence_sleep_dcr(user['Quit'])
         self.is_click(user['Quit'])
-        sleep(3)
+        sleep(2)
         self.is_click_dcr(user['确认删除Yes'])
 
     @allure.step("获取无数据文本")
@@ -193,13 +201,13 @@ class UserManagementPage(Base):
     @allure.step("随机生成userid")
     def user_id_random(self):
         num = str(random.randint(100, 999))
-        userid = '19851' + num
+        userid = '202211' + num
         return userid
 
     @allure.step("随机生成username")
     def user_name_random(self):
         num = str(random.randint(100, 999))
-        username = "user_test" + num
+        username = "smart_test_user" + num
         return username
 
     @allure.step("随机生成电话号码尾号")
@@ -293,14 +301,44 @@ class UserManagementPage(Base):
     def click_import_upload_save(self, file1):
         self.is_click(user['Add Upload'])
         sleep(4)
-        ele = self.driver.find_element('xpath', "//input[@name='file']")
+        ele = self.driver.find_element('xpath', "//button//..//input[@name='file']")
         ele.send_keys(file1)
-        sleep(1.5)
+        sleep(3)
         self.is_click(user['Import Save'])
         sleep(2)
         self.presence_sleep_dcr(user['Upload Confirm'])
         self.is_click(user['Upload Confirm'])
-        sleep(1)
+
+
+    @allure.step("User Management页面，获取Total分页总条数")
+    def get_list_total(self):
+        self.presence_sleep_dcr(user['Get Total'])
+        get_total = self.element_text(user['Get Total'])
+        get_total1 = get_total[6:]
+        return get_total1
+
+    @allure.step("User Management页面，导入前获取列表筛选的User ID，如果能筛选到1条记录，先删除已存在的用户")
+    def delete_repetitive_user(self):
+        sql1 = SQL('DCR', 'test')
+        try:
+            varsql1 = "select USER_CODE from t_user where USER_CODE ='smarttest102'"
+            varsql2 = "select EMP_CODE from t_employee where EMP_CODE ='smarttest102'"
+            result_user = sql1.query_db(varsql1)
+            result_emp = sql1.query_db(varsql2)
+            user_code = result_user[0].get("USER_CODE")
+            emp_code = result_emp[0].get("EMP_CODE")
+            if user_code == 'smarttest102':
+                """ 在数据库表中，删除导入的用户 """
+                sql1.delete_db(
+                    "delete from t_user where USER_CODE ='smarttest102'")
+            elif emp_code == 'smarttest102':
+                sql1.delete_db(
+                    "delete from t_employee where EMP_CODE ='smarttest102'")
+            else:
+                logging.info("获取User Management页面user_code与emp_code字段内容：{}".format(user_code, emp_code))
+        except Exception as e:
+            logging.info("如有异常打印日志{}".format(e))
+
 
     @allure.step("导入用户模板-上传正确的文件")
     def upload_true_file(self, file1):
@@ -308,10 +346,10 @@ class UserManagementPage(Base):
         logging.info("打印上传的用户模板文件path：{}".format(path1))
         self.click_import_upload_save(path1)
 
-    @allure.step("Import Record页面，点击Search 查询按钮")
-    def click_import_record_search(self):
-        self.is_click(user['Search'])
-        sleep(1.7)
+    @allure.step("循环点击查询，直到获取到导入记录状态为Upload Successfully")
+    def click_import_status_search(self):
+        import_status = self.import_record_status(user['Import Search'], user['Get Import Record Status'])
+        return import_status
 
     """导入记录页面，获取列表字段断言是否导入成功"""
     @allure.step("Import Record页面，获取File Name字段文本")
@@ -384,9 +422,8 @@ class UserManagementPage(Base):
 
     @allure.step("User Management页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(2)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(3)
 
@@ -394,8 +431,8 @@ class UserManagementPage(Base):
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
-        self.is_click(user['Task Name value'], content)
+        sleep(0.5)
+        self.is_click_dcr(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -473,7 +510,6 @@ class UserManagementPage(Base):
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
 
 
 if __name__ == '__main__':

@@ -30,13 +30,13 @@ class TestMyComponentDelete:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除弹框', '确定')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -53,7 +53,7 @@ class TestMyComponentDelete:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
@@ -62,7 +62,7 @@ class TestMyComponentDelete:
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除弹框', '确定')
-    pass
+  
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -79,7 +79,7 @@ class TestMyComponentDelete:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
@@ -89,7 +89,7 @@ class TestMyComponentDelete:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除弹框', '确定')
 
-        pass
+      
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -101,19 +101,21 @@ class TestMyComponentDelete:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除弹框', '确定')
         DomAssert(drivers).assert_att('删除成功')
-        pass
+      
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -125,23 +127,26 @@ class TestMyComponentDelete:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除弹框', '取消')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除弹框', '确定')
-        pass
+      
 
     @allure.story("我的文件-删除组件")  # 场景名称
     @allure.title("删除组件")  # 用例名称
@@ -153,23 +158,26 @@ class TestMyComponentDelete:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('x')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除弹框', '确定')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_component_delete.py'])

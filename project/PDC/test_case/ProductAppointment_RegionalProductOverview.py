@@ -25,7 +25,12 @@ class TestUtil:
         user.click_menu("产品任命","区域产品概述")
         user.click_ck()
         user.click_jl()
-        pass
+
+    @allure.story("二级标题") # 场景名称
+    @allure.title("三级标题")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
     def test_001_002(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = UserPage1(drivers)
         user.click_menu("产品任命","区域产品概述")
@@ -37,6 +42,6 @@ class TestUtil:
         user.click_tjff()
         user.click_ffqd()
         user.click_zhqd()
-        pass
+
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])

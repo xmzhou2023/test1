@@ -35,7 +35,7 @@ class TestMyFilesAdd:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的文件新增")  # 场景名称
     @allure.title("文件新增-我的空间_反例")  # 用例名称
@@ -51,7 +51,7 @@ class TestMyFilesAdd:
         tools.click('新增对话框按钮', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增对话框按钮', 'cancel')
-        pass
+      
 
     @allure.story("我的文件新增")  # 场景名称
     @allure.title("文件新增-我的空间_新增弹框取消")  # 用例名称
@@ -64,7 +64,7 @@ class TestMyFilesAdd:
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.click('新增对话框按钮', 'cancel')
-        pass
+      
 
     @allure.story("我的文件新增")  # 场景名称
     @allure.title("文件新增-我的空间_新增弹框关闭")  # 用例名称
@@ -77,7 +77,7 @@ class TestMyFilesAdd:
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.click('x')
-        pass
+      
 
     @allure.story("公共新增")  # 场景名称
     @allure.title("文件新增-公共空间_正例")  # 用例名称
@@ -87,6 +87,7 @@ class TestMyFilesAdd:
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('名称输入框', 'auto_testing_add_files_pub_001')
@@ -95,11 +96,12 @@ class TestMyFilesAdd:
 
         # 删除
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pub_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("公共新增")  # 场景名称
     @allure.title("文件新增-公共空间_反例")  # 用例名称
@@ -109,13 +111,14 @@ class TestMyFilesAdd:
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('名称输入框', '')
         tools.click('新增对话框按钮', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增对话框按钮', 'cancel')
-        pass
+      
 
     @allure.story("我的文件新增")  # 场景名称
     @allure.title("文件新增-公共空间_新增弹框取消")  # 用例名称
@@ -125,10 +128,11 @@ class TestMyFilesAdd:
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.click('新增对话框按钮', 'cancel')
-        pass
+      
 
     @allure.story("我的文件新增")  # 场景名称
     @allure.title("文件新增-公共空间_新增弹框关闭")  # 用例名称
@@ -138,10 +142,11 @@ class TestMyFilesAdd:
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.click('x')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_files_add.py'])

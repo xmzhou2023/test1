@@ -96,12 +96,15 @@ class TestAddEditQuitTranssionUser:
         """随机生成数字"""
         add_transsion = UserManagementPage(drivers)
         userid = add_transsion.user_id_random()
+        logging.info("打印新建传音员工时，输入的user id{}".format(userid))
         username = add_transsion.user_name_random()
         logging.info("打印新建传音员工时，输入的user name{}".format(username))
         add_transsion.click_add_user()
         add_transsion.click_staff_type_value("Transsion Staff")
         add_transsion.input_user_id(userid)
-        add_transsion.input_user_name(username)
+
+        add_transsion.input_add_user_name(username)
+
         add_transsion.input_sales_region("Barisal")
         add_transsion.input_country_city("Barisal")
         add_transsion.click_select_brand()
@@ -135,7 +138,7 @@ class TestAddEditQuitTranssionUser:
         """筛选用户后，点击Search，进行编辑"""
         username = add_transsion.user_name_random()
         add_transsion.click_edit()
-        add_transsion.input_user_name(username)
+        add_transsion.input_edit_user_name(username)
         add_transsion.click_edit_trans_brand()
         add_transsion.click_user_name()
         add_transsion.input_email("646167867@qq.com")
@@ -192,7 +195,7 @@ class TestAddEditQuitDealerUser:
         username = dealer_user.user_name_random()
         dealer_user.click_staff_type_value("Dealer Staff")
         dealer_user.input_belong_to_cust("UG4019912")
-        dealer_user.input_user_name(username)
+        dealer_user.input_add_user_name(username)
         dealer_user.input_sales_region("Barisal")
         dealer_user.input_country_city("Barisal")
         dealer_user.click_select_brand()
@@ -232,7 +235,7 @@ class TestAddEditQuitDealerUser:
         username = dealer_user.user_name_random()
         logging.info("打印编辑代理员工时，输入的User Name{}".format(username))
         dealer_user.click_edit()
-        dealer_user.input_user_name(username)
+        dealer_user.input_edit_user_name(username)
         dealer_user.click_edit_dealer_brand()
         """点击user name属性，将光标从品牌字段移开"""
         dealer_user.click_user_name()
@@ -337,12 +340,16 @@ class TestImportUser:
         user.click_gotomenu("Staff & Authorization", "User Management")
         upload = UserManagementPage(drivers)
 
+        """User Management页面，导入前获取列表筛选的User ID，如果能筛选到1条记录，先删除已存在的用户"""
+        upload.delete_repetitive_user()
+
         upload.click_import()
         upload.click_import_save()
         DomAssert(drivers).assert_att('Please upload first.')
         sleep(1)
         upload.upload_true_file('UserTemplate.xlsx')
-        upload.click_import_record_search()
+        """循环点击查询，直到获取到导入记录状态为Upload Successfully"""
+        upload.click_import_status_search()
 
         today = Base(drivers).get_datetime_today()
         """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
@@ -358,7 +365,7 @@ class TestImportUser:
         ValueAssert.value_assert_equal('1', get_success)
         ValueAssert.value_assert_equal('0', get_failed)
         ValueAssert.value_assert_equal(today, get_import_date)
-        """关闭当前打开的菜单"""
+        """关闭当前打开的导入记录菜单"""
         menu = LoginPage(drivers)
         menu.click_close_open_menu()
 
@@ -394,41 +401,41 @@ class TestImportUser:
             "delete from t_employee where EMP_CODE ='smarttest102'")
 
 
-@allure.feature("员工授权-用户管理")
-class TestResetPasswordUser:
-    @allure.story("用户重置密码")
-    @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
-    @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    def test_006_001(self, drivers):
-        """ lhmadmin管理员账号登录"""
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
-        """用户授权-用户管理-查询用户管理列表数据用例"""
-        user.click_gotomenu("Staff & Authorization", "User Management")
-
-        reset = UserManagementPage(drivers)
-        reset.input_query_User('EG4463901')
-        reset.click_search()
-        reset.click_first_checkbox()
-        reset.click_more_reset_password()
-        """断言是否弹出设置成功提示"""
-        DomAssert(drivers).assert_att("Set Up Successfully")
-        sleep(1.5)
-        """重置密码成功后，使用该账号登录，设置新的密码"""
-        user.initialize_login(drivers, "EG4463901", "EG4463901")
-
-        """该用户登录时，弹出设置新密码窗口，输入新密码及确认新密码，点击保存"""
-        reset.input_new_password_save("dcr123456")
-        DomAssert(drivers).assert_att("Save successfully!")
-        reset.click_save_successfully_ok()
-
-        """弹出登录页面，输入新的密码，点击登录按钮"""
-        reset.input_login_password("dcr123456")
-        reset.click_login()
-        """验证登录成功后，页面是否存在首页菜单"""
-        DomAssert(drivers).assert_att("Home Page-Customer")
+# @allure.feature("员工授权-用户管理")
+# class TestResetPasswordUser:
+#     @allure.story("用户重置密码")
+#     @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
+#     @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
+#     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+#     def test_006_001(self, drivers):
+#         """ lhmadmin管理员账号登录"""
+#         user = LoginPage(drivers)
+#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
+#
+#         """用户授权-用户管理-查询用户管理列表数据用例"""
+#         user.click_gotomenu("Staff & Authorization", "User Management")
+#
+#         reset = UserManagementPage(drivers)
+#         reset.input_query_User('EG4463901')
+#         reset.click_search()
+#         reset.click_first_checkbox()
+#         reset.click_more_reset_password()
+#         """断言是否弹出设置成功提示"""
+#         DomAssert(drivers).assert_att("Set Up Successfully")
+#         sleep(1.5)
+#         """重置密码成功后，使用该账号登录，设置新的密码"""
+#         user.initialize_login(drivers, "EG4463901", "EG4463901")
+#
+#         """该用户登录时，弹出设置新密码窗口，输入新密码及确认新密码，点击保存"""
+#         reset.input_new_password_save("dcr123456")
+#         DomAssert(drivers).assert_att("Save successfully!")
+#         reset.click_save_successfully_ok()
+#
+#         """弹出登录页面，输入新的密码，点击登录按钮"""
+#         reset.input_login_password("dcr123456")
+#         reset.click_login()
+#         """验证登录成功后，页面是否存在首页菜单"""
+#         DomAssert(drivers).assert_att("Home Page-Customer")
 
 
 if __name__ == '__main__':

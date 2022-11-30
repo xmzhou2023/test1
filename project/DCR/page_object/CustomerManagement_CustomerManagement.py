@@ -167,7 +167,6 @@ class CustomerManagementPage(Base):
     @allure.step("关闭客户管理菜单")
     def click_close_customer_mgt(self):
         self.is_click(user['关闭客户管理菜单'])
-        sleep(1)
 
     @allure.step("修改编辑二代表单,客户名称、联系人、联系电话")
     def edit_form_info(self, edit_c_name, edit_contact_name, edit_contact_no):
@@ -208,9 +207,8 @@ class CustomerManagementPage(Base):
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
-        """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+
 
     @allure.step("点击启用按钮")
     def click_more_option_enable(self):
@@ -331,18 +329,18 @@ class CustomerManagementPage(Base):
 
     @allure.step("Customer Management页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(2)
+
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
-        self.is_click(user['Task Name value'], content)
+        sleep(0.5)
+        self.is_click_dcr(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):

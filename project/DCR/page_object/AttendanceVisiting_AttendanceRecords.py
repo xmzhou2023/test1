@@ -9,12 +9,12 @@ class AttendanceRecordPage(Base):
     """ AttendanceRecord类，Attendance Records考勤记录页面元素定位"""
 
     @allure.step("Attendance Records页面，输入User ID筛选用户的考勤记录")
-    def input_user_id_query(self, content):
+    def input_user_id_query(self, userid, userid_name):
         self.is_click_dcr(user['筛选用户'])
         sleep(1)
-        self.input_text_dcr(user['筛选用户'], txt=content)
+        self.input_text_dcr(user['筛选用户'], userid)
         sleep(3)
-        self.is_click_dcr(user['Select User Value'], content)
+        self.is_click_dcr(user['Select User Value'], userid_name)
 
     @allure.step("Attendance Records页面，输入筛选开始日期")
     def input_query_date(self, content):
@@ -56,6 +56,11 @@ class AttendanceRecordPage(Base):
         userid = self.element_text(user['获取列表UserID文本'])
         return userid
 
+    @allure.step("Attendance Records页面，获取列表User name文本")
+    def get_user_name_text(self):
+        user_name = self.element_text(user['获取列表UserName文本'])
+        return user_name
+
     @allure.step("Attendance Records页面，获取列表Total总条数文本")
     def get_total_text(self):
         total = self.element_text(user['获取总条数文本'])
@@ -66,12 +71,12 @@ class AttendanceRecordPage(Base):
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("关闭考勤记录菜单")
     def click_close_atten_record(self):
         self.is_click(user['关闭考勤记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("获取首页Get Home Page Customer文本内容")
     def get_home_page_cust(self):
@@ -103,9 +108,8 @@ class AttendanceRecordPage(Base):
 
     @allure.step("Attendance Records页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(3)
 
@@ -113,8 +117,8 @@ class AttendanceRecordPage(Base):
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], content)
-        sleep(2)
-        self.is_click(user['Task Name value'], content)
+        sleep(0.5)
+        self.is_click_dcr(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):

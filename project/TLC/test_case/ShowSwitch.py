@@ -28,7 +28,7 @@ class TestShowSwitch:
         DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
         DomAssert(drivers).assert_page_source('所有者')
-        pass
+      
 
     @allure.story("图标列表切换")  # 场景名称
     @allure.title("我的收藏-图标列表切换")  # 用例名称
@@ -42,7 +42,7 @@ class TestShowSwitch:
         DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
         DomAssert(drivers).assert_page_source('所有者')
-        pass
+      
 
     @allure.story("图标列表切换")  # 场景名称
     @allure.title("回收站-图标列表切换")  # 用例名称
@@ -56,7 +56,7 @@ class TestShowSwitch:
         DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
         DomAssert(drivers).assert_page_source('所有者')
-        pass
+      
 
     @allure.story("与我协作切换")  # 场景名称
     @allure.title("与我协作-图标列表切换")  # 用例名称
@@ -70,7 +70,7 @@ class TestShowSwitch:
         DomAssert(drivers).assert_att('所有者')
         tools.click('图标列表切换按钮')
         DomAssert(drivers).assert_page_source('所有者')
-        pass
+      
 
     @allure.story("我的文件夹界面切换")  # 场景名称
     @allure.title("文件夹界面-图标列表切换")  # 用例名称
@@ -97,7 +97,32 @@ class TestShowSwitch:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+
+    @allure.story("应用中心")  # 场景名称
+    @allure.title("应用管理界面图标切换")  # 用例名称
+    @allure.description("应用管理界面图标切换")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test033(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        tools = ShowSwitch(drivers)
+        tools.click_menu('应用中心', '应用管理')
+        tools.click('图标列表切换按钮')
+        DomAssert(drivers).assert_att('创建时间')
+        tools.click('图标列表切换按钮')
+        DomAssert(drivers).assert_page_source('创建时间')
+
+    @allure.story("应用中心")  # 场景名称
+    @allure.title("应用中心回收站图标切换")  # 用例名称
+    @allure.description("应用中心回收站图标切换")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test034(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        tools = ShowSwitch(drivers)
+        tools.click_menu('应用中心', '回收站')
+        tools.click('图标列表切换按钮')
+        DomAssert(drivers).assert_att('删除时间')
+        tools.click('图标列表切换按钮')
+        DomAssert(drivers).assert_page_source('删除时间')
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/ShowSwitch.py'])

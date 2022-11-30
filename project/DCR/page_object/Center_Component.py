@@ -58,7 +58,6 @@ class LoginPage(Base):
     @allure.step("关闭当天打开状态的菜单")
     def click_close_open_menu(self):
         self.is_click(user['关闭当前打开的菜单'])
-        sleep(1)
 
     @allure.step("获取当前打开状态的菜单class值")
     def get_open_menu_class(self):

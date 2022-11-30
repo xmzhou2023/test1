@@ -6,7 +6,7 @@ keywork筛选框: 'xpath==//label[@for="keyword"]//parent::div/div[1]//input[@ty
 搜索按钮: 'xpath==//span[text()="Search"]'
 
 下拉筛选框_第一条数据: 'xpath==//div[@x-placement="bottom-start"]//li[1]'
-下拉筛选框_第二条数据: 'xpath==//div[@x-placement="bottom-start"]//li[2]'
+下拉筛选框_第二条数据: 'xpath==//div[@x-placement="bottom-start"]//li[3]'
 
 下拉框_启用禁用切换: 'xpath==//div[@x-placement="bottom-start"]//li[3]'
 

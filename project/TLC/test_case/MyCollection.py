@@ -27,7 +27,7 @@ class TestMyCollection:
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        DomAssert(drivers).assert_att('新增成功')
+
         # 收藏操作
         tools.click('空间', '我的空间')
         tools.hover('文件Item')
@@ -50,7 +50,7 @@ class TestMyCollection:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
 
     @allure.story("我的空间收藏操作") # 场景名称
@@ -67,11 +67,8 @@ class TestMyCollection:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
-
-
-       # 收藏操作
+        tools.close_switch_tlc(1)
+        # 收藏操作
         tools.click('空间', '我的空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -95,7 +92,7 @@ class TestMyCollection:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        pass
+      
 
 
     @allure.story("公共空间收藏操作")  # 场景名称
@@ -107,6 +104,7 @@ class TestMyCollection:
         tools = collection(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pri_001', 'name')
@@ -114,6 +112,7 @@ class TestMyCollection:
         DomAssert(drivers).assert_att('新增成功')
 
         # 收藏操作
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
@@ -125,6 +124,7 @@ class TestMyCollection:
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('取消收藏', 'auto_testing_add_files_pri_001')
@@ -134,6 +134,7 @@ class TestMyCollection:
         # 删除
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
@@ -149,14 +150,16 @@ class TestMyCollection:
         tools = collection(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 收藏操作
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
@@ -167,6 +170,7 @@ class TestMyCollection:
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('取消收藏', 'auto_testing_add_components_pri_001')
@@ -176,11 +180,12 @@ class TestMyCollection:
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '我的空间')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的空间收藏操作")  # 场景名称
     @allure.title("我的收藏界面查询组件功能正例")  # 用例名称
@@ -196,8 +201,8 @@ class TestMyCollection:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 收藏操作
         tools.click('空间', '我的空间')
         tools.hover('组件Item')
@@ -215,7 +220,7 @@ class TestMyCollection:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的空间收藏操作")  # 场景名称
     @allure.title("我的收藏界面查询组件功能反例")  # 用例名称
@@ -231,8 +236,8 @@ class TestMyCollection:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         # 收藏界面顶部搜索
         tools.click_menu('组件中心', '我的收藏')
         tools.hover('顶部搜索框')
@@ -245,7 +250,7 @@ class TestMyCollection:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的空间收藏操作")  # 场景名称
     @allure.title("我的收藏界面查询文件夹功能正例")  # 用例名称
@@ -280,7 +285,7 @@ class TestMyCollection:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("我的空间收藏操作")  # 场景名称
     @allure.title("我的收藏界面查询文件夹功能反例")  # 用例名称
@@ -308,7 +313,36 @@ class TestMyCollection:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+
+    @allure.story("组件中心")  # 场景名称
+    @allure.title("组件中心下载校验")  # 用例名称
+    @allure.description("组件中心下载校验")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_004_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        tools = collection(drivers)
+        tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
+        tools.hover('新增')
+        tools.click('新增组件')
+        tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
+        tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
+        tools.click('新增对话框按钮', 'confirm')
+        tools.close_switch_tlc(1)
+
+        # 下载操作
+        tools.click('空间', '我的空间')
+        tools.hover('组件Item')
+        tools.click('组件Item more')
+        tools.click('下载', 'auto_testing_add_components_pri_001')
+        # 删除
+        tools.click_menu('组件中心', '我的文件')
+        tools.click('空间', '我的空间')
+        tools.hover('组件Item')
+        tools.click('组件Item more')
+        tools.click('删除', 'auto_testing_add_components_pri_001')
+        tools.click('删除确认')
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/MyCollection.py'])

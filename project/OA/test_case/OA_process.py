@@ -25,8 +25,8 @@ from project.OA.page_object.OA_process import OAUserPage
 @allure.feature("OA应用系统巡检")  # 模块名称
 class TestUtil:
 
-    @allure.story("二级标题：OA应用系统巡检")  # 场景名称
-    @allure.title("三级标题：OA自动巡检登录功能，提交系统巡检报告，调用飞书机器消息推送结果")  # 用例名称
+    @allure.story("OA应用系统巡检")  # 场景名称
+    @allure.title("OA自动巡检登录功能，提交系统巡检报告，调用飞书机器消息推送结果")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -62,8 +62,8 @@ class TestUtil:
             assert False
         OA.click_sumbmit()
 
-    @allure.story("二级标题：深圳传音控股电子签署平台巡检")  # 场景名称
-    @allure.title("三级标题：深圳传音控股电子签署平台登录功能， 调用飞书机器消息推送结果")  # 用例名称
+    @allure.story("深圳传音控股电子签署平台巡检")  # 场景名称
+    @allure.title("深圳传音控股电子签署平台登录功能， 调用飞书机器消息推送结果")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -82,8 +82,8 @@ class TestUtil:
             OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境深圳传音控股电子签署平台登录异常,请相关人员及时排查问题!", "1")
             assert False
 
-    @allure.story("二级标题：合同归档催收数据监控")  # 场景名称
-    @allure.title("三级标题：合同归档催收数据监控，飞书推送消息给吴军")  # 用例名称
+    @allure.story("合同归档催收数据监控")  # 场景名称
+    @allure.title("合同归档催收数据监控，飞书推送消息给吴军")  # 用例名称
     @allure.description("合同归档催收数据监控，数据库查询结果大于0异常，等于0正常")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -103,8 +103,8 @@ class TestUtil:
             # OA.Messagefeishu("@吴军\n合同归档催收数据同步正常", "1")
             assert True
 
-    @allure.story("二级标题：档案管理系统巡检")  # 场景名称
-    @allure.title("三级标题：档案管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
+    @allure.story("档案管理系统巡检")  # 场景名称
+    @allure.title("档案管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -127,8 +127,8 @@ class TestUtil:
             OB.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境档案管理系统登录异常,请相关人员及时排查问题!", "1")
             assert False
 
-    @allure.story("二级标题：传音知识产权管理系统巡检")  # 场景名称
-    @allure.title("三级标题：传音知识产权管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
+    @allure.story("传音知识产权管理系统巡检")  # 场景名称
+    @allure.title("传音知识产权管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记

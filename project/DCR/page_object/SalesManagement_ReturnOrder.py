@@ -45,7 +45,7 @@ class ReturnOrderPage(Base):
     @allure.step("新建退货单页面，点击Check")
     def click_Check(self):
         self.is_click_dcr(user['Click Check'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("退货单页面，点击check按钮，获取结果Succeed文本")
     def get_text_Record(self):
@@ -58,6 +58,10 @@ class ReturnOrderPage(Base):
         get_imei = self.element_text(user['Get Scan Record IMEI'], imei)
         return get_imei
 
+    @allure.step("退货单页面，点击check按钮，获取 Scanned 扫码数量文本内容")
+    def get_scanned_number(self):
+        get_scanned = self.element_text(user['Get Scanned number'])
+        return get_scanned
 
     @allure.step("退货单页面，点击check后，获取Order Detail列表的Delivery Order ID文本")
     def get_Order_Detail_Deli_Order_ID(self):
@@ -84,7 +88,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单页面，点击Submit")
     def click_Submit(self):
         self.is_click(user['Submit'])
-        sleep(0.7)
+        sleep(0.5)
 
     @allure.step("获取提交退货成功提示语")
     def get_submit_success_text(self):
@@ -146,6 +150,11 @@ class ReturnOrderPage(Base):
         status = self.element_text(user['获取列表退货状态'])
         return status
 
+    @allure.step("退货单页面， 获取列表Return Type字段内容")
+    def get_list_return_type(self):
+        get_return_type = self.element_text(user['获取列表退货类型'])
+        return get_return_type
+
     @allure.step("获取审批成功提示语")
     def get_Approval_Success(self):
         success = self.element_text(user['Approval Successfully'])
@@ -206,7 +215,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货页面，点击关闭退货菜单")
     def click_close_return_order(self):
         self.is_click(user['关闭退货菜单'])
-        sleep(1)
+
 
     @allure.step("退货单页面，点击More Option，然后点击Recall按钮")
     def click_more_option_recall(self):
@@ -218,6 +227,29 @@ class ReturnOrderPage(Base):
         self.presence_sleep_dcr(user['Confirm Recall'])
         self.is_click(user['Confirm Recall'])
         sleep(0.6)
+
+    @allure.step("退货单页面，点击添加退货单操作")
+    def add_return_order(self, box_id):
+        self.click_Add()
+        """点击退货给卖家类型"""
+        self.click_Return_Type()
+        self.radio_Boxid_IMEI()
+        self.input_BoxID_IMEI(box_id)
+        self.click_Check()
+
+    @allure.step("退货单页面，卖家进行审核退货单操作")
+    def approve_return_order(self, delivery_code):
+        self.input_Delivery_Orderid(delivery_code)
+        self.click_Search()
+        self.click_checkbox()
+        self.click_Approve_button()
+        self.input_remark("同意退货")
+        self.click_agree()
+
+    @allure.step("退货单列表页，根据出库单号，查询退货单记录")
+    def query_return_order(self, delivery_code):
+        self.input_Delivery_Orderid(delivery_code)
+        self.click_Search()
 
 
 if __name__ == '__main__':

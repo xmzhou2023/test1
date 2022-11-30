@@ -81,11 +81,11 @@ Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
 Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"
 
 #导出客户
-Export: "id==customermanagementglobal_Export"
+Export: "xpath==//button//span[normalize-space(text())='Export']"
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
 Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
-Task Name value: "xpath==//span[text()='variable']"
+Task Name value: "xpath==//div//ul//li//span[text()='variable']"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
 获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"

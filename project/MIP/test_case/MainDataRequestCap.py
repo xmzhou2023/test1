@@ -89,6 +89,7 @@ class TestAddRequestCap:
         requestCap.button_newly()
         requestCap.add_info(itemcode,num,"反例")
 
+
 @allure.feature("主数据-请购上限管理")
 class TestEditRequestCap:
     @allure.story("编辑功能验证")
@@ -157,4 +158,4 @@ class TestChangeRequestCapStatus:
         sqlNum = requestCap.get_sqlResult("select count(mat_code) from mm_req_list_limit where mat_code = '41500100034'and enable_flag ='0';")
         ValueAssert.value_assert_equal(listNum, sqlNum)
         requestCap.button_reset()
-        requestCap.clear_testData("41500100034")
+        requestCap.clear_testData("41500100034","删除")

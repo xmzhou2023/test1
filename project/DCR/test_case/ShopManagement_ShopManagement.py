@@ -129,7 +129,7 @@ class TestExpandBrandShop:
         expand_brand.extend_brand_save()
 
         expand_brand.input_extend_sales_region("Barisal itel")
-        expand_brand.click_extend_shop_grade()
+        expand_brand.click_extend_shop_grade('A 10-20')
         expand_brand.click_extend_shop_type()
         expand_brand.click_extend_image_type()
         expand_brand.extend_retail_customer("SN455338")
@@ -305,7 +305,7 @@ class TestExportShop:
 
         export.click_unfold()
         """门店列表，按日期筛选门店记录"""
-        export.input_create_date("2022-08-20", today)
+        export.input_create_date("2022-10-01", today)
         export.click_status_attribute()
         """点击查询按钮"""
         export.click_query_search()
@@ -314,7 +314,7 @@ class TestExportShop:
         """点击导出"""
         export.click_export()
         export.click_download_more()
-        export.input_task_name("Shop Manager List")
+        export.input_task_name("Shop Management")
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
 
@@ -328,7 +328,7 @@ class TestExportShop:
         operation = export.get_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Shop Manager List")
+        ValueAssert.value_assert_equal(task_name, "Shop Management")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)

@@ -151,7 +151,9 @@ class TestReturnOrder:
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
+
         """查询IMEI Inventory Query页面 指定product的IMEI"""
+        sleep(2)
         imei = delivery.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.close_imei_inventory_query()
@@ -268,6 +270,7 @@ class TestReturnOrder:
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
         """查询IMEI Inventory Query页面 指定product的IMEI"""
+        sleep(2)
         imei = delivery.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.close_imei_inventory_query()

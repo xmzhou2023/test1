@@ -30,7 +30,7 @@ class TestMyComponentEdit:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'rename', 'auto_testing_add_components_pri_001')
@@ -41,7 +41,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pri_002')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-我的空间_组件名称编辑_反例1")  # 用例名称
@@ -58,7 +58,7 @@ class TestMyComponentEdit:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'rename', 'auto_testing_add_components_pri_001')
@@ -70,7 +70,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
-        pass
+      
 
 
     @allure.story("我的文件-组件编辑")  # 场景名称
@@ -88,7 +88,7 @@ class TestMyComponentEdit:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'rename', 'auto_testing_add_components_pri_001')
@@ -97,7 +97,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-我的空间_组件名称编辑对话框关闭")  # 用例名称
@@ -114,7 +114,7 @@ class TestMyComponentEdit:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'rename', 'auto_testing_add_components_pri_001')
@@ -123,7 +123,7 @@ class TestMyComponentEdit:
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-公共空间_组件名称编辑_正例")  # 用例名称
@@ -135,12 +135,14 @@ class TestMyComponentEdit:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
@@ -149,11 +151,12 @@ class TestMyComponentEdit:
         tools.click('重命名按钮', '1')
         DomAssert(drivers).assert_att('修改成功')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pub_002')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-公共空间_组件名称编辑_反例")  # 用例名称
@@ -165,12 +168,14 @@ class TestMyComponentEdit:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
@@ -180,12 +185,13 @@ class TestMyComponentEdit:
         DomAssert(drivers).assert_att('不能为空')
         tools.click('重命名按钮', '2')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
 
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-我的空间_组件名称编辑对话框取消")  # 用例名称
@@ -197,23 +203,26 @@ class TestMyComponentEdit:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'rename', 'auto_testing_add_components_pub_001')
         tools.click('重命名按钮', '2')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件编辑")  # 场景名称
     @allure.title("我的文件-公共空间_组件名称编辑对话框关闭")  # 用例名称
@@ -225,23 +234,26 @@ class TestMyComponentEdit:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'rename', 'auto_testing_add_components_pub_001')
         tools.click('重命名X')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
-        pass
+      
 
 
 if __name__ == '__main__':

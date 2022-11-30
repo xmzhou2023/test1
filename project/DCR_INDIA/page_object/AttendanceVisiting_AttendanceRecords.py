@@ -15,14 +15,14 @@ class AttendanceRecordPage(Base):
         Base.presence_sleep_dcr(self, user['筛选用户'])
         self.is_click_dcr(user['筛选用户'])
         sleep(1)
-        self.input_text_dcr(user['筛选用户'], txt=content)
+        self.input_text_dcr(user['筛选用户'], content)
         sleep(3)
         self.is_click_dcr(user['Select User Value'], content1)
 
     def input_query_date(self, content):
         self.is_click(user['筛选开始日期'])
         sleep(1)
-        self.input_text(user['筛选开始日期'], txt=content)
+        self.input_text(user['筛选开始日期'], content)
 
     def click_search(self):
         """Attendance Records页面，点击Seasrch筛选考勤记录"""
@@ -51,6 +51,11 @@ class AttendanceRecordPage(Base):
         Base.presence_sleep_dcr(self, user['获取列表UserID文本'])
         userid = self.element_text(user['获取列表UserID文本'])
         return userid
+
+    @allure.step("Attendance Records页面，获取列表User name文本")
+    def get_user_name_text(self):
+        user_name = self.element_text(user['获取列表UserName文本'])
+        return user_name
 
     def get_total_text(self):
         """Attendance Records页面，获取列表Total总条数文本"""
@@ -90,8 +95,7 @@ class AttendanceRecordPage(Base):
 
     def click_download_more(self):
         """导出操作后，点击右上角下载图标,点击右上角more..."""
-        self.is_click(user['Download Icon'])
-        sleep(1)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(4)

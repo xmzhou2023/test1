@@ -221,6 +221,120 @@ class APIRequest:
                 logging.info('流程结束：整机BOM协作新增流程')
                 return i['flowNo'], i['instanceId'], flowId
 
+    @allure.step("整机BOM协作新增接口")
+    def API_Derive_Machine_Add(self):
+        logging.info('发起流程：整机BOM协作新增流程')
+        token = self.tbm_login()
+        querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        add_data = {
+            "flowId": None,
+            "flowNodeName": "start",
+            "bomArchive": {
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowProposerName": "李小素",
+                "flowStartdate": querytime,
+                "bomVer": "",
+                "bomVersion": "batch",
+                "brandCode": "infinix",
+                "market": "ET",
+                "produceClass": "derive",
+                "templateId": 1017718,
+                "templateName": "q",
+                "isLocalPurchase": "",
+                "bomClass": "",
+                "model": "X572-1",
+                "note": "",
+                "title": f"[李小素]-[{querytime[:10]}]",
+                "researchType": "selfResearch",
+                "flowDept": "PI_系统四部"
+            },
+            "bomDeriveList": [
+                {
+                    "row": 1,
+                    "checkResultMessage": "",
+                    "newBomType": "deliver",
+                    "newBomCode": "11000002",
+                    "newBomName": "CKD_itel_A44_F3706_玫瑰金_IN_BCFL_8+1_P05_E",
+                    "originalBomCode": "10026373",
+                    "originalBomName": "整机_Infinix_PR652C_F6319_B1_海洋之心32+2_欧规_Ⅰ",
+                    "originalBomFactory": "PL01",
+                    "rightNewBomName": "CKD_itel_A44_F3706_玫瑰金_IN_BCFL_8+1_P05_E",
+                    "rightOriginalBomName": "整机_Infinix_PR652C_F6319_B1_海洋之心32+2_欧规_Ⅰ",
+                    "statusCode": None,
+                    "diffColor": None,
+                    "diffMarket": None,
+                    "diffConfig": None,
+                    "no": "",
+                    "repeat": True,
+                    "newBomTypeLabel": "发货BOM"
+                }
+            ],
+            "bomTreeVOList": [],
+            "approvers": {
+                "bisReviewApprovers": [
+                    {
+                        "role": "audio",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "market",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "nps",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "opmPm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "pilot",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "pmSuper",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "preResearch",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "qpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "structure",
+                        "userNo": ""
+                    }
+                ],
+                "bisSupplyApprovers": [
+                    {
+                        "role": "mpm",
+                        "userNo": "18645960"
+                    }
+                ]
+            },
+            "uploadList": [],
+            "submitType": "submit"
+        }
+        search_data = {
+            "param": {"title": "", "flowNo": "", "bomCode": "", "produceClass": "", "model": "", "brandCode": "",
+                      "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
+                      "createdTimeFrom": "", "createdTimeTo": ""}, "current": 1, "size": 10}
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        add_response = self.Request_Machine_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_Bom_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
+            if i['flowId'] == flowId:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
+                logging.info('流程结束：整机BOM协作新增流程')
+                return i['flowNo'], i['instanceId'], flowId
+
     @allure.step("整机BOM协作-补充工厂审批通过接口")
     def API_Machine_Factory(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：整机BOM协作-补充工厂审批通过流程')
@@ -276,6 +390,63 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：整机BOM协作-补充工厂审批通过流程')
 
+    @allure.step("整机BOM协作-补充工厂审批通过接口")
+    def API_Derive_Machine_Factory(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：整机BOM协作-补充工厂审批通过流程')
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        MachineInfo = self.Oneworks_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "fillFactory",
+            "type": "fillFactory",
+            "bomArchive":
+                MachineInfo['data']['bomArchive'],
+            "approvers":
+                MachineInfo['data']['approvers'],
+            "bomTreeVOList":
+                MachineInfo['data']['bomTreeVOList'],
+            "refFactoryList":
+                [
+                    {
+                        "note": "CKD_itel_A44_F3706_玫瑰金_IN_BCFL_8+1_P05_E",
+                        "matCode": "11000002",
+                        "isOversea": None,
+                        "homePackagingFactory": "1051",
+                        "homeChipFactory": "/",
+                        "overseasPackagingFactory": "/",
+                        "overseasChipFactory": "/",
+                        "applyScope": "deliver",
+                        "bomNodeCode": None,
+                        "statusCode": "batch",
+                        "bomNo": "1",
+                        "factory": None,
+                        "applyScopeList": [
+                            "deliver"
+                        ],
+                        "childNodes": None,
+                        "existFactory": False,
+                        "statusCodeLabel": "量产",
+                        "deleteValidate": False
+                    }
+                ],
+            "bomDeriveList": MachineInfo['data']['bomDeriveList'],
+            "copyRuleList": None,
+            "otherDeriveList": None,
+            "uploadList": [],
+            "bomImportKeyDeviceList": None,
+            "purchaseList": None,
+            "role": MachineInfo['data']['role'],
+            "bomDeriveTreeVOList": [],
+            "virtualChipList": None,
+            "diffCollectList": None,
+            "checkFactory": "patchTrue"
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_Machine_Factory(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：整机BOM协作-补充工厂审批通过流程')
+
     @allure.step("整机BOM协作-BOM工程师审批通过接口")
     def API_Machine_bomEnginner(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：整机BOM协作-结构工程师审批通过流程')
@@ -311,6 +482,43 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：整机BOM协作-结构工程师审批通过流程')
 
+    @allure.step("整机BOM协作-BOM工程师审批通过接口")
+    def API_Derive_Machine_bomEnginner(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：整机BOM协作-结构工程师审批通过流程')
+        self.API_Derive_Machine_Factory(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        MachineInfo = self.Oneworks_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "bomArchReview",
+            "bomArchive":
+                MachineInfo['data']['bomArchive'],
+            "approvers":
+                MachineInfo['data']['approvers'],
+            "bomTreeVOList":
+                MachineInfo['data']['bomTreeVOList'],
+            "refFactoryList":
+                MachineInfo['data']['refFactoryList'],
+            "bomDeriveList":
+                MachineInfo['data']['bomDeriveList'],
+            "copyRuleList": None,
+            "otherDeriveList": None,
+            "uploadList": [],
+            "bomImportKeyDeviceList": None,
+            "purchaseList": None,
+            "role":
+                MachineInfo['data']['role'],
+            "bomDeriveTreeVOList": [],
+            "virtualChipList": None,
+            "diffCollectList": None,
+
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_Machine_bomEnginner(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：整机BOM协作-结构工程师审批通过流程')
+
     @allure.step("整机BOM协作-业务审核通过接口")
     def API_Machine_Approval(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：整机BOM协作-业务审核通过流程')
@@ -319,7 +527,7 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
         MachineInfo = self.Oneworks_queryInfo(flowid, headers)
         approve_data = {
-            "flowId": "11225",
+            "flowId": flowid,
             "flowNodeName": "bisReview",
             "bomArchive":
                 MachineInfo['data']['bomArchive'],
@@ -407,7 +615,60 @@ class APIRequest:
                 ],
                 "bomLevel": "complete",
                 "checker": "18645960",
-                "flowId": "11225"
+                "flowId": flowid
+            }
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_Machine_Approve(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：整机BOM协作业务审核通过流程')
+
+    @allure.step("整机BOM协作-业务审核通过接口")
+    def API_Derive_Machine_Approval(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：整机BOM协作-业务审核通过流程')
+        self.API_Derive_Machine_bomEnginner(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        MachineInfo = self.Oneworks_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "bisReview",
+            "bomArchive":
+                MachineInfo['data']['bomArchive'],
+            "approvers":
+                MachineInfo['data']['approvers'],
+            "bomTreeVOList":
+                MachineInfo['data']['bomTreeVOList'],
+            "refFactoryList":
+                MachineInfo['data']['refFactoryList'],
+            "bomDeriveList":
+                MachineInfo['data']['bomDeriveList'],
+            "copyRuleList": None,
+            "otherDeriveList":
+                MachineInfo['data']['otherDeriveList'],
+            "uploadList": [],
+            "bomImportKeyDeviceList": None,
+            "purchaseList": None,
+            "role":
+                MachineInfo['data']['role'],
+            "bomDeriveTreeVOList": [],
+            "virtualChipList": None,
+            "diffCollectList": None,
+            "recordReqVO": {
+                "checkRole": "audio",
+                "listBid": "966650555156008960",
+                "listName": "in",
+                "records": [
+                    {
+                        "checkResult": 1,
+                        "remark": "",
+                        "ruleBid": "966650555172786176",
+                        "ruleName": "整机BOM"
+                    }
+                ],
+                "bomLevel": "complete",
+                "checker": "18645960",
+                "flowId": flowid
             }
         }
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
@@ -427,6 +688,7 @@ class APIRequest:
         delete_data = {"id": flowid}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         self.Oneworks_Recall(instanceid, headers)
+        sleep(1)
         self.Request_Bom_Delete(delete_data, headers)
         logging.info('流程结束：BOM协作撤回流程')
 
@@ -1566,6 +1828,22 @@ class APIRequest:
         logging.info('发起请求：出货国家查询信息获取接口')
         return self.api_request('出货国家查询信息获取接口', data, headers)
 
+    def Request_SaleCountry_LastedTemp(self, brandCode, headers):
+        """
+        TBM 出货国家流程 品牌模板
+        @param brandCode:品牌模板
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家流程获取品牌模板接口')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-bom-archive/sale-country/template/getLastedTemp?brandCode={brandCode}&type=frontEnd')
+        recall_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/service-bom-archive/sale-country/template/getLastedTemp?brandCode={brandCode}&type=frontEnd',
+            headers=headers)
+        response_dicts = recall_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：出货国家流程获取品牌模板接口')
+        return response_dicts
+
     def Request_SaleCountry_Info(self, bid, headers):
         """
         TBM 出货国家流程 获取单据信息
@@ -1602,9 +1880,11 @@ class APIRequest:
     def API_SaleCountry_Add(self):
         logging.info('发起流程接口：出货国家流程新增流程')
         token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
         titletime = datetime.now().strftime('%Y-%m-%d')
         flowStartdate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         querytime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         add_data = {
             "prdInfoVOS": [
                 {
@@ -1618,7 +1898,7 @@ class APIRequest:
                         "productManager": "18645960",
                         "projectManager": "18645960",
                         "brandCode": "infinix",
-                        "editStatus": True,
+                        "editStatus": False,
                         "isAdd": True
                     },
                     "scPrdUniversalInfoMap": {
@@ -1631,7 +1911,8 @@ class APIRequest:
                         ],
                         "inch": [
                             "RearCamera1"
-                        ]
+                        ],
+                        "FirstOrderMassProdTime": titletime
                     },
                     "countryProperties": {}
                 }
@@ -1650,7 +1931,7 @@ class APIRequest:
             "scProjectVO": {
                 "brandCode": "infinix",
                 "projectName": f"项目名称{querytime}",
-                "templateBid": "1029692351762796544"
+                "templateBid": LastedTemp['data']['bid']
             },
             "submitType": "submit",
             "approvers": {
@@ -1673,92 +1954,12 @@ class APIRequest:
             },
             "areas": [],
             "uploadList": [],
-            "fields": [
-                {
-                    "id": None,
-                    "bid": "1029692352958173184",
-                    "fieldName": "摄像头",
-                    "fieldIdent": "camera",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 0,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173185",
-                    "fieldName": "型号",
-                    "fieldIdent": "type",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 1,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173186",
-                    "fieldName": "新增",
-                    "fieldIdent": "new",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 2,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173187",
-                    "fieldName": "再增",
-                    "fieldIdent": "anthor",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Standard",
-                    "necessary": 1,
-                    "fieldOrder": 3,
-                    "valid": True,
-                    "constraint": "{\"key\": \"Standard\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173188",
-                    "fieldName": "配色",
-                    "fieldIdent": "Color",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "colorSet",
-                    "necessary": 1,
-                    "fieldOrder": 4,
-                    "valid": True,
-                    "constraint": "{\"key\": \"colorSet\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173189",
-                    "fieldName": "尺寸",
-                    "fieldIdent": "inch",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "RearCamera",
-                    "necessary": 1,
-                    "fieldOrder": 5,
-                    "valid": True,
-                    "constraint": "{\"key\": \"RearCamera\"}",
-                    "value": None
-                }
-            ]
+            "fields": LastedTemp['data']['fields']
         }
 
         search_data = {"param": {"title": "", "flowNo": "", "projectName": f"项目名称{querytime}", "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
                                  "flowStartdate": ""}, "current": 1, "size": 10}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
         self.Request_SaleCountry_Add(add_data, headers)
         search_response = self.Request_SaleCountry_Search(search_data, headers)
         search_response_data = search_response['data']['data']
@@ -1789,6 +1990,7 @@ class APIRequest:
         logging.info('发起流程接口：出货国家查询变更产品接口')
         token = self.tbm_login()
         headers = {'Content-Type': 'application/json', 'Authorization': token}
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         PageList_body = {
             "current": 1,
             "size": 10,
@@ -1841,13 +2043,14 @@ class APIRequest:
                         "Color": [
                             "Aqua Blue"
                         ],
-                        "inch": "RearCamera1"
+                        "inch": ["RearCamera1"],
+                        "FirstOrderMassProdTime": titletime
                     },
                     "countryProperties": {}
                 }
             ],
             "flowMainVO": {
-                "title": f"[李小素]-[{titletime}]",
+                "title": f"[李小素]-[{testdate}]",
                 "flowNo": "",
                 "flowProposer": "18645960",
                 "flowDept": "PI_系统四部",
@@ -1866,7 +2069,7 @@ class APIRequest:
                 "id": None,
                 "bid": None,
                 "flowBid": None,
-                "templateBid": queryArchDetail['data']['scArchiveProductVO']['templateBid'],
+                "templateBid": LastedTemp['data']['bid'],
                 "brandCode": queryArchDetail['data']['scArchiveProductVO']['brandCode'],
                 "projectName": queryArchDetail['data']['scArchiveProductVO']['projectName'],
                 "remark": None,
@@ -1893,11 +2096,11 @@ class APIRequest:
                     }
                 ]
             },
-            "areas": [],
+            "areas": LastedTemp['data']['areas'],
             "uploadList": [],
-            "fields": queryArchDetail['data']['fields']
+            "fields": LastedTemp['data']['fields']
         }
-        search_data = {"param": {"title": "", "flowNo": "", "projectName": projectName, "brandCode": "",
+        search_data = {"param": {"title": f"[李小素]-[{testdate}]", "flowNo": "", "projectName": projectName, "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
                                  "flowStartdate": ""}, "current": 1, "size": 10}
         self.Request_Change_Product(change_data, headers)
@@ -1928,12 +2131,13 @@ class APIRequest:
             }
         }
         PageList = self.Request_SaleCountry_PageList(PageList_body, headers)
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         getScFlowInfoFirst_body = {
             "archBids": [
                 PageList['data']['data'][0]['bid']
             ],
             "brandCode": "infinix",
-            "templateBid": "1022146928508538880",
+            "templateBid": LastedTemp['data']['bid'],
             "areaCodes": [
                 "B12270"
             ],
@@ -1948,7 +2152,7 @@ class APIRequest:
                     "scPrdBaseInfoVO": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdBaseInfoVO'],
                     "scPrdUniversalInfoMap": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdUniversalInfoMap'],
                     "countryProperties": {
-                        "1231": "attestationBackups"
+                        "KHA": "attestationBackups"
                     }
                 }
             ],
@@ -1960,6 +2164,7 @@ class APIRequest:
                 "flowStartdate": flowStartdate,
                 "remark": "",
                 "busiType": "updCountry",
+                "type": "frontEnd",
                 "flowProposerName": "李小素"
             },
             "scProjectVO": getScFlowInfoFirst['data']['scProjectVO'],
@@ -1982,197 +2187,9 @@ class APIRequest:
                     }
                 ]
             },
-            "areas": [
-                {
-                    "id": None,
-                    "bid": "111111162",
-                    "areaBid": "111111162",
-                    "areaOrder": 0,
-                    "areaColor": "#FF4400",
-                    "areaNameZh": "东亚",
-                    "areaNameEn": "A23372",
-                    "areaCode": "B12270",
-                    "nations": [
-                        {
-                            "nationBid": "965571404990910464",
-                            "nationOrder": 0,
-                            "nationNameZh": "中国",
-                            "nationNameEn": "China001",
-                            "nationCode": "1231",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111215",
-                            "nationOrder": 1,
-                            "nationNameZh": "柬埔寨",
-                            "nationNameEn": "Cambodia",
-                            "nationCode": "KHA",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "945678738367057920",
-                            "nationOrder": 2,
-                            "nationNameZh": "日本2",
-                            "nationNameEn": "jp",
-                            "nationCode": "jp",
-                            "value": None
-                        }
-                    ]
-                },
-                {
-                    "id": None,
-                    "bid": "911371279385366528",
-                    "areaBid": "911371279385366528",
-                    "areaOrder": 1,
-                    "areaColor": "#00FF51",
-                    "areaNameZh": "东非",
-                    "areaNameEn": "B2",
-                    "areaCode": "B2",
-                    "nations": [
-                        {
-                            "nationBid": "111295",
-                            "nationOrder": 0,
-                            "nationNameZh": "乍得",
-                            "nationNameEn": "Chad",
-                            "nationCode": "TD",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111118",
-                            "nationOrder": 1,
-                            "nationNameZh": "安哥拉",
-                            "nationNameEn": "Angola",
-                            "nationCode": "AGO",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111134",
-                            "nationOrder": 2,
-                            "nationNameZh": "布隆迪",
-                            "nationNameEn": "Burundi",
-                            "nationCode": "BDI",
-                            "value": None
-                        }
-                    ]
-                },
-                {
-                    "id": None,
-                    "bid": "111111154",
-                    "areaBid": "111111154",
-                    "areaOrder": 2,
-                    "areaColor": "#0059FF",
-                    "areaNameZh": "欧洲东欧",
-                    "areaNameEn": "A23364",
-                    "areaCode": "B12262",
-                    "nations": [
-                        {
-                            "nationBid": "978957925726949376",
-                            "nationOrder": 0,
-                            "nationNameZh": "EE1",
-                            "nationNameEn": "Russia",
-                            "nationCode": "EE1",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111116",
-                            "nationOrder": 1,
-                            "nationNameZh": "阿尔巴尼亚",
-                            "nationNameEn": "Albania",
-                            "nationCode": "ALB",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111117",
-                            "nationOrder": 2,
-                            "nationNameZh": "亚美尼亚",
-                            "nationNameEn": "Armenia",
-                            "nationCode": "ARM",
-                            "value": None
-                        }
-                    ]
-                }
-            ],
+            "areas": LastedTemp['data']['areas'],
             "uploadList": [],
-            "fields": [
-                {
-                    "id": None,
-                    "bid": "1029692352958173184",
-                    "fieldName": "摄像头",
-                    "fieldIdent": "camera",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 0,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173185",
-                    "fieldName": "型号",
-                    "fieldIdent": "type",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 1,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173186",
-                    "fieldName": "新增",
-                    "fieldIdent": "new",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 2,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173187",
-                    "fieldName": "再增",
-                    "fieldIdent": "anthor",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Standard",
-                    "necessary": 1,
-                    "fieldOrder": 3,
-                    "valid": True,
-                    "constraint": "{\"key\": \"Standard\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173188",
-                    "fieldName": "配色",
-                    "fieldIdent": "Color",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "colorSet",
-                    "necessary": 1,
-                    "fieldOrder": 4,
-                    "valid": True,
-                    "constraint": "{\"key\": \"colorSet\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173189",
-                    "fieldName": "尺寸",
-                    "fieldIdent": "inch",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "RearCamera",
-                    "necessary": 1,
-                    "fieldOrder": 5,
-                    "valid": True,
-                    "constraint": "{\"key\": \"RearCamera\"}",
-                    "value": None
-                }
-            ]
+            "fields": LastedTemp['data']['fields']
         }
         search_data = {"param": {"title": "", "flowNo": "", "projectName": projectName, "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
@@ -2249,7 +2266,7 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：出货国家流程产品部汇签审核接口')
 
-    @allure.step("出货国家流程产品经理修改审核接口")
+    @allure.step("出货国家流程-产品-产品经理修改审核接口")
     def API_Change_managerModify(self, flowNo, instanceid, bid):
         logging.info('发起流程接口：出货国家流程产品经理修改审核接口')
         self.API_Change_Join(flowNo, instanceid, bid)
@@ -2257,6 +2274,8 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
         Info = self.Request_SaleCountry_Info(bid, headers)
         querytime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        titletime = datetime.now().strftime('%Y-%m-%d')
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         change_data = {
             "prdInfoVOS": [
                 {
@@ -2295,113 +2314,47 @@ class APIRequest:
                         "Color": [
                             "Aqua Blue"
                         ],
-                        "inch": "RearCamera1"
+                        "inch": "RearCamera1",
+                        "FirstOrderMassProdTime": titletime
                     },
                     "countryProperties": {}
                 }
             ],
             "flowMainVO": Info['data']['flowMainVO'],
             "scProjectVO": Info['data']['scProjectVO'],
-            "approvers": {
-                "bisSupplyApprovers": [
-                    {
-                        "role": "",
-                        "roleKey": "verb",
-                        "userName": "",
-                        "userNo": "18645960"
-                    }
-                ],
-                "bisSupplySenders": [
-                    {
-                        "role": "",
-                        "roleKey": "verc",
-                        "userName": "",
-                        "userNo": "18645960"
-                    }
-                ]
-            },
-            "areas": [],
-            "fields": [
-                {
-                    "id": None,
-                    "bid": "1029349849134403584",
-                    "fieldName": "摄像头",
-                    "fieldIdent": "camera",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 0,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029349849134403585",
-                    "fieldName": "型号",
-                    "fieldIdent": "type",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 1,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029349849134403586",
-                    "fieldName": "新增",
-                    "fieldIdent": "new",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 2,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029349849134403587",
-                    "fieldName": "再增",
-                    "fieldIdent": "anthor",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Standard",
-                    "necessary": 1,
-                    "fieldOrder": 3,
-                    "valid": True,
-                    "constraint": "{\"key\": \"Standard\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029349849134403588",
-                    "fieldName": "配色",
-                    "fieldIdent": "Color",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "colorSet",
-                    "necessary": 1,
-                    "fieldOrder": 4,
-                    "valid": True,
-                    "constraint": "{\"key\": \"colorSet\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173189",
-                    "fieldName": "尺寸",
-                    "fieldIdent": "inch",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "RearCamera",
-                    "necessary": 1,
-                    "fieldOrder": 5,
-                    "valid": True,
-                    "constraint": "{\"key\": \"RearCamera\"}",
-                    "value": None
-                }
-            ]
+            "approvers": Info['data']['approvers'],
+            "areas": Info['data']['areas'],
+            "fields": LastedTemp['data']['fields']
         }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        self.Request_SaleCountry_managerModify(change_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：出货国家流程产品经理修改审核接口')
+
+    @allure.step("出货国家流程-国家-产品经理修改审核接口")
+    def API_ChangeCountry_managerModify(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：出货国家流程产品经理修改审核接口')
+        self.API_Change_Join(flowNo, instanceid, bid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        Info = self.Request_SaleCountry_Info(bid, headers)
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
+        change_data = {
+            "prdInfoVOS": [
+                {
+                    "scPrdBaseInfoVO": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO'],
+                    "scPrdUniversalInfoMap": Info['data']['prdInfoVOS'][0]['scPrdUniversalInfoMap'],
+                    "countryProperties": {"KHA": "deliver"}
+                }
+            ],
+            "flowMainVO": Info['data']['flowMainVO'],
+            "scProjectVO": Info['data']['scProjectVO'],
+            "approvers": Info['data']['approvers'],
+            "areas": Info['data']['areas'],
+            "fields": LastedTemp['data']['fields']
+        }
+        change_data['prdInfoVOS'][0]['scPrdBaseInfoVO']['editStatus'] = False
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
                          "comment": ""}
         self.Request_SaleCountry_managerModify(change_data, headers)

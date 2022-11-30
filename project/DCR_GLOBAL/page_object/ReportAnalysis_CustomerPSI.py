@@ -73,8 +73,7 @@ class CustomerPSIPage(Base):
         sleep(2)
 
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(4)

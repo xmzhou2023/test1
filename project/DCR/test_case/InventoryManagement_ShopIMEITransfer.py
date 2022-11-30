@@ -40,7 +40,7 @@ class TestQueryIMEITransfer:
 
         """按状态筛选门店IMEI调店记录"""
         query.click_unfold()
-        query.input_create_date_query('2022-08-01')
+        query.input_create_date_query('2022-11-01')
         query.click_create_end_date()
         query.input_status_query('Approved')
         query.click_search()
@@ -48,12 +48,12 @@ class TestQueryIMEITransfer:
         get_transfer_id = query.get_list_transfer_id_text()
         get_status = query.get_list_status_text('Approved')
         get_creator = query.get_list_creator_id_text()
-        get_shop = query.get_list_to_shop_text('EG000394')
+        get_shop = query.get_list_to_shop_text()
 
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_IsNoneNot(get_status)
         ValueAssert.value_assert_IsNoneNot(get_creator)
-        ValueAssert.value_assert_equal('EG000394', get_shop)
+        ValueAssert.value_assert_IsNoneNot(get_shop)
         get_total = query.get_total_text()
         query.assert_total(get_total)
 
@@ -62,7 +62,7 @@ class TestQueryIMEITransfer:
 class TestNewRejectIMEITransfer:
     @allure.story("新建、拒绝门店IMEI调店")
     @allure.title("库存管理页面，新建、拒绝门店IMEI调店操作")
-    @allure.description("库存管理页面，新建、拒绝门店IMEI调店操作,Shop:NG003965,EG000394")
+    @allure.description("库存管理页面，新建、拒绝门店IMEI调店操作,Shop:EG000397,EG000388")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
@@ -73,43 +73,45 @@ class TestNewRejectIMEITransfer:
         shop_transfer = ShopIMEITransferPage(drivers)
         """新建门店调度单"""
         shop_transfer.click_add_imei_transfer()
-        shop_transfer.input_shop_transfer('NG003965')
-        shop_transfer.input_scan_imei('352802482806943')
+        shop_transfer.input_shop_transfer('EG000388')
+        shop_transfer.input_scan_imei('352427572805181')
         """点击Check检查按钮"""
         shop_transfer.click_check()
         """断言输入的IMEI是否验证通过"""
         get_scanned = shop_transfer.get_scanned_value()
         get_order_detail_scanned = shop_transfer.get_order_detail_scanned()
-        get_imei = shop_transfer.get_scan_record_imei('352802482806943')
+        get_imei = shop_transfer.get_scan_record_imei('352427572805181')
         get_success = shop_transfer.get_scan_record_success()
         ValueAssert.value_assert_equal(get_order_detail_scanned, get_scanned)
-        ValueAssert.value_assert_equal('352802482806943', get_imei)
+        ValueAssert.value_assert_equal('352427572805181', get_imei)
         ValueAssert.value_assert_In('Success', get_success)
         """点击提交按钮"""
         shop_transfer.click_add_submit_ok()
         """断言 筛选新建的调店单状态是否正确"""
         shop_transfer.click_unfold()
-        shop_transfer.input_to_shop_query('NG003965')
+        shop_transfer.input_to_shop_query('EG000388')
         shop_transfer.input_status_query('Pending')
         shop_transfer.click_search()
 
         get_transfer_id = shop_transfer.get_list_transfer_id_text()
         get_status = shop_transfer.get_list_status_text('Pending')
         get_creator_id = shop_transfer.get_list_creator_id_text()
-        get_to_shop = shop_transfer.get_list_to_shop_text('NG003965')
+        get_to_shop = shop_transfer.get_list_to_shop_text('EG000388')
 
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_equal('Pending', get_status)
-        ValueAssert.value_assert_equal('NG003965', get_to_shop)
+        ValueAssert.value_assert_equal('EG000388', get_to_shop)
         ValueAssert.value_assert_equal('xiongbo92', get_creator_id)
 
         """拒绝调店操作"""
         shop_transfer.click_check_box()
         shop_transfer.click_approve_reject('Reject')
-        shop_transfer.input_reject_reason('同意拒绝')
+        shop_transfer.input_reject_reason('同意拒绝', 'Yes')
         DomAssert(drivers).assert_att('Approval successfully')
-        sleep(2)
-        shop_transfer.click_reset()
+        sleep(1)
+        """根据当前门店与Rejected状态筛选，对比列表状态是否更新为Rejected"""
+        shop_transfer.input_status_query('Rejected')
+        shop_transfer.click_search()
         get_status = shop_transfer.get_list_status_text('Rejected')
         ValueAssert.value_assert_equal('Rejected', get_status)
 
@@ -127,26 +129,26 @@ class TestApproveIMEITransfer:
         user1.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
         approve = ShopIMEITransferPage(drivers)
 
-        """新建店铺调拨单，把imei: 352802482806943，从门店EG000394：CJP-TECNO1 调入门店NG003965：lwz_shop"""
+        """新建店铺调拨单，把imei: 352427572880721，从门店：EG000397 调入门店EG000388"""
         approve.click_add_imei_transfer()
-        approve.input_shop_transfer('NG003965')
-        approve.input_scan_imei('352802482806943')
+        approve.input_shop_transfer('EG000388')
+        approve.input_scan_imei('352427572880721')
         """点击Check检查按钮"""
         approve.click_check()
         """断言输入的IMEI是否验证通过"""
         get_scanned = approve.get_scanned_value()
         get_order_detail_scanned = approve.get_order_detail_scanned()
-        get_imei = approve.get_scan_record_imei('352802482806943')
+        get_imei = approve.get_scan_record_imei('352427572880721')
         get_success = approve.get_scan_record_success()
         ValueAssert.value_assert_equal(get_order_detail_scanned, get_scanned)
-        ValueAssert.value_assert_equal('352802482806943', get_imei)
+        ValueAssert.value_assert_equal('352427572880721', get_imei)
         ValueAssert.value_assert_In('Success', get_success)
         """点击提交按钮"""
         approve.click_add_submit_ok()
 
         """断言 筛选新建的调店单状态是否正确"""
         approve.click_unfold()
-        approve.input_to_shop_query('NG003965')
+        approve.input_to_shop_query('EG000388')
         approve.input_status_query('Pending')
         approve.click_search()
         get_transfer_id = approve.get_list_transfer_id_text()
@@ -159,30 +161,32 @@ class TestApproveIMEITransfer:
         approve.click_approve_yes_ok('Approve', 'Yes')
         DomAssert(drivers).assert_att('Approval successfully')
         sleep(1)
-        approve.click_reset()
+        """根据当前筛选的门店及 Approved状态，筛选查询的记录是否更新状态为Approved"""
+        approve.input_status_query('Approved')
+        approve.click_search()
         get_status = approve.get_list_status_text('Approved')
         ValueAssert.value_assert_equal('Approved', get_status)
 
 
-        """新建店铺调拨单，把imei: 352802482806943，从门店NG003965：lwz_shop调回门店EG000394：CJP-TECNO1"""
+        """新建店铺调拨单，把imei: 352427572880721，从门店EG000388 调回门店EG000397"""
         approve.click_add_imei_transfer()
-        approve.input_shop_transfer('EG000394')
-        approve.input_scan_imei('352802482806943')
+        approve.input_shop_transfer('EG000397')
+        approve.input_scan_imei('352427572880721')
         """点击Check检查按钮"""
         approve.click_check()
         """断言输入的IMEI是否验证通过"""
         get_scanned = approve.get_scanned_value()
         get_order_detail_scanned = approve.get_order_detail_scanned()
-        get_imei = approve.get_scan_record_imei('352802482806943')
+        get_imei = approve.get_scan_record_imei('352427572880721')
         get_success = approve.get_scan_record_success()
         ValueAssert.value_assert_equal(get_order_detail_scanned, get_scanned)
-        ValueAssert.value_assert_equal('352802482806943', get_imei)
+        ValueAssert.value_assert_equal('352427572880721', get_imei)
         ValueAssert.value_assert_In('Success', get_success)
         """点击提交按钮"""
         approve.click_add_submit_ok()
 
         """断言 筛选新建的调店单状态是否正确"""
-        approve.input_to_shop_query('EG000394')
+        approve.input_to_shop_query('EG000397')
         approve.input_status_query('Pending')
         approve.click_search()
         get_transfer_id = approve.get_list_transfer_id_text()
@@ -195,13 +199,15 @@ class TestApproveIMEITransfer:
         approve.click_approve_yes_ok('Approve', 'Yes')
         DomAssert(drivers).assert_att('Approval successfully')
         sleep(1)
-        approve.click_reset()
+        """根据当前筛选的门店及 Approved状态，筛选查询的记录是否更新状态为Approved"""
+        approve.input_status_query('Approved')
+        approve.click_search()
         get_transfer_id = approve.get_list_transfer_id_text()
         get_status = approve.get_list_status_text('Approved')
-        get_to_shop = approve.get_list_to_shop_text('EG000394')
+        get_to_shop = approve.get_list_to_shop_text('EG000397')
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_equal('Approved', get_status)
-        ValueAssert.value_assert_equal('EG000394', get_to_shop)
+        ValueAssert.value_assert_equal('EG000397', get_to_shop)
 
 
 @allure.feature("库存管理-门店IMEI调店")

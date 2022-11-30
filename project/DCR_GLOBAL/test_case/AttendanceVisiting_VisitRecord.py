@@ -26,7 +26,7 @@ class TestQueryVisitRecord:
         """打开考勤与巡店管理-打开巡店记录页面"""
         menu.click_gotomenu("Attendance & Visiting", "Visit Record")
         all_visit = VisitRecordPage(drivers)
-        sleep(2)
+        sleep(1.5)
         shop_id = all_visit.get_shop_id_text()
         all_visit.click_unfold()
         all_visit.input_shop_id_query(shop_id)
@@ -77,7 +77,7 @@ class TestExportVisitRecord:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "History List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)

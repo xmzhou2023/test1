@@ -1,0 +1,32 @@
+搜索按钮: 'xpath==//button//span[normalize-space(text())="Search"]'
+add按钮: 'xpath==//button//span[normalize-space(text())="Add"]'
+第一行enable按钮: 'xpath==//div[@class="configTable"]/div/div[3]//tr[1]//span[text()="Enable"]'
+第一行edit按钮: 'xpath==//div[@class="configTable"]/div/div[3]//tr[1]//span[text()="Edit"]'
+确认disable弹窗的确认按钮: 'xpath==//div[@class="el-message-box__btns"]/button[2]//span[normalize-space(text())="Confirm"]'
+确认弹窗上的cancel: 'xpath==//div[@class="el-message-box__btns"]/button[1]//span[normalize-space(text())="Cancel"]'
+
+cancel: 'xpath==//div[@class="dialog-footer"]/button[variable]//span[text()="Cancel"]'
+save: 'xpath==//div[@class="dialog-footer"]/button[variable]//span[text()="Save"]'
+reset: 'xpath==//div[@class="dialog-footer"]/button[variable]//span[text()="Reset"]'
+筛选项输入框: 'xpath==//label[@for="variable"]//parent::div/div[1]//input[@type="text"]'
+
+新增页Desc输入框: 'xpath==//div[@class="el-dialog__body"]//label[@for="projectDesc"]//parent::div/div[1]//textarea'
+enddate输入框: 'xpath==//div[@class="el-dialog__body"]//label[@for="expirationTime"]//parent::div/div[1]//input[@type="text"]'
+新增页输入框: 'xpath==//div[@class="el-dialog__body"]//label[@for="variable"]//parent::div/div[1]//input[@type="text"]'
+下拉筛选框_第一条数据: 'xpath==//div[@x-placement="bottom-start"]//li[1]'
+下拉框enable按钮: 'xpath==//div[@x-placement="bottom-start"]//li[2]'
+下拉框disable按钮: 'xpath==//div[@x-placement="bottom-start"]//li[3]'
+
+新增编辑弹窗的text: 'xpath==//div[@visible="visible"]/div[1]//span[@class="el-dialog__title"]'
+获取返回文本: 'xpath==//div[@role="alert"]//p[contains(@class,"el-message__content")]'
+
+编辑页的save: 'xpath==//div[@visible="visible"]//div[@role="dialog"]//span[text()="Save"]'
+编辑页的cancel: 'xpath==//div[@visible="visible"]//div[@role="dialog"]//span[text()="Cancel"]'
+
+
+
+
+
+ProfitCode一列的name: 'xpath==//tr[contains(@class,"el-table__row ")]/td[3]'
+
+无数据: 'xpath==//span[text()="No Data"]'
