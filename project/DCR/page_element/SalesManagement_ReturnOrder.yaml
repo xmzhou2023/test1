@@ -56,3 +56,9 @@ Approval Successfully: "xpath==//p[text()='Approval successfully']"
 More Option: "xpath==//span[normalize-space(text())='More Option']"
 Recall: "xpath==//li[normalize-space(text())='Recall']"
 Confirm Recall: "xpath==//span[normalize-space(text())='Confirm']"
+
+
+ScanFailedNum: "xpath==//span[normalize-space(text())='failed:']/following-sibling::span"
+ScanRecord: "xpath==//div[normalize-space(text())='variable']/../div[3]"
+BasicInfo: "xpath==//div[normalize-space(text())='Basic Info']/..//label[normalize-space(text())='variable']/..//input"
+空白处: "xpath==//div[normalize-space(text())='Basic Info']"

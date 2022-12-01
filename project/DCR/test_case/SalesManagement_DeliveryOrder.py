@@ -855,6 +855,139 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal("Approved", status)
         ValueAssert.value_assert_equal('Return To Seller', get_return_type)
 
+    @allure.story("导入出库单")
+    @allure.title("代理员工批量导入出库单")
+    @allure.description("代理员工批量导入出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_004_006(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        """导入出库单"""
+        user.click_import()
+        user.import_DeliveryOrdery_file('出库单导入成功.xlsx')
+        user.assert_import_success()
+        user.click_save()
+        DomAssert(drivers).assert_att('The file has been uploaded successfully. Data is being imported, please wait for a few minutes and go to the Import Record page to check the results.')
+        user.click_confirm()
+        today = datetime.datetime.now().strftime('%Y-%m-%d')
+        """断言ImportRecord页面结果"""
+        user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Status', 'Upload Successfully')
+        user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Total', '2')
+        user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Success', '2')
+        user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Import Date', today)
+        """断言ImportRecord页面结果"""
+        user.click_menu("Sales Management", "Delivery Order")
+        user.refresh()
+        user.assert_first_info('Delivery Date', today)
+        user.assert_first_info('Status', 'On Transit')
+        user.assert_first_info('Product', 'SPARK Go 2021 32+2 MALDIVES BLUE')
+        user.assert_first_info('Product', 'Vision 3 32+2 DEEOCE BLACK')
+        OrderID = user.get_FirstRow_info('Delivery Order ID')
+        """创建退货单退货"""
+        user.click_menu("Sales Management", "Return Order")
+        re = ReturnOrderPage(drivers)
+        re.click_Add()
+        re.radio_Delivery_order()
+        re.input_Delivery_order(OrderID)
+        re.click_Check()
+        re.click_Submit()
+        DomAssert(drivers).assert_att('Submit Success!')
+
+    @allure.story("导入出库单")
+    @allure.title("传音员工批量导入出库单")
+    @allure.description("传音员工批量导入出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_004_007(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "18650493", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        """导入出库单"""
+        user.click_import()
+        user.import_DeliveryOrdery_file('出库单导入成功.xlsx')
+        user.assert_import_success()
+        user.click_save()
+        DomAssert(drivers).assert_att('The file has been uploaded successfully. Data is being imported, please wait for a few minutes and go to the Import Record page to check the results.')
+        user.click_confirm()
+        today = datetime.datetime.now().strftime('%Y-%m-%d')
+        """断言ImportRecord页面结果"""
+        user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Status', 'Upload Successfully')
+        user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Total', '2')
+        user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Success', '2')
+        user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Import Date', today)
+        """断言ImportRecord页面结果"""
+        user.click_menu("Sales Management", "Delivery Order")
+        user.refresh()
+        user.assert_first_info('Delivery Date', today)
+        user.assert_first_info('Status', 'On Transit')
+        user.assert_first_info('Product', 'SPARK Go 2021 32+2 MALDIVES BLUE')
+        user.assert_first_info('Product', 'Vision 3 32+2 DEEOCE BLACK')
+        OrderID = user.get_FirstRow_info('Delivery Order ID')
+        """创建退货单退货"""
+        user.click_menu("Sales Management", "Return Order")
+        re = ReturnOrderPage(drivers)
+        re.click_Add()
+        re.radio_Delivery_order()
+        re.input_Delivery_order(OrderID)
+        re.click_Check()
+        re.click_Submit()
+        DomAssert(drivers).assert_att('Submit Success!')
+
+    @allure.story("打印出库单")
+    @allure.title("打印出库单，断言是否弹出打印页面")
+    @allure.description("打印出库单，断言是否弹出打印页面")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_004_008(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        OrderID = user.get_FirstRow_info('Delivery Order ID')
+        Date = user.get_FirstRow_info('Delivery Date')
+        Product = user.get_FirstRow_info('Product')
+        """断言print页面数据"""
+        user.click_First_print()
+        user.assert_print_content(OrderID)
+        user.assert_print_content(Date)
+        user.assert_print_content(Product)
+
+    @allure.story("查询出库单")
+    @allure.title("组合条件筛选出库单，筛选出正确数据")
+    @allure.description("组合条件筛选出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_004_009(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        user.click_unfold()
+        user.input_search('Brand', 'itel')
+        user.input_search('Sales Order ID', '02HK2211220003')
+        user.input_search('Seller', 'SN405554')
+        user.click_search()
+        user.assert_Query_result('Sales Order ID', '02HK2211220003')
+        user.assert_Query_result('Brand', 'itel')
+
+    @allure.story("查询出库单")
+    @allure.title("组合条件筛选出库单，无筛选结果")
+    @allure.description("组合条件筛选出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_004_010(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        user.click_unfold()
+        user.input_search('Activated Loss Or Not', 'Yes')
+        user.click_search()
+        user.assert_NoData()
 
 
 if __name__ == '__main__':

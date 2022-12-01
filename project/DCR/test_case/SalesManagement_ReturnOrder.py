@@ -1,4 +1,8 @@
 import logging
+from datetime import datetime
+
+from dateutil.relativedelta import relativedelta
+
 from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from project.DCR.page_object.SalesManagement_SalesOrder import SalesOrderPage
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
@@ -476,6 +480,42 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(get_status_cancel, "Cancel")
         #recall_return.click_close_return_order()
 
+    @allure.story("激活不可退")
+    @allure.title("The imei is already been activated")
+    @allure.description("配置Return Need Check Activation Or Not，输入已激活imei提示：The imei is already been activated")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_005(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN400001", "xLily6x")
+        menu.click_gotomenu("Sales Management", "Return Order")
+        delivery = ReturnOrderPage(drivers)
+        delivery.click_Add()
+        delivery.input_BoxID_IMEI('356209114219980')
+        delivery.click_Check()
+        delivery.assert_Scan_Record('356209114219980', '1', 'The imei is already been activated')
+        delivery.input_BoxID_IMEI('356514118470111')
+        delivery.click_Check()
+        delivery.assert_Scan_Record('356514118470111')
+
+    @allure.story("上月Return Date不可选择")
+    @allure.title("上月Return Date不可选择")
+    @allure.description("上月Return Date不可选择")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_006(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN400001", "xLily6x")
+        menu.click_gotomenu("Sales Management", "Return Order")
+        delivery = ReturnOrderPage(drivers)
+        delivery.click_Add()
+        month_date = datetime.now().date() - relativedelta(months=1)
+        last_date = month_date.strftime("%Y-%m-%d")
+        delivery.input_BasicInfo('Return Date', last_date)
+        sleep(2)
+        delivery.click_blank()
+        data = delivery.get_BasicInfo('Return Date')
+        ValueAssert.value_assert_Notequal(data, last_date)
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_ReturnOrder.py'])

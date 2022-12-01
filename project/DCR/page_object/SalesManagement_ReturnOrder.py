@@ -251,6 +251,32 @@ class ReturnOrderPage(Base):
         self.input_Delivery_Orderid(delivery_code)
         self.click_Search()
 
+    @allure.step("断言：扫码记录")
+    def assert_Scan_Record(self, imei, result=None, record=None):
+        if result is not None:
+            failed_num = self.element_text(user['ScanFailedNum'])
+            logging.info('获取扫码失败数量：{}'.format(failed_num))
+            ValueAssert.value_assert_equal(failed_num, result)
+            logging.info('断言成功：扫码失败数量：{}，与实际结果:{} 一致'.format(result, failed_num))
+        ac_record = self.element_text(user['ScanRecord'], imei)
+        logging.info('获取:{} 的扫码记录：{}'.format(imei, ac_record))
+        if record is None:
+            ValueAssert.value_assert_equal(ac_record, 'Success')
+            logging.info('断言成功：扫码记录为：Success，与实际结果：{} 一致'.format(ac_record))
+        else:
+            ValueAssert.value_assert_equal(ac_record, record)
+            logging.info('断言成功：扫码记录：{}，与实际结果：{} 一致'.format(record, ac_record))
+
+    def input_BasicInfo(self, header, content):
+        self.readonly_input_text(user['BasicInfo'], content, header)
+
+    def get_BasicInfo(self, header):
+        basicinfo = self.element_input_text(user['BasicInfo'], header)
+        logging.info('获取基本信息 {} ： {}'.format(header, basicinfo))
+        return basicinfo
+
+    def click_blank(self):
+        self.is_click(user['空白处'])
 
 if __name__ == '__main__':
     pass
