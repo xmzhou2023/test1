@@ -24,6 +24,8 @@ Get Delivery Scan Record IMEI: "xpath==//div[normalize-space(text())='variable']
 Get Delivery Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
 Get Delivery Order Detail Product: "xpath==//div//span[text()='Order Detail']/../..//tbody//tr[1]//td[1]//div//span"
 Submit: "xpath==//button[@class='el-button el-button--primary el-button--small']"
+Get Confirm the sale price Brand: "xpath==//div//span[text()='Please confirm the sale price']/../..//tbody//tr[1]//td[1]//div"
+Get Confirm the sale price Product: "xpath==//div//span[text()='Please confirm the sale price']/../..//tbody//tr[1]//td[2]//div"
 Affirm Submit: "xpath==//button//span[text()='Submit']"
 
 

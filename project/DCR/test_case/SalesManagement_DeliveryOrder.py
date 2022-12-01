@@ -379,8 +379,7 @@ class TestAddDeliveryOrder:
         sleep(1)
         add_delivery.click_search()
         """"后端断言，创建出库单成功后，查询数据库表是否新增出库单记录"""
-        order_code = add_delivery.select_sql_delivery_order('62134', '1596874516539662', '1596874516539668')
-        delivery_code = add_delivery.select_sql_delivery_order('62134', '1596874516539662', '1596874516539668')
+        order_code, delivery_code = add_delivery.select_sql_delivery_order('62134', '1596874516539662', '1596874516539668')
         """出库单页面，筛选新建的无码出库单ID"""
         add_delivery.query_delivery_order(order_code, delivery_code)
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
@@ -479,7 +478,7 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
-        return_order.add_return_order('43012211021179')
+        return_order.add_return_order_box_sn_imei('43012211021179')
         record = return_order.get_text_Record()
         get_scanned = return_order.get_scanned_number()
         ValueAssert.value_assert_equal("Success", record)
@@ -595,8 +594,7 @@ class TestAddDeliveryOrder:
         sleep(1)
         add_delivery.click_search()
         """"后端断言，创建出库单成功后，查询数据库表是否新增出库单记录"""
-        order_code = add_delivery.select_sql_delivery_order('78787', '1596874516539550', '1796874516566507')
-        delivery_code = add_delivery.select_sql_delivery_order('78787', '1596874516539550', '1796874516566507')
+        order_code, delivery_code = add_delivery.select_sql_delivery_order('78787', '1596874516539550', '1796874516566507')
         """出库单页面，筛选新建的无码出库单ID"""
         add_delivery.query_delivery_order(order_code, delivery_code)
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
@@ -691,7 +689,7 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
-        return_order.add_return_order(get_imei1)
+        return_order.add_return_order_box_sn_imei(get_imei1)
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
         """点击提交按钮"""
@@ -761,27 +759,27 @@ class TestAddDeliveryOrder:
         sleep(1)
         add_delivery.click_search()
         """"后端断言，创建出库单成功后，查询数据库表是否新增出库单记录"""
-        delivery_code = add_delivery.select_sql_delivery_order('78787', '1596874516539550', '1596874516539764')
+        sales_order, delivery_code = add_delivery.select_sql_delivery_order('78787', '1596874516539550', '1596874516539764')
         """出库单页面，筛选新建的无码出库单ID"""
-        add_delivery.query_delivery_order(delivery_code, delivery_code)
+        add_delivery.query_delivery_order(sales_order, delivery_code)
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         get_sales_order = add_delivery.text_sales_order()
         get_delivery_order = add_delivery.text_delivery_order()
         get_deli_status = add_delivery.text_delivery_Status()
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
-        ValueAssert.value_assert_equal(get_sales_order, delivery_code)
+        ValueAssert.value_assert_equal(get_sales_order, sales_order)
         ValueAssert.value_assert_equal(get_delivery_order, delivery_code)
         ValueAssert.value_assert_equal("On Transit", get_deli_status)
         user5.click_close_open_menu()
 
 
-        """ 零售商SN00186801账号登录， 进行快速收货 """
+        """ 零售商SN00186801账号登录，进行快速收货 """
         user5.initialize_login(drivers, "SN00186801", "dcr123456")
         """打开采购单Purchase Management菜单"""
         user5.click_gotomenu("Purchase Management", "Inbound Receipt")
         receipt = InboundReceiptPage(drivers)
         """查询最近新建的销售单ID与出库单ID,进行快速收货操作"""
-        receipt.inbound_quick_received(delivery_code, delivery_code)
+        receipt.inbound_quick_received(sales_order, delivery_code)
         """断言 获取快速收货弹出页面，Order ID与 Quantity字段内容是否匹配一致"""
         get_order_id = receipt.get_list_field_text('Get Quick Received Order ID')
         ValueAssert.value_assert_equal(delivery_code, get_order_id)
@@ -830,7 +828,7 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
-        return_order.add_return_order(get_imei1)
+        return_order.add_return_order_box_sn_imei(get_imei1)
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
         """点击提交按钮"""
@@ -988,6 +986,121 @@ class TestAddDeliveryOrder:
         user.input_search('Activated Loss Or Not', 'Yes')
         user.click_search()
         user.assert_NoData()
+
+    @allure.story("新建出库单")
+    @allure.title("国包用户，新建出库单，产品为有码的，出库类型为:SN，买方为二代用户")
+    @allure.description("国包用户，新建出库单，产品为有码的，出库类型为:SN，买方为二代用户，买收货后，SN退货")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_004_006(self, drivers):
+        user6 = LoginPage(drivers)
+        user6.initialize_login(drivers, "IN40080501", "dcr123456")
+        """打开IMEI Inventory Query菜单, 获取列表SN"""
+        user6.click_gotomenu("Report Analysis", "IMEI Inventory Query")
+        process = SalesOrderPage(drivers)
+        """根据Brand：itel appliances条件筛选库存SN"""
+        process.imei_inventory_query_imei2('WIN400805 400805', 'itel appliances', 'No')
+        get_sn1 = process.get_text_imei_inventory1()
+        logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(get_sn1))
+        user6.click_close_open_menu()
+
+        """打开出库单页面，新建出库单出库SN"""
+        Base(drivers).refresh()
+        add_delivery = DeliveryOrderPage(drivers)
+        user6.click_gotomenu("Sales Management", "Delivery Order")
+        add_delivery.create_delivery_order('NG20613', 'Wechat', get_sn1)
+        """断言Check后，列表展示的出库单校验成功的记录"""
+        get_deli_scan_record = add_delivery.get_Deli_Scan_Record_Success()
+        ValueAssert.value_assert_equal('Success', get_deli_scan_record)
+        """断言 获取出库数量是否正确"""
+        get_deli_quantity = add_delivery.get_delivery_quantity_text()
+        logging.info("打印获取检查后的出库数量：{}".format(get_deli_quantity))
+        ValueAssert.value_assert_equal('1', get_deli_quantity)
+        """获取创建出库单页面，点击Check后，Order Detail列表下的Product字段内容"""
+        get_product = add_delivery.get_delivery_order_detail_product()
+        """"点击提交按钮"""
+        add_delivery.click_submit()
+        """断言确认销售价格弹窗 Brand 与 Product字段文本内容是否正确"""
+        get_confirm_price_product = add_delivery.get_list_field_text('Get Confirm the sale price Product')
+        ValueAssert.value_assert_equal(get_product, get_confirm_price_product)
+        get_confirm_price_brand = add_delivery.get_list_field_text('Get Confirm the sale price Brand')
+        ValueAssert.value_assert_equal('itel appliances', get_confirm_price_brand)
+        """点击提交后，盘点是否有弹出确认价格提示框，如果没有就执行except下面的语句，直接提交成功，断言是否有成功提示语"""
+        try:
+            affirm = add_delivery.get_text_submit_affirm()
+            if affirm == "Submit":
+                add_delivery.click_submit_affirm()
+                DomAssert(drivers).assert_att("Submit successfully")
+        except Exception as e:
+            logging.info("打印日志{}".format(e))
+        add_delivery.click_search()
+        """"后端断言，创建出库单成功后，查询数据库表是否新增出库单记录"""
+        sales_order, delivery_code = add_delivery.select_sql_delivery_order('86947', '1796874516566407', '1596874516539550')
+        """出库单页面，筛选新建的无码出库单ID"""
+        add_delivery.query_delivery_order(sales_order, delivery_code)
+        """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
+        get_sales_order = add_delivery.text_sales_order()
+        get_delivery_order = add_delivery.text_delivery_order()
+        get_deli_status = add_delivery.text_delivery_Status()
+        """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
+        ValueAssert.value_assert_equal(get_sales_order, sales_order)
+        ValueAssert.value_assert_equal(get_delivery_order, delivery_code)
+        ValueAssert.value_assert_equal("On Transit", get_deli_status)
+
+
+        """ 零售商NG2061301账号登录，进行快速收货 """
+        user6.initialize_login(drivers, "NG2061301", "dcr123456")
+        """打开采购单Purchase Management菜单"""
+        user6.click_gotomenu("Purchase Management", "Inbound Receipt")
+        receipt = InboundReceiptPage(drivers)
+        """查询最近新建的销售单ID与出库单ID,进行快速收货操作"""
+        receipt.inbound_quick_received(sales_order, delivery_code)
+        """断言 获取快速收货弹出页面，Order ID与 Quantity字段内容是否匹配一致"""
+        get_quick_received_order_id = receipt.get_list_field_text('Get Quick Received Order ID')
+        get_quick_received_quantity = receipt.get_list_field_text('Get Quick Received Quantity')
+        ValueAssert.value_assert_equal(delivery_code, get_quick_received_order_id)
+        ValueAssert.value_assert_equal('1', get_quick_received_quantity)
+        """NG20613客户存在多个仓库，需选择仓库"""
+        receipt.input_select_warehouse('NG2061303  WNG2061304')
+        """"点击保存按钮"""
+        receipt.click_save()
+        """获取收货提交成功提示语，断言是否包含Successfully提示语"""
+        DomAssert(drivers).assert_att("Successfully")
+        sleep(1.8)
+        """获取列表Status字段内容"""
+        status = receipt.text_status()
+        """二代收货页面，验证收货后Status：显示GoodsReceipt状态，匹配一致"""
+        ValueAssert.value_assert_equal('Goods Receipt', status)
+        """关闭收货页面"""
+        user6.click_close_open_menu()
+
+
+        """零售商进行退货操作"""
+        Base(drivers).refresh()
+        """打开Purchase Management菜单"""
+        user6.click_gotomenu("Sales Management", "Return Order")
+        """实例化 二代退货单类"""
+        return_order = ReturnOrderPage(drivers)
+        return_order.add_return_order_box_sn_imei(get_sn1)
+        record = return_order.get_text_Record()
+        ValueAssert.value_assert_equal("Success", record)
+        """点击提交按钮"""
+        return_order.click_Submit()
+        """断言页面是否存在提交成功 Submit Success!文本"""
+        DomAssert(drivers).assert_att("Submit Success!")
+        """退货单列表页面，指定传音人员审核, 退货单操作"""
+        user6.initialize_login(drivers, "IN40080501", "dcr123456")
+        """打开Purchase Management菜单"""
+        user6.click_gotomenu("Sales Management", "Return Order")
+        """查询二代账号，最近新建的出库单ID"""
+        return_order.approve_return_order(delivery_code)
+        """ 断言页面是否存在审核成功Approval successfully文本 """
+        DomAssert(drivers).assert_att("Approval successfully")
+        """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
+        status = return_order.get_text_Status()
+        get_return_type = return_order.get_list_return_type()
+        ValueAssert.value_assert_equal("Approved", status)
+        ValueAssert.value_assert_equal('Return To Seller', get_return_type)
 
 
 if __name__ == '__main__':

@@ -334,7 +334,7 @@ class DeliveryOrderPage(Base):
         logging.info("打印数据库查询的销售单ID order_code{}".format(order_code))
         logging.info("打印数据库查询的出库单ID delivery_code{}".format(delivery_code))
         ValueAssert.value_assert_equal(order_code, delivery_code)
-        return order_code
+        return order_code, delivery_code
 
 
     @allure.step("创建出库单的操作步骤,封装公共方法")

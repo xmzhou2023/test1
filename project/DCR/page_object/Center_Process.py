@@ -233,6 +233,12 @@ class SalesOrderPage(Base):
         self.is_click(user['IMEI库存查询按钮'])
         sleep(4)
 
+    @allure.step("IMEI Inventory Query页面，获取列表 第一行IMEI文本内容")
+    def get_text_imei_inventory1(self):
+        self.presence_sleep_dcr(user['获取IMEI文本内容1'])
+        imei = self.element_text(user['获取IMEI文本内容1'])
+        return imei
+
     @allure.step("IMEI Inventory Query页面，获取列表IMEI文本内容")
     def get_text_imei_inventory(self):
         self.presence_sleep_dcr(user['获取IMEI文本内容'])

@@ -143,6 +143,7 @@ class ReturnOrderPage(Base):
     @allure.step("是否确认退货对话框，输入是否同意退货")
     def click_agree(self):
         self.is_click(user['Agree'])
+        sleep(0.5)
 
     @allure.step("退货单列表页面， 获取退货成功后的第一个Status Approved")
     def get_text_Status(self):
@@ -229,7 +230,7 @@ class ReturnOrderPage(Base):
         sleep(0.6)
 
     @allure.step("退货单页面，点击添加退货单操作")
-    def add_return_order(self, box_id):
+    def add_return_order_box_sn_imei(self, box_id):
         self.click_Add()
         """点击退货给卖家类型"""
         self.click_Return_Type()
