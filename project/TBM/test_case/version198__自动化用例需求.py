@@ -7571,7 +7571,7 @@ class Teststory_3247:
     @allure.description("进入新增页面，输入项目信息（项目输入未存在的项目，其他随便填），填写业务审核，点击提交，提示操作成功")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20612(self, drivers):
+    def test_20612(self, drivers, KeyDevice_SQL_50A712U):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()
@@ -7799,7 +7799,7 @@ class Teststory_3247:
     @allure.description("关键器件关键器件流程，查看单据状态已变为审批通过")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20621(self, drivers):
+    def test_20621(self, drivers, KeyDevice_SQL):
         user = KeyComponentsFlow(drivers)
         user.refresh_webpage_click_menu()
         user.click_add()
