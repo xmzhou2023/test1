@@ -8,7 +8,7 @@ from public.base.basics import Base
 import pytest
 import allure
 
-@allure.feature("销售管理-门店")
+@allure.feature("销售管理-门店销售查询")
 class TestQueryShopSalesQuery:
     @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
