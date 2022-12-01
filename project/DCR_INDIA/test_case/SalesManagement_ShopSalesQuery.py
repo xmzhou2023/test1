@@ -39,6 +39,8 @@ class TestQueryShopSalesQuery:
             ValueAssert.value_assert_IsNoneNot(shop_name)
             ValueAssert.value_assert_IsNoneNot(sales_date)
             ValueAssert.value_assert_IsNoneNot(public_id)
+            shop_sales.assert_total(total)
+            shop_sales.click_close_shop_sales_query()
         else:
             shop_sales.assert_total(total)
             shop_sales.click_close_shop_sales_query()
