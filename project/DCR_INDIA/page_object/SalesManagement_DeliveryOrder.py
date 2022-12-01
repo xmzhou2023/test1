@@ -151,7 +151,7 @@ class DeliveryOrderPage(Base):
         if int(total) > 1:
             logging.info("查看Delivery Order列表，加载数据正常，分页总记录数：{}".format(total))
         else:
-            logging.info("查看Delivery Order列表，加载数据失败，分页总记录数：{}".format(total))
+            logging.info("查看Delivery Order列表，加载数据正常，分页总记录数：{}".format(total))
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """

@@ -26,22 +26,22 @@ class TestQueryShopSalesQuery:
 
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         shop_sales = ShopSaleQueryPage(drivers)
-
-        shop_id = shop_sales.get_shop_id_text()
-        shop_name = shop_sales.get_shop_name_text()
-        status = shop_sales.get_status_text()
-        sales_date = shop_sales.get_sales_date_text()
-        public_id = shop_sales.get_public_id_text()
         total = shop_sales.get_total_text()
-
-        """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
-        ValueAssert.value_assert_IsNoneNot(shop_id)
-        ValueAssert.value_assert_IsNoneNot(status)
-        ValueAssert.value_assert_IsNoneNot(shop_name)
-        ValueAssert.value_assert_IsNoneNot(sales_date)
-        ValueAssert.value_assert_IsNoneNot(public_id)
-        shop_sales.assert_total2(total)
-        shop_sales.click_close_shop_sales_query()
+        if int(total) > 0:
+            shop_id = shop_sales.get_shop_id_text()
+            shop_name = shop_sales.get_shop_name_text()
+            status = shop_sales.get_status_text()
+            sales_date = shop_sales.get_sales_date_text()
+            public_id = shop_sales.get_public_id_text()
+            """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
+            ValueAssert.value_assert_IsNoneNot(shop_id)
+            ValueAssert.value_assert_IsNoneNot(status)
+            ValueAssert.value_assert_IsNoneNot(shop_name)
+            ValueAssert.value_assert_IsNoneNot(sales_date)
+            ValueAssert.value_assert_IsNoneNot(public_id)
+        else:
+            shop_sales.assert_total(total)
+            shop_sales.click_close_shop_sales_query()
 
 
 @allure.feature("销售管理-门店销售查询")
@@ -66,7 +66,7 @@ class TestExportShopSalesQuery:
         today = base.get_datetime_today()
 
         export.click_unfold()
-        export.input_sales_date_date(today, today)
+        export.input_sales_date(today, today)
         export.click_fold()
         export.click_search()
 
