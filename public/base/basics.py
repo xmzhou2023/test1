@@ -863,6 +863,25 @@ class Base(object):
         except Exception as e:
             raise e
 
+    def hover_move_click(self,locator1, locator2, choice=None):
+        """鼠标悬停在位置1后，移动到位置2进行点击"""
+        if choice is None:
+            sleep(1)
+            element1 = self.find_element(locator1)
+            element2 = self.find_element(locator2)
+            # 创建Action对象
+            actions = ActionChains(self.driver)
+            actions.click_and_hold(element1).move_to_element(element2).click(element2).perform()
+            sleep(1)
+        else:
+            sleep(1)
+            element1 = self.find_element(locator1, choice)
+            element2 = self.find_element(locator2)
+            # 创建Action对象
+            actions = ActionChains(self.driver)
+            actions.click_and_hold(element1).move_to_element(element2).click(element2).perform()
+            sleep(1)
+
 def read_excel(file_path,sheet_name,data_num=7,expect_num=8):
     """
         读取excel表测试数据
