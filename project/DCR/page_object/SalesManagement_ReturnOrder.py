@@ -252,5 +252,152 @@ class ReturnOrderPage(Base):
         self.click_Search()
 
 
+class ReturnOrderQuery(Base):
+    """用户类"""
+
+    @allure.step("退货单列表页面，点击Search")
+    def click_search(self):
+        self.is_click(user['Search'])
+        sleep()
+
+    @allure.step("退货单列表页面，点击export按钮")
+    def click_export(self):
+        self.is_click(user['导出按钮'])
+        sleep()
+
+    @allure.step("获取导出状态")
+    def export_status(self):
+        time=0
+        try:
+            while time<3:
+                txt = self.element_text(user['导出界面显示'])
+                sleep(time)
+                time = time + 0.5
+        except:
+            logging.info('get download status unsuccessful')
+        return txt
+
+    @allure.step("退货单列表页面，点击export detail按钮")
+    def click_export_detail(self):
+        self.hover_move_click(user['更多操作'],user['导出详情'])
+        sleep()
+
+    @allure.step("获取第一行文本内容")
+    def get_table_txt(self, num):
+        txt = self.element_text(user['列表第一行'],num)
+        return txt
+
+    @allure.step("输入退单日期")
+    def input_return_date(self, startdate, enddate):
+        self.is_click(user['退货单开始日期'])
+        self.input_text(user['退货单开始日期'], txt=startdate)
+        self.is_click(user['退货单结束日期'])
+        self.input_text(user['退货单结束日期'], txt=enddate)
+        sleep()
+
+    @allure.step("点击退货单unfold")
+    def click_unfold(self):
+        self.is_click(user['展开折叠'])
+
+    @allure.step("点击reset按钮")
+    def click_reset(self):
+        self.is_click(user['点击重置'])
+
+    @allure.step("点击退单ID")
+    def click_return_order(self):
+        self.is_click(user['退货单ID'])
+
+    @allure.step("点击IMEI Detail")
+    def click_detail(self):
+        sleep()
+        logging.info('begin click IMEI detail')
+        self.is_click_dcr(user['IMEI详情'])
+        logging.info('success click IMEI detail')
+
+    @allure.step("点击IMEI Detail")
+    def get_phone_detail(self):
+        txt = self.element_text(user['详情页IMEI'])
+        return txt
+
+    @allure.step("关闭IMEI Detail")
+    def close_phone_detail(self):
+        self.is_click(user['关闭IMEI详情'])
+
+    @allure.step("输入退单ID查询")
+    def input_return_order(self, data):
+        self.is_click(user['退货单ID'])
+        self.input_text(user['退货单ID'], txt=data)
+
+    @allure.step("输入出库单ID查询")
+    def input_delivery_order(self, data):
+        self.is_click(user['出库单ID'])
+        self.input_text(user['出库单ID'], txt=data)
+
+    @allure.step("输入退货单品牌查询")
+    def input_brand(self, data):
+        self.is_click(user['退货单品牌'])
+        self.is_click(user['品牌_状态_类型选择'], data)
+        self.is_click(user['退货单ID'])
+
+    @allure.step("点击退货单状态查询")
+    def input_return_status(self, data):
+        self.is_click(user['退货单状态'])
+        self.is_click(user['品牌_状态_类型选择'], data)
+
+    @allure.step("点击退货单退货类型查询")
+    def input_return_type(self, data):
+        self.is_click(user['退货单类型'])
+        self.is_click(user['品牌_状态_类型选择'], data)
+
+    @allure.step("点击退货单卖家查询")
+    def input_seller(self, data):
+        self.is_click(user['退货单卖家'])
+        self.input_text(user['退货单卖家'], txt=data)
+        self.is_click(user['买家_卖家选择'], data)
+
+    @allure.step("点击退货单买家查询")
+    def input_buyer(self, data):
+        self.is_click(user['退货单买家'])
+        self.input_text(user['退货单买家'], txt=data)
+        self.is_click(user['买家_卖家选择'], data)
+
+    @allure.step("点击卖家仓库地址查询")
+    def input_seller_area(self, data):
+        self.is_click(user['卖家仓库地址'])
+        self.input_text(user['卖家仓库地址'], txt=data)
+        self.is_click(user['卖家_买家仓库地址选择'], data)
+
+    @allure.step("点击买家仓库地址查询")
+    def input_buyer_area(self, data):
+        self.is_click(user['买家仓库地址'])
+        self.input_text(user['买家仓库地址'], txt=data)
+        self.is_click(user['卖家_买家仓库地址选择'], data)
+
+    @allure.step("点击退货型号查询")
+    def input_model(self, data):
+        self.is_click(user['退货型号'])
+        self.input_text(user['退货型号输入'], txt=data)
+        sleep()
+        self.is_click(user['退货型号选择'], data)
+
+    @allure.step("点击退货市场名字查询")
+    def input_market_name(self, data):
+        self.is_click(user['市场名字'])
+        self.input_text(user['市场名字输入'], txt=data)
+        sleep()
+        self.is_click(user['市场名字选择'], data)
+
+    @allure.step("点击输入IMEI查询")
+    def input_phone(self, data):
+        self.is_click(user['IMEI点击'])
+        self.input_text(user['IMEI输入'], txt=data)
+
+    @allure.step("点击卖家国家查询")
+    def input_seller_country(self, data):
+        self.is_click(user['卖方国家'])
+        self.input_text(user['卖方国家输入'], txt=data)
+        self.is_click(user['卖方国家选择'], data)
+
+
 if __name__ == '__main__':
     pass
