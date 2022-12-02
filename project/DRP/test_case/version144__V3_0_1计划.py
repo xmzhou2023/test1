@@ -18,24 +18,7 @@ class Teststory_2467:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_18519(self, drivers):
-        robot = KeyWord(drivers)
-        robot.AI_get("http://10.248.39.163:10101/")
-        robot.AI_find_element(By.XPATH, "//div[@id='sidebar-containerId']/div/div/div/ul/div[2]/li/div").click()
-        robot.AI_find_element(By.XPATH, "//span[contains(.,'Call Center')]").click()
-        robot.AI_find_element(By.XPATH, "//span[contains(.,'Repair Center')]").click()
-        robot.AI_find_element(By.XPATH, "//span[contains(.,'JS Mgt')]").click()
-        robot.AI_find_element(By.XPATH, "//div[@id='sidebar-containerId']/div/div/div/ul/div[4]/li/ul/div/li/ul/div/li").click()
-        robot.AI_find_element(By.XPATH, "//div[@id='main-containerId']/section/div/div/div[2]/button/span").click()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[3]").click()
-        robot.AI_find_element(By.XPATH, "//span[contains(.,'Carry In')]").click()
-        element = robot.AI_find_element(By.XPATH, "(//button[@type='button'])[5]")
-        actions = ActionChains(robot)
-        actions.move_to_element(element).perform()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").click()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").send_keys("xpath编辑功能(后端)")
-        robot.AI_find_element(By.XPATH, "//div[@id='el-collapse-content-9751']/div/div/form/div/div/div/div/div/span/span/i").click()
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[25]").click()
-        robot.AI_find_element(By.XPATH, "//span[contains(.,'End User')]").click()
+        pass
 
 
     @allure.story("新版DRP权限调整切面部分")  # 用户故事名称
