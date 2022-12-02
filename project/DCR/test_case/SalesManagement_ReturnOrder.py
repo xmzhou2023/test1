@@ -3,7 +3,7 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 
-from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
+from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage,ReturnOrderQuery
 from project.DCR.page_object.SalesManagement_SalesOrder import SalesOrderPage
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
 from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
@@ -13,6 +13,7 @@ from public.base.assert_ui import ValueAssert, DomAssert
 from public.base.assert_ui import SQLAssert
 from libs.common.time_ui import sleep
 from libs.common.connect_sql import *
+from libs.config.conf import DOWNLOAD_PATH
 import pytest
 import allure
 
@@ -516,6 +517,165 @@ class TestReturnOrder:
         delivery.click_blank()
         data = delivery.get_BasicInfo('Return Date')
         ValueAssert.value_assert_Notequal(data, last_date)
+
+@allure.feature("销售管理-退货单")
+class TestReturnQuery:
+    @allure.story("查询退货单")
+    @allure.title("在退货单界面，按条件对退货单进行查询，判断结果和查询条件一致")
+    @allure.description("在退货单界面，按条件对退货单进行查询，判断结果和查询条件一致")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "xiongbo92", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Return Order")
+
+        page = ReturnOrderQuery(drivers)
+        page.click_unfold()
+
+        #查询上传日期并断言日期和查询结果一致
+        page.input_return_date('2022-09-06','2022-09-06')
+        page.click_search()
+        result_date=page.get_table_txt(3)    #第3列
+        ValueAssert.value_assert_In('2022-09-06',result_date)
+        page.click_reset()
+
+        #查询退单ID并断言退单ID和查询结果一致
+        page.input_return_order('RDHK202211280031')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(2)    #第3列
+        ValueAssert.value_assert_In('RDHK202211280031',result_date)
+        page.click_reset()
+
+        #查询出库ID并断言出库单ID和查询结果一致
+        page.input_delivery_order('02HK2211280000023')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(4)    #第3列
+        ValueAssert.value_assert_In('02HK2211280000023',result_date)
+        page.click_reset()
+
+        #查询退单品牌并断言退单品牌和查询结果一致
+        page.input_brand('itel')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(10)    #第3列
+        ValueAssert.value_assert_In('itel',result_date)
+        page.click_reset()
+
+        #查询退单类型并断言退单类型和查询结果一致
+        page.input_return_type('Return To Seller')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(7)    #第7列
+        ValueAssert.value_assert_In('Return To Seller',result_date)
+        page.click_reset()
+
+        #查询退单状态并断言退单状态和查询结果一致
+        page.input_return_status('Approved')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(6)    #第6列
+        ValueAssert.value_assert_In('Approved',result_date)
+        page.click_reset()
+
+        #查询卖家并断言卖家和查询结果一致
+        page.input_seller('BD403442')
+        page.input_return_date('2022-10-20','2022-10-30')
+        page.click_search()
+        result_date=page.get_table_txt(15)    #第7列
+        ValueAssert.value_assert_In('BD403442',result_date)
+        page.click_reset()
+
+        #查询买家并断言买家和查询结果一致
+        page.input_buyer('BD2915')
+        page.input_return_date('2022-10-20','2022-10-30')
+        page.click_search()
+        result_date=page.get_table_txt(20)    #第6列
+        ValueAssert.value_assert_In('BD2915',result_date)
+        page.click_reset()
+
+        #查询买家仓库地址并断言买家仓库地址和查询结果一致
+        page.input_buyer_area('Kaolack Dept')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(37)    #第6列
+        ValueAssert.value_assert_In('Kaolack Dept',result_date)
+        page.click_reset()
+
+        #查询卖家仓库地址并断言卖家仓库地址和查询结果一致
+        page.input_seller_area('Kaolack Dept')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(34)    #第7列
+        ValueAssert.value_assert_In('Kaolack Dept',result_date)
+        page.click_reset()
+
+        #查询型号并断言型号和查询结果一致
+        page.input_model('it6350')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(11)    #第6列
+        ValueAssert.value_assert_In('it6350',result_date)
+        page.click_reset()
+
+        #查询市场名字并断言市场名字和查询结果一致
+        page.input_market_name('A48')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(13)    #第6列
+        ValueAssert.value_assert_In('A48',result_date)
+        page.click_reset()
+
+        #查询IMEI并断言IMEI和查询结果一致
+        page.input_phone('352287800106087')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        page.click_detail()
+        result_date=page.get_phone_detail()    #第6列
+        ValueAssert.value_assert_In('352287800106087',result_date)
+        page.close_phone_detail()
+        page.click_reset()
+
+        #查询卖方国家并断言卖方国家和查询结果一致
+        page.input_seller_country('Nigeria')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(17)    #第6列
+        ValueAssert.value_assert_In('Nigeria',result_date)
+        page.click_reset()
+
+    @allure.story("导出退货单")
+    @allure.title("在退货单界面，按条件对退货单进行查询，导出查询结果和查询条件一致")
+    @allure.description("在退货单界面，按条件对退货单进行查询，导出查询结果和查询条件一致")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "xiongbo92", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Return Order")
+
+        page = ReturnOrderQuery(drivers)
+        page.click_unfold()
+
+        # 查询卖方国家并断言卖方国家和查询结果一致
+        page.input_return_date('2022-10-10', '2022-11-30')
+        page.click_search()
+        file_begin = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        page.click_export()
+        #export_txt = page.export_status()
+        #ValueAssert.value_assert_In('Download...', export_txt)
+
+        file_then = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        ValueAssert.value_assert_Notequal(file_begin,file_then)
+        page.click_export_detail()
+        file_three = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        ValueAssert.value_assert_Notequal(file_three, file_then)
+        page.click_reset()
+
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_ReturnOrder.py'])
