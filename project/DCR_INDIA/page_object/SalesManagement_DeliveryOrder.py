@@ -10,7 +10,7 @@ class DeliveryOrderPage(Base):
     """DeliveryOrderPage类，生产环境，Delivery Order页面元素定位"""
     def click_unfold(self):
         """点击Unfold展开筛选条件"""
-        self.is_click(user['Unfold'])
+        self.is_click_dcr(user['Unfold'])
         sleep(2)
 
     def click_fold(self):
@@ -145,7 +145,6 @@ class DeliveryOrderPage(Base):
         export_time1 = export_time[0:1]
         return export_time1
 
-
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
         if int(total) > 1:
@@ -164,7 +163,7 @@ class DeliveryOrderPage(Base):
             logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1.5)
+
 
 if __name__ == '__main__':
     pass

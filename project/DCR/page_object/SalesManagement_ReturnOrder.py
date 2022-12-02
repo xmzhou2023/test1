@@ -106,6 +106,22 @@ class ReturnOrderPage(Base):
         self.is_click(user['Search'])
         sleep(3)
 
+    @allure.step("退货单列表页面，点击IMEI Detail按钮，查看IMEI详情")
+    def click_return_order_imei_detail(self):
+        self.is_click(user['Return Order Click IMEI Detail'])
+        sleep(2.5)
+
+    @allure.step("退货单列表页面，打开IMEI Detail页面，点击关闭IMEI Detail窗口")
+    def close_return_order_imei_detail(self):
+        self.is_click_dcr(user['Close Return Order IMEI Detail'])
+
+    @allure.step("退货单列表页面，获取列表字段文本内容")
+    def get_list_field_text(self, field):
+        self.presence_sleep_dcr(user[field])
+        get_list_field = self.element_text(user[field])
+        return get_list_field
+
+
     @allure.step("退货单列表页面， 获取第筛选后的第一个出库单ID")
     def get_text_deliveryID(self):
         self.presence_sleep_dcr(user['获取列表第一个出库单'])

@@ -21,13 +21,10 @@ Get Order Detail Return Quantity: "xpath==//tr[@class='el-table__row']//td[10]//
 Radio Quantity: "xpath==//span[normalize-space(text())='variable']"
 Quantity Customer: "xpath==//input[@placeholder='Please enter ID or buyer name']"
 Quantity Customer value: "xpath==//div[@class='el-scrollbar']//span[contains(text(),'variable')]"
-
 Quantity Delivery Order ID: "xpath==//input[@placeholder='Please select a delivery order ID']"
 Quantity Delivery Order ID value: "xpath==//span[contains(text(),'variable')]"
-
 Quantity Product: "xpath==//input[@placeholder='Please select a product']"
 Quantity Product value: "xpath==//span[contains(text(),'variable')]"
-
 Return Quantity: "xpath==//input[@role='spinbutton']"
 Get Quantity Delivery Order Text: "xpath==//div[contains(text(),'variable')]"
 Get Quantity Seller ID Text: "xpath==//div[contains(text(),'variable')]"
@@ -57,6 +54,13 @@ More Option: "xpath==//span[normalize-space(text())='More Option']"
 Recall: "xpath==//li[normalize-space(text())='Recall']"
 Confirm Recall: "xpath==//span[normalize-space(text())='Confirm']"
 
+#退货单页面，查看IMEI Detail详情定位
+Return Order Click IMEI Detail: "xpath==//tbody//tr[1]//td[not(contains(@class,'is-hidden'))]//div//button//span[normalize-space(text())='IMEI Detail']"
+Get Return Order IMEI Detail title: "xpath==//div/../..//span[text()='IMEI Detail']"
+Get Return Order IMEI Detail IMEI: "xpath==//div//span[text()='IMEI Detail']/../..//tbody//tr[1]//td[1]//div"
+Get Return Order IMEI Detail Product: "xpath==//div//span[text()='IMEI Detail']/../..//tbody//tr[1]//td[3]//div"
+Get Return Order IMEI Detail Brand:  "xpath==//div//span[text()='IMEI Detail']/../..//tbody//tr[1]//td[5]//div"
+Close Return Order IMEI Detail: "xpath==//div//span[text()='IMEI Detail']/..//i[@class='el-dialog__close el-icon el-icon-close']"
 
 ScanFailedNum: "xpath==//span[normalize-space(text())='failed:']/following-sibling::span"
 ScanRecord: "xpath==//div[normalize-space(text())='variable']/../div[3]"

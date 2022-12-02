@@ -1,8 +1,6 @@
 from datetime import datetime
-
 from openpyxl import load_workbook
 from pykeyboard import PyKeyboard
-
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from libs.config.conf import BASE_DIR

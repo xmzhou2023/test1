@@ -46,7 +46,7 @@ Business Type: "xpath==//input[@class='el-input__inner deliveryorderadd_input_tm
 Business Type value: "xpath==//span[normalize-space(text())='variable']"
 
 #查询IMEI Detail详情
-Click IMEI Detail: "xpath==//tbody//tr[1]//td[44]//div//div//span[text()='IMEI Detail']"
+Click IMEI Detail: "xpath==//tbody//tr[1]//td//div//div//span[text()='IMEI Detail']"
 Get List Product Text: "xpath==//tbody//tr[1]//td[7]//div//div//div"
 Get List Item Text: "xpath==//tbody//tr[1]//td[8]//div//div//div"
 Get IMEI Detail Product Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[1]//div"
@@ -68,7 +68,7 @@ Get list Return Quantity: "xpath==//tbody//tr[1]//td[14]//div[contains(@style, '
 
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭出库单菜单: "xpath==//span[normalize-space(text())='Delivery Order']//span[@class='el-icon-close']"
-关闭IMEI详情页: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[1]/button/i"
+关闭IMEI详情页: "xpath==//div//span[contains(text(),'IMEI Detail')]/..//i[@class='el-dialog__close el-icon el-icon-close']"
 
 #测试环境，导出出库单定位
 Click Export: "xpath==//button//span[normalize-space(text())='Export']"

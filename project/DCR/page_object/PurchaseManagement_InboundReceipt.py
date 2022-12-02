@@ -60,7 +60,7 @@ class InboundReceiptPage(Base):
     def input_select_warehouse(self, warehouse):
         self.presence_sleep_dcr(user['Quick Received select Warehouse'])
         self.is_click(user['Quick Received select Warehouse'])
-        self.input_text(user['Quick Received select Warehouse'], txt=warehouse)
+        self.input_text(user['Quick Received select Warehouse'], warehouse)
         sleep(0.6)
         self.is_click(user['Select Warehouse Value'], warehouse)
 
