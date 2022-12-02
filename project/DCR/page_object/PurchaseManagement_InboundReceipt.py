@@ -146,7 +146,7 @@ class InboundReceiptPage(Base):
 
     @allure.step("Inbound Receipt列表点击 IMEI Detail按钮")
     def click_imei_detail(self):
-        self.is_click(user['IMEI Detail'])
+        self.is_click(user['Click IMEI Detail'])
         sleep(2)
 
 

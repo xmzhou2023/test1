@@ -436,7 +436,7 @@ class DeliveryOrderPage(Base):
     """查询出库单的IMEI Detail 详情信息"""
     @allure.step("点击出库单页面的IMEI Detail 查看详情信息")
     def click_imei_detail(self):
-        self.is_click_dcr(user['Click IMEI Detail'])
+        self.is_click(user['Click IMEI Detail'])
         sleep(2)
 
     @allure.step("获取列表Product文本")

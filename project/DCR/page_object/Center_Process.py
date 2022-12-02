@@ -84,7 +84,7 @@ class SalesOrderPage(Base):
 
     @allure.step("销售单页面，点击IMEI Detail打开详情页")
     def click_sales_order_imei_detail(self):
-        self.is_click_dcr(user['Sales Order IMEI Detail'])
+        self.is_click(user['Sales Order IMEI Detail'])
         sleep(1.5)
 
     @allure.step("销售单页面，点击关闭IMEI Detail详情页")

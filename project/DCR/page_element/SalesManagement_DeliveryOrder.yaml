@@ -46,7 +46,7 @@ Business Type: "xpath==//input[@class='el-input__inner deliveryorderadd_input_tm
 Business Type value: "xpath==//span[normalize-space(text())='variable']"
 
 #查询IMEI Detail详情
-Click IMEI Detail: "xpath==//tbody//tr[1]//td//div//div//span[text()='IMEI Detail']"
+Click IMEI Detail: "xpath==//tbody//tr[1]//td[not(contains(@class,'is-hidden'))]//div//div//span[text()='IMEI Detail']"
 Get List Product Text: "xpath==//tbody//tr[1]//td[7]//div//div//div"
 Get List Item Text: "xpath==//tbody//tr[1]//td[8]//div//div//div"
 Get IMEI Detail Product Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[1]//div"
