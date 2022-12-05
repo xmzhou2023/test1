@@ -69,8 +69,6 @@ class TestExportShopInventoryIMEI:
         export.input_inbound_date(today)
         export.click_fold()
         export.click_search()
-
-        #shop_id = export.get_shop_id_text()
         total = export.get_total_text()
         export.assert_total(total)
 
@@ -78,8 +76,6 @@ class TestExportShopInventoryIMEI:
         export.click_export()
         export.click_download_more()
         down_status = export.click_export_search()
-
-        #down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()

@@ -27,19 +27,18 @@ class TestQueryDeliveryOrder:
         # 获取日期
         base = Base(drivers)
         today = base.get_datetime_today()
-
+        """根据出库日期筛选列表数据"""
         query.click_unfold()
-        query.input_delivery_date("2022-07-01", today)
+        query.input_delivery_date("2022-11-01", today)
         query.click_status_input_box()
         query.click_fold()
         query.click_search()
-
+        """根据出库日期筛选结果后，断言列表是否能加载数据"""
         sale_order = query.get_sales_order_text()
         deli_order = query.get_delivery_order_text()
         deli_date = query.get_delivery_date_text()
         status = query.get_status_text()
         total = query.get_total_text()
-
         ValueAssert.value_assert_IsNoneNot(sale_order)
         ValueAssert.value_assert_IsNoneNot(deli_order)
         ValueAssert.value_assert_IsNoneNot(deli_date)
@@ -62,7 +61,6 @@ class TestExportDeliveryOrder:
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")
-
         export = DeliveryOrderPage(drivers)
         # 获取日期
         base = Base(drivers)

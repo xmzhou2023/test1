@@ -28,7 +28,6 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        #sleep(4)
         sleep(3)
 
     @allure.step("获取列表第一个销售单ID")
@@ -61,8 +60,8 @@ class InboundReceiptPage(Base):
     def input_select_warehouse(self, warehouse):
         self.presence_sleep_dcr(user['Quick Received select Warehouse'])
         self.is_click(user['Quick Received select Warehouse'])
-        self.input_text(user['Quick Received select Warehouse'], txt=warehouse)
-        sleep(1.5)
+        self.input_text(user['Quick Received select Warehouse'], warehouse)
+        sleep(0.6)
         self.is_click(user['Select Warehouse Value'], warehouse)
 
     @allure.step("快速收货页面，点击Save按钮")
@@ -147,7 +146,7 @@ class InboundReceiptPage(Base):
 
     @allure.step("Inbound Receipt列表点击 IMEI Detail按钮")
     def click_imei_detail(self):
-        self.is_click(user['IMEI Detail'])
+        self.is_click(user['Click IMEI Detail'])
         sleep(2)
 
 

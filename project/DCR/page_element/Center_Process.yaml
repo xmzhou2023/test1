@@ -124,7 +124,7 @@ Shop Inventory Query IMEI: "xpath==//div//input[@class='el-input__inner shopinve
 
 
 #Sales Order页面，打开IMEI Detail详情页断言
-Sales Order IMEI Detail: "xpath==//tbody//tr[1]//td[27]//div//div//span[text()='IMEI Detail']"
+Sales Order IMEI Detail: "xpath==//tbody//tr[1]//td[not(contains(@class,'is-hidden'))]//div//div//span[text()='IMEI Detail']"
 Get Sales IMEI Detail Product: "xpath==//div//span[text()='IMEI Detail']/../..//tbody//tr[1]//td[1]"
 Get Sales IMEI Detail Brand: "xpath==//div//span[text()='IMEI Detail']/../..//tbody//tr[1]//td[5]"
 Get Sales IMEI Detail Total: "xpath==//div//span[text()='IMEI Detail']/../..//div//span[contains(text(),'Total')]"

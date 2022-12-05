@@ -84,7 +84,7 @@ class SalesOrderPage(Base):
 
     @allure.step("销售单页面，点击IMEI Detail打开详情页")
     def click_sales_order_imei_detail(self):
-        self.is_click_dcr(user['Sales Order IMEI Detail'])
+        self.is_click(user['Sales Order IMEI Detail'])
         sleep(1.5)
 
     @allure.step("销售单页面，点击关闭IMEI Detail详情页")
@@ -232,6 +232,12 @@ class SalesOrderPage(Base):
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
         sleep(4)
+
+    @allure.step("IMEI Inventory Query页面，获取列表 第一行IMEI文本内容")
+    def get_text_imei_inventory1(self):
+        self.presence_sleep_dcr(user['获取IMEI文本内容1'])
+        imei = self.element_text(user['获取IMEI文本内容1'])
+        return imei
 
     @allure.step("IMEI Inventory Query页面，获取列表IMEI文本内容")
     def get_text_imei_inventory(self):

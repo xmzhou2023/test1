@@ -27,6 +27,9 @@ Menu Function Management: "xpath==//span[(text()='Menu Function Management')]"
 Function Setting: "xpath==//span[(text()='Function Setting')]"
 Privacy Policy Log: "xpath==//span[(text()='Privacy Ploicy Log')]"
 Data Dictionary: "xpath==//span[(text()='Data Dictionary')]"
+所有文本: "xpath==//*[contains(text(),'')]"
+隐私滚动条: "xpath==//div[@id='iframeBox']"
+隐私同意按钮: "xpath==//div[@aria-label='privacy']//button[normalize-space(text())='同意']"
 
 
 Basic Data Management: "xpath==//span[(text()='Basic Data Management')]"
