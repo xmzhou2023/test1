@@ -77,6 +77,8 @@ class TestAddRole:
         # 断言--重复提交提示
         test = users.element_text(user['重复提交提示'])
         ValueAssert.value_assert_equal(test, "该角色名已存在，请联系系统管理员操作")
+        # 关闭弹窗
+        users.click_close()
         sleep(3)
 
 @allure.feature("组织-角色管理") # 模块名称
@@ -129,4 +131,4 @@ class TestEditRole:
 
 
 if __name__ == '__main__':
-    pytest.main(['Role_Management.py::TestEditRole::test_003_001'])
+    pytest.main(['Role_Management.py'])

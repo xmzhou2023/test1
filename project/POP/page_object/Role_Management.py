@@ -33,7 +33,7 @@ class AddRole(Base):
         self.input_text(user['备注框'],remark)
 
     @allure.step("点击提交")
-    def click_submit(self) -> object:
+    def click_submit(self):
         self.is_click_tbm(user['提交按钮'])
 
     @allure.step("新增数据删除")
@@ -43,6 +43,10 @@ class AddRole(Base):
         self.is_click_tbm(user['禁用按钮'])
         sleep(2)
         self.is_click_tbm(user['二次弹窗确定'])
+
+    @allure.step("关闭弹窗")
+    def click_close(self):
+        self.is_click_tbm(user['关闭弹窗按钮'])
 
 class DisableRole(Base):
     """禁用角色类"""
