@@ -281,9 +281,9 @@ class SalesOrderPage(Base):
         return get_list_total1
 
     @allure.step("IMEI Inventory Query菜单, 根据IMEI条件筛选库存IMEI记录")
-    def imei_inventory_query_imei(self, imei):
+    def imei_inventory_query_imei(self, query_imei):
         self.click_unfold()
-        self.input_text(user['IMEI Inventory Query IMEI'], imei)
+        self.input_text(user['IMEI Inventory Query IMEI'], query_imei)
         self.click_fold()
         self.click_inventory_search()
 

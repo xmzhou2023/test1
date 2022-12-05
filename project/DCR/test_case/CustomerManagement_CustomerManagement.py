@@ -414,8 +414,7 @@ class TestEnableCustomer:
 #         ValueAssert.value_assert_equal('0', get_failed)
 #         ValueAssert.value_assert_equal(today, get_import_date)
 #         """关闭当前打开的菜单"""
-#         menu = LoginPage(drivers)
-#         menu.click_close_open_menu()
+#         user.click_close_open_menu()
 #         """根据导入的客户ID，筛选导入的数据，然后进行删除操作"""
 #         upload.input_customer_query('Cus_test_itel')
 #         upload.click_search()
