@@ -131,7 +131,11 @@ class Teststory_3259:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23754(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test = CreateProject(drivers)
+        test.Create_project('保存', 'IT项目模板', f'IPM自动化{now_times}')
+        ass = Assert_result(drivers)
+        ass.assert_Create_project(f'IPM自动化{now_times}')
 
 
     @allure.story("创建项目")  # 用户故事名称
