@@ -103,11 +103,11 @@ Get Delivery Status: "xpath==//div[text()='Goods Receipt']"
 
 #筛选Shop Sales Query页面, 查询门店销量IMEI记录
 Shop Sales Query IMEI SN: "xpath==//div//input[@class='el-input__inner shopsalesquery_input_imeiCode']"
-Get Shop Sales list Shop ID: "xpath==//tbody//tr[1]//td[2]//div"
+Get Shop Sales list Shop ID: "xpath==//tbody//tr[1]//td[2]//div//span"
 Get Shop Sales list Total: "xpath==//div/..//div//span[contains(text(), 'Total')]"
 Shop Sales Query check box: "xpath==//tbody//tr[1]//td[1]//div//span[@class='vxe-checkbox--icon vxe-checkbox--unchecked-icon']"
 Shop Sales Query Delete: "xpath==//div//button//span[normalize-space(text())='Delete']"
-Shop Sales Query Confirm Del: "xpath==//div//button//span[normalize-space(text())='Confirm']"
+Shop Sales Query Confirm Del: "xpath==//div[@class='el-message-box__btns']//button//span[normalize-space(text())='Confirm']"
 
 
 #筛选Shop Purchase Query页面, 查询门店采购IMEI记录

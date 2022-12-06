@@ -309,6 +309,7 @@ class SalesOrderPage(Base):
 
     @allure.step("Shop Sales Query菜单, 获取列表分页总条数")
     def shop_sales_assert_total(self):
+        self.presence_sleep_dcr(user['Get Shop Sales list Total'])
         get_total = self.element_text(user['Get Shop Sales list Total'])
         get_total1 = get_total[6:]
         return get_total1
@@ -332,7 +333,7 @@ class SalesOrderPage(Base):
     def shop_purchase_query_imei(self, imei):
         self.input_text(user['Shop Purchase Query IMEI'], imei)
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(2.5)
+        sleep(4)
 
     @allure.step("Shop Purchase Query菜单, 勾选记录，然后点击删除功能")
     def shop_purchase_query_cancel(self):
