@@ -245,13 +245,24 @@ class ReturnOrderPage(Base):
         self.is_click(user['Confirm Recall'])
         sleep(0.6)
 
-    @allure.step("退货单页面，点击添加退货单操作")
+    @allure.step("退货单页面，点击添加退货单操作，退货一个BoxID或IMEI")
     def add_return_order_box_sn_imei(self, box_id):
         self.click_Add()
         """点击退货给卖家类型"""
         self.click_Return_Type()
         self.radio_Boxid_IMEI()
         self.input_BoxID_IMEI(box_id)
+        self.click_Check()
+
+    @allure.step("退货单页面，点击添加退货单操作，退货两个IMEI")
+    def add_return_order_box_sn_imei(self, imei1, imei2):
+        self.click_Add()
+        """点击退货给卖家类型"""
+        self.click_Return_Type()
+        self.radio_Boxid_IMEI()
+        self.input_BoxID_IMEI(imei1)
+        self.click_Check()
+        self.input_BoxID_IMEI(imei2)
         self.click_Check()
 
     @allure.step("退货单页面，卖家进行审核退货单操作")

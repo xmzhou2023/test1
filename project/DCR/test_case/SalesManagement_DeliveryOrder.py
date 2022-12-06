@@ -622,6 +622,7 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Purchase Management", "Shop Purchase Query")
         """根据IMEI筛选是否存记录,断言Shop Sales Query列表，字段内容是否正确，Total条数是否与筛选的IMEI一致"""
         process.shop_purchase_query_imei(get_imei1)
+        process.shop_purchase_query_imei(get_imei2)
         get_total = process.shop_sales_assert_total()
         get_shop_id = process.get_list_field_text('Get Shop Purchase list Shop ID')
         ValueAssert.value_assert_equal('1', get_total)
@@ -642,6 +643,15 @@ class TestAddDeliveryOrder:
         """然后删除需要退货的IMEI，首先删除Shop Sales Query页面IMEI"""
         process.shop_sales_query_delete()
         DomAssert(drivers).assert_att('Deleted Successfully')
+        """删除第二个IMEI"""
+        process.shop_sales_query_imei(get_imei2)
+        get_total = process.shop_sales_assert_total()
+        ValueAssert.value_assert_equal('1', get_total)
+        get_shop_id = process.get_list_field_text('Get Shop Sales list Shop ID')
+        ValueAssert.value_assert_equal('SN001872', get_shop_id)
+        """然后删除需要退货的IMEI，首先删除Shop Sales Query页面IMEI"""
+        process.shop_sales_query_delete()
+        DomAssert(drivers).assert_att('Deleted Successfully')
         """"关闭Shop Sales Query页面"""
         user5.click_close_open_menu()
 
@@ -651,7 +661,14 @@ class TestAddDeliveryOrder:
         process.shop_purchase_query_imei(get_imei1)
         process.shop_purchase_query_cancel()
         DomAssert(drivers).assert_att('Cancel success')
-        sleep(2.5)
+        sleep(3.2)
+        get_status = process.get_list_field_text('Get Shop Purchase list Status')
+        ValueAssert.value_assert_equal('Canceled', get_status)
+        """取消第二个IMEI"""
+        process.shop_purchase_query_imei(get_imei2)
+        process.shop_purchase_query_cancel()
+        DomAssert(drivers).assert_att('Cancel success')
+        sleep(3.2)
         get_status = process.get_list_field_text('Get Shop Purchase list Status')
         ValueAssert.value_assert_equal('Canceled', get_status)
         """"关闭Shop Purchase Query页面"""
@@ -672,7 +689,8 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
-        return_order.add_return_order_box_sn_imei(get_imei1)
+        """退货操作，传参退2个IMEI"""
+        return_order.add_return_order_box_sn_imei(get_imei1, get_imei2)
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
         """点击提交按钮"""
