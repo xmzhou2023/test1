@@ -292,10 +292,10 @@ class TestConfirmReceiptTransferOrder:
         ValueAssert.value_assert_equal('Received', get_received)
 
 
-    @allure.story("导入调拨单(同级客户调拨：不同客户间调拨)，然后to 方退货操作，退货from方，单据更新为拒绝状态")
-    @allure.title("导入调拨单(同级客户调拨：不同客户间调拨)，然后to 方退货操作，退货from方，单据更新为拒绝状态")
+    @allure.story("导入调拨单，导入成功断言，然后to 方退货操作，退货from方，单据更新为拒绝状态")
+    @allure.title("导入调拨单(同级客户调拨：不同客户间调拨)，导入成功断言，然后to 方退货操作，退货from方，单据更新为拒绝状态")
     @allure.description("NG2061301客户导入调拨单，BD291501客户退货操作")
-    @allure.severity("critical")
+    @allure.severity("normal")
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_003(self, drivers):
@@ -306,10 +306,9 @@ class TestConfirmReceiptTransferOrder:
         """Transfer Order页面，未点击Upload按钮，直接点击Save，提示请上传文件"""
         import_transfer.click_transfer_order_import()
         DomAssert(drivers).assert_att('Please upload first.')
-        sleep(0.6)
+        sleep(0.5)
+        """Transfer Order页面，上传文件导入一条正常的IMEI记录，能导入成功"""
         import_transfer.upload_true_file('TransferOrderTemplate.xlsx')
-        import_transfer.click_search()
-        sleep(1.5)
         """筛选当天导入的记录"""
         today = Base(drivers).get_datetime_today()
         import_transfer.input_import_date(today)
@@ -354,9 +353,99 @@ class TestConfirmReceiptTransferOrder:
         assert_imei = SalesOrderPage(drivers)
         """查询IMEI Inventory Query页面 指定product的IMEI"""
         assert_imei.imei_inventory_query_imei('354196616530083')
-        assert_imei.click_inventory_search()
         get_imei = assert_imei.get_text_imei_inventory1()
         ValueAssert.value_assert_equal("354196616530083", get_imei)
+
+
+    @allure.story("导入调拨单，导入文件一条IMEI成功，其他3条IMEI导入失败，然后to方退货导入成功的一条IMEI，退货from方，单据更新为拒绝状态")
+    @allure.title("导入调拨单(同级客户调拨：不同客户间调拨)，然后to 方退货操作，退货from方，单据更新为拒绝状态")
+    @allure.description("NG2061301客户导入调拨单，导入一条IMEI成功，其他3条IMEI导入失败，BD291501客户退货操作")
+    @allure.severity("normal")
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_004(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "NG2061301", "dcr123456")
+        user.click_gotomenu("Inventory Management", "Transfer Order")
+        import_transfer = TransferOrderPage(drivers)
+        """Transfer Order页面，未点击Upload按钮，直接点击Save，提示请上传文件"""
+        import_transfer.click_transfer_order_import()
+        DomAssert(drivers).assert_att('Please upload first.')
+        sleep(0.5)
+        """Transfer Order页面，上传文件导入多条IMEI，其中一条IMEI成功，其他IMEI失败"""
+        import_transfer.upload_true_file('TransferOrderTemplate导入多条其中一条成功.xlsx')
+        """筛选当天导入的记录"""
+        today = Base(drivers).get_datetime_today()
+        import_transfer.input_import_date(today)
+        import_transfer.click_search()
+        """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
+        get_file_name = import_transfer.get_list_field('Get Import Record File Name')
+        get_status = import_transfer.get_list_field('Get Import Record Status')
+        get_total = import_transfer.get_list_field('Get Import Record Total')
+        get_success = import_transfer.get_list_field('Get Import Record Success')
+        get_failed = import_transfer.get_list_field('Get Import Record Failed')
+        get_import_date = import_transfer.get_list_field('Get Import Import Date')
+        ValueAssert.value_assert_equal('TransferOrderTemplate导入多条其中一条成功.xlsx', get_file_name)
+        ValueAssert.value_assert_equal('Upload Successfully', get_status)
+        ValueAssert.value_assert_equal('4', get_total)
+        ValueAssert.value_assert_equal('1', get_success)
+        ValueAssert.value_assert_equal('3', get_failed)
+        ValueAssert.value_assert_In(today, get_import_date)
+        """关闭当前打开的菜单"""
+        user.click_close_open_menu()
+
+        """to方登录，打开transfer Order菜单，进行退货操作"""
+        user.initialize_login(drivers, "BD291501", "dcr123456")
+        user.click_gotomenu("Inventory Management", "Transfer Order")
+        """根据Transfer ID条件筛选挑拨单数据"""
+        get_list_transfer_id1 = import_transfer.get_list_transfer_order_id()
+        import_transfer.input_transfer_order_id_query(get_list_transfer_id1)
+        import_transfer.click_search()
+        sleep(1.5)
+        """断言IMEI Detail详情页，加载的Transfer ID、Brand、Transfer From、IMEI字段内容是否与实际数据一致"""
+        """获取调拨单列表字段内容"""
+        get_list_transfer_id2 = import_transfer.get_list_transfer_order_id()
+        ValueAssert.value_assert_equal(get_list_transfer_id1, get_list_transfer_id2)
+        get_list_brand = import_transfer.get_list_field('Get list Brand')
+        get_list_from_cust = import_transfer.get_list_field('Get list Transfer From Cust')
+        get_list_total = import_transfer.get_transfer_order_list_total()
+        ValueAssert.value_assert_equal('1', get_list_total)
+        """打开IMEI Detail详情页"""
+        import_transfer.click_transfer_imei_detail()
+        get_detail_total = import_transfer.get_transfer_detail_total()
+        ValueAssert.value_assert_equal('1', get_detail_total)
+        get_detail_transfer = import_transfer.get_list_field('Get Detail Transfer ID')
+        get_detail_brand = import_transfer.get_list_field('Get Detail Brand')
+        get_detail_imei = import_transfer.get_list_field('Get Detail IMEI')
+        get_detail_from_customer = import_transfer.get_list_field('Get Detail Customer Name')
+        """IMEI Detail详情页，断言详情页列表字段内容是否正确"""
+        ValueAssert.value_assert_equal(get_list_transfer_id2, get_detail_transfer)
+        ValueAssert.value_assert_equal(get_list_brand, get_detail_brand)
+        ValueAssert.value_assert_IsNoneNot(get_detail_imei)
+        ValueAssert.value_assert_In(get_detail_from_customer, get_list_from_cust)
+        """关闭IMEI Detail详情页"""
+        import_transfer.close_transfer_imei_detail()
+
+        """勾选第一个复选框后，点击Confirm Receipt 确认收货操作"""
+        import_transfer.click_transfer_order_checkbox()
+        import_transfer.click_transfer_return_goods('退货', 'Return Goods')
+        DomAssert(drivers).assert_att('Successfully')
+        """获取Transfer Order列表，Receipt Status状态是否更新为Rejected"""
+        import_transfer.click_search()
+        sleep(1.5)
+        get_audited = import_transfer.get_list_transfer_order_status()
+        get_receive = import_transfer.get_list_transfer_receipt_status()
+        ValueAssert.value_assert_equal('Audited', get_audited)
+        ValueAssert.value_assert_equal('Rejected', get_receive)
+
+        """断言NG2061301账号IMEI Inventory Query是否能查询到退回的IMEI"""
+        user.initialize_login(drivers, "NG2061301", "dcr123456")
+        user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
+        assert_imei = SalesOrderPage(drivers)
+        """查询IMEI Inventory Query页面 指定product的IMEI"""
+        assert_imei.imei_inventory_query_imei('354196616529945')
+        get_imei = assert_imei.get_text_imei_inventory1()
+        ValueAssert.value_assert_equal("354196616529945", get_imei)
 
 
 @allure.feature("库存管理-调拨单")
@@ -383,7 +472,7 @@ class TestViewIMEIDetailTransfer:
         get_list_brand = detail.get_list_field('Get list Brand')
         get_list_item = detail.get_list_field('Get list item')
         get_list_model = detail.get_list_field('Get list Model')
-        get_list_cust = detail.get_list_field('Get list Transfer From Cust')
+        get_list_from_cust = detail.get_list_field('Get list Transfer From Cust')
         """点击查看IMEI Detail详情页，获取列表字段内容，进行断言"""
         detail.click_transfer_imei_detail()
         get_detail_transfer = detail.get_list_field('Get Detail Transfer ID')
@@ -398,7 +487,7 @@ class TestViewIMEIDetailTransfer:
         ValueAssert.value_assert_equal(get_list_item, get_detail_item)
         ValueAssert.value_assert_equal(get_list_model, get_detail_model)
         ValueAssert.value_assert_IsNoneNot(get_detail_imei)
-        ValueAssert.value_assert_In(get_detail_customer, get_list_cust)
+        ValueAssert.value_assert_In(get_detail_customer, get_list_from_cust)
         detail.close_transfer_imei_detail()
 
 

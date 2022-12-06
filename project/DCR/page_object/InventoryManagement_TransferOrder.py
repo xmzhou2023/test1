@@ -95,11 +95,13 @@ class TransferOrderPage(Base):
 
     @allure.step("获取列表Receipt Status状态文本")
     def get_list_transfer_receipt_status(self):
+        self.presence_sleep_dcr(user['Get list Transfer Receipt Status'])
         get_receipt_status = self.element_text(user['Get list Transfer Receipt Status'])
         return get_receipt_status
 
     @allure.step("勾选第一条复选框")
     def click_transfer_order_checkbox(self):
+        self.presence_sleep_dcr(user['Transfer Order Click CheckBox'])
         self.is_click(user['Transfer Order Click CheckBox'])
 
     @allure.step("勾选Transfer ID记录后，点击Confirm Receipt按钮,进行确认收货操作")
@@ -159,6 +161,19 @@ class TransferOrderPage(Base):
         self.is_click(user['Search'])
         sleep(1)
 
+    @allure.step("Transfer Order页面，获取列表Total分页总条数")
+    def get_transfer_order_list_total(self):
+        get_list_total = self.element_text(user['Get list Transfer Order Total'])
+        get_list_total1 = get_list_total[6:]
+        return get_list_total1
+
+    @allure.step("Transfer Order页面，获取IMEI Detail详情页Total分页总条数")
+    def get_transfer_detail_total(self):
+        self.presence_sleep_dcr(user['Get Transfer Detail Total'])
+        get_detail_total = self.element_text(user['Get Transfer Detail Total'])
+        get_detail_total1 = get_detail_total[6:]
+        return get_detail_total1
+
     @allure.step("TransferOrder页面，点击more option,点击recall撤回")
     def click_more_option_recall(self):
         self.is_click(user['More Option'])
@@ -177,7 +192,7 @@ class TransferOrderPage(Base):
     @allure.step("点击IMEI Detail查询详情按钮")
     def click_transfer_imei_detail(self):
         self.is_click(user['Click Transfer IMEI Detail'])
-        sleep(1.2)
+        sleep(1.5)
 
     @allure.step("点击IMEI Detail查询详情按钮")
     def close_transfer_imei_detail(self):
