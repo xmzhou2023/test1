@@ -656,5 +656,70 @@ class Teststory_2961:
         pass
 
 
+@allure.feature("2022年末需求计划")  # 迭代名称
+class Teststory_2963:
+    @allure.story("1.5.3数据组节点英文导入")  # 用户故事名称
+    @allure.title("物料申请，主数据审核节点进入我的待办，点开任务任务详情页中增加导入的按钮，所有包含主数据审核节点的物料类型申请流程均要查看")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23288(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3数据组节点英文导入")  # 用户故事名称
+    @allure.title("点击导入，弹出导入的页面，可以下载模板")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23289(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3数据组节点英文导入")  # 用户故事名称
+    @allure.title("点击下载模板，导入模板包含对象类型、物料名称、物料描述CN、物料描述EN、物料长描述、物料长描述EN、工厂、颜色、颜色EN")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23290(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3数据组节点英文导入")  # 用户故事名称
+    @allure.title("导出的模板清单在一个sheet页中显示页面上所有的物料实例，属性包含【对象类型】【物料名称】【物料描述CN】【物料描述EN】【物料长描述】【物料长描述EN】【颜色】【颜色EN】，仅有【颜色EN】可以进行编辑")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23291(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3数据组节点英文导入")  # 用户故事名称
+    @allure.title("对【【对象类型】【物料名称】【物料描述CN】【物料描述EN】【物料长描述】【物料长描述EN】【颜色】】字段尝试进行修改，修改失败，无法编辑")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23292(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3数据组节点英文导入")  # 用户故事名称
+    @allure.title("点击应用，系统中【颜色EN】更改，其他的联动属性同步更改，如【物料描述EN】【物料长描述EN】，物料描述和物料长描述需要修改吗，如原【颜色EN】为red，将【颜色EN】修改为blue，导入应用后，任务详情中的【颜色EN】显示【blue】，物料描述EN】【物料长描述EN】的颜色也随之更换显示为blue")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23293(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3数据组节点英文导入")  # 用户故事名称
+    @allure.title("物料描述EN绑定的是颜色但取值是颜色的key值，物料描述EN关联的颜色值不跟着联动更改")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23294(self, drivers):
+        pass
+
+
 if __name__ == '__main__':
       pass
