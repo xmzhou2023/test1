@@ -618,6 +618,45 @@ class TestQueryGlobalShop:
     def test_007_006(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
+        """门店管理"""
+        user = ShopManagementPage(drivers)
+        user.click_menu("Shop Management", "Shop Management (global)")
+        """门店管理 拓展"""
+        user.click_checkbox('shopID20221205163136')
+        user.hover_MoreOption_click('Extend Brand')
+        """门店管理 拓展同一品牌"""
+        user.select_extend_brand('Infinix')
+        user.extend_brand_save()
+        user.click_submit()
+
+    @allure.story("daoru")
+    @allure.title("不支持拓展相同品牌门店")
+    @allure.description("不支持拓展相同品牌门店，给出错误提示")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_007_007(self, drivers):
+        user4 = LoginPage(drivers)
+        user4.initialize_login(drivers, "wjkTS001", "xLily6x")
+        """门店管理"""
+        user = ShopManagementPage(drivers)
+        user.click_menu("Shop Management", "Shop Management (global)")
+        """门店管理 导入"""
+        user.click_import()
+        shopname = '门店导入{}'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        shopID = 'shopID{}'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        user.import_ShopManagement_file('门店批量导入.xlsx', shopID, shopname)
+        user.click_save()
+        DomAssert(drivers).assert_att('The file has been uploaded successfully. Data is being imported, please wait for a few minutes and go to the Import Record page to check the results.')
+        user.click_confirm()
+        today = datetime.now().strftime('%Y-%m-%d')
+        """断言ImportRecord页面结果"""
+        user.assert_Record_result('Import Record', '门店批量导入.xlsx', 'Status', 'Upload Successfully')
+        user.assert_Record_result('Import Record', '门店批量导入.xlsx', 'Total', '2')
+        user.assert_Record_result('Import Record', '门店批量导入.xlsx', 'Success', '2')
+        user.assert_Record_result('Import Record', '门店批量导入.xlsx', 'Import Date', today)
+        """断言Shop Management页面结果"""
+        user.click_menu("Shop Management", "Shop Management (global)")
+        user.assert_Query_containsresult('Shop Name', shopname, 2)
+        user.assert_Query_containsresult('Shop ID', shopID, 2)
 
 
 if __name__ == '__main__':

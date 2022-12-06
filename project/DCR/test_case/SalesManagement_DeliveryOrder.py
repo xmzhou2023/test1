@@ -34,6 +34,7 @@ def function_export_fixture(drivers):
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
+    menu.refresh()
     get_menu_class = menu.get_open_menu_class()
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):
@@ -871,7 +872,7 @@ class TestAddDeliveryOrder:
         user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Total', '2')
         user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Success', '2')
         user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Import Date', today)
-        """断言ImportRecord页面结果"""
+        """断言Delivery Order页面结果"""
         user.click_menu("Sales Management", "Delivery Order")
         user.refresh()
         user.assert_first_info('Delivery Date', today)
@@ -952,6 +953,7 @@ class TestAddDeliveryOrder:
         user.assert_print_content(OrderID)
         user.assert_print_content(Date)
         user.assert_print_content(Product)
+        user.click_print_cancel()
 
 
     @allure.story("查询出库单")

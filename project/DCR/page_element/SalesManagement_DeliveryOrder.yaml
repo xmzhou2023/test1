@@ -122,3 +122,4 @@ click输入框: "xpath==//label[normalize-space(text())='variable']/..//div[not(
 click输入框2: "xpath==//label[normalize-space(text())='variable']/..//div[not(contains(@style,'display: none;'))]/input[contains(@class,'el-select__input')]"
 click输入框选择: "xpath==//div[contains(@x-placement,'start')]//li/span[normalize-space(text())='variable']"
 NoData: "xpath==//div[@class='el-table__empty-block']"
+打印Cancel: "xpath==//div[normalize-space(text())='Delivery Order']/../../..//span[normalize-space(text())='Cancel']"

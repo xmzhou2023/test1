@@ -661,7 +661,9 @@ class DeliveryOrderPage(Base):
         self.is_click(user['Click Export Detail'])
         sleep(6)
 
-
+    @allure.step("点击print页面取消")
+    def click_print_cancel(self):
+        self.is_click_tbm(user['打印Cancel'])
 
 if __name__ == '__main__':
     pass

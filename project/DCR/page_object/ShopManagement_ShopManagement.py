@@ -1,4 +1,9 @@
+from datetime import datetime
+
+from openpyxl import load_workbook
+
 from libs.common.read_element import Element
+from libs.config.conf import BASE_DIR
 from public.base.basics import Base
 from libs.common.time_ui import sleep
 import random
@@ -647,5 +652,94 @@ class ShopManagementPage(Base):
         :param content: 需要断言的值
         """
         DomAssert(self.driver).assert_search_result(user['Customer表格字段'], user['Customer表格内容'], header, content, sc_element=user['滚动条'])
+
+    @allure.step("点击Upload按钮")
+    def click_upload(self):
+        self.is_click(user['Upload'])
+        logging.info('点击upload按钮')
+        # k = PyKeyboard()
+        # k.tap_key(k.escape_key)
+
+    @allure.step("点击Import按钮")
+    def click_import(self):
+        self.is_click(user['Import'])
+        logging.info('点击Import按钮')
+        self.click_upload()
+
+    @allure.step("导入门店")
+    def import_ShopManagement_file(self, name, shopid, shopname):
+        file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
+        logging.info("文件地址：{}".format(file_path))
+        workbook = load_workbook(filename=file_path)
+        sheet = workbook.active
+        cells = sheet['A']
+        i = 1
+        for cell in cells[2:]:
+            cell.value = str(i) + shopid
+            i += 1
+        cells = sheet['B']
+        i = 1
+        for cell in cells[2:]:
+            cell.value = str(i) + shopname
+            i += 1
+        workbook.save(filename=file_path)
+        self.upload_file(user['导入'], file_path)
+        self.assert_import_success()
+
+    @allure.step("点击Save按钮")
+    def click_save(self):
+        self.is_click(user['Save'])
+        logging.info('点击Save按钮')
+
+    @allure.step("点击Confirm按钮")
+    def click_confirm(self):
+        self.is_click(user['Confirm'])
+        logging.info('点击Confirm按钮')
+        sleep(2)
+        self.refresh()
+
+    @allure.step("断言：导入成功状态")
+    def assert_import_success(self):
+        DomAssert(self.driver).assert_control(user['导入成功状态'])
+
+    @allure.step("获得Record指定内容")
+    def get_Record_info(self, menu, name, header):
+        """
+        :param menu: 菜单名
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        """
+        for i in range(20):
+            ac_menu = self.element_text(user['当前菜单'])
+            if ac_menu == menu:
+                column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+                content = self.element_text(user['表格指定列内容'], name, column)
+                logging.info('获取 {} 页面 {} 字段内容：{}'.format(menu, header, content))
+                return content
+
+    @allure.step("断言：导入导出Record结果")
+    def assert_Record_result(self, menu, name, header, result=None):
+        """
+        :param menu: 菜单
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        :param result: 需要断言的值 比如状态，数量，时间
+        """
+        ac_result = self.get_Record_info(menu, name, header)
+        if header == 'File Size':
+            ValueAssert.value_assert_IsNot(ac_result, '0B')
+        else:
+            ValueAssert.value_assert_In(result, ac_result)
+
+    @allure.step("断言：门店管理页面查询结果")
+    def assert_Query_containsresult(self, header, content, num=None):
+        """
+        :param header: 需要获取的指定字段
+        :param content: 需要断言的值
+        :param num: 包含的数量
+        """
+        DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, num=num, sc_element=user['滚动条'], index='1', h_element=user['表头文本'])
+
+
 if __name__ == '__main__':
     pass
