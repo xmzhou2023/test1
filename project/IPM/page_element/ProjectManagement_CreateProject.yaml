@@ -6,6 +6,12 @@
 项目描述: "xpath==//div[@aria-label='新建项目']//div/label/span[text()='项目描述']/../../div//textarea"
 保存: "xpath==//div[@aria-label='新建项目']//span[text()='保存']"
 取消: "xpath==//div[@aria-label='新建项目']//span[text()='取消']"
+编辑: "xpath==//span[text()=' 编辑 ']"
+
+
+进入项目: "xpath==//section//div[@title='variable']"
 
 
 断言新建项目的名字: 'xpath==//*[@id="app"]/main/section/div[1]/section/div[1]/div/div[1]/div[1]'
+断言项目名称不能为空: 'xpath==//div[2]/div/div[2]/div/form/div/div[1]/div/div/div[2]'
+置顶提示: 'xpath==//div[@role="alert"]/p'

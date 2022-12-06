@@ -1,15 +1,9 @@
 import allure
 import pytest
+from project.IPM.page_object.ProjectManagement_CreateProject import *
+from project.IPM.page_base.assert_pubic import *
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3259:
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title("新增项目成功")  # 用例名称
-    @allure.description("点击新增==输入项目信息==保存")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_20708(self, drivers):
-        pass
-
 
     @allure.story("创建项目")  # 用户故事名称
     @allure.title('项目经理有创建项目并维护管理权限，不同的项目经理有不同项目的创建及维护权限')  # 用例名称
@@ -26,43 +20,12 @@ class Teststory_3259:
     @allure.severity('normal')  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23743(self, drivers):
-        pass
-
-
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title("新增项目基本属性项目模板、项目名称、项目描述")  # 用例名称
-    @allure.description("None")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23744(self, drivers):
-        pass
-
-
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title('项目模板项目模板管理处维护，启用后可应用模板创建新项目')  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity('normal')  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23745(self, drivers):
-        pass
-
-
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title("项目名称必填项、单行文本框")  # 用例名称
-    @allure.description("None")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23746(self, drivers):
-        pass
-
-
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title("项目名称填写符合要求的名称，创建项目成功")  # 用例名称
-    @allure.description("None")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23747(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test=CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存','IT项目模板',f'IPM自动化{now_times}',f'IPM自动化项目描述{now_times}')
+        ass=Assert_result(drivers)
+        ass.assert_Create_project('断言新建项目的名字',f'IPM自动化{now_times}')
 
 
     @allure.story("创建项目")  # 用户故事名称
@@ -71,7 +34,12 @@ class Teststory_3259:
     @allure.severity('normal')  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23748(self, drivers):
-        pass
+        test=CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存','IT项目模板')
+        ass=Assert_result(drivers)
+        ass.assert_Create_project("断言项目名称不能为空",'请输入项目名称')
+
 
 
     @allure.story("创建项目")  # 用户故事名称
@@ -80,25 +48,11 @@ class Teststory_3259:
     @allure.severity('normal')  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23749(self, drivers):
-        pass
-
-
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title('产品项目名称产品项目新建成功后，项目名称是根据项目名主板名自动合成的，更改了项目名和主板名后，产品项目需要同步变更')  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity('normal')  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23750(self, drivers):
-        pass
-
-
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title('技术项目名称技术项目名称新建成功后，项目名称与项目名必须保持一致，若项目名更改了，项目名称要保持一致')  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity('normal')  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23751(self, drivers):
-        pass
+        test = CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存', 'IT项目模板', f'IPM自动化2022-12-0611:03:34')
+        ass = Assert_result(drivers)
+        ass.assert_toast('项目名称已被使用!')
 
 
     @allure.story("创建项目")  # 用户故事名称
@@ -110,14 +64,6 @@ class Teststory_3259:
         pass
 
 
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title('项目描述非必填，多行文本框、字符长度1000')  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity('normal')  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23753(self, drivers):
-        pass
-
 
     @allure.story("创建项目")  # 用户故事名称
     @allure.title('项目描述不填写项目描述，新建项目成功')  # 用例名称
@@ -125,25 +71,13 @@ class Teststory_3259:
     @allure.severity('normal')  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23754(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test=CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存','IT项目模板',f'IPM自动化{now_times}')
+        ass=Assert_result(drivers)
+        ass.assert_Create_project('断言新建项目的名字',f'IPM自动化{now_times}')
 
-
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title("项目描述填写了项目描述，符合要求，新建项目成功")  # 用例名称
-    @allure.description("None")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23755(self, drivers):
-        pass
-
-
-    @allure.story("创建项目")  # 用户故事名称
-    @allure.title("确定按钮点击确认按钮，校验必填项是否填写，校验通过，创建项目成功")  # 用例名称
-    @allure.description("None")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23756(self, drivers):
-        pass
 
 
     @allure.story("创建项目")  # 用户故事名称
@@ -152,18 +86,13 @@ class Teststory_3259:
     @allure.severity('normal')  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23757(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test=CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('取消','IT项目模板',f'IPM自动化{now_times}')
+        ass=Assert_result(drivers)
+        ass.assert_toast_not(f'IPM自动化{now_times}')
 
-
-@allure.feature("项目管理")  # 迭代名称
-class Teststory_3275:
-    @allure.story(""基本信息"")  # 用户故事名称
-    @allure.title("必填项填写完成保存成功")  # 用例名称
-    @allure.description("None")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_20711(self, drivers):
-        pass
 
 
 @allure.feature("项目管理")  # 迭代名称
@@ -701,7 +630,7 @@ class Teststory_3347:
 
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
-    @allure.title('导入非Excel文件，导入文件后校验文件类型错误，并提示'文件不匹配！'')  # 用例名称
+    @allure.title('导入非Excel文件，导入文件后校验文件类型错误，并提示"文件不匹配！"') # 用例名称
     @allure.description('里程碑视图弹窗中，点击【导入】按钮，在导入弹窗中，选择导入非Excel文件')  # 用例描述
     @allure.severity('normal')  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -710,7 +639,7 @@ class Teststory_3347:
 
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
-    @allure.title('导入的Excel文件中的阶段与项目中的阶段不一致，则提示'碑阶段与项目阶段不匹配！'不显示导入校验结果')  # 用例名称
+    @allure.title("导入的Excel文件中的阶段与项目中的阶段不一致，则提示'碑阶段与项目阶段不匹配！'不显示导入校验结果")  # 用例名称
     @allure.description('里程碑视图弹窗中，点击【导入】按钮，在导入弹窗中，选择导入一个阶段与项目中的阶段不一致的Excel文件')  # 用例描述
     @allure.severity('normal')  # 用例等级
     @pytest.mark.smoke  # 用例标记

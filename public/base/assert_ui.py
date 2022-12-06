@@ -365,6 +365,7 @@ class DomAssert(object):
                 logging.info("断言成功，结果: {} 包含指定内容:{}".format(i.text, content))
                 result_num += 1
                 result = True
+        logging.info('获取表格执行列内容：{}'.format(content_list))
         if result is True:
             logging.info("断言成功，结果数量为: {}".format(result_num))
             if num is not None:
@@ -376,7 +377,7 @@ class DomAssert(object):
                     raise
         else:
             logging.error("断言失败，结果: {} 不包含指定内容:{}".format(content_list, content))
-            raise ValueError('请输入正确的查询条件')
+            raise ValueError("断言失败，结果: {} 不包含指定内容:{}".format(content_list, content))
 
     """     数据库断言     """
 
