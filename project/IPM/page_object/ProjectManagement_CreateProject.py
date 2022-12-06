@@ -52,7 +52,15 @@ class CreateProject(PubicMethod):
         self.click_IPM('取消')
         sleep(2)
 
-    def Create_project(self,templatename,Save_or_Cancel,nametext,Descriptiontext=f'测试描述名称{now_time}'):
+    def Create_project(self, templatename, Save_or_Cancel, nametext, Descriptiontext=None):
+        """
+        创建项目
+        :param templatename: 选择对应的项目模板名字
+        :param nametext: 项目名称
+        :param Descriptiontext: 项目描述
+        :param Save_or_Cancel: 保存还是取消
+        """
+
         self.click_project()
         self.click_add()
         self.Select_Template(templatename)
