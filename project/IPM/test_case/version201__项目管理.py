@@ -31,7 +31,7 @@ class Teststory_3259:
     def test_23743(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         test = CreateProject(drivers)
-        test.Create_project('IT项目模板', '保存', f'IPM自动化{now_times}')
+        test.Create_project('保存','IT项目模板',f'IPM自动化{now_times}',f'IPM自动化项目描述{now_times}')
         ass = Assert_result(drivers)
         ass.assert_Create_project(f'IPM自动化{now_times}')
 

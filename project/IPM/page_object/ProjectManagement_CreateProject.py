@@ -52,7 +52,7 @@ class CreateProject(PubicMethod):
         self.click_IPM('取消')
         sleep(2)
 
-    def Create_project(self, templatename, Save_or_Cancel, nametext, Descriptiontext=None):
+    def Create_project(self, Save_or_Cancel, templatename=None, nametext=None, Descriptiontext=None):
         """
         创建项目
         :param templatename: 选择对应的项目模板名字
@@ -63,9 +63,12 @@ class CreateProject(PubicMethod):
 
         self.click_project()
         self.click_add()
-        self.Select_Template(templatename)
-        self.projecy_name(nametext)
-        self.projecy_Description(Descriptiontext)
+        if templatename != None:
+            self.Select_Template(templatename)
+        if nametext != None:
+            self.projecy_name(nametext)
+        if Descriptiontext != None:
+            self.projecy_Description(Descriptiontext)
         if Save_or_Cancel == '保存':
             self.projecy_preservation()
         else:
