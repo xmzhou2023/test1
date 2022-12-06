@@ -540,6 +540,13 @@ class Base(object):
         today1 = str(today)
         return today1
 
+    def get_last_day(self,days):
+        """获取过去几天的日期(DCR专用)"""
+        today = datetime.date.today()
+        last_days = today - datetime.timedelta(days)
+        last_day  = str(last_days)
+        return last_day
+
     def base_get_img(self, name='err'):
         """截图方法"""
         imgname = IMAGE_PATH + '\\' + "{}.png".format(name)

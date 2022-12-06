@@ -655,6 +655,12 @@ class DeliveryOrderPage(Base):
     def assert_NoData(self):
         DomAssert(self.driver).assert_control(user['NoData'])
 
+    @allure.step("输入查询条件")
+    def click_export_detail(self):
+        self.is_click(user['Click Export Detail'])
+        sleep(6)
+
+
 
 if __name__ == '__main__':
     pass

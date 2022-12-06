@@ -11,7 +11,7 @@ import datetime
 import logging
 import pytest
 import allure
-
+from libs.config.conf import DOWNLOAD_PATH
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
@@ -152,6 +152,32 @@ class TestExportDeliveryOrder:
         export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
         #export.click_close_delivery_order()
+
+    @allure.story("导出筛选的出库单详情")
+    @allure.title("出库单页面，导出筛选的出库单记录详情")
+    @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录详情")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_003_002(self, drivers):
+        user2 = LoginPage(drivers)
+        user2.initialize_login(drivers, "BD40344201", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user2.click_gotomenu("Sales Management", "Delivery Order")
+
+        export = DeliveryOrderPage(drivers)
+        # 获取日期
+        base = Base(drivers)
+        today = base.get_datetime_today()
+        last_day = base.get_last_day(20)
+
+        export.click_unfold()
+        export.input_delivery_date(last_day, today)
+        export.click_status_input_box()
+        export.click_search()
+        file_begin = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        export.click_export_detail()
+        file_then = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        ValueAssert.value_assert_Notequal(file_begin, file_then)
 
 
 @allure.feature("销售管理-出库单")
