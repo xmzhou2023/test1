@@ -1,6 +1,6 @@
 from datetime import datetime
 from openpyxl import load_workbook
-from pykeyboard import PyKeyboard
+# from pykeyboard import PyKeyboard
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from libs.config.conf import BASE_DIR
@@ -488,8 +488,8 @@ class DeliveryOrderPage(Base):
     def click_upload(self):
         self.is_click(user['Upload'])
         logging.info('点击upload按钮')
-        k = PyKeyboard()
-        k.tap_key(k.escape_key)
+        # k = PyKeyboard()
+        # k.tap_key(k.escape_key)
 
     @allure.step("点击Import按钮")
     def click_import(self):

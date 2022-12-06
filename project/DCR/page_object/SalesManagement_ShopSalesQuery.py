@@ -7,7 +7,7 @@ from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from libs.config.conf import BASE_DIR
 from public.base.basics import Base
-from pykeyboard import PyKeyboard
+# from pykeyboard import PyKeyboard
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -218,8 +218,8 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['Upload'])
         logging.info('点击upload按钮')
         sleep(2)
-        k = PyKeyboard()
-        k.tap_key(k.escape_key)
+        # k = PyKeyboard()
+        # k.tap_key(k.escape_key)
 
     @allure.step("导入文件")
     def import_file(self, name):

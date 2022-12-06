@@ -884,7 +884,7 @@ class TestAddDeliveryOrder:
         user.assert_first_info('Delivery Date', today)
         user.assert_first_info('Status', 'On Transit')
         user.assert_first_info('Product', 'SPARK Go 2021 32+2 MALDIVES BLUE')
-        user.assert_first_info('Product', 'Vision 3 32+2 DEEOCE BLACK')
+        user.assert_first_info('Product', 'Vision 3 32+2 DEEP OCEAN BLACK')
         OrderID = user.get_FirstRow_info('Delivery Order ID')
         """创建退货单退货"""
         user.click_menu("Sales Management", "Return Order")
@@ -927,7 +927,7 @@ class TestAddDeliveryOrder:
         user.assert_first_info('Delivery Date', today)
         user.assert_first_info('Status', 'On Transit')
         user.assert_first_info('Product', 'SPARK Go 2021 32+2 MALDIVES BLUE')
-        user.assert_first_info('Product', 'Vision 3 32+2 DEEOCE BLACK')
+        user.assert_first_info('Product', 'Vision 3 32+2 DEEP OCEAN BLACK')
         OrderID = user.get_FirstRow_info('Delivery Order ID')
         """创建退货单退货"""
         user.click_menu("Sales Management", "Return Order")
