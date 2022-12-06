@@ -629,9 +629,9 @@ class TestQueryGlobalShop:
         user.extend_brand_save()
         user.click_submit()
 
-    @allure.story("daoru")
-    @allure.title("不支持拓展相同品牌门店")
-    @allure.description("不支持拓展相同品牌门店，给出错误提示")
+    @allure.story("导入门店")
+    @allure.title("批量导入门店")
+    @allure.description("批量导入门店成功")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     def test_007_007(self, drivers):
         user4 = LoginPage(drivers)
