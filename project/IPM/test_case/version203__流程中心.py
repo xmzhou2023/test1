@@ -380,5 +380,376 @@ class Teststory_3294:
         pass
 
 
+@allure.feature("流程中心")  # 迭代名称
+class Teststory_3285:
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("点击'结构开模申请'的卡片，全屏弹出'结构开模申请'的页面")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23993(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("权限拥有结构开模文档对象的创建权限才可创建流程表单")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23994(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("基本信息/标题文本框只读，50个字符组成，生成规则项目名称开模申请单申请人申请日期")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23995(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("基本信息/单据号文本框只读，20个字符组成，前四位JGKM")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23996(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("基本信息/申请人文本框只读，20个字符组成，系统自动识别申请人名称并展示")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23997(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("基本信息/申请部门文本框只读，20个字符组成，系统自动识别申请人部门信息并展示")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23998(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("基本信息/申请日期日期只读，系统自动生成，格式按照yyyyMMdd展示")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23999(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("开模信息/项目名称文本下拉选项,展示已有的研发项目实例查看权限且（生命周期状态为进行中的项目）及结构开模文档的创建权限，单选择框，支持输入，快速匹配选择")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24000(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("开模信息/所属品牌文本下拉框，单选框，下拉值Infinix/itel/TECNO，在数据字典中配置")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24001(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("开模信息/月需求量文本输入框，20个字符")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24002(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("开模信息/描述文本域，2000字符")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24003(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/NO序号按照新增顺序升序排序")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24004(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/物料描述文本输入框，200char")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24005(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/物料工艺文本输入框，200char")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24006(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/塑胶材质文本输入框，200char")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24007(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/开模方式文本输入框，50char")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24008(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/投模日期可选择日期为投模日期，YYYYmmdd")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24009(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/一模几穴文本输入框，50char")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24010(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/供应商类别下拉框，在接口未实现前，先实现手写功能")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24011(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/一级供应商下拉框，在接口未实现前，先实现手写功能，从SAP获取供应商数据，单选择框，支持输入，快速匹配选择")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24012(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/关键器件名文本输入框，50char")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24013(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格信息/二级供应商下拉框，在接口未实现前，先实现手写功能从SAP获取供应商数据，单选择框，支持输入，快速匹配选择")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24014(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格操作/新增点击新增按钮，可在表格中新增一条数据")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24015(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格操作/删除选中表格中的一条数据，点击删除按钮后删除选择的信息")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24016(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("表格操作/删除可批量选中删除多条数据")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24017(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("签审人员信息/复制上一单人员获取个人申请的上一个'结构开模'单据的填写的角色表单人员，进行复制，若人员不在当前选择的项目的角色中，跳过")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24018(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("签审人员信息根据所选择项目自动解析此项目团队中的人员")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24019(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("附件根据权限，可对已上传附件进行下载、上传、删除")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24020(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("附件上传多个附件")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24021(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("附件删除上传成功的附件")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24022(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("附件替换上传成功的附件")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24023(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("附件校验校验上传附件超过1024M，提示'本系统不允许上传大于XXM附件'")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24024(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("附件校验校验上传bat|exe|sh|htm|mht|html|shtml文件，否则提示错误信息'不可上传类型为bat,exe,sh,htm,mht,html,shtml的附件,请修改后提提示'。")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24025(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("操作/保存、提交保存提交会在所选择的项目或者域中生成一个结构开模文档实例")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24026(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("操作/保存点击保存按钮，保存为草稿，提交人可在项目或者域中继续检出编辑")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24027(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("保存验证保存为草稿时，不用验证项目经理、采购代表、产品经理为必填")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24028(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("保存验证验证选择项目时，在此项目中对结构文档需要有创建权限才可保存，如果没有权限则需提示'没有此项目结构开模文档的创建权限'")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24029(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("操作/提交点击提交按钮，结构开模表单，提交到下个流程节点")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24030(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("提交验证点击提交按钮，验证项目经理、采购代表、产品经理必填，未填时需提示")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24031(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("操作/保存、提交文档的'保存'与'提升'操作，验证必填项处理与流程表单一致")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24032(self, drivers):
+        pass
+
+
+    @allure.story("开模流程申请")  # 用户故事名称
+    @allure.title("操作/提交提交的表单，不可进行编辑")  # 用例名称
+    @allure.description("None")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_24033(self, drivers):
+        pass
+
+
 if __name__ == '__main__':
       pass
