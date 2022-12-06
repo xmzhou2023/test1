@@ -3,14 +3,7 @@ import pytest
 from public.base.assert_ui import *
 from project.TBM.page_object.ShippingCountry_ShippingCountryFlow import ShippingCountryFlow
 
-"""
-    用例等级说明:
-        blocker级别:中断缺陷(客户端程序无响应，无法执行下一步操作)
-        critical级别: 临界缺陷(功能点缺失)
-        normal级别:普通缺陷(数值计算错误)
-        minor级别: 次要缺陷(界面错误与UI需求不符)
-        trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
-"""
+
 querytime = datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 
 @allure.feature("出货国家-出货国家流程")  # 模块名称

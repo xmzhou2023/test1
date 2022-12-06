@@ -35,7 +35,7 @@ class TestCreateProcess:
         user.delete_flow(process_code)
 
     @allure.story("创建流程")
-    @allure.title("创建流程成功")
+    @allure.title("多物料，创建流程成功")
     @allure.description("进入新增页面制作类型选择单机头BOM制作，选择一个存在模板的品牌，在BOM tree中点击新增BOM，正确填入产成品数据，在指纹模组中新增两颗物料，添加替代组都为A1，份额为一个20，一个80，其他内容正确填写，点击提交，能提交成功并且提示创建流程成功")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
     @pytest.mark.smoke

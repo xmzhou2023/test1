@@ -8,11 +8,27 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 # from page_base.webpage import WebPage
-
+from project.DCR.page_object.Center_Component import LoginPage
 options = Options()
 options.add_experimental_option("debuggerAddress", "127.0.0.1:9527")
 driver = webdriver.Chrome(options=options)
-driver.find_element(By.XPATH,"//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]").click()
+# a = driver.find_elements(By.XPATH, '//thead/tr/th')
+# b = []
+# for i in a:
+#     print(i.get_attribute('innerText'))
+#     b.append(i.get_attribute('innerText'))
+# print(b)
+# choice = ('Status',)
+# if set(choice) <= set(b):
+#     print(b)
+LoginPage(driver).privacy()
+# driver.switch_to.default_content()
+# iframe = driver.find_element(By.XPATH, "//iframe")
+# driver.switch_to.frame(iframe)
+# a = driver.find_elements(By.XPATH, "//span[normalize-space(text())='Bom Tree']/../../../..//tbody//*")
+# for i in a:
+#     print(i.text.split('\n'))
+#     print(i.get_attribute('innerText'))
 # a= NavPage(driver)
 # a = driver.find_elements(By.XPATH,"//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use']")
 # for i in a:

@@ -186,5 +186,33 @@ class OALoginPage(Base):
         ele.send_keys(content)
         sleep(0.5)
 
+"""IPM登录类"""
+class IpmLoginPage(Base):
+    def ipm_input_account(self, content):
+        """输入工号"""
+        self.input_text(login['工号输入框IPM'], txt=content)
+
+    def ipm_input_passwd(self, content):
+        """输入密码"""
+        self.input_text(login['密码输入框IPM'], txt=content)
+    # def ipm_get_check_box_class(self):
+    #     """获取复选框对应的 Class属性是否包含is-checked"""
+    #     ss = self.find_element(login['隐私保护勾选dcr'])
+    #     get_check_state = ss.get_attribute('class')
+    #     return get_check_state
+
+    # def dcr_check_box(self):
+    #     """判断是否被选中"""
+    #     checkbox = self.select_state(login['隐私保护勾选dcr'])
+    #     return checkbox
+
+
+    def ipm_click_login(self):
+        """点击登录"""
+        sleep(2)
+        self.is_click(login['登录ipm'])
+        sleep(2)
+
+
 if __name__ == '__main__':
     pass

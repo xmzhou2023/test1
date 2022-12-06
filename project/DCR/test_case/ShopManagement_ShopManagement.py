@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from project.DCR.page_object.ShopManagement_ShopManagement import ShopManagementPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import *
@@ -456,6 +458,166 @@ class TestQueryGlobalShop:
 #         ValueAssert.value_assert_InNot(shop_id1, shop_id2)
 #         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
 #         sleep(1)
+
+    @allure.story("审核拒绝门店")
+    @allure.title("审核拒绝门店")
+    @allure.description("审核拒绝门店")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_007_003(self, drivers):
+        user4 = LoginPage(drivers)
+        user4.initialize_login(drivers, "wjkTS001", "xLily6x")
+        """门店管理"""
+        user = ShopManagementPage(drivers)
+        user.click_menu("Shop Management", "Shop Management (global)")
+        """门店管理 创建"""
+        user.click_add()
+        name = '审核拒绝门店{}'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        shopID = 'shopID{}'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        """门店管理 输入基础信息"""
+        user.input_Basic_Info('Shop Name', name)
+        user.input_Basic_Info('Contact Name', name)
+        user.input_Basic_Info('Contact No.', name)
+        user.input_Basic_Info('Address', name)
+        user.input_Basic_Info('Country/City', 'Kaolack')
+        """门店管理 输入品牌信息"""
+        user.input_Brand_Info('Brand', 'Infinix')
+        user.input_Brand_Info('Shop ID', shopID)
+        user.input_Brand_Info('Shop Grade')
+        user.input_Brand_Info('Shop Type')
+        user.input_Brand_Info('Image Type')
+        user.input_Brand_Info('Sales Region', 'Kaolack')
+        user.input_Brand_Info('Commercial Area Tag')
+        """门店管理 提交后断言创建成功，门店状态是Pending"""
+        user.click_submit()
+        DomAssert(drivers).assert_att('Created Successfully')
+        user.refresh()
+        user.input_Search_Info('Shop', shopID)
+        user.click_query_search()
+        user.assert_Query_result('Status', 'Pending')
+        """门店管理 切换上级账号点击拒绝"""
+        user4.initialize_login(drivers, "18650493", "xLily6x")
+        user.click_menu("Shop Management", "Shop Management (global)")
+        user.input_Search_Info('Shop', shopID)
+        user.click_query_search()
+        user.click_checkbox(shopID)
+        user.hover_MoreOption_click('Reject')
+        user.input_RejectReason('RejectReasonTEST')
+        """门店管理 拒绝后断言拒绝成功，状态变为Rejected"""
+        DomAssert(drivers).assert_att('successful')
+        user.input_Search_Info('Status', 'Rejected')
+        user.click_query_search()
+        user.assert_Query_result('Status', 'Rejected')
+        """门店管理 切换创建人账号查看门店状态"""
+        user4.initialize_login(drivers, "wjkTS001", "xLily6x")
+        user.click_menu("Shop Management", "Shop Management (global)")
+        user.input_Search_Info('Shop', shopID)
+        user.input_Search_Info('Status', 'Rejected')
+        user.click_query_search()
+        user.assert_Query_result('Status', 'Rejected')
+
+    @allure.story("审批通过门店")
+    @allure.title("审批通过门店")
+    @allure.description("审批通过门店，审核后门店状态为enabled")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_007_004(self, drivers):
+        user4 = LoginPage(drivers)
+        user4.initialize_login(drivers, "wjkTS001", "xLily6x")
+        """门店管理"""
+        user = ShopManagementPage(drivers)
+        user.click_menu("Shop Management", "Shop Management (global)")
+        """门店管理 创建"""
+        user.click_add()
+        name = '审核通过门店{}'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        shopID = 'shopID{}'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        """门店管理 输入基础信息"""
+        user.input_Basic_Info('Shop Name', name)
+        user.input_Basic_Info('Contact Name', name)
+        user.input_Basic_Info('Contact No.', name)
+        user.input_Basic_Info('Address', name)
+        user.input_Basic_Info('Country/City', 'Kaolack')
+        """门店管理 输入品牌信息"""
+        user.input_Brand_Info('Brand', 'Infinix')
+        user.input_Brand_Info('Shop ID', shopID)
+        user.input_Brand_Info('Shop Grade')
+        user.input_Brand_Info('Shop Type')
+        user.input_Brand_Info('Image Type')
+        user.input_Brand_Info('Sales Region', 'Kaolack')
+        user.input_Brand_Info('Commercial Area Tag')
+        """门店管理 提交后断言创建成功，门店状态是Pending"""
+        user.click_submit()
+        DomAssert(drivers).assert_att('Created Successfully')
+        user.refresh()
+        user.input_Search_Info('Shop', shopID)
+        user.click_query_search()
+        user.assert_Query_result('Status', 'Pending')
+        """门店管理 切换上级账号点击同意"""
+        user4.initialize_login(drivers, "wjklingshou", "xLily6x")
+        user.click_menu("Shop Management", "Shop Management (global)")
+        user.input_Search_Info('Shop', shopID)
+        user.click_query_search()
+        user.click_checkbox(shopID)
+        user.hover_MoreOption_click('Approve')
+        """门店管理 拒绝后断言拒绝成功，状态变为Rejected"""
+        DomAssert(drivers).assert_att('successful')
+        user.click_query_search()
+        user.assert_Query_result('Status', 'Enabled')
+        """门店管理 切换创建人账号查看门店状态"""
+        user4.initialize_login(drivers, "wjkTS001", "xLily6x")
+        user.click_menu("Shop Management", "Shop Management (global)")
+        user.input_Search_Info('Shop', shopID)
+        user.click_query_search()
+        user.assert_Query_result('Status', 'Enabled')
+
+    @allure.story("新建门店")
+    @allure.title("新建门店，零售商自动生成")
+    @allure.description("新建门店，零售商自动生成")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_007_005(self, drivers):
+        user4 = LoginPage(drivers)
+        user4.initialize_login(drivers, "wjkTS001", "xLily6x")
+        """门店管理"""
+        user = ShopManagementPage(drivers)
+        user.click_menu("Shop Management", "Shop Management (global)")
+        """门店管理 创建"""
+        user.click_add()
+        name = '零售商自动生成{}'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        shopID = 'shopID{}'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        """门店管理 输入基础信息"""
+        user.input_Basic_Info('Shop Name', name)
+        user.input_Basic_Info('Contact Name', name)
+        user.input_Basic_Info('Contact No.', name)
+        user.input_Basic_Info('Address', name)
+        user.input_Basic_Info('Country/City', 'Kaolack')
+        """门店管理 输入品牌信息"""
+        user.input_Brand_Info('Brand', 'Infinix')
+        user.input_Brand_Info('Shop ID', shopID)
+        user.input_Brand_Info('Shop Grade')
+        user.input_Brand_Info('Shop Type')
+        user.input_Brand_Info('Image Type')
+        user.input_Brand_Info('Sales Region', 'Kaolack')
+        user.input_Brand_Info('Commercial Area Tag')
+        """门店管理 提交后断言创建成功，自动生成零售商，ID及NAME跟门店一致"""
+        user.click_submit()
+        DomAssert(drivers).assert_att('Created Successfully')
+        user.refresh()
+        user.input_Search_Info('Shop', shopID)
+        user.click_query_search()
+        user.assert_Query_result('Retail Customer ID', shopID)
+        user.assert_Query_result('Retail Customer Name', name)
+        """客户管理 检查是否自动生成零售商，ID及NAME跟门店一致"""
+        user.click_menu("Customer Management", "Customer Management (global)")
+        user.input_CustomerSearch_Info('Customer', shopID)
+        user.click_query_search()
+        user.assert_CustomerQuery_result('Customer ID', shopID)
+        user.assert_CustomerQuery_result('Customer Name', name)
+
+    @allure.story("拓展门店")
+    @allure.title("不支持拓展相同品牌门店")
+    @allure.description("不支持拓展相同品牌门店，给出错误提示")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_007_006(self, drivers):
+        user4 = LoginPage(drivers)
+        user4.initialize_login(drivers, "wjkTS001", "xLily6x")
 
 
 if __name__ == '__main__':

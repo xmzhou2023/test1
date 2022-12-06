@@ -1,0 +1,11 @@
+关键字: "xpath==//span[contains(text(),'终审版报表')]"
+项目管理: "xpath==//span[text()='项目管理']"
+新增: "xpath==//button/span[text()=' 新增 ']"
+选择模板: "xpath==//span[text()='variable']"
+项目名称: "xpath==//div[@aria-label='新建项目']//div/label/span[text()='项目名称']/../../div//input"
+项目描述: "xpath==//div[@aria-label='新建项目']//div/label/span[text()='项目描述']/../../div//textarea"
+保存: "xpath==//div[@aria-label='新建项目']//span[text()='保存']"
+取消: "xpath==//div[@aria-label='新建项目']//span[text()='取消']"
+
+
+断言新建项目的名字: 'xpath==//*[@id="app"]/main/section/div[1]/section/div[1]/div/div[1]/div[1]'

@@ -532,6 +532,120 @@ class ShopManagementPage(Base):
             logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
         sleep(1)
 
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user['菜单'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+        self.refresh()
 
+    @allure.step("输入门店查询条件")
+    def input_Search_Info(self, header, content):
+        input_list = []
+        select_list = ['Shop', 'Customer']
+        country_list = ['Country/City']
+        click_list = ['Status']
+        if header in input_list:
+            self.input_text(user['输入框'], content, header)
+        elif header in select_list:
+            self.is_click_tbm(user['查询输入框'], header)
+            self.input_text(user['查询输入框输入'], content, header)
+            self.is_click_tbm(user['select选择框'], content)
+        elif header in country_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['地区选择框'], content)
+        elif header in click_list:
+            self.is_click_tbm(user['查询输入框'], header)
+            self.is_click_tbm(user['select选择框'], content)
+        else:
+            logging.error('输入正确的门店基础信息')
+            raise ValueError('输入正确的门店基础信息')
+
+    @allure.step("输入门店基础信息")
+    def input_Basic_Info(self, header, content):
+        input_list = ['Shop Name', 'Contact Name', 'Contact No.', 'Address', 'Business Area']
+        select_list = ['Shop Owner']
+        country_list = ['Country/City']
+        if header in input_list:
+            self.input_text(user['输入框'], content, header)
+        elif header in select_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['select选择框'], content)
+        elif header in country_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['地区选择框'], content)
+        else:
+            logging.error('输入正确的门店基础信息')
+            raise ValueError('输入正确的门店基础信息')
+
+    @allure.step("输入门店品牌信息")
+    def input_Brand_Info(self, header, content=None):
+        input_list = ['Shop ID', 'Shop Alias']
+        select_list = ['Brand', 'Shop Grade', 'Shop Type', 'Image Type', 'Commercial Area Tag']
+        country_list = ['Sales Region']
+        if header in input_list:
+            self.input_text(user['输入框'], content, header)
+        elif header in select_list:
+            self.is_click_tbm(user['输入框'], header)
+            if content is None:
+                self.is_click_tbm(user['select选择框第一个'])
+            else:
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['select选择框'], content)
+        elif header in country_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['地区选择框'], content)
+        else:
+            logging.error('输入正确的门店品牌信息')
+            raise ValueError('输入正确的门店品牌信息')
+
+    @allure.step("断言：门店管理页面查询结果")
+    def assert_Query_result(self, header, content):
+        """
+        :param header: 需要获取的指定字段
+        :param content: 需要断言的值
+        """
+        DomAssert(self.driver).assert_search_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], index='1', h_element=user['表头文本'])
+
+    @allure.step("点击复选框")
+    def click_checkbox(self, content):
+        """
+        :param content: 指定值，如imei
+        """
+        rowid = self.get_table_info(user['指定行'], content, attr='rowid', sc_element=user['滚动条'])
+        self.is_click_tbm(user['指定复选框'], rowid)
+
+    @allure.step("MoreOption悬浮点击")
+    def hover_MoreOption_click(self, status):
+        """
+        :param content: 指定值，如imei
+        """
+        self.mouse_hover(user['MoreOption'])
+        self.is_click_tbm(user['MoreOptionStatus'], status)
+
+    @allure.step("输入拒绝理由")
+    def input_RejectReason(self, content):
+        self.input_text(user['RejectReason'], content)
+        self.is_click_tbm(user['RejectReasonSave'])
+
+    @allure.step("输入客户查询条件")
+    def input_CustomerSearch_Info(self, header, content):
+        self.is_click_tbm(user['客户查询输入框'], header)
+        self.input_text(user['客户输入框输入'], content, header)
+        self.is_click_tbm(user['select选择框'], content)
+
+    @allure.step("断言：客户管理页面查询结果")
+    def assert_CustomerQuery_result(self, header, content):
+        """
+        :param header: 需要获取的指定字段
+        :param content: 需要断言的值
+        """
+        DomAssert(self.driver).assert_search_result(user['Customer表格字段'], user['Customer表格内容'], header, content, sc_element=user['滚动条'])
 if __name__ == '__main__':
     pass

@@ -800,6 +800,7 @@ class Base(object):
                     if sc_element:
                         logging.info('{}表格字段不存在，向右滑动滚动条'.format(choice))
                         Base(self.driver).DivRolling(sc_element, num=i*1000)
+                        sleep(1)
                     else:
                         logging.error('{}表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动'.format(*choice))
                         raise

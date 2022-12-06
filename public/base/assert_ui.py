@@ -301,7 +301,7 @@ class DomAssert(object):
             raise
 
     @allure.step("断言：查询结果")
-    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0', sc_element=None):
+    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0', sc_element=None, h_element=None):
         """
         断言：页面查询结果
         @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
@@ -312,7 +312,7 @@ class DomAssert(object):
         @index：属性值索引
         @sc_element：内嵌div中有滑动条的定位
         """
-        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element)
+        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element, h_element=h_element)
         try:
             contents = Base(self.driver).find_elements_tbm(tb_element, column)
         except:
