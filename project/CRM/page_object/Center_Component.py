@@ -47,6 +47,14 @@ class NavPage(Base):
         self.is_click(user["菜单搜索下拉框"])
         sleep(1)
 
+    @allure.step("获取列表total数据值")
+    def get_total(self):
+        sleep(0.5)
+        total = self.element_text(user["total数量"])
+        logging.info("获取total文本{}".format(total))
+        num = total.split(" ",1)
+        number = num[1]
+        return number
 
         
         
