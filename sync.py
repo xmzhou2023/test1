@@ -754,6 +754,7 @@ def update_data(type, sql_data, data_list, parm=None):
     if type == 'case':
 
         for case_id, case_code, in enumerate(data_list.keys(), 1):
+            print(case_id,case_code)
             list_py.append(case_code)
             python_list = []
             # python_list.append(data_list[case_code]['title'].replace("\\", "\\\\").replace('\"', '').replace("\'", "\\'"))
