@@ -426,9 +426,7 @@ def  algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除模块 {} '.format(module))
             sql_pro = "DELETE FROM ts_module WHERE module_code ='{}' AND p_id={}".format(module, parm)
             sql_execute.append(sql_pro)
-            print('更新后删除模块 {} 中的yaml文件内容 '.format(module))
-            sql_pro_yaml = "DELETE FROM ts_yaml WHERE m_code ='{}' AND p_id={}".format(module, parm)
-            sql_execute.append(sql_pro_yaml)
+
         change_db(sql_execute)
 
         sql_execute = []
@@ -466,6 +464,42 @@ def  algo_data(type, sql_data, data_list, parm=None):
             sql_type_UT = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('单元测试','UT',{},'自动化平台','自动化平台',1)".format(mod_id)
             sql_execute.append(sql_type_UT)
 
+        change_db(sql_execute)
+
+    elif type == 'yaml':
+        # print(sql_data)
+        # print(data_list)
+
+        for mod_id, mod_code, in enumerate(data_list.keys(), 1):
+            list_py.append(mod_code)
+
+        for i in sql_data:
+            list_sq.append(i['m_code'])
+
+        del_data = list(set(list_sq).difference(set(list_py)))
+        inp_data = list(set(list_py).difference(set(list_sq)))
+
+        for module in del_data:
+            print('更新后删除模块 {} 中的yaml文件内容 '.format(module))
+            sql_pro_yaml = "DELETE FROM ts_yaml WHERE m_code ='{}' AND p_id={}".format(module, parm)
+            sql_execute.append(sql_pro_yaml)
+        change_db(sql_execute)
+
+        # 初始化执行列表
+        sql_execute = []
+
+        pro_name_sql = "SELECT project_name from ts_project where id={}".format(parm)
+        pro_name = query_db(pro_name_sql)[0]['project_name']
+
+        # 模块查询sql,为了获取mod_id
+        module_sql = "SELECT id,module_code from ts_module where p_id={}".format(parm)
+
+        # 获取最新列表
+        get_mod_id = fomart_data('mod', 'name', query_db(module_sql))
+
+
+        for module_code in inp_data:
+            mod_id = get_mod_id[module_code]
             yaml_text = data_list[module_code]['yaml']
             print('更新后模块增加了yaml文件 {}'.format(module_code))
             sql_pro_yaml = "INSERT INTO ts_yaml(p_id,p_code,m_id,m_code,yaml_text,enabled_flag) VALUES ({},'{}',{},'{}','{}',1)".format(parm, pro_name, mod_id, module_code, yaml_text)
@@ -675,8 +709,7 @@ def update_data(type, sql_data, data_list, parm=None):
                 sql_execute.append(sql_pro)
         change_db(sql_execute)
 
-        # yaml文件更新
-        sql_execute = []
+    if type == 'yaml':
         for mod_id, mod_code, in enumerate(data_list.keys(), 1):
             list_py.append(mod_code)
             yaml_list_py[mod_code] = data_list[mod_code]['yaml'].replace('\\"', '\"').replace( "\\'", "\'")
@@ -686,8 +719,8 @@ def update_data(type, sql_data, data_list, parm=None):
         # print(yaml_list_py_json)
 
         for i in sql_data:
-            list_sq.append(i['module_code'])
-            yaml_list_sq[i['module_code']] = i['yaml_text']
+            list_sq.append(i['m_code'])
+            yaml_list_sq[i['m_code']] = i['yaml_text']
         yaml_list_sq = sorted(yaml_list_sq.items())
         # 格式化字典
         yaml_list_sq_json = {k: v for k, v in yaml_list_sq}
@@ -726,7 +759,6 @@ def update_data(type, sql_data, data_list, parm=None):
         change_db(sql_execute)
 
     if type == 'sce':
-
         for sce_id, sce_code, in enumerate(data_list.keys(), 1):
             list_py.append(sce_code)
             scene_list_py[sce_code] = data_list[sce_code]['att'].replace('\\"', '\"').replace( "\\'", "\'")
@@ -753,7 +785,6 @@ def update_data(type, sql_data, data_list, parm=None):
         change_db(sql_execute)
 
     if type == 'case':
-
         for case_id, case_code, in enumerate(data_list.keys(), 1):
             list_py.append(case_code)
             python_list = []
@@ -851,6 +882,15 @@ def sync_Data(data_list, env_list=None):
 
         # 查找出py文件和数据库项目数据的差异并进行輸入操作
         update_data('mod', query_db(module_sql), pro_data_list, pro_id)
+
+        # 模块yaml查询sql
+        yaml_sql = "SELECT id,m_code,yaml_text from ts_yaml where p_id={}".format(pro_id)
+
+        # 查找出py文件和数据库项目数据的差异并进行操作
+        algo_data('yaml', query_db(yaml_sql), pro_data_list, pro_id)
+
+        # 查找出py文件和数据库环境数据的差异并进行輸入操作
+        update_data('yaml', query_db(yaml_sql), pro_data_list, pro_id)
 
         # 环境查询sql
         env_sql = "SELECT id,env_name,env_url from ts_env where p_id={}".format(pro_id)
