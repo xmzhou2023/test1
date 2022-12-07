@@ -97,7 +97,7 @@ class Teststory_3259:
     @allure.story("创建项目")  # 用户故事名称
     @allure.title("产品项目名称产品项目新建成功后，项目名称是根据项目名主板名自动合成的，更改了项目名和主板名后，产品项目需要同步变更")  # 用例名称
     @allure.description("")  # 用例描述
-    @allure.severity("normal")  # 用例等级
+    @allure.severity('normal')  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23750(self, drivers):
         pass
@@ -106,7 +106,7 @@ class Teststory_3259:
     @allure.story("创建项目")  # 用户故事名称
     @allure.title("项目描述非必填，多行文本框、字符长度1000")  # 用例名称
     @allure.description("")  # 用例描述
-    @allure.severity("normal")  # 用例等级
+    @allure.severity('normal')  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23753(self, drivers):
         pass
