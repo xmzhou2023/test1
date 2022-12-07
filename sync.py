@@ -183,7 +183,7 @@ def get_PyClass(filepath):
                     class_list[class_name]['value'][function_name]['description'] = description_name
                     class_list[class_name]['value'][function_name]['severity'] = severity_name
                     class_list[class_name]['value'][function_name]['mark'] = mark_name
-                    class_list[class_name]['value'][function_name]['status'] = 1
+                    class_list[class_name]['value'][function_name]['status'] = 2
                 except UnboundLocalError as e:
                     print('请检查指定代码格式{}'.format(class_list))
 
@@ -193,6 +193,8 @@ def get_PyClass(filepath):
                 status_name = status_name.group(1)
                 if 'pass' == status_name:
                     class_list[class_name]['value'][function_name]['status'] = 0
+                if 'robot = KeyWord(drivers)' == status_name:
+                    class_list[class_name]['value'][function_name]['edit_status'] = 1
 
     return class_list, feature_name
 
@@ -299,7 +301,6 @@ def sync_AllData(data_list, env_list):
 
                 # 用例数据
                 for case_index, case_code in enumerate(data_list[pro_code][mod_code]['value'][sce_code]['value'], 1):
-
                     try:
                         # 添加用例描述
                         case_zh = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['title'].replace("\\", "\\\\").replace('\"', '').replace("\'", "\\'")
@@ -754,7 +755,6 @@ def update_data(type, sql_data, data_list, parm=None):
     if type == 'case':
 
         for case_id, case_code, in enumerate(data_list.keys(), 1):
-            print(case_id,case_code)
             list_py.append(case_code)
             python_list = []
             # python_list.append(data_list[case_code]['title'].replace("\\", "\\\\").replace('\"', '').replace("\'", "\\'"))
@@ -785,6 +785,8 @@ def update_data(type, sql_data, data_list, parm=None):
         # print(case_list_sq_json)
 
         for case_key in case_list_py_json:
+            # print('case_list_py_json----', case_list_py_json)
+            # print('case_list_sq_json----', case_list_sq_json)
             if case_list_sq_json[case_key] != case_list_py_json[case_key]:
                 print('更新用例描述 {} '.format(case_key))
                 case_name_content = case_list_py_json[case_key][0].replace('\"', '\\"').replace("\'", "\\'")
