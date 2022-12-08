@@ -827,6 +827,26 @@ class Base(object):
         logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))
         return column_class
 
+    def get_row_info(self, tb_element, column, sc_element=None):
+        """
+        获取表格每列内容，做查询断言
+        :param tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+        :param column: 列属性值 如：el-table_3_column_45
+        :param sc_element：内嵌div中有滑动条的定位
+
+        """
+        try:
+            contents = Base(self.driver).elements_inner_text(tb_element, column)
+            return contents
+        except:
+            if sc_element:
+                Base(self.driver).DivRolling(sc_element, direction='top')
+                contents = Base(self.driver).elements_inner_text(tb_element, column)
+                return contents
+            else:
+                logging.error('无法获取全部字段内容，请补充内嵌div：sc_element，以便上下滑动')
+                raise
+
     # POP输入框输入文本按enter键专用方法
     def input_enter(self,locator,content=None,choice=None):
         """

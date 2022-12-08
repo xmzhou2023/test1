@@ -313,25 +313,14 @@ class DomAssert(object):
         @sc_element：内嵌div中有滑动条的定位
         """
         column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element, h_element=h_element)
-        try:
-            contents = Base(self.driver).find_elements_tbm(tb_element, column)
-        except:
-            if sc_element:
-                Base(self.driver).DivRolling(sc_element, direction='top')
-                contents = Base(self.driver).find_elements_tbm(tb_element, column)
-            else:
-                logging.error('无法获取全部字段内容，请补充内嵌div：sc_element，以便上下滑动')
-                raise
-        content_list = []
+        contents = Base(self.driver).get_row_info(tb_element, column, sc_element)
         for i in contents:
             try:
-                assert content in i.text
-                logging.info("断言成功，结果:{}包含指定内容:{}".format(i.text, content))
+                assert content in i
+                logging.info("断言成功，结果:{}包含指定内容:{}".format(i, content))
             except:
-                logging.error("断言失败，结果:{}不包含指定内容:{}".format(i.text, content))
+                logging.error("断言失败，结果:{}不包含指定内容:{}".format(i, content))
                 raise
-            content_list.append(i.text)
-        logging.info('获取表格执行列内容：{}'.format(content_list))
         logging.info("断言成功，结果包含指定内容")
 
     @allure.step("断言：查询结果")
@@ -347,25 +336,14 @@ class DomAssert(object):
         @sc_element：内嵌div中有滑动条的定位
         """
         column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element, h_element=h_element)
-        try:
-            contents = Base(self.driver).find_elements_tbm(tb_element, column)
-        except:
-            if sc_element:
-                Base(self.driver).DivRolling(sc_element, direction='top')
-                contents = Base(self.driver).find_elements_tbm(tb_element, column)
-            else:
-                logging.error('无法获取全部字段内容，请补充内嵌div：sc_element，以便上下滑动')
-                raise
-        content_list = []
+        contents = Base(self.driver).get_row_info(tb_element, column, sc_element)
         result_num = 0
         result = False
         for i in contents:
-            content_list.append(i.text)
-            if content in i.text:
-                logging.info("断言成功，结果: {} 包含指定内容:{}".format(i.text, content))
+            if content in i:
+                logging.info("断言成功，结果: {} 包含指定内容:{}".format(i, content))
                 result_num += 1
                 result = True
-        logging.info('获取表格执行列内容：{}'.format(content_list))
         if result is True:
             logging.info("断言成功，结果数量为: {}".format(result_num))
             if num is not None:
@@ -376,8 +354,8 @@ class DomAssert(object):
                     logging.error(e)
                     raise
         else:
-            logging.error("断言失败，结果: {} 不包含指定内容:{}".format(content_list, content))
-            raise ValueError("断言失败，结果: {} 不包含指定内容:{}".format(content_list, content))
+            logging.error("断言失败，结果: {} 不包含指定内容:{}".format(contents, content))
+            raise ValueError("断言失败，结果: {} 不包含指定内容:{}".format(contents, content))
 
     """     数据库断言     """
 
