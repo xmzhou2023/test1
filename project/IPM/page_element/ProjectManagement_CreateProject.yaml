@@ -12,6 +12,12 @@
 进入项目: "xpath==//section//div[@title='variable']"
 
 
-断言新建项目的名字: 'xpath==//*[@id="app"]/main/section/div[1]/section/div[1]/div/div[1]/div[1]'
-断言项目名称不能为空: 'xpath==//div[2]/div/div[2]/div/form/div/div[1]/div/div/div[2]'
+
+
 置顶提示: 'xpath==//div[@role="alert"]/p'
+
+#========================================================================编辑===============================================================================
+字段名称: "xpath==//div/label[text()=' variable ']/..//input"
+下拉框: "xpath==//div[@x-placement='bottom-start']//li[1]/span[1]"
+基本信息保存: "xpath==//span[text()=' 保存 ']"
+

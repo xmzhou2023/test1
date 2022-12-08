@@ -1,8 +1,16 @@
-'''创建项目'''
+'''项目管理-创建项目'''
 
 from project.IPM.page_base.basics_IPM import PubicMethod
 from libs.common.time_ui import *
 from project.IPM.page_base.assert_pubic import *
+from project.IPM.api.APIRequest import *
+
+Api = APIRequest()
+# ApplyList=Api.Api_applyList(20220810085734677324)
+# Api.Api_queryDeptAndEmployee(20220810085734677324)
+def field_attribute_maintennance(self):
+    field_att = Api.Api_project_field("开模流程测试")
+
 now_times = strftime('%Y-%m-%d%H:%M:%S')
 now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
@@ -61,10 +69,53 @@ class CreateProject(PubicMethod):
         '''编辑'''
         self.click_IPM('编辑')
 
+    def perject_field_editing_save(self):
 
-    def element_get_attribute(self,element_name):
-        ele_text=self.form_element_ipm(element_name)
-        return ele_text.get_attribute('innerText')
+        '''基本信息编辑保存'''
+        self.click_IPM('基本信息保存')
+    def Get_required_fields(self,proname,protime):
+        '''
+        获取项目管理字段获取
+
+        '''
+        Api = APIRequest()
+        field_att = Api.Api_project_field(proname)
+        for i in field_att:
+            if i.get("是否展示") == True:
+                if i.get("是否可读") == False:
+                    if i.get("是否必填") == True:
+                        if i.get("类型") == 'text':
+                            if i.get("文本类型") == '1':
+                                self.input_text_IPM('字段名称', text=1, choice=i.get("字段名"))
+                                sleep(1)
+                            else:
+                                self.input_text_IPM('字段名称', text=f'{i.get("字段名")}{protime}', choice=i.get("字段名"))
+                                sleep(1)
+                        if i.get("类型") == 'select':
+                            self.click_IPM('字段名称',choice=i.get("字段名"))
+                            self.click_IPM('下拉框')
+                            sleep(1)
+
+                        if i.get("类型") == 'date':
+                            self.input_text_IPM('字段名称', text=now_t, choice=i.get("字段名"))
+                            sleep(1)
+                    else:
+                        if i.get("类型") == 'text':
+                            if i.get("文本类型") == '1':
+                                self.input_text_IPM('字段名称', text=1, choice=i.get("字段名"))
+                                sleep(1)
+                            else:
+                                self.input_text_IPM('字段名称', text=f'{i.get("字段名")}{protime}', choice=i.get("字段名"))
+                                sleep(1)
+                            sleep(1)
+                        if i.get("类型") == 'select':
+                            self.click_IPM('字段名称', choice=i.get("字段名"))
+                            self.click_IPM('下拉框')
+                            sleep(1)
+
+                        if i.get("类型") == 'date':
+                            self.input_text_IPM('字段名称', text=now_t, choice=i.get("字段名"))
+                            sleep(1)
 
     def Create_project(self, Save_or_Cancel, templatename=None, nametext=None, Descriptiontext=None):
         """
@@ -87,10 +138,37 @@ class CreateProject(PubicMethod):
             self.projecy_preservation()
         else:
             self.projecy_cancel()
+        sleep(2)
 
-    def project_entrance(self,projectname):
+    def enter_the_project(self,projectname):
         self.click_project_entrance(projectname)
+        sleep(1)
+        self.switch_window(-1)
+
+    def project_entrance(self,projectname,protime):
+        '''
+        编辑项目-保存
+
+        '''
+        self.enter_the_project(projectname)
+        sleep(5)
         self.click_edit()
+        sleep(1)
+        self.Get_required_fields(projectname,protime)
+        self.perject_field_editing_save()
+
+
+    def field_attribute_maintennance(self):
+        field_att=Api.Api_project_field("开模流程测试")
+
+
+
+    def perject_field_editing(self,proname,protime):
+        '''
+        项目管理编辑页面字段维护
+        '''
+
+        self.Get_required_fields(proname,protime)
 
 
 
@@ -103,47 +181,5 @@ class Assert_result(AssertMode):
         self.assert_element_equal(actual,Expected)
 
 
-    @allure.step("断言")
-    def assert_toast(self, content=None):
-        # att = self.element_text(user['toast提示'])
-        try:
-            att = self.wait.until(
-                    EC.visibility_of_element_located((By.XPATH, "//div[@role='alert']/p"))).text
-            self.base_get_img()
-            logging.info('获取toast提示语：{}'.format(att))
-            try:
-                if content is None:
-                    assert '请求成功' in att or '审核通过' in att or '操作成功' in att or '处理成功' in att
-                    logging.info('断言成功，toast提示为：{}'.format(att))
-                else:
-                    assert content in att
-                    logging.info('断言成功，toast提示为：{}'.format(att))
-            except:
-                logging.error('断言失败，实际提示为：{}'.format(att))
-                raise
-        except:
-            logging.error('断言失败，未获取到toast提示语/toast提示语错误')
-            raise
 
 
-    @allure.step("断言")
-    def assert_toast_not(self, content=None):
-        # att = self.element_text(user['toast提示'])
-        try:
-            att = self.wait.until(
-                    EC.visibility_of_element_located((By.XPATH, '//*[@id="app"]/main/section/div[1]/section/div[1]/div/div[1]/div[1]'))).text
-            self.base_get_img()
-            logging.info('获取toast提示语：{}'.format(att))
-            try:
-                if content is None:
-                    assert '请求成功' not in att or '审核通过' not in att or '操作成功' not in att or '处理成功' not in att
-                    logging.info('断言成功，toast提示为：{}'.format(att))
-                else:
-                    assert content not in att
-                    logging.info('断言成功，toast提示为：{}'.format(att))
-            except:
-                logging.error('断言失败，实际提示为：{}'.format(att))
-                raise
-        except:
-            logging.error('断言失败，未获取到toast提示语/toast提示语错误')
-            raise

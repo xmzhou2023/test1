@@ -24,7 +24,7 @@ class Teststory_3259:
         test.get_url_project()
         test.Create_project('保存','IT项目模板',f'IPM自动化{now_times}',f'IPM自动化项目描述{now_times}')
         ass=Assert_result(drivers)
-        ass.assert_Create_project('断言新建项目的名字',f'IPM自动化{now_times}')
+        ass.assert_toast('断言新建项目的名字',f'IPM自动化{now_times}')
 
 
     @allure.story("创建项目")  # 用户故事名称
@@ -37,7 +37,7 @@ class Teststory_3259:
         test.get_url_project()
         test.Create_project('保存','IT项目模板')
         ass=Assert_result(drivers)
-        ass.assert_Create_project("断言项目名称不能为空",'请输入项目名称')
+        ass.assert_toast("断言项目名称不能为空",'请输入项目名称')
 
 
 
@@ -51,7 +51,7 @@ class Teststory_3259:
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', f'IPM自动化2022-12-0611:03:34')
         ass = Assert_result(drivers)
-        ass.assert_toast('项目名称已被使用!')
+        ass.assert_toast("断言错误提示",'项目名称已被使用!')
 
 
     @allure.story("创建项目")  # 用户故事名称
@@ -75,7 +75,7 @@ class Teststory_3259:
         test.get_url_project()
         test.Create_project('保存','IT项目模板',f'IPM自动化{now_times}')
         ass=Assert_result(drivers)
-        ass.assert_Create_project('断言新建项目的名字',f'IPM自动化{now_times}')
+        ass.assert_toast('断言新建项目的名字',f'IPM自动化{now_times}')
 
 
 
@@ -90,7 +90,17 @@ class Teststory_3259:
         test.get_url_project()
         test.Create_project('取消','IT项目模板',f'IPM自动化{now_times}')
         ass=Assert_result(drivers)
-        ass.assert_toast_not(f'IPM自动化{now_times}')
+        ass.assert_toast_not('断言新建项目的名字',f'IPM自动化{now_times}')
+
+
+
+    @allure.story("创建项目")  # 用户故事名称
+    @allure.title("产品项目名称产品项目新建成功后，项目名称是根据项目名主板名自动合成的，更改了项目名和主板名后，产品项目需要同步变更")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_23750(self, drivers):
+        pass
 
 
 
