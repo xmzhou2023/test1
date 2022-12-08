@@ -13,8 +13,8 @@ def pytest_addoption(parser):
     parser.addoption("--env", action="store", default='test', help='环境操作')
 
     # -->默认请用DEV环境做代码调试<--
-    parser.addoption("--remoteurl", action="store", default='http://10.250.101.58:4444', help='远程DEV环境（linux服务器）')
-    # parser.addoption("--remoteurl", action="store", default='http://10.250.101.49:4444', help='远程DEV环境（windows服务器）')
+    # parser.addoption("--remoteurl", action="store", default='http://10.250.101.58:4444', help='远程DEV环境（linux服务器）')
+    parser.addoption("--remoteurl", action="store", default='http://10.250.101.49:4444', help='远程DEV环境（windows服务器）')
 
     # parser.addoption("--remoteurl", action="store", default='http://10.250.113.16:4444', help='远程UAT环境（linux服务器）')
     # parser.addoption("--remoteurl", action="store", default='http://10.250.113.15:4444', help='远程UAT环境（windows服务器）')
@@ -29,7 +29,7 @@ def env_name(request):
 def remote_url(request):
     return request.config.getoption("--remoteurl")
 
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope='session', autouse=False)
 def drivers(request, remote_url, remote_ui=False):
     global driver
     if driver is None:
