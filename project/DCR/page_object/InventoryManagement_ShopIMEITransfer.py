@@ -14,14 +14,14 @@ class ShopIMEITransferPage(Base):
     @allure.step("点击新增按钮")
     def click_add_imei_transfer(self):
         self.is_click(user['Add IMEI Transfer'])
-        sleep(2)
+        sleep(1.5)
 
     @allure.step("输入转入店铺名称")
-    def input_shop_transfer(self, info1):
+    def input_to_shop_transfer(self, info1):
         self.presence_sleep_dcr(user['Transfer To Shop Name'])
         self.is_click(user['Transfer To Shop Name'])
         self.input_text(user['Transfer To Shop Name'], info1)
-        sleep(3)
+        sleep(2)
         self.presence_sleep_dcr(user['Transfer To Shop Name value'], info1)
         self.is_click(user['Transfer To Shop Name value'], info1)
 
@@ -58,49 +58,58 @@ class ShopIMEITransferPage(Base):
 
     @allure.step("点击Submit")
     def click_add_submit_ok(self):
-        self.is_click(user['Add Submit'])
+        self.is_click(user['Shop IMEI Transfer Add Submit'])
         sleep(1.5)
-        self.presence_sleep_dcr(user['Add OK'])
-        self.is_click(user['Add OK'])
+        self.presence_sleep_dcr(user['Shop IMEI Transfer Add Submit OK'])
+        self.is_click(user['Shop IMEI Transfer Add Submit OK'])
         sleep(3.5)
 
     @allure.step("获取列表Status文本内容")
     def get_list_transfer_id_text(self):
-        self.presence_sleep_dcr(user['Get list Transfer ID Text'])
-        get_transfer = self.element_text(user['Get list Transfer ID Text'])
+        self.presence_sleep_dcr(user['Get Shop IMEI Transfer ID'])
+        get_transfer = self.element_text(user['Get Shop IMEI Transfer ID'])
         return get_transfer
 
-    @allure.step("获取列表Status文本内容")
-    def get_list_status_text(self, status):
-        get_status = self.element_text(user['Get List Status Text'], status)
+    @allure.step("获取Shop IMEI Transfer列表Status文本内容")
+    def get_list_transfer_status_text(self):
+        get_status = self.element_text(user['Get Shop IMEI Transfer Status'])
         return get_status
 
-    @allure.step("获取列表To Shop文本内容")
+    @allure.step("获取Shop IMEI Transfer列表To Shop文本内容")
     def get_list_to_shop_text(self):
-        self.scroll_into_view(user['Get List To Shop ID Text'])
-        get_to_shop = self.element_text(user['Get List To Shop ID Text'])
+        self.scroll_into_view(user['Get Shop IMEI Transfer To Shop ID'])
+        get_to_shop = self.element_text(user['Get Shop IMEI Transfer To Shop ID'])
         return get_to_shop
 
     @allure.step("获取列表Creator ID文本内容")
     def get_list_creator_id_text(self):
-        get_creator_id = self.element_text(user['Get list Creator ID Text'])
+        get_creator_id = self.element_text(user['Get list Shop IMEI Transfer Creator ID'])
         return get_creator_id
 
     @allure.step("Shop IMEI Transfer列表，输入To Shop进行筛选")
     def input_to_shop_query(self, to_shop):
-        self.is_click_dcr(user['筛选门店'])
-        self.input_text_dcr(user['筛选门店'], txt=to_shop)
+        self.is_click_dcr(user['Shop IMEI Transfer query To Shop'])
+        self.input_text_dcr(user['Shop IMEI Transfer query To Shop'], to_shop)
         sleep(2)
         self.presence_sleep_dcr(user['选中筛选门店'], to_shop)
         self.is_click(user['选中筛选门店'], to_shop)
 
     @allure.step("Shop IMEI Transfer列表，输入状态进行筛选")
     def input_status_query(self, status):
-        self.is_click(user['筛选状态'])
-        self.input_text(user['筛选状态'], txt=status)
+        self.is_click(user['Shop IMEI Transfer query Status'])
+        self.input_text(user['Shop IMEI Transfer query Status'], status)
         sleep(1.5)
         self.presence_sleep_dcr(user['选中筛选状态'], status)
         self.is_click(user['选中筛选状态'], status)
+
+
+    @allure.step("Shop IMEI Transfer列表，输入文本框条件是进行筛选")
+    def shop_imei_transfer_input_query(self, position1, position2, parameter):
+        self.is_click(user[position1])
+        self.input_text(user[position2], parameter)
+
+
+
 
     @allure.step("筛选出To Shop与pending状态的记录")
     def search_shop_pending(self, shop, status):
@@ -115,7 +124,6 @@ class ShopIMEITransferPage(Base):
     def click_unfold(self):
         self.is_click(user['unfold按钮'])
         sleep(2)
-
 
     @allure.step("点击Search按钮")
     def click_search(self):
@@ -154,16 +162,15 @@ class ShopIMEITransferPage(Base):
         self.is_click(user['输入拒绝原因'])
         self.input_text(user['输入拒绝原因'], txt=reason)
         self.is_click(user['Yes Cancel按钮'], cancel_or_yes)
-    
 
     @allure.step("点击Reset按钮")
-    def click_reset(self):
-        self.is_click(user['Reset 按钮'])
-        sleep(4.5)
+    def click_shop_imei_transfer_reset(self):
+        self.is_click(user['Reset Button'])
+        sleep(4)
 
-    @allure.step("获取Total分页总条数")
-    def get_total_text(self):
-        get_status = self.element_text(user['Get Total'])
+    @allure.step("获取Shop IMEI Transfer列表，Total分页总条数")
+    def get_list_total_text(self):
+        get_status = self.element_text(user['Get Shop IMEI Transfer Total'])
         get_status1 = get_status[6:]
         return get_status1
 
@@ -175,17 +182,26 @@ class ShopIMEITransferPage(Base):
             logging.info("打印获取门店IMEI调店页面，的分页总条数{}".format(total))
 
     @allure.step("筛选Create Date创建日期")
-    def input_create_date_query(self, date):
-        self.is_click(user['Create Start Date'])
-        self.input_text(user['Create Start Date'], txt=date)
+    def shop_imei_transfer_create_date_query(self, start_date, end_date):
+        self.is_click(user['Shop IMEI Transfer Create Start Date'])
+        self.input_text(user['Shop IMEI Transfer Create Start Date'], start_date)
+        self.is_click(user['Shop IMEI Transfer Create End Date'])
+        self.input_text(user['Shop IMEI Transfer Create End Date'], end_date)
 
     @allure.step("点击筛选Create Date创建日期，释放光标")
     def click_create_end_date(self):
-        self.is_click(user['Create End Date'])
+        self.is_click(user['Shop IMEI Transfer Create End Date'])
 
     @allure.step("勾选第一条记录的复选框")
     def click_first_checkbox(self):
         self.is_click_dcr(user['勾选第一条复选框'])
+
+    @allure.step("获取Shop IMEI Transfer列表字段内容")
+    def get_list_field(self, field):
+        self.scroll_into_view(user[field])
+        self.presence_sleep_dcr(user[field])
+        get_field = self.element_text(user[field])
+        return get_field
 
 
 if __name__ == '__main__':

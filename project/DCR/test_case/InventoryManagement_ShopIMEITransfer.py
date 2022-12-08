@@ -28,52 +28,76 @@ class TestQueryIMEITransfer:
         user2 = LoginPage(drivers)
         user2.initialize_login(drivers, "xiongbo92", "dcr123456")
         user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
-
         query = ShopIMEITransferPage(drivers)
-        get_transfer_id = query.get_list_transfer_id_text()
-        get_creator = query.get_list_creator_id_text()
-
-        ValueAssert.value_assert_IsNoneNot(get_transfer_id)
-        ValueAssert.value_assert_IsNoneNot(get_creator)
-        get_total = query.get_total_text()
-        query.assert_total(get_total)
-
-        """按状态筛选门店IMEI调店记录"""
+        """按创建日期与状态筛选门店IMEI调店记录"""
         query.click_unfold()
-        query.input_create_date_query('2022-11-01')
+        query.shop_imei_transfer_create_date_query('2022-12-08', '2022-12-08')
         query.click_create_end_date()
         query.input_status_query('Approved')
         query.click_search()
-
-        get_transfer_id = query.get_list_transfer_id_text()
-        get_status = query.get_list_status_text('Approved')
-        get_creator = query.get_list_creator_id_text()
-        get_shop = query.get_list_to_shop_text()
-
+        get_transfer_id = query.get_list_field('Get Shop IMEI Transfer To Shop ID')
+        get_status = query.get_list_field('Get Shop IMEI Transfer Status')
+        get_create_date = query.get_list_field('Get Shop IMEI Transfer CreateDate')
+        """断言列表字段内容是否与筛选的字段值匹配正确"""
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
-        ValueAssert.value_assert_IsNoneNot(get_status)
-        ValueAssert.value_assert_IsNoneNot(get_creator)
-        ValueAssert.value_assert_IsNoneNot(get_shop)
-        get_total = query.get_total_text()
+        ValueAssert.value_assert_In('2022-12-08', get_create_date)
+        ValueAssert.value_assert_equal('Approved', get_status)
+        get_total = query.get_list_total_text()
         query.assert_total(get_total)
+
+
+    @allure.story("查询门店IMEI调店数据")
+    @allure.title("库存管理页面，按单个条件查询门店IMEI调店")
+    @allure.description("库存管理页面，按单个条件查询门店IMEI调店")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_002(self, drivers):
+        user2 = LoginPage(drivers)
+        user2.initialize_login(drivers, "xiongbo92", "dcr123456")
+        user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
+        query = ShopIMEITransferPage(drivers)
+        sleep(2)
+        """获取列表Transfer ID字段内容"""
+        get_transfer_id1 = query.get_list_field("Get Shop IMEI Transfer ID")
+        query.click_unfold()
+        """按Transfer ID条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_query("Shop IMEI Transfer ID query", "Shop IMEI Transfer Input ID query", get_transfer_id1)
+        query.click_search()
+        get_transfer_id2 = query.get_list_field("Get Shop IMEI Transfer ID")
+        ValueAssert.value_assert_equal(get_transfer_id2, get_transfer_id2)
+        get_total = query.get_list_total_text()
+        ValueAssert.value_assert_equal('1', get_total)
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
+
+        """按IMEI条件，筛选门店IMEI调店记录"""
+        get_transfer_imei1 = query.get_list_field("Get Shop IMEI Transfer IMEI")
+        query.shop_imei_transfer_input_query("Shop IMEI Transfer IMEI query", "Shop IMEI Transfer Input IMEI query", get_transfer_imei1)
+        query.click_search()
+        get_transfer_imei2 = query.get_list_field("Get Shop IMEI Transfer IMEI")
+        ValueAssert.value_assert_equal(get_transfer_imei1, get_transfer_imei2)
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
+
+
+
 
 
 @allure.feature("库存管理-门店IMEI调店")
 class TestNewRejectIMEITransfer:
-    @allure.story("新建、拒绝门店IMEI调店")
-    @allure.title("库存管理页面，新建、拒绝门店IMEI调店操作")
-    @allure.description("库存管理页面，新建、拒绝门店IMEI调店操作,Shop:EG000397,EG000388")
+    @allure.story("新建门店IMEI调店，然后审核拒绝门店IMEI调店")
+    @allure.title("库存管理页面，新建门店IMEI调店，然后审核拒绝门店IMEI调店操作")
+    @allure.description("库存管理页面，新建门店IMEI调店、拒绝门店IMEI调店操作,Shop:EG000397,EG000388")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         user1 = LoginPage(drivers)
         user1.initialize_login(drivers, "xiongbo92", "dcr123456")
         user1.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
-
         shop_transfer = ShopIMEITransferPage(drivers)
         """新建门店调度单"""
         shop_transfer.click_add_imei_transfer()
-        shop_transfer.input_shop_transfer('EG000388')
+        shop_transfer.input_to_shop_transfer('EG000388')
         shop_transfer.input_scan_imei('352427572805181')
         """点击Check检查按钮"""
         shop_transfer.click_check()
@@ -92,12 +116,10 @@ class TestNewRejectIMEITransfer:
         shop_transfer.input_to_shop_query('EG000388')
         shop_transfer.input_status_query('Pending')
         shop_transfer.click_search()
-
         get_transfer_id = shop_transfer.get_list_transfer_id_text()
-        get_status = shop_transfer.get_list_status_text('Pending')
+        get_status = shop_transfer.get_list_transfer_status_text()
         get_creator_id = shop_transfer.get_list_creator_id_text()
-        get_to_shop = shop_transfer.get_list_to_shop_text('EG000388')
-
+        get_to_shop = shop_transfer.get_list_to_shop_text()
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_equal('Pending', get_status)
         ValueAssert.value_assert_equal('EG000388', get_to_shop)
@@ -112,26 +134,23 @@ class TestNewRejectIMEITransfer:
         """根据当前门店与Rejected状态筛选，对比列表状态是否更新为Rejected"""
         shop_transfer.input_status_query('Rejected')
         shop_transfer.click_search()
-        get_status = shop_transfer.get_list_status_text('Rejected')
+        get_status = shop_transfer.get_list_transfer_status_text()
         ValueAssert.value_assert_equal('Rejected', get_status)
 
 
-@allure.feature("库存管理-门店IMEI调店")
-class TestApproveIMEITransfer:
-    @allure.story("审核门店IMEI调店")
-    @allure.title("库存管理页面，审核门店IMEI调店")
-    @allure.description("库存管理页面，审核门店IMEI调店")
+    @allure.story("新建并审核门店IMEI调店")
+    @allure.title("库存管理页面，新建门店IMEI调店，并审核门店IMEI调店")
+    @allure.description("库存管理页面，新建门店IMEI调店，审核门店IMEI调店")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_003_001(self, drivers):
+    def test_002_002(self, drivers):
         user1 = LoginPage(drivers)
         user1.initialize_login(drivers, "xiongbo92", "dcr123456")
         user1.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
         approve = ShopIMEITransferPage(drivers)
-
         """新建店铺调拨单，把imei: 352427572880721，从门店：EG000397 调入门店EG000388"""
         approve.click_add_imei_transfer()
-        approve.input_shop_transfer('EG000388')
+        approve.input_to_shop_transfer('EG000388')
         approve.input_scan_imei('352427572880721')
         """点击Check检查按钮"""
         approve.click_check()
@@ -145,17 +164,15 @@ class TestApproveIMEITransfer:
         ValueAssert.value_assert_In('Success', get_success)
         """点击提交按钮"""
         approve.click_add_submit_ok()
-
         """断言 筛选新建的调店单状态是否正确"""
         approve.click_unfold()
         approve.input_to_shop_query('EG000388')
         approve.input_status_query('Pending')
         approve.click_search()
         get_transfer_id = approve.get_list_transfer_id_text()
-        get_status = approve.get_list_status_text('Pending')
+        get_status = approve.get_list_transfer_status_text()
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_equal('Pending', get_status)
-
         """审核调店操作"""
         approve.click_check_box()
         approve.click_approve_yes_ok('Approve', 'Yes')
@@ -164,13 +181,12 @@ class TestApproveIMEITransfer:
         """根据当前筛选的门店及 Approved状态，筛选查询的记录是否更新状态为Approved"""
         approve.input_status_query('Approved')
         approve.click_search()
-        get_status = approve.get_list_status_text('Approved')
+        get_status = approve.get_list_transfer_status_text()
         ValueAssert.value_assert_equal('Approved', get_status)
-
 
         """新建店铺调拨单，把imei: 352427572880721，从门店EG000388 调回门店EG000397"""
         approve.click_add_imei_transfer()
-        approve.input_shop_transfer('EG000397')
+        approve.input_to_shop_transfer('EG000397')
         approve.input_scan_imei('352427572880721')
         """点击Check检查按钮"""
         approve.click_check()
@@ -184,13 +200,12 @@ class TestApproveIMEITransfer:
         ValueAssert.value_assert_In('Success', get_success)
         """点击提交按钮"""
         approve.click_add_submit_ok()
-
         """断言 筛选新建的调店单状态是否正确"""
         approve.input_to_shop_query('EG000397')
         approve.input_status_query('Pending')
         approve.click_search()
         get_transfer_id = approve.get_list_transfer_id_text()
-        get_status = approve.get_list_status_text('Pending')
+        get_status = approve.get_list_transfer_status_text()
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_equal('Pending', get_status)
 
@@ -203,21 +218,91 @@ class TestApproveIMEITransfer:
         approve.input_status_query('Approved')
         approve.click_search()
         get_transfer_id = approve.get_list_transfer_id_text()
-        get_status = approve.get_list_status_text('Approved')
-        get_to_shop = approve.get_list_to_shop_text('EG000397')
+        get_status = approve.get_list_transfer_status_text()
+        get_to_shop = approve.get_list_to_shop_text()
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_equal('Approved', get_status)
         ValueAssert.value_assert_equal('EG000397', get_to_shop)
 
 
+    @allure.story("新建门店IMEI调店,无需审核")
+    @allure.title("库存管理页面，新建门店IMEI调店，配置无需审核，新建成功后自动审核通过")
+    @allure.description("库存管理页面，新建门店IMEI调店，配置无需审核，新建成功后自动审核通过")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_003(self, drivers):
+        user1 = LoginPage(drivers)
+        user1.initialize_login(drivers, "lhmadmin", "dcr123456")
+        user1.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
+        add_shop_transfer = ShopIMEITransferPage(drivers)
+        """新建门店调度单"""
+        add_shop_transfer.click_add_imei_transfer()
+        add_shop_transfer.input_to_shop_transfer('EG000706')
+        add_shop_transfer.input_scan_imei('356560541846104')
+        """点击Check检查按钮"""
+        add_shop_transfer.click_check()
+        """断言输入的IMEI是否验证通过"""
+        get_scanned = add_shop_transfer.get_scanned_value()
+        get_order_detail_scanned = add_shop_transfer.get_order_detail_scanned()
+        get_imei = add_shop_transfer.get_scan_record_imei('356560541846104')
+        get_success = add_shop_transfer.get_scan_record_success()
+        ValueAssert.value_assert_equal(get_order_detail_scanned, get_scanned)
+        ValueAssert.value_assert_equal('356560541846104', get_imei)
+        ValueAssert.value_assert_In('Success', get_success)
+        """点击提交按钮"""
+        add_shop_transfer.click_add_submit_ok()
+        """断言 筛选新建的调店单状态是否正确"""
+        add_shop_transfer.click_unfold()
+        add_shop_transfer.input_to_shop_query('EG000706')
+        add_shop_transfer.input_status_query('Approved')
+        add_shop_transfer.click_search()
+        """获取门店调店列表，creatorid、Status与to shop字段是否正确"""
+        get_transfer_id1 = add_shop_transfer.get_list_transfer_id_text()
+        get_status1 = add_shop_transfer.get_list_transfer_status_text()
+        get_creator_id = add_shop_transfer.get_list_creator_id_text()
+        get_to_shop1 = add_shop_transfer.get_list_to_shop_text()
+        ValueAssert.value_assert_IsNoneNot(get_transfer_id1)
+        ValueAssert.value_assert_equal('Approved', get_status1)
+        ValueAssert.value_assert_equal('EG000706', get_to_shop1)
+        ValueAssert.value_assert_equal('lhmadmin', get_creator_id)
+
+        """新建店铺调拨单，把imei从门店EG000706 调回门店SN001872"""
+        add_shop_transfer.click_add_imei_transfer()
+        add_shop_transfer.input_to_shop_transfer('SN001872')
+        add_shop_transfer.input_scan_imei('356560541846104')
+        """点击Check检查按钮"""
+        add_shop_transfer.click_check()
+        """断言输入的IMEI是否验证通过"""
+        get_scanned = add_shop_transfer.get_scanned_value()
+        get_order_detail_scanned = add_shop_transfer.get_order_detail_scanned()
+        get_imei = add_shop_transfer.get_scan_record_imei('356560541846104')
+        get_success = add_shop_transfer.get_scan_record_success()
+        ValueAssert.value_assert_equal(get_order_detail_scanned, get_scanned)
+        ValueAssert.value_assert_equal('356560541846104', get_imei)
+        ValueAssert.value_assert_In('Success', get_success)
+        """点击提交按钮"""
+        add_shop_transfer.click_add_submit_ok()
+        """断言 筛选新建的调店单状态是否正确"""
+        add_shop_transfer.input_to_shop_query('SN001872')
+        add_shop_transfer.input_status_query('Approved')
+        add_shop_transfer.click_search()
+        get_transfer_id2 = add_shop_transfer.get_list_transfer_id_text()
+        get_status2 = add_shop_transfer.get_list_transfer_status_text()
+        get_to_shop2 = add_shop_transfer.get_list_to_shop_text()
+        ValueAssert.value_assert_IsNoneNot(get_transfer_id2)
+        ValueAssert.value_assert_equal('Approved', get_status2)
+        ValueAssert.value_assert_equal('SN001872', get_to_shop2)
+
+
+
 @allure.feature("库存管理-门店IMEI调店")
 class TestApproveRejectTransfer:
-    @allure.story("将完成状态的记录，进行Approved门店IMEI调店操作")
+    @allure.story("将Approved状态的数据，进行Reject拒绝操作")
     @allure.title("门店IMEI调店页面，将Approved状态的数据，进行Reject拒绝操作")
     @allure.description("库存管理页面，门店IMEI调店页面，将Approved状态的数据，进行Reject拒绝操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_001(self, drivers):
+    def test_003_001(self, drivers):
         user2 = LoginPage(drivers)
         user2.initialize_login(drivers, "xiongbo92", "dcr123456")
         user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
@@ -237,12 +322,12 @@ class TestApproveRejectTransfer:
         sleep(1)
 
 
-    @allure.story("将完成状态的记录，进行Reject门店IMEI调店操作")
+    @allure.story("将Reject状态的数据，进行Approved拒绝操作")
     @allure.title("门店IMEI调店页面，将Reject状态的数据，进行Approved拒绝操作")
     @allure.description("库存管理页面，门店IMEI调店页面，将Reject状态的数据，进行Reject拒绝操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_002(self, drivers):
+    def test_003_002(self, drivers):
         user2 = LoginPage(drivers)
         user2.initialize_login(drivers, "xiongbo92", "dcr123456")
         user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
@@ -258,6 +343,7 @@ class TestApproveRejectTransfer:
         sleep(1)
         approve.click_approve_reject('Reject')
         DomAssert(drivers).assert_att('The data you selected include completed, please reselect')
+
 
 if __name__ == '__main__':
     pytest.main(['InventoryManagement_ShopIMEITransfer.py'])
