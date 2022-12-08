@@ -25,44 +25,14 @@ class AssetsMgtPage(Base):
             columnValue.append(n.text)
         return columnValue
 
-    @allure.step("筛选框查询")
-    def firsttype_search(self, Firsttype):
-        self.is_click(user["筛选框"], "firstType")
-        self.input_text(user["筛选框"], Firsttype, "firstType")
-        sleep(1)
-        if Firsttype == "Office Equipment":
-            self.is_click(user["下拉筛选框数据"], 2)
-        elif Firsttype == "Publicity Materials":
-            self.is_click(user["下拉筛选框数据"], 3)
-        elif Firsttype == "Warehouse Materials":
-            self.is_click(user["下拉筛选框数据"], 4)
-        else:
-            self.is_click(user["下拉筛选框数据"], 1)
-        sleep(1)
-        self.is_click(user["搜索按钮"])
 
-    @allure.step("sql查询")
-    def SQL_search(self, Firsttype):
-        user = SQL("CRM", "test")  # 链接数据库
-        if Firsttype == "Office Equipment":
-            s_ser = user.query_db('SELECT COUNT(*) FROM crm_wms_assets_code_application WHERE first_type = "FT001"')
-            sql_qty = s_ser[0].get("COUNT(*)")
-            logging.info("数据库获取的Office Equipment数量:{}".format(sql_qty))
-        elif Firsttype == "Publicity Materials":
-            s_ser = user.query_db('SELECT COUNT(*) FROM crm_wms_assets_code_application WHERE first_type = "FT003"')
-            sql_qty = s_ser[0].get("COUNT(*)")
-            logging.info("数据库获取的Publicity Materials数量:{}".format(sql_qty))
-        elif Firsttype == "Warehouse Materials":
-            s_ser = user.query_db('SELECT COUNT(*) FROM crm_wms_assets_code_application WHERE first_type = "FT004"')
-            sql_qty = s_ser[0].get("COUNT(*)")
-            logging.info("数据库获取的Warehouse Materials数量:{}".format(sql_qty))
-        else:
-            s_ser = user.query_db('SELECT COUNT(*) FROM crm_wms_assets_code_application WHERE first_type = "FT002"')
-            sql_qty = s_ser[0].get("COUNT(*)")
-            logging.info("数据库获取的Repair Tools数量:{}".format(sql_qty))
-        return sql_qty
-
-
+    @allure.step("Assets Code页面，筛选框下拉框查询")
+    def Get_search(self, status, choice):
+        self.is_click(user['筛选框'], choice)
+        self.input_text(user['筛选框'], status, choice)
+        self.hover(user['下拉框data'], status)
+        self.is_click(user['下拉框data'], status)
+        self.is_click(user['搜索按钮'])
 
 if __name__ == '__main__':
     pass

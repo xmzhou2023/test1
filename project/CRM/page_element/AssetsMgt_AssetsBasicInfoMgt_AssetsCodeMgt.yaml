@@ -1,7 +1,10 @@
 筛选框: 'xpath==//label[@for="variable"]//parent::div/div[1]//input[@type="text"]'
 搜索按钮: 'xpath==//span[text()="Search"]'
 下拉筛选框数据: 'xpath==//div[@x-placement="bottom-start"]//li[variable]'
+下拉框data: 'xpath==//li[contains(@class,"el-select-dropdown__item")][contains(text(),"variable")]'
 total数量: 'xpath==//span[@class="el-pagination__total"]'
 第某列文本: 'xpath==//tr[@class="el-table__row"]/td[variable]'
+
+
 
 
