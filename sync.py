@@ -183,7 +183,7 @@ def get_PyClass(filepath):
                     class_list[class_name]['value'][function_name]['description'] = description_name
                     class_list[class_name]['value'][function_name]['severity'] = severity_name
                     class_list[class_name]['value'][function_name]['mark'] = mark_name
-                    class_list[class_name]['value'][function_name]['status'] = 2
+                    class_list[class_name]['value'][function_name]['status'] = 1
                 except UnboundLocalError as e:
                     print('请检查指定代码格式{}'.format(class_list))
 
@@ -194,7 +194,7 @@ def get_PyClass(filepath):
                 if 'pass' == status_name:
                     class_list[class_name]['value'][function_name]['status'] = 0
                 if 'robot = KeyWord(drivers)' == status_name:
-                    class_list[class_name]['value'][function_name]['edit_status'] = 1
+                    class_list[class_name]['value'][function_name]['edit_status'] = 2
 
     return class_list, feature_name
 
