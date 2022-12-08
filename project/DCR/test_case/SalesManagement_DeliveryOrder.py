@@ -42,7 +42,7 @@ def function_menu_fixture(drivers):
 
 @allure.feature("销售管理-出库单")
 class TestQueryDeliveryOrder:
-    @allure.story("查询出库单列表")
+    @allure.story("查询出库单")
     @allure.title("出库单页面，查询出库单列表加载数据")
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -65,6 +65,75 @@ class TestQueryDeliveryOrder:
         ValueAssert.value_assert_IsNoneNot(status)
         list1.assert_total(total)
         #list1.click_close_delivery_order()
+
+    @allure.story("查询出库单")
+    @allure.title("单一条件筛选出库单，筛选出正确数据")
+    @allure.description("单一条件筛选出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_002(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        user.click_unfold()
+        """输入单一条件查询断言"""
+        user.assert_Query_Method('Brand', 'itel')
+        user.assert_Query_Method('Sales Order ID', '02HK2211220003')
+        user.assert_Query_Method('Delivery Order ID', '02HK2212070000001')
+        user.assert_Query_Method('Status', 'Goods Receipt')
+        user.assert_Query_Method('Seller', 'SN405554')
+        user.assert_Query_Method('Buyer', 'SN200000')
+        user.assert_Query_Method('Have Discount', 'No')
+        user.assert_Query_Method('Upload Type', 'WEB Import')
+        user.assert_Query_Method('Buyer Type', 'Sub-dealer')
+        user.assert_Query_Method('Seller Type', 'Distributor')
+        user.assert_Query_Method('Model', 'S661L')
+        user.assert_Query_Method('Market Name', 'Vision 3')
+        user.assert_Query_Method('Buyer Country', 'Senegal')
+        user.assert_Query_Method('Seller Country', 'Senegal')
+        user.assert_Query_Method('Return or not', 'Yes')
+        user.assert_Query_Method('Return or not', 'No')
+        user.assert_Query_Method('Payment Mode', 'Cash')
+        user.assert_Query_Method('Creator', 'SN405554')
+
+
+    @allure.story("查询出库单")
+    @allure.title("组合条件筛选出库单，筛选出正确数据")
+    @allure.description("组合条件筛选出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_003(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        user.click_unfold()
+        user.input_search('Brand', 'itel')
+        user.input_search('Sales Order ID', '02HK2211220003')
+        user.input_search('Seller', 'SN405554')
+        user.click_search()
+        user.assert_Query_result('Sales Order ID', '02HK2211220003')
+        user.assert_Query_result('Brand', 'itel')
+
+
+    @allure.story("查询出库单")
+    @allure.title("组合条件筛选出库单，无筛选结果")
+    @allure.description("组合条件筛选出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_004(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        user.click_unfold()
+        user.input_search('Activated Loss Or Not', 'Yes')
+        user.click_search()
+        user.assert_NoData()
 
 
 @allure.feature("销售管理-出库单")
@@ -956,43 +1025,6 @@ class TestAddDeliveryOrder:
         user.click_print_cancel()
 
 
-    @allure.story("查询出库单")
-    @allure.title("组合条件筛选出库单，筛选出正确数据")
-    @allure.description("组合条件筛选出库单")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_009(self, drivers):
-        menu = LoginPage(drivers)
-        menu.initialize_login(drivers, "SN405554", "xLily6x")
-        """打开Sales Management/Delivery Ordery菜单"""
-        user = DeliveryOrderPage(drivers)
-        user.click_menu("Sales Management", "Delivery Order")
-        user.click_unfold()
-        user.input_search('Brand', 'itel')
-        user.input_search('Sales Order ID', '02HK2211220003')
-        user.input_search('Seller', 'SN405554')
-        user.click_search()
-        user.assert_Query_result('Sales Order ID', '02HK2211220003')
-        user.assert_Query_result('Brand', 'itel')
-
-
-    @allure.story("查询出库单")
-    @allure.title("组合条件筛选出库单，无筛选结果")
-    @allure.description("组合条件筛选出库单")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_010(self, drivers):
-        menu = LoginPage(drivers)
-        menu.initialize_login(drivers, "SN405554", "xLily6x")
-        """打开Sales Management/Delivery Ordery菜单"""
-        user = DeliveryOrderPage(drivers)
-        user.click_menu("Sales Management", "Delivery Order")
-        user.click_unfold()
-        user.input_search('Activated Loss Or Not', 'Yes')
-        user.click_search()
-        user.assert_NoData()
-
-
     @allure.story("新建出库单")
     @allure.title("国包用户，新建出库单，产品为有码的，出库类型为:SN产品，买方为二代用户")
     @allure.description("国包用户，新建出库单，产品为有码的，出库类型为:SN产品，买方为二代用户，买收货后，SN退货")
@@ -1121,37 +1153,7 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal("Approved", status)
         ValueAssert.value_assert_equal('Return To Seller', get_return_type)
 
-    @allure.story("查询出库单")
-    @allure.title("单一条件筛选出库单，筛选出正确数据")
-    @allure.description("单一条件筛选出库单")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_012(self, drivers):
-        menu = LoginPage(drivers)
-        menu.initialize_login(drivers, "SN405554", "xLily6x")
-        """打开Sales Management/Delivery Ordery菜单"""
-        user = DeliveryOrderPage(drivers)
-        user.click_menu("Sales Management", "Delivery Order")
-        user.click_unfold()
-        """输入单一条件查询断言"""
-        # user.assert_Query_Method('Brand', 'itel')
-        # user.assert_Query_Method('Sales Order ID', '02HK2211220003')
-        # user.assert_Query_Method('Delivery Order ID', '02HK2212070000001')
-        # user.assert_Query_Method('Status', 'Goods Receipt')
-        # user.assert_Query_Method('Seller', 'SN405554')
-        # user.assert_Query_Method('Buyer', 'SN200000')
-        # user.assert_Query_Method('Have Discount', 'No')
-        user.assert_Query_Method('Upload Type', 'WEB Import')
-        user.assert_Query_Method('Buyer Type', 'Sub-dealer')
-        user.assert_Query_Method('Seller Type', 'Distributor')
-        user.assert_Query_Method('Model', 'S661L')
-        user.assert_Query_Method('Market Name', 'Vision 3')
-        user.assert_Query_Method('Buyer Country', 'Senegal')
-        user.assert_Query_Method('Seller Country', 'Senegal')
-        user.assert_Query_Method('Return or not', 'Yes')
-        user.assert_Query_Method('Return or not', 'No')
-        user.assert_Query_Method('Payment Mode', 'Cash')
-        user.assert_Query_Method('Creator', 'SN405554')
+
 
 
 if __name__ == '__main__':
