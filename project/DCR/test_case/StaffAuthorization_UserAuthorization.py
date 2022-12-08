@@ -99,6 +99,69 @@ class TestDeleteCustAuthorization:
             customer.click_cust_authoriz_select()
             DomAssert(drivers).assert_att("Successfully")
 
+    @allure.story("传音员工授权客户")
+    @allure.title("传音员工授权客户")
+    @allure.description("传音员工授权客户，批量取消客户授权Batch Cancel Association")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+
+        """打开User Authorization菜单页面 """
+        user.click_gotomenu("Staff & Authorization", "User Authorization")
+        customer = UserAuthorizationPage(drivers)
+        customer.input_search('User', "wjkTS")
+        customer.click_search()
+        """点击Customer标签页"""
+        customer.click_tab('Customer')
+        """移除所有授权"""
+        customer.reset_Association()
+        """添加授权组合方法"""
+        customer.Association_Method('SN400001')
+        customer.Association_Method('SN400002')
+        """断言：添加客户授权成功"""
+        customer.assert_Query_containsresult('Customer ID', 'SN400002')
+        customer.assert_Query_containsresult('Customer ID', 'SN400001')
+        """移除客户授权"""
+        customer.click_CheckBox('SN400002')
+        customer.click_CheckBox('SN400001')
+        customer.click_function_button('Batch Cancel Association')
+        customer.click_Delete()
+        """断言：移除客户授权成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        customer.assert_NoData()
+
+    @allure.story("传音员工授权客户")
+    @allure.title("传音员工授权客户")
+    @allure.description("传音员工授权客户，一键清空客户授权 Empty All Association")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_003(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+
+        """打开User Authorization菜单页面 """
+        user.click_gotomenu("Staff & Authorization", "User Authorization")
+        customer = UserAuthorizationPage(drivers)
+        customer.input_search('User', "wjkTS")
+        customer.click_search()
+        """点击Customer标签页"""
+        customer.click_tab('Customer')
+        """移除所有授权"""
+        customer.reset_Association()
+        """添加授权组合方法"""
+        customer.Association_Method('SN400001')
+        customer.Association_Method('SN400002')
+        """断言：添加客户授权成功"""
+        customer.assert_Query_containsresult('Customer ID', 'SN400002')
+        customer.assert_Query_containsresult('Customer ID', 'SN400001')
+        """移除客户授权"""
+        customer.click_function_button('Empty All Association')
+        customer.click_Delete()
+        DomAssert(drivers).assert_att('Successfully')
+        customer.assert_NoData()
+
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteWareAuthorization:

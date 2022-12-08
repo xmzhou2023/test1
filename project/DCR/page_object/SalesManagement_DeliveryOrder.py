@@ -630,8 +630,8 @@ class DeliveryOrderPage(Base):
     def input_search(self, header, content):
         input_list = ['Sales Order ID', 'Delivery Order ID']
         select_list = ['Seller', 'Buyer', 'Creator']
-        click_list = ['Status', 'Brand']
-        click_list2 = ['Activated Loss Or Not']
+        click_list = ['Brand', 'Model', 'Market Name', 'Buyer Country', 'Seller Country']
+        click_list2 = ['Status', 'Activated Loss Or Not', 'Have Discount', 'Upload Type', 'Buyer Type', 'Seller Type', 'Return or not', 'Payment Mode']
         time_list = ['Delivery Date']
         if header in input_list:
             self.input_text(user['input输入框'], content, header)
@@ -664,6 +664,40 @@ class DeliveryOrderPage(Base):
     @allure.step("点击print页面取消")
     def click_print_cancel(self):
         self.is_click_tbm(user['打印Cancel'])
+
+    @allure.step("单一条件查询断言组合方法")
+    def assert_Query_Method(self, header, content):
+        self.input_search(header, content)
+        self.click_search()
+        if header == 'Seller' or header == 'Buyer':
+            self.assert_Query_result(f'{header} ID', content)
+        elif header == 'Have Discount':
+            column = self.get_table_info(user['表格字段'], 'Total Discount', sc_element=user['DeliveryOrdery滚动条'], h_element=user['表头文本'])
+            contents = self.get_row_info(user['DeliveryOrdery表格内容'], column, user['DeliveryOrdery滚动条'])
+            if content == 'Yes':
+                for i in contents:
+                    ValueAssert.value_assert_Notequal(i, '0')
+            else:
+                for i in contents:
+                    ValueAssert.value_assert_equal(i, '0')
+        elif header == 'Return or not':
+            column = self.get_table_info(user['表格字段'], 'Return Quantity', sc_element=user['DeliveryOrdery滚动条'], h_element=user['表头文本'])
+            ac_content = self.find_elements(user['DeliveryOrdery表格退货标签'], column)
+            as_value = 'color: red'
+            if content == 'Yes':
+                for i in ac_content:
+                    ValueAssert.value_assert_Notequal(i.text, '0')
+                    style = i.get_attribute('style')
+                    ValueAssert.value_assert_In(as_value, style)
+            else:
+                for i in ac_content:
+                    ValueAssert.value_assert_equal(i.text, '0')
+                    style = i.get_attribute('style')
+                    ValueAssert.value_assert_InNot(as_value, style)
+        else:
+            self.assert_Query_result(header, content)
+        self.click_reset()
+
 
 if __name__ == '__main__':
     pass
