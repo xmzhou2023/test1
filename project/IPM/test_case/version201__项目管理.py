@@ -2087,7 +2087,6 @@ class Teststory_3318:
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
     @allure.title("在流程中结论存在且状态为已发布，点击发布，查看接收人是否所属项目的角色对应人员，包括LPDT、PM、研发代表、采购代表、质量代表、制造代表、计划代表、销管代表、PQA、GTM代表、财务代表；")  # 用例名称
-        "在流程中结论存在且状态为已发布，点击发布，查看接收人是否所属项目的角色对应人员，包括LPDT、PM、研发代表、采购代表、质量代表、制造代表、计划代表、销管代表、PQA、GTM代表、财务代表；")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
