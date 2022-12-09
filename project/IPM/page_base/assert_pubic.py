@@ -66,6 +66,19 @@ class AssertMode(PubicMethod):
             logging.error('断言失败，未获取到toast提示语/toast提示语错误')
             raise
 
+    @allure.step("断言")
+    def assert_IPM(self,att, content=None):
+
+        try:
+            if content is None:
+                assert '请求成功' in att or '审核通过' in att or '操作成功' in att or '处理成功' in att
+                logging.info('断言成功，toast提示为：{}'.format(att))
+            else:
+                assert content in att
+                logging.info('断言成功，toast提示为：{}'.format(att))
+        except:
+            logging.error('断言失败，实际提示为：{}'.format(att))
+            raise
 
     def element_not_found(self,locator,result=False):
         '''

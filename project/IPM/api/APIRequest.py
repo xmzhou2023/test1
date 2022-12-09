@@ -120,7 +120,6 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
         response = self.api_request('项目管理基本信息字段获取', data, headers)
         node = response['body']['data']
-        print(node)
         field_properties = []
         for i in node:
             pro = '字段名', '类型', '是否可读', '是否必填', '是否展示','文本类型'
@@ -131,9 +130,11 @@ class APIRequest:
 
 
 
+
+
 if __name__ == '__main__':
     Api=APIRequest(18645960)
     # ApplyList=Api.Api_applyList(20220810085734677324)
     # Api.Api_queryDeptAndEmployee(20220810085734677324)
     print(Api.Api_project_bid("开模流程测试"))
-    print(Api.Api_project_field("IPM自动化2022-12-0813:39:12"))
+    print(Api.Api_project_field("ipm自动化2022-12-0217:34:45"))

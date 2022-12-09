@@ -59,6 +59,10 @@ class PubicMethod(Base):
     def mouse_hover_IPM(self,element,choice):
         self.mouse_hover(self.chome[element], choice=choice)
 
+    def find_element_IPM_yaml(self,element, choice=None, choices=None):
+        return self.find_element_IPM(self.chome[element], choice=choice, choices=choices)
+
+
     def click_IPM(self, element, choice=None, choices=None):
         """
         点击元素

@@ -86,6 +86,27 @@ class CreateProject(PubicMethod):
         '''启动项目'''
         self.click_IPM('启动项目')
 
+    def project_stu(self):
+        '''获取项目状态是否可编辑'''
+        sleep(2)
+        res=self.find_element_IPM_yaml('字段名称', choice="项目状态")
+        sleep(2)
+        a =res.get_attribute("disabled")
+        return a
+
+    def get_Single_attribute(self,proname):
+        '''
+        获取单个字段属性
+
+        '''
+        Api = APIRequest()
+        field_att = Api.Api_project_field(proname)
+        for i in field_att:
+            if i.get("字段名称") == '项目状态':
+                return i.get('是否可读')
+
+
+
     def Get_required_fields(self,proname,protime):
         '''
         获取项目管理字段获取
@@ -158,6 +179,7 @@ class CreateProject(PubicMethod):
         self.click_project_entrance(projectname)
         sleep(1)
         self.switch_window(-1)
+        sleep(1)
 
     def Click_the_button_to_enter(self,projectname):
         '''点击按钮进入进入项目详情'''
@@ -199,8 +221,6 @@ class Assert_result(AssertMode):
     def __init__(self,driver,element_yaml='ProjectManagement_CreateProject', expect='ProjectManagement_CreateProject.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
 
-    def assert_Create_project(self,actual,Expected):
-        self.assert_element_equal(actual,Expected)
 
 
 
