@@ -69,7 +69,9 @@ class Teststory_2467:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_19966(self, drivers):
-        pass
+        robot = KeyWord(drivers)
+        robot.AI_get("http://10.250.112.166:9000//")#id2fec00db-f7f9-4dd4-9795-0a93768c6d55
+        robot.close()
 
 if __name__ == '__main__':
     pass
