@@ -4113,15 +4113,6 @@ class Teststory_3299:
 
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
-    @allure.title("TR要素自检、互评状况清单下载，打开EXCLE，列出所属项目、TR阶段、要素名称、指标统计说明、自检领域、自检结果、互评结果、互评人员、互评结果、备注，自检人员名称工号，以自检人员为一行")  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity("critical")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23716(self, drivers):
-        pass
-
-
-    @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
     @allure.title("TR要素自检、互评状况清单下载，打开EXCLE，查看下载内容正确")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
