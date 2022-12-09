@@ -41,12 +41,7 @@ class Teststory_1811:
         robot = KeyWord(drivers)
         robot.AI_get("http://10.250.112.166:9000/")#id0fc2a292-ab04-44a8-bb41-7a780c686f8b
         robot.AI_find_element(By.XPATH, "(//button[@type='button'])[6]").click()#id421fb9ad-e01a-411b-9102-40feb4a0a47f
-        
-        
-def test_10575(self, drivers):
-        robot = KeyWord(drivers)
-        robot.AI_get("http://10.250.112.166:9000/")#id0fc2a292-ab04-44a8-bb41-7a780c686f8b
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-button--primary:nth-child(1)").click()#id421fb9ad-e01a-411b-9102-40feb4a0a47f
+
 
 
 if __name__ == '__main__':
