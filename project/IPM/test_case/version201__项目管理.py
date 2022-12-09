@@ -81,6 +81,15 @@ class Teststory_3259:
         pass
 
 
+    @allure.story("创建项目")  # 用户故事名称
+    @allure.title("项目描述不填写项目描述，新建项目成功")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25536(self, drivers):
+        pass
+
+
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3345:
     @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
