@@ -10,8 +10,9 @@
 
 
 进入项目: "xpath==//section//div[@title='variable']"
-
-
+卡片展开按钮: 'xpath==//div/div/div[@title="variable"]/../..//div[@role="button"]'
+项目编辑按钮: 'xpath==//ul/li[text()="编辑"]'
+项目删除按钮: 'xpath==//ul/li[text()="删除"]'
 
 
 置顶提示: 'xpath==//div[@role="alert"]/p'
@@ -19,5 +20,7 @@
 #========================================================================编辑===============================================================================
 字段名称: "xpath==//div/label[text()=' variable ']/..//input"
 下拉框: "xpath==//div[@x-placement='bottom-start']//li[1]/span[1]"
-基本信息保存: "xpath==//span[text()=' 保存 ']"
+基本信息保存: "xpath==//span[@title='保存']"
+启动项目: 'xpath==// span[text() = " 启动项目 "]'
+
 

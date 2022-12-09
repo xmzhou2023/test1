@@ -56,7 +56,8 @@ class PubicMethod(Base):
             sleep(0.5)
         logging.info("点击元素：{}".format(locator))
         sleep(0.5)
-
+    def mouse_hover_IPM(self,element,choice):
+        self.mouse_hover(self.chome[element], choice=choice)
 
     def click_IPM(self, element, choice=None, choices=None):
         """
@@ -81,6 +82,7 @@ class PubicMethod(Base):
         except:
             self.scroll_into_view(locator=self.chome[elements],choice=choice)
             self.input_text(locator=self.chome[elements], txt=text,choice=choice)
+        sleep(0.5)
 
 
     def form_elements(self,formheader,choice=None,get_attributs='innerText'):

@@ -62,8 +62,16 @@ class CreateProject(PubicMethod):
         self.click_IPM('取消')
 
     def click_project_entrance(self,projectname):
-        '''进入项目'''
+        '''点击卡片进入项目'''
         self.click_IPM('进入项目',projectname)
+
+    def click_project_entrance_ch(self,projectname):
+        '''点击...展开编辑/删除按钮'''
+        self.mouse_hover_IPM('卡片展开按钮',projectname)
+
+    def entrance_ch(self,):
+        '''项目编辑按钮'''
+        self.click_IPM('项目编辑按钮')
 
     def click_edit(self):
         '''编辑'''
@@ -73,6 +81,11 @@ class CreateProject(PubicMethod):
 
         '''基本信息编辑保存'''
         self.click_IPM('基本信息保存')
+
+    def Start_project(self):
+        '''启动项目'''
+        self.click_IPM('启动项目')
+
     def Get_required_fields(self,proname,protime):
         '''
         获取项目管理字段获取
@@ -141,9 +154,18 @@ class CreateProject(PubicMethod):
         sleep(2)
 
     def enter_the_project(self,projectname):
+        '''点击卡片进入项目详情'''
         self.click_project_entrance(projectname)
         sleep(1)
         self.switch_window(-1)
+
+    def Click_the_button_to_enter(self,projectname):
+        '''点击按钮进入进入项目详情'''
+        self.click_project_entrance_ch(projectname)
+        self.entrance_ch()
+        sleep(1)
+        self.switch_window(-1)
+        sleep(3)
 
     def project_entrance(self,projectname,protime):
         '''
