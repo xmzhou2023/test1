@@ -1,26 +1,6 @@
 import allure
 import pytest
 @allure.feature("2022年末需求计划")  # 迭代名称
-class Teststory_2760:
-    @allure.story("""""高级搜索优化""""")  # 用户故事名称
-    @allure.title("自动化测试跑流程")  # 用例名称
-    @allure.description("登录==创建项目")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_18778(self, drivers):
-        pass
-
-
-    @allure.story("""""高级搜索优化""""")  # 用户故事名称
-    @allure.title("IPM流程测试")  # 用例名称
-    @allure.description("发起==流程审批==断言")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_19625(self, drivers):
-        pass
-
-
-@allure.feature("2022年末需求计划")  # 迭代名称
 class Teststory_2966:
     @allure.story("1.5.3视图amp描述输入条件，更改数据后条件丢失了")  # 用户故事名称
     @allure.title("视图配置条件查询用户输入搜索条件，选中之一数据做编辑，编辑完成后，要保存搜索条件，除非用户重置或者清空")  # 用例名称
@@ -718,6 +698,1052 @@ class Teststory_2963:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23294(self, drivers):
+        pass
+
+
+@allure.feature("2022年末需求计划")  # 迭代名称
+class Teststory_2960:
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("新增选择源对象与目标对象，实例应用时目标对象只能是子类型（包含自身）")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25064(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("新增/关系行为固定/浮动/持续固定/持续浮动")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25065(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型维护二级菜单/权限用户需要有系统管理员的权限")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25066(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型维护二级菜单/进入系统管理一级菜单，可查看到'关系管理'二级菜单")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25067(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型维护二级菜单/点击'关系管理'二级菜单，进入关系管理列表页面")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25068(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/关系名称支持模糊查询")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25069(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/关系名称输入关系名称，点击查询，查询结果显示按照修改时间最近在顶端排序，并展示含关系名称字段的数据。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25070(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/Tab名称支持模糊查询")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25071(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/Tab名称输入Tab名称，点击查询，查询结果显示按照修改时间最近在顶端排序，并展示含Tab名称字段的数据。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25072(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/状态/未启用下拉选择状态为'未启用'的数据，点击查询，查询结果默认展示'未启用'的数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25073(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/状态/启用下拉选择状态为'启用'的数据，点击查询，查询结果默认展示'启用'的数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25074(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/状态/禁用下拉选择状态为'禁用'的数据，点击查询，查询结果默认展示'禁用'的数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25075(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/源对象支持模糊查询")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25076(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/源对象输入源对象，点击查询，查询结果显示按照修改时间最近在顶端排序，并展示含源对象字段的数据。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25077(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/关联对象支持模糊查询")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25078(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询/关联对象输入关联对象，点击查询，查询结果显示按照修改时间最近在顶端排序，并展示含关联对象字段的数据。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25079(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("组合查询/关系名称为空，点击查询，查询结果显示所有关系名称的数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25080(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("组合查询/Tab名称为空，点击查询，查询结果显示所有Tab名称的数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25081(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("组合查询/状态为空，点击查询，查询结果显示所有状态的数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25082(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("组合查询/源对象为空，点击查询，查询结果显示所有源对象的数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25083(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("组合查询/关联对象为空，点击查询，查询结果显示所有关联对象的数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25084(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("组合查询/精确搜索（如模板），输入关系名称为039XXX039、Tab名称为039XXX039、状态为'启用'、源对象为'it项目'、关联对象为'简易文档'，点击查询，查询结果展示关系名称为039XXX039、Tab名称为039XXX039、状态为'启用'、源对象为'it项目'、关联对象为'简易文档'的数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25085(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("重置点击重置按钮，清空查询条件数据的内容。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25086(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("正反排序点击结果列表的列名，进行正反排序")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25087(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("收起查询的条件默认展示全部的查询条件，点击收起后，只展示第一行的查询条件")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25088(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("展开查询条件收起后才能点击展开的按钮，点击展开按钮后，展示全部的查询条件")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25089(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询结果/序号进入页面默认按最后修改时间降序，支持页内排序及自定义展示列")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25090(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("查询结果展示关系名称、Tab名称、源对象、关联对象、状态、说明信息、最后一次修改的人员、最后修改时间、操作")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25091(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("操作/编辑待编辑关系的操作列，点击'编辑'按钮，弹出编辑关系页面；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25092(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("操作/删除未启用状态才可删除数据")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25093(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("点击'新增'按钮，弹出新增关系页面；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25094(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系名称必填，输入类型为字符串，最长128；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25095(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系名称为空，给出提示信息")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25096(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("Tab名称必填项，是关联对象实例在源对象实例上Tab页显示的名称，字符串，最长128；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25097(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("Tab名称为空，给出提示")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25098(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系说明字符串，用于该关系的备注；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25099(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("源对象该关系所定义的源对象，从对象类型中选择（仅可选已启用对象类型）")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25100(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联对象关联到源对象的对象，从对象类型中选择（仅可选已启用对象类型）；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25101(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("应用所有对象并隐藏Tab复选框，当勾选时，清空源对象，代表该关系所定义的关联对象是所有对象类型的关联对象，并隐藏该关系的Tab页；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25102(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("应用所有对象并隐藏Tab复选框，不勾选时，源对象与关系对象关联，不隐藏该关系的Tab页；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25103(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("最大数量关联对象实例在源对象实例中允许的最大数量；限制为整数")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25104(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("最小数量关联对象实例在源对象实例中必须存在的最小数量；限制为整数")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25105(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("增加标识非必填勾选应用，填写应用编码，此目标对象设置为应用，如团队，任务驾驶舱，存储域，基本信息")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25106(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("增加标识不勾选，目标对象则不设为应用关系")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25107(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为必填，为空时给出提示")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25108(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为下拉框，选择固定时，此关系对象生成的目标对象实例版本为当前目标对象的固定版本")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25109(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为下拉框，选择浮动时，此关系对象生成目标对象实例为是最新版本")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25110(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为下拉框，选择持续浮动时，此关系对象生成目标对象实例为是最新版本")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25111(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为下拉框，选择持续固定时，此关系对象生成的目标对象实例版本为当前目标对象的固定版本")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25112(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("仅选取、仅新建、两者皆可三个选项必选其一，未选给出提示")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25113(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("仅选取添加关联对象实例到源对象实例的下方式，仅支持选取已有关联对象实例；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25114(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("仅新建添加关联对象实例到源对象实例下的方式，仅支持新建关联对象实例；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25115(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("两者皆可添加关联对象实例到源对象实例的下方式，支持选取和新建；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25116(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联项必填复选框，勾选代表源对象实例的Tab页下关联对象实例必填")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25117(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联项必填复选框，不勾选代表源对象实例的Tab页下关联对象实例不必填")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25118(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系应用中显示属性控制选择目标对象后带出设置在关系中显示的属性")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25119(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系应用中显示属性控制在应用属性是不是从这里来的需要确认，保证动态取值")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25120(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("保存点击保存，完成关系保存并关闭页面，关系默认不生效，后台自动生成同名的对象类型；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25121(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("取消点击取消，取消新建，关闭页面；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25122(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系管理新增的关系，默认在对象上自动生成同名的对象类型，新增的关系启用后，才可新增源对象实例和关联对象实例的关系并生效")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25123(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型场景直接关系类型，源对象和关联对象为不同的对象类型。例如，部件和文档的关系。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25124(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型场景自我关系类型，源对象和关联对象为同一个对象类型。例如，部件和部件的关系。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25125(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型场景无源对象关系类型，源对象为空，只有关联对象。则关联对象类型作为所有对象类型的关联对象。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25126(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型场景无关联关系类型，由于新增关系会自动生成同名的对象类型，在同名的对象上可添加属性，可用于对源对象实例添加多个同名对象类型所定义的属性参数。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25127(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("编辑待编辑关系的操作列，点击'编辑'按钮，弹出编辑关系页面；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25128(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("保存完成关系保存并关闭页面，关系直接生效，后台自动更新同名的对象类型；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25129(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("取消点击取消，取消编辑，关闭页面；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25130(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系变更影响被取消的源对象和关联对象的关系失效；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25131(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系变更影响被新增的源对象和关联对象的关系生效；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25132(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系变更影响对同名对象实例不产生影响")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25133(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系名称不可编辑")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25134(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("Tab名称必填项，是关联对象实例在源对象实例上Tab页显示的名称，字符串，最长128；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25135(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("Tab名称为空，给出提示")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25136(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系说明字符串，用于该关系的备注；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25137(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("源对象未启用状态可编辑，启用不可编")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25138(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("源对象该关系所定义的源对象，从对象类型中选择（仅可选已启用对象类型）")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25139(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联对象未启用状态可编辑，启用不可编")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25140(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联对象关联到源对象的对象，从对象类型中选择（仅可选已启用对象类型）；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25141(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("应用所有对象并隐藏Tab复选框，当勾选时，清空源对象，代表该关系所定义的关联对象是所有对象类型的关联对象，并隐藏该关系的Tab页；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25142(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("应用所有对象并隐藏Tab复选框，不勾选时，源对象与关系对象关联，不隐藏该关系的Tab页；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25143(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("最大数量关联对象实例在源对象实例中允许的最大数量；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25144(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("最小数量关联对象实例在源对象实例中必须存在的最小数量；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25145(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为必填，为空时给出提示")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25146(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为下拉框，选择固定时，此关系对象生成的目标对象实例版本为当前目标对象的固定版本")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25147(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为下拉框，选择浮动时，此关系对象生成目标对象实例为是最新版本")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25148(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为下拉框，选择持续浮动时，此关系对象生成目标对象实例为是最新版本")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25149(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联行为下拉框，选择持续固定时，此关系对象生成的目标对象实例版本为当前目标对象的固定版本")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25150(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("仅选取、仅新建、两者皆可三个选项必选其一，未选给出提示")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25151(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("仅选取添加关联对象实例到源对象实例的下方式，仅支持选取已有关联对象实例；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25152(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("仅新建添加关联对象实例到源对象实例下的方式，仅支持新建关联对象实例；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25153(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("两者皆可添加关联对象实例到源对象实例的下方式，支持选取和新建；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25154(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联项必填复选框，勾选代表源对象实例的Tab页下关联对象实例必填")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25155(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关联项必填复选框，不勾选代表源对象实例的Tab页下关联对象实例不必填")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25156(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系应用中显示属性控制选择目标对象后带出设置在关系中显示的属性")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25157(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系应用中显示属性控制在应用属性是不是从这里来的需要确认，保证动态取值")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25158(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系管理新增的关系，默认在对象上自动生成同名的对象类型，新增的关系启用后，才可新增源对象实例和关联对象实例的关系并生效")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25159(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型场景直接关系类型，源对象和关联对象为不同的对象类型。例如，部件和文档的关系。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25160(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型场景自我关系类型，源对象和关联对象为同一个对象类型。例如，部件和部件的关系。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25161(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型场景无源对象关系类型，源对象为空，只有关联对象。则关联对象类型作为所有对象类型的关联对象。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25162(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("关系类型场景无关联关系类型，由于新增关系会自动生成同名的对象类型，在同名的对象上可添加属性，可用于对源对象实例添加多个同名对象类型所定义的属性参数。")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25163(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("启用关系未启用时，点击开关，弹出确认启用提示框'该操作将不可逆,启用后将无法恢复，是否继续?'，点击'启用'按钮，启用关系并关闭提示框，刷新当前关系；源对象实例和关联对象实例的关系生效。启用数据不可删除")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25164(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("启用关系未启用时，点击开关，弹出确认启用提示框'该操作将不可逆,启用后将无法恢复，是否继续?'，否，则不受影响，不使用该关系，自动创建的同名对象也无法创建实例")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25165(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("禁用关系启用状态时，点击开关，弹出提示框'该操作将禁用该关系，导致关系不可用，请谨慎操作，是否继续？'，点击'禁用'按钮，禁用关系并关闭提示框，刷新当前关系，新建的源对象实例和关联对象实例的关系失效，禁用数据不可删除")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25166(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("禁用关系启用状态时，点击开关，弹出提示框'该操作将禁用该关系，导致关系不可用，请谨慎操作，是否继续？'否，则关闭提示框，源对象实例和关联对象实例的关系不受影响")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25167(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("启用关系禁用状态时，点击开关，弹出提示框'该操作将启用该关系，是否继续？'，点击'启用'按钮，启用关系，并刷新当前状态，历史关系恢复显示，新建的源对象实例和关联对象实例的关系生效。启用数据不可删除")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25168(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("启用关系禁用状态时，点击开关，弹出提示框'该操作将启用该关系，是否继续？'，否，则数据继续禁用，禁用数据不可删除")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25169(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("禁用对象是关系中的源对象源对象无法创建，也就没有关系可创建；已有数据不影响")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25170(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("禁用对象是关系中的关联对象源对象的创建不受影响，源对象关系Tab页下面的关联对象无法选取，创建，已有数据不影响；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25171(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("源对象与关联对象都禁用源对象与关联对象都无法创建，也就没有关系可创建；已有数据不影响")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25172(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("禁用对象是关系中自动创建的对象源对象的创建不受影响，源对象关系Tab页下面的关联对象无法选取，创建，已有数据不影响；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25173(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("生命周期管理/节点中增加'关系行为'标签")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25174(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("生命周期管理/关系行为维护页面显示序号、目标对象、关系行为")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25175(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("生命周期管理/关系行为维护页面/新增选择目标对象与关系行为，点击保存此关系行为在节点中保存")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25176(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("生命周期管理/关系行为维护页面/新增/目标对象从对象类型中选择（仅可选已启用对象类型）；")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25177(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("生命周期管理/关系行为维护页面/新增/关系行为浮动/固定")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25178(self, drivers):
+        pass
+
+
+    @allure.story("1.5.3生命周期及关系改造")  # 用户故事名称
+    @allure.title("生命周期管理/关系行为维护页面/删除可删除节点关系行为")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_25179(self, drivers):
         pass
 
 
