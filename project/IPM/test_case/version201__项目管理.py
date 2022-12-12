@@ -4048,7 +4048,7 @@ class Teststory_3262:
         robot.AI_get("http://ipm-uat.transsion.com/")#id3ea04932-4507-4d86-b3f5-6c5a5bfb36a1
         robot.AI_find_element(By.LINK_TEXT, "项目管理").click()#ida59ec87d-535f-4ead-9b97-edc78f7b23e2
         test=CreateProject(drivers)
-        test.mouse_hover__IPM("卡片展开按钮")
+        test.mouse_hover__IPM("卡片展开")
         robot.AI_find_element(By.XPATH, "//ul[@x-placement=\"bottom-end\"]/li[2]").click()#id03d681d7-0277-4025-b4f3-7749e340472c
         robot.AI_find_element(By.CSS_SELECTOR, ".el-button--small:nth-child(2)").click()#idc51272d3-6705-4de6-bb28-271acbc6056a
         assert robot.AI_find_element(By.XPATH, "//p[text()=\"请求成功\"]").text == "请求成功"#idc2a99911-1586-4929-b988-ebb2826ceb93
