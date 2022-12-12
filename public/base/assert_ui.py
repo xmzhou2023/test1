@@ -151,7 +151,7 @@ class DomAssert(object):
         try:
             Base(self.driver).base_get_img('result')
             att = self.wait.until(
-                EC.visibility_of_element_located((By.XPATH, "//*[contains(text(),'{}')]".format(word)))).text
+                EC.visibility_of_element_located((By.XPATH, '//*[contains(text(),"{}")]'.format(word)))).text
             assert word in att, logging.warning("断言失败：页面不存在该标识 | 当前页面关键字: {}".format(att.replace("\n", "|")))
             logging.info("断言成功：页面存在该标识 | 当前页面关键字: {}".format(att.replace("\n", "|")))
         except Exception as e:
@@ -303,7 +303,7 @@ class DomAssert(object):
     @allure.step("断言：查询结果")
     def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0', sc_element=None, h_element=None):
         """
-        断言：页面查询结果
+        断言：页面精确查询结果
         @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
         @tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
         @header：元素定位 表头字段名称
@@ -326,7 +326,7 @@ class DomAssert(object):
     @allure.step("断言：查询结果")
     def assert_search_contains_result(self, col_element, tb_element, header, content, num=None, attr='class', index='0', sc_element=None, h_element=None):
         """
-        断言：页面查询结果
+        断言：页面模糊查询结果
         @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
         @tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
         @header：元素定位 表头字段名称
