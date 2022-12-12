@@ -3,7 +3,6 @@ from project.DCR.page_object.InventoryManagement_ShopIMEITransfer import ShopIME
 from public.base.assert_ui import ValueAssert, DomAssert
 import logging
 from libs.common.time_ui import sleep
-from public.base.basics import Base
 import datetime
 import pytest
 import allure
@@ -35,9 +34,9 @@ class TestQueryIMEITransfer:
         query.click_create_end_date()
         query.input_status_query('Approved')
         query.click_search()
-        get_transfer_id = query.get_list_field('Get Shop IMEI Transfer To Shop ID')
-        get_status = query.get_list_field('Get Shop IMEI Transfer Status')
-        get_create_date = query.get_list_field('Get Shop IMEI Transfer CreateDate')
+        get_transfer_id = query.get_list_field_text('Get Shop IMEI Transfer To Shop ID')
+        get_status = query.get_list_field_text('Get Shop IMEI Transfer Status')
+        get_create_date = query.get_list_field_text('Get Shop IMEI Transfer CreateDate')
         """断言列表字段内容是否与筛选的字段值匹配正确"""
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_In('2022-12-08', get_create_date)
@@ -56,31 +55,89 @@ class TestQueryIMEITransfer:
         user2.initialize_login(drivers, "xiongbo92", "dcr123456")
         user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
         query = ShopIMEITransferPage(drivers)
-        sleep(2)
         """获取列表Transfer ID字段内容"""
-        get_transfer_id1 = query.get_list_field("Get Shop IMEI Transfer ID")
         query.click_unfold()
         """按Transfer ID条件，筛选门店IMEI调店记录"""
-        query.shop_imei_transfer_input_query("Shop IMEI Transfer ID query", "Shop IMEI Transfer Input ID query", get_transfer_id1)
+        query.shop_imei_transfer_input_query('Shop IMEI Transfer ID query', 'Shop IMEI Transfer Input ID query', 'IT202212080353230011')
         query.click_search()
-        get_transfer_id2 = query.get_list_field("Get Shop IMEI Transfer ID")
-        ValueAssert.value_assert_equal(get_transfer_id2, get_transfer_id2)
+        #query.assert_shop_imei_transfer_field2('Transfer ID', 'IT202212080353230011')
+        get_list_transfer_id = query.get_list_transfer_id_text('IT202212080353230011')
+        ValueAssert.value_assert_equal('IT202212080353230011', get_list_transfer_id)
         get_total = query.get_list_total_text()
         ValueAssert.value_assert_equal('1', get_total)
         """重置筛选条件"""
         query.click_shop_imei_transfer_reset()
 
-        """按IMEI条件，筛选门店IMEI调店记录"""
-        get_transfer_imei1 = query.get_list_field("Get Shop IMEI Transfer IMEI")
-        query.shop_imei_transfer_input_query("Shop IMEI Transfer IMEI query", "Shop IMEI Transfer Input IMEI query", get_transfer_imei1)
+        """按Country条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_select_query('Shop IMEI Transfer Country query', 'Shop IMEI Transfer Country click query', 'Shop IMEI Transfer Country select query', 'Egypt', 'Egypt')
         query.click_search()
-        get_transfer_imei2 = query.get_list_field("Get Shop IMEI Transfer IMEI")
-        ValueAssert.value_assert_equal(get_transfer_imei1, get_transfer_imei2)
+        query.assert_shop_imei_transfer_field('From Country', 'Egypt')
         """重置筛选条件"""
         query.click_shop_imei_transfer_reset()
 
+        """按Sales Region 条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_select_query('Shop IMEI Transfer SalesRegion query', 'Shop IMEI Transfer SalesRegion query', 'Shop IMEI Transfer SalesRegion select query', 'Cairo', 'Cairo')
+        query.click_search()
+        query.assert_shop_imei_transfer_field('Transfer From Sales Region3', 'Cairo')
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
 
+        """按From Shop条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_select_query('Shop IMEI Transfer FromShop query',  'Shop IMEI Transfer FromShop click query', 'Shop IMEI Transfer FromShop select query', 'EG000706', 'EG000706')
+        query.click_search()
+        query.assert_shop_imei_transfer_field('From Shop ID', 'EG000706')
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
 
+        """按To Shop 条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_select_query('Shop IMEI Transfer ToShop query',  'Shop IMEI Transfer ToShop click query', 'Shop IMEI Transfer ToShop select query', 'lhmShop018', 'lhmShop018')
+        query.click_search()
+        query.assert_shop_imei_transfer_field('To Shop', 'lhmShop018')
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
+
+        """按 Brand 条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_select_query('Shop IMEI Transfer Brand query',  'Shop IMEI Transfer Brand click query', 'Shop IMEI Transfer Brand select query', 'TECNO', 'TECNO')
+        query.click_search()
+        query.assert_shop_imei_transfer_field('Brand', 'TECNO')
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
+
+        """按Creator条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_select_query('Shop IMEI Transfer Creator query', 'Shop IMEI Transfer Creator click query', 'Shop IMEI Transfer Creator select query', 'lhmadmin', 'lhmadmin lhmadmin')
+        query.click_search()
+        query.assert_shop_imei_transfer_field('Creator ID', 'lhmadmin')
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
+
+        """按 Market Name条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_select_query('Shop IMEI Transfer MarketName query', 'Shop IMEI Transfer MarketName click query', 'Shop IMEI Transfer MarketName select query', 'SPARK 6 Go', 'SPARK 6 Go')
+        query.click_search()
+        query.assert_shop_imei_transfer_field('Market Name', 'SPARK 6 Go')
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
+
+        """按IMEI条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_query('Shop IMEI Transfer IMEI query', 'Shop IMEI Transfer Input IMEI query', '356560541846104')
+        query.click_search()
+        query.assert_shop_imei_transfer_field('IMEI', '356560541846104')
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
+
+        """按Status 条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_select_query('Shop IMEI Transfer Status query', 'Shop IMEI Transfer Status click query', 'Shop IMEI Transfer Status select query', 'Approved', 'Approved')
+        query.click_search()
+        get_list_status = query.get_list_field_text('Get Shop IMEI Transfer Status')
+        ValueAssert.value_assert_equal('Approved', get_list_status)
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
+
+        """按 Model 条件，筛选门店IMEI调店记录"""
+        query.shop_imei_transfer_input_select_query('Shop IMEI Transfer Model query', 'Shop IMEI Transfer Model click query', 'Shop IMEI Transfer Model select query', 'KE5k', 'KE5k')
+        query.click_search()
+        query.assert_shop_imei_transfer_field('Model', 'KE5k')
+        """重置筛选条件"""
+        query.click_shop_imei_transfer_reset()
 
 
 @allure.feature("库存管理-门店IMEI调店")
@@ -116,7 +173,7 @@ class TestNewRejectIMEITransfer:
         shop_transfer.input_to_shop_query('EG000388')
         shop_transfer.input_status_query('Pending')
         shop_transfer.click_search()
-        get_transfer_id = shop_transfer.get_list_transfer_id_text()
+        get_transfer_id = shop_transfer.get_list_transfer_id()
         get_status = shop_transfer.get_list_transfer_status_text()
         get_creator_id = shop_transfer.get_list_creator_id_text()
         get_to_shop = shop_transfer.get_list_to_shop_text()
@@ -169,7 +226,7 @@ class TestNewRejectIMEITransfer:
         approve.input_to_shop_query('EG000388')
         approve.input_status_query('Pending')
         approve.click_search()
-        get_transfer_id = approve.get_list_transfer_id_text()
+        get_transfer_id = approve.get_list_transfer_id()
         get_status = approve.get_list_transfer_status_text()
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_equal('Pending', get_status)
@@ -204,7 +261,7 @@ class TestNewRejectIMEITransfer:
         approve.input_to_shop_query('EG000397')
         approve.input_status_query('Pending')
         approve.click_search()
-        get_transfer_id = approve.get_list_transfer_id_text()
+        get_transfer_id = approve.get_list_transfer_id()
         get_status = approve.get_list_transfer_status_text()
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
         ValueAssert.value_assert_equal('Pending', get_status)
@@ -217,7 +274,7 @@ class TestNewRejectIMEITransfer:
         """根据当前筛选的门店及 Approved状态，筛选查询的记录是否更新状态为Approved"""
         approve.input_status_query('Approved')
         approve.click_search()
-        get_transfer_id = approve.get_list_transfer_id_text()
+        get_transfer_id = approve.get_list_transfer_id()
         get_status = approve.get_list_transfer_status_text()
         get_to_shop = approve.get_list_to_shop_text()
         ValueAssert.value_assert_IsNoneNot(get_transfer_id)
@@ -257,7 +314,7 @@ class TestNewRejectIMEITransfer:
         add_shop_transfer.input_status_query('Approved')
         add_shop_transfer.click_search()
         """获取门店调店列表，creatorid、Status与to shop字段是否正确"""
-        get_transfer_id1 = add_shop_transfer.get_list_transfer_id_text()
+        get_transfer_id1 = add_shop_transfer.get_list_transfer_id()
         get_status1 = add_shop_transfer.get_list_transfer_status_text()
         get_creator_id = add_shop_transfer.get_list_creator_id_text()
         get_to_shop1 = add_shop_transfer.get_list_to_shop_text()
@@ -286,7 +343,7 @@ class TestNewRejectIMEITransfer:
         add_shop_transfer.input_to_shop_query('SN001872')
         add_shop_transfer.input_status_query('Approved')
         add_shop_transfer.click_search()
-        get_transfer_id2 = add_shop_transfer.get_list_transfer_id_text()
+        get_transfer_id2 = add_shop_transfer.get_list_transfer_id()
         get_status2 = add_shop_transfer.get_list_transfer_status_text()
         get_to_shop2 = add_shop_transfer.get_list_to_shop_text()
         ValueAssert.value_assert_IsNoneNot(get_transfer_id2)

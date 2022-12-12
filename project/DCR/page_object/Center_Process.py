@@ -320,6 +320,12 @@ class SalesOrderPage(Base):
         get_field = self.element_text(user[field])
         return get_field
 
+
+    @allure.step("断言 Shop Purchase Query列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_shop_purchase_query_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['滚动条'])
+
+
     @allure.step("Shop Sales Query菜单, 勾选记录，然后点击删除功能")
     def shop_sales_query_delete(self):
         self.is_click(user['Shop Sales Query check box'])

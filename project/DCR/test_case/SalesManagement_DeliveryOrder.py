@@ -541,7 +541,7 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
-        return_order.add_return_order_box_sn_imei('43012202214859')
+        return_order.add_return_order_box_sn_box('43012202214859')
         record = return_order.get_text_Record()
         get_scanned = return_order.get_scanned_number()
         ValueAssert.value_assert_equal("Success", record)
@@ -690,55 +690,59 @@ class TestAddDeliveryOrder:
         """断言收货成功后，Shop Purchase Query列表，根据IMEI条件查询，IMEI是否入Shop Purchase Query页面"""
         Base(drivers).refresh()
         user5.click_gotomenu("Purchase Management", "Shop Purchase Query")
-        """根据IMEI筛选是否存记录,断言Shop Sales Query列表，字段内容是否正确，Total条数是否与筛选的IMEI一致"""
+        """根据IMEI1筛选是否存在记录,断言Shop Purchase Query列表，字段内容是否正确，Total条数是否与筛选的IMEI一致"""
         process.shop_purchase_query_imei(get_imei1)
-        process.shop_purchase_query_imei(get_imei2)
-        get_total = process.shop_sales_assert_total()
         get_shop_id = process.get_list_field_text('Get Shop Purchase list Shop ID')
-        ValueAssert.value_assert_equal('1', get_total)
-        logging.info("打印Shop Purchase Query列表total：{}".format(get_total))
+        get_list_imei1 = process.get_list_field_text('Get Shop Purchase list IMEI')
+        ValueAssert.value_assert_equal(get_imei1, get_list_imei1)
+        #process.assert_shop_purchase_query_field('IMEI', get_imei1)
+        #process.assert_shop_purchase_query_field('Shop ID', 'SN001872')
+        """根据IMEI2筛选是否存在记录,断言筛选的IMEI2的 shop ID与IMEI是否正确"""
+        process.shop_purchase_query_imei(get_imei2)
+        get_list_imei2 = process.get_list_field_text('Get Shop Purchase list IMEI')
+        ValueAssert.value_assert_equal(get_imei2, get_list_imei2)
         ValueAssert.value_assert_equal('SN001872', get_shop_id)
         """"关闭Shop Purchase Query页面"""
-        user5.click_close_open_menu()
+        #user5.click_close_open_menu()
 
-        """断言收货成功后，打开Shop Sales Query列表，根据IMEI条件查询，IMEI是否入Shop Sales Query页面"""
-        Base(drivers).refresh()
-        user5.click_gotomenu("Sales Management", "Shop Sales Query")
-        """根据IMEI筛选是否存记录,断言Shop Sales Query列表，字段内容是否正确，Total条数是否与筛选的IMEI一致"""
-        process.shop_sales_query_imei(get_imei1)
-        get_total = process.shop_sales_assert_total()
-        ValueAssert.value_assert_equal('1', get_total)
-        get_shop_id = process.get_list_field_text('Get Shop Sales list Shop ID')
-        ValueAssert.value_assert_equal('SN001872', get_shop_id)
-        """然后删除需要退货的IMEI，首先删除Shop Sales Query页面IMEI"""
-        process.shop_sales_query_delete()
-        DomAssert(drivers).assert_att('Deleted Successfully')
-        """删除第二个IMEI"""
-        process.shop_sales_query_imei(get_imei2)
-        get_total = process.shop_sales_assert_total()
-        ValueAssert.value_assert_equal('1', get_total)
-        get_shop_id = process.get_list_field_text('Get Shop Sales list Shop ID')
-        ValueAssert.value_assert_equal('SN001872', get_shop_id)
-        """然后删除需要退货的IMEI，首先删除Shop Sales Query页面IMEI"""
-        process.shop_sales_query_delete()
-        DomAssert(drivers).assert_att('Deleted Successfully')
-        """"关闭Shop Sales Query页面"""
-        user5.click_close_open_menu()
+        # """断言收货成功后，打开Shop Sales Query列表，根据IMEI条件查询，IMEI是否入Shop Sales Query页面"""
+        # Base(drivers).refresh()
+        # user5.click_gotomenu("Sales Management", "Shop Sales Query")
+        # """根据IMEI筛选是否存记录,断言Shop Sales Query列表，字段内容是否正确，Total条数是否与筛选的IMEI一致"""
+        # process.shop_sales_query_imei(get_imei1)
+        # get_total = process.shop_sales_assert_total()
+        # ValueAssert.value_assert_equal('1', get_total)
+        # get_shop_id = process.get_list_field_text('Get Shop Sales list Shop ID')
+        # ValueAssert.value_assert_equal('SN001872', get_shop_id)
+        # """然后删除需要退货的IMEI，首先删除Shop Sales Query页面IMEI"""
+        # process.shop_sales_query_delete()
+        # DomAssert(drivers).assert_att('Deleted Successfully')
+        # """删除第二个IMEI"""
+        # process.shop_sales_query_imei(get_imei2)
+        # get_total = process.shop_sales_assert_total()
+        # ValueAssert.value_assert_equal('1', get_total)
+        # get_shop_id = process.get_list_field_text('Get Shop Sales list Shop ID')
+        # ValueAssert.value_assert_equal('SN001872', get_shop_id)
+        # """然后删除需要退货的IMEI，首先删除Shop Sales Query页面IMEI"""
+        # process.shop_sales_query_delete()
+        # DomAssert(drivers).assert_att('Deleted Successfully')
+        # """"关闭Shop Sales Query页面"""
+        # user5.click_close_open_menu()
 
         """Shop Purchase Query列表，筛选IMEI，然后Cancel取消 IMEI"""
-        Base(drivers).refresh()
-        user5.click_gotomenu("Purchase Management", "Shop Purchase Query")
+        # Base(drivers).refresh()
+        # user5.click_gotomenu("Purchase Management", "Shop Purchase Query")
         process.shop_purchase_query_imei(get_imei1)
         process.shop_purchase_query_cancel()
         DomAssert(drivers).assert_att('Cancel success')
-        sleep(3.2)
+        sleep(1.2)
         get_status = process.get_list_field_text('Get Shop Purchase list Status')
         ValueAssert.value_assert_equal('Canceled', get_status)
         """取消第二个IMEI"""
         process.shop_purchase_query_imei(get_imei2)
         process.shop_purchase_query_cancel()
         DomAssert(drivers).assert_att('Cancel success')
-        sleep(3.2)
+        sleep(1.2)
         get_status = process.get_list_field_text('Get Shop Purchase list Status')
         ValueAssert.value_assert_equal('Canceled', get_status)
         """"关闭Shop Purchase Query页面"""
@@ -748,8 +752,11 @@ class TestAddDeliveryOrder:
         Base(drivers).refresh()
         user5.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         process.imei_inventory_query_imei(get_imei1)
-        get_list_imei = process.get_list_field_text('获取IMEI文本内容1')
-        ValueAssert.value_assert_equal(get_list_imei, get_imei1)
+        get_list_imei1 = process.get_list_field_text('获取IMEI文本内容1')
+        ValueAssert.value_assert_equal(get_list_imei1, get_imei1)
+        process.imei_inventory_query_imei(get_imei2)
+        get_list_imei2 = process.get_list_field_text('获取IMEI文本内容1')
+        ValueAssert.value_assert_equal(get_list_imei2, get_imei2)
         """"关闭Shop Purchase Query页面"""
         user5.click_close_open_menu()
 

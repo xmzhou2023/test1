@@ -12,14 +12,19 @@ Shop IMEI Transfer Add Submit: "xpath==//button[@id='shopimeitransferadd_Submit'
 Shop IMEI Transfer Add Submit OK: "xpath==//button[contains(@class,'el-button el-button--default el-button--small el-button--primary ')]"
 
 #Shop IMEI Transfer 获取列表字段内容
+Get Shop IMEI Transfer ID: "xpath==//tbody//tr[1]//td[2]//div"
+Get Shop IMEI Transfer ID content: "xpath==//tbody//tr[1]//td[not(contains(@class, 'is-hidden'))]//div[text()='variable']"
+
 Get Shop IMEI Transfer Status: "xpath==//tbody//tr[1]//td[3]//div"
 Get Shop IMEI Transfer To Shop ID: "xpath==//tbody//tr[1]//td[13]//div"
-Get Shop IMEI Transfer Creator ID: "xpath==//tbody//tr[1]//td[4]//div"
-Get Shop IMEI Transfer ID: "xpath==//*[@id='mainContainer']/section/div[2]/div[2]/div[1]/div[4]/div[2]/table/tbody/tr[1]/td[2]/div"
-Get Shop IMEI Transfer CreateDate: "xpath==//tbody//tr[1]//td[7]//div"
-Get Shop IMEI Transfer IMEI: "xpath==//*[@id='mainContainer']/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[23]/div/div"
-
-
+#Get Shop IMEI Transfer CreatorID element: "xpath==//tr//th[not(contains(@class, 'is-hidden'))]//div[normalize-space(text())='Creator ID']"
+#Get Shop IMEI Transfer CreatorID content: "xpath==//tr[1]//td[contains(@class, 'variable') and not(contains(@class, 'is-hidden'))]/div"
+#Get Shop IMEI Transfer CreateDate: "xpath==//tbody//tr[1]//td[7]//div"
+#Get Shop IMEI Transfer IMEI element: "xpath==//tr//th[not(contains(@class, 'is-hidden'))]//div[normalize-space(text())='IMEI']"
+#Get Shop IMEI Transfer IMEI content: "xpath==//*[@id='mainContainer']/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[23]/div/div"
+表格字段: "xpath==//tr//th//div[normalize-space(text())='variable']/.."
+表格指定列内容: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
 
 #Shop IMEI Transfer 筛选门店IMEI调店
 Shop IMEI Transfer query To Shop: "xpath==//label[contains(text(),'To Shop')]//parent::div// following-sibling::div//input"
@@ -33,16 +38,44 @@ Get Shop IMEI Transfer Total: "xpath==//div//div//span[contains(text(),'Total')]
 
 Shop IMEI Transfer ID query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_transferNoStr']"
 Shop IMEI Transfer Input ID query: "xpath==//div//label[text()='Transfer ID']/../..//div//div//textarea[@placeholder='Batch input content']"
+
 Shop IMEI Transfer Country query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_countryIds']"
+Shop IMEI Transfer Country click query: "xpath==//label[text()='Country']/..//div//input[@class='el-select__input is-small']"
+Shop IMEI Transfer Country select query: "xpath==//div//div//ul//li//span[normalize-space()='variable']"
+
 Shop IMEI Transfer SalesRegion query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_areaId']"
+Shop IMEI Transfer SalesRegion select query: "xpath==//div//div//label[text()='Sales Region']/../..//div//span[text()='variable']"
+
 Shop IMEI Transfer FromShop query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_fromShopIdStr']"
+Shop IMEI Transfer FromShop click query: "xpath==//label[text()='From Shop']/..//div//input[@placeholder='Batch input content']"
+Shop IMEI Transfer FromShop select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
+
 Shop IMEI Transfer ToShop query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_toShopIdStr']"
+Shop IMEI Transfer ToShop click query: "xpath==//label[normalize-space()='To Shop']/..//div//input[@placeholder='Batch input content']"
+Shop IMEI Transfer ToShop select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
+
 Shop IMEI Transfer Brand query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_brandCodes']"
+Shop IMEI Transfer Brand click query: "xpath==//label[text()='Brand']/..//div//input[@class='el-select__input is-small']"
+Shop IMEI Transfer Brand select query: "xpath==//div//div//ul//li//span[text()='variable']"
+
 Shop IMEI Transfer Creator query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_creatorIds']"
+Shop IMEI Transfer Creator click query: "xpath==//label[text()='Creator']/..//div//input[@class='el-select__input is-small']"
+Shop IMEI Transfer Creator select query: "xpath==//div//div//ul//li//span[normalize-space()='variable']"
+
 Shop IMEI Transfer MarketName query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_marketingNames']"
+Shop IMEI Transfer MarketName click query: "xpath==//label[text()='Market Name']/..//div//input[@class='el-select__input is-small']"
+Shop IMEI Transfer MarketName select query: "xpath==//div//div//ul//li//span[normalize-space()='variable']"
+
 Shop IMEI Transfer IMEI query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_imeiStr']"
 Shop IMEI Transfer Input IMEI query: "xpath==//div//label[text()='IMEI']/../..//div//div//textarea[@placeholder='Batch input content']"
+
+Shop IMEI Transfer Status query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_status']"
+Shop IMEI Transfer Status click query: "xpath==//label[text()='Status']/..//div//input[@class='el-input__inner shopimeitransfer_input_status']"
+Shop IMEI Transfer Status select query: "xpath==//div//div//ul//li//span[normalize-space()='variable']"
+
 Shop IMEI Transfer Model query: "xpath==//div//input[@class='el-input__inner shopimeitransfer_input_models']"
+Shop IMEI Transfer Model click query: "xpath==//label[text()='Model']/..//div//input[@class='el-select__input is-small']"
+Shop IMEI Transfer Model select query: "xpath==//div//div//ul//li//span[normalize-space()='variable']"
 
 unfold按钮: "xpath==//span[normalize-space()='Unfold']"
 fold按钮: "xpath==//span[normalize-space()='Fold']"

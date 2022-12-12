@@ -114,10 +114,15 @@ Shop Sales Query Confirm Del: "xpath==//div[@class='el-message-box__btns']//butt
 Shop Purchase Query IMEI: "xpath==//div//input[@class='el-input__inner shopstockinrecord_input_codes']"
 Get Shop Purchase list Shop ID: "xpath==//tbody//tr[1]//td[5]//div"
 Get Shop Purchase list Status: "xpath==//tbody//tr[1]//td[4]//span"
+Get Shop Purchase list IMEI: "xpath==//tbody//tr[1]//td[17]//div//span"
 Get Shop Purchase list Total: "xpath==//div/..//div//span[contains(text(), 'Total')]"
 Shop Purchase Query check box: "xpath==//tbody//tr[1]//td[1]//div//span[@class='vxe-checkbox--icon vxe-checkbox--unchecked-icon']"
 Shop Purchase Query Cancel: "xpath==//div//button[@id='ShopStockInRecord_cancel']//span[normalize-space(text())='Cancel']"
 Shop Purchase Query Confirm Cancel: "xpath==//div//div[3]//button[2]//span[normalize-space(text())='Confirm']"
+表格字段: "xpath==//tr//th//div[normalize-space(text())='variable']/.."
+表格指定列内容: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+滚动条: "xpath==//div[contains(@class,'vxe-table--body-wrapper body--wrapper')]"
+
 
 #Shop Inventory IMEI Query 页面，筛选IMEI门店库存记录
 Shop Inventory Query IMEI: "xpath==//div//input[@class='el-input__inner shopinventoryimeilist_input_codes']"

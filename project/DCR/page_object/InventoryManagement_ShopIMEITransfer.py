@@ -64,10 +64,15 @@ class ShopIMEITransferPage(Base):
         self.is_click(user['Shop IMEI Transfer Add Submit OK'])
         sleep(3.5)
 
-    @allure.step("获取列表Status文本内容")
-    def get_list_transfer_id_text(self):
+    @allure.step("获取列表 Transfer ID 文本内容")
+    def get_list_transfer_id(self):
         self.presence_sleep_dcr(user['Get Shop IMEI Transfer ID'])
         get_transfer = self.element_text(user['Get Shop IMEI Transfer ID'])
+        return get_transfer
+
+    @allure.step("获取列表Transfer ID文本内容, 带参数定位")
+    def get_list_transfer_id_text(self, transfer_id):
+        get_transfer = self.element_text(user['Get Shop IMEI Transfer ID content'], transfer_id)
         return get_transfer
 
     @allure.step("获取Shop IMEI Transfer列表Status文本内容")
@@ -103,12 +108,18 @@ class ShopIMEITransferPage(Base):
         self.is_click(user['选中筛选状态'], status)
 
 
-    @allure.step("Shop IMEI Transfer列表，输入文本框条件是进行筛选")
+    @allure.step("Shop IMEI Transfer列表，输入Transfer ID文本框条件是进行筛选")
     def shop_imei_transfer_input_query(self, position1, position2, parameter):
         self.is_click(user[position1])
         self.input_text(user[position2], parameter)
 
-
+    @allure.step("Shop IMEI Transfer列表，输入Creator字段文本框条件进行筛选")
+    def shop_imei_transfer_input_select_query(self, position1, position2, position3, parameter1, parameter2):
+        self.is_click(user[position1])
+        self.input_text(user[position2], parameter1)
+        sleep(1.5)
+        self.presence_sleep_dcr(user[position3], parameter2)
+        self.is_click(user[position3], parameter2)
 
 
     @allure.step("筛选出To Shop与pending状态的记录")
@@ -197,11 +208,21 @@ class ShopIMEITransferPage(Base):
         self.is_click_dcr(user['勾选第一条复选框'])
 
     @allure.step("获取Shop IMEI Transfer列表字段内容")
-    def get_list_field(self, field):
+    def get_list_field_text(self, field):
         self.scroll_into_view(user[field])
         self.presence_sleep_dcr(user[field])
         get_field = self.element_text(user[field])
         return get_field
+
+
+
+    @allure.step("断言 Shop IMEI Transfer列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_shop_imei_transfer_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['水平滚动条'])
+
+    @allure.step("断言 Shop IMEI Transfer列表，字段列、字段内容是否与预期的字段内容值一致，无滚动条")
+    def assert_shop_imei_transfer_field2(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, attr='class', index='0')
 
 
 if __name__ == '__main__':
