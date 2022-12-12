@@ -25,6 +25,8 @@ class Teststory_3259:
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', f'IPM自动化{now_times}', f'IPM自动化项目描述{now_times}')
         ass = Assert_result(drivers)
+        ass.assert_toast('断言提示', '新建成功！')
+        test.get_url_project()
         ass.assert_toast('断言新建项目的名字', f'IPM自动化{now_times}')
 
     @allure.story("创建项目")  # 用户故事名称
@@ -49,7 +51,7 @@ class Teststory_3259:
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', f'IPM自动化2022-12-0611:03:34')
         ass = Assert_result(drivers)
-        ass.assert_toast("断言错误提示", '项目名称已被使用!')
+        ass.assert_toast("断言提示", '项目名称已被使用!')
 
     @allure.story("创建项目")  # 用户故事名称
     @allure.title("项目状态根据项目对象关联的生命周期模板，获取项目的生命周期状态及初始的状态")  # 用例名称
@@ -87,7 +89,14 @@ class Teststory_3259:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_25536(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test = CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存', 'IT项目模板', f'IPM自动化{now_times}')
+        ass = Assert_result(drivers)
+        ass.assert_toast('断言提示', '新建成功！')
+        test.get_url_project()
+        ass.assert_toast('断言新建项目的名字', f'IPM自动化{now_times}')
 
 
 @allure.feature("项目管理")  # 迭代名称
@@ -3880,8 +3889,9 @@ class Teststory_3261:
         test = CreateProject(drivers)
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', f'IPM自动化编辑测试{now_times}', f'IPM自动化项目描述{now_times}')
-        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}')
         ass = Assert_result(drivers)
+        ass.assert_toast('断言提示', '新建成功！')
+        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}')
         ass.assert_toast('断言项目标题', f'IPM自动化编辑测试{now_times}')
         test.close_switch(-1)
 
@@ -3915,7 +3925,16 @@ class Teststory_3261:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23921(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test=CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存','IT项目模板',f'IPM自动化编辑测试{now_times}',f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(f'IPM自动化编辑测试{now_times}')
+        test.click_edit()
+        stu_res=test.project_stu()
+        ass=Assert_result(drivers)
+        ass.assert_IPM(stu_res,'true')
+        test.close_switch(-1)
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("项目状态项目启动后，项目状态可编辑，状态根据生命周期状态扭转")  # 用例名称
@@ -3931,7 +3950,16 @@ class Teststory_3261:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23929(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test=CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存','IT项目模板',f'IPM自动化编辑测试{now_times}',f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(f'IPM自动化编辑测试{now_times}')
+        test.click_edit()
+        test.Start_project()
+        ass=Assert_result(drivers)
+        ass.assert_toast('断言项目启动成功','启动成功!')
+        test.close_switch(-1)
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("编辑项目所有字段，点击保存，保存成功")  # 用例名称
