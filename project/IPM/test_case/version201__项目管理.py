@@ -24,6 +24,7 @@ class Teststory_3259:
         test = CreateProject(drivers)
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', f'IPM自动化{now_times}', f'IPM自动化项目描述{now_times}')
+        test.get_url_project()
         ass = Assert_result(drivers)
         ass.assert_toast('断言新建项目的名字', f'IPM自动化{now_times}')
 
@@ -91,6 +92,7 @@ class Teststory_3259:
         test = CreateProject(drivers)
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', f'IPM自动化{now_times}')
+        test.get_url_project()
         ass = Assert_result(drivers)
         ass.assert_toast('断言新建项目的名字', f'IPM自动化{now_times}')
 
