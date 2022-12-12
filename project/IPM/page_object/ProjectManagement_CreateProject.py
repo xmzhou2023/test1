@@ -19,6 +19,8 @@ class CreateProject(PubicMethod):
     def __init__(self,driver,element_yaml='ProjectManagement_CreateProject',expect='ProjectManagement_CreateProject.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
 
+    def mouse_hover__IPM(self,element,choice=None):
+        self.mouse_hover_IPM(element,choice)
     def get_url_project(self):
         self.get_url("http://ipm-uat.transsion.com/#/project-manage")
         sleep(2)

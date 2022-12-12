@@ -56,7 +56,7 @@ class PubicMethod(Base):
             sleep(0.5)
         logging.info("点击元素：{}".format(locator))
         sleep(0.5)
-    def mouse_hover_IPM(self,element,choice):
+    def mouse_hover_IPM(self,element,choice=None):
         self.mouse_hover(self.chome[element], choice=choice)
 
     def find_element_IPM_yaml(self,element, choice=None, choices=None):
