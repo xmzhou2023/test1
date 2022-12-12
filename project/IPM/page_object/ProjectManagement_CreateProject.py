@@ -172,7 +172,6 @@ class CreateProject(PubicMethod):
             self.projecy_preservation()
         else:
             self.projecy_cancel()
-        sleep(2)
 
     def enter_the_project(self,projectname):
         '''点击卡片进入项目详情'''
