@@ -3,7 +3,7 @@
 
 断言新建项目的名字: '//*[@id="app"]/main/section/div[1]/section/div[1]/div/div[1]/div[1]'
 断言项目名称不能为空: "//div[2]/div/div[2]/div/form/div/div[1]/div/div/div[2]"
-断言错误提示: "//div[@role='alert']/p"
+断言提示: "//div[@role='alert']/p"
 断言项目标题: "//P"
 断言基本信息保存: "//span[text()=' 保存 ']"
 断言项目启动成功: '//p[text()="启动成功!"]'
