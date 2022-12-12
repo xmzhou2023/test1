@@ -1,5 +1,15 @@
-import allure
 import pytest
+import time
+import json
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from libs.common.action import KeyWord
+import allure
 from project.IPM.page_object.ProjectManagement_CreateProject import *
 from project.IPM.page_base.assert_pubic import *
 
@@ -4034,7 +4044,15 @@ class Teststory_3262:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23953(self, drivers):
-        pass
+        robot = KeyWord(drivers)
+        robot.AI_get("http://ipm-uat.transsion.com/")#id3ea04932-4507-4d86-b3f5-6c5a5bfb36a1
+        robot.AI_find_element(By.LINK_TEXT, "项目管理").click()#ida59ec87d-535f-4ead-9b97-edc78f7b23e2
+        element = robot.AI_find_element(By.XPATH, "//div[@id='app']/main/section/div/section/div[4]/div/div/div[3]/div/div")#idb0147cf1-9702-4c28-a6a1-c6a7640b0d80
+        actions = ActionChains(robot)
+        actions.move_to_element(element).perform()
+        robot.AI_find_element(By.XPATH, "//ul[@x-placement=\"bottom-end\"]/li[2]").click()#id03d681d7-0277-4025-b4f3-7749e340472c
+        robot.AI_find_element(By.CSS_SELECTOR, ".el-button--small:nth-child(2)").click()#idc51272d3-6705-4de6-bb28-271acbc6056a
+        assert robot.AI_find_element(By.XPATH, "//p[text()=\"请求成功\"]").text == "请求成功"#idc2a99911-1586-4929-b988-ebb2826ceb93
 
     @allure.story("删除项目")  # 用户故事名称
     @allure.title("项目删除项目的创建者，项目经理，系统管理员，有权删除项目")  # 用例名称
