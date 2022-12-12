@@ -102,14 +102,6 @@ class Teststory_3259:
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3345:
     @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
-    @allure.title("点击【里程碑】图标按钮，查看里程碑视图")  # 用例名称
-    @allure.description("进入项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_20957(self, drivers):
-        pass
-
-    @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
     @allure.title("点击【里程碑】图标按钮，里程碑视图显示最新的里程碑视图")  # 用例名称
     @allure.description("项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
     @allure.severity("normal")  # 用例等级
