@@ -1,15 +1,5 @@
-import pytest
-import time
-import json
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from libs.common.action import KeyWord
 import allure
+import pytest
 from project.IPM.page_object.ProjectManagement_CreateProject import *
 from project.IPM.page_base.assert_pubic import *
 
@@ -112,14 +102,6 @@ class Teststory_3259:
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3345:
     @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
-    @allure.title("点击【里程碑】图标按钮，查看里程碑视图")  # 用例名称
-    @allure.description("进入项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_20957(self, drivers):
-        pass
-
-    @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
     @allure.title("点击【里程碑】图标按钮，里程碑视图显示最新的里程碑视图")  # 用例名称
     @allure.description("项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
     @allure.severity("normal")  # 用例等级
@@ -141,6 +123,15 @@ class Teststory_3345:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_20960(self, drivers):
+        pass
+
+
+    @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
+    @allure.title("点击【里程碑】图标按钮，查看里程碑视图")  # 用例名称
+    @allure.description("进入项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_20957(self, drivers):
         pass
 
 
@@ -4035,24 +4026,9 @@ class Teststory_3261:
     def test_23958(self, drivers):
         pass
 
-from public.base.basics import *
+
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3262:
-    @allure.story("删除项目")  # 用户故事名称
-    @allure.title("项目删除项目未启动，项目可被删除，启动后不可删除")  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23953(self, drivers):
-        robot = KeyWord(drivers)
-        robot.AI_get("http://ipm-uat.transsion.com/")#id3ea04932-4507-4d86-b3f5-6c5a5bfb36a1
-        robot.AI_find_element(By.LINK_TEXT, "项目管理").click()#ida59ec87d-535f-4ead-9b97-edc78f7b23e2
-        test=CreateProject(drivers)
-        test.mouse_hover__IPM("卡片展开")
-        robot.AI_find_element(By.XPATH, "//ul[@x-placement=\"bottom-end\"]/li[2]").click()#id03d681d7-0277-4025-b4f3-7749e340472c
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-button--small:nth-child(2)").click()#idc51272d3-6705-4de6-bb28-271acbc6056a
-        assert robot.AI_find_element(By.XPATH, "//p[text()=\"请求成功\"]").text == "请求成功"#idc2a99911-1586-4929-b988-ebb2826ceb93
-
     @allure.story("删除项目")  # 用户故事名称
     @allure.title("项目删除项目的创建者，项目经理，系统管理员，有权删除项目")  # 用例名称
     @allure.description("")  # 用例描述
@@ -4060,6 +4036,15 @@ class Teststory_3262:
     @pytest.mark.smoke  # 用例标记
     def test_23954(self, drivers):
         pass
+
+    @allure.story("删除项目")  # 用户故事名称
+    @allure.title("项目删除项目启动后不可删除")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_26271(self, drivers):
+        pass
+
 
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3263:
