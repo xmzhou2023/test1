@@ -887,7 +887,7 @@ def thread_task(data_list, env_list=None, pro_code=None):
     # 获取最新项目对应id
     pro_id = pro_list[pro_code]
 
-    print(pro_code)
+    # print(pro_code)
 
     # 存储每个项目数据
     pro_data_list = data_list[pro_code]
