@@ -191,12 +191,19 @@ class ShopIMEITransferPage(Base):
         self.is_click(user['search按钮'])
         sleep(2)
 
-    @allure.step("点击Approve，弹出弹窗Yes/Cancel按钮，点击OK审核通过")
-    def click_approve_yes_ok(self, choose, yes_cancel):
+    @allure.step("点击Operation操作列的Approve按钮，弹出弹窗Yes/Cancel按钮，点击OK审核通过")
+    def click_operation_approve_yes_ok(self, choose, yes_cancel):
         self.is_click(user['Operation Approve reject button'], choose)
-        sleep(1)
-        self.is_click(user['Yes Cancel按钮'], yes_cancel)
         sleep(0.6)
+        self.is_click(user['Yes Cancel按钮'], yes_cancel)
+        sleep(0.5)
+
+    @allure.step("点击表格上面的Approve按钮，弹出弹窗Yes/Cancel按钮，点击OK审核通过")
+    def click_approve_yes_ok_button(self, choose, yes_cancel):
+        self.is_click(user['Approve reject按钮'], choose)
+        sleep(0.6)
+        self.is_click(user['Yes Cancel按钮'], yes_cancel)
+        sleep(0.5)
 
     @allure.step("点击Reject按钮,输入拒绝原因，点击OK")
     def input_reject_reason(self, reason, cancel_or_yes):
@@ -247,6 +254,11 @@ class ShopIMEITransferPage(Base):
         self.presence_sleep_dcr(user[field])
         get_field = self.element_text(user[field])
         return get_field
+
+    def get_list_total(self):
+        get_total = self.element_text(user['Get list total'])
+        get_total1 = get_total[6:]
+        return get_total1
 
     @allure.step("断言 Shop IMEI Transfer列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
     def assert_shop_imei_transfer_field(self, header, content):

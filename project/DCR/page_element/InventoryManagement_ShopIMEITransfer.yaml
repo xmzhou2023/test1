@@ -77,12 +77,10 @@ unfold按钮: "xpath==//span[normalize-space()='Unfold']"
 fold按钮: "xpath==//span[normalize-space()='Fold']"
 Status条件筛选: "xpath==//input[contains(@class,'el-input__inner shopimeitransfer_input_status')]"
 Pending按钮: "xpath==//span[normalize-space(text())='Pending']"
-#Reset按钮: "xpath==//button[@id='shopimeitransfer_reset']"
 search按钮: "xpath==//button[@id='shopimeitransfer_search']"
 
 #Shop IMEI Transfer 审核与拒绝调店操作
 勾选第一条复选框: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
-#勾选第二条复选框: "xpath==//tbody//tr[2]//td[1]//div//label//span[@class='el-checkbox__input']"
 勾选全选复选框: "xpath==//table//thead//tr//th[1]//div//label//span//span"
 Approve reject按钮: "xpath==//button[@id='shop_imei_transfer_approver']//span[contains(text(),'variable')]"
 Yes Cancel按钮: "xpath==//div[@class='el-message-box el-message-box--center']//span[normalize-space(text())='variable']"
@@ -91,4 +89,4 @@ Approve OK按钮: "xpath==//span[contains(@class,'dialog-footer')]//button[@id='
 Reject Yes按钮: "xpath==//button//span[normalize-space(text())='Yes']"
 Reject OK按钮: "xpath==//button[@id='shopimeitransfer_OK']//span[text()='OK']"
 Operation Approve reject button: "xpath==//tbody//tr[1]//td[not(contains(@class ,'is-hidden'))]//span[text()='variable']"
-
+Get list total: "xpath==//div//div//span[contains(text(),'Total')]"
