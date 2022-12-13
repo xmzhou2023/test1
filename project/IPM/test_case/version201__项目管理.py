@@ -38,7 +38,6 @@ class Teststory_3259:
         ass.assert_toast('断言提示', '新建成功！')
         test.get_url_project()
         ass.assert_toast('断言新建项目的名字', f'IPM自动化{now_times}')
-        test.Click_the_button_to_enter(f'IPM自动化{now_times}',"删除","确认")
 
     @allure.story("创建项目")  # 用户故事名称
     @allure.title("项目名称不填写项目名称，新增项目失败，提示必填项未填写")  # 用例名称
@@ -85,7 +84,6 @@ class Teststory_3259:
         ass = Assert_result(drivers)
         ass.assert_toast_not('断言新建项目的名字', f'IPM自动化{now_times}')
 
-
     @allure.story("创建项目")  # 用户故事名称
     @allure.title("产品项目名称产品项目新建成功后，项目名称是根据项目名主板名自动合成的，更改了项目名和主板名后，产品项目需要同步变更")  # 用例名称
     @allure.description("")  # 用例描述
@@ -109,7 +107,7 @@ class Teststory_3259:
         ass.assert_toast('断言提示', '新建成功！')
         test.get_url_project()
         ass.assert_toast('断言新建项目的名字', f'IPM自动化{now_times}')
-        test.Click_the_button_to_enter(f'IPM自动化{now_times}',"删除","确认")
+
 
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3345:
@@ -3890,7 +3888,6 @@ class Teststory_3261:
         ass = Assert_result(drivers)
         ass.assert_toast('断言项目标题', f'IPM自动化编辑测试{now_times}')
         test.close_switch(-1)
-        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}',"删除","确认")
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("编辑项目卡片显示视图切换到表格显示视图，点击操作下的修改按钮")  # 用例名称
@@ -3904,10 +3901,9 @@ class Teststory_3261:
         test.Create_project('保存', 'IT项目模板', f'IPM自动化编辑测试{now_times}', f'IPM自动化项目描述{now_times}')
         ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '新建成功！')
-        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}',"编辑")
+        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}')
         ass.assert_toast('断言项目标题', f'IPM自动化编辑测试{now_times}')
         test.close_switch(-1)
-        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}',"删除","确认")
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("编辑项目先进入项目查看页面，再点击编辑按钮，查看转换为编辑页面状态")  # 用例名称
@@ -3924,7 +3920,7 @@ class Teststory_3261:
         ass = Assert_result(drivers)
         ass.assert_toast('断言基本信息保存', '保存')
         test.close_switch(-1)
-        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}',"删除","确认")
+
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("项目编号不可编辑，创建项目自动生成，8位日期3位流水")  # 用例名称
     @allure.description("")  # 用例描述
@@ -3949,7 +3945,6 @@ class Teststory_3261:
         ass=Assert_result(drivers)
         ass.assert_IPM(stu_res,'true')
         test.close_switch(-1)
-        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}',"删除","确认")
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("项目状态项目启动后，项目状态可编辑，状态根据生命周期状态扭转")  # 用例名称
@@ -3975,7 +3970,6 @@ class Teststory_3261:
         ass=Assert_result(drivers)
         ass.assert_toast('断言项目启动成功','启动成功!')
         test.close_switch(-1)
-        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}',"删除","确认")
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("编辑项目所有字段，点击保存，保存成功")  # 用例名称
@@ -4044,23 +4038,6 @@ class Teststory_3261:
 from public.base.basics import *
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3262:
-    @allure.story("删除项目")  # 用户故事名称
-    @allure.title("项目删除项目未启动，项目可被删除，启动后不可删除")  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23953(self, drivers):
-        robot = KeyWord(drivers)
-        robot.AI_get("http://ipm-uat.transsion.com/")#id3ea04932-4507-4d86-b3f5-6c5a5bfb36a1
-        robot.AI_find_element(By.LINK_TEXT, "项目管理").click()#ida59ec87d-535f-4ead-9b97-edc78f7b23e2
-        test=CreateProject(drivers)
-        test.mouse_hover__IPM("卡片展开")
-        robot.AI_find_element(By.XPATH, "//ul[@x-placement=\"bottom-end\"]/li[2]").click()#id03d681d7-0277-4025-b4f3-7749e340472c
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-button--small:nth-child(2)").click()#idc51272d3-6705-4de6-bb28-271acbc6056a
-        ass=Assert_result(drivers)
-        ass.assert_toast('断言提示','请求成功')
-        # assert robot.AI_find_element(By.XPATH, "//p[text()=\"请求成功\"]").text == "请求成功"#idc2a99911-1586-4929-b988-ebb2826ceb93
-
     @allure.story("删除项目")  # 用户故事名称
     @allure.title("项目删除项目的创建者，项目经理，系统管理员，有权删除项目")  # 用例名称
     @allure.description("")  # 用例描述
