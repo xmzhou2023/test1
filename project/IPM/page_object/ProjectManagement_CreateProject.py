@@ -75,6 +75,19 @@ class CreateProject(PubicMethod):
         '''项目编辑按钮'''
         self.click_IPM('项目编辑按钮')
 
+
+    def delete_project(self,):
+        '''项目编辑按钮'''
+        self.click_IPM('项目删除按钮')
+
+    def delete_project_determine(self, ):
+        '''删除项目点击确认'''
+        self.click_IPM('删除确定')
+
+    def delete_project_cancel(self, ):
+        '''删除项目点击取消'''
+        self.click_IPM('删除取消')
+
     def click_edit(self):
         '''编辑'''
         self.click_IPM('编辑')
@@ -87,6 +100,8 @@ class CreateProject(PubicMethod):
     def Start_project(self):
         '''启动项目'''
         self.click_IPM('启动项目')
+
+
 
     def project_stu(self):
         '''获取项目状态是否可编辑'''
@@ -182,13 +197,35 @@ class CreateProject(PubicMethod):
         self.switch_window(-1)
         sleep(1)
 
-    def Click_the_button_to_enter(self,projectname):
-        '''点击按钮进入进入项目详情'''
+    def Click_the_button_to_enter(self,projectname,edit_or_delete,delete_confirm_or_cancel= None):
+        '''
+        点击卡片展开编辑或删除按钮，并点击
+        :param projectname: 传入项目名称
+        :param edit_or_delete: 删除或编辑
+        :param delete_confirm_or_cancel: 删除项目点击确认或取消
+        '''
+
         self.click_project_entrance_ch(projectname)
-        self.entrance_ch()
-        sleep(1)
-        self.switch_window(-1)
-        sleep(3)
+        if edit_or_delete == "编辑":
+            self.entrance_ch()
+            sleep(1)
+            self.switch_window(-1)
+            sleep(3)
+        elif edit_or_delete == "删除":
+            self.delete_project()
+            if delete_confirm_or_cancel == "确认":
+                self.delete_project_determine()
+            elif delete_confirm_or_cancel == "取消":
+                self.delete_project_cancel()
+            else:
+                log.info(f"{delete_confirm_or_cancel}清输入正确的值，如：确认，取消")
+        else:
+            log.info(f"{edit_or_delete}清输入正确的值，如：编辑，删除")
+
+
+
+
+
 
     def project_entrance(self,projectname,protime):
         '''
