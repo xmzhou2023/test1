@@ -1,15 +1,5 @@
-import pytest
-import time
-import json
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from libs.common.action import KeyWord
 import allure
+import pytest
 from project.IPM.page_object.ProjectManagement_CreateProject import *
 from project.IPM.page_base.assert_pubic import *
 
@@ -112,14 +102,6 @@ class Teststory_3259:
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3345:
     @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
-    @allure.title("点击【里程碑】图标按钮，查看里程碑视图")  # 用例名称
-    @allure.description("进入项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_20957(self, drivers):
-        pass
-
-    @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
     @allure.title("点击【里程碑】图标按钮，里程碑视图显示最新的里程碑视图")  # 用例名称
     @allure.description("项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
     @allure.severity("normal")  # 用例等级
@@ -141,6 +123,15 @@ class Teststory_3345:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_20960(self, drivers):
+        pass
+
+
+    @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
+    @allure.title("点击【里程碑】图标按钮，查看里程碑视图")  # 用例名称
+    @allure.description("进入项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_20957(self, drivers):
         pass
 
 
@@ -4035,7 +4026,7 @@ class Teststory_3261:
     def test_23958(self, drivers):
         pass
 
-from public.base.basics import *
+
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3262:
     @allure.story("删除项目")  # 用户故事名称
