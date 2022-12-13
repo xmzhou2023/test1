@@ -1092,7 +1092,7 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal(get_delivery_order, delivery_code)
         ValueAssert.value_assert_equal("On Transit", get_deli_status)
 
-        """ 零售商NG2061301账号登录，进行快速收货 """
+        """ 二代NG2061301账号登录，进行快速收货 """
         user6.initialize_login(drivers, "NG2061301", "dcr123456")
         """打开采购单Purchase Management菜单"""
         user6.click_gotomenu("Purchase Management", "Inbound Receipt")

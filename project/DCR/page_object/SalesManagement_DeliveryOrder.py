@@ -164,10 +164,10 @@ class DeliveryOrderPage(Base):
     @allure.step("输入Delivery Date开始与结束日期筛选")
     def input_delivery_date(self, content1, content2):
         self.is_click(user['Delivery Start Date'])
-        self.input_text(user['Delivery Start Date'], txt=content1)
+        self.readonly_input_text(user['Delivery Start Date'], content1)
         sleep(1)
         self.is_click(user['Delivery End Date'])
-        self.input_text(user['Delivery End Date'], txt=content2)
+        self.readonly_input_text(user['Delivery End Date'], content2)
 
     @allure.step("点击 Status输入框")
     def click_status_input_box(self):

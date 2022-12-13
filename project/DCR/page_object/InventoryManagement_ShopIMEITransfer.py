@@ -21,7 +21,7 @@ class ShopIMEITransferPage(Base):
         self.presence_sleep_dcr(user['Transfer To Shop Name'])
         self.is_click(user['Transfer To Shop Name'])
         self.input_text(user['Transfer To Shop Name'], info1)
-        sleep(2)
+        sleep(1.5)
         self.presence_sleep_dcr(user['Transfer To Shop Name value'], info1)
         self.is_click(user['Transfer To Shop Name value'], info1)
 
@@ -32,7 +32,7 @@ class ShopIMEITransferPage(Base):
     @allure.step("点击check按钮")
     def click_check(self):
         self.is_click(user['Check Scan IMEI'])
-        sleep(3)
+        sleep(2)
 
     @allure.step("点击check按钮后，扫码IMEI是否成功，获取Scan Record记录里的IMEI")
     def get_scan_record_imei(self, imei):
@@ -42,13 +42,13 @@ class ShopIMEITransferPage(Base):
 
     @allure.step("点击check按钮后，扫码IMEI是否成功，获取Scan Record记录里的Success")
     def get_scan_record_success(self):
-        get_success = self.element_text(user['Get Scan Record Success'], 'Success')
+        get_success = self.element_text(user['Get Scan Record Success'])
         return get_success
 
     @allure.step("点击check按钮后，扫码IMEI是否成功，获取Scanned为1的值")
     def get_scanned_value(self):
-        self.presence_sleep_dcr(user['Get Scanned Value'], '1')
-        get_scanned = self.element_text(user['Get Scanned Value'], '1')
+        self.presence_sleep_dcr(user['Get Scanned Value'])
+        get_scanned = self.element_text(user['Get Scanned Value'])
         return get_scanned
 
     @allure.step("点击check按钮后，扫码IMEI是否成功，获取Rrder Detail Scanned为1的值")
@@ -62,7 +62,17 @@ class ShopIMEITransferPage(Base):
         sleep(1.5)
         self.presence_sleep_dcr(user['Shop IMEI Transfer Add Submit OK'])
         self.is_click(user['Shop IMEI Transfer Add Submit OK'])
-        sleep(3.5)
+        sleep(2)
+
+    @allure.step("新建门店IMEI调拨单操作")
+    def add_shop_transfer_order(self, to_shop, scan_imei):
+        """新建第一条门店调度单"""
+        self.click_add_imei_transfer()
+        self.input_to_shop_transfer(to_shop)
+        self.input_scan_imei(scan_imei)
+        """点击Check检查按钮"""
+        self.click_check()
+
 
     @allure.step("获取列表 Transfer ID 文本内容")
     def get_list_transfer_id(self):
@@ -95,18 +105,18 @@ class ShopIMEITransferPage(Base):
     def input_to_shop_query(self, to_shop):
         self.is_click_dcr(user['Shop IMEI Transfer query To Shop'])
         self.input_text_dcr(user['Shop IMEI Transfer query To Shop'], to_shop)
-        sleep(2)
+        sleep(1)
         self.presence_sleep_dcr(user['选中筛选门店'], to_shop)
         self.is_click(user['选中筛选门店'], to_shop)
 
     @allure.step("Shop IMEI Transfer列表，输入状态进行筛选")
     def input_status_query(self, status):
+        self.presence_sleep_dcr(user['Shop IMEI Transfer query Status'])
         self.is_click(user['Shop IMEI Transfer query Status'])
         self.input_text(user['Shop IMEI Transfer query Status'], status)
-        sleep(1.5)
+        sleep(0.5)
         self.presence_sleep_dcr(user['选中筛选状态'], status)
         self.is_click(user['选中筛选状态'], status)
-
 
     @allure.step("Shop IMEI Transfer列表，输入Transfer ID文本框条件是进行筛选")
     def shop_imei_transfer_input_query(self, position1, position2, parameter):
@@ -134,28 +144,48 @@ class ShopIMEITransferPage(Base):
     @allure.step("点击Unfold展开按钮")
     def click_unfold(self):
         self.is_click(user['unfold按钮'])
-        sleep(2)
+        sleep(1.5)
+
+    @allure.step("点击fold收起按钮")
+    def click_fold(self):
+        self.is_click(user['fold按钮'])
+        sleep(0.5)
 
     @allure.step("点击Search按钮")
     def click_search(self):
         self.is_click(user['search按钮'])
-        sleep(3)
+        sleep(2.6)
 
-    @allure.step("点击Checkbox勾选全选复选框")
-    def click_check_box(self):
-        self.is_click_dcr(user['勾选全选复选框'])
+    @allure.step("Shop IMEI Transfer菜单，根据to shop与状态筛选,新建的调拨单记录")
+    def query_add_shop_imei_transfer(self, to_shop, status):
+        self.click_unfold()
+        self.input_to_shop_query(to_shop)
+        self.input_status_query(status)
+        self.click_fold()
+        self.click_search()
+
+    @allure.step("Shop IMEI Transfer菜单，根据状态筛选调拨单记录")
+    def query_shop_imei_transfer_status(self, status):
+        self.click_unfold()
+        self.input_status_query(status)
+        self.click_fold()
+        self.click_search()
 
     @allure.step("点击Approve或 reject按钮")
     def click_approve_reject(self, choose):
         self.is_click(user['Approve reject按钮'], choose)
         sleep(1.5)
 
+    @allure.step("operation操作列，点击Approve或 reject按钮")
+    def click_operation_approve_reject(self, choose):
+        self.is_click(user['Operation Approve reject button'], choose)
+
     @allure.step("筛选出pending")
     def search_pending(self):
         self.is_click(user['unfold按钮'])
-        sleep(2)
+        sleep(1.6)
         self.is_click(user['Status条件筛选'])
-        sleep(3)
+        sleep(1.5)
         self.is_click(user['Pending按钮'])
         sleep(1)
         self.is_click(user['search按钮'])
@@ -163,7 +193,7 @@ class ShopIMEITransferPage(Base):
 
     @allure.step("点击Approve，弹出弹窗Yes/Cancel按钮，点击OK审核通过")
     def click_approve_yes_ok(self, choose, yes_cancel):
-        self.is_click(user['Approve reject按钮'], choose)
+        self.is_click(user['Operation Approve reject button'], choose)
         sleep(1)
         self.is_click(user['Yes Cancel按钮'], yes_cancel)
         sleep(0.6)
@@ -177,7 +207,7 @@ class ShopIMEITransferPage(Base):
     @allure.step("点击Reset按钮")
     def click_shop_imei_transfer_reset(self):
         self.is_click(user['Reset Button'])
-        sleep(4)
+        sleep(3)
 
     @allure.step("获取Shop IMEI Transfer列表，Total分页总条数")
     def get_list_total_text(self):
@@ -203,6 +233,10 @@ class ShopIMEITransferPage(Base):
     def click_create_end_date(self):
         self.is_click(user['Shop IMEI Transfer Create End Date'])
 
+    @allure.step("点击Checkbox勾选第一和第二条复选框")
+    def click_all_check_box(self):
+        self.is_click_dcr(user['勾选全选复选框'])
+
     @allure.step("勾选第一条记录的复选框")
     def click_first_checkbox(self):
         self.is_click_dcr(user['勾选第一条复选框'])
@@ -214,15 +248,9 @@ class ShopIMEITransferPage(Base):
         get_field = self.element_text(user[field])
         return get_field
 
-
-
     @allure.step("断言 Shop IMEI Transfer列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
     def assert_shop_imei_transfer_field(self, header, content):
         DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['水平滚动条'])
-
-    @allure.step("断言 Shop IMEI Transfer列表，字段列、字段内容是否与预期的字段内容值一致，无滚动条")
-    def assert_shop_imei_transfer_field2(self, header, content):
-        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, attr='class', index='0')
 
 
 if __name__ == '__main__':

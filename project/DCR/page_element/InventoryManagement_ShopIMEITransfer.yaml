@@ -5,8 +5,8 @@ Transfer To Shop Name value: "xpath==//span[contains(text(),'variable')]"
 Scan IMEI Name: "xpath==//textarea[@placeholder='Please enter IMEI/SN,press enter to check']"
 Check Scan IMEI: "xpath==//span[normalize-space()='Check']"
 Get Scan Record IMEI: "xpath==//ul//li//div[text()='variable']"
-Get Scan Record Success: "xpath==//ul//li//div[normalize-space()='variable']"
-Get Scanned Value: "xpath==//div[@class='num']//..//div[normalize-space()='variable']"
+Get Scan Record Success: "xpath==//ul//li//div[@class='successTips']"
+Get Scanned Value: "xpath==//div[normalize-space()='Scanned']/..//div[@class='num']"
 Get Order Detail Scanned: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div"
 Shop IMEI Transfer Add Submit: "xpath==//button[@id='shopimeitransferadd_Submit']"
 Shop IMEI Transfer Add Submit OK: "xpath==//button[contains(@class,'el-button el-button--default el-button--small el-button--primary ')]"
@@ -17,13 +17,9 @@ Get Shop IMEI Transfer ID content: "xpath==//tbody//tr[1]//td[not(contains(@clas
 
 Get Shop IMEI Transfer Status: "xpath==//tbody//tr[1]//td[3]//div"
 Get Shop IMEI Transfer To Shop ID: "xpath==//tbody//tr[1]//td[13]//div"
-#Get Shop IMEI Transfer CreatorID element: "xpath==//tr//th[not(contains(@class, 'is-hidden'))]//div[normalize-space(text())='Creator ID']"
-#Get Shop IMEI Transfer CreatorID content: "xpath==//tr[1]//td[contains(@class, 'variable') and not(contains(@class, 'is-hidden'))]/div"
-#Get Shop IMEI Transfer CreateDate: "xpath==//tbody//tr[1]//td[7]//div"
-#Get Shop IMEI Transfer IMEI element: "xpath==//tr//th[not(contains(@class, 'is-hidden'))]//div[normalize-space(text())='IMEI']"
-#Get Shop IMEI Transfer IMEI content: "xpath==//*[@id='mainContainer']/section/div[2]/div[2]/div[1]/div[3]/table/tbody/tr[1]/td[23]/div/div"
+
 表格字段: "xpath==//tr//th//div[normalize-space(text())='variable']/.."
-表格指定列内容: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
 水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
 
 #Shop IMEI Transfer 筛选门店IMEI调店
@@ -86,6 +82,7 @@ search按钮: "xpath==//button[@id='shopimeitransfer_search']"
 
 #Shop IMEI Transfer 审核与拒绝调店操作
 勾选第一条复选框: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
+#勾选第二条复选框: "xpath==//tbody//tr[2]//td[1]//div//label//span[@class='el-checkbox__input']"
 勾选全选复选框: "xpath==//table//thead//tr//th[1]//div//label//span//span"
 Approve reject按钮: "xpath==//button[@id='shop_imei_transfer_approver']//span[contains(text(),'variable')]"
 Yes Cancel按钮: "xpath==//div[@class='el-message-box el-message-box--center']//span[normalize-space(text())='variable']"
@@ -93,5 +90,5 @@ Approve OK按钮: "xpath==//span[contains(@class,'dialog-footer')]//button[@id='
 输入拒绝原因: "xpath==//div//p//textarea[@id='rejectReason']"
 Reject Yes按钮: "xpath==//button//span[normalize-space(text())='Yes']"
 Reject OK按钮: "xpath==//button[@id='shopimeitransfer_OK']//span[text()='OK']"
-
+Operation Approve reject button: "xpath==//tbody//tr[1]//td[not(contains(@class ,'is-hidden'))]//span[text()='variable']"
 

@@ -18,15 +18,13 @@ class TestQueryShopSalesQuery:
         base = Base(drivers)
         base.refresh()
         sleep(3.5)
-
         user = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
         """打开销售管理-打开门店销售查询页面"""
         user.click_gotomenu("Sales Management", "Shop Sales Query")
-
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         shop_sales = ShopSaleQueryPage(drivers)
-        sleep(8)
+        sleep(3.5)
         total = shop_sales.get_total_text()
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         if int(total) > 0:
@@ -59,30 +57,25 @@ class TestExportShopSalesQuery:
         base = Base(drivers)
         base.refresh()
         sleep(3.5)
-
         """打开销售管理-打开门店销售查询页面"""
         menu = DCRLoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Shop Sales Query")
-
         """实例化对象类"""
         export = ShopSaleQueryPage(drivers)
         base = Base(drivers)
         today = base.get_datetime_today()
-
+        """根据销售日期筛选数据"""
         export.click_unfold()
         export.input_sales_date_date(today, today)
         export.click_fold()
         export.click_search()
-
         total = export.get_total_text()
         """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
         export.assert_total(total)
-
         #筛选销售日期后，点击导出功能
         export.click_export()
         export.click_download_more()
         down_status = export.click_export_search()
-
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
@@ -90,7 +83,7 @@ class TestExportShopSalesQuery:
         complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
         operation = export.get_export_operation_text()
-
+        """断言导出记录列表，字段内容是否正确"""
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Shop Sales Query")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
