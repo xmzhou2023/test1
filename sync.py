@@ -2,6 +2,8 @@
 import os
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
+from time import sleep
 
 # 项目目录
 import pymysql
@@ -41,7 +43,7 @@ def change_db(sql):
     try:
         for sql_excute in sql:
             cur.execute(sql_excute)  # 执行sql
-            conn.commit()  # 提交更改
+        conn.commit()  # 提交更改
     except Exception as e:
         print(e)
         conn.rollback()  # 回滚
@@ -56,7 +58,7 @@ def delete_db(sql):
     try:
         for sql_excute in sql:
             cur.execute(sql_excute)  # 执行sql
-            conn.commit()  # 提交更改                           # 提交更改
+        conn.commit()  # 提交更改                           # 提交更改
     except Exception as e:
         conn.rollback()                             # 回滚
     finally:
@@ -186,7 +188,6 @@ def get_PyClass(filepath):
                     class_list[class_name]['value'][function_name]['status'] = 1
                 except UnboundLocalError as e:
                     print('请检查指定代码格式{}'.format(class_list))
-
             """获取用例状态(是否是pass)def"""
             if re.match("        (.*)", line):
                 status_name = re.match("        (.*)", line)
@@ -194,7 +195,7 @@ def get_PyClass(filepath):
                 if 'pass' == status_name:
                     class_list[class_name]['value'][function_name]['status'] = 0
                 if 'robot = KeyWord(drivers)' == status_name:
-                    class_list[class_name]['value'][function_name]['edit_status'] = 2
+                    class_list[class_name]['value'][function_name]['status'] = 2
 
     return class_list, feature_name
 
@@ -376,7 +377,7 @@ def fomart_data(type, place, data):
                 list[i['case_code']] = i['id']
         return list
 
-def  algo_data(type, sql_data, data_list, parm=None):
+def algo_data(type, sql_data, data_list, parm=None):
     sql_execute = []
     list_sq = []
     list_py = []
@@ -398,6 +399,7 @@ def  algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除项目 {} '.format(project))
             sql_pro = "DELETE FROM ts_project WHERE project_name='{}'".format(project)
             sql_execute.append(sql_pro)
+
         change_db(sql_execute)
 
         sql_execute = []
@@ -463,7 +465,6 @@ def  algo_data(type, sql_data, data_list, parm=None):
             sql_execute.append(sql_type_ST)
             sql_type_UT = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('单元测试','UT',{},'自动化平台','自动化平台',1)".format(mod_id)
             sql_execute.append(sql_type_UT)
-
         change_db(sql_execute)
 
     elif type == 'yaml':
@@ -505,7 +506,6 @@ def  algo_data(type, sql_data, data_list, parm=None):
             sql_pro_yaml = "INSERT INTO ts_yaml(p_id,p_code,m_id,m_code,yaml_text,enabled_flag) VALUES ({},'{}',{},'{}','{}',1)".format(parm, pro_name, mod_id, module_code, yaml_text)
             print(sql_pro_yaml)
             sql_execute.append(sql_pro_yaml)
-
         change_db(sql_execute)
 
     elif type == 'sce':
@@ -856,6 +856,12 @@ def update_data(type, sql_data, data_list, parm=None):
                         sql_execute.append(sql_pro)
 
         change_db(sql_execute)
+
+
+def music(music_name,a):
+    print('正在下载{}{}'.format(music_name,a))
+    sleep(2)
+    print('{}下载成功'.format(music_name))
 def sync_Data(data_list, env_list=None):
 
     # 项目查询sql
@@ -865,95 +871,109 @@ def sync_Data(data_list, env_list=None):
     # 查找最新数据ts_project表的数据并格式化
     pro_list = fomart_data('pro', 'name', query_db(project_sql))
 
-    # 遍历出每个项目py数据
-    for pro_code in data_list:
-        # 获取最新项目对应id
-        pro_id = pro_list[pro_code]
-        # 存储每个项目数据
-        pro_data_list = data_list[pro_code]
-        env_data_list = env_list[pro_code]
+    n = len(pro_list.keys())
 
-        # 模块查询sql
-        # module_sql = "SELECT id,module_code,module_name from ts_module where p_id = {}".format(pro_id)
-        module_sql = "select ts_module.id,ts_module.module_code,ts_module.module_name,ts_yaml.yaml_text from ts_module LEFT JOIN ts_yaml ON ts_module.id = ts_yaml.m_id WHERE ts_module.p_id = {}".format(pro_id)
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        executor.map(thread_task,[data_list] * n,[env_list] * n, pro_list.keys())
 
-        # 查找出py文件和数据库项目数据的差异并进行輸入操作
-        algo_data('mod', query_db(module_sql), pro_data_list, pro_id)
+def thread_task(data_list, env_list=None, pro_code=None):
 
-        # 查找出py文件和数据库项目数据的差异并进行輸入操作
-        update_data('mod', query_db(module_sql), pro_data_list, pro_id)
+    # 项目查询sql
+    project_sql = "SELECT id,project_name from ts_project"
 
-        # 模块yaml查询sql
-        yaml_sql = "SELECT id,m_code,yaml_text from ts_yaml where p_id={}".format(pro_id)
+    # 查找最新数据ts_project表的数据并格式化
+    pro_list = fomart_data('pro', 'name', query_db(project_sql))
+
+    # 获取最新项目对应id
+    pro_id = pro_list[pro_code]
+
+    print(pro_code)
+
+    # 存储每个项目数据
+    pro_data_list = data_list[pro_code]
+    env_data_list = env_list[pro_code]
+
+    # 模块查询sql
+    # module_sql = "SELECT id,module_code,module_name from ts_module where p_id = {}".format(pro_id)
+    module_sql = "select ts_module.id,ts_module.module_code,ts_module.module_name,ts_yaml.yaml_text from ts_module LEFT JOIN ts_yaml ON ts_module.id = ts_yaml.m_id WHERE ts_module.p_id = {}".format(pro_id)
+
+    # 查找出py文件和数据库项目数据的差异并进行輸入操作
+    algo_data('mod', query_db(module_sql), pro_data_list, pro_id)
+
+    # 查找出py文件和数据库项目数据的差异并进行輸入操作
+    update_data('mod', query_db(module_sql), pro_data_list, pro_id)
+
+    # 模块yaml查询sql
+    yaml_sql = "SELECT id,m_code,yaml_text from ts_yaml where p_id={}".format(pro_id)
+
+    # 查找出py文件和数据库项目数据的差异并进行操作
+    algo_data('yaml', query_db(yaml_sql), pro_data_list, pro_id)
+
+    # 查找出py文件和数据库环境数据的差异并进行輸入操作
+    update_data('yaml', query_db(yaml_sql), pro_data_list, pro_id)
+
+    # 环境查询sql
+    env_sql = "SELECT id,env_name,env_url from ts_env where p_id={}".format(pro_id)
+
+    # 查找出py文件和数据库项目数据的差异并进行操作
+    algo_data('env', query_db(env_sql), env_data_list, pro_id)
+
+    # 查找出py文件和数据库环境数据的差异并进行輸入操作
+    update_data('env', query_db(env_sql), env_data_list, pro_id)
+
+    # 查找最新数据ts_module表的数据并格式化
+    mod_list = fomart_data('mod', 'name', query_db(module_sql))
+
+    # 遍历出每个模块数据
+    for mod_code in pro_data_list:
+        # # 获取最新模块对应id
+        mod_id = mod_list[mod_code]
+        # 存储每个模块数据
+        mod_data_list = pro_data_list[mod_code]['value']
+
+        # 场景查询sql
+        scene_sql = "SELECT scene_id,scene_code,scene_name from scene where m_id = {}".format(mod_id)
 
         # 查找出py文件和数据库项目数据的差异并进行操作
-        algo_data('yaml', query_db(yaml_sql), pro_data_list, pro_id)
-
-        # 查找出py文件和数据库环境数据的差异并进行輸入操作
-        update_data('yaml', query_db(yaml_sql), pro_data_list, pro_id)
-
-        # 环境查询sql
-        env_sql = "SELECT id,env_name,env_url from ts_env where p_id={}".format(pro_id)
+        algo_data('sce', query_db(scene_sql), mod_data_list, mod_id)
 
         # 查找出py文件和数据库项目数据的差异并进行操作
-        algo_data('env', query_db(env_sql), env_data_list, pro_id)
-
-        # 查找出py文件和数据库环境数据的差异并进行輸入操作
-        update_data('env', query_db(env_sql), env_data_list, pro_id)
+        update_data('sce', query_db(scene_sql), mod_data_list, mod_id)
 
         # 查找最新数据ts_module表的数据并格式化
-        mod_list = fomart_data('mod', 'name', query_db(module_sql))
+        sce_list = fomart_data('sce', 'name', query_db(scene_sql))
 
-        # 遍历出每个模块数据
-        for mod_code in pro_data_list:
-            # # 获取最新模块对应id
-            mod_id = mod_list[mod_code]
-            # 存储每个模块数据
-            mod_data_list = pro_data_list[mod_code]['value']
+        # 遍历出每个场景数据
+        for sce_code in mod_data_list:
 
-            # 场景查询sql
-            scene_sql = "SELECT scene_id,scene_code,scene_name from scene where m_id = {}".format(mod_id)
+            # 获取最新场景对应id
+            sce_id = sce_list[sce_code]
+            # 存储每个场景数据
+            sce_data_list = mod_data_list[sce_code]['value']
 
-            # 查找出py文件和数据库项目数据的差异并进行操作
-            algo_data('sce', query_db(scene_sql), mod_data_list, mod_id)
+            # 用例查询sql
+            case_sql = "SELECT id,case_code,case_name,case_des,case_status,case_level from ts_case where s_id = {}".format(sce_id)
 
             # 查找出py文件和数据库项目数据的差异并进行操作
-            update_data('sce', query_db(scene_sql), mod_data_list, mod_id)
+            algo_data('case', query_db(case_sql), sce_data_list, sce_id)
+
+            # 查找出py文件和数据库项目数据的差异并进行操作
+            update_data('case', query_db(case_sql), sce_data_list, sce_id)
 
             # 查找最新数据ts_module表的数据并格式化
-            sce_list = fomart_data('sce', 'name', query_db(scene_sql))
+            case_list = fomart_data('case', 'name', query_db(case_sql))
 
-            # 遍历出每个场景数据
-            for sce_code in mod_data_list:
-
+            for case_code in sce_data_list:
                 # 获取最新场景对应id
-                sce_id = sce_list[sce_code]
+                case_id = case_list[case_code]
                 # 存储每个场景数据
-                sce_data_list = mod_data_list[sce_code]['value']
+                case_data_list = sce_data_list[case_code]['mark']
 
                 # 用例查询sql
-                case_sql = "SELECT id,case_code,case_name,case_des,case_status,case_level from ts_case where s_id = {}".format(sce_id)
+                case_sql = "SELECT id,case_id,case_mark_id from ts_casemark_detail where case_id={}".format(case_id)
 
-                # 查找出py文件和数据库项目数据的差异并进行操作
-                algo_data('case', query_db(case_sql), sce_data_list, sce_id)
-
-                # 查找出py文件和数据库项目数据的差异并进行操作
-                update_data('case', query_db(case_sql), sce_data_list, sce_id)
-
-                # 查找最新数据ts_module表的数据并格式化
-                case_list = fomart_data('case', 'name', query_db(case_sql))
-
-                for case_code in sce_data_list:
-                    # 获取最新场景对应id
-                    case_id = case_list[case_code]
-                    # 存储每个场景数据
-                    case_data_list = sce_data_list[case_code]['mark']
-
-                    # 用例查询sql
-                    case_sql = "SELECT id,case_id,case_mark_id from ts_casemark_detail where case_id={}".format(case_id)
-
-                    # 查找出py文件和数据库项目数据mark的差异并进行操作
-                    update_data('mark', query_db(case_sql), case_data_list, case_id)
+                # 查找出py文件和数据库项目数据mark的差异并进行操作
+                update_data('mark', query_db(case_sql), case_data_list, case_id)
 
 def clear_data():
     # 项目查询sql
@@ -1025,4 +1045,5 @@ if __name__ == '__main__':
 
     # 同步所有数据（增量）
     sync_Data(get_Data(), get_env())
+
     clear_data()
