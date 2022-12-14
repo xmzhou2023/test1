@@ -3438,6 +3438,33 @@ class Teststory_3322:
         pass
 
 
+    @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
+    @allure.title("DCP发起未预约上会点击发起评审，提示状态错误，状态应为预约成功,当前状态为未预约")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_26665(self, drivers):
+        pass
+
+
+    @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
+    @allure.title("DCP发起未预约上会未配置PMToffice，点击发送通知提示PMToffice未配置用户！")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_26666(self, drivers):
+        pass
+
+
+    @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
+    @allure.title("DCP发起未预约上会当前登陆人不为任务责任人，点击发送通知提示您不是当前任务的责任人！")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_26667(self, drivers):
+        pass
+
+
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3287:
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -4037,34 +4064,16 @@ from public.base.basics import *
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3262:
     @allure.story("删除项目")  # 用户故事名称
-    @allure.title("项目删除项目的创建者，项目经理，系统管理员，有权删除项目")  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23954(self, drivers):
-        pass
-
-
-
-    @allure.story("删除项目")  # 用户故事名称
     @allure.title("项目删除项目不启动，项目可被删除")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_26336(self, drivers):
-        now_times = strftime('%Y-%m-%d%H:%M:%S')
-        test = CreateProject(drivers)
-        test.get_url_project()
-        test.Create_project('保存', 'IT项目模板', f'IPM自动化{now_times}')
-        test.Click_the_button_to_enter(f'IPM自动化{now_times}',"删除","确认")
-        ass=Assert_result(drivers)
-        ass.assert_toast('断言提示','请求成功')
-        ass.assert_toast_not('断言新建项目的名字', f'IPM自动化{now_times}')
+        pass
+
 
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3263:
-
-
     @allure.story("查询项目")  # 用户故事名称
     @allure.title("查询条件项目名称、项目分类、项目状态、所属领域")  # 用例名称
     @allure.description("")  # 用例描述
