@@ -3294,7 +3294,7 @@ class Teststory_3328:
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3322:
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
-    @allure.title("进入项目进行创建DCP任务，预约成功后发起，查看发起页面是否和原型图一致")  # 用例名称
+    @allure.title("进入项目进行创建DCP任务，预约成功后发起，进入DCP任务发起确认页面")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -4044,13 +4044,6 @@ class Teststory_3262:
     def test_23954(self, drivers):
         pass
 
-    @allure.story("删除项目")  # 用户故事名称
-    @allure.title("项目删除项目启动，项目不可被删除")  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_26335(self, drivers):
-        pass
 
 
     @allure.story("删除项目")  # 用户故事名称
@@ -4059,18 +4052,18 @@ class Teststory_3262:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_26336(self, drivers):
-        pass
-
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test = CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存', 'IT项目模板', f'IPM自动化{now_times}')
+        test.Click_the_button_to_enter(f'IPM自动化{now_times}',"删除","确认")
+        ass=Assert_result(drivers)
+        ass.assert_toast('断言提示','请求成功')
+        ass.assert_toast_not('断言新建项目的名字', f'IPM自动化{now_times}')
 
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3263:
-    @allure.story("查询项目")  # 用户故事名称
-    @allure.title("查询按钮在项目清单页面右上角有个筛选按钮和搜索名称栏，两者都可查询")  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_23959(self, drivers):
-        pass
+
 
     @allure.story("查询项目")  # 用户故事名称
     @allure.title("查询条件项目名称、项目分类、项目状态、所属领域")  # 用例名称

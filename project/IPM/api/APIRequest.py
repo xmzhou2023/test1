@@ -110,6 +110,83 @@ class APIRequest:
         return probid,objbid
 
 
+
+
+
+    def Api_project_getPlanTaskTree(self,proname):
+        """
+        项目管理基本信息显示字段获取
+        """
+        bid=self.Api_project_bid(proname)
+        logging.info('项目管理基本信息显示字段获取')
+        data = {"projBid":bid[0]}
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        response = self.api_request('项目管理_计划_任务', data, headers)
+        node = response['body']['data']
+
+        field_propertie01 = []
+        field_propertie02 = []
+        field_propertie03 = []
+        field_propertie04 = []
+        for i in node:
+            children=i.get("children")
+            pro = '字段名', 'namebid', "children"
+            if i.get("children") !=None:
+                for j in children:
+                    prop_02 = j.get('name'), j.get("bid")
+                    res02 = dict(zip(pro, prop_02))
+                    field_propertie02.append(res02)
+                    if i.get("children") != None:
+                        for j in children:
+                            prop_03 = j.get('name'), j.get("bid")
+                            res03 = dict(zip(pro, prop_03))
+                            field_propertie03.append(res03)
+                            if i.get("children") != None:
+                                for j in children:
+                                    prop_04 = j.get('name'), j.get("bid")
+                                    res04 = dict(zip(pro, prop_04))
+                                    field_propertie04.append(res04)
+            pro_01 = i.get('name'), i.get("bid")
+            res01 = dict(zip(pro, pro_01))
+            field_propertie01.append(res01)
+        listtask=field_propertie01+field_propertie02+field_propertie03+field_propertie04
+        return listtask
+
+
+            #
+            # return field_properties
+    def Api_tasktree(self,proname,task_name):
+        """
+        :param proname: 项目名称
+        :param task_name: 任务名 如：概念阶段，TR1，计划阶段，开发阶段
+        """
+        tasksbid= self.Api_project_getPlanTaskTree(proname)
+        for i in tasksbid:
+            if i.get("字段名")==task_name:
+                return i.get("namebid")
+            else:
+                logging.info("{}:不存在，请传入正确的任务名称".format(task_name))
+
+
+    def Api_project_Scheduled_action(self,proname,task_name):
+        """
+        项目管理基本信息显示字段获取
+        """
+        bid=self.Api_project_bid(proname)
+        tasksbid= self.Api_tasktree(proname,task_name)
+        logging.info('项目管理基本信息显示字段获取')
+        data = {"actionMethod":"get","targetModel":"task","sourceModel":"","targetModelBid":"","sourceModelBid":"","targetDataMap":
+            {"bid":tasksbid,"projBid":bid[0]},"targetModelAttrList":[],"sourceRefTargetDataMap":{},"sourceRefTargetModelAttrList":[]}
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        response = self.api_request('项目管理_计划_任务基本信息字段获取', data, headers)
+        node = response['body']['data']
+        taskbid=node.get("bid")
+        objbid=node.get("objBid")
+        projbid=node.get("projBid")
+        return taskbid,objbid,projbid
+
+
+
     def Api_project_field(self,proname):
         """
         项目管理基本信息显示字段获取
@@ -128,13 +205,32 @@ class APIRequest:
             field_properties.append(res)
         return field_properties
 
-
-
-
+    def Api_project_task(self,proname,task_name):
+        """
+        项目管理计划任务基本字段信息获取
+        :param proname: 项目名称
+        :param task_name: 任务名 如：概念阶段，TR1，计划阶段，开发阶段
+        """
+        bid=self.Api_project_Scheduled_action(proname,task_name)
+        logging.info('项目管理基本信息显示字段获取')
+        data = {"objBid":bid[1],"domainBid":bid[2],"modelBid":"task","modelInsBid":bid[0],"tag":"not_started"}
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        response = self.api_request('项目管理_计划_任务字段属性获取', data, headers)
+        node = response['body']['data']
+        field_properties = []
+        for i in node:
+            pro = '字段名', '类型', '是否可读', '是否必填', '是否展示','文本类型'
+            properties = i.get('displayName'), i.get("type"), i.get("readonly"), i.get("required"), i.get("visible"), i.get("dataType")
+            res = dict(zip(pro, properties))
+            field_properties.append(res)
+        return field_properties
 
 if __name__ == '__main__':
-    Api=APIRequest(18645960)
+    Api=APIRequest()
     # ApplyList=Api.Api_applyList(20220810085734677324)
     # Api.Api_queryDeptAndEmployee(20220810085734677324)
-    print(Api.Api_project_bid("开模流程测试"))
-    print(Api.Api_project_field("ipm自动化2022-12-0217:34:45"))
+    # print(Api.Api_project_bid("655人TV v"))
+    print(Api.Api_project_task("IPM自动化测试2022-12-1410:33:07","概念阶段"))
+    # print(Api.Api_project_field("5435345"))
+    # print(Api.Api_project_getPlanTaskTree("655人TV v"))
+    #   任务流程名

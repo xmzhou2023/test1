@@ -19,14 +19,43 @@
 
 #========================================================================编辑===============================================================================
 字段名称: "xpath==//div/label[text()=' variable ']/..//input"
-下拉框: "xpath==//div[@x-placement='bottom-start']//li[1]/span[1]"
+下拉框: "xpath==//div[@x-placement='bottom-start']//li[2]/span"
+下拉框_列表名: "xpath==//div[@x-placement='bottom-start']//span[text()='variable']"
 基本信息保存: "xpath==//span[@title='保存']"
 启动项目: 'xpath==// span[text() = " 启动项目 "]'
+tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
+下拉值获取: "xpath==//div[@x-placement='bottom-start']//li/span"
+下拉值选择: 'xpath==//div[@x-placement="bottom-start"]//li/span[text()="variable"]'
 
 #=======================================================================删除项目提示=========================================================================
 
-删除确定: "xpath==//span[contains(text(),'确定')]"
-删除取消: "xpath==//span[contains(text(),'取消')]"
+删除确定: "xpath==//div//span[text()='提示']/../../..//span[contains(text(),'确定')]"
+删除取消: "xpath==//div//span[text()='提示']/../../..//span[contains(text(),'取消')]"
+
+#=======================================================================人员列表===============================================================================
+请输入姓名或工号: 'xpath==//div[@aria-label="人员列表"]//input'
+选择人员: 'xpath==//div[@aria-label="人员列表"]//div[text()=" variable "]'
+人员列表_确定: 'xpath==//div[@aria-label="人员列表"]//button[2]/span'
+人员列表_取消: 'xpath==//div[@aria-label="人员列表"]//button/span[text()="取消"]'
+
+
+#=======================================================================计划任务===============================================================================
+计划任务选择: 'xpath==//span[text()="variable"]'
+计划任务展开: 'xpath==//div/span[text()="variable"]/../i[1]'
+计划任务更多操作: 'xpath==//div/span[text()="variable"]/../i[2]'
+计划任务更多操作_子功能: 'xpath==//ul/li[text()=" variable "]'
+任务基本信息: 'xpath==//div[@class="tr-card--container"]/form/div/label'
+点击标题: 'xpath==//span[@class="title font-bold"]'
+
+计划任务_预约上会: "xpath==//div[@class='parentContent']//button/span[text()=' 预约上会 ']"
+计划任务_保存: "xpath==//div[@class='parentContent']//button/span[text()=' 保存 ']"
+计划任务_发起评审: "xpath==//div[@class='parentContent']//button/span[text()=' 发起评审 ']"
+添加全部: 'xpath==//label/span[text()=" 添加全部 "]/../span//input'
+
+
+
+
+
 
 
 
