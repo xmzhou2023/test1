@@ -165,7 +165,7 @@ class TestDeleteCustAuthorization:
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteWareAuthorization:
-    @allure.story("删除、新增仓库授权")
+    @allure.story("仓库授权")
     @allure.title("用户授权页面，删除、新增WNG2061304仓库授权")
     @allure.description("用户授权页面，筛选User：NG2061301，删除、新增WNG2061304 仓库授权")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
@@ -208,6 +208,70 @@ class TestDeleteWareAuthorization:
         DomAssert(drivers).assert_att("Successfully")
         get_list_ware2 = ware.get_list_warehouseID_text()
         ValueAssert.value_assert_equal(get_add_ware, get_list_ware2)
+
+    @allure.story("仓库授权")
+    @allure.title("传音员工授权客户，批量取消")
+    @allure.description("传音员工授权仓库，批量取消仓库授权Batch Cancel Association")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_003_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS002")
+        customer.click_search()
+        """点击Warehouse标签页"""
+        customer.click_tab('Warehouse')
+        """移除所有授权"""
+        customer.reset_Association()
+        """添加授权组合方法"""
+        customer.Association_Method('SN400004')
+        customer.Association_Method('SN400005')
+        """断言：添加仓库授权成功"""
+        customer.assert_Query_containsresult('Customer ID', 'SN400004')
+        customer.assert_Query_containsresult('Customer ID', 'SN400005')
+        """批量取消仓库授权"""
+        customer.click_CheckBox('SN400004')
+        customer.click_CheckBox('SN400005')
+        customer.click_function_button('Batch Cancel Association')
+        customer.click_Delete()
+        """断言：移除仓库授权成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        customer.assert_NoData()
+
+    @allure.story("仓库授权")
+    @allure.title("传音员工授权仓库，一键清空")
+    @allure.description("传音员工授权仓库，一键清空仓库授权 Empty All Association")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_003_003(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS002")
+        customer.click_search()
+        """点击Customer标签页"""
+        customer.click_tab('Warehouse')
+        """移除所有授权"""
+        customer.reset_Association()
+        """添加授权组合方法"""
+        customer.Association_Method('SN400004')
+        customer.Association_Method('SN400005')
+        """断言：添加仓库授权成功"""
+        customer.assert_Query_containsresult('Customer ID', 'SN400004')
+        customer.assert_Query_containsresult('Customer ID', 'SN400005')
+        """一键清空仓库授权"""
+        customer.click_function_button('Empty All Association')
+        customer.click_Delete()
+        """断言：移除仓库授权成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        customer.assert_NoData()
 
 
 @allure.feature("员工授权-用户授权")

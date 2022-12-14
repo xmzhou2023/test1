@@ -223,12 +223,19 @@ class ShopSaleQueryPage(Base):
 
     @allure.step("导入文件")
     def import_file(self, name):
+        """
+        :param name： 传入存放在data文件夹里的文件名
+        """
         file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
         logging.info("文件地址：{}".format(file_path))
         self.upload_file(user['导入'], file_path)
+        logging.info("导入文件：{}".format(file_path))
 
     @allure.step("导入门店销量文件")
     def import_ShopSalesQuery_file(self, name):
+        """
+        :param name： 传入存放在data文件夹里的文件名
+        """
         file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
         logging.info("文件地址：{}".format(file_path))
         today = datetime.now().strftime('%Y-%m-%d')
@@ -239,6 +246,7 @@ class ShopSaleQueryPage(Base):
             cell.value = today
         workbook.save(filename=file_path)
         self.upload_file(user['导入'], file_path)
+        logging.info("导入门店销量文件：{}".format(file_path))
 
     @allure.step("点击Save按钮")
     def click_save(self):
@@ -254,12 +262,13 @@ class ShopSaleQueryPage(Base):
 
     @allure.step("断言：导入成功状态")
     def assert_import_success(self):
+        logging.info("开始断言：导入成功状态")
         DomAssert(self.driver).assert_control(user['导入成功状态'])
 
-    @allure.step("获得ImportRecord指定内容")
+    @allure.step("获得Record指定内容")
     def get_Record_info(self, menu, name, header):
         """
-        :param menu: 输入文件名
+        :param menu: 输入菜单名
         :param name: 输入文件名
         :param header: 需要获取的指定字段
         """
@@ -268,7 +277,13 @@ class ShopSaleQueryPage(Base):
             if ac_menu == menu:
                 column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
                 content = self.element_text(user['表格指定列内容'], name, column)
+                logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
                 return content
+            self.click_menu('Basic Data Management', menu)
+            column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+            content = self.element_text(user['表格指定列内容'], name, column)
+            logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+            return content
 
     @allure.step("断言：ImportRecord导入结果")
     def assert_ImportRecord_result(self, name, header, result):
@@ -277,10 +292,11 @@ class ShopSaleQueryPage(Base):
         :param header: 需要获取的指定字段
         :param result: 需要断言的值 比如状态，数量，时间
         """
+        logging.info('开始断言：ImportRecord导入结果')
         ac_result = self.get_Record_info('Import Record', name, header)
         ValueAssert.value_assert_In(result, ac_result)
 
-    @allure.step("断言：ImportRecord导入结果")
+    @allure.step("断言：Record导入结果")
     def assert_Record_result(self, menu, name, header, result=None):
         """
         :param menu: 菜单
@@ -288,6 +304,7 @@ class ShopSaleQueryPage(Base):
         :param header: 需要获取的指定字段
         :param result: 需要断言的值 比如状态，数量，时间
         """
+        logging.info(f'开始断言：{menu} Record导入结果')
         ac_result = self.get_Record_info(menu, name, header)
         if header == 'File Size':
             ValueAssert.value_assert_IsNot(ac_result, '0B')
@@ -313,7 +330,7 @@ class ShopSaleQueryPage(Base):
             self.is_click_tbm(user['输入框'])
             self.input_text(user['输入框3'], content, header)
             self.is_click_tbm(user['输入框结果'], content)
-        logging.info('查询{}：{}'.format(header, content))
+        logging.info('查询 {}：{}'.format(header, content))
 
     @allure.step("ShopSalesQuery页面，输入查询条件")
     def input_ShopPurchaseQuery_query(self, header, content):
@@ -334,7 +351,7 @@ class ShopSaleQueryPage(Base):
             self.is_click_tbm(user['输入框'], header)
             self.input_text(user['输入框3'], content, header)
             self.is_click_tbm(user['输入框结果'], content)
-        logging.info('查询{}：{}'.format(header, content))
+        logging.info('查询 {}：{}'.format(header, content))
 
     @allure.step("断言：ShopSalesQuery导入结果")
     def assert_Query_result(self, header, content):
@@ -342,6 +359,7 @@ class ShopSaleQueryPage(Base):
         :param header: 需要获取的指定字段
         :param content: 需要断言的值
         """
+        logging.info('开始断言：ShopSalesQuery导入结果')
         DomAssert(self.driver).assert_search_result(user['menu表格字段'], user['ShopSalesQuery表格内容'], header, content, sc_element=user['ShopSalesQuery滚动条'], index='1', h_element=user['表头文本'])
 
     @allure.step("点击复选框")
@@ -351,20 +369,24 @@ class ShopSaleQueryPage(Base):
         """
         rowid = self.get_table_info(user['指定行'], content, attr='rowid', sc_element=user['ShopSalesQuery滚动条'])
         self.is_click_tbm(user['指定复选框'], rowid)
+        logging.info(f'点击 {content} 复选框')
 
     @allure.step("点击删除")
     def click_delete(self):
         self.is_click_tbm(user['Delete'])
         self.is_click_tbm(user['Confirm'])
+        logging.info('点击删除')
 
-    @allure.step("点击删除")
+    @allure.step("点击取消")
     def click_cancel(self):
         self.is_click_tbm(user['Cancel'])
         self.is_click_tbm(user['Confirm'])
+        logging.info('点击取消')
 
-    @allure.step("重置")
+    @allure.step("重置ShopSalesQuery导入数据")
     def reset_ShopSalesQuery_import(self, imei):
         """Shop Sales Query页面点击指定imei复选框，删除"""
+        logging.info('开始重置ShopSalesQuery导入数据')
         self.input_ShopSalesQuery_query('IMEI/SN', imei)
         self.click_search()
         total_text = self.element_text(user['Total'])
@@ -376,9 +398,10 @@ class ShopSaleQueryPage(Base):
             DomAssert(self.driver).assert_att('Deleted Successfully')
             sleep(3)
 
-    @allure.step("重置")
+    @allure.step("重置ShopPurchaseQuery导入数据")
     def reset_ShopPurchaseQuery_import(self, imei):
-        """Shop Sales Query页面点击指定imei复选框，删除"""
+        """ShopPurchaseQuery页面点击指定imei复选框，删除"""
+        logging.info('开始重置ShopPurchaseQuery导入数据')
         self.click_unfold()
         self.input_ShopPurchaseQuery_query('IMEI', imei)
         self.input_ShopPurchaseQuery_query('Status', 'Committed')
@@ -400,5 +423,7 @@ class ShopSaleQueryPage(Base):
             self.is_click_tbm(user['菜单'], content[i])
             logging.info('点击菜单：{}'.format(content[i]))
         self.refresh()
+
+
 if __name__ == '__main__':
     pass

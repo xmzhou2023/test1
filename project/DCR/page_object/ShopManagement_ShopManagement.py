@@ -714,8 +714,13 @@ class ShopManagementPage(Base):
             if ac_menu == menu:
                 column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
                 content = self.element_text(user['表格指定列内容'], name, column)
-                logging.info('获取 {} 页面 {} 字段内容：{}'.format(menu, header, content))
+                logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
                 return content
+            self.click_menu('Basic Data Management', menu)
+            column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+            content = self.element_text(user['表格指定列内容'], name, column)
+            logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+            return content
 
     @allure.step("断言：导入导出Record结果")
     def assert_Record_result(self, menu, name, header, result=None):

@@ -30,7 +30,7 @@ def function_menu_fixture(drivers):
 
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
-    @allure.story("卖家创建退货单")
+    @allure.story("创建退货单")
     @allure.title("卖家创建无码销售单；然后卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.description("销售单页面，国包用户创建销售单，产品为无码的；卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -143,7 +143,7 @@ class TestReturnOrder:
         #returnorder.click_close_return_order()
 
 
-    @allure.story("卖家创建退货单")
+    @allure.story("创建退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.description("销售单页面，国包用户创建有码出库单；卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -261,7 +261,7 @@ class TestReturnOrder:
         #return_order.click_close_return_order()
 
 
-    @allure.story("卖家创建退货单")
+    @allure.story("创建退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
     @allure.description("销售单页面，国包用户卖家创建有码出库单；卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -388,7 +388,7 @@ class TestReturnOrder:
         #return_order.click_close_return_order()
 
 
-    @allure.story("撤回退货单")
+    @allure.story("创建退货单")
     @allure.title("退货单页面，撤回退货单，Pending Approval状态的订单可撤回")
     @allure.description("销售单页面，国包用户卖家创建无码出库单；二代用户快速收货；最后新建退货单，然后进行撤回退货单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
@@ -481,7 +481,7 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(get_status_cancel, "Cancel")
         #recall_return.click_close_return_order()
 
-    @allure.story("激活不可退")
+    @allure.story("创建退货单")
     @allure.title("The imei is already been activated")
     @allure.description("配置Return Need Check Activation Or Not，输入已激活imei提示：The imei is already been activated")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -499,7 +499,7 @@ class TestReturnOrder:
         delivery.click_Check()
         delivery.assert_Scan_Record('356514118470111')
 
-    @allure.story("上月Return Date不可选择")
+    @allure.story("创建退货单")
     @allure.title("上月Return Date不可选择")
     @allure.description("上月Return Date不可选择")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -517,6 +517,7 @@ class TestReturnOrder:
         delivery.click_blank()
         data = delivery.get_BasicInfo('Return Date')
         ValueAssert.value_assert_Notequal(data, last_date)
+
 
 @allure.feature("销售管理-退货单")
 class TestReturnQuery:

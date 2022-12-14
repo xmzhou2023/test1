@@ -459,11 +459,13 @@ class TestQueryGlobalShop:
 #         ValueAssert.value_assert_InNot(shop_name1, shop_name2)
 #         sleep(1)
 
-    @allure.story("审核拒绝门店")
+@allure.feature("门店管理-门店管理(global)")
+class TestManagerGlobalShop:
+    @allure.story("门店管理")
     @allure.title("审核拒绝门店")
     @allure.description("审核拒绝门店")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    def test_007_003(self, drivers):
+    def test_008_001(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
         """门店管理"""
@@ -495,7 +497,7 @@ class TestQueryGlobalShop:
         user.click_query_search()
         user.assert_Query_result('Status', 'Pending')
         """门店管理 切换上级账号点击拒绝"""
-        user4.initialize_login(drivers, "18650493", "xLily6x")
+        user4.initialize_login(drivers, "wjklingshou", "xLily6x")
         user.click_menu("Shop Management", "Shop Management (global)")
         user.input_Search_Info('Shop', shopID)
         user.click_query_search()
@@ -515,11 +517,11 @@ class TestQueryGlobalShop:
         user.click_query_search()
         user.assert_Query_result('Status', 'Rejected')
 
-    @allure.story("审批通过门店")
+    @allure.story("门店管理")
     @allure.title("审批通过门店")
     @allure.description("审批通过门店，审核后门店状态为enabled")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    def test_007_004(self, drivers):
+    def test_008_002(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
         """门店管理"""
@@ -568,11 +570,11 @@ class TestQueryGlobalShop:
         user.click_query_search()
         user.assert_Query_result('Status', 'Enabled')
 
-    @allure.story("新建门店")
+    @allure.story("门店管理")
     @allure.title("新建门店，零售商自动生成")
     @allure.description("新建门店，零售商自动生成")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    def test_007_005(self, drivers):
+    def test_008_003(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
         """门店管理"""
@@ -611,11 +613,11 @@ class TestQueryGlobalShop:
         user.assert_CustomerQuery_result('Customer ID', shopID)
         user.assert_CustomerQuery_result('Customer Name', name)
 
-    @allure.story("拓展门店")
+    @allure.story("门店管理")
     @allure.title("不支持拓展相同品牌门店")
     @allure.description("不支持拓展相同品牌门店，给出错误提示")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    def test_007_006(self, drivers):
+    def test_008_004(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
         """门店管理"""
@@ -629,11 +631,11 @@ class TestQueryGlobalShop:
         user.extend_brand_save()
         user.click_submit()
 
-    @allure.story("导入门店")
+    @allure.story("门店管理")
     @allure.title("批量导入门店")
     @allure.description("批量导入门店成功")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    def test_007_007(self, drivers):
+    def test_008_005(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
         """门店管理"""
