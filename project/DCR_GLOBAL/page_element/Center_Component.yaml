@@ -8,6 +8,8 @@
 
 退出登录: "id==LoginOut"
 退出登录2: "css==[id='LoginOut']"
+关闭当前打开的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']//span[@class='el-icon-close']"
+打开状态的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']"
 
 ###=====定位菜单元素=======================================
 Home Page: "xpath==//span[(text()='Home Page')]"

@@ -1,5 +1,4 @@
 from libs.common.time_ui import sleep
-from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.SalesManagement_ShopSalesQuery import ShopSaleQueryPage
 from public.base.assert_ui import ValueAssert
@@ -12,7 +11,7 @@ import allure
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    menu = LoginPage(drivers)
+    menu = DCRLoginPage(drivers)
     for i in range(2):
         get_menu_class = menu.get_open_menu_class()
         class_value = "tags-view-item router-link-exact-active router-link-active active"
@@ -23,7 +22,7 @@ def function_export_fixture(drivers):
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
-    menu = LoginPage(drivers)
+    menu = DCRLoginPage(drivers)
     get_menu_class = menu.get_open_menu_class()
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):

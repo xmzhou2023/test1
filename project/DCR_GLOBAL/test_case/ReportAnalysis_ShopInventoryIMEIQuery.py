@@ -1,5 +1,4 @@
 from libs.common.time_ui import sleep
-from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.ReportAnalysis_ShopInventoryIMEIQuery import ShopInventoryIMEIQueryPage
 from public.base.assert_ui import ValueAssert
@@ -12,7 +11,7 @@ import allure
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    menu = LoginPage(drivers)
+    menu = DCRLoginPage(drivers)
     for i in range(2):
         get_menu_class = menu.get_open_menu_class()
         class_value = "tags-view-item router-link-exact-active router-link-active active"
@@ -23,7 +22,7 @@ def function_export_fixture(drivers):
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
-    menu = LoginPage(drivers)
+    menu = DCRLoginPage(drivers)
     get_menu_class = menu.get_open_menu_class()
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):
@@ -81,9 +80,10 @@ class TestExportShopInventoryIMEI:
         #获取日期
         base = Base(drivers)
         today = base.get_datetime_today()
+        last_date = export.get_last_day(1)
         # 点击Unfold展开筛选按钮
         export.click_unfold()
-        export.input_inbound_date(today)
+        export.input_inbound_date(last_date)
         export.click_fold()
         export.click_search()
         #shop_id = export.get_shop_id_text()
