@@ -554,6 +554,7 @@ class UserManagementPage(Base):
         country_list = ['Sales Region', 'Country/City']
         FuzzySelect_list = ['Belong To Customer', 'Superior']
         ExactSelect_list = ['Position']
+        self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
         if header in user_list:
             self.is_click_tbm(user['输入框'], header)
