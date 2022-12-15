@@ -426,6 +426,141 @@ class UserAuthorizationPage(Base):
         self.is_click(user['关闭用户授权菜单'])
         #sleep(2)
 
+    @allure.step("点击标签页")
+    def click_tab(self, select):
+        self.is_click(user['tab标签'], select)
+        logging.info(f'点击标签页： {select}')
+
+    @allure.step("输入查询条件")
+    def input_search(self, header, content):
+        click_list = ['Customer Type']
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if header == 'User ID':
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框3'], content, header)
+        elif header == 'User Name':
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框2'], content, header)
+            self.is_click_tbm(user['输入结果模糊选择'], content)
+        elif header in click_list:
+            self.is_click(user['输入框'], header)
+            self.is_click(user['点击选择'], content)
+        else:
+            logging.error('请输入正确的查询条件')
+            raise ValueError('请输入正确的查询条件')
+
+    @allure.step("点击功能按钮")
+    def click_function_button(self, function):
+        """
+        @function： 需要点击的功能按钮，具体如下：
+        Add Association, Import, Export Filtered, More Option,
+        Batch Cancel Association, Empty All Association
+        """
+        MoreOptionList = ['Batch Cancel Association', 'Empty All Association']
+        if function in MoreOptionList:
+            self.is_click(user['功能按钮'], 'More Option')
+            self.is_click(user['功能按钮2'], function)
+        else:
+            self.is_click(user['功能按钮'], function)
+        logging.info(f'点击功能按钮： {function}')
+
+    @allure.step("输入查询条件")
+    def input_AddAssociation_search(self, header, content):
+        select_list = ['Customer']
+        click_list = ['Customer Type']
+        title = self.element_text(user['AddAssociationTitle'])
+        if 'Customer' in title:
+            if header in select_list:
+                self.is_click(user['AddAssociation输入框'], header)
+                self.input_text(user['AddAssociation输入框2'], content, header)
+                self.is_click(user['输入选择'], content)
+            elif header in click_list:
+                self.is_click(user['AddAssociation输入框'], header)
+                self.is_click(user['点击选择'], content)
+        elif 'Warehouse' in title:
+            if header in select_list:
+                self.is_click(user['AddAssociation输入框'], header)
+                self.input_text(user['AddAssociation输入框'], content, header)
+                self.is_click(user['输入选择'], content)
+            elif header in click_list:
+                self.is_click(user['AddAssociation输入框'], header)
+                self.is_click(user['点击选择'], content)
+        logging.info(f'AddAssociation弹框输入查询条件： {header} ，内容： {content}')
+
+    @allure.step("AddAssociation弹框点击搜索")
+    def click_AddAssociation_search(self):
+        self.is_click(user['AddAssociationSearch'])
+        logging.info('AddAssociation弹框 点击搜索')
+
+    @allure.step("点击指定复选框")
+    def click_CheckBox(self, Cid):
+        self.is_click(user['指定复选框'], Cid)
+        logging.info(f'点击 {Cid} 复选框')
+
+    @allure.step("点击指定复选框")
+    def click_Authorized_All_Filtered_Records(self):
+        self.is_click(user['AuthorizedAllFilteredRecords'])
+
+    @allure.step("AddAssociation弹框点击保存")
+    def click_Authorized_Selected(self):
+        title = self.element_text(user['AddAssociationTitle'])
+        if 'Customer' in title:
+            self.is_click(user['AuthorizedSelected'])
+        elif 'Warehouse' in title:
+            self.is_click(user['Save'])
+        logging.info('AddAssociation弹框 点击保存')
+
+    @allure.step("断言：用户授权页面查询结果")
+    def assert_Query_containsresult(self, header, content):
+        """
+        :param header: 需要获取的指定字段
+        :param content: 需要断言的值
+        :param num: 包含的数量
+        """
+        logging.info('开始断言：用户授权页面查询结果')
+        DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
+
+    @allure.step("点击确定删除按钮")
+    def click_Delete(self):
+        self.is_click(user['确定删除'])
+        logging.info('点击确定删除按钮')
+
+    @allure.step("断言：用户授权页面存在NoData")
+    def assert_NoData(self):
+        logging.info('开始断言：用户授权页面存在NoData')
+        DomAssert(self.driver).assert_control(user['NoData'])
+
+    @allure.step("前置：移除所有授权")
+    def reset_Association(self):
+        logging.info('开始：移除所有授权')
+        self.click_function_button('Empty All Association')
+        self.click_Delete()
+        DomAssert(self.driver).assert_att('Successfully')
+        self.assert_NoData()
+
+    @allure.step("组合方法：添加授权")
+    def Association_Method(self, Cid, header='Customer'):
+        """
+        添加授权
+        :param Cid: 默认输入客户id，如需要其他筛选方式输入对应数据即可
+        :param header: 默认Customer，其他筛选方式：Customer Type，Country/City，Warehouse
+        """
+        logging.info('开始使用组合方法：添加授权')
+        self.click_function_button('Add Association')
+        self.input_AddAssociation_search(header, Cid)
+        self.click_AddAssociation_search()
+        self.click_CheckBox(Cid)
+        self.click_Authorized_Selected()
+        DomAssert(self.driver).assert_att('Successfully')
+
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user['菜单'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+
 
 if __name__ == '__main__':
     pass

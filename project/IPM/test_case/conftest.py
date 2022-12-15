@@ -6,7 +6,7 @@ from libs.common.read_config import *
 
 pro_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-@pytest.fixture(scope='session',autouse=True)
+@pytest.fixture(scope='session', autouse=True)
 def __init__(drivers, env_name):
     """初始化"""
     global pro_env
@@ -17,5 +17,5 @@ def __init__(drivers, env_name):
     """使用统一登录"""
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
-    user.login(drivers,ini.url, account[2]['usernum'], account[2]['passwd'])
+    user.IPM_login(drivers, ini.url, account[2]['usernum'], account[2]['passwd'])
     logging.info("前置条件：传音统一登录成功")

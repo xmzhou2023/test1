@@ -151,7 +151,7 @@ class DomAssert(object):
         try:
             Base(self.driver).base_get_img('result')
             att = self.wait.until(
-                EC.visibility_of_element_located((By.XPATH, "//*[contains(text(),'{}')]".format(word)))).text
+                EC.visibility_of_element_located((By.XPATH, '//*[contains(text(),"{}")]'.format(word)))).text
             assert word in att, logging.warning("断言失败：页面不存在该标识 | 当前页面关键字: {}".format(att.replace("\n", "|")))
             logging.info("断言成功：页面存在该标识 | 当前页面关键字: {}".format(att.replace("\n", "|")))
         except Exception as e:
@@ -301,9 +301,9 @@ class DomAssert(object):
             raise
 
     @allure.step("断言：查询结果")
-    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0', sc_element=None):
+    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0', sc_element=None, h_element=None):
         """
-        断言：页面查询结果
+        断言：页面精确查询结果
         @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
         @tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
         @header：元素定位 表头字段名称
@@ -312,28 +312,50 @@ class DomAssert(object):
         @index：属性值索引
         @sc_element：内嵌div中有滑动条的定位
         """
-        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element)
-        try:
-            contents = Base(self.driver).find_elements_tbm(tb_element, column)
-        except:
-            if sc_element:
-                Base(self.driver).DivRolling(sc_element, direction='top')
-                contents = Base(self.driver).find_elements_tbm(tb_element, column)
-            else:
-                logging.error('无法获取全部字段内容，请补充内嵌div：sc_element，以便上下滑动')
-                raise
-        content_list = []
+        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element, h_element=h_element)
+        contents = Base(self.driver).get_row_info(tb_element, column, sc_element)
         for i in contents:
             try:
-                assert content in i.text
-                logging.info("断言成功，结果:{}包含指定内容:{}".format(i.text, content))
+                assert content in i
+                logging.info("断言成功，结果:{}包含指定内容:{}".format(i, content))
             except:
-                logging.error("断言失败，结果:{}不包含指定内容:{}".format(i.text, content))
+                logging.error("断言失败，结果:{}不包含指定内容:{}".format(i, content))
                 raise
-            content_list.append(i.text)
-        logging.info('获取表格执行列内容：{}'.format(content_list))
         logging.info("断言成功，结果包含指定内容")
 
+    @allure.step("断言：查询结果")
+    def assert_search_contains_result(self, col_element, tb_element, header, content, num=None, attr='class', index='0', sc_element=None, h_element=None):
+        """
+        断言：页面模糊查询结果
+        @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
+        @tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+        @header：元素定位 表头字段名称
+        @content：表格需要断言的内容
+        @attr：需要获取的属性
+        @index：属性值索引
+        @sc_element：内嵌div中有滑动条的定位
+        """
+        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element, h_element=h_element)
+        contents = Base(self.driver).get_row_info(tb_element, column, sc_element)
+        result_num = 0
+        result = False
+        for i in contents:
+            if content in i:
+                logging.info("断言成功，结果: {} 包含指定内容:{}".format(i, content))
+                result_num += 1
+                result = True
+        if result is True:
+            logging.info("断言成功，结果数量为: {}".format(result_num))
+            if num is not None:
+                try:
+                    assert result_num == int(num), logging.warning("断言失败: 两值不等，实际数量： {} ，预计数量： {}".format(result_num, num))
+                    logging.info("断言成功，两值相等，实际数量： {} ，预计数量： {}".format(result_num, num))
+                except Exception as e:
+                    logging.error(e)
+                    raise
+        else:
+            logging.error("断言失败，结果: {} 不包含指定内容:{}".format(contents, content))
+            raise ValueError("断言失败，结果: {} 不包含指定内容:{}".format(contents, content))
 
     """     数据库断言     """
 

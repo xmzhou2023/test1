@@ -12,6 +12,8 @@ import logging
 import pytest
 import allure
 
+from libs.config.conf import DOWNLOAD_PATH
+
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
@@ -32,6 +34,7 @@ def function_export_fixture(drivers):
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
+    menu.refresh()
     get_menu_class = menu.get_open_menu_class()
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):
@@ -39,7 +42,7 @@ def function_menu_fixture(drivers):
 
 @allure.feature("销售管理-出库单")
 class TestQueryDeliveryOrder:
-    @allure.story("查询出库单列表")
+    @allure.story("查询出库单")
     @allure.title("出库单页面，查询出库单列表加载数据")
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -49,20 +52,88 @@ class TestQueryDeliveryOrder:
         user.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Delivery Order")
-
+        """查看出库单列表数据,对关键字段进行断言是否存在数据"""
         list1 = DeliveryOrderPage(drivers)
         sale_order = list1.text_sales_order()
         deli_order = list1.text_delivery_order()
         deli_date = list1.get_delivery_date_text()
         status = list1.text_delivery_Status()
         total = list1.get_total_text()
-
         ValueAssert.value_assert_IsNoneNot(sale_order)
         ValueAssert.value_assert_IsNoneNot(deli_order)
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
         list1.assert_total(total)
         #list1.click_close_delivery_order()
+
+    @allure.story("查询出库单")
+    @allure.title("单一条件筛选出库单，筛选出正确数据")
+    @allure.description("单一条件筛选出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_002(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        user.click_unfold()
+        """输入单一条件查询断言"""
+        user.assert_Query_Method('Brand', 'itel')
+        user.assert_Query_Method('Sales Order ID', '02HK2211220003')
+        user.assert_Query_Method('Delivery Order ID', '02HK2212070000001')
+        user.assert_Query_Method('Status', 'Goods Receipt')
+        user.assert_Query_Method('Seller', 'SN405554')
+        user.assert_Query_Method('Buyer', 'SN200000')
+        user.assert_Query_Method('Have Discount', 'No')
+        user.assert_Query_Method('Upload Type', 'WEB Import')
+        user.assert_Query_Method('Buyer Type', 'Sub-dealer')
+        user.assert_Query_Method('Seller Type', 'Distributor')
+        user.assert_Query_Method('Model', 'S661L')
+        user.assert_Query_Method('Market Name', 'Vision 3')
+        user.assert_Query_Method('Buyer Country', 'Senegal')
+        user.assert_Query_Method('Seller Country', 'Senegal')
+        user.assert_Query_Method('Return or not', 'Yes')
+        user.assert_Query_Method('Return or not', 'No')
+        user.assert_Query_Method('Payment Mode', 'Cash')
+        user.assert_Query_Method('Creator', 'SN405554')
+
+
+    @allure.story("查询出库单")
+    @allure.title("组合条件筛选出库单，筛选出正确数据")
+    @allure.description("组合条件筛选出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_003(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        user.click_unfold()
+        user.input_search('Brand', 'itel')
+        user.input_search('Sales Order ID', '02HK2211220003')
+        user.input_search('Seller', 'SN405554')
+        user.click_search()
+        user.assert_Query_result('Sales Order ID', '02HK2211220003')
+        user.assert_Query_result('Brand', 'itel')
+
+
+    @allure.story("查询出库单")
+    @allure.title("组合条件筛选出库单，无筛选结果")
+    @allure.description("组合条件筛选出库单")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_004(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN405554", "xLily6x")
+        """打开Sales Management/Delivery Ordery菜单"""
+        user = DeliveryOrderPage(drivers)
+        user.click_menu("Sales Management", "Delivery Order")
+        user.click_unfold()
+        user.input_search('Activated Loss Or Not', 'Yes')
+        user.click_search()
+        user.assert_NoData()
 
 
 @allure.feature("销售管理-出库单")
@@ -77,16 +148,13 @@ class TestViewDeliveryIMEIDetails:
         user1.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user1.click_gotomenu("Sales Management", "Delivery Order")
-
         imei_detail = DeliveryOrderPage(drivers)
         sales_order = imei_detail.get_sales_order_text()
         imei_detail.input_salesorder(sales_order)
         imei_detail.click_search()
-
         list_sales_order = imei_detail.get_sales_order_text()
         list_product = imei_detail.get_list_product_text()
         list_item = imei_detail.get_list_item_text()
-
         """点击IMEI Detail查看按钮"""
         imei_detail.click_imei_detail()
         detail_title_sale = imei_detail.get_detail_title_delivery_id_text()
@@ -94,7 +162,6 @@ class TestViewDeliveryIMEIDetails:
         detail_item = imei_detail.get_detail_item_text()
         detail_imei = imei_detail.get_detail_imei_text()
         detail_total = imei_detail.get_detail_total_text()
-
         ValueAssert.value_assert_equal(sales_order, list_sales_order)
         ValueAssert.value_assert_In(list_sales_order, detail_title_sale)
         ValueAssert.value_assert_equal(list_product, detail_product)
@@ -117,24 +184,22 @@ class TestExportDeliveryOrder:
         user2.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user2.click_gotomenu("Sales Management", "Delivery Order")
-
         export = DeliveryOrderPage(drivers)
-        # 获取日期
+        #获取日期
         base = Base(drivers)
         today = base.get_datetime_today()
-
+        """筛选当天出库的记录，进行导出操作"""
         export.click_unfold()
         export.input_delivery_date(today, today)
         export.click_status_input_box()
         export.click_fold()
         export.click_search()
-
         #筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
         export.input_task_name("Delivery Order")
         down_status = export.click_export_search()
-
+        """导出记录页面，获取列表字段进行断言"""
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
@@ -142,7 +207,6 @@ class TestExportDeliveryOrder:
         complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
         operation = export.get_export_operation_text()
-
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Delivery Order")
         ValueAssert.value_assert_equal(task_id, "BD40344201")
@@ -152,6 +216,32 @@ class TestExportDeliveryOrder:
         export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
         #export.click_close_delivery_order()
+
+    @allure.story("导出筛选的出库单详情")
+    @allure.title("出库单页面，导出筛选的出库单记录详情")
+    @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录详情")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_003_002(self, drivers):
+        user2 = LoginPage(drivers)
+        user2.initialize_login(drivers, "BD40344201", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user2.click_gotomenu("Sales Management", "Delivery Order")
+
+        export = DeliveryOrderPage(drivers)
+        # 获取日期
+        base = Base(drivers)
+        today = base.get_datetime_today()
+        last_day = base.get_last_day(20)
+
+        export.click_unfold()
+        export.input_delivery_date(last_day, today)
+        export.click_status_input_box()
+        export.click_search()
+        file_begin = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        export.click_export_detail()
+        file_then = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        ValueAssert.value_assert_Notequal(file_begin, file_then)
 
 
 @allure.feature("销售管理-出库单")
@@ -166,7 +256,6 @@ class TestAddDeliveryOrder:
         user3.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user3.click_gotomenu("Sales Management", "Delivery Order")
-
         add = DeliveryOrderPage(drivers)
         num = add.customer_random()
         add.click_add()
@@ -175,7 +264,6 @@ class TestAddDeliveryOrder:
         add.input_temporary_customer_name("lhmcustomer" + num)
         add.input_customer_contact_no("13873094" + num)
         add.click_business_type('Retail&Wholesale')
-
         add.click_quantity_radio_button()
         add.click_quantity_add()
         add.click_quantity_product("OEP-E22")
@@ -183,14 +271,12 @@ class TestAddDeliveryOrder:
         get_deli_quantity = add.get_delivery_quantity_text()
         ValueAssert.value_assert_equal(get_deli_quantity, "1")
         add.click_delivery_quantity_text()
-
         """点击Submit提交按钮"""
         add.click_submit()
-
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Submit successfully")
-        sleep(1)
+        sleep(0.5)
         add.click_search()
         """断言查询新建的无码出库单"""
         user = SQL('DCR', 'test')
@@ -200,20 +286,17 @@ class TestAddDeliveryOrder:
         delivery_code = result[0].get("delivery_code")
         logging.info("打印查询数据库销售单号order_code{}".format(order_code))
         logging.info("打印查询数据库出库单号delivery_code{}".format(delivery_code))
-
         """出库单页面，筛选新建的无码出库单ID"""
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
-
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
-        get_salesorder = add.text_sales_order()
-        get_deliveryorder = add.text_delivery_order()
+        get_sales_order = add.text_sales_order()
+        get_delivery_order = add.text_delivery_order()
         get_status = add.text_delivery_Status()
-
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
-        ValueAssert.value_assert_equal(get_salesorder, order_code)
-        ValueAssert.value_assert_equal(get_deliveryorder, delivery_code)
+        ValueAssert.value_assert_equal(get_sales_order, order_code)
+        ValueAssert.value_assert_equal(get_delivery_order, delivery_code)
         ValueAssert.value_assert_equal("Goods Receipt", get_status)
         #add.click_close_delivery_order()
 
@@ -226,7 +309,6 @@ class TestAddDeliveryOrder:
     def test_004_002(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "BD40344201", "dcr123456")
-
         """打开Report Analysis->IMEI Inventory Query菜单"""
         user4.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
@@ -240,9 +322,9 @@ class TestAddDeliveryOrder:
         delivery.click_refresh(drivers)
         """打开销售管理-打开出库单页面"""
         user4.click_gotomenu("Sales Management", "Delivery Order")
-
         add = DeliveryOrderPage(drivers)
         num = add.customer_random()
+        """创建出库单操作"""
         add.click_add()
         add.click_temporary_customer()
         add.input_deli_pay_mode("Wechat")
@@ -259,7 +341,6 @@ class TestAddDeliveryOrder:
         get_deli_quantity = add.get_delivery_quantity()
         get_order_deli_quantity = add.get_order_detail_deli_quantity()
         ValueAssert.value_assert_equal(get_deli_quantity, get_order_deli_quantity)
-
         """点击提交按钮"""
         add.click_submit()
         """点击提交后，盘点是否有弹出确认价格提示框，如果没有就执行except下面的语句，直接提交成功，断言是否有成功提示语"""
@@ -270,7 +351,6 @@ class TestAddDeliveryOrder:
                 DomAssert(drivers).assert_att("Submit successfully")
         except Exception as e:
             logging.info("打印日志{}".format(e))
-        sleep(1)
         add.click_search()
         """断言查询新建的无码出库单"""
         sql2 = SQL('DCR', 'test')
@@ -280,17 +360,14 @@ class TestAddDeliveryOrder:
         delivery_code = result[0].get("delivery_code")
         logging.info("打印数据库查询的销售单ID order_code{}".format(order_code))
         logging.info("打印数据库查询的出库单ID delivery_code{}".format(delivery_code))
-
         """出库单页面，筛选新建的无码出库单ID"""
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
-
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         get_salesorder = add.text_sales_order()
         get_deliveryorder = add.text_delivery_order()
         get_status = add.text_delivery_Status()
-
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(get_salesorder, order_code)
         ValueAssert.value_assert_equal(get_deliveryorder, delivery_code)
@@ -301,16 +378,15 @@ class TestAddDeliveryOrder:
         """卖家创建退货单，退货类型为Return To Seller、退有码产品，输入Delivery Order出库单ID整单退货"""
         base = Base(drivers)
         base.refresh()
-        """打开销售管理-打开出库单页面"""
+        """打开销售管理-打开退货单页面"""
         user4.click_gotomenu("Sales Management", "Return Order")
         return_order = ReturnOrderPage(drivers)
-
+        """创建退货单操作"""
         return_order.click_Add()
         return_order.click_Return_Type()
         return_order.radio_Delivery_order()
         return_order.input_Delivery_order(delivery_code)
         return_order.click_Check()
-
         """点击check按钮后，断言加载出库单信息，获取检查Scan Record结果与 Order Detail列表下出库单记录是否加载正常"""
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
@@ -318,21 +394,16 @@ class TestAddDeliveryOrder:
         seller_id = return_order.get_Order_Detail_Seller_ID()
         buyer_id = return_order.get_Order_Detail_Buyer_ID()
         return_quantity = return_order.get_Order_Detail_Return_Quantity()
-
         ValueAssert.value_assert_equal(delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal(seller_id, "BD403442")
         ValueAssert.value_assert_IsNoneNot(buyer_id)
         ValueAssert.value_assert_equal(return_quantity, "1")
-
         """点击提交按钮"""
         return_order.click_Submit()
-        dom = DomAssert(drivers)
-        dom.assert_att("Submit Success!")
-
+        DomAssert(drivers).assert_att("Submit Success!")
         """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
         return_order.input_Delivery_Orderid(delivery_code)
         return_order.click_Search()
-
         """断言筛选退货列表页，获取退货单ID、退货出库单ID、退货状态与数据库表中查询的出库单ID对比是否一致"""
         get_return_order_id = return_order.get_list_return_order_id()
         ValueAssert.value_assert_IsNoneNot(get_return_order_id)
@@ -346,7 +417,7 @@ class TestAddDeliveryOrder:
     @allure.story("新建出库单")
     @allure.title("二代用户，新建出库单，出库类型为BoxID，买方为零售商有多个门店，转零售商库存")
     @allure.description("二代用户，新建出库单，出库类型为BoxID，买方为零售商有多个门店，转零售商库存，卖家退货")
-    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor  43012202214859
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor  43012211021179
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_003(self, drivers):
         user5 = LoginPage(drivers)
@@ -354,7 +425,7 @@ class TestAddDeliveryOrder:
         """打开销售管理-打开出库单页面"""
         user5.click_gotomenu("Sales Management", "Delivery Order")
         add_delivery = DeliveryOrderPage(drivers)
-        add_delivery.create_delivery_order('EG000562', 'Wechat', '43012211021179')
+        add_delivery.create_delivery_order('EG000562', 'Wechat', '43012202214859')
         """断言Check后，列表展示的出库单校验成功的记录"""
         get_deli_scan_record = add_delivery.get_Deli_Scan_Record_Success()
         ValueAssert.value_assert_equal('Success', get_deli_scan_record)
@@ -398,7 +469,7 @@ class TestAddDeliveryOrder:
         query_sales.click_search()
         get_sales_order = query_sales.get_text_sales_id()
         """断言列表Status 是否是Delivered状态 """
-        get_status = query_sales.get_sales_status_text("Delivered")
+        get_status = query_sales.get_sales_status_text()
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
         ValueAssert.value_assert_equal(order_code, get_sales_order)
         ValueAssert.value_assert_equal('Delivered', get_status)
@@ -415,7 +486,7 @@ class TestAddDeliveryOrder:
         """关闭销售单页面"""
         user5.click_close_open_menu()
 
-        """ 零售商EG00056201账号登录， 进行快速收货 """
+        """ 零售商EG00056201账号登录，进行快速收货 """
         user5.initialize_login(drivers, "EG00056201", "dcr123456")
         """打开采购单Purchase Management菜单"""
         user5.click_gotomenu("Purchase Management", "Inbound Receipt")
@@ -441,7 +512,7 @@ class TestAddDeliveryOrder:
         receipt.click_imei_detail()
         """断言 订单号与 IMEI数量是否匹配"""
         get_dn_title = receipt.get_list_field_text('Get DN Delivery Order ID')
-        get_total = receipt.get_imei_detail_total('Get IMEI Detail Total')
+        get_total = receipt.get_imei_detail_total()
         logging.info("打印详情页DN标题的出库单ID:{}".format(get_dn_title))
         ValueAssert.value_assert_equal(get_deli_quantity, get_total)
         ValueAssert.value_assert_In(delivery_code, get_dn_title)
@@ -455,10 +526,10 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         box_id = SalesOrderPage(drivers)
         """IMEI Inventory Query页面,根据box id筛选是否存在箱号记录"""
-        box_id.query_inventory_box_id('43012211021179')
+        box_id.query_inventory_box_id('43012202214859')
         """断言 IMEI Inventory Query列表，box_id是否正确，Total 总IMEI条数是否与出库数量一致"""
         get_box_id = box_id.get_list_box_id_text()
-        ValueAssert.value_assert_equal('43012211021179', get_box_id)
+        ValueAssert.value_assert_equal('43012202214859', get_box_id)
         logging.info("打印获取IMEI Inventory Query页面的Box ID:{}".format(get_box_id))
         get_list_total = box_id.get_inventory_list_total()
         ValueAssert.value_assert_equal(get_deli_quantity, get_list_total)
@@ -467,11 +538,10 @@ class TestAddDeliveryOrder:
 
         """零售商EG00056201账号, 进行退货操作"""
         Base(drivers).refresh()
-        """打开Purchase Management菜单"""
         user5.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
-        return_order.add_return_order_box_sn_imei('43012211021179')
+        return_order.add_return_order_box_sn_box('43012202214859')
         record = return_order.get_text_Record()
         get_scanned = return_order.get_scanned_number()
         ValueAssert.value_assert_equal("Success", record)
@@ -530,10 +600,10 @@ class TestAddDeliveryOrder:
         Base(drivers).refresh()
         user5.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """IMEI Inventory Query页面 根据box id筛选是否存在箱号记录"""
-        box_id.query_inventory_box_id('43012211021179')
+        box_id.query_inventory_box_id('43012202214859')
         """断言 IMEI Inventory Query列表，box_id是否正确，Total 总IMEI条数是否与出库数量一致"""
         get_box_id = box_id.get_list_box_id_text()
-        ValueAssert.value_assert_equal('43012211021179', get_box_id)
+        ValueAssert.value_assert_equal('43012202214859', get_box_id)
         logging.info("打印获取IMEI Inventory Query页面的Box ID:{}".format(get_box_id))
         get_list_total = box_id.get_inventory_list_total()
         ValueAssert.value_assert_equal(get_deli_quantity, get_list_total)
@@ -542,7 +612,7 @@ class TestAddDeliveryOrder:
     @allure.story("新建出库单")
     @allure.title("二代用户，新建出库单，出库类型为IMEI，买方为零售商有只有一个门店，自动转门店销量")
     @allure.description("二代用户，新建出库单，出库类型为IMEI，买方为零售商只有一个门店，自动转门店销量，卖家退货")
-    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor  43012202214859
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_004(self, drivers):
         user5 = LoginPage(drivers)
@@ -620,48 +690,73 @@ class TestAddDeliveryOrder:
         """断言收货成功后，Shop Purchase Query列表，根据IMEI条件查询，IMEI是否入Shop Purchase Query页面"""
         Base(drivers).refresh()
         user5.click_gotomenu("Purchase Management", "Shop Purchase Query")
-        """根据IMEI筛选是否存记录,断言Shop Sales Query列表，字段内容是否正确，Total条数是否与筛选的IMEI一致"""
+        """根据IMEI1筛选是否存在记录,断言Shop Purchase Query列表，字段内容是否正确，Total条数是否与筛选的IMEI一致"""
         process.shop_purchase_query_imei(get_imei1)
-        get_total = process.shop_sales_assert_total()
         get_shop_id = process.get_list_field_text('Get Shop Purchase list Shop ID')
-        ValueAssert.value_assert_equal('1', get_total)
-        logging.info("打印Shop Purchase Query列表total：{}".format(get_total))
+        get_list_imei1 = process.get_list_field_text('Get Shop Purchase list IMEI')
+        ValueAssert.value_assert_equal(get_imei1, get_list_imei1)
+        #process.assert_shop_purchase_query_field('IMEI', get_imei1)
+        #process.assert_shop_purchase_query_field('Shop ID', 'SN001872')
+        """根据IMEI2筛选是否存在记录,断言筛选的IMEI2的 shop ID与IMEI是否正确"""
+        process.shop_purchase_query_imei(get_imei2)
+        get_list_imei2 = process.get_list_field_text('Get Shop Purchase list IMEI')
+        ValueAssert.value_assert_equal(get_imei2, get_list_imei2)
         ValueAssert.value_assert_equal('SN001872', get_shop_id)
         """"关闭Shop Purchase Query页面"""
-        user5.click_close_open_menu()
+        #user5.click_close_open_menu()
 
-        """断言收货成功后，Shop Sales Query列表，根据IMEI条件查询，IMEI是否入Shop Sales Query页面"""
-        Base(drivers).refresh()
-        user5.click_gotomenu("Sales Management", "Shop Sales Query")
-        """根据IMEI筛选是否存记录,断言Shop Sales Query列表，字段内容是否正确，Total条数是否与筛选的IMEI一致"""
-        process.shop_sales_query_imei(get_imei1)
-        get_total = process.shop_sales_assert_total()
-        ValueAssert.value_assert_equal('1', get_total)
-        get_shop_id = process.get_list_field_text('Get Shop Sales list Shop ID')
-        ValueAssert.value_assert_equal('SN001872', get_shop_id)
-        """然后删除需要退货的IMEI，首先删除Shop Sales Query页面IMEI"""
-        process.shop_sales_query_delete()
-        DomAssert(drivers).assert_att('Deleted Successfully')
-        """"关闭Shop Sales Query页面"""
-        user5.click_close_open_menu()
+        # """断言收货成功后，打开Shop Sales Query列表，根据IMEI条件查询，IMEI是否入Shop Sales Query页面"""
+        # Base(drivers).refresh()
+        # user5.click_gotomenu("Sales Management", "Shop Sales Query")
+        # """根据IMEI筛选是否存记录,断言Shop Sales Query列表，字段内容是否正确，Total条数是否与筛选的IMEI一致"""
+        # process.shop_sales_query_imei(get_imei1)
+        # get_total = process.shop_sales_assert_total()
+        # ValueAssert.value_assert_equal('1', get_total)
+        # get_shop_id = process.get_list_field_text('Get Shop Sales list Shop ID')
+        # ValueAssert.value_assert_equal('SN001872', get_shop_id)
+        # """然后删除需要退货的IMEI，首先删除Shop Sales Query页面IMEI"""
+        # process.shop_sales_query_delete()
+        # DomAssert(drivers).assert_att('Deleted Successfully')
+        # """删除第二个IMEI"""
+        # process.shop_sales_query_imei(get_imei2)
+        # get_total = process.shop_sales_assert_total()
+        # ValueAssert.value_assert_equal('1', get_total)
+        # get_shop_id = process.get_list_field_text('Get Shop Sales list Shop ID')
+        # ValueAssert.value_assert_equal('SN001872', get_shop_id)
+        # """然后删除需要退货的IMEI，首先删除Shop Sales Query页面IMEI"""
+        # process.shop_sales_query_delete()
+        # DomAssert(drivers).assert_att('Deleted Successfully')
+        # """"关闭Shop Sales Query页面"""
+        # user5.click_close_open_menu()
 
         """Shop Purchase Query列表，筛选IMEI，然后Cancel取消 IMEI"""
-        Base(drivers).refresh()
-        user5.click_gotomenu("Purchase Management", "Shop Purchase Query")
+        # Base(drivers).refresh()
+        # user5.click_gotomenu("Purchase Management", "Shop Purchase Query")
         process.shop_purchase_query_imei(get_imei1)
         process.shop_purchase_query_cancel()
         DomAssert(drivers).assert_att('Cancel success')
+        sleep(1.2)
+        get_status = process.get_list_field_text('Get Shop Purchase list Status')
+        ValueAssert.value_assert_equal('Canceled', get_status)
+        """取消第二个IMEI"""
+        process.shop_purchase_query_imei(get_imei2)
+        process.shop_purchase_query_cancel()
+        DomAssert(drivers).assert_att('Cancel success')
+        sleep(1.2)
         get_status = process.get_list_field_text('Get Shop Purchase list Status')
         ValueAssert.value_assert_equal('Canceled', get_status)
         """"关闭Shop Purchase Query页面"""
         user5.click_close_open_menu()
 
-        """打开MEI Inventory Query菜单, 查看门店采购查询页面，删除的IMEI，是否转入渠道IMEI库存页面"""
+        """打开IMEI Inventory Query菜单, 查看门店采购查询页面，删除的IMEI，是否转入渠道IMEI库存页面"""
         Base(drivers).refresh()
         user5.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         process.imei_inventory_query_imei(get_imei1)
-        get_list_imei = process.get_list_field_text('获取IMEI文本内容1')
-        ValueAssert.value_assert_equal(get_list_imei, get_imei1)
+        get_list_imei1 = process.get_list_field_text('获取IMEI文本内容1')
+        ValueAssert.value_assert_equal(get_list_imei1, get_imei1)
+        process.imei_inventory_query_imei(get_imei2)
+        get_list_imei2 = process.get_list_field_text('获取IMEI文本内容1')
+        ValueAssert.value_assert_equal(get_list_imei2, get_imei2)
         """"关闭Shop Purchase Query页面"""
         user5.click_close_open_menu()
 
@@ -671,7 +766,8 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
-        return_order.add_return_order_box_sn_imei(get_imei1)
+        """退货操作，传参退2个IMEI"""
+        return_order.add_return_order_box_sn_imei(get_imei1, get_imei2)
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
         """点击提交按钮"""
@@ -852,13 +948,13 @@ class TestAddDeliveryOrder:
         user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Total', '2')
         user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Success', '2')
         user.assert_Record_result('Import Record', '出库单导入成功.xlsx', 'Import Date', today)
-        """断言ImportRecord页面结果"""
+        """断言Delivery Order页面结果"""
         user.click_menu("Sales Management", "Delivery Order")
         user.refresh()
         user.assert_first_info('Delivery Date', today)
         user.assert_first_info('Status', 'On Transit')
         user.assert_first_info('Product', 'SPARK Go 2021 32+2 MALDIVES BLUE')
-        user.assert_first_info('Product', 'Vision 3 32+2 DEEOCE BLACK')
+        user.assert_first_info('Product', 'Vision 3 32+2 DEEP OCEAN BLACK')
         OrderID = user.get_FirstRow_info('Delivery Order ID')
         """创建退货单退货"""
         user.click_menu("Sales Management", "Return Order")
@@ -901,7 +997,7 @@ class TestAddDeliveryOrder:
         user.assert_first_info('Delivery Date', today)
         user.assert_first_info('Status', 'On Transit')
         user.assert_first_info('Product', 'SPARK Go 2021 32+2 MALDIVES BLUE')
-        user.assert_first_info('Product', 'Vision 3 32+2 DEEOCE BLACK')
+        user.assert_first_info('Product', 'Vision 3 32+2 DEEP OCEAN BLACK')
         OrderID = user.get_FirstRow_info('Delivery Order ID')
         """创建退货单退货"""
         user.click_menu("Sales Management", "Return Order")
@@ -933,43 +1029,7 @@ class TestAddDeliveryOrder:
         user.assert_print_content(OrderID)
         user.assert_print_content(Date)
         user.assert_print_content(Product)
-
-
-    @allure.story("查询出库单")
-    @allure.title("组合条件筛选出库单，筛选出正确数据")
-    @allure.description("组合条件筛选出库单")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_009(self, drivers):
-        menu = LoginPage(drivers)
-        menu.initialize_login(drivers, "SN405554", "xLily6x")
-        """打开Sales Management/Delivery Ordery菜单"""
-        user = DeliveryOrderPage(drivers)
-        user.click_menu("Sales Management", "Delivery Order")
-        user.click_unfold()
-        user.input_search('Brand', 'itel')
-        user.input_search('Sales Order ID', '02HK2211220003')
-        user.input_search('Seller', 'SN405554')
-        user.click_search()
-        user.assert_Query_result('Sales Order ID', '02HK2211220003')
-        user.assert_Query_result('Brand', 'itel')
-
-
-    @allure.story("查询出库单")
-    @allure.title("组合条件筛选出库单，无筛选结果")
-    @allure.description("组合条件筛选出库单")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_010(self, drivers):
-        menu = LoginPage(drivers)
-        menu.initialize_login(drivers, "SN405554", "xLily6x")
-        """打开Sales Management/Delivery Ordery菜单"""
-        user = DeliveryOrderPage(drivers)
-        user.click_menu("Sales Management", "Delivery Order")
-        user.click_unfold()
-        user.input_search('Activated Loss Or Not', 'Yes')
-        user.click_search()
-        user.assert_NoData()
+        user.click_print_cancel()
 
 
     @allure.story("新建出库单")
@@ -1032,7 +1092,7 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal(get_delivery_order, delivery_code)
         ValueAssert.value_assert_equal("On Transit", get_deli_status)
 
-        """ 零售商NG2061301账号登录，进行快速收货 """
+        """ 二代NG2061301账号登录，进行快速收货 """
         user6.initialize_login(drivers, "NG2061301", "dcr123456")
         """打开采购单Purchase Management菜单"""
         user6.click_gotomenu("Purchase Management", "Inbound Receipt")
@@ -1099,6 +1159,8 @@ class TestAddDeliveryOrder:
         get_return_type = return_order.get_list_return_type()
         ValueAssert.value_assert_equal("Approved", status)
         ValueAssert.value_assert_equal('Return To Seller', get_return_type)
+
+
 
 
 if __name__ == '__main__':

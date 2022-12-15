@@ -65,7 +65,7 @@ Disable Yes: "xpath==//button[@class='el-button el-button--primary el-button--mi
 Get list Status: "xpath==//tbody//tr[@class='el-table__row']//td[38]//div[normalize-space(text())='variable']"
 #勾选复选框: "xpath==//tbody//tr[@class='el-table__row']//td[1]//div//label//..//span[@class='el-checkbox__inner']"
 
-#导入用户
+#导入客户信息
 Import Button: "xpath==//button[@id='enterprise_import_']//span[normalize-space(text())='Import']"
 Add Upload: "xpath==//button//span[normalize-space(text())='Add Upload']"
 Edit Upload: "xpath==//button//span[normalize-space(text())='Edit Upload']"

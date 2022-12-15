@@ -540,6 +540,13 @@ class Base(object):
         today1 = str(today)
         return today1
 
+    def get_last_day(self,days):
+        """获取过去几天的日期(DCR专用)"""
+        today = datetime.date.today()
+        last_days = today - datetime.timedelta(days)
+        last_day  = str(last_days)
+        return last_day
+
     def base_get_img(self, name='err'):
         """截图方法"""
         imgname = IMAGE_PATH + '\\' + "{}.png".format(name)
@@ -800,6 +807,7 @@ class Base(object):
                     if sc_element:
                         logging.info('{}表格字段不存在，向右滑动滚动条'.format(choice))
                         Base(self.driver).DivRolling(sc_element, num=i*1000)
+                        sleep(1)
                     else:
                         logging.error('{}表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动'.format(*choice))
                         raise
@@ -818,6 +826,26 @@ class Base(object):
         column_class = header_class.split(' ')[int(index)]
         logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))
         return column_class
+
+    def get_row_info(self, tb_element, column, sc_element=None):
+        """
+        获取表格每列内容，做查询断言
+        :param tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+        :param column: 列属性值 如：el-table_3_column_45
+        :param sc_element：内嵌div中有滑动条的定位
+
+        """
+        try:
+            contents = Base(self.driver).elements_inner_text(tb_element, column)
+            return contents
+        except:
+            if sc_element:
+                Base(self.driver).DivRolling(sc_element, direction='top')
+                contents = Base(self.driver).elements_inner_text(tb_element, column)
+                return contents
+            else:
+                logging.error('无法获取全部字段内容，请补充内嵌div：sc_element，以便上下滑动')
+                raise
 
     # POP输入框输入文本按enter键专用方法
     def input_enter(self,locator,content=None,choice=None):

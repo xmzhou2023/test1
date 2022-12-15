@@ -1,4 +1,7 @@
 import logging
+import time
+from datetime import datetime
+
 from project.DCR.page_object.StaffAuthorization_UserManagement import UserManagementPage
 from public.base.assert_ui import SQLAssert
 from libs.common.connect_sql import *
@@ -173,6 +176,280 @@ class TestAddEditQuitTranssionUser:
         add_transsion.click_reset()
         user_id2 = add_transsion.get_text_user_id()
         ValueAssert.value_assert_IsNot(user_id1, user_id2)
+
+    @allure.story("用户管理")
+    @allure.title("新建代理员工，User ID输入内部员工时，提示报错，使用非内部员工数字能创建成功。")
+    @allure.description("新建代理员工，staff type选择Dealer Staff，使用输入User ID是内部员工时，提示失败，然后使用非内部员工数字能成功。")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_002(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        UserID = '18650493'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        add.click_add_user()
+        """User ID输入内部员工 提示报错"""
+        add.input_Job_Information('User ID', UserID)
+        DomAssert(drivers).assert_att(f'{UserID}, user center has been detected. Please change the staff type to Transsion Staff or change the user ID')
+        """使用非内部员工数字 创建用户"""
+        UserID = str(int(time.time()))
+        add.input_Job_Information('Belong To Customer', 'SN405554')
+        add.input_Job_Information('User ID', UserID)
+        add.input_Job_Information('User Name', '非内部员工数字')
+        add.input_Job_Information('Sales Region', 'Kaolack')
+        add.input_Job_Information('Country/City', 'Kaolack')
+        add.input_Job_Information('Position', 'wjk管理')
+        add.input_Job_Information('Superior', '18650493')
+        add.input_Job_Information('Brand', 'Infinix')
+        add.input_Personal_Information('Gender', 'Male')
+        add.click_add_user_submit()
+        add.input_search('User ID', UserID)
+        add.click_search()
+        add.assert_User_Exist('User ID', UserID)
+        add.click_checkbox(UserID)
+        add.click_more_option_quit()
+        DomAssert(drivers).assert_att('Disabled Successfully')
+
+    @allure.story("用户管理")
+    @allure.title("已离职员工，不允许新增")
+    @allure.description("新增在HR已离职的员工，不允许新增，提示信息为“员工已在用户中心离职，不允许新增”")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_003(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        UserID = '18650494'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        add.click_add_user()
+        """User ID输入内部已辞职员工 提示报错"""
+        add.input_Job_Information('User ID', UserID)
+        DomAssert(drivers).assert_att("The staff has resigned in the user center and can't be added")
+
+    @allure.story("用户管理")
+    @allure.title("代理员工的员工类型、ID、所属客户置灰不可编辑")
+    @allure.description("页面进入代理员工编辑页，员工类型、ID、所属客户置灰不可编辑")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_004(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        userID = 'SN400001'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """筛选代理员工"""
+        add.input_search('User ID', userID)
+        add.click_search()
+        """点击编辑 代理员工的ID/所属客户置灰不可编辑"""
+        add.click_Edit(userID)
+        add.assert_input_edit('Staff Type')
+        add.assert_input_edit('Belong To Customer')
+        add.assert_input_edit('User ID')
+
+    @allure.story("用户管理")
+    @allure.title("已离职员工不可编辑")
+    @allure.description("用户中心已离职的员工编辑提示：该用户已在用户中心离职，不能编辑")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_005(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        UserID = '18645293'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """筛选已离职员工"""
+        add.click_unfold()
+        add.input_search('User ID', UserID)
+        add.input_search('Staff Status', 'Off Service')
+        add.click_search()
+        """点击编辑 保存 提示用户已离职不可编辑"""
+        add.click_Edit(UserID)
+        add.click_add_user_submit()
+        DomAssert(drivers).assert_att("This user has left the user center and cannot edit")
+
+    @allure.story("用户管理")
+    @allure.title("批导编辑传音员工，编辑用户类型失败；编辑已离职员工失败；编辑个人信息不生效")
+    @allure.description("批导编辑传音员工，编辑用户类型失败；编辑已离职员工失败；批导编辑传音员工姓名、性别、个人邮箱、语言、入职日期字段不生效")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_006(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        UserID = '18650493'
+        today = datetime.now().strftime('%Y-%m-%d')
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """点击导入"""
+        add.click_EditImport()
+        add.import_file('传音员工批导_离职员工_用户类型_个人信息.xlsx')
+        add.assert_import_success()
+        add.click_save()
+        DomAssert(drivers).assert_att('The file has been uploaded successfully. Data is being imported, please wait for a few minutes and go to the Import Record page to check the results.')
+        add.click_confirm()
+        """断言:导入结果，成功数量1:编辑个人信息成功但不生效，失败数量2:编辑用户类型失败；编辑已离职员工失败；"""
+        add.assert_Record_result('Import Record', '传音员工批导_离职员工_用户类型_个人信息.xlsx', 'Total', '3')
+        add.assert_Record_result('Import Record', '传音员工批导_离职员工_用户类型_个人信息.xlsx', 'Success', '1')
+        add.assert_Record_result('Import Record', '传音员工批导_离职员工_用户类型_个人信息.xlsx', 'Failed', '2')
+        add.assert_Record_result('Import Record', '传音员工批导_离职员工_用户类型_个人信息.xlsx', 'Import Date', today)
+        """断言:编辑个人信息不生效"""
+        add.click_menu("Staff & Authorization", "User Management")
+        add.click_unfold()
+        add.input_search('User ID', UserID)
+        add.click_search()
+        add.click_Edit(UserID)
+        add.assert_user_Information('User Name', '翁佳柯')
+        add.assert_user_Information('Hire Date', '2021-12-30')
+        add.assert_user_Information('Email', 'JIAKE.WENG@TRANSSION.COM')
+        add.assert_user_Information('Gender', 'Male')
+
+    @allure.story("用户管理")
+    @allure.title("批导编辑员工信息成功生效")
+    @allure.description("支持导入编辑员工信息，检查成功的（比如职位）")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_007(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """变量"""
+        suffix = datetime.now().strftime("%Y%m%d%H%M%S")
+        DealerName = 'wjkDealerImport' + suffix
+        TranssionName = 'wjk传音员工' + suffix
+        ContactNo = 'ContactNo' + suffix
+        DealerID = 'SN40000301'
+        TranssionInternalID = '18650493'
+        TranssionExternalID = 'wjkTS004'
+        user_list = 'SN40000301,18650493,wjkTS004'
+        today = datetime.now().strftime('%Y-%m-%d')
+        """点击用户管理菜单"""
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """点击导入"""
+        add.click_EditImport()
+        add.Edit_User_file('员工批导_编辑信息成功.xlsx', DealerID, 'User Name', DealerName)
+        add.Edit_User_file('员工批导_编辑信息成功.xlsx', TranssionExternalID, 'User Name', TranssionName)
+        add.Edit_User_file('员工批导_编辑信息成功.xlsx', DealerID, 'Contact No.', ContactNo)
+        add.Edit_User_file('员工批导_编辑信息成功.xlsx', TranssionExternalID, 'Contact No.', ContactNo)
+        add.Edit_User_file('员工批导_编辑信息成功.xlsx', TranssionInternalID, 'Contact No.', ContactNo)
+        add.EditImport_file('员工批导_编辑信息成功.xlsx')
+        add.assert_import_success()
+        add.click_save()
+        DomAssert(drivers).assert_att('The file has been uploaded successfully. Data is being imported, please wait for a few minutes and go to the Import Record page to check the results.')
+        add.click_confirm()
+        """断言:导入结果，成功数量3:编辑个人信息成功"""
+        add.assert_Record_result('Import Record', '员工批导_编辑信息成功.xlsx', 'Total', '3')
+        add.assert_Record_result('Import Record', '员工批导_编辑信息成功.xlsx', 'Success', '3')
+        add.assert_Record_result('Import Record', '员工批导_编辑信息成功.xlsx', 'Import Date', today)
+        """筛选用户"""
+        add.click_menu("Staff & Authorization", "User Management")
+        add.click_unfold()
+        add.input_search('User ID', user_list)
+        add.click_search()
+        """断言:代理员工编辑个人信息生效"""
+        add.click_Edit(DealerID)
+        add.assert_user_Information('User Name', DealerName)
+        add.assert_user_Information('Contact No.', ContactNo)
+        add.click_Cancel()
+        """断言:传音内部员工编辑个人信息生效"""
+        add.click_Edit(TranssionInternalID)
+        add.assert_user_Information('Contact No.', ContactNo)
+        add.click_Cancel()
+        """断言:传音外部员工编辑个人信息生效"""
+        add.click_Edit(TranssionExternalID)
+        add.assert_user_Information('User Name', TranssionName)
+        add.assert_user_Information('Contact No.', ContactNo)
+        add.click_Cancel()
+
+    @allure.story("用户管理")
+    @allure.title("用户复职后，能正常访问DCR系统")
+    @allure.description("用户离职又复职后，能正常登录DCR系统,访问不同菜单，不会出现token失效的问题")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_008(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        UserID = 'wjkTS003'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """复职用户"""
+        add.enable_user_Method(UserID)
+        """登录复职用户账号 访问DCR系统 点击菜单Add进入创建页面然后取消"""
+        user.initialize_login(drivers, UserID, "xLily6x")
+        add.click_menu("Staff & Authorization", "User Management")
+        add.click_Add()
+        add.click_Cancel()
+        add.click_menu("Customer Management", "Customer Management (global)")
+        add.click_Add()
+        add.click_Cancel()
+        add.click_menu("Shop Management", "Shop Management (global)")
+        add.click_Add()
+        add.click_Cancel()
+        add.click_menu("Sales Management", "Sales Order")
+        add.click_Add()
+        add.click_Cancel()
+        """停职用户"""
+        add.click_menu("Staff & Authorization", "User Management")
+        add.disable_user_Method(UserID)
+
+    @allure.story("用户管理")
+    @allure.title("内部员工不能直接重置成功")
+    @allure.description("内部员工不能直接重置，提示报错")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_009(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        userID = '18650493'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """重置密码"""
+        add.input_search('User ID', userID)
+        add.click_search()
+        add.click_checkbox(userID)
+        add.click_function_button('Reset Password')
+        """断言：提示内部用户不可以重置密码"""
+        DomAssert(drivers).assert_att("Transsion account can't be reset password in the DCR")
+        add.refresh()
+
+    @allure.story("用户管理")
+    @allure.title("新建员工，输入内部员工ID自动同步信息")
+    @allure.description("新建传音员工，staff type选择Transsion Staff，能自动同步姓名、入职日期信息")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_010(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        userID = '18650493'
+        userName = '翁佳柯'
+        hireDate = '2021-12-30'
+        email = 'JIAKE.WENG@TRANSSION.COM'
+        gender = 'Male'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        add.click_add_user()
+        add.input_Job_Information('Staff Type', 'Transsion Staff')
+        add.input_Job_Information('User ID', userID)
+        add.assert_user_Information('User Name', userName)
+        add.assert_user_Information('Hire Date', hireDate)
+        add.assert_user_Information('Email', email)
+        add.assert_user_Information('Gender', gender)
 
 
 @allure.feature("员工授权-用户管理")

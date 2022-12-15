@@ -73,5 +73,20 @@ class TestIMEIQuery:
         ValueAssert.value_assert_equal(get_list_imei, get_imei)
         #imei_query.click_close_imei_query()
 
+    @allure.story("导出IMEI")
+    @allure.title("导出IMEI")
+    @allure.description("导出IMEI")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    @pytest.mark.usefixtures('function_imei_query_fixture')
+    def test_002_002(self, drivers):
+        user1 = LoginPage(drivers)
+        user1.initialize_login(drivers, "lhmadmin", "dcr123456")
+        user1.click_gotomenu("IMEI Management", "IMEI Query")
+        user = IMEIQueryPage(drivers)
+        user.input_code('356209114268102')
+        user.click_export()
+        user.assert_export_success()
+
 if __name__ == '__main__':
     pytest.main(['IMEIManagement_IMEIQuery.py'])

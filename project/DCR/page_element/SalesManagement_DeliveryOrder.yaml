@@ -78,6 +78,7 @@ Delivery Start Date: "xpath==//div//input[@id='deliveryorder_input_deliveryDate'
 Delivery End Date: "xpath==//div//input[@id='deliveryorder_input_deliveryDate1']"
 Total: "xpath==//span[contains(text(), 'Total')]"
 点击状态输入框: "xpath==//label[contains(text(),'Status')]//parent::div//following-sibling::div//input"
+Click Export Detail: "id==deliveryorder_Export Detail"
 
 #列表导出出库单，导出成功后断言
 Download Icon: "id==download-icon"
@@ -121,3 +122,5 @@ click输入框: "xpath==//label[normalize-space(text())='variable']/..//div[not(
 click输入框2: "xpath==//label[normalize-space(text())='variable']/..//div[not(contains(@style,'display: none;'))]/input[contains(@class,'el-select__input')]"
 click输入框选择: "xpath==//div[contains(@x-placement,'start')]//li/span[normalize-space(text())='variable']"
 NoData: "xpath==//div[@class='el-table__empty-block']"
+打印Cancel: "xpath==//div[normalize-space(text())='Delivery Order']/../../..//span[normalize-space(text())='Cancel']"
+DeliveryOrdery表格退货标签: "xpath==//td[contains(@class,'variable   ') and not(contains(@class, 'is-hidden'))]/div/div/div"

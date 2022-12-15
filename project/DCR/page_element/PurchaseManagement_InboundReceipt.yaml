@@ -9,7 +9,7 @@ Select TECNO: "xpath==//span[text()='TECNO']"
 Select itel: "xpath==//span[text()='itel']"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-Click IMEI Detail: "xpath==//span[contains(text(),'IMEI Detail')]"
+Click IMEI Detail: "xpath==//button//span[contains(text(),'IMEI Detail')]"
 Quick Received select Warehouse: "xpath==//label[contains(text(),'Warehouse')]//parent::div//following-sibling::div//input"
 Select Warehouse Value: "xpath==//span[contains(text(),'variable')]"
 
@@ -32,7 +32,7 @@ Get IMEI Detail Product: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//
 Get IMEI Detail Item: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//tbody//tr//td[3]//div"
 Get IMEI Detail Brand: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//tbody//tr//td[5]//div"
 Get IMEI Detail IMEI: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//tbody//tr//td[6]//div"
-Get IMEI Detail Total: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//div//span[contains(text(),'Total')]"
+Get IMEI Detail Total: "xpath==//div/..//span[contains(text(),'DN:')]/../..//div//span[contains(text(),'Total')]"
 Get IMEI Detail Export: "id==inbound_receipt_imei_export_"
 Get DN Delivery Order ID: "xpath==//div/..//span[contains(text(),'DN: ')]"
 

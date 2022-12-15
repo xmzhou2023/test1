@@ -1,3 +1,7 @@
+import logging
+
+from openpyxl import load_workbook
+
 from libs.common.read_element import Element
 from public.base.basics import Base
 from libs.common.time_ui import sleep
@@ -510,6 +514,326 @@ class UserManagementPage(Base):
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
+
+    @allure.step("点击Unfold 展开筛选项")
+    def click_unfold(self):
+        self.is_click(user['Unfold'])
+        logging.info('点击Unfold 展开筛选项')
+
+    @allure.step("user management页面，输入查询条件")
+    def input_search(self, header, content):
+        country_list = ['Sales Region', 'Country/City']
+        FuzzySelect_list = ['Belong To Customer', 'Superior']
+        ExactSelect_list = ['Staff Status']
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if header == 'User ID':
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框3'], content, header)
+        elif header == 'User Name':
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框2'], content, header)
+            self.is_click_tbm(user['输入结果模糊选择'], content)
+        elif header in ExactSelect_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.is_click_tbm(user['输入结果精确选择'], content)
+        else:
+            logging.error('请输入正确的查询条件')
+            raise ValueError('请输入正确的查询条件')
+
+    @allure.step("创建页面输入Job_Information")
+    def input_Job_Information(self, header, content):
+        user_list = ['User ID', 'User Name']
+        country_list = ['Sales Region', 'Country/City']
+        FuzzySelect_list = ['Belong To Customer', 'Superior']
+        ExactSelect_list = ['Position']
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if header in user_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+        elif header in country_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['地区选择框'], content)
+        elif header in FuzzySelect_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['输入结果模糊选择'], content)
+        elif header in ExactSelect_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['输入结果精确选择'], content)
+        elif header == 'Brand':
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['Brand输入框'], content, header)
+            self.is_click_tbm(user['输入结果精确选择'], content)
+        elif header == 'Staff Type':
+            self.is_click_tbm(user['输入框'], header)
+            self.is_click_tbm(user['输入结果精确选择'], content)
+        elif header == 'Shop':
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框2'], content, header)
+            self.is_click_tbm(user['输入结果模糊选择'], content)
+        else:
+            logging.error('请输入正确的查询条件')
+            raise ValueError('请输入正确的查询条件')
+        self.is_click_tbm(user['JobInformation标题'])
+
+    @allure.step("创建页面输入Personal_Information")
+    def input_Personal_Information(self, header, content):
+        user_list = ['User ID', 'User Name']
+        country_list = ['Sales Region', 'Country/City']
+        FuzzySelect_list = ['Belong To Customer', 'Superior']
+        ExactSelect_list = ['Position']
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if header == 'Gender':
+            self.is_click_tbm(user['输入框'], header)
+            self.is_click_tbm(user['输入结果精确选择'], content)
+
+    @allure.step("断言：页面查询结果")
+    def assert_User_Exist(self, header, content):
+        logging.info('开始断言：页面查询结果')
+        DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
+
+    @allure.step("点击复选框")
+    def click_checkbox(self, UID):
+        self.is_click_tbm(user['指定复选框'], UID)
+        logging.info(f'点击 {UID} 复选框')
+
+    @allure.step("点击指定编辑")
+    def click_Edit(self, UID, header='User ID'):
+        column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+        self.is_click_tbm(user['指定编辑'], column, UID)
+        logging.info('点击指定编辑')
+        self.element_exist(user['EditLoading'])
+
+    @allure.step("断言：输入框是否可以编辑")
+    def assert_input_edit(self, header, result=False):
+        logging.info('开始断言：输入框是否可以编辑')
+        # acresult = self.get_element_attribute(user['输入框'], 'disabled', header)
+        acresult = self.find_element(user['输入框'], header).is_enabled()
+        try:
+            assert acresult == result
+            logging.info(f'断言成功，{header} 输入框编辑状态是 {acresult} ，与期望结果 {result} 一致')
+        except:
+            logging.info(f'断言失败，{header} 输入框编辑状态是 {acresult} ，与期望结果 {result} 不一致')
+            raise
+
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.refresh()
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user['菜单'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+        self.refresh()
+
+    @allure.step("点击Upload按钮")
+    def click_upload(self):
+        self.is_click(user['Upload'])
+        logging.info('点击upload按钮')
+        # k = PyKeyboard()
+        # k.tap_key(k.escape_key)
+
+    @allure.step("点击Upload按钮")
+    def click_EditUpload(self):
+        self.is_click(user['EditUpload'])
+        logging.info('点击upload按钮')
+
+    @allure.step("点击Import按钮")
+    def click_AddImport(self):
+        self.is_click(user['Import'])
+        logging.info('点击Import按钮')
+        self.click_upload()
+
+    @allure.step("点击Import按钮")
+    def click_EditImport(self):
+        self.is_click(user['Import'])
+        logging.info('点击Import按钮')
+        self.click_EditUpload()
+
+    @allure.step("点击Save按钮")
+    def click_save(self):
+        self.is_click(user['Save'])
+        logging.info('点击Save按钮')
+
+    @allure.step("点击Confirm按钮")
+    def click_confirm(self):
+        self.is_click(user['Confirm'])
+        logging.info('点击Confirm按钮')
+        sleep(2)
+        self.refresh()
+
+    @allure.step("断言：导入成功状态")
+    def assert_import_success(self):
+        logging.info("开始断言：导入成功状态")
+        DomAssert(self.driver).assert_control(user['导入成功状态'])
+
+    @allure.step("导入文件")
+    def import_file(self, name):
+        """
+        @name： 传入存放在data文件夹里的文件名
+        """
+        file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
+        logging.info("文件地址：{}".format(file_path))
+        self.upload_file(user['导入'], file_path)
+        logging.info("导入文件：{}".format(file_path))
+
+    @allure.step("导入文件")
+    def EditImport_file(self, name):
+        """
+        @name： 传入存放在data文件夹里的文件名
+        """
+        file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
+        logging.info("文件地址：{}".format(file_path))
+        self.upload_file(user['导入'], file_path)
+        logging.info("导入文件：{}".format(file_path))
+
+    @allure.step("获得Record指定内容")
+    def get_Record_info(self, menu, name, header):
+        """
+        :param menu: 菜单名
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        """
+        for i in range(20):
+            ac_menu = self.element_text(user['当前菜单'])
+            if ac_menu == menu:
+                column = self.get_table_info(user['表格字段'], header)
+                content = self.element_text(user['表格指定列内容'], name, column)
+                logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+                return content
+            self.click_menu('Basic Data Management', menu)
+            column = self.get_table_info(user['表格字段'], header)
+            content = self.element_text(user['表格指定列内容'], name, column)
+            logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+            return content
+
+    @allure.step("检查导入导出记录状态是否为Upload Successfully")
+    def check_Record_result(self, menu, name):
+        for i in range(20):
+            RecordResult = self.get_Record_info(menu, name, 'Status')
+            if RecordResult == 'Execute':
+                logging.info(f'Status结果为{RecordResult}，刷新更新结果状态')
+                self.click_search()
+                sleep(1)
+            elif RecordResult == 'Upload Successfully':
+                logging.info(f'Status结果为{RecordResult}')
+                return
+            else:
+                logging.error('上传结果异常，请检查')
+                raise ValueError('上传结果异常，请检查')
+
+    @allure.step("断言：导入导出Record结果")
+    def assert_Record_result(self, menu, name, header, result=None):
+        """
+        :param menu: 菜单
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        :param result: 需要断言的值 比如状态，数量，时间
+        """
+        logging.info('开始断言：导入导出Record结果')
+        self.check_Record_result(menu, name)
+        ac_result = self.get_Record_info(menu, name, header)
+        if header == 'File Size':
+            ValueAssert.value_assert_IsNot(ac_result, '0B')
+            logging.info(f'断言成功：{menu} 页面 {name}文件的FileSize实际结果{ac_result}，大于0B')
+        else:
+            ValueAssert.value_assert_In(result, ac_result)
+            logging.info(f'断言成功：{menu} 页面{name}文件{header} 字段实际结果{ac_result} 与期望结果{result}一致')
+
+    @allure.step("获得Edit页面Information")
+    def get_Edit_Information(self, header):
+        """
+        :param header: 需要获取的指定字段
+        """
+        Information = self.element_input_text(user['输入框'], header)
+        logging.info(f'获得Edit页面{header} 字段 Information：{Information}')
+        return Information
+
+    @allure.step("断言：页面Information一致")
+    def assert_user_Information(self, header, content):
+        """
+        :param header: 需要断言的字段名
+        :param content: 需要断言的内容
+        """
+        logging.info(f'开始断言：Edit页面Information一致')
+        ValueAssert.value_assert_equal(content, self.get_Edit_Information(header))
+
+    @allure.step("导入员工文件编辑")
+    def Edit_User_file(self, name, UID, header, content):
+        logging.info(f'开始编辑 {name} Excel文件')
+        file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
+        logging.info("文件地址：{}".format(file_path))
+        workbook = load_workbook(filename=file_path)
+        sheet = workbook.active
+        id_cells = sheet['B']
+        for i in id_cells:
+            if str(i.value) == UID:
+                logging.info(f'获取excle表格指定UID：坐标：{i.coordinate} : {i.value}')
+                header_cells = sheet['1']
+                for j in header_cells:
+                    if j.value == header:
+                        sheet.cell(row=i.row, column=j.column).value = content
+                        logging.info(f'修改行：{i.row}，列：{j.column} 内容：{content}')
+        workbook.save(filename=file_path)
+
+    @allure.step("点击取消")
+    def click_Cancel(self):
+        self.is_click_tbm(user['Cancel'])
+        logging.info("点击取消")
+
+    @allure.step("点击Add")
+    def click_Add(self):
+        self.is_click_tbm(user['Add1'])
+        logging.info("点击Add")
+
+    @allure.step("点击功能按钮")
+    def click_function_button(self, function):
+        """
+        @function： 需要点击的功能按钮，具体如下：
+        Add, Import, Export, More Option,
+        Enable, Reset Password, Quit
+        """
+        MoreOptionList = ['Enable', 'Reset Password', 'Quit']
+        if function in MoreOptionList:
+            self.is_click(user['功能按钮'], 'More Option')
+            self.is_click(user['功能按钮2'], function)
+            if function == 'Quit':
+                self.is_click_tbm(user['UserDisableSettingYes'])
+            elif function == 'Enable':
+                self.is_click_tbm(user['EnableEmployeesYes'])
+            elif function == 'Reset Password':
+                self.is_click_tbm(user['ResetPasswordYes'])
+        else:
+            self.is_click(user['功能按钮'], function)
+        logging.info(f'点击功能按钮： {function}')
+
+    @allure.step("复职用户 组合方法")
+    def enable_user_Method(self, uid):
+        logging.info('开始使用组合方法: 复职用户')
+        self.input_search('User ID', uid)
+        self.click_search()
+        if self.element_exist(user['NoData']) is False:
+            self.click_checkbox(uid)
+            self.click_function_button('Quit')
+            DomAssert(self.driver).assert_att('Disabled Successfully')
+        self.input_search('Staff Status', 'Off Service')
+        self.click_search()
+        self.click_checkbox(uid)
+        self.click_function_button('Enable')
+        DomAssert(self.driver).assert_att('Set Up Successfully')
+        self.refresh()
+
+    @allure.step("停职用户 组合方法")
+    def disable_user_Method(self, uid):
+        logging.info('开始使用组合方法: 停职用户')
+        self.input_search('User ID', uid)
+        self.click_search()
+        self.click_checkbox(uid)
+        self.click_function_button('Quit')
+        DomAssert(self.driver).assert_att('Disabled Successfully')
+        self.refresh()
 
 
 if __name__ == '__main__':

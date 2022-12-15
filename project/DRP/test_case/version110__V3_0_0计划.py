@@ -39,8 +39,9 @@ class Teststory_1811:
     @pytest.mark.smoke  # 用例标记
     def test_10573(self, drivers):
         robot = KeyWord(drivers)
-        robot.AI_get("http://10.250.112.166:9000/")
-        robot.AI_find_element(By.XPATH, "(//button[@type='button'])[6]").click()
+        robot.AI_get("http://10.250.112.166:9000/")#id0fc2a292-ab04-44a8-bb41-7a780c686f8b
+        robot.AI_find_element(By.XPATH, "(//button[@type='button'])[6]").click()#id421fb9ad-e01a-411b-9102-40feb4a0a47f
+
 
 
     @allure.story("DRP提报批量提交功能支持校验oneworks审批流程是否已经发起")  # 用户故事名称
@@ -53,4 +54,4 @@ class Teststory_1811:
 
 
 if __name__ == '__main__':
-      pass
+    pass

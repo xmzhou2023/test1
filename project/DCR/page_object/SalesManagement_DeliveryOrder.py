@@ -1,6 +1,7 @@
 from datetime import datetime
 from openpyxl import load_workbook
-from pykeyboard import PyKeyboard
+# from pykeyboard import PyKeyboard
+from pykeyboard import *
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from libs.config.conf import BASE_DIR
@@ -163,10 +164,10 @@ class DeliveryOrderPage(Base):
     @allure.step("输入Delivery Date开始与结束日期筛选")
     def input_delivery_date(self, content1, content2):
         self.is_click(user['Delivery Start Date'])
-        self.input_text(user['Delivery Start Date'], txt=content1)
+        self.readonly_input_text(user['Delivery Start Date'], content1)
         sleep(1)
         self.is_click(user['Delivery End Date'])
-        self.input_text(user['Delivery End Date'], txt=content2)
+        self.readonly_input_text(user['Delivery End Date'], content2)
 
     @allure.step("点击 Status输入框")
     def click_status_input_box(self):
@@ -488,8 +489,8 @@ class DeliveryOrderPage(Base):
     def click_upload(self):
         self.is_click(user['Upload'])
         logging.info('点击upload按钮')
-        k = PyKeyboard()
-        k.tap_key(k.escape_key)
+        # k = PyKeyboard()
+        # k.tap_key(k.escape_key)
 
     @allure.step("点击Import按钮")
     def click_import(self):
@@ -499,12 +500,19 @@ class DeliveryOrderPage(Base):
 
     @allure.step("导入文件")
     def import_file(self, name):
+        """
+        @name： 传入存放在data文件夹里的文件名
+        """
         file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
         logging.info("文件地址：{}".format(file_path))
         self.upload_file(user['导入'], file_path)
+        logging.info("导入文件：{}".format(file_path))
 
-    @allure.step("导入门店销量文件")
+    @allure.step("导入出库单文件")
     def import_DeliveryOrdery_file(self, name):
+        """
+        :param name： 传入存放在data文件夹里的文件名
+        """
         file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
         logging.info("文件地址：{}".format(file_path))
         today = datetime.now().strftime('%Y-%m-%d')
@@ -515,6 +523,7 @@ class DeliveryOrderPage(Base):
             cell.value = today
         workbook.save(filename=file_path)
         self.upload_file(user['导入'], file_path)
+        logging.info("导入出库单文件：{}".format(file_path))
 
     @allure.step("点击Save按钮")
     def click_save(self):
@@ -530,6 +539,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("断言：导入成功状态")
     def assert_import_success(self):
+        logging.info("开始断言：导入成功状态")
         DomAssert(self.driver).assert_control(user['导入成功状态'])
 
     @allure.step("获得首行指定内容")
@@ -546,6 +556,7 @@ class DeliveryOrderPage(Base):
             logging.info('获取首行 {} 内容：{}'.format(header, content_list))
             return content_list
         else:
+            logging.info('获取首行 {} 内容：{}'.format(header, content))
             return content
 
     @allure.step("断言首行字段是否正确")
@@ -553,6 +564,7 @@ class DeliveryOrderPage(Base):
         """
         :param header: 需要获取的指定字段
         """
+        logging.info('开始断言：首行字段是否正确')
         ac_info = self.get_FirstRow_info(header)
         ValueAssert.value_assert_In(content, ac_info)
 
@@ -568,8 +580,13 @@ class DeliveryOrderPage(Base):
             if ac_menu == menu:
                 column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
                 content = self.element_text(user['表格指定列内容'], name, column)
-                logging.info('获取 {} 页面 {} 字段内容：{}'.format(menu, header, content))
+                logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
                 return content
+            self.click_menu('Basic Data Management', menu)
+            column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+            content = self.element_text(user['表格指定列内容'], name, column)
+            logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+            return content
 
     @allure.step("断言：ImportRecord导入结果")
     def assert_Record_result(self, menu, name, header, result=None):
@@ -579,6 +596,7 @@ class DeliveryOrderPage(Base):
         :param header: 需要获取的指定字段
         :param result: 需要断言的值 比如状态，数量，时间
         """
+        logging.info('开始断言：ImportRecord导入结果')
         ac_result = self.get_Record_info(menu, name, header)
         if header == 'File Size':
             ValueAssert.value_assert_IsNot(ac_result, '0B')
@@ -591,6 +609,7 @@ class DeliveryOrderPage(Base):
         :param header: 需要获取的指定字段
         :param content: 需要断言的值
         """
+        logging.info('开始断言：ShopSalesQuery导入结果')
         DomAssert(self.driver).assert_search_result(user['表格字段'], user['DeliveryOrdery表格内容'], header, content, sc_element=user['DeliveryOrdery滚动条'], h_element=user['表头文本'])
 
     @allure.step("查找菜单")
@@ -604,9 +623,14 @@ class DeliveryOrderPage(Base):
     @allure.step("点击首行print")
     def click_First_print(self):
         self.is_click_tbm(user['首行print'])
+        logging.info("点击首行print")
 
     @allure.step("断言：print页面内容是否正确")
     def assert_print_content(self, content):
+        """
+        :param content: 需要断言的内容
+        """
+        logging.info('开始断言：print页面内容是否正确')
         if isinstance(content, str):
             try:
                 result = self.element_exist(user['打印内容'], content)
@@ -627,11 +651,16 @@ class DeliveryOrderPage(Base):
 
     @allure.step("输入查询条件")
     def input_search(self, header, content):
+        """
+        :param header: 需要查询的字段
+        :param content: 查询内容
+        """
         input_list = ['Sales Order ID', 'Delivery Order ID']
         select_list = ['Seller', 'Buyer', 'Creator']
-        click_list = ['Status', 'Brand']
-        click_list2 = ['Activated Loss Or Not']
+        click_list = ['Brand', 'Model', 'Market Name', 'Buyer Country', 'Seller Country']
+        click_list2 = ['Status', 'Activated Loss Or Not', 'Have Discount', 'Upload Type', 'Buyer Type', 'Seller Type', 'Return or not', 'Payment Mode']
         time_list = ['Delivery Date']
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
         if header in input_list:
             self.input_text(user['input输入框'], content, header)
         elif header in select_list:
@@ -653,7 +682,56 @@ class DeliveryOrderPage(Base):
 
     @allure.step("断言：查询结果为空")
     def assert_NoData(self):
+        logging.info('开始断言：查询结果为空')
         DomAssert(self.driver).assert_control(user['NoData'])
+
+    @allure.step("输入查询条件")
+    def click_export_detail(self):
+        self.is_click(user['Click Export Detail'])
+        sleep(6)
+
+    @allure.step("点击print页面取消")
+    def click_print_cancel(self):
+        self.is_click_tbm(user['打印Cancel'])
+        logging.info('点击print页面取消')
+
+    @allure.step("单一条件查询断言组合方法")
+    def assert_Query_Method(self, header, content):
+        """
+        :param header: 需要断言的字段
+        :param content: 断言内容
+        """
+        logging.info('开始断言：单一条件查询结果')
+        self.input_search(header, content)
+        self.click_search()
+        if header == 'Seller' or header == 'Buyer':
+            self.assert_Query_result(f'{header} ID', content)
+        elif header == 'Have Discount':
+            column = self.get_table_info(user['表格字段'], 'Total Discount', sc_element=user['DeliveryOrdery滚动条'], h_element=user['表头文本'])
+            contents = self.get_row_info(user['DeliveryOrdery表格内容'], column, user['DeliveryOrdery滚动条'])
+            if content == 'Yes':
+                for i in contents:
+                    ValueAssert.value_assert_Notequal(i, '0')
+            else:
+                for i in contents:
+                    ValueAssert.value_assert_equal(i, '0')
+        elif header == 'Return or not':
+            column = self.get_table_info(user['表格字段'], 'Return Quantity', sc_element=user['DeliveryOrdery滚动条'], h_element=user['表头文本'])
+            ac_content = self.find_elements(user['DeliveryOrdery表格退货标签'], column)
+            as_value = 'color: red'
+            if content == 'Yes':
+                for i in ac_content:
+                    ValueAssert.value_assert_Notequal(i.text, '0')
+                    style = i.get_attribute('style')
+                    ValueAssert.value_assert_In(as_value, style)
+            else:
+                for i in ac_content:
+                    ValueAssert.value_assert_equal(i.text, '0')
+                    style = i.get_attribute('style')
+                    ValueAssert.value_assert_InNot(as_value, style)
+        else:
+            self.assert_Query_result(header, content)
+        self.click_reset()
 
 
 if __name__ == '__main__':

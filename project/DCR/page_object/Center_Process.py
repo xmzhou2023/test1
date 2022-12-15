@@ -281,9 +281,9 @@ class SalesOrderPage(Base):
         return get_list_total1
 
     @allure.step("IMEI Inventory Query菜单, 根据IMEI条件筛选库存IMEI记录")
-    def imei_inventory_query_imei(self, imei):
+    def imei_inventory_query_imei(self, query_imei):
         self.click_unfold()
-        self.input_text(user['IMEI Inventory Query IMEI'], imei)
+        self.input_text(user['IMEI Inventory Query IMEI'], query_imei)
         self.click_fold()
         self.click_inventory_search()
 
@@ -309,6 +309,7 @@ class SalesOrderPage(Base):
 
     @allure.step("Shop Sales Query菜单, 获取列表分页总条数")
     def shop_sales_assert_total(self):
+        self.presence_sleep_dcr(user['Get Shop Sales list Total'])
         get_total = self.element_text(user['Get Shop Sales list Total'])
         get_total1 = get_total[6:]
         return get_total1
@@ -318,6 +319,12 @@ class SalesOrderPage(Base):
         self.presence_sleep_dcr(user[field])
         get_field = self.element_text(user[field])
         return get_field
+
+
+    @allure.step("断言 Shop Purchase Query列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_shop_purchase_query_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['滚动条'])
+
 
     @allure.step("Shop Sales Query菜单, 勾选记录，然后点击删除功能")
     def shop_sales_query_delete(self):
@@ -332,7 +339,7 @@ class SalesOrderPage(Base):
     def shop_purchase_query_imei(self, imei):
         self.input_text(user['Shop Purchase Query IMEI'], imei)
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(2.5)
+        sleep(4)
 
     @allure.step("Shop Purchase Query菜单, 勾选记录，然后点击删除功能")
     def shop_purchase_query_cancel(self):

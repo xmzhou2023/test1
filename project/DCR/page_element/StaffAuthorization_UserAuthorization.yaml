@@ -2,7 +2,7 @@
 Input User: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
 Click Dealer User Value: "xpath==//span[contains(text(),'variable')]"
 #Click Trans User Value: "xpath==//span[contains(text(),'lihongmei10')]"
-Click Trans User Value: "xpath==//span[contains(text(),'variable')]"
+Click Trans User Value: "xpath==//span[contains(text(),'variable ')]"
 User Search: "css==[class='el-button el-button--primary el-button--mini']"
 
 
@@ -107,7 +107,27 @@ Sales Region Save: "xpath==//span[contains(text(),'Save')]"
 
 关闭用户授权菜单: "xpath==//span[normalize-space(text())='User Authorization']//span[@class='el-icon-close']"
 
-
-
-
-
+tab标签: "xpath==//div[contains(@id,'tab') and normalize-space(text())='variable']"
+输入框: "xpath==//label[normalize-space(text())='variable']/..//input[@placeholder='All']"
+输入框2: "xpath==//label[normalize-space(text())='variable']/..//input[@placeholder='Batch input content']"
+输入框3: "xpath==//label[normalize-space(text())='variable']/..//textarea[@placeholder='Batch input content']"
+输入选择: "xpath==//div[contains(@x-placement,'start')]//li/span[contains(text(),'variable ')]"
+点击选择: "xpath==//div[contains(@x-placement,'start')]//li/span[normalize-space(text())='variable']"
+功能按钮: "xpath==//span[normalize-space(text())='variable']"
+功能按钮2: "xpath==//li[normalize-space(text())='variable']"
+AddAssociation输入框: "xpath==//div[@role='dialog']//label[normalize-space(text())='variable']/..//input[@placeholder='All']"
+AddAssociation输入框2: "xpath==//div[@role='dialog']//label[normalize-space(text())='variable']/..//input[@placeholder='Batch input content']"
+AddAssociationSearch: "xpath==//div[@role='dialog']//button/span[normalize-space(text())='Search']"
+指定复选框: "xpath==//div[normalize-space(text())='variable']/../..//span[@class='el-checkbox__inner']"
+AuthorizedAllFilteredRecords: "xpath==//button/span[normalize-space(text())='Authorized All Filtered Records']"
+AuthorizedSelected: "xpath==//button/span[normalize-space(text())='Authorized Selected']"
+menu表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表头文本: "xpath==//thead/tr/th"
+滚动条: "xpath==//div[@class='vxe-table--body-wrapper body--wrapper']"
+表格内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]//div"
+确定删除: "xpath==//button/span[normalize-space(text())='Delete']"
+NoData: "xpath==//span[normalize-space(text())='No Data']"
+AddAssociationTitle: "xpath==//div[@role='dialog']//span[contains(text(),'Add Association')]"
+Save: "xpath==//span//button[1]//span[contains(text(),'Save')]"
+菜单: "xpath==//li[@role='menuitem']//span[normalize-space(text())='variable']"
+菜单栏: "xpath==//span[contains(@class,'tags-view-item')][1]"
