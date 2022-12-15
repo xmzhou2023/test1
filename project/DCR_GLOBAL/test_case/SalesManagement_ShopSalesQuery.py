@@ -1,4 +1,5 @@
 from libs.common.time_ui import sleep
+from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.SalesManagement_ShopSalesQuery import ShopSaleQueryPage
 from public.base.assert_ui import ValueAssert
@@ -8,12 +9,33 @@ from public.base.basics import Base
 import pytest
 import allure
 
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
+
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
 @allure.feature("销售管理-门店销售查询")
 class TestQueryShopSalesQuery:
     @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         base = Base(drivers)
         base.refresh()
@@ -40,10 +62,8 @@ class TestQueryShopSalesQuery:
             ValueAssert.value_assert_IsNoneNot(sales_date)
             ValueAssert.value_assert_IsNoneNot(public_id)
             shop_sales.assert_total2(total)
-            shop_sales.click_close_shop_sales_query()
         else:
             shop_sales.assert_total2(total)
-            shop_sales.click_close_shop_sales_query()
 
 
 @allure.feature("销售管理-门店销售查询")
@@ -52,6 +72,7 @@ class TestExportShopSalesQuery:
     @allure.title("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """刷新页面"""
         base = Base(drivers)
@@ -62,11 +83,11 @@ class TestExportShopSalesQuery:
         menu.click_gotomenu("Sales Management", "Shop Sales Query")
         """实例化对象类"""
         export = ShopSaleQueryPage(drivers)
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = export.get_datetime_today()
+        last_date = export.get_last_day(1)
         """根据销售日期筛选数据"""
         export.click_unfold()
-        export.input_sales_date_date(today, today)
+        export.input_sales_date_date(last_date, today)
         export.click_fold()
         export.click_search()
         total = export.get_total_text()
@@ -91,8 +112,6 @@ class TestExportShopSalesQuery:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_shop_sales_query()
 
 
 if __name__ == '__main__':

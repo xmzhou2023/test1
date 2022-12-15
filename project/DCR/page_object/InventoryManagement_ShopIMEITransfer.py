@@ -260,7 +260,7 @@ class ShopIMEITransferPage(Base):
         get_total1 = get_total[6:]
         return get_total1
 
-    @allure.step("断言 Shop IMEI Transfer列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    @allure.step("断言 精确查询结果 Shop IMEI Transfer列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
     def assert_shop_imei_transfer_field(self, header, content):
         DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['水平滚动条'])
 

@@ -23,7 +23,6 @@ class DeliveryOrderPage(Base):
         Base.presence_sleep_dcr(self, user['Delivery Start Date'])
         self.is_click(user['Delivery Start Date'])
         self.readonly_input_text(user['Delivery Start Date'], content1)
-        sleep(1)
         self.is_click(user['Delivery End Date'])
         self.readonly_input_text(user['Delivery End Date'], content2)
 

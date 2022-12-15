@@ -1,4 +1,5 @@
 from libs.common.time_ui import sleep
+from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
 from public.base.assert_ui import ValueAssert
@@ -8,12 +9,33 @@ from public.base.basics import Base
 import pytest
 import allure
 
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
+
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
 @allure.feature("销售管理-出库单")
 class TestQueryDeliveryOrder:
     @allure.story("查询出库单")
     @allure.title("出库单页面，查询出库单列表加载数据")
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         menu = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
@@ -33,7 +55,7 @@ class TestQueryDeliveryOrder:
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
         query.assert_total(total)
-        query.click_close_delivery_order()
+        # query.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -42,6 +64,7 @@ class TestExportDeliveryOrder:
     @allure.title("出库单页面，导出筛选的出库单记录")
     @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """刷新页面"""
         base = Base(drivers)
@@ -78,8 +101,8 @@ class TestExportDeliveryOrder:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_delivery_order()
+        # export.click_close_export_record()
+        # export.click_close_delivery_order()
 
 
 if __name__ == '__main__':

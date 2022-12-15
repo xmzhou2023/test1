@@ -1,5 +1,5 @@
-import time
 from libs.common.time_ui import sleep
+from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.AttendanceVisiting_AttendanceRecords import AttendanceRecordPage
 from public.base.assert_ui import ValueAssert
@@ -8,6 +8,17 @@ import logging
 from public.base.basics import Base
 import pytest
 import allure
+
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
 
 @allure.feature("考勤&巡店-考勤记录")
 class TestQueryAttendanceRecord:
@@ -41,7 +52,8 @@ class TestExportAttendanceRecord:
     @allure.story("导出考勤记录")
     @allure.title("考勤记录页面，导出筛选用户的当天考勤记录")
     @allure.description("考勤记录页面，查询某个用户的，当天考勤记录，然后导出筛选的考勤记录")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """查询某个用户的，当天考勤记录用例"""
         export = AttendanceRecordPage(drivers)
@@ -96,8 +108,6 @@ class TestExportAttendanceRecord:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, 'Download')
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_atten_record()
 
 
 if __name__ == '__main__':

@@ -134,16 +134,30 @@ class TransferOrderPage(Base):
 
 
     @allure.step("点击Unfold,展开筛选项")
-    def click_unfold(self):
-        self.presence_sleep_dcr(user['Unfold'])
-        self.is_click(user['Unfold'])
-        sleep(2)
+    def click_unfold(self, choose):
+        self.presence_sleep_dcr(user['Unfold'], choose)
+        self.is_click(user['Unfold'], choose)
+        sleep(1.5)
 
-    @allure.step("按Create Date字段筛选，Received 状态的数据")
+    @allure.step("按Create Start Date字段筛选数据")
     def input_transfer_create_start_date(self, create_date):
         self.presence_sleep_dcr(user['Create Start Date'])
         self.is_click(user['Create Start Date'])
         self.input_text(user['Create Start Date'], create_date)
+
+    @allure.step("按Create End Date字段筛选数据")
+    def input_transfer_create_end_date(self, end_date):
+        self.presence_sleep_dcr(user['Create End Date'])
+        self.is_click(user['Create End Date'])
+        self.input_text(user['Create End Date'], end_date)
+
+    @allure.step("点击Create Date筛选标签，用于取消释法")
+    def click_create_date_label(self):
+        self.is_click(user['Click Create Date Label'])
+
+    # @allure.step("点击Brand 筛选标签，用于取消释法")
+    # def click_brand_label(self):
+    #     self.is_click(user['Click Brand Label'])
 
     @allure.step("Transfer Order页面，输入Transfer ID筛选项条件，进行筛选")
     def input_transfer_order_id_query(self, context):
@@ -156,10 +170,10 @@ class TransferOrderPage(Base):
         sleep(0.6)
         self.is_click(user['Transfer Select Received Status'], status)
 
-    @allure.step("点击Search按钮")
-    def click_search(self):
-        self.is_click(user['Search'])
-        sleep(1)
+    @allure.step("点击Search或 Reset按钮")
+    def click_search_reset(self, choose):
+        self.is_click(user['Search'], choose)
+        sleep(2)
 
     @allure.step("Transfer Order页面，获取列表Total分页总条数")
     def get_transfer_order_list_total(self):
@@ -194,7 +208,7 @@ class TransferOrderPage(Base):
         self.is_click(user['Click Transfer IMEI Detail'])
         sleep(1.5)
 
-    @allure.step("点击IMEI Detail查询详情按钮")
+    @allure.step("点击关闭 IMEI Detail详情页面")
     def close_transfer_imei_detail(self):
         self.is_click(user['Close Transfer IMEI Detail'])
 
@@ -249,6 +263,46 @@ class TransferOrderPage(Base):
         self.presence_sleep_dcr(user['Input Import Date'])
         self.is_click(user['Input Import Date'])
         self.input_text(user['Input Import Date'], start_date)
+
+    @allure.step("点击IMEI Detail按钮")
+    def transfer_click_imei_detail(self):
+        self.is_click(user['Transfer Click IMEI Detail'])
+        sleep(2)
+
+    @allure.step("获取Transfer Order列表，Total分页总条数")
+    def get_transfer_order_total_text(self):
+        get_status = self.element_text(user['Get Shop Transfer Total'])
+        get_status1 = get_status[6:]
+        return get_status1
+
+    @allure.step("Transfer Order列表，输入Transfer ID文本框条件进行筛选")
+    def transfer_order_input_query(self, position1, position2, parameter):
+        self.is_click(user[position1])
+        self.input_text(user[position2], parameter)
+
+    @allure.step("Transfer Order列表，输入Transfer Type文本框条件进行筛选")
+    def transfer_order_click_query(self, position1, parameter2, parameter):
+        self.is_click(user[position1])
+        sleep(0.5)
+        self.presence_sleep_dcr(user[parameter2], parameter)
+        self.is_click(user[parameter2], parameter)
+
+    @allure.step("Transfer Order列表，输入Creator字段文本框条件进行筛选")
+    def transfer_order_input_select_query(self, position1, position2, position3, parameter1, parameter2):
+        self.is_click(user[position1])
+        self.input_text(user[position2], parameter1)
+        sleep(1)
+        self.presence_sleep_dcr(user[position3], parameter2)
+        self.is_click(user[position3], parameter2)
+
+
+    @allure.step("断言 精确查询结果Transfer Order列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_search_transfer_order_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['水平滚动条'])
+
+    @allure.step("断言 模糊查询结果Transfer Order列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_contains_transfer_order_field(self, header, content):
+        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['水平滚动条'])
 
 
 if __name__ == '__main__':

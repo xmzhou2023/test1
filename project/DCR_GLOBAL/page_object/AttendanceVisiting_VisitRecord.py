@@ -2,6 +2,7 @@ from libs.common.read_element import Element
 import logging
 from libs.common.time_ui import sleep
 from public.base.basics import Base
+from datetime import datetime, timedelta
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -34,6 +35,12 @@ class VisitRecordPage(Base):
         self.is_click(user['Submit Start Date'])
         sleep(1)
         self.input_text(user['Submit Start Date'], txt=content)
+
+    # def get_date_time_yestoday(self):
+    #     """Visit Record页面，当前日期减一天"""
+    #     yestoday = datetime.now() + timedelta(days=-1)
+    #     yestoday1 = str(yestoday)
+    #     return yestoday1
 
     def click_sales_region(self):
         self.is_click(user['Sales Region'])

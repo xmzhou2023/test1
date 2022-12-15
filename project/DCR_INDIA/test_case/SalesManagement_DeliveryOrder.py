@@ -18,11 +18,9 @@ class TestQueryDeliveryOrder:
         base = Base(drivers)
         base.refresh()
         sleep(3.5)
-
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")
-
         query = DeliveryOrderPage(drivers)
         # 获取日期
         base = Base(drivers)
