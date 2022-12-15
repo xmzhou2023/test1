@@ -22,12 +22,11 @@ class TestQuerySupplier:
     @pytest.mark.smoke # 用例标记
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         users = SupplierManagement(drivers)
-        users.switch_seller("BD405358")
-        users.click_query()
-        sleep(0.5)
+        users.querysupplier("卖家名称框","BD405358")
+        sleep(2)
         # 断言-查询卖家编码与输入编码一致
-        test = users.element_text(user['查询的供应商'])
-        ValueAssert.value_assert_equal(test,"BD405358")
+        test = users.element_text(user['卖家名称断言'])
+        ValueAssert.value_assert_equal(test,"刘书美国包")
 
     @allure.story("供应商管理")  # 场景名称
     @allure.title("查询卖家类型")  # 用例名称
@@ -36,11 +35,10 @@ class TestQuerySupplier:
     @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         users = SupplierManagement(drivers)
-        users.switch_sellertype("国包")
-        users.click_query()
-        sleep(1)
+        users.querysupplier("卖家类型框","国包")
+        sleep(2)
         # 断言--查询的卖家类型与输入的一致
-        test = users.element_text(user['查询的卖家类型'])
+        test = users.element_text(user['卖家类型断言'])
         ValueAssert.value_assert_equal(test,"国包")
 
     @allure.story("供应商管理")  # 场景名称
@@ -50,11 +48,10 @@ class TestQuerySupplier:
     @pytest.mark.smoke  # 用例标记
     def test_001_003(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         users = SupplierManagement(drivers)
-        users.switch_sellercountry("Bangladesh")
-        users.click_query()
-        sleep(1)
+        users.querysupplier("卖家国家框","Bangladesh")
+        sleep(2)
         # 断言--查询的卖家类型与输入的一致
-        test = users.element_text(user['查询的卖家所属国家'])
+        test = users.element_text(user['卖家国家断言'])
         ValueAssert.value_assert_equal(test, "Bangladesh")
 
     @allure.story("供应商管理")  # 场景名称
@@ -64,11 +61,10 @@ class TestQuerySupplier:
     @pytest.mark.smoke  # 用例标记
     def test_001_004(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         users = SupplierManagement(drivers)
-        users.switch_shop("Wanzhou Popcorn")
-        users.click_query()
+        users.querysupplier("供应商门店框","Wanzhou Popcorn")
         sleep(10)
         # 断言--查询的门店与输入的一致
-        test = users.element_text(user['查询的门店'])
+        test = users.element_text(user['供应商门店断言'])
         ValueAssert.value_assert_equal(test,"Wanzhou Popcorn")
 
     @allure.step("供应商管理")
@@ -92,11 +88,10 @@ class TestQuerySupplier:
     def test_001_006(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         users = SupplierManagement(drivers)
         users.click_more()
-        users.switch_shopcountry("Bangladesh")
-        users.click_morequery()
-        sleep(0.5)
+        users.querysupplier("门店国家框","Bangladesh")
+        sleep(2)
         # 断言--查询的卖家类型与输入的一致
-        test = users.element_text(user['查询的门店所属国家'])
+        test = users.element_text(user['门店国家断言'])
         ValueAssert.value_assert_equal(test, "Bangladesh")
 
     @allure.story("供应商管理")  # 场景名称
@@ -107,11 +102,10 @@ class TestQuerySupplier:
     def test_001_007(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         users = SupplierManagement(drivers)
         users.click_more()
-        users.switch_division("TECNO事业部")
-        users.click_morequery()
-        sleep(0.5)
+        users.querysupplier("归属机构框","TECNO事业部")
+        sleep(2)
         # 断言--查询的卖家类型与输入的一致
-        test = users.element_text(user['查询的归属组织'])
+        test = users.element_text(user['归属组织断言'])
         ValueAssert.value_assert_equal(test, "TECNO事业部")
 
 
@@ -132,4 +126,4 @@ class TestExportSupplier:
         ValueAssert.value_assert_equal(test,"创建导出任务成功！")
 
 if __name__ == '__main__':
-    pytest.main(['Supplier_Management.py'])
+    pytest.main(['Supplier_Management.py::TestQuerySupplier'])
