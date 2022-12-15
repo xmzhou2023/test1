@@ -148,4 +148,5 @@ Save: "xpath==//div[@aria-label='Import']//button/span[normalize-space(text())='
 功能按钮2: "xpath==//li[normalize-space(text())='variable']"
 EnableEmployeesYes: "xpath==//div[normalize-space(text())='Enable Employees']/../..//span[normalize-space(text())='Yes']"
 UserDisableSettingYes: "xpath==//span[normalize-space(text())='User Disable Setting']/../..//span[normalize-space(text())='Yes']"
+ResetPasswordYes: "xpath==//span[normalize-space(text())='Reset Password']/../../..//span[normalize-space(text())='Yes']"
 Add1: "xpath==//button/span[normalize-space(text())='Add']"

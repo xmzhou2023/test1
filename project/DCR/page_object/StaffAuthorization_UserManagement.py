@@ -620,6 +620,7 @@ class UserManagementPage(Base):
 
     @allure.step("查找菜单")
     def click_menu(self, *content):
+        self.refresh()
         self.is_click_tbm(user['菜单栏'])
         self.refresh()
         for i in range(len(content)):
@@ -802,6 +803,8 @@ class UserManagementPage(Base):
                 self.is_click_tbm(user['UserDisableSettingYes'])
             elif function == 'Enable':
                 self.is_click_tbm(user['EnableEmployeesYes'])
+            elif function == 'Reset Password':
+                self.is_click_tbm(user['ResetPasswordYes'])
         else:
             self.is_click(user['功能按钮'], function)
         logging.info(f'点击功能按钮： {function}')

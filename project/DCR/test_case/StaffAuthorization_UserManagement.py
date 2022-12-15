@@ -400,6 +400,28 @@ class TestAddEditQuitTranssionUser:
         add.click_menu("Staff & Authorization", "User Management")
         add.disable_user_Method(UserID)
 
+    @allure.story("用户管理")
+    @allure.title("内部员工不能直接重置成功")
+    @allure.description("内部员工不能直接重置，提示报错")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_009(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        userID = '18650493'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """重置密码"""
+        add.input_search('User ID', userID)
+        add.click_search()
+        add.click_checkbox(userID)
+        add.click_function_button('Reset Password')
+        """断言：提示内部用户不可以重置密码"""
+        DomAssert(drivers).assert_att("Transsion account can't be reset password in the DCR")
+        add.refresh()
+
 
 @allure.feature("员工授权-用户管理")
 class TestAddEditQuitDealerUser:
