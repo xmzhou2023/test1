@@ -34,8 +34,8 @@ class TestMyfileAddComponents:
         tools.input('新增输入框', 'auto_testing_add_components_in_file_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_in_file_pri_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_in_file_pri_001')
@@ -46,7 +46,7 @@ class TestMyfileAddComponents:
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pri_001')
         tools.click('删除确认')
-        pass
+      
 
     @allure.story("文件-组件增删")  # 场景名称
     @allure.title("文件_组件增删-公共空间")  # 用例名称
@@ -58,6 +58,7 @@ class TestMyfileAddComponents:
         tools = Tool(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
@@ -68,19 +69,20 @@ class TestMyfileAddComponents:
         tools.input('新增输入框', 'auto_testing_add_components_in_file_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_in_file_pub_001', 'name')
         tools.click('新增对话框按钮', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         tools.hover('组件Item')
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_in_file_pub_001')
         tools.click('删除确认')
 
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('删除', 'auto_testing_add_files_pub_001')
         tools.click('删除确认')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_files_components.py'])

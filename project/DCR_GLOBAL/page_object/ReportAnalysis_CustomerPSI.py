@@ -25,11 +25,12 @@ class CustomerPSIPage(Base):
         """点击Sub-dealer按钮筛选二代数据"""
         self.presence_sleep_dcr(user['Sub dealer'])
         self.is_click(user['Sub dealer'])
-        sleep(4)
+
 
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
+        sleep(6)
 
     def get_total_text(self):
         """获取分页总条数文本"""
@@ -73,8 +74,7 @@ class CustomerPSIPage(Base):
         sleep(2)
 
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(4)

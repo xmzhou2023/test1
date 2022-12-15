@@ -31,9 +31,10 @@ MRP计算报表: "xpath==//div[@class='el-submenu__title']//span[contains(text()
 市场物料物流->物流跟踪: "xpath==//ul[@role='menu']//span[contains(text(),'物流跟踪')]"
 市场物料物流->查询报表: "xpath==//ul[@role='menu']//span[contains(text(),'查询报表')]"
 
-系统管理: "xpath==//div[@class='el-submenu__title']//span[contains(text(),'市场物料物流')]"
+系统管理: "xpath==//div[@class='el-submenu__title']//span[contains(text(),'系统管理')]"
 系统管理->审批人管理: "xpath==//ul[@role='menu']//span[contains(text(),'审批人管理')]"
 系统管理->用户管理: "xpath==//ul[@role='menu']//span[contains(text(),'用户管理')]"
 
 切换语言按钮: "xpath==//div[@class='right-menu']/div[4]/*[name()='svg'][1]/*[name()='use'][1]"
 返回首页: "xpath==//a[contains(text(),'首页')]"
+收起二级菜单: "xpath==//li[contains(@class,'open')]//i[@class='el-submenu__icon-arrow el-icon-arrow-down']"

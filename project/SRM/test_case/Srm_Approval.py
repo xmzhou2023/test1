@@ -38,20 +38,21 @@ class TestApproval:
     def test_approval_name(self, drivers):
         user = ApprovalPage(drivers)
         user.approval_search_name("采购执行主管")
-        sql1 = SQL("SRM", "test")
-        sql_val1 = "select count(node_name_) from uflo_task where assignee_ ='860000_1001' and node_name_ ='采购执行主管' "
-        result = sql1.query_db(sql_val1)
-        # print(type(result))
-        # for i in result:
-        #     sql_val = i["count(node_name_)"]
-        #     print(sql_val)
+        # sql1 = SQL("SRM", "test")
+        # sql_val1 = "select count(node_name_) from uflo_task where assignee_ ='860000_1001' and node_name_ ='采购执行主管' "
+        # result = sql1.query_db(sql_val1)
+        # # print(type(result))
+        # # for i in result:
+        # #     sql_val = i["count(node_name_)"]
+        # #     print(sql_val)
         # a = result[0]
         # b = a["count(node_name_)"]
-        # print(b)
+        # # print(b)
         # search_val = user.serch_value()
-        # print(search_val)
+        # # print(search_val)
         # ValueAssert.value_assert_In(str(b), search_val)
         user.Clear_input()
+
 
 
     @allure.story("审批列表")  # 场景名称
@@ -78,18 +79,18 @@ class TestApproval:
 
 
     @allure.story("审批列表")  # 场景名称
-    @allure.title("按主题和任务名称组合搜索")  # 用例名称
+    @allure.title("按发起人和任务名称组合搜索")  # 用例名称
     @allure.description("输入发起人，任务名称进行搜索")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_approval_comination(self, drivers):
         user = ApprovalPage(drivers)
-        user.combination_search2("GL202203240001", "采购执行主管")
+        user.combination_search2("采购执行主管", "管理员")
 
 
     @allure.story("审批列表")  # 场景名称
-    @allure.title("按主题和任务名称组合搜索")  # 用例名称
-    @allure.description("输入发起人，任务名称进行搜索")
+    @allure.title("按主题和任务名称，主题组合搜索")  # 用例名称
+    @allure.description("输入发起人，任务名称，主题进行搜索")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_approval_comination2(self, drivers):

@@ -17,10 +17,10 @@ user = Element(pro_name, object_name)
 
 class StockInSearch(Base):
     """入库单查询类"""
-    given_data = datetime.today().date()
-    logging.info('今天的日期: {} '.format(given_data))
-    first_day_of_month = given_data.replace(day=1)
-    logging.info('本月的第一天是:{}'.format(first_day_of_month))
+    # given_data = datetime.today().date()
+    # logging.info('今天的日期: {} '.format(given_data))
+    # first_day_of_month = given_data.replace(day=1)
+    # logging.info('本月的第一天是:{}'.format(first_day_of_month))
 
     @allure.step("入库单查询")
     def stockinsearch(self, Type =None):
@@ -30,7 +30,12 @@ class StockInSearch(Base):
         self.hover(user['入库单开始日期搜索框'])
         self.is_click(user['清除时间搜索框'])
         self.is_click(user['入库单开始日期搜索框'])
-        self.input_text(user['入库单开始日期搜索框'], txt=str(StockInSearch.first_day_of_month))
+        self.input_text(user['入库单开始日期搜索框'], txt="2022-09-01")
+        sleep(1)
+        self.is_click(user['入库单结束日期搜索框'])
+        self.hover(user['入库单结束日期搜索框'])
+        self.is_click(user['清除结束日期搜索框'])
+        self.input_text(user['入库单结束日期搜索框'], txt="2022-09-30")
         sleep(2)
         self.is_click(user['入库单type字段输入框'])
         self.input_text(user['入库单type字段输入框'], txt=Type)

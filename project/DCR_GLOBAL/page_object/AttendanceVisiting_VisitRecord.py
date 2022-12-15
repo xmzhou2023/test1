@@ -2,6 +2,7 @@ from libs.common.read_element import Element
 import logging
 from libs.common.time_ui import sleep
 from public.base.basics import Base
+from datetime import datetime, timedelta
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -13,7 +14,7 @@ class VisitRecordPage(Base):
     def click_unfold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
         self.is_click(user['Unfold'])
-        sleep(2)
+        sleep(1.6)
 
     def click_fold(self):
         """Visit Record页面，点击unfold展开筛选条件"""
@@ -35,6 +36,12 @@ class VisitRecordPage(Base):
         sleep(1)
         self.input_text(user['Submit Start Date'], txt=content)
 
+    # def get_date_time_yestoday(self):
+    #     """Visit Record页面，当前日期减一天"""
+    #     yestoday = datetime.now() + timedelta(days=-1)
+    #     yestoday1 = str(yestoday)
+    #     return yestoday1
+
     def click_sales_region(self):
         self.is_click(user['Sales Region'])
 
@@ -50,6 +57,7 @@ class VisitRecordPage(Base):
 
     def get_shop_id_text(self):
         """Visit Record页面，获取列表中Shop ID文本属性"""
+        self.scroll_into_view(user['获取Shop ID文本'])
         Base.presence_sleep_dcr(self, user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
@@ -94,8 +102,7 @@ class VisitRecordPage(Base):
         sleep(2)
 
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1.5)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(5)

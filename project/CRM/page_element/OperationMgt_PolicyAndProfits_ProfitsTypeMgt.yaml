@@ -1,19 +1,19 @@
-筛选按钮: 'xpath==//div[@form="[object Object]"]//input[@type="text"]'
-关闭筛选: 'xpath==//div[@form="[object Object]"]//span[@class="el-input__suffix-inner"]'
-搜索按钮: 'xpath==//span[text()="Search"]'
+筛选按钮: "xpath==//div[@form='[object Object]']//input[@type='text']"
+关闭筛选: "xpath==//div[@form='[object Object]']//span[@class='el-input__suffix-inner']"
+搜索按钮: "xpath==//span[text()='Search']"
 
-add按钮: 'xpath==//button//span[normalize-space(text())="Add"]'
-ProfitCode输入框: 'xpath==//form[@class="el-form"]/div[1]//input[@class="el-input__inner"]'
-ProfitDesc输入框: 'xpath==//form[@class="el-form"]/div[2]//input[@class="el-input__inner"]'
-save: 'xpath==//span[text()="Save"]'
-cancel: 'xpath==//span[@class="dialog-footer"]//span[text()="Cancel"]'
-关闭弹窗上的confirm: 'xpath==//div[@class="el-message-box__btns"]//span[normalize-space(text())="Confirm"]'
+add按钮: "xpath==//button//span[normalize-space(text())='Add']"
+ProfitCode输入框: "xpath==//form[@class='el-form']/div[1]//input[@class='el-input__inner']"
+ProfitDesc输入框: "xpath==//form[@class='el-form']/div[2]//input[@class='el-input__inner']"
+save: "xpath==//span[text()='Save']"
+cancel: "xpath==//span[@class='dialog-footer']//span[text()='Cancel']"
+关闭弹窗上的confirm: "xpath==//div[@class='el-message-box__btns']//span[normalize-space(text())='Confirm']"
 
-第一行enable按钮: 'xpath==//tr[@class="el-table__row statusenable"][1]//span[text()="Enable"]'
-确认disable弹窗的Yes按钮: 'xpath==//span[normalize-space(text())="Yes"]'
+第一行enable按钮: "xpath==//tr[@class='el-table__row statusenable'][1]//span[text()='Enable']"
+确认disable弹窗的Yes按钮: "xpath==//span[normalize-space(text())='Yes']"
 
-第一行edit按钮: 'xpath==//tr[@class="el-table__row statusenable"][1]//span[text()="Edit"]'
+第一行edit按钮: "xpath==//tr[@class='el-table__row statusenable'][1]//span[text()='Edit']"
 
-ProfitCode一列的name: 'xpath==//tr[contains(@class,"el-table__row ")]/td[3]'
+ProfitCode一列的name: "xpath==//tr[contains(@class,'el-table__row ')]/td[3]"
 
-无数据: 'xpath==//span[text()="No Data"]'
+无数据: "xpath==//span[text()='No Data']"

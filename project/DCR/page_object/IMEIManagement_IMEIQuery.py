@@ -34,12 +34,19 @@ class IMEIQueryPage(Base):
     @allure.step("关闭IMEI Inventory Query菜单")
     def click_close_imei_inven_query(self):
         self.is_click(user['关闭IMEI Inventory Query菜单'])
-        sleep(1.5)
+
 
     @allure.step("关闭IMEI Query菜单")
     def click_close_imei_query(self):
         self.is_click(user['关闭IMEI Query菜单'])
-        sleep(1.5)
+
+    @allure.step("断言：点击导出有进度条")
+    def assert_export_success(self):
+        DomAssert(self.driver).assert_control(user['导出进度条'])
+
+    @allure.step("点击Export")
+    def click_export(self):
+        self.is_click(user['Export'])
 
 if __name__ == '__main__':
     pass

@@ -1,5 +1,6 @@
 import time
 import datetime
+from time import strftime
 
 
 def timestamp():
@@ -17,6 +18,9 @@ def sleep(seconds=1.0):
     睡眠时间
     """
     time.sleep(seconds)
+
+
+now_time = strftime('%Y-%m-%d %H:%M:%S')
 
 if __name__ == '__main__':
     print(datetime_strftime())

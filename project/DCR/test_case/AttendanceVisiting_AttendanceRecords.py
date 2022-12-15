@@ -29,6 +29,7 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
+
 @allure.feature("考勤&巡店-考勤记录")
 class TestQueryAttendanceRecord:
     @allure.story("查询考勤记录")
@@ -71,8 +72,13 @@ class TestQueryAttendanceRecord:
         """查询某个用户的，当天考勤记录用例"""
         picture = AttendanceRecordPage(drivers)
 
+        """ 获取列表User Name """
         user_id = picture.get_user_id_text()
-        picture.input_user_id_query(user_id)
+        """ 获取列表User Name """
+        user_name = picture.get_user_name_text()
+        userid_name = user_id + " " + user_name
+        """根据UserID+UserName条件精确筛选数据"""
+        picture.input_user_id_query(user_id, userid_name)
         picture.click_search()
 
         picture.click_view_picture_button()
@@ -106,24 +112,31 @@ class TestExportAttendanceRecord:
         base = Base(drivers)
         today = base.get_datetime_today()
 
+        """ 获取列表User Name """
         user_id = export.get_user_id_text()
-        export.input_user_id_query(user_id)
+        """ 获取列表User Name """
+        user_name = export.get_user_name_text()
+        userid_name = user_id + " " + user_name
+        """根据UserID+UserName条件精确筛选数据"""
+        export.input_user_id_query(user_id, userid_name)
         export.click_search()
 
         picture = export.get_photo_text()
         date = export.get_date_text()
         userid = export.get_user_id_text()
+        username = export.get_user_name_text()
         total = export.get_total_text()
 
         """断言查询的列表数据是否存在，分页下面的总条数是否有数据"""
         ValueAssert.value_assert_In(picture, "Picture")
         ValueAssert.value_assert_equal(user_id, userid)
+        ValueAssert.value_assert_equal(user_name, username)
         ValueAssert.value_assert_equal(today, date)
         export.assert_total(total)
         """点击导出"""
         export.click_export()
         export.click_download_more()
-        export.input_task_name("attendance record")
+        export.input_task_name("Attendance Records")
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
 
@@ -137,7 +150,7 @@ class TestExportAttendanceRecord:
         operation = export.get_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "attendance record")
+        ValueAssert.value_assert_equal(task_name, "Attendance Records")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)

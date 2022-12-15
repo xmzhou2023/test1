@@ -35,7 +35,7 @@ class UserSalaryManagement(Base):
     def click_import_upload_save(self, file):
         self.is_click(user['Import Upload'])
         sleep(1.5)
-        ele = self.driver.find_element('xpath', "//input[@name='file']")
+        ele = self.driver.find_element('xpath', "//button/..//input[@name='file']")
         ele.send_keys(file)
         sleep(1)
         self.is_click(user['Import Save'])
@@ -48,7 +48,7 @@ class UserSalaryManagement(Base):
     def click_import_payslip_upload_save(self, file):
         self.is_click(user['Import Upload'])
         sleep(2)
-        ele = self.driver.find_element('xpath', "//input[@name='file']")
+        ele = self.driver.find_element('xpath', "//button/..//input[@name='file']")
         ele.send_keys(file)
         sleep(1)
         self.is_click(user['Import Save'])
@@ -121,10 +121,10 @@ class UserSalaryManagement(Base):
         self.is_click(user['Reset'])
         sleep(3)
 
-    @allure.step("Import Record页面，点击Search 查询按钮")
-    def click_import_record_search(self):
-        self.is_click(user['Search'])
-        sleep(1.7)
+    @allure.step("循环点击查询，直到获取到导入记录状态为Upload Successfully")
+    def click_import_status_search(self):
+        import_status = self.import_record_status(user['Import Search'], user['Get Import Record Status'])
+        return import_status
 
 
     """导入记录页面，获取列表字段断言是否导入成功"""

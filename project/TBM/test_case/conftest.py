@@ -20,7 +20,7 @@ def __init__(drivers, env_name):
     """使用统一登录"""
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
-    user.login(drivers, ini.url, account[2]['usernum'], account[2]['passwd'])
+    user.IPM_login(drivers, ini.url, account[2]['usernum'], account[2]['passwd'])
     DomAssert(drivers).assert_exact_att('首页')
     logging.info("前置条件：传音统一登录成功")
 
@@ -110,6 +110,14 @@ def Machine_API():
     logging.info('开始后置操作')
     user.API_Bom_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def Machine_Derive_API():
+    logging.info('开始前置操作')
+    user = APIRequest()
+    api_response = user.API_Derive_Machine_Add()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def Machine_Factory_API():
@@ -121,6 +129,15 @@ def Machine_Factory_API():
     logging.info('开始后置操作')
     user.API_Bom_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def Machine_Derive_Factory_API():
+    logging.info('开始前置操作-新建流程-补充工厂审批同意')
+    user = APIRequest()
+    api_response = user.API_Derive_Machine_Add()
+    user.API_Derive_Machine_Factory(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def Machine_bomEnginner_API():
@@ -132,6 +149,15 @@ def Machine_bomEnginner_API():
     logging.info('开始后置操作')
     user.API_Bom_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def Machine_Derive_bomEnginner_API():
+    logging.info('开始前置操作-新建流程-BOM工程师审批审批同意')
+    user = APIRequest()
+    api_response = user.API_Derive_Machine_Add()
+    user.API_Derive_Machine_bomEnginner(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def Machine_Approval_API():
@@ -143,6 +169,15 @@ def Machine_Approval_API():
     logging.info('开始后置操作')
     user.API_Bom_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def Machine_Derive_Approval_API():
+    logging.info('开始前置操作-新建流程-业务审核审批同意')
+    user = APIRequest()
+    api_response = user.API_Derive_Machine_Add()
+    user.API_Derive_Machine_Approval(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def KeyDevice_API():
@@ -294,6 +329,15 @@ def SaleCountry_ProductChange_Audit_API():
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_CountryChange_Audit_API():
+    logging.info('开始前置操作-变更国家-产品部管理员审核同意')
+    user = APIRequest()
+    api_response = user.API_Change_Country('出货国家查询变更产品部分流程')
+    user.API_Change_Audit(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def SaleCountry_ProductChange_Join_API():
@@ -305,6 +349,15 @@ def SaleCountry_ProductChange_Join_API():
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def SaleCountry_CountryChange_Join_API():
+    logging.info('开始前置操作-变更国家-产品部汇签同意')
+    user = APIRequest()
+    api_response = user.API_Change_Country('出货国家查询变更产品部分流程')
+    user.API_Change_Join(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def SaleCountry_ProductChange_managerModify_API():
@@ -316,13 +369,12 @@ def SaleCountry_ProductChange_managerModify_API():
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])
 
-
 @pytest.fixture(scope='function', autouse=False)
-def SaleCountry_ProductChange_Audit2_API():
-    logging.info('开始前置操作-变更产品-产品部管理员复核同意')
+def SaleCountry_CountryChange_managerModify_API():
+    logging.info('开始前置操作-变更国家-产品经理修改同意')
     user = APIRequest()
-    api_response = user.API_Change_Product('出货国家查询变更产品部分流程')
-    user.API_Change_managerModify(api_response[0], api_response[1], api_response[2])
+    api_response = user.API_Change_Country('出货国家查询变更产品部分流程')
+    user.API_ChangeCountry_managerModify(api_response[0], api_response[1], api_response[2])
     yield api_response
     logging.info('开始后置操作')
     user.API_SaleCountry_Delete(api_response[1], api_response[2])
@@ -438,6 +490,16 @@ def PCBA_API():
 
 
 @pytest.fixture(scope='function', autouse=False)
+def PCBA_Derived_API():
+    logging.info('开始前置操作')
+    user = APIRequest()
+    api_response = user.API_PCBA_Derived_Add()
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
 def PCBA_Factory_API():
     logging.info('开始前置操作-新建流程-补充工厂审批同意')
     user = APIRequest()
@@ -447,6 +509,15 @@ def PCBA_Factory_API():
     logging.info('开始后置操作')
     user.API_Bom_Delete(api_response[1], api_response[2])
 
+@pytest.fixture(scope='function', autouse=False)
+def PCBA_Derived_Factory_API():
+    logging.info('开始前置操作-新建流程-补充工厂审批同意')
+    user = APIRequest()
+    api_response = user.API_PCBA_Derived_Add()
+    user.API_PCBA_Factory(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
 def PCBA_Structure_API():
@@ -454,6 +525,16 @@ def PCBA_Structure_API():
     user = APIRequest()
     api_response = user.API_PCBA_Add()
     user.API_PCBA_Structure(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
+def PCBA_Derived_Structure_API():
+    logging.info('开始前置操作-新建流程-基带工程师审批同意')
+    user = APIRequest()
+    api_response = user.API_PCBA_Derived_Add()
+    user.API_Derived_PCBA_Structure(api_response[0], api_response[1], api_response[2])
     yield api_response
     logging.info('开始后置操作')
     user.API_Bom_Delete(api_response[1], api_response[2])
@@ -469,11 +550,32 @@ def PCBA_Purchase_API():
     user.API_Bom_Delete(api_response[1], api_response[2])
 
 @pytest.fixture(scope='function', autouse=False)
+def PCBA_Derived_Purchase_API():
+    logging.info('开始前置操作-新建流程-采购审核同意')
+    user = APIRequest()
+    api_response = user.API_PCBA_Derived_Add()
+    user.API_Derived_PCBA_Purchase(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+@pytest.fixture(scope='function', autouse=False)
 def PCBA_Business_API():
     logging.info('开始前置操作-新建流程-业务审核同意')
     user = APIRequest()
     api_response = user.API_PCBA_Add()
     user.API_PCBA_Business(api_response[0], api_response[1], api_response[2])
+    yield api_response
+    logging.info('开始后置操作')
+    user.API_Bom_Delete(api_response[1], api_response[2])
+
+
+@pytest.fixture(scope='function', autouse=False)
+def PCBA_Derived_Business_API():
+    logging.info('开始前置操作-新建流程-业务审核同意')
+    user = APIRequest()
+    api_response = user.API_PCBA_Derived_Add()
+    user.API_Derived_PCBA_Business(api_response[0], api_response[1], api_response[2])
     yield api_response
     logging.info('开始后置操作')
     user.API_Bom_Delete(api_response[1], api_response[2])

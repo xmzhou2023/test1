@@ -7,7 +7,7 @@ class SQL(object):
         self.env = env
         self.ini_name = ini_name
         self.values = values
-        self.ini = ReadConfig(self.name, self.env)
+        self.ini = ReadConfig(self.name, self.env, self.ini_name, self.values)
         self.sql = ast.literal_eval(self.ini.db)
 
     # 获取连接方法
@@ -129,16 +129,26 @@ class SQL(object):
             return e
 
 if __name__ == '__main__':
-    a = SQL('DRP','test')
-    # print(a.query_db("select * from uc_user where name_zh='刘勇' and card_no='18650617'"))
-    print(a.check_sql(column='*',table='uc_user',condition='name_zh',condition_value="黄琴"))
-    # print(a.delete_sql(table='uc_user',condition='id',condition_value='1'))
-    # print(a.insert_sql(table='uc_user',condition='id,name_zh,email,card_no',condition_value="'1','测试人员','yong.liu6@transsion.com','18888888'"))
-    # print(a.update_sql(table='uc_user',column='name_zh',column_value='evan',condition='card_no',condition_value='18888888'))
-    IPM = SQL('TBM','test')
-    print(IPM.query_db("SELECT count(bid) FROM kd_device_info WHERE model = '50A712U'"))
-    # print(IPM.query_db("SELECT DISTINCT obj_type_name FROM flow_mat_member WHERE obj_type_name='2.4G wifi saw' and is_delete=0;"))
-    a = SQL("OA", "test")
-    ie = a.query_db(
-        "select count(gdzt) from ECOLOGY.uf_gdcs where lcid in (select requestid from ECOLOGY.workflow_requestbase where currentnodetype ='3'  and requestid in(select lcid from ECOLOGY.uf_gdcs )) and gdzt !='0'")
-    print(ie)
+    # a = SQL('DRP','test')
+    # # print(a.query_db("select * from uc_user where name_zh='刘勇' and card_no='18650617'"))
+    # print(a.check_sql(column='*',table='uc_user',condition='name_zh',condition_value="黄琴"))
+    # # print(a.delete_sql(table='uc_user',condition='id',condition_value='1'))
+    # # print(a.insert_sql(table='uc_user',condition='id,name_zh,email,card_no',condition_value="'1','测试人员','yong.liu6@transsion.com','18888888'"))
+    # # print(a.update_sql(table='uc_user',column='name_zh',column_value='evan',condition='card_no',condition_value='18888888'))
+    # IPM = SQL('TBM','test')
+    # print(IPM.query_db("SELECT count(bid) FROM kd_device_info WHERE model = '50A712U'"))
+    # # print(IPM.query_db("SELECT DISTINCT obj_type_name FROM flow_mat_member WHERE obj_type_name='2.4G wifi saw' and is_delete=0;"))
+    # a = SQL("OA", "test")
+    # ie = a.query_db(
+    #     "select count(gdzt) from ECOLOGY.uf_gdcs where lcid in (select requestid from ECOLOGY.workflow_requestbase where currentnodetype ='3'  and requestid in(select lcid from ECOLOGY.uf_gdcs )) and gdzt !='0'")
+    # print(ie)
+    a = SQL('TBM', 'test')
+    a.change_db(
+        "delete from kd_flow_main  where device_bid in (select t.bid from kd_device_info t where t.brand='itel' and t.model='50A1S')"
+    )
+    a.change_db(
+        "delete from kd_device_arch_info where brand ='itel' and model='50A1S'"
+    )
+    a.change_db(
+        "delete from kd_device_info where brand ='itel' and model='50A1S'"
+    )

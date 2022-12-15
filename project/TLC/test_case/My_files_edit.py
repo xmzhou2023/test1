@@ -39,7 +39,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pri_002')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-文件重命名_反例")  # 用例名称
@@ -67,7 +67,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-我的空间-文件名修改_删除对话框取消")  # 用例名称
@@ -92,7 +92,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-我的空间-文件名修改对话框关闭")  # 用例名称
@@ -117,7 +117,7 @@ class TestMyFilesEdit:
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-我的空间-文件名修改_正例")  # 用例名称
@@ -129,10 +129,12 @@ class TestMyFilesEdit:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
         tools.click('新增确认')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
@@ -141,11 +143,12 @@ class TestMyFilesEdit:
         tools.click('重命名按钮', '1')
         DomAssert(drivers).assert_att('修改成功')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pub_002')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-公共空间_文件名修改_反例")  # 用例名称
@@ -158,10 +161,12 @@ class TestMyFilesEdit:
         # 新增
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
         tools.click('新增确认')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
@@ -171,12 +176,13 @@ class TestMyFilesEdit:
         DomAssert(drivers).assert_att('不能为空')
         tools.click('重命名按钮', '2')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pub_001')
         tools.click('删除确定')
 
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-公共空间-文件名修改对话框取消")  # 用例名称
@@ -188,21 +194,24 @@ class TestMyFilesEdit:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
         tools.click('新增确认')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('下拉菜单', 'rename', 'auto_testing_add_files_pub_001')
         tools.click('重命名按钮', '2')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pub_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件修改")  # 场景名称
     @allure.title("我的文件-公共空间_文件名修改对话框关闭")  # 用例名称
@@ -214,21 +223,24 @@ class TestMyFilesEdit:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增文件夹')
         tools.input('新增输入框', 'auto_testing_add_files_pub_001', 'name')
         tools.click('新增确认')
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('下拉菜单', 'rename', 'auto_testing_add_files_pub_001')
         tools.click('重命名X')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('文件Item')
         tools.click('文件Item more')
         tools.click('下拉菜单', 'remove', 'auto_testing_add_files_pub_001')
         tools.click('删除确定')
-        pass
+      
 
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_files_edit.py'])

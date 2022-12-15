@@ -13,7 +13,7 @@ def setup_class(drivers):
     nav = NavPage(drivers)
     nav.click_gotonav("会员","会员信息")
 
-@allure.feature("会员") # 模块名称
+@allure.feature("会员-会员信息") # 模块名称
 class TestQueryMember:
     @allure.story("会员信息") # 场景名称
     @allure.title("查询会员")  # 用例名称

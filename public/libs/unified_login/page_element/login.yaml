@@ -41,3 +41,8 @@ pop账号输入框: "xpath==//*[@id='app']/div/div/div[2]/div/form/div[1]/div/di
 pop密码输入框: "xpath==//*[@id='app']/div/div/div[2]/div/form/div[2]/div/div/div[1]/input"
 pop隐私协议勾选框: "xpath==//span[@class='el-checkbox__inner']"
 pop登录按钮: "xpath==//button[@type='primary']"
+
+#IPM登录定位元素
+工号输入框IPM: 'xpath==//input[@placeholder="请输入账号/工号"]'
+密码输入框IPM: 'xpath==//input[@placeholder="请输入登录密码"]'
+登录ipm: "xpath==//span[text()='登录系统']"

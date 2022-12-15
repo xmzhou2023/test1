@@ -1,4 +1,5 @@
 from libs.common.time_ui import sleep
+from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.AttendanceVisiting_VisitRecord import VisitRecordPage
 from public.base.assert_ui import ValueAssert
@@ -8,6 +9,16 @@ from public.base.basics import Base
 import pytest
 import allure
 
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
 
 @allure.feature("考勤&巡店-巡店记录")
 class TestQueryVisitRecord:
@@ -26,7 +37,7 @@ class TestQueryVisitRecord:
         """打开考勤与巡店管理-打开巡店记录页面"""
         menu.click_gotomenu("Attendance & Visiting", "Visit Record")
         all_visit = VisitRecordPage(drivers)
-        sleep(2)
+        sleep(1.5)
         shop_id = all_visit.get_shop_id_text()
         all_visit.click_unfold()
         all_visit.input_shop_id_query(shop_id)
@@ -53,14 +64,16 @@ class TestExportVisitRecord:
     @allure.title("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录")
     @allure.description("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()
 
         export = VisitRecordPage(drivers)
+        last_date = export.get_last_day(1)
         """根据提交时间筛选巡店记录"""
-        export.input_submit_start_date(today)
+        export.input_submit_start_date(last_date)
         export.click_sales_region()
         export.click_search()
 
@@ -77,15 +90,12 @@ class TestExportVisitRecord:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "History List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-
-        export.click_close_export_record()
-        export.click_close_visit_record()
 
 
 if __name__ == '__main__':

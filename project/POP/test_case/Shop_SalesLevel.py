@@ -15,7 +15,7 @@ def setup_class(drivers):
     nav = NavPage(drivers)
     nav.click_gotonav("门店","门店销售等级")
 
-@allure.feature("门店") # 模块名称
+@allure.feature("门店-门店销售等级") # 模块名称
 class TestAddSalesLevel:
     @allure.story("门店销售等级") # 场景名称
     @allure.title("新增门店销量等级")  # 用例名称

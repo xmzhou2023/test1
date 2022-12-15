@@ -55,8 +55,6 @@ class TestGetJSList:
         user = HAJSPage(drivers)
         user.Clear_Get()  # 恢复查询默认条件
 
-
-
     @allure.story("查询家电工单")  # 场景名称,中文
     @allure.title("查询家电工单")  # 用例名称
     @allure.description("HA JS页面，遍历Document Status下拉框查询正确")

@@ -95,7 +95,7 @@ class TestExportUserShopAssociation:
         """点击导出功能"""
         export.click_export()
         export.click_download_more()
-        export.input_task_name("Staff Shop Association")
+        export.input_task_name("Staff And Shop Association")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
@@ -107,7 +107,7 @@ class TestExportUserShopAssociation:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Staff Shop Association")
+        ValueAssert.value_assert_equal(task_name, "Staff And Shop Association")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)

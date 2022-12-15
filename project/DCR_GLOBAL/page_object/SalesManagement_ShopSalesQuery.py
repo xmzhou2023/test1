@@ -97,8 +97,7 @@ class ShopSaleQueryPage(Base):
 
     def click_download_more(self):
         """点击异步导出，点击更多按钮"""
-        self.is_click(user['Download Icon'])
-        sleep(1)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(5)
@@ -166,7 +165,7 @@ class ShopSaleQueryPage(Base):
         if int(total) > 1000:
             logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
         else:
-            logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total))
+            logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total))
         sleep(2)
 
     def assert_file_time_size(self, file_size, export_time):

@@ -30,13 +30,13 @@ class TestMyComponentAdd:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_反例1")  # 用例名称
@@ -55,7 +55,7 @@ class TestMyComponentAdd:
         tools.click('新增Button', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_反例2")  # 用例名称
@@ -72,7 +72,7 @@ class TestMyComponentAdd:
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pri_001', 'code')
@@ -84,7 +84,7 @@ class TestMyComponentAdd:
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确定')
 
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_反例3")  # 用例名称
@@ -103,7 +103,7 @@ class TestMyComponentAdd:
         tools.click('新增Button', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_新增对话框关闭")  # 用例名称
@@ -118,7 +118,7 @@ class TestMyComponentAdd:
         tools.hover('新增')
         tools.click('新增组件')
         tools.click('x')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-我的空间_新增对话框取消")  # 用例名称
@@ -133,7 +133,7 @@ class TestMyComponentAdd:
         tools.hover('新增')
         tools.click('新增组件')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_正例")  # 用例名称
@@ -145,19 +145,21 @@ class TestMyComponentAdd:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
-        DomAssert(drivers).assert_att('新增成功')
+        tools.close_switch_tlc(1)
+
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_反例1")  # 用例名称
@@ -169,6 +171,7 @@ class TestMyComponentAdd:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', '', 'code')
@@ -176,7 +179,7 @@ class TestMyComponentAdd:
         tools.click('新增Button', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_反例2")  # 用例名称
@@ -188,12 +191,14 @@ class TestMyComponentAdd:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'name')
         tools.click('新增Button', 'confirm')
-        tools.close_switch(1)
+        tools.close_switch_tlc(1)
+        tools.click('空间', '公共空间')
         tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
@@ -202,11 +207,12 @@ class TestMyComponentAdd:
         DomAssert(drivers).assert_att('code不能重复')
         tools.click('新增Button', 'cancel')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('组件item')
         tools.click('组件item more')
         tools.click('删除', 'auto_testing_add_components_pub_001')
         tools.click('删除确定')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_反例3")  # 用例名称
@@ -218,6 +224,7 @@ class TestMyComponentAdd:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.input('新增输入框', 'auto_testing_add_components_pub_001', 'code')
@@ -225,7 +232,7 @@ class TestMyComponentAdd:
         tools.click('新增Button', 'confirm')
         DomAssert(drivers).assert_att('不能为空')
         tools.click('新增Button', 'cancel')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_新增对话框关闭")  # 用例名称
@@ -237,10 +244,11 @@ class TestMyComponentAdd:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.click('x')
-        pass
+      
 
     @allure.story("我的文件-组件新增")  # 场景名称
     @allure.title("组件新增-公共空间_新增对话框取消")  # 用例名称
@@ -252,9 +260,10 @@ class TestMyComponentAdd:
         tools = UserPage(drivers)
         tools.click_menu('组件中心', '我的文件')
         tools.click('空间', '公共空间')
+        tools.click('空间', '公共空间')
         tools.hover('新增')
         tools.click('新增组件')
         tools.click('新增Button', 'cancel')
-        pass
+      
 if __name__ == '__main__':
     pytest.main(['project/TLC/test_case/My_component_add.py'])

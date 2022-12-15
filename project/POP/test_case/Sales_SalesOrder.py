@@ -10,7 +10,7 @@ def setup_class(drivers):
     nav = NavPage(drivers)
     nav.click_gotonav("销售","销售订单")
 
-@allure.feature("销售") # 模块名称
+@allure.feature("销售-销售订单") # 模块名称
 class TestSaleBilling:
     @allure.story("销售订单") # 场景名称
     @allure.title("商品销售开单")  # 用例名称
@@ -30,7 +30,7 @@ class TestSaleBilling:
         users.click_Collection()
         # 断言--开单成功跳转销售订单列表断言页面是否存在销售订单编号字段
         test = users.element_text(user['开单成功提示'])
-        ValueAssert.value_assert_equal(test,'SUCCESS')
+        ValueAssert.value_assert_equal(test,'提交成功')
 
 if __name__ == '__main__':
     pytest.main(['Sales_SalesOrder.py'])

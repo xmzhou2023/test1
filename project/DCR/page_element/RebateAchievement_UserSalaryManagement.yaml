@@ -35,6 +35,7 @@ Get list Country: "xpath==//tbody//tr[1]//td[33]//div"
 Get list Total: "xpath==//span[contains(text(),'Total')]"
 
 #Import Record
+Import Search: "xpath==//button//span[normalize-space(text())='Search']"
 Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
 Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"
 Get Import Record Total: "xpath==//tbody//tr[1]//td[4]//div"

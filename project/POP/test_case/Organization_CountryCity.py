@@ -12,7 +12,7 @@ def setup_class(drivers):
     nav = NavPage(drivers)
     nav.click_gotonav("组织","国家城市")
 
-@allure.feature("组织") # 模块名称
+@allure.feature("组织-国家城市") # 模块名称
 class TestQueryCountry:
     @allure.story("国家城市") # 场景名称
     @allure.title("查询国家")  # 用例名称
@@ -28,7 +28,7 @@ class TestQueryCountry:
         test = users.element_text(user['查询国家'])
         ValueAssert.value_assert_equal(test,"China")
 
-@allure.feature("组织") # 模块名称
+@allure.feature("组织-国家城市") # 模块名称
 class TestExportCoutrycity:
     @allure.story("国家城市")  # 场景名称
     @allure.title("导出国家城市列表")  # 用例名称

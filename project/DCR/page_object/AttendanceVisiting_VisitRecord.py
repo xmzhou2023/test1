@@ -83,19 +83,19 @@ class VisitRecordPage(Base):
         return total1
 
     @allure.step("Visit Record页面，点击Shop self-inspection 条件筛选")
-    def click_shop_self_inspection(self):
-        self.is_click(user['Shop self-inspection'], 'Shop self-inspection')
+    def click_shop_self_inspection(self, content):
+        self.is_click(user['Shop self-inspection'], content)
         sleep(0.5)
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("Visit Record页面，点击关闭Visit Record菜单")
     def click_close_visit_record(self):
         self.is_click(user['关闭巡店记录菜单'])
-        sleep(1)
+        #sleep(1)
 
 
     #巡店记录，导出功能验证
@@ -112,9 +112,8 @@ class VisitRecordPage(Base):
 
     @allure.step("点击Download Icon，点击More更多按钮")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1.5)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(4)
 
@@ -122,7 +121,7 @@ class VisitRecordPage(Base):
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
+        sleep(0.5)
         self.is_click_dcr(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")

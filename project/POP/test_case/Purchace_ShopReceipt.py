@@ -18,7 +18,7 @@ def setup_module(drivers):
     nav.click_gotonav("采购", "门店收货单")
 
 
-@allure.feature("采购") # 模块名称
+@allure.feature("采购-门店收货单") # 模块名称
 class TestPurchaseReceipt:
     @allure.story("门店收货单") # 场景名称
     @allure.title("ShopReceipt")  # 用例名称
@@ -37,7 +37,7 @@ class TestPurchaseReceipt:
         test = users.element_text(user['新增自采收货'])
         ValueAssert.value_assert_equal(test, '提交成功')
 
-@allure.feature("采购") # 模块名称
+@allure.feature("采购-门店收货单") # 模块名称
 class TestQueryReceipt:
     @allure.story("门店收货单")  # 场景名称
     @allure.title("ShopReceipt")  # 用例名称
@@ -46,12 +46,21 @@ class TestQueryReceipt:
     @pytest.mark.smoke  # 用例标记
     def test_002_001(self,drivers):
         users = QueryReceipt(drivers)
-        users.input_receiptnum("PI221026000001")
+        users1 = ShopReceipt(drivers)
+        users1.receipt_click_menu_self_purchase('自采收货')
+        users1.receipt_select_shop('TECNO江北旗舰店')
+        users1.receipt_select_goods('礼品1123')
+        users1.receipt_search_goods('查询')
+        users1.receipt_add_goods()
+        users1.receipt_click_submit('提交')
+        # 获取新增采购单号
+        expect = users.element_text(user['查询收货单号'])
+        users.input_receiptnum(expect)
         users.click_query()
         sleep(1)
         # 断言-查询的收货单与输入的一致
         test = users.element_text(user['查询收货单号'])
-        ValueAssert.value_assert_equal(test,"PI221026000001")
+        ValueAssert.value_assert_equal(test,expect)
 
 
 

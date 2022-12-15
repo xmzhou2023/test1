@@ -1,16 +1,10 @@
 import allure
 import pytest
+
+from libs.common.time_ui import sleep
 from project.TBM.page_object.BOMCooperation_ForeignBom import ForeignBom
 from public.base.assert_ui import DomAssert, ValueAssert
 
-"""
-    用例等级说明:
-        blocker级别:中断缺陷(客户端程序无响应，无法执行下一步操作)
-        critical级别: 临界缺陷(功能点缺失)
-        normal级别:普通缺陷(数值计算错误)
-        minor级别: 次要缺陷(界面错误与UI需求不符)
-        trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
-"""
 
 
 @allure.feature("BOM协作-外研BOM协作")  # 模块名称
@@ -44,7 +38,7 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.click_search()
-        user.assert_add_result('自动化新增用例', '客供BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        user.assert_add_result("BOM协作", "外研BOM协作", '自动化新增用例', '客供BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
         process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
@@ -85,7 +79,7 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('自动化新增用例', '客供BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        user.assert_add_result("BOM协作", "外研BOM协作", '自动化新增用例', '客供BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
         process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
@@ -103,12 +97,10 @@ class TestCreateProcess:
         user.input_bomtree('客供BOM', '物料编码', '12004871')
         user.click_add_material()
         user.input_add_material('12004871', '物料编码', '12800002')
-        user.click_checkbox()
-        user.input_one_press('用量', '1000')
-        amount = user.get_bomtree_info('客供BOM')[7]
-        ValueAssert.value_assert_equal(amount, '1000')
-        amount = user.get_bomtree_info('12800002')[1]
-        user.assert_value_in('1000', amount)
+        user.click_BOMTree_checkbox()
+        user.input_OnePress('用量', '1000')
+        user.assert_BomTree_OnepressResult('客供BOM', '用量', '1000')
+        user.assert_BomTree_OnepressResult('12800002', '用量', '1000', 'code')
 
     @allure.story("创建流程")
     @allure.title("BOM tree中不选择物料，页面上不存在删除按钮")
@@ -132,7 +124,7 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.click_checkbox()
+        user.click_BOMTree_checkbox()
         user.assert_batch_delete(True)
 
     @allure.story("创建流程")
@@ -145,7 +137,8 @@ class TestCreateProcess:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.click_bomtree_delete('客供BOM', 'Tree')
+        user.click_bomtree_delete('客供BOM')
+        user.click_batch_confirm()
         DomAssert(drivers).assert_att('暂无数据')
 
     @allure.story("创建流程")
@@ -166,8 +159,9 @@ class TestCreateProcess:
         user.input_add_material('12004871', '用量', '1000')
         user.input_add_material('12004871', '替代组', 'A1')
         user.input_add_material('12004871', '份额', '20')
-        user.click_bomtree_delete('12800002')
-        user.assert_bomtree('12800002')
+        user.click_bomtree_delete('12800002', 'code')
+        user.click_batch_confirm()
+        user.assert_bomtree('物料编码', '12004871')
 
     @allure.story("创建流程")
     @allure.title("选择正确的文件进行导入，并应用，显示的数据与模板的数据一致")
@@ -180,7 +174,8 @@ class TestCreateProcess:
         user.add_bom_info()
         user.click_add_bomtree()
         user.click_bom_import()
-        user.upload_bom_file()
+        user.add_import_file('外研客供BOM导入模板.xlsx')
+        user.assert_import_success()
         user.assert_upload_result(('1', '量产', '12004871', '外购单机头_TECNO_W1_B40030_埃塞_新客供', '12800002', '整机外包料Infinix_X5010_AW878_黑_A欧_P02_Ⅰ', '1000'),)
         user.click_apply()
         user.click_tree('客供BOM')
@@ -220,7 +215,7 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('自动化新增用例', '客供BOM衍生', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        user.assert_add_result("BOM协作", "外研BOM协作", '自动化新增用例', '客供BOM衍生', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
         process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
@@ -267,7 +262,7 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('自动化新增用例', '客供BOM衍生', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        user.assert_add_result("BOM协作", "外研BOM协作", '自动化新增用例', '客供BOM衍生', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
         process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
@@ -288,7 +283,8 @@ class TestCreateProcess:
         user.input_bom_info('市场', '埃塞本地')
         user.input_bom_info('模式', '零价值客供')
         user.click_Derived_import()
-        user.upload_Derived_file('外研BOM衍生需求导入模板.xlsx')
+        user.add_import_file('外研BOM衍生需求导入模板.xlsx')
+        user.assert_import_success()
         user.click_apply()
         user.click_Creat_BOM()
         user.assert_toast('生成衍生BOM成功')
@@ -298,12 +294,12 @@ class TestCreateProcess:
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('自动化新增用例', '客供BOM衍生', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        user.assert_add_result("BOM协作", "外研BOM协作", '自动化新增用例', '客供BOM衍生', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
         process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
     @allure.story("创建流程")  # 场景名称
-    @allure.title("客供BOM衍生,创建流程成功")  # 用例名称
+    @allure.title("客供BOM衍生,物料信息删除成功")  # 用例名称
     @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息填写完整，在衍生BOM制作需求中新增物料后，点击删除按钮，物料信息删除成功")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -358,14 +354,15 @@ class TestCreateProcess:
         user.input_Derived_info('用量', '1000')
         user.click_Creat_BOM()
         user.click_Factory_import()
-        user.upload_Factory_file('业务线导入工厂模板.xls')
+        user.add_import_file('业务线导入工厂模板.xls')
+        user.assert_import_success()
         user.click_apply()
         user.select_business_review('李小素', 'PPM')
         user.select_business_review('李小素', 'QPM')
         user.click_add_submit()
         user.assert_toast('创建流程成功')
         user.refresh()
-        user.assert_add_result('自动化新增用例', '客供BOM衍生', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        user.assert_add_result("BOM协作", "外研BOM协作", '自动化新增用例', '客供BOM衍生', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
         process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
         user.delete_flow(process_code)
 
@@ -386,13 +383,114 @@ class TestCreateProcess:
         user.input_bom_info('市场', '埃塞本地')
         user.input_bom_info('模式', '零价值客供')
         user.click_Derived_import()
-        user.upload_Derived_file('外研BOM衍生需求导入模板.xlsx')
+        user.add_import_file('外研BOM衍生需求导入模板.xlsx')
+        user.assert_import_success()
         user.click_apply()
         user.click_Creat_BOM()
         user.click_Factory_import()
-        user.upload_Factory_file('业务线导入工厂模板.xls')
+        user.add_import_file('业务线导入工厂模板.xls')
+        user.assert_import_success()
         user.click_applyCancel()
         user.assert_Factory_None()
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("客供BOM衍生导入模板,应用成功并提交成功")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息填写完整，在衍生BOM制作需求中点击导入，下载模板，正确填写信息，选择正确的模板文件，点击应用，信息导入成功，点击生成BOM，点击刷新，填写业务审核，点击提交，提示流程发起成功")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_015(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_basic_info('标题', '自动化新增用例cy')
+        user.input_bom_info('制作类型', '客供BOM衍生')
+        user.input_bom_info('品牌', 'itel')
+        user.input_bom_info('机型', '1005G1')
+        user.input_bom_info('阶段', '量产阶段')
+        user.input_bom_info('市场', '埃塞本地')
+        user.input_bom_info('模式', '零价值客供')
+        user.click_Derived_import()
+        user.add_import_file('外研BOM衍生需求导入模板.xlsx')
+        user.assert_import_success()
+        user.click_apply()
+        user.click_Creat_BOM()
+        user.click_refresh()
+        user.select_business_review('李小素', 'PPM')
+        user.select_business_review('李小素', 'QPM')
+        user.click_add_submit()
+        user.assert_toast('创建流程成功')
+        user.refresh()
+        user.assert_add_result("BOM协作", "外研BOM协作", '自动化新增用例cy', '客供BOM衍生', '1005G1', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例cy', '流程编码')
+        user.delete_flow(process_code)
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("客供BOM衍生导入模板,取消导入，导入失败")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息填写完整，在衍生BOM制作需求中点击导入，下载模板，正确填写信息，选择正确的模板文件，点击取消，导入失败")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_016(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
+        user.input_bom_info('制作类型', '客供BOM衍生')
+        user.input_bom_info('品牌', 'itel')
+        user.input_bom_info('机型', 'JMB-01')
+        user.input_bom_info('阶段', '量产阶段')
+        user.input_bom_info('市场', '埃塞本地')
+        user.input_bom_info('模式', '零价值客供')
+        user.click_Derived_import()
+        user.add_import_file('外研BOM衍生需求导入模板.xlsx')
+        user.assert_import_success()
+        user.click_applyCancel()
+        user.assert_Factory_None()
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("客供BOM衍生,附件删除成功")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，点击附件的加号，选择文件，上传成功后点击删除，文件删除成功")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_017(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.add_upload_file('worng_file_text.txt')
+        user.delete_upload_file('worng_file_text.txt')
+        user.assert_upload('worng_file_text.txt', False)
+
+    @allure.story("创建流程")  # 场景名称
+    @allure.title("客供BOM衍生上传附件,创建流程成功")  # 用例名称
+    @allure.description("进入新增页面制作类型选择客供BOM衍生，BOM信息填写完整，在衍生BOM制作需求中新增物料，点击生成BOM，点击刷新，填写业务审核，点击提交，点击附件的加号，选择文件，点击打开，导入附件成功，提示流程发起成功")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_018(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        user.input_basic_info('标题', '自动化新增用例cy')
+        user.input_bom_info('制作类型', '客供BOM衍生')
+        user.input_bom_info('品牌', 'itel')
+        user.input_bom_info('机型', '1005G1')
+        user.input_bom_info('阶段', '量产阶段')
+        user.input_bom_info('市场', '埃塞本地')
+        user.input_bom_info('模式', '零价值客供')
+        user.click_Derived_import()
+        user.add_import_file('外研BOM衍生需求导入模板.xlsx')
+        user.assert_import_success()
+        user.click_apply()
+        user.click_Creat_BOM()
+        user.click_refresh()
+        user.select_business_review('李小素', 'PPM')
+        user.select_business_review('李小素', 'QPM')
+        user.add_upload_file('worng_file_text.txt')
+        user.assert_upload('worng_file_text.txt')
+        user.click_add_submit()
+        user.assert_toast('创建流程成功')
+        user.refresh()
+        user.assert_add_result("BOM协作", "外研BOM协作", '自动化新增用例cy', '客供BOM衍生', '1005G1', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例cy', '流程编码')
+        user.delete_flow(process_code)
 
 
 @allure.feature("BOM协作-外研BOM协作")
@@ -556,10 +654,9 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.click_checkbox()
-        user.input_one_press('用量', '1000')
-        amount = user.get_bomtree_info('客供BOM')[7]
-        ValueAssert.value_assert_equal(amount, '')
+        user.click_BOMTree_checkbox()
+        user.input_OnePress('用量', '1000')
+        user.assert_BomTree_OnepressResult('客供BOM', '用量', '')
 
     @allure.story("创建流程异常场景")  # 场景名称
     @allure.title("一键填写无内容提示内容不能为空")  # 用例名称
@@ -571,8 +668,8 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.click_checkbox()
-        user.input_one_press('用量', '')
+        user.click_BOMTree_checkbox()
+        user.input_OnePress('用量', '')
         DomAssert(drivers).assert_att('不能为空')
 
     @allure.story("创建流程异常场景")  # 场景名称
@@ -585,7 +682,7 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_bom_import()
-        user.upload_wrong_file()
+        user.add_import_file('worng_file_text.txt')
         user.assert_toast('文件类型非excel!')
 
     @allure.story("创建流程异常场景")  # 场景名称
@@ -598,7 +695,8 @@ class TestCreateProcessExceptionScenario:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_bom_import()
-        user.upload_wrongcontent_file()
+        user.add_import_file('外研客供BOM导入模板错误内容.xlsx')
+        user.assert_import_fail()
         user.assert_wrongcontent_upload_result()
 
     @allure.story("创建流程异常场景")  # 场景名称
@@ -993,10 +1091,33 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("发起一个整机生产BOM，进入待办中心，点击该条单据进行查看，查看页面的数据和发起的数据是一致的")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_003_001(self, drivers, Foreign_API):
+    def test_003_001(self, drivers):
         user = ForeignBom(drivers)
         user.refresh_webpage_click_menu()
-        user.enter_onework_check(Foreign_API[0])
+        user.click_add()
+        user.input_basic_info('标题', '自动化新增用例')
+        user.input_bom_info('制作类型', '客供BOM制作')
+        user.input_bom_info('品牌', 'itel')
+        user.input_bom_info('机型', 'JMB-01')
+        user.input_bom_info('阶段', '量产阶段')
+        user.input_bom_info('市场', '埃塞本地')
+        user.input_bom_info('模式', '零价值客供')
+        user.click_add_bomtree()
+        user.input_bomtree('客供BOM', 'BOM状态', '量产')
+        user.input_bomtree('客供BOM', '物料编码', '12004875')
+        user.input_bomtree('客供BOM', '用量', '1000')
+        user.click_add_material()
+        user.input_add_material('12004875', '物料编码', '12800002')
+        user.input_add_material('12004875', '用量', '1000')
+        user.click_refresh()
+        user.select_business_review('李小素', 'PPM')
+        user.select_business_review('李小素', 'QPM')
+        user.click_add_submit()
+        user.assert_toast('创建流程成功')
+        user.refresh()
+        user.assert_add_result("BOM协作", "外研BOM协作", '自动化新增用例', '客供BOM制作', 'JMB-01', 'itel', '量产阶段', '审批中', '埃塞本地')
+        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
+        user.enter_onework_check(process_code)
         info1 = user.get_onework_bominfo('制作类型')
         info2 = user.get_onework_bominfo('品牌')
         info3 = user.get_onework_bominfo('机型')
@@ -1009,8 +1130,9 @@ class TestTheProcessOfExaminationAndApproval:
         ValueAssert.value_assert_equal(info4, '量产阶段')
         ValueAssert.value_assert_equal(info5, '埃塞本地')
         ValueAssert.value_assert_equal(info6, '零价值客供')
-        user.assert_oneworks_bomtree_result(('1', '客供BOM', '12004875', '单机头_Spice_Z301_G282Z2_蓝色_无卡_IN', '可选', '1000'), ('1.1', '12800002', '整机外包料Infinix_X5010_AW878_黑_A欧_P02_Ⅰ', '外研', '1000'))
+        user.assert_oneworks_bomtree_result('客供BOM', ('1', '客供BOM', '12004875', '单机头_Spice_Z301_G282Z2_蓝色_无卡_IN', '可选', '1000'), ('1.1', '12800002', '整机外包料Infinix_X5010_AW878_黑_A欧_P02_Ⅰ', '外研', '1000'))
         user.quit_oneworks()
+        user.delete_flow(process_code)
 
     @allure.story("流程审批")  # 场景名称
     @allure.title("业务审核页面，审核成功")  # 用例名称
@@ -1021,10 +1143,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = ForeignBom(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Foreign_API[0])
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Foreign_API[0], '数据组审批', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -1036,7 +1155,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = ForeignBom(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Foreign_API[0])
-        user.click_oneworks_agree()
+        user.click_agree()
         user.click_oneworks_cancel()
         user.enter_oneworks_iframe()
         user.quit_oneworks()
@@ -1086,7 +1205,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.select_oneworks_refer('李小素')
         user.click_oneworks_refer_comfirm()
         user.click_oneworks_refer_cancel()
-        user.assert_oneworks_rollback_refer(True)
+        user.assert_oneworks_refer_exist(True)
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
@@ -1123,15 +1242,12 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
         user.assert_my_todo_node(Foreign_Approval_API[0], '业务审核', True)
         user.enter_oneworks_edit(Foreign_Approval_API[0])
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Foreign_Approval_API[0], '数据组审批', True)
 
     @allure.story("流程审批")
-    @allure.title("在业务审核页面中，选择转交人转交，存在确定转交按钮")
-    @allure.description("在业务审核页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
+    @allure.title("在数据组审批页面中，选择转交人转交，存在确定转交按钮")
+    @allure.description("在数据组审批页面中，点击转交，选择转交的人直接点击确认，存在确定转交按钮")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_003_009(self, drivers, Foreign_Approval_API):
@@ -1147,8 +1263,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
 
     @allure.story("流程审批")
-    @allure.title("在业务审核页面中，不选择转交人转交，不存在确定转交按钮")
-    @allure.description("在业务审核页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
+    @allure.title("在数据组审批页面中，不选择转交人转交，不存在确定转交按钮")
+    @allure.description("在数据组审批页面中，点击转交，不选择转交的人直接点击确认，是不存在确定转交按钮")
     @allure.severity("normal")
     @pytest.mark.UT  # 用例标记
     def test_003_010(self, drivers, Foreign_Approval_API):
@@ -1162,8 +1278,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
 
     @allure.story("流程审批")
-    @allure.title("在业务审核页面中，选择转交人转交取消，存在转交，回退按钮")
-    @allure.description("在业务审核页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
+    @allure.title("在数据组审批页面中，选择转交人转交取消，存在转交，回退按钮")
+    @allure.description("在数据组审批页面中，点击转交，选择转交的人后点击取消按钮，页面中恢复到原来的页面（判断是否存在转交，回退按钮）")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_003_011(self, drivers, Foreign_Approval_API):
@@ -1180,8 +1296,8 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
-    @allure.title("在业务审核页面中，转交单据成功")  # 用例名称
-    @allure.description("在业务审核页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
+    @allure.title("在数据组审批页面中，转交单据成功")  # 用例名称
+    @allure.description("在数据组审批页面中，点击转交，选择转交的人直接点击确认，点击确定转交，页面跳转，并且该条单据转交到选择的人身上")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_003_012(self, drivers, Foreign_Approval_API):
@@ -1215,11 +1331,13 @@ class TestTheProcessOfExaminationAndApproval:
         user.input_bom_info('市场', '埃塞本地')
         user.input_bom_info('模式', '零价值客供')
         user.click_Derived_import()
-        user.upload_Derived_file('外研BOM衍生需求导入模板.xlsx')
+        user.add_import_file('外研BOM衍生需求导入模板.xlsx')
+        user.assert_import_success()
         user.click_apply()
         user.click_Creat_BOM()
         user.click_Factory_import()
-        user.upload_Factory_file('业务线导入工厂模板.xls')
+        user.add_import_file('业务线导入工厂模板.xls')
+        user.assert_import_success()
         user.click_apply()
         user.select_business_review('李小素', 'PPM')
         user.select_business_review('李小素', 'QPM')
@@ -1240,7 +1358,7 @@ class TestTheProcessOfExaminationAndApproval:
         ValueAssert.value_assert_equal(info4, '量产阶段')
         ValueAssert.value_assert_equal(info5, '埃塞本地')
         ValueAssert.value_assert_equal(info6, '零价值客供')
-        user.assert_oneworks_bomtree_result(('1', '客供BOM', '12000003', '单机头_TECNO_T722_E680B1_红色_4G', '可选', '1000'), ('1.1', '12800001', '整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ', '外研', '1000'))
+        user.assert_oneworks_bomtree_result('客供BOM', ('1', '客供BOM', '12000003', '单机头_TECNO_T722_E680B1_红色_4G', '可选', '1000'), ('1.1', '12800001', '整机外包料Infinix_X5010_AW878_金_A欧_P01_Ⅰ', '外研', '1000'))
         user.quit_oneworks()
         user.delete_flow(process_code)
 
@@ -1253,10 +1371,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = ForeignBom(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Foreign_Derived_API[0])
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Foreign_Derived_API[0], '数据组审批', True)
 
     @allure.story("流程审批")  # 场景名称
@@ -1268,7 +1383,7 @@ class TestTheProcessOfExaminationAndApproval:
         user = ForeignBom(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(Foreign_Derived_API[0])
-        user.click_oneworks_agree()
+        user.click_agree()
         user.click_oneworks_cancel()
         user.enter_oneworks_iframe()
         user.quit_oneworks()
@@ -1321,7 +1436,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.select_oneworks_refer('李小素')
         user.click_oneworks_refer_comfirm()
         user.click_oneworks_refer_cancel()
-        user.assert_oneworks_rollback_refer(True)
+        user.assert_oneworks_refer_exist(True)
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
@@ -1353,7 +1468,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.refresh_webpage()
         user.assert_my_todo_node(Foreign_Derived_API[0], '业务审核', True)
         user.enter_oneworks_edit(Foreign_Derived_API[0])
-        user.click_oneworks_agree()
+        user.click_agree()
         user.click_oneworks_cancel()
         user.enter_oneworks_iframe()
         user.quit_oneworks()
@@ -1375,10 +1490,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
         user.assert_my_todo_node(Foreign_Derived_Approval_API[0], '业务审核', True)
         user.enter_oneworks_edit(Foreign_Derived_Approval_API[0])
-        user.click_oneworks_agree()
-        user.click_oneworks_confirm()
-        user.assert_toast()
-        user.quit_oneworks()
+        user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(Foreign_Derived_Approval_API[0], '数据组审批', True)
 
     @allure.story("流程审批")
@@ -1428,7 +1540,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.select_oneworks_refer('李小素')
         user.click_oneworks_refer_comfirm()
         user.click_oneworks_refer_cancel()
-        user.assert_oneworks_rollback_refer(True)
+        user.assert_oneworks_refer_exist(True)
         user.quit_oneworks()
 
     @allure.story("流程审批")  # 场景名称
@@ -1450,6 +1562,95 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
         user.assert_flow_deliver(Foreign_Derived_Approval_API[0], '陈月')
 
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("数据组审批页面，审批成功")  # 用例名称
+    @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip  # 如果需要执行，手动将@pytest.mark.skip注释
+    def test_003_026(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
+        user.input_basic_info('标题', '自动化新增用例')
+        user.input_bom_info('制作类型', '客供BOM制作')
+        user.input_bom_info('品牌', 'itel')
+        user.input_bom_info('机型', 'JMB-01')
+        user.input_bom_info('阶段', '量产阶段')
+        user.input_bom_info('市场', '埃塞本地')
+        user.input_bom_info('模式', '零价值客供')
+        user.click_add_bomtree()
+        # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
+        user.input_bomtree('客供BOM', 'BOM状态', '量产')
+        user.input_bomtree('客供BOM', '物料编码', '12004871')
+        user.input_bomtree('客供BOM', '用量', '1000')
+        user.click_add_material()
+        user.input_add_material('12004871', '物料编码', '12800002')
+        user.input_add_material('12004871', '用量', '1000')
+        user.click_refresh()
+        user.select_business_review(user.review, 'PPM')
+        user.select_business_review(user.review, 'QPM')
+        user.click_add_submit()
+        user.assert_toast('创建流程成功')
+        user.refresh()
+        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
+        user.business_approve_flow(process_code)
+        user.enter_oneworks_edit(process_code)
+        user.assert_OneWorks_AgreeFlow()
+        user.assert_my_application_node(process_code, '审批通知', True)
+        sleep(60)
+        user.assert_my_application_flow(process_code, '审批完成')
+        process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
+        ValueAssert.value_assert_equal(process_status, '审批通过')
+
+    @allure.story("流程审批")  # 场景名称
+    @allure.title("衍生BOM，数据组审批页面，审批成功")  # 用例名称
+    @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip  # 如果需要执行，手动将@pytest.mark.skip注释
+    def test_003_027(self, drivers):
+        user = ForeignBom(drivers)
+        user.refresh_webpage_click_menu()
+        user.click_add()
+        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
+        user.input_basic_info('标题', '自动化新增用例')
+        user.input_bom_info('制作类型', '客供BOM衍生')
+        user.input_bom_info('品牌', 'itel')
+        user.input_bom_info('机型', 'JMB-01')
+        user.input_bom_info('阶段', '量产阶段')
+        user.input_bom_info('市场', '埃塞本地')
+        user.input_bom_info('模式', '零价值客供')
+        # 填写相关衍生信息，需要在数据组审批子阶检查通过
+        user.click_Derived_add()
+        user.input_Derived_info('新BOM编码', '12000003')
+        user.input_Derived_info('原始BOM编码', '12014351')
+        user.input_Derived_info('原始BOM工厂', 'PL01')
+        user.click_Derived_differ()
+        user.click_Derived_add()
+        user.input_Derived_info('BOM编码', '12000003')
+        user.input_Derived_info('操作', '新增物料')
+        user.input_Derived_info('处理物料编码', '12800001')
+        user.input_Derived_info('用量', '1000')
+        user.click_Creat_BOM()
+        user.assert_toast('生成衍生BOM成功')
+        user.click_refresh()
+        user.select_business_review(user.review, 'PPM')
+        user.select_business_review(user.review, 'QPM')
+        user.click_add_submit()
+        user.assert_toast('创建流程成功')
+        user.refresh()
+        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
+        user.business_approve_flow(process_code)
+        user.enter_oneworks_edit(process_code)
+        user.assert_OneWorks_AgreeFlow()
+        user.assert_my_application_node(process_code, '审批通知', True)
+        sleep(60)
+        user.assert_my_application_flow(process_code, '审批完成')
+        process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
+        ValueAssert.value_assert_equal(process_status, '审批通过')
+
 
 @allure.feature("BOM协作-外研BOM协作")
 class TestProcessApprovalExceptionScenario:
@@ -1464,7 +1665,6 @@ class TestProcessApprovalExceptionScenario:
         user.assert_my_todo_node(Foreign_Failed_API[0], '数据组审批', True)
         user.enter_oneworks_edit(Foreign_Failed_API[0])
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('子阶bom检查失败，无法同步')
         user.quit_oneworks()
@@ -1480,7 +1680,6 @@ class TestProcessApprovalExceptionScenario:
         user.assert_my_todo_node(Foreign_Derived_Approval_API[0], '数据组审批', True)
         user.enter_oneworks_edit(Foreign_Derived_Approval_API[0])
         user.click_oneworks_agree()
-        user.click_oneworks_confirm()
         user.enter_oneworks_iframe()
         user.assert_toast('子阶bom检查失败，无法同步')
         user.quit_oneworks()
@@ -1609,7 +1808,7 @@ class TestProcessSearch:
         user.input_search_info('标题', '自动化查询用例test')
         user.click_search()
         user.click_delete('自动化查询用例test')
-        user.click_delete_cancel()
+        user.click_dialog_cancel()
         user.assert_search_result('标题', '自动化查询用例test')
 
 

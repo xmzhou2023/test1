@@ -221,6 +221,120 @@ class APIRequest:
                 logging.info('流程结束：整机BOM协作新增流程')
                 return i['flowNo'], i['instanceId'], flowId
 
+    @allure.step("整机BOM协作新增接口")
+    def API_Derive_Machine_Add(self):
+        logging.info('发起流程：整机BOM协作新增流程')
+        token = self.tbm_login()
+        querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        add_data = {
+            "flowId": None,
+            "flowNodeName": "start",
+            "bomArchive": {
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowProposerName": "李小素",
+                "flowStartdate": querytime,
+                "bomVer": "",
+                "bomVersion": "batch",
+                "brandCode": "infinix",
+                "market": "ET",
+                "produceClass": "derive",
+                "templateId": 1017718,
+                "templateName": "q",
+                "isLocalPurchase": "",
+                "bomClass": "",
+                "model": "X572-1",
+                "note": "",
+                "title": f"[李小素]-[{querytime[:10]}]",
+                "researchType": "selfResearch",
+                "flowDept": "PI_系统四部"
+            },
+            "bomDeriveList": [
+                {
+                    "row": 1,
+                    "checkResultMessage": "",
+                    "newBomType": "deliver",
+                    "newBomCode": "11000002",
+                    "newBomName": "CKD_itel_A44_F3706_玫瑰金_IN_BCFL_8+1_P05_E",
+                    "originalBomCode": "10026373",
+                    "originalBomName": "整机_Infinix_PR652C_F6319_B1_海洋之心32+2_欧规_Ⅰ",
+                    "originalBomFactory": "PL01",
+                    "rightNewBomName": "CKD_itel_A44_F3706_玫瑰金_IN_BCFL_8+1_P05_E",
+                    "rightOriginalBomName": "整机_Infinix_PR652C_F6319_B1_海洋之心32+2_欧规_Ⅰ",
+                    "statusCode": None,
+                    "diffColor": None,
+                    "diffMarket": None,
+                    "diffConfig": None,
+                    "no": "",
+                    "repeat": True,
+                    "newBomTypeLabel": "发货BOM"
+                }
+            ],
+            "bomTreeVOList": [],
+            "approvers": {
+                "bisReviewApprovers": [
+                    {
+                        "role": "audio",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "market",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "nps",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "opmPm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "pilot",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "pmSuper",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "preResearch",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "qpm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "structure",
+                        "userNo": ""
+                    }
+                ],
+                "bisSupplyApprovers": [
+                    {
+                        "role": "mpm",
+                        "userNo": "18645960"
+                    }
+                ]
+            },
+            "uploadList": [],
+            "submitType": "submit"
+        }
+        search_data = {
+            "param": {"title": "", "flowNo": "", "bomCode": "", "produceClass": "", "model": "", "brandCode": "",
+                      "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
+                      "createdTimeFrom": "", "createdTimeTo": ""}, "current": 1, "size": 10}
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        add_response = self.Request_Machine_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_Bom_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
+            if i['flowId'] == flowId:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
+                logging.info('流程结束：整机BOM协作新增流程')
+                return i['flowNo'], i['instanceId'], flowId
+
     @allure.step("整机BOM协作-补充工厂审批通过接口")
     def API_Machine_Factory(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：整机BOM协作-补充工厂审批通过流程')
@@ -276,6 +390,63 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：整机BOM协作-补充工厂审批通过流程')
 
+    @allure.step("整机BOM协作-补充工厂审批通过接口")
+    def API_Derive_Machine_Factory(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：整机BOM协作-补充工厂审批通过流程')
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        MachineInfo = self.Oneworks_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "fillFactory",
+            "type": "fillFactory",
+            "bomArchive":
+                MachineInfo['data']['bomArchive'],
+            "approvers":
+                MachineInfo['data']['approvers'],
+            "bomTreeVOList":
+                MachineInfo['data']['bomTreeVOList'],
+            "refFactoryList":
+                [
+                    {
+                        "note": "CKD_itel_A44_F3706_玫瑰金_IN_BCFL_8+1_P05_E",
+                        "matCode": "11000002",
+                        "isOversea": None,
+                        "homePackagingFactory": "1051",
+                        "homeChipFactory": "/",
+                        "overseasPackagingFactory": "/",
+                        "overseasChipFactory": "/",
+                        "applyScope": "deliver",
+                        "bomNodeCode": None,
+                        "statusCode": "batch",
+                        "bomNo": "1",
+                        "factory": None,
+                        "applyScopeList": [
+                            "deliver"
+                        ],
+                        "childNodes": None,
+                        "existFactory": False,
+                        "statusCodeLabel": "量产",
+                        "deleteValidate": False
+                    }
+                ],
+            "bomDeriveList": MachineInfo['data']['bomDeriveList'],
+            "copyRuleList": None,
+            "otherDeriveList": None,
+            "uploadList": [],
+            "bomImportKeyDeviceList": None,
+            "purchaseList": None,
+            "role": MachineInfo['data']['role'],
+            "bomDeriveTreeVOList": [],
+            "virtualChipList": None,
+            "diffCollectList": None,
+            "checkFactory": "patchTrue"
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_Machine_Factory(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：整机BOM协作-补充工厂审批通过流程')
+
     @allure.step("整机BOM协作-BOM工程师审批通过接口")
     def API_Machine_bomEnginner(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：整机BOM协作-结构工程师审批通过流程')
@@ -311,6 +482,43 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：整机BOM协作-结构工程师审批通过流程')
 
+    @allure.step("整机BOM协作-BOM工程师审批通过接口")
+    def API_Derive_Machine_bomEnginner(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：整机BOM协作-结构工程师审批通过流程')
+        self.API_Derive_Machine_Factory(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        MachineInfo = self.Oneworks_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "bomArchReview",
+            "bomArchive":
+                MachineInfo['data']['bomArchive'],
+            "approvers":
+                MachineInfo['data']['approvers'],
+            "bomTreeVOList":
+                MachineInfo['data']['bomTreeVOList'],
+            "refFactoryList":
+                MachineInfo['data']['refFactoryList'],
+            "bomDeriveList":
+                MachineInfo['data']['bomDeriveList'],
+            "copyRuleList": None,
+            "otherDeriveList": None,
+            "uploadList": [],
+            "bomImportKeyDeviceList": None,
+            "purchaseList": None,
+            "role":
+                MachineInfo['data']['role'],
+            "bomDeriveTreeVOList": [],
+            "virtualChipList": None,
+            "diffCollectList": None,
+
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_Machine_bomEnginner(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：整机BOM协作-结构工程师审批通过流程')
+
     @allure.step("整机BOM协作-业务审核通过接口")
     def API_Machine_Approval(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：整机BOM协作-业务审核通过流程')
@@ -319,7 +527,7 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
         MachineInfo = self.Oneworks_queryInfo(flowid, headers)
         approve_data = {
-            "flowId": "11225",
+            "flowId": flowid,
             "flowNodeName": "bisReview",
             "bomArchive":
                 MachineInfo['data']['bomArchive'],
@@ -407,7 +615,60 @@ class APIRequest:
                 ],
                 "bomLevel": "complete",
                 "checker": "18645960",
-                "flowId": "11225"
+                "flowId": flowid
+            }
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_Machine_Approve(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：整机BOM协作业务审核通过流程')
+
+    @allure.step("整机BOM协作-业务审核通过接口")
+    def API_Derive_Machine_Approval(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：整机BOM协作-业务审核通过流程')
+        self.API_Derive_Machine_bomEnginner(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        MachineInfo = self.Oneworks_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "bisReview",
+            "bomArchive":
+                MachineInfo['data']['bomArchive'],
+            "approvers":
+                MachineInfo['data']['approvers'],
+            "bomTreeVOList":
+                MachineInfo['data']['bomTreeVOList'],
+            "refFactoryList":
+                MachineInfo['data']['refFactoryList'],
+            "bomDeriveList":
+                MachineInfo['data']['bomDeriveList'],
+            "copyRuleList": None,
+            "otherDeriveList":
+                MachineInfo['data']['otherDeriveList'],
+            "uploadList": [],
+            "bomImportKeyDeviceList": None,
+            "purchaseList": None,
+            "role":
+                MachineInfo['data']['role'],
+            "bomDeriveTreeVOList": [],
+            "virtualChipList": None,
+            "diffCollectList": None,
+            "recordReqVO": {
+                "checkRole": "audio",
+                "listBid": "966650555156008960",
+                "listName": "in",
+                "records": [
+                    {
+                        "checkResult": 1,
+                        "remark": "",
+                        "ruleBid": "966650555172786176",
+                        "ruleName": "整机BOM"
+                    }
+                ],
+                "bomLevel": "complete",
+                "checker": "18645960",
+                "flowId": flowid
             }
         }
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
@@ -427,6 +688,7 @@ class APIRequest:
         delete_data = {"id": flowid}
         headers = {'Content-Type': 'application/json', 'Authorization': token}
         self.Oneworks_Recall(instanceid, headers)
+        sleep(1)
         self.Request_Bom_Delete(delete_data, headers)
         logging.info('流程结束：BOM协作撤回流程')
 
@@ -1566,6 +1828,22 @@ class APIRequest:
         logging.info('发起请求：出货国家查询信息获取接口')
         return self.api_request('出货国家查询信息获取接口', data, headers)
 
+    def Request_SaleCountry_LastedTemp(self, brandCode, headers):
+        """
+        TBM 出货国家流程 品牌模板
+        @param brandCode:品牌模板
+        @param headers:接口头部
+        """
+        logging.info('发起请求：出货国家流程获取品牌模板接口')
+        logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-bom-archive/sale-country/template/getLastedTemp?brandCode={brandCode}&type=frontEnd')
+        recall_response = requests.get(
+            url=f'http://pfgatewayidct.transsion.com:9088/service-bom-archive/sale-country/template/getLastedTemp?brandCode={brandCode}&type=frontEnd',
+            headers=headers)
+        response_dicts = recall_response.json()
+        logging.info('接口响应内容为：%s', response_dicts)
+        logging.info('请求结束：出货国家流程获取品牌模板接口')
+        return response_dicts
+
     def Request_SaleCountry_Info(self, bid, headers):
         """
         TBM 出货国家流程 获取单据信息
@@ -1602,9 +1880,11 @@ class APIRequest:
     def API_SaleCountry_Add(self):
         logging.info('发起流程接口：出货国家流程新增流程')
         token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
         titletime = datetime.now().strftime('%Y-%m-%d')
         flowStartdate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         querytime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         add_data = {
             "prdInfoVOS": [
                 {
@@ -1618,7 +1898,7 @@ class APIRequest:
                         "productManager": "18645960",
                         "projectManager": "18645960",
                         "brandCode": "infinix",
-                        "editStatus": True,
+                        "editStatus": False,
                         "isAdd": True
                     },
                     "scPrdUniversalInfoMap": {
@@ -1631,7 +1911,8 @@ class APIRequest:
                         ],
                         "inch": [
                             "RearCamera1"
-                        ]
+                        ],
+                        "FirstOrderMassProdTime": titletime
                     },
                     "countryProperties": {}
                 }
@@ -1650,7 +1931,7 @@ class APIRequest:
             "scProjectVO": {
                 "brandCode": "infinix",
                 "projectName": f"项目名称{querytime}",
-                "templateBid": "1029692351762796544"
+                "templateBid": LastedTemp['data']['bid']
             },
             "submitType": "submit",
             "approvers": {
@@ -1673,92 +1954,12 @@ class APIRequest:
             },
             "areas": [],
             "uploadList": [],
-            "fields": [
-                {
-                    "id": None,
-                    "bid": "1029692352958173184",
-                    "fieldName": "摄像头",
-                    "fieldIdent": "camera",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 0,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173185",
-                    "fieldName": "型号",
-                    "fieldIdent": "type",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 1,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173186",
-                    "fieldName": "新增",
-                    "fieldIdent": "new",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 2,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173187",
-                    "fieldName": "再增",
-                    "fieldIdent": "anthor",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Standard",
-                    "necessary": 1,
-                    "fieldOrder": 3,
-                    "valid": True,
-                    "constraint": "{\"key\": \"Standard\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173188",
-                    "fieldName": "配色",
-                    "fieldIdent": "Color",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "colorSet",
-                    "necessary": 1,
-                    "fieldOrder": 4,
-                    "valid": True,
-                    "constraint": "{\"key\": \"colorSet\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173189",
-                    "fieldName": "尺寸",
-                    "fieldIdent": "inch",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "RearCamera",
-                    "necessary": 1,
-                    "fieldOrder": 5,
-                    "valid": True,
-                    "constraint": "{\"key\": \"RearCamera\"}",
-                    "value": None
-                }
-            ]
+            "fields": LastedTemp['data']['fields']
         }
 
         search_data = {"param": {"title": "", "flowNo": "", "projectName": f"项目名称{querytime}", "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
                                  "flowStartdate": ""}, "current": 1, "size": 10}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
         self.Request_SaleCountry_Add(add_data, headers)
         search_response = self.Request_SaleCountry_Search(search_data, headers)
         search_response_data = search_response['data']['data']
@@ -1789,6 +1990,7 @@ class APIRequest:
         logging.info('发起流程接口：出货国家查询变更产品接口')
         token = self.tbm_login()
         headers = {'Content-Type': 'application/json', 'Authorization': token}
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         PageList_body = {
             "current": 1,
             "size": 10,
@@ -1841,13 +2043,14 @@ class APIRequest:
                         "Color": [
                             "Aqua Blue"
                         ],
-                        "inch": "RearCamera1"
+                        "inch": ["RearCamera1"],
+                        "FirstOrderMassProdTime": titletime
                     },
                     "countryProperties": {}
                 }
             ],
             "flowMainVO": {
-                "title": f"[李小素]-[{titletime}]",
+                "title": f"[李小素]-[{testdate}]",
                 "flowNo": "",
                 "flowProposer": "18645960",
                 "flowDept": "PI_系统四部",
@@ -1866,7 +2069,7 @@ class APIRequest:
                 "id": None,
                 "bid": None,
                 "flowBid": None,
-                "templateBid": queryArchDetail['data']['scArchiveProductVO']['templateBid'],
+                "templateBid": LastedTemp['data']['bid'],
                 "brandCode": queryArchDetail['data']['scArchiveProductVO']['brandCode'],
                 "projectName": queryArchDetail['data']['scArchiveProductVO']['projectName'],
                 "remark": None,
@@ -1893,11 +2096,11 @@ class APIRequest:
                     }
                 ]
             },
-            "areas": [],
+            "areas": LastedTemp['data']['areas'],
             "uploadList": [],
-            "fields": queryArchDetail['data']['fields']
+            "fields": LastedTemp['data']['fields']
         }
-        search_data = {"param": {"title": "", "flowNo": "", "projectName": projectName, "brandCode": "",
+        search_data = {"param": {"title": f"[李小素]-[{testdate}]", "flowNo": "", "projectName": projectName, "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
                                  "flowStartdate": ""}, "current": 1, "size": 10}
         self.Request_Change_Product(change_data, headers)
@@ -1928,12 +2131,13 @@ class APIRequest:
             }
         }
         PageList = self.Request_SaleCountry_PageList(PageList_body, headers)
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         getScFlowInfoFirst_body = {
             "archBids": [
                 PageList['data']['data'][0]['bid']
             ],
             "brandCode": "infinix",
-            "templateBid": "1022146928508538880",
+            "templateBid": LastedTemp['data']['bid'],
             "areaCodes": [
                 "B12270"
             ],
@@ -1948,7 +2152,7 @@ class APIRequest:
                     "scPrdBaseInfoVO": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdBaseInfoVO'],
                     "scPrdUniversalInfoMap": getScFlowInfoFirst['data']['prdInfoVOS'][0]['scPrdUniversalInfoMap'],
                     "countryProperties": {
-                        "1231": "attestationBackups"
+                        "KHA": "attestationBackups"
                     }
                 }
             ],
@@ -1960,6 +2164,7 @@ class APIRequest:
                 "flowStartdate": flowStartdate,
                 "remark": "",
                 "busiType": "updCountry",
+                "type": "frontEnd",
                 "flowProposerName": "李小素"
             },
             "scProjectVO": getScFlowInfoFirst['data']['scProjectVO'],
@@ -1982,197 +2187,9 @@ class APIRequest:
                     }
                 ]
             },
-            "areas": [
-                {
-                    "id": None,
-                    "bid": "111111162",
-                    "areaBid": "111111162",
-                    "areaOrder": 0,
-                    "areaColor": "#FF4400",
-                    "areaNameZh": "东亚",
-                    "areaNameEn": "A23372",
-                    "areaCode": "B12270",
-                    "nations": [
-                        {
-                            "nationBid": "965571404990910464",
-                            "nationOrder": 0,
-                            "nationNameZh": "中国",
-                            "nationNameEn": "China001",
-                            "nationCode": "1231",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111215",
-                            "nationOrder": 1,
-                            "nationNameZh": "柬埔寨",
-                            "nationNameEn": "Cambodia",
-                            "nationCode": "KHA",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "945678738367057920",
-                            "nationOrder": 2,
-                            "nationNameZh": "日本2",
-                            "nationNameEn": "jp",
-                            "nationCode": "jp",
-                            "value": None
-                        }
-                    ]
-                },
-                {
-                    "id": None,
-                    "bid": "911371279385366528",
-                    "areaBid": "911371279385366528",
-                    "areaOrder": 1,
-                    "areaColor": "#00FF51",
-                    "areaNameZh": "东非",
-                    "areaNameEn": "B2",
-                    "areaCode": "B2",
-                    "nations": [
-                        {
-                            "nationBid": "111295",
-                            "nationOrder": 0,
-                            "nationNameZh": "乍得",
-                            "nationNameEn": "Chad",
-                            "nationCode": "TD",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111118",
-                            "nationOrder": 1,
-                            "nationNameZh": "安哥拉",
-                            "nationNameEn": "Angola",
-                            "nationCode": "AGO",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111134",
-                            "nationOrder": 2,
-                            "nationNameZh": "布隆迪",
-                            "nationNameEn": "Burundi",
-                            "nationCode": "BDI",
-                            "value": None
-                        }
-                    ]
-                },
-                {
-                    "id": None,
-                    "bid": "111111154",
-                    "areaBid": "111111154",
-                    "areaOrder": 2,
-                    "areaColor": "#0059FF",
-                    "areaNameZh": "欧洲东欧",
-                    "areaNameEn": "A23364",
-                    "areaCode": "B12262",
-                    "nations": [
-                        {
-                            "nationBid": "978957925726949376",
-                            "nationOrder": 0,
-                            "nationNameZh": "EE1",
-                            "nationNameEn": "Russia",
-                            "nationCode": "EE1",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111116",
-                            "nationOrder": 1,
-                            "nationNameZh": "阿尔巴尼亚",
-                            "nationNameEn": "Albania",
-                            "nationCode": "ALB",
-                            "value": None
-                        },
-                        {
-                            "nationBid": "111117",
-                            "nationOrder": 2,
-                            "nationNameZh": "亚美尼亚",
-                            "nationNameEn": "Armenia",
-                            "nationCode": "ARM",
-                            "value": None
-                        }
-                    ]
-                }
-            ],
+            "areas": LastedTemp['data']['areas'],
             "uploadList": [],
-            "fields": [
-                {
-                    "id": None,
-                    "bid": "1029692352958173184",
-                    "fieldName": "摄像头",
-                    "fieldIdent": "camera",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 0,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173185",
-                    "fieldName": "型号",
-                    "fieldIdent": "type",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 1,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173186",
-                    "fieldName": "新增",
-                    "fieldIdent": "new",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 2,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173187",
-                    "fieldName": "再增",
-                    "fieldIdent": "anthor",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Standard",
-                    "necessary": 1,
-                    "fieldOrder": 3,
-                    "valid": True,
-                    "constraint": "{\"key\": \"Standard\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173188",
-                    "fieldName": "配色",
-                    "fieldIdent": "Color",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "colorSet",
-                    "necessary": 1,
-                    "fieldOrder": 4,
-                    "valid": True,
-                    "constraint": "{\"key\": \"colorSet\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173189",
-                    "fieldName": "尺寸",
-                    "fieldIdent": "inch",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "RearCamera",
-                    "necessary": 1,
-                    "fieldOrder": 5,
-                    "valid": True,
-                    "constraint": "{\"key\": \"RearCamera\"}",
-                    "value": None
-                }
-            ]
+            "fields": LastedTemp['data']['fields']
         }
         search_data = {"param": {"title": "", "flowNo": "", "projectName": projectName, "brandCode": "",
                                  "createdTimeFrom": "", "createdTimeTo": "", "flowProposer": "", "status": "",
@@ -2249,7 +2266,7 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：出货国家流程产品部汇签审核接口')
 
-    @allure.step("出货国家流程产品经理修改审核接口")
+    @allure.step("出货国家流程-产品-产品经理修改审核接口")
     def API_Change_managerModify(self, flowNo, instanceid, bid):
         logging.info('发起流程接口：出货国家流程产品经理修改审核接口')
         self.API_Change_Join(flowNo, instanceid, bid)
@@ -2257,6 +2274,8 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
         Info = self.Request_SaleCountry_Info(bid, headers)
         querytime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+        titletime = datetime.now().strftime('%Y-%m-%d')
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         change_data = {
             "prdInfoVOS": [
                 {
@@ -2295,113 +2314,47 @@ class APIRequest:
                         "Color": [
                             "Aqua Blue"
                         ],
-                        "inch": "RearCamera1"
+                        "inch": "RearCamera1",
+                        "FirstOrderMassProdTime": titletime
                     },
                     "countryProperties": {}
                 }
             ],
             "flowMainVO": Info['data']['flowMainVO'],
             "scProjectVO": Info['data']['scProjectVO'],
-            "approvers": {
-                "bisSupplyApprovers": [
-                    {
-                        "role": "",
-                        "roleKey": "verb",
-                        "userName": "",
-                        "userNo": "18645960"
-                    }
-                ],
-                "bisSupplySenders": [
-                    {
-                        "role": "",
-                        "roleKey": "verc",
-                        "userName": "",
-                        "userNo": "18645960"
-                    }
-                ]
-            },
-            "areas": [],
-            "fields": [
-                {
-                    "id": None,
-                    "bid": "1029349849134403584",
-                    "fieldName": "摄像头",
-                    "fieldIdent": "camera",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 0,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029349849134403585",
-                    "fieldName": "型号",
-                    "fieldIdent": "type",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 1,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029349849134403586",
-                    "fieldName": "新增",
-                    "fieldIdent": "new",
-                    "fieldType": "text",
-                    "fieldTypeRef": "",
-                    "necessary": 1,
-                    "fieldOrder": 2,
-                    "valid": True,
-                    "constraint": "{\"key\": \"\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029349849134403587",
-                    "fieldName": "再增",
-                    "fieldIdent": "anthor",
-                    "fieldType": "select",
-                    "fieldTypeRef": "Standard",
-                    "necessary": 1,
-                    "fieldOrder": 3,
-                    "valid": True,
-                    "constraint": "{\"key\": \"Standard\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029349849134403588",
-                    "fieldName": "配色",
-                    "fieldIdent": "Color",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "colorSet",
-                    "necessary": 1,
-                    "fieldOrder": 4,
-                    "valid": True,
-                    "constraint": "{\"key\": \"colorSet\"}",
-                    "value": None
-                },
-                {
-                    "id": None,
-                    "bid": "1029692352958173189",
-                    "fieldName": "尺寸",
-                    "fieldIdent": "inch",
-                    "fieldType": "select_multiple",
-                    "fieldTypeRef": "RearCamera",
-                    "necessary": 1,
-                    "fieldOrder": 5,
-                    "valid": True,
-                    "constraint": "{\"key\": \"RearCamera\"}",
-                    "value": None
-                }
-            ]
+            "approvers": Info['data']['approvers'],
+            "areas": Info['data']['areas'],
+            "fields": LastedTemp['data']['fields']
         }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
+                         "comment": ""}
+        self.Request_SaleCountry_managerModify(change_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：出货国家流程产品经理修改审核接口')
+
+    @allure.step("出货国家流程-国家-产品经理修改审核接口")
+    def API_ChangeCountry_managerModify(self, flowNo, instanceid, bid):
+        logging.info('发起流程接口：出货国家流程产品经理修改审核接口')
+        self.API_Change_Join(flowNo, instanceid, bid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        Info = self.Request_SaleCountry_Info(bid, headers)
+        LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
+        change_data = {
+            "prdInfoVOS": [
+                {
+                    "scPrdBaseInfoVO": Info['data']['prdInfoVOS'][0]['scPrdBaseInfoVO'],
+                    "scPrdUniversalInfoMap": Info['data']['prdInfoVOS'][0]['scPrdUniversalInfoMap'],
+                    "countryProperties": {"KHA": "deliver"}
+                }
+            ],
+            "flowMainVO": Info['data']['flowMainVO'],
+            "scProjectVO": Info['data']['scProjectVO'],
+            "approvers": Info['data']['approvers'],
+            "areas": Info['data']['areas'],
+            "fields": LastedTemp['data']['fields']
+        }
+        change_data['prdInfoVOS'][0]['scPrdBaseInfoVO']['editStatus'] = False
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1,
                          "comment": ""}
         self.Request_SaleCountry_managerModify(change_data, headers)
@@ -3819,6 +3772,1765 @@ class APIRequest:
                 logging.info('流程结束：外研BOM协作新增接口')
                 return i['flowNo'], i['instanceId'], flowId
 
+    @allure.step("PCBABOM协作新增接口")
+    def API_PCBA_Derived_Add(self):
+        logging.info('发起流程：外研BOM协作新增接口')
+        token = self.tbm_login()
+        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        add_data = {
+            "flowId": None,
+            "flowNodeName": "start",
+            "bomArchive": {
+                "flowNo": "",
+                "flowProposer": "18645960",
+                "flowProposerName": "李小素",
+                "flowStartdate": querytime,
+                "bomVer": "",
+                "bomVersion": "trial",
+                "brandCode": "infinix",
+                "produceClass": "pcbaDerive",
+                "templateId": 1017727,
+                "templateName": "infinix_001_临时模板",
+                "isLocalPurchase": "",
+                "doVirtualChip": False,
+                "checkKeyDevice": False,
+                "bomClass": "",
+                "model": "JMB-01",
+                "note": "",
+                "title": f"[李小素]-[{querytime[:10]}]",
+                "researchType": "selfResearch",
+                "flowDept": "PI_系统四部",
+                "curFlowCode": "structureStart"
+            },
+            "bomDeriveList": [
+                {
+                    "statusCode": "试产",
+                    "no": None,
+                    "newBomCode": "12198883",
+                    "newBomName": "PCBA_itel_it1655S_M30B_4+512_单卡_SKU4",
+                    "originalBomCode": "12106993",
+                    "originalBomName": "贴片副板_F6316_1_J_V1.0_自制",
+                    "originalBomFactory": "C105",
+                    "checkResultMessage": "",
+                    "matMap": {
+                        "originalBomCode": "贴片副板_F6316_1_J_V1.0_自制",
+                        "newBomCode_matAttr": "",
+                        "newBomCode": "PCBA_itel_it1655S_M30B_4+512_单卡_SKU4",
+                        "originalBomCode_matAttr": "可选"
+                    }
+                }
+            ],
+            "otherDeriveList": [
+                {
+                    "no": None,
+                    "pMatCode": "12198883",
+                    "pMatNote": "PCBA_itel_it1655S_M30B_4+512_单卡_SKU4",
+                    "operation": "add",
+                    "childMaterialCode": "12105695",
+                    "childMaterialNote": "贴片副板_H850A_A1_TEST_PCBA_V3.0_自制",
+                    "matCount": 1,
+                    "position": None,
+                    "replaceGroup": None,
+                    "usePercent": None,
+                    "checkResultMessage": "",
+                    "matMap": {
+                        "pMatCode_matAttr": "",
+                        "pMatCode": "PCBA_itel_it1655S_M30B_4+512_单卡_SKU4",
+                        "childMaterialCode_matAttr": "可选",
+                        "childMaterialCode": "贴片副板_H850A_A1_TEST_PCBA_V3.0_自制"
+                    }
+                }
+            ],
+            "bomTreeVOList": [
+                {
+                    "bomNodeCode": "1034767881574944768",
+                    "bomName": "PCBA",
+                    "isArchive": 0,
+                    "applyScope": "pcbaBom",
+                    "matCode": "12198883",
+                    "baseQty": "1000",
+                    "note": "PCBA_itel_it1655S_M30B_4+512_单卡_SKU4",
+                    "statusCode": "trial",
+                    "tempNodeId": 3649,
+                    "isRoot": True,
+                    "matGroup": "121,123,129,131,144",
+                    "bomUseage": "2",
+                    "isDerive": 1,
+                    "nativePcbfactory": "C105",
+                    "childNodes": [
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944807",
+                            "bomName": "PCB155/158",
+                            "isArchive": 0,
+                            "matCode": "15800648",
+                            "baseQty": "1000",
+                            "note": "副板PCB_F6316_SUB_PCB_1_4L_V1.0_ZBX",
+                            "tempNodeId": 3650,
+                            "matGroup": "155,158",
+                            "matAttr": "可选",
+                            "bomUseage": "2",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "PCB155/158",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "155,158",
+                            "seqNo": 1,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 1,
+                            "id": "1034767881574944807",
+                            "index": 0,
+                            "serialNo": "1.1"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944806",
+                            "bomName": "CPU",
+                            "tempNodeId": 3651,
+                            "matGroup": "140,156",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "CPU",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "140,156",
+                            "seqNo": 2,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944806",
+                            "index": 1,
+                            "serialNo": "1.2"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944805",
+                            "bomName": "存储器142",
+                            "tempNodeId": 3652,
+                            "matGroup": "142",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "存储器142",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "142",
+                            "seqNo": 3,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944805",
+                            "index": 2,
+                            "serialNo": "1.3"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944804",
+                            "bomName": "套片141/157",
+                            "tempNodeId": 3653,
+                            "matGroup": "141,157",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "套片141/157",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "141,157",
+                            "seqNo": 4,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944804",
+                            "index": 3,
+                            "serialNo": "1.4"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944803",
+                            "bomName": "IC器件156",
+                            "tempNodeId": 3654,
+                            "matGroup": "156",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC器件156",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "156",
+                            "seqNo": 5,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944803",
+                            "index": 4,
+                            "serialNo": "1.5"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944802",
+                            "bomName": "IC143",
+                            "isArchive": 0,
+                            "matCode": "14301313",
+                            "baseQty": "1000",
+                            "note": "天线开关:IC-ANT TUNE,SP4T,0.5-2.7G,MXD8544A",
+                            "tempNodeId": 3655,
+                            "matGroup": "143",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "U1",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC143",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "143",
+                            "seqNo": 6,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 1,
+                            "id": "1034767881574944802",
+                            "index": 5,
+                            "serialNo": "1.6"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944801",
+                            "bomName": "IC144",
+                            "isArchive": 0,
+                            "matCode": "14401255",
+                            "baseQty": "1000",
+                            "note": "过压保护芯片:IC-OVP,12balls,50ns,ET9540CL",
+                            "tempNodeId": 3656,
+                            "matGroup": "144",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "U3",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC144",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "144",
+                            "seqNo": 7,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand,nps",
+                            "matCount": 1,
+                            "id": "1034767881574944801",
+                            "index": 6,
+                            "serialNo": "1.7"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944800",
+                            "bomName": "IC145",
+                            "tempNodeId": 3657,
+                            "matGroup": "145",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC145",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "145",
+                            "seqNo": 8,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944800",
+                            "index": 7,
+                            "serialNo": "1.8"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944799",
+                            "bomName": "IC146",
+                            "tempNodeId": 3658,
+                            "matGroup": "146",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC146",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "146",
+                            "seqNo": 9,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944799",
+                            "index": 8,
+                            "serialNo": "1.9"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944798",
+                            "bomName": "IC147",
+                            "tempNodeId": 3659,
+                            "matGroup": "147",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC147",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "147",
+                            "seqNo": 10,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944798",
+                            "index": 9,
+                            "serialNo": "1.10"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944797",
+                            "bomName": "IC148",
+                            "tempNodeId": 3660,
+                            "matGroup": "148",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC148",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "148",
+                            "seqNo": 11,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944797",
+                            "index": 10,
+                            "serialNo": "1.11"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944796",
+                            "bomName": "晶体149",
+                            "tempNodeId": 3661,
+                            "matGroup": "149",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "晶体149",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "149",
+                            "seqNo": 12,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944796",
+                            "index": 11,
+                            "serialNo": "1.12"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944791",
+                            "bomName": "二极管",
+                            "tempNodeId": 3662,
+                            "matGroup": "150",
+                            "childNodes": [
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944793",
+                                    "isArchive": 0,
+                                    "matCode": "15001184",
+                                    "baseQty": "1000",
+                                    "note": "TVS-EOS-Nonpolar,24V,350pF,SOD-123FL",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "D1",
+                                    "parentNodeCode": "1034767881574944791",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944793",
+                                    "index": 0,
+                                    "serialNo": "1.13.1"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944795",
+                                    "isArchive": 0,
+                                    "matCode": "15001090",
+                                    "baseQty": "1000",
+                                    "note": "TVS-polar,2-Lines,5V,1.4pF,0402",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "T1",
+                                    "parentNodeCode": "1034767881574944791",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944795",
+                                    "index": 1,
+                                    "serialNo": "1.13.2"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944794",
+                                    "isArchive": 0,
+                                    "matCode": "15001143",
+                                    "baseQty": "2000",
+                                    "note": "TVS-5.0V,10pF,0402",
+                                    "replaceGroup": "D1",
+                                    "usePercent": 70,
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "T5,T6",
+                                    "priority": 2,
+                                    "strategy": "2",
+                                    "parentNodeCode": "1034767881574944791",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 2,
+                                    "id": "1034767881574944794",
+                                    "index": 2,
+                                    "serialNo": "1.13.3"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944792",
+                                    "isArchive": 0,
+                                    "matCode": "15001197",
+                                    "baseQty": "2000",
+                                    "note": "瞬态抑制二极管;TVS-Nonpolar,5V,10pF-0402",
+                                    "replaceGroup": "D1",
+                                    "usePercent": 30,
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "T5,T6",
+                                    "priority": 1,
+                                    "strategy": "2",
+                                    "parentNodeCode": "1034767881574944791",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 2,
+                                    "id": "1034767881574944792",
+                                    "index": 3,
+                                    "serialNo": "1.13.4"
+                                }
+                            ],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "二极管",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "150",
+                            "seqNo": 13,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944791",
+                            "index": 12,
+                            "serialNo": "1.13"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944790",
+                            "bomName": "磁珠151",
+                            "isArchive": 0,
+                            "matCode": "15102740",
+                            "baseQty": "2000",
+                            "note": "磁珠:BEAD,1.25R,1000R@100M,250mA,0402H0.65",
+                            "tempNodeId": 3663,
+                            "matGroup": "151",
+                            "matAttr": "优选",
+                            "bomUseage": "2",
+                            "position": "R10,R7",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "磁珠151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 14,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 2,
+                            "id": "1034767881574944790",
+                            "index": 13,
+                            "serialNo": "1.14"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944789",
+                            "bomName": "电感151",
+                            "isArchive": 0,
+                            "matCode": "15102116",
+                            "baseQty": "1000",
+                            "note": "电感:IND-ML,1.8NH,±0.1NH,0201,Sunlord",
+                            "tempNodeId": 3664,
+                            "matGroup": "151",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "C10",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "电感151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 15,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 1,
+                            "id": "1034767881574944789",
+                            "index": 14,
+                            "serialNo": "1.15"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944782",
+                            "bomName": "电容151",
+                            "tempNodeId": 3665,
+                            "matGroup": "151",
+                            "childNodes": [
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944787",
+                                    "isArchive": 0,
+                                    "matCode": "15100124",
+                                    "baseQty": "6000",
+                                    "note": "CAP-33pF,+/-5%,COG,50V,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "C1,C2,C3,C4,C5,C6",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 6,
+                                    "id": "1034767881574944787",
+                                    "index": 0,
+                                    "serialNo": "1.16.1"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944785",
+                                    "isArchive": 0,
+                                    "matCode": "15100147",
+                                    "baseQty": "2000",
+                                    "note": "CAP-1uF,6.3V,±20%,X5R,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "C11,C14",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 2,
+                                    "id": "1034767881574944785",
+                                    "index": 1,
+                                    "serialNo": "1.16.2"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944788",
+                                    "isArchive": 0,
+                                    "matCode": "15100076",
+                                    "baseQty": "1000",
+                                    "note": "CAP-27pF,+/-5%,COG,25V,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "C16",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944788",
+                                    "index": 2,
+                                    "serialNo": "1.16.3"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944786",
+                                    "isArchive": 0,
+                                    "matCode": "15100139",
+                                    "baseQty": "1000",
+                                    "note": "CAP-2.2pF,+/-0.25pF,COG,50V,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "C17",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944786",
+                                    "index": 3,
+                                    "serialNo": "1.16.4"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944783",
+                                    "isArchive": 0,
+                                    "matCode": "15102447",
+                                    "baseQty": "1000",
+                                    "note": "电容:CAP-1uF,+/-10%,X5R,25V,0402,H0.55",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "C8",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944783",
+                                    "index": 4,
+                                    "serialNo": "1.16.5"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944784",
+                                    "isArchive": 0,
+                                    "matCode": "15101831",
+                                    "baseQty": "1000",
+                                    "note": "CAP-1uF,+/-10%,X5R,16V-0402",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "C9",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944784",
+                                    "index": 5,
+                                    "serialNo": "1.16.6"
+                                }
+                            ],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "电容151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 16,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944782",
+                            "index": 15,
+                            "serialNo": "1.16"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944778",
+                            "bomName": "电阻151",
+                            "tempNodeId": 3666,
+                            "matGroup": "151",
+                            "childNodes": [
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944781",
+                                    "isArchive": 0,
+                                    "matCode": "15100060",
+                                    "baseQty": "4000",
+                                    "note": "RES-0R,+/-5%,1/20W,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "R1,R2,R3,R6",
+                                    "parentNodeCode": "1034767881574944778",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 4,
+                                    "id": "1034767881574944781",
+                                    "index": 0,
+                                    "serialNo": "1.17.1"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944779",
+                                    "isArchive": 0,
+                                    "matCode": "15101545",
+                                    "baseQty": "1000",
+                                    "note": "RES-100K,1%,1/20W,0201",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "R5",
+                                    "parentNodeCode": "1034767881574944778",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944779",
+                                    "index": 1,
+                                    "serialNo": "1.17.2"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944780",
+                                    "isArchive": 0,
+                                    "matCode": "15100063",
+                                    "baseQty": "1000",
+                                    "note": "RES-10K,+/-5%,1/20W,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "R8",
+                                    "parentNodeCode": "1034767881574944778",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944780",
+                                    "index": 2,
+                                    "serialNo": "1.17.3"
+                                }
+                            ],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "电阻151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 17,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944778",
+                            "index": 16,
+                            "serialNo": "1.17"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944777",
+                            "bomName": "功率电感151",
+                            "tempNodeId": 3667,
+                            "matGroup": "151",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "功率电感151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 18,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944777",
+                            "index": 17,
+                            "serialNo": "1.18"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944776",
+                            "bomName": "其他151",
+                            "tempNodeId": 3668,
+                            "matGroup": "151",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "其他151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 19,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944776",
+                            "index": 18,
+                            "serialNo": "1.19"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944775",
+                            "bomName": "MIC192",
+                            "isArchive": 0,
+                            "matCode": "19201021",
+                            "baseQty": "1000",
+                            "note": "MIC-C,2.2K,-42dB±3dB,直径4*1.55,带防尘网,Goer",
+                            "tempNodeId": 3669,
+                            "matGroup": "192",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "U2",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "MIC192",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "192",
+                            "seqNo": 20,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 1,
+                            "id": "1034767881574944775",
+                            "index": 19,
+                            "serialNo": "1.20"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944771",
+                            "bomName": "结构贴片料",
+                            "tempNodeId": 3670,
+                            "matGroup": "152,153",
+                            "childNodes": [
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944773",
+                                    "isArchive": 0,
+                                    "matCode": "15201166",
+                                    "baseQty": "1000",
+                                    "note": "板板连接器,T/H=0.7,7.80x1.90x0.7,30PIN,JAE",
+                                    "matAttr": "标准",
+                                    "bomUseage": "2",
+                                    "position": "J1",
+                                    "parentNodeCode": "1034767881574944771",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944773",
+                                    "index": 0,
+                                    "serialNo": "1.21.1"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944774",
+                                    "isArchive": 0,
+                                    "matCode": "15201023",
+                                    "baseQty": "1000",
+                                    "note": "USS RF CONN,T/H1.3,2.0x2.0x0.7,ECT",
+                                    "matAttr": "标准",
+                                    "bomUseage": "2",
+                                    "position": "J2",
+                                    "parentNodeCode": "1034767881574944771",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944774",
+                                    "index": 1,
+                                    "serialNo": "1.21.2"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944772",
+                                    "isArchive": 0,
+                                    "matCode": "15301324",
+                                    "baseQty": "1000",
+                                    "note": "USB,B,T/S-1.3,5.85*9.6*2.45,5PIN",
+                                    "matAttr": "标准",
+                                    "bomUseage": "2",
+                                    "position": "J3",
+                                    "parentNodeCode": "1034767881574944771",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944772",
+                                    "index": 2,
+                                    "serialNo": "1.21.3"
+                                }
+                            ],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "结构贴片料",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "152,153",
+                            "seqNo": 21,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944771",
+                            "index": 20,
+                            "serialNo": "1.21"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944770",
+                            "bomName": "弹片/屏蔽罩",
+                            "isArchive": 0,
+                            "matCode": "15401620",
+                            "baseQty": "4000",
+                            "note": "Antenna Spring,WH=0.6,1.8*1*1.0",
+                            "tempNodeId": 3671,
+                            "matGroup": "154",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "ANT1,ANT2,ANT3,ANT4",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "弹片/屏蔽罩",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "154",
+                            "seqNo": 22,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 4,
+                            "id": "1034767881574944770",
+                            "index": 21,
+                            "serialNo": "1.22"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944769",
+                            "bomName": "其他",
+                            "isArchive": 0,
+                            "matCode": "12105695",
+                            "baseQty": "1000",
+                            "note": "贴片副板_H850A_A1_TEST_PCBA_V3.0_自制",
+                            "tempNodeId": -999,
+                            "matAttr": "可选",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "其他",
+                            "nodeClass": "other",
+                            "seqNo": 999999999,
+                            "dealDelFlag": False,
+                            "operation": "add",
+                            "matCount": 1,
+                            "id": "1034767881574944769",
+                            "index": 22,
+                            "serialNo": "1.23"
+                        }
+                    ],
+                    "parentNodeCode": "0",
+                    "nodeName": "PCBA",
+                    "nodeClass": "actual",
+                    "sapLevel": 0,
+                    "templateMatGroup": "121,123,129,131,144",
+                    "seqNo": 1,
+                    "dealDelFlag": False,
+                    "businessRole": "rf,baseBand,nps,structure,mpm,other",
+                    "matCount": 1,
+                    "id": "1034767881574944768",
+                    "index": 0,
+                    "serialNo": 1
+                }
+            ],
+            "bomDeriveTreeVOList": [
+                {
+                    "bomNodeCode": "1034767881574944768",
+                    "bomName": "PCBA",
+                    "isArchive": 0,
+                    "applyScope": "pcbaBom",
+                    "matCode": "12198883",
+                    "baseQty": "1000",
+                    "note": "PCBA_itel_it1655S_M30B_4+512_单卡_SKU4",
+                    "statusCode": "trial",
+                    "tempNodeId": 3649,
+                    "isRoot": True,
+                    "matGroup": "121,123,129,131,144",
+                    "bomUseage": "2",
+                    "isDerive": 1,
+                    "nativePcbfactory": "C105",
+                    "childNodes": [
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944807",
+                            "bomName": "PCB155/158",
+                            "isArchive": 0,
+                            "matCode": "15800648",
+                            "baseQty": "1000",
+                            "note": "副板PCB_F6316_SUB_PCB_1_4L_V1.0_ZBX",
+                            "tempNodeId": 3650,
+                            "matGroup": "155,158",
+                            "matAttr": "可选",
+                            "bomUseage": "2",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "PCB155/158",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "155,158",
+                            "seqNo": 1,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 1,
+                            "id": "1034767881574944807",
+                            "index": 0,
+                            "serialNo": "1.1"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944806",
+                            "bomName": "CPU",
+                            "tempNodeId": 3651,
+                            "matGroup": "140,156",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "CPU",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "140,156",
+                            "seqNo": 2,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944806",
+                            "index": 1,
+                            "serialNo": "1.2"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944805",
+                            "bomName": "存储器142",
+                            "tempNodeId": 3652,
+                            "matGroup": "142",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "存储器142",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "142",
+                            "seqNo": 3,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944805",
+                            "index": 2,
+                            "serialNo": "1.3"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944804",
+                            "bomName": "套片141/157",
+                            "tempNodeId": 3653,
+                            "matGroup": "141,157",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "套片141/157",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "141,157",
+                            "seqNo": 4,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944804",
+                            "index": 3,
+                            "serialNo": "1.4"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944803",
+                            "bomName": "IC器件156",
+                            "tempNodeId": 3654,
+                            "matGroup": "156",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC器件156",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "156",
+                            "seqNo": 5,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944803",
+                            "index": 4,
+                            "serialNo": "1.5"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944802",
+                            "bomName": "IC143",
+                            "isArchive": 0,
+                            "matCode": "14301313",
+                            "baseQty": "1000",
+                            "note": "天线开关:IC-ANT TUNE,SP4T,0.5-2.7G,MXD8544A",
+                            "tempNodeId": 3655,
+                            "matGroup": "143",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "U1",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC143",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "143",
+                            "seqNo": 6,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 1,
+                            "id": "1034767881574944802",
+                            "index": 5,
+                            "serialNo": "1.6"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944801",
+                            "bomName": "IC144",
+                            "isArchive": 0,
+                            "matCode": "14401255",
+                            "baseQty": "1000",
+                            "note": "过压保护芯片:IC-OVP,12balls,50ns,ET9540CL",
+                            "tempNodeId": 3656,
+                            "matGroup": "144",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "U3",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC144",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "144",
+                            "seqNo": 7,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand,nps",
+                            "matCount": 1,
+                            "id": "1034767881574944801",
+                            "index": 6,
+                            "serialNo": "1.7"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944800",
+                            "bomName": "IC145",
+                            "tempNodeId": 3657,
+                            "matGroup": "145",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC145",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "145",
+                            "seqNo": 8,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944800",
+                            "index": 7,
+                            "serialNo": "1.8"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944799",
+                            "bomName": "IC146",
+                            "tempNodeId": 3658,
+                            "matGroup": "146",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC146",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "146",
+                            "seqNo": 9,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944799",
+                            "index": 8,
+                            "serialNo": "1.9"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944798",
+                            "bomName": "IC147",
+                            "tempNodeId": 3659,
+                            "matGroup": "147",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC147",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "147",
+                            "seqNo": 10,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944798",
+                            "index": 9,
+                            "serialNo": "1.10"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944797",
+                            "bomName": "IC148",
+                            "tempNodeId": 3660,
+                            "matGroup": "148",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "IC148",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "148",
+                            "seqNo": 11,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944797",
+                            "index": 10,
+                            "serialNo": "1.11"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944796",
+                            "bomName": "晶体149",
+                            "tempNodeId": 3661,
+                            "matGroup": "149",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "晶体149",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "149",
+                            "seqNo": 12,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944796",
+                            "index": 11,
+                            "serialNo": "1.12"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944791",
+                            "bomName": "二极管",
+                            "tempNodeId": 3662,
+                            "matGroup": "150",
+                            "childNodes": [
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944793",
+                                    "isArchive": 0,
+                                    "matCode": "15001184",
+                                    "baseQty": "1000",
+                                    "note": "TVS-EOS-Nonpolar,24V,350pF,SOD-123FL",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "D1",
+                                    "parentNodeCode": "1034767881574944791",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944793",
+                                    "index": 0,
+                                    "serialNo": "1.13.1"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944795",
+                                    "isArchive": 0,
+                                    "matCode": "15001090",
+                                    "baseQty": "1000",
+                                    "note": "TVS-polar,2-Lines,5V,1.4pF,0402",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "T1",
+                                    "parentNodeCode": "1034767881574944791",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944795",
+                                    "index": 1,
+                                    "serialNo": "1.13.2"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944794",
+                                    "isArchive": 0,
+                                    "matCode": "15001143",
+                                    "baseQty": "2000",
+                                    "note": "TVS-5.0V,10pF,0402",
+                                    "replaceGroup": "D1",
+                                    "usePercent": 70,
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "T5,T6",
+                                    "priority": 2,
+                                    "strategy": "2",
+                                    "parentNodeCode": "1034767881574944791",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 2,
+                                    "id": "1034767881574944794",
+                                    "index": 2,
+                                    "serialNo": "1.13.3"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944792",
+                                    "isArchive": 0,
+                                    "matCode": "15001197",
+                                    "baseQty": "2000",
+                                    "note": "瞬态抑制二极管;TVS-Nonpolar,5V,10pF-0402",
+                                    "replaceGroup": "D1",
+                                    "usePercent": 30,
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "T5,T6",
+                                    "priority": 1,
+                                    "strategy": "2",
+                                    "parentNodeCode": "1034767881574944791",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 2,
+                                    "id": "1034767881574944792",
+                                    "index": 3,
+                                    "serialNo": "1.13.4"
+                                }
+                            ],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "二极管",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "150",
+                            "seqNo": 13,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944791",
+                            "index": 12,
+                            "serialNo": "1.13"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944790",
+                            "bomName": "磁珠151",
+                            "isArchive": 0,
+                            "matCode": "15102740",
+                            "baseQty": "2000",
+                            "note": "磁珠:BEAD,1.25R,1000R@100M,250mA,0402H0.65",
+                            "tempNodeId": 3663,
+                            "matGroup": "151",
+                            "matAttr": "优选",
+                            "bomUseage": "2",
+                            "position": "R10,R7",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "磁珠151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 14,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 2,
+                            "id": "1034767881574944790",
+                            "index": 13,
+                            "serialNo": "1.14"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944789",
+                            "bomName": "电感151",
+                            "isArchive": 0,
+                            "matCode": "15102116",
+                            "baseQty": "1000",
+                            "note": "电感:IND-ML,1.8NH,±0.1NH,0201,Sunlord",
+                            "tempNodeId": 3664,
+                            "matGroup": "151",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "C10",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "电感151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 15,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 1,
+                            "id": "1034767881574944789",
+                            "index": 14,
+                            "serialNo": "1.15"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944782",
+                            "bomName": "电容151",
+                            "tempNodeId": 3665,
+                            "matGroup": "151",
+                            "childNodes": [
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944787",
+                                    "isArchive": 0,
+                                    "matCode": "15100124",
+                                    "baseQty": "6000",
+                                    "note": "CAP-33pF,+/-5%,COG,50V,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "C1,C2,C3,C4,C5,C6",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 6,
+                                    "id": "1034767881574944787",
+                                    "index": 0,
+                                    "serialNo": "1.16.1"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944785",
+                                    "isArchive": 0,
+                                    "matCode": "15100147",
+                                    "baseQty": "2000",
+                                    "note": "CAP-1uF,6.3V,±20%,X5R,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "C11,C14",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 2,
+                                    "id": "1034767881574944785",
+                                    "index": 1,
+                                    "serialNo": "1.16.2"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944788",
+                                    "isArchive": 0,
+                                    "matCode": "15100076",
+                                    "baseQty": "1000",
+                                    "note": "CAP-27pF,+/-5%,COG,25V,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "C16",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944788",
+                                    "index": 2,
+                                    "serialNo": "1.16.3"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944786",
+                                    "isArchive": 0,
+                                    "matCode": "15100139",
+                                    "baseQty": "1000",
+                                    "note": "CAP-2.2pF,+/-0.25pF,COG,50V,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "C17",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944786",
+                                    "index": 3,
+                                    "serialNo": "1.16.4"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944783",
+                                    "isArchive": 0,
+                                    "matCode": "15102447",
+                                    "baseQty": "1000",
+                                    "note": "电容:CAP-1uF,+/-10%,X5R,25V,0402,H0.55",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "C8",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944783",
+                                    "index": 4,
+                                    "serialNo": "1.16.5"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944784",
+                                    "isArchive": 0,
+                                    "matCode": "15101831",
+                                    "baseQty": "1000",
+                                    "note": "CAP-1uF,+/-10%,X5R,16V-0402",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "C9",
+                                    "parentNodeCode": "1034767881574944782",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944784",
+                                    "index": 5,
+                                    "serialNo": "1.16.6"
+                                }
+                            ],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "电容151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 16,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944782",
+                            "index": 15,
+                            "serialNo": "1.16"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944778",
+                            "bomName": "电阻151",
+                            "tempNodeId": 3666,
+                            "matGroup": "151",
+                            "childNodes": [
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944781",
+                                    "isArchive": 0,
+                                    "matCode": "15100060",
+                                    "baseQty": "4000",
+                                    "note": "RES-0R,+/-5%,1/20W,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "R1,R2,R3,R6",
+                                    "parentNodeCode": "1034767881574944778",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 4,
+                                    "id": "1034767881574944781",
+                                    "index": 0,
+                                    "serialNo": "1.17.1"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944779",
+                                    "isArchive": 0,
+                                    "matCode": "15101545",
+                                    "baseQty": "1000",
+                                    "note": "RES-100K,1%,1/20W,0201",
+                                    "matAttr": "优选",
+                                    "bomUseage": "2",
+                                    "position": "R5",
+                                    "parentNodeCode": "1034767881574944778",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944779",
+                                    "index": 1,
+                                    "serialNo": "1.17.2"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944780",
+                                    "isArchive": 0,
+                                    "matCode": "15100063",
+                                    "baseQty": "1000",
+                                    "note": "RES-10K,+/-5%,1/20W,0201",
+                                    "matAttr": "可选",
+                                    "bomUseage": "2",
+                                    "position": "R8",
+                                    "parentNodeCode": "1034767881574944778",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944780",
+                                    "index": 2,
+                                    "serialNo": "1.17.3"
+                                }
+                            ],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "电阻151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 17,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944778",
+                            "index": 16,
+                            "serialNo": "1.17"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944777",
+                            "bomName": "功率电感151",
+                            "tempNodeId": 3667,
+                            "matGroup": "151",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "功率电感151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 18,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944777",
+                            "index": 17,
+                            "serialNo": "1.18"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944776",
+                            "bomName": "其他151",
+                            "tempNodeId": 3668,
+                            "matGroup": "151",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "其他151",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "151",
+                            "seqNo": 19,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944776",
+                            "index": 18,
+                            "serialNo": "1.19"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944775",
+                            "bomName": "MIC192",
+                            "isArchive": 0,
+                            "matCode": "19201021",
+                            "baseQty": "1000",
+                            "note": "MIC-C,2.2K,-42dB±3dB,直径4*1.55,带防尘网,Goer",
+                            "tempNodeId": 3669,
+                            "matGroup": "192",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "U2",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "MIC192",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "192",
+                            "seqNo": 20,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 1,
+                            "id": "1034767881574944775",
+                            "index": 19,
+                            "serialNo": "1.20"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944771",
+                            "bomName": "结构贴片料",
+                            "tempNodeId": 3670,
+                            "matGroup": "152,153",
+                            "childNodes": [
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944773",
+                                    "isArchive": 0,
+                                    "matCode": "15201166",
+                                    "baseQty": "1000",
+                                    "note": "板板连接器,T/H=0.7,7.80x1.90x0.7,30PIN,JAE",
+                                    "matAttr": "标准",
+                                    "bomUseage": "2",
+                                    "position": "J1",
+                                    "parentNodeCode": "1034767881574944771",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944773",
+                                    "index": 0,
+                                    "serialNo": "1.21.1"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944774",
+                                    "isArchive": 0,
+                                    "matCode": "15201023",
+                                    "baseQty": "1000",
+                                    "note": "USS RF CONN,T/H1.3,2.0x2.0x0.7,ECT",
+                                    "matAttr": "标准",
+                                    "bomUseage": "2",
+                                    "position": "J2",
+                                    "parentNodeCode": "1034767881574944771",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944774",
+                                    "index": 1,
+                                    "serialNo": "1.21.2"
+                                },
+                                {
+                                    "companyId": 100,
+                                    "bomNodeCode": "1034767881574944772",
+                                    "isArchive": 0,
+                                    "matCode": "15301324",
+                                    "baseQty": "1000",
+                                    "note": "USB,B,T/S-1.3,5.85*9.6*2.45,5PIN",
+                                    "matAttr": "标准",
+                                    "bomUseage": "2",
+                                    "position": "J3",
+                                    "parentNodeCode": "1034767881574944771",
+                                    "sapLevel": 1,
+                                    "dealDelFlag": False,
+                                    "matCount": 1,
+                                    "id": "1034767881574944772",
+                                    "index": 2,
+                                    "serialNo": "1.21.3"
+                                }
+                            ],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "结构贴片料",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "152,153",
+                            "seqNo": 21,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "id": "1034767881574944771",
+                            "index": 20,
+                            "serialNo": "1.21"
+                        },
+                        {
+                            "companyId": 100,
+                            "bomNodeCode": "1034767881574944770",
+                            "bomName": "弹片/屏蔽罩",
+                            "isArchive": 0,
+                            "matCode": "15401620",
+                            "baseQty": "4000",
+                            "note": "Antenna Spring,WH=0.6,1.8*1*1.0",
+                            "tempNodeId": 3671,
+                            "matGroup": "154",
+                            "matAttr": "标准",
+                            "bomUseage": "2",
+                            "position": "ANT1,ANT2,ANT3,ANT4",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "弹片/屏蔽罩",
+                            "nodeClass": "actual",
+                            "sapLevel": 1,
+                            "templateMatGroup": "154",
+                            "seqNo": 22,
+                            "dealDelFlag": False,
+                            "businessRole": "baseBand",
+                            "matCount": 4,
+                            "id": "1034767881574944770",
+                            "index": 21,
+                            "serialNo": "1.22"
+                        },
+                        {
+                            "bomNodeCode": "1034767881574944769",
+                            "bomName": "其他",
+                            "isArchive": 0,
+                            "matCode": "12105695",
+                            "baseQty": "1000",
+                            "note": "贴片副板_H850A_A1_TEST_PCBA_V3.0_自制",
+                            "tempNodeId": -999,
+                            "matAttr": "可选",
+                            "childNodes": [],
+                            "parentNodeCode": "1034767881574944768",
+                            "nodeName": "其他",
+                            "nodeClass": "other",
+                            "seqNo": 999999999,
+                            "dealDelFlag": False,
+                            "operation": "add",
+                            "matCount": 1,
+                            "id": "1034767881574944769",
+                            "index": 22,
+                            "serialNo": "1.23"
+                        }
+                    ],
+                    "parentNodeCode": "0",
+                    "nodeName": "PCBA",
+                    "nodeClass": "actual",
+                    "sapLevel": 0,
+                    "templateMatGroup": "121,123,129,131,144",
+                    "seqNo": 1,
+                    "dealDelFlag": False,
+                    "businessRole": "rf,baseBand,nps,structure,mpm,other",
+                    "matCount": 1,
+                    "id": "1034767881574944768",
+                    "index": 0,
+                    "serialNo": 1
+                }
+            ],
+            "virtualChipList": [],
+            "approvers": {
+                "bisReviewApprovers": [
+                    {
+                        "role": "pm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "structure",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "nps",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "rf",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "other",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "check",
+                        "userNo": "18645960"
+                    }
+                ],
+                "bisSupplyApprovers": [
+                    {
+                        "role": "mpm",
+                        "userNo": "18645960"
+                    }
+                ]
+            },
+            "uploadList": [],
+            "submitType": "submit"
+        }
+        search_data = {
+            "param": {
+                "title": "",
+                "flowNo": "",
+                "bomCode": "",
+                "produceClass": "",
+                "model": "",
+                "brandCode": "",
+                "bomVer": "",
+                "statusCode": "",
+                "synStatus": "",
+                "createdBy": "",
+                "createdTimeFrom": "",
+                "createdTimeTo": "",
+                "bomType": "pcba"
+            },
+            "current": 1,
+            "size": 10
+        }
+        add_response = self.Request_PCBA_Add(add_data, headers)
+        flowId = add_response['data']
+        search_response = self.Request_Bom_Search(search_data, headers)
+        search_response_data = search_response['data']['data']
+        for i in search_response_data:
+            if i['flowId'] == flowId:
+                logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，FlowID：{}'.format(i['flowNo'], i['instanceId'], flowId))
+                logging.info('流程结束：外研BOM协作新增接口')
+                return i['flowNo'], i['instanceId'], flowId
+
     def Oneworks_queryPCBAInfo(self, flowId, headers):
         """
         TBM oneworks 查询流程历史
@@ -3873,7 +5585,7 @@ class APIRequest:
                     "deleteValidate": False
                 }
             ],
-            "produceClass": "pcba"
+            "produceClass": BomPCBAInfo['data']['bomArchive']['produceClass']
         }
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
         self.Request_PCBA_Factory(approve_data, headers)
@@ -3965,6 +5677,66 @@ class APIRequest:
         self.Request_Oneworks_Complete(complete_data, headers)
         logging.info('流程接口结束：PCBABOM协作-基带工程师审批通过流程')
 
+    @allure.step("PCBABOM协作-基带工程师审批通过接口")
+    def API_Derived_PCBA_Structure(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：PCBABOM协作-基带工程师审批通过流程')
+        self.API_PCBA_Factory(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "baseBandReview",
+            "bomArchive": PCBAInfo['data']['bomArchive'],
+            "approvers": {
+                "bisReviewApprovers": [
+                    {
+                        "role": "pm",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "structure",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "nps",
+                        "userNo": "18645960"
+                    },
+                    {
+                        "role": "rf",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "other",
+                        "userNo": ""
+                    },
+                    {
+                        "role": "check",
+                        "userNo": "18645960"
+                    }
+                ],
+                "bisSupplyApprovers": []
+            },
+            "bomTreeVOList": PCBAInfo['data']['bomTreeVOList'],
+            "refFactoryList": PCBAInfo['data']['refFactoryList'],
+            "bomDeriveList": PCBAInfo['data']['bomDeriveList'],
+            "copyRuleList": [],
+            "otherDeriveList": PCBAInfo['data']['otherDeriveList'],
+            "uploadList": [],
+            "bomImportKeyDeviceList": [],
+            "purchaseList": None,
+            "role": PCBAInfo['data']['role'],
+            "bomDeriveTreeVOList": None,
+            "virtualChipList": [],
+            "diffCollectList": [],
+            "bomVersionList": PCBAInfo['data']['bomVersionList'],
+            "produceClass": PCBAInfo['data']['bomArchive']['produceClass']
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_PCBA_structure(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：PCBABOM协作-基带工程师审批通过流程')
+
     def Request_PCBA_Approve(self, data, headers):
         """
         TBM PCBABOM协作 oneworks 采购&业务审核接口
@@ -3995,6 +5767,37 @@ class APIRequest:
             "bomImportKeyDeviceList": [],
             "purchaseList": None,
             "role": "mpm,structure,nps,check",
+            "bomDeriveTreeVOList": None,
+            "virtualChipList": [],
+            "diffCollectList": [],
+            "bomVersionList": PCBAInfo['data']['bomVersionList']
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_PCBA_Approve(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：PCBABOM协作-采购审核通过流程')
+
+    @allure.step("PCBABOM协作-采购审核通过接口")
+    def API_Derived_PCBA_Purchase(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：PCBABOM协作-采购审核通过流程')
+        self.API_Derived_PCBA_Structure(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "nps",
+            "bomArchive": PCBAInfo['data']['bomArchive'],
+            "approvers": PCBAInfo['data']['approvers'],
+            "bomTreeVOList": PCBAInfo['data']['bomTreeVOList'],
+            "refFactoryList": PCBAInfo['data']['refFactoryList'],
+            "bomDeriveList": PCBAInfo['data']['bomDeriveList'],
+            "copyRuleList": [],
+            "otherDeriveList": PCBAInfo['data']['otherDeriveList'],
+            "uploadList": [],
+            "bomImportKeyDeviceList": [],
+            "purchaseList": None,
+            "role": PCBAInfo['data']['role'],
             "bomDeriveTreeVOList": None,
             "virtualChipList": [],
             "diffCollectList": [],
@@ -4062,7 +5865,66 @@ class APIRequest:
                 ],
                 "bomLevel": "pcba",
                 "checker": "18645960",
-                "flowId": "16075"
+                "flowId": flowid
+            }
+        }
+        complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}
+        self.Request_PCBA_Approve(approve_data, headers)
+        self.Request_Oneworks_Complete(complete_data, headers)
+        logging.info('流程接口结束：PCBABOM协作-业务审核通过流程')
+
+    @allure.step("PCBABOM协作-业务审核通过接口")
+    def API_Derived_PCBA_Business(self, flowNo, instanceid, flowid):
+        logging.info('发起流程接口：PCBABOM协作-业务审核通过流程')
+        self.API_Derived_PCBA_Purchase(flowNo, instanceid, flowid)
+        Search_Result = self.API_Mytodu_Search(flowNo)
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
+        approve_data = {
+            "flowId": flowid,
+            "flowNodeName": "bisReview",
+            "bomArchive": PCBAInfo['data']['bomArchive'],
+            "approvers": PCBAInfo['data']['approvers'],
+            "bomTreeVOList": PCBAInfo['data']['bomTreeVOList'],
+            "refFactoryList": PCBAInfo['data']['refFactoryList'],
+            "bomDeriveList": PCBAInfo['data']['bomDeriveList'],
+            "copyRuleList": [],
+            "otherDeriveList": PCBAInfo['data']['otherDeriveList'],
+            "uploadList": [
+                {
+                    "id": None,
+                    "mime": "image/png",
+                    "flowBid": None,
+                    "name": "检查结果.PNG",
+                    "size": "0",
+                    "uploadTime": None,
+                    "uploader": None,
+                    "url": "https://oss-sz-test-01.oss-cn-shenzhen.aliyuncs.com/plm-bom/bom/doc/20220919/202209191151-1021388177098805248/%E6%A3%80%E6%9F%A5%E7%BB%93%E6%9E%9C.PNG",
+                    "systemName": None
+                }
+            ],
+            "bomImportKeyDeviceList": [],
+            "purchaseList": None,
+            "role": PCBAInfo['data']['role'],
+            "bomDeriveTreeVOList": None,
+            "virtualChipList": [],
+            "diffCollectList": [],
+            "bomVersionList": PCBAInfo['data']['bomVersionList'],
+            "recordReqVO": {
+                "checkRole": "check",
+                "listBid": "1014225961337622528",
+                "listName": "检查人",
+                "records": [
+                    {
+                        "checkResult": 1,
+                        "remark": "",
+                        "ruleBid": "1014225961476034560",
+                        "ruleName": "测试1"
+                    }
+                ],
+                "bomLevel": "pcba",
+                "checker": "18645960",
+                "flowId": flowid
             }
         }
         complete_data = {"instanceId": instanceid, "taskId": Search_Result[0], "appId": 0, "approveResult": 1, "comment": ""}

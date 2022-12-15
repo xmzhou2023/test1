@@ -13,7 +13,7 @@ def setup_class(drivers):
     nav = NavPage(drivers)
     nav.click_gotonav("商品","物料信息")
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-物料信息") # 模块名称
 class TestQueryMaterial:
     @allure.story("物料信息") # 场景名称
     @allure.title("根据商品名称查询物料")  # 用例名称
@@ -29,7 +29,7 @@ class TestQueryMaterial:
         test = users.element_text(user['查询商品编码'])
         ValueAssert.value_assert_equal(test,"PA00010262")
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-物料信息") # 模块名称
 class TestQueryMore:
     @allure.story("物料信息") # 场景名称
     @allure.title("查看更多筛选条件")  # 用例名称
@@ -46,7 +46,7 @@ class TestQueryMore:
         users.refresh()
         sleep(3)
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-物料信息") # 模块名称
 class TestExportMaterial:
     @allure.story("物料信息") # 场景名称
     @allure.title("导出物料信息")  # 用例名称

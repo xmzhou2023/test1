@@ -10,13 +10,14 @@ def setup_class(drivers):
     user = NavPage(drivers)
     user.click_gotonav("商品","商品参数")
 
-# @allure.feature("商品") # 模块名称
+# @allure.feature("商品-商品参数") # 模块名称
 # class TestAddGoodParam:
 #     @allure.story("商品参数") # 场景名称
 #     @allure.title("商品参数新增")  # 用例名称
 #     @allure.description("输入必填项新增商品参数")
 #     @allure.severity("normal")  # 用例等级
 #     @pytest.mark.smoke # 用例标记
+#     @pytest.mark.skip(reason="暂时跳过")
 #     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
 #         user= AddGoodParam(drivers)
 #         user.click_add()
@@ -32,7 +33,7 @@ def setup_class(drivers):
 #         sql = f"SELECT count(*) FROM `pop_data_db`.`goods_parameter_config` WHERE parameter_name='{content}';"
 #         SQLAssert('POP', 'test').assert_sql_count(1, sql)
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-商品参数") # 模块名称
 class TestQueryDetail:
     @allure.story("商品参数") # 场景名称
     @allure.title("商品参数详情查看")  # 用例名称
@@ -48,7 +49,7 @@ class TestQueryDetail:
         ValueAssert.value_assert_equal(test,'参数详情')
         users.refresh()
         sleep(3)
-@allure.feature("商品")
+@allure.feature("商品-商品参数")
 class TestExportGoodParam:
     @allure.story("商品参数")
     @allure.title("商品参数导出")
@@ -63,4 +64,4 @@ class TestExportGoodParam:
         test = users.element_text(user['导出成功提示'])
         ValueAssert.value_assert_equal(test,"创建导出任务成功！")
 if __name__ == '__main__':
-    pytest.main(['GoodParameter_Management.py::TestAddGoodParam'])
+    pytest.main(['GoodParameter_Management.py'])

@@ -49,6 +49,21 @@ class AddUser(Base):
         self.is_click_tbm(user['国家'],variable)
         sleep(3)
 
+    @allure.step("选择上级")
+    def switch_superior(self,superior):
+        self.is_click_tbm(user['上级输入框'])
+        self.input_text(user['上级输入框'],superior)
+        sleep(5)
+        self.is_click_tbm(user['上级'],superior)
+
+    @allure.step("选择门店")
+    def switch_shop(self, shop):
+        self.is_click_tbm(user['门店输入框'])
+        self.input_text(user['门店输入框'],shop)
+        sleep(5)
+        self.is_click_tbm(user['门店'],shop)
+
+
     @allure.step("点击保存按钮功")
     def click_preservation_button(self):
         self.is_click_tbm(user['保存按钮'])

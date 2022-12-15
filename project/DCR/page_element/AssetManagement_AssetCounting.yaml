@@ -1,0 +1,31 @@
+Unfold: "xpath==//div//span[text()='Unfold']"
+Fold: "xpath==//div//span[text()='Fold']"
+
+Query Country: "xpath==//div//input[@class='el-input__inner assetcounting_input_country']"
+Query Country Value: "xpath==//div//ul//li//span[text()='Bangladesh']"
+
+Query Brand: "xpath==//div//input[@class='el-input__inner assetcounting_input_brand']"
+Query Brand Value: "xpath==//div//ul//li//span[text()='TECNO']"
+
+Manpower Type: "xpath==//div//input[@class='el-input__inner assetcounting_input_manpowerTypeList']"
+Manpower Type Value: "xpath==//div//ul//li//span[text()='Manned']"
+
+Query Status: "xpath==//div//input[@class='el-input__inner assetcounting_input_changeStatus']"
+Query Status Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Search: "xpath==//button//span[normalize-space(text())='Search']"
+
+Get list Total: "xpath==//div//span[contains(text(), 'Total')]"
+Get list Brand: "xpath==//tbody//tr[1]//td[2]//div"
+Get list Country: "xpath==//tbody//tr[1]//td[3]//div"
+Get list Shop ID: "xpath==//tbody//tr[1]//td[6]//div"
+Get list Manpower Type: "xpath==//tbody//tr[1]//td[8]//div"
+Get list Status: "xpath==//tbody//tr[1]//td[18]//div"
+Get list Asset Name CN: "xpath==//tbody//tr[1]//td[15]//div"
+Get list Asset Name EN: "xpath==//tbody//tr[1]//td[16]//div"
+Get list Picture: "xpath==//tbody//tr[1]//td[not(contains(@class ,'is-hidden'))]//div//button//span[normalize-space(text())='Picture']"
+Get Asset Photo: "xpath==//div//span[text()='Asset Photo']"
+Close Asset Photo: "xpath==//div//div[3]//div//div[1]//button//i[@class='el-dialog__close el-icon el-icon-close']"
+
+
+

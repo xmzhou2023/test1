@@ -44,7 +44,7 @@ class TestQueryGlobalCustomers:
     @allure.title("查询客户列表所以数据加载，然后筛选客户信息是否加载正常")
     @allure.description("查询客户列表所以数据加载，然后筛选客户信息是否加载正常")
     @allure.severity("normal")
-    @pytest.mark.smoke   # 用例标记
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_customer_fixture')
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
@@ -323,7 +323,7 @@ class TestDisableCustomer:
     @allure.title("禁用客户")
     @allure.description("筛选需要禁用的客户，然后点击禁用功能，查看该客户状态是否更新为Disable状态")
     @allure.severity("normal")
-    @pytest.mark.smoke   # 用例标记
+    @pytest.mark.RT   # 用例标记
     @pytest.mark.usefixtures('function_customer_fixture')
     def test_006_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
@@ -353,7 +353,7 @@ class TestEnableCustomer:
     @allure.title("启用客户")
     @allure.description("筛选需要启用的客户，然后点击启用功能，查看该客户状态是否更新为Enable状态")
     @allure.severity("normal")
-    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.RT  # 用例标记
     @pytest.mark.usefixtures('function_customer_fixture')
     def test_007_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
@@ -414,8 +414,7 @@ class TestEnableCustomer:
 #         ValueAssert.value_assert_equal('0', get_failed)
 #         ValueAssert.value_assert_equal(today, get_import_date)
 #         """关闭当前打开的菜单"""
-#         menu = LoginPage(drivers)
-#         menu.click_close_open_menu()
+#         user.click_close_open_menu()
 #         """根据导入的客户ID，筛选导入的数据，然后进行删除操作"""
 #         upload.input_customer_query('Cus_test_itel')
 #         upload.click_search()

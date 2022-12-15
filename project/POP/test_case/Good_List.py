@@ -13,7 +13,7 @@ def setup_class(drivers):
     nav = NavPage(drivers)
     nav.click_gotonav("商品","商品列表")
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-商品列表") # 模块名称
 class TestGoodSearch:
     @allure.story("商品列表") # 场景名称
     @allure.title("搜索对应类目下商品")  # 用例名称
@@ -28,7 +28,7 @@ class TestGoodSearch:
         test = users.element_text(user['列表展示商品类目'])
         ValueAssert.value_assert_equal(test,"qwz")
 
-@allure.feature("商品") # 模块名称
+@allure.feature("商品-商品列表") # 模块名称
 class TestExportList:
     @allure.story("商品列表")  # 场景名称
     @allure.title("导出商品列表")  # 用例名称
@@ -43,7 +43,7 @@ class TestExportList:
         test = users.element_text(user['导出成功提示'])
         ValueAssert.value_assert_equal(test, "创建导出任务成功！")
 
-@allure.feature("商品")
+@allure.feature("商品-商品列表")
 class TestQuery:
     @allure.story("商品列表")
     @allure.title("查询商品")

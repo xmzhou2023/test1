@@ -7,10 +7,10 @@ Sales Region: "xpath==//label[(text()='Sales Region')]//parent::div// following-
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Fold: "xpath==//span[contains(text(),'Fold')]"
 
-获取Shop ID文本: "xpath==//tbody/tr[1]/td[14]/div"
-获取Submit Date文本: "xpath==//tbody//tr[1]//td[31]/div"
-获取Visit Date文本: "xpath==//tbody//tr[1]//td[33]/div"
-获取列表Operation文本: "xpath==//tbody//tr[1]//td[35]//div//span[text()='View']"
+获取Shop ID文本: "xpath==//tbody/tr[1]/td[3]/div"
+获取Submit Date文本: "xpath==//tbody//tr[1]//td[34]/div"
+获取Visit Date文本: "xpath==//tbody//tr[1]//td[29]/div"
+获取列表Operation文本: "xpath==//tbody//tr[1]//td[36]//div//span[text()='View']"
 获取总条数文本: "xpath==//span[contains(text(),'Total')]"
 
 Search: "xpath==//span[contains(text(),'Search')]"

@@ -2,7 +2,7 @@ from project.DCR.page_object.SalesManagement_ShopSalesQuery import ShopSaleQuery
 import logging
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base
-from public.base.assert_ui import ValueAssert
+from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.time_ui import sleep
 import datetime
 import pytest
@@ -38,7 +38,7 @@ class TestShopSalesQuery:
 
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         shop_sales = ShopSaleQueryPage(drivers)
-        shop_sales.input_upload_start_date("2022-09-01")
+        shop_sales.input_upload_start_date("2022-11-01")
         shop_sales.click_search()
 
         shop_id = shop_sales.get_shop_id_text()
@@ -78,9 +78,9 @@ class TestExportShopSalesQuery:
 
         export.click_unfold()
         """首先按日期筛选门店销量数据"""
-        export.input_upload_start_date("2022-09-01")
+        export.input_upload_start_date("2022-11-01")
         export.click_upload_end_date()
-        export.input_sales_date("2022-09-01", today)
+        export.input_sales_date("2022-11-01", today)
         export.click_fold()
         export.click_search()
         total = export.get_total_text()
@@ -110,6 +110,169 @@ class TestExportShopSalesQuery:
         export.assert_file_time_size(file_size, export_time)
         #export.click_close_export_record()
         #export.click_close_shop_sales_query()
+
+@allure.feature("销售管理-门店销售查询")
+class TestImportShopSalesQuery:
+    @allure.story("门店销量上报")
+    @allure.title("导入门店销量上报成功")
+    @allure.description("导入门店销量上报，符合条件导入成功，不符合条件导入失败")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures()
+    def test_003_001(self, drivers):
+        today = datetime.datetime.now().strftime('%Y-%m-%d')
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SenegalwjkPromoterInfinix", "xLily6x")
+        """打开销售管理-打开门店销售查询页面"""
+
+        """点击导入"""
+        user = ShopSaleQueryPage(drivers)
+        user.click_menu("Sales Management", "Shop Sales Query")
+        user.reset_ShopSalesQuery_import('356514117190074')
+        menu.click_gotomenu("Purchase Management", "Shop Purchase Query")
+        user.reset_ShopPurchaseQuery_import('356514117190074')
+        user.click_menu("Sales Management", "Shop Sales Query")
+        user.click_import()
+        user.import_ShopSalesQuery_file('销量上报1个条件2个不符合条件.xlsx')
+        """断言文件导入成功"""
+        user.assert_import_success()
+        user.click_save()
+        DomAssert(drivers).assert_att('The file has been uploaded successfully. Data is being imported, please wait for a few minutes and go to the Import Record page to check the results.')
+        user.click_confirm()
+        """断言ImportRecord页面结果"""
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Status', 'Upload Successfully')
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Total', '3')
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Success', '1')
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Failed', '2')
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Import Date', today)
+        """断言ShopPurchaseQuery页面结果"""
+        user.click_menu("Purchase Management", "Shop Purchase Query")
+        user.click_unfold()
+        user.input_ShopPurchaseQuery_query('IMEI', '356514117190074')
+        user.input_ShopPurchaseQuery_query('Status', 'Committed')
+        user.click_search()
+        user.assert_Query_result('IMEI', '356514117190074')
+        """断言Shop Sales Query页面结果"""
+        user.click_menu("Sales Management", "Shop Sales Query")
+        user.click_unfold()
+        user.input_ShopSalesQuery_query('IMEI/SN', '356514117190074')
+        user.click_search()
+        user.assert_Query_result('IMEI/SN', '356514117190074')
+        """Shop Sales Query页面点击指定imei复选框，删除"""
+        user.click_checkbox('356514117190074')
+        user.click_delete()
+        DomAssert(drivers).assert_att('Deleted Successfully')
+        """断言ShopPurchaseQuery页面自动取消"""
+        user.click_menu("Purchase Management", "Shop Purchase Query")
+        user.click_unfold()
+        user.input_ShopPurchaseQuery_query('IMEI', '356514117190074')
+        user.click_search()
+        user.assert_Query_result('Status', 'Canceled')
+        """！！！！！！删除后再次导入！！！！！"""
+        user.click_menu("Sales Management", "Shop Sales Query")
+        user.refresh()
+        user.click_import()
+        user.import_ShopSalesQuery_file('销量上报1个条件2个不符合条件.xlsx')
+        """断言文件导入成功"""
+        user.assert_import_success()
+        user.click_save()
+        DomAssert(drivers).assert_att('The file has been uploaded successfully. Data is being imported, please wait for a few minutes and go to the Import Record page to check the results.')
+        user.click_confirm()
+        """断言ImportRecord页面结果"""
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Status', 'Upload Successfully')
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Total', '3')
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Success', '1')
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Failed', '2')
+        user.assert_ImportRecord_result('销量上报1个条件2个不符合条件.xlsx', 'Import Date', today)
+        """断言ShopPurchaseQuery页面结果"""
+        user.click_menu("Purchase Management", "Shop Purchase Query")
+        user.click_unfold()
+        user.input_ShopPurchaseQuery_query('IMEI', '356514117190074')
+        user.input_ShopPurchaseQuery_query('Status', 'Committed')
+        user.click_search()
+        user.assert_Query_result('IMEI', '356514117190074')
+        """断言Shop Sales Query页面结果"""
+        user.click_menu("Sales Management", "Shop Sales Query")
+        user.click_unfold()
+        user.input_ShopSalesQuery_query('IMEI/SN', '356514117190074')
+        user.click_search()
+        user.assert_Query_result('IMEI/SN', '356514117190074')
+        """Shop Sales Query页面点击指定imei复选框，删除"""
+        user.click_checkbox('356514117190074')
+        user.click_delete()
+        DomAssert(drivers).assert_att('Deleted Successfully')
+        """断言ShopPurchaseQuery页面自动取消"""
+        user.click_menu("Purchase Management", "Shop Purchase Query")
+        user.click_unfold()
+        user.input_ShopPurchaseQuery_query('IMEI', '356514117190074')
+        user.click_search()
+        user.assert_Query_result('Status', 'Canceled')
+
+    @allure.story("门店销量上报")
+    @allure.title("门店入库自动激活转销量")
+    @allure.description("已配置自动转销量，库存上报后，自动转门店销量上报")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures()
+    def test_003_002(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SenegalwjkPromoterTECNO", "xLily6x")
+        """库存上报"""
+        user = ShopSaleQueryPage(drivers)
+        """检查imei是否已经库存上报&销量上报"""
+        menu.click_gotomenu("Sales Management", "Shop Sales Query")
+        user.reset_ShopSalesQuery_import('358870660738380')
+        menu.click_gotomenu("Purchase Management", "Shop Purchase Query")
+        user.reset_ShopPurchaseQuery_import('358870660738380')
+        user.refresh()
+        user.click_import()
+        user.import_file('Shop+Stock+In+Template配置自动上报销量.xlsx')
+        user.assert_import_success()
+        user.click_save()
+        DomAssert(drivers).assert_att('The file has been uploaded successfully. Data is being imported, please wait for a few minutes and go to the Import Record page to check the results.')
+        user.click_confirm()
+        """断言ImportRecord页面结果"""
+        user.assert_ImportRecord_result('Shop+Stock+In+Template配置自动上报销量.xlsx', 'Status', 'Upload Successfully')
+        user.assert_ImportRecord_result('Shop+Stock+In+Template配置自动上报销量.xlsx', 'Total', '1')
+        user.assert_ImportRecord_result('Shop+Stock+In+Template配置自动上报销量.xlsx', 'Success', '1')
+        # user.assert_ImportRecord_result('Shop+Stock+In+Template配置自动上报销量.xlsx', 'Import Date', '2022-11-21')
+        """断言ShopSalesQuery页面是否自动上报"""
+        menu.click_gotomenu("Sales Management", "Shop Sales Query")
+        user.click_unfold()
+        user.input_ShopSalesQuery_query('IMEI/SN', '358870660738380')
+        user.click_search()
+        user.assert_Query_result('Status', 'Committed')
+        user.assert_Query_result('IMEI/SN', '358870660738380')
+        """Shop Sales Query页面点击指定imei复选框，删除"""
+        user.click_checkbox('358870660738380')
+        user.click_delete()
+        DomAssert(drivers).assert_att('Deleted Successfully')
+        """Shop Purchase Query页面点击指定imei复选框，删除"""
+        menu.click_gotomenu("Purchase Management", "Shop Purchase Query")
+        user.click_unfold()
+        user.input_ShopPurchaseQuery_query('IMEI', '358870660738380')
+        user.input_ShopPurchaseQuery_query('Status', 'Committed')
+        user.click_search()
+        user.click_checkbox('358870660738380')
+        user.click_cancel()
+        DomAssert(drivers).assert_att('Cancel success')
+
+    @allure.story("门店销量导出")
+    @allure.title("门店销量导出")
+    @allure.description("门店销量导出")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures()
+    def test_003_003(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "qiulian1", "xLily6x")
+        """库存上报"""
+        user = ShopSaleQueryPage(drivers)
+        """检查imei是否已经库存上报&销量上报"""
+        menu.click_gotomenu("Sales Management", "Shop Sales Query")
+        user.click_export()
+        DomAssert(drivers).assert_att('Create successful , will auto downloaded , please wait')
+        menu.click_gotomenu("Basic Data Management", "Export Record")
+        user.assert_Record_result('Export Record', 'Shop Sales Query', 'Download Status', 'COMPLETE')
+        user.assert_Record_result('Export Record', 'Shop Sales Query', 'File Size')
+
 
 if __name__ == '__main__':
     pytest.main(['SalesManagement_ShopSalesQuery.py'])

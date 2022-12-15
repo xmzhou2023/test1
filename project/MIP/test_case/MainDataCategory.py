@@ -15,7 +15,7 @@ def setup_module(drivers):
     dom.assert_url("/main-data/category")
     yield
     logging.info("后置条件:返回 首页 页面")
-    menu.back_homepage("主数据")
+    menu.back_homepage()
     dom.assert_url("/dashboard")
 
 
@@ -101,7 +101,8 @@ class TestAddCategory:
         category = MainDataCategory(drivers)
         category.button_add()
         category.maintain_category(superiorCategory,name_zh,name_en,'反例 重复新增')
-
+        category.button_reset()
+        sleep(2)
 
 @allure.feature("主数据-类目管理")
 class TestEditCategory:
@@ -165,6 +166,39 @@ class TestEditCategory:
         category.input_categoryName("测试01")
         category.button_edit("测试01")
         category.edit_categoryInf(name_zh,name_en,type="反例 重复")
+        category.clear_testData("测试01")
+
+
+@allure.feature("主数据-类目管理")
+class TestChangeStatus:
+    @allure.story("启用/禁用 功能验证")
+    @allure.title("启用状态的类目，点击失效按钮，禁用成功")
+    @allure.description("启用状态的类目，点击失效按钮，禁用成功")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_004_001(self, drivers):
+        category = MainDataCategory(drivers)
+        category.creat_testData(drivers,"",'测试01','test01')
+        category.input_categoryName("测试01")
+        category.button_status("测试01")
+        status = category.return_status("测试01")
+        ValueAssert.value_assert_equal(status,"失效")
+        category.clear_testData("测试01")
+
+    @allure.story("启用/禁用 功能验证")
+    @allure.title("禁用状态的类目，点击启用按钮，启用成功")
+    @allure.description("禁用状态的类目，点击启用按钮，启用成功")
+    @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke
+    def test_004_002(self, drivers):
+        category = MainDataCategory(drivers)
+        category.creat_testData(drivers,"",'测试01','test01')
+        category.input_categoryName("测试01")
+        category.button_status("测试01")
+        """前置条件 造出状态为失效的测试数据"""
+        category.button_status("测试01")
+        status = category.return_status("测试01")
+        ValueAssert.value_assert_equal(status,"启用")
         category.clear_testData("测试01")
 
 

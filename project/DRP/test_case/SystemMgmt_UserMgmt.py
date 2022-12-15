@@ -70,7 +70,6 @@ class TestEditUser:
             #     # '区域': {'Infinix': ['利比亚', '土耳其']}
             }
         )
-
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])
 

@@ -23,10 +23,24 @@ class Version(Base):
         self.input_text(user[yaml], txt, choice)
 
     @allure.step('处理点击')
-    def click(self, yaml,choice = None):
+    def click(self, yaml, choice = None):
         sleep(1)
-        self.is_click_dcr(user[yaml],choice)
+        self.is_click_dcr(user[yaml], choice)
         sleep(2)
+
+    @allure.step('切换窗口')
+    def switch_window_tlc(self, n):
+        """切换窗口"""
+        sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[n])
+
+    @allure.step('关闭窗口')
+    def close_switch_tlc(self, n):
+        """关闭窗口"""
+        sleep(2)
+        self.driver.switch_to.window(self.driver.window_handles[n])  # 切换到新页签
+        self.driver.close()  # 关闭新页签
+        self.driver.switch_to.window(self.driver.window_handles[0])  # 然后切换回原始页签
 
     @allure.step('hover')
     def hover(self, ymal, choice = None):

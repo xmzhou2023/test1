@@ -1,0 +1,62 @@
+#新增告警模板
+Add Monitoring Template: "xpath==//div//button//span[normalize-space(text())='Add']"
+Title: "xpath==//label[contains(text(),'Title')]//parent::div//following-sibling::div//input"
+Brand: "xpath==//label[contains(text(),'Brand')]//parent::div//following-sibling::div//input"
+Select Brand Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Country: "xpath==//label[contains(text(),'Country')]//parent::div//following-sibling::div//input"
+Select Country Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Monitory Type: "xpath==//label[contains(text(),'Monitor Type')]//parent::div//following-sibling::div//input"
+Select Monitory Type: "xpath==//div//ul//li//span[text()='variable']"
+
+Item: "xpath==//label[contains(text(),'Item')]//parent::div//following-sibling::div//input"
+Select Item Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Enable Start Date: "xpath==//div/..//div[@class='date-box start']//input"
+Enable End Date: "xpath==//div/..//div[@class='date-box end']//input"
+
+Shop Type: "xpath==//label[contains(text(),'Shop Type')]//parent::div//following-sibling::div//input"
+Select Shop Type: "xpath==//div//ul//li//span[text()='variable']"
+
+Image Type: "xpath==//label[contains(text(),'Image Type')]//parent::div//following-sibling::div//input"
+Select Image Type: "xpath==//div//ul//li//span[text()='variable']"
+
+Manpower Type: "xpath==//label[contains(text(),'Manpower Type')]//parent::div//following-sibling::div//input"
+Select Manpower Type: "xpath==//div//ul//li//span[text()='variable']"
+
+Frequency: "xpath==//label[contains(text(),'Frequency')]//parent::div//following-sibling::div//input"
+Select Frequency Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Monitor Position: "xpath==//label[contains(text(),'Monitor Position')]//parent::div//following-sibling::div//input"
+Select Monitor Position: "xpath==//div//ul//li//span[text()='variable']"
+
+Sale Quantity: "xpath==//label[contains(text(),'Sale Quantity')]//parent::div//following-sibling::div//input"
+Inventory Quantity: "xpath==//label[contains(text(),'Inventory Quantity')]//parent::div//following-sibling::div//input"
+
+Add Submit: "xpath==//div//button[@class='el-button el-button--primary el-button--small']//span[normalize-space(text())='Submit']"
+
+#查询按钮
+Unfold: "xpath==//div//span[text()='Unfold']"
+Fold: "xpath==//div//span[text()='Fold']"
+Search: "xpath==//div//button//span[normalize-space(text())='Search']"
+
+Query Title: "xpath==//div//input[@class='el-input__inner monitoringtemplate_input_title']"
+Query Status: "xpath==//div//input[@class='el-input__inner monitoringtemplate_input_status']"
+Select Query Status Value: "xpath==//div//ul//li//span[text()='variable']"
+
+Get list Title: "xpath==//tbody//tr[1]//td[3]//div"
+Get list Brand: "xpath==//tbody//tr[1]//td[4]//div"
+Get list Country: "xpath==//tbody//tr[1]//td[5]//div"
+Get list Monitor Type: "xpath==//tbody//tr[1]//td[6]//div"
+Get list Shop Type: "xpath==//tbody//tr[1]//td[11]//div"
+Get list Frequency: "xpath==//tbody//tr[1]//td[16]//div"
+Get list Status: "xpath==//tbody//tr[1]//td[17]//div"
+
+Operation Edit: "xpath==//tbody//tr[1]//td/div//span[normalize-space(text())='Edit']"
+
+勾选复选框: "xpath==//tbody//tr[1]//td[1]//span[@class='el-checkbox__inner']"
+Disable Button: "xpath==//button[@class='el-button btn-red el-button--default el-button--mini is-plain']//span[normalize-space(text())='Disable']"
+#Disable 提示: "xpath==//div//p[text()='Do you confirm to disable the template?']"
+Disable Yes: "xpath==//button//span[contains(text(),'Yes')]"
+

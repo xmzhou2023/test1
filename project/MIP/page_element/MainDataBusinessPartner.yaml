@@ -1,0 +1,59 @@
+BP编码 左: "xpath==//label[normalize-space(text())='BP编码']/following-sibling::div//div[@class='material__form-from-to']//div[contains(@class,'el-input--suffix')][1]//input"
+BP编码 右: "xpath==//label[normalize-space(text())='BP编码']/following-sibling::div//div[@class='material__form-from-to']//div[contains(@class,'el-input--suffix')][2]//input"
+地区下拉: "xpath==//label[normalize-space(text())='地区']/following-sibling::div//input"
+选择下拉项: "xpath==//div[@x-placement='bottom-start']//li//span[normalize-space(text())='variable']"
+
+行业类型 左: "xpath==//label[normalize-space(text())='行业类型']/following-sibling::div//div[@class='material__form-from-to']//div[contains(@class,'el-input--suffix')][1]//input"
+行业类型 右: "xpath==//label[normalize-space(text())='行业类型']/following-sibling::div//div[@class='material__form-from-to']//div[contains(@class,'el-input--suffix')][2]//input"
+BP名称 文本框: "xpath==//label[normalize-space(text())='BP名称']/following-sibling::div//input"
+省或邦 下拉: "xpath==//label[normalize-space(text())='省或邦']/following-sibling::div//input"
+联系人 文本框: "xpath==//label[normalize-space(text())='联系人']/following-sibling::div//input"
+BP类型 下拉: "xpath==//label[normalize-space(text())='BP类型']/following-sibling::div//input"
+城市 文本框: "xpath==//label[normalize-space(text())='城市']/following-sibling::div//input"
+
+创建时间 左: "xpath==//label[normalize-space(text())='创建时间']/following-sibling::div//div[contains(@class,'el-input--suffix')][1]//input"
+创建时间 右: "xpath==//label[normalize-space(text())='创建时间']/following-sibling::div//div[contains(@class,'el-input--suffix')][2]//input"
+header年: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'年')]"
+header月: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'月')]"
+选择 前一年: "xpath==//div[@x-placement='bottom-start']//button[@aria-label='前一年']"
+选择 后一年: "xpath==//div[@x-placement='bottom-start']//button[@aria-label='后一年']"
+选择 前一月: "xpath==//div[@x-placement='bottom-start']//button[@aria-label='上个月']"
+选择 后一月: "xpath==//div[@x-placement='bottom-start']//button[@aria-label='下个月']"
+年列表 第一年: "xpath==//div[@x-placement='bottom-start']//table[@class='el-year-table']//tr[1]//td[1]"
+年列表 最后一年: "xpath==//div[@x-placement='bottom-start']//table[@class='el-year-table']//tr[3]//td[2]"
+选择年: "xpath==//div[@x-placement='bottom-start']//table[@class='el-year-table']//a[normalize-space()='variable']"
+选择月: "xpath==//div[@x-placement='bottom-start']//table[@class='el-month-table']//a[normalize-space()='variable']"
+选择 日期: "xpath==//div[@x-placement='bottom-start']//table[@class='el-date-table']//td[@class='available']//span[normalize-space()='variable']"
+
+查询 按钮: "xpath==//button[@type='button']//span[contains(text(),'查询')]"
+查看详情 按钮: "xpath==//button[@type='button']//span[contains(text(),'查看详情')]"
+清空 按钮: "xpath==//div[@class='business']//button[@type='button']//span[contains(text(),'清空')]"
+BP类型 必填报错信息: "xpath==//div[@class='el-form-item__error']"
+
+展开 按钮: "xpath==//i[@class='el-icon-arrow-down conditions_collapse']"
+收起 按钮: "xpath==//i[@class='el-icon-arrow-up conditions_collapse']"
+
+获取列表数量: "xpath==//span[@class='el-pagination__total']"
+复选框: "xpath==//tbody/tr[variable]/td[1]/div[1]/label[1]/span[1]/span[1]"
+全选: "xpath==//thead[contains(@class,'has-gutter')]//span[contains(@class,'el-checkbox__inner')]"
+
+横向滚动条div: "xpath==//div[contains(@class,'el-table__body-wrapper is-scrolling-left')]"
+BP编码: "xpath==//div[contains(@class,'is-scrolling-left')]//table[@class='el-table__body']//tr[variable]//td[2]"
+
+
+获取 BP编码: "xpath==//label[normalize-space(text())='BP编码']/following-sibling::div//input"
+上一页 按钮: "xpath==//button//span[contains(text(),'上一页')]"
+下一页 按钮: "xpath==//button//span[contains(text(),'下一页')]"
+
+BP 主数据页面: "xpath==//li[contains(@role,'menuitem')]//span[contains(text(),'BP 主数据')]"
+
+
+
+
+
+
+
+
+
+
+

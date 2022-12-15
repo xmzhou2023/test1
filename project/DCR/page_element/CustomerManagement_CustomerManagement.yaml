@@ -65,7 +65,7 @@ Disable Yes: "xpath==//button[@class='el-button el-button--primary el-button--mi
 Get list Status: "xpath==//tbody//tr[@class='el-table__row']//td[38]//div[normalize-space(text())='variable']"
 #勾选复选框: "xpath==//tbody//tr[@class='el-table__row']//td[1]//div//label//..//span[@class='el-checkbox__inner']"
 
-#导入用户
+#导入客户信息
 Import Button: "xpath==//button[@id='enterprise_import_']//span[normalize-space(text())='Import']"
 Add Upload: "xpath==//button//span[normalize-space(text())='Add Upload']"
 Edit Upload: "xpath==//button//span[normalize-space(text())='Edit Upload']"
@@ -81,11 +81,11 @@ Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
 Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"
 
 #导出客户
-Export: "id==customermanagementglobal_Export"
+Export: "xpath==//button//span[normalize-space(text())='Export']"
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
 Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
-Task Name value: "xpath==//span[text()='variable']"
+Task Name value: "xpath==//div//ul//li//span[text()='variable']"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
 获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
@@ -94,4 +94,4 @@ Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取创建日期文本: "xpath==//tbody//tr[1]//td[10]//div"
 获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
 获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
-获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@id='exportrecord_Download']/span/span"
+获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"

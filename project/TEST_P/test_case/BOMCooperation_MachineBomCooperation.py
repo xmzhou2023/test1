@@ -525,7 +525,7 @@ class TestCreatingProcessImport:
     @allure.title("导入选择正确的文件进行导入成功")  # 用例名称
     @allure.description("进入新增页面制作类型选择生产BOM，选择一个存在模板的品牌，在BOM tree中点击新增BOM，""选择导入BOM选择正确的文件进行导入，并能应用，点击应用后页面显示的数据与模板的数据一致")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.FT  # 用例标记
+    @pytest.mark.RT  # 用例标记
     def test_003_002(self, drivers):
         user.click_apply()
         user.click_tree('产成品')

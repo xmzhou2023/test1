@@ -2,7 +2,7 @@ import logging
 
 from public.base.basics import Base
 # from libs.common.read_config import ini
-from public.libs.unified_login.page_object.login import LoginPage, SrmLoginPage, PopLoginPage, OALoginPage
+from public.libs.unified_login.page_object.login import LoginPage, SrmLoginPage, PopLoginPage, OALoginPage, IpmLoginPage
 from public.libs.unified_login.page_object.login import DcrLoginPage
 
 from time import sleep
@@ -22,6 +22,14 @@ class Login(Base):
         user.click_checkbox()
         user.click_loginsubmit()
 
+    def IPM_login(self, drivers, url, username, passwd):
+        """统一登录֤"""
+        user = IpmLoginPage(drivers)
+        user.get_url(url) # 跳转到指定网页
+        user.ipm_input_account(username) # 输入帐户名
+        user.ipm_input_passwd(passwd) # 输入密码
+        user.ipm_click_login()
+        sleep(3)
 
     def dcr_login(self, drivers, url, username, passwd):
         user = DcrLoginPage(drivers)
