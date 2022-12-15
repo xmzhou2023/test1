@@ -19,14 +19,39 @@ class TestQueryCountry:
     @allure.description("输入国家，查询国家")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
-    def test_001_001(self,drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_001_001(self,drivers):
         users = QueryCountry(drivers)
-        users .input_country("China")
-        users.query_country()
-        sleep(0.5)
+        users .querycountry("国家城市框","China")
+        sleep(2)
         # 断言-- 输入国家与查询结果显示的国家一致
-        test = users.element_text(user['查询国家'])
+        test = users.element_text(user['国家城市断言'])
         ValueAssert.value_assert_equal(test,"China")
+
+    @allure.story("国家城市")  # 场景名称
+    @allure.title("查询国家")  # 用例名称
+    @allure.description("输入是否禁用，查询对应状态的国家")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_002(self, drivers):
+        users = QueryCountry(drivers)
+        users.querycountry("是否禁用框", "禁用")
+        sleep(2)
+        # 断言-- 输入国家与查询结果显示的国家一致
+        test = users.element_text(user['是否禁用断言'])
+        ValueAssert.value_assert_equal(test, "否")
+
+    @allure.story("国家城市")  # 场景名称
+    @allure.title("查询国家")  # 用例名称
+    @allure.description("输入城市等级，查询对应城市等级的国家")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_003(self, drivers):
+        users = QueryCountry(drivers)
+        users.querycountry("城市等级框", "T1")
+        sleep(2)
+        # 断言-- 输入国家与查询结果显示的国家一致
+        test = users.element_text(user['城市等级断言'])
+        ValueAssert.value_assert_equal(test, "T1")
 
 @allure.feature("组织-国家城市") # 模块名称
 class TestExportCoutrycity:
@@ -46,4 +71,4 @@ class TestExportCoutrycity:
 
 
 if __name__ == '__main__':
-    pytest.main(['test_case'])
+    pytest.main(['Organization_CountryCity.py::TestQueryCountry'])

@@ -1,5 +1,17 @@
-系统通用重置按钮: "xpath==//span[contains(text(),'重置')]"
+#系统通用按钮
+查询按钮: "xpath==//span[contains(text(),'查询')]"
+更多按钮: "xpath==//span[contains(@class,'more-btn')]"
+重置按钮: "xpath==//span[contains(text(),'重置')]"
+新增按钮: "xpath==//button[contains(text(),'新增')]"
+编辑按钮: "xpath==//button[contains(text(),'编辑')]"
+导出按钮: "xpath==//button[contains(text(),'导出')]"
+导入按钮: "xpath==//button[contains(text(),'导入')]"
+禁用按钮: "xpath==//button[contains(text(),'禁用')]"
+启用按钮: "xpath==//button[contains(text(),'启用')]"
+删除按钮: "xpath==//button[contains(text(),'删除')]"
+更多查询: "xpath==//span[contains(@class,'dialog-footer')]//span[contains(text(),'查询')]"
 
+#系统模块定位元素
 组织: "xpath==//span[contains(text(),'组织')]"
 组织->职员管理: "xpath==//span[@title='职员管理']"
 组织->区域: "xpath==//span[@title='区域']"
@@ -27,11 +39,50 @@
 门店: "xpath==//span[contains(text(),'门店')]"
 门店->门店列表: "xpath==//span[@title='门店列表']"
 门店->门店销售等级: "xpath==//span[@title='门店销售等级']"
+门店->考勤规则: "xpath==//span[@title='考勤规则']"
 
 采购: "xpath==//span[contains(text(),'采购')]"
 采购->门店收货单: "xpath==//span[@title='门店收货单']"
 采购->门店退货单: "xpath==//span[@title='门店退货单']"
 
 
+#----------------------职员管理筛选-----------------------#
+用户框: "xpath==//input[@placeholder='用户']"
+员工: "xpath==//span[contains(text(),'variable')]"
+角色框: "xpath==//div[contains(@class,'filter-item')]//div[contains(@class,'el-select__tags')]//input[contains(@type,'text')]"
+角色: "xpath==//span[contains(text(),'variable')]"
+状态框: "xpath==//input[contains(@placeholder,'状态')]"
+状态: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
+门店框: "xpath==//input[@placeholder='门店']"
+门店1: "xpath==//span[contains(text(),'variable')]"
+员工类型框: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/form[1]/div[2]/div[1]/div[2]/form[1]/div[1]/div[5]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"
+员工类型: "xpath==//span[contains(text(),'variable')]"
+国家框: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/form[1]/div[2]/div[1]/div[2]/form[1]/div[1]/div[6]/div[1]/div[1]/div[1]/div[1]/div[1]/input[1]"
+国家1: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
+区域框: "xpath==//div[contains(@class,'tr-select-tree__input')]//input"
+区域: "xpath==//div[@class='el-tree-node is-focusable']//div[@class='custom-tree-node'][contains(text(),'variable')]"
 
 
+#----------------------区域筛选-----------------------#
+
+#----------------------国家城市筛选-----------------------#
+国家城市框: "xpath==//input[contains(@placeholder,'国家城市')]"
+国家城市: "xpath==//div[contains(@class,'custom-tree-node')][normalize-space()='variable']"
+是否禁用框: "xpath==//input[contains(@placeholder,'是否禁用')]"
+是否禁用: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
+城市等级框: "xpath==//input[contains(@placeholder,'城市等级')]"
+城市等级: "xpath==//span[contains(text(),'variable')]"
+
+#----------------------供应商筛选-----------------------#
+卖家名称框: "xpath==//span[1]//div[1]//div[1]//input[1]"
+卖家: "xpath==//div[contains(@class,'text-ellipsis')]"
+卖家类型框: "xpath==//input[@placeholder='卖家类型']"
+卖家类型: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
+卖家国家框: "xpath==//span[3]//div[1]//div[1]//input[1]"
+卖家国家: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
+供应商门店框: "xpath==//span[4]//div[1]//div[1]//input[1]"
+供应商门店: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
+门店国家框: "xpath==//div[5]//div[1]//div[1]//div[1]//div[1]//div[1]//input[1]"
+门店国家: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
+归属机构框: "xpath==//div[6]//div[1]//div[1]//div[1]//div[1]//div[1]//input[1]"
+归属机构: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
