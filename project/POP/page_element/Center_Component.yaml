@@ -27,6 +27,8 @@
 
 采购: "xpath==//span[contains(text(),'采购')]"
 采购->门店收货单: "xpath==//span[@title='门店收货单']"
+采购->门店退货单: "xpath==//span[@title='门店退货单']"
+
 
 
 
