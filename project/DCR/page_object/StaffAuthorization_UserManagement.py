@@ -751,8 +751,8 @@ class UserManagementPage(Base):
         logging.info(f'获得Edit页面{header} 字段 Information：{Information}')
         return Information
 
-    @allure.step("断言：Edit页面Information一致")
-    def assert_Edit_Information(self, header, content):
+    @allure.step("断言：页面Information一致")
+    def assert_user_Information(self, header, content):
         """
         :param header: 需要断言的字段名
         :param content: 需要断言的内容

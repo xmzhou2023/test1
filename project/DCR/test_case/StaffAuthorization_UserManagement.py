@@ -183,7 +183,7 @@ class TestAddEditQuitTranssionUser:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_002(self, drivers):
-        """ lhmadmin管理员账号登录"""
+        """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
         """点击用户管理菜单"""
@@ -219,7 +219,7 @@ class TestAddEditQuitTranssionUser:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_003(self, drivers):
-        """ lhmadmin管理员账号登录"""
+        """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
         """点击用户管理菜单"""
@@ -232,20 +232,24 @@ class TestAddEditQuitTranssionUser:
         DomAssert(drivers).assert_att("The staff has resigned in the user center and can't be added")
 
     @allure.story("用户管理")
-    @allure.title("代理员工的ID、所属客户置灰不可编辑")
-    @allure.description("页面进入代理员工编辑页，ID、所属客户置灰不可编辑")
+    @allure.title("代理员工的员工类型、ID、所属客户置灰不可编辑")
+    @allure.description("页面进入代理员工编辑页，员工类型、ID、所属客户置灰不可编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_004(self, drivers):
-        """ lhmadmin管理员账号登录"""
+        """账号登录"""
         user = LoginPage(drivers)
-        user.initialize_login(drivers, "SN400001", "xLily6x")
+        user.initialize_login(drivers, "18650493", "xLily6x")
         """点击用户管理菜单"""
-        UserID = 'SN400001'
+        userID = 'SN400001'
         add = UserManagementPage(drivers)
         add.click_menu("Staff & Authorization", "User Management")
+        """筛选代理员工"""
+        add.input_search('User ID', userID)
+        add.click_search()
         """点击编辑 代理员工的ID/所属客户置灰不可编辑"""
-        add.click_Edit(UserID)
+        add.click_Edit(userID)
+        add.assert_input_edit('Staff Type')
         add.assert_input_edit('Belong To Customer')
         add.assert_input_edit('User ID')
 
@@ -278,7 +282,7 @@ class TestAddEditQuitTranssionUser:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_006(self, drivers):
-        """ lhmadmin管理员账号登录"""
+        """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
         """点击用户管理菜单"""
@@ -304,10 +308,10 @@ class TestAddEditQuitTranssionUser:
         add.input_search('User ID', UserID)
         add.click_search()
         add.click_Edit(UserID)
-        add.assert_Edit_Information('User Name', '翁佳柯')
-        add.assert_Edit_Information('Hire Date', '2021-12-30')
-        add.assert_Edit_Information('Email', 'JIAKE.WENG@TRANSSION.COM')
-        add.assert_Edit_Information('Gender', 'Male')
+        add.assert_user_Information('User Name', '翁佳柯')
+        add.assert_user_Information('Hire Date', '2021-12-30')
+        add.assert_user_Information('Email', 'JIAKE.WENG@TRANSSION.COM')
+        add.assert_user_Information('Gender', 'Male')
 
     @allure.story("用户管理")
     @allure.title("批导编辑员工信息成功生效")
@@ -315,7 +319,7 @@ class TestAddEditQuitTranssionUser:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_007(self, drivers):
-        """ lhmadmin管理员账号登录"""
+        """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
         """变量"""
@@ -354,17 +358,17 @@ class TestAddEditQuitTranssionUser:
         add.click_search()
         """断言:代理员工编辑个人信息生效"""
         add.click_Edit(DealerID)
-        add.assert_Edit_Information('User Name', DealerName)
-        add.assert_Edit_Information('Contact No.', ContactNo)
+        add.assert_user_Information('User Name', DealerName)
+        add.assert_user_Information('Contact No.', ContactNo)
         add.click_Cancel()
         """断言:传音内部员工编辑个人信息生效"""
         add.click_Edit(TranssionInternalID)
-        add.assert_Edit_Information('Contact No.', ContactNo)
+        add.assert_user_Information('Contact No.', ContactNo)
         add.click_Cancel()
         """断言:传音外部员工编辑个人信息生效"""
         add.click_Edit(TranssionExternalID)
-        add.assert_Edit_Information('User Name', TranssionName)
-        add.assert_Edit_Information('Contact No.', ContactNo)
+        add.assert_user_Information('User Name', TranssionName)
+        add.assert_user_Information('Contact No.', ContactNo)
         add.click_Cancel()
 
     @allure.story("用户管理")
@@ -373,7 +377,7 @@ class TestAddEditQuitTranssionUser:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_008(self, drivers):
-        """ lhmadmin管理员账号登录"""
+        """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
         """点击用户管理菜单"""
@@ -406,7 +410,7 @@ class TestAddEditQuitTranssionUser:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_009(self, drivers):
-        """ lhmadmin管理员账号登录"""
+        """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
         """点击用户管理菜单"""
@@ -421,6 +425,31 @@ class TestAddEditQuitTranssionUser:
         """断言：提示内部用户不可以重置密码"""
         DomAssert(drivers).assert_att("Transsion account can't be reset password in the DCR")
         add.refresh()
+
+    @allure.story("用户管理")
+    @allure.title("新建员工，输入内部员工ID自动同步信息")
+    @allure.description("新建传音员工，staff type选择Transsion Staff，能自动同步姓名、入职日期信息")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_010(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        userID = '18650493'
+        userName = '翁佳柯'
+        hireDate = '2021-12-30'
+        email = 'JIAKE.WENG@TRANSSION.COM'
+        gender = 'Male'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        add.click_add_user()
+        add.input_Job_Information('Staff Type', 'Transsion Staff')
+        add.input_Job_Information('User ID', userID)
+        add.assert_user_Information('User Name', userName)
+        add.assert_user_Information('Hire Date', hireDate)
+        add.assert_user_Information('Email', email)
+        add.assert_user_Information('Gender', gender)
 
 
 @allure.feature("员工授权-用户管理")
