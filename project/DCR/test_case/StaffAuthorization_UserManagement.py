@@ -232,11 +232,39 @@ class TestAddEditQuitTranssionUser:
         DomAssert(drivers).assert_att("The staff has resigned in the user center and can't be added")
 
     @allure.story("用户管理")
+    @allure.title("传音员工，用户类型、用户ID、姓名、性别、个人邮箱、语言、入职日期字段置灰不可编辑")
+    @allure.description("页面编辑传音员工，用户类型、用户ID、姓名、性别、个人邮箱、语言、入职日期字段置灰不可编辑")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_004(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        userID = '18650493'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """筛选传音员工"""
+        add.click_reset()
+        add.input_search('User ID', userID)
+        add.click_search()
+        """点击编辑 代理员工的ID/所属客户置灰不可编辑"""
+        add.click_Edit('18650493')
+        add.assert_input_edit('Staff Type')
+        add.assert_input_edit('Hire Date')
+        add.assert_input_edit('User ID')
+        add.assert_input_edit('User Name')
+        add.assert_input_edit('Email')
+        add.assert_input_edit('Gender')
+        add.assert_input_edit('Native Language')
+        add.click_Cancel()
+
+    @allure.story("用户管理")
     @allure.title("代理员工的员工类型、ID、所属客户置灰不可编辑")
     @allure.description("页面进入代理员工编辑页，员工类型、ID、所属客户置灰不可编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_004(self, drivers):
+    def test_002_005(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -252,13 +280,14 @@ class TestAddEditQuitTranssionUser:
         add.assert_input_edit('Staff Type')
         add.assert_input_edit('Belong To Customer')
         add.assert_input_edit('User ID')
+        add.click_Cancel()
 
     @allure.story("用户管理")
     @allure.title("已离职员工不可编辑")
     @allure.description("用户中心已离职的员工编辑提示：该用户已在用户中心离职，不能编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_005(self, drivers):
+    def test_002_006(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -281,7 +310,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("批导编辑传音员工，编辑用户类型失败；编辑已离职员工失败；批导编辑传音员工姓名、性别、个人邮箱、语言、入职日期字段不生效")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_006(self, drivers):
+    def test_002_007(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -318,7 +347,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("支持导入编辑员工信息，检查成功的（比如职位）")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_007(self, drivers):
+    def test_002_008(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -376,7 +405,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("用户离职又复职后，能正常登录DCR系统,访问不同菜单，不会出现token失效的问题")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_008(self, drivers):
+    def test_002_009(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -409,7 +438,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("内部员工不能直接重置，提示报错")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_009(self, drivers):
+    def test_002_010(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -431,7 +460,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("新建传音员工，staff type选择Transsion Staff，能自动同步姓名、入职日期信息")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_010(self, drivers):
+    def test_002_011(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -450,6 +479,39 @@ class TestAddEditQuitTranssionUser:
         add.assert_user_Information('Hire Date', hireDate)
         add.assert_user_Information('Email', email)
         add.assert_user_Information('Gender', gender)
+
+    @allure.story("用户管理")
+    @allure.title("已离职员工不能重置密码以及登录系统")
+    @allure.description("操作用户离职，已离职的员工不能重置密码,离职后用户不能登录系统")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_002_012(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        userID = 'wjkTS003'
+        pwd = 'xLily6x'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """离职用户"""
+        add.disable_user_Method(userID)
+        """筛选离职用户，重置密码"""
+        add.click_reset()
+        add.click_unfold()
+        add.input_search('User ID', userID)
+        add.input_search('Staff Status', 'Off Service')
+        add.click_search()
+        add.click_checkbox(userID)
+        add.click_function_button('Reset Password', confirm='No')
+        """断言：已离职的员工不能重置密码"""
+        DomAssert(drivers).assert_att("Disable account can't be reset password,pls enable it first;")
+        """离职员工账号登录系统"""
+        user.click_loginOut()
+        user.input_account(userID)
+        user.input_passwd(pwd)
+        user.click_loginsubmit()
+        """断言：已离职的员工不能登录系统"""
+        DomAssert(drivers).assert_att("The user has resigned in DCR!")
 
 
 @allure.feature("员工授权-用户管理")

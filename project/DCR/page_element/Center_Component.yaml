@@ -169,3 +169,6 @@ Asset Management->Shop Asset: "xpath==//div//li//span[text()='Shop Asset']"
 Asset Management->Asset Maintenance History: "xpath==//div//li//span[text()='Asset Maintenance History']"
 Asset Management->Asset Counting: "xpath==//div//li//span[text()='Asset Counting']"
 Asset Management->Demo Phone Query: "xpath==//div//li//span[text()='Demo Phone Query']"
+
+Login: "xpath==//h3[normalize-space(text())='Log in']"
+

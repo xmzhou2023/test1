@@ -522,6 +522,10 @@ class UserManagementPage(Base):
 
     @allure.step("user management页面，输入查询条件")
     def input_search(self, header, content):
+        """
+        @header： 输入框名称
+        @content： 输入内容
+        """
         country_list = ['Sales Region', 'Country/City']
         FuzzySelect_list = ['Belong To Customer', 'Superior']
         ExactSelect_list = ['Staff Status']
@@ -542,6 +546,10 @@ class UserManagementPage(Base):
 
     @allure.step("创建页面输入Job_Information")
     def input_Job_Information(self, header, content):
+        """
+        @header： 输入框名称
+        @content： 输入内容
+        """
         user_list = ['User ID', 'User Name']
         country_list = ['Sales Region', 'Country/City']
         FuzzySelect_list = ['Belong To Customer', 'Superior']
@@ -580,6 +588,10 @@ class UserManagementPage(Base):
 
     @allure.step("创建页面输入Personal_Information")
     def input_Personal_Information(self, header, content):
+        """
+        @header： 输入框名称
+        @content： 输入内容
+        """
         user_list = ['User ID', 'User Name']
         country_list = ['Sales Region', 'Country/City']
         FuzzySelect_list = ['Belong To Customer', 'Superior']
@@ -595,20 +607,32 @@ class UserManagementPage(Base):
         DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
 
     @allure.step("点击复选框")
-    def click_checkbox(self, UID):
-        self.is_click_tbm(user['指定复选框'], UID)
+    def click_checkbox(self, UID, header='User ID'):
+        """
+        @UID： UID 默认传入userid，username或其他唯一内容也可以传
+        """
+        column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+        self.is_click_tbm(user['指定复选框'], column, UID)
         logging.info(f'点击 {UID} 复选框')
 
     @allure.step("点击指定编辑")
     def click_Edit(self, UID, header='User ID'):
+        """
+        @UID： UID 默认传入userid，如传入的是username或其他，则需要修改header
+        @header： 默认是'User ID'，表格表头，如：传name就用User Name
+        """
         column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
         self.is_click_tbm(user['指定编辑'], column, UID)
         logging.info('点击指定编辑')
-        self.element_exist(user['EditLoading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("断言：输入框是否可以编辑")
     def assert_input_edit(self, header, result=False):
-        logging.info('开始断言：输入框是否可以编辑')
+        """
+        @header： 输入框名称
+        @result： 默认False 表示不可编辑；True表示可编辑
+        """
+        logging.info(f'开始断言：{header} 输入框是否可以编辑')
         # acresult = self.get_element_attribute(user['输入框'], 'disabled', header)
         acresult = self.find_element(user['输入框'], header).is_enabled()
         try:
@@ -627,6 +651,7 @@ class UserManagementPage(Base):
             self.is_click_tbm(user['菜单'], content[i])
             logging.info('点击菜单：{}'.format(content[i]))
         self.refresh()
+        self.element_exist(user['Loading'])
 
     @allure.step("点击Upload按钮")
     def click_upload(self):
@@ -711,6 +736,10 @@ class UserManagementPage(Base):
 
     @allure.step("检查导入导出记录状态是否为Upload Successfully")
     def check_Record_result(self, menu, name):
+        """
+        :param menu: 菜单
+        :param name: 输入文件名
+        """
         for i in range(20):
             RecordResult = self.get_Record_info(menu, name, 'Status')
             if RecordResult == 'Execute':
@@ -762,6 +791,12 @@ class UserManagementPage(Base):
 
     @allure.step("导入员工文件编辑")
     def Edit_User_file(self, name, UID, header, content):
+        """
+        :param name: 输入文件名
+        :param UID: Excel表格内容的user id
+        :param header: 表头字段
+        :param content: 需要修改的内容
+        """
         logging.info(f'开始编辑 {name} Excel文件')
         file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
         logging.info("文件地址：{}".format(file_path))
@@ -789,7 +824,7 @@ class UserManagementPage(Base):
         logging.info("点击Add")
 
     @allure.step("点击功能按钮")
-    def click_function_button(self, function):
+    def click_function_button(self, function, confirm='Yes'):
         """
         @function： 需要点击的功能按钮，具体如下：
         Add, Import, Export, More Option,
@@ -804,7 +839,8 @@ class UserManagementPage(Base):
             elif function == 'Enable':
                 self.is_click_tbm(user['EnableEmployeesYes'])
             elif function == 'Reset Password':
-                self.is_click_tbm(user['ResetPasswordYes'])
+                if confirm == 'Yes':
+                    self.is_click_tbm(user['ResetPasswordYes'])
         else:
             self.is_click(user['功能按钮'], function)
         logging.info(f'点击功能按钮： {function}')
@@ -830,6 +866,8 @@ class UserManagementPage(Base):
         logging.info('开始使用组合方法: 停职用户')
         self.input_search('User ID', uid)
         self.click_search()
+        if self.element_exist(user['NoData']) is True:
+            return
         self.click_checkbox(uid)
         self.click_function_button('Quit')
         DomAssert(self.driver).assert_att('Disabled Successfully')

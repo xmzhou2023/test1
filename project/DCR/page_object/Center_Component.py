@@ -142,13 +142,17 @@ class LoginPage(Base):
 
     @allure.step("初始化登录方法")
     def initialize_login(self, drivers, account1, password):
-        get_account = self.get_login_account()
-        if account1 != get_account:
-            self.click_loginOut()
+        all_text = self.element_text(user['所有文本'])
+        if 'Log in' in all_text:
             self.dcr_again_login(drivers, account1, password)
         else:
-            ref = Base(drivers)
-            ref.refresh()
+            get_account = self.get_login_account()
+            if account1 != get_account:
+                self.click_loginOut()
+                self.dcr_again_login(drivers, account1, password)
+            else:
+                ref = Base(drivers)
+                ref.refresh()
 
 
 if __name__ == '__main__':
