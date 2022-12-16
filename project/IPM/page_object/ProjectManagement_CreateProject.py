@@ -1,9 +1,12 @@
 '''项目管理-创建项目'''
+import logging
 
 from project.IPM.page_base.basics_IPM import PubicMethod
 from libs.common.time_ui import *
 from project.IPM.page_base.assert_pubic import *
 from project.IPM.api.APIRequest import *
+import random
+
 
 Api = APIRequest()
 # ApplyList=Api.Api_applyList(20220810085734677324)
@@ -168,26 +171,88 @@ class CreateProject(PubicMethod):
     def project_Planned_Task_Save(self):
         '''
         计划任务_保存
-        :param taskname: 任务名称
-        :param function: 子功能为（查看，新增，删除，取消阶段，设置里程碑，置灰等）
         '''
         self.click_IPM("计划任务_保存")
+        sleep(3)
 
     def project_Scheduled_Tasks_Initiate_review(self):
         '''
         计划任务_发起评审
-        :param taskname: 任务名称
-        :param function: 子功能为（查看，新增，删除，取消阶段，设置里程碑，置灰等）
         '''
         self.click_IPM("计划任务_发起评审")
 
     def project_Scheduled_Tasks_Make_an_appointment_for_a_meeting(self):
         '''
         计划任务_预约上会
-        :param taskname: 任务名称
-        :param function: 子功能为（查看，新增，删除，取消阶段，设置里程碑，置灰等）
         '''
         self.click_IPM("计划任务_预约上会")
+
+    def project_Scheduled_Tasks_Withdrawal_of_appointment(self):
+        '''
+        计划任务_撤回预约
+        '''
+        self.click_IPM("计划任务_撤回预约")
+
+    def project_Reservable(self):
+        '''
+        计划任务_上会_可预约日期选择
+        '''
+        self.click_IPM("上会_预约")
+
+    def project_make_an_appointment(self):
+        '''
+        计划任务_上会_提交预约
+        '''
+        self.click_IPM("提交预约")
+
+    def project_Cancellation_of_meeting_appointment(self):
+        '''
+        计划任务_上会_上会预约_取消
+        '''
+        self.click_IPM("上会预约_取消")
+
+    def project_SetNotificationContent_SendNotification(self):
+
+        '''
+        计划任务_上会_上会预约_设置通知内容_发送通知
+        '''
+
+        self.click_IPM("设置通知内容_发送通知")
+
+    def project_SetNotificationContent_cancel(self):
+
+        '''
+        计划任务_上会_上会预约_设置通知内容_取消
+        '''
+
+        self.click_IPM("设置通知内容_取消")
+
+    def project_Make_an_appointment_at_the_meeting(self,Appointment_or_cancellation=None):
+        '''
+        计划任务_上会预约，根据Appointment_or_cancellation传的值点击确认或取消
+        '''
+
+        self.project_Reservable()
+        if Appointment_or_cancellation == "预约" or Appointment_or_cancellation ==None:
+            self.project_make_an_appointment()
+
+        else:
+            self.project_Cancellation_of_meeting_appointment()
+
+    def project_SetNotificationContent(self,Send_or_Cancel=None):
+
+        '''
+        计划任务_上会_上会预约_设置通知内容
+        '''
+        self.project_Reservable()
+        if Send_or_Cancel == "发送" or Send_or_Cancel ==None:
+            self.project_SetNotificationContent_SendNotification()
+
+        else:
+            self.project_SetNotificationContent_cancel()
+
+
+
 
 
 
@@ -269,58 +334,77 @@ class CreateProject(PubicMethod):
         for j in field_att:
             if j['字段名'] in ele_res:
                 field.append(j)
+
+        print(ele_res)
+        print("字段名字",field)
         for i in field:
-            if i.get("字段名") == "任务类型" or i.get("字段名")=="前置任务":
+            if i.get("字段名") == "任务类型" or i.get("字段名")=="前置任务" or i.get("字段名")=="状态":
                 logging.info("不需要传")
             else:
-                if i.get("是否展示") == True:
-                    if i.get("是否可读") == False:
-                        if i.get("是否必填") == True:
-                            if i.get("类型") == 'text':
-                                if i.get("文本类型") == '1':
-                                    self.input_text_IPM('字段名称', text=1, choice=i.get("字段名"))
-                                    sleep(1)
-                                else:
-                                    self.input_text_IPM('字段名称', text=f'{i.get("字段名")}{protime}', choice=i.get("字段名"))
-                                    sleep(1)
-                            if i.get("类型") == 'select':
-                                if i.get("字段名") == "任务类型":
+                if i.get("字段名") == "进度" or i.get("字段名")=="预估工时" or i.get("字段名")=="实际工时":
+                    self.input_text_IPM('字段名称', text=random.randint(1, 100) , choice=i.get("字段名"))
+                else:
+                    logging.info(f"{i.get('字段名')} 是否展示：{i.get('是否展示')}")
+                    if i.get("是否展示") == True:
+                        logging.info(f"{i.get('字段名')} 是否可读：{i.get('是否可读')}")
+                        if i.get("是否可读") == False:
+                            logging.info(f"{i.get('字段名')} 是否必填：{i.get('是否必填')}")
+                            if i.get("是否必填") == True:
+                                logging.info(f"{i.get('字段名')} 类型：{i.get('类型')}")
+                                if i.get("类型") == 'text':
+                                    logging.info(f"{i} 文本类型：{i.get('文本类型')}")
+                                    if i.get("文本类型") == '1':
+                                        self.input_text_IPM('字段名称', text=random.randint(1, 100), choice=i.get("字段名"))
+                                        sleep(1)
+                                    else:
+                                        self.input_text_IPM('字段名称', text=f'{i.get("字段名")}{protime}', choice=i.get("字段名"))
+                                        sleep(1)
 
+                                elif i.get("类型") == 'select':
+                                    logging.info(f"{i} 字段名：{i.get('字段名')}")
+                                    if i.get("字段名") == "任务类型":
+
+                                        self.click_IPM('字段名称', choice=i.get("字段名"))
+                                        self.click_IPM('下拉框')
+                                        self.click_IPM('点击标题')
+                                        sleep(1)
+                                elif i.get("类型") == 'date':
+                                    logging.info(f"{i.get('字段名')} 字段名：{i.get('字段名')}")
+                                    self.input_text_IPM('字段名称', text=now_t, choice=i.get("字段名"))
+                                    self.click_IPM('点击标题')
+                                    sleep(1)
+                                elif i.get("类型") == 'user':
+                                    logging.info(f"{i.get('字段名')} 字段名：{i.get('字段名')}")
+                                    sleep(1)
+                                    self.click_IPM('字段名称', choice=i.get("字段名"))
+                                    sleep(1)
+                                    self.personnel_list(Job_number_or_name,Confirm_or_Cancel)
+
+
+                            else:
+                                if i.get("类型") == 'text':
+                                    if i.get("文本类型") == '1':
+                                        self.input_text_IPM('字段名称', text=1, choice=i.get("字段名"))
+                                        sleep(1)
+                                    else:
+                                        self.input_text_IPM('字段名称', text=f'{i.get("字段名")}{protime}', choice=i.get("字段名"))
+                                        sleep(1)
+                                    sleep(1)
+                                elif i.get("类型") == 'select':
                                     self.click_IPM('字段名称', choice=i.get("字段名"))
                                     self.click_IPM('下拉框')
                                     self.click_IPM('点击标题')
                                     sleep(1)
-                            if i.get("类型") == 'date':
-                                self.input_text_IPM('字段名称', text=now_t, choice=i.get("字段名"))
-                                self.click_IPM('点击标题')
-                                sleep(1)
-                            if i.get("类型") == 'user':
-                                self.click_IPM('字段名称', choice=i.get("字段名"))
-                                self.personnel_list(Job_number_or_name,Confirm_or_Cancel)
 
-
-                        else:
-                            if i.get("类型") == 'text':
-                                if i.get("文本类型") == '1':
-                                    self.input_text_IPM('字段名称', text=1, choice=i.get("字段名"))
+                                elif i.get("类型") == 'date':
+                                    self.input_text_IPM('字段名称', text=now_t, choice=i.get("字段名"))
+                                    self.click_IPM('点击标题')
                                     sleep(1)
-                                else:
-                                    self.input_text_IPM('字段名称', text=f'{i.get("字段名")}{protime}', choice=i.get("字段名"))
+                                elif i.get("类型") == 'user':
+                                    sleep(2)
+                                    self.click_IPM('字段名称', choice=i.get("字段名"))
                                     sleep(1)
-                                sleep(1)
-                            if i.get("类型") == 'select':
-                                self.click_IPM('字段名称', choice=i.get("字段名"))
-                                self.click_IPM('下拉框')
-                                self.click_IPM('点击标题')
-                                sleep(1)
-
-                            if i.get("类型") == 'date':
-                                self.input_text_IPM('字段名称', text=now_t, choice=i.get("字段名"))
-                                self.click_IPM('点击标题')
-                                sleep(1)
-                            if i.get("类型") == 'user':
-                                self.click_IPM('字段名称', choice=i.get("字段名"))
-                                self.personnel_list(Job_number_or_name,Confirm_or_Cancel)
+                                    self.personnel_list(Job_number_or_name, Confirm_or_Cancel)
 
     def project_task_type(self,proname,task_name,protime,tasktype=None,Job_number_or_name=None,Confirm_or_Cancel=None):
         """
@@ -370,6 +454,53 @@ class CreateProject(PubicMethod):
                         else:
                             logging.info("当前字段不存在")
         self.click_IPM('点击标题')
+    def prpject_Team_Role(self,role,Number=None,role1=None):
+        '''
+        项目_团队_角色
+        '''
+        if Number == "0" or Number == None:
+            self.click_IPM("团队_角色",role)
+        if Number =="1":
+            self.click_IPM("团队_角色_展开", role)
+            self.click_IPM("团队_角色", role1)
+
+
+
+    def project_team_AddRole(self):
+        '''
+        项目_团队_新增成员
+        '''
+        self.project_tab("团队_角色_新增成员")
+
+
+    def project_team(self,judge=None,addrole=None,role_id=None):
+        '''
+        项目_团队
+        '''
+        self.project_tab("团队")
+        self.prpject_Team_Role("PMToffice")
+        role_ele=self.find_elemens_IPM_yaml("团队_角色_表单成员")
+        for i in role_ele:
+            if i != None:
+                if judge == "删除":
+                    self.click_IPM("团队_角色_成员删除",i)
+                    self.click_IPM("团队_角色_成员删除_确定")
+                else:
+                    if addrole == None or addrole == "添加":
+                        self.project_team_AddRole()
+                        self.personnel_list(role_id)
+                    else:
+                        logging.info('当前不打算添加成员')
+            else:
+                if addrole == None or addrole == "添加成员":
+                    self.project_team_AddRole()
+                    self.personnel_list(role_id)
+                else:
+                    logging.info('当前不打算添加成员')
+
+
+
+
 
 
 
@@ -387,7 +518,11 @@ class CreateProject(PubicMethod):
         self.click_project()
         self.click_add()
         if templatename != None:
-            self.Select_Template(templatename)
+            try:
+                self.Select_Template(templatename)
+            except:
+                logging.info(f"项目模板'{templatename}'不存在，请联系管理员添加模板或添加权限")
+                raise
         if nametext != None:
             self.projecy_name(nametext)
         if Descriptiontext != None:

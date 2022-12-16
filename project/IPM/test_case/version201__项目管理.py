@@ -12,7 +12,7 @@ from libs.common.action import KeyWord
 import allure
 from project.IPM.page_object.ProjectManagement_CreateProject import *
 from project.IPM.page_base.assert_pubic import *
-
+from project.IPM.test_case.conftest import *
 
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3259:
@@ -3439,13 +3439,27 @@ class Teststory_3322:
 
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
-    @allure.title("DCP发起未预约上会点击发起评审，提示状态错误，状态应为预约成功,当前状态为未预约")  # 用例名称
+    @allure.title(" DCP发起未预约上会点击发起评审，提示：请预约上会后再发起评审")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_26665(self, drivers):
-        pass
-
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test = CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存', 'IPD模块化项目模板', f'IPM自动化测试{now_times}', f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(f'IPM自动化测试{now_times}')
+        test.project_tab("计划")
+        test.project_Task_More_actions("0","概念阶段","查看")
+        sleep(3)
+        test.project_task_type(f'IPM自动化测试{now_times}',"概念阶段",now_times,'DCP任务',username,'确定')
+        test.project_Drop_down_box_multiple_selection('任务基本信息',"前置任务","启动产品策划","任命项目经理","产品概念启动")
+        test.project_Drop_down_box_multiple_selection("任务基本信息","状态","未开始")
+        test.project_Planned_Task_Save()
+        test.project_Scheduled_Tasks_Initiate_review()
+        sleep(3)
+        ass = Assert_result(drivers)
+        ass.assert_toast('断言提示', '请预约上会后再发起评审！')
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
     @allure.title("DCP发起未预约上会未配置PMToffice，点击发送通知提示PMToffice未配置用户！")  # 用例名称
@@ -3453,8 +3467,26 @@ class Teststory_3322:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_26666(self, drivers):
-        pass
-
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test = CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存', 'IPD模块化项目模板', f'IPM自动化测试{now_times}', f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(f'IPM自动化测试{now_times}')
+        test.project_team('删除')
+        test.project_tab("计划")
+        test.project_Task_More_actions("0", "概念阶段", "查看")
+        sleep(10)
+        test.project_task_type(f'IPM自动化测试{now_times}', "概念阶段", now_times, 'DCP任务', username, '确定')
+        test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
+        test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
+        test.project_Planned_Task_Save()
+        test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
+        test.project_Make_an_appointment_at_the_meeting()
+        test.project_SetNotificationContent()
+        ass = Assert_result(drivers)
+        ass.assert_toast('断言提示', 'PMToffice未配置用户！')
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
     @allure.title("DCP发起未预约上会当前登陆人不为任务责任人，点击发送通知提示您不是当前任务的责任人！")  # 用例名称
@@ -3462,7 +3494,27 @@ class Teststory_3322:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_26667(self, drivers):
-        pass
+        # user.IPM_login(drivers, ini.url, account[2]['usernum'], account[2]['passwd'])
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        test = CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存', 'IPD模块化项目模板', f'IPM自动化测试{now_times}', f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(f'IPM自动化测试{now_times}')
+        test.project_team(addrole='添加成员', role_id="18645960")
+        test.project_tab("计划")
+        test.project_Task_More_actions("0", "概念阶段", "查看")
+        sleep(10)
+        test.project_task_type(f'IPM自动化测试{now_times}', "概念阶段", now_times, 'DCP任务', '18645959', '确定')
+        test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
+        test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
+        test.project_Planned_Task_Save()
+        test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
+        test.project_Make_an_appointment_at_the_meeting()
+        test.project_SetNotificationContent()
+        ass = Assert_result(drivers)
+        ass.assert_toast('断言提示', '您不是当前任务的责任人！')
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
 
 
 @allure.feature("项目管理")  # 迭代名称

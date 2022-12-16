@@ -16,7 +16,7 @@ pro_env = 'uat' # 需要手动配置测试环境
 ini = ReadConfig(pro_name, pro_env)
 
 class APIRequest:
-    def __init__(self,uasername=18645960):
+    def __init__(self,uasername=18646295):
         self.username=uasername
 
     def api_request(self, request, data=None, headers=None, method='post'):
@@ -217,6 +217,7 @@ class APIRequest:
         headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
         response = self.api_request('项目管理_计划_任务字段属性获取', data, headers)
         node = response['body']['data']
+        print(node)
         field_properties = []
         for i in node:
             pro = '字段名', '类型', '是否可读', '是否必填', '是否展示','文本类型'
@@ -229,8 +230,8 @@ if __name__ == '__main__':
     Api=APIRequest()
     # ApplyList=Api.Api_applyList(20220810085734677324)
     # Api.Api_queryDeptAndEmployee(20220810085734677324)
-    # print(Api.Api_project_bid("655人TV v"))
-    print(Api.Api_project_task("IPM自动化测试2022-12-1410:33:07","概念阶段"))
+    # print(Api.Api_project_bid("IPM自动化测试2022-12-1517:02:50"))
+    print(Api.Api_project_task("IPM自动化测试2022-12-1517:02:50","概念阶段"))
     # print(Api.Api_project_field("5435345"))
     # print(Api.Api_project_getPlanTaskTree("655人TV v"))
     #   任务流程名

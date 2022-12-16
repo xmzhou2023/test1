@@ -52,11 +52,23 @@ tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 计划任务_发起评审: "xpath==//div[@class='parentContent']//button/span[text()=' 发起评审 ']"
 添加全部: 'xpath==//label/span[text()=" 添加全部 "]/../span//input'
 
+上会_预约: 'xpath==//span[text()="可预约"]'
+提交预约: 'xpath==//span[text()=" 提交预约 "]'
+上会预约_取消: 'xpath==//div[@role="dialog"]//span[text()="上会预约"]/../../div//span[text()="取消"]'
+
+设置通知内容_取消: 'xpath==//div[@role="dialog"]//span[text()="设置通知内容"]/../../div//span[text()="取消"]'
+设置通知内容_发送通知: 'xpath==//div[@role="dialog"]//span[text()="设置通知内容"]/../../div//span[text()=" 发送通知 "]'
 
 
 
 
 
 
-
-
+#==================================================================团队================================================================================
+团队_角色: 'xpath==//span[text()="variable"]'
+团队_角色_展开: 'xpath==//div//span[text()="variable"]/../../../span'
+团队_角色_新增成员: "xpath==//div//span[text()=' 新增成员 ']"
+团队_角色_表单成员: 'xpath==//div[@class="tr-table-wrapper margin-top"]/div/div[3]/table//td[2]//span[2]'
+团队_角色_成员删除: 'xpath==//tr//span[text()=" variable "]/../../..//span[@title="删除"]'
+团队_角色_成员删除_确定: 'xpath==//div[@class="el-message-box"]//button[2]'
+团队_角色_成员删除_取消: 'xpath==//div[@class="el-message-box"]//div[3]/button[1]'
