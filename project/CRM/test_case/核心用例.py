@@ -38,7 +38,7 @@ def OperationMgt_PolicyAndProfits_FGsunking_module_fixture(drivers):
     user = NavPage(drivers)
     user.click_gotonav("OperationMgt")
 
-@allure.feature("AssetsBasicInfoMgt") # 模块名称
+@allure.feature("a123") # 模块名称
 class TestAssetsMgt_AssetsBasicInfoMgt_AssetsCodeMgt:
     @allure.story("AssetsBasicInfoMgt_AssetsCode") # 场景名称
     @allure.title("AssetsCode页firstType筛选")  # 用例名称
@@ -75,7 +75,7 @@ class TestAssetsMgt_AssetsBasicInfoMgt_AssetsCodeMgt:
         sql_qty = s_ser[0].get("COUNT(*)")
         ValueAssert.value_assert_equal(sql_qty, int(get_total))
 
-@allure.feature("Operation_FGsunking") # 模块名称
+@allure.feature("b123") # 模块名称
 class TestOperationMgt_PolicyAndProfits_FGsunking:
     @allure.story("PolicyMgt_sunking") # 场景名称
     @allure.title("sungking页国家筛选")  # 用例名称
