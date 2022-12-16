@@ -1025,7 +1025,12 @@ class Teststory_3285:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_27177(self, drivers):
-        pass
+        robot = KeyWord(drivers)
+        time.sleep(round(timeout / 1000))
+        wh_now = robot.window_handles
+        wh_then = self.vars["window_handles"]
+        if len(wh_now) > len(wh_then):
+          return set(wh_now).difference(set(wh_then)).pop()
 
 
 @allure.feature("流程中心")  # 迭代名称
