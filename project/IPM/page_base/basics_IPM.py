@@ -70,10 +70,17 @@ class PubicMethod(Base):
             elelist.append(res)
         return elelist
 
-
-
-
-
+    def refresh_webpage(self):
+        logging.info("初始化浏览器")
+        self.refresh()
+        self.driver.switch_to.default_content()
+        handles = self.driver.window_handles
+        logging.info('当前窗口：{}'.format(handles))
+        if len(handles) != 1:
+            for i in range(1, len(handles)):
+                self.close_switch(1)
+        else:
+            self.switch_window(0)
 
 
     def click_IPM(self, element, choice=None, choices=None):
