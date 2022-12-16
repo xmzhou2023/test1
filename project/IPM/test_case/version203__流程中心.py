@@ -1019,6 +1019,15 @@ class Teststory_3285:
         pass
 
 
+    @allure.story("开模流程/开模流程申请")  # 用户故事名称
+    @allure.title("开模流程申请页面，填写数据，必填项填写完，点击提交流程发起成功")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_27177(self, drivers):
+        pass
+
+
 @allure.feature("流程中心")  # 迭代名称
 class Teststory_3288:
     @allure.story("开模流程/开模流程草稿箱")  # 用户故事名称
