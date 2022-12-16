@@ -1,7 +1,5 @@
 import logging
-
 from openpyxl import load_workbook
-
 from libs.common.read_element import Element
 from public.base.basics import Base
 from libs.common.time_ui import sleep
@@ -73,18 +71,16 @@ class UserManagementPage(Base):
         self.is_click(user['Select Brand Value'], 'TECNO')
         self.is_click(user['Select Brand Value'], 'itel')
 
-
     @allure.step("关闭User Management菜单")
     def click_close_user_mgt(self):
         self.is_click(user['关闭用户管理菜单'])
 
-
     @allure.step("Edit user页面，选择点击品牌")
-    def click_edit_trans_brand(self):
+    def click_edit_trans_brand(self, edit_brand):
         self.is_click(user['Edit Select Brand'])
         sleep(1)
-        self.presence_sleep_dcr(user['Select Brand Value'], 'oraimo')
-        self.is_click(user['Select Brand Value'], 'oraimo')
+        self.presence_sleep_dcr(user['Select Brand Value'], edit_brand)
+        self.is_click(user['Select Brand Value'], edit_brand)
 
     @allure.step("Edit user页面，选择点击品牌")
     def click_edit_dealer_brand(self):
@@ -128,13 +124,18 @@ class UserManagementPage(Base):
     @allure.step("Add user页面，点击Submit提交按钮")
     def click_add_user_submit(self):
         self.is_click(user['Add User Submit'])
-        sleep(1.5)
+        sleep(0.8)
 
     @allure.step("获取列表User ID文本内容")
     def get_text_user_id(self):
         sleep(1.5)
         userid = self.element_text(user['获取列表文本User ID'])
         return userid
+
+    @allure.step("获取User Management列表,No Data文本内容")
+    def get_user_management_no_data(self):
+        get_no_data = self.element_text(user['获取所有文本'])
+        return get_no_data
 
     @allure.step("'获取列表User Name文本内容")
     def get_text_user_name(self):
@@ -144,21 +145,64 @@ class UserManagementPage(Base):
     @allure.step("点击搜索功能")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(4)
+        sleep(3.5)
 
     @allure.step("点击重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
         sleep(3)
 
+    @allure.step("新增Add 传音员工操作步骤")
+    def add_trans_user_operation(self, staff_type, trans_userid, trans_username, sales_region, country_city, superior, position, email, contact_no, gender):
+        self.click_add_user()
+        self.click_staff_type_value(staff_type)
+        self.input_user_id(trans_userid)
+        self.input_add_user_name(trans_username)
+        self.input_sales_region(sales_region)
+        self.input_country_city(country_city)
+        """选择3个品牌 """
+        self.click_select_brand()
+        self.input_superior(superior)
+        self.input_position_transsion(position)
+        self.input_email(email)
+        self.input_contact_no(contact_no)
+        self.click_gender_female(gender)
+        self.click_add_user_submit()
+
+    @allure.step("编辑Edit 传音员工基本信息操作步骤")
+    def edit_trans_user_info_operation(self, edit_username, brand, email, contact_no, gender):
+        self.click_edit()
+        self.input_edit_user_name(edit_username)
+        self.click_edit_trans_brand(brand)
+        self.click_user_name()
+        self.input_email(email)
+        self.input_contact_no(contact_no)
+        self.click_gender_female(gender)
+        self.click_add_user_submit()
+
+    @allure.step("新增Add 代理员工操作步骤")
+    def add_dealer_user_operation(self, staff_type, belong_to_cust, user_name, sales_region, country_city, position, superior, email, contact_no, gender):
+        self.click_add_user()
+        self.click_staff_type_value(staff_type)
+        self.input_belong_to_cust(belong_to_cust)
+        self.input_add_user_name(user_name)
+        self.input_sales_region(sales_region)
+        self.input_country_city(country_city)
+        """选择3个品牌"""
+        self.click_select_brand()
+        self.input_position_dealer(position)
+        self.input_superior(superior)
+        self.input_email(email)
+        self.input_contact_no(contact_no)
+        self.click_gender_female(gender)
+        self.click_add_user_submit()
+
 
     """编辑用户时，筛选用户"""
     @allure.step("用户管理列表页面，筛选User，进行编辑或者删除")
     def input_query_User(self, userid):
         self.is_click_dcr(user['点击筛选用户输入框'])
-        self.input_text_dcr(user['点击筛选用户输入框'], userid)
-        sleep(3)
-        self.is_click(user['Input User ID Value'], userid)
+        self.input_text_dcr(user['输入筛选用户输入框'], userid)
 
     @allure.step("点击编辑功能")
     def click_edit(self):
@@ -181,13 +225,14 @@ class UserManagementPage(Base):
         sleep(2)
         self.presence_sleep_dcr(user['Quit'])
         self.is_click(user['Quit'])
-        sleep(2)
+        sleep(1.5)
         self.is_click_dcr(user['确认删除Yes'])
 
-    @allure.step("获取无数据文本")
-    def get_text_nodata(self):
-        nodata = self.element_text(user['No Data'])
-        return nodata
+
+    @allure.step("点击更多操作,点击离职,弹出User Disable Setting 窗口，获取User名称断言")
+    def get_user_disable_setting_username(self):
+        get_user_disable = self.element_text(user['Get User Disable Setting User'])
+        return get_user_disable
 
     @allure.step("获取删除成功提示语文本内容")
     def get_text_delete_success(self):
@@ -209,9 +254,15 @@ class UserManagementPage(Base):
         return userid
 
     @allure.step("随机生成username")
-    def user_name_random(self):
+    def trans_user_name_random(self):
         num = str(random.randint(100, 999))
-        username = "smart_test_user" + num
+        username = "test_trans_user" + num
+        return username
+
+    @allure.step("随机生成username")
+    def dealer_user_name_random(self):
+        num = str(random.randint(100, 999))
+        username = "test_dealer_user" + num
         return username
 
     @allure.step("随机生成电话号码尾号")
@@ -229,7 +280,7 @@ class UserManagementPage(Base):
 
     """查询列表用户"""
     @allure.step("用户管理页面，获取列表文本内容方法")
-    def input_get_data(self, data):
+    def get_user_management_list_data(self, data):
         self.presence_sleep_dcr(user[data])
         get_data = self.element_text(user[data])
         return get_data
@@ -247,6 +298,13 @@ class UserManagementPage(Base):
         else:
             logging.info("查看用户管理列表，分页总条数小于1000，用户总记录Total：{}".format(total))
 
+    @allure.step("断言 精确查询结果 User Management列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_user_management_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容2'], header, content, sc_element=user['水平滚动条'])
+
+    @allure.step("断言 模糊查询结果User Management列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_contains_user_management_field(self, header, content):
+        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容2'], header, content, sc_element=user['水平滚动条'])
 
     """用户重置密码"""
     @allure.step("点击重置密码及重置密码确认功能")
@@ -432,11 +490,12 @@ class UserManagementPage(Base):
         sleep(3)
 
     @allure.step("输入Task Name筛选该任务的导出记录")
-    def input_task_name(self, content):
+    def input_task_name(self, task_name):
         self.is_click(user['Input Task Name'])
-        self.input_text(user['Input Task Name'], txt=content)
+        self.input_text(user['Input Task Name'], task_name)
         sleep(0.5)
-        self.is_click_dcr(user['Task Name value'], content)
+        self.presence_sleep_dcr(user['Input Task Name value'], task_name)
+        self.is_click(user['Input Task Name value'], task_name)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -508,7 +567,6 @@ class UserManagementPage(Base):
             logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):

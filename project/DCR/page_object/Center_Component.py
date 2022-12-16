@@ -79,7 +79,6 @@ class LoginPage(Base):
         home_page_cust = self.element_text(user['Home Page Customer'])
         return home_page_cust
 
-
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
         user = LoginPage(drivers)

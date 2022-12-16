@@ -1,6 +1,5 @@
 #新建传音员工
 Add:  "id==employee__add__"
-
 Staff Type:  "xpath==//div//input[@class='el-input__inner useradd_input_employeeType']"
 Transsion Staff: "xpath==//span[contains(text(),'variable')]"
 
@@ -8,10 +7,10 @@ User ID: "xpath==//label[(text()='User ID')]//parent::div// following-sibling::d
 Add User Name: "xpath==//div//input[@class='el-input__inner useradd_input_empName']"
 
 Sales Region: "xpath==//div//input[@id='useradd_input_areaId']"
-Sales Region Value: "xpath==//*[@id='mainContainer']/section/div[2]/form/div[2]/div[6]/div/div/div[1]/div[2]/div/div[1]/div[2]/div[4]/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/span[2]"
+Sales Region Value: "xpath==//div//span[text()='Bangladesh District']/../..//div//div//span[text()='Barisal-Wucong']"
 
 Country City: "xpath==//div//input[@id='useradd_input_regionId']"
-Country City Value: "xpath==//*[@id='mainContainer']/section/div[2]/form/div[2]/div[7]/div/div/div[1]/div[2]/div/div[1]/div[2]/div[8]/div[2]/div[4]/div[2]/div/div[1]/span[2]"
+Country City Value: "xpath==//div//span[text()='Bangladesh']/../..//div//div[2]//span[text()='Barisal']"
 
 Add Select Brand: "xpath==//div//..//input[@id='useradd_input_brandCodes']"
 Select Brand Value: "xpath==//div[@class='el-scrollbar']//ul//li//span[text()='variable']"
@@ -35,12 +34,13 @@ Add User Submit: "xpath==//button[@class='el-button el-button--primary el-button
 
 #获取用户列表文本内容，断言是否存在
 获取列表文本User ID: "xpath==//*[@id='mainContainer']/section/div[2]/div[2]/div[2]/div/div[4]/div[2]/table/tbody/tr[1]/td[2]/div"
-#获取列表文本User Name: "xpath==//table//tbody//tr[1]//td[3]//div"
 获取列表文本User Name: "xpath==//*[@id='mainContainer']/section/div[2]/div[2]/div[2]/div/div[4]/div[2]/table/tbody/tr/td[3]/div"
-点击筛选用户输入框: "xpath==//label[(text()='User')]//parent::div//following-sibling::div//input"
+点击筛选用户输入框: "xpath==//label[(text()='User ID')]//parent::div//following-sibling::div//input"
+输入筛选用户输入框: "xpath==//div//textarea[@placeholder='Batch input content']"
 Input User ID Value: "xpath==//span[contains(text(),'variable')]"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
+获取所有文本: "xpath==//*[contains(text(),'')]"
 
 #编辑用户
 修改第一个Edit: "id==employee_update_"
@@ -50,9 +50,7 @@ More Option: "xpath==//span[contains(text(),'More Option')]"
 Set Up Successfully: "xpath==//p[(text()='Set Up Successfully')]"
 
 Quit: "id==employee_leave_"
-#确认删除Yes: "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[3]/div/button[1]/span"
 确认删除Yes: "xpath==//button[@id='userstaffmanagement_Yes']//span[normalize-space(text())='Yes']"
-No Data: "xpath==//*[@id='app']/div/div[2]/section/div/div[2]/div[1]/div[3]/div/span"
 Disabled Successfully: "xpath==//p[(text()='Disabled Successfully')]"
 
 #新建代理员工
@@ -85,7 +83,7 @@ Click Login: "id==login_LOGIN"
 Import Button: "xpath==//button[@id='Employ_import_']//span[normalize-space(text())='Import']"
 Add Upload: "xpath==//button//span[normalize-space(text())='Add Upload']"
 Import Save: "xpath==//button[@id='userstaffmanagement_Save']//span[normalize-space(text())='Save']"
-Upload Confirm: "xpath==//button//span[normalize-space(text())='Confirm']"
+Upload Confirm: "xpath==//div//div[@class='el-message-box__btns']//button//span[normalize-space(text())='Confirm']"
 #Import Record
 Import Search: "xpath==//button//span[normalize-space(text())='Search']"
 Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
@@ -102,7 +100,7 @@ Export: "id==employee_export_"
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
 Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
-Task Name value: "xpath==//div//ul//li//span[text()='variable']"
+Input Task Name value: "xpath==//div//div//div//ul/li//span[text()='variable']"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
 获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
@@ -152,3 +150,6 @@ UserDisableSettingYes: "xpath==//span[normalize-space(text())='User Disable Sett
 ResetPasswordYes: "xpath==//span[normalize-space(text())='Reset Password']/../../..//span[normalize-space(text())='Yes']"
 Add1: "xpath==//button/span[normalize-space(text())='Add']"
 Total: "xpath==//span[contains(text(),'Total')]"
+
+表格指定列内容2: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
+水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
