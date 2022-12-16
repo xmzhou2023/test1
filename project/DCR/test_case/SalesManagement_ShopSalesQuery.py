@@ -330,6 +330,7 @@ class TestShopSalesQuery:
 
         """查看Shop Sales Query按Supplier查询"""
         page.input_upload_date('2022-01-01', '2022-10-30')
+        #列表顺序要和表格顶部字段顺序一致
         list_query=['shopid','status','saledate','ManpowerType','ImageType','Brand','Series','SP/FP','Model','ModelType','Item','MarketName','IMEI/SN','ActivationStatus','ActivationCountry','ActivationDate','DeliveryCountry','AchieveorNot','Country','CityTier','SalesRegion2','UploaderID','Position','UploadType','SupplierID']
         num=random.randint(3,8)
         list_random=random_list(list_query,num)
