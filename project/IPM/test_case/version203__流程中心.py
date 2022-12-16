@@ -1032,13 +1032,13 @@ class Teststory_3285:
         self.vars["win5816"] = self.wait_for_window(2000)
         self.vars["root"] = robot.current_window_handle
         robot.switch_to.window(self.vars["win5816"])
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".tr-card:nth-child(2) .el-col:nth-child(1) .el-input__inner:nth-child(1)")#id77559b44-0ff9-4b83-9885-4f57d99095c8
+        element = robot.AI_find_element(By.XPATH, "(//input[@type='text'])[6]")#id77559b44-0ff9-4b83-9885-4f57d99095c8
         actions = ActionChains(robot)
         actions.move_to_element(element).click_and_hold().perform()
         time.sleep(1)
         robot.AI_find_element(By.XPATH, "//details[2]//div//span[text()='项目名称']/../../div//input").click()#id0c487100-805c-47d8-a7e9-3cdd41d73c07
         robot.AI_find_element(By.XPATH, "//details[2]//div/label/span[text()=\"项目名称\"]/../../div/div[1]").click()#id60c47dce-48df-41bd-a7d1-a6d2f91432b8
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-table__row:nth-child(1) .el-button").click()#id5ab61bed-9aed-4a42-81a6-45b1291dafb2
+        robot.AI_find_element(By.XPATH, "//button[contains(.,'选择')]").click()#id5ab61bed-9aed-4a42-81a6-45b1291dafb2
         element = robot.AI_find_element(By.CSS_SELECTOR, "body")#idc12d6d44-4bd5-408f-a917-8e2b245faf0a
         actions = ActionChains(robot)
         actions.move_to_element(element, 0, 0).perform()
@@ -1046,65 +1046,65 @@ class Teststory_3285:
         robot.AI_find_element(By.XPATH, "//div[3]/div/div/ul/li").click()#ida13aaab9-26a2-46fd-b2e8-02b429a7b450
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[8]").click()#id67dcfd48-8a2c-45d1-8f1f-f2bc3d99b01c
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[8]").send_keys("1000")#ide5615b8e-283e-43df-ae0e-b9bb26e766f1
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-textarea__inner").click()#id8d8cbe01-c760-4641-942a-6ab538b20e1a
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-textarea__inner").send_keys("开模流程啦啦啦")#id8c24a209-2f0d-46d5-9204-af0967338e16
-        robot.AI_find_element(By.CSS_SELECTOR, ".mould_table > .el-button").click()#id665e04b0-4b0a-47f5-bd87-f209a2b25cdc
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-table__fixed:nth-child(4) .el-table_1_column_2:nth-child(2) .el-input__inner:nth-child(1)").click()#idbd5f5b26-9f5f-4810-92e3-0655108bf11b
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-table__fixed:nth-child(4) .el-table_1_column_2:nth-child(2) .el-input__inner:nth-child(1)").send_keys("物料")#idc87260e4-72b1-4174-a3dd-9ce8165d3b18
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(1) .tr-user .el-input__inner")#idb157b8f8-51eb-4031-9d1c-565204a70cee
+        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div/details[2]/div/form/div/div[4]/div/div/div/div/textarea").click()#id8d8cbe01-c760-4641-942a-6ab538b20e1a
+        robot.AI_find_element(By.XPATH, "//div[@id='app']/div/div/details[2]/div/form/div/div[4]/div/div/div/div/textarea").send_keys("开模流程啦啦啦")#id8c24a209-2f0d-46d5-9204-af0967338e16
+        robot.AI_find_element(By.XPATH, "//button[@type='button']").click()#id665e04b0-4b0a-47f5-bd87-f209a2b25cdc
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[19]").click()#idbd5f5b26-9f5f-4810-92e3-0655108bf11b
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[19]").send_keys("物料")#idc87260e4-72b1-4174-a3dd-9ce8165d3b18
+        element = robot.AI_find_element(By.XPATH, "(//input[@type='text'])[39]")#idb157b8f8-51eb-4031-9d1c-565204a70cee
         actions = ActionChains(robot)
         actions.move_to_element(element).click_and_hold().perform()
         robot.AI_find_element(By.XPATH, "//details//div/label/span[text()='结构']/../..//input").click()#id9ffa35ca-6e20-4ee6-b83e-23a442b476f7
         robot.AI_find_element(By.XPATH, "//details[3]//label/span[text()=\"结构\"]/../..//input[1]").click()#id748b7462-1b29-49bb-ac2a-7db62c755b21
         robot.AI_find_element(By.XPATH, "//div[5]/div/div[2]/div/div/div/div/input").send_keys("小英")#id26146778-d7e5-4e6f-8c42-9d92c7461372
-        robot.AI_find_element(By.CSS_SELECTOR, "div:nth-child(2) > .user-member-row > .el-col-6").click()#id7de47eeb-b6e9-4541-8a9b-dee0de5bef3e
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-popup-parent--hidden").click()#id44be677d-5956-4646-9702-021d81efe05b
-        robot.AI_find_element(By.CSS_SELECTOR, ".text-center > .el-button--primary").click()#ida6ea7f4b-54fd-45d7-b2cc-49cb1f85938a
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".tr-card:nth-child(3) .el-col:nth-child(3) .el-input__inner:nth-child(1)")#idb340e29f-377a-4799-8475-d45d8045bbe3
+        robot.AI_find_element(By.XPATH, "//div/div[2]/div/div[2]/div/div[2]").click()#id7de47eeb-b6e9-4541-8a9b-dee0de5bef3e
+        robot.AI_find_element(By.XPATH, "//body").click()#id44be677d-5956-4646-9702-021d81efe05b
+        robot.AI_find_element(By.XPATH, "//button[contains(.,'确定')]").click()#ida6ea7f4b-54fd-45d7-b2cc-49cb1f85938a
+        element = robot.AI_find_element(By.XPATH, "(//input[@type='text'])[41]")#idb340e29f-377a-4799-8475-d45d8045bbe3
         actions = ActionChains(robot)
         actions.move_to_element(element).click_and_hold().perform()
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(2) .tr-user .el-input__inner")#id7134aa78-526f-40cc-8664-f72f141ed164
+        element = robot.AI_find_element(By.XPATH, "(//input[@type='text'])[40]")#id7134aa78-526f-40cc-8664-f72f141ed164
         actions = ActionChains(robot)
         actions.move_to_element(element).click_and_hold().perform()
         robot.AI_find_element(By.XPATH, "//details//div/label/span[text()='项目经理']/../..//input").click()#ida6fb6fc7-aca8-45e8-b278-1eae1da30151
-        robot.AI_find_element(By.CSS_SELECTOR, "div:nth-child(1) > .user-member-row > .el-col-6").click()#id6706755b-389b-4442-8b48-4bef836437b2
-        robot.AI_find_element(By.CSS_SELECTOR, ".text-center > .el-button--primary").click()#id7a1ff389-7b9e-45f0-aac8-5a9605587861
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".tr-card:nth-child(3) .el-col:nth-child(3) .el-input__inner:nth-child(1)")#id516c7998-5d3f-4fe2-b7ba-f395cc05cd79
+        robot.AI_find_element(By.XPATH, "//div[2]/div/div/div[2]/div/div/div/div[2]").click()#id6706755b-389b-4442-8b48-4bef836437b2
+        robot.AI_find_element(By.XPATH, "//button[contains(.,'确定')]").click()#id7a1ff389-7b9e-45f0-aac8-5a9605587861
+        element = robot.AI_find_element(By.XPATH, "(//input[@type='text'])[41]")#id516c7998-5d3f-4fe2-b7ba-f395cc05cd79
         actions = ActionChains(robot)
         actions.move_to_element(element).click_and_hold().perform()
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(3) .tr-user .el-input__inner")#ide7855fb4-d46b-41c8-82e4-b24b6d2af6d0
+        element = robot.AI_find_element(By.XPATH, "(//input[@type='text'])[40]")#ide7855fb4-d46b-41c8-82e4-b24b6d2af6d0
         actions = ActionChains(robot)
         actions.move_to_element(element).click_and_hold().perform()
         robot.AI_find_element(By.XPATH, "//*[@id=\"app\"]/div[1]/div[1]/details[3]/div/form/div/div[3]/div/div/div/div/input").click()#id1660d9ec-05e5-4321-bd3a-b0e90595e39f
-        robot.AI_find_element(By.CSS_SELECTOR, "div:nth-child(1) > .user-member-row > .el-col-6").click()#id94a0568b-bb89-4abc-9a73-b67b4000f03b
-        robot.AI_find_element(By.CSS_SELECTOR, ".text-center > .el-button--primary").click()#id284e37b8-7012-4382-8cc8-7e52eb46d979
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(4) .tr-user .el-input__inner")#id2ff06a66-1d23-4ec8-995f-c91636e35c2d
+        robot.AI_find_element(By.XPATH, "//div[2]/div/div/div[2]/div/div/div/div[2]").click()#id94a0568b-bb89-4abc-9a73-b67b4000f03b
+        robot.AI_find_element(By.XPATH, "(//button[@type='button'])[42]").click()#id284e37b8-7012-4382-8cc8-7e52eb46d979
+        element = robot.AI_find_element(By.XPATH, "(//input[@type='text'])[42]")#id2ff06a66-1d23-4ec8-995f-c91636e35c2d
         actions = ActionChains(robot)
         actions.move_to_element(element).click_and_hold().perform()
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(4) .tr-user .el-input__inner")#id120af0a8-a966-4509-b786-65bde569b65d
+        element = robot.AI_find_element(By.XPATH, "(//input[@type='text'])[40]")#id120af0a8-a966-4509-b786-65bde569b65d
         actions = ActionChains(robot)
         actions.move_to_element(element).click_and_hold().perform()
-        robot.AI_find_element(By.XPATH, "//*[@id=\"app\"]/div[1]/div[1]/details[3]/div/form/div/div[4]/div/div/div/div/input").click()#id212c5eab-58f6-409e-8bc8-c19d6b88e72e
+        robot.AI_find_element(By.XPATH, "//body").click()#id212c5eab-58f6-409e-8bc8-c19d6b88e72e
         robot.AI_find_element(By.XPATH, "//details//div/label/span[text()='产品部']/../..//input").click()#idcc0c9697-78e5-4744-8be9-c54c5c6fa1f5
-        robot.AI_find_element(By.CSS_SELECTOR, ".text-center > .el-button--primary").click()#idb544d57a-fb0a-4796-a713-a8985c0f821c
-        robot.AI_find_element(By.CSS_SELECTOR, ".footer-card > .el-button:nth-child(2)").click()#ideeb480ba-2ddd-49e3-ba41-6b4db9ba7ea2
+        robot.AI_find_element(By.XPATH, "//button[contains(.,'确定')]").click()#idb544d57a-fb0a-4796-a713-a8985c0f821c
+        robot.AI_find_element(By.XPATH, "//button[contains(.,'发起')]").click()#ideeb480ba-2ddd-49e3-ba41-6b4db9ba7ea2
         robot.close()
         robot.switch_to.window(self.vars["root"])
         robot.AI_find_element(By.LINK_TEXT, "工作台").click()#id712d7f32-8f5f-43ec-85f5-00d0eed2eaf3
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".router-link-exact-active > .route-item--title")#id82dcffca-cfe6-4a6d-8b26-29c39a88e59d
+        element = robot.AI_find_element(By.XPATH, "//span[contains(.,'工作台')]")#id82dcffca-cfe6-4a6d-8b26-29c39a88e59d
         actions = ActionChains(robot)
         actions.move_to_element(element).perform()
-        robot.AI_find_element(By.CSS_SELECTOR, "#tab-process span").click()#id60cf0e09-f8f4-42c8-bc95-43ac65af2037
+        robot.AI_find_element(By.XPATH, "//span[contains(.,'流程任务')]").click()#id60cf0e09-f8f4-42c8-bc95-43ac65af2037
         robot.AI_find_element(By.ID, "tab-applicant").click()#ida098b011-4688-4246-8ac3-ccc70177036e
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-badge > .tr-svg-icon").click()#id14fcfeb3-4fad-48e6-b3d4-e9aabe83a2c1
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(1) .el-input__inner").click()#id446c32d6-3197-49e0-9b50-97cad798486b
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(1) .el-input__inner").click()#ida1da44a2-7efe-45b1-8a3b-d1c8c970b9ce
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(1) .el-input__inner").click()#idf5ca6906-9520-4f8a-b17e-3d42ed7d5e9d
-        element = robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(1) .el-input__inner")#idb4659727-c1dc-4825-8456-b00aac9e2fe9
+        robot.AI_find_element(By.XPATH, "//div[2]/div/div/div/span").click()#id14fcfeb3-4fad-48e6-b3d4-e9aabe83a2c1
+        robot.AI_find_element(By.XPATH, "//div[@id='pane-process']/div/div[2]/div[2]/form/div/div/div/div/div/input").click()#id446c32d6-3197-49e0-9b50-97cad798486b
+        robot.AI_find_element(By.XPATH, "//div[@id='pane-process']/div/div[2]/div[2]/form/div/div/div/div/div/input").click()#ida1da44a2-7efe-45b1-8a3b-d1c8c970b9ce
+        robot.AI_find_element(By.XPATH, "//div[@id='pane-process']/div/div[2]/div[2]/form/div/div/div/div/div/input").click()#idf5ca6906-9520-4f8a-b17e-3d42ed7d5e9d
+        element = robot.AI_find_element(By.XPATH, "//div[@id='pane-process']/div/div[2]/div[2]/form/div/div/div/div/div/input")#idb4659727-c1dc-4825-8456-b00aac9e2fe9
         actions = ActionChains(robot)
         actions.double_click(element).perform()
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-col:nth-child(1) .el-input__inner").send_keys("开模流程-项目名称-结构开模")#id644dc2ea-e4d3-4517-bd97-418acfb3e2f9
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-button--primary").click()#id40332def-caaf-4efc-8be6-3f9be2945df3
+        robot.AI_find_element(By.XPATH, "//div[@id='pane-process']/div/div[2]/div[2]/form/div/div/div/div/div/input").send_keys("开模流程-项目名称-结构开模")#id644dc2ea-e4d3-4517-bd97-418acfb3e2f9
+        robot.AI_find_element(By.XPATH, "//button[contains(.,'确定')]").click()#id40332def-caaf-4efc-8be6-3f9be2945df3
 
 
 @allure.feature("流程中心")  # 迭代名称
