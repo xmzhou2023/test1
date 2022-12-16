@@ -15,6 +15,7 @@ import logging
 import allure
 import datetime
 import ddddocr
+import random
 from selenium.webdriver.chrome.options import Options
 
 
@@ -25,6 +26,8 @@ from PIL import Image
 selenium基类
 本文件存放了selenium基类的封装方法
 """
+
+
 class Base(object):
     """selenium基类"""
 
@@ -134,7 +137,7 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable',str(args[i]),1)
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
@@ -206,7 +209,6 @@ class Base(object):
         ele.clear()
         return ele
 
-
     def readonly_input_text(self, locator, txt, *choice):
         """去除只读属性后输入"""
         if choice is None:
@@ -259,7 +261,6 @@ class Base(object):
         else:
             self.driver.execute_script('document.evaluate("{}",document).iterateNext().click()'.format(xpath))
 
-
     def alert_ok(self):
         """确认弹窗"""
         alert = self.wait.until(EC.alert_is_present())
@@ -297,7 +298,7 @@ class Base(object):
             # sleep()
             logging.info("点击元素：{}".format(locator))
 
-    def checkbox_init(self,locator, pane=None):
+    def checkbox_init(self, locator, pane=None):
         """编辑用户权限-清除勾选框(DRP组织、品牌专用)"""
         Npath = []
         Npath.append(locator[0])
@@ -332,7 +333,6 @@ class Base(object):
             self.find_element(locator).click()
             # sleep()
             logging.info("清除树勾选框状态：{}".format(locator))
-
 
     def export_download_status(self, click_search, get_status):
         """DCR通用的导出，等待下载状态更新(DRP专用)"""
@@ -403,7 +403,6 @@ class Base(object):
             logging.info("获取文本：{}".format(_text))
             return _text
 
-
     def select_state(self, locator):
         """获取元素的选中状态"""
         _select = self.find_element(locator).is_selected()
@@ -426,7 +425,7 @@ class Base(object):
         self.driver.close()  # 关闭新页签
         self.driver.switch_to.window(self.driver.window_handles[0])  # 然后切换回原始页签
 
-    def hover(self,locator, choice=None):
+    def hover(self, locator, choice=None):
         """鼠标悬停"""
         if choice is None:
             sleep(1)
@@ -470,7 +469,7 @@ class Base(object):
         assert self.download_file(filename=content, load=3), logging.warning("断言失败: 下载该附件失败 | {} ".format(content))
         logging.info("断言成功: 下载该附件成功 | {} ".format(content))
 
-    def custom_find_elements(self,locator):
+    def custom_find_elements(self, locator):
         """树结构专用查找多个相同的元素(原生)"""
         return self.driver.find_elements(By.XPATH, locator[1])
 
@@ -533,18 +532,17 @@ class Base(object):
                 else:
                     break
 
-
     def get_datetime_today(self):
         """获取当天日期(DCR专用)"""
         today = datetime.date.today()
         today1 = str(today)
         return today1
 
-    def get_last_day(self,days):
+    def get_last_day(self, days):
         """获取过去几天的日期(DCR专用)"""
         today = datetime.date.today()
         last_days = today - datetime.timedelta(days)
-        last_day  = str(last_days)
+        last_day = str(last_days)
         return last_day
 
     def base_get_img(self, name='err'):
@@ -602,7 +600,7 @@ class Base(object):
             logging.error(e)
             raise
         # finally:
-            # self.delete_excel(path, path_list[-1])
+        # self.delete_excel(path, path_list[-1])
 
     def element_exist(self, locator, *choice):
         """校验元素是否存在"""
@@ -618,10 +616,10 @@ class Base(object):
             self.base_get_img()
             return True
 
-    def upload_file(self,locator,file, *choice):
+    def upload_file(self, locator, file, *choice):
         """上传"""
         sleep(0.5)
-        ele = self.find_element(locator,*choice)
+        ele = self.find_element(locator, *choice)
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 
@@ -681,7 +679,7 @@ class Base(object):
         logging.info("获取文本：{}".format(_text))
         return _text
 
-    def mouse_click(self,locator):
+    def mouse_click(self, locator):
         """鼠标点击"""
         element = self.find_element(locator)
         # 创建Action对象
@@ -694,7 +692,6 @@ class Base(object):
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
-
 
     def mouse_right_click(self, locator, *args, **kwargs):
         """鼠标右击"""
@@ -795,7 +792,7 @@ class Base(object):
         :param attr: 需要获取到的属性，默认是class
         :param index: 需要获取到的属性索引位置，默认是0
         """
-        for i in range(1, 10):
+        for i in range(1, 20):
 
             #
             if h_element:
@@ -806,7 +803,7 @@ class Base(object):
                 else:
                     if sc_element:
                         logging.info('{}表格字段不存在，向右滑动滚动条'.format(choice))
-                        Base(self.driver).DivRolling(sc_element, num=i*1000)
+                        Base(self.driver).DivRolling(sc_element, num=i * 1000)
                         sleep(1)
                     else:
                         logging.error('{}表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动'.format(*choice))
@@ -848,7 +845,7 @@ class Base(object):
                 raise
 
     # POP输入框输入文本按enter键专用方法
-    def input_enter(self,locator,content=None,choice=None):
+    def input_enter(self, locator, content=None, choice=None):
         """
             POP项目中输入框输入内容点击Enter键
         :param locator: 定位元素-固定格式=>xx['']
@@ -858,20 +855,19 @@ class Base(object):
         """
         if choice is None:
             sleep(0.5)
-            ele = self.find_element(locator,choice)
+            ele = self.find_element(locator, choice)
             ele.clear()
             ele.send_keys(content + Keys.ENTER)
             logging.info("输入文本：{}".format(content))
         else:
             """输入(输入前先清空)"""
             sleep(0.5)
-            ele = self.find_element(locator,choice)
+            ele = self.find_element(locator, choice)
             ele.clear()
             ele.send_keys(content + Keys.ENTER)
             logging.info("输入文本：{}".format(content))
 
-
-    def DivRolling(self, locator, direction='left', num=1000):
+    def DivRolling(self, locator, *choice, direction='left', num=1000):
         '''
         内嵌div上下左右滑动
         :param locator: 内嵌div
@@ -879,7 +875,7 @@ class Base(object):
         :param num: 内边距
         '''
         try:
-            ele = self.find_element(locator)
+            ele = self.find_element(locator, *choice)
             if direction == 'top':
                 self.driver.execute_script("arguments[0].scrollTop={}".format(num), ele)
                 logging.info('滚动条向下滑动：{}'.format(num))
@@ -891,7 +887,7 @@ class Base(object):
         except Exception as e:
             raise e
 
-    def hover_move_click(self,locator1, locator2, choice=None):
+    def hover_move_click(self, locator1, locator2, choice=None):
         """鼠标悬停在位置1后，移动到位置2进行点击"""
         if choice is None:
             sleep(1)
@@ -910,7 +906,8 @@ class Base(object):
             actions.click_and_hold(element1).move_to_element(element2).click(element2).perform()
             sleep(1)
 
-def read_excel(file_path,sheet_name,data_num=7,expect_num=8):
+
+def read_excel(file_path, sheet_name, data_num=7, expect_num=8):
     """
         读取excel表测试数据
     @param file_path: 测试数据文件保存地址
@@ -973,5 +970,20 @@ def data_drive_excel(file_path, sheet_name, mode, rows=0, cols=0, start_col=0, e
         logging.info("excel取值方式错误")
     return values
 
+
+def random_list(list, num):
+    """
+          读取列表中的几个数据，并按原顺序返回一个列表
+      @list: 传入一个列表
+      @num: 读取的数据个数
+     """
+    list_temp = [i for i in range(len(list))]
+    list_new = random.sample(list_temp, num)
+    list_new.sort()
+    list_object = [list[i] for i in list_new]
+    return list_object
+
+
 if __name__ == "__main__":
-    print(read_excel(r"C:\Users\wenqiang.zhang5\PycharmProjects\untitled\UIPOMTest\project\POP\data\test_data.xls","测试用例数据"))
+    print(read_excel(r"C:\Users\wenqiang.zhang5\PycharmProjects\untitled\UIPOMTest\project\POP\data\test_data.xls",
+                     "测试用例数据"))
