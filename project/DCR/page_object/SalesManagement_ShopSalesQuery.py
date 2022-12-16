@@ -21,7 +21,7 @@ class ShopSaleQueryPage(Base):
         self.is_click_dcr(user['筛选门店'])
         self.input_text_dcr(user['筛选门店'], txt=content)
         sleep(3)
-        self.is_click(user['Select Shop Value'])
+        self.is_click(user['Select Shop Value'],content)
 
     @allure.step("点击Unfold展开筛选项按钮")
     def click_unfold(self):
@@ -53,7 +53,7 @@ class ShopSaleQueryPage(Base):
     @allure.step("Shop Sales Query页面，筛选Shop ID后，点击Search按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(5)
+        sleep(2)
 
     @allure.step("Shop Sales Query页面，获取列表Shop ID 文本内容")
     def get_shop_id_text(self):
@@ -423,6 +423,180 @@ class ShopSaleQueryPage(Base):
             self.is_click_tbm(user['菜单'], content[i])
             logging.info('点击菜单：{}'.format(content[i]))
         self.refresh()
+
+    @allure.step("输入Upload Date筛选项的开始和结束时间")
+    def input_upload_date(self, startdate,enddata):
+        self.is_click(user['Input Upload Start Date'])
+        self.input_text(user['Input Upload Start Date'], txt=startdate)
+        self.is_click(user['Click Upload End Date'])
+        self.input_text(user['Click Upload End Date'], txt=enddata)
+
+
+    @allure.step("点击IMEI/SN")
+    def click_imei(self):
+        self.is_click(user['选择IMEI/SN'])
+
+    @allure.step("输入IMEI/SN选择")
+    def input_imei(self,content):
+        self.is_click(user['选择IMEI/SN'])
+        self.input_text(user['输入IMEI/SN'],txt=content)
+
+    @allure.step("输入model选择")
+    def input_model(self,content):
+        self.is_click(user['选择model'])
+        self.input_text(user['输入model'],txt=content)
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("输入model type选择")
+    def input_model_type(self,content):
+        self.is_click(user['modeltype'])
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("选择Mid&High")
+    def input_mid_high(self):
+        self.is_click(user['选择model'])
+        self.is_click(user['中高端选择Yes'])
+
+    @allure.step("输入item选择")
+    def input_item(self,content):
+        self.is_click(user['门店销量项目'])
+        self.input_text(user['门店销量项目输入'],txt=content)
+        sleep(2)
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("输入销售区域选择")
+    def input_sales_region(self,content):
+        self.is_click(user['门店销量区域'])
+        self.input_text(user['门店销量区域'],txt=content)
+        self.is_click(user['门店销量区域选择'],content)
+
+    @allure.step("选择城市级别")
+    def input_city_tier(self,content):
+        self.is_click(user['门店销量城市级别'])
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("选择brand")
+    def input_brand(self,content):
+        self.is_click(user['门店销量品牌'])
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("输入市场名字选择")
+    def input_market_name(self,content):
+        self.is_click(user['门店销量市场名字'])
+        self.input_text(user['门店销量市场名字输入'],txt=content)
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("输入品牌系列选择")
+    def input_series(self,content):
+        self.is_click(user['品牌系列'])
+        self.input_text(user['品牌系列输入'],txt=content)
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("选择SP/FP")
+    def input_sp_fp(self,content):
+        self.is_click(user['SPFP'])
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("输入上传人员ID选择")
+    def input_uploaderid(self,content):
+        self.is_click(user['上传人员ID'])
+        self.input_text(user['上传人员输入'],txt=content)
+
+    @allure.step("选择激活状态")
+    def input_activation_status(self,content):
+        self.is_click(user['激活状态'])
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("输入职位选择")
+    def input_position(self,content):
+        self.is_click(user['职位'])
+        self.input_text(user['职位输入'],txt=content)
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'],content)
+
+    @allure.step("输入激活日期选择")
+    def input_activattion_date(self,startdate,enddate):
+        self.is_click(user['激活日期开始'])
+        self.input_text(user['激活日期开始'],txt=startdate)
+        self.input_text(user['激活日期结束'],txt=enddate)
+
+    @allure.step("输入国家选择")
+    def input_sale_country(self,content):
+        self.is_click(user['店铺销量国家'])
+        self.input_text(user['国家输入'],txt=content)
+        self.is_click(user['国家选择'],content)
+
+    @allure.step("选择是否有促销员")
+    def input_manpower(self,content):
+        self.is_click(user['是否有促销员'])
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'], content)
+
+    @allure.step("选择门店形象等级")
+    def input_image_type(self,content):
+        self.is_click(user['门店形象等级'])
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'], content)
+
+    @allure.step("选择门店形象等级")
+    def input_time_zone(self):
+        self.is_click(user['时区'])
+        self.is_click(user['时区选择'])
+
+    @allure.step("选择上传类型")
+    def input_upload_type(self,content):
+        self.is_click(user['上传类型'])
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'], content)
+
+    @allure.step("选择是否达成")
+    def input_achieve_ornot(self,content):
+        self.is_click(user['是否达成'])
+        self.is_click(user['城市级别_品牌_市场名_SP/FP_激活状态_职位_Manpower_形象等级_上传类型选择_销量状态_激活国家_发货国家'], content)
+
+    @allure.step("选择销量状态")
+    def input_status(self,content):
+        self.is_click(user['销量状态'])
+        self.is_click(user['提供人员选择'], content)
+
+    @allure.step("输入激活国家选择")
+    def input_activation_country(self,content):
+        self.is_click(user['激活国家'])
+        self.input_text(user['激活国家输入'],txt=content)
+        self.is_click(user['激活国家_发货国家选择'], content)
+
+    @allure.step("输入发货国家选择")
+    def input_delivery_country(self,content):
+        self.is_click(user['发货国家'])
+        self.input_text(user['发货国家输入'],txt=content)
+        self.is_click(user['激活国家_发货国家选择'], content)
+
+    @allure.step("输入提供人员选择")
+    def input_supplier(self,content):
+        self.is_click(user['提供人员'])
+        self.input_text(user['提供人员输入'],txt=content)
+        self.is_click(user['提供人员选择'], content)
+
+    @allure.step("获取第一行文本内容")
+    def get_table_txt(self, num):
+        txt = self.element_text(user['列表第一行'],num)
+        return txt
+
+    @allure.step("根据表头获取列值")
+    def get_table_column(self, header):
+        #self.DivRolling(user['表头字段'])
+        attribute=self.get_table_info(user['表头列'],header,attr='colid',sc_element=user['sc_element'])
+        logging.info('列元素的属性是%s'%attribute)
+        #number=int(attribute[4:])
+        return attribute
+
+    @allure.step("获取表格文本")
+    def get_table_content(self,attribute):
+        txt = self.element_text(user['表格具体字段'],attribute)
+        return txt
+    @allure.step("断言：ShopSalesQuery查询结果")
+    def assert_Query_result(self, header, content):
+        """
+        :param header: 需要获取的指定字段
+        :param content: 需要断言的值
+        """
+        DomAssert(self.driver).assert_search_result(user['表格头部字段'], user['列表第一行'], header, content)
 
 
 if __name__ == '__main__':
