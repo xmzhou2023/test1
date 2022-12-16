@@ -554,7 +554,6 @@ class UserManagementPage(Base):
         country_list = ['Sales Region', 'Country/City']
         FuzzySelect_list = ['Belong To Customer', 'Superior']
         ExactSelect_list = ['Position']
-        self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
         if header in user_list:
             self.is_click_tbm(user['输入框'], header)
@@ -661,16 +660,21 @@ class UserManagementPage(Base):
         # k = PyKeyboard()
         # k.tap_key(k.escape_key)
 
-    @allure.step("点击Upload按钮")
+    @allure.step("点击EditUpload按钮")
     def click_EditUpload(self):
         self.is_click(user['EditUpload'])
+        logging.info('点击upload按钮')
+
+    @allure.step("点击AddUpload按钮")
+    def click_AddUpload(self):
+        self.is_click(user['AddUpload'])
         logging.info('点击upload按钮')
 
     @allure.step("点击Import按钮")
     def click_AddImport(self):
         self.is_click(user['Import'])
         logging.info('点击Import按钮')
-        self.click_upload()
+        self.click_AddUpload()
 
     @allure.step("点击Import按钮")
     def click_EditImport(self):
@@ -851,7 +855,10 @@ class UserManagementPage(Base):
         logging.info('开始使用组合方法: 复职用户')
         self.input_search('User ID', uid)
         self.click_search()
-        if self.element_exist(user['NoData']) is False:
+        total_text = self.element_text(user['Total'])
+        total = total_text[total_text.index(' ')+1:]
+        logging.info(f'查询结果合计数{total_text}')
+        if total != '0':
             self.click_checkbox(uid)
             self.click_function_button('Quit')
             DomAssert(self.driver).assert_att('Disabled Successfully')
@@ -867,13 +874,24 @@ class UserManagementPage(Base):
         logging.info('开始使用组合方法: 停职用户')
         self.input_search('User ID', uid)
         self.click_search()
-        if self.element_exist(user['NoData']) is True:
-            return
-        self.click_checkbox(uid)
-        self.click_function_button('Quit')
-        DomAssert(self.driver).assert_att('Disabled Successfully')
-        self.refresh()
+        total_text = self.element_text(user['Total'])
+        total = total_text[total_text.index(' ')+1:]
+        logging.info(f'查询结果合计数{total_text}')
+        if total != '0':
+            self.click_checkbox(uid)
+            self.click_function_button('Quit')
+            DomAssert(self.driver).assert_att('Disabled Successfully')
+            self.refresh()
 
+    @allure.step("停职用户 组合方法")
+    def SQL_delete_user(self, uid):
+        a = SQL('DCR', 'test')
+        a.change_db(
+            f"delete from t_user where USER_CODE = {uid}"
+        )
+        a.change_db(
+            f"delete from t_employee where EMP_CODE = {uid}"
+        )
 
 if __name__ == '__main__':
     pass

@@ -195,9 +195,9 @@ class TestAddEditQuitTranssionUser:
         add.input_Job_Information('User ID', UserID)
         DomAssert(drivers).assert_att(f'{UserID}, user center has been detected. Please change the staff type to Transsion Staff or change the user ID')
         """使用非内部员工数字 创建用户"""
-        UserID = str(int(time.time()))
+        userID = str(int(time.time()))
         add.input_Job_Information('Belong To Customer', 'SN405554')
-        add.input_Job_Information('User ID', UserID)
+        add.input_Job_Information('User ID', userID)
         add.input_Job_Information('User Name', '非内部员工数字')
         add.input_Job_Information('Sales Region', 'Kaolack')
         add.input_Job_Information('Country/City', 'Kaolack')
@@ -206,12 +206,13 @@ class TestAddEditQuitTranssionUser:
         add.input_Job_Information('Brand', 'Infinix')
         add.input_Personal_Information('Gender', 'Male')
         add.click_add_user_submit()
-        add.input_search('User ID', UserID)
+        add.input_search('User ID', userID)
         add.click_search()
-        add.assert_User_Exist('User ID', UserID)
-        add.click_checkbox(UserID)
+        add.assert_User_Exist('User ID', userID)
+        add.click_checkbox(userID)
         add.click_more_option_quit()
         DomAssert(drivers).assert_att('Disabled Successfully')
+        add.SQL_delete_user(userID)
 
     @allure.story("用户管理")
     @allure.title("已离职员工，不允许新增")
@@ -232,7 +233,7 @@ class TestAddEditQuitTranssionUser:
         DomAssert(drivers).assert_att("The staff has resigned in the user center and can't be added")
 
     @allure.story("用户管理")
-    @allure.title("传音员工，用户类型、用户ID、姓名、性别、个人邮箱、语言、入职日期字段置灰不可编辑")
+    @allure.title("传音员工，个人信息置灰不可编辑")
     @allure.description("页面编辑传音员工，用户类型、用户ID、姓名、性别、个人邮箱、语言、入职日期字段置灰不可编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
@@ -248,7 +249,7 @@ class TestAddEditQuitTranssionUser:
         add.click_reset()
         add.input_search('User ID', userID)
         add.click_search()
-        """点击编辑 代理员工的ID/所属客户置灰不可编辑"""
+        """点击编辑 传音员工个人信息置灰不可编辑"""
         add.click_Edit('18650493')
         add.assert_input_edit('Staff Type')
         add.assert_input_edit('Hire Date')
@@ -402,7 +403,7 @@ class TestAddEditQuitTranssionUser:
 
     @allure.story("用户管理")
     @allure.title("用户复职后，能正常访问DCR系统")
-    @allure.description("用户离职又复职后，能正常登录DCR系统,访问不同菜单，不会出现token失效的问题")
+    @allure.description("可启用离职状态的员工，能正常登录DCR系统,访问不同菜单，不会出现token失效的问题")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_009(self, drivers):
@@ -465,13 +466,15 @@ class TestAddEditQuitTranssionUser:
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
         """点击用户管理菜单"""
-        userID = '18650493'
-        userName = '翁佳柯'
-        hireDate = '2021-12-30'
-        email = 'JIAKE.WENG@TRANSSION.COM'
-        gender = 'Male'
+        userID = '18645960'
+        userName = '李小素'
+        hireDate = '2020-08-06'
+        email = 'XIAOSU.LI@TRANSSION.COM'
+        gender = 'Female'
         add = UserManagementPage(drivers)
         add.click_menu("Staff & Authorization", "User Management")
+        add.SQL_delete_user(userID)
+        """断言：创建页面，输入内部员工ID自动同步信息"""
         add.click_add_user()
         add.input_Job_Information('Staff Type', 'Transsion Staff')
         add.input_Job_Information('User ID', userID)
@@ -479,6 +482,22 @@ class TestAddEditQuitTranssionUser:
         add.assert_user_Information('Hire Date', hireDate)
         add.assert_user_Information('Email', email)
         add.assert_user_Information('Gender', gender)
+        """填入信息创建用户"""
+        add.input_Job_Information('Sales Region', 'Kaolack')
+        add.input_Job_Information('Country/City', 'Kaolack')
+        add.input_Job_Information('Position', 'wjk管理')
+        add.input_Job_Information('Superior', '18650493')
+        add.input_Job_Information('Brand', 'Infinix')
+        add.click_add_user_submit()
+        """筛选用户"""
+        add.input_search('User ID', userID)
+        add.click_search()
+        """断言：新建成功"""
+        add.assert_User_Exist('User ID', userID)
+        add.click_checkbox(userID)
+        add.click_more_option_quit()
+        DomAssert(drivers).assert_att('Disabled Successfully')
+        add.SQL_delete_user(userID)
 
     @allure.story("用户管理")
     @allure.title("已离职员工不能重置密码以及登录系统")
@@ -512,6 +531,53 @@ class TestAddEditQuitTranssionUser:
         user.click_loginsubmit()
         """断言：已离职的员工不能登录系统"""
         DomAssert(drivers).assert_att("The user has resigned in DCR!")
+
+    @allure.story("用户管理")
+    @allure.title("导入新增内部员工成功")
+    @allure.description("支持导入新增员工，上传User ID，未填写用户姓名、性别、个人邮箱，同时语言和入职日期是错误的，会同步用户中心的字段信息为准")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_013(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """变量"""
+        excelName = '用户管理-新增导入传音员工成功.xlsx'
+        userID = '18645960'
+        userName = '李小素'
+        hireDate = '2020-08-06'
+        email = 'XIAOSU.LI@TRANSSION.COM'
+        gender = 'Female'
+        language = 'ZH'
+        today = datetime.now().strftime('%Y-%m-%d')
+        """点击用户管理菜单"""
+        add = UserManagementPage(drivers)
+        add.SQL_delete_user(userID)
+        add.click_menu("Staff & Authorization", "User Management")
+        """点击导入"""
+        add.click_AddImport()
+        add.import_file(excelName)
+        add.assert_import_success()
+        add.click_save()
+        DomAssert(drivers).assert_att('The file has been uploaded successfully. Data is being imported, please wait for a few minutes and go to the Import Record page to check the results.')
+        add.click_confirm()
+        """断言:导入结果，成功数量3:编辑个人信息成功"""
+        add.assert_Record_result('Import Record', excelName, 'Total', '1')
+        add.assert_Record_result('Import Record', excelName, 'Success', '1')
+        add.assert_Record_result('Import Record', excelName, 'Import Date', today)
+        """筛选用户"""
+        add.click_menu("Staff & Authorization", "User Management")
+        add.input_search('User ID', userID)
+        add.click_search()
+        """断言:传音员工会同步用户中心的字段信息"""
+        add.click_Edit(userID)
+        add.assert_user_Information('User Name', userName)
+        add.assert_user_Information('Hire Date', hireDate)
+        add.assert_user_Information('Email', email)
+        add.assert_user_Information('Gender', gender)
+        add.assert_user_Information('Native Language', language)
+        add.click_Cancel()
+        add.SQL_delete_user(userID)
 
 
 @allure.feature("员工授权-用户管理")

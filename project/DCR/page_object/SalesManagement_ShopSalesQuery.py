@@ -274,12 +274,8 @@ class ShopSaleQueryPage(Base):
         """
         for i in range(20):
             ac_menu = self.element_text(user['当前菜单'])
-            if ac_menu == menu:
-                column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
-                content = self.element_text(user['表格指定列内容'], name, column)
-                logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
-                return content
-            self.click_menu('Basic Data Management', menu)
+            if ac_menu != menu:
+                self.click_menu('Basic Data Management', menu)
             column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
             content = self.element_text(user['表格指定列内容'], name, column)
             logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
