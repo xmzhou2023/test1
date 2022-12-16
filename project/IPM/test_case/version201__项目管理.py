@@ -31,16 +31,15 @@ class Teststory_3259:
     @pytest.mark.smoke  # 用例标记
     def test_23743(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
-        test.Create_project('保存', 'IT项目模板', f'IPM自动化{now_times}', f'IPM自动化项目描述{now_times}')
+        test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '新建成功！')
         test.get_url_project()
-        ass.assert_toast('断言新建项目的名字', f'IPM自动化{now_times}')
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
+        ass.assert_toast('断言新建项目的名字',proname)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
     @allure.story("创建项目")  # 用户故事名称
     @allure.title("项目名称不填写项目名称，新增项目失败，提示必填项未填写")  # 用例名称
@@ -49,7 +48,6 @@ class Teststory_3259:
     @pytest.mark.smoke  # 用例标记
     def test_23748(self, drivers):
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板')
         ass = Assert_result(drivers)
@@ -62,7 +60,6 @@ class Teststory_3259:
     @pytest.mark.smoke  # 用例标记
     def test_23749(self, drivers):
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', f'IPM自动化2022-12-0611:03:34')
         ass = Assert_result(drivers)
@@ -83,13 +80,12 @@ class Teststory_3259:
     @pytest.mark.smoke  # 用例标记
     def test_23757(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
-        test.Create_project('取消', 'IT项目模板', f'IPM自动化{now_times}')
+        test.Create_project('取消', 'IT项目模板', proname)
         ass = Assert_result(drivers)
-        ass.assert_toast_not('断言新建项目的名字', f'IPM自动化{now_times}')
-
+        ass.assert_toast_not('断言新建项目的名字', proname)
 
     @allure.story("创建项目")  # 用户故事名称
     @allure.title("产品项目名称产品项目新建成功后，项目名称是根据项目名主板名自动合成的，更改了项目名和主板名后，产品项目需要同步变更")  # 用例名称
@@ -99,7 +95,6 @@ class Teststory_3259:
     def test_23750(self, drivers):
         pass
 
-
     @allure.story("创建项目")  # 用户故事名称
     @allure.title("项目描述不填写项目描述，新建项目成功")  # 用例名称
     @allure.description("")  # 用例描述
@@ -107,16 +102,18 @@ class Teststory_3259:
     @pytest.mark.smoke  # 用例标记
     def test_25536(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
+
+        proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
-        test.Create_project('保存', 'IT项目模板', f'IPM自动化{now_times}')
+        test.Create_project('保存', 'IT项目模板', proname)
         ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '新建成功！')
         test.get_url_project()
-        ass.assert_toast('断言新建项目的名字', f'IPM自动化{now_times}')
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
+        ass.assert_toast('断言新建项目的名字', proname)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
+
+
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3345:
     @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
@@ -707,7 +704,8 @@ class Teststory_3353:
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
     @allure.title("如果第一层WBS本身就是'TR'、'DCP'、quot里程碑'中类型的计划，则该阶段名称也在该阶段下第一层的里程碑名称中显示")  # 用例名称
-    @allure.description("分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示")  # 用例描述
+    @allure.description(
+        "分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_21006(self, drivers):
@@ -715,7 +713,8 @@ class Teststory_3353:
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
     @allure.title("里程碑视图中的阶段名称下的里程碑名称取的是对应阶段下的'TR'、'DCP'、quot里程碑'类型的计划")  # 用例名称
-    @allure.description("选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示==选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示")  # 用例描述
+    @allure.description(
+        "选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示==选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_21007(self, drivers):
@@ -723,7 +722,8 @@ class Teststory_3353:
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
     @allure.title("根据阶段下的任务排序，按顺序显示第一层、第二层、第N层里程碑；如果阶段本身为'TR'、'DCP'、quot里程碑'类型的计划，则第一层里程碑为阶段名称本身")  # 用例名称
-    @allure.description("选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示==选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示")  # 用例描述
+    @allure.description(
+        "选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示==选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_21008(self, drivers):
@@ -910,7 +910,8 @@ class Teststory_3354:
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
     @allure.title("【版本时间】弹窗中的【计划开始时间】和【计划结束时间】显示对应里程碑在任务详情设置的时间")  # 用例名称
-    @allure.description("设置了【里程碑】、【TR】、【DCP】计划类型的任务中，保存了【计划开始时候】和【计划结束时间】==进入里程碑视图中，点击里程碑的【版本时间】，查看弹窗中的【计划开始时间】和【计划结束时间】显示")  # 用例描述
+    @allure.description(
+        "设置了【里程碑】、【TR】、【DCP】计划类型的任务中，保存了【计划开始时候】和【计划结束时间】==进入里程碑视图中，点击里程碑的【版本时间】，查看弹窗中的【计划开始时间】和【计划结束时间】显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_21026(self, drivers):
@@ -2122,7 +2123,8 @@ class Teststory_3318:
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
-    @allure.title("在流程中结论存在且状态为已发布，点击发布，查看接收人是否所属项目的角色对应人员，包括LPDT、PM、研发代表、采购代表、质量代表、制造代表、计划代表、销管代表、PQA、GTM代表、财务代表；")  # 用例名称
+    @allure.title(
+        "在流程中结论存在且状态为已发布，点击发布，查看接收人是否所属项目的角色对应人员，包括LPDT、PM、研发代表、采购代表、质量代表、制造代表、计划代表、销管代表、PQA、GTM代表、财务代表；")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -3443,32 +3445,32 @@ class Teststory_3322:
     def test_22564(self, drivers):
         pass
 
-
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
-    @allure.title(" DCP发起未预约上会点击发起评审，提示：请预约上会后再发起评审")  # 用例名称
+    @allure.title("DCP发起未预约上会点击发起评审，提示请预约上会后再发起评审quot")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_26665(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
-        test.Create_project('保存', 'IPD模块化项目模板', f'IPM自动化测试{now_times}', f'IPM自动化项目描述{now_times}')
-        test.enter_the_project(f'IPM自动化测试{now_times}')
+        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
         test.project_tab("计划")
-        test.project_Task_More_actions("0","概念阶段","查看")
+        test.project_Task_More_actions("0", "概念阶段", "查看")
         sleep(3)
-        test.project_task_type(f'IPM自动化测试{now_times}',"概念阶段",now_times,'DCP任务',username,'确定')
-        test.project_Drop_down_box_multiple_selection('任务基本信息',"前置任务","启动产品策划","任命项目经理","产品概念启动")
-        test.project_Drop_down_box_multiple_selection("任务基本信息","状态","未开始")
+        test.project_task_type(proname, "概念阶段", now_times, 'DCP任务', username, '确定')
+        test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
+        test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
         test.project_Planned_Task_Save()
+        sleep(1)
         test.project_Scheduled_Tasks_Initiate_review()
-        sleep(3)
+        sleep(0.5)
         ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '请预约上会后再发起评审！')
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
     @allure.title("DCP发起未预约上会未配置PMToffice，点击发送通知提示PMToffice未配置用户！")  # 用例名称
@@ -3477,16 +3479,16 @@ class Teststory_3322:
     @pytest.mark.smoke  # 用例标记
     def test_26666(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
-        test.Create_project('保存', 'IPD模块化项目模板', f'IPM自动化测试{now_times}', f'IPM自动化项目描述{now_times}')
-        test.enter_the_project(f'IPM自动化测试{now_times}')
+        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
         test.project_team('删除')
         test.project_tab("计划")
         test.project_Task_More_actions("0", "概念阶段", "查看")
-        sleep(8)
-        test.project_task_type(f'IPM自动化测试{now_times}', "概念阶段", now_times, 'DCP任务', username, '确定')
+        sleep(10)
+        test.project_task_type(proname, "概念阶段", now_times, 'DCP任务', username, '确定')
         test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
         test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
         test.project_Planned_Task_Save()
@@ -3495,8 +3497,8 @@ class Teststory_3322:
         test.project_SetNotificationContent()
         ass = Assert_result(drivers)
         ass.assert_toast('断言提示', 'PMToffice未配置用户！')
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
     @allure.title("DCP发起未预约上会当前登陆人不为任务责任人，点击发送通知提示您不是当前任务的责任人！")  # 用例名称
@@ -3505,17 +3507,16 @@ class Teststory_3322:
     @pytest.mark.smoke  # 用例标记
     def test_26667(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
-        test.Create_project('保存', 'IPD模块化项目模板', f'IPM自动化测试{now_times}', f'IPM自动化项目描述{now_times}')
-        test.enter_the_project(f'IPM自动化测试{now_times}')
-
+        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
         test.project_team(addrole='添加成员', role_id="18645960")
         test.project_tab("计划")
         test.project_Task_More_actions("0", "概念阶段", "查看")
         sleep(10)
-        test.project_task_type(f'IPM自动化测试{now_times}', "概念阶段", now_times, 'DCP任务', '18645959', '确定')
+        test.project_task_type(proname, "概念阶段", now_times, 'DCP任务', '18645959', '确定')
         test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
         test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
         test.project_Planned_Task_Save()
@@ -3524,8 +3525,8 @@ class Teststory_3322:
         test.project_SetNotificationContent()
         ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '您不是当前任务的责任人！')
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
 
 @allure.feature("项目管理")  # 迭代名称
@@ -3806,7 +3807,8 @@ class Teststory_3299:
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
-    @allure.title("TR要素自检、互评状况清单下载，打开EXCLE，列出所属项目、TR阶段、要素名称、指标统计说明、自检领域、自检结果、互评结果、互评人员、互评结果、备注，自检人员名称工号，以自检人员为一行")  # 用例名称
+    @allure.title(
+        "TR要素自检、互评状况清单下载，打开EXCLE，列出所属项目、TR阶段、要素名称、指标统计说明、自检领域、自检结果、互评结果、互评人员、互评结果、备注，自检人员名称工号，以自检人员为一行")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -3973,16 +3975,15 @@ class Teststory_3261:
     @pytest.mark.smoke  # 用例标记
     def test_23914(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
-        pro_name = f'IPM自动化编辑测试{now_times}'
+        proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
-        test.Create_project('保存', 'IT项目模板', pro_name, f'IPM自动化项目描述{now_times}')
-        test.enter_the_project(pro_name)
+        test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
         ass = Assert_result(drivers)
-        ass.assert_toast('断言项目标题', pro_name)
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(pro_name, "删除", "确认")
+        ass.assert_toast('断言项目标题', proname)
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("编辑项目卡片显示视图切换到表格显示视图，点击操作下的修改按钮")  # 用例名称
@@ -3991,16 +3992,16 @@ class Teststory_3261:
     @pytest.mark.smoke  # 用例标记
     def test_23915(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
-        test.Create_project('保存', 'IT项目模板', f'IPM自动化编辑测试{now_times}', f'IPM自动化项目描述{now_times}')
+        test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '新建成功！')
-        test.Click_the_button_to_enter(f'IPM自动化编辑测试{now_times}',"编辑")
-        ass.assert_toast('断言项目标题', f'IPM自动化编辑测试{now_times}')
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
+        test.Click_the_button_to_enter(proname, "编辑")
+        ass.assert_toast('断言项目标题', proname)
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("编辑项目先进入项目查看页面，再点击编辑按钮，查看转换为编辑页面状态")  # 用例名称
@@ -4009,16 +4010,17 @@ class Teststory_3261:
     @pytest.mark.smoke  # 用例标记
     def test_23916(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
-        test.refresh_webpage()
         test.get_url_project()
-        test.Create_project('保存', 'IT项目模板', f'IPM自动化编辑测试{now_times}', f'IPM自动化项目描述{now_times}')
-        test.enter_the_project(f'IPM自动化编辑测试{now_times}')
+        test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
         test.click_edit()
         ass = Assert_result(drivers)
         ass.assert_toast('断言基本信息保存', '保存')
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
+
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("项目编号不可编辑，创建项目自动生成，8位日期3位流水")  # 用例名称
     @allure.description("")  # 用例描述
@@ -4034,16 +4036,17 @@ class Teststory_3261:
     @pytest.mark.smoke  # 用例标记
     def test_23921(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
-        test=CreateProject(drivers)
+        proname = f'IPM自动化测试{now_times}'
+        test = CreateProject(drivers)
         test.get_url_project()
-        test.Create_project('保存','IT项目模板',f'IPM自动化编辑测试{now_times}',f'IPM自动化项目描述{now_times}')
-        test.enter_the_project(f'IPM自动化编辑测试{now_times}')
+        test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
         test.click_edit()
-        stu_res=test.project_stu()
-        ass=Assert_result(drivers)
-        ass.assert_IPM(stu_res,'true')
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
+        stu_res = test.project_stu()
+        ass = Assert_result(drivers)
+        ass.assert_IPM(stu_res, 'true')
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("点击编辑，再点击启动项目，提示项目启动成功")  # 用例名称
@@ -4052,16 +4055,17 @@ class Teststory_3261:
     @pytest.mark.smoke  # 用例标记
     def test_23929(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
-        test=CreateProject(drivers)
+        proname = f'IPM自动化测试{now_times}'
+        test = CreateProject(drivers)
         test.get_url_project()
-        test.Create_project('保存','IT项目模板',f'IPM自动化编辑测试{now_times}',f'IPM自动化项目描述{now_times}')
-        test.enter_the_project(f'IPM自动化编辑测试{now_times}')
+        test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
         test.click_edit()
         test.Start_project()
-        ass=Assert_result(drivers)
-        ass.assert_toast('断言项目启动成功','启动成功!')
-        test.refresh_webpage()
-        test.Click_the_button_to_enter(f'IPM自动化测试{now_times}', "删除", "确认")
+        ass = Assert_result(drivers)
+        ass.assert_toast('断言项目启动成功', '启动成功!')
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("编辑项目所有字段，点击保存，保存成功")  # 用例名称
@@ -4127,7 +4131,10 @@ class Teststory_3261:
     def test_23958(self, drivers):
         pass
 
+
 from public.base.basics import *
+
+
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3262:
     @allure.story("删除项目")  # 用户故事名称
@@ -4136,7 +4143,15 @@ class Teststory_3262:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_26336(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
+        test = CreateProject(drivers)
+        test.get_url_project()
+        test.Create_project('保存', 'IT项目模板', proname)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
+        ass = Assert_result(drivers)
+        ass.assert_toast('断言提示', '请求成功')
+        ass.assert_toast_not('断言新建项目的名字', proname)
 
 
 @allure.feature("项目管理")  # 迭代名称
