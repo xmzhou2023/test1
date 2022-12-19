@@ -1,8 +1,4 @@
-
-from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
-from project.DCR_GLOBAL.page_object.SalesManagement_ShopSalesQuery import ShopSaleQueryPage
 from project.DCR_GLOBAL.page_object.StaffAuthorization_UserManagement import UserManagementPage
-from public.base.assert_ui import ValueAssert
 import allure
 import pytest
 
@@ -15,7 +11,8 @@ import pytest
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 
-@allure.feature("脚本名称") # 模块名称
+
+@allure.feature("员工授权-用户管理") # 模块名称
 class TestSearch:
     @allure.story("查询用户")
     @allure.title("随机条件组合查询")
@@ -41,6 +38,7 @@ class TestSearch:
         add.click_menu("Staff & Authorization", "User Management")
         add.click_unfold()
         add.random_Query_Method(query_dict)
+
 
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])
