@@ -6,11 +6,12 @@ from libs.common.time_ui import *
 from project.IPM.page_base.assert_pubic import *
 from project.IPM.api.APIRequest import *
 import random
-
+from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 
 Api = APIRequest()
 # ApplyList=Api.Api_applyList(20220810085734677324)
 # Api.Api_queryDeptAndEmployee(20220810085734677324)
+
 def field_attribute_maintennance(self):
     field_att = Api.Api_project_field("开模流程测试")
 
@@ -22,11 +23,16 @@ class CreateProject(PubicMethod):
     def __init__(self,driver,element_yaml='ProjectManagement_CreateProject',expect='ProjectManagement_CreateProject.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
 
+    @allure.step("鼠标悬停")
     def mouse_hover__IPM(self,element,choice=None):
         self.mouse_hover_IPM(element,choice)
+
+    @allure.step("项目管理_url")
     def get_url_project(self):
         self.get_url("http://ipm-uat.transsion.com/#/project-manage")
         sleep(2)
+
+    @allure.step("项目管理")
     def click_project(self):
         '''
         点击项目管理
@@ -34,11 +40,13 @@ class CreateProject(PubicMethod):
         self.click_IPM('项目管理')
         sleep(2)
 
+    @allure.step("项目管理_新增")
     def click_add(self):
         '''点击新增'''
         self.click_IPM('新增')
         sleep(2)
 
+    @allure.step("项目管理_新增_选择模板")
     def Select_Template(self,choice):
         '''
         选择模板
@@ -47,65 +55,74 @@ class CreateProject(PubicMethod):
         self.click_IPM('选择模板',choice=choice)
         sleep(2)
 
+    @allure.step("项目管理_新增_项目名称")
     def projecy_name(self,nametext):
         '''项目名字'''
         self.input_text_IPM('项目名称',nametext)
         sleep(2)
 
+    @allure.step("项目管理_新增_项目描述")
     def projecy_Description(self,Descriptiontext=None):
         '''项目描述'''
         self.input_text_IPM('项目描述',text=Descriptiontext)
         sleep(2)
-
+    @allure.step("项目管理_新增_保存")
     def projecy_preservation(self):
         '''保存'''
         self.click_IPM('保存')
 
-
+    @allure.step("项目管理_新增_取消")
     def projecy_cancel(self):
         '''取消'''
         self.click_IPM('取消')
 
+    @allure.step("项目管理_进入详情")
     def click_project_entrance(self,projectname):
         '''点击卡片进入项目'''
         self.click_IPM('进入项目',projectname)
 
+
+    @allure.step("项目管理_卡片_展开编辑/删除按钮")
     def click_project_entrance_ch(self,projectname):
         '''点击...展开编辑/删除按钮'''
         self.mouse_hover_IPM('卡片展开按钮',projectname)
 
+    @allure.step("项目管理_卡片_展开编辑")
     def entrance_ch(self,):
         '''项目编辑按钮'''
         self.click_IPM('项目编辑按钮')
 
-
+    @allure.step("项目管理_卡片_删除按钮")
     def delete_project(self,):
         '''项目编辑按钮'''
         self.click_IPM('项目删除按钮')
 
+    @allure.step("项目管理_卡片_展开删除按钮_删除询问窗口_点击确认")
     def delete_project_determine(self, ):
         '''删除项目点击确认'''
         self.click_IPM('删除确定')
 
+    @allure.step("项目管理_卡片_展开删除按钮_删除询问窗口_点击取消")
     def delete_project_cancel(self, ):
         '''删除项目点击取消'''
         self.click_IPM('删除取消')
 
+    @allure.step("项目管理_项目详情_编辑")
     def click_edit(self):
         '''编辑'''
         self.click_IPM('编辑')
-
+    @allure.step("项目管理_项目详情_编辑_保存")
     def perject_field_editing_save(self):
 
         '''基本信息编辑保存'''
         self.click_IPM('基本信息保存')
-
+    @allure.step("项目管理_项目详情_启动项目")
     def Start_project(self):
         '''启动项目'''
         self.click_IPM('启动项目')
 
 
-
+    @allure.step("项目管理_项目详情_编辑_获取项目状态是否可编辑")
     def project_stu(self):
         '''获取项目状态是否可编辑'''
         sleep(2)
@@ -113,6 +130,7 @@ class CreateProject(PubicMethod):
         sleep(2)
         a =res.get_attribute("disabled")
         return a
+
 
     def get_Single_attribute(self,proname):
         '''
@@ -125,6 +143,7 @@ class CreateProject(PubicMethod):
             if i.get("字段名称") == '项目状态':
                 return i.get('是否可读')
 
+    @allure.step("人员列表")
     def personnel_list(self,text,Confirm_or_Cancel=None):
         '''
         人员列表
@@ -138,6 +157,7 @@ class CreateProject(PubicMethod):
         else:
             self.click_IPM("人员列表_取消")
 
+    @allure.step("项目管理_项目详情_项目tab应用")
     def project_tab(self,tabname):
         '''
         点击项目tab应用
@@ -145,20 +165,21 @@ class CreateProject(PubicMethod):
         '''
         self.click_IPM("tab应用",tabname)
 
+    @allure.step("项目管理_项目详情_项目tab应用_计划_任务选择")
     def project_Task_selection(self,taskname):
         '''
         计划_任务选择
         :param taskname: 任务名称
         '''
         self.click_IPM("计划任务选择",taskname)
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划_任务展开")
     def project_Task_expansion(self,taskname):
         '''
         计划_任务展开
         :param taskname: 任务名称
         '''
         self.click_IPM("计划任务展开",taskname)
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划_计划任务更多操作")
     def project_more_actions(self,taskname,function):
         '''
         计划_计划任务更多操作
@@ -168,49 +189,51 @@ class CreateProject(PubicMethod):
         self.mouse_hover_IPM("计划任务更多操作",taskname)
         self.click_IPM("计划任务更多操作_子功能",function)
 
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_保存")
     def project_Planned_Task_Save(self):
         '''
         计划任务_保存
         '''
         self.click_IPM("计划任务_保存")
         sleep(3)
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_发起评审")
     def project_Scheduled_Tasks_Initiate_review(self):
         '''
         计划任务_发起评审
         '''
         self.click_IPM("计划任务_发起评审")
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_预约上会")
     def project_Scheduled_Tasks_Make_an_appointment_for_a_meeting(self):
         '''
         计划任务_预约上会
         '''
         self.click_IPM("计划任务_预约上会")
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_撤回预约")
     def project_Scheduled_Tasks_Withdrawal_of_appointment(self):
         '''
         计划任务_撤回预约
         '''
         self.click_IPM("计划任务_撤回预约")
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_上会_可预约日期选择")
     def project_Reservable(self):
         '''
         计划任务_上会_可预约日期选择
         '''
         self.click_IPM("上会_预约")
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_上会_提交预约")
     def project_make_an_appointment(self):
         '''
         计划任务_上会_提交预约
         '''
         self.click_IPM("提交预约")
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_上会_上会预约_取消")
     def project_Cancellation_of_meeting_appointment(self):
         '''
         计划任务_上会_上会预约_取消
         '''
         self.click_IPM("上会预约_取消")
 
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_上会_上会预约_设置通知内容_发送通知")
     def project_SetNotificationContent_SendNotification(self):
 
         '''
@@ -218,7 +241,7 @@ class CreateProject(PubicMethod):
         '''
 
         self.click_IPM("设置通知内容_发送通知")
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_上会_上会预约_设置通知内容_取消")
     def project_SetNotificationContent_cancel(self):
 
         '''
@@ -227,6 +250,7 @@ class CreateProject(PubicMethod):
 
         self.click_IPM("设置通知内容_取消")
 
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_上会_上会预约")
     def project_Make_an_appointment_at_the_meeting(self,Appointment_or_cancellation=None):
         '''
         计划任务_上会预约，根据Appointment_or_cancellation传的值点击确认或取消
@@ -238,7 +262,7 @@ class CreateProject(PubicMethod):
 
         else:
             self.project_Cancellation_of_meeting_appointment()
-
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_上会_上会预约_设置通知内容")
     def project_SetNotificationContent(self,Send_or_Cancel=None):
 
         '''
