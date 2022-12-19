@@ -33,6 +33,7 @@ class Teststory_3259:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         ass = Assert_result(drivers)
@@ -48,6 +49,7 @@ class Teststory_3259:
     @pytest.mark.smoke  # 用例标记
     def test_23748(self, drivers):
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板')
         ass = Assert_result(drivers)
@@ -60,6 +62,7 @@ class Teststory_3259:
     @pytest.mark.smoke  # 用例标记
     def test_23749(self, drivers):
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', f'IPM自动化2022-12-0611:03:34')
         ass = Assert_result(drivers)
@@ -82,6 +85,7 @@ class Teststory_3259:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('取消', 'IT项目模板', proname)
         ass = Assert_result(drivers)
@@ -105,6 +109,7 @@ class Teststory_3259:
 
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname)
         ass = Assert_result(drivers)
@@ -3454,6 +3459,7 @@ class Teststory_3322:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
@@ -3481,6 +3487,7 @@ class Teststory_3322:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
@@ -3509,6 +3516,7 @@ class Teststory_3322:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
@@ -3977,6 +3985,7 @@ class Teststory_3261:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
@@ -3994,14 +4003,18 @@ class Teststory_3261:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '新建成功！')
+        test.get_url_project()
         test.Click_the_button_to_enter(proname, "编辑")
+        sleep(3)
         ass.assert_toast('断言项目标题', proname)
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
+
 
     @allure.story("编辑项目")  # 用户故事名称
     @allure.title("编辑项目先进入项目查看页面，再点击编辑按钮，查看转换为编辑页面状态")  # 用例名称
@@ -4012,6 +4025,7 @@ class Teststory_3261:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
@@ -4038,6 +4052,7 @@ class Teststory_3261:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
@@ -4057,10 +4072,12 @@ class Teststory_3261:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
         test.click_edit()
+        sleep(3)
         test.Start_project()
         ass = Assert_result(drivers)
         ass.assert_toast('断言项目启动成功', '启动成功!')
@@ -4146,6 +4163,7 @@ class Teststory_3262:
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
+        test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname)
         test.Click_the_button_to_enter(proname, "删除", "确认")

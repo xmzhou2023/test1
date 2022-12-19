@@ -11,8 +11,8 @@
 
 进入项目: "xpath==//section//div[@title='variable']"
 卡片展开按钮: 'xpath==//div/div/div[@title="variable"]/../..//div[@role="button"]'
-项目编辑按钮: 'xpath==//ul/li[text()="编辑"]'
-项目删除按钮: 'xpath==//ul[@x-placement="bottom-end"]/li[text()="删除"]'
+项目编辑按钮: 'xpath==//ul[contains(@x-placement,"end")]/li[text()="编辑"]'
+项目删除按钮: 'xpath==//ul[contains(@x-placement,"end")]/li[text()="删除"]'
 
 卡片展开: 'xpath==//section//section/div[1]//div[@role="button"]'
 置顶提示: 'xpath==//div[@role="alert"]/p'
