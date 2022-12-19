@@ -940,8 +940,8 @@ class UserManagementPage(Base):
         """
         MoreOptionList = ['Enable', 'Reset Password', 'Quit']
         if function in MoreOptionList:
-            self.is_click(user['功能按钮'], 'More Option')
-            self.is_click(user['功能按钮2'], function)
+            self.is_click_tbm(user['功能按钮'], 'More Option')
+            self.is_click_tbm(user['功能按钮2'], function)
             if function == 'Quit':
                 self.is_click_tbm(user['UserDisableSettingYes'])
             elif function == 'Enable':
@@ -950,7 +950,7 @@ class UserManagementPage(Base):
                 if confirm == 'Yes':
                     self.is_click_tbm(user['ResetPasswordYes'])
         else:
-            self.is_click(user['功能按钮'], function)
+            self.is_click_tbm(user['功能按钮'], function)
         logging.info(f'点击功能按钮： {function}')
 
     @allure.step("复职用户 组合方法")
@@ -972,6 +972,7 @@ class UserManagementPage(Base):
         self.click_function_button('Enable')
         DomAssert(self.driver).assert_att('Set Up Successfully')
         self.refresh()
+        sleep(10)
 
     @allure.step("停职用户 组合方法")
     def disable_user_Method(self, uid):
@@ -1012,6 +1013,15 @@ class UserManagementPage(Base):
         self.click_search()
         for i in list_random:
             self.assert_search_result(i, kwargs[i])
+
+    @allure.step("初始化登录方法")
+    def change_pwd(self, password):
+        self.input_text(user['新密码'], password)
+        self.input_text(user['确认密码'], password)
+        self.is_click_tbm(user['修改密码保存'])
+        DomAssert(self.driver).assert_att('Save successfully!')
+        self.is_click_tbm(user['修改密码OK'])
+
 
 
 if __name__ == '__main__':

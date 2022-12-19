@@ -388,12 +388,15 @@ class TestAddEditQuitTranssionUser:
         user.initialize_login(drivers, "18650493", "xLily6x")
         """点击用户管理菜单"""
         UserID = 'wjkTS003'
+        pwd = 'dcr123456'
         add = UserManagementPage(drivers)
         add.click_menu("Staff & Authorization", "User Management")
         """复职用户"""
         add.enable_user_Method(UserID)
         """登录复职用户账号 访问DCR系统 点击菜单Add进入创建页面然后取消"""
-        user.initialize_login(drivers, UserID, "xLily6x")
+        user.initialize_login(drivers, UserID, UserID)
+        add.change_pwd(pwd)
+        user.initialize_login(drivers, UserID, pwd)
         add.click_menu("Staff & Authorization", "User Management")
         add.click_Add()
         add.click_Cancel()
