@@ -10,17 +10,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from libs.common.action import KeyWord
 import allure
-from libs.common.action import KeyWord
-import allure
-from project.IPM.page_object.ProjectManagement_CreateProject import *
-from project.IPM.page_base.assert_pubic import *
-from public.data.unified_login.unified import *
-from public.base.assert_ui import *
-from public.libs.unified_login.login import Login
-from libs.common.read_config import *
-from project.IPM.test_case.conftest import *
-from project.IPM.page_object.ProcessCenter_Moldopeningprocess import *
-from project.IPM.page_object.Generalmethods import *
 
 
 @allure.feature("流程中心")  # 迭代名称
@@ -958,6 +947,7 @@ class Teststory_3285:
 
     @allure.story("开模流程/开模流程申请")  # 用户故事名称
     @allure.title("附件校验校验上传bat|exe|sh|htm|mht|html|shtml文件，否则提示错误信息'不可上传类型为bat,exe,sh,htm,mht,html,shtml的附件,请修改后提提示'。")  # 用例名称
+        "附件校验校验上传bat|exe|sh|htm|mht|html|shtml文件，否则提示错误信息'不可上传类型为bat,exe,sh,htm,mht,html,shtml的附件,请修改后提提示'。")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -1035,62 +1025,7 @@ class Teststory_3285:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_27177(self, drivers):
-        test=ProcessCenter(drivers)
-
-        robot = KeyWord(drivers)
-        test.refresh_webpage()
-        robot.AI_get("http://ipm-uat.transsion.com/#/process-manage")  # id7510fe3e-2181-426d-8587-dbeaa3deb0cf
-        sleep(2)
-        robot.AI_find_element(By.XPATH,"//div[@id='pane-apply']/div/details//div[@title='结构开模申请']").click()  # idb14b48de-1e16-4fe9-a9c0-c9b5796ebafb
-        sleep(1)
-        test.switch_window(-1)
-        test.fieldname("项目名称")
-        sleep(1)
-        robot.AI_find_element(By.XPATH, "//button[contains(.,'选择')]").click()  # id5ab61bed-9aed-4a42-81a6-45b1291dafb2
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").click()  # idda08fb17-bafb-4b54-bc42-37bfae3710ac
-        robot.AI_find_element(By.XPATH, "//div[3]/div/div/ul/li").click()  # ida13aaab9-26a2-46fd-b2e8-02b429a7b450
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[8]").click()  # id67dcfd48-8a2c-45d1-8f1f-f2bc3d99b01c
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[8]").send_keys(
-            "1000")  # ide5615b8e-283e-43df-ae0e-b9bb26e766f1
-        robot.AI_find_element(By.XPATH,
-                              "//div[@id='app']/div/div/details[2]/div/form/div/div[4]/div/div/div/div/textarea").click()  # id8d8cbe01-c760-4641-942a-6ab538b20e1a
-        robot.AI_find_element(By.XPATH,
-                              "//div[@id='app']/div/div/details[2]/div/form/div/div[4]/div/div/div/div/textarea").send_keys(
-            "开模流程啦啦啦")  # id8c24a209-2f0d-46d5-9204-af0967338e16
-        robot.AI_find_element(By.XPATH, "//button[@type='button']").click()  # id665e04b0-4b0a-47f5-bd87-f209a2b25cdc
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[19]").click()  # idbd5f5b26-9f5f-4810-92e3-0655108bf11b
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[19]").send_keys(
-            "物料")  # idc87260e4-72b1-4174-a3dd-9ce8165d3b18
-        robot.AI_find_element(By.XPATH,
-                              "//details//div/label/span[text()='结构']/../..//input").click()  # id9ffa35ca-6e20-4ee6-b83e-23a442b476f7
-        public = General_methods(drivers)
-        public.personnel_list('18646511')
-        robot.AI_find_element(By.XPATH,
-                              "//details//div/label/span[text()='项目经理']/../..//input").click()  # id9ffa35ca-6e20-4ee6-b83e-23a442b476f7
-        public = General_methods(drivers)
-        public.personnel_list('18646511')
-        robot.AI_find_element(By.XPATH,
-                              "//details//div/label/span[text()='采购代表']/../..//input").click()  # id9ffa35ca-6e20-4ee6-b83e-23a442b476f7
-        public = General_methods(drivers)
-        public.personnel_list('18646511')
-        robot.AI_find_element(By.XPATH,
-                              "//details//div/label/span[text()='产品部']/../..//input").click()  # id9ffa35ca-6e20-4ee6-b83e-23a442b476f7
-        public = General_methods(drivers)
-        public.personnel_list('18646511')
-        robot.AI_find_element(By.XPATH, "//button[contains(.,'发起')]").click()  # ideeb480ba-2ddd-49e3-ba41-6b4db9ba7ea2
-        test.switch_window(0)
-        robot.AI_find_element(By.XPATH, "//span[text()='工作台']").click()  # id712d7f32-8f5f-43ec-85f5-00d0eed2eaf3
-        robot.AI_find_element(By.XPATH, "//span[contains(.,'流程任务')]").click()  # id60cf0e09-f8f4-42c8-bc95-43ac65af2037
-        robot.AI_find_element(By.ID, "tab-applicant").click()  # ida098b011-4688-4246-8ac3-ccc70177036e
-        robot.AI_find_element(By.XPATH, "//div[2]/div/div/div/span").click()  # id14fcfeb3-4fad-48e6-b3d4-e9aabe83a2c1
-
-        robot.AI_find_element(By.XPATH,
-                              "//div[@id='pane-process']/div/div[2]/div[2]/form/div/div/div/div/div/input").send_keys(
-            "开模流程-项目名称-结构开模")  # id644dc2ea-e4d3-4517-bd97-418acfb3e2f9
-        robot.AI_find_element(By.XPATH, "//button[contains(.,'确定')]").click()  # id40332def-caaf-4efc-8be6-3f9be2945df3
-        sleep(1)
-        ass = ProcessCenter_Assert_result(drivers)
-        ass.assert_toast('控制台_状态', '审批中')
+        pass
 
 
 @allure.feature("流程中心")  # 迭代名称
@@ -1337,6 +1272,7 @@ class Teststory_3288:
 
     @allure.story("开模流程/开模流程草稿箱")  # 用户故事名称
     @allure.title("附件校验校验上传bat|exe|sh|htm|mht|html|shtml文件，否则提示错误信息'不可上传类型为bat,exe,sh,htm,mht,html,shtml的附件,请修改后提提示'。")  # 用例名称
+        "附件校验校验上传bat|exe|sh|htm|mht|html|shtml文件，否则提示错误信息'不可上传类型为bat,exe,sh,htm,mht,html,shtml的附件,请修改后提提示'。")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
