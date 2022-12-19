@@ -1,7 +1,7 @@
 import logging
 from openpyxl import load_workbook
 from libs.common.read_element import Element
-from public.base.basics import Base
+from public.base.basics import Base, random_list
 from libs.common.time_ui import sleep
 from libs.config.conf import BASE_DIR
 from ..test_case.conftest import *
@@ -584,19 +584,34 @@ class UserManagementPage(Base):
         @header： 输入框名称
         @content： 输入内容
         """
+        user_list = ['User ID']
         country_list = ['Sales Region', 'Country/City']
-        FuzzySelect_list = ['Belong To Customer', 'Superior']
-        ExactSelect_list = ['Staff Status']
+        fuzzySelect_list = ['Belong To Customer', 'Superior']
+        exactSelect_list = ['Staff Status', 'Have Superior or Not', 'Have Shop or Not', 'Staff Type']
+        inputSelect_list = ['Brand', 'Position', 'Role']
+        self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
-        if header == 'User ID':
+        if header in user_list:
             self.is_click_tbm(user['输入框'], header)
             self.input_text(user['输入框3'], content, header)
         elif header == 'User Name':
             self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['输入结果模糊选择'], content)
+        elif header in exactSelect_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.is_click_tbm(user['输入结果精确选择'], content)
+        elif header in fuzzySelect_list:
+            self.is_click_tbm(user['输入框'], header)
             self.input_text(user['输入框2'], content, header)
             self.is_click_tbm(user['输入结果模糊选择'], content)
-        elif header in ExactSelect_list:
+        elif header in country_list:
             self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['地区选择框'], content)
+        elif header in inputSelect_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框4'], content, header)
             self.is_click_tbm(user['输入结果精确选择'], content)
         else:
             logging.error('请输入正确的查询条件')
@@ -630,7 +645,7 @@ class UserManagementPage(Base):
             self.is_click_tbm(user['输入结果精确选择'], content)
         elif header == 'Brand':
             self.is_click_tbm(user['输入框'], header)
-            self.input_text(user['Brand输入框'], content, header)
+            self.input_text(user['输入框4'], content, header)
             self.is_click_tbm(user['输入结果精确选择'], content)
         elif header == 'Staff Type':
             self.is_click_tbm(user['输入框'], header)
@@ -663,6 +678,36 @@ class UserManagementPage(Base):
     def assert_User_Exist(self, header, content):
         logging.info('开始断言：页面查询结果')
         DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
+
+    @allure.step("断言：页面查询结果")
+    def assert_search_result(self, header, content):
+        logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
+        if header == 'Superior' or header == 'Belong To Customer':
+            self.assert_User_Exist(f'{header} ID', content)
+        elif header == 'Have Superior or Not' or header == 'Have Shop or Not':
+            column = self.get_table_info(user['menu表格字段'], 'Superior ID', sc_element=user['滚动条'], h_element=user['表头文本'])
+            contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
+            if content == 'Yes':
+                for i in contents:
+                    ValueAssert.value_assert_IsNoneNot(i)
+            else:
+                for i in contents:
+                    ValueAssert.value_assert_IsNone(i)
+        elif header == 'Sales Region':
+            self.assert_User_Exist(f'{header}5', content)
+        elif header == 'Country/City':
+            self.assert_User_Exist(f'City', content)
+        elif header == 'Staff Type':
+            column = self.get_table_info(user['menu表格字段'], 'Belong To Customer ID', sc_element=user['滚动条'], h_element=user['表头文本'])
+            contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
+            if content == 'Dealer Staff':
+                for i in contents:
+                    ValueAssert.value_assert_IsNoneNot(i)
+            elif header == 'Dealer Staff':
+                for i in contents:
+                    ValueAssert.value_assert_IsNone(i)
+        else:
+            self.assert_User_Exist(header, content)
 
     @allure.step("点击复选框")
     def click_checkbox(self, UID, header='User ID'):
@@ -911,6 +956,7 @@ class UserManagementPage(Base):
     @allure.step("复职用户 组合方法")
     def enable_user_Method(self, uid):
         logging.info('开始使用组合方法: 复职用户')
+        self.click_unfold()
         self.input_search('User ID', uid)
         self.click_search()
         total_text = self.element_text(user['Total'])
@@ -930,6 +976,7 @@ class UserManagementPage(Base):
     @allure.step("停职用户 组合方法")
     def disable_user_Method(self, uid):
         logging.info('开始使用组合方法: 停职用户')
+        self.click_unfold()
         self.input_search('User ID', uid)
         self.click_search()
         total_text = self.element_text(user['Total'])
@@ -941,7 +988,7 @@ class UserManagementPage(Base):
             DomAssert(self.driver).assert_att('Disabled Successfully')
             self.refresh()
 
-    @allure.step("停职用户 组合方法")
+    @allure.step("数据库删除指定用户")
     def SQL_delete_user(self, uid):
         a = SQL('DCR', 'test')
         a.change_db(
@@ -950,6 +997,23 @@ class UserManagementPage(Base):
         a.change_db(
             f"delete from t_employee where EMP_CODE = {uid}"
         )
+
+    @allure.step("组合查询 组合方法")
+    def random_Query_Method(self, kwargs):
+        list_query = []
+        num = random.randint(3, 8)
+        for i in kwargs:
+            list_query.append(i)
+        logging.info(f'输入框：{list_query}')
+        list_random = random_list(list_query, num)
+        logging.info(f'随机组合：输入框：{list_random}')
+        for i in list_random:
+            logging.info(f'随机组合：输入内容：{kwargs[i]}')
+            self.input_search(i, kwargs[i])
+        self.click_search()
+        for i in list_random:
+            self.assert_search_result(i, kwargs[i])
+
 
 if __name__ == '__main__':
     pass

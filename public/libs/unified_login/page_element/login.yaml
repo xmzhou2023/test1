@@ -24,7 +24,9 @@ zx扫码快捷登录: "id==tab-code"
 Home Page Customer: "xpath==//li//span[text()='Home Page-Customer']"
 DCR隐私政策: "xpath==//span[text()='隐私政策']"
 agree button: "xpath==//div[@class='pr-dialog_footer']//button[text()='同意']"
-
+所有文本: "xpath==//*[contains(text(),'')]"
+隐私滚动条: "xpath==//div[@id='iframeBox']"
+隐私同意按钮: "xpath==//div[@aria-label='privacy']//button[normalize-space(text())='同意']"
 
 #SRM定位元素
 主账号srm: 'xpath==//input[@id="elsAccount"]'

@@ -62,6 +62,26 @@ class TestQueryUser:
         query_user.assert_user_management_field('User Name', 'testlhm18648901')
         query_user.assert_contains_user_management_field('Brand', 'TECNO')
 
+    @allure.story("查询用户")
+    @allure.title("随机条件组合查询")
+    @allure.description("用户管理页面，查询用户列表所有用户数据加载")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_002(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """变量"""
+        query_dict = {'User ID': '1670835318', 'User Name': '随机条件组合查询', 'Superior': '18650493',
+                      'Sales Region': 'Kaolack', 'Staff Status': 'On Service', 'Have Superior or Not': 'Yes',
+                      'Have Shop or Not': 'No', 'Staff Type': 'Dealer Staff', 'Belong To Customer': 'SN400001',
+                      'Country/City': 'Kaolack', 'Brand': 'Infinix', 'Position': 'wjk管理',
+                      'Role': 'Distributor Administrator'}
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        add.click_unfold()
+        add.random_Query_Method(query_dict)
+
 
 @allure.feature("员工授权-用户管理")
 class TestAddEditQuitTranssionUser:
