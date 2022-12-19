@@ -976,7 +976,6 @@ class UserManagementPage(Base):
     @allure.step("停职用户 组合方法")
     def disable_user_Method(self, uid):
         logging.info('开始使用组合方法: 停职用户')
-        self.click_unfold()
         self.input_search('User ID', uid)
         self.click_search()
         total_text = self.element_text(user['Total'])
