@@ -18,4 +18,5 @@ def __init__(drivers, env_name):
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
     user.dcr_login(drivers, ini.url, "lhmadmin", "dcr123456")
+    DomAssert(drivers).assert_att("lhmadmin")
     logging.info("前置条件：传音统一登录成功")

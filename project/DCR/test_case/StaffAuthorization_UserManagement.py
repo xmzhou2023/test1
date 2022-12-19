@@ -72,11 +72,21 @@ class TestQueryUser:
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """变量"""
-        query_dict = {'User ID': '1670835318', 'User Name': '随机条件组合查询', 'Superior': '18650493',
-                      'Sales Region': 'Kaolack', 'Staff Status': 'On Service', 'Have Superior or Not': 'Yes',
-                      'Have Shop or Not': 'No', 'Staff Type': 'Dealer Staff', 'Belong To Customer': 'SN400001',
-                      'Country/City': 'Kaolack', 'Brand': 'Infinix', 'Position': 'wjk管理',
-                      'Role': 'Distributor Administrator'}
+        query_dict = {
+            'User ID': '1670835318',
+            'User Name': '随机条件组合查询',
+            'Superior': '18650493',
+            'Sales Region': 'Kaolack',
+            'Staff Status': 'On Service',
+            'Have Superior or Not': 'Yes',
+            'Have Shop or Not': 'No',
+            'Staff Type': 'Dealer Staff',
+            'Belong To Customer': 'SN400001',
+            'Country/City': 'Kaolack',
+            'Brand': 'Infinix',
+            'Position': 'wjk管理',
+            'Role': 'Distributor Administrator'
+        }
         add = UserManagementPage(drivers)
         add.click_menu("Staff & Authorization", "User Management")
         add.click_unfold()
@@ -157,7 +167,6 @@ class TestAddEditQuitTranssionUser:
     @allure.title("新建代理员工，User ID输入内部员工时，提示报错，使用非内部员工数字能创建成功。")
     @allure.description("新建代理员工，staff type选择Dealer Staff，使用输入User ID是内部员工时，提示失败，然后使用非内部员工数字能成功。")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_002(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
@@ -172,6 +181,7 @@ class TestAddEditQuitTranssionUser:
         DomAssert(drivers).assert_att(f'{UserID}, user center has been detected. Please change the staff type to Transsion Staff or change the user ID')
         """使用非内部员工数字 创建用户"""
         userID = str(int(time.time()))
+        pwd = 'dcr123456'
         add.input_Job_Information('Belong To Customer', 'SN405554')
         add.input_Job_Information('User ID', userID)
         add.input_Job_Information('User Name', '非内部员工数字')
@@ -182,12 +192,21 @@ class TestAddEditQuitTranssionUser:
         add.input_Job_Information('Brand', 'Infinix')
         add.input_Personal_Information('Gender', 'Male')
         add.click_add_user_submit()
+        """筛选用户"""
         add.input_search('User ID', userID)
         add.click_search()
+        """断言： 用户创建成功"""
         add.assert_User_Exist('User ID', userID)
         add.click_checkbox(userID)
-        add.click_more_option_quit()
-        DomAssert(drivers).assert_att('Disabled Successfully')
+        """登录用户账号"""
+        user.initialize_login(drivers, userID, userID)
+        """断言： 存在修改密码弹框"""
+        DomAssert(drivers).assert_att('For the first time, you need to change your password')
+        add.change_pwd(pwd)
+        user.initialize_login(drivers, userID, pwd)
+        """断言： 登录成功"""
+        DomAssert(drivers).assert_att(userID)
+        """数据库删除用户"""
         add.SQL_delete_user(userID)
 
     @allure.story("用户管理")
@@ -557,6 +576,37 @@ class TestAddEditQuitTranssionUser:
         add.assert_user_Information('Native Language', language)
         add.click_Cancel()
         add.SQL_delete_user(userID)
+
+    @allure.story("用户管理")
+    @allure.title("外部员工可重置密码")
+    @allure.description("外部员工密码可重置成功,重置后，能登录并修改密码，修改后能登录成功")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_002_014(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        userID = '1671418444'
+        pwd = 'dcr123456'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """筛选用户"""
+        add.input_search('User ID', userID)
+        add.click_search()
+        """点击复选框选择重置密码"""
+        add.click_checkbox(userID)
+        add.click_function_button('Reset Password')
+        """断言： 重置密码成功"""
+        DomAssert(drivers).assert_att('Set Up Successfully')
+        """登录用户账号"""
+        user.initialize_login(drivers, userID, userID)
+        """断言： 存在修改密码弹框"""
+        DomAssert(drivers).assert_att('For the first time, you need to change your password')
+        add.change_pwd(pwd)
+        user.initialize_login(drivers, userID, pwd)
+        """断言： 登录成功"""
+        DomAssert(drivers).assert_att(userID)
+
 
 
 @allure.feature("员工授权-用户管理")

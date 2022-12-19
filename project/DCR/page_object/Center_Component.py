@@ -43,6 +43,7 @@ class LoginPage(Base):
     @allure.step("点击帐号密码登录")
     def click_loginsubmit(self):
         self.is_click(user['登录'])
+        self.base_get_img()
         sleep(4)
 
     @allure.step("点击退出登录")

@@ -602,9 +602,10 @@ class UserManagementPage(Base):
             self.is_click_tbm(user['输入框'], header)
             self.is_click_tbm(user['输入结果精确选择'], content)
         elif header in fuzzySelect_list:
-            self.is_click_tbm(user['输入框'], header)
-            self.input_text(user['输入框2'], content, header)
-            self.is_click_tbm(user['输入结果模糊选择'], content)
+            if content != '':
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框2'], content, header)
+                self.is_click_tbm(user['输入结果模糊选择'], content)
         elif header in country_list:
             self.is_click_tbm(user['输入框'], header)
             self.input_text(user['输入框'], content, header)
@@ -674,6 +675,15 @@ class UserManagementPage(Base):
             self.is_click_tbm(user['输入框'], header)
             self.is_click_tbm(user['输入结果精确选择'], content)
 
+    @allure.step("判断空值")
+    def assert_None(self, result):
+        try:
+            assert result == '', logging.warning("断言失败: 该值不为None | x:{}".format(result))
+            logging.info("断言成功: 该值为None | x:{}".format(result))
+        except Exception as e:
+            logging.error(e)
+            raise
+
     @allure.step("断言：页面查询结果")
     def assert_User_Exist(self, header, content):
         logging.info('开始断言：页面查询结果')
@@ -685,14 +695,14 @@ class UserManagementPage(Base):
         if header == 'Superior' or header == 'Belong To Customer':
             self.assert_User_Exist(f'{header} ID', content)
         elif header == 'Have Superior or Not' or header == 'Have Shop or Not':
-            column = self.get_table_info(user['menu表格字段'], 'Superior ID', sc_element=user['滚动条'], h_element=user['表头文本'])
+            column = self.get_table_info(user['menu表格字段'], f"{header.split(' ')[1]} ID", sc_element=user['滚动条'], h_element=user['表头文本'])
             contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
             if content == 'Yes':
                 for i in contents:
                     ValueAssert.value_assert_IsNoneNot(i)
             else:
                 for i in contents:
-                    ValueAssert.value_assert_IsNone(i)
+                    self.assert_None(i)
         elif header == 'Sales Region':
             self.assert_User_Exist(f'{header}5', content)
         elif header == 'Country/City':
@@ -703,9 +713,9 @@ class UserManagementPage(Base):
             if content == 'Dealer Staff':
                 for i in contents:
                     ValueAssert.value_assert_IsNoneNot(i)
-            elif header == 'Dealer Staff':
+            elif content == 'Transsion Staff':
                 for i in contents:
-                    ValueAssert.value_assert_IsNone(i)
+                    self.assert_None(i)
         else:
             self.assert_User_Exist(header, content)
 
@@ -990,6 +1000,7 @@ class UserManagementPage(Base):
 
     @allure.step("数据库删除指定用户")
     def SQL_delete_user(self, uid):
+        logging.info(f'数据库删除 {uid} 用户')
         a = SQL('DCR', 'test')
         a.change_db(
             f"delete from t_user where USER_CODE = {uid}"
@@ -1014,7 +1025,7 @@ class UserManagementPage(Base):
         for i in list_random:
             self.assert_search_result(i, kwargs[i])
 
-    @allure.step("初始化登录方法")
+    @allure.step("修改密码")
     def change_pwd(self, password):
         self.input_text(user['新密码'], password)
         self.input_text(user['确认密码'], password)
