@@ -116,7 +116,7 @@ class UserManagementPage(Base):
             if content == 'Dealer Staff':
                 for i in contents:
                     ValueAssert.value_assert_IsNoneNot(i)
-            elif header == 'Dealer Staff':
+            elif content == 'Transsion Staff':
                 for i in contents:
                     self.assert_None(i)
         else:
