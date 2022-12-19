@@ -75,17 +75,6 @@ class ShopInventoryIMEIQueryPage(Base):
         model = self.element_text(user['获取Model文本'])
         return model
 
-    # def click_close_export_record(self):
-    #     """关闭导出记录菜单"""
-    #     self.is_click(user['关闭导出记录菜单'])
-    #     sleep(1.5)
-
-    # def click_close_shop_inventory_imei(self):
-    #     """关闭门店库存IMEI菜单"""
-    #     self.is_click(user['关闭门店库存IMEI菜单'])
-    #     sleep(2)
-
-
 
     # 门店库存IMEI查询记录，导出功能验证
     def click_export(self):

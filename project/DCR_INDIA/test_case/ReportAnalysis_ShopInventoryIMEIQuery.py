@@ -19,17 +19,27 @@ def function_export_fixture(drivers):
             menu.click_close_open_menu()
             sleep(1)
 
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
 @allure.feature("报表分析-门店库存IMEI查询")
 class TestQueryShopInventoryIMEI:
     @allure.story("查询门店库存IMEI")
     @allure.title("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载")
     @allure.description("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载，断言数据加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
         base = Base(drivers)
         base.refresh()
-        sleep(3.5)
+        sleep(2)
         user = LoginPage(drivers)
         """报表分析-打开门店库存IMEI查询页面"""
         user.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
@@ -49,7 +59,6 @@ class TestQueryShopInventoryIMEI:
         ValueAssert.value_assert_IsNoneNot(series)
         ValueAssert.value_assert_IsNoneNot(model)
         shop_inventory.assert_total(total)
-        shop_inventory.click_close_shop_inventory_imei()
 
 
 @allure.feature("报表分析-门店库存IMEI查询")
@@ -62,7 +71,7 @@ class TestExportShopInventoryIMEI:
     def test_002_001(self, drivers):
         base = Base(drivers)
         base.refresh()
-        sleep(3.5)
+        sleep(2)
         """报表分析-打开门店库存IMEI查询页面"""
         user = LoginPage(drivers)
         user.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
