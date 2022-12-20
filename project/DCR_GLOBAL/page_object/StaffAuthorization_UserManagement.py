@@ -89,13 +89,6 @@ class UserManagementPage(Base):
     def assert_search_result(self, header, content):
         logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
         if header == 'Superior' or header == 'Belong To Customer' or header == 'User':
-            if content == '':
-                column = self.get_table_info(user['menu表格字段'], f'{header} ID', sc_element=user['滚动条'],
-                                             h_element=user['表头文本'])
-                contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
-                for i in contents:
-                    self.assert_None(i)
-            else:
                 self.assert_User_Exist(f'{header} ID', content)
         elif header == 'Have Superior or Not' or header == 'Have Shop or Not':
             column = self.get_table_info(user['menu表格字段'], 'Superior ID', sc_element=user['滚动条'], h_element=user['表头文本'])
@@ -131,11 +124,11 @@ class UserManagementPage(Base):
         logging.info(f'输入框：{list_query}')
         list_random = random_list(list_query, num)
         logging.info(f'随机组合：输入框：{list_random}')
-        for i in list_random:
+        for i in list_query:
             logging.info(f'随机组合：输入内容：{kwargs[i]}')
             self.input_search(i, kwargs[i])
         self.click_search()
-        for i in list_random:
+        for i in list_query:
             self.assert_search_result(i, kwargs[i])
 
 
