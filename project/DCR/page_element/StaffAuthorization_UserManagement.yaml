@@ -84,7 +84,9 @@ Import Button: "xpath==//button[@id='Employ_import_']//span[normalize-space(text
 Add Upload: "xpath==//button//span[normalize-space(text())='Add Upload']"
 Import Save: "xpath==//button[@id='userstaffmanagement_Save']//span[normalize-space(text())='Save']"
 Upload Confirm: "xpath==//div//div[@class='el-message-box__btns']//button//span[normalize-space(text())='Confirm']"
+
 #Import Record
+Query Import Start Date: "xpath==//div//input[@class='el-input__inner importrecord_input_importDate']"
 Import Search: "xpath==//button//span[normalize-space(text())='Search']"
 Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
 Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"

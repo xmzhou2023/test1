@@ -422,7 +422,6 @@ class CustomerManagementPage(Base):
             logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
 
 if __name__ == '__main__':
     pass

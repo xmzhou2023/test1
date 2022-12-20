@@ -731,7 +731,6 @@ class TestImportUser:
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_005_001(self, drivers):
-        """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         user.click_gotomenu("Staff & Authorization", "User Management")
@@ -766,24 +765,76 @@ class TestImportUser:
         upload.input_query_User('smarttest102')
         upload.click_search()
         """断言User Salary Management 页面，是否加载导入成的数据"""
-        get_user_id1 = upload.get_text_user_id()
-        get_user_name = upload.get_text_user_name()
-        get_staff_status = upload.get_list_staff_status()
-        get_brand = upload.get_list_brand()
-        get_country = upload.get_list_country()
-        get_position = upload.get_list_position()
-        ValueAssert.value_assert_equal('smarttest102', get_user_id1)
-        ValueAssert.value_assert_equal('smart_test102', get_user_name)
-        ValueAssert.value_assert_equal('On Service', get_staff_status)
-        ValueAssert.value_assert_equal('TECNO', get_brand)
-        ValueAssert.value_assert_equal('Bangladesh', get_country)
-        ValueAssert.value_assert_equal('lhm店长', get_position)
+        upload.assert_user_management_field('User ID', 'smarttest102')
+        upload.assert_user_management_field('User Name', 'smart_test102')
+        upload.assert_user_management_field('Staff Status', 'On Service')
+        upload.assert_user_management_field('Brand', 'TECNO')
+        upload.assert_user_management_field('Country', 'Bangladesh')
+        upload.assert_user_management_field('Position', 'lhm店长')
         """ 在数据库表中，删除导入的用户 """
         sql1 = SQL('DCR', 'test')
         sql1.delete_db(
             "delete from t_user where USER_CODE ='smarttest102'")
         sql1.delete_db(
             "delete from t_employee where EMP_CODE ='smarttest102'")
+
+
+    @allure.story("导入用户")
+    @allure.title("用户管理页面，导入代理用户操作，查询列表是否存在导入的用户")
+    @allure.description("用户管理页面，导入代理用户成功后，查看列表是否展示导入的用户信息；然后删除导入的用户操作")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_005_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        user.click_gotomenu("Staff & Authorization", "User Management")
+        upload = UserManagementPage(drivers)
+        """User Management页面，导入前获取列表筛选的User ID，如果能筛选到1条记录，先删除已存在的用户"""
+        upload.delete_repetitive_user()
+        upload.click_import()
+        upload.upload_true_file('User+Template_Dealer.xlsx')
+        """获取当天日期"""
+        today = Base(drivers).get_datetime_today()
+        """根据Import Date条件筛选当天导入的数据"""
+        upload.import_record_import_date_query(today)
+        """循环点击查询，直到获取到导入记录状态为Upload Successfully"""
+        upload.click_import_status_search()
+        """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
+        get_file_name = upload.get_import_file_name()
+        get_status = upload.get_import_status()
+        get_total = upload.get_import_total()
+        get_success = upload.get_import_success()
+        get_failed = upload.get_import_failed()
+        get_import_date = upload.get_import_import_date()
+        ValueAssert.value_assert_equal('User+Template_Dealer.xlsx', get_file_name)
+        ValueAssert.value_assert_equal('Upload Successfully', get_status)
+        ValueAssert.value_assert_equal('1', get_total)
+        ValueAssert.value_assert_equal('1', get_success)
+        ValueAssert.value_assert_equal('0', get_failed)
+        ValueAssert.value_assert_equal(today, get_import_date)
+
+        """关闭当前打开的导入记录菜单"""
+        menu = LoginPage(drivers)
+        menu.click_close_open_menu()
+        """根据导入的客户ID，筛选导入的数据，然后进行删除操作"""
+        upload.click_search()
+        get_user_id = upload.get_text_user_id()
+        logging.info("获取User Management列表User ID字段内容:{}".format(get_user_id))
+        upload.input_query_User(get_user_id)
+        upload.click_search()
+        """断言User Salary Management 页面，是否加载导入成的数据"""
+        upload.assert_user_management_field('User ID', get_user_id)
+        upload.assert_user_management_field('User Name', 'test_dealer_user_12')
+        upload.assert_user_management_field('Staff Status', 'On Service')
+        upload.assert_user_management_field('Brand', 'itel')
+        upload.assert_user_management_field('Country', 'Bangladesh')
+        upload.assert_user_management_field('Position', 'lhm二代')
+        """ 在数据库表中，删除导入的用户 """
+        sql1 = SQL('DCR', 'test')
+        sql1.delete_db(
+            f"delete from t_user where USER_CODE = '{get_user_id}'")
+        sql1.delete_db(
+            f"delete from t_employee where EMP_CODE = '{get_user_id}'")
 
 
 # @allure.feature("员工授权-用户管理")

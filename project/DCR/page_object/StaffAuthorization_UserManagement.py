@@ -128,7 +128,7 @@ class UserManagementPage(Base):
 
     @allure.step("获取列表User ID文本内容")
     def get_text_user_id(self):
-        sleep(1.5)
+        sleep(1)
         userid = self.element_text(user['获取列表文本User ID'])
         return userid
 
@@ -407,6 +407,11 @@ class UserManagementPage(Base):
         path1 = os.path.join(BASE_DIR, 'project', 'DCR', 'data', file1)
         logging.info("打印上传的用户模板文件path：{}".format(path1))
         self.click_import_upload_save(path1)
+
+    @allure.step("导入记录页面，根据Import Date条件筛选导入开始日期")
+    def import_record_import_date_query(self, start_date):
+        self.is_click(user['Query Import Start Date'])
+        self.input_text(user['Query Import Start Date'], start_date)
 
     @allure.step("循环点击查询，直到获取到导入记录状态为Upload Successfully")
     def click_import_status_search(self):
