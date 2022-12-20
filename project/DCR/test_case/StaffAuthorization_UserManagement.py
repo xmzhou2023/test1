@@ -742,9 +742,11 @@ class TestImportUser:
         DomAssert(drivers).assert_att('Please upload first.')
         sleep(1)
         upload.upload_true_file('UserTemplate.xlsx')
+        """根据Import Date条件筛选当天导入的数据"""
+        today = Base(drivers).get_datetime_today()
+        upload.import_record_import_date_query(today)
         """循环点击查询，直到获取到导入记录状态为Upload Successfully"""
         upload.click_import_status_search()
-        today = Base(drivers).get_datetime_today()
         """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
         get_file_name = upload.get_import_file_name()
         get_status = upload.get_import_status()
