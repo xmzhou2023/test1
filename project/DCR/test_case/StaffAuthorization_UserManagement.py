@@ -455,10 +455,9 @@ class TestAddEditQuitTranssionUser:
         add.refresh()
 
     @allure.story("用户管理")
-    @allure.title("新建员工，输入内部员工ID自动同步信息")
-    @allure.description("新建传音员工，staff type选择Transsion Staff，能自动同步姓名、入职日期信息")
+    @allure.title("新建员工，输入内部员工ID自动同步信息，并且登录成功")
+    @allure.description("新建传音员工，staff type选择Transsion Staff，能自动同步姓名、入职日期信息，使用通用密码登录成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_011(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
@@ -466,6 +465,7 @@ class TestAddEditQuitTranssionUser:
         """点击用户管理菜单"""
         userID = '18645960'
         userName = '李小素'
+        pwd = 'xLily6x'
         hireDate = '2020-08-06'
         email = 'XIAOSU.LI@TRANSSION.COM'
         gender = 'Female'
@@ -492,9 +492,9 @@ class TestAddEditQuitTranssionUser:
         add.click_search()
         """断言：新建成功"""
         add.assert_User_Exist('User ID', userID)
-        add.click_checkbox(userID)
-        add.click_more_option_quit()
-        DomAssert(drivers).assert_att('Disabled Successfully')
+        user.initialize_login(drivers, userID, pwd)
+        """断言： 登录成功"""
+        DomAssert(drivers).assert_att(userID)
         add.SQL_delete_user(userID)
 
     @allure.story("用户管理")
