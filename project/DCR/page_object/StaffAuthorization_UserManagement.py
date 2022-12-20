@@ -1024,7 +1024,7 @@ class UserManagementPage(Base):
         list_random = random_list(list_query, num)
         logging.info(f'随机组合：输入框：{list_random}')
         for i in list_random:
-            logging.info(f'随机组合：输入内容：{kwargs[i]}')
+            logging.info(f'随机组合：{i} 输入框输入内容：{kwargs[i]}')
             self.input_search(i, kwargs[i])
         self.click_search()
         for i in list_random:
