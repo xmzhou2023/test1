@@ -45,6 +45,26 @@ class TestQueryAttendanceRules:
         query.assert_total(get_total)
 
 
+    @allure.story("查询考勤排班")
+    @allure.title("随机条件组合查询考勤排班")
+    @allure.description("考勤排班页面，查询考勤排班的随机条件组合查询")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_002(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """变量"""
+        query_dict = {
+            'Brand': 'TECNO',
+            'Country': 'China',
+            'Start Month': '2022-12'
+        }
+        add = AttendanceRulesPage(drivers)
+        user.click_gotomenu("Attendance & Visiting", "Attendance Rules")
+        add.random_Query_Method(query_dict)
+
+
 @allure.feature("考勤&巡店-考勤排班")
 class TestAddDeleteAttendanceRules:
     @allure.story("新增、删除考勤排班")
