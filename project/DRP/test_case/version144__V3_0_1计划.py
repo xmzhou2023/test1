@@ -20,7 +20,7 @@ class Teststory_2467:
     def test_18519(self, drivers):
         robot = KeyWord(drivers)
         robot.AI_get("http://10.250.112.166:9000/")#id9c450b4f-685c-4e6c-9e8b-36273affc754
-        robot.AI_find_element(By.XPATH, "1234").click()#id452b3fde-abeb-411c-8269-b4a2a6321f27
+        robot.AI_find_element(By.XPATH, "//*[@id='app']/div/div[1]/div[2]/div[1]/div/ul/div[11]/li/div/span").click()#id452b3fde-abeb-411c-8269-b4a2a6321f27
         robot.AI_find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(10) .nest-menu:nth-child(1) span").click()#id6d83538a-592a-49c3-97ba-037e2e16cd2c
         robot.AI_find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").click()#id7d1b41b7-baa7-4964-bee4-7bf91dc80c6b
         robot.AI_find_element(By.CSS_SELECTOR, ".is-focus > .el-input__inner").send_keys()#id54728dce-691d-40ad-9cd5-fa358910249d
@@ -39,4 +39,5 @@ def test_19966(self, drivers):
 
 if __name__ == '__main__':
     pass
+
 
