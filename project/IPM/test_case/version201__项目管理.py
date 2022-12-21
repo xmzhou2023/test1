@@ -709,7 +709,7 @@ class Teststory_3353:
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
     @allure.title("如果第一层WBS本身就是'TR'、'DCP'、quot里程碑'中类型的计划，则该阶段名称也在该阶段下第一层的里程碑名称中显示")  # 用例名称
-    @allure.description(
+    @allure.description("分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示")  # 用例描述
         "分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -718,7 +718,7 @@ class Teststory_3353:
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
     @allure.title("里程碑视图中的阶段名称下的里程碑名称取的是对应阶段下的'TR'、'DCP'、quot里程碑'类型的计划")  # 用例名称
-    @allure.description(
+    @allure.description("选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示==选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示")  # 用例描述
         "选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示==选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -727,7 +727,7 @@ class Teststory_3353:
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
     @allure.title("根据阶段下的任务排序，按顺序显示第一层、第二层、第N层里程碑；如果阶段本身为'TR'、'DCP'、quot里程碑'类型的计划，则第一层里程碑为阶段名称本身")  # 用例名称
-    @allure.description(
+    @allure.description("选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示==选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示")  # 用例描述
         "选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示==选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -915,7 +915,7 @@ class Teststory_3354:
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
     @allure.title("【版本时间】弹窗中的【计划开始时间】和【计划结束时间】显示对应里程碑在任务详情设置的时间")  # 用例名称
-    @allure.description(
+    @allure.description("设置了【里程碑】、【TR】、【DCP】计划类型的任务中，保存了【计划开始时候】和【计划结束时间】==进入里程碑视图中，点击里程碑的【版本时间】，查看弹窗中的【计划开始时间】和【计划结束时间】显示")  # 用例描述
         "设置了【里程碑】、【TR】、【DCP】计划类型的任务中，保存了【计划开始时候】和【计划结束时间】==进入里程碑视图中，点击里程碑的【版本时间】，查看弹窗中的【计划开始时间】和【计划结束时间】显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -2128,7 +2128,7 @@ class Teststory_3318:
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
-    @allure.title(
+    @allure.title("在流程中结论存在且状态为已发布，点击发布，查看接收人是否所属项目的角色对应人员，包括LPDT、PM、研发代表、采购代表、质量代表、制造代表、计划代表、销管代表、PQA、GTM代表、财务代表；")  # 用例名称
         "在流程中结论存在且状态为已发布，点击发布，查看接收人是否所属项目的角色对应人员，包括LPDT、PM、研发代表、采购代表、质量代表、制造代表、计划代表、销管代表、PQA、GTM代表、财务代表；")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
@@ -3537,6 +3537,24 @@ class Teststory_3322:
         test.Click_the_button_to_enter(proname, "删除", "确认")
 
 
+    @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
+    @allure.title("DCP发起预约上会未同意预约，点击发起评审，提示")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_27573(self, drivers):
+        pass
+
+
+    @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
+    @allure.title("DCP发起预约上会同意预约，点击发起评审，则打开发起详情")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_27574(self, drivers):
+        pass
+
+
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3287:
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3815,7 +3833,7 @@ class Teststory_3299:
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
-    @allure.title(
+    @allure.title("TR要素自检、互评状况清单下载，打开EXCLE，列出所属项目、TR阶段、要素名称、指标统计说明、自检领域、自检结果、互评结果、互评人员、互评结果、备注，自检人员名称工号，以自检人员为一行")  # 用例名称
         "TR要素自检、互评状况清单下载，打开EXCLE，列出所属项目、TR阶段、要素名称、指标统计说明、自检领域、自检结果、互评结果、互评人员、互评结果、备注，自检人员名称工号，以自检人员为一行")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
@@ -4260,6 +4278,35 @@ class Teststory_3263:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23975(self, drivers):
+        pass
+
+
+@allure.feature("项目管理")  # 迭代名称
+class Teststory_3296:
+    @allure.story("项目详情/计划_TR任务创建")  # 用户故事名称
+    @allure.title("不创建要素，直接保存后发起流程，流程发起失败，并提示'未配置要素'")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_27659(self, drivers):
+        pass
+
+
+    @allure.story("项目详情/计划_TR任务创建")  # 用户故事名称
+    @allure.title("DCP未配置PQA审批人员，点击发起，提示PQA角色中未配置人员，请配置后再发起")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_27860(self, drivers):
+        pass
+
+
+    @allure.story("项目详情/计划_TR任务创建")  # 用户故事名称
+    @allure.title("DCP未配置PQA审批人员，但关联的DCP任务又PQA审批人，点击发起，提示关系数据强制刷新到关联的DCP任务,是否继续?")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_27861(self, drivers):
         pass
 
 

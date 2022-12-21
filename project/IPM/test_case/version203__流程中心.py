@@ -957,7 +957,7 @@ class Teststory_3285:
         pass
 
     @allure.story("开模流程/开模流程申请")  # 用户故事名称
-    @allure.title("附件校验校验上传bat|exe|sh|htm|mht|html|shtml文件，否则提示错误信息'不可上传类型为bat,exe,sh,htm,mht,html,shtml的附件,请修改后提提示'。")  # 用例名称"附件校验校验上传bat|exe|sh|htm|mht|html|shtml文件，否则提示错误信息'不可上传类型为bat,exe,sh,htm,mht,html,shtml的附件,请修改后提提示'。")  # 用例名称
+    @allure.title("附件校验校验上传bat|exe|sh|htm|mht|html|shtml文件，否则提示错误信息'不可上传类型为bat,exe,sh,htm,mht,html,shtml的附件,请修改后提提示'。")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
