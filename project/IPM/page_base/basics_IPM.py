@@ -8,47 +8,36 @@ class PubicMethod(Base):
         self.chome = Element( project=project, name=element_yaml)
         self.filelist = YamlRead(expect)
 
-    def find_element_IPM(self, locator, choice=None,choices=None):
-        """寻找元素,并传入多个变量"""
-        if choice is not None:
-            Npath = []
-            Npath.append(locator[0])
-            Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice)
-            logging.info("查找元素：{}".format(Npath))
-            if choices is not None:
-                Npath[1] = Npath[1].replace('variabls', choices)
-                logging.info("查找元素：{}".format(Npath))
-            return Base.element_locator(lambda *args: self.wait.until(
-                EC.presence_of_element_located(args)), Npath)
-        else:
-            logging.info("查找元素：{}".format(locator))
-            return Base.element_locator(lambda *args: self.wait.until(
-                EC.presence_of_element_located(args)), locator)
+    # def find_element_IPM(self, locator, choice=None,choices=None):
+    #     """寻找元素,并传入多个变量"""
+    #     if choice is not None:
+    #         Npath = []
+    #         Npath.append(locator[0])
+    #         Npath.append(locator[1])
+    #         Npath[1] = Npath[1].replace('variable', choice)
+    #         logging.info("查找元素：{}".format(Npath))
+    #         if choices is not None:
+    #             Npath[1] = Npath[1].replace('variabls', choices)
+    #             logging.info("查找元素：{}".format(Npath))
+    #         return Base.element_locator(lambda *args: self.wait.until(
+    #             EC.presence_of_element_located(args)), Npath)
+    #     else:
+    #         logging.info("查找元素：{}".format(locator))
+    #         return Base.element_locator(lambda *args: self.wait.until(
+    #             EC.presence_of_element_located(args)), locator)
 
     def scroll_into_view_IPM(self, locator, choice1=None,choice2=None):
         """滑动至出现元素,并传入多个变量"""
-        if choice1 is not None:
-            Npath = []
-            Npath.append(locator[0])
-            Npath.append(locator[1])
-            Npath[1] = Npath[1].replace('variable', choice1)
-            ele = self.find_element(Npath)
-            if choice2 is not None:
-                Npath[1] = Npath[1].replace('variabls', choice2)
-                ele = self.find_element(Npath)
-            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            logging.info("滚动条至：{}".format(Npath))
-        else:
-            ele = self.find_element(locator)
-            self.driver.execute_script("arguments[0].scrollIntoView()", ele)
-            logging.info("滚动条至：{}".format(locator))
+
+        ele = self.find_element(locator, choice1, choice2)
+        self.driver.execute_script("arguments[0].scrollIntoView()", ele)
+        logging.info("滚动条至：{}".format(locator))
 
 
     def is_click_IPM(self, locator, choice=None, choices=None):
         """点击元素"""
 
-        ele=self.find_element_IPM(locator, choice, choices)
+        ele=self.find_element(locator, choice, choices)
         try:
             ele.click()
         except:
@@ -60,7 +49,7 @@ class PubicMethod(Base):
         self.mouse_hover(self.chome[element], choice=choice)
 
     def find_element_IPM_yaml(self,element, choice=None, choices=None):
-        return self.find_element_IPM(self.chome[element], choice=choice, choices=choices)
+        return self.find_element(self.chome[element], choice=choice, choices=choices)
 
     def find_elemens_IPM_yaml(self,element, choice=None):
         ele=self.find_elements(self.chome[element], choice=choice)
