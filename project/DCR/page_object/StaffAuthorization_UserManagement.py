@@ -92,7 +92,7 @@ class UserManagementPage(Base):
     @allure.step("Add user页面，输入职位，选中输入的职位")
     def input_position_transsion(self, content):
         self.is_click(user['Position'])
-        self.input_text(user['Position'], txt=content)
+        self.input_text(user['Position'], content)
         sleep(1)
         self.presence_sleep_dcr(user['Position Value Transsion'], content)
         self.is_click(user['Position Value Transsion'], content)
@@ -100,7 +100,7 @@ class UserManagementPage(Base):
     @allure.step("Add user页面，输入上级领导，选中输入的上级领导")
     def input_superior(self, content):
         self.is_click(user['Superior'])
-        self.input_text(user['Superior'], txt=content)
+        self.input_text(user['Superior'], content)
         sleep(2.5)
         self.presence_sleep_dcr(user['Superior Value'], "lhmadmin lhmadmin")
         self.is_click(user['Superior Value'], "lhmadmin lhmadmin")
@@ -108,11 +108,11 @@ class UserManagementPage(Base):
     @allure.step("Add user页面，输入邮箱")
     def input_email(self, content):
         self.is_click(user['Email'])
-        self.input_text(user['Email'], txt=content)
+        self.input_text(user['Email'], content)
 
     @allure.step("Add user页面，输入联系电话")
     def input_contact_no(self, content):
-        self.input_text(user['Contact No'], txt=content)
+        self.input_text(user['Contact No'], content)
 
     @allure.step("Add user页面，选择性别")
     def click_gender_female(self, context):
@@ -221,8 +221,9 @@ class UserManagementPage(Base):
 
     @allure.step("点击更多操作,点击离职功能")
     def click_more_option_quit(self):
-        self.is_click(user['More Option'])
-        sleep(2)
+        self.mouse_hover_click(user['More Option'])
+        #self.is_click(user['More Option'])
+        #sleep(2)
         self.presence_sleep_dcr(user['Quit'])
         self.is_click(user['Quit'])
         sleep(1.5)
@@ -305,6 +306,14 @@ class UserManagementPage(Base):
     @allure.step("断言 模糊查询结果User Management列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
     def assert_contains_user_management_field(self, header, content):
         DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容2'], header, content, sc_element=user['水平滚动条'])
+
+    @allure.step("Sql语句删除新增或导入的用户")
+    def sql_delete_user(self, user_id):
+        sql1 = SQL('DCR', 'test')
+        sql1.delete_db(
+            f"delete from t_user where USER_CODE = '{user_id}'")
+        sql1.delete_db(
+            f"delete from t_employee where EMP_CODE = '{user_id}'")
 
     """用户重置密码"""
     @allure.step("点击重置密码及重置密码确认功能")
@@ -501,6 +510,12 @@ class UserManagementPage(Base):
         sleep(0.5)
         self.presence_sleep_dcr(user['Input Task Name value'], task_name)
         self.is_click(user['Input Task Name value'], task_name)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_start_date(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选条件的标签'], 'Create Date')
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
