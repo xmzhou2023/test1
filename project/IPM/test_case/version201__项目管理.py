@@ -3555,6 +3555,24 @@ class Teststory_3322:
         pass
 
 
+    @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
+    @allure.title("DCP未配置PQA审批人员，点击发起，提示PQA角色中未配置人员，请配置后再发起")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_27860(self, drivers):
+        pass
+
+
+    @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
+    @allure.title("DCP未配置PQA审批人员，但关联的DCP任务又PQA审批人，点击发起，提示关系数据强制刷新到关联的DCP任务,是否继续?")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_27861(self, drivers):
+        pass
+
+
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3287:
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -4289,24 +4307,6 @@ class Teststory_3296:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_27659(self, drivers):
-        pass
-
-
-    @allure.story("项目详情/计划_TR任务创建")  # 用户故事名称
-    @allure.title("DCP未配置PQA审批人员，点击发起，提示PQA角色中未配置人员，请配置后再发起")  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_27860(self, drivers):
-        pass
-
-
-    @allure.story("项目详情/计划_TR任务创建")  # 用户故事名称
-    @allure.title("DCP未配置PQA审批人员，但关联的DCP任务又PQA审批人，点击发起，提示关系数据强制刷新到关联的DCP任务,是否继续?")  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_27861(self, drivers):
         pass
 
 
