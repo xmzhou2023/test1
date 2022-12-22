@@ -6,6 +6,7 @@ from libs.common.time_ui import *
 from project.IPM.page_base.assert_pubic import *
 from project.IPM.api.APIRequest import *
 import random
+from project.IPM.page_object.Generalmethods import General_methods
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 
 Api = APIRequest()
@@ -18,7 +19,8 @@ def field_attribute_maintennance(self):
 now_times = strftime('%Y-%m-%d%H:%M:%S')
 now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
-class CreateProject(PubicMethod):
+
+class CreateProject(General_methods):
 
     def __init__(self,driver,element_yaml='ProjectManagement_CreateProject',expect='ProjectManagement_CreateProject.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
@@ -262,6 +264,114 @@ class CreateProject(PubicMethod):
 
         else:
             self.project_Cancellation_of_meeting_appointment()
+
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_发起评审_评审流程确认页_发起流程")
+    def project_ReviewProcessConfirmationPage_InitiationProcess(self):
+        '''
+        评审流程确认页_发起流程
+        '''
+
+        self.click_IPM("评审流程确认页_发起流程")
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_发起评审_评审流程确认页_发起流程关联任务_提示_确认")
+    def project_ReviewProcessConfirmationPage_InitiationProcess_determine(self):
+        '''
+        评审流程确认页_发起流程
+        '''
+
+        self.click_IPM("评审流程确认页_发起流程_关联任务_提示_确认")
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_发起评审_评审流程确认页_发起流程关联任务_提示_取消")
+    def project_ReviewProcessConfirmationPage_InitiationProcess_cancel(self):
+        '''
+        评审流程确认页_发起流程
+        '''
+
+        self.click_IPM("评审流程确认页_发起流程_关联任务_提示_取消")
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_发起评审_评审流程确认页_选取")
+    def project_ReviewProcessConfirmationPage_selection(self):
+        '''
+        评审流程确认页_选取
+        '''
+
+        self.click_IPM("评审流程确认页_选取")
+
+    def project_ReviewProcessConfirmationPage_selection_query_MarketName(self):
+        '''
+        评审流程确认页_选取
+        '''
+
+        self.click_IPM("评审流程确认页_选取_市场名")
+    def project_ReviewProcessConfirmationPage_selection_query_ProjectName(self):
+        '''
+        评审流程确认页_选取
+        '''
+
+        self.click_IPM("评审流程确认页_选取_项目名")
+
+    @allure.step("项目管理_项目详情_项目tab应用_计划任务_发起评审_评审流程确认页_选取_查询")
+    def project_ReviewProcessConfirmationPage_InitiationProcess_query(self,projectname,Missionphase=None):
+        '''
+        评审流程确认页_选取_查询
+        :param projectname: 项目名
+        :param Missionphase: 任务阶段
+        '''
+        if Missionphase != None:
+            self.click_IPM("评审流程确认页_选取_勾选（项目名+任务阶段）", projectname, Missionphase)
+        else:
+            self.click_IPM("评审流程确认页_选取_勾选（项目名）", projectname)
+
+
+
+
+
+    def project_ReviewProcessConfirmationPage_selectiontask(self,MarketName=None,ProjectName=None,Drop_down_value=None,result=None,Query_Reset=None):
+        '''
+        评审流程确认页_选取
+        :param MarketName: 项目名
+        :param ProjectName: 任务阶段
+        :param Drop_down_value: 项目名
+        '''
+
+        if Query_Reset =="查询":#查询功能查询按钮
+            if MarketName != None:
+                self.input_text_IPM("评审流程确认页_选取_市场名", MarketName)
+            if ProjectName != None:
+                self.input_text_IPM("评审流程确认页_选取_项目名", ProjectName)
+
+            if Drop_down_value == "概念DCP" or \
+                        Drop_down_value == "计划DCP" or \
+                        Drop_down_value == "开发DCP" or \
+                        Drop_down_value == "验证DCP" or \
+                        Drop_down_value == "上市DCP" or \
+                        Drop_down_value == "生命周期DCP":
+                self.click_IPM("评审流程确认页_选取_任务阶段")
+                self.DropDownBox("评审流程确认页_选取_任务阶段", "任务阶段", "字段名称", Drop_down_value)
+
+            self.click_IPM("评审流程确认页_选取_查询")
+            self.project_ReviewProcessConfirmationPage_InitiationProcess_query(ProjectName,Drop_down_value) #传入项目名和任务阶段获取唯一值
+            if result == "确定" or result ==None:
+                self.click_IPM("评审流程确认页_选取_确定")
+            elif result == "取消":
+                self.click_IPM("评审流程确认页_选取_取消")
+            else:
+                logging.info("当前传的{}不存在".format(result))
+            sleep(1)
+        elif Query_Reset == "重置": #查询功能重置按钮
+            self.click_IPM("评审流程确认页_选取_重置")
+        else: #跳过查询
+            self.project_ReviewProcessConfirmationPage_InitiationProcess_query(ProjectName,Drop_down_value) #传入项目名和任务阶段获取唯一值
+            if result == "确定" or result ==None:
+                self.click_IPM("评审流程确认页_选取_确定")
+            elif result == "取消":
+                self.click_IPM("评审流程确认页_选取_取消")
+            else:
+                logging.info("当前传的{}不存在".format(result))
+
+
+
+
+
+
+
     @allure.step("项目管理_项目详情_项目tab应用_计划任务_上会_上会预约_设置通知内容")
     def project_SetNotificationContent(self,Send_or_Cancel=None):
 
@@ -275,23 +385,6 @@ class CreateProject(PubicMethod):
         else:
             self.project_SetNotificationContent_cancel()
 
-    def get_Button(self):
-        """
-        获取发起评审按钮文本
-        """
-        return self.find_element("计划任务_发起评审").text
-
-    def create_Features(self):
-        """
-        计划任务-要素-创建要素
-        """
-        self.click_IPM("创建要素")
-
-    def select_Elements(self):
-        """
-        计划任务-要素-选取要素
-        """
-        self.click_IPM("选取要素")
 
 
 
@@ -324,6 +417,8 @@ class CreateProject(PubicMethod):
             self.project_Task_selection(taskname)
         else:
             logging.info("不在展开可展开的层级内，请重新填写，或者优化代码")
+
+
     def project_Task_More_actions(self,Number,taskname,function,expansion_name1=None,expansion_name2=None,expansion_name3=None):
         '''
         打开任务的更多操作功能
@@ -483,20 +578,8 @@ class CreateProject(PubicMethod):
 
         """
 
-        field_att=self.find_elemens_IPM_yaml(element_field)
-        for i in field_att:
-            if i == FieldName:
-                self.click_IPM('字段名称', choice=i)
-                eles_field = self.find_elemens_IPM_yaml("下拉值获取")
-                if Drop_down_value =="添加全部":
-                    self.click_IPM('添加全部')
-                else:
-                    for value in Drop_down_value:
-                        if value in eles_field:
-                            self.click_IPM('下拉值选择',value)
-                        else:
-                            logging.info("当前字段不存在")
-        self.click_IPM('点击标题')
+        self.DropDownBox(element_field,FieldName,"字段名称",*Drop_down_value)
+
     def prpject_Team_Role(self,role,Number=None,role1=None):
         '''
         项目_团队_角色
@@ -513,87 +596,42 @@ class CreateProject(PubicMethod):
         '''
         项目_团队_新增成员
         '''
-        self.project_tab("团队_角色_新增成员")
+        self.click_IPM("团队_角色_新增成员")
 
 
-    def project_team(self,judge=None,addrole=None,role_id=None):
+    def project_team(self,role="PMToffice",judge=None,addrole=None,role_id=None):
         '''
         项目_团队
+        :param judge: 传入删除，则将存在团队成员删除
+        :param addrole: 添加成员
+        :param role_id: 员工工号或姓名
         '''
         self.project_tab("团队")
-        self.prpject_Team_Role("PMToffice")
-        role_ele=self.find_elemens_IPM_yaml("团队_角色_表单成员")
-        for i in role_ele:
-            if i != None:
-                if judge == "删除":
-                    self.click_IPM("团队_角色_成员删除",i)
-                    self.click_IPM("团队_角色_成员删除_确定")
-                else:
-                    if addrole == None or addrole == "添加":
-                        self.project_team_AddRole()
-                        self.personnel_list(role_id)
+        self.prpject_Team_Role(role)
+        try:
+            role_ele=self.find_elemens_IPM_yaml("团队_角色_表单成员")
+            for i in role_ele:
+                if i != None:
+                    if judge == "删除":
+                        self.click_IPM("团队_角色_成员删除",i)
+                        self.click_IPM("团队_角色_成员删除_确定")
+                        sleep(2)
                     else:
-                        logging.info('当前不打算添加成员')
-            else:
-                if addrole == None or addrole == "添加成员":
+                        logging.info('当前不打算删除成员')
+                if addrole == "添加成员" or addrole == "添加":
                     self.project_team_AddRole()
                     self.personnel_list(role_id)
                 else:
                     logging.info('当前不打算添加成员')
+        except:
+            self.project_team_AddRole()
+            self.personnel_list(role_id)
+        sleep(3)
 
 
 
 
 
-    def project_team0(self,judge=None,addrole =None,role_id =None):
-        """
-        项目_团队_项目经理
-        """
-        self.project_tab("团队")
-        self.prpject_Team_Role("项目经理")
-        role_ele = self.find_elemens_IPM_yaml("团队_角色_表单成员")
-        for i in role_ele:
-            if i != None:
-                if judge == "删除":
-                    self.click_IPM("团队_角色_成员删除", i)
-                    self.click_IPM("团队_角色_成员删除_确定")
-                else:
-                    if addrole == None or addrole == "添加":
-                        self.project_team_AddRole()
-                        self.personnel_list(role_id)
-                    else:
-                        logging.info('当前不打算添加成员')
-            else:
-                if addrole == None or addrole == "添加成员":
-                    self.project_team_AddRole()
-                    self.personnel_list(role_id)
-                else:
-                    logging.info('当前不打算添加成员')
-
-    def project_team1(self,judge=None,addrole =None,role_id =None):
-        """
-        项目_团队_PQA
-        """
-        self.project_tab("团队")
-        self.prpject_Team_Role("PQA")
-        role_ele = self.find_elemens_IPM_yaml("团队_角色_表单成员")
-        for i in role_ele:
-            if i != None:
-                if judge == "删除":
-                    self.click_IPM("团队_角色_成员删除", i)
-                    self.click_IPM("团队_角色_成员删除_确定")
-                else:
-                    if addrole == None or addrole == "添加":
-                        self.project_team_AddRole()
-                        self.personnel_list(role_id)
-                    else:
-                        logging.info('当前不打算添加成员')
-            else:
-                if addrole == None or addrole == "添加成员":
-                    self.project_team_AddRole()
-                    self.personnel_list(role_id)
-                else:
-                    logging.info('当前不打算添加成员')
 
 
 

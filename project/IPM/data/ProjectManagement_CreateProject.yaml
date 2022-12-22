@@ -7,3 +7,7 @@
 断言项目标题: "//P"
 断言基本信息保存: "//span[text()=' 保存 ']"
 断言项目启动成功: '//p[text()="启动成功!"]'
+窗口提示: '//div[@aria-label="提示"]//p'
+流程评审确认页: '//body/div/div/div/div[@class="parentContent"]/span'
+
+

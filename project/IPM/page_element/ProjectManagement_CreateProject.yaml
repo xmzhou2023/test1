@@ -19,13 +19,15 @@
 
 #========================================================================编辑===============================================================================
 字段名称: "xpath==//div/label[text()=' variable ']/..//input"
-下拉框: "xpath==//div[@x-placement='bottom-start']//li[2]/span"
-下拉框_列表名: "xpath==//div[@x-placement='bottom-start']//span[text()='variable']"
+
 基本信息保存: "xpath==//span[@title='保存']"
 启动项目: 'xpath==// span[text() = " 启动项目 "]'
 tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 下拉值获取: "xpath==//div[@x-placement='bottom-start']//li/span"
 下拉值选择: 'xpath==//div[@x-placement="bottom-start"]//li/span[text()="variable"]'
+下拉框: "xpath==//div[@x-placement='bottom-start']//li[2]/span"
+下拉框_列表名: "xpath==//div[@x-placement='bottom-start']//span[text()='variable']"
+
 
 #=======================================================================删除项目提示=========================================================================
 
@@ -73,7 +75,17 @@ tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 #======================================================================评审流程确认页====================================================================================
 评审流程确认页_发起流程: 'xpath==//div//span[text()=" 评审流程确认页 "]/../..//span[text()=" 发起流程 "]'
 评审流程确认页_选取: 'xpath==//div//span[text()=" 评审流程确认页 "]/../../..//span[text()=" 选取 "]'
-
+评审流程确认页_选取_市场名: 'xpath==//div[@class="tr-form-row el-row"]//span[text()="市场名"]/../..//input'
+评审流程确认页_选取_项目名: 'xpath==//div[@class="tr-form-row el-row"]//span[text()="项目名"]/../..//input'
+评审流程确认页_选取_任务阶段: 'xpath==//div[@class="tr-form-row el-row"]//span[text()="任务阶段"]/../..//input'
+评审流程确认页_选取_查询: 'xpath==//div[@aria-label="选取"]//span[text()=" 查询 "]'
+评审流程确认页_选取_重置: 'xpath==//div[@aria-label="选取"]//span[text()=" 重置 "]'
+评审流程确认页_选取_确定: 'xpath==//body/div[@class="el-dialog__wrapper"]//span[text()=" 确定 "]'
+评审流程确认页_选取_取消: 'xpath==//body/div[@class="el-dialog__wrapper"]//span[text()=" 取消 "]'
+评审流程确认页_选取_勾选（项目名+任务阶段）: 'xpath==//tr/td/div/span[text()="variable"]/../../..//span[text()="variable"]/../../../td[1]'
+评审流程确认页_选取_勾选（项目名）: 'xpath==//tr/td/div/span[text()="variable"]/../../../td[1]'
+评审流程确认页_发起流程_关联任务_提示_确认: 'xpath==//div[@aria-label="提示"]//span[contains(text(),"确定")]'
+评审流程确认页_发起流程_关联任务_提示_取消: 'xpath==//div[@aria-label="提示"]//span[contains(text(),"取消")]'
 
 
 
@@ -93,8 +105,10 @@ tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 团队_角色_成员删除_取消: 'xpath==//div[@class="el-message-box"]//div[3]/button[1]'
 
 
-#===========================================================================================================================================================
-创建要素: "xpath ==//div[@class='btn-content']//button[1]/span[contains(text(),'创建')]"
-选取要素:  "xpath ==//div[@class='btn-content']//button[2]/span[contains(text(),'选取')]"
-要素基本信息: "xpath ==//div[@aria-label='要素']/div[2]//div[@class='tr-card--container']/form/div/label"
-关系Tab页: "xpath==//div[@role='tablist']/div[text()='variable']"
+
+
+创建要素: "xpath==//div[@class='btn-content']//button[1]/span[contains(text(),'创建')]"
+选取要素: "xpath==//div[@class='btn-content']//button[2]/span[contains(text(),'选取')]"
+要素基本信息: "xpath==//div[@aria-label='要素']/div[2]//div[@class='tr-card--container']/form/div/label"
+关系Tab应用: "xpath==//div[@role='tablist']/div[text()='variable']"
+
