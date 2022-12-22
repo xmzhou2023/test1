@@ -128,8 +128,8 @@ class TestAddEditQuitTranssionUser:
         add_transsion.assert_user_management_field('User Name', trans_username)
         """查询数据库用户表的userid,username是否存在断言"""
         sql_asser = SQLAssert('DCR', 'test')
-        sql_asser.assert_sql(trans_userid, "select USER_CODE from t_user where created_by = 'lhmadmin' order by created_time desc limit 1")
-        sql_asser.assert_sql(trans_username, "select USER_NAME from t_user where created_by= 'lhmadmin'  order by created_time desc limit 1")
+        sql_asser.assert_sql(trans_userid, "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
+        sql_asser.assert_sql(trans_username, "select u.USER_NAME from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
 
         """ 编辑传音用户 """
         """筛选用户后，点击Search，进行编辑"""
@@ -148,9 +148,9 @@ class TestAddEditQuitTranssionUser:
         """查询数据库用户表的userid,username是否存在断言"""
         sqlasser = SQLAssert('DCR', 'test')
         sqlasser.assert_sql(trans_userid,
-                            "select USER_CODE from t_user where created_by = 'lhmadmin' order by created_time desc limit 1")
+                            "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
         sqlasser.assert_sql(edit_trans_username,
-                            "select USER_NAME from t_user where created_by= 'lhmadmin'  order by created_time desc limit 1")
+                            "select u.USER_NAME from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
 
         """ 离职传音用户 """
         add_transsion.click_first_checkbox()
@@ -161,6 +161,8 @@ class TestAddEditQuitTranssionUser:
         """断言列表是否不存在被删除的用户"""
         get_total = add_transsion.get_total()
         ValueAssert.value_assert_In('0', get_total)
+        """ 在数据库表中，删除新增的用户 """
+        add_transsion.sql_delete_user(trans_userid)
 
 
     @allure.story("用户管理")
@@ -608,7 +610,6 @@ class TestAddEditQuitTranssionUser:
         DomAssert(drivers).assert_att(userID)
 
 
-
 @allure.feature("员工授权-用户管理")
 class TestAddEditQuitDealerUser:
     @allure.story("用户管理业务流程")
@@ -635,7 +636,7 @@ class TestAddEditQuitDealerUser:
         """首先根据新建的User ID筛选，然后获取列表新增的User ID，User name，进行断言比较是否存在新建的用户"""
         user = SQL('DCR', 'test')
         result = user.query_db(
-            "select u.USER_CODE  from  t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin'  order by e.created_time desc limit 1")
+            "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
         userid = result[0].get('USER_CODE')
         """筛选用户后，点击Search，进行断言门店列表是否存在新建的门店ID"""
         dealer_user.input_query_User(userid)
@@ -646,9 +647,9 @@ class TestAddEditQuitDealerUser:
         """查询数据库用户表的userid,username是否存在断言"""
         sql_asser = SQLAssert('DCR', 'test')
         sql_asser.assert_sql(userid,
-                             "select u.USER_CODE  from  t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin'  order by e.created_time desc limit 1")
+                             "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin' and e.IN_SERVICE=2 order by e.created_time desc limit 1")
         sql_asser.assert_sql(dealer_username,
-                             "select u.USER_NAME  from  t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin'  order by e.created_time desc limit 1")
+                             "select u.USER_NAME from t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin' and e.IN_SERVICE=2 order by e.created_time desc limit 1")
 
         """ 编辑代理员工 """
         """筛选用户后，点击Search，进行编辑操作"""
@@ -670,9 +671,9 @@ class TestAddEditQuitDealerUser:
         """查询数据库用户表的userid,username是否存在断言"""
         sqlasser = SQLAssert('DCR', 'test')
         sqlasser.assert_sql(userid,
-                            "select u.USER_CODE  from  t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin'  order by e.created_time desc limit 1")
+                            "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
         sqlasser.assert_sql(edit_user_name,
-                            "select u.USER_NAME  from  t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin'  order by e.created_time desc limit 1")
+                            "select u.USER_NAME from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin'  and e.IN_SERVICE=2 order by e.created_time desc limit 1")
 
         """ 离职代理员工 """
         dealer_user.click_first_checkbox()
@@ -683,6 +684,8 @@ class TestAddEditQuitDealerUser:
         """断言列表是否不存在被删除的用户"""
         get_total = dealer_user.get_total()
         ValueAssert.value_assert_In('0', get_total)
+        """ 在数据库表中，删除新增的用户 """
+        dealer_user.sql_delete_user(userid)
 
 
 @allure.feature("员工授权-用户管理")
@@ -710,6 +713,7 @@ class TestExportUser:
         export.click_export()
         export.click_download_more()
         export.input_task_name('User Management')
+        export.export_record_create_start_date(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         file_size = export.get_file_size_text()
@@ -774,11 +778,7 @@ class TestImportUser:
         upload.assert_user_management_field('Country', 'Bangladesh')
         upload.assert_user_management_field('Position', 'lhm店长')
         """ 在数据库表中，删除导入的用户 """
-        sql1 = SQL('DCR', 'test')
-        sql1.delete_db(
-            "delete from t_user where USER_CODE ='smarttest102'")
-        sql1.delete_db(
-            "delete from t_employee where EMP_CODE ='smarttest102'")
+        upload.sql_delete_user('smarttest102')
 
 
     @allure.story("导入用户")
@@ -832,11 +832,7 @@ class TestImportUser:
         upload.assert_user_management_field('Country', 'Bangladesh')
         upload.assert_user_management_field('Position', 'lhm二代')
         """ 在数据库表中，删除导入的用户 """
-        sql1 = SQL('DCR', 'test')
-        sql1.delete_db(
-            f"delete from t_user where USER_CODE = '{get_user_id}'")
-        sql1.delete_db(
-            f"delete from t_employee where EMP_CODE = '{get_user_id}'")
+        upload.sql_delete_user(get_user_id)
 
 
 # @allure.feature("员工授权-用户管理")
