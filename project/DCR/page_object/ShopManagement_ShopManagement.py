@@ -1,10 +1,11 @@
+import time
 from datetime import datetime
 
 from openpyxl import load_workbook
 
 from libs.common.read_element import Element
 from libs.config.conf import BASE_DIR
-from public.base.basics import Base
+from public.base.basics import Base, random_list
 from libs.common.time_ui import sleep
 import random
 from ..test_case.conftest import *
@@ -545,29 +546,58 @@ class ShopManagementPage(Base):
             self.is_click_tbm(user['菜单'], content[i])
             logging.info('点击菜单：{}'.format(content[i]))
         self.refresh()
+        self.element_exist(user['Loading'])
+
+    def input_text(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        ele.send_keys(txt)
+        logging.info("输入文本：{}".format(txt))
 
     @allure.step("输入门店查询条件")
-    def input_Search_Info(self, header, content):
-        input_list = []
-        select_list = ['Shop', 'Customer']
-        country_list = ['Country/City']
-        click_list = ['Status']
-        if header in input_list:
-            self.input_text(user['输入框'], content, header)
-        elif header in select_list:
-            self.is_click_tbm(user['查询输入框'], header)
-            self.input_text(user['查询输入框输入'], content, header)
-            self.is_click_tbm(user['select选择框'], content)
-        elif header in country_list:
-            self.is_click_tbm(user['输入框'], header)
-            self.input_text(user['输入框'], content, header)
-            self.is_click_tbm(user['地区选择框'], content)
-        elif header in click_list:
-            self.is_click_tbm(user['查询输入框'], header)
-            self.is_click_tbm(user['select选择框'], content)
+    def input_search(self, header, content):
+        input_list = ['No Upload Sales Days']
+        country_list = ['Sales Region', 'Country/City']
+        fuzzySelect_list = ['Shop', 'Public ID', '']
+        exactSelect_list = ['Brand', 'Shop Type', 'Image Type', 'City Tier', 'Carlcare Shop Code', 'POS ID']
+        inputSelect_list = ['Manpower Type']
+        inputSelect_list2 = ['Retail Customer', 'Shop Grade']
+        Date_list = ['Create Date']
+        self.element_exist(user['Loading'])
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if content != '':
+            if header in input_list:
+                self.input_text(user['输入框'], content, header)
+            elif header in exactSelect_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
+            elif header in fuzzySelect_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框2'], content, header)
+                self.is_click_tbm(user['输入结果模糊选择'], content)
+            elif header in country_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['地区选择框'], content)
+            elif header in inputSelect_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框4'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
+            elif header in inputSelect_list2:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['输入结果模糊选择'], content)
+            elif header in Date_list:
+                createDate = content.split('To')
+                for i in range(len(createDate)):
+                    self.input_text(user['时间输入框'], createDate[i], header, i+1)
+                    self.is_click_tbm(user['输入框名称'], header)
         else:
-            logging.error('输入正确的门店基础信息')
-            raise ValueError('输入正确的门店基础信息')
+            logging.error('请输入正确的查询条件')
+            raise ValueError('请输入正确的查询条件')
 
     @allure.step("输入门店基础信息")
     def input_Basic_Info(self, header, content):
@@ -610,8 +640,9 @@ class ShopManagementPage(Base):
             logging.error('输入正确的门店品牌信息')
             raise ValueError('输入正确的门店品牌信息')
 
-    @allure.step("断言：门店管理页面查询结果")
+    @allure.step("断言：页面查询结果")
     def assert_Query_result(self, header, content):
+        logging.info('开始断言：页面查询结果')
         """
         :param header: 需要获取的指定字段
         :param content: 需要断言的值
@@ -711,12 +742,8 @@ class ShopManagementPage(Base):
         """
         for i in range(20):
             ac_menu = self.element_text(user['当前菜单'])
-            if ac_menu == menu:
-                column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
-                content = self.element_text(user['表格指定列内容'], name, column)
-                logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
-                return content
-            self.click_menu('Basic Data Management', menu)
+            if ac_menu != menu:
+                self.click_menu('Basic Data Management', menu)
             column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
             content = self.element_text(user['表格指定列内容'], name, column)
             logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
@@ -738,12 +765,113 @@ class ShopManagementPage(Base):
 
     @allure.step("断言：门店管理页面查询结果")
     def assert_Query_containsresult(self, header, content, num=None):
+        logging.info('开始断言：页面查询结果')
         """
         :param header: 需要获取的指定字段
         :param content: 需要断言的值
         :param num: 包含的数量
         """
         DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, num=num, sc_element=user['滚动条'], index='1', h_element=user['表头文本'])
+
+    @allure.step("客户列表页面，点击Search 查询按钮")
+    def click_search(self):
+        self.is_click(user['Search'])
+        self.element_exist(user['Loading'])
+
+    @allure.step("点击Unfold 展开筛选项")
+    def click_unfold(self):
+        self.is_click(user['Unfold'])
+        logging.info('点击Unfold 展开筛选项')
+
+    @allure.step("判断空值")
+    def assert_None(self, result):
+        try:
+            assert result == '', logging.warning("断言失败: 该值不为None | x:{}".format(result))
+            logging.info("断言成功: 该值为None | x:{}".format(result))
+        except Exception as e:
+            logging.error(e)
+            raise
+
+    @allure.step("断言：页面查询结果")
+    def assert_search_result(self, header, content):
+        logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
+        if header == 'Shop' or header == 'Retail Customer':
+            self.assert_Query_result(f'{header} ID', content)
+        elif header == 'Sales Region':
+            for i in range(5):
+                assert_result = False
+                column = self.get_table_info(user['menu表格字段'], f'{header} {5 - i}', index=1, sc_element=user['滚动条'],
+                                             h_element=user['表头文本'])
+                contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
+                for j in contents:
+                    if ''.join(j.split()) != '':
+                        ValueAssert.value_assert_equal(j, content)
+                        assert_result = True
+                    else:
+                        logging.info(f'{header} {5 - i} 区域为空，继续比对上级区域')
+                        break
+                if assert_result:
+                    logging.info('断言结束')
+                    break
+        elif header == 'Country/City':
+            self.assert_Query_result(f'City', content)
+        elif header == 'Carlcare Shop Code' or header == 'POS ID':
+            column = self.get_table_info(user['menu表格字段'], header, index=1, sc_element=user['滚动条'],
+                                         h_element=user['表头文本'])
+            contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
+            if content == 'Yes':
+                for i in contents:
+                    ValueAssert.value_assert_IsNoneNot(i)
+            elif content == 'No':
+                for i in contents:
+                    self.assert_None(''.join(i.split()))
+        elif header == 'Create Date':
+            column = self.get_table_info(user['menu表格字段'], header, index=1, sc_element=user['滚动条'],
+                                         h_element=user['表头文本'])
+            contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
+            createDate = content.split('To')
+            for i in contents:
+                timeArray = time.strptime(i, "%Y-%m-%d %H:%M:%S")
+                a = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.mktime(timeArray) + 28800))
+                logging.info(f'实际时间：{i}')
+                logging.info(f'修正时区后时间：{a}')
+                try:
+                    assert createDate[0] <= i <= createDate[1] + ' 23:59:59'
+                    logging.info(f'断言成功：创建时间：{i} 在筛选时间 {content} 区间')
+                except:
+                    logging.info(f'断言失败：创建时间：{i} 与筛选时间 {content} 不符')
+                    raise
+        else:
+            self.assert_Query_result(header, content)
+
+    @allure.step("组合查询 组合方法")
+    def random_Query_Method(self, kwargs):
+        list_query = []
+        num = random.randint(3, 8)
+        for i in kwargs:
+            list_query.append(i)
+        logging.info(f'输入框：{list_query}')
+        list_random = random_list(list_query, num)
+        logging.info(f'随机组合：输入框11111：{list_random}')
+        if 'Shop Grade' in list_random:
+            if 'Brand' not in list_random:
+                list_random.remove('Shop Grade')
+            else:
+                if 'Country/City' not in list_random:
+                    list_random.remove('Shop Grade')
+        if 'Shop Type' in list_random:
+            if 'Brand' not in list_random:
+                list_random.remove('Shop Type')
+            else:
+                if 'Country/City' not in list_random:
+                    list_random.remove('Shop Type')
+        logging.info(f'随机组合：输入框：{list_random}')
+        for i in list_random:
+            logging.info(f'随机组合：{i} 输入框输入内容：{kwargs[i]}')
+            self.input_search(i, kwargs[i])
+        self.click_search()
+        for i in list_random:
+            self.assert_search_result(i, kwargs[i])
 
 
 if __name__ == '__main__':
