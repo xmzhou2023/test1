@@ -275,6 +275,25 @@ class CreateProject(PubicMethod):
         else:
             self.project_SetNotificationContent_cancel()
 
+    def get_Button(self):
+        """
+        获取发起评审按钮文本
+        """
+        return self.find_element("计划任务_发起评审").text
+
+    def create_Features(self):
+        """
+        计划任务-要素-创建要素
+        """
+        self.click_IPM("创建要素")
+
+    def select_Elements(self):
+        """
+        计划任务-要素-选取要素
+        """
+        self.click_IPM("选取要素")
+
+
 
 
 
@@ -525,6 +544,56 @@ class CreateProject(PubicMethod):
 
 
 
+
+    def project_team0(self,judge=None,addrole =None,role_id =None):
+        """
+        项目_团队_项目经理
+        """
+        self.project_tab("团队")
+        self.prpject_Team_Role("项目经理")
+        role_ele = self.find_elemens_IPM_yaml("团队_角色_表单成员")
+        for i in role_ele:
+            if i != None:
+                if judge == "删除":
+                    self.click_IPM("团队_角色_成员删除", i)
+                    self.click_IPM("团队_角色_成员删除_确定")
+                else:
+                    if addrole == None or addrole == "添加":
+                        self.project_team_AddRole()
+                        self.personnel_list(role_id)
+                    else:
+                        logging.info('当前不打算添加成员')
+            else:
+                if addrole == None or addrole == "添加成员":
+                    self.project_team_AddRole()
+                    self.personnel_list(role_id)
+                else:
+                    logging.info('当前不打算添加成员')
+
+    def project_team1(self,judge=None,addrole =None,role_id =None):
+        """
+        项目_团队_PQA
+        """
+        self.project_tab("团队")
+        self.prpject_Team_Role("PQA")
+        role_ele = self.find_elemens_IPM_yaml("团队_角色_表单成员")
+        for i in role_ele:
+            if i != None:
+                if judge == "删除":
+                    self.click_IPM("团队_角色_成员删除", i)
+                    self.click_IPM("团队_角色_成员删除_确定")
+                else:
+                    if addrole == None or addrole == "添加":
+                        self.project_team_AddRole()
+                        self.personnel_list(role_id)
+                    else:
+                        logging.info('当前不打算添加成员')
+            else:
+                if addrole == None or addrole == "添加成员":
+                    self.project_team_AddRole()
+                    self.personnel_list(role_id)
+                else:
+                    logging.info('当前不打算添加成员')
 
 
 

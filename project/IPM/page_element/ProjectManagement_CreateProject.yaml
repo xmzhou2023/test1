@@ -91,3 +91,10 @@ tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 团队_角色_成员删除: 'xpath==//tr//span[text()=" variable "]/../../..//span[@title="删除"]'
 团队_角色_成员删除_确定: 'xpath==//div[@class="el-message-box"]//button[2]'
 团队_角色_成员删除_取消: 'xpath==//div[@class="el-message-box"]//div[3]/button[1]'
+
+
+#===========================================================================================================================================================
+创建要素: "xpath ==//div[@class='btn-content']//button[1]/span[contains(text(),'创建')]"
+选取要素:  "xpath ==//div[@class='btn-content']//button[2]/span[contains(text(),'选取')]"
+要素基本信息: "xpath ==//div[@aria-label='要素']/div[2]//div[@class='tr-card--container']/form/div/label"
+关系Tab页: "xpath==//div[@role='tablist']/div[text()='variable']"
