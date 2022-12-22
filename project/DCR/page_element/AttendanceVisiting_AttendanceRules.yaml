@@ -35,7 +35,7 @@ Click On Work Time: "xpath==//label//span[text()='On Work Time']"
 保存按钮: "xpath==//div[@aria-label='dialog']//span[contains(text(),'Save')]"
 取消保存按钮: "xpath==//button[@id='attendancerules_Cancel']//span[normalize-space(text())='Cancel']"
 
-#筛选排班记录
+#组合筛选排班记录
 输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
 输入框1: "xpath==//label[contains(text(),'variable')]/..//input[@class='el-select__input is-small']"
 输入框2: "xpath==//label[contains(text(),'variable')]/..//input[@placeholder='All']"

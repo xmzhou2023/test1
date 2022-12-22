@@ -22,11 +22,12 @@ import allure
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
-    for i in range(1):
-        get_menu_class = menu.get_open_menu_class()
-        class_value = "tags-view-item router-link-exact-active router-link-active active"
-        if class_value == str(get_menu_class):
-            menu.click_close_open_menu()
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
+
 
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
@@ -40,37 +41,30 @@ class TestReturnOrder:
         user.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         add = SalesOrderPage(drivers)
         add.click_add_sales()
-
         add.input_sales_buyer("NG20613")
         add.input_sales_brand("oraimo")
         add.input_sales_product("OEB-E75D  BLACK")
         add.input_sales_quantity('1')
         add.click_submit()
         add.click_submit_OK()
-
         """从数据库表，查询国包账号，最近新建的销售单ID"""
         sql1 = SQL('DCR', 'test')
         varsql1 = "select order_code from t_channel_sale_ticket where warehouse_id='61735' and seller_id='1596874516539127' and buyer_id='1596874516539550' and status=0 order by created_time desc limit 1"
         result1 = sql1.query_db(varsql1)
         order_code = result1[0].get("order_code")
         logging.info("打印查询数据库的销售单 order_code{}".format(order_code))
-
         """按销售单ID条件筛选新建的销售单"""
         add.input_sales_order_ID(order_code)
         add.click_search()
-
         """对新建的销售单，直接出库操作"""
         add.click_checkbox_orderID()
         add.click_Delivery_button()
         add.input_Payment_Mode("Wechat")
         add.click_quantity_radio_button()
-
         add.input_delivery_quantity('1')
         add.click_delivery_quantity()
-
         product = add.get_order_detail_product()
         ValueAssert.value_assert_IsNoneNot(product)
         quantity = add.get_new_delivery_quantity()
@@ -86,12 +80,10 @@ class TestReturnOrder:
         add.click_search()
         get_sales_order = add.get_text_sales_id()
         get_status = add.get_text_sales_status("Delivered")
-
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
         ValueAssert.value_assert_equal(get_sales_order, order_code)
         ValueAssert.value_assert_equal(get_status, "Delivered")
         add.click_close_sales_order()
-
         """卖家创建退货单，退货类型为Return To Seller，退无码产品"""
         base = Base(drivers)
         base.refresh()
@@ -105,26 +97,21 @@ class TestReturnOrder:
         result2 = sql2.query_db(varsql2)
         delivery_code = result2[0].get("delivery_code")
         logging.info("打印查询数据库的出库单 delivery_code{}".format(delivery_code))
-
         returnorder.click_Add()
         returnorder.click_Return_Type()
-
         returnorder.click_radio_quantity()
         returnorder.input_quantity_customer("NG20613")
         returnorder.input_quantity_delivery_order(delivery_code)
         returnorder.click_quantity_product("OEB-E75D  BLACK")
         returnorder.input_return_quantity('1')
-
         """点击Check按钮后，断言Order Detail列表记录是否正确"""
         returnorder.click_Check()
         get_quantity_deli = returnorder.get_quantity_deli_order_text(delivery_code)
         ValueAssert.value_assert_equal(get_quantity_deli, delivery_code)
-
         get_seller_id = returnorder.get_quantity_seller_id_text("EG400522")
         ValueAssert.value_assert_equal("EG400522", get_seller_id)
         get_buyer_id = returnorder.get_quantity_buyer_id_text("NG20613")
         ValueAssert.value_assert_equal("NG20613", get_buyer_id)
-
         """点击提交按钮"""
         returnorder.click_Submit()
         dom = DomAssert(drivers)
@@ -132,7 +119,6 @@ class TestReturnOrder:
         """方法参数赋值给变量"""
         returnorder.input_Delivery_Orderid(delivery_code)
         returnorder.click_Search()
-
         """断言筛选退货列表页，获取退货单ID、退货出库单ID、退货状态与数据库表中查询的出库单ID对比是否一致"""
         get_return_order_id = returnorder.get_list_return_order_id()
         ValueAssert.value_assert_IsNoneNot(get_return_order_id)
@@ -151,30 +137,19 @@ class TestReturnOrder:
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
-
-        """打开Report Analysis->IMEI Inventory Query菜单"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
-
         """查询IMEI Inventory Query页面 指定product的IMEI"""
         sleep(2)
         imei = delivery.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.close_imei_inventory_query()
-
         """ 刷新页面 """
         delivery.click_refresh(drivers)
-
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Delivery Order")
         add_delivery = DeliveryOrderPage(drivers)
-        # """从数据库表查询国包BD403442仓库的库存IMEI 查询的IMEI已禁用"""
-        # imei_varsql = "SELECT IMEI FROM  t_channel_warehouse_current_stock WHERE WAREHOUSE_ID ='62139' AND STATUS = 1  limit 1"
-        # imei_sql = SQL('DCR', 'test')
-        # imei_result = imei_sql.query_db(imei_varsql)
-        # imei = imei_result[0].get("IMEI")
-        # logging.info("打印数据库查询的 imei{}".format(imei))
         """点击Add新增出库单按"""
         add_delivery.click_add()
         add_delivery.input_sub_buyer("BD2915")
@@ -226,13 +201,11 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
         ValueAssert.value_assert_equal("On Transit", del_status)
         add_delivery.click_close_delivery_order()
-
         """卖家创建退货单，退货类型为Return To Seller，退有码产品，输入出库单号退货"""
         base = Base(drivers)
         base.refresh()
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
-
         return_order = ReturnOrderPage(drivers)
         return_order.click_Add()
         return_order.click_Return_Type()
@@ -241,16 +214,13 @@ class TestReturnOrder:
         return_order.click_Check()
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
-
         """点击提交按钮"""
         return_order.click_Submit()
         dom = DomAssert(drivers)
         dom.assert_att("Submit Success!")
-
         """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
         return_order.input_Delivery_Orderid(delivery_code)
         return_order.click_Search()
-
         """断言筛选退货列表页，获取退货单ID、退货出库单ID、退货状态与数据库表中查询的出库单ID对比是否一致"""
         get_return_order_id = return_order.get_list_return_order_id()
         ValueAssert.value_assert_IsNoneNot(get_return_order_id)
@@ -676,6 +646,38 @@ class TestReturnQuery:
         file_three = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
         ValueAssert.value_assert_Notequal(file_three, file_then)
         page.click_reset()
+
+
+    @allure.story("查询退货单")
+    @allure.title("随机条件组合查询退货单")
+    @allure.description("退货单页面，查询退货单的随机条件组合查询")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_003(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """变量"""
+        query_dict = {
+            'Return Order ID': 'RDHK202212020050',
+            'Delivery/DN Order ID': '02HK2212020000015',
+            'Brand': 'TECNO',
+            'Return Date': '2022-12-02',
+            'Status': 'Approved',
+            'Return Type': 'Return To Seller',
+            'Seller': 'CN100742',
+            'Buyer': 'CN20058',
+            'Seller Warehouse Region': 'Bangladesh District',
+            'Buyer Warehouse Region': 'Transsion',
+            'Model': 'T529',
+            'Market Name': 'T529',
+            'Seller Country': 'China',
+            'IMEI': '351594528651687'
+        }
+        query = ReturnOrderQuery(drivers)
+        user.click_gotomenu("Sales Management", "Return Order")
+        query.click_unfold()
+        query.random_Query_Method(query_dict)
 
 
 if __name__ == '__main__':

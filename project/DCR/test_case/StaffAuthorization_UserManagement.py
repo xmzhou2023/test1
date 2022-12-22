@@ -685,7 +685,7 @@ class TestAddEditQuitDealerUser:
         get_total = dealer_user.get_total()
         ValueAssert.value_assert_In('0', get_total)
         """ 在数据库表中，删除新增的用户 """
-        dealer_user.sql_delete_user(userid)
+        #dealer_user.sql_delete_user(userid)
 
 
 @allure.feature("员工授权-用户管理")
