@@ -10,7 +10,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from libs.common.action import KeyWord
 import allure
-from public.base.basics import *
 from project.IPM.page_object.ProjectManagement_CreateProject import *
 from project.IPM.page_base.assert_pubic import *
 from project.IPM.test_case.conftest import *
@@ -710,7 +709,7 @@ class Teststory_3353:
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
     @allure.title("如果第一层WBS本身就是'TR'、'DCP'、quot里程碑'中类型的计划，则该阶段名称也在该阶段下第一层的里程碑名称中显示")  # 用例名称
-    @allure.description("分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示")  # 用例描述
+    @allure.description("分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示")  # 用例描述)  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_21006(self, drivers):
@@ -3447,7 +3446,7 @@ class Teststory_3322:
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
-    @allure.title("DCP发起未预约上会点击发起评审，提示请预约上会后再发起评审quot")  # 用例名称
+    @allure.title("DCP发起未预约上会点击发起评审，提示请预约上会后再发起评审")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -3548,8 +3547,39 @@ class Teststory_3322:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_27574(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
+        test = CreateProject(drivers)
+        test.refresh_webpage()
+        test.get_url_project()
+        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
+        test.project_team(judge='删除', addrole='添加成员', role_id=username)
+        test.project_tab("计划")
+        test.project_Task_More_actions("0", "概念阶段", "查看")
+        sleep(10)
+        test.project_task_type(proname, "概念阶段", now_times, 'DCP任务', username, '确定')
+        test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
+        test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
+        test.project_Planned_Task_Save()
+        test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
+        test.project_Make_an_appointment_at_the_meeting()
+        test.project_SetNotificationContent()
+        test.close_switch(1)
+        testapply = ApplicationCenter(drivers)
+        testapply.DCP_bulletinboard_operation(proname, '同意预约', username, username)
+        test.close_switch(1)
+        test.click_project()
+        test.enter_the_project(proname)
+        test.project_tab("计划")
+        test.project_Task_More_actions("0", f"任务名称{now_times}", "查看")
+        test.project_Scheduled_Tasks_Initiate_review()
+        test.project_ReviewProcessConfirmationPage_selection()
 
+        ass = Assert_result(drivers)
+        ass.assert_toast('流程评审确认页', '评审流程确认页')
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
     @allure.title("DCP未配置PQA审批人员，点击发起，提示PQA角色中未配置人员，请配置后再发起")  # 用例名称
@@ -3557,7 +3587,38 @@ class Teststory_3322:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_27860(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
+        test = CreateProject(drivers)
+        test.refresh_webpage()
+        test.get_url_project()
+        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
+        test.project_team(addrole='添加成员', role_id="18645960")
+        test.project_tab("计划")
+        test.project_Task_More_actions("0", "概念阶段", "查看")
+        sleep(10)
+        test.project_task_type(proname, "概念阶段", now_times, 'DCP任务', username, '确定')
+        test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
+        test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
+        test.project_Planned_Task_Save()
+        test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
+        test.project_Make_an_appointment_at_the_meeting()
+        test.project_SetNotificationContent()
+        test.close_switch(1)
+        testapply = ApplicationCenter(drivers)
+        testapply.DCP_bulletinboard_operation(proname, '同意预约', username, username)
+        test.close_switch(1)
+        test.click_project()
+        test.enter_the_project(proname)
+        test.project_tab("计划")
+        test.project_Task_More_actions("0", f"任务名称{now_times}", "查看")
+        test.project_Scheduled_Tasks_Initiate_review()
+        test.project_ReviewProcessConfirmationPage_InitiationProcess()
+        ass = Assert_result(drivers)
+        ass.assert_toast('断言提示', 'PQA角色中未配置人员，请配置后再发起')
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3566,7 +3627,40 @@ class Teststory_3322:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_27861(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
+        test = CreateProject(drivers)
+        test.refresh_webpage()
+        test.get_url_project()
+        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
+        test.project_team(addrole='添加成员', role_id="18645960")
+        test.project_tab("计划")
+        test.project_Task_More_actions("0", "概念阶段", "查看")
+        sleep(10)
+        test.project_task_type(proname, "概念阶段", now_times, 'DCP任务', username, '确定')
+        test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
+        test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
+        test.project_Planned_Task_Save()
+        test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
+        test.project_Make_an_appointment_at_the_meeting()
+        test.project_SetNotificationContent()
+        test.close_switch(1)
+        testapply = ApplicationCenter(drivers)
+        testapply.DCP_bulletinboard_operation(proname, '同意预约', username, username)
+        test.close_switch(1)
+        test.click_project()
+        test.enter_the_project(proname)
+        test.project_tab("计划")
+        test.project_Task_More_actions("0", f"任务名称{now_times}", "查看")
+        test.project_Scheduled_Tasks_Initiate_review()
+        test.project_ReviewProcessConfirmationPage_selection()
+        test.project_ReviewProcessConfirmationPage_selectiontask(ProjectName='rrt', Drop_down_value='上市DCP',Query_Reset="查询")
+        test.project_ReviewProcessConfirmationPage_InitiationProcess()
+        ass = Assert_result(drivers)
+        ass.assert_toast('窗口提示', '关系数据强制刷新到关联的DCP任务, 是否继续?')
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
 
 @allure.feature("项目管理")  # 迭代名称
@@ -3692,54 +3786,7 @@ class Teststory_3299:
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23664(self, drivers):
-        menu = random.randint(1,10000)
-        proname = f'IPM自动化测试{menu}'
-        test = CreateProject(drivers)
-        test.get_url_project()
-        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{menu}')
-        test.enter_the_project(proname)
-        test.project_team0(addrole='添加成员', role_id="18651509")
-        test.project_team1(addrole='添加成员',role_id="18651509")
-        test.project_tab("计划")
-        test.project_Task_More_actions("1", "TR1", "查看")
-        sleep(10)
-        test.project_task_type(proname, "TR1", now_times, 'TR任务', '18651509', '确定')
-        test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
-        test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
-        alert_text = test.get_Button()
-        test.project_Planned_Task_Save()
-        assert "发起评审" in alert_text,"不存在按钮"
-        test.close_switch(-1)
-        test.Click_the_button_to_enter(proname, "删除", "确认")
-
-
-    @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
-    @allure.title("不创建要素，直接保存后发起流程，流程发起失败，并提示’未配置要素")  # 用例名称
-    @allure.description("")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_27659(self, drivers):
-        menu = random.randint(1,10000)
-        proname = f'IPM自动化测试{menu}'
-        test = CreateProject(drivers)
-        test.get_url_project()
-        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{menu}')
-        test.enter_the_project(proname)
-        test.project_team0(addrole='添加成员', role_id="18651509")
-        test.project_tab("计划")
-        test.project_Task_More_actions("1", "TR1", "查看")
-        sleep(10)
-        test.project_task_type(proname, "TR1", now_times, 'TR任务', '18651509', '确定')
-        test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
-        test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
-        test.project_Planned_Task_Save()
-        test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
-        test.project_Make_an_appointment_at_the_meeting()
-        test.project_SetNotificationContent()
-        ass = Assert_result(drivers)
-        ass.assert_toast('断言提示', '未配置要素')
-        test.close_switch(-1)
-        test.Click_the_button_to_enter(proname, "删除", "确认")
+        pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
     @allure.title("查看该TR任务要素所属领域，查看是否有自检")  # 用例名称
@@ -4227,7 +4274,7 @@ class Teststory_3261:
         pass
 
 
-
+from public.base.basics import *
 
 
 @allure.feature("项目管理")  # 迭代名称
