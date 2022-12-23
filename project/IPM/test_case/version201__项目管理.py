@@ -3538,7 +3538,31 @@ class Teststory_3322:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_27573(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试{now_times}'
+        test = CreateProject(drivers)
+        test.refresh_webpage()
+        test.get_url_project()
+        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
+        test.enter_the_project(proname)
+        test.project_team(judge='删除', addrole='添加成员', role_id=username)
+        test.project_tab("计划")
+        test.project_Task_More_actions("0", "概念阶段", "查看")
+        sleep(10)
+        test.project_task_type(proname, "概念阶段", now_times, 'DCP任务', username, '确定')
+        test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
+        test.project_Drop_down_box_multiple_selection("任务基本信息", "状态", "未开始")
+        test.project_Planned_Task_Save()
+        test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
+        test.project_Make_an_appointment_at_the_meeting()
+        test.project_SetNotificationContent()
+
+        test.project_Scheduled_Tasks_Initiate_review()
+
+        ass = Assert_result(drivers)
+        ass.assert_toast('断言提示', '状态错误，状态应为预约成功,当前状态为预约中')
+        test.close_switch(-1)
+        test.Click_the_button_to_enter(proname, "删除", "确认")
 
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称

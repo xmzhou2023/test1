@@ -55,6 +55,8 @@ tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 添加全部: 'xpath==//label/span[text()=" 添加全部 "]/../span//input'
 
 上会_预约: 'xpath==//span[text()="可预约"]'
+上会预约_6_01: 'xpath==//tr[6]//div[text()="01"][1]'
+上会预约_5_01: 'xpath==//tr[5]//div[text()="01"][1]'
 提交预约: 'xpath==//span[text()=" 提交预约 "]'
 上会预约_取消: 'xpath==//div[@role="dialog"]//span[text()="上会预约"]/../../div//span[text()="取消"]'
 

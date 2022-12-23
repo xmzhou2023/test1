@@ -51,7 +51,7 @@ class PubicMethod(Base):
     def find_element_IPM_yaml(self,element, choice=None, choices=None):
         return self.find_element(self.chome[element], choice=choice, choices=choices)
 
-    def find_elemens_IPM_yaml(self,element, choice=None):
+    def find_elemens_IPM_yaml_get_attribute(self,element, choice=None):
         ele=self.find_elements(self.chome[element], choice=choice)
         elelist=[]
         for i in ele:

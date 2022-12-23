@@ -221,7 +221,18 @@ class CreateProject(General_methods):
         '''
         计划任务_上会_可预约日期选择
         '''
-        self.click_IPM("上会_预约")
+        try:
+            self.click_IPM("上会_预约")
+        except:
+                try:
+                    self.click_IPM("上会预约_6_01")
+                    self.click_IPM("上会_预约")
+                except:
+                    self.click_IPM("上会预约_5_01")
+                    self.click_IPM("上会_预约")
+
+
+
     @allure.step("项目管理_项目详情_项目tab应用_计划任务_上会_提交预约")
     def project_make_an_appointment(self):
         '''
@@ -450,7 +461,7 @@ class CreateProject(General_methods):
         '''
         任务基本信息所有字段获取
         '''
-        return self.find_elemens_IPM_yaml('任务基本信息')
+        return self.find_elemens_IPM_yaml_get_attribute('任务基本信息')
 
 
 
@@ -589,6 +600,7 @@ class CreateProject(General_methods):
         if Number =="1":
             self.click_IPM("团队_角色_展开", role)
             self.click_IPM("团队_角色", role1)
+        sleep(1)
 
 
 
@@ -609,7 +621,7 @@ class CreateProject(General_methods):
         self.project_tab("团队")
         self.prpject_Team_Role(role)
         try:
-            role_ele=self.find_elemens_IPM_yaml("团队_角色_表单成员")
+            role_ele=self.find_elemens_IPM_yaml_get_attribute("团队_角色_表单成员")
             for i in role_ele:
                 if i != None:
                     if judge == "删除":
@@ -713,8 +725,7 @@ class CreateProject(General_methods):
         self.perject_field_editing_save()
 
 
-    def field_attribute_maintennance(self):
-        field_att=Api.Api_project_field("开模流程测试")
+
 
 
 
