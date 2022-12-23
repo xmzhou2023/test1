@@ -530,21 +530,23 @@ class ReturnOrderQuery(Base):
         logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
         if header == 'Return Order ID' or header == 'Delivery/DN Order ID':
             self.assert_User_Exist(f'{header}', content)
-        elif header == 'Brand':
+        elif header == 'Return Date':
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Status':
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Return Type':
             self.assert_User_Exist(f'{header}', content)
+        elif header == 'Brand':
+            self.assert_User_Exist(f'{header}', content)
         elif header == 'Model':
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Market Name':
             self.assert_User_Exist(f'{header}', content)
+        elif header == 'Seller':
+            self.assert_User_Exist(f'{header} ID', content)
         elif header == 'Seller Country':
             self.assert_User_Exist(f'{header}', content)
-        elif header == 'Return Date':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Seller' or header == 'Buyer':
+        elif header == 'Buyer':
             self.assert_User_Exist(f'{header} ID', content)
         elif header == 'Buyer Warehouse Region' or header == 'Seller Warehouse Region':
             self.assert_User_Exist(f'{header}1', content)
