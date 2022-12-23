@@ -5,8 +5,11 @@ from project.IPM.page_base.assert_pubic import *
 
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_p:
-
-    @allure.step("初始化页面")
+    @allure.story("初始化页面")  # 用户故事名称
+    @allure.title("")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
     def test_001(self,drivers):
         # now_times = strftime('%Y-%m-%d%H:%M:%S')
         # test=CreateProject(drivers)
