@@ -39,46 +39,39 @@ class DemoPhoneQueryPage(Base):
         @header： 输入框名称
         @content： 输入内容
         """
-        input_select_list = ['Country', 'Brand', 'Category']
-        input_select_all_list1 = ['Has ASN', 'Status', 'Design By']
-        create_date_list = ['Create Date']
-        click_input_list = ['Asset Name']
-        shop_list = ['Shop']
+        input_select_list1 = ['Shop']
+        input_select_list2 = ['Brand', 'Status']
+        select_all_list = ['Manpower Type', 'Market Name', 'Model', 'Series']
+        type_list = ['Type']
+        imei_list = ['IMEI']
         sales_region_list = ['Sales Region']
-        manpower_type_list = ['Manpower Type']
         self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
-        if header in input_select_list:
+        if header in input_select_list1:
             self.is_click(user['输入框'], header)
             self.input_text(user['输入框2'], content, header)
-            self.is_click(user['输入结果精确选择'], content)
-        elif header in input_select_all_list1:
-            self.is_click(user['输入框'], header)
-            self.is_click(user['输入结果精确选择'], content)
-        elif header in create_date_list:
-            self.is_click(user['Create Start Date'])
-            self.input_text(user['Create Start Date'], content)
-            self.is_click(user['Create End Date'])
-            self.input_text(user['Create End Date'], content)
-            """弹出日历空间后，点击日历标签释法"""
-            self.is_click(user['点击label标签'], header)
-        elif header in click_input_list:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框'], content, header)
-        elif header in shop_list:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框2'], content, header)
-            sleep(1)
             self.is_click(user['输入结果模糊选择'], content)
-        elif header in sales_region_list:
+        elif header in input_select_list2:
             self.is_click(user['输入框'], header)
-            self.input_text(user['输入框'], content, header)
-            sleep(0.8)
-            self.is_click(user['输入区域精确选择'], header, content)
-        elif header in manpower_type_list:
-            self.is_click_dcr(user['输入框2'], header)
+            self.input_text(user['输入框2'], content, header)
+            self.is_click(user['输入结果精确选择'], content)
+        elif header in select_all_list:
+            self.is_click_dcr(user['输入框'], header)
             self.input_text(user['输入框1'], content, header)
             self.is_click(user['输入结果精确选择'], content)
+            self.is_click(user['点击label标签'], header)
+        elif header in type_list:
+            self.is_click(user['输入框'], header)
+            self.input_text(user['输入框3'], content, header)
+            self.is_click(user['输入结果精确选择'], content)
+        elif header in imei_list:
+            self.is_click(user['输入框'], header)
+            self.input_text(user['输入框IMEI'], content, header)
+        elif header in sales_region_list:
+            self.is_click_dcr(user['输入框'], header)
+            self.input_text(user['输入Sales Region'], content, header)
+            sleep(0.5)
+            self.is_click(user['输入区域精确选择'], header, content)
         else:
             logging.error('请输入正确的查询条件')
             raise ValueError('请输入正确的查询条件')
@@ -91,23 +84,23 @@ class DemoPhoneQueryPage(Base):
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Country':
             self.assert_User_Exist(f'{header}', content)
-        elif header == 'Shop':
-            self.assert_User_Exist(f'{header} ID', content)
-        elif header == 'Manpower Type':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Design By':
-            self.assert_User_Exist(f'{header}', content)
         elif header == 'Sales Region':
             self.assert_User_Exist(f'{header} 3', content)
-        elif header == 'Category':
+        elif header == 'Shop':
+            self.assert_User_Exist(f'{header} Code', content)
+        elif header == 'Manpower Type':
             self.assert_User_Exist(f'{header}', content)
-        elif header == 'Asset Name':
-            self.assert_User_Exist(f'{header}(CN)', content)
+        elif header == 'IMEI':
+            self.assert_User_Exist(f'{header} Code', content)
+        elif header == 'Type':
+            self.assert_User_Exist(f'{header}', content)
+        elif header == 'Series':
+            self.assert_User_Exist(f'{header}', content)
+        elif header == 'Model':
+            self.assert_User_Exist(f'{header}', content)
+        elif header == 'Market Name':
+            self.assert_User_Exist(f'{header}', content)
         elif header == 'Status':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Has ASN':
-            self.assert_User_Exist(f'{header} ID', content)
-        elif header == 'Create Date':
             self.assert_User_Exist(f'{header}', content)
         else:
             self.assert_User_Exist(header, content)
@@ -116,7 +109,7 @@ class DemoPhoneQueryPage(Base):
     @allure.step("组合查询 组合方法")
     def random_Query_Method(self, kwargs):
         list_query = []
-        num = random.randint(3, 8)
+        num = random.randint(3, 7)
         for i in kwargs:
             list_query.append(i)
         logging.info(f'输入框：{list_query}')

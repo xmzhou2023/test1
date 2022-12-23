@@ -226,7 +226,7 @@ class ShopAssetPage(Base):
         elif header == 'Status':
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Has ASN':
-            self.assert_User_Exist(f'{header} ID', content)
+            self.assert_User_Exist(f'{header}', content)
         elif header == 'Create Date':
             self.assert_User_Exist(f'{header}', content)
         else:

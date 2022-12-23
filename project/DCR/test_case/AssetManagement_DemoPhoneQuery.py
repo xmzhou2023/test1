@@ -8,32 +8,39 @@ import datetime
 import pytest
 import allure
 
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("资产管理-门店资产")
-class TestQueryShopAsset:
+class TestQueryDemoPhoneQuery:
     @allure.story("查询门店资产")
     @allure.title("门店资产页面，随机组合条件查询门店资产")
     @allure.description("门店资产页面，随机组合条件查询门店资产")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     @pytest.mark.UT
-    def test_001_003(self, drivers):
+    def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """考勤管理-打开考勤记录页面"""
         """变量"""
         query_dict = {
-            'Shop': 'Bangladesh',
-            'Sales Region': 'TECNO',
-            'IMEI': '2022-12-21',
-            'Brand': 'Shop Construction Props',
-            'Type': 'Available',
-            'Publish Time': 'BD026690',
-            'Status': 'TECNO_门店建筑道具',
-            'Retire Time': 'No',
+            'Shop': 'BD017762',
             'Sales Region': 'Barisal-测试',
-            'Design By': 'Headquarters',
-            'Manpower Type': 'Manned'
+            'IMEI': '355790111294440',
+            'Brand': 'TECNO',
+            'Type': 'Common owner',
+            'Status': 'Retired',
+            'Manpower Type': 'Manned-Flexi',
+            'Market Name': 'CAMON 15 Premier',
+            'Model': 'CD8j',
+            'Series': 'CAMON'
         }
         query = DemoPhoneQueryPage(drivers)
         user.click_gotomenu("Asset Management", "Demo Phone Query")
