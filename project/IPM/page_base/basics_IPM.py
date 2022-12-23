@@ -1,6 +1,6 @@
 from public.base.basics import *
 from libs.common.read_element import Element
-from project.IPM.page_object.yamlbase import YamlRead
+from project.IPM.page_base.yamlbase import YamlRead
 from libs.common.logger_ui import log
 class PubicMethod(Base):
     def __init__(self, driver,element_yaml,expect=None,project='IPM'):

@@ -54,6 +54,9 @@ tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 计划任务_发起评审: "xpath==//div[@class='parentContent']//button/span[text()=' 发起评审 ']"
 添加全部: 'xpath==//label/span[text()=" 添加全部 "]/../span//input'
 
+上会预约_获取下月5: "xpath==//div/div/span[text()='上会预约']/../..//tr[5]/td/div/div/div[2]"
+上会预约_获取下月6: "xpath==//div/div/span[text()='上会预约']/../..//tr[6]/td/div/div/div[2]"
+上会预约_获取可预约: 'xpath==//div/div/span[text()="上会预约"]/../..//tr/td/div/div/div/span[1]'
 上会_预约: 'xpath==//span[text()="可预约"]'
 上会预约_6_01: 'xpath==//tr[6]//div[text()="01"][1]'
 上会预约_5_01: 'xpath==//tr[5]//div[text()="01"][1]'
