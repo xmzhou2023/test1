@@ -26,6 +26,7 @@ class Teststory_p:
         ass=Assert_result(drivers)
         ass.assert_toast('断言项目启动成功','启动成功!')
         test.close_switch(-1)
+
 if __name__ == '__main__':
     pytest.main(['ProjectManagement_CreateProject.py'])
 
