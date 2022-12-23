@@ -227,7 +227,6 @@ class CreateProject(General_methods):
         else:
             element_res6_01 = self.find_elemens_IPM_yaml_get_attribute('上会预约_获取下月6')
             element_res5_01 = self.find_elemens_IPM_yaml_get_attribute('上会预约_获取下月5')
-            print('eeeeeeeee',element_res6_01)
             print(element_res5_01)
             if "01" in element_res5_01:
                 self.click_IPM("上会预约_5_01")
@@ -237,6 +236,7 @@ class CreateProject(General_methods):
                 self.click_IPM("上会_预约")
             else:
                 print('当前可查询的日历中不存01号，请继续在project_Reservable中扩展')
+        sleep(2)
 
 
 
@@ -398,11 +398,12 @@ class CreateProject(General_methods):
         '''
         self.project_Reservable()
         if Send_or_Cancel == "发送" or Send_or_Cancel ==None:
+            sleep(2)
             self.project_SetNotificationContent_SendNotification()
 
         else:
             self.project_SetNotificationContent_cancel()
-        sleep(2)
+
 
 
 

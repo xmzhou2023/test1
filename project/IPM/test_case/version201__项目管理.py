@@ -3556,7 +3556,7 @@ class Teststory_3322:
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
-        test.project_team('删除')
+        test.project_team(judge='删除')
         test.project_tab("计划")
         test.project_Task_More_actions("0", "概念阶段", "查看")
         sleep(10)
