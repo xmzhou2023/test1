@@ -595,9 +595,9 @@ class ShopManagementPage(Base):
                 for i in range(len(createDate)):
                     self.input_text(user['时间输入框'], createDate[i], header, i+1)
                     self.is_click_tbm(user['输入框名称'], header)
-        else:
-            logging.error('请输入正确的查询条件')
-            raise ValueError('请输入正确的查询条件')
+            else:
+                logging.error('请输入正确的查询条件')
+                raise ValueError('请输入正确的查询条件')
 
     @allure.step("输入门店基础信息")
     def input_Basic_Info(self, header, content):
