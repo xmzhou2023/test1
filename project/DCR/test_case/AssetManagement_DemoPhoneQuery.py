@@ -17,18 +17,17 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
-@allure.feature("资产管理-门店资产")
+@allure.feature("资产管理-样机查询")
 class TestQueryDemoPhoneQuery:
-    @allure.story("查询门店资产")
-    @allure.title("门店资产页面，随机组合条件查询门店资产")
-    @allure.description("门店资产页面，随机组合条件查询门店资产")
+    @allure.story("样机查询")
+    @allure.title("门店资产页面，随机组合条件查询样机")
+    @allure.description("门店资产页面，随机组合条件查询样机")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     @pytest.mark.UT
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-        """考勤管理-打开考勤记录页面"""
         """变量"""
         query_dict = {
             'Shop': 'BD017762',

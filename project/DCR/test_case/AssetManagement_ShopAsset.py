@@ -67,7 +67,6 @@ class TestQueryShopAsset:
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-        """考勤管理-打开考勤记录页面"""
         """变量"""
         query_dict = {
             'Country': 'Bangladesh',
