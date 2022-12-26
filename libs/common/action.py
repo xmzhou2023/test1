@@ -34,10 +34,7 @@ class KeyWord:
 
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)  # 可复用的等待策略，最长等待10秒
-        self.vars = {}  # 存储变量
-        
-    def set_window_size(self, w, h):
-        self.driver.set_window_size(w, h)
+        self.__vars = {}  # 存储变量
 
     def AI_get(self, url):
         """
@@ -63,62 +60,6 @@ class KeyWord:
             return self.driver.find_element(key, xpath)
 
         return self.wait.until(f)
-        
-    def AI_wait_for_window(self, timeout=2, temphandles=""):
-        """
-        等待窗口出现
-        """
-        time.sleep(round(timeout / 1000))
-        wh_now = self.driver.window_handles
-        wh_then = temphandles
-        print(1234)
-        print(wh_now)
-        print(wh_then)
-        if len(wh_now) > len(wh_then):
-            return set(wh_now).difference(set(wh_then)).pop()
-
-    def AI_switch_to_windows(self, taget):
-        """
-        切换到指定窗口
-        """
-        logging.info(f"切换到指定窗口 {taget}")
-        self.driver.switch_to.window(taget)
-
-    def AI_window_handles(self):
-        """
-        获取所有窗口句柄
-        """
-        logging.info(f"获取所有的窗口")
-        return self.driver.window_handles
-
-    def AI_switch_to_frame(self, num):
-        """
-        切换到指定的frame
-        """
-        time.sleep(3)
-        logging.info(f"切换到第 {num} frame")
-        self.driver.switch_to.frame(num)
-
-    def AI_current_window_handle(self):
-        """
-        获取当前窗口句柄
-        """
-        logging.info(f"获取当前窗口句柄")
-        return self.driver.current_window_handle
-
-    def AI_switch_to_default_content(self):
-        """
-        切换到默认的窗口
-        """
-        logging.info(f"切换到默认的窗口")
-        self.driver.switch_to.default_content()
-
-    def AI_execute_script(self, script):
-        """
-        执行脚本
-        """
-        logging.info(f"执行脚本: {script}")
-        self.driver.execute_script(script)
 
     @classmethod
     def all_keyword(cls):
