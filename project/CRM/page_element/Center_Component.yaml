@@ -30,6 +30,8 @@ WMS->Stock In/Out Mgt->Initialize Inventory:  'xpath==//*[@id="sidebar-container
 Report Center: "xpath==//span[contains(text(),'Report Center')]"
 Report Center->Asynchronous Report Mgt: "xpath==//span[contains(text(),'Asynchronous Report Mgt')]"
 Report Center->Asynchronous Report Mgt->Task List: "xpath==//div[@class='nest-menu']//span[contains(text(),'Task List')]"
+Material Control Center: "xpath==//span[normalize-space(text())='Material Control Center']"
 
 WMS->Warehouse Basic Info Mgt: "xpath==//span[contains(text(),'Warehouse Basic Info Mgt')]"
 WMS->Warehouse Basic Info Mgt->Warehouse List: "xpath==//li[@role='menuitem']/span[contains(text(),'Warehouse List')]"
+

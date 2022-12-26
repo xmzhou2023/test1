@@ -39,3 +39,13 @@ def __init__(drivers, env_name):
         user.assert_url("{}".format(ini.url))
         # user.assert_exact_att('18646156')
         logging.info("前置条件：传音统一登录成功")
+    return pro_env
+
+# @pytest.fixture(scope='session',autouse=True)
+# def get_pro_env(drivers):
+#     logging.info("pro_env的值为:{}".format(pro_env))
+#     return pro_env
+
+
+
+
