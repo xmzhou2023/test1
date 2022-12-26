@@ -17,7 +17,7 @@ def __init__(drivers, env_name):
     """使用统一登录"""
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
-    user.login(drivers,ini.url, account[17]['usernum'], account[17]['passwd'])
+    user.BDDP_login(drivers,ini.url, account[16]['usernum'], account[16]['passwd'])
     user = DomAssert(drivers)
     user.assert_url("{}/dashboard".format(ini.url))
     logging.info("前置条件：传音统一登录成功")
