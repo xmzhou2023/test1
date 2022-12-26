@@ -13,7 +13,9 @@ from ..test_case.conftest import *
 import random
 
 object_name = os.path.basename(__file__).split('.')[0]
+
 user = Element(pro_name, object_name)
+
 
 class StockInSearch(Base):
     """入库单查询类"""
@@ -36,13 +38,13 @@ class StockInSearch(Base):
         self.hover(user['入库单结束日期搜索框'])
         self.is_click(user['清除结束日期搜索框'])
         self.input_text(user['入库单结束日期搜索框'], txt="2022-09-30")
-        sleep(2)
-        self.is_click(user['入库单type字段输入框'])
-        self.input_text(user['入库单type字段输入框'], txt=Type)
-        self.hover(user["入库单type字段下拉选择框"], choice=Type)
-        self.find_element(user['入库单type字段下拉选择框'], Type).click()
+        sleep(1)
+        # self.is_click(user['入库单type字段输入框'])
+        # self.input_text(user['入库单type字段输入框'], txt=Type)
+        # self.hover(user["入库单type字段下拉选择框"], choice=Type)
+        # self.find_element(user['入库单type字段下拉选择框'], Type).click()
         self.is_click(user['Search按钮'])
-        sleep(10)
+        sleep(5)
 
 
 
