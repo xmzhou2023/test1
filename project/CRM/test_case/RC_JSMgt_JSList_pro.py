@@ -75,7 +75,7 @@ class TestGetJSList:
         elif "pro_fra" ==__init__:
             num.assert_point_att(1, 3, 'RWJS2022093000055')
         elif "pro_9s" == __init__:
-            num.assert_point_att(1, 3, 'TZJSS2022093000020')
+            num.assert_point_att(1, 3, 'TZJSS2022093000018')
 
 
 

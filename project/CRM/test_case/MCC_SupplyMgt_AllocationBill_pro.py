@@ -30,7 +30,7 @@ def module_fixture(drivers):
 
 
 
-@allure.feature("MCC-allocation bill")
+@allure.feature("MCC-allocation bill-pro")
 class TestAllocationSearch:
     @allure.story("查询调拨单数据")  # 场景名称
     @allure.title("9月份的数据")  # 用例名称
