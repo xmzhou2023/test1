@@ -31,8 +31,12 @@ class Teststory_2467:
         robot.AI_find_element(By.CSS_SELECTOR, ".hover:nth-child(2)").click()#id2d74f0d2-edcd-4356-83fd-14582d33efa1
         robot.AI_find_element(By.CSS_SELECTOR, ".tr-form-item__operate > .is-plain > span").click()#id692e7ff6-1c20-4432-adc2-070ff733b8af
         
-        
-def test_19966(self, drivers):
+    @allure.story("新版DRP权限调整切面部分1")  # 用户故事名称
+    @allure.title("测试平台11")  # 用例名称
+    @allure.description("")  # 用例描述
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记    
+    def test_19966(self, drivers):
         robot = KeyWord(drivers)
         robot.AI_get("http://10.250.112.166:9000//")#id2fec00db-f7f9-4dd4-9795-0a93768c6d55
         robot.close()

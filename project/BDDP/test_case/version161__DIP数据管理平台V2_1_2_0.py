@@ -1,5 +1,15 @@
-import allure
 import pytest
+import time
+import json
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from libs.common.action import KeyWord
+import allure
 @allure.feature("DIP数据管理平台V2_1_2_0")  # 迭代名称
 class Teststory_2797:
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
@@ -215,7 +225,11 @@ class Teststory_2797:
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23797(self, drivers):
-        pass
+        robot = KeyWord(drivers)
+        robot.AI_get("http://10.250.101.147:8929/")#ide90d8e8c-3987-4aae-90b7-64da9c23eaca
+        robot.AI_find_element(By.CSS_SELECTOR, "#hamburger-container > .svg-icon").click()#id33810521-d548-4822-a99d-7ed2ae159be1
+        robot.AI_find_element(By.CSS_SELECTOR, ".menu-wrapper:nth-child(4) .el-menu-item").click()#id80c0e833-cd48-4483-a0aa-78d2651ded11
+        robot.AI_find_element(By.CSS_SELECTOR, ".creatBtn > span").click()#id55bb0b91-7394-4ef0-9163-55ca560826d9
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
