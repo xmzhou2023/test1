@@ -158,7 +158,7 @@ class TestUtil:
             assert False
 
     @allure.story("二级标题：BPM开发环境管理端登录")  # 场景名称
-    @allure.title("三级标题：BPM开发环境管理端登录")  # 用例名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -173,12 +173,12 @@ class TestUtil:
             logging.info("BPM开发环境管理端登录成功")
             assert True
         else:
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM开发环境管理端,请相关人员及时排查问题!", "1")
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM开发环境管理端,请相关人员及时排查问题!", "1")
             logging.info("BPM开发环境管理端登录失败")
             assert False
 
     @allure.story("二级标题：BPM测试环境管理端登录")  # 场景名称
-    @allure.title("三级标题：BPM测试环境管理端登录")  # 用例名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -194,11 +194,11 @@ class TestUtil:
             assert True
         else:
             logging.info("BPM测试环境管理端登录失败")
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM测试环境管理端,请相关人员及时排查问题!", "1")
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM测试环境管理端,请相关人员及时排查问题!", "1")
             assert False
 
     @allure.story("二级标题：BPM—UAT环境管理端登录")  # 场景名称
-    @allure.title("三级标题：BPM—UAT环境管理端登录")  # 用例名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -214,11 +214,11 @@ class TestUtil:
             assert True
         else:
             logging.info("BPM—UAT环境管理端登录失败")
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM—UAT环境管理端,请相关人员及时排查问题!", "1")
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM—UAT环境管理端,请相关人员及时排查问题!", "1")
             assert False
 
-    @allure.story("二级标题：BPM—生产环境管理端登录")  # 场景名称
-    @allure.title("三级标题：BPM—生产环境管理端登录")  # 用例名称
+    @allure.story("二级标题：BPM—开发环境管理端登录")  # 场景名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -240,11 +240,11 @@ class TestUtil:
             # OB.Messagefeishu("BPM—开发环境管理端巡检通知\n系统登陆正常!", "1")
             assert True
         else:
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM—生产环境管理端,请相关人员及时排查问题!", "1")
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM—开发环境管理端,请相关人员及时排查问题!", "1")
             assert False
 
     @allure.story("二级标题：BPM【制造中心的生产环境】端登录")  # 场景名称
-    @allure.title("三级标题：BPM【制造中心的生产环境】端登录")  # 用例名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -266,7 +266,7 @@ class TestUtil:
             # OB.Messagefeishu("BPM【制造中心的生产环境】巡检通知\n系统登陆正常!", "1")
             assert True
         else:
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM【制造中心的生产环境】登录异常,请相关人员及时排查问题!", "1")
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM【制造中心的生产环境】登录异常,请相关人员及时排查问题!", "1")
             assert False
 
 
