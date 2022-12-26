@@ -26,6 +26,5 @@ class NavPage(Base):
         self.is_click(user['关闭标签页'])
         logging.info("关闭标签页")
 
-
 if __name__ == '__main__':
     pass

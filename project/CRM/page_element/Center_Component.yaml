@@ -36,4 +36,3 @@ Material Control Center: "xpath==//span[normalize-space(text())='Material Contro
 
 WMS->Warehouse Basic Info Mgt: "xpath==//span[contains(text(),'Warehouse Basic Info Mgt')]"
 WMS->Warehouse Basic Info Mgt->Warehouse List: "xpath==//li[@role='menuitem']/span[contains(text(),'Warehouse List')]"
-
