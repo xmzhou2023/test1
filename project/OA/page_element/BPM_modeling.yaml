@@ -1,0 +1,57 @@
+
+#管理端首页-----------------
+导航首页一级: 'xpath==//span[@class="menu-name" and contains(text(),"variable")]'
+导航首页二级: 'xpath==//span[@class="menu-item-name" and text()="variable"]'
+导航首页三级: 'xpath==//span[@class="el-link--inner" and contains(text(),"variable")]'
+
+#数据建模界面------------------
+添加_设置分类_删除按钮: 'xpath==//button/span[text()="variable"]'
+输入别名搜索输入框: 'xpath==//input[@placeholder="请输入别名,描述来搜索"]'
+别名搜索按钮: 'xpath==//*[@id="pane-businessObj"]//div/div[1]/div/span/span/i'
+指定描述名列: 'xpath==//span[@class="el-link--inner" and contains(text(),"variable")]'
+选择方框一行勾选框: 'xpath==//tbody/tr[1]//span[@class="el-checkbox__inner"]'
+选择方框一行描述文: 'xpath==//*[@id="pane-businessObj"]//td[3]/div/a/span'
+
+#业务建模界面
+模型描述输入框: 'xpath==//*[@id="pane-businessObj"]//div[2]//header/div/div/div/div[1]/div/div/div/input'
+模型别名输入框: 'xpath==//input[@name="alias__822u9ogqf2"]'
+所属分类搜索圈: 'xpath==//button/i[@class="el-icon-search"]'
+所属分类_选择分类: 'xpath==//div/span[contains(text(),"variable")]'
+所属分类_选择分类_确定: 'xpath==//div[not(contains(@style,"display: none;")) and @class="el-dialog__wrapper"]//button/span[text()="确定"]'
+所属分类_选择分类_取消: 'xpath==//div[not(contains(@style,"display: none;")) and @class="el-dialog__wrapper"]//button/span[text()="取消"]'
+所属分类_选择分类_关闭: 'xpath==//div[not(contains(@style,"display: none;"))]/div[@aria-label="选择分类" and @aria-modal="true"]//i'
+添加实体按钮: 'xpath==//span[text()="添加实体"]'
+添加外部表按钮: 'xpath==//span[text()="添加外部表"]'
+添加字段按钮: 'xpath==//span[contains(text(),"添加字段")]'
+主实体描述输入框: 'xpath==//*[@id="changeEntsDesc0"]/div/textarea'
+一子实体描述输入框: 'xpath==//textarea[@name="7hcy94l201"]'
+主实体选中框: 'xpath==//span[text()="主实体"]'
+子实体选中框: 'xpath==//span[text()="子实体"]'
+字段列表1行注释: 'xpath==//*[@id="comment0"]/div/input'
+字段列表2行注释: 'xpath==//*[@id="comment1"]/div/input'
+字段列表3行注释: 'xpath==//*[@id="comment2"]/div/input'
+字段列表4行注释: 'xpath==//*[@id="comment3"]/div/input'
+字段列表5行注释: 'xpath==//*[@id="comment4"]/div/input'
+字段列表6行注释: 'xpath==//*[@id="comment5"]/div/input'
+字段列表1行名称: 'xpath==//*[@id="attrName0"]/div/input'
+字段列表2行名称: 'xpath==//*[@id="attrName1"]/div/input'
+字段列表3行名称: 'xpath==//*[@id="attrName2"]/div/input'
+字段列表4行名称: 'xpath==//*[@id="attrName3"]/div/input'
+字段列表5行名称: 'xpath==//*[@id="attrName4"]/div/input'
+字段列表6行名称: 'xpath==//*[@id="attrName5"]/div/input'
+
+
+
+业务建模_返回: 'xpath==//div[text()="返回"]'
+业务建模_保存: 'xpath==//div[@class="flex"]/div[@class="el-button-group"]//span[text()="保 存"]'
+业务建模_保存成功弹窗提示语: 'xpath==//p[text()="保存成功，是否退出？"]'
+业务建模_发布: 'xpath==//div[@class="flex"]/div[@class="el-button-group"]//span[text()="发 布"]'
+业务建模_发布_创建表单成功弹窗提示语: 'xpath==//p[text()="发布成功，是否跳转到业务表单页面？"]'
+业务建模_保存_发布_创建表单共用弹窗按钮_取消: 'xpath==//div[@aria-label="提示"]//span[contains(text(),"取消")]'
+业务建模_保存_发布_创建表单共用弹窗按钮_确定: 'xpath==//div[@aria-label="提示"]//span[contains(text(),"确定")]'
+业务建模_创建表单: 'xpath==//div[@class="flex"]/div[@class="el-button-group"]//span[text()="创建表单"]'
+
+
+
+
+

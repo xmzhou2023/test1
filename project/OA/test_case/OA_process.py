@@ -3,6 +3,7 @@ import pytest
 import base64
 import pytest, logging
 
+from project.OA.page_object.BPM_modeling import BPM_modeling_Page
 from project.OA.page_object.OA_login import OAdnluPage
 from public.data.unified_login.unified import *
 from public.base.assert_ui import *
@@ -25,8 +26,8 @@ from project.OA.page_object.OA_process import OAUserPage
 @allure.feature("OA应用系统巡检")  # 模块名称
 class TestUtil:
 
-    @allure.story("OA应用系统巡检")  # 场景名称
-    @allure.title("OA自动巡检登录功能，提交系统巡检报告，调用飞书机器消息推送结果")  # 用例名称
+    @allure.story("二级标题：OA应用系统巡检")  # 场景名称
+    @allure.title("三级标题：OA自动巡检登录功能，提交系统巡检报告，调用飞书机器消息推送结果")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -54,6 +55,7 @@ class TestUtil:
         if itexis:
             OA.click_Inspection("系统登陆正常")
             # OA.Messagefeishu("OA自动巡检通知\n今天OA系统登陆正常！已提交系统巡检报告", "1")
+            # OA.Messagefeishu("1用例ok", "1")
             assert True
         else:
             OA.click_Inspection("系统登陆异常")
@@ -62,8 +64,8 @@ class TestUtil:
             assert False
         OA.click_sumbmit()
 
-    @allure.story("深圳传音控股电子签署平台巡检")  # 场景名称
-    @allure.title("深圳传音控股电子签署平台登录功能， 调用飞书机器消息推送结果")  # 用例名称
+    @allure.story("二级标题：深圳传音控股电子签署平台巡检")  # 场景名称
+    @allure.title("三级标题：深圳传音控股电子签署平台登录功能， 调用飞书机器消息推送结果")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -77,13 +79,14 @@ class TestUtil:
 
         if itexis:
             # OA.Messagefeishu("契约锁自动巡检通知\n系统登陆正常!", "1")
+            # OA.Messagefeishu("2用例ok", "1")
             assert True
         else:
             OA.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境深圳传音控股电子签署平台登录异常,请相关人员及时排查问题!", "1")
             assert False
 
-    @allure.story("合同归档催收数据监控")  # 场景名称
-    @allure.title("合同归档催收数据监控，飞书推送消息给吴军")  # 用例名称
+    @allure.story("二级标题：合同归档催收数据监控")  # 场景名称
+    @allure.title("三级标题：合同归档催收数据监控，飞书推送消息给吴军")  # 用例名称
     @allure.description("合同归档催收数据监控，数据库查询结果大于0异常，等于0正常")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -98,13 +101,14 @@ class TestUtil:
         count = result[0].get("count(gdzt)")
         if count > 0:
             OA.Messagefeishu("@吴军\n合同归档催收数据同步异常,异常个数共计：{}".format(count), "1")
+            # OA.Messagefeishu("3用例ok", "1")
             assert False
         elif count == 0:
             # OA.Messagefeishu("@吴军\n合同归档催收数据同步正常", "1")
             assert True
 
-    @allure.story("档案管理系统巡检")  # 场景名称
-    @allure.title("档案管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
+    @allure.story("二级标题：档案管理系统巡检")  # 场景名称
+    @allure.title("三级标题：档案管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -121,14 +125,15 @@ class TestUtil:
         OA.click_loginsubmit()
         itexis = OA.isfile_login()
         if itexis:
+            # OB.Messagefeishu("4用例ok", "1")
             # OB.Messagefeishu("档案管理系统巡检通知\n系统登陆正常!", "1")
             assert True
         else:
             OB.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境档案管理系统登录异常,请相关人员及时排查问题!", "1")
             assert False
 
-    @allure.story("传音知识产权管理系统巡检")  # 场景名称
-    @allure.title("传音知识产权管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
+    @allure.story("二级标题：传音知识产权管理系统巡检")  # 场景名称
+    @allure.title("三级标题：传音知识产权管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -145,10 +150,123 @@ class TestUtil:
         OA.click_loginsubmit()
         itexis = OA.ispatent_login()
         if itexis:
+            # OB.Messagefeishu("5用例ok", "1")
             # OB.Messagefeishu("传音知识产权管理系统巡检通知\n系统登陆正常!", "1")
             assert True
         else:
             OB.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境传音知识产权管理系统登录异常,请相关人员及时排查问题!", "1")
+            assert False
+
+    @allure.story("二级标题：BPM开发环境管理端登录")  # 场景名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_006(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OB = OAUserPage(drivers)
+        OA = OAdnluPage(drivers)
+        OA.BPMlog(options=3)
+        bmmA = BPM_modeling_Page(drivers)
+        itexis = bmmA.ismodeling_login()
+        if itexis:
+            # OB.Messagefeishu("06用例ok", "1")
+            logging.info("BPM开发环境管理端登录成功")
+            assert True
+        else:
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM开发环境管理端,请相关人员及时排查问题!", "1")
+            logging.info("BPM开发环境管理端登录失败")
+            assert False
+
+    @allure.story("二级标题：BPM测试环境管理端登录")  # 场景名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_007(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OB = OAUserPage(drivers)
+        OA = OAdnluPage(drivers)
+        OA.BPMlog(options=1)
+        bmmA = BPM_modeling_Page(drivers)
+        itexis = bmmA.ismodeling_login()
+        if itexis:
+            logging.info("BPM测试环境管理端登录成功")
+            # OB.Messagefeishu("07用例ok", "1")
+            assert True
+        else:
+            logging.info("BPM测试环境管理端登录失败")
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM测试环境管理端,请相关人员及时排查问题!", "1")
+            assert False
+
+    @allure.story("二级标题：BPM—UAT环境管理端登录")  # 场景名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_008(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OB = OAUserPage(drivers)
+        OA = OAdnluPage(drivers)
+        OA.BPMlog(options=2)
+        bmmA = BPM_modeling_Page(drivers)
+        itexis = bmmA.ismodeling_login()
+        if itexis:
+            # OB.Messagefeishu("08用例ok", "1")
+            logging.info("BPM—UAT环境管理端登录成功")
+            assert True
+        else:
+            logging.info("BPM—UAT环境管理端登录失败")
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM—UAT环境管理端,请相关人员及时排查问题!", "1")
+            assert False
+
+    @allure.story("二级标题：BPM—开发环境管理端登录")  # 场景名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_009(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OA = OAdnluPage(drivers)
+        OB = OAUserPage(drivers)
+        OA.open_url("https://bpm.transsion.com/mvue/")  # 打开应用系统巡检地址
+        OA.click_accountuser()
+        OA.click_accountlogin()  # 点击帐户密码登录
+        OA.input_account_password_log('0', '1')
+        OA.input_imgcode()  # 输入验证码
+        OA.click_checkbox()
+        OA.click_checkbox()
+        OA.click_loginsubmit()
+        bmmA = BPM_modeling_Page(drivers)
+        itexis = bmmA.ismodeling_login()
+        if itexis:
+            # OB.Messagefeishu("09用例ok", "1")
+            # OB.Messagefeishu("BPM—开发环境管理端巡检通知\n系统登陆正常!", "1")
+            assert True
+        else:
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM—开发环境管理端,请相关人员及时排查问题!", "1")
+            assert False
+
+    @allure.story("二级标题：BPM【制造中心的生产环境】端登录")  # 场景名称
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
+    @allure.description("用例描述")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_010(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OA = OAdnluPage(drivers)
+        OB = OAUserPage(drivers)
+        OA.open_url("http://10.129.2.246:9081/mvue/")  # 打开应用系统巡检地址
+        OA.click_accountuser()
+        OA.click_accountlogin()  # 点击帐户密码登录
+        OA.input_account_password_log('0', '1')
+        OA.input_imgcode()  # 输入验证码
+        OA.click_checkbox()
+        OA.click_checkbox()
+        OA.click_loginsubmit()
+        bmmA = BPM_modeling_Page(drivers)
+        itexis = bmmA.ismodeling_login()
+        if itexis:
+            # OB.Messagefeishu("10用例ok", "1")
+            # OB.Messagefeishu("BPM【制造中心的生产环境】巡检通知\n系统登陆正常!", "1")
+            assert True
+        else:
+            OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM【制造中心的生产环境】登录异常,请相关人员及时排查问题!", "1")
             assert False
 
 
