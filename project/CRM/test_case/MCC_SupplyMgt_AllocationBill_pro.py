@@ -6,7 +6,7 @@ import pytest
 import conftest
 from public.base.assert_ui import *
 from project.CRM.page_object.Center_Component import NavPage
-from project.CRM.page_object.WMS_StockInandOutMgt_StockInMgt_pro import *
+from project.CRM.page_object.MCC_SupplyMgt_AllocationBill_pro import *
 # from conftest import *
 """
     用例等级说明:
@@ -19,36 +19,36 @@ from project.CRM.page_object.WMS_StockInandOutMgt_StockInMgt_pro import *
 
 @pytest.fixture(scope='module',autouse=True)
 def module_fixture(drivers):
-    logging.info("前置条件:进入入库单管理页")
+    logging.info("前置条件:进入调拨单管理页")
     user = NavPage(drivers)
     user.refresh_page()
-    user.list_search(content='Stock In Mgt')
+    user.list_search(content='Allocation Bill')
     yield
     logging.info("后置条件:合起菜单")
     user = NavPage(drivers)
-    user.click_gotonav("WMS")
+    user.click_gotonav("Material Control Center")
 
 
 
-@allure.feature("Stock in&out Mgt-Stock in")
-class TestStockInSearch:
-    @allure.story("查询当月各个业务类型的入库单数据")  # 场景名称
-    @allure.title("根据type和时间筛选值进行查询")  # 用例名称
+@allure.feature("MCC-allocation bill")
+class TestAllocationSearch:
+    @allure.story("查询调拨单数据")  # 场景名称
+    @allure.title("9月份的数据")  # 用例名称
     @allure.description("type选择各种业务类型,时间默认为当前月，其余条件为空进行查询")
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     # @pytest.mark.parametrize("type", ["Purchase In", "JobSheet In", "Verification In", "Allocation In"])
     def test_001_001(self, drivers, __init__):  # 用例名称取名规范'test+场景编号+用例编号'
-        num = StockInSearch(drivers)
-        num.stockinsearch()
+        num = AllocationSearch(drivers)
+        num.allocationsearch()
         logging.info("pro_env的值为:{}".format(__init__))
         num = DomAssert(drivers)
         if "pro_hk" == __init__:
-            num.assert_point_att(1, 3, 'PKSTI202209301371')
+            num.assert_point_att(1, 4, 'PKAB20220926018')
         elif "pro_fra" == __init__:
-            num.assert_point_att(1, 3, 'RWSTI20220930109')
+            num.assert_point_att(1, 4, 'RWAB20220929014')
         elif "pro_9s" == __init__:
-            num.assert_point_att(1, 3, 'NGSTI20220930007')
+            num.assert_point_att(1, 4, 'NGAB20220929007')
 
 
 
