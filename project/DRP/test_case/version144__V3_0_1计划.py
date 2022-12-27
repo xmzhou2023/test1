@@ -47,6 +47,7 @@ class Teststory_2467:
     @pytest.mark.smoke  # 用例标记
     def test_18519(self, drivers):
         robot = KeyWord(drivers)
+        robot = KeyWord(drivers)
         pass
 
 
