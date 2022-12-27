@@ -1,0 +1,6 @@
+# 商品规格查询
+日期断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[7]/div"
+规格名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[2]/div"
+#规格分类断言: "xpath=="
+规格状态断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[4]/div"
+创建人断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[6]/div"
