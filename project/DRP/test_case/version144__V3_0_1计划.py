@@ -11,7 +11,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from libs.common.action import KeyWord
 import allure
 @allure.feature("V3_0_1计划")  # 迭代名称
-class
+class Teststory_2467:
     @allure.story("新版DRP权限调整切面部分1")  # 用户故事名称
     @allure.title("测试平台11")  # 用例名称
     @allure.description("")  # 用例描述
