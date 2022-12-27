@@ -63,5 +63,60 @@ class TestExportGoodParam:
         # 断言
         test = users.element_text(user['导出成功提示'])
         ValueAssert.value_assert_equal(test,"创建导出任务成功！")
+
+@allure.feature("商品-商品参数")
+class TestQuery:
+    @allure.story("商品参数")
+    @allure.title("查询商品参数")
+    @allure.description("输入日期段，点击查询对应日期段商品参数数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_004_001(self,drivers):
+        users = QueryGoodParameter(drivers)
+        users.querygoodparam("商品参数-开始日期框","2022-09-13","商品参数-结束日期框","2022-09-13")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['日期断言'])
+        ValueAssert.value_assert_equal(test[0:10],"2022-09-13")
+
+    @allure.story("商品参数")
+    @allure.title("查询商品参数")
+    @allure.description("输入参数名称，点击查询对应参数名称的商品参数数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_004_002(self, drivers):
+        users = QueryGoodParameter(drivers)
+        users.querygoodparam("商品参数-参数名称框","Big phone battery")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['参数名称断言'])
+        ValueAssert.value_assert_equal(test,"Big phone battery")
+
+    @allure.story("商品参数")
+    @allure.title("查询商品参数")
+    @allure.description("输入参数状态，点击查询对应参数状态的商品参数数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_004_003(self,drivers):
+        users = QueryGoodParameter(drivers)
+        users.querygoodparam("商品参数-参数状态框","启用")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['参数状态断言'])
+        ValueAssert.value_assert_equal(test,"启用")
+
+    @allure.story("商品参数")
+    @allure.title("查询商品参数")
+    @allure.description("输入创建人，点击查询对应创建人的商品参数数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_004_004(self,drivers):
+        users = QueryGoodParameter(drivers)
+        users.querygoodparam("商品参数-创建人框","张文强")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['创建人断言'])
+        ValueAssert.value_assert_equal(test,"张文强[18651297]")
+
 if __name__ == '__main__':
-    pytest.main(['GoodParameter_Management.py'])
+    pytest.main(['GoodParameter_Management.py::TestQuery'])
