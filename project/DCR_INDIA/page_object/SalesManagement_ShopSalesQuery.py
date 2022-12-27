@@ -75,15 +75,15 @@ class ShopSaleQueryPage(Base):
         return total1
 
 
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
-
-    def click_close_shop_sales_query(self):
-        """ 关闭门店销售查询菜单 """
-        self.is_click(user['关闭门店销售查询菜单'])
-        sleep(2)
+    # def click_close_export_record(self):
+    #     """关闭导出记录菜单"""
+    #     self.is_click(user['关闭导出记录菜单'])
+    #     sleep(1)
+    #
+    # def click_close_shop_sales_query(self):
+    #     """ 关闭门店销售查询菜单 """
+    #     self.is_click(user['关闭门店销售查询菜单'])
+    #     sleep(2)
 
 
 

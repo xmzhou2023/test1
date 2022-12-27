@@ -75,17 +75,6 @@ class ShopInventoryIMEIQueryPage(Base):
         model = self.element_text(user['获取Model文本'])
         return model
 
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1.5)
-
-    def click_close_shop_inventory_imei(self):
-        """关闭门店库存IMEI菜单"""
-        self.is_click(user['关闭门店库存IMEI菜单'])
-        sleep(2)
-
-
 
     # 门店库存IMEI查询记录，导出功能验证
     def click_export(self):
@@ -152,8 +141,6 @@ class ShopInventoryIMEIQueryPage(Base):
         export_time1 = export_time[0:1]
         return export_time1
 
-    def click_close_shop_inventory_imei(self):
-        self.is_click(user['关闭门店库存IMEI菜单'])
 
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
@@ -173,7 +160,6 @@ class ShopInventoryIMEIQueryPage(Base):
             logging.info("Shop Inventory IMEI Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Shop Inventory IMEI Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1.5)
 
 if __name__ == '__main__':
     pass

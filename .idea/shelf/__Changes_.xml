@@ -1,0 +1,19 @@
+<changelist name="在变基之前未提交的更改_[Changes]" date="1658742334668" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="在变基之前未提交的更改 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="libs/download/drp_dept_export_itel+BU_20220721161856.xlsx" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/在变基之前未提交的更改_[Changes]/drp_dept_export_itel+BU_20220721161856.xlsx" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="libs/download/sogou_wubi_32b.exe" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="libs/download/drp_dept_export_itel+BU_20220711160002.xlsx" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+</changelist>

@@ -1,12 +1,13 @@
 from project.DCR.page_object.SalesManagement_ShopSalesQuery import ShopSaleQueryPage
 import logging
 from project.DCR.page_object.Center_Component import LoginPage
-from public.base.basics import Base
+from public.base.basics import Base,random_list
 from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.time_ui import sleep
 import datetime
 import pytest
 import allure
+import random
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
@@ -56,6 +57,447 @@ class TestShopSalesQuery:
         ValueAssert.value_assert_IsNoneNot(public_id)
         shop_sales.assert_total2(total)
         #shop_sales.click_close_shop_sales_query()
+
+    @allure.story("查询门店销量1")
+    @allure.title("门店销售查询页面，查询门店销售查询列表，查询结果和条件一致")
+    @allure.description("门店销售查询页面，查询门店销售查询列表数据加载，断言数据加载正常")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_sale_fixture')
+    def test_001_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        """打开销售管理-打开门店销售查询页面"""
+        user.click_gotomenu("Sales Management", "Shop Sales Query")
+        page = ShopSaleQueryPage(drivers)
+        page.click_unfold()
+
+        """查看Shop Sales Query按shopID查询"""
+        page.input_upload_date("2022-12-01","2022-12-06")
+        page.input_query_shop_id('BD026690')
+        page.click_search()
+        result=page.get_table_txt(2)
+        ValueAssert.value_assert_equal('BD026690',result)
+        page.click_reset()
+
+        """查看Shop Sales Query按销量状态查询"""
+        page.input_upload_date('2022-10-01', '2022-10-30')
+        page.input_status('Deleted')
+        page.click_search()
+        col_num = page.get_table_column('Status')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('Deleted', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按sales date查询"""
+        page.input_upload_date("2022-10-01", "2022-10-30")
+        page.input_sales_date("2022-06-23","2022-06-23")
+        page.click_search()
+        col_num = page.get_table_column('Sales Date')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('2022-06-23', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Manpower Type查询"""
+        page.input_upload_date('2022-10-01', '2022-10-30')
+        page.input_manpower('Manned')
+        page.click_search()
+        col_num = page.get_table_column('Manpower Type')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_In('Manned', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Image Type查询"""
+        page.input_upload_date('2022-10-01', '2022-10-30')
+        page.input_image_type('Zone Shop')
+        page.click_search()
+        col_num = page.get_table_column('Image Type')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('Zone Shop', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Brand查询"""
+        page.input_upload_date("2022-10-01", "2022-10-30")
+        page.input_brand('TECNO')
+        page.click_search()
+        col_num = page.get_table_column('Brand')
+        result_date = page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('TECNO', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按 Series查询"""
+        page.input_upload_date("2022-10-01", "2022-10-30")
+        page.input_series('SPARK')
+        page.click_imei()
+        page.click_search()
+        col_num = page.get_table_column('Series')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('SPARK', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按SP/FP查询"""
+        page.input_upload_date("2022-10-01", "2022-10-30")
+        page.input_sp_fp('Smart')
+        page.click_search()
+        col_num = page.get_table_column('SP/FP')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('Smart', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按model查询"""
+        page.input_upload_date("2022-12-01","2022-12-06")
+        page.input_model('P701')
+        page.click_search()
+        col_num = page.get_table_column('Model')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('P701', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按model type查询"""
+        page.input_upload_date("2022-11-01","2022-12-10")
+        page.input_model_type('High-Ends')
+        page.click_search()
+        col_num = page.get_table_column('Model Type')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('High-Ends', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按项目查询"""
+        page.input_upload_date("2022-10-01","2022-10-30")
+        page.input_item('KE5 32+2')
+        page.click_search()
+        col_num = page.get_table_column('Item')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('KE5 32+2', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Market Name查询"""
+        page.input_upload_date("2022-10-01", "2022-10-30")
+        page.input_market_name('SPARK 7')
+        page.click_search()
+        col_num = page.get_table_column('Market Name')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('SPARK 7', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按IMEI查询"""
+        page.input_upload_date("2022-09-01","2022-09-30")
+        page.input_imei('353045312677832')
+        page.click_search()
+        col_num = page.get_table_column('IMEI/SN')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('353045312677832', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Activation Status查询"""
+        page.input_upload_date("2022-10-01", "2022-10-30")
+        page.input_activation_status('Not Activated')
+        page.click_search()
+        col_num = page.get_table_column('Activation Status')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('Not Activated', result_date)
+        page.click_reset()
+
+    @allure.story("查询门店销量2")
+    @allure.title("门店销售查询页面，查询门店销售查询列表，查询结果和条件一致")
+    @allure.description("门店销售查询页面，查询门店销售查询列表数据加载，断言数据加载正常")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_sale_fixture')
+    def test_001_003(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        """打开销售管理-打开门店销售查询页面"""
+        user.click_gotomenu("Sales Management", "Shop Sales Query")
+        page = ShopSaleQueryPage(drivers)
+        page.click_unfold()
+
+        """查看Shop Sales Query按Activation Country查询"""
+        page.input_upload_date('2022-10-01', '2022-10-30')
+        page.input_activation_country('Bangladesh')
+        page.click_imei()
+        page.click_search()
+        col_num = page.get_table_column('Activation Country')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('Bangladesh', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Activation Date查询"""
+        page.input_upload_date('2022-10-01', '2022-10-30')
+        page.input_activattion_date('2022-09-06', '2022-09-06')
+        page.click_search()
+        col_num = page.get_table_column('Activation Date')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('2022-09-06', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Delivery Country查询"""
+        page.input_upload_date('2022-10-01', '2022-10-30')
+        page.input_delivery_country('Bangladesh')
+        page.click_search()
+        col_num = page.get_table_column('Delivery Country')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('Bangladesh', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按销量达成查询"""
+        page.input_upload_date('2022-10-01', '2022-10-30')
+        page.input_achieve_ornot('Yes')
+        page.click_search()
+        col_num = page.get_table_column('Achieve or Not')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('Yes', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Country查询"""
+        page.input_upload_date('2022-10-01', '2022-10-30')
+        page.input_sale_country('Bangladesh')
+        page.click_imei()
+        page.click_search()
+        col_num = page.get_table_column('Country')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('Bangladesh', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按城市级别查询"""
+        page.input_upload_date("2022-10-01", "2022-10-30")
+        page.input_city_tier('T1')
+        page.click_search()
+        col_num = page.get_table_column('City Tier')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('T1', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按销售区域查询"""
+        page.input_upload_date("2022-12-01","2022-12-06")
+        page.input_sales_region('Bangladesh')
+        page.click_search()
+        col_num = page.get_table_column('Sales Region 2')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('Bangladesh', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Uploader ID查询"""
+        page.input_upload_date("2022-10-01", "2022-10-30")
+        page.input_uploaderid('qiulian1')
+        page.click_search()
+        col_num = page.get_table_column('Uploader ID')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('qiulian1', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Position查询"""
+        page.input_upload_date("2022-10-01", "2022-10-30")
+        page.input_position('CJP督导')
+        page.click_search()
+        col_num = page.get_table_column('Position')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('CJP督导', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Upload Type查询"""
+        page.input_upload_date('2022-10-01', '2022-10-30')
+        page.input_upload_type('App Input')
+        page.click_search()
+        col_num = page.get_table_column('Upload Type')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('App Input', result_date)
+        page.click_reset()
+
+        """查看Shop Sales Query按Supplier查询"""
+        page.input_upload_date('2022-08-01', '2022-08-30')
+        page.input_supplier('PK100039')
+        page.click_search()
+        col_num = page.get_table_column('Supplier ID')
+        result_date=page.get_table_content(col_num)
+        ValueAssert.value_assert_equal('PK100039', result_date)
+        page.click_reset()
+
+
+    @allure.story("随机查询门店销量")
+    @allure.title("门店销售查询页面，随机组合查询条件，查询门店销售查询列表，查询结果和条件一致")
+    @allure.description("门店销售查询页面，随机组合查询条件，查询门店销售查询列表数据加载，断言数据加载正常")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_shop_sale_fixture')
+    def test_001_004(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+
+        """打开销售管理-打开门店销售查询页面"""
+        user.click_gotomenu("Sales Management", "Shop Sales Query")
+        page = ShopSaleQueryPage(drivers)
+        page.click_unfold()
+
+        """查看Shop Sales Query按Supplier查询"""
+        page.input_upload_date('2022-01-01', '2022-10-30')
+        #列表顺序要和表格顶部字段顺序一致
+        list_query=['shopid','status','saledate','ManpowerType','ImageType','Brand','Series','SP/FP','Model','ModelType','Item','MarketName','IMEI/SN','ActivationStatus','ActivationCountry','ActivationDate','DeliveryCountry','AchieveorNot','Country','CityTier','SalesRegion2','UploaderID','Position','UploadType','SupplierID']
+        num=random.randint(3,8)
+        list_random=random_list(list_query,num)
+        logging.info('the query condition is %s'%list_random)
+        for i in list_random:
+            if i == 'shopid':
+                page.input_query_shop_id('SD123329')
+            elif i == 'status':
+                page.input_status('Committed')
+            elif i == 'saledate':
+                page.input_sales_date('2022-09-21', '2022-09-30')
+            elif i == 'ManpowerType':
+                page.input_manpower('Manned-Flexi')
+            elif i == 'ImageType':
+                page.input_image_type('Zone Shop')
+            elif i == 'Brand':
+                page.input_brand('TECNO')
+            elif i == 'Series':
+                page.input_series('SPARK')
+                page.click_imei()
+            elif i == 'SP/FP':
+                page.input_sp_fp('Smart')
+            elif i == 'Model':
+                page.input_model('KG6')
+            elif i == 'ModelType':
+                page.input_model_type('Mid-Ends')
+                page.click_imei()
+            elif i == 'Item':
+                page.input_item('KG6 64+2')
+                page.click_imei()
+            elif i == 'MarketName':
+                page.input_market_name('SPARK 8')
+                page.click_imei()
+            elif i == 'IMEI/SN':
+                page.input_imei('350100248561825')
+            elif i == 'ActivationStatus':
+                page.input_activation_status('Activated')
+            elif i == 'ActivationCountry':
+               page.input_activation_country('Gabon')
+               page.click_imei()
+            elif i == 'ActivationDate':
+                page.input_activattion_date('2022-01-01', '2022-01-24')
+            elif i == 'DeliveryCountry':
+                page.input_delivery_country('United Arab Emirates')
+            elif i == 'AchieveorNot':
+                page.input_achieve_ornot('No')
+            elif i == 'Country':
+                page.input_sale_country('DB3')
+            elif i == 'CityTier':
+                page.input_city_tier('T1')
+            elif i == 'SalesRegion2':
+                page.input_sales_region('DB3')
+            elif i == 'UploaderID':
+                page.input_uploaderid('qiulian1')
+            elif i == 'Position':
+                page.input_position('二期督导')
+                page.click_imei()
+            elif i == 'UploadType':
+                page.input_upload_type('App Scan')
+            else:
+                page.input_supplier('PK100039')
+
+        page.click_search()
+
+        for i in list_random:
+            if i == 'shopid':
+                col_num = page.get_table_column('Shop ID')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('SD123329', result_date)
+            elif i == 'status':
+                col_num = page.get_table_column('Status')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('Deleted', result_date)
+            elif i == 'saledate':
+                col_num = page.get_table_column('Sales Date')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('2022-09-27', result_date)
+            elif i == 'ManpowerType':
+                col_num = page.get_table_column('Manpower Type')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('Manned-Flexi', result_date)
+            elif i == 'ImageType':
+                col_num = page.get_table_column('Image Type')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('Zone Shop', result_date)
+            elif i == 'Brand':
+                col_num = page.get_table_column('Brand')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('TECNO', result_date)
+            elif i == 'Series':
+                col_num = page.get_table_column('Series')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('SPARK', result_date)
+            elif i == 'SP/FP':
+                col_num = page.get_table_column('SP/FP')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('Smart', result_date)
+            elif i == 'Model':
+                col_num = page.get_table_column('Model')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('KG6', result_date)
+            elif i == 'ModelType':
+                col_num = page.get_table_column('Model Type')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('Mid-Ends', result_date)
+            elif i == 'Item':
+                col_num = page.get_table_column('Item')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('KG6 64+2', result_date)
+            elif i == 'MarketName':
+                col_num = page.get_table_column('Market Name')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('SPARK 8', result_date)
+            elif i == 'IMEI/SN':
+                col_num = page.get_table_column('IMEI/SN')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('350100248561825', result_date)
+            elif i == 'ActivationStatus':
+                col_num = page.get_table_column('Activation Status')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('Activated', result_date)
+            elif i == 'ActivationCountry':
+                col_num = page.get_table_column('Activation Country')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('Gabon', result_date)
+            elif i == 'ActivationDate':
+                col_num = page.get_table_column('Activation Date')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('2022-01-24', result_date)
+            elif i == 'DeliveryCountry':
+                col_num = page.get_table_column('Delivery Country')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('United Arab Emirates', result_date)
+            elif i == 'AchieveorNot':
+                col_num = page.get_table_column('Achieve or Not')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('No', result_date)
+            elif i == 'Country':
+                col_num = page.get_table_column('Country')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('DB3', result_date)
+            elif i == 'CityTier':
+                col_num = page.get_table_column('City Tier')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('T1', result_date)
+            elif i == 'SalesRegion2':
+                col_num = page.get_table_column('Sales Region 2')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('DB3', result_date)
+            elif i == 'UploaderID':
+                col_num = page.get_table_column('Uploader ID')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('qiulian1', result_date)
+            elif i == 'Position':
+                col_num = page.get_table_column('Position')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('二期督导', result_date)
+            elif i == 'UploadType':
+                col_num = page.get_table_column('Upload Type')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('App Scan', result_date)
+            else:
+                col_num = page.get_table_column('Supplier ID')
+                result_date = page.get_table_content(col_num)
+                ValueAssert.value_assert_equal('PK100039', result_date)
+        page.click_reset()
+
 
 
 @allure.feature("销售管理-门店销售查询")

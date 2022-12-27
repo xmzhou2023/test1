@@ -1,3 +1,5 @@
+import logging
+
 from public.base.basics import Base, sleep
 from libs.common.read_public_element import Element
 
@@ -128,7 +130,20 @@ class DcrLoginPage(Base):
         home_page_cust = self.element_text(login['Home Page Customer'])
         return home_page_cust
 
-
+    def privacy(self):
+        all_text = self.element_text(login['所有文本'])
+        if '请下拉阅读完本隐私协议后可点击同意按钮' in all_text:
+            for i in range(20):
+                class_value = self.get_element_attribute(login['隐私同意按钮'], 'class')
+                if 'pr-btn_gree_primary' not in class_value:
+                    Base(self.driver).DivRolling(login['隐私滚动条'], direction='top', num=i*100000)
+                    sleep(1)
+                else:
+                    self.is_click_tbm(login['隐私同意按钮'])
+                    logging.info('点击隐私同意按钮')
+                    break
+        else:
+            logging.info("打印获取的内容：{}".format(all_text))
 
 """SRM登录类"""
 class SrmLoginPage(Base):

@@ -1,6 +1,8 @@
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from ..test_case.conftest import *
+from public.base.basics import Base, random_list
+import random
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
@@ -200,7 +202,6 @@ class AttendanceRecordPage(Base):
             logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
 
 
 if __name__ == '__main__':

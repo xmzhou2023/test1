@@ -141,3 +141,30 @@ class OAdnluPage(Base):
     def ispatent_login(self):
         itexis = self.element_exist(user["我的专利提案"])
         return itexis
+
+    @allure.step("登录BPM非正式环境")
+    def BPMlog(self, options=1, Job="18645351"):
+        if options == 1:
+            self.open_url("http://10.250.112.41:9082/mvue")  # 打开BPM测试环境管理端
+        if options == 2:
+            self.open_url("http://10.132.68.237:9081/mvue")  # 打开BPMUAT环境管理端
+        if options == 3:
+            self.open_url("http://10.250.112.42:9082/mvue")  # 打开BPM开发环境管理端
+        if options == 4:
+            self.open_url("http://10.250.112.41:9082/front")  # 打开BPM测试环境用户端
+        if options == 5:
+            self.open_url("http://10.132.68.237:9081/front")  # 打开BPMUAT环境用户端
+        if options == 6:
+            self.open_url("http://10.250.112.42:9081/front")  # 打开BPM开发环境用户端
+        if options == 0:
+            pass  # 不需要重新打开地址
+        self.click_accountuser()
+        self.click_accountlogin()  # 点击帐户密码登录
+        self.input_account(Job)  # 默认使用彩霞的号登录BPM
+        self.input_passwd("xLily6x")
+        if Job == "18645351":
+            self.click_checkbox()
+        self.click_loginsubmit()
+
+
+

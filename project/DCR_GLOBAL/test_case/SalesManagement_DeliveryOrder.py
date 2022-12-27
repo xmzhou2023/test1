@@ -1,5 +1,4 @@
 from libs.common.time_ui import sleep
-from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
 from public.base.assert_ui import ValueAssert
@@ -12,7 +11,7 @@ import allure
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    menu = LoginPage(drivers)
+    menu = DCRLoginPage(drivers)
     for i in range(2):
         get_menu_class = menu.get_open_menu_class()
         class_value = "tags-view-item router-link-exact-active router-link-active active"
@@ -23,7 +22,7 @@ def function_export_fixture(drivers):
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
-    menu = LoginPage(drivers)
+    menu = DCRLoginPage(drivers)
     get_menu_class = menu.get_open_menu_class()
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):
@@ -55,7 +54,6 @@ class TestQueryDeliveryOrder:
         ValueAssert.value_assert_IsNoneNot(deli_date)
         ValueAssert.value_assert_IsNoneNot(status)
         query.assert_total(total)
-        # query.click_close_delivery_order()
 
 
 @allure.feature("销售管理-出库单")
@@ -77,8 +75,9 @@ class TestExportDeliveryOrder:
         # 获取日期
         base = Base(drivers)
         today = base.get_datetime_today()
+        last_date = export.get_last_day(1)
         export.click_unfold()
-        export.input_delivery_date(today, today)
+        export.input_delivery_date(last_date, today)
         export.click_status_input_box()
         export.click_fold()
         export.click_search()
@@ -101,8 +100,6 @@ class TestExportDeliveryOrder:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        # export.click_close_export_record()
-        # export.click_close_delivery_order()
 
 
 if __name__ == '__main__':

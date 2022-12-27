@@ -67,16 +67,6 @@ class DeliveryOrderPage(Base):
         get_no_data = self.element_text(user['No Data'])
         return get_no_data
 
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
-
-    def click_close_delivery_order(self):
-        """出库单页面，关闭出库单菜单"""
-        self.is_click(user['关闭出库单菜单'])
-        sleep(2)
-
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
     def click_export(self):
