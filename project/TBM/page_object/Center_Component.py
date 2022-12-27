@@ -2,7 +2,7 @@ from selenium.webdriver import ActionChains, Keys
 from libs.common.read_element import Element
 from libs.config.conf import BASE_DIR
 from ..test_case.conftest import *
-
+from datetime import datetime
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name,object_name)
 
@@ -11,6 +11,8 @@ class CenterComponent(Base, APIRequest):
     """用户类"""
     # 审核人
     review = '李小素'
+
+    querytime = datetime.now().strftime('%Y-%m-%d%H%M%S')
 
     def hover(self, locator, *choice):
         """鼠标悬停"""
@@ -1193,6 +1195,7 @@ class CenterComponent(Base, APIRequest):
         """
         self.is_click_tbm(user['展开'], tree)
         logging.info('点击展开')
+        sleep(2)
 
     @allure.step("新增物料对焦")
     def material_focus(self, tree):

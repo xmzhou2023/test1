@@ -25,11 +25,12 @@ class CustomerPSIPage(Base):
         """点击Sub-dealer按钮筛选二代数据"""
         self.presence_sleep_dcr(user['Sub dealer'])
         self.is_click(user['Sub dealer'])
-        sleep(4)
+
 
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
+        sleep(6)
 
     def get_total_text(self):
         """获取分页总条数文本"""
@@ -135,7 +136,6 @@ class CustomerPSIPage(Base):
             logging.info("按日期筛选Distributor Customer PSI后，能正常加载数据，Total{}".format(total))
         else:
             logging.info("按日期筛选Distributor Customer PSI后，未筛选到满足条件的数据，Total1{}".format(total))
-        sleep(2)
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """

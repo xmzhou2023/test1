@@ -15,6 +15,7 @@ import logging
 import allure
 import datetime
 import ddddocr
+import random
 from selenium.webdriver.chrome.options import Options
 
 
@@ -25,6 +26,8 @@ from PIL import Image
 selenium基类
 本文件存放了selenium基类的封装方法
 """
+
+
 class Base(object):
     """selenium基类"""
 
@@ -134,7 +137,7 @@ class Base(object):
             Npath.append(locator[0])
             Npath.append(locator[1])
             for i in range(len(args)):
-                Npath[1] = Npath[1].replace('variable',str(args[i]),1)
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
             logging.info("查找元素：{}".format(Npath))
             return Base.element_locator(lambda *args: self.wait.until(
                 EC.presence_of_element_located(args)), Npath)
@@ -206,7 +209,6 @@ class Base(object):
         ele.clear()
         return ele
 
-
     def readonly_input_text(self, locator, txt, *choice):
         """去除只读属性后输入"""
         if choice is None:
@@ -259,7 +261,6 @@ class Base(object):
         else:
             self.driver.execute_script('document.evaluate("{}",document).iterateNext().click()'.format(xpath))
 
-
     def alert_ok(self):
         """确认弹窗"""
         alert = self.wait.until(EC.alert_is_present())
@@ -297,7 +298,7 @@ class Base(object):
             # sleep()
             logging.info("点击元素：{}".format(locator))
 
-    def checkbox_init(self,locator, pane=None):
+    def checkbox_init(self, locator, pane=None):
         """编辑用户权限-清除勾选框(DRP组织、品牌专用)"""
         Npath = []
         Npath.append(locator[0])
@@ -332,7 +333,6 @@ class Base(object):
             self.find_element(locator).click()
             # sleep()
             logging.info("清除树勾选框状态：{}".format(locator))
-
 
     def export_download_status(self, click_search, get_status):
         """DCR通用的导出，等待下载状态更新(DRP专用)"""
@@ -369,6 +369,23 @@ class Base(object):
         ActionChains(content).move_by_offset(700, 700).click().perform()
         sleep(10)
 
+    def inner_text(self, locator, *args):
+        """获取元素的文本"""
+        ele = self.find_element(locator, *args)
+        _text = ele.get_attribute('innerText').replace("\n", "|")
+        logging.info("获取文本：{}".format(_text))
+        return _text
+
+    def elements_inner_text(self, locator, *args):
+        """获取元素的文本"""
+        text_list = []
+        eles = self.find_elements(locator, *args)
+        for i in eles:
+            _text = i.get_attribute('innerText').replace("\n", "|")
+            text_list.append(_text)
+        logging.info("获取文本：{}".format(text_list))
+        return text_list
+
     def element_text(self, locator, *args, **kwargs):
         """获取元素的文本"""
         if args and args is not None:
@@ -385,7 +402,6 @@ class Base(object):
             _text = self.find_element(locator).text.replace("\n", "|")
             logging.info("获取文本：{}".format(_text))
             return _text
-
 
     def select_state(self, locator):
         """获取元素的选中状态"""
@@ -409,7 +425,7 @@ class Base(object):
         self.driver.close()  # 关闭新页签
         self.driver.switch_to.window(self.driver.window_handles[0])  # 然后切换回原始页签
 
-    def hover(self,locator, choice=None):
+    def hover(self, locator, choice=None):
         """鼠标悬停"""
         if choice is None:
             sleep(1)
@@ -453,17 +469,29 @@ class Base(object):
         assert self.download_file(filename=content, load=3), logging.warning("断言失败: 下载该附件失败 | {} ".format(content))
         logging.info("断言成功: 下载该附件成功 | {} ".format(content))
 
-    def custom_find_elements(self,locator):
+    def custom_find_elements(self, locator):
         """树结构专用查找多个相同的元素(原生)"""
         return self.driver.find_elements(By.XPATH, locator[1])
 
-    def input_text_dcr(self, locator, txt):
+    def input_text_dcr(self, locator, txt, choice=None):
         """输入文本(DCR专用)"""
-        sleep(1)
-        ele = self.find_elements_dcr(locator)
-        ele[0].clear()
-        ele[0].send_keys(txt)
-        logging.info("输入文本：{}".format(txt))
+        if choice is None:
+            sleep(0.5)
+            ele = self.find_elements_dcr(locator)
+            ele[0].clear()
+            ele[0].clear()
+            ele[0].send_keys(txt)
+            logging.info("输入文本：{}".format(txt))
+        else:
+            """输入(输入前先清空)"""
+            sleep(0.5)
+            ele = self.find_elements_dcr(locator, choice)
+            ele[0].clear()
+            ele[0].clear()
+            ele[0].send_keys(txt)
+            logging.info("输入文本：{}".format(txt))
+
+
 
     def is_click_dcr(self, locator, choice=None):
         """点击元素(DCR专用)"""
@@ -480,10 +508,30 @@ class Base(object):
             self.find_elements_dcr(locator)[0].click()
             logging.info("点击元素：{}".format(locator))
 
-    def find_elements_dcr(self, locator):
+    def find_elements_dcr(self, locator,  *args, **kwargs):
         """查找相同元素(DCR专用)"""
-        return Base.element_locator(lambda *args: self.wait.until(
-            EC.visibility_of_any_elements_located(args)), locator)
+        if args and args is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.visibility_of_any_elements_located(args)), Npath)
+        elif kwargs and kwargs is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', str(kwargs['choice']))
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.visibility_of_any_elements_located(args)), Npath)
+        else:
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.visibility_of_any_elements_located(args)), locator)
+
+
 
     def presence_sleep_dcr(self, locator, *args, **kwargs):
         """通用的加载数据等待方法(DCR专用)"""
@@ -516,12 +564,18 @@ class Base(object):
                 else:
                     break
 
-
     def get_datetime_today(self):
         """获取当天日期(DCR专用)"""
         today = datetime.date.today()
         today1 = str(today)
         return today1
+
+    def get_last_day(self, days):
+        """获取过去几天的日期(DCR专用)"""
+        today = datetime.date.today()
+        last_days = today - datetime.timedelta(days)
+        last_day = str(last_days)
+        return last_day
 
     def base_get_img(self, name='err'):
         """截图方法"""
@@ -578,7 +632,7 @@ class Base(object):
             logging.error(e)
             raise
         # finally:
-            # self.delete_excel(path, path_list[-1])
+        # self.delete_excel(path, path_list[-1])
 
     def element_exist(self, locator, *choice):
         """校验元素是否存在"""
@@ -594,10 +648,10 @@ class Base(object):
             self.base_get_img()
             return True
 
-    def upload_file(self,locator,file, *choice):
+    def upload_file(self, locator, file, *choice):
         """上传"""
         sleep(0.5)
-        ele = self.find_element(locator,*choice)
+        ele = self.find_element(locator, *choice)
         ele.send_keys(file)
         logging.info("上传文件：{}".format(file))
 
@@ -657,7 +711,7 @@ class Base(object):
         logging.info("获取文本：{}".format(_text))
         return _text
 
-    def mouse_click(self,locator):
+    def mouse_click(self, locator):
         """鼠标点击"""
         element = self.find_element(locator)
         # 创建Action对象
@@ -670,7 +724,6 @@ class Base(object):
         # 创建Action对象
         actions = ActionChains(self.driver)
         actions.double_click(element).perform()
-
 
     def mouse_right_click(self, locator, *args, **kwargs):
         """鼠标右击"""
@@ -765,19 +818,66 @@ class Base(object):
         element = self.find_element(locator)
         element.send_keys(Keys.BACK_SPACE)
 
-    def get_table_info(self, locator, *choice, attr='class', index='0'):
+    def get_table_info(self, locator, *choice, attr='class', index='0', sc_element=None, h_element=None):
         """
         获取指定定位的属性值，可用于获取表格每列内容，做查询断言，如：el-table_3_column_45
         :param attr: 需要获取到的属性，默认是class
         :param index: 需要获取到的属性索引位置，默认是0
         """
+        for i in range(1, 20):
+
+            #
+            if h_element:
+                heard_list = Base(self.driver).elements_inner_text(h_element)
+                if set(choice) <= set(heard_list):
+                    logging.info('{}表格字段存在，跳出循环'.format(choice))
+                    break
+                else:
+                    if sc_element:
+                        logging.info('{}表格字段不存在，向右滑动滚动条'.format(choice))
+                        Base(self.driver).DivRolling(sc_element, num=i * 1000)
+                        sleep(1)
+                    else:
+                        logging.error('{}表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动'.format(*choice))
+                        raise
+            else:
+                if Base(self.driver).element_exist(locator, *choice):
+                    logging.info('{}表格字段存在，跳出循环'.format(choice))
+                    break
+                else:
+                    if sc_element:
+                        logging.info('{}表格字段不存在，向右滑动滚动条'.format(choice))
+                        Base(self.driver).DivRolling(sc_element, num=i * 1000)
+                    else:
+                        logging.error('{}表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动'.format(*choice))
+                        raise
         header_class = self.get_element_attribute(locator, attr, *choice)
         column_class = header_class.split(' ')[int(index)]
         logging.info('获取定位属性：{}的第{}个属性值：{}'.format(attr, index, column_class))
         return column_class
 
+    def get_row_info(self, tb_element, column, sc_element=None):
+        """
+        获取表格每列内容，做查询断言
+        :param tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+        :param column: 列属性值 如：el-table_3_column_45
+        :param sc_element：内嵌div中有滑动条的定位
+
+        """
+        try:
+            contents = Base(self.driver).elements_inner_text(tb_element, column)
+            return contents
+        except:
+            if sc_element:
+                Base(self.driver).DivRolling(sc_element, direction='top')
+                contents = Base(self.driver).elements_inner_text(tb_element, column)
+                return contents
+            else:
+                logging.error('无法获取全部字段内容，请补充内嵌div：sc_element，以便上下滑动')
+                raise
+
     # POP输入框输入文本按enter键专用方法
-    def input_enter(self,locator,content=None,choice=None):
+    def input_enter(self, locator, content=None, choice=None):
         """
             POP项目中输入框输入内容点击Enter键
         :param locator: 定位元素-固定格式=>xx['']
@@ -787,20 +887,19 @@ class Base(object):
         """
         if choice is None:
             sleep(0.5)
-            ele = self.find_element(locator,choice)
+            ele = self.find_element(locator, choice)
             ele.clear()
             ele.send_keys(content + Keys.ENTER)
             logging.info("输入文本：{}".format(content))
         else:
             """输入(输入前先清空)"""
             sleep(0.5)
-            ele = self.find_element(locator,choice)
+            ele = self.find_element(locator, choice)
             ele.clear()
             ele.send_keys(content + Keys.ENTER)
             logging.info("输入文本：{}".format(content))
 
-
-    def DivRolling(self, locator, direction='left', num=1000):
+    def DivRolling(self, locator, *choice, direction='left', num=1000):
         '''
         内嵌div上下左右滑动
         :param locator: 内嵌div
@@ -808,7 +907,7 @@ class Base(object):
         :param num: 内边距
         '''
         try:
-            ele = self.find_element(locator)
+            ele = self.find_element(locator, *choice)
             if direction == 'top':
                 self.driver.execute_script("arguments[0].scrollTop={}".format(num), ele)
                 logging.info('滚动条向下滑动：{}'.format(num))
@@ -820,7 +919,27 @@ class Base(object):
         except Exception as e:
             raise e
 
-def read_excel(file_path,sheet_name,data_num=7,expect_num=8):
+    def hover_move_click(self, locator1, locator2, choice=None):
+        """鼠标悬停在位置1后，移动到位置2进行点击"""
+        if choice is None:
+            sleep(1)
+            element1 = self.find_element(locator1)
+            element2 = self.find_element(locator2)
+            # 创建Action对象
+            actions = ActionChains(self.driver)
+            actions.click_and_hold(element1).move_to_element(element2).click(element2).perform()
+            sleep(1)
+        else:
+            sleep(1)
+            element1 = self.find_element(locator1, choice)
+            element2 = self.find_element(locator2)
+            # 创建Action对象
+            actions = ActionChains(self.driver)
+            actions.click_and_hold(element1).move_to_element(element2).click(element2).perform()
+            sleep(1)
+
+
+def read_excel(file_path, sheet_name, data_num=7, expect_num=8):
     """
         读取excel表测试数据
     @param file_path: 测试数据文件保存地址
@@ -883,5 +1002,20 @@ def data_drive_excel(file_path, sheet_name, mode, rows=0, cols=0, start_col=0, e
         logging.info("excel取值方式错误")
     return values
 
+
+def random_list(list, num):
+    """
+          读取列表中的几个数据，并按原顺序返回一个列表
+      @list: 传入一个列表
+      @num: 读取的数据个数
+     """
+    list_temp = [i for i in range(len(list))]
+    list_new = random.sample(list_temp, num)
+    list_new.sort()
+    list_object = [list[i] for i in list_new]
+    return list_object
+
+
 if __name__ == "__main__":
-    print(read_excel(r"C:\Users\wenqiang.zhang5\PycharmProjects\untitled\UIPOMTest\project\POP\data\test_data.xls","测试用例数据"))
+    print(read_excel(r"C:\Users\wenqiang.zhang5\PycharmProjects\untitled\UIPOMTest\project\POP\data\test_data.xls",
+                     "测试用例数据"))

@@ -2,6 +2,8 @@
 import os
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
+from time import sleep
 
 # 项目目录
 import pymysql
@@ -41,7 +43,7 @@ def change_db(sql):
     try:
         for sql_excute in sql:
             cur.execute(sql_excute)  # 执行sql
-            conn.commit()  # 提交更改
+        conn.commit()  # 提交更改
     except Exception as e:
         print(e)
         conn.rollback()  # 回滚
@@ -56,7 +58,7 @@ def delete_db(sql):
     try:
         for sql_excute in sql:
             cur.execute(sql_excute)  # 执行sql
-            conn.commit()  # 提交更改                           # 提交更改
+        conn.commit()  # 提交更改                           # 提交更改
     except Exception as e:
         conn.rollback()                             # 回滚
     finally:
@@ -91,11 +93,25 @@ def get_ModuleName(filepath):
             py_list.append(i)
     return py_list
 
+def get_yamlName(filepath):
+    yaml_list = []
+    module = os.listdir(filepath)
+    for i in module:
+        if i != '__pycache__':
+            yaml_list.append(i)
+    return yaml_list
+
 def change_pylist_modulelist(py_name):
     module = os.path.splitext(py_name)[0]
     return module
 
-
+def get_YamlTest(filepath):
+    try:
+        with open(filepath, "r", encoding='utf-8', errors='ignore') as file:
+            lines = file.read()
+            return lines
+    except:
+        return None
 def get_PyClass(filepath):
     class_list = {}
     with open(filepath, "r", encoding='utf-8', errors='ignore') as file:
@@ -172,13 +188,14 @@ def get_PyClass(filepath):
                     class_list[class_name]['value'][function_name]['status'] = 1
                 except UnboundLocalError as e:
                     print('请检查指定代码格式{}'.format(class_list))
-
             """获取用例状态(是否是pass)def"""
             if re.match("        (.*)", line):
                 status_name = re.match("        (.*)", line)
                 status_name = status_name.group(1)
                 if 'pass' == status_name:
                     class_list[class_name]['value'][function_name]['status'] = 0
+                if 'robot = KeyWord(drivers)' == status_name:
+                    class_list[class_name]['value'][function_name]['status'] = 2
 
     return class_list, feature_name
 
@@ -204,16 +221,27 @@ def get_Data():
     for pro_name in pro_list:
         data_list[pro_name] = {}
         module_path = os.path.join(BASE_DIR, 'project', pro_name, 'test_case')
+        yaml_path = os.path.join(BASE_DIR, 'project', pro_name, 'page_element')
         py_list = get_ModuleName(module_path)
+        yaml_list = get_yamlName(yaml_path)
         # print(module_list)      # 打印模块列表名
         for py_name in py_list:
             data_list[pro_name][change_pylist_modulelist(py_name)] = {}
             py_path = os.path.join(BASE_DIR, 'project', pro_name, 'test_case', py_name)
             data_list[pro_name][change_pylist_modulelist(py_name)]['att'] = {}
-            data_list[pro_name][change_pylist_modulelist(py_name)]['value'] = {}
+            data_list[pro_name][change_pylist_modulelist(py_name)]['yaml'] = {}
+
             data_all = get_PyClass(py_path)
             data_list[pro_name][change_pylist_modulelist(py_name)]['value'] = data_all[0]
             data_list[pro_name][change_pylist_modulelist(py_name)]['att'] = data_all[1]
+            yaml_text = ''
+            for yaml_name in yaml_list:
+                if py_name[0:py_name.rfind('.')] == yaml_name[0:yaml_name.rfind('.')]:
+                    yaml_path = os.path.join(BASE_DIR, 'project', pro_name, 'page_element', yaml_name)
+                    ori_yaml_text = get_YamlTest(yaml_path)
+                    yaml_text = ori_yaml_text.replace('\"', '\\"').replace("\'", "\\'")
+
+            data_list[pro_name][change_pylist_modulelist(py_name)]['yaml'] = yaml_text
     return data_list  # 封装好的数据
 
 def sync_AllData(data_list, env_list):
@@ -234,6 +262,7 @@ def sync_AllData(data_list, env_list):
     sql_execute.append("TRUNCATE ts_env")
     sql_execute.append("TRUNCATE ts_project")
     sql_execute.append("TRUNCATE ts_module")
+    sql_execute.append("TRUNCATE ts_yaml")
     sql_execute.append("TRUNCATE ts_testtype")
     sql_execute.append("TRUNCATE scene")
     sql_execute.append("TRUNCATE ts_case")
@@ -261,6 +290,10 @@ def sync_AllData(data_list, env_list):
             sql_type_UT = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('单元测试','UT',{},'自动化平台','自动化平台',1)".format(mod_id)
             sql_execute.append(sql_type_UT)
 
+            yaml_text = data_list[pro_code][mod_code]['yaml']
+            sql_yaml = "INSERT INTO ts_yaml(p_id,p_code,m_id,m_code,yaml_text,enabled_flag) VALUES ({},'{}',{},'{}','{}',1)".format(pro_id, pro_code, mod_id, mod_code, yaml_text)
+            sql_execute.append(sql_yaml)
+
             # 场景数据
             for sce_index, sce_code in enumerate(data_list[pro_code][mod_code]['value'], 1):
                 sce_zh = data_list[pro_code][mod_code]['value'][sce_code]['att'].replace('\"', '').replace("\'", "\\'")
@@ -269,7 +302,6 @@ def sync_AllData(data_list, env_list):
 
                 # 用例数据
                 for case_index, case_code in enumerate(data_list[pro_code][mod_code]['value'][sce_code]['value'], 1):
-
                     try:
                         # 添加用例描述
                         case_zh = data_list[pro_code][mod_code]['value'][sce_code]['value'][case_code]['title'].replace("\\", "\\\\").replace('\"', '').replace("\'", "\\'")
@@ -367,6 +399,7 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除项目 {} '.format(project))
             sql_pro = "DELETE FROM ts_project WHERE project_name='{}'".format(project)
             sql_execute.append(sql_pro)
+
         change_db(sql_execute)
 
         sql_execute = []
@@ -379,6 +412,8 @@ def algo_data(type, sql_data, data_list, parm=None):
         change_db(sql_execute)
 
     elif type == 'mod':
+        # print(sql_data)
+        # print(data_list)
 
         for mod_id, mod_code, in enumerate(data_list.keys(), 1):
             list_py.append(mod_code)
@@ -393,6 +428,7 @@ def algo_data(type, sql_data, data_list, parm=None):
             print('更新后删除模块 {} '.format(module))
             sql_pro = "DELETE FROM ts_module WHERE module_code ='{}' AND p_id={}".format(module, parm)
             sql_execute.append(sql_pro)
+
         change_db(sql_execute)
 
         sql_execute = []
@@ -402,16 +438,21 @@ def algo_data(type, sql_data, data_list, parm=None):
             module_zh = data_list[module_code]['att'].replace('\"','').replace('\'','')
             sql_pro = "INSERT INTO ts_module(module_code,module_name,p_id,created_by,updated_by,enabled_flag) VALUES ('{}','{}',{},'自动化平台','自动化平台',1)".format(module_code, module_zh, parm)
             sql_execute.append(sql_pro)
+
         change_db(sql_execute)
 
         # 初始化执行列表
         sql_execute = []
+
+        pro_name_sql = "SELECT project_name from ts_project where id={}".format(parm)
+        pro_name = query_db(pro_name_sql)[0]['project_name']
 
         # 模块查询sql,为了获取mod_id
         module_sql = "SELECT id,module_code from ts_module where p_id={}".format(parm)
 
         # 获取最新列表
         get_mod_id = fomart_data('mod', 'name', query_db(module_sql))
+
 
         for module_code in inp_data:
             mod_id = get_mod_id[module_code]
@@ -424,7 +465,47 @@ def algo_data(type, sql_data, data_list, parm=None):
             sql_execute.append(sql_type_ST)
             sql_type_UT = "INSERT INTO ts_testtype(testtype_name,testtype_des,m_id,created_by,updated_by,enabled_flag) VALUES ('单元测试','UT',{},'自动化平台','自动化平台',1)".format(mod_id)
             sql_execute.append(sql_type_UT)
+        change_db(sql_execute)
 
+    elif type == 'yaml':
+        # print(sql_data)
+        # print(data_list)
+
+        for mod_id, mod_code, in enumerate(data_list.keys(), 1):
+            list_py.append(mod_code)
+
+        for i in sql_data:
+            list_sq.append(i['m_code'])
+
+        del_data = list(set(list_sq).difference(set(list_py)))
+        inp_data = list(set(list_py).difference(set(list_sq)))
+
+        for module in del_data:
+            print('更新后删除模块 {} 中的yaml文件内容 '.format(module))
+            sql_pro_yaml = "DELETE FROM ts_yaml WHERE m_code ='{}' AND p_id={}".format(module, parm)
+            sql_execute.append(sql_pro_yaml)
+        change_db(sql_execute)
+
+        # 初始化执行列表
+        sql_execute = []
+
+        pro_name_sql = "SELECT project_name from ts_project where id={}".format(parm)
+        pro_name = query_db(pro_name_sql)[0]['project_name']
+
+        # 模块查询sql,为了获取mod_id
+        module_sql = "SELECT id,module_code from ts_module where p_id={}".format(parm)
+
+        # 获取最新列表
+        get_mod_id = fomart_data('mod', 'name', query_db(module_sql))
+
+
+        for module_code in inp_data:
+            mod_id = get_mod_id[module_code]
+            yaml_text = data_list[module_code]['yaml']
+            print('更新后模块增加了yaml文件 {}'.format(module_code))
+            sql_pro_yaml = "INSERT INTO ts_yaml(p_id,p_code,m_id,m_code,yaml_text,enabled_flag) VALUES ({},'{}',{},'{}','{}',1)".format(parm, pro_name, mod_id, module_code, yaml_text)
+            print(sql_pro_yaml)
+            sql_execute.append(sql_pro_yaml)
         change_db(sql_execute)
 
     elif type == 'sce':
@@ -555,6 +636,9 @@ def del_data(type, data_list):
     elif type == 'env':
         sql_pro = "DELETE FROM ts_env WHERE p_id NOT IN {}".format(data_list)
 
+    elif type == 'yaml':
+        sql_pro = "DELETE FROM ts_yaml WHERE m_id NOT IN {}".format(data_list)
+
     elif type == 'test_type':
         sql_pro = "DELETE FROM ts_testtype WHERE m_id NOT IN {}".format(data_list)
 
@@ -577,6 +661,8 @@ def update_data(type, sql_data, data_list, parm=None):
     list_py = []
     module_list_py = {}
     module_list_sq = {}
+    yaml_list_py = {}
+    yaml_list_sq = {}
     env_list_py = {}
     env_list_sq = {}
     scene_list_py = {}
@@ -599,7 +685,6 @@ def update_data(type, sql_data, data_list, parm=None):
     }
 
     if type == 'mod':
-
         for mod_id, mod_code, in enumerate(data_list.keys(), 1):
             list_py.append(mod_code)
             module_list_py[mod_code] = data_list[mod_code]['att'].replace('\"','').replace('\'','')
@@ -620,6 +705,32 @@ def update_data(type, sql_data, data_list, parm=None):
             if module_list_sq_json[module_key] != module_list_py_json[module_key]:
                 print('更新模块描述 {} '.format(module_key))
                 sql_pro = 'UPDATE ts_module SET module_name="{}" WHERE module_code="{}" AND p_id={}'.format(module_list_py_json[module_key], module_key, parm)
+                print(sql_pro)
+                sql_execute.append(sql_pro)
+        change_db(sql_execute)
+
+    if type == 'yaml':
+        for mod_id, mod_code, in enumerate(data_list.keys(), 1):
+            list_py.append(mod_code)
+            yaml_list_py[mod_code] = data_list[mod_code]['yaml'].replace('\\"', '\"').replace( "\\'", "\'")
+        yaml_list_py = sorted(yaml_list_py.items())
+        # 格式化字典
+        yaml_list_py_json = {k: v for k, v in yaml_list_py}
+        # print(yaml_list_py_json)
+
+        for i in sql_data:
+            list_sq.append(i['m_code'])
+            yaml_list_sq[i['m_code']] = i['yaml_text']
+        yaml_list_sq = sorted(yaml_list_sq.items())
+        # 格式化字典
+        yaml_list_sq_json = {k: v for k, v in yaml_list_sq}
+        # print(yaml_list_sq_json)
+
+        for module_key in yaml_list_py_json:
+            if yaml_list_sq_json[module_key] != yaml_list_py_json[module_key]:
+                print('更新模块yaml内容 {} '.format(module_key))
+                yaml_content = yaml_list_py_json[module_key].replace('\"', '\\"').replace("\'", "\\'")
+                sql_pro = "UPDATE ts_yaml SET yaml_text='{}' WHERE m_code='{}' AND p_id={}".format(yaml_content, module_key, parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
         change_db(sql_execute)
@@ -648,10 +759,9 @@ def update_data(type, sql_data, data_list, parm=None):
         change_db(sql_execute)
 
     if type == 'sce':
-
         for sce_id, sce_code, in enumerate(data_list.keys(), 1):
             list_py.append(sce_code)
-            scene_list_py[sce_code] = data_list[sce_code]['att'].replace("\\", "\\\\").replace('\"','').replace('\'','')
+            scene_list_py[sce_code] = data_list[sce_code]['att'].replace('\\"', '\"').replace( "\\'", "\'")
         scene_list_py = sorted(scene_list_py.items())
         # 格式化字典
         scene_list_py_json = {k: v for k, v in scene_list_py}
@@ -668,18 +778,20 @@ def update_data(type, sql_data, data_list, parm=None):
         for scene_key in scene_list_py_json:
             if scene_list_sq_json[scene_key] != scene_list_py_json[scene_key]:
                 # print('更新场景描述 {} '.format(scene_key))
-                sql_pro = 'UPDATE scene SET scene_name="{}" WHERE scene_code="{}" AND m_id={}'.format(scene_list_py_json[scene_key], scene_key, parm)
+                sce_content = scene_list_py_json[scene_key].replace('\"', '\\"').replace("\'", "\\'")
+                sql_pro = 'UPDATE scene SET scene_name="{}" WHERE scene_code="{}" AND m_id={}'.format(sce_content, scene_key, parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
         change_db(sql_execute)
 
     if type == 'case':
-
         for case_id, case_code, in enumerate(data_list.keys(), 1):
             list_py.append(case_code)
             python_list = []
-            python_list.append(data_list[case_code]['title'].replace('\"','').replace('\'',''))
-            python_list.append(data_list[case_code]['description'].replace('\"','').replace('\'',''))
+            # python_list.append(data_list[case_code]['title'].replace("\\", "\\\\").replace('\"', '').replace("\'", "\\'"))
+            python_list.append(data_list[case_code]['title'].replace('\\"', '\"').replace("\\'", "\'"))
+            # python_list.append(data_list[case_code]['description'].replace("\\", "\\\\").replace('\"', '').replace("\'", "\\'"))
+            python_list.append(data_list[case_code]['description'].replace('\\"', '\"').replace("\\'", "\'"))
             python_list.append(data_list[case_code]['status'])
             python_list.append(str(case_level[data_list[case_code]['severity']]))
             case_list_py[case_code] = python_list
@@ -704,9 +816,15 @@ def update_data(type, sql_data, data_list, parm=None):
         # print(case_list_sq_json)
 
         for case_key in case_list_py_json:
+            # print('case_list_py_json----', case_list_py_json)
+            # print('case_list_sq_json----', case_list_sq_json)
             if case_list_sq_json[case_key] != case_list_py_json[case_key]:
-                print('更新模块描述 {} '.format(case_key))
-                sql_pro = 'UPDATE ts_case SET case_name="{}",case_des="{}",case_status={},case_level={} WHERE case_code="{}" AND s_id={}'.format(case_list_py_json[case_key][0], case_list_py_json[case_key][1], case_list_py_json[case_key][2],case_list_py_json[case_key][3], case_key, parm)
+                print('更新用例描述 {} '.format(case_key))
+                case_name_content = case_list_py_json[case_key][0].replace('\"', '\\"').replace("\'", "\\'")
+                case_des_content = case_list_py_json[case_key][1].replace('\"', '\\"').replace("\'", "\\'")
+                case_status_content = case_list_py_json[case_key][2]
+                case_level_content = case_list_py_json[case_key][3]
+                sql_pro = 'UPDATE ts_case SET case_name="{}",case_des="{}",case_status={},case_level={} WHERE case_code="{}" AND s_id={}'.format(case_name_content, case_des_content, case_status_content, case_level_content, case_key, parm)
                 print(sql_pro)
                 sql_execute.append(sql_pro)
         change_db(sql_execute)
@@ -738,6 +856,12 @@ def update_data(type, sql_data, data_list, parm=None):
                         sql_execute.append(sql_pro)
 
         change_db(sql_execute)
+
+
+def music(music_name,a):
+    print('正在下载{}{}'.format(music_name,a))
+    sleep(2)
+    print('{}下载成功'.format(music_name))
 def sync_Data(data_list, env_list=None):
 
     # 项目查询sql
@@ -747,85 +871,109 @@ def sync_Data(data_list, env_list=None):
     # 查找最新数据ts_project表的数据并格式化
     pro_list = fomart_data('pro', 'name', query_db(project_sql))
 
-    # 遍历出每个项目py数据
-    for pro_code in data_list:
-        # 获取最新项目对应id
-        pro_id = pro_list[pro_code]
-        # 存储每个项目数据
-        pro_data_list = data_list[pro_code]
-        env_data_list = env_list[pro_code]
+    n = len(pro_list.keys())
 
-        # 模块查询sql
-        module_sql = "SELECT id,module_code,module_name from ts_module where p_id = {}".format(pro_id)
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        executor.map(thread_task,[data_list] * n,[env_list] * n, pro_list.keys())
 
-        # 查找出py文件和数据库项目数据的差异并进行輸入操作
-        algo_data('mod', query_db(module_sql), pro_data_list, pro_id)
+def thread_task(data_list, env_list=None, pro_code=None):
 
-        # 查找出py文件和数据库项目数据的差异并进行輸入操作
-        update_data('mod', query_db(module_sql), pro_data_list, pro_id)
+    # 项目查询sql
+    project_sql = "SELECT id,project_name from ts_project"
 
-        # 环境查询sql
-        env_sql = "SELECT id,env_name,env_url from ts_env where p_id={}".format(pro_id)
+    # 查找最新数据ts_project表的数据并格式化
+    pro_list = fomart_data('pro', 'name', query_db(project_sql))
+
+    # 获取最新项目对应id
+    pro_id = pro_list[pro_code]
+
+    # print(pro_code)
+
+    # 存储每个项目数据
+    pro_data_list = data_list[pro_code]
+    env_data_list = env_list[pro_code]
+
+    # 模块查询sql
+    # module_sql = "SELECT id,module_code,module_name from ts_module where p_id = {}".format(pro_id)
+    module_sql = "select ts_module.id,ts_module.module_code,ts_module.module_name,ts_yaml.yaml_text from ts_module LEFT JOIN ts_yaml ON ts_module.id = ts_yaml.m_id WHERE ts_module.p_id = {}".format(pro_id)
+
+    # 查找出py文件和数据库项目数据的差异并进行輸入操作
+    algo_data('mod', query_db(module_sql), pro_data_list, pro_id)
+
+    # 查找出py文件和数据库项目数据的差异并进行輸入操作
+    update_data('mod', query_db(module_sql), pro_data_list, pro_id)
+
+    # 模块yaml查询sql
+    yaml_sql = "SELECT id,m_code,yaml_text from ts_yaml where p_id={}".format(pro_id)
+
+    # 查找出py文件和数据库项目数据的差异并进行操作
+    algo_data('yaml', query_db(yaml_sql), pro_data_list, pro_id)
+
+    # 查找出py文件和数据库环境数据的差异并进行輸入操作
+    update_data('yaml', query_db(yaml_sql), pro_data_list, pro_id)
+
+    # 环境查询sql
+    env_sql = "SELECT id,env_name,env_url from ts_env where p_id={}".format(pro_id)
+
+    # 查找出py文件和数据库项目数据的差异并进行操作
+    algo_data('env', query_db(env_sql), env_data_list, pro_id)
+
+    # 查找出py文件和数据库环境数据的差异并进行輸入操作
+    update_data('env', query_db(env_sql), env_data_list, pro_id)
+
+    # 查找最新数据ts_module表的数据并格式化
+    mod_list = fomart_data('mod', 'name', query_db(module_sql))
+
+    # 遍历出每个模块数据
+    for mod_code in pro_data_list:
+        # # 获取最新模块对应id
+        mod_id = mod_list[mod_code]
+        # 存储每个模块数据
+        mod_data_list = pro_data_list[mod_code]['value']
+
+        # 场景查询sql
+        scene_sql = "SELECT scene_id,scene_code,scene_name from scene where m_id = {}".format(mod_id)
 
         # 查找出py文件和数据库项目数据的差异并进行操作
-        algo_data('env', query_db(env_sql), env_data_list, pro_id)
+        algo_data('sce', query_db(scene_sql), mod_data_list, mod_id)
 
-        # 查找出py文件和数据库环境数据的差异并进行輸入操作
-        update_data('env', query_db(env_sql), env_data_list, pro_id)
+        # 查找出py文件和数据库项目数据的差异并进行操作
+        update_data('sce', query_db(scene_sql), mod_data_list, mod_id)
 
         # 查找最新数据ts_module表的数据并格式化
-        mod_list = fomart_data('mod', 'name', query_db(module_sql))
+        sce_list = fomart_data('sce', 'name', query_db(scene_sql))
 
-        # 遍历出每个模块数据
-        for mod_code in pro_data_list:
-            # # 获取最新模块对应id
-            mod_id = mod_list[mod_code]
-            # 存储每个模块数据
-            mod_data_list = pro_data_list[mod_code]['value']
+        # 遍历出每个场景数据
+        for sce_code in mod_data_list:
 
-            # 场景查询sql
-            scene_sql = "SELECT scene_id,scene_code,scene_name from scene where m_id = {}".format(mod_id)
+            # 获取最新场景对应id
+            sce_id = sce_list[sce_code]
+            # 存储每个场景数据
+            sce_data_list = mod_data_list[sce_code]['value']
 
-            # 查找出py文件和数据库项目数据的差异并进行操作
-            algo_data('sce', query_db(scene_sql), mod_data_list, mod_id)
+            # 用例查询sql
+            case_sql = "SELECT id,case_code,case_name,case_des,case_status,case_level from ts_case where s_id = {}".format(sce_id)
 
             # 查找出py文件和数据库项目数据的差异并进行操作
-            update_data('sce', query_db(scene_sql), mod_data_list, mod_id)
+            algo_data('case', query_db(case_sql), sce_data_list, sce_id)
+
+            # 查找出py文件和数据库项目数据的差异并进行操作
+            update_data('case', query_db(case_sql), sce_data_list, sce_id)
 
             # 查找最新数据ts_module表的数据并格式化
-            sce_list = fomart_data('sce', 'name', query_db(scene_sql))
+            case_list = fomart_data('case', 'name', query_db(case_sql))
 
-            # 遍历出每个场景数据
-            for sce_code in mod_data_list:
-
+            for case_code in sce_data_list:
                 # 获取最新场景对应id
-                sce_id = sce_list[sce_code]
+                case_id = case_list[case_code]
                 # 存储每个场景数据
-                sce_data_list = mod_data_list[sce_code]['value']
+                case_data_list = sce_data_list[case_code]['mark']
 
                 # 用例查询sql
-                case_sql = "SELECT id,case_code,case_name,case_des,case_status,case_level from ts_case where s_id = {}".format(sce_id)
+                case_sql = "SELECT id,case_id,case_mark_id from ts_casemark_detail where case_id={}".format(case_id)
 
-                # 查找出py文件和数据库项目数据的差异并进行操作
-                algo_data('case', query_db(case_sql), sce_data_list, sce_id)
-
-                # 查找出py文件和数据库项目数据的差异并进行操作
-                update_data('case', query_db(case_sql), sce_data_list, sce_id)
-
-                # 查找最新数据ts_module表的数据并格式化
-                case_list = fomart_data('case', 'name', query_db(case_sql))
-
-                for case_code in sce_data_list:
-                    # 获取最新场景对应id
-                    case_id = case_list[case_code]
-                    # 存储每个场景数据
-                    case_data_list = sce_data_list[case_code]['mark']
-
-                    # 用例查询sql
-                    case_sql = "SELECT id,case_id,case_mark_id from ts_casemark_detail where case_id={}".format(case_id)
-
-                    # 查找出py文件和数据库项目数据mark的差异并进行操作
-                    update_data('mark', query_db(case_sql), case_data_list, case_id)
+                # 查找出py文件和数据库项目数据mark的差异并进行操作
+                update_data('mark', query_db(case_sql), case_data_list, case_id)
 
 def clear_data():
     # 项目查询sql
@@ -857,6 +1005,9 @@ def clear_data():
 
     # 获取最新mod_id list
     mod_id_list = tuple(mod_list.keys())
+
+    # 清除元素定位多余数据
+    del_data('yaml', mod_id_list)
 
     # 清除场景多余数据
     del_data('sce', mod_id_list)
@@ -894,4 +1045,5 @@ if __name__ == '__main__':
 
     # 同步所有数据（增量）
     sync_Data(get_Data(), get_env())
+
     clear_data()

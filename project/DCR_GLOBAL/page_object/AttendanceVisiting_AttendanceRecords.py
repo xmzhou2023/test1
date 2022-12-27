@@ -120,7 +120,7 @@ class AttendanceRecordPage(Base):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], content)
         sleep(1)
-        self.is_click(user['Task Name value'], content)
+        self.is_click_dcr(user['Task Name value'], content)
 
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""

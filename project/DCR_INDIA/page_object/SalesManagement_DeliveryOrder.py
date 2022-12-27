@@ -10,7 +10,7 @@ class DeliveryOrderPage(Base):
     """DeliveryOrderPage类，生产环境，Delivery Order页面元素定位"""
     def click_unfold(self):
         """点击Unfold展开筛选条件"""
-        self.is_click(user['Unfold'])
+        self.is_click_dcr(user['Unfold'])
         sleep(2)
 
     def click_fold(self):
@@ -22,10 +22,9 @@ class DeliveryOrderPage(Base):
         """输入Delivery Date开始与结束日期筛选"""
         Base.presence_sleep_dcr(self, user['Delivery Start Date'])
         self.is_click(user['Delivery Start Date'])
-        self.input_text(user['Delivery Start Date'], txt=content1)
-        sleep(1)
+        self.readonly_input_text(user['Delivery Start Date'], content1)
         self.is_click(user['Delivery End Date'])
-        self.input_text(user['Delivery End Date'], txt=content2)
+        self.readonly_input_text(user['Delivery End Date'], content2)
 
     def click_status_input_box(self):
         """点击 Status输入框"""
@@ -67,16 +66,6 @@ class DeliveryOrderPage(Base):
         """ 出库单页面，no Data文本内容 """
         get_no_data = self.element_text(user['No Data'])
         return get_no_data
-
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
-
-    def click_close_delivery_order(self):
-        """出库单页面，关闭出库单菜单"""
-        self.is_click(user['关闭出库单菜单'])
-        sleep(2)
 
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
@@ -145,13 +134,12 @@ class DeliveryOrderPage(Base):
         export_time1 = export_time[0:1]
         return export_time1
 
-
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
         if int(total) > 1:
             logging.info("查看Delivery Order列表，加载数据正常，分页总记录数：{}".format(total))
         else:
-            logging.info("查看Delivery Order列表，加载数据失败，分页总记录数：{}".format(total))
+            logging.info("查看Delivery Order列表，加载数据正常，分页总记录数：{}".format(total))
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """
@@ -164,7 +152,7 @@ class DeliveryOrderPage(Base):
             logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1.5)
+
 
 if __name__ == '__main__':
     pass

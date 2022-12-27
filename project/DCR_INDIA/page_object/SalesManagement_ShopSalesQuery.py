@@ -25,7 +25,7 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['Fold'])
         sleep(1)
 
-    def input_sales_date_date(self, content1, content2):
+    def input_sales_date(self, content1, content2):
         Base.presence_sleep_dcr(self, user['Sales Date Start Date'])
         self.is_click(user['Sales Date Start Date'])
         self.input_text(user['Sales Date Start Date'], txt=content1)
@@ -75,15 +75,15 @@ class ShopSaleQueryPage(Base):
         return total1
 
 
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
-
-    def click_close_shop_sales_query(self):
-        """ 关闭门店销售查询菜单 """
-        self.is_click(user['关闭门店销售查询菜单'])
-        sleep(2)
+    # def click_close_export_record(self):
+    #     """关闭导出记录菜单"""
+    #     self.is_click(user['关闭导出记录菜单'])
+    #     sleep(1)
+    #
+    # def click_close_shop_sales_query(self):
+    #     """ 关闭门店销售查询菜单 """
+    #     self.is_click(user['关闭门店销售查询菜单'])
+    #     sleep(2)
 
 
 
@@ -156,16 +156,10 @@ class ShopSaleQueryPage(Base):
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
         if int(total) > 0:
-            logging.info("Shop Sales Query列表，按Shop ID筛选，加载筛选后的数据正常，分页总条数Total：{}".format(total))
+            logging.info("查看Shop Sales Query列表，按sales date条件筛选，分页总条数Total：{}".format(total))
         else:
-            logging.info("查看Shop Sales Query列表，未加载筛选后的数据失败，分页总条数Total：{}".format(total))
+            logging.info("查看Shop Sales Query列表，按sales date条件筛选，分页总条数Total：{}".format(total))
 
-    def assert_total2(self, total2):
-        """断言分页总数是否存在数据"""
-        if int(total2) > 1000:
-            logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total2))
-        else:
-            logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total2))
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """

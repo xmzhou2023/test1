@@ -22,7 +22,10 @@ Get Delivery Quantity: "xpath==//div[@class='scanned-box']/..//div[@class='num']
 Get Order Detail Deli Quantity: "xpath==//button[@class='el-button el-button--text el-button--mini']"
 Get Delivery Scan Record IMEI: "xpath==//div[normalize-space(text())='variable']"
 Get Delivery Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
+Get Delivery Order Detail Product: "xpath==//div//span[text()='Order Detail']/../..//tbody//tr[1]//td[1]//div//span"
 Submit: "xpath==//button[@class='el-button el-button--primary el-button--small']"
+Get Confirm the sale price Brand: "xpath==//div//span[text()='Please confirm the sale price']/../..//tbody//tr[1]//td[1]//div"
+Get Confirm the sale price Product: "xpath==//div//span[text()='Please confirm the sale price']/../..//tbody//tr[1]//td[2]//div"
 Affirm Submit: "xpath==//button//span[text()='Submit']"
 
 
@@ -43,14 +46,14 @@ Business Type: "xpath==//input[@class='el-input__inner deliveryorderadd_input_tm
 Business Type value: "xpath==//span[normalize-space(text())='variable']"
 
 #查询IMEI Detail详情
-Click IMEI Detail: "xpath==//tbody//tr[1]//td[44]//div//div//span[text()='IMEI Detail']"
+Click IMEI Detail: "xpath==//tbody//tr[1]//td[not(contains(@class,'is-hidden'))]//div//div//span[text()='IMEI Detail']"
 Get List Product Text: "xpath==//tbody//tr[1]//td[7]//div//div//div"
 Get List Item Text: "xpath==//tbody//tr[1]//td[8]//div//div//div"
 Get IMEI Detail Product Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[1]//div"
 Get IMEI Detail Item Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[2]//div"
 Get IMEI Detail IMEI Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//tbody//tr//td[5]//div"
 Get IMEI Detail Total Text: "xpath==//div/..//span[contains(text(), 'IMEI Detail: ')]/../..//div//span[contains(text(),'Total')]"
-Get IMEI Detail Title: "xpath==//span[contains(text(), 'IMEI Detail: ')]"
+Get Delivery IMEI Detail Title: "xpath==//span[contains(text(), 'IMEI Detail: ')]"
 
 
 #获取列表字段文本
@@ -65,7 +68,7 @@ Get list Return Quantity: "xpath==//tbody//tr[1]//td[14]//div[contains(@style, '
 
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭出库单菜单: "xpath==//span[normalize-space(text())='Delivery Order']//span[@class='el-icon-close']"
-关闭IMEI详情页: "xpath==//*[@id='mainContainer']/section/div[2]/div[3]/div/div[1]/button/i"
+关闭IMEI详情页: "xpath==//div//span[contains(text(),'IMEI Detail')]/..//i[@class='el-dialog__close el-icon el-icon-close']"
 
 #测试环境，导出出库单定位
 Click Export: "xpath==//button//span[normalize-space(text())='Export']"
@@ -75,12 +78,13 @@ Delivery Start Date: "xpath==//div//input[@id='deliveryorder_input_deliveryDate'
 Delivery End Date: "xpath==//div//input[@id='deliveryorder_input_deliveryDate1']"
 Total: "xpath==//span[contains(text(), 'Total')]"
 点击状态输入框: "xpath==//label[contains(text(),'Status')]//parent::div//following-sibling::div//input"
+Click Export Detail: "id==deliveryorder_Export Detail"
 
 #列表导出出库单，导出成功后断言
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
 Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
-Task Name value: "xpath==//span[text()='variable']"
+Task Name value: "xpath==//div//ul//li//span[text()='variable']"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
 获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
@@ -90,3 +94,33 @@ Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
 获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
 获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"
+
+Import: "xpath==//button/span[normalize-space(text())='Import']"
+Upload: "xpath==//button/span[normalize-space(text())='Upload']"
+导入: "xpath==//div[not(contains(@style,'display: none;'))]/div[@aria-label='Import']//input[@class='el-upload__input']"
+导入成功状态: "xpath==//i[contains(@class,'el-icon-upload-success')]"
+Confirm: "xpath==//body/div[@role='dialog']//button/span[normalize-space(text())='Confirm']"
+Save: "xpath==//div[@aria-label='Import']//button/span[normalize-space(text())='Save']"
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+menu表格字段: "xpath==//div[normalize-space(text())='variable']/../../.."
+表头文本: "xpath==//thead/tr/th"
+DeliveryOrdery表格内容: "xpath==//td[contains(@class,'variable   ') and not(contains(@class, 'is-hidden'))]/div"
+DeliveryOrdery滚动条: "xpath==//div[@class='vxe-table--body-wrapper body--wrapper']"
+表格指定列内容: "xpath==//*[normalize-space(text())='variable']/../../td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+当前菜单: "xpath==//span[@class='tags-view-item router-link-exact-active router-link-active active']"
+表格内容: "xpath==//tbody/tr"
+表格首行指定内容: "xpath==//tbody/tr[1]/td[not(contains(@class,'is-hidden')) and contains(@class,'variable')]"
+首行print: "xpath==//tbody/tr[1]/td[not(contains(@class,'is-hidden'))]//span[normalize-space(text())='Print']"
+菜单: "xpath==//li[@role='menuitem']//span[normalize-space(text())='variable']"
+菜单栏: "xpath==//span[contains(@class,'tags-view-item')][1]"
+打印内容: "xpath==//div[@id='print-box']//*[contains(text(),'variable')]"
+input输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
+select输入框: "xpath==//label[normalize-space(text())='variable']/..//input[@placeholder='All']"
+select输入框2: "xpath==//label[normalize-space(text())='variable']/..//input[@placeholder='Batch input content']"
+select输入框选择: "xpath==//li/span[contains(text(),'variable')]"
+click输入框: "xpath==//label[normalize-space(text())='variable']/..//div[not(contains(@style,'display: none;'))]/input[@placeholder='All']"
+click输入框2: "xpath==//label[normalize-space(text())='variable']/..//div[not(contains(@style,'display: none;'))]/input[contains(@class,'el-select__input')]"
+click输入框选择: "xpath==//div[contains(@x-placement,'start')]//li/span[normalize-space(text())='variable']"
+NoData: "xpath==//div[@class='el-table__empty-block']"
+打印Cancel: "xpath==//div[normalize-space(text())='Delivery Order']/../../..//span[normalize-space(text())='Cancel']"
+DeliveryOrdery表格退货标签: "xpath==//td[contains(@class,'variable   ') and not(contains(@class, 'is-hidden'))]/div/div/div"

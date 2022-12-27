@@ -1,0 +1,119 @@
+关键字: "xpath==//span[contains(text(),'终审版报表')]"
+项目管理: "xpath==//span[text()='项目管理']"
+新增: "xpath==//button/span[text()=' 新增 ']"
+选择模板: "xpath==//span[text()='variable']"
+项目名称: "xpath==//div[@aria-label='新建项目']//div/label/span[text()='项目名称']/../../div//input"
+项目描述: "xpath==//div[@aria-label='新建项目']//div/label/span[text()='项目描述']/../../div//textarea"
+保存: "xpath==//div[@aria-label='新建项目']//span[text()='保存']"
+取消: "xpath==//div[@aria-label='新建项目']//span[text()='取消']"
+编辑: "xpath==//span[text()=' 编辑 ']"
+
+
+进入项目: "xpath==//section//div[@title='variable']"
+卡片展开按钮: 'xpath==//div/div/div[@title="variable"]/../..//div[@role="button"]'
+项目编辑按钮: 'xpath==//ul[contains(@x-placement,"end")]/li[text()="编辑"]'
+项目删除按钮: 'xpath==//ul[contains(@x-placement,"end")]/li[text()="删除"]'
+
+卡片展开: 'xpath==//section//section/div[1]//div[@role="button"]'
+置顶提示: 'xpath==//div[@role="alert"]/p'
+
+#========================================================================编辑===============================================================================
+字段名称: "xpath==//div/label[text()=' variable ']/..//input"
+
+基本信息保存: "xpath==//span[@title='保存']"
+启动项目: 'xpath==// span[text() = " 启动项目 "]'
+tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
+下拉值获取: "xpath==//div[@x-placement='bottom-start']//li/span"
+下拉值选择: 'xpath==//div[@x-placement="bottom-start"]//li/span[text()="variable"]'
+下拉框: "xpath==//div[@x-placement='bottom-start']//li[2]/span"
+下拉框_列表名: "xpath==//div[@x-placement='bottom-start']//span[text()='variable']"
+
+
+#=======================================================================删除项目提示=========================================================================
+
+删除确定: "xpath==//div//span[text()='提示']/../../..//span[contains(text(),'确定')]"
+删除取消: "xpath==//div//span[text()='提示']/../../..//span[contains(text(),'取消')]"
+
+#=======================================================================人员列表===============================================================================
+请输入姓名或工号: 'xpath==//div[@aria-label="人员列表"]//input'
+选择人员: 'xpath==//div[@aria-label="人员列表"]//div[text()=" variable "]'
+人员列表_确定: 'xpath==//div[@aria-label="人员列表"]//button[2]/span'
+人员列表_取消: 'xpath==//div[@aria-label="人员列表"]//button/span[text()="取消"]'
+
+
+#=======================================================================计划任务===============================================================================
+计划任务选择: 'xpath==//span[text()="variable"]'
+计划任务展开: 'xpath==//div/span[text()="variable"]/../i[1]'
+计划任务更多操作: 'xpath==//div/span[text()="variable"]/../i[2]'
+计划任务更多操作_子功能: 'xpath==//ul/li[text()=" variable "]'
+任务基本信息: 'xpath==//div[@class="tr-card--container"]/form/div/label'
+点击标题: 'xpath==//span[@class="title font-bold"]'
+
+计划任务_预约上会: "xpath==//div[@class='parentContent']//button/span[text()=' 预约上会 ']"
+计划任务_保存: "xpath==//div[@class='parentContent']//button/span[text()=' 保存 ']"
+计划任务_发起评审: "xpath==//div[@class='parentContent']//button/span[text()=' 发起评审 ']"
+添加全部: 'xpath==//label/span[text()=" 添加全部 "]/../span//input'
+
+上会预约_获取下月5: "xpath==//div/div/span[text()='上会预约']/../..//tr[5]/td/div/div/div[2]"
+上会预约_获取下月6: "xpath==//div/div/span[text()='上会预约']/../..//tr[6]/td/div/div/div[2]"
+上会预约_获取可预约: 'xpath==//div/div/span[text()="上会预约"]/../..//tr/td/div/div/div/span[1]'
+上会_预约: 'xpath==//span[text()="可预约"]'
+上会预约_6_01: 'xpath==//tr[6]//div[text()="01"][1]'
+上会预约_5_01: 'xpath==//tr[5]//div[text()="01"][1]'
+提交预约: 'xpath==//span[text()=" 提交预约 "]'
+上会预约_取消: 'xpath==//div[@role="dialog"]//span[text()="上会预约"]/../../div//span[text()="取消"]'
+
+设置通知内容_取消: 'xpath==//div[@role="dialog"]//span[text()="设置通知内容"]/../../div//span[text()="取消"]'
+设置通知内容_发送通知: 'xpath==//div[@role="dialog"]//span[text()="设置通知内容"]/../../div//span[text()=" 发送通知 "]'
+
+#=====================================================================任务发起-关系应用=========================================================================================
+任务发起_问题: 'xpath==//div[@class="drawer-bd"]//div[text()="问题"]'
+任务发起_结论: 'xpath==//div[@class="drawer-bd"]//div[text()="结论"]'
+任务发起_交付物: 'xpath==//div[@class="drawer-bd"]//div[text()="交付物"]'
+任务发起_评审记录: 'xpath==//div[@class="drawer-bd"]//div[text()="评审记录"]'
+
+#=====================================================================评审流程确认页-关系应用=========================================================================================
+评审流程确认页_问题: 'xpath==//div//span[text()=" 评审流程确认页 "]/../../..//div[text()="问题"]'
+评审流程确认页_结论: 'xpath==//div//span[text()=" 评审流程确认页 "]/../../..//div[text()="结论"]'
+评审流程确认页_交付物: 'xpath==//div//span[text()=" 评审流程确认页 "]/../../..//div[text()="交付物"]'
+评审流程确认页_评审记录: 'xpath==//div//span[text()=" 评审流程确认页 "]/../../..//div[text()="评审记录"]'
+#======================================================================评审流程确认页====================================================================================
+评审流程确认页_发起流程: 'xpath==//div//span[text()=" 评审流程确认页 "]/../..//span[text()=" 发起流程 "]'
+评审流程确认页_选取: 'xpath==//div//span[text()=" 评审流程确认页 "]/../../..//span[text()=" 选取 "]'
+评审流程确认页_选取_市场名: 'xpath==//div[@class="tr-form-row el-row"]//span[text()="市场名"]/../..//input'
+评审流程确认页_选取_项目名: 'xpath==//div[@class="tr-form-row el-row"]//span[text()="项目名"]/../..//input'
+评审流程确认页_选取_任务阶段: 'xpath==//div[@class="tr-form-row el-row"]//span[text()="任务阶段"]/../..//input'
+评审流程确认页_选取_查询: 'xpath==//div[@aria-label="选取"]//span[text()=" 查询 "]'
+评审流程确认页_选取_重置: 'xpath==//div[@aria-label="选取"]//span[text()=" 重置 "]'
+评审流程确认页_选取_确定: 'xpath==//body/div[@class="el-dialog__wrapper"]//span[text()=" 确定 "]'
+评审流程确认页_选取_取消: 'xpath==//body/div[@class="el-dialog__wrapper"]//span[text()=" 取消 "]'
+评审流程确认页_选取_勾选（项目名+任务阶段）: 'xpath==//tr/td/div/span[text()="variable"]/../../..//span[text()="variable"]/../../../td[1]'
+评审流程确认页_选取_勾选（项目名）: 'xpath==//tr/td/div/span[text()="variable"]/../../../td[1]'
+评审流程确认页_发起流程_关联任务_提示_确认: 'xpath==//div[@aria-label="提示"]//span[contains(text(),"确定")]'
+评审流程确认页_发起流程_关联任务_提示_取消: 'xpath==//div[@aria-label="提示"]//span[contains(text(),"取消")]'
+
+
+
+
+
+
+
+
+
+#==================================================================团队================================================================================
+团队_角色: 'xpath==//span[text()="variable"]'
+团队_角色_展开: 'xpath==//div//span[text()="variable"]/../../../span'
+团队_角色_新增成员: "xpath==//div//span[text()=' 新增成员 ']"
+团队_角色_表单成员: 'xpath==//div[@class="tr-table-wrapper margin-top"]/div/div[3]/table//td[2]//span[2]'
+团队_角色_成员删除: 'xpath==//tr//span[text()=" variable "]/../../..//span[@title="删除"]'
+团队_角色_成员删除_确定: 'xpath==//div[@class="el-message-box"]//button[2]'
+团队_角色_成员删除_取消: 'xpath==//div[@class="el-message-box"]//div[3]/button[1]'
+
+
+
+
+创建要素: "xpath==//div[@class='btn-content']//button[1]/span[contains(text(),'创建')]"
+选取要素: "xpath==//div[@class='btn-content']//button[2]/span[contains(text(),'选取')]"
+要素基本信息: "xpath==//div[@aria-label='要素']/div[2]//div[@class='tr-card--container']/form/div/label"
+关系Tab应用: "xpath==//div[@role='tablist']/div[text()='variable']"
+

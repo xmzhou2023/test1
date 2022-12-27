@@ -90,6 +90,33 @@ class TestQueryGlobalCustomers:
         query.assert_total1(get_query_total)
         #query.click_close_customer_mgt()
 
+    @allure.story("查询用户")
+    @allure.title("随机条件组合查询")
+    @allure.description("用户管理页面，查询用户列表所有用户数据加载")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_002(self, drivers):
+        """变量"""
+        query_dict = {
+            'Customer': 'caron2301',
+            'Contact Name': 'caron2301',
+            'Sales Region': 'Kaolack',
+            'Country/City': '深圳2',
+            'Customer Type': 'Distributor',
+            'Customer Grade': 'A-W',
+            'SAP Customer ID': 'caron2301',
+            'Whether use DCR system': 'Yes',
+            'Customer Category': '',
+            'Brand': 'TECNO',
+            'Status': 'Enable',
+            'Channel Sales Manager': '',
+            'User': 'CNCARON230101',
+            'Warehouse': 'WCNcaron230101',
+        }
+        add = CustomerManagementPage(drivers)
+        add.click_menu("Customer Management", "Customer Management (global)")
+        add.click_unfold()
+        add.random_Query_Method(query_dict)
+
 
 @allure.feature("客户管理-客户管理(全球)")
 class TestAddCustomer:
@@ -414,8 +441,7 @@ class TestEnableCustomer:
 #         ValueAssert.value_assert_equal('0', get_failed)
 #         ValueAssert.value_assert_equal(today, get_import_date)
 #         """关闭当前打开的菜单"""
-#         menu = LoginPage(drivers)
-#         menu.click_close_open_menu()
+#         user.click_close_open_menu()
 #         """根据导入的客户ID，筛选导入的数据，然后进行删除操作"""
 #         upload.input_customer_query('Cus_test_itel')
 #         upload.click_search()

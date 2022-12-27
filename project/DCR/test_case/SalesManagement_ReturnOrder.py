@@ -1,5 +1,9 @@
 import logging
-from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
+from datetime import datetime
+
+from dateutil.relativedelta import relativedelta
+
+from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage,ReturnOrderQuery
 from project.DCR.page_object.SalesManagement_SalesOrder import SalesOrderPage
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
 from project.DCR.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
@@ -9,6 +13,7 @@ from public.base.assert_ui import ValueAssert, DomAssert
 from public.base.assert_ui import SQLAssert
 from libs.common.time_ui import sleep
 from libs.common.connect_sql import *
+from libs.config.conf import DOWNLOAD_PATH
 import pytest
 import allure
 
@@ -17,15 +22,16 @@ import allure
 def function_menu_fixture(drivers):
     yield
     menu = LoginPage(drivers)
-    for i in range(1):
-        get_menu_class = menu.get_open_menu_class()
-        class_value = "tags-view-item router-link-exact-active router-link-active active"
-        if class_value == str(get_menu_class):
-            menu.click_close_open_menu()
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
+
 
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
-    @allure.story("卖家创建退货单")
+    @allure.story("创建退货单")
     @allure.title("卖家创建无码销售单；然后卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.description("销售单页面，国包用户创建销售单，产品为无码的；卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -35,37 +41,30 @@ class TestReturnOrder:
         user.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         add = SalesOrderPage(drivers)
         add.click_add_sales()
-
         add.input_sales_buyer("NG20613")
         add.input_sales_brand("oraimo")
         add.input_sales_product("OEB-E75D  BLACK")
         add.input_sales_quantity('1')
         add.click_submit()
         add.click_submit_OK()
-
         """从数据库表，查询国包账号，最近新建的销售单ID"""
         sql1 = SQL('DCR', 'test')
         varsql1 = "select order_code from t_channel_sale_ticket where warehouse_id='61735' and seller_id='1596874516539127' and buyer_id='1596874516539550' and status=0 order by created_time desc limit 1"
         result1 = sql1.query_db(varsql1)
         order_code = result1[0].get("order_code")
         logging.info("打印查询数据库的销售单 order_code{}".format(order_code))
-
         """按销售单ID条件筛选新建的销售单"""
         add.input_sales_order_ID(order_code)
         add.click_search()
-
         """对新建的销售单，直接出库操作"""
         add.click_checkbox_orderID()
         add.click_Delivery_button()
         add.input_Payment_Mode("Wechat")
         add.click_quantity_radio_button()
-
         add.input_delivery_quantity('1')
         add.click_delivery_quantity()
-
         product = add.get_order_detail_product()
         ValueAssert.value_assert_IsNoneNot(product)
         quantity = add.get_new_delivery_quantity()
@@ -81,12 +80,10 @@ class TestReturnOrder:
         add.click_search()
         get_sales_order = add.get_text_sales_id()
         get_status = add.get_text_sales_status("Delivered")
-
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
         ValueAssert.value_assert_equal(get_sales_order, order_code)
         ValueAssert.value_assert_equal(get_status, "Delivered")
         add.click_close_sales_order()
-
         """卖家创建退货单，退货类型为Return To Seller，退无码产品"""
         base = Base(drivers)
         base.refresh()
@@ -100,26 +97,21 @@ class TestReturnOrder:
         result2 = sql2.query_db(varsql2)
         delivery_code = result2[0].get("delivery_code")
         logging.info("打印查询数据库的出库单 delivery_code{}".format(delivery_code))
-
         returnorder.click_Add()
         returnorder.click_Return_Type()
-
         returnorder.click_radio_quantity()
         returnorder.input_quantity_customer("NG20613")
         returnorder.input_quantity_delivery_order(delivery_code)
         returnorder.click_quantity_product("OEB-E75D  BLACK")
         returnorder.input_return_quantity('1')
-
         """点击Check按钮后，断言Order Detail列表记录是否正确"""
         returnorder.click_Check()
         get_quantity_deli = returnorder.get_quantity_deli_order_text(delivery_code)
         ValueAssert.value_assert_equal(get_quantity_deli, delivery_code)
-
         get_seller_id = returnorder.get_quantity_seller_id_text("EG400522")
         ValueAssert.value_assert_equal("EG400522", get_seller_id)
         get_buyer_id = returnorder.get_quantity_buyer_id_text("NG20613")
         ValueAssert.value_assert_equal("NG20613", get_buyer_id)
-
         """点击提交按钮"""
         returnorder.click_Submit()
         dom = DomAssert(drivers)
@@ -127,7 +119,6 @@ class TestReturnOrder:
         """方法参数赋值给变量"""
         returnorder.input_Delivery_Orderid(delivery_code)
         returnorder.click_Search()
-
         """断言筛选退货列表页，获取退货单ID、退货出库单ID、退货状态与数据库表中查询的出库单ID对比是否一致"""
         get_return_order_id = returnorder.get_list_return_order_id()
         ValueAssert.value_assert_IsNoneNot(get_return_order_id)
@@ -138,7 +129,7 @@ class TestReturnOrder:
         #returnorder.click_close_return_order()
 
 
-    @allure.story("卖家创建退货单")
+    @allure.story("创建退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.description("销售单页面，国包用户创建有码出库单；卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -146,30 +137,19 @@ class TestReturnOrder:
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
-
-        """打开Report Analysis->IMEI Inventory Query菜单"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
-
         """查询IMEI Inventory Query页面 指定product的IMEI"""
         sleep(2)
         imei = delivery.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.close_imei_inventory_query()
-
         """ 刷新页面 """
         delivery.click_refresh(drivers)
-
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Delivery Order")
         add_delivery = DeliveryOrderPage(drivers)
-        # """从数据库表查询国包BD403442仓库的库存IMEI 查询的IMEI已禁用"""
-        # imei_varsql = "SELECT IMEI FROM  t_channel_warehouse_current_stock WHERE WAREHOUSE_ID ='62139' AND STATUS = 1  limit 1"
-        # imei_sql = SQL('DCR', 'test')
-        # imei_result = imei_sql.query_db(imei_varsql)
-        # imei = imei_result[0].get("IMEI")
-        # logging.info("打印数据库查询的 imei{}".format(imei))
         """点击Add新增出库单按"""
         add_delivery.click_add()
         add_delivery.input_sub_buyer("BD2915")
@@ -221,13 +201,11 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
         ValueAssert.value_assert_equal("On Transit", del_status)
         add_delivery.click_close_delivery_order()
-
         """卖家创建退货单，退货类型为Return To Seller，退有码产品，输入出库单号退货"""
         base = Base(drivers)
         base.refresh()
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
-
         return_order = ReturnOrderPage(drivers)
         return_order.click_Add()
         return_order.click_Return_Type()
@@ -236,16 +214,13 @@ class TestReturnOrder:
         return_order.click_Check()
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
-
         """点击提交按钮"""
         return_order.click_Submit()
         dom = DomAssert(drivers)
         dom.assert_att("Submit Success!")
-
         """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
         return_order.input_Delivery_Orderid(delivery_code)
         return_order.click_Search()
-
         """断言筛选退货列表页，获取退货单ID、退货出库单ID、退货状态与数据库表中查询的出库单ID对比是否一致"""
         get_return_order_id = return_order.get_list_return_order_id()
         ValueAssert.value_assert_IsNoneNot(get_return_order_id)
@@ -256,7 +231,7 @@ class TestReturnOrder:
         #return_order.click_close_return_order()
 
 
-    @allure.story("卖家创建退货单")
+    @allure.story("创建退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
     @allure.description("销售单页面，国包用户卖家创建有码出库单；卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -383,7 +358,7 @@ class TestReturnOrder:
         #return_order.click_close_return_order()
 
 
-    @allure.story("撤回退货单")
+    @allure.story("创建退货单")
     @allure.title("退货单页面，撤回退货单，Pending Approval状态的订单可撤回")
     @allure.description("销售单页面，国包用户卖家创建无码出库单；二代用户快速收货；最后新建退货单，然后进行撤回退货单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
@@ -475,6 +450,234 @@ class TestReturnOrder:
         get_status_cancel = recall_return.get_return_status()
         ValueAssert.value_assert_equal(get_status_cancel, "Cancel")
         #recall_return.click_close_return_order()
+
+    @allure.story("创建退货单")
+    @allure.title("The imei is already been activated")
+    @allure.description("配置Return Need Check Activation Or Not，输入已激活imei提示：The imei is already been activated")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_005(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN400001", "xLily6x")
+        menu.click_gotomenu("Sales Management", "Return Order")
+        delivery = ReturnOrderPage(drivers)
+        delivery.click_Add()
+        delivery.input_BoxID_IMEI('356209114219980')
+        delivery.click_Check()
+        delivery.assert_Scan_Record('356209114219980', '1', 'The imei is already been activated')
+        delivery.input_BoxID_IMEI('356514118470111')
+        delivery.click_Check()
+        delivery.assert_Scan_Record('356514118470111')
+
+    @allure.story("创建退货单")
+    @allure.title("上月Return Date不可选择")
+    @allure.description("上月Return Date不可选择")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_006(self, drivers):
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "SN400001", "xLily6x")
+        menu.click_gotomenu("Sales Management", "Return Order")
+        delivery = ReturnOrderPage(drivers)
+        delivery.click_Add()
+        month_date = datetime.now().date() - relativedelta(months=1)
+        last_date = month_date.strftime("%Y-%m-%d")
+        delivery.input_BasicInfo('Return Date', last_date)
+        sleep(2)
+        delivery.click_blank()
+        data = delivery.get_BasicInfo('Return Date')
+        ValueAssert.value_assert_Notequal(data, last_date)
+
+
+@allure.feature("销售管理-退货单")
+class TestReturnQuery:
+    @allure.story("查询退货单")
+    @allure.title("在退货单界面，按条件对退货单进行查询，判断结果和查询条件一致")
+    @allure.description("在退货单界面，按条件对退货单进行查询，判断结果和查询条件一致")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "xiongbo92", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Return Order")
+
+        page = ReturnOrderQuery(drivers)
+        page.click_unfold()
+
+        #查询上传日期并断言日期和查询结果一致
+        page.input_return_date('2022-09-06','2022-09-06')
+        page.click_search()
+        result_date=page.get_table_txt(3)    #第3列
+        ValueAssert.value_assert_In('2022-09-06',result_date)
+        page.click_reset()
+
+        #查询退单ID并断言退单ID和查询结果一致
+        page.input_return_order('RDHK202211280031')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(2)    #第3列
+        ValueAssert.value_assert_In('RDHK202211280031',result_date)
+        page.click_reset()
+
+        #查询出库ID并断言出库单ID和查询结果一致
+        page.input_delivery_order('02HK2211280000023')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(4)    #第3列
+        ValueAssert.value_assert_In('02HK2211280000023',result_date)
+        page.click_reset()
+
+        #查询退单品牌并断言退单品牌和查询结果一致
+        page.input_brand('itel')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(10)    #第3列
+        ValueAssert.value_assert_In('itel',result_date)
+        page.click_reset()
+
+        #查询退单类型并断言退单类型和查询结果一致
+        page.input_return_type('Return To Seller')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(7)    #第7列
+        ValueAssert.value_assert_In('Return To Seller',result_date)
+        page.click_reset()
+
+        #查询退单状态并断言退单状态和查询结果一致
+        page.input_return_status('Approved')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(6)    #第6列
+        ValueAssert.value_assert_In('Approved',result_date)
+        page.click_reset()
+
+        #查询卖家并断言卖家和查询结果一致
+        page.input_seller('BD403442')
+        page.input_return_date('2022-10-20','2022-10-30')
+        page.click_search()
+        result_date=page.get_table_txt(15)    #第7列
+        ValueAssert.value_assert_In('BD403442',result_date)
+        page.click_reset()
+
+        #查询买家并断言买家和查询结果一致
+        page.input_buyer('BD2915')
+        page.input_return_date('2022-10-20','2022-10-30')
+        page.click_search()
+        result_date=page.get_table_txt(20)    #第6列
+        ValueAssert.value_assert_In('BD2915',result_date)
+        page.click_reset()
+
+        #查询买家仓库地址并断言买家仓库地址和查询结果一致
+        page.input_buyer_area('Kaolack Dept')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(37)    #第6列
+        ValueAssert.value_assert_In('Kaolack Dept',result_date)
+        page.click_reset()
+
+        #查询卖家仓库地址并断言卖家仓库地址和查询结果一致
+        page.input_seller_area('Kaolack Dept')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(34)    #第7列
+        ValueAssert.value_assert_In('Kaolack Dept',result_date)
+        page.click_reset()
+
+        #查询型号并断言型号和查询结果一致
+        page.input_model('it6350')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(11)    #第6列
+        ValueAssert.value_assert_In('it6350',result_date)
+        page.click_reset()
+
+        #查询市场名字并断言市场名字和查询结果一致
+        page.input_market_name('A48')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(13)    #第6列
+        ValueAssert.value_assert_In('A48',result_date)
+        page.click_reset()
+
+        #查询IMEI并断言IMEI和查询结果一致
+        page.input_phone('352287800106087')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        page.click_detail()
+        result_date=page.get_phone_detail()    #第6列
+        ValueAssert.value_assert_In('352287800106087',result_date)
+        page.close_phone_detail()
+        page.click_reset()
+
+        #查询卖方国家并断言卖方国家和查询结果一致
+        page.input_seller_country('Nigeria')
+        page.input_return_date('2022-11-20','2022-11-30')
+        page.click_search()
+        result_date=page.get_table_txt(17)    #第6列
+        ValueAssert.value_assert_In('Nigeria',result_date)
+        page.click_reset()
+
+    @allure.story("导出退货单")
+    @allure.title("在退货单界面，按条件对退货单进行查询，导出查询结果和查询条件一致")
+    @allure.description("在退货单界面，按条件对退货单进行查询，导出查询结果和查询条件一致")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "xiongbo92", "dcr123456")
+        """打开销售管理-打开出库单页面"""
+        user.click_gotomenu("Sales Management", "Return Order")
+
+        page = ReturnOrderQuery(drivers)
+        page.click_unfold()
+
+        # 查询卖方国家并断言卖方国家和查询结果一致
+        page.input_return_date('2022-10-10', '2022-11-30')
+        page.click_search()
+        file_begin = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        page.click_export()
+        #export_txt = page.export_status()
+        #ValueAssert.value_assert_In('Download...', export_txt)
+
+        file_then = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        ValueAssert.value_assert_Notequal(file_begin,file_then)
+        page.click_export_detail()
+        file_three = int(len([lists for lists in os.listdir(DOWNLOAD_PATH) if os.path.isfile(os.path.join(DOWNLOAD_PATH, lists))]))
+        ValueAssert.value_assert_Notequal(file_three, file_then)
+        page.click_reset()
+
+
+    @allure.story("查询退货单")
+    @allure.title("随机条件组合查询退货单")
+    @allure.description("退货单页面，查询退货单的随机条件组合查询")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_003(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """变量"""
+        query_dict = {
+            'Return Order ID': 'RDHK202212020050',
+            'Delivery/DN Order ID': '02HK2212020000015',
+            'Brand': 'TECNO',
+            'Return Date': '2022-12-02',
+            'Status': 'Approved',
+            'Return Type': 'Return To Seller',
+            'Seller': 'CN100742',
+            'Buyer': 'CN20058',
+            'Seller Warehouse Region': 'Bangladesh District',
+            'Buyer Warehouse Region': 'Transsion',
+            'Model': 'T529',
+            'Market Name': 'T529',
+            'Seller Country': 'China',
+            'IMEI': '351594528651687'
+        }
+        query = ReturnOrderQuery(drivers)
+        user.click_gotomenu("Sales Management", "Return Order")
+        query.click_unfold()
+        query.random_Query_Method(query_dict)
 
 
 if __name__ == '__main__':

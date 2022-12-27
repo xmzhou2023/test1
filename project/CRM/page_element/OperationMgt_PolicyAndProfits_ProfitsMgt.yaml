@@ -1,7 +1,7 @@
 
-筛选框: 'xpath==//label[@for="variable"]//parent::div/div[1]//input[@type="text"]'
-筛选下拉框数据: 'xpath==//div[@x-placement="bottom-start"]//li[1]'
-筛选下拉框第二条数据: 'xpath==//div[@x-placement="bottom-start"]//li[2]'
+筛选框: "xpath==//label[@for='variable']//parent::div/div[1]//input[@type='text']"
+筛选下拉框数据: "xpath==//div[@x-placement='bottom-start']//li[1]"
+筛选下拉框第二条数据: "xpath==//div[@x-placement='bottom-start']//li[2]"
 
-搜索按钮: 'xpath==//span[text()="Search"]'
+搜索按钮: "xpath==//span[text()='Search']"
 

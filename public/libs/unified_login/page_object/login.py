@@ -1,3 +1,5 @@
+import logging
+
 from public.base.basics import Base, sleep
 from libs.common.read_public_element import Element
 
@@ -128,7 +130,20 @@ class DcrLoginPage(Base):
         home_page_cust = self.element_text(login['Home Page Customer'])
         return home_page_cust
 
-
+    def privacy(self):
+        all_text = self.element_text(login['所有文本'])
+        if '请下拉阅读完本隐私协议后可点击同意按钮' in all_text:
+            for i in range(20):
+                class_value = self.get_element_attribute(login['隐私同意按钮'], 'class')
+                if 'pr-btn_gree_primary' not in class_value:
+                    Base(self.driver).DivRolling(login['隐私滚动条'], direction='top', num=i*100000)
+                    sleep(1)
+                else:
+                    self.is_click_tbm(login['隐私同意按钮'])
+                    logging.info('点击隐私同意按钮')
+                    break
+        else:
+            logging.info("打印获取的内容：{}".format(all_text))
 
 """SRM登录类"""
 class SrmLoginPage(Base):
@@ -185,6 +200,34 @@ class OALoginPage(Base):
         ele.clear()
         ele.send_keys(content)
         sleep(0.5)
+
+"""IPM登录类"""
+class IpmLoginPage(Base):
+    def ipm_input_account(self, content):
+        """输入工号"""
+        self.input_text(login['工号输入框IPM'], txt=content)
+
+    def ipm_input_passwd(self, content):
+        """输入密码"""
+        self.input_text(login['密码输入框IPM'], txt=content)
+    # def ipm_get_check_box_class(self):
+    #     """获取复选框对应的 Class属性是否包含is-checked"""
+    #     ss = self.find_element(login['隐私保护勾选dcr'])
+    #     get_check_state = ss.get_attribute('class')
+    #     return get_check_state
+
+    # def dcr_check_box(self):
+    #     """判断是否被选中"""
+    #     checkbox = self.select_state(login['隐私保护勾选dcr'])
+    #     return checkbox
+
+
+    def ipm_click_login(self):
+        """点击登录"""
+        sleep(2)
+        self.is_click(login['登录ipm'])
+        sleep(2)
+
 
 if __name__ == '__main__':
     pass

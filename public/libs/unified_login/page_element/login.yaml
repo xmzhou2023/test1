@@ -24,7 +24,9 @@ zx扫码快捷登录: "id==tab-code"
 Home Page Customer: "xpath==//li//span[text()='Home Page-Customer']"
 DCR隐私政策: "xpath==//span[text()='隐私政策']"
 agree button: "xpath==//div[@class='pr-dialog_footer']//button[text()='同意']"
-
+所有文本: "xpath==//*[contains(text(),'')]"
+隐私滚动条: "xpath==//div[@id='iframeBox']"
+隐私同意按钮: "xpath==//div[@aria-label='privacy']//button[normalize-space(text())='同意']"
 
 #SRM定位元素
 主账号srm: 'xpath==//input[@id="elsAccount"]'
@@ -41,3 +43,8 @@ pop账号输入框: "xpath==//*[@id='app']/div/div/div[2]/div/form/div[1]/div/di
 pop密码输入框: "xpath==//*[@id='app']/div/div/div[2]/div/form/div[2]/div/div/div[1]/input"
 pop隐私协议勾选框: "xpath==//span[@class='el-checkbox__inner']"
 pop登录按钮: "xpath==//button[@type='primary']"
+
+#IPM登录定位元素
+工号输入框IPM: 'xpath==//input[@placeholder="请输入账号/工号"]'
+密码输入框IPM: 'xpath==//input[@placeholder="请输入登录密码"]'
+登录ipm: "xpath==//span[text()='登录系统']"

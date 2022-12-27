@@ -1,5 +1,6 @@
 from project.DCR_GLOBAL.page_object.PurchaseManagement_InboundReceipt import InboundReceiptPage
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
+from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
 import pytest
@@ -15,10 +16,8 @@ class TestQueryInboundReceipt:
     def test_001_001(self, drivers):
         user = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "BD291501", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Purchase Management", "Inbound Receipt")
-
         query = InboundReceiptPage(drivers)
         query.click_unfold()
         query.input_delivery_date("2022-07-15")
@@ -27,14 +26,13 @@ class TestQueryInboundReceipt:
         query.click_deliver_Order()
         query.click_search()
         query.click_fold()
-
         sale_order = query.text_salesOrder()
         delivery_order = query.text_deliveryOrder()
         delivery_date = query.get_delivery_date_text()
         status = query.get_status_text()
         product = query.get_product_text()
         total = query.get_total_text()
-
+        """断言列表字段内容是否正确"""
         ValueAssert.value_assert_IsNoneNot(sale_order)
         ValueAssert.value_assert_IsNoneNot(delivery_order)
         ValueAssert.value_assert_IsNoneNot(delivery_date)
@@ -49,7 +47,7 @@ class TestQueryIMEIDetail:
     @allure.story("查询IMEI详情信息")
     @allure.title("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.description("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
-    @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal
     def test_002_001(self, drivers):
         query = InboundReceiptPage(drivers)
         query.click_unfold()
@@ -57,7 +55,6 @@ class TestQueryIMEIDetail:
         query.click_deliver_Order()
         query.click_search()
         query.click_fold()
-
         #获取Inbound Receipt列表字段文本
         list_brand = query.get_brand_text()
         #点击IMEI Detai功能按钮
@@ -67,7 +64,6 @@ class TestQueryIMEIDetail:
         #勾选第一条记录前的复选框
         query.select_checkbox()
         query.click_imei_detail()
-
         detail_material = query.get_imei_detail_material_id()
         detail_product = query.get_imei_detail_product()
         detail_itel = query.get_imei_detail_itel()
@@ -76,7 +72,7 @@ class TestQueryIMEIDetail:
         detail_export = query.get_imei_detail_export()
         total = query.get_imei_detail_total()
         query.assert_total_imei_detail(total)
-
+        """断言列表字段内容是否正确"""
         ValueAssert.value_assert_IsNoneNot(detail_product)
         ValueAssert.value_assert_IsNoneNot(detail_itel)
         ValueAssert.value_assert_equal(list_brand, detail_brand)

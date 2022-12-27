@@ -1,5 +1,11 @@
+import time
+from datetime import datetime
+
+from openpyxl import load_workbook
+
 from libs.common.read_element import Element
-from public.base.basics import Base
+from libs.config.conf import BASE_DIR
+from public.base.basics import Base, random_list
 from libs.common.time_ui import sleep
 import random
 from ..test_case.conftest import *
@@ -241,12 +247,12 @@ class ShopManagementPage(Base):
         sleep(1)
 
     @allure.step("扩展门店等级属性")
-    def click_extend_shop_grade(self):
+    def click_extend_shop_grade(self, grade):
         self.scroll_into_view(user['Extend Shop Grade'])
         sleep(1)
         self.is_click(user['Extend Shop Grade'])
         sleep(2.5)
-        self.is_click(user['Extend Shop Grade Value'], "A 10-20 ")
+        self.is_click(user['Extend Shop Grade Value'], grade)
 
     @allure.step("扩展门店类型属性")
     def click_extend_shop_type(self):
@@ -448,8 +454,8 @@ class ShopManagementPage(Base):
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
-        self.is_click(user['Task Name value'], content)
+        sleep(0.5)
+        self.is_click_dcr(user['Task Name value'], content)
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -531,6 +537,341 @@ class ShopManagementPage(Base):
         else:
             logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
         sleep(1)
+
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user['菜单'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+        self.refresh()
+        self.element_exist(user['Loading'])
+
+    def input_text(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        ele.send_keys(txt)
+        logging.info("输入文本：{}".format(txt))
+
+    @allure.step("输入门店查询条件")
+    def input_search(self, header, content):
+        input_list = ['No Upload Sales Days']
+        country_list = ['Sales Region', 'Country/City']
+        fuzzySelect_list = ['Shop', 'Public ID', '']
+        exactSelect_list = ['Brand', 'Shop Type', 'Image Type', 'City Tier', 'Carlcare Shop Code', 'POS ID']
+        inputSelect_list = ['Manpower Type']
+        inputSelect_list2 = ['Retail Customer', 'Shop Grade']
+        Date_list = ['Create Date']
+        self.element_exist(user['Loading'])
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if content != '':
+            if header in input_list:
+                self.input_text(user['输入框'], content, header)
+            elif header in exactSelect_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
+            elif header in fuzzySelect_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框2'], content, header)
+                self.is_click_tbm(user['输入结果模糊选择'], content)
+            elif header in country_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['地区选择框'], content)
+            elif header in inputSelect_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框4'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
+            elif header in inputSelect_list2:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['输入结果模糊选择'], content)
+            elif header in Date_list:
+                createDate = content.split('To')
+                for i in range(len(createDate)):
+                    self.input_text(user['时间输入框'], createDate[i], header, i+1)
+                    self.is_click_tbm(user['输入框名称'], header)
+            else:
+                logging.error('请输入正确的查询条件')
+                raise ValueError('请输入正确的查询条件')
+
+    @allure.step("输入门店基础信息")
+    def input_Basic_Info(self, header, content):
+        input_list = ['Shop Name', 'Contact Name', 'Contact No.', 'Address', 'Business Area']
+        select_list = ['Shop Owner']
+        country_list = ['Country/City']
+        if header in input_list:
+            self.input_text(user['输入框'], content, header)
+        elif header in select_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['select选择框'], content)
+        elif header in country_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['地区选择框'], content)
+        else:
+            logging.error('输入正确的门店基础信息')
+            raise ValueError('输入正确的门店基础信息')
+
+    @allure.step("输入门店品牌信息")
+    def input_Brand_Info(self, header, content=None):
+        input_list = ['Shop ID', 'Shop Alias']
+        select_list = ['Brand', 'Shop Grade', 'Shop Type', 'Image Type', 'Commercial Area Tag']
+        country_list = ['Sales Region']
+        if header in input_list:
+            self.input_text(user['输入框'], content, header)
+        elif header in select_list:
+            self.is_click_tbm(user['输入框'], header)
+            if content is None:
+                self.is_click_tbm(user['select选择框第一个'])
+            else:
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['select选择框'], content)
+        elif header in country_list:
+            self.is_click_tbm(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click_tbm(user['地区选择框'], content)
+        else:
+            logging.error('输入正确的门店品牌信息')
+            raise ValueError('输入正确的门店品牌信息')
+
+    @allure.step("断言：页面查询结果")
+    def assert_Query_result(self, header, content):
+        logging.info('开始断言：页面查询结果')
+        """
+        :param header: 需要获取的指定字段
+        :param content: 需要断言的值
+        """
+        DomAssert(self.driver).assert_search_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], index='1', h_element=user['表头文本'])
+
+    @allure.step("点击复选框")
+    def click_checkbox(self, content):
+        """
+        :param content: 指定值，如imei
+        """
+        rowid = self.get_table_info(user['指定行'], content, attr='rowid', sc_element=user['滚动条'])
+        self.is_click_tbm(user['指定复选框'], rowid)
+
+    @allure.step("MoreOption悬浮点击")
+    def hover_MoreOption_click(self, status):
+        """
+        :param content: 指定值，如imei
+        """
+        self.mouse_hover(user['MoreOption'])
+        self.is_click_tbm(user['MoreOptionStatus'], status)
+
+    @allure.step("输入拒绝理由")
+    def input_RejectReason(self, content):
+        self.input_text(user['RejectReason'], content)
+        self.is_click_tbm(user['RejectReasonSave'])
+
+    @allure.step("输入客户查询条件")
+    def input_CustomerSearch_Info(self, header, content):
+        self.is_click_tbm(user['客户查询输入框'], header)
+        self.input_text(user['客户输入框输入'], content, header)
+        self.is_click_tbm(user['select选择框'], content)
+
+    @allure.step("断言：客户管理页面查询结果")
+    def assert_CustomerQuery_result(self, header, content):
+        """
+        :param header: 需要获取的指定字段
+        :param content: 需要断言的值
+        """
+        DomAssert(self.driver).assert_search_result(user['Customer表格字段'], user['Customer表格内容'], header, content, sc_element=user['滚动条'])
+
+    @allure.step("点击Upload按钮")
+    def click_upload(self):
+        self.is_click(user['Upload'])
+        logging.info('点击upload按钮')
+        # k = PyKeyboard()
+        # k.tap_key(k.escape_key)
+
+    @allure.step("点击Import按钮")
+    def click_import(self):
+        self.is_click(user['Import'])
+        logging.info('点击Import按钮')
+        self.click_upload()
+
+    @allure.step("导入门店")
+    def import_ShopManagement_file(self, name, shopid, shopname):
+        file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
+        logging.info("文件地址：{}".format(file_path))
+        workbook = load_workbook(filename=file_path)
+        sheet = workbook.active
+        cells = sheet['A']
+        i = 1
+        for cell in cells[2:]:
+            cell.value = str(i) + shopid
+            i += 1
+        cells = sheet['B']
+        i = 1
+        for cell in cells[2:]:
+            cell.value = str(i) + shopname
+            i += 1
+        workbook.save(filename=file_path)
+        self.upload_file(user['导入'], file_path)
+        self.assert_import_success()
+
+    @allure.step("点击Save按钮")
+    def click_save(self):
+        self.is_click(user['Save'])
+        logging.info('点击Save按钮')
+
+    @allure.step("点击Confirm按钮")
+    def click_confirm(self):
+        self.is_click(user['Confirm'])
+        logging.info('点击Confirm按钮')
+        sleep(2)
+        self.refresh()
+
+    @allure.step("断言：导入成功状态")
+    def assert_import_success(self):
+        DomAssert(self.driver).assert_control(user['导入成功状态'])
+
+    @allure.step("获得Record指定内容")
+    def get_Record_info(self, menu, name, header):
+        """
+        :param menu: 菜单名
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        """
+        for i in range(20):
+            ac_menu = self.element_text(user['当前菜单'])
+            if ac_menu != menu:
+                self.click_menu('Basic Data Management', menu)
+            column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+            content = self.element_text(user['表格指定列内容'], name, column)
+            logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+            return content
+
+    @allure.step("断言：导入导出Record结果")
+    def assert_Record_result(self, menu, name, header, result=None):
+        """
+        :param menu: 菜单
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        :param result: 需要断言的值 比如状态，数量，时间
+        """
+        ac_result = self.get_Record_info(menu, name, header)
+        if header == 'File Size':
+            ValueAssert.value_assert_IsNot(ac_result, '0B')
+        else:
+            ValueAssert.value_assert_In(result, ac_result)
+
+    @allure.step("断言：门店管理页面查询结果")
+    def assert_Query_containsresult(self, header, content, num=None):
+        logging.info('开始断言：页面查询结果')
+        """
+        :param header: 需要获取的指定字段
+        :param content: 需要断言的值
+        :param num: 包含的数量
+        """
+        DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, num=num, sc_element=user['滚动条'], index='1', h_element=user['表头文本'])
+
+    @allure.step("客户列表页面，点击Search 查询按钮")
+    def click_search(self):
+        self.is_click(user['Search'])
+        self.element_exist(user['Loading'])
+
+    @allure.step("点击Unfold 展开筛选项")
+    def click_unfold(self):
+        self.is_click(user['Unfold'])
+        logging.info('点击Unfold 展开筛选项')
+
+    @allure.step("判断空值")
+    def assert_None(self, result):
+        try:
+            assert result == '', logging.warning("断言失败: 该值不为None | x:{}".format(result))
+            logging.info("断言成功: 该值为None | x:{}".format(result))
+        except Exception as e:
+            logging.error(e)
+            raise
+
+    @allure.step("断言：页面查询结果")
+    def assert_search_result(self, header, content):
+        logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
+        if header == 'Shop' or header == 'Retail Customer':
+            self.assert_Query_result(f'{header} ID', content)
+        elif header == 'Sales Region':
+            for i in range(5):
+                assert_result = False
+                column = self.get_table_info(user['menu表格字段'], f'{header} {5 - i}', index=1, sc_element=user['滚动条'],
+                                             h_element=user['表头文本'])
+                contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
+                for j in contents:
+                    if ''.join(j.split()) != '':
+                        ValueAssert.value_assert_equal(j, content)
+                        assert_result = True
+                    else:
+                        logging.info(f'{header} {5 - i} 区域为空，继续比对上级区域')
+                        break
+                if assert_result:
+                    logging.info('断言结束')
+                    break
+        elif header == 'Country/City':
+            self.assert_Query_result(f'City', content)
+        elif header == 'Carlcare Shop Code' or header == 'POS ID':
+            column = self.get_table_info(user['menu表格字段'], header, index=1, sc_element=user['滚动条'],
+                                         h_element=user['表头文本'])
+            contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
+            if content == 'Yes':
+                for i in contents:
+                    ValueAssert.value_assert_IsNoneNot(i)
+            elif content == 'No':
+                for i in contents:
+                    self.assert_None(''.join(i.split()))
+        elif header == 'Create Date':
+            column = self.get_table_info(user['menu表格字段'], header, index=1, sc_element=user['滚动条'],
+                                         h_element=user['表头文本'])
+            contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
+            createDate = content.split('To')
+            for i in contents:
+                timeArray = time.strptime(i, "%Y-%m-%d %H:%M:%S")
+                a = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.mktime(timeArray) + 28800))
+                logging.info(f'实际时间：{i}')
+                logging.info(f'修正时区后时间：{a}')
+                try:
+                    assert createDate[0] <= i <= createDate[1] + ' 23:59:59'
+                    logging.info(f'断言成功：创建时间：{i} 在筛选时间 {content} 区间')
+                except:
+                    logging.info(f'断言失败：创建时间：{i} 与筛选时间 {content} 不符')
+                    raise
+        else:
+            self.assert_Query_result(header, content)
+
+    @allure.step("组合查询 组合方法")
+    def random_Query_Method(self, kwargs):
+        list_query = []
+        num = random.randint(3, 8)
+        for i in kwargs:
+            list_query.append(i)
+        logging.info(f'输入框：{list_query}')
+        list_random = random_list(list_query, num)
+        logging.info(f'随机组合：输入框11111：{list_random}')
+        if 'Shop Grade' in list_random:
+            if 'Brand' not in list_random:
+                list_random.remove('Shop Grade')
+            else:
+                if 'Country/City' not in list_random:
+                    list_random.remove('Shop Grade')
+        if 'Shop Type' in list_random:
+            if 'Brand' not in list_random:
+                list_random.remove('Shop Type')
+            else:
+                if 'Country/City' not in list_random:
+                    list_random.remove('Shop Type')
+        logging.info(f'随机组合：输入框：{list_random}')
+        for i in list_random:
+            logging.info(f'随机组合：{i} 输入框输入内容：{kwargs[i]}')
+            self.input_search(i, kwargs[i])
+        self.click_search()
+        for i in list_random:
+            self.assert_search_result(i, kwargs[i])
 
 
 if __name__ == '__main__':

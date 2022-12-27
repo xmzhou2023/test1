@@ -43,6 +43,7 @@ class LoginPage(Base):
     @allure.step("点击帐号密码登录")
     def click_loginsubmit(self):
         self.is_click(user['登录'])
+        self.base_get_img()
         sleep(4)
 
     @allure.step("点击退出登录")
@@ -79,7 +80,6 @@ class LoginPage(Base):
         home_page_cust = self.element_text(user['Home Page Customer'])
         return home_page_cust
 
-
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
         user = LoginPage(drivers)
@@ -106,14 +106,23 @@ class LoginPage(Base):
         user.click_loginsubmit()
 
         """判断是否弹出DCR隐私政策页面"""
-        get_home_page = user.dcr_get_home_page_customer()
-        if get_home_page != 'Home Page-Customer':
-            get_yinsizhegnce = user.dcr_get_yinsizhengce()
-            if get_yinsizhegnce == '隐私政策':
-                user.dcr_click_agree()
-        else:
-            logging.info("打印获取的内容：{}".format(get_home_page))
+        user.privacy()
 
+    @allure.step("退出重新登录，去掉打开登录地址")
+    def privacy(self):
+        all_text = self.element_text(user['所有文本'])
+        if '请下拉阅读完本隐私协议后可点击同意按钮' in all_text:
+            for i in range(20):
+                class_value = self.get_element_attribute(user['隐私同意按钮'], 'class')
+                if 'pr-btn_gree_primary' not in class_value:
+                    Base(self.driver).DivRolling(user['隐私滚动条'], direction='top', num=i*100000)
+                    sleep(1)
+                else:
+                    self.is_click_tbm(user['隐私同意按钮'])
+                    logging.info('点击隐私同意按钮')
+                    break
+        else:
+            logging.info("打印获取的内容：{}".format(all_text))
 
     @allure.step("查找菜单")
     def click_gotomenu(self, *content):
@@ -133,13 +142,17 @@ class LoginPage(Base):
 
     @allure.step("初始化登录方法")
     def initialize_login(self, drivers, account1, password):
-        get_account = self.get_login_account()
-        if account1 != get_account:
-            self.click_loginOut()
+        all_text = self.element_text(user['所有文本'])
+        if 'Log in' in all_text:
             self.dcr_again_login(drivers, account1, password)
         else:
-            ref = Base(drivers)
-            ref.refresh()
+            get_account = self.get_login_account()
+            if account1 != get_account:
+                self.click_loginOut()
+                self.dcr_again_login(drivers, account1, password)
+            else:
+                ref = Base(drivers)
+                ref.refresh()
 
 
 if __name__ == '__main__':

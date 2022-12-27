@@ -148,7 +148,7 @@ class TestProjectMgt:
         user.project_reset()  # 重置输入内容
         user.project_save()
         user = DomAssert(drivers)
-        user.assert_exact_att("Brand-CategoryIt cannot be empty")  # 校验必填不能为空
+        user.assert_exact_att("Brand CategoryIt cannot be empty")  # 校验必填不能为空
         user = ProjectPage(drivers)
         user.project_cancel()
 

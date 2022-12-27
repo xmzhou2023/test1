@@ -129,7 +129,7 @@ class TestExportVisitRecord:
 
         export.click_export()
         export.click_download_more()
-        export.input_task_name("History List")
+        export.input_task_name("Visit Record")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
@@ -143,7 +143,7 @@ class TestExportVisitRecord:
         logging.info("获取导出记录列表的operation字段内容{}".format(operation))
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "History List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
@@ -174,7 +174,7 @@ class TestExportVisitRecord:
 
         export2.click_export_detail()
         export2.click_download_more()
-        export2.input_task_name("VisitingRecordDetails List")
+        export2.input_task_name("Visit Record Details List")
         down_status = export2.click_export_search()
 
         task_name = export2.get_task_name_text()
@@ -187,7 +187,7 @@ class TestExportVisitRecord:
         operation = export2.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "VisitingRecordDetails List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record Details List")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
@@ -218,7 +218,7 @@ class TestExportVisitRecord:
 
         export.click_export()
         export.click_download_more()
-        export.input_task_name("History List")
+        export.input_task_name("Visit Record")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
@@ -231,7 +231,7 @@ class TestExportVisitRecord:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "History List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)
@@ -262,7 +262,7 @@ class TestExportVisitRecord:
 
         export.click_export_detail()
         export.click_download_more()
-        export.input_task_name("VisitingRecordDetails List")
+        export.input_task_name("Visit Record Details List")
         down_status = export.click_export_search()
 
         task_name = export.get_task_name_text()
@@ -275,7 +275,7 @@ class TestExportVisitRecord:
         operation = export.get_export_operation_text()
 
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "VisitingRecordDetails List")
+        ValueAssert.value_assert_equal(task_name, "Visit Record Details List")
         ValueAssert.value_assert_equal(task_id, "lhmadmin")
         ValueAssert.value_assert_equal(create_date, today)
         ValueAssert.value_assert_equal(complete_date, today)

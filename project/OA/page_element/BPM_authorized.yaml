@@ -1,0 +1,21 @@
+
+
+
+#  流程授权界面
+权限搜索输入框: 'xpath==//input[@placeholder="请输入权限描述来搜索"]'
+权限搜索查询按钮: 'xpath==//*[@id="pane-flowAuthManager"]//div/div[1]/div/span/span/i'
+第一行权限描述a链接: 'xpath==//tbody/tr[1][@class="el-table__row"]/td[3]//a'
+选择流程按钮: 'xpath==//div[not(contains(@style,"display: none;")) and @class="el-form-item el-form-item--small"]//span[text()="选择流程"]'
+选择流程_输入框: 'xpath==//input[@placeholder="流程名称、流程key,流程分类"]'
+选择流程_查询按钮: 'xpath==//div[@class="ht-search__btn"]/button[1]'
+选择流程_重置按钮: 'xpath==//div[@class="ht-search__btn"]/button[2]'
+查询出的流程第一行勾选框: 'xpath==//section/main/div/div[3]/table/tbody/tr/td[1]/div/label/span'
+选择流程_确定: 'xpath==//div[3][@class="el-dialog__footer"]/div/button/span[contains(text(), "确认")]'
+选择流程_取消: 'xpath==//div[3][@class="el-dialog__footer"]/div/button/span[contains(text(), "取 消")]'
+编辑分管授权_流程名称的全部: 'xpath==//div[@class="el-form-item el-form-item--small" and not(contains(@style,"display: none;"))]//th//span[text()="全部"]'
+编辑分管授权_保存: 'xpath==//span[text()="保存"]'
+编辑分管授权_取消: 'xpath==//span[text()="取消"]'
+编辑分管授权_保存成功提示: 'xpath==//p[text()="保存授权信息成功！"]'
+
+
+
