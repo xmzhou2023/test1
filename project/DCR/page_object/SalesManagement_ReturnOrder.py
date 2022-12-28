@@ -510,7 +510,6 @@ class ReturnOrderQuery(Base):
             self.is_click(user['输入框'], header)
             self.input_text(user['输入框2'], content, header)
             sleep(0.8)
-            """弹出日历空间后，点击日历标签释法"""
             self.is_click(user['输入结果模糊选择'], content)
         elif header in warehouse_list:
             self.is_click(user['输入框'], header)
