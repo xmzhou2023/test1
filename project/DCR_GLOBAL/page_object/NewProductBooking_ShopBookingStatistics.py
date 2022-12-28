@@ -39,7 +39,7 @@ class ShopBookingStatisticsPage(Base):
         @header： 输入框名称
         @content： 输入内容
         """
-        #enable_date_list = ['Enable Date']
+        enable_date_list = ['Enable Date']
         shop_list = ['Shop']
         select_all_list = ['Model', 'Manpower Type']
         brand_list = ['Brand']
@@ -53,10 +53,10 @@ class ShopBookingStatisticsPage(Base):
             self.input_text(user['输入框Template'], content, header)
             sleep(1.5)
             self.is_click(user['输入结果模糊选择'], content)
-        # elif header in enable_date_list:
-        #     self.is_click(user['输入框Enable Date'], header)
-        #     self.input_text(user['输入框Enable Date'], content, header)
-        #     self.is_click(user['点击label标签'], header)
+        elif header in enable_date_list:
+            self.is_click(user['输入框Enable Date'], header)
+            self.input_text(user['输入框Enable Date'], content, header)
+            self.is_click(user['点击label标签'], header)
         elif header in select_all_list:
             self.is_click_dcr(user['输入框'], header)
             self.input_text(user['输入框1'], content, header)
@@ -105,6 +105,8 @@ class ShopBookingStatisticsPage(Base):
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Sales Region':
             self.assert_User_Exist(f'{header} 2', content)
+        elif header == 'Enable Date':
+            pass
         else:
             self.assert_User_Exist(header, content)
 

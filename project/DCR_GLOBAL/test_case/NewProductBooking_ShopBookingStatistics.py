@@ -23,13 +23,13 @@ class TestQueryShopBookingStatistics:
     @allure.title("新品预定页面，随机组合条件查询门店预订统计")
     @allure.description("新品预定页面，随机组合条件查询门店预订统计")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
     @pytest.mark.UT
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         """变量"""
         query_dict = {
-            #'Enable Date': '2022-12-26',
+            'Enable Date': '2022-12-26',
             'Shop': 'PK48922',
             'Model': 'X672',
             'Brand': 'Infinix',
