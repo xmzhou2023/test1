@@ -22,7 +22,7 @@ class TestSearch:
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """变量"""
         query_dict = {
-            'Booking Date': '2020-11-13To2022-12-26',
+            # 'Booking Date': '2020-11-13To2022-12-26',
             'Order Status': 'Finished',
             'Model': 'KE5',
             'Brand': 'TECNO',
