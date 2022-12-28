@@ -46,7 +46,98 @@ class TestAdd_DefineSuggestedPrice:
         # sql = f'delete FROM `goods_price` WHERE `goods_id` = 5623 AND `area_id`=7255 AND `enabled_flag`=1;'
         # SQL("POP", "test").delete_db(sql)
 
+@allure.feature("商品-定义建议价格")
+class TestQuery:
+    @allure.story("定义建议价格")
+    @allure.title("查询定义建议价格")
+    @allure.description("输入日期段，点击查询对应日期段定义建议价格数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_002_001(self,drivers):
+        users = QueryGoodSugPrice(drivers)
+        users.querygoodprice("定义建议价格-开始日期框","2022-11-11","定义建议价格-结束日期框","2022-11-11")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['日期断言'])
+        ValueAssert.value_assert_equal(test[0:10],"2022-11-11")
+
+    @allure.story("定义建议价格")
+    @allure.title("查询定义建议价格")
+    @allure.description("输入商品名称，点击查询对应商品定义建议价格数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_002_002(self,drivers):
+        users = QueryGoodSugPrice(drivers)
+        users.querygoodprice("定义建议价格-商品名称框","TECNO POP 3 16+1 CHAMPAGNE GOLD")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['商品名称断言'])
+        ValueAssert.value_assert_equal(test,"TECNO POP 3 16+1 CHAMPAGNE GOLD")
+
+    @allure.story("定义建议价格")
+    @allure.title("查询定义建议价格")
+    @allure.description("输入品牌名称，点击查询对应品牌定义建议价格数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_002_003(self, drivers):
+        users = QueryGoodSugPrice(drivers)
+        users.querygoodprice("定义建议价格-品牌名称框","Infinix")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['品牌名称断言'])
+        ValueAssert.value_assert_equal(test,"Infinix")
+
+    @allure.story("定义建议价格")
+    @allure.title("查询定义建议价格")
+    @allure.description("输入产品名称，点击查询对应产品名称定义建议价格数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_002_004(self,drivers):
+        users = QueryGoodSugPrice(drivers)
+        users.querygoodprice("定义建议价格-产品名称框","F3")
+        sleep(3)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['产品名称断言'])
+        ValueAssert.value_assert_equal(test,"F3")
+
+    @allure.story("定义建议价格")
+    @allure.title("查询定义建议价格")
+    @allure.description("输入区域，点击查询对应区域商品定义建议价格数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_002_005(self,drivers):
+        users = QueryGoodSugPrice(drivers)
+        users.querygoodprice("定义建议价格-区域框","万州")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['区域断言'])
+        ValueAssert.value_assert_equal(test,"万州")
+
+    @allure.story("定义建议价格")
+    @allure.title("查询定义建议价格")
+    @allure.description("输入自采标记状态，点击查询对应状态定义建议价格数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_002_006(self, drivers):
+        users = QueryGoodSugPrice(drivers)
+        users.querygoodprice("定义建议价格-自采标记框","是")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['自采标记断言'])
+        ValueAssert.value_assert_equal(test,"是")
+
+    @allure.story("定义建议价格")
+    @allure.title("查询定义建议价格")
+    @allure.description("输入创建人，点击查询对应创建人的定义建议价格数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_002_007(self, drivers):
+        users = QueryGoodSugPrice(drivers)
+        users.querygoodprice("定义建议价格-创建人框","张文强")
+        sleep(2)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['创建人断言'])
+        ValueAssert.value_assert_equal(test,"张文强[18651297]")
 
 if __name__ == '__main__':
-    # pytest.main(['Add_DefineSuggestedPrice.py::TestAdd_DefineSuggestedPrice::test_001_002'])
-    pytest.main(['Add_DefineSuggestedPrice.py'])
+    pytest.main(['Add_DefineSuggestedPrice.py::TestQuery'])

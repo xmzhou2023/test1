@@ -1,8 +1,11 @@
 # 查询物料
-商品名称输入框: "xpath==//input[@placeholder='商品名称']"
-商品名: "xpath==//span[contains(text(),'variable')]"
-查询按钮: "xpath==//div[@class='btn-wrap']//span[contains(text(),'查询')]"
-查询商品编码: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div[1]/div[3]/table/tbody/tr/td[6]/div"
+日期断言: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[19]/div[1]"
+是否绑定商品断言: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[4]/div[1]"
+商品名称断言: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[5]/div[1]"
+品牌名称断言: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[7]/div[1]"
+市场名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div[1]/div[3]/table/tbody/tr/td[9]/div"
+物料名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div[1]/div[3]/table/tbody/tr/td[3]/div"
+
 
 # 更多页面
 更多按钮: "xpath==//span[@class='more-btn']"

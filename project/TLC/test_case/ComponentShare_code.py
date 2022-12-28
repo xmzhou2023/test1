@@ -45,7 +45,7 @@ class TestComponentSharing:
         tools.click('组件Item more')
         tools.click('删除', 'auto_testing_add_components_pri_001')
         tools.click('删除确认')
-        DomAssert(drivers).assert_page_source('auto_testing_add_components_pri_001')
+        DomAssert(drivers).assert_att('删除成功')
       
 
     @allure.story("公共空间-组件分享")  # 场景名称

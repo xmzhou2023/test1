@@ -21,3 +21,13 @@ CNY: "xpath==//span[contains(text(),'CNY')]"
 产品名称筛选框: "xpath==//input[@placeholder='产品名称']"
 产品搜索结果: "xpath==//span[normalize-space()='it5616B']"
 确认按钮: "xpath==//html/body/div[3]/div/div[3]/button[2]"
+
+# 定义建议价格查询
+日期断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[13]/div"
+商品名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[2]/div"
+品牌名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[8]/div"
+产品名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[3]/div/div/div"
+区域断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[5]/div"
+自采标记断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[4]/div"
+创建人断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[12]/div"
+

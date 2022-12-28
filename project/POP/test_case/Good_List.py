@@ -47,18 +47,120 @@ class TestExportList:
 class TestQuery:
     @allure.story("商品列表")
     @allure.title("查询商品")
-    @allure.description("输入商品名称，点击查询对应商品数据")
+    @allure.description("输入日期段，点击查询对应日期段商品数据")
     @allure.severity("normal")
     @pytest.mark.smoke
     def test_003_001(self,drivers):
         users = QueryGood(drivers)
-        users.input_goodname("Huaweiphone")
-        users.click_query()
-
+        users.querygood("商品列表-开始日期框","2022-08-16","商品列表-结束日期框","2022-08-16")
+        sleep(3)
         # 断言--查询商品名称与输入的商品名称一致
-        test = users.element_text(user['查询商品名称'])
-        ValueAssert.value_assert_equal(test,"TECNO Huaweiphone 18g")
+        test = users.element_text(user['日期断言'])
+        ValueAssert.value_assert_equal(test[0:10],"2022-08-16")
 
+    @allure.story("商品列表")
+    @allure.title("查询商品")
+    @allure.description("输入商品名称，点击查询对应商品数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_003_002(self, drivers):
+        users = QueryGood(drivers)
+        users.querygood("商品列表-商品名称框","TECNO 自动化测试商品 345 1")
+        sleep(3)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['商品名称断言'])
+        ValueAssert.value_assert_equal(test,"TECNO 自动化测试商品 345 1")
+
+    @allure.story("商品列表")
+    @allure.title("查询商品")
+    @allure.description("输入自采标记，点击查询对应自采标记的商品数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_003_003(self, drivers):
+        users = QueryGood(drivers)
+        users.querygood("商品列表-自采标记框","否", )
+        sleep(3)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['自采标记断言'])
+        ValueAssert.value_assert_equal(test,"否")
+
+    @allure.story("商品列表")
+    @allure.title("查询商品")
+    @allure.description("输入区域，点击查询对应区域的商品数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_003_004(self, drivers):
+        users = QueryGood(drivers)
+        users.querygood("商品列表-区域框","万州")
+        sleep(3)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['区域断言'])
+        ValueAssert.value_assert_equal(test,"共 1 条")
+
+    @allure.story("商品列表")
+    @allure.title("查询商品")
+    @allure.description("输入区域，点击查询对应区域的商品数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_003_005(self, drivers):
+        users = QueryGood(drivers)
+        users.querygood("商品列表-品牌名称框","Infinix")
+        sleep(3)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['品牌名称断言'])
+        ValueAssert.value_assert_equal(test,"Infinix")
+
+    @allure.story("商品列表")
+    @allure.title("查询商品")
+    @allure.description("输入产品名称，点击查询对应产品名称的商品数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_003_006(self, drivers):
+        users = QueryGood(drivers)
+        users.querygood("商品列表-产品名称框","自动化测试商品")
+        sleep(3)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['产品名称断言'])
+        ValueAssert.value_assert_equal(test,"自动化测试商品")
+
+    @allure.story("商品列表")
+    @allure.title("查询商品")
+    @allure.description("输入商品状态，点击查询对应商品状态的商品数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_003_007(self, drivers):
+        users = QueryGood(drivers)
+        users.querygood("商品列表-商品状态框", "禁用")
+        sleep(3)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['商品状态断言'])
+        ValueAssert.value_assert_equal(test, "禁用")
+
+    @allure.story("商品列表")
+    @allure.title("查询商品")
+    @allure.description("输入IMEI管理状态，点击查询对应状态的商品数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_003_008(self, drivers):
+        users = QueryGood(drivers)
+        users.querygood("商品列表-IMEI/SN管理框","是")
+        sleep(3)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['IMEI/SN管理断言'])
+        ValueAssert.value_assert_equal(test, "Yes")
+
+    @allure.story("商品列表")
+    @allure.title("查询商品")
+    @allure.description("输入创建人，点击查询对应创建人的商品数据")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_003_009(self, drivers):
+        users = QueryGood(drivers)
+        users.querygood("商品列表-创建人框","张文强")
+        sleep(3)
+        # 断言--查询商品名称与输入的商品名称一致
+        test = users.element_text(user['创建人断言'])
+        ValueAssert.value_assert_equal(test,"张文强[18651297]")
 
 if __name__ == '__main__':
     pytest.main(['Good_List.py::TestQuery'])
