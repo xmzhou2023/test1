@@ -8,7 +8,7 @@ import random
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-class DemoPhoneQueryPage(Base):
+class ShopBookingStatisticsPage(Base):
     @allure.step("Shop Asset页面，点击Search按钮")
     def click_search(self):
         self.is_click(user['Search'])
@@ -39,39 +39,48 @@ class DemoPhoneQueryPage(Base):
         @header： 输入框名称
         @content： 输入内容
         """
-        input_select_list1 = ['Shop']
-        input_select_list2 = ['Brand', 'Status']
-        select_all_list = ['Manpower Type', 'Market Name', 'Model', 'Series']
-        type_list = ['Type']
-        imei_list = ['IMEI']
-        sales_region_list = ['Sales Region']
+        enable_date_list = ['Enable Date']
+        shop_list = ['Shop']
+        select_all_list = ['Model', 'Manpower Type']
+        brand_list = ['Brand']
+        market_name_list = ['Market Name']
+        sales_region_list = ['Sales Region', 'City']
+        template_list = ['Template']
         self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
-        if header in input_select_list1:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框2'], content, header)
+        if header in shop_list:
+            self.is_click(user['输入框2'], header)
+            self.input_text(user['输入框Template'], content, header)
+            sleep(1.5)
             self.is_click(user['输入结果模糊选择'], content)
-        elif header in input_select_list2:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框2'], content, header)
-            self.is_click(user['输入结果精确选择'], content)
+        elif header in enable_date_list:
+            self.is_click(user['输入框Enable Date'], header)
+            self.input_text(user['输入框Enable Date'], content, header)
+            self.is_click(user['点击label标签'], header)
         elif header in select_all_list:
             self.is_click_dcr(user['输入框'], header)
             self.input_text(user['输入框1'], content, header)
+            sleep(0.8)
             self.is_click(user['输入结果精确选择'], content)
             self.is_click(user['点击label标签'], header)
-        elif header in type_list:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框3'], content, header)
-            self.is_click(user['输入结果精确选择'], content)
-        elif header in imei_list:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框IMEI'], content, header)
-        elif header in sales_region_list:
+        elif header in brand_list:
             self.is_click_dcr(user['输入框'], header)
-            self.input_text(user['输入Sales Region'], content, header)
+            self.is_click(user['输入结果精确选择'], content)
+        elif header in market_name_list:
+            self.is_click_dcr(user['输入框3'], header)
+            self.input_text_dcr(user['输入框Market Name'], content, header)
+            self.is_click(user['输入结果精确选择'], content)
+            self.is_click(user['点击Market Name标签'], header)
+        elif header in sales_region_list:
+            self.is_click(user['输入框'], header)
+            self.input_text(user['输入Country City'], content, header)
             sleep(0.5)
             self.is_click(user['输入区域精确选择'], header, content)
+        elif header in template_list:
+            self.is_click(user['输入框2'], header)
+            self.input_text(user['输入框Template'], content, header)
+            sleep(0.8)
+            self.is_click(user['输入结果模糊选择'], content)
         else:
             logging.error('请输入正确的查询条件')
             raise ValueError('请输入正确的查询条件')
@@ -80,28 +89,24 @@ class DemoPhoneQueryPage(Base):
     @allure.step("断言：页面查询结果")
     def assert_search_result(self, header, content):
         logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
-        if header == 'Brand':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Country':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Sales Region':
-            self.assert_User_Exist(f'{header} 3', content)
-        elif header == 'Shop':
-            self.assert_User_Exist(f'{header} Code', content)
-        elif header == 'Manpower Type':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'IMEI':
-            self.assert_User_Exist(f'{header} Code', content)
-        elif header == 'Type':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Series':
+        if header == 'Template':
+            self.assert_User_Exist(f'{header} ID', content)
+        elif header == 'Brand':
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Model':
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Market Name':
             self.assert_User_Exist(f'{header}', content)
-        elif header == 'Status':
+        elif header == 'Shop':
+            self.assert_User_Exist(f'Booking {header} ID', content)
+        elif header == 'Manpower Type':
             self.assert_User_Exist(f'{header}', content)
+        elif header == 'City':
+            self.assert_User_Exist(f'{header}', content)
+        elif header == 'Sales Region':
+            self.assert_User_Exist(f'{header} 2', content)
+        elif header == 'Enable Date':
+            pass
         else:
             self.assert_User_Exist(header, content)
 
@@ -109,7 +114,7 @@ class DemoPhoneQueryPage(Base):
     @allure.step("组合查询 组合方法")
     def random_Query_Method(self, kwargs):
         list_query = []
-        num = random.randint(3, 7)
+        num = random.randint(3, 6)
         for i in kwargs:
             list_query.append(i)
         logging.info(f'输入框：{list_query}')
@@ -121,6 +126,7 @@ class DemoPhoneQueryPage(Base):
         self.click_search()
         for i in list_random:
             self.assert_search_result(i, kwargs[i])
+
 
 
 if __name__ == '__main__':
