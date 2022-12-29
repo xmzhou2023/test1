@@ -39,7 +39,7 @@ class DemoPhoneQueryPage(Base):
         @header： 输入框名称
         @content： 输入内容
         """
-        input_select_list1 = ['Shop']
+        #input_select_list1 = ['Shop']
         input_select_list2 = ['Brand', 'Status']
         select_all_list = ['Manpower Type', 'Market Name', 'Model', 'Series']
         type_list = ['Type']
@@ -47,11 +47,11 @@ class DemoPhoneQueryPage(Base):
         sales_region_list = ['Sales Region']
         self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
-        if header in input_select_list1:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框2'], content, header)
-            self.is_click(user['输入结果模糊选择'], content)
-        elif header in input_select_list2:
+        # if header in input_select_list1:
+        #     self.is_click(user['输入框'], header)
+        #     self.input_text(user['输入框2'], content, header)
+        #     self.is_click(user['输入结果模糊选择'], content)
+        if header in input_select_list2:
             self.is_click(user['输入框'], header)
             self.input_text(user['输入框2'], content, header)
             self.is_click(user['输入结果精确选择'], content)
@@ -85,7 +85,7 @@ class DemoPhoneQueryPage(Base):
         elif header == 'Country':
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Sales Region':
-            self.assert_User_Exist(f'{header} 3', content)
+            self.assert_User_Exist(f'{header} 1', content)
         elif header == 'Shop':
             self.assert_User_Exist(f'{header} Code', content)
         elif header == 'Manpower Type':
