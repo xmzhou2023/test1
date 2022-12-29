@@ -139,5 +139,21 @@ class TestQuery:
         test = users.element_text(user['创建人断言'])
         ValueAssert.value_assert_equal(test,"张文强[18651297]")
 
+@allure.feature("商品-定义建议价格")  # 模块名称
+class TestExportPrice:
+    @allure.story("导出")  # 场景名称
+    @allure.title("根据品牌名称查询后导出")  # 用例名称
+    @allure.description("导出")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_003_001(self,drivers):
+        users = ExportPrice(drivers)
+        users.click_brandname("TECNO")
+        users.click_search("查询")
+        sleep(2)
+        users.click_export("导出")
+        test = users.element_text(user['导出提示'])
+        ValueAssert.value_assert_equal(test, '创建导出任务成功！')
+
 if __name__ == '__main__':
     pytest.main(['Add_DefineSuggestedPrice.py::TestQuery'])
