@@ -5,9 +5,9 @@ OA登录成功界面: "xpath==//span[normalize-space(text())='e-cology | 前端�
 sso登录: 'xpath==//button[text()="SSO 登录"]'
 输入企业名: 'xpath==//input[@placeholder="请输入企业域名"]'
 
-下一步: 'xpath==//button[2][text()="下一步"]'
+下一步: 'xpath==//button[1][text()="下一步"]'
 未装IMWAV: 'xpath==//span[text()="还未装IMWAV或遇到问题？"]'
-点击通过账号密码: 'xpath==//span[text()="点击通过账号密码登录"]'
+点击通过账号密码: 'xpath==//span[text()="点击使用其他方式登录"]'
 工号: 'xpath==//input[@placeholder="请输入工号"]'
 密码: 'xpath==//input[@placeholder="请输入邮箱密码"]'
 登录: 'xpath==//span[text()="登录"]'

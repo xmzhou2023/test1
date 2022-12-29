@@ -2,7 +2,7 @@ from libs.common.read_element import Element
 from project.POP.test_case.conftest import *
 # from public.base.basics import Base, sleep
 from selenium.webdriver.support.select import Select
-from pykeyboard import PyKeyboard
+# from pykeyboard import PyKeyboard
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
@@ -71,8 +71,8 @@ class Region(Base):
         self.is_click(user['编辑提交'])
         sleep(5)
 
-    @allure.step('禁用-点击确定')
-    def click_disable_yes(self):
-        key = PyKeyboard()  # 实例化一个键盘
-        key.press_key(key.enter_key)  # 按下enter键
-        key.release_key(key.enter_key)
+    # @allure.step('禁用-点击确定')
+    # def click_disable_yes(self):
+    #     key = PyKeyboard()  # 实例化一个键盘
+    #     key.press_key(key.enter_key)  # 按下enter键
+    #     key.release_key(key.enter_key)

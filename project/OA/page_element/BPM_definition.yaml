@@ -1,0 +1,91 @@
+
+
+
+#  流程定义界面
+新增_导入_导出按钮: "xpath==//span[contains(text(), 'variable')]"
+设置分类_删除按钮: "xpath==//span[contains(text(), 'variable')]"
+流程搜索输入框: "xpath==//div[@class='quick-search inputs ht-form-inputs__inline']/div[@class='el-input el-input--small el-input--suffix']/input[@class='el-input__inner']"
+流程搜索放大镜: "xpath==//div[@class='quick-search inputs ht-form-inputs__inline']/div[@class='el-input el-input--small el-input--suffix']/span[@class='el-input__suffix']/span[@class='el-input__suffix-inner']/i[@class='el-input__icon el-icon-search']"
+右上角刷新按钮: "xpath==//i[@class='el-icon-refresh']"
+右上角设置按钮: "xpath==//button[@class='el-button el-tooltip el-button--default el-button--small']"
+列表第一行名称: 'xpath==//*[@id="pane-defManager"]//td[3]/div/a/span'
+
+
+# 新增后-进入流程设计界面
+追加结束事件: 'xpath==//div[@title="追加 结束事件 "]'
+追加网关: 'xpath==//div[@title="追加 网关"]'
+用户任务: 'xpath==//div[@class="djs-context-pad open"]//div[@title="用户任务"]'
+会签并行任务: 'xpath==//div[@class="djs-context-pad open"]//div[@title="会签并行任务"]'
+会签串行任务: 'xpath==//div[@class="djs-context-pad open"]//div[@title="会签串行任务"]'
+外部子流程: 'xpath==//div[@class="djs-context-pad open"]//div[@title="外部子流程"]'
+修改类型: 'xpath==//div[@class="djs-context-pad open"]//div[@title="修改类型"]'
+移除: 'xpath==//div[@class="djs-context-pad open"]//div[@title="移除"]'
+用户任务多个通过s取下标: 'xpath==//*[name()="g" and contains(@data-element-id,"UserTask")]'
+分类放大镜按钮: 'xpath==//div[@class="el-input-group__append"]//i'
+分类_选择分类: 'xpath==//div/span[contains(text(),"variable")]'
+分类_确定: 'xpath==//div[not(contains(@style,"display: none;")) and @class="el-dialog__wrapper"]//button/span[contains(text(),"确认")]'
+分类_取消: 'xpath==//div[not(contains(@style,"display: none;")) and @class="el-dialog__wrapper"]//button/span[text()="取消"]'
+分类_关闭: 'xpath==//div[not(contains(@style,"display: none;"))]/div[@aria-label="选择分类" and @aria-modal="true"]//i'
+流程名称输入框: 'xpath==//*[name()="label" and text()="流程名称"]/following-sibling::div[1]//input'
+流程描述输入框: 'xpath==//textarea[@class="el-textarea__inner"]'
+发布按钮: 'xpath==//button/span[text()="发布"]'
+发布成功提示语: 'xpath==//p[text()="流程发布成功"]'
+按钮按钮: 'xpath==//span[text()="预览" and not(contains(@class,"el-dialog__title"))]'
+保存按钮: 'xpath==//header[@class="el-header btn-bar"]//span[text()="保存"]'
+保存成功提示语: 'xpath==//p[text()="流程保存成功"]'
+
+导入按钮: 'xpath==//header[@class="el-header btn-bar"]//span[text()="导入"]'
+导出XML按钮: 'xpath==//header[@class="el-header btn-bar"]//span[text()="导出XML"]'
+导出SVG按钮: 'xpath==//header[@class="el-header btn-bar"]//span[text()="导出SVG"]'
+
+目录_流程设计: 'xpath==//div[@id="tab-defDesign"]'
+目录_流程配置: 'xpath==//div[@id="tab-defConfig"]'
+目录_初始赋值: 'xpath==//div[@id="tab-boSetting"]'
+目录_变量管理: 'xpath==//div[@id="tab-varManage"]'
+目录_版本管理: 'xpath==//div[@id="tab-versionManage"]'
+目录_其它设置: 'xpath==//div[@id="tab-otherSetting"]'
+
+流程配置_第二个用户任务的文本: 'xpath==//div[@class="djs-direct-editing-content"]'
+流程配置_第二个用户任务的文本B: 'xpath==//div[@name="用户任务1"]'
+
+
+流程配置_节点审批人员: 'xpath==//div[text()="节点审批人员"]'
+节点审批人员_新增按钮: 'xpath==//div[@data-v-f833c8e0]//span[text()="新增"]'
+#【用户任务】节点人员设置弹窗界面
+用户来自_选择: 'xpath==//span[text()="选择"]'
+用户选择_指定用户_圈圈: 'xpath==//span[text()="指定用户"]/preceding-sibling::span[@class="el-radio__input"]'
+用户选择_指定用户_选择框: 'xpath==//div[@class="el-select"]//input[@placeholder="请输入"]'
+选择用户_输入框: 'xpath==//input[@placeholder="用户名称、账号"]'
+选择用户_放大镜: 'xpath==//div[@aria-label="选择用户"]//i[ @title="查询"]'
+用户列表第一列: 'xpath==//ul/li/div'
+选择用户3_确定: "xpath==//div[@aria-label='选择用户']//span[contains(text(), '确认')]"
+选择用户3_取消: 'xpath==//div[@aria-label="选择用户"]//span[contains(text(), "取 消")]'
+用户选择2_确定: 'xpath==//div[@aria-label="用户选择"]//span[contains(text(), "确 定")]'
+用户选择2_取消: 'xpath==//div[@aria-labe//div[@name="用户任务1"]l="用户选择"]//span[contains(text(), "取 消")]'
+用户任务节点人员设置_确定: 'xpath==//div[@aria-label="【用户任务1】节点人员设置"]//span[contains(text(), "确 定")]'
+用户任务节点人员设置_取消: 'xpath==//div[@aria-label="【用户任务1】节点人员设置"]//span[contains(text(), "取 消")]'
+流程配置_新增节点人员记录刘艳: 'xpath==//div[contains(text(), "[指定用户]刘艳")] '
+保存配置按钮: 'xpath==//span[contains(text(), "保存配置")]'
+保存配置功提示语: 'xpath==//p[text()="流程配置保存成功"]'
+
+
+
+
+
+流程配置_全局设置: 'xpath==//div[text()="全局设置"]'
+全局表单_PC端放大镜: 'xpath==//*[contains(@id,"el-collapse-content")]//div[3]//form/div[2]//i[@class="el-icon-search"]'
+实例表单_PC端放大镜: 'xpath==//*[contains(@id,"el-collapse-content")]//div[4]//form/div[2]//i[@class="el-icon-search"]'
+选择表单_搜索输入框: 'xpath==//input[@placeholder="表单名称、表单key"]'
+选择表单_查询: 'xpath==//div[@class="ht-search__btn"]//span[contains(text(), "查询")]'
+选择表单_重置: 'xpath==//div[@class="ht-search__btn"]//span[contains(text(), "重置")]'
+选择表单_第一行选项: 'xpath==//main[@class="el-main ht-selector__main"]//tr/td[1]'
+选择表单_第一行选项B: 'xpath==//tr[@class="el-table__row"]/td[2]/div[@class="cell"]/div[text()="1"]'
+
+
+选择表单_确定: 'xpath==//div[not(contains(@style,"display: none;"))]/div[@aria-label="选择表单"]//div[@class="dialog-footer"]/button[1]'
+选择表单_取消: 'xpath==//div[not(contains(@style,"display: none;"))]/div[@aria-label="选择表单"]//div[@class="dialog-footer"]/button[2]'
+返回按钮: 'xpath==//div[text()="返回"]'
+全局表单绑定表单: 'xpath==//span[contains(text(), "机器人数据建模")]'
+
+
+

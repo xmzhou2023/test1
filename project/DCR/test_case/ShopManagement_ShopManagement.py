@@ -428,6 +428,33 @@ class TestQueryGlobalShop:
         #view.click_close_shop_view()
         #view.click_close_shop_management()
 
+    @allure.story("查询全球门店")
+    @allure.title("随机条件组合查询")
+    @allure.description("门店管理页面，随机条件组合查询")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_007_003(self, drivers):
+        """变量"""
+        query_dict = {
+            'Shop': 'shopID20221205151731',
+            'Sales Region': 'Kaolack',
+            'Brand': 'Infinix',
+            'Shop Type': 'Online Sales',
+            'Create Date': '2022-12-04To2022-12-06',
+            'Country/City': 'Kaolack',
+            'Shop Grade': 'A',
+            'Manpower Type': 'Unmanned',
+            'Image Type': 'Flagship Experience Center',
+            'Retail Customer': 'shopID20221205151731',
+            'Public ID': 'PshopID20221205151731',
+            'City Tier': 'T4',
+            'Carlcare Shop Code': 'No',
+            'POS ID': 'No'
+        }
+        add = ShopManagementPage(drivers)
+        add.click_menu("Shop Management", "Shop Management (global)")
+        add.click_unfold()
+        add.random_Query_Method(query_dict)
+
 
 # #暂时无删除功能，用例留着
 # @allure.feature("门店管理-门店管理(global)")
@@ -493,27 +520,27 @@ class TestManagerGlobalShop:
         user.click_submit()
         DomAssert(drivers).assert_att('Created Successfully')
         user.refresh()
-        user.input_Search_Info('Shop', shopID)
+        user.input_search('Shop', shopID)
         user.click_query_search()
         user.assert_Query_result('Status', 'Pending')
         """门店管理 切换上级账号点击拒绝"""
         user4.initialize_login(drivers, "wjklingshou", "xLily6x")
         user.click_menu("Shop Management", "Shop Management (global)")
-        user.input_Search_Info('Shop', shopID)
+        user.input_search('Shop', shopID)
         user.click_query_search()
         user.click_checkbox(shopID)
         user.hover_MoreOption_click('Reject')
         user.input_RejectReason('RejectReasonTEST')
         """门店管理 拒绝后断言拒绝成功，状态变为Rejected"""
         DomAssert(drivers).assert_att('successful')
-        user.input_Search_Info('Status', 'Rejected')
+        user.input_search('Status', 'Rejected')
         user.click_query_search()
         user.assert_Query_result('Status', 'Rejected')
         """门店管理 切换创建人账号查看门店状态"""
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
         user.click_menu("Shop Management", "Shop Management (global)")
-        user.input_Search_Info('Shop', shopID)
-        user.input_Search_Info('Status', 'Rejected')
+        user.input_search('Shop', shopID)
+        user.input_search('Status', 'Rejected')
         user.click_query_search()
         user.assert_Query_result('Status', 'Rejected')
 
@@ -549,13 +576,13 @@ class TestManagerGlobalShop:
         user.click_submit()
         DomAssert(drivers).assert_att('Created Successfully')
         user.refresh()
-        user.input_Search_Info('Shop', shopID)
+        user.input_search('Shop', shopID)
         user.click_query_search()
         user.assert_Query_result('Status', 'Pending')
         """门店管理 切换上级账号点击同意"""
         user4.initialize_login(drivers, "wjklingshou", "xLily6x")
         user.click_menu("Shop Management", "Shop Management (global)")
-        user.input_Search_Info('Shop', shopID)
+        user.input_search('Shop', shopID)
         user.click_query_search()
         user.click_checkbox(shopID)
         user.hover_MoreOption_click('Approve')
@@ -566,7 +593,7 @@ class TestManagerGlobalShop:
         """门店管理 切换创建人账号查看门店状态"""
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
         user.click_menu("Shop Management", "Shop Management (global)")
-        user.input_Search_Info('Shop', shopID)
+        user.input_search('Shop', shopID)
         user.click_query_search()
         user.assert_Query_result('Status', 'Enabled')
 
@@ -602,7 +629,7 @@ class TestManagerGlobalShop:
         user.click_submit()
         DomAssert(drivers).assert_att('Created Successfully')
         user.refresh()
-        user.input_Search_Info('Shop', shopID)
+        user.input_search('Shop', shopID)
         user.click_query_search()
         user.assert_Query_result('Retail Customer ID', shopID)
         user.assert_Query_result('Retail Customer Name', name)

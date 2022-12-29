@@ -75,17 +75,6 @@ class VisitRecordPage(Base):
         total1 = total[6:]
         return total1
 
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
-
-    def click_close_visit_record(self):
-        """Visit Record页面，点击关闭菜单"""
-        self.is_click(user['关闭巡店记录菜单'])
-        sleep(1)
-
-
     #巡店记录，导出功能验证
     def click_export(self):
         """Visit Record页面，点击Export导出按钮"""
@@ -148,14 +137,12 @@ class VisitRecordPage(Base):
         export_time1 = export_time[0:1]
         return export_time1
 
-
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
         if int(total) > 0:
             logging.info("根据门店ID筛选，巡店记录列表中，加载筛选的数据正常，分页总条数Total:{}".format(total))
         else:
             logging.info("根据门店ID筛选，巡店记录列表中，未加载筛选的数据，分页总条数Total:{}".format(total))
-
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """
@@ -168,7 +155,6 @@ class VisitRecordPage(Base):
             logging.info("Visit Record导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Visit Record导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
 
 if __name__ == '__main__':
     pass

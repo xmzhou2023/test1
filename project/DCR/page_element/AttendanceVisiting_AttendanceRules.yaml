@@ -35,7 +35,19 @@ Click On Work Time: "xpath==//label//span[text()='On Work Time']"
 保存按钮: "xpath==//div[@aria-label='dialog']//span[contains(text(),'Save')]"
 取消保存按钮: "xpath==//button[@id='attendancerules_Cancel']//span[normalize-space(text())='Cancel']"
 
-##筛选考勤规则记录，获取列表字段内容断言
+#组合筛选排班记录
+输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
+输入框1: "xpath==//label[contains(text(),'variable')]/..//input[@class='el-select__input is-small']"
+输入框2: "xpath==//label[contains(text(),'variable')]/..//input[@placeholder='All']"
+输入结果精确选择: "xpath==//div//ul//li//span[text()='variable']"
+点击label标签: "xpath==//div//label[contains(text(),'variable')]"
+menu表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格内容: "xpath==//td[contains(@class,'variable ') and not(contains(@class, 'is-hidden'))]//div"
+滚动条: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+表头文本: "xpath==//thead/tr/th"
+
+#筛选考勤规则记录，获取列表字段内容断言
 Click Search: "xpath==//button[@id='attendancerules_search']//span[normalize-space()='Search']"
 Click Start Month lable: "xpath==//div//label[text()='Start Month']"
 Input Start Month query: "xpath==//div//input[@id='attendancerules_input_date']"

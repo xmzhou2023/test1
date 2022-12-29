@@ -9,7 +9,7 @@ import os
 import shutil
 
 # 自动新增文件夹
-PERO_PATH = os.path.join(PEROJECT_PATH, 'TBM')
+PERO_PATH = os.path.join(PEROJECT_PATH, 'TranDesk')
 # 创建文件依据
 path = os.path.join('template/modle_name.csv')
 

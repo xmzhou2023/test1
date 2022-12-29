@@ -12,6 +12,15 @@ IMEI/SN管理: "xpath==//span[contains(text(),'variable')]"
 商品信息新增按钮: "xpath==//button[@type='button']//span[contains(text(),'新增')]"
 点击保存按钮: "xpath==//span[contains(text(),'保存')]"
 
+# 商品查询
+日期断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[15]/div"
+产品名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[2]/div/div/div/span/span"
+自采标记断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[13]/div"
+区域断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[2]/span[1]"
+品牌名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[3]/div"
+IMEI/SN管理断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[8]/div"
+创建人断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[14]/div"
+
 # 导出--导出商品管理列表
 导出: "xpath==//button[contains(text(),'导出')]"
 导出成功提示: "class==el-message__content"

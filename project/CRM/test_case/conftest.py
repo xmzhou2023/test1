@@ -39,3 +39,4 @@ def __init__(drivers, env_name):
         user.assert_url("{}".format(ini.url))
         # user.assert_exact_att('18646156')
         logging.info("前置条件：传音统一登录成功")
+    return pro_env

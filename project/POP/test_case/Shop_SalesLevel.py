@@ -1,7 +1,7 @@
 import allure
 import pytest
 from project.POP.page_object.Center_Component import NavPage
-from project.POP.page_object.Shop_SalesLevel import AddSalesLevel
+from project.POP.page_object.Shop_SalesLevel import *
 from libs.common.read_element import Element
 from project.POP.test_case.conftest import *
 from public.base.basics import read_excel
@@ -60,6 +60,52 @@ class TestAddSalesLevel:
         test = users.element_text(user['删除提示'])
         ValueAssert.value_assert_equal(test,"操作成功")
 
+@allure.feature("门店-门店销售等级") # 模块名称
+class TestQuerySalesLevel:
+    @allure.story("门店销售等级") # 场景名称
+    @allure.title("查询门店销量等级")  # 用例名称
+    @allure.description("输入组织，查询对应组织下门店销量等级")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_002_001(self, drivers):
+        users = QuerySalesLevel(drivers)
+        users.querysaleslevel("门店销售等级-组织框","oraimo")
+        sleep(2)
+        # 断言
+        test = users.element_text(user['组织断言'])
+        ValueAssert.value_assert_equal(test,"oraimo")
+
+    @allure.story("门店销售等级")  # 场景名称
+    @allure.title("查询门店销量等级")  # 用例名称
+    @allure.description("输入区域，查询对应区域下门店销量等级")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_002(self, drivers):
+        users = QuerySalesLevel(drivers)
+        users.querysaleslevel("门店销售等级-区域框","枇杷平")
+        sleep(2)
+        # 断言
+        test = users.element_text(user['区域断言'])
+        ValueAssert.value_assert_equal(test,"枇杷平")
+
+    @allure.story("门店销售等级")  # 场景名称
+    @allure.title("查询门店销量等级")  # 用例名称
+    @allure.description("输入区域，查询对应区域下门店销量等级")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_002_003(self,drivers):
+        users = QuerySalesLevel(drivers)
+        users.querysaleslevel("门店销售等级-等级名称框","A")
+        sleep(2)
+        # 断言
+        test = users.element_text(user['等级名称断言'])
+        ValueAssert.value_assert_equal(test,"A")
+
+
+
+
+
+
 
 if __name__ == '__main__':
-    pytest.main(['Shop_SalesLevel.py'])
+    pytest.main(['Shop_SalesLevel.py::TestQuerySalesLevel'])

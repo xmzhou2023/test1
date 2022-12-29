@@ -67,6 +67,7 @@ ScanRecord: "xpath==//div[normalize-space(text())='variable']/../div[3]"
 BasicInfo: "xpath==//div[normalize-space(text())='Basic Info']/..//label[normalize-space(text())='variable']/..//input"
 空白处: "xpath==//div[normalize-space(text())='Basic Info']"
 
+
 #退货单查询
 列表第一行: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']//tbody//tr[1]//td[variable]//div"
 展开折叠: "xpath==//span[(text()='Unfold')]"
@@ -105,3 +106,22 @@ IMEI输入: "xpath==//textarea[@class='el-textarea__inner']"
 卖方国家输入: "xpath==//input[@id='returnorder_input_sellerCountryList']//..//..//input[@class='el-select__input is-small']"
 卖方国家选择: "xpath==//li[@class='el-select-dropdown__item']//span[contains(text(),'variable')]"
 
+
+#组合条件筛选退货单
+输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
+输入框1: "xpath==//label[contains(text(),'variable')]/..//input[@class='el-select__input is-small']"
+输入框2: "xpath==//label[contains(text(),'variable')]/..//input[@placeholder='All']"
+Input Return Start Date: "xpath==//label[contains(text(),'variable')]/..//input[@class='el-input__inner returnorder_input_returnDate']"
+输入框IMEI: "xpath==//label[contains(text(),'variable')]/..//div//textarea[@placeholder='Batch input content']"
+输入结果精确选择: "xpath==//div//ul//li//span[text()='variable']"
+输入结果精确选择1: "xpath==//label[contains(text(),'variable')]/..//div//ul//li//span[text()='variable']"
+输入结果模糊选择: "xpath==//div//ul//li//span[contains(text(),'variable')]"
+输入仓库区域精确选择: "xpath==//div//label[text()='variable']/../..//span[text()='variable']"
+点击label标签: "xpath==//div//label[contains(text(),'variable')]"
+点击IMEI Detail按钮: "xpath==//tbody//tr//td[not(contains(@class, 'is-hidden'))]//button//span[normalize-space(text())='IMEI Detail']"
+关闭IMEI Detail窗口: "xpath==//div//span[text()='IMEI Detail']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+menu表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格内容: "xpath==//td[contains(@class,'variable ') and not(contains(@class, 'is-hidden'))]//div"
+滚动条: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+表头文本: "xpath==//thead/tr/th"

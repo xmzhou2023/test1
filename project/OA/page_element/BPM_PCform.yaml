@@ -1,0 +1,43 @@
+# PC表单首页
+添加_设置分类_导入导出_批量更新按钮: 'xpath==//button/span[text()="variable"]'
+PC表单输入框: 'xpath==//input[@placeholder="请输入名称,别名,描述来搜索"]'
+PC表单输入框_搜索按钮: 'xpath==//*[@id="pane-formManager"]//div/div[1]/div/span/span/i'
+PC表单_选择方框一行勾选框: 'xpath==//tbody/tr[1]//span[@class="el-checkbox__inner"]'
+PC表单_选择方框一行名称文: 'xpath==//*[@id="pane-formManager"]//tr[1]/td[3]/div/a/span'
+
+# 点添加后弹出的选择业务对象弹窗
+选择业务对象_搜索输入框: 'xpath==//input[@placeholder="别名、描述"]'
+查询_重置按钮: 'xpath== //button/span[contains(text(),"variable")]'
+选择业务对象_第一列勾选框: 'xpath==//section/main/div/div[3]/table/tbody/tr/td[1]/div'
+选择业务对象_确定按钮: 'xpath==//div[@aria-label="选择业务对象"]//button/span[contains(text(),"确认")]'
+选择业务对象_取消按钮: 'xpath==//div[@aria-label="选择业务对象"]//button/span[contains(text(),"取 消")]'
+
+
+# 数据建模-业务建模-创建表单-PC表单设计 界面 首次创建PC表单设计共用
+# PC表单--添加--初始化模板 首次创建PC表单设计共用
+PC表单设计_保存按钮: 'xpath==//*[@id="pane-formManager"]//div[2]//header/div/span/button[1]'
+PC表单设计_保存成功提示语: 'xpath==//p[text()="生成表单成功"]'
+PC表单设计_发布: 'xpath==//*[@id="pane-formManager"]//div[2]//header/div/span/button[4]'
+PC表单设计_第一次发布版本成功提示语: 'xpath==//p[text()="发布版本成功"]'
+PC表单设计_预览: 'xpath==//button[@data-v-236d6a46]/span[text()="预览"]'
+PC表单设计_导出本地: 'xpath==//button[@data-v-236d6a46]/span[text()="导出本地"]'
+PC表单设计_本地导入: 'xpath==//button[@data-v-236d6a46]/span[text()="本地导入"]'
+PC表单设计_返回: 'xpath==//div[@class="el-page-header__title"]'
+PC表单设计_返回弹窗提示: 'xpath==//p[text()="您确认离开当前编辑页面？"]'
+PC表单设计_返回弹窗_确定: 'xpath==//div[@aria-label="现在离开，内容不会自动保存"]//span/span[text()="确认"]'
+PC表单设计_返回弹窗_取消: 'xpath==//div[@aria-label="现在离开，内容不会自动保存"]//span[contains(text(),"取消")]'
+
+
+# PC表单设计 ，二次打开
+
+PC表单设计_发布成功提示语: 'xpath==//p[text()="发布新版本成功"]'
+
+
+
+
+# PC表单——添加——选中数据建模——弹窗 共用
+# 数据建模——业务建模_创建表单--弹窗 共用
+空模板: 'xpath==//span[text()="空模板"]'
+模板生成: 'xpath==//span[text()="模板生成"]'
+初始化模板_确定: 'xpath==//div[not(contains(@style,"display: none;"))]/div[@aria-label="选择表单模板"]//span[text()="确定"]'
+初始化模板_取消: 'xpath==//div[not(contains(@style,"display: none;"))]/div[@aria-label="选择表单模板"]//span[text()="取 消"]'

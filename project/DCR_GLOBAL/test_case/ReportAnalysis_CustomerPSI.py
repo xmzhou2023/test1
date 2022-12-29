@@ -6,13 +6,32 @@ from public.base.basics import Base
 import pytest
 import allure
 
+@pytest.fixture(scope='function')
+def function_export_fixture(drivers):
+    yield
+    menu = DCRLoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
+
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = DCRLoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("报表分析-客户PSI")
 class TestQueryDistiCustomerPSI:
     @allure.story("查询国包客户PSI")
     @allure.title("Customer PSI页面，查询国包客户PSI列表数据加载")
     @allure.description("Customer PSI页面，查询国包客户PSI列表数据加载，断言数据是否加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     def test_001_001(self, drivers):
         """筛选国包客户PSI列表数据，是否加载正常"""
         base = Base(drivers)
@@ -40,7 +59,8 @@ class TestExportDistiCustomerPSI:
     @allure.story("导出国包客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询国包客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询国包客户PSI列表数据，并导出")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """筛选国包客户PSI列表数据，导出数据是否正常"""
         export = CustomerPSIPage(drivers)
@@ -65,7 +85,7 @@ class TestExportDistiCustomerPSI:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_customerPSI()
+        # export.click_close_customerPSI()
 
 
 @allure.feature("报表分析-客户PSI")
@@ -103,7 +123,8 @@ class TestExportSubCustomerPSI:
     @allure.story("导出二代客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询二代客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据，并导出。断言导出数据是否正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_004_001(self, drivers):
         """根据日期筛选二代客户PSI列表数据，导出数据是否正常"""
         export = CustomerPSIPage(drivers)
@@ -133,8 +154,8 @@ class TestExportSubCustomerPSI:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
-        export.click_close_export_record()
-        export.click_close_customerPSI()
+        # export.click_close_export_record()
+        # export.click_close_customerPSI()
 
 if __name__ == '__main__':
     pytest.main(['ReportAnalysis_CustomerPSI.py'])

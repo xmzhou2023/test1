@@ -44,13 +44,8 @@ class Login(Base):
         user.dcr_click_loginsubmit()
 
         """判断是否弹出DCR隐私政策页面"""
-        get_home_page = user.dcr_get_home_page_customer()
-        if get_home_page != 'Home Page-Customer':
-            get_yinsizhegnce = user.dcr_get_yinsizhengce()
-            if get_yinsizhegnce == '隐私政策':
-                user.dcr_click_agree()
-        else:
-            logging.info("打印获取的内容：{}".format(get_home_page))
+        user.privacy()
+
 
 
     def crm_login(self, drivers, url, username, passwd):
@@ -155,5 +150,16 @@ class Login(Base):
         user.input_account(username)  # 输入帐户名
         pwd.input_passwd(passwd)  # 输入密码
         user.input_imgcode()  # 输入验证码
+        user.click_checkbox()
+        user.click_loginsubmit()
+
+    def BDDP_login(self, drivers, url, username, passwd):
+        """统一登录֤"""
+        user = LoginPage(drivers)
+        user.get_url(url) # 跳转到指定网页
+        user.switch_lanuage("中文") # 传参为"中文"，"英文"，"法文"
+        user.click_accountlogin() # 点击帐户密码登录
+        user.input_account(username) # 输入帐户名
+        user.input_passwd(passwd) # 输入密码
         user.click_checkbox()
         user.click_loginsubmit()

@@ -23,7 +23,6 @@ class AssertMode(PubicMethod):
 
     @allure.step("断言")
     def assert_toast(self,element, content=None):
-        # att = self.element_text(user['toast提示'])
         try:
             att = self.wait.until(
                     EC.visibility_of_element_located((By.XPATH, self.filelist.yaml_read(element)))).text
@@ -67,6 +66,28 @@ class AssertMode(PubicMethod):
             raise
 
     @allure.step("断言")
+    def assert_toast_in(self,element, content=None):
+        # att = self.element_text(user['toast提示'])
+        try:
+            att = self.wait.until(
+                    EC.visibility_of_element_located((By.XPATH, self.filelist.yaml_read(element)))).text
+            self.base_get_img()
+            logging.info('获取toast提示语：{}'.format(att))
+            try:
+                if content is None:
+                    assert att in '请求成功' or att in '审核通过'  or att in '操作成功' or att in '处理成功'
+                    logging.info('断言成功，toast提示为：{}'.format(att))
+                else:
+                    assert att in content
+                    logging.info('断言成功，toast提示为：{}'.format(att))
+            except:
+                logging.error('断言失败，实际提示为：{}'.format(att))
+                raise
+        except:
+            logging.error('断言失败，未获取到toast提示语/toast提示语错误')
+            raise
+
+    @allure.step("断言")
     def assert_IPM(self,att, content=None):
 
         try:
@@ -93,7 +114,6 @@ class AssertMode(PubicMethod):
         except Exception as e:
             logging.info(e)
             raise
-
 
 
 

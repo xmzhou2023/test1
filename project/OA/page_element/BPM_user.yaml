@@ -1,0 +1,73 @@
+# 用户端首页
+一级导航: 'xpath==//span[@class="sub-menu-title" and contains(text(),"variable")]'
+二级精准导航: 'xpath==//span[@class="menu-title sub-menu-child__title" and text()="variable"]'
+二级导航: 'xpath==//span[@class="menu-title sub-menu-child__title" and contains(text(),"variable")]'
+右上角登录名: 'xpath==//div[@class="user-name"]/span'
+右上角弹出菜单栏: 'xpath==//ul[contains(@id,"dropdown-menu")]//span[contains(text(),"variable")]'
+退出系统提示_确定_取消按钮: 'xpath==//div[@aria-label="温馨提示"]//span[contains(text(),"确定")]'
+
+
+# 新建流程界面
+流程概览导航: 'xpath==//div[@id="tab-processOverview"]'
+我的收藏导航: 'xpath==//div[@id="tab-myCollection"]'
+我的草稿导航: 'xpath==//div[@id="tab-myDraft"]'
+流程概览的搜索输入框: 'xpath==//input[@placeholder="请输入流程名称来搜索"]'
+流程概览的搜索按钮: 'xpath==//input[@placeholder="请输入流程名称来搜索"]/following-sibling::span//i[1]'
+查询出来的第一条数据: 'xpath==//ul/li[@class="card-item__wrap card-item"]'
+
+# 流程启动界面
+流程字段: 'xpath==//span[text()="variable"]'
+流程字段对应的输入框: 'xpath==//span[text()="variable"]/../following-sibling::div//input'
+提交流程成功提示: 'xpath==//p[text()="流程启动成功"]'
+流程编号: 'xpath==//span[contains(text(),"流程编号:")]/following-sibling::span'
+
+#流程处理界面通用
+流程启动_审批表单下底部的流程处理按钮: 'xpath==//button/span[contains(text(),"variable")]'
+审批同意_输入框: 'xpath==//textarea[@placeholder="请输入意见内容......"]'
+审批同意_确定_取消_按钮: 'xpath==//div[@class="el-form-item__content"]//span[contains(text(),"variable")]'
+同意流程成功提示: 'xpath==//p[text()="任务办理成功"]'
+已归档状态: 'xpath==//i[contains(text(),"已归档")]'
+审核中状态: 'xpath==//i[contains(text(),"审核中")]'
+
+
+
+# 我的待办界面
+我的待办导航: 'xpath==//div[@id="tab-todo"]'
+我的已办导航: 'xpath==//div[@id="tab-done"]'
+我的转办导航: 'xpath==//div[@id="tab-myDelegate"]'
+我的待办_搜索输入框: 'xpath==//input[@placeholder="请输入标题,流程编号,流程名称,任务名称来搜索"]'
+我的待办_搜索查询按钮: 'xpath==//input[@placeholder="请输入标题,流程编号,流程名称,任务名称来搜索"]/following-sibling::span//i[1]'
+待办列表第一条标题: 'xpath==//tbody/tr/td[4]/div/span'
+
+
+# 我的已办界面
+我的已办_搜索输入框: 'xpath==//input[@placeholder="请输入标题,流程编号,流程名称来搜索"]'
+我的已办_搜索查询按钮: 'xpath==//input[@placeholder="请输入标题,流程编号,流程名称来搜索"]/following-sibling::span//i[1]'
+流程编号的列表数据: 'xpath==//div[contains(text(),"variable")]'
+已办列表第一条标题: 'xpath==//tbody/tr/td[4]/div/span'
+
+
+
+
+
+
+
+
+
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='
+#A: 'xpath=='

@@ -1,5 +1,4 @@
 from libs.common.time_ui import sleep
-from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.AttendanceVisiting_VisitRecord import VisitRecordPage
 from public.base.assert_ui import ValueAssert
@@ -12,7 +11,7 @@ import allure
 @pytest.fixture(scope='function')
 def function_export_fixture(drivers):
     yield
-    menu = LoginPage(drivers)
+    menu = DCRLoginPage(drivers)
     for i in range(2):
         get_menu_class = menu.get_open_menu_class()
         class_value = "tags-view-item router-link-exact-active router-link-active active"
@@ -30,10 +29,8 @@ class TestQueryVisitRecord:
         base = Base(drivers)
         base.refresh()
         sleep(4.5)
-
         menu = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-
         """打开考勤与巡店管理-打开巡店记录页面"""
         menu.click_gotomenu("Attendance & Visiting", "Visit Record")
         all_visit = VisitRecordPage(drivers)
@@ -43,13 +40,11 @@ class TestQueryVisitRecord:
         all_visit.input_shop_id_query(shop_id)
         all_visit.click_fold()
         all_visit.click_search()
-
         shopid = all_visit.get_shop_id_text()
         submit_date = all_visit.get_submit_date_text()
         visit_date = all_visit.get_visit_date_text()
         operation = all_visit.get_view_operation_text()
         total = all_visit.get_total_text()
-
         ValueAssert.value_assert_equal(shop_id, shopid)
         ValueAssert.value_assert_IsNoneNot(submit_date)
         ValueAssert.value_assert_IsNoneNot(visit_date)
@@ -69,18 +64,15 @@ class TestExportVisitRecord:
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()
-
         export = VisitRecordPage(drivers)
         last_date = export.get_last_day(1)
         """根据提交时间筛选巡店记录"""
         export.input_submit_start_date(last_date)
         export.click_sales_region()
         export.click_search()
-
         export.click_export()
         export.click_download_more()
         down_status = export.click_export_search()
-
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
@@ -88,7 +80,6 @@ class TestExportVisitRecord:
         complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
         operation = export.get_export_operation_text()
-
         ValueAssert.value_assert_equal(down_status, "COMPLETE")
         ValueAssert.value_assert_equal(task_name, "Visit Record")
         ValueAssert.value_assert_equal(task_id, "testsupervisor")

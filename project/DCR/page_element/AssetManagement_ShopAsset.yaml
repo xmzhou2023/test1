@@ -37,6 +37,26 @@ Get list Total: "xpath==//div//span[contains(text(), 'Total')]"
 Delete: "xpath==//button//span[normalize-space(text())='Delete']"
 
 
+#组合条件筛选退货单
+输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
+输入框1: "xpath==//label[contains(text(),'variable')]/..//input[@class='el-select__input is-small']"
+输入框2: "xpath==//label[contains(text(),'variable')]/..//input[@placeholder='All']"
+Input Return Start Date: "xpath==//label[contains(text(),'Return Date')]/..//input[@class='el-input__inner returnorder_input_returnDate']"
+输入框IMEI: "xpath==//label[contains(text(),'variable')]/..//div//textarea[@placeholder='Batch input content']"
+输入结果精确选择: "xpath==//div//ul//li//span[text()='variable']"
+输入结果模糊选择: "xpath==//div//ul//li//span[contains(text(),'variable')]"
+输入区域精确选择: "xpath==//div//label[text()='variable']/../..//span[text()='variable']"
+点击label标签: "xpath==//div//label[contains(text(),'variable')]"
+Create Start Date: "xpath==//div//input[@class='el-input__inner shopassetlist_input_createDateBegin']"
+Create End Date: "xpath==//div//input[@class='el-input__inner shopassetlist_input_createDateBegin1']"
+
+点击IMEI Detail按钮: "xpath==//tbody//tr//td[not(contains(@class, 'is-hidden'))]//button//span[normalize-space(text())='IMEI Detail']"
+关闭IMEI Detail窗口: "xpath==//div//span[text()='IMEI Detail']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+menu表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格内容: "xpath==//td[contains(@class,'variable ') and not(contains(@class, 'is-hidden'))]//div"
+滚动条: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+表头文本: "xpath==//thead/tr/th"
 
 
 

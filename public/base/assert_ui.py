@@ -123,6 +123,20 @@ class ValueAssert(object):
             logging.error(e)
             raise
 
+    @allure.step("判断日期是否在指定日志中间断言")
+    def value_assert_date_in(a, b ,c):
+        # a,b,c格式为’2022-11-22 11:11:11‘或’2022-11-22’，或以年月日格式开头的日期时间,判断a在b和c之间
+        a1 = int(a[0:10].replace('-', ''))
+        b1 = int(b[0:10].replace('-', ''))
+        c1 = int(c[0:10].replace('-', ''))
+        try:
+            assert b1<=a1<=c1, logging.warning("断言失败: a: {} 小日期：{} 大日期：{}".format(a, b, c))
+            logging.info("断言成功: a: {} 在小日期：{} 和大日期：{}之间".format(a, b, c))
+        except Exception as e:
+            logging.error(e)
+            raise
+
+
 
 """     页面元素校验的方法     """
 

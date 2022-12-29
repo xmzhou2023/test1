@@ -8,6 +8,8 @@
 
 退出登录: "id==LoginOut"
 退出登录2: "css==[id='LoginOut']"
+关闭当前打开的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']//span[@class='el-icon-close']"
+打开状态的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']"
 
 ###=====定位菜单元素=======================================
 Home Page: "xpath==//span[(text()='Home Page')]"
@@ -162,3 +164,8 @@ Asset Management->Shop Asset: "xpath==//div//li//span[text()='Shop Asset']"
 Asset Management->Asset Maintenance History: "xpath==//div//li//span[text()='Asset Maintenance History']"
 Asset Management->Asset Counting: "xpath==//div//li//span[text()='Asset Counting']"
 Asset Management->Demo Phone Query: "xpath==//div//li//span[text()='Demo Phone Query']"
+
+New Product Booking: "xpath==//span[(text()='New Product Booking')]"
+New Product Booking->Activity Template: "xpath==//div//li//span[text()='Activity Template']"
+New Product Booking->Consumer Booking Statistics: "xpath==//div//li//span[text()='Consumer Booking Statistics']"
+New Product Booking->Shop Booking Statistics: "xpath==//div//li//span[text()='Shop Booking Statistics']"

@@ -59,6 +59,15 @@ class LoginPage(Base):
         homepage = self.element_text(user['get Home Page Customer text'])
         return homepage
 
+    @allure.step("获取当前打开状态的菜单class值")
+    def get_open_menu_class(self):
+        ss = self.find_element(user['打开状态的菜单'])
+        get_menu_class = ss.get_attribute('class')
+        return get_menu_class
+
+    @allure.step("关闭当天打开状态的菜单")
+    def click_close_open_menu(self):
+        self.is_click(user['关闭当前打开的菜单'])
 
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):

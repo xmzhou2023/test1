@@ -5,7 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import logging
 from ..test_case.conftest import *
-
+from project.POP.page_object.Center_Component import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
@@ -57,6 +57,16 @@ class AddSalesLevel(Base):
         sleep(1)
         self.is_click_tbm(user['二次弹窗确定'])
 
+class QuerySalesLevel(Page_Operation,General_button):
+    """查询类"""
+    select_list = {"门店销售等级-组织框": "门店销售等级-组织", "门店销售等级-区域框": "门店销售等级-区域", "门店销售等级-等级名称框": "门店销售等级-等级名称"}
+    def querysaleslevel(self, select, content):
+        if select in self.select_list:
+            self.single_condition_input_boxquery(select, self.select_list[select], content)
+            sleep()
+            self.query()
+        else:
+            logging.error("系统检测没有此筛选项，请检查后重新输入")
 
 
 
