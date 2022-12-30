@@ -50,8 +50,8 @@ class ConsumerBookingStatistics(Base):
         country_list = ['Sales Region', 'Country/City']
         fuzzySelect_list = ['Shop', 'Activity Template']
         exactSelect_list = ['Order Status', 'Activated Status']
-        inputSelect_list = ['Model', 'Brand', 'Market Name']
-        inputSelect_list2 = []
+        inputSelect_list = ['Model', 'Brand']
+        inputSelect_list2 = ['Market Name']
         Date_list = ['Booking Date', 'Delivered Date', 'Activated Date']
         self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
@@ -77,9 +77,9 @@ class ConsumerBookingStatistics(Base):
                 self.input_text(user['输入框4'], content, header)
                 self.is_click_tbm(user['输入结果精确选择'], content)
             elif header in inputSelect_list2:
-                self.is_click_tbm(user['输入框'], header)
-                self.input_text(user['输入框'], content, header)
-                self.is_click_tbm(user['输入结果模糊选择'], content)
+                self.is_click_tbm(user['输入框5'], header)
+                self.input_text(user['输入框6'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
             elif header in Date_list:
                 createDate = content.split('To')
                 for i in range(len(createDate)):
@@ -115,9 +115,9 @@ class ConsumerBookingStatistics(Base):
             self.assert_Query_result('Delivered IMEI 1', content)
         elif header == 'Sales Region':
             country = content.split('_')
-            for i in range(5):
+            for i in range(3):
                 assert_result = False
-                column = self.get_table_info(user['menu表格字段'], f'{header} {5 - i}', sc_element=user['滚动条'],
+                column = self.get_table_info(user['menu表格字段'], f'{header} {3 - i}', sc_element=user['滚动条'],
                                              h_element=user['表头文本'])
                 contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
                 for j in contents:
@@ -125,7 +125,7 @@ class ConsumerBookingStatistics(Base):
                         ValueAssert.value_assert_equal(j, country[2])
                         assert_result = True
                     else:
-                        logging.info(f'{header} {5 - i} 区域为空，继续比对上级区域')
+                        logging.info(f'{header} {3 - i} 区域为空，继续比对上级区域')
                         break
                 if assert_result:
                     logging.info('断言结束')

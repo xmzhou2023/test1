@@ -26,7 +26,7 @@ class TestSearch:
             'Order Status': 'Pending Delivery',
             'Model': 'X672',
             'Brand': 'Infinix',
-            # 'Market Name': 'SPARK Go 2021',
+            'Market Name': 'NOTE 12 VIP',
             'Shop': 'PK410266',
             'IMEI': '',
             # 'Activated Status': 'No',

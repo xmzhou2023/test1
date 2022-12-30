@@ -35,7 +35,7 @@ class UserManagementPage(Base):
         user_list = ['User']
         country_list = ['Sales Region', 'Country/City']
         fuzzySelect_list = ['Belong To Customer', 'Superior']
-        exactSelect_list = ['Staff Status', 'Have Superior or Not', 'Have Shop or Not', 'Staff Type']
+        exactSelect_list = ['Staff Status', 'Have Superior or Not', 'Have Shop or Not', 'Staff Type', 'Audit Status', 'Scheme Registration']
         inputSelect_list = ['Brand', 'Position', 'Role']
         self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
@@ -124,11 +124,11 @@ class UserManagementPage(Base):
         logging.info(f'输入框：{list_query}')
         list_random = random_list(list_query, num)
         logging.info(f'随机组合：输入框：{list_random}')
-        for i in list_query:
+        for i in list_random:
             logging.info(f'随机组合：输入内容：{kwargs[i]}')
             self.input_search(i, kwargs[i])
         self.click_search()
-        for i in list_query:
+        for i in list_random:
             self.assert_search_result(i, kwargs[i])
 
 
