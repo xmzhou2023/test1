@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from project.DCR_GLOBAL.page_object.NewProductBooking_ConsumerBookingStatistics import ConsumerBookingStatistics
+from project.DCR_INDIA.page_object.NewProductBooking_ConsumerBookingStatistics import ConsumerBookingStatistics
 
 """
     用例等级说明:
@@ -24,18 +24,18 @@ class TestSearch:
         query_dict = {
             # 'Booking Date': '2022-06-01To2022-12-26',
             'Order Status': 'Pending Delivery',
-            'Model': 'X672',
-            'Brand': 'Infinix',
-            'Market Name': 'NOTE 12 VIP',
-            'Shop': 'PK410266',
+            'Model': 'AD9',
+            'Brand': 'TECNO',
+            'Market Name': 'PHANTOM X2 Pro',
+            'Shop': 'IN002046',
             'IMEI': '',
             # 'Activated Status': 'No',
             'Delivered Date': '',
             'Activated Date': '',
-            'Activity Template': 'TEM2206300001',
-            'Booking Order ID': 'BO220630000001',
-            'Country/City': 'Pakistan_Punjab_Lahore',
-            'Sales Region': 'New Market_Pakistan-Infinix_C1'
+            'Activity Template': 'TEM2212200002',
+            'Booking Order ID': 'BO221221000001',
+            'Country/City': 'India_Maharashtra_Mumbai',
+            'Sales Region': 'India District_India-TECNO_Alternate Channel'
         }
         add = ConsumerBookingStatistics(drivers)
         add.click_menu("New Product Booking", "Consumer Booking Statistics")

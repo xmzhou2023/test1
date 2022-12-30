@@ -37,8 +37,7 @@ class TestQueryDistiCustomerPSI:
     def test_001_001(self, drivers):
         """筛选国包客户PSI列表数据，是否加载正常"""
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(3.5)
         user = LoginPage(drivers)
         """报表分析-打开客户PSI页面"""
@@ -100,8 +99,7 @@ class TestQuerSubCustomerPSI:
     def test_003_001(self, drivers):
         """根据日期筛选二代客户PSI列表数据，是否加载正常"""
         """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(3.5)
         """考勤管理-打开考勤记录页面"""
         menu = LoginPage(drivers)

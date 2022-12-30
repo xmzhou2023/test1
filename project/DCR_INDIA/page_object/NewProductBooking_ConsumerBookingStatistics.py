@@ -178,7 +178,7 @@ class ConsumerBookingStatistics(Base):
             list_query.append(i)
         logging.info(f'输入框：{list_query}')
         list_random = random_list(list_query, num)
-        self.input_search('Booking Date', '2022-06-01To2022-12-26')
+        self.input_search('Booking Date', '2022-11-30To2022-12-30')
         logging.info(f'随机组合：输入框：{list_random}')
         for i in list_random:
             logging.info(f'随机组合：{i} 输入框输入内容：{kwargs[i]}')

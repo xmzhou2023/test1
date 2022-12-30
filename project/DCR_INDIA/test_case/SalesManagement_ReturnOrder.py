@@ -1,6 +1,7 @@
 from project.DCR_INDIA.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
 from project.DCR_INDIA.page_object.Center_Component import LoginPage
 from libs.common.time_ui import sleep
+from public.base.basics import Base
 from libs.common.connect_sql import *
 from libs.config.conf import DOWNLOAD_PATH
 import pytest
@@ -16,7 +17,6 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
-
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
     @allure.story("查询退货单")
@@ -25,6 +25,8 @@ class TestReturnOrder:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
+        Base(drivers).refresh()
+        sleep(3.5)
         user = LoginPage(drivers)
         """变量"""
         query_dict = {
