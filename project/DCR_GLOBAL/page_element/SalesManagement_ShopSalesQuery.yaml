@@ -5,7 +5,11 @@ Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Fold: "xpath==//span[contains(text(),'Fold')]"
 Sales Date Start Date: "xpath==//label[text()='Sales Date']/..//div[@class='date-box start']//input"
 Sales Date End Date: "xpath==//label[text()='Sales Date']/..//div[@class='date-box end']//input"
+Shop Sales Query Shop点击输入框: "xpath==//label[text()='Shop']/..//input[@placeholder='All']"
+Shop Sales Query Shop输入框: "xpath==//label[text()='Shop']/..//input[@placeholder='Batch input content']"
+输入结果模糊选择: "xpath==//div//ul//li//span[contains(text(), 'variable')]"
 
+#获取门店销售查询字段内容
 获取门店ID文本: "xpath==//table//tbody//tr[1]//td[2]//div//span"
 获取门店名称文本: "xpath==//table//tbody//tr[1]//td[3]//div//span"
 获取状态文本: "xpath==//table//tbody//tr[1]//td[5]//div//span"

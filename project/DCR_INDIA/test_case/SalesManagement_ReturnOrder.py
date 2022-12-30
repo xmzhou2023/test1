@@ -16,7 +16,6 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
-
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
     @allure.story("查询退货单")
