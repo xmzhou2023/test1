@@ -61,7 +61,7 @@ class TestExportAttendanceRecord:
         export.input_query_date(today)
         """点击查询"""
         export.click_search()
-        """ 获取列表User Name """
+        """ 获取列表User ID """
         user_id = export.get_user_id_text()
         """ 获取列表User Name """
         user_name = export.get_user_name_text()

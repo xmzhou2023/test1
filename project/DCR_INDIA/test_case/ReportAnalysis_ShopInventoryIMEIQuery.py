@@ -37,8 +37,7 @@ class TestQueryShopInventoryIMEI:
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(2)
         user = LoginPage(drivers)
         """报表分析-打开门店库存IMEI查询页面"""
@@ -69,8 +68,7 @@ class TestExportShopInventoryIMEI:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(2)
         """报表分析-打开门店库存IMEI查询页面"""
         user = LoginPage(drivers)

@@ -14,7 +14,7 @@ Unfold: "xpath==//div//span[text()='Unfold']"
 输入框6: "xpath==//span[normalize-space(text())='Market Name']/../..//input[@class='el-select__input is-small']"
 输入结果模糊选择: "xpath==//div[contains(@x-placement,'start')]//li/span[contains(text(),'variable')]"
 输入结果精确选择: "xpath==//div[contains(@x-placement,'start')]//li/span[normalize-space(text())='variable']"
-地区选择框: "xpath==//div[@role='treeitem']//span[normalize-space(text())='variable']/../..//span[normalize-space(text())='variable']/../..//span[normalize-space(text())='variable']"
+地区选择框: "xpath==//div[@role='treeitem']//span[normalize-space(text())='variable']/../..//span[normalize-space(text())='variable']/../../div/div/div/span[normalize-space(text())='variable']"
 时间输入框: "xpath==//label[normalize-space(text())='variable']/..//div[contains(@class,'date-box')][variable]//input"
 输入框名称: "xpath==//label[normalize-space(text())='variable']"
 

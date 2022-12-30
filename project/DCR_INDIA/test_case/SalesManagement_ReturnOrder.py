@@ -1,6 +1,7 @@
-from project.DCR_GLOBAL.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
-from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
+from project.DCR_INDIA.page_object.SalesManagement_ReturnOrder import ReturnOrderPage
+from project.DCR_INDIA.page_object.Center_Component import LoginPage
 from libs.common.time_ui import sleep
+from public.base.basics import Base
 from libs.common.connect_sql import *
 from libs.config.conf import DOWNLOAD_PATH
 import pytest
@@ -10,12 +11,11 @@ import allure
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
-    menu = DCRLoginPage(drivers)
+    menu = LoginPage(drivers)
     get_menu_class = menu.get_open_menu_class()
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
-
 
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
@@ -25,23 +25,25 @@ class TestReturnOrder:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
-        user = DCRLoginPage(drivers)
+        Base(drivers).refresh()
+        sleep(3.5)
+        user = LoginPage(drivers)
         """变量"""
         query_dict = {
-            'Return Order ID': 'RDHK202212250025',
-            'Delivery/DN Order ID': '02HK2211160001591',
-            'Brand': 'TECNO',
-            'Return Date': '2022-12-25',
+            'Return Order ID': 'RDIN202212290114',
+            'Delivery/DN Order ID': '02IN2212260011288',
+            'Brand': 'itel',
+            'Return Date': '2022-12-29',
             'Status': 'Agree',
             'Return Type': 'Return To Seller',
-            'Seller': 'PK20106',
-            'Buyer': 'PK411448',
-            'Seller Warehouse Region': 'New Market',
-            'Buyer Warehouse Region': 'New Market',
-            'Model': 'CH6i',
-            'Market Name': 'CAMON 19 Neo',
-            'Seller Country': 'Pakistan',
-            'IMEI': '352525754569663'
+            'Seller': 'IN400219I',
+            'Buyer': '1400018285',
+            'Seller Warehouse Region': 'India District',
+            'Buyer Warehouse Region': 'India District',
+            'Model': 'L5006C',
+            'Market Name': 'A23 Pro JIO',
+            'Seller Country': 'India',
+            'IMEI': '350340712282660'
         }
         query = ReturnOrderPage(drivers)
         user.click_gotomenu("Sales Management", "Return Order")

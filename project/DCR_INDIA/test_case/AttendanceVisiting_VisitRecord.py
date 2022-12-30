@@ -27,8 +27,7 @@ class TestQueryVisitRecord:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     def test_001_001(self, drivers):
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(4.5)
         user = LoginPage(drivers)
         """打开考勤与巡店管理-打开巡店记录页面"""
