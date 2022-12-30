@@ -1,11 +1,13 @@
 仓库名称: "xpath==//div[@class='el-input el-input--mini']//input[@type='text']"
 门店: "xpath==//*[@id='app']/main/section/div[2]/div/div[3]/div/div[2]/form/div/div[2]/div/div/div/div/div/input"
-
+#新增信息填写
 选择门店: "xpath==//span[contains(text(),'variable')]"
 仓库: "xpath==//div[@class='el-form-item__content']//div//input[@placeholder='请选择']"
 选择仓库类型: "xpath==//div[@class='el-scrollbar']/div/ul/li/span[contains(text(),'分仓')]"
 
 菜单按钮: "xpath==//button[normalize-space()='variable']"
+查询/重置: "xpath==//div[@class='btn-wrap']//span[contains(text(),'variable')]"
 提交/取消: "xpath==//span[normalize-space()='variable']"
+勾选框: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span/span"
 
 新增成功提示: "class==el-message__content"
