@@ -84,6 +84,7 @@ class TestExportAttendanceRecord:
         """点击导出"""
         export.click_export()
         export.click_download_more()
+        export.input_task_name('Attendance Records')
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
