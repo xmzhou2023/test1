@@ -70,6 +70,8 @@ class TestExportDistiCustomerPSI:
         #点击导出功能
         export.click_export()
         export.click_download_more()
+        export.input_task_name('Customer PSI')
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
@@ -137,6 +139,8 @@ class TestExportSubCustomerPSI:
         # 筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
+        export.input_task_name('Customer PSI')
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         export.click_export_search()
         down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
