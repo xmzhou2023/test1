@@ -31,7 +31,7 @@ class TestReturnOrder:
             'Return Order ID': 'RDHK202301020121',
             'Delivery/DN Order ID': '02HK2210070001307',
             'Brand': 'TECNO',
-            'Return Date': '2023-01-03',
+            #'Return Date': '2023-01-03',
             'Status': 'Agree',
             'Return Type': 'Return To Seller',
             'Seller': 'BD406678',
@@ -46,6 +46,7 @@ class TestReturnOrder:
         query = ReturnOrderPage(drivers)
         user.click_gotomenu("Sales Management", "Return Order")
         query.click_unfold()
+        query.return_order_return_date_query('Return Date', '2023-01-03')
         query.random_Query_Method(query_dict)
 
 

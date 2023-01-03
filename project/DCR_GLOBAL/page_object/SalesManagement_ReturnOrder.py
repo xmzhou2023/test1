@@ -76,7 +76,7 @@ class ReturnOrderPage(Base):
         elif header in seller_list:
             self.is_click(user['输入框'], header)
             self.input_text(user['输入框2'], content, header)
-            sleep(1)
+            sleep(1.2)
             self.is_click(user['输入结果模糊选择'], content)
         elif header in warehouse_list:
             self.is_click(user['输入框'], header)
@@ -140,6 +140,13 @@ class ReturnOrderPage(Base):
         self.click_search()
         for i in list_random:
             self.assert_search_result(i, kwargs[i])
+
+    @allure.step("按退货日期条件筛选数据")
+    def return_order_return_date_query(self, header, content):
+        self.is_click(user['Input Return Start Date'], header)
+        self.input_text(user['Input Return Start Date'], content, header)
+        """弹出日历空间后，点击日历标签释法"""
+        self.is_click(user['点击label标签'], header)
 
 if __name__ == '__main__':
     pass
