@@ -50,3 +50,4 @@ class General_methods(PubicMethod):
             self.click_IPM('点击标题')
         except:
             logging.info("当前没有需要点击的元素")
+

@@ -134,13 +134,13 @@ class CreateProject(General_methods):
         return a
 
 
-    def get_Single_attribute(self,proname):
+    def get_Single_attribute(self,proname,domainbid=None):
         '''
         获取单个字段属性
 
         '''
         Api = APIRequest()
-        field_att = Api.Api_project_field(proname)
+        field_att = Api.Api_project_field(proname,domainbid)
         for i in field_att:
             if i.get("字段名称") == '项目状态':
                 return i.get('是否可读')
@@ -188,8 +188,15 @@ class CreateProject(General_methods):
         :param taskname: 任务名称
         :param function: 子功能为（查看，新增，删除，取消阶段，设置里程碑，置灰等）
         '''
-        self.mouse_hover_IPM("计划任务更多操作",taskname)
-        self.click_IPM("计划任务更多操作_子功能",function)
+        self.mouse_hover_IPM("计划任务_任务名称",taskname)
+        ele_not=self.element_exist_IPM('计划任务更多操作',taskname)
+        print('ssssssssssssxxx',ele_not)
+        if ele_not ==True:
+            self.mouse_hover_IPM("计划任务更多操作", taskname)
+            self.click_IPM("计划任务更多操作_子功能", function)
+        else:
+            self.mouse_hover_IPM("计划任务_更多功能_异常备选", taskname)
+            self.click_IPM("计划任务更多操作_子功能",function)
 
     @allure.step("项目管理_项目详情_项目tab应用_计划任务_保存")
     def project_Planned_Task_Save(self):
@@ -475,7 +482,7 @@ class CreateProject(General_methods):
 
 
 
-    def Get_required_fields(self,proname,task_name,protime,Job_number_or_name=None,Confirm_or_Cancel=None):
+    def Get_required_fields(self,proname,task_name,protime,Job_number_or_name=None,Confirm_or_Cancel=None,objectname=None):
         '''
         计划_任务字段获取
         :param proname: 项目名
@@ -483,18 +490,17 @@ class CreateProject(General_methods):
         :param task_name: 任务名称
         :param Job_number_or_name: 员工姓名或工号
         :param Confirm_or_Cancel: 人员保存确定还是取消
+        :param objectname: 对象名称
         '''
 
         Api = APIRequest()
-        field_att = Api.Api_project_task(proname,task_name)
+        field_att = Api.Api_project_task(proname,task_name,objectname)
         ele_res=self.elements_filelds()
         field = []
         for j in field_att:
             if j['字段名'] in ele_res:
                 field.append(j)
 
-        print(ele_res)
-        print("字段名字",field)
         for i in field:
             if i.get("字段名") == "任务类型" or i.get("字段名")=="前置任务" or i.get("字段名")=="状态":
                 logging.info("不需要传")
@@ -564,7 +570,7 @@ class CreateProject(General_methods):
                                     sleep(1)
                                     self.personnel_list(Job_number_or_name, Confirm_or_Cancel)
 
-    def project_task_type(self,proname,task_name,protime,tasktype=None,Job_number_or_name=None,Confirm_or_Cancel=None):
+    def project_task_type(self,proname,task_name,protime,tasktype=None,Job_number_or_name=None,Confirm_or_Cancel=None,objectname=None):
         """
         计划_任务_选取任务类型
         :param proname: 项目名
@@ -574,8 +580,13 @@ class CreateProject(General_methods):
         :param Job_number_or_name: 员工姓名或工号
         :param Confirm_or_Cancel: 人员保存确定还是取消
         """
+        ele_not=self.element_exist_IPM('计划任务_点击展开')
+
+        if ele_not == True:
+            self.click_IPM('计划任务_点击展开')
+        sleep(2)
         Api = APIRequest()
-        field_att = Api.Api_project_task(proname,task_name)
+        field_att = Api.Api_project_task(proname, task_name)
         for i in field_att:
             if i.get("字段名")=="任务类型":
                 if tasktype == "普通任务" \
@@ -587,7 +598,7 @@ class CreateProject(General_methods):
                     self.click_IPM('下拉框_列表名', tasktype)
                 else:
                     logging.info("当前任务类型不存在")
-        self.Get_required_fields(proname,task_name,protime,Job_number_or_name,Confirm_or_Cancel)
+        self.Get_required_fields(proname,task_name,protime,Job_number_or_name,Confirm_or_Cancel,objectname)
 
     def project_Drop_down_box_multiple_selection(self,element_field,FieldName,*Drop_down_value):
         """
@@ -647,7 +658,7 @@ class CreateProject(General_methods):
         except:
             self.project_team_AddRole()
             self.personnel_list(role_id)
-        sleep(3)
+        sleep(1)
 
 
 
