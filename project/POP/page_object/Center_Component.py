@@ -71,7 +71,7 @@ class General_button(Base):
 class Page_Operation(Base):
     """页面操作流程"""
 
-    @allure.step('页面输入查询条件')   # 输入框条件查询
+    @allure.step("页面输入查询条件")   # 输入框条件查询
     def single_condition_input_boxquery(self,ele1,ele2,content):
         self.is_click_tbm(user[ele1])
         sleep()
@@ -79,6 +79,16 @@ class Page_Operation(Base):
         sleep()
         self.is_click_tbm(user[ele2],content)
         sleep()
+
+    @allure.step("页面输入日期段")
+    def date_range(self,ele1,ele2,startdate,enddate):
+        self.is_click_tbm(user[ele1])
+        sleep()
+        self.input_text(user[ele1],startdate)
+        sleep()
+        self.is_click_tbm(user[ele2])
+        sleep()
+        self.input_text(user[ele2],enddate)
 
     @allure.step("页面输入框内容输入新增")
     def add_input_box(self,ele,content):

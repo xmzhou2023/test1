@@ -48,5 +48,9 @@ class TestZenUtil:
 
 
 if __name__ == '__main__':
-    pytest.main(['project/DRP/testcase/run_code.py'])
+    # pytest.main(['project/DRP/testcase/run_code.py'])
     #     pytest .\project\OA\test_case\OA_login.py
+    i = 0
+    for i in range(1, 50):
+        i += 1
+        print("i")

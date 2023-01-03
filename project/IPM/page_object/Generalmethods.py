@@ -22,3 +22,32 @@ class General_methods(PubicMethod):
             self.click_IPM("人员列表_确定")
         else:
             self.click_IPM("人员列表_取消")
+
+    def DropDownBox(self,element_field,FieldName,FieldElementBox,*Drop_down_value):
+        """
+        下拉框_多选
+        :param element_field: 字段元素
+        :param FieldName: 字段名字
+        :param FieldElementBox 点击下拉框
+        :param Drop_down_value: 下拉框的值，支持传入多个
+
+        """
+
+        field_att=self.find_elemens_IPM_yaml_get_attribute(element_field)
+        for i in field_att:
+            if i == FieldName:
+                self.click_IPM(FieldElementBox, choice=i) #参考//div/label[text()=' variable ']/..//input
+        eles_field = self.find_elemens_IPM_yaml_get_attribute("下拉值获取")
+        if Drop_down_value =="添加全部":
+            self.click_IPM('添加全部')
+        else:
+            for value in Drop_down_value:
+                if value in eles_field:
+                    self.click_IPM('下拉值选择',value)
+                else:
+                    logging.info("当前字段不存在")
+        try:
+            self.click_IPM('点击标题')
+        except:
+            logging.info("当前没有需要点击的元素")
+

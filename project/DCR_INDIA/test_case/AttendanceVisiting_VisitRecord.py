@@ -27,8 +27,7 @@ class TestQueryVisitRecord:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     def test_001_001(self, drivers):
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(4.5)
         user = LoginPage(drivers)
         """打开考勤与巡店管理-打开巡店记录页面"""
@@ -72,6 +71,8 @@ class TestExportVisitRecord:
         export.click_search()
         export.click_export()
         export.click_download_more()
+        export.input_task_name('Visit Record')
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()

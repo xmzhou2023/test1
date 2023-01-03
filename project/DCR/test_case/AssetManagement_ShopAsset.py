@@ -58,6 +58,35 @@ class TestQueryShopAsset:
         ValueAssert.value_assert_IsNoneNot(get_create_date)
 
 
+    @allure.story("查询门店资产")
+    @allure.title("门店资产页面，随机组合条件查询门店资产")
+    @allure.description("门店资产页面，随机组合条件查询门店资产")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.UT
+    def test_001_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """变量"""
+        query_dict = {
+            'Country': 'Bangladesh',
+            'Brand': 'TECNO',
+            'Create Date': '2022-12-21',
+            'Category': 'Shop Construction Props',
+            'Status': 'Available',
+            'Shop': 'BD026690',
+            'Asset Name': 'TECNO_门店建筑道具',
+            'Has ASN': 'No',
+            'Sales Region': 'Barisal-测试',
+            'Design By': 'Headquarters',
+            'Manpower Type': 'Manned'
+        }
+        query = ShopAssetPage(drivers)
+        user.click_gotomenu("Asset Management", "Shop Asset")
+        query.click_unfold_fold('Unfold')
+        query.random_Query_Method(query_dict)
+
+
 @allure.feature("资产管理-门店资产")
 class TestImportShopAsset:
     @allure.story("导入门店资产")

@@ -17,17 +17,81 @@ def setup_class(drivers):
 class TestQueryMaterial:
     @allure.story("物料信息") # 场景名称
     @allure.title("根据商品名称查询物料")  # 用例名称
-    @allure.description("输入商品名称，查询物料")
+    @allure.description("输入创建日期段，查询对应时间下的物料信息")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
-    def test_001_001(self,drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_001_001(self,drivers):
         users = QueryMaterial(drivers)
-        users.input_good("itel L4050 BLACK","PA00010262")
-        users.click_query()
-        sleep(0.5)
+        users.querymaterial("开始日期框","2022-11-30","结束日期框","2022-11-30")
+        sleep(2)
         # 断言--查询出的商品编码与查询的一致
-        test = users.element_text(user['查询商品编码'])
-        ValueAssert.value_assert_equal(test,"PA00010262")
+        test = users.element_text(user['日期断言'])
+        ValueAssert.value_assert_equal(test[0:10],"2022-11-30")
+
+    @allure.story("物料信息")  # 场景名称
+    @allure.title("根据商品名称查询物料")  # 用例名称
+    @allure.description("输入是否绑定商品，查询对应物料")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_002(self, drivers):
+        users = QueryMaterial(drivers)
+        users.querymaterial("是否绑定商品框","是")
+        sleep(2)
+        # 断言--查询出的商品编码与查询的一致
+        test = users.element_text(user['是否绑定商品断言'])
+        ValueAssert.value_assert_equal(test,"是")
+
+    @allure.story("物料信息")  # 场景名称
+    @allure.title("根据商品名称查询物料")  # 用例名称
+    @allure.description("输入商品名称，查询对应商品名称的物料")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_003(self, drivers):
+        users = QueryMaterial(drivers)
+        users.querymaterial("商品名称框","PA00007465")
+        sleep(2)
+        # 断言--查询出的商品编码与查询的一致
+        test = users.element_text(user['商品名称断言'])
+        ValueAssert.value_assert_equal(test,"Infinix SMART 5 64+3 QUETZAL CYAN")
+
+    @allure.story("物料信息")  # 场景名称
+    @allure.title("根据商品名称查询物料")  # 用例名称
+    @allure.description("输入品牌名称，查询对应品牌的物料")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_004(self, drivers):
+        users = QueryMaterial(drivers)
+        users.querymaterial("品牌名称框","Infinix")
+        sleep(2)
+        # 断言--查询出的商品编码与查询的一致
+        test = users.element_text(user['品牌名称断言'])
+        ValueAssert.value_assert_equal(test,"Infinix")
+
+    @allure.story("物料信息")  # 场景名称
+    @allure.title("根据商品名称查询物料")  # 用例名称
+    @allure.description("输入市场名称，查询对应市场的物料")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_005(self, drivers):
+        users = QueryMaterial(drivers)
+        users.querymaterial("市场名称框","T920")
+        sleep(3)
+        # 断言--查询出的商品编码与查询的一致
+        test = users.element_text(user['市场名称断言'])
+        ValueAssert.value_assert_equal(test,"T920")
+
+    @allure.story("物料信息")  # 场景名称
+    @allure.title("根据商品名称查询物料")  # 用例名称
+    @allure.description("输入物料名称，查询对应物料")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_006(self, drivers):
+        users = QueryMaterial(drivers)
+        users.querymaterial("物料名称框","12019565")
+        sleep(2)
+        # 断言--查询出的商品编码与查询的一致
+        test = users.element_text(user['物料名称断言'])
+        ValueAssert.value_assert_equal(test,"Infinix X6511B A1 POLAR BLACK CS 32+2")
 
 @allure.feature("商品-物料信息") # 模块名称
 class TestQueryMore:
@@ -62,4 +126,4 @@ class TestExportMaterial:
         ValueAssert.value_assert_equal(test, '创建导出任务成功！')
 
 if __name__ == '__main__':
-    pytest.main(['Organization_Material.py'])
+    pytest.main(['Organization_Material.py::TestQueryMaterial'])

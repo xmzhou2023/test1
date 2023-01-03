@@ -5,23 +5,32 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 import logging
 from ..test_case.conftest import *
-
+from project.POP.page_object.Center_Component import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-class QueryMaterial(Base):
-    """查询物料类"""
-    @allure.step("输入商品名称")
-    def input_good(self,good,code):
-        self.is_click_tbm(user['商品名称输入框'])
-        self.input_text(user['商品名称输入框'],good)
-        goodcode = code + " " + good
-        sleep(1)
-        self.is_click_tbm(user['商品名'],goodcode)
 
-    @allure.step("点击查询")
-    def click_query(self):
-        self.is_click_tbm(user['查询按钮'])
+
+class QueryMaterial(Page_Operation,General_button):
+    """按条件查询员工"""
+    select_list1 = {"是否绑定商品框":"是否绑定商品","商品名称框":"商品名称","品牌名称框":"品牌名称"}
+    select_list2 = {"市场名称框":"市场名称","物料名称框":"物料名称"}
+    def querymaterial(self,select,content,ele2=None,enddate=None):
+        if select in self.select_list1:
+            self.single_condition_input_boxquery(select,self.select_list1[select],content)
+            sleep()
+            self.query()
+        elif select in self.select_list2:
+            self.more()
+            sleep()
+            self.single_condition_input_boxquery(select,self.select_list2[select],content)
+            sleep()
+            self.more_query()
+        elif select == "开始日期框":
+            self.date_range(select,ele2,content,enddate)
+            self.query()
+        else:
+            logging.error("系统检测没有此筛选项，请检查后重新输入")
 
 class QueryMore(Base):
     """查看更多筛选条件"""

@@ -1,6 +1,9 @@
 from project.DCR.page_object.PurchaseManagement_DistributorReceipt import DitributorReceiptPage, DistributorReceiptQuery
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.basics import Base, random_list
+from project.DCR.page_object.PurchaseManagement_DistributorReceipt import DitributorReceiptPage
+from project.DCR.page_object.Center_Component import LoginPage
+from public.base.basics import Base
 from public.base.assert_ui import ValueAssert
 from libs.common.time_ui import sleep
 import pytest
@@ -16,7 +19,6 @@ def function_distributor_receipt_query_fixture(drivers):
     yield
     close = DistributorReceiptQuery(drivers)
     close.click_close_distributor_receipt_query()
-
 
 @allure.feature("采购管理-国包收货")
 class TestDistributorReceipt:
@@ -54,7 +56,6 @@ class TestDistributorReceipt:
         success = receipt.get_success_text()
         ValueAssert.value_assert_equal(success, "Set Up Successfully")
         receipt.click_reset()
-
 
 @allure.feature("采购管理-查看IMEI详情")
 class TestQueryIMEIDetail:

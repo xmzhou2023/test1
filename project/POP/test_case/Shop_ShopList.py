@@ -29,20 +29,97 @@ def setup_class(drivers):
 
 
 @allure.feature("门店-门店列表") # 模块名称
-class TestQuery_shop:
-    @allure.story("门店列表") # 场景名称
+class TestQueryShop:
+    @allure.story("门店列表")  # 场景名称
     @allure.title("门店列表查看")  # 用例名称
-    @allure.description("点击查询按钮，正常查看门店列表信息")
+    @allure.description("输入门店点击查询按钮，正常查看门店列表信息")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
-    def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
-        users = Query_shop(drivers)
-        users.click_organization('TECNO事业部')
-        users.click_shop('仙桃')
-        users.click_query('仙桃体专店')
+    @pytest.mark.smoke  # 用例标记
+    def test_001_001(self,drivers):
+        users = QueryShop(drivers)
+        users.queryhop("门店列表-门店框","不差钱的门店")
+        sleep(5)
         # 断言
-        test = users.element_text(user['门店名称'])
-        ValueAssert.value_assert_equal(test,'仙桃体专店')
+        test = users.element_text(user['门店断言'])
+        ValueAssert.value_assert_equal(test,'不差钱的门店')
+
+    @allure.story("门店列表")  # 场景名称
+    @allure.title("门店列表查看")  # 用例名称
+    @allure.description("输入组织点击查询按钮，正常查看门店列表信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_002(self, drivers):
+        users = QueryShop(drivers)
+        users.queryhop("门店列表-组织框","oraimo")
+        sleep(5)
+        # 断言
+        test = users.element_text(user['组织断言'])
+        ValueAssert.value_assert_equal(test,'oraimo')
+
+    @allure.story("门店列表")  # 场景名称
+    @allure.title("门店列表查看")  # 用例名称
+    @allure.description("输入国家点击查询按钮，正常查看门店列表信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_003(self, drivers):
+        users = QueryShop(drivers)
+        users.queryhop("门店列表-国家框","China")
+        sleep(5)
+        # 断言
+        test = users.element_text(user['国家断言'])
+        ValueAssert.value_assert_equal(test,'中国')
+
+    @allure.story("门店列表")  # 场景名称
+    @allure.title("门店列表查看")  # 用例名称
+    @allure.description("输入门店等级点击查询按钮，正常查看门店列表信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_004(self,drivers):
+        users = QueryShop(drivers)
+        users.queryhop("门店列表-门店等级框","专卖店")
+        sleep(5)
+        # 断言
+        test = users.element_text(user['门店等级断言'])
+        ValueAssert.value_assert_equal(test,'专卖店')
+
+    @allure.story("门店列表")  # 场景名称
+    @allure.title("门店列表查看")  # 用例名称
+    @allure.description("输入门店销量点击查询按钮，正常查看门店列表信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_005(self, drivers):
+        users = QueryShop(drivers)
+        users.queryhop("门店列表-销量等级框","S")
+        sleep(5)
+        # 断言
+        test = users.element_text(user['销量等级断言'])
+        ValueAssert.value_assert_equal(test,'S')
+
+    @allure.story("门店列表")  # 场景名称
+    @allure.title("门店列表查看")  # 用例名称
+    @allure.description("输入门店状态点击查询按钮，正常查看门店列表信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_006(self, drivers):
+        users = QueryShop(drivers)
+        users.queryhop("门店列表-状态框","新增")
+        sleep(5)
+        # 断言
+        test = users.element_text(user['状态断言'])
+        ValueAssert.value_assert_equal(test,'新增')
+
+    @allure.story("门店列表")  # 场景名称
+    @allure.title("门店列表查看")  # 用例名称
+    @allure.description("输入门店区域点击查询按钮，正常查看门店列表信息")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_001_007(self, drivers):
+        users = QueryShop(drivers)
+        users.queryhop("门店列表-区域框","China")
+        sleep(5)
+        # 断言
+        test = users.element_text(user['区域断言'])
+        ValueAssert.value_assert_equal(test,'China')
 
 @allure.feature("门店-门店列表")
 @pytest.mark.parametrize("shopname,organization,country,province,city,address,city_level,region,linkman,phone,"
@@ -58,7 +135,8 @@ class TestAddShop:
         # 点击新增
         users.click_add()
         # 输入门店名称
-        users.input_shopname(shopname)
+        num = str(time.time())
+        users.input_shopname(shopname+num)
         # 输入组织
         users.switch_organization(organization)
         # 输入国家

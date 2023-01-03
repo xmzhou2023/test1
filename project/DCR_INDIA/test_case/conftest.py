@@ -20,6 +20,7 @@ def test_login(drivers):
 
     user = Login(drivers)
     user.dcr_login(drivers, ini.url, account[3]['usernum'], account[3]['passwd'])
+    DomAssert(drivers).assert_att("testsupervisor")
     logging.info("前置条件：传音统一登录成功")
 
 

@@ -4,10 +4,15 @@
 列表展示商品类目: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/article[1]/div[2]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[7]/div[1]/div[1]/div[1]/span[1]"
 
 # 查询商品
-商品名称输入框: "xpath==//input[contains(@placeholder,'商品名称')]"
-选择商品: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
-查询按钮: "xpath==//div[@class='btn-wrap']//span[contains(text(),'查询')]"
-查询商品名称: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/article[1]/div[2]/div[2]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[2]/div[1]"
+日期断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[20]/div"
+商品名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[2]/div"
+自采标记断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[18]/div"
+区域断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[2]/span[1]"
+品牌名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[4]/div"
+产品名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[3]/div/div/div/span/span"
+商品状态断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[9]/div"
+IMEI/SN管理断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[15]/div"
+创建人断言: "xpath==//*[@id='app']/main/section/div[2]/div/article/div[2]/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[19]/div"
 
 # 导出--导出商品参数列表
 导出: "xpath==//button[contains(text(),'导出')]"

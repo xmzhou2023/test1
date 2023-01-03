@@ -339,7 +339,7 @@ class Base(object):
         self.is_click(click_search)
         status = self.element_text(get_status)
         logging.info("循环前Download Status{}".format(status))
-        for i in range(20):
+        for i in range(30):
             if status != "COMPLETE":
                 self.is_click(click_search)
                 status = self.element_text(get_status)
@@ -473,13 +473,25 @@ class Base(object):
         """树结构专用查找多个相同的元素(原生)"""
         return self.driver.find_elements(By.XPATH, locator[1])
 
-    def input_text_dcr(self, locator, txt):
+    def input_text_dcr(self, locator, txt, choice=None):
         """输入文本(DCR专用)"""
-        sleep(1)
-        ele = self.find_elements_dcr(locator)
-        ele[0].clear()
-        ele[0].send_keys(txt)
-        logging.info("输入文本：{}".format(txt))
+        if choice is None:
+            sleep(0.5)
+            ele = self.find_elements_dcr(locator)
+            ele[0].clear()
+            ele[0].clear()
+            ele[0].send_keys(txt)
+            logging.info("输入文本：{}".format(txt))
+        else:
+            """输入(输入前先清空)"""
+            sleep(0.5)
+            ele = self.find_elements_dcr(locator, choice)
+            ele[0].clear()
+            ele[0].clear()
+            ele[0].send_keys(txt)
+            logging.info("输入文本：{}".format(txt))
+
+
 
     def is_click_dcr(self, locator, choice=None):
         """点击元素(DCR专用)"""
@@ -496,10 +508,30 @@ class Base(object):
             self.find_elements_dcr(locator)[0].click()
             logging.info("点击元素：{}".format(locator))
 
-    def find_elements_dcr(self, locator):
+    def find_elements_dcr(self, locator,  *args, **kwargs):
         """查找相同元素(DCR专用)"""
-        return Base.element_locator(lambda *args: self.wait.until(
-            EC.visibility_of_any_elements_located(args)), locator)
+        if args and args is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            for i in range(len(args)):
+                Npath[1] = Npath[1].replace('variable', str(args[i]), 1)
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.visibility_of_any_elements_located(args)), Npath)
+        elif kwargs and kwargs is not None:
+            Npath = []
+            Npath.append(locator[0])
+            Npath.append(locator[1])
+            Npath[1] = Npath[1].replace('variable', str(kwargs['choice']))
+            logging.info("查找元素：{}".format(Npath))
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.visibility_of_any_elements_located(args)), Npath)
+        else:
+            return Base.element_locator(lambda *args: self.wait.until(
+                EC.visibility_of_any_elements_located(args)), locator)
+
+
 
     def presence_sleep_dcr(self, locator, *args, **kwargs):
         """通用的加载数据等待方法(DCR专用)"""

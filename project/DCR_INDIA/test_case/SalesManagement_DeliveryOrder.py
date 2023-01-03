@@ -37,8 +37,7 @@ class TestQueryDeliveryOrder:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(3.5)
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
@@ -76,8 +75,7 @@ class TestExportDeliveryOrder:
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(3.5)
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
@@ -95,6 +93,8 @@ class TestExportDeliveryOrder:
         # 筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
+        export.input_task_name('Delivery Order')
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()

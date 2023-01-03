@@ -36,6 +36,10 @@ class APIRequest:
         elif method == 'delete':
             response = requests.delete(url=eval(ini._get('API', request)),
                                        headers=headers)
+        elif method == 'get':
+            response = requests.get(url=eval(ini._get('API', request)),
+                                       headers=headers)
+
 
         response_dicts = dict()
         response_dicts['body'] = response.json()
@@ -107,7 +111,8 @@ class APIRequest:
         bid = response['body']['data']['data'][0]
         probid=bid.get("permissionBid")
         objbid=bid.get("model_bid")
-        return probid,objbid
+        templ_bid=bid.get("templ_bid")
+        return probid,objbid,templ_bid
 
 
 
@@ -187,44 +192,111 @@ class APIRequest:
 
 
 
-    def Api_project_field(self,proname):
+    def Api_project_field(self,proname,domainbid=None):
         """
         项目管理基本信息显示字段获取
         """
-        bid=self.Api_project_bid(proname)
-        logging.info('项目管理基本信息显示字段获取')
-        data = {"domainBid":bid[0],"objBid":bid[1]}
-        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
-        response = self.api_request('项目管理基本信息字段获取', data, headers)
-        node = response['body']['data']
-        field_properties = []
-        for i in node:
-            pro = '字段名', '类型', '是否可读', '是否必填', '是否展示','文本类型'
-            properties = i.get('displayName'), i.get("type"), i.get("readonly"), i.get("required"), i.get("visible"), i.get("dataType")
-            res = dict(zip(pro, properties))
-            field_properties.append(res)
-        return field_properties
+        if domainbid==None:
+            bid=self.Api_project_bid(proname)
+            logging.info('项目管理基本信息显示字段获取')
+            data = {"domainBid":bid[0],"objBid":bid[1]}
+            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+            response = self.api_request('项目管理基本信息字段获取', data, headers)
+            node = response['body']['data']
+            field_properties = []
+            for i in node:
+                pro = '字段名', '类型', '是否可读', '是否必填', '是否展示','文本类型'
+                properties = i.get('displayName'), i.get("type"), i.get("readonly"), i.get("required"), i.get("visible"), i.get("dataType")
+                res = dict(zip(pro, properties))
+                field_properties.append(res)
+            return field_properties
+        else:
+            bid=self.Api_project_bid(proname)
+            logging.info('项目管理基本信息显示字段获取')
+            data = {"domainBid":domainbid,"objBid":bid[1]}
+            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+            response = self.api_request('项目管理基本信息字段获取', data, headers)
+            node = response['body']['data']
+            field_properties = []
+            for i in node:
+                pro = '字段名', '类型', '是否可读', '是否必填', '是否展示','文本类型'
+                properties = i.get('displayName'), i.get("type"), i.get("readonly"), i.get("required"), i.get("visible"), i.get("dataType")
+                res = dict(zip(pro, properties))
+                field_properties.append(res)
+            return field_properties
 
-    def Api_project_task(self,proname,task_name):
+    def Api_project_task(self,proname,task_name,objectname=None):
         """
-        项目管理计划任务基本字段信息获取
+        项目管理计划任务基本字段信息获取—对象属性及约束字段获取
         :param proname: 项目名称
         :param task_name: 任务名 如：概念阶段，TR1，计划阶段，开发阶段
         """
-        bid=self.Api_project_Scheduled_action(proname,task_name)
-        logging.info('项目管理基本信息显示字段获取')
-        data = {"objBid":bid[1],"domainBid":bid[2],"modelBid":"task","modelInsBid":bid[0],"tag":"not_started"}
+        if objectname ==None:
+            bid=self.Api_project_Scheduled_action(proname,task_name)
+            logging.info('项目管理基本信息显示字段获取')
+            data = {"objBid":bid[1],"domainBid":bid[2],"modelBid":"task","modelInsBid":bid[0],"tag":"not_started"}
+            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+            response = self.api_request('项目管理_计划_任务字段属性获取', data, headers)
+            node = response['body']['data']
+            print(node)
+            field_properties = []
+            for i in node:
+                pro = '字段名', '类型', '是否可读', '是否必填', '是否展示','文本类型'
+                properties = i.get('displayName'), i.get("type"), i.get("readonly"), i.get("required"), i.get("visible"), i.get("dataType")
+                res = dict(zip(pro, properties))
+                field_properties.append(res)
+            return field_properties
+        else:
+            bid = self.Api_project_bid(proname)
+            object_bid = self.Api_object_bid()
+            logging.info('项目管理基本信息显示字段获取')
+            for i in object_bid:
+                if i.get('对象名称') == '问题':
+                    data = {"objBid": i.get('对象BID'), "domainBid": bid[0], "tag": ""}
+                    headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+                    response = self.api_request('项目管理_计划_任务字段属性获取', data, headers)
+                    node = response['body']['data']
+                    field_properties = []
+                    for i in node:
+                        pro = '字段名', '类型', '是否可读', '是否必填', '是否展示', '文本类型'
+                        properties = i.get('displayName'), i.get("type"), i.get("readonly"), i.get("required"), i.get(
+                            "visible"), i.get("dataType")
+                        res = dict(zip(pro, properties))
+                        field_properties.append(res)
+                    print(field_properties)
+                    return field_properties
+
+
+    def Api_templ_bid(self,objtemplname):
+        """
+        系统管理-项目模板BID获取
+        """
+        data = {"count":True,"param":{"name":objtemplname},"name":"IT","current":1,"size":20}
         headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
-        response = self.api_request('项目管理_计划_任务字段属性获取', data, headers)
-        node = response['body']['data']
-        print(node)
-        field_properties = []
-        for i in node:
-            pro = '字段名', '类型', '是否可读', '是否必填', '是否展示','文本类型'
-            properties = i.get('displayName'), i.get("type"), i.get("readonly"), i.get("required"), i.get("visible"), i.get("dataType")
+        response = self.api_request('系统管理_项目模板_BID获取', data, headers)
+        bid = response['body']['data']['data'][0]
+        probid=bid.get("bid")
+        return probid
+
+    def Api_object_bid(self):
+        """
+        系统管理-对象BID获取
+        """
+
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        response = self.api_request('系统管理_对象_对象BID获取', headers=headers,method='get')
+        object_bid=[]
+        bid = response['body']['data']
+        for i in bid:
+            pro = '对象名称', '对象BID',
+            properties = i.get('name'), i.get("rootBid")
             res = dict(zip(pro, properties))
-            field_properties.append(res)
-        return field_properties
+            object_bid.append(res)
+        return object_bid
+
+
+
+
 
 if __name__ == '__main__':
     Api=APIRequest()

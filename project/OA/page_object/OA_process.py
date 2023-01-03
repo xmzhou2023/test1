@@ -56,7 +56,8 @@ class OAUserPage(Base):
 
     @allure.step("点击下一步")
     def click_Next(self):
-        self.is_click_tbm(user['下一步'])
+        element = self.find_elements(user['下一步'])
+        element[len(element) - 1].click()
 
     @allure.step("点击还未装IMWAV或遇到问题？")
     def click_IMWAV(self):

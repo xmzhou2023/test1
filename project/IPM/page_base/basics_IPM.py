@@ -1,6 +1,6 @@
 from public.base.basics import *
 from libs.common.read_element import Element
-from project.IPM.page_object.yamlbase import YamlRead
+from project.IPM.page_base.yamlbase import YamlRead
 from libs.common.logger_ui import log
 class PubicMethod(Base):
     def __init__(self, driver,element_yaml,expect=None,project='IPM'):
@@ -48,10 +48,13 @@ class PubicMethod(Base):
     def mouse_hover_IPM(self,element,choice=None):
         self.mouse_hover(self.chome[element], choice=choice)
 
+    def element_exist_IPM(self,element,choice=None):
+        return  self.element_exist(self.chome[element],choice)
+
     def find_element_IPM_yaml(self,element, choice=None, choices=None):
         return self.find_element(self.chome[element], choice=choice, choices=choices)
 
-    def find_elemens_IPM_yaml(self,element, choice=None):
+    def find_elemens_IPM_yaml_get_attribute(self,element, choice=None):
         ele=self.find_elements(self.chome[element], choice=choice)
         elelist=[]
         for i in ele:
