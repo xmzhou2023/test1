@@ -18,9 +18,9 @@ class InboundReceiptPage(Base):
         """快速收货页面，输入出库单ID条件筛选"""
         self.input_text(user['Input Delivery Order ID'], txt=content)
 
-    def click_deliver_Order(self):
-        """快速收货页面，点击出库单ID筛选输入框"""
-        self.is_click(user['Input Delivery Order ID'])
+    def click_deliver_Order_label(self, label_name):
+        """快速收货页面，点击筛选项出库单ID Label，释法"""
+        self.is_click(user['点击筛选label标签'], label_name)
 
     def click_search(self):
         """快速收货页面，点击Search"""
@@ -61,11 +61,11 @@ class InboundReceiptPage(Base):
         self.input_text_dcr(user['Input Delivery Start Date'], txt=content)
         sleep(0.5)
 
-    def click_select_brand(self):
+    def click_select_brand(self, tecno):
         """ 输入品牌条件，进行筛选操作 """
         self.is_click_dcr(user['Click Select Brand'])
         sleep(1.5)
-        self.is_click(user['Select TECNO'])
+        self.is_click(user['Select TECNO'], tecno)
 
     def get_delivery_date_text(self):
         """获取列表Delivery Date文本"""

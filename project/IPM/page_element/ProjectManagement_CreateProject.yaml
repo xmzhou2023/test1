@@ -18,7 +18,8 @@
 置顶提示: 'xpath==//div[@role="alert"]/p'
 
 #========================================================================编辑===============================================================================
-字段名称: "xpath==//div/label[text()=' variable ']/..//input"
+字段名称: "xpath==//div[@class='plan relation']/div/form/div/label[text()=' variable ']/..//input"
+字段框: 'xpath==//div[@class="plan relation"]/div/form/div/label[text()=" variable "]/..//input'
 
 基本信息保存: "xpath==//span[@title='保存']"
 启动项目: 'xpath==// span[text() = " 启动项目 "]'
@@ -44,15 +45,18 @@ tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 #=======================================================================计划任务===============================================================================
 计划任务选择: 'xpath==//span[text()="variable"]'
 计划任务展开: 'xpath==//div/span[text()="variable"]/../i[1]'
-计划任务更多操作: 'xpath==//div/span[text()="variable"]/../i[2]'
+计划任务_任务名称: 'xpath==//div/span[text()="variable"]'
+计划任务更多操作: 'xpath==//div/span[text()="variable"]/../div/i[3]'
+计划任务_更多功能_异常备选: 'xpath==//div/span[text()="variable"]/../i[2]'
 计划任务更多操作_子功能: 'xpath==//ul/li[text()=" variable "]'
-任务基本信息: 'xpath==//div[@class="tr-card--container"]/form/div/label'
-点击标题: 'xpath==//span[@class="title font-bold"]'
+任务基本信息: 'xpath==//div[@class="plan relation"]//label'
+点击标题: 'xpath==//div[@class="flex justify-end items-center"]'
 
-计划任务_预约上会: "xpath==//div[@class='parentContent']//button/span[text()=' 预约上会 ']"
-计划任务_保存: "xpath==//div[@class='parentContent']//button/span[text()=' 保存 ']"
-计划任务_发起评审: "xpath==//div[@class='parentContent']//button/span[text()=' 发起评审 ']"
+计划任务_预约上会: "xpath==//div[@class='el-button-group']//button/span[text()=' 预约上会 ']"
+计划任务_保存: "xpath==//div[@class='el-button-group']//button/span[text()=' 保存 ']"
+计划任务_发起评审: "xpath==//div[@class='el-button-group']//button/span[text()=' 发起评审 ']"
 添加全部: 'xpath==//label/span[text()=" 添加全部 "]/../span//input'
+计划任务_点击展开: "xpath==//p[text()='点击展开']"
 
 上会预约_获取下月5: "xpath==//div/div/span[text()='上会预约']/../..//tr[5]/td/div/div/div[2]"
 上会预约_获取下月6: "xpath==//div/div/span[text()='上会预约']/../..//tr[6]/td/div/div/div[2]"
@@ -67,10 +71,10 @@ tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 设置通知内容_发送通知: 'xpath==//div[@role="dialog"]//span[text()="设置通知内容"]/../../div//span[text()=" 发送通知 "]'
 
 #=====================================================================任务发起-关系应用=========================================================================================
-任务发起_问题: 'xpath==//div[@class="drawer-bd"]//div[text()="问题"]'
-任务发起_结论: 'xpath==//div[@class="drawer-bd"]//div[text()="结论"]'
-任务发起_交付物: 'xpath==//div[@class="drawer-bd"]//div[text()="交付物"]'
-任务发起_评审记录: 'xpath==//div[@class="drawer-bd"]//div[text()="评审记录"]'
+任务发起-关系应用: 'xpath==//div[@class="drawer-bd"]//div[text()="variable"]'
+任务发起-关系应用_按钮:  'xpath==//span[text()=" variable "]'
+
+
 
 #=====================================================================评审流程确认页-关系应用=========================================================================================
 评审流程确认页_问题: 'xpath==//div//span[text()=" 评审流程确认页 "]/../../..//div[text()="问题"]'

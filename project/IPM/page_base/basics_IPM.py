@@ -48,6 +48,9 @@ class PubicMethod(Base):
     def mouse_hover_IPM(self,element,choice=None):
         self.mouse_hover(self.chome[element], choice=choice)
 
+    def element_exist_IPM(self,element,choice=None):
+        return  self.element_exist(self.chome[element],choice)
+
     def find_element_IPM_yaml(self,element, choice=None, choices=None):
         return self.find_element(self.chome[element], choice=choice, choices=choices)
 

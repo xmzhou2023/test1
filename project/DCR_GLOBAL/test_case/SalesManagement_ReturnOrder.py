@@ -23,29 +23,31 @@ class TestReturnOrder:
     @allure.title("随机条件组合查询退货单")
     @allure.description("退货单页面，查询退货单的随机条件组合查询")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = DCRLoginPage(drivers)
         """变量"""
         query_dict = {
-            'Return Order ID': 'RDHK202212250025',
-            'Delivery/DN Order ID': '02HK2211160001591',
+            'Return Order ID': 'RDHK202301020121',
+            'Delivery/DN Order ID': '02HK2210070001307',
             'Brand': 'TECNO',
-            'Return Date': '2022-12-25',
+            #'Return Date': '2023-01-03',
             'Status': 'Agree',
             'Return Type': 'Return To Seller',
-            'Seller': 'PK20106',
-            'Buyer': 'PK411448',
-            'Seller Warehouse Region': 'New Market',
-            'Buyer Warehouse Region': 'New Market',
-            'Model': 'CH6i',
-            'Market Name': 'CAMON 19 Neo',
-            'Seller Country': 'Pakistan',
-            'IMEI': '352525754569663'
+            'Seller': 'BD406678',
+            'Buyer': 'BD4031266',
+            'Seller Warehouse Region': 'Bangladesh District',
+            'Buyer Warehouse Region': 'Bangladesh District',
+            'Model': 'LG6n',
+            'Market Name': 'POVA Neo 2',
+            'Seller Country': 'Bangladesh',
+            'IMEI': '351357690181424'
         }
         query = ReturnOrderPage(drivers)
         user.click_gotomenu("Sales Management", "Return Order")
         query.click_unfold()
+        query.return_order_return_date_query('Return Date', '2023-01-03')
         query.random_Query_Method(query_dict)
 
 

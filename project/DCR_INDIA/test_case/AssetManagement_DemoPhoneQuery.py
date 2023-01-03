@@ -1,9 +1,6 @@
-from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
-from project.DCR_GLOBAL.page_object.AssetManagement_DemoPhoneQuery import DemoPhoneQueryPage
+from project.DCR_INDIA.page_object.Center_Component import LoginPage
+from project.DCR_INDIA.page_object.AssetManagement_DemoPhoneQuery import DemoPhoneQueryPage
 from public.base.assert_ui import ValueAssert, DomAssert
-import logging
-from libs.common.time_ui import sleep
-from public.base.basics import Base
 import datetime
 import pytest
 import allure
@@ -11,7 +8,7 @@ import allure
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
-    menu = DCRLoginPage(drivers)
+    menu = LoginPage(drivers)
     get_menu_class = menu.get_open_menu_class()
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):
@@ -26,19 +23,19 @@ class TestQueryDemoPhoneQuery:
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
-        user = DCRLoginPage(drivers)
+        user = LoginPage(drivers)
         """变量"""
         query_dict = {
             #'Shop': 'BD017762',
-            'Sales Region': 'Bangladesh District',
-            'IMEI': '350677680044626',
+            'Sales Region': 'India District',
+            'IMEI': '350946030098669',
             'Brand': 'TECNO',
             'Type': 'Shop owner demo device',
             'Status': 'Publish',
-            'Manpower Type': 'Manned',
-            'Market Name': 'POVA 4',
-            'Model': 'LG7n',
-            'Series': 'POVA'
+            'Manpower Type': 'Unmanned',
+            'Market Name': 'PHANTOM X',
+            'Model': 'AC8',
+            'Series': 'PHANTOM'
         }
         query = DemoPhoneQueryPage(drivers)
         user.click_gotomenu("Asset Management", "Demo Phone Query")

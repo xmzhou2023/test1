@@ -44,14 +44,14 @@ class ShopBookingStatisticsPage(Base):
         select_all_list = ['Model', 'Manpower Type']
         brand_list = ['Brand']
         market_name_list = ['Market Name']
-        sales_region_list = ['Sales Region', 'City']
+        sales_region_list = ['Sales Region', 'Country']
         template_list = ['Template']
         self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
         if header in shop_list:
             self.is_click(user['输入框2'], header)
             self.input_text(user['输入框Template'], content, header)
-            sleep(2)
+            sleep(1.5)
             self.is_click(user['输入结果模糊选择'], content)
         elif header in enable_date_list:
             self.is_click(user['输入框Enable Date'], header)
@@ -101,7 +101,7 @@ class ShopBookingStatisticsPage(Base):
             self.assert_User_Exist(f'Booking {header} ID', content)
         elif header == 'Manpower Type':
             self.assert_User_Exist(f'{header}', content)
-        elif header == 'City':
+        elif header == 'Country':
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Sales Region':
             self.assert_User_Exist(f'{header} 2', content)

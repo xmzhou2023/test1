@@ -1,4 +1,6 @@
 import logging
+from datetime import datetime
+
 from project.DCR.page_object.StaffAuthorization_UserAuthorization import UserAuthorizationPage
 from project.DCR.page_object.Center_Component import LoginPage
 from public.base.assert_ui import ValueAssert, DomAssert
@@ -99,8 +101,8 @@ class TestDeleteCustAuthorization:
             customer.click_cust_authoriz_select()
             DomAssert(drivers).assert_att("Successfully")
 
-    @allure.story("传音员工授权客户")
-    @allure.title("传音员工授权客户")
+    @allure.story("授权客户")
+    @allure.title("传音员工授权客户，批量取消")
     @allure.description("传音员工授权客户，批量取消客户授权Batch Cancel Association")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
@@ -109,9 +111,9 @@ class TestDeleteCustAuthorization:
         user.initialize_login(drivers, "18650493", "xLily6x")
 
         """打开User Authorization菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User Authorization")
         customer = UserAuthorizationPage(drivers)
-        customer.input_search('User', "wjkTS")
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
         customer.click_search()
         """点击Customer标签页"""
         customer.click_tab('Customer')
@@ -132,8 +134,8 @@ class TestDeleteCustAuthorization:
         DomAssert(drivers).assert_att('Successfully')
         customer.assert_NoData()
 
-    @allure.story("传音员工授权客户")
-    @allure.title("传音员工授权客户")
+    @allure.story("授权客户")
+    @allure.title("传音员工授权客户，一键清空")
     @allure.description("传音员工授权客户，一键清空客户授权 Empty All Association")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
@@ -142,9 +144,9 @@ class TestDeleteCustAuthorization:
         user.initialize_login(drivers, "18650493", "xLily6x")
 
         """打开User Authorization菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User Authorization")
         customer = UserAuthorizationPage(drivers)
-        customer.input_search('User', "wjkTS")
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
         customer.click_search()
         """点击Customer标签页"""
         customer.click_tab('Customer')
@@ -154,6 +156,48 @@ class TestDeleteCustAuthorization:
         customer.Association_Method('SN400001')
         customer.Association_Method('SN400002')
         """断言：添加客户授权成功"""
+        customer.assert_Query_containsresult('Customer ID', 'SN400002')
+        customer.assert_Query_containsresult('Customer ID', 'SN400001')
+        """移除客户授权"""
+        customer.click_function_button('Empty All Association')
+        customer.click_Delete()
+        DomAssert(drivers).assert_att('Successfully')
+        customer.assert_NoData()
+
+    @allure.story("授权客户")
+    @allure.title("批量授权客户")
+    @allure.description("批量授权客户")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_004(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "xLily6x")
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        """点击Customer标签页"""
+        customer.click_tab('Customer')
+        """移除所有授权"""
+        customer.reset_Association()
+        """导入文件授权"""
+        customer.click_function_button('Import')
+        customer.import_file('批量导入客户授权.xlsx')
+        customer.click_save()
+        customer.click_confirm()
+        customer.assert_Record_result('Import Record', '批量导入客户授权.xlsx', 'Status', 'Upload Successfully')
+        """断言ImportRecord页面结果"""
+        today = datetime.now().strftime('%Y-%m-%d')
+        customer.assert_Record_result('Import Record', '批量导入客户授权.xlsx', 'Status', 'Upload Successfully')
+        customer.assert_Record_result('Import Record', '批量导入客户授权.xlsx', 'Total', '2')
+        customer.assert_Record_result('Import Record', '批量导入客户授权.xlsx', 'Success', '2')
+        customer.assert_Record_result('Import Record', '批量导入客户授权.xlsx', 'Import Date', today)
+        """断言：添加客户授权成功"""
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        customer.click_tab('Customer')
         customer.assert_Query_containsresult('Customer ID', 'SN400002')
         customer.assert_Query_containsresult('Customer ID', 'SN400001')
         """移除客户授权"""
@@ -210,7 +254,7 @@ class TestDeleteWareAuthorization:
         ValueAssert.value_assert_equal(get_add_ware, get_list_ware2)
 
     @allure.story("仓库授权")
-    @allure.title("传音员工授权客户，批量取消")
+    @allure.title("传音员工授权仓库，批量取消")
     @allure.description("传音员工授权仓库，批量取消仓库授权Batch Cancel Association")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
@@ -273,6 +317,48 @@ class TestDeleteWareAuthorization:
         DomAssert(drivers).assert_att('Successfully')
         customer.assert_NoData()
 
+    @allure.story("仓库授权")
+    @allure.title("批量授权仓库")
+    @allure.description("批量授权仓库")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_003_004(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "xLily6x")
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS002")
+        customer.click_search()
+        """点击Customer标签页"""
+        customer.click_tab('Warehouse')
+        """移除所有授权"""
+        customer.reset_Association()
+        """导入文件授权"""
+        customer.click_function_button('Import')
+        customer.import_file('批量导入仓库授权.xlsx')
+        customer.click_save()
+        customer.click_confirm()
+        customer.assert_Record_result('Import Record', '批量导入仓库授权.xlsx', 'Status', 'Upload Successfully')
+        """断言ImportRecord页面结果"""
+        today = datetime.now().strftime('%Y-%m-%d')
+        customer.assert_Record_result('Import Record', '批量导入仓库授权.xlsx', 'Status', 'Upload Successfully')
+        customer.assert_Record_result('Import Record', '批量导入仓库授权.xlsx', 'Total', '2')
+        customer.assert_Record_result('Import Record', '批量导入仓库授权.xlsx', 'Success', '2')
+        customer.assert_Record_result('Import Record', '批量导入仓库授权.xlsx', 'Import Date', today)
+        """断言：添加仓库授权成功"""
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS002")
+        customer.click_search()
+        customer.click_tab('Warehouse')
+        customer.assert_Query_containsresult('Customer ID', 'SN400004')
+        customer.assert_Query_containsresult('Customer ID', 'SN400005')
+        """移除仓库授权"""
+        customer.click_function_button('Empty All Association')
+        customer.click_Delete()
+        DomAssert(drivers).assert_att('Successfully')
+        customer.assert_NoData()
+
 
 @allure.feature("员工授权-用户授权")
 class TestAddRegionAuthorization:
@@ -301,7 +387,7 @@ class TestAddRegionAuthorization:
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteShopAuthorization:
-    @allure.story("删除、新增门店授权")
+    @allure.story("门店授权")
     @allure.title("用户授权页面，删除、新增SN002331门店授权")
     @allure.description("用户授权页面，筛选User：testlhm0215，删除、新增Shop ID:SN002331授权")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -347,6 +433,111 @@ class TestDeleteShopAuthorization:
         DomAssert(drivers).assert_att("Successfully")
         get_list_shop_id = shop.get_list_shop_id_text("SN002331")
         ValueAssert.value_assert_equal(get_list_shop_id, "SN002331")
+
+    @allure.story("门店授权")
+    @allure.title("传音员工门店授权，批量取消")
+    @allure.description("传音员工门店授权，批量取消授权Batch Cancel Association")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_005_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        """点击Customer标签页"""
+        customer.click_tab('Shop')
+        """移除所有授权"""
+        customer.reset_Association()
+        """添加授权组合方法"""
+        customer.Association_Method('SN002424', header='Shop')
+        customer.Association_Method('SN002425', header='Shop')
+        """断言：添加门店授权成功"""
+        customer.assert_Query_containsresult('Shop ID', 'SN002424')
+        customer.assert_Query_containsresult('Shop ID', 'SN002425')
+        """移除门店授权"""
+        customer.click_CheckBox('SN002424')
+        customer.click_CheckBox('SN002425')
+        customer.click_function_button('Batch Cancel Association')
+        customer.click_Delete()
+        """断言：移除门店授权成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        customer.assert_NoData()
+
+    @allure.story("门店授权")
+    @allure.title("传音员工门店授权，一键清空")
+    @allure.description("传音员工门店授权，一键清空授权 Empty All Association")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_005_003(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        """点击Customer标签页"""
+        customer.click_tab('Shop')
+        """移除所有授权"""
+        customer.reset_Association()
+        """添加授权组合方法"""
+        customer.Association_Method('SN002424', header='Shop')
+        customer.Association_Method('SN002425', header='Shop')
+        """断言：添加门店授权成功"""
+        customer.assert_Query_containsresult('Shop ID', 'SN002424')
+        customer.assert_Query_containsresult('Shop ID', 'SN002425')
+        """移除门店授权"""
+        customer.click_function_button('Empty All Association')
+        customer.click_Delete()
+        DomAssert(drivers).assert_att('Successfully')
+        customer.assert_NoData()
+
+    @allure.story("门店授权")
+    @allure.title("批量门店授权")
+    @allure.description("批量门店授权")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_005_004(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        """点击Customer标签页"""
+        customer.click_tab('Shop')
+        """移除所有授权"""
+        customer.reset_Association()
+        """导入文件授权"""
+        customer.click_function_button('Import')
+        customer.import_file('批量导入门店授权.xlsx')
+        customer.click_save()
+        customer.click_confirm()
+        customer.assert_Record_result('Import Record', '批量导入门店授权.xlsx', 'Status', 'Upload Successfully')
+        """断言ImportRecord页面结果"""
+        today = datetime.now().strftime('%Y-%m-%d')
+        customer.assert_Record_result('Import Record', '批量导入门店授权.xlsx', 'Status', 'Upload Successfully')
+        customer.assert_Record_result('Import Record', '批量导入门店授权.xlsx', 'Total', '2')
+        customer.assert_Record_result('Import Record', '批量导入门店授权.xlsx', 'Success', '2')
+        customer.assert_Record_result('Import Record', '批量导入门店授权.xlsx', 'Import Date', today)
+        """断言：添加门店授权成功"""
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        customer.click_tab('Shop')
+        customer.assert_Query_containsresult('Shop ID', 'SN002424')
+        customer.assert_Query_containsresult('Shop ID', 'SN002425')
+        """移除门店授权"""
+        customer.click_function_button('Empty All Association')
+        customer.click_Delete()
+        DomAssert(drivers).assert_att('Successfully')
+        customer.assert_NoData()
 
 
 if __name__ == '__main__':

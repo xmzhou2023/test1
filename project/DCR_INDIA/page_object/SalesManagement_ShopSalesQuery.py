@@ -25,12 +25,19 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['Fold'])
         sleep(1)
 
-    def input_sales_date(self, content1, content2):
+    def shop_sales_query_sales_date_query(self, content1, content2):
         Base.presence_sleep_dcr(self, user['Sales Date Start Date'])
         self.is_click(user['Sales Date Start Date'])
         self.input_text(user['Sales Date Start Date'], txt=content1)
         self.is_click(user['Sales Date End Date'])
         self.input_text(user['Sales Date End Date'], txt=content2)
+
+    @allure.step("Shop Sales Query页面，输入Shop ID筛选门店销售数据")
+    def shop_sales_query_shop_query(self, content):
+        self.is_click(user['Shop Sales Query Shop点击输入框'])
+        self.input_text(user['Shop Sales Query Shop输入框'], content)
+        sleep(1.5)
+        self.is_click(user['输入结果模糊选择'], content)
 
     def click_search(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
@@ -100,6 +107,12 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['More'])
         sleep(5)
 
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click_dcr(user['Task Name value'], content)
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """

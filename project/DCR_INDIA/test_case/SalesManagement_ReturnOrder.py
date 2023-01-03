@@ -23,31 +23,34 @@ class TestReturnOrder:
     @allure.title("随机条件组合查询退货单")
     @allure.description("退货单页面，查询退货单的随机条件组合查询")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         Base(drivers).refresh()
         sleep(3.5)
         user = LoginPage(drivers)
+
         """变量"""
         query_dict = {
-            'Return Order ID': 'RDIN202212290114',
-            'Delivery/DN Order ID': '02IN2212260011288',
-            'Brand': 'itel',
-            'Return Date': '2022-12-29',
+            'Return Order ID': 'RDIN202301020046',
+            'Delivery/DN Order ID': '02IN2208270005681',
+            'Brand': 'itel appliances',
+            #'Return Date': '2023-01-02',
             'Status': 'Agree',
             'Return Type': 'Return To Seller',
-            'Seller': 'IN400219I',
-            'Buyer': '1400018285',
+            'Seller': 'IN405658V',
+            'Buyer': 'IN010492',
             'Seller Warehouse Region': 'India District',
             'Buyer Warehouse Region': 'India District',
-            'Model': 'L5006C',
-            'Market Name': 'A23 Pro JIO',
+            'Model': 'A3240IE',
+            'Market Name': 'A3240IE',
             'Seller Country': 'India',
-            'IMEI': '350340712282660'
+            'IMEI': 'IJ501C771807086'
         }
         query = ReturnOrderPage(drivers)
         user.click_gotomenu("Sales Management", "Return Order")
         query.click_unfold()
+        query.return_order_return_date_query('Return Date', '2023-01-02')
         query.random_Query_Method(query_dict)
 
 
