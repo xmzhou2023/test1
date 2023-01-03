@@ -1,16 +1,12 @@
-from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
-from project.DCR_GLOBAL.page_object.NewProductBooking_ShopBookingStatistics import ShopBookingStatisticsPage
-import logging
-from libs.common.time_ui import sleep
-from public.base.basics import Base
-import datetime
+from project.DCR_INDIA.page_object.Center_Component import LoginPage
+from project.DCR_INDIA.page_object.NewProductBooking_ShopBookingStatistics import ShopBookingStatisticsPage
 import pytest
 import allure
 
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
-    menu = DCRLoginPage(drivers)
+    menu = LoginPage(drivers)
     get_menu_class = menu.get_open_menu_class()
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):
@@ -25,18 +21,18 @@ class TestQueryShopBookingStatistics:
     @pytest.mark.UT
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
-        user = DCRLoginPage(drivers)
+        user = LoginPage(drivers)
         """变量"""
         query_dict = {
             #'Enable Date': '2022-12-26',
-            'Shop': 'PK48922',
-            'Model': 'X672',
-            'Brand': 'Infinix',
-            'Market Name': 'NOTE 12 VIP',
+            'Shop': '1400435304',
+            'Model': 'AD9',
+            'Brand': 'TECNO',
+            'Market Name': 'PHANTOM X2 Pro',
             'Manpower Type': 'Unmanned',
-            'City': 'Lahore',
-            'Sales Region': 'Pakistan-Infinix',
-            'Template': 'TEM2206300001'
+            'Country': 'India',
+            'Sales Region': 'India-TECNO',
+            'Template': 'TEM2212200003'
         }
         query = ShopBookingStatisticsPage(drivers)
         user.click_gotomenu("New Product Booking", "Shop Booking Statistics")
