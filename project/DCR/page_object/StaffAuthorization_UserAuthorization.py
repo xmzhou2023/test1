@@ -1,4 +1,5 @@
 from libs.common.read_element import Element
+from libs.config.conf import BASE_DIR
 from public.base.basics import Base
 from libs.common.time_ui import sleep
 from ..test_case.conftest import *
@@ -462,14 +463,17 @@ class UserAuthorizationPage(Base):
             self.is_click(user['功能按钮2'], function)
         else:
             self.is_click(user['功能按钮'], function)
+            # if function == 'Import':
+                # self.click_upload()
         logging.info(f'点击功能按钮： {function}')
 
     @allure.step("输入查询条件")
     def input_AddAssociation_search(self, header, content):
-        select_list = ['Customer']
+        logging.info(f'AddAssociation弹框输入查询条件： {header} ，内容： {content}')
+        select_list = ['Customer', 'Shop']
         click_list = ['Customer Type']
         title = self.element_text(user['AddAssociationTitle'])
-        if 'Customer' in title:
+        if 'Customer' in title or 'Shop' in title:
             if header in select_list:
                 self.is_click(user['AddAssociation输入框'], header)
                 self.input_text(user['AddAssociation输入框2'], content, header)
@@ -485,7 +489,9 @@ class UserAuthorizationPage(Base):
             elif header in click_list:
                 self.is_click(user['AddAssociation输入框'], header)
                 self.is_click(user['点击选择'], content)
-        logging.info(f'AddAssociation弹框输入查询条件： {header} ，内容： {content}')
+        else:
+            logging.error('请输入正确的查询条件')
+            raise ValueError('请输入正确的查询条件')
 
     @allure.step("AddAssociation弹框点击搜索")
     def click_AddAssociation_search(self):
@@ -504,10 +510,13 @@ class UserAuthorizationPage(Base):
     @allure.step("AddAssociation弹框点击保存")
     def click_Authorized_Selected(self):
         title = self.element_text(user['AddAssociationTitle'])
-        if 'Customer' in title:
+        if 'Customer' in title or 'Shop' in title:
             self.is_click(user['AuthorizedSelected'])
         elif 'Warehouse' in title:
             self.is_click(user['Save'])
+        else:
+            logging.error('无对应保存按钮')
+            raise ValueError('无对应保存按钮')
         logging.info('AddAssociation弹框 点击保存')
 
     @allure.step("断言：用户授权页面查询结果")
@@ -560,6 +569,70 @@ class UserAuthorizationPage(Base):
         for i in range(len(content)):
             self.is_click_tbm(user['菜单'], content[i])
             logging.info('点击菜单：{}'.format(content[i]))
+        self.refresh()
+        self.element_exist(user['Loading'])
+
+    @allure.step("点击Upload按钮")
+    def click_upload(self):
+        self.is_click(user['Upload'])
+        logging.info('点击upload按钮')
+        # k = PyKeyboard()
+        # k.tap_key(k.escape_key)
+
+    @allure.step("导入门店")
+    def import_file(self, name):
+        file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
+        logging.info("文件地址：{}".format(file_path))
+        self.upload_file(user['导入'], file_path)
+        self.assert_import_success()
+
+    @allure.step("点击Save按钮")
+    def click_save(self):
+        self.is_click(user['ImportSave'])
+        logging.info('点击Save按钮')
+
+    @allure.step("点击Confirm按钮")
+    def click_confirm(self):
+        self.is_click(user['Confirm'])
+        logging.info('点击Confirm按钮')
+        sleep(2)
+        self.refresh()
+
+    @allure.step("断言：导入成功状态")
+    def assert_import_success(self):
+        DomAssert(self.driver).assert_control(user['导入成功状态'])
+
+    @allure.step("获得Record指定内容")
+    def get_Record_info(self, menu, name, header):
+        """
+        :param menu: 菜单名
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        """
+        for i in range(20):
+            ac_menu = self.element_text(user['当前菜单'])
+            if ac_menu != menu:
+                self.click_menu('Basic Data Management', menu)
+            column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+            content = self.element_text(user['表格指定列内容'], name, column)
+            logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+            return content
+
+    @allure.step("断言：导入导出Record结果")
+    def assert_Record_result(self, menu, name, header, result=None):
+        """
+        :param menu: 菜单
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        :param result: 需要断言的值 比如状态，数量，时间
+        """
+        ac_result = self.get_Record_info(menu, name, header)
+        if header == 'File Size':
+            ValueAssert.value_assert_IsNot(ac_result, '0B')
+        else:
+            ValueAssert.value_assert_In(result, ac_result)
+
+
 
 
 if __name__ == '__main__':
