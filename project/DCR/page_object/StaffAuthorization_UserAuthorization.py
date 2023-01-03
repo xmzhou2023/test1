@@ -632,7 +632,13 @@ class UserAuthorizationPage(Base):
         else:
             ValueAssert.value_assert_In(result, ac_result)
 
+    @allure.step("断言：点击导出有进度条")
+    def assert_export_success(self):
+        DomAssert(self.driver).assert_control(user['导出进度条'])
 
+    @allure.step("点击Export")
+    def click_export(self):
+        self.is_click(user['Export'])
 
 
 if __name__ == '__main__':

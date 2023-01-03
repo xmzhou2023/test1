@@ -206,6 +206,27 @@ class TestDeleteCustAuthorization:
         DomAssert(drivers).assert_att('Successfully')
         customer.assert_NoData()
 
+    @allure.story("门店授权")
+    @allure.title("导出筛选条件下的门店授权")
+    @allure.description("导出筛选条件下的门店授权")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_005(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        """点击Customer标签页"""
+        customer.click_tab('Customer')
+        """导出筛选条件下的门店授权"""
+        customer.click_function_button('Export Filtered')
+        """断言：存在导出文件进度条"""
+        customer.assert_export_success()
+
 
 @allure.feature("员工授权-用户授权")
 class TestDeleteWareAuthorization:
@@ -300,7 +321,7 @@ class TestDeleteWareAuthorization:
         customer.click_menu("Staff & Authorization", "User Authorization")
         customer.input_search('User ID', "wjkTS002")
         customer.click_search()
-        """点击Customer标签页"""
+        """点击Warehouse标签页"""
         customer.click_tab('Warehouse')
         """移除所有授权"""
         customer.reset_Association()
@@ -330,7 +351,7 @@ class TestDeleteWareAuthorization:
         customer.click_menu("Staff & Authorization", "User Authorization")
         customer.input_search('User ID', "wjkTS002")
         customer.click_search()
-        """点击Customer标签页"""
+        """点击Warehouse标签页"""
         customer.click_tab('Warehouse')
         """移除所有授权"""
         customer.reset_Association()
@@ -358,6 +379,27 @@ class TestDeleteWareAuthorization:
         customer.click_Delete()
         DomAssert(drivers).assert_att('Successfully')
         customer.assert_NoData()
+
+    @allure.story("仓库授权")
+    @allure.title("导出筛选条件下的仓库授权")
+    @allure.description("导出筛选条件下的仓库授权")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_003_005(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS002")
+        customer.click_search()
+        """点击Warehouse标签页"""
+        customer.click_tab('Warehouse')
+        """导出筛选条件下的仓库授权"""
+        customer.click_function_button('Export Filtered')
+        """断言：存在导出文件进度条"""
+        customer.assert_export_success()
 
 
 @allure.feature("员工授权-用户授权")
@@ -448,7 +490,7 @@ class TestDeleteShopAuthorization:
         customer.click_menu("Staff & Authorization", "User Authorization")
         customer.input_search('User ID', "wjkTS")
         customer.click_search()
-        """点击Customer标签页"""
+        """点击Shop标签页"""
         customer.click_tab('Shop')
         """移除所有授权"""
         customer.reset_Association()
@@ -481,7 +523,7 @@ class TestDeleteShopAuthorization:
         customer.click_menu("Staff & Authorization", "User Authorization")
         customer.input_search('User ID', "wjkTS")
         customer.click_search()
-        """点击Customer标签页"""
+        """点击Shop标签页"""
         customer.click_tab('Shop')
         """移除所有授权"""
         customer.reset_Association()
@@ -510,7 +552,7 @@ class TestDeleteShopAuthorization:
         customer.click_menu("Staff & Authorization", "User Authorization")
         customer.input_search('User ID', "wjkTS")
         customer.click_search()
-        """点击Customer标签页"""
+        """点击Shop标签页"""
         customer.click_tab('Shop')
         """移除所有授权"""
         customer.reset_Association()
@@ -538,6 +580,27 @@ class TestDeleteShopAuthorization:
         customer.click_Delete()
         DomAssert(drivers).assert_att('Successfully')
         customer.assert_NoData()
+
+    @allure.story("门店授权")
+    @allure.title("导出筛选条件下的门店授权")
+    @allure.description("导出筛选条件下的门店授权")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_005_005(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """打开User Authorization菜单页面 """
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        """点击Shop标签页"""
+        customer.click_tab('Shop')
+        """导出筛选条件下的门店授权"""
+        customer.click_function_button('Export Filtered')
+        """断言：存在导出文件进度条"""
+        customer.assert_export_success()
 
 
 if __name__ == '__main__':
