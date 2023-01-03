@@ -23,8 +23,8 @@ class TestQueryDemoPhoneQuery:
     @allure.title("门店资产页面，随机组合条件查询样机")
     @allure.description("门店资产页面，随机组合条件查询样机")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    @pytest.mark.UT
     def test_001_001(self, drivers):
         user = DCRLoginPage(drivers)
         """变量"""

@@ -11,7 +11,8 @@ class TestQueryInboundReceipt:
     @allure.story("查询二代零售商收货")
     @allure.title("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
     @allure.description("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         #user.dcr_login(drivers, "BD291501", "dcr123456")
@@ -19,10 +20,10 @@ class TestQueryInboundReceipt:
         user.click_gotomenu("Purchase Management", "Inbound Receipt")
         query = InboundReceiptPage(drivers)
         query.click_unfold()
-        query.input_delivery_date("2022-11-24")
-        query.click_deliver_Order()
-        query.click_select_brand()
-        query.click_deliver_Order()
+        query.input_delivery_date("2023-01-01")
+        query.click_deliver_Order_label('Delivery Order ID')
+        query.click_select_brand('itel', 'TECNO')
+        query.click_deliver_Order_label('Delivery Order ID')
         query.click_search()
         query.click_fold()
         sales_order = query.text_salesOrder()
@@ -46,12 +47,13 @@ class TestQueryIMEIDetail:
     @allure.story("查询IMEI详情信息")
     @allure.title("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.description("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
-    @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("normal")  # 分别为3种类型等级：blocker\critical\normal
     def test_002_001(self, drivers):
         query = InboundReceiptPage(drivers)
         query.click_unfold()
-        query.click_select_brand()
-        query.click_deliver_Order()
+        query.click_select_brand('itel', 'TECNO')
+        query.click_deliver_Order_label('Delivery Order ID')
         query.click_search()
         query.click_fold()
         #获取Inbound Receipt列表字段文本
