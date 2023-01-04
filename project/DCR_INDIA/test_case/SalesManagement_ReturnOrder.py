@@ -29,7 +29,6 @@ class TestReturnOrder:
         Base(drivers).refresh()
         sleep(3.5)
         user = LoginPage(drivers)
-
         """变量"""
         query_dict = {
             'Return Order ID': 'RDIN202301020046',

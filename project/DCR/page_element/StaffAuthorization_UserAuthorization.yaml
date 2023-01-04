@@ -141,3 +141,4 @@ ImportSave: "xpath==//div[@aria-label='Import']//button/span[normalize-space(tex
 表格指定列内容: "xpath==//*[normalize-space(text())='variable']/../../td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
 当前菜单: "xpath==//span[@class='tags-view-item router-link-exact-active router-link-active active']"
 表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+导出进度条: "xpath==//div[@role='progressbar']"

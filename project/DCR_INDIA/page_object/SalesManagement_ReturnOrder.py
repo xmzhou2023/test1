@@ -65,7 +65,7 @@ class ReturnOrderPage(Base):
         elif header in input_select_all_list22:
             self.is_click_dcr(user['输入框'], header)
             self.input_text(user['输入框1'], content, header)
-            sleep(1.5)
+            sleep(2)
             self.is_click(user['输入结果精确选择'], content)
             self.is_click(user['点击label标签'], header)
         elif header in return_date_list:
@@ -94,7 +94,9 @@ class ReturnOrderPage(Base):
     @allure.step("断言：页面查询结果")
     def assert_search_result(self, header, content):
         logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
-        if header == 'Return Order ID' or header == 'Delivery/DN Order ID':
+        if header == 'Return Order ID':
+            self.assert_User_Exist(f'{header}', content)
+        elif header == 'Delivery/DN Order ID':
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Return Date':
             self.assert_User_Exist(f'{header}', content)
