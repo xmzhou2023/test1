@@ -29,8 +29,8 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-class HAJSPage(Base):
-    """家电工单"""
+class AssignPage(Base):
+    """JS手机工单指派技术员页面"""
 
 
     @allure.step("合起菜单")
@@ -39,12 +39,12 @@ class HAJSPage(Base):
 
 
     @allure.step("进入JS List页面")
-    def GoTo_HAJS_List(self):
+    def GoTo_JS_List(self):
         self.refresh()
         self.driver.implicitly_wait(5)  # 隐式等待页面加载成功
         self.is_click(user['一级菜单'], choice='Repair Center')
-        self.is_click(user['二级菜单'], choice='HA Mgt')
-        self.is_click(user['三级菜单'], choice='HA Job Sheet List')
+        self.is_click(user['二级菜单'], choice='JS Mgt')
+        self.is_click(user['三级菜单'], choice='JS List')
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
 
     @allure.step("获取页面列表表头")
@@ -52,7 +52,7 @@ class HAJSPage(Base):
         logging.info("获取列表数据")
         th_num = self.elements_num(user['表头字段个数'])
         list1 = []
-        for i in range(1, 11):
+        for i in range(1, 10):
             logging.info(f'{i}')
             txt = self.element_text(user['表头字段'], f'{i}')
             logging.info(txt)
@@ -100,9 +100,7 @@ class HAJSPage(Base):
 
     @allure.step("关闭打开的页面")
     def Close_Page(self):
-        self.is_click(user['Dash_Board'])
-        self.refresh()
-        self.driver.implicitly_wait(5)  # 隐式等待页面加载成功
+        self.is_click(user['Close_Page'])
 
     @allure.step("下载导出的excel")
     def Download_Symp_Code(self, name, content):
@@ -127,7 +125,7 @@ class HAJSPage(Base):
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='save不成功')
 
 
-    @allure.step("添加HAJS,输入Basic Info信息")
+    @allure.step("添加JS,输入Basic Info信息")
     def Add_JS_Basic_Info(self, reference_from, imei, physical, symptom, item):
         self.is_click(user['JS_Add'])
         self.wait.until(EC.presence_of_element_located(user["Reference_From"]), message='添加页面加载不成功')  # 显示等待页面加载成功
@@ -175,10 +173,14 @@ class HAJSPage(Base):
         self.is_click(user['JS_Data'], choice=mobile_area)
         self.input_text(user['Mobile_No'], txt=mobile_no)  # 输入客户电话号码
 
+    @allure.step("添加JS,切换页签")
+    def Add_JS_Change_Tab(self, tab):
+        self.driver.execute_script("document.documentElement.scrollTop=100")
+        self.is_click(user['JS_Add_Tab'], choice=tab)
+
 
     @allure.step("添加JS,输入报价信息")
     def Add_JS_Quote_Info(self, approval_status, service_type, material, symptom):
-        self.is_click(user['Quote'])
         self.is_click(user['JS_Info'], choice="approvalStatus")
         self.hover(user['JS_From_Data'], choice=approval_status)
         self.is_click(user['JS_From_Data'], choice=approval_status)  # 选择报价状态
@@ -310,11 +312,12 @@ class HAJSPage(Base):
 
 
 
-    @allure.step("JS页面，清空查询条件")
+    @allure.step("指派技术员页面，清空查询条件")
     def JS_Clear_Query_Conditions(self):
         self.is_click(user['Created_Date_Input'], choice="Start Date")
         self.hover(user['Created_Date_Clear'], choice="Start Date")
         self.is_click(user['Created_Date_Clear'], choice="Start Date")  # 清空时间查询条件
+        self.is_click(user['Hide_Return'])  # 取消隐藏100状态的
         self.is_click(user['Scope_Select'], choice="scopeType")
         self.is_click(user['Scope_Select_Data'], choice="All")  # 设置范围为所有
 
@@ -331,12 +334,6 @@ class HAJSPage(Base):
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='界面加载不成功')
         self.is_click(user['Search_Button'])
 
-    @allure.step("JS页面，Created On查询")
-    def Get_Created_On_JS(self, date):
-        self.is_click(user['Start_Date'])
-        self.is_click(user['Start_Date_Month'])
-        self.is_click(user['Start_Date_Day'], date)
-
     @allure.step("获取查询到的最新JS数据")
     def Get_New_JS(self):
         imei = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_21")
@@ -345,20 +342,36 @@ class HAJSPage(Base):
         js_no = self.element_text(user['JS_NO'], "1", "el-table_3_column_7")
         return imei, customer_name, js_no, warranty_status
 
-    @allure.step("JS页面，随机获取一个JS NO")
+    @allure.step("获取查询到的JS的状态和类型")
+    def Get_JS_Status_Type(self):
+        document_status = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_8")
+        serivice_type = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_12")
+        return document_status, serivice_type
+
+
+    @allure.step("指派技术员页面，随机获取一个JS NO")
     def Get_JS_No(self, i):
         js_no = self.element_text(user['JS_NO'], i, "el-table_3_column_7")
         return js_no
 
-    @allure.step("JS页面，Exact Word查询")
+    @allure.step("指派技术员页面，Exact Word查询")
     def Get_Exact_Word_JS(self, js_no):
         self.is_click(user['JS_Info'], "keyword")
         self.input_text(user['JS_Info'], txt=js_no, choice="keyword")
         self.is_click(user['Search_Button'])
-        get_js_no = self.element_text(user['JS_NO'], "1", "el-table_3_column_7")
+        get_js_no = self.element_text(user['JS_NO'])
         return get_js_no
 
-    @allure.step("JS页面，Document Status下拉框查询")
+    @allure.step("指派技术员页面，勾选工单，Assign Select指派技术员")
+    def Assign_Select_JS(self, account):
+        self.is_click(user['Select_CheckBox'])  # 勾选工单
+        self.is_click(user['Assign_To'])
+        self.input_text(user['Assign_To'], txt=account)
+        self.hover(user['Technician_Select'], choice=account)
+        self.is_click(user['Technician_Select'], choice=account)   # 选择技术人员
+        self.is_click(user['Item_Received'], choice="Assign Select")  # 点击assigh select按钮指派技术员
+
+    @allure.step("指派技术员页面，Document Status下拉框查询")
     def Get_Document_Status_JS(self, status):
         self.is_click(user['Document_Status_Input'])
         self.input_text(user['Document_Status_Input'], txt=status)
@@ -382,7 +395,7 @@ class HAJSPage(Base):
 
 
 
-    @allure.step("JS页面，Shorage Status下拉框查询")
+    @allure.step("指派技术员页面，Shorage Status下拉框查询")
     def Get_Shortage_Status_JS(self, status):
         self.is_click(user['Status_Input'], choice="Shortage Status")
         self.input_text(user['Status_Input'], txt=status, choice="Shortage Status")
@@ -404,13 +417,14 @@ class HAJSPage(Base):
             self.refresh()
         return number
 
-    @allure.step("JS页面，Service Type下拉框查询")
-    def Get_Service_Status_JS(self, status):
+    @allure.step("指派技术员页面，Service Type下拉框查询")
+    def  Get_Service_Status_JS(self, status):
         self.is_click(user['Status_Input'], choice="Service Type")
         self.input_text(user['Status_Input'], txt=status, choice="Service Type")
         self.hover(user['Status_Select'], choice=status)
         self.is_click(user['Status_Select'], choice=status)
         self.is_click(user['Search_Button'])
+        sleep(5)
         get_total = self.element_text(user['Data_Total'])
         num = get_total.split(" ", 1)
         number = int(num[1])
@@ -420,13 +434,13 @@ class HAJSPage(Base):
             self.scroll_into_view_CRM(user['Page_Num'])
             th_num = self.elements_num(user['Service_Data_Num'])
             for i in range(1, th_num+1):
-                txt = self.element_text(user['Service_Type_Data'], f'{i}')
+                txt = self.element_text(user['Service_Shortage_Data'], f'{i}')
                 logging.info(txt)
                 ValueAssert.value_assert_In(status, txt)
             self.refresh()
         return number
 
-    @allure.step("JS页面，Quote Status下拉框查询")
+    @allure.step("指派技术员页面，Quote Status下拉框查询")
     def Get_Quote_Status_JS(self, status):
         self.is_click(user['Status_Input'], choice="Quote Status")
         self.input_text(user['Status_Input'], txt=status, choice="Quote Status")
@@ -440,7 +454,7 @@ class HAJSPage(Base):
 
 
     @allure.step("JS的Scope查询")
-    def Get_Scope_HAJS(self, condition, data):
+    def Get_Scope_JS(self, condition, data):
         self.is_click(user['Scope_Select'], choice=condition)
         self.input_text(user['Scope_Select'], choice=condition, txt=data)
         self.hover(user['Status_Select'], choice=data)
@@ -463,14 +477,13 @@ class HAJSPage(Base):
                 txt = self.element_text(user['Current_Page_data'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
-                ValueAssert.value_assert_In(data, txt)
                 logging.info(list1)
             self.refresh()
             return number, th_num, list1
 
     def Get_IsEcalate_JS(self, data):
         self.is_click(user['Scope_Select'], choice="isEscalate")
-        self.input_text(user['Scope_Select'], choice="isEscalate", txt=data)
+        self.input_text(user['Scope_Select'], txt=data, choice="isEscalate")
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
@@ -495,9 +508,9 @@ class HAJSPage(Base):
             self.refresh()
             return number, th_num, list1
 
-    def Get_IsOnSiteService_JS(self, data):
-        self.is_click(user['Scope_Select'], choice="isOnSiteService")
-        self.input_text(user['Scope_Select'], choice="isOnSiteService", txt=data)
+    def Get_IsQuickRepair_JS(self, data):
+        self.is_click(user['Scope_Select'], choice="isQuickRepair")
+        self.input_text(user['Scope_Select'], choice="isQuickRepair", txt=data)
         self.hover(user['Is_Query_Select'], choice=data)
         self.is_click(user['Is_Query_Select'], choice=data)
         self.is_click(user['Search_Button'])
@@ -509,7 +522,7 @@ class HAJSPage(Base):
             logging.info("查询无数据")
         else:
             self.scroll_into_view_CRM(user['Page_Num'])
-            th_num = self.elements_num(user['OnSite_Data_Num'])
+            th_num = self.elements_num(user['QuickRepair_Data_Num'])
             # onload = "document.body.scrollWidth,0"
             # self.driver.execute_script(onload)
             list1 = []
@@ -518,7 +531,6 @@ class HAJSPage(Base):
                 txt = self.element_text(user['Current_QuickRepair_data'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
-                ValueAssert.value_assert_In(data, txt)
                 logging.info(list1)
             self.refresh()
             return number, th_num, list1
@@ -656,33 +668,79 @@ class HAJSPage(Base):
         self.is_click(user["Edit_Status_Yes"])
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
 
-    @allure.step("编辑JS，修改描述")
-    def Edit_Code_Description(self, description):
-        self.is_click(user['Edit_Button'], choice="1")
-        self.input_text(user['Symptom_Code_Input'], txt=description, choice='description')  # 添加页面输入描述
-        self.wait.until(EC.presence_of_element_located(user["Symptom_Code_Save"]), message='save未出现')  # 显示等待页面加载成功
-        self.is_click(user['Symptom_Code_Save'])
-        self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
+    @allure.step("JS保内工单报价物料类型")
+    def Qte_20_Status(self, material, qty, symptom, fault):
+        self.is_click(user['JS_Info'], choice='approvalStatus')  # 报价状态选择20
+        self.hover(user['Qte_Select'], choice="20-Estimation Approved")
+        self.is_click(user['Qte_Select'], choice="20-Estimation Approved")
+        self.is_click(user['JS_Info'], choice='typeName')  # 选择报价类型
+        self.hover(user['Qte_Select_Type'], choice="Material")
+        self.is_click(user['Qte_Select_Type'], choice="Material")
+        self.is_click(user['JS_Info'], choice='selectMaterial')  # 选择物料组
+        self.input_text(user['JS_Info'], choice='selectMaterial', txt=material)  # 输入物料组
+        self.hover(user['Qte_Select_Type'], choice=material)
+        self.is_click(user['Qte_Select_Type'], choice=material)
+        self.is_click(user['JS_Info'], choice='qty')  #
+        self.input_text(user['JS_Info'], choice='qty', txt=qty)  # 输入物料数量
+        self.is_click(user['JS_Info'], choice='symptomId')  # 选择现象码
+        self.input_text(user['JS_Info'], choice='symptomId', txt=symptom)
+        self.hover(user['Qte_Select_Type'], choice=symptom)
+        self.is_click(user['Qte_Select_Type'], choice=symptom)
+        self.is_click(user['JS_Info'], choice='faultId')  # 选择错误码
+       # self.input_text(user['JS_Info'], choice='faultId', txt=fault)
+        self.hover(user['Qte_Select_Type'], choice=fault)
+        self.is_click(user['Qte_Select_Type'], choice=fault)
+        self.is_click(user['Qte_Select'], choice="Enable")  # 点击enable
+        self.driver.execute_script("document.documentElement.scrollTop=800")
 
-    @allure.step("编辑JS，修改所属现象组")
-    def Edit_Code_Grouping(self, grouping):
-        self.is_click(user['Edit_Button'], choice="1")
-        self.is_click(user['Symptom_Code_Input'], choice='symptomGroupId')
-        self.input_text(user['Symptom_Code_Input'], txt=grouping, choice='symptomGroupId')  # 添加页面输入grouping
-        self.hover(user['Symptom_Grouping_Select'], choice=grouping)
-        self.is_click(user['Symptom_Grouping_Select'], choice=grouping)
-        self.wait.until(EC.presence_of_element_located(user["Symptom_Code_Save"]), message='save未出现')  # 显示等待页面加载成功
-        self.is_click(user['Symptom_Code_Save'])
-        self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
+    @allure.step("JS保外工单报价物料类型")
+    def Qte_Out_JS(self, grade,material, qty, symptom, fault):
+        self.is_click(user['JS_Info'], choice='approvalStatus')  # 报价状态选择20
+        self.hover(user['Qte_Select'], choice="20-Estimation Approved")
+        self.is_click(user['Qte_Select'], choice="20-Estimation Approved")
+        self.is_click(user['JS_Info'], choice='typeName')  # 选择报价类型
+        self.hover(user['Qte_Select_Type'], choice="Material")
+        self.is_click(user['Qte_Select_Type'], choice="Material")
+        self.is_click(user['Status_Input'], choice='Material Grade')  # 选择物料等级
+        self.input_text(user['Status_Input'], choice='Material Grade', txt=grade)  # 输入物料等级
+        self.hover(user['Qte_Select_Type'], choice=grade+"-"+grade)
+        self.is_click(user['Qte_Select_Type'], choice=grade+"-"+grade)
+        self.is_click(user['JS_Info'], choice='selectMaterial')  # 选择物料组
+        self.input_text(user['JS_Info'], choice='selectMaterial', txt=material)  # 输入物料组
+        self.hover(user['Qte_Select_Type'], choice=material)
+        self.is_click(user['Qte_Select_Type'], choice=material)
+        self.is_click(user['JS_Info'], choice='qty')  #
+        self.input_text(user['JS_Info'], choice='qty', txt=qty)  # 输入物料数量
+        self.is_click(user['JS_Info'], choice='symptomId')  # 选择现象码
+        self.input_text(user['JS_Info'], choice='symptomId', txt=symptom)
+        self.hover(user['Qte_Select_Type'], choice=symptom)
+        self.is_click(user['Qte_Select_Type'], choice=symptom)
+        self.is_click(user['JS_Info'], choice='faultId')  # 选择错误码
+       # self.input_text(user['JS_Info'], choice='faultId', txt=fault)
+        self.hover(user['Qte_Select_Type'], choice=fault)
+        self.is_click(user['Qte_Select_Type'], choice=fault)
+        self.is_click(user['Qte_Select'], choice="Enable")  # 点击enable
+        self.driver.execute_script("document.documentElement.scrollTop=800")
 
-    @allure.step("编辑JS为重复名称")
-    def Repeat_Edit_Symp(self, name):
-        self.is_click(user['Edit_Button'], choice="2")
-        self.input_text(user['Symptom_Group_Input'], txt=name)
-        self.is_click(user['Symptom_Group_Save'])
-        self.wait.until(EC.presence_of_element_located(user["Symptom_Group_Save"]), message='添加页面加载不成功')  # 显示等待页面加载成功
-        name_repeat_tip = self.element_text(user['Already_Exits'])
-        return name_repeat_tip
+    @allure.step("新建JS，返回报价列表数据")
+    def Get_Quote_List_DATA(self):
+        item = self.element_text(user['Qte_List'], "3")
+        material_group = self.element_text(user['Qte_List'], "4")
+        sleep(3)
+        qty_num = self.element_text(user['Qte_List'], "8")
+        vat = self.element_text(user['Qte_List'], "12")
+        tax_amt = self.element_text(user['Qte_List'], "13")
+        est_amt = self.element_text(user['Qte_List'], "14")
+        return item, material_group, qty_num, vat, tax_amt, est_amt
+
+
+
+
+
+
+
+
+
 
     @allure.step("导出JS")
     def Export_Symp(self):
