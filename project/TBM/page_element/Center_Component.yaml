@@ -19,6 +19,7 @@ nest-menu: "xpath==//div[@class='menu-wrapper nest-menu']//span[contains(text(),
 表格内容行: "xpath==//tbody/tr"
 基本信息: "xpath==//span[text()='基本信息']"
 当前菜单: "xpath==//span[@class='tags-view-item router-link-exact-active router-link-active active']"
+当前菜单关闭按钮: "xpath==//span[@class='tags-view-item router-link-exact-active router-link-active active']/span"
 所有文本: "xpath==//*[contains(text(),'')]"
 toast提示: "xpath==//div[@role='alert']/p"
 同意: "xpath==//button/span[contains(text(),'同 意')]"

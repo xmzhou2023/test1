@@ -84,6 +84,7 @@ class CenterComponent(Base, APIRequest):
                 logging.info(f'点击二级菜单:{nestmenu}')
                 sleep(1)
                 self.refresh()
+                sleep(5)
                 self.click_menu(metatitle, nestmenu)
             except Exception as e:
                 self.base_get_img()
@@ -94,7 +95,9 @@ class CenterComponent(Base, APIRequest):
                 logging.info(f'点击二级菜单:{nestmenu}')
                 sleep(1)
                 self.refresh()
+                sleep(5)
                 self.click_menu(metatitle, nestmenu)
+                sleep(5)
 
     @allure.step("初始化浏览器")
     def refresh_webpage(self):
@@ -111,10 +114,13 @@ class CenterComponent(Base, APIRequest):
         text = self.element_text(user['所有文本']).replace("\n", "|")
         if '扫码快捷登录' in text:
             """使用统一登录"""
-            logging.info("前置条件：传音统一登录开始")
+            logging.info("前置条件：欢迎登录TBM")
             self.get_url('http://bom-sit.transsion.com/#/process/home-page')  # 跳转到指定网页
             DomAssert(self.driver).assert_exact_att('首页')
             logging.info("前置条件：传音统一登录成功")
+        ele = self.element_text(user['当前菜单']).strip()
+        if ele != '首页':
+            self.is_click_tbm(user['当前菜单关闭按钮'])
 
     @allure.step("输入BOM信息")
     def input_bom_info(self, type, content):
@@ -375,6 +381,7 @@ class CenterComponent(Base, APIRequest):
         else:
             self.is_click_tbm(user['待办列表-我申请的-查看详情'], code)
         logging.info('点击查看详情')
+        sleep(5)
         self.frame_exit()
         logging.info('跳出框架')
         self.switch_window(1)
