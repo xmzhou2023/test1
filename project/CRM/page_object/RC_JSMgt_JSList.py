@@ -129,6 +129,7 @@ class JSPage(Base):
     def Add_JS_Basic_Info(self, reference_from, imei, physical, symptom, item):
         self.is_click(user['JS_Add'])
         self.wait.until(EC.presence_of_element_located(user["Reference_From"]), message='添加页面加载不成功')  # 显示等待页面加载成功
+        sleep(2)
         self.is_click(user['Reference_From'])
         self.hover(user['JS_From_Data'], choice=reference_from)
         self.is_click(user['JS_From_Data'], choice=reference_from)  # 选择方式
@@ -173,10 +174,14 @@ class JSPage(Base):
         self.is_click(user['JS_Data'], choice=mobile_area)
         self.input_text(user['Mobile_No'], txt=mobile_no)  # 输入客户电话号码
 
+    @allure.step("添加JS,切换页签")
+    def Add_JS_Change_Tab(self, tab):
+        self.driver.execute_script("document.documentElement.scrollTop=100")
+        self.is_click(user['JS_Add_Tab'], choice=tab)
+
 
     @allure.step("添加JS,输入报价信息")
     def Add_JS_Quote_Info(self, approval_status, service_type, material, symptom):
-        self.is_click(user['Quote'])
         self.is_click(user['JS_Info'], choice="approvalStatus")
         self.hover(user['JS_From_Data'], choice=approval_status)
         self.is_click(user['JS_From_Data'], choice=approval_status)  # 选择报价状态
@@ -338,6 +343,13 @@ class JSPage(Base):
         js_no = self.element_text(user['JS_NO'], "1", "el-table_3_column_7")
         return imei, customer_name, js_no, warranty_status
 
+    @allure.step("获取查询到的JS的状态和类型")
+    def Get_JS_Status_Type(self):
+        document_status = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_8")
+        serivice_type = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_12")
+        return document_status, serivice_type
+
+
     @allure.step("JS页面，随机获取一个JS NO")
     def Get_JS_No(self, i):
         js_no = self.element_text(user['JS_NO'], i, "el-table_3_column_7")
@@ -350,6 +362,12 @@ class JSPage(Base):
         self.is_click(user['Search_Button'])
         get_js_no = self.element_text(user['JS_NO'], "1", "el-table_3_column_7")
         return get_js_no
+
+    @allure.step("JS页面，Created On查询")
+    def Get_Created_On_JS(self, date):
+        self.is_click(user['Start_Date'])
+        self.is_click(user['Start_Date_Month'])
+        self.is_click(user['Start_Date_Day'], date)
 
     @allure.step("JS页面，Document Status下拉框查询")
     def Get_Document_Status_JS(self, status):
@@ -647,33 +665,79 @@ class JSPage(Base):
         self.is_click(user["Edit_Status_Yes"])
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
 
-    @allure.step("编辑JS，修改描述")
-    def Edit_Code_Description(self, description):
-        self.is_click(user['Edit_Button'], choice="1")
-        self.input_text(user['Symptom_Code_Input'], txt=description, choice='description')  # 添加页面输入描述
-        self.wait.until(EC.presence_of_element_located(user["Symptom_Code_Save"]), message='save未出现')  # 显示等待页面加载成功
-        self.is_click(user['Symptom_Code_Save'])
-        self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
+    @allure.step("JS保内工单报价物料类型")
+    def Qte_20_Status(self, material, qty, symptom, fault):
+        self.is_click(user['JS_Info'], choice='approvalStatus')  # 报价状态选择20
+        self.hover(user['Qte_Select'], choice="20-Estimation Approved")
+        self.is_click(user['Qte_Select'], choice="20-Estimation Approved")
+        self.is_click(user['JS_Info'], choice='typeName')  # 选择报价类型
+        self.hover(user['Qte_Select_Type'], choice="Material")
+        self.is_click(user['Qte_Select_Type'], choice="Material")
+        self.is_click(user['JS_Info'], choice='selectMaterial')  # 选择物料组
+        self.input_text(user['JS_Info'], choice='selectMaterial', txt=material)  # 输入物料组
+        self.hover(user['Qte_Select_Type'], choice=material)
+        self.is_click(user['Qte_Select_Type'], choice=material)
+        self.is_click(user['JS_Info'], choice='qty')  #
+        self.input_text(user['JS_Info'], choice='qty', txt=qty)  # 输入物料数量
+        self.is_click(user['JS_Info'], choice='symptomId')  # 选择现象码
+        self.input_text(user['JS_Info'], choice='symptomId', txt=symptom)
+        self.hover(user['Qte_Select_Type'], choice=symptom)
+        self.is_click(user['Qte_Select_Type'], choice=symptom)
+        self.is_click(user['JS_Info'], choice='faultId')  # 选择错误码
+       # self.input_text(user['JS_Info'], choice='faultId', txt=fault)
+        self.hover(user['Qte_Select_Type'], choice=fault)
+        self.is_click(user['Qte_Select_Type'], choice=fault)
+        self.is_click(user['Qte_Select'], choice="Enable")  # 点击enable
+        self.driver.execute_script("document.documentElement.scrollTop=800")
 
-    @allure.step("编辑JS，修改所属现象组")
-    def Edit_Code_Grouping(self, grouping):
-        self.is_click(user['Edit_Button'], choice="1")
-        self.is_click(user['Symptom_Code_Input'], choice='symptomGroupId')
-        self.input_text(user['Symptom_Code_Input'], txt=grouping, choice='symptomGroupId')  # 添加页面输入grouping
-        self.hover(user['Symptom_Grouping_Select'], choice=grouping)
-        self.is_click(user['Symptom_Grouping_Select'], choice=grouping)
-        self.wait.until(EC.presence_of_element_located(user["Symptom_Code_Save"]), message='save未出现')  # 显示等待页面加载成功
-        self.is_click(user['Symptom_Code_Save'])
-        self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='数据加载不成功')  # 显示等待数据加载成功
+    @allure.step("JS保外工单报价物料类型")
+    def Qte_Out_JS(self, grade,material, qty, symptom, fault):
+        self.is_click(user['JS_Info'], choice='approvalStatus')  # 报价状态选择20
+        self.hover(user['Qte_Select'], choice="20-Estimation Approved")
+        self.is_click(user['Qte_Select'], choice="20-Estimation Approved")
+        self.is_click(user['JS_Info'], choice='typeName')  # 选择报价类型
+        self.hover(user['Qte_Select_Type'], choice="Material")
+        self.is_click(user['Qte_Select_Type'], choice="Material")
+        self.is_click(user['Status_Input'], choice='Material Grade')  # 选择物料等级
+        self.input_text(user['Status_Input'], choice='Material Grade', txt=grade)  # 输入物料等级
+        self.hover(user['Qte_Select_Type'], choice=grade+"-"+grade)
+        self.is_click(user['Qte_Select_Type'], choice=grade+"-"+grade)
+        self.is_click(user['JS_Info'], choice='selectMaterial')  # 选择物料组
+        self.input_text(user['JS_Info'], choice='selectMaterial', txt=material)  # 输入物料组
+        self.hover(user['Qte_Select_Type'], choice=material)
+        self.is_click(user['Qte_Select_Type'], choice=material)
+        self.is_click(user['JS_Info'], choice='qty')  #
+        self.input_text(user['JS_Info'], choice='qty', txt=qty)  # 输入物料数量
+        self.is_click(user['JS_Info'], choice='symptomId')  # 选择现象码
+        self.input_text(user['JS_Info'], choice='symptomId', txt=symptom)
+        self.hover(user['Qte_Select_Type'], choice=symptom)
+        self.is_click(user['Qte_Select_Type'], choice=symptom)
+        self.is_click(user['JS_Info'], choice='faultId')  # 选择错误码
+       # self.input_text(user['JS_Info'], choice='faultId', txt=fault)
+        self.hover(user['Qte_Select_Type'], choice=fault)
+        self.is_click(user['Qte_Select_Type'], choice=fault)
+        self.is_click(user['Qte_Select'], choice="Enable")  # 点击enable
+        self.driver.execute_script("document.documentElement.scrollTop=800")
 
-    @allure.step("编辑JS为重复名称")
-    def Repeat_Edit_Symp(self, name):
-        self.is_click(user['Edit_Button'], choice="2")
-        self.input_text(user['Symptom_Group_Input'], txt=name)
-        self.is_click(user['Symptom_Group_Save'])
-        self.wait.until(EC.presence_of_element_located(user["Symptom_Group_Save"]), message='添加页面加载不成功')  # 显示等待页面加载成功
-        name_repeat_tip = self.element_text(user['Already_Exits'])
-        return name_repeat_tip
+    @allure.step("新建JS，返回报价列表数据")
+    def Get_Quote_List_DATA(self):
+        item = self.element_text(user['Qte_List'], "3")
+        material_group = self.element_text(user['Qte_List'], "4")
+        sleep(3)
+        qty_num = self.element_text(user['Qte_List'], "8")
+        vat = self.element_text(user['Qte_List'], "12")
+        tax_amt = self.element_text(user['Qte_List'], "13")
+        est_amt = self.element_text(user['Qte_List'], "14")
+        return item, material_group, qty_num, vat, tax_amt, est_amt
+
+
+
+
+
+
+
+
+
 
     @allure.step("导出JS")
     def Export_Symp(self):
