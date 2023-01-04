@@ -196,7 +196,7 @@
 商品价格记录-品牌名称框: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/form[1]/div[1]/div[1]/span[3]/div[1]/div[1]/input[1]"
 商品价格记录-品牌名称: "xpath==//li[contains(@class,'el-select-dropdown__item hover')]//span[contains(text(),'variable')]"
 商品价格记录-产品名称框: "xpath==//input[contains(@placeholder,'产品名称')]"
-商品价格记录-产品名称: "xpath==//span[normalize-space()='variable']"
+商品价格记录-产品名称: "xpath==//div[@class='el-scrollbar']/div/ul/li/div/div/span[contains(text(),'variable')]"
 商品价格记录-自采标记框: "xpath==//*[@id='app']/main/section/div[2]/div/form/div[2]/div/div[2]/form/div/div[6]/div/div/div/div/div/input"
 商品价格记录-自采标记: "xpath==//div[contains(@x-placement,'bottom-start')]//span[contains(text(),'variable')]"
 商品价格记录-区域框: "xpath==//*[@id='app']/main/section/div[2]/div/form/div[2]/div/div[2]/form/div/div[5]/div/div/div/div/div/div/div[1]/div[2]/input"
