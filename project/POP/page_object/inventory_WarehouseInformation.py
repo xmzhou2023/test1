@@ -47,7 +47,7 @@ class WarehouseInformation(Base):
 
     @allure.step("点击勾选框")
     def click_checkbox(self):
-        self.is_click(user['勾选框'])
+        self.is_click_tbm(user['勾选框'])
 
 
 class SelectWarehouseInformation(Page_Operation,General_button):
@@ -61,6 +61,7 @@ class SelectWarehouseInformation(Page_Operation,General_button):
             self.query()
         else:
             logging.error("系统检测没有此筛选项，请检查后重新输入")
+
 
 if __name__ == '__main__':
     pass

@@ -36,7 +36,7 @@ class TestAddWarehouse:
         users.warehouse_select()
         users.click_submit('提交')
         sleep(3)
-        test = users.element_text(user['新增成功提示'])
+        test = users.element_text(user['操作成功提示'])
         ValueAssert.value_assert_equal(test, '新增成功')
 
 
@@ -48,16 +48,58 @@ class TestEditWarehouse:
     @pytest.mark.smoke
     def test_002_001(self, drivers):
         users = SelectWarehouseInformation(drivers)
-        users.query_warehouse_information('仓库框', '中国')
+        users.query_warehouse_information('仓库框', '中国2')
         sleep(3)
         edit = WarehouseInformation(drivers)
         edit.click_search_or_reset('查询')
-        sleep(3)
+        sleep(10)
         edit.click_checkbox()
         edit.warehouse_menu('编辑')
-        edit.warehouse_warehouse_name('中国2')
+        edit.warehouse_warehouse_name('中国3')
         edit.click_submit('提交')
+        test = users.element_text(user['操作成功提示'])
+        ValueAssert.value_assert_equal(test, '编辑成功')
+
+
+class TestDisableWarehouse:
+    @allure.story("禁用仓库")
+    @allure.title("选择一条数据进行禁用")
+    @allure.description("搜索需要禁用的仓库进行禁用")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_003_001(self, drivers):
+        users = SelectWarehouseInformation(drivers)
+        users.query_warehouse_information('仓库框', '中国3')
+        sleep(3)
+        disable = WarehouseInformation(drivers)
+        sleep(2)
+        disable.click_search_or_reset('查询')
+        sleep(10)
+        disable.click_checkbox()
+        sleep(2)
+        disable.warehouse_menu('禁用')
+        disable.click_submit('提交')
+        test = users.element_text(user['操作成功提示'])
+        ValueAssert.value_assert_equal(test, '操作成功')
+
+
+class TestExportWarehouse:
+    @allure.story("导出列表")
+    @allure.title("导出仓库信息列表")
+    @allure.description("根据筛选条件导出仓库列表")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_004_001(self, drivers):
+        users = SelectWarehouseInformation(drivers)
+        users.query_warehouse_information('仓库门店框', '南京')
+        sleep()
+        export = WarehouseInformation(drivers)
+        export.click_search_or_reset('查询')
+        export.warehouse_menu('导出')
+        sleep(2)
+        test = users.element_text(user['操作成功提示'])
+        ValueAssert.value_assert_equal(test, '创建导出任务成功！')
 
 
 if __name__ == '__main__':
-    pytest.main(['inventory_WarehouseInformation.py::TestEditWarehouse'])
+    pytest.main(['inventory_WarehouseInformation.py::TestExportWarehouse'])

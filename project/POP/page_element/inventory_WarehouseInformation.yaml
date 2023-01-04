@@ -8,6 +8,6 @@
 菜单按钮: "xpath==//button[normalize-space()='variable']"
 查询/重置: "xpath==//div[@class='btn-wrap']//span[contains(text(),'variable')]"
 提交/取消: "xpath==//span[normalize-space()='variable']"
-勾选框: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span/span"
+勾选框: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[4]/div[2]/table/tbody/tr/td[1]/div/label/span"
 
-新增成功提示: "class==el-message__content"
+操作成功提示: "class==el-message__content"

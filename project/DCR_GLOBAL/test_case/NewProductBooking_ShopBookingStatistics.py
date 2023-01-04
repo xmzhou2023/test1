@@ -22,7 +22,7 @@ class TestQueryShopBookingStatistics:
     @allure.title("新品预定页面，随机组合条件查询门店预订统计")
     @allure.description("新品预定页面，随机组合条件查询门店预订统计")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.UT
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = DCRLoginPage(drivers)

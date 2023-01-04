@@ -99,7 +99,7 @@ class LoginPage(Base):
         user = LoginPage(drivers)
         user.input_account(account)
         user.input_passwd(passwd)
-        sleep(1)
+        sleep(3)
         get_check_class = user.get_check_box_class()
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
@@ -107,6 +107,7 @@ class LoginPage(Base):
 
         """判断是否弹出DCR隐私政策页面"""
         user.privacy()
+        DomAssert(drivers).assert_att(account)
 
     @allure.step("退出重新登录，去掉打开登录地址")
     def privacy(self):
