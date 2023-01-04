@@ -67,7 +67,7 @@ class TestDisableWarehouse:
     @allure.description("搜索需要禁用的仓库进行禁用")
     @allure.severity("normal")
     @pytest.mark.smoke
-    def test_003_001(self,drivers):
+    def test_003_001(self, drivers):
         users = SelectWarehouseInformation(drivers)
         users.query_warehouse_information('仓库框', '中国3')
         sleep(3)
@@ -83,5 +83,23 @@ class TestDisableWarehouse:
         ValueAssert.value_assert_equal(test, '操作成功')
 
 
+class TestExportWarehouse:
+    @allure.story("导出列表")
+    @allure.title("导出仓库信息列表")
+    @allure.description("根据筛选条件导出仓库列表")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_004_001(self, drivers):
+        users = SelectWarehouseInformation(drivers)
+        users.query_warehouse_information('仓库门店框', '南京')
+        sleep()
+        export = WarehouseInformation(drivers)
+        export.click_search_or_reset('查询')
+        export.warehouse_menu('导出')
+        sleep(2)
+        test = users.element_text(user['操作成功提示'])
+        ValueAssert.value_assert_equal(test, '创建导出任务成功！')
+
+
 if __name__ == '__main__':
-    pytest.main(['inventory_WarehouseInformation.py::TestDisableWarehouse'])
+    pytest.main(['inventory_WarehouseInformation.py::TestExportWarehouse'])
