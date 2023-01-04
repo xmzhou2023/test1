@@ -26,6 +26,8 @@
 商品->物料信息: "xpath==//span[@title='物料信息']"
 商品->商品列表: "xpath==//span[@title='商品列表']"
 商品->商品规格: "xpath==//span[@title='商品规格']"
+商品->商品价格记录: "xpath==//span[@title='商品价格记录']"
+
 
 销售: "xpath==//span[contains(text(),'销售')]"
 销售->销售订单: "xpath==//span[@title='销售订单']"
@@ -178,6 +180,20 @@
 定义建议价格-创建人: "xpath==//span[contains(text(),'variable')]"
 
 #----------------------商品价格记录筛选-----------------------#
+商品价格记录-开始日期框: "xpath==//input[@placeholder='开始日期']"
+商品价格记录-结束日期框: "xpath==//input[contains(@placeholder,'结束日期')]"
+商品价格记录-商品名称框: "xpath==//input[contains(@placeholder,'商品名称')]"
+商品价格记录-商品名称: "xpath==//div[@x-placement='bottom-start']//span[contains(text(),'variable')]"
+商品价格记录-品牌名称框: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/form[1]/div[1]/div[1]/span[3]/div[1]/div[1]/input[1]"
+商品价格记录-品牌名称: "xpath==//li[contains(@class,'el-select-dropdown__item hover')]//span[contains(text(),'variable')]"
+商品价格记录-产品名称框: "xpath==//input[contains(@placeholder,'产品名称')]"
+商品价格记录-产品名称: "xpath==//span[normalize-space()='variable']"
+商品价格记录-自采标记框: "xpath==//*[@id='app']/main/section/div[2]/div/form/div[2]/div/div[2]/form/div/div[6]/div/div/div/div/div/input"
+商品价格记录-自采标记: "xpath==//div[contains(@x-placement,'bottom-start')]//span[contains(text(),'variable')]"
+商品价格记录-区域框: "xpath==//*[@id='app']/main/section/div[2]/div/form/div[2]/div/div[2]/form/div/div[5]/div/div/div/div/div/div/div[1]/div[2]/input"
+商品价格记录-区域: "xpath==//div[contains(text(),'variable')]"
+商品价格记录-创建人框: "xpath==//div[contains(@class,'el-input el-input--mini el-input--suffix is-focus')]//input[contains(@type,'text')]"
+商品价格记录-创建人: "xpath==//span[contains(text(),'variable')]"
 
 
 #----------------------门店列表筛选-----------------------#
