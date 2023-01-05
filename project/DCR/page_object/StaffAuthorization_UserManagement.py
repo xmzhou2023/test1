@@ -251,7 +251,7 @@ class UserManagementPage(Base):
     @allure.step("随机生成userid")
     def user_id_random(self):
         num = str(random.randint(100, 999))
-        userid = '202211' + num
+        userid = '20221' + num
         return userid
 
     @allure.step("随机生成username")

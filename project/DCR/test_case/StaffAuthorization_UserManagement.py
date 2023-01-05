@@ -110,7 +110,7 @@ class TestAddEditQuitTranssionUser:
         add_transsion = UserManagementPage(drivers)
         """随机生成电话号码"""
         num = add_transsion.user_id_random()
-        add_contact_no = "13762513" + num
+        add_contact_no = "137" + num
         add_email = add_contact_no + '@163.com'
         """随机生成User ID与 User Name"""
         trans_userid = add_transsion.user_id_random()
