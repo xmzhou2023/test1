@@ -54,10 +54,10 @@ class Login(Base):
         user.get_url(url)  # 跳转到指定网页
         user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
         user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
-        user.click_accountlogin()  # 点击帐户密码登录
+        # user.click_accountlogin()  # 点击帐户密码登录
         user.input_account(username)  # 输入帐户名
         user.input_passwd(passwd)  # 输入密码
-        user.click_checkbox_en()
+        # user.click_checkbox_en()
         user.click_loginsubmit()
 
     def crm_pro_login(self, drivers, url, username, passwd):
