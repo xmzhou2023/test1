@@ -72,6 +72,8 @@ class ApplicationCenter(PubicMethod):
         '''
         :param projectname: 预约上会的项目名称
         :param ApplyButton: 应用按钮，如： 进入详情/同意预约/拒绝预约
+        :param addresseeJobNo: 收件人
+        :param CcJobNo: 抄送人
         '''
         self.ApplicationCenter_entrance()
         self.Card_application("DCP看板")

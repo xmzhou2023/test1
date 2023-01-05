@@ -39,8 +39,6 @@ class APIRequest:
         elif method == 'get':
             response = requests.get(url=eval(ini._get('API', request)),
                                        headers=headers)
-
-
         response_dicts = dict()
         response_dicts['body'] = response.json()
         logging.info('接口响应内容为：%s', response_dicts)
@@ -98,7 +96,6 @@ class APIRequest:
             result = response
             logging.info('工号查询：%s', result)
             list_queryDeptAndEmployee.append(result)
-        print(list_queryDeptAndEmployee)
         return list_queryDeptAndEmployee
 
     def Api_project_bid(self,proname):
@@ -189,6 +186,7 @@ class APIRequest:
         objbid=node.get("objBid")
         projbid=node.get("projBid")
         return taskbid,objbid,projbid
+
 
 
 
@@ -302,8 +300,10 @@ if __name__ == '__main__':
     Api=APIRequest()
     # ApplyList=Api.Api_applyList(20220810085734677324)
     # Api.Api_queryDeptAndEmployee(20220810085734677324)
-    # print(Api.Api_project_bid("IPM自动化测试2022-12-1517:02:50"))
-    print(Api.Api_project_task("IPM自动化测试2022-12-1517:02:50","概念阶段"))
+    print(Api.Api_project_bid("IPM自动化测试2023-01-0318:33:16"))
+    # print(Api.Api_templ_bid('IPD模块化项目模板'))
+    # print(Api.Api_project_task("IPM自动化测试2022-12-2316:56:38","任务名称2022-12-2316:56:38"))
     # print(Api.Api_project_field("5435345"))
     # print(Api.Api_project_getPlanTaskTree("655人TV v"))
+    # print(Api.Api_project_Scheduled_action("IPM自动化测试2022-12-2316:56:38","任务名称2022-12-2316:56:38"))
     #   任务流程名

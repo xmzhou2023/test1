@@ -190,7 +190,6 @@ class CreateProject(General_methods):
         '''
         self.mouse_hover_IPM("计划任务_任务名称",taskname)
         ele_not=self.element_exist_IPM('计划任务更多操作',taskname)
-        print('ssssssssssssxxx',ele_not)
         if ele_not ==True:
             self.mouse_hover_IPM("计划任务更多操作", taskname)
             self.click_IPM("计划任务更多操作_子功能", function)
@@ -383,7 +382,10 @@ class CreateProject(General_methods):
         elif Query_Reset == "重置": #查询功能重置按钮
             self.click_IPM("评审流程确认页_选取_重置")
         else: #跳过查询
-            self.project_ReviewProcessConfirmationPage_InitiationProcess_query(ProjectName,Drop_down_value) #传入项目名和任务阶段获取唯一值
+            try:
+                self.project_ReviewProcessConfirmationPage_InitiationProcess_query(ProjectName,Drop_down_value) #传入项目名和任务阶段获取唯一值
+            except:
+                self.click_IPM('评审流程确认页_选取_第一条')
             if result == "确定" or result ==None:
                 self.click_IPM("评审流程确认页_选取_确定")
             elif result == "取消":
@@ -419,59 +421,30 @@ class CreateProject(General_methods):
 
 
 
-    def project_Task_Edit_Name(self,Number,taskname,expansion_name1=None,expansion_name2=None,expansion_name3=None):
+    def project_Task_Edit_Name(self,taskname,*expansion_name1):
         '''
         点击任务名字编辑
-        :param Number: 当前编辑的层级，从0开始
         :param taskname: 编辑的任务名称
         :param expansion_name1: 展开的树结构名称
-        :param expansion_name2: 展开的树结构名称
-        :param expansion_name3: 展开的树结构名称
         '''
-        if Number=="0":
-            self.project_Task_selection(taskname)
-        if Number=="1":
-            self.project_Task_expansion(expansion_name1)
-            self.project_Task_selection(taskname)
-        if Number=="2":
-            self.project_Task_expansion(expansion_name1)
-            self.project_Task_expansion(expansion_name2)
-            self.project_Task_selection(taskname)
-        if Number=="3":
-            self.project_Task_expansion(expansion_name1)
-            self.project_Task_expansion(expansion_name2)
-            self.project_Task_expansion(expansion_name3)
-            self.project_Task_selection(taskname)
-        else:
-            logging.info("不在展开可展开的层级内，请重新填写，或者优化代码")
 
+        if expansion_name1:
+            for i in expansion_name1:
+                self.project_Task_expansion(i)
+        self.project_Task_selection(taskname)
 
-    def project_Task_More_actions(self,Number,taskname,function,expansion_name1=None,expansion_name2=None,expansion_name3=None):
+    def project_Task_More_actions(self,taskname,function,*expansion_name1):
         '''
         打开任务的更多操作功能
-        :param Number: 当前编辑的层级，从0开始
         :param taskname: 编辑的任务名称
         :param function: 更多功能
         :param expansion_name1: 展开的任务树结构名称
-        :param expansion_name2: 展开的任务树结构名称
-        :param expansion_name3: 展开的任务树结构名称
         '''
-        if Number=="0":
-            self.project_more_actions(taskname,function)
-        if Number=="1":
-            self.project_Task_expansion(expansion_name1)
-            self.project_more_actions(taskname,function)
-        if Number=="2":
-            self.project_Task_expansion(expansion_name1)
-            self.project_Task_expansion(expansion_name2)
-            self.project_more_actions(taskname,function)
-        if Number=="3":
-            self.project_Task_expansion(expansion_name1)
-            self.project_Task_expansion(expansion_name2)
-            self.project_Task_expansion(expansion_name3)
-            self.project_more_actions(taskname,function)
-        else:
-            logging.info("不在展开可展开的层级内，请重新填写，或者优化代码")
+        if expansion_name1:
+
+            for i in expansion_name1:
+                self.project_Task_expansion(i)
+        self.project_more_actions(taskname, function)
 
     def elements_filelds(self):
         '''
@@ -491,6 +464,7 @@ class CreateProject(General_methods):
         :param Job_number_or_name: 员工姓名或工号
         :param Confirm_or_Cancel: 人员保存确定还是取消
         :param objectname: 对象名称
+        Get_required_fields('项目名'，'任务名称'，'当前日期')
         '''
 
         Api = APIRequest()
