@@ -206,7 +206,6 @@ class HierarchyManagement(Base):
     def click_dialog_unfold(self):
         self.is_click(user['弹窗Unfold'])
         logging.info('点击弹窗Unfold按钮')
-        logging.info('点击Unfold 展开筛选项')
 
     @allure.step("点击Search 查询按钮")
     def click_dialog_search(self):
@@ -225,6 +224,7 @@ class HierarchyManagement(Base):
         if style == 'delete':
             DomAssert(self.driver).assert_att('You will delete the records!')
             self.is_click_tbm(user['Delete'])
+            logging.info('点击弹窗Delete按钮')
 
     @allure.step("点击指定行功能按钮")
     def click_row_function(self, uid, function):
