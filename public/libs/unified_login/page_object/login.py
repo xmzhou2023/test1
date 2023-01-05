@@ -228,6 +228,25 @@ class IpmLoginPage(Base):
         self.is_click(login['登录ipm'])
         sleep(2)
 
+"""IPM登录类"""
+class BDDPLoginPage(Base):
+
+    def BDDP_input_account(self, content):
+        """输入工号"""
+        self.input_text(login['工号输入框BDDP'], txt=content)
+
+    def BDDP_input_passwd(self, content):
+        """输入密码"""
+        self.input_text(login['密码输入框BDDP'], txt=content)
+
+    def BDDP_click_login(self):
+        """点击登录"""
+        self.is_click(login['登录BDDP'])
+
+    def input_imgcode(self):
+        """识别图形验证码，输入验证码"""
+        imgcode = self.get_graphical_code(login['图形验证码'])
+        self.input_text(login['验证码输入框BDDP'], imgcode)
 
 if __name__ == '__main__':
     pass

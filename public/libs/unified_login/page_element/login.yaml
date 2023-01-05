@@ -48,3 +48,9 @@ pop登录按钮: "xpath==//button[@type='primary']"
 工号输入框IPM: 'xpath==//input[@placeholder="请输入账号/工号"]'
 密码输入框IPM: 'xpath==//input[@placeholder="请输入登录密码"]'
 登录ipm: "xpath==//span[text()='登录系统']"
+
+#BDDP登录定位元素
+工号输入框BDDP: 'xpath==//div[@class="accountLogin"]//form/div[1]//input'
+密码输入框BDDP: 'xpath==//div[@class="accountLogin"]//form/div[2]//input'
+验证码输入框BDDP: 'xpath==//div[@class="accountLogin"]//form/div[3]//input'
+登录BDDP: "xpath==//div[@class='accountLogin']//button/span[normalize-space(text())='登录']"
