@@ -1,2 +1,4 @@
 商品名称断言: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[3]/div[1]"
 产品名称断言: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[4]/div[1]/div[1]/div[1]/span[1]/span[1]"
+自采标记断言: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[5]/div[1]"
+创建日期断言: "xpath==/html[1]/body[1]/div[1]/main[1]/section[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[3]/table[1]/tbody[1]/tr[1]/td[2]/div[1]"
