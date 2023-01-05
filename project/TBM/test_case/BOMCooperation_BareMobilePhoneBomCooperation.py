@@ -52,7 +52,7 @@ class TestCreateProcess:
         user.input_bom_info('同时做衍生BOM', '否')
         user.click_add_bomtree()
         user.input_bomtree('单机头', 'BOM状态', '试产')
-        user.input_bomtree('单机头', '物料编码', '12011331')
+        user.input_bomtree('单机头', '物料编码', '12011068')
         user.input_bomtree('单机头', '用量', '1000')
         user.input_bomtree('指纹模组', '物料编码', '17600563')
         user.input_bomtree('指纹模组', '用量', '1000')

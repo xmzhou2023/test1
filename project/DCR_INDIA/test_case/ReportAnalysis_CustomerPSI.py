@@ -33,12 +33,12 @@ class TestQueryDistiCustomerPSI:
     @allure.story("查询国包客户PSI")
     @allure.title("Customer PSI页面，查询国包客户PSI列表数据加载")
     @allure.description("Customer PSI页面，查询国包客户PSI列表数据加载，断言数据是否加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     def test_001_001(self, drivers):
         """筛选国包客户PSI列表数据，是否加载正常"""
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(3.5)
         user = LoginPage(drivers)
         """报表分析-打开客户PSI页面"""
@@ -60,7 +60,8 @@ class TestExportDistiCustomerPSI:
     @allure.story("导出国包客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询国包客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询国包客户PSI列表数据，并导出")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """筛选国包客户PSI列表数据，导出数据是否正常"""
@@ -72,8 +73,9 @@ class TestExportDistiCustomerPSI:
         #点击导出功能
         export.click_export()
         export.click_download_more()
+        export.input_task_name('Customer PSI')
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
-        #down_status = export.get_download_status_text()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
         task_id = export.get_task_user_id_text()
@@ -92,16 +94,16 @@ class TestExportDistiCustomerPSI:
 
 
 @allure.feature("报表分析-客户PSI")
-class TestQuerSubCustomerPSI:
+class TestQuerySubCustomerPSI:
     @allure.story("查询二代客户PSI")
     @allure.title("Customer PSI页面，按日期查询二代客户PSI列表数据加载")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据加载，断言数据是否加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     def test_003_001(self, drivers):
         """根据日期筛选二代客户PSI列表数据，是否加载正常"""
         """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(3.5)
         """考勤管理-打开考勤记录页面"""
         menu = LoginPage(drivers)
@@ -126,7 +128,8 @@ class TestExportSubCustomerPSI:
     @allure.story("导出二代客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询二代客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据，并导出。断言导出数据是否正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_004_001(self, drivers):
         """根据日期筛选二代客户PSI列表数据，导出数据是否正常"""
@@ -139,6 +142,8 @@ class TestExportSubCustomerPSI:
         # 筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
+        export.input_task_name('Customer PSI')
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()

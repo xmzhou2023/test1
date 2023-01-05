@@ -478,7 +478,7 @@ class ReturnOrderQuery(Base):
         click_input_list = ['Return Order ID', 'Delivery/DN Order ID']
         input_select_list = ['Brand']
         input_select_all_list1 = ['Status', 'Return Type']
-        input_select_all_listaa = ['Model', 'Market Name', 'Seller Country']
+        input_select_all_list22 = ['Model', 'Market Name', 'Seller Country']
         return_date_list = ['Return Date']
         seller_list = ['Seller', 'Buyer']
         warehouse_list = ['Buyer Warehouse Region', 'Seller Warehouse Region']
@@ -495,14 +495,14 @@ class ReturnOrderQuery(Base):
             self.is_click(user['输入框'], header)
             self.input_text(user['输入框2'], content, header)
             self.is_click(user['输入结果精确选择'], content)
-        elif header in input_select_all_listaa:
+        elif header in input_select_all_list22:
             self.is_click_dcr(user['输入框'], header)
             self.input_text(user['输入框1'], content, header)
-            sleep(1.5)
-            self.is_click(user['输入结果精确选择'], content)
+            sleep(1.8)
+            self.is_click(user['输入结果精确选择1'], header, content)
             self.is_click(user['点击label标签'], header)
         elif header in return_date_list:
-            self.is_click_dcr(user['Input Return Start Date'], header)
+            self.is_click(user['Input Return Start Date'], header)
             self.input_text(user['Input Return Start Date'], content, header)
             """弹出日历空间后，点击日历标签释法"""
             self.is_click(user['点击label标签'], header)
@@ -510,7 +510,6 @@ class ReturnOrderQuery(Base):
             self.is_click(user['输入框'], header)
             self.input_text(user['输入框2'], content, header)
             sleep(0.8)
-            """弹出日历空间后，点击日历标签释法"""
             self.is_click(user['输入结果模糊选择'], content)
         elif header in warehouse_list:
             self.is_click(user['输入框'], header)
@@ -562,7 +561,7 @@ class ReturnOrderQuery(Base):
     @allure.step("组合查询 组合方法")
     def random_Query_Method(self, kwargs):
         list_query = []
-        num = random.randint(3, 8)
+        num = random.randint(3, 9)
         for i in kwargs:
             list_query.append(i)
         logging.info(f'输入框：{list_query}')

@@ -39,8 +39,7 @@ class TestQueryShopSalesQuery:
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(3.5)
         """打开销售管理-打开门店销售查询页面"""
         user.click_gotomenu("Sales Management", "Shop Sales Query")
@@ -73,8 +72,7 @@ class TestExportShopSalesQuery:
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         sleep(3.5)
         """打开销售管理-打开门店销售查询页面"""
         menu = LoginPage(drivers)
@@ -85,8 +83,13 @@ class TestExportShopSalesQuery:
         today = base.get_datetime_today()
         last_date = export.get_last_day(1)
         export.click_unfold()
-        export.input_sales_date(last_date, today)
+        export.shop_sales_query_sales_date_query(last_date, today)
+        export.click_search()
+        get_shop_id = export.get_shop_id_text()
+        """获取列表Shop ID，进行筛选"""
+        export.shop_sales_query_shop_query(get_shop_id)
         export.click_fold()
+        """点击Search按钮"""
         export.click_search()
         total = export.get_total_text()
         """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
@@ -94,6 +97,8 @@ class TestExportShopSalesQuery:
         #筛选销售日期后，点击导出功能
         export.click_export()
         export.click_download_more()
+        export.input_task_name('Shop Sales Query')
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()

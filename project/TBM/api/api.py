@@ -47,14 +47,18 @@ class APIRequest:
         return token
         """
         logging.info('发起请求：TBM登录接口')
-        data = {'lang': 'zh', 'pwd': 'eExpbHk2eA==', 'username': username, 'privacyAgreement': 'true',
-                'redirect': 'http://bom-sit.transsion.com', 'source': 'TBM',
-                'verifyKey': 'edbae420160748f48107e693ffeb1582', 'readVersion': '1.1.0'}
+        data = {
+            "lang": "zh",
+            "source": "TBM",
+            "username": username,
+            "pwd": "eExpbHk2eA=="
+        }
         headers = {'Content-Type': 'application/json'}
         response = self.api_request('TBM登录接口', data, headers)
         token = response['data']['token']
-        logging.info('获取token：%s', token)
-        return token
+        rtoken = response['data']['rtoken']
+        logging.info(f'获取token：{token}， 获取rtoken：{rtoken}')
+        return token, rtoken
 
     def Request_Machine_Add(self, data, headers):
         """
@@ -210,7 +214,7 @@ class APIRequest:
             "param": {"title": "", "flowNo": "", "bomCode": "", "produceClass": "", "model": "", "brandCode": "",
                       "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
                       "createdTimeFrom": "", "createdTimeTo": ""}, "current": 1, "size": 10}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         add_response = self.Request_Machine_Add(add_data, headers)
         flowId = add_response['data']
         search_response = self.Request_Bom_Search(search_data, headers)
@@ -324,7 +328,7 @@ class APIRequest:
             "param": {"title": "", "flowNo": "", "bomCode": "", "produceClass": "", "model": "", "brandCode": "",
                       "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
                       "createdTimeFrom": "", "createdTimeTo": ""}, "current": 1, "size": 10}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         add_response = self.Request_Machine_Add(add_data, headers)
         flowId = add_response['data']
         search_response = self.Request_Bom_Search(search_data, headers)
@@ -339,7 +343,7 @@ class APIRequest:
     def API_Machine_Factory(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：整机BOM协作-补充工厂审批通过流程')
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         MachineInfo = self.Oneworks_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -394,7 +398,7 @@ class APIRequest:
     def API_Derive_Machine_Factory(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：整机BOM协作-补充工厂审批通过流程')
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         MachineInfo = self.Oneworks_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -452,7 +456,7 @@ class APIRequest:
         logging.info('发起流程接口：整机BOM协作-结构工程师审批通过流程')
         self.API_Machine_Factory(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         MachineInfo = self.Oneworks_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -487,7 +491,7 @@ class APIRequest:
         logging.info('发起流程接口：整机BOM协作-结构工程师审批通过流程')
         self.API_Derive_Machine_Factory(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         MachineInfo = self.Oneworks_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -524,7 +528,7 @@ class APIRequest:
         logging.info('发起流程接口：整机BOM协作-业务审核通过流程')
         self.API_Machine_bomEnginner(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         MachineInfo = self.Oneworks_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -628,7 +632,7 @@ class APIRequest:
         logging.info('发起流程接口：整机BOM协作-业务审核通过流程')
         self.API_Derive_Machine_bomEnginner(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         MachineInfo = self.Oneworks_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -686,7 +690,7 @@ class APIRequest:
         logging.info('发起流程：BOM协作撤回流程')
         token = self.tbm_login()
         delete_data = {"id": flowid}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         self.Oneworks_Recall(instanceid, headers)
         sleep(1)
         self.Request_Bom_Delete(delete_data, headers)
@@ -722,7 +726,7 @@ class APIRequest:
     def API_getHistoric(self, flowNo, node=None):
         logging.info('发起流程接口：TBM-流程查询接口')
         Search_Result = self.API_MyApply_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         History_response = self.Oneworks_History(Search_Result[0], headers)
         if node is None:
             assignee = History_response['data']['historyCourse'][-1]['assignee']
@@ -838,7 +842,7 @@ class APIRequest:
         logging.info('发起流程接口：TBM-我的待办-查询')
         token = self.tbm_login(username)
         search_data = {"code": flowNo}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         search_response = self.Request_Todo_Search(search_data, headers)
         for i in range(20):
             if len(search_response['data']['list']) == 0:
@@ -847,14 +851,14 @@ class APIRequest:
         response_data = search_response['data']['list'][0]
         logging.info('接口返回数据：taskId：{}'.format(response_data['taskId']))
         logging.info('流程接口结束：TBM-我的待办-查询')
-        return response_data['taskId'], token
+        return response_data['taskId'], token[0], token[1]
 
     @allure.step("TBM-我申请的-查询")
     def API_MyApply_Search(self, flowNo):
         logging.info('发起流程接口：TBM-我的待办-查询')
         token = self.tbm_login()
         search_data = {"code": flowNo}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         search_response = self.Request_Apply_Search(search_data, headers)
         for i in range(20):
             if len(search_response['data']['list']) == 0:
@@ -863,7 +867,7 @@ class APIRequest:
         response_data = search_response['data']['list'][0]
         logging.info('接口返回数据：instanceId：{}'.format(response_data['instanceId']))
         logging.info('流程接口结束：TBM-我的待办-查询')
-        return response_data['instanceId'], token
+        return response_data['instanceId'], token[0], token[1]
 
     @allure.step("单机头BOM协作新增接口")
     def API_BarePhone_Add(self):
@@ -915,7 +919,7 @@ class APIRequest:
             "param": {"title": "", "flowNo": "", "bomCode": "", "produceClass": "", "model": "", "brandCode": "",
                       "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
                       "createdTimeFrom": "", "createdTimeTo": "", "bomType": "singleHeadBom"}, "current": 1, "size": 10}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         add_response = self.Request_BarePhone_Add(add_data, headers)
         flowId = add_response['data']
         search_response = self.Request_Bom_Search(search_data, headers)
@@ -981,7 +985,7 @@ class APIRequest:
             "param": {"title": "", "flowNo": "", "bomCode": "", "produceClass": "", "model": "", "brandCode": "",
                       "bomVer": "", "market": "", "statusCode": "", "synStatus": "", "createdBy": "",
                       "createdTimeFrom": "", "createdTimeTo": "", "bomType": "singleHeadBom"}, "current": 1, "size": 10}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         add_response = self.Request_BarePhone_Add(add_data, headers)
         flowId = add_response['data']
         search_response = self.Request_Bom_Search(search_data, headers)
@@ -996,7 +1000,7 @@ class APIRequest:
     def API_BarePhone_Factory(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：单机头BOM协作-补充工厂审批通过流程')
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         BomSingleHeadInfo = self.Oneworks_queryBomSingleHeadInfo(flowid, headers)
         approve_data = {"flowId": flowid, "refFactoryList": [
             {"note": BomSingleHeadInfo['data']['bomTreeVOList'][0]['note'], "matCode": BomSingleHeadInfo['data']['bomTreeVOList'][0]['matCode'], "isOversea": None,
@@ -1015,7 +1019,7 @@ class APIRequest:
         logging.info('发起流程接口：单机头BOM协作-结构工程师审批通过流程')
         self.API_BarePhone_Factory(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         BomSingleHeadInfo = self.Oneworks_queryBomSingleHeadInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -1092,7 +1096,7 @@ class APIRequest:
         logging.info('发起流程接口：单机头BOM协作-业务审核通过流程')
         self.API_BarePhone_StructureEnginner(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         BomSingleHeadInfo = self.Oneworks_queryBomSingleHeadInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -1142,7 +1146,7 @@ class APIRequest:
         logging.info('发起流程接口：单机头BOM协作-业务审核通过流程')
         self.API_BarePhone_Approval(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         BomSingleHeadInfo = self.Oneworks_queryBomSingleHeadInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -1320,7 +1324,7 @@ class APIRequest:
                                {"domainName": "采购代表", "domainCode": "purchase_deputy",
                                 "approver": "18645960"}]}, "uploadList": [], "saveType": "submit"}
         search_data = {"current": 1, "size": 10, "param": {}}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         add_response = self.Request_KeyDevice_Add(add_data, headers)
         bid = add_response['data']['bid']
         search_response = self.Request_KeyDevice_Search(search_data, headers)
@@ -1524,7 +1528,7 @@ class APIRequest:
             ]
         }
         search_data = {"current": 1, "size": 10, "param": {}}
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         add_response = self.Request_KeyDevice_Add(revise_data, headers)
         bid = add_response['data']['bid']
         search_response = self.Request_KeyDevice_Search(search_data, headers)
@@ -1539,7 +1543,7 @@ class APIRequest:
     def API_KeyDevice_image(self, flowNo, instanceid, bid):
         logging.info('发起流程接口：关键器件流程：摄像头+闪光灯审批接口')
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         flowInfo_body = {"flowBid": bid}
         flowInfo_response = self.Request_KeyDevice_flowInfo(flowInfo_body, headers)
         FlowDetail_response = self.Request_KeyDevice_FlowDetail(flowInfo_response['data']['flowMainVO']['deviceBid'], headers)
@@ -1634,7 +1638,7 @@ class APIRequest:
     def API_KeyDevice_hardware(self, flowNo, instanceid, bid, username='18645960'):
         logging.info('发起流程接口：关键器件流程：硬件电子料-基带审批接口')
         Search_Result = self.API_Mytodu_Search(flowNo, username)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         flowInfo_body = {"flowBid": bid}
         flowInfo_response = self.Request_KeyDevice_flowInfo(flowInfo_body, headers)
         FlowDetail_response = self.Request_KeyDevice_FlowDetail(flowInfo_response['data']['flowMainVO']['deviceBid'], headers)
@@ -1698,7 +1702,7 @@ class APIRequest:
     def API_KeyDevice_StandardDeputy(self, flowNo, instanceid, bid):
         logging.info('发起流程接口：关键器件流程：标准化代表审批接口')
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         flowInfo_body = {"flowBid": bid}
         flowInfo_response = self.Request_KeyDevice_flowInfo(flowInfo_body, headers)
         FlowDetail_response = self.Request_KeyDevice_FlowNodeApprover(flowInfo_response['data']['flowMainVO']['deviceBid'], bid, headers)
@@ -1720,7 +1724,7 @@ class APIRequest:
     def API_KeyDevice_PurchaseDeputy(self, flowNo, instanceid, bid):
         logging.info('发起流程接口：关键器件流程：采购代表审批接口')
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         flowInfo_body = {"flowBid": bid}
         flowInfo_response = self.Request_KeyDevice_flowInfo(flowInfo_body, headers)
         FlowDetail_response = self.Request_KeyDevice_FlowNodeApprover(flowInfo_response['data']['flowMainVO']['deviceBid'], bid, headers)
@@ -1751,7 +1755,7 @@ class APIRequest:
         """
         logging.info('发起流程接口：关键器件流程撤回流程')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         self.Oneworks_Recall(instanceid, headers)
         self.Request_KeyDevice_Delete(bid, headers)
         logging.info('流程接口结束：关键器件流程撤回流程')
@@ -1880,7 +1884,7 @@ class APIRequest:
     def API_SaleCountry_Add(self):
         logging.info('发起流程接口：出货国家流程新增流程')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         titletime = datetime.now().strftime('%Y-%m-%d')
         flowStartdate = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         querytime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
@@ -1979,7 +1983,7 @@ class APIRequest:
         """
         logging.info('发起流程接口：出货国家流程撤回流程')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         delete_data = {"flowBid": bid}
         self.Oneworks_Recall(instanceid, headers)
         self.Request_SaleCountry_Delete(delete_data, headers)
@@ -1989,7 +1993,7 @@ class APIRequest:
     def API_Change_Product(self, projectName):
         logging.info('发起流程接口：出货国家查询变更产品接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         PageList_body = {
             "current": 1,
@@ -2120,7 +2124,7 @@ class APIRequest:
     def API_Change_Country(self, projectName):
         logging.info('发起流程接口：出货国家查询变更国家接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         PageList_body = {
             "current": 1,
             "size": 10,
@@ -2211,7 +2215,7 @@ class APIRequest:
     def API_Change_Audit(self, flowNo, instanceid, bid):
         logging.info('发起流程接口：出货国家流程产品部管理员审核接口')
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         Info = self.Request_SaleCountry_Info(bid, headers)
         change_data = {
             "currentNodeCode": "productor_admin",
@@ -2241,7 +2245,7 @@ class APIRequest:
         logging.info('发起流程接口：出货国家流程产品部汇签审核接口')
         self.API_Change_Audit(flowNo, instanceid, bid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         Info = self.Request_SaleCountry_Info(bid, headers)
         change_data = {
             "currentNodeCode": "productor_join",
@@ -2271,7 +2275,7 @@ class APIRequest:
         logging.info('发起流程接口：出货国家流程产品经理修改审核接口')
         self.API_Change_Join(flowNo, instanceid, bid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         Info = self.Request_SaleCountry_Info(bid, headers)
         querytime = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         titletime = datetime.now().strftime('%Y-%m-%d')
@@ -2337,7 +2341,7 @@ class APIRequest:
         logging.info('发起流程接口：出货国家流程产品经理修改审核接口')
         self.API_Change_Join(flowNo, instanceid, bid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         Info = self.Request_SaleCountry_Info(bid, headers)
         LastedTemp = self.Request_SaleCountry_LastedTemp('infinix', headers)
         change_data = {
@@ -2366,7 +2370,7 @@ class APIRequest:
         logging.info('发起流程接口：出货国家流程产品部管理员审核接口')
         self.API_Change_managerModify(flowNo, instanceid, bid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         Info = self.Request_SaleCountry_Info(bid, headers)
         change_data = {
             "currentNodeCode": "productor_admin2",
@@ -2404,7 +2408,7 @@ class APIRequest:
     def API_Foreign_Add(self):
         logging.info('发起流程：外研BOM协作新增接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         add_data = {
             "flowId": None,
@@ -2541,7 +2545,7 @@ class APIRequest:
     def API_Foreign_Derived_Add(self):
         logging.info('发起流程：外研BOM协作新增接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         add_data = {
             "flowId": None,
@@ -2946,7 +2950,7 @@ class APIRequest:
     def API_Foreign_Failed_Add(self):
         logging.info('发起流程：外研BOM协作新增接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         add_data = {
             "flowId": None,
@@ -3108,7 +3112,7 @@ class APIRequest:
     def API_Foreign_Approval(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：外研BOM协作-业务审核通过流程')
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         BomForeignInfo = self.Oneworks_queryBomForeignInfo(flowid, headers)
         approve_data = {
             "flowId": "flowid",
@@ -3153,7 +3157,7 @@ class APIRequest:
     def API_PCBA_Add(self):
         logging.info('发起流程：外研BOM协作新增接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         add_data = {
             "flowId": None,
@@ -3776,7 +3780,7 @@ class APIRequest:
     def API_PCBA_Derived_Add(self):
         logging.info('发起流程：外研BOM协作新增接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         querytime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         add_data = {
             "flowId": None,
@@ -5560,7 +5564,7 @@ class APIRequest:
     def API_PCBA_Factory(self, flowNo, instanceid, flowid):
         logging.info('发起流程接口：PCBABOM协作-补充工厂审批通过流程')
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         BomPCBAInfo = self.Oneworks_queryPCBAInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -5622,7 +5626,7 @@ class APIRequest:
         logging.info('发起流程接口：PCBABOM协作-基带工程师审批通过流程')
         self.API_PCBA_Factory(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -5682,7 +5686,7 @@ class APIRequest:
         logging.info('发起流程接口：PCBABOM协作-基带工程师审批通过流程')
         self.API_PCBA_Factory(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -5751,7 +5755,7 @@ class APIRequest:
         logging.info('发起流程接口：PCBABOM协作-采购审核通过流程')
         self.API_PCBA_Structure(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -5782,7 +5786,7 @@ class APIRequest:
         logging.info('发起流程接口：PCBABOM协作-采购审核通过流程')
         self.API_Derived_PCBA_Structure(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -5813,7 +5817,7 @@ class APIRequest:
         logging.info('发起流程接口：PCBABOM协作-业务审核通过流程')
         self.API_PCBA_Purchase(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -5878,7 +5882,7 @@ class APIRequest:
         logging.info('发起流程接口：PCBABOM协作-业务审核通过流程')
         self.API_Derived_PCBA_Purchase(flowNo, instanceid, flowid)
         Search_Result = self.API_Mytodu_Search(flowNo)
-        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1]}
+        headers = {'Content-Type': 'application/json', 'Authorization': Search_Result[1], 'P-Rtoken': Search_Result[2]}
         PCBAInfo = self.Oneworks_PCBA_queryInfo(flowid, headers)
         approve_data = {
             "flowId": flowid,
@@ -5945,7 +5949,7 @@ class APIRequest:
     def API_TBM_ServiceDictList(self):
         logging.info('发起流程接口：TBM字典服务接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         search_data = {
             "param": {
                 "refAppCode": "TBM"
@@ -5959,7 +5963,7 @@ class APIRequest:
     def API_TBM_ServiceDictData(self, codes, appCode='tbm', status='enable'):
         logging.info('发起流程接口：TBM字典服务数据接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         logging.info(f'接口请求地址为：http://pfgatewayidct.transsion.com:9088/service-base-dictionary/base/dictionaries?codes={codes}&appCode={appCode}&status={status}')
         history_response = requests.get(
             url=f'http://pfgatewayidct.transsion.com:9088/service-base-dictionary/base/dictionaries?codes={codes}&appCode={appCode}&status={status}',
@@ -5976,7 +5980,7 @@ class APIRequest:
         """
         logging.info('发起请求：员工查询接口')
         token = self.tbm_login()
-        headers = {'Content-Type': 'application/json', 'Authorization': token}
+        headers = {'Content-Type': 'application/json', 'Authorization': token[0], 'P-Rtoken': token[1]}
         response = requests.post(
             url=eval(ini._get('API', '员工查询接口')),
             data=code.encode('utf-8'), headers=headers).json()

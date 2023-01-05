@@ -1,6 +1,5 @@
-from project.DCR.page_object.Center_Component import LoginPage
+from project.DCR_GLOBAL.page_object.Center_Component import DCRLoginPage
 from project.DCR_GLOBAL.page_object.NewProductBooking_ShopBookingStatistics import ShopBookingStatisticsPage
-from public.base.assert_ui import ValueAssert, DomAssert
 import logging
 from libs.common.time_ui import sleep
 from public.base.basics import Base
@@ -11,7 +10,7 @@ import allure
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
     yield
-    menu = LoginPage(drivers)
+    menu = DCRLoginPage(drivers)
     get_menu_class = menu.get_open_menu_class()
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):
@@ -23,10 +22,10 @@ class TestQueryShopBookingStatistics:
     @allure.title("新品预定页面，随机组合条件查询门店预订统计")
     @allure.description("新品预定页面，随机组合条件查询门店预订统计")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    @pytest.mark.UT
     def test_001_001(self, drivers):
-        user = LoginPage(drivers)
+        user = DCRLoginPage(drivers)
         """变量"""
         query_dict = {
             #'Enable Date': '2022-12-26',
@@ -42,6 +41,7 @@ class TestQueryShopBookingStatistics:
         query = ShopBookingStatisticsPage(drivers)
         user.click_gotomenu("New Product Booking", "Shop Booking Statistics")
         query.click_unfold_fold('Unfold')
+        query.shop_book_statistics_enable_date_query('Enable Date', '2022-12-26')
         query.random_Query_Method(query_dict)
 
 

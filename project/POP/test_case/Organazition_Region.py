@@ -16,14 +16,14 @@ user = Element(pro_name, object_name)
 @pytest.fixture(scope='function', autouse=True)
 def setup_module(drivers):
     logging.info("前置条件：进入’组织-区域‘页面")
-    user = NavPage(drivers)
-    user.click_gotonav("组织", "区域")
+    nav = NavPage(drivers)
+    nav.click_gotonav("组织", "区域")
 
 
 @allure.feature("组织-区域")    #模块名
 class TestExportRegion:
-    @allure.story("区域")
-    @allure.title("Region")
+    @allure.story("导出区域")
+    @allure.title("导出筛选区域")
     @allure.description("根据筛选条件导出区域列表")
     @allure.severity("normal")
     @pytest.mark.smoke
@@ -35,8 +35,6 @@ class TestExportRegion:
         users.click_button('导出')
         test = users.element_text(user['断言'])
         ValueAssert.value_assert_equal(test, '创建导出任务成功！')
-
-
 
 if __name__ == '__main__':
     pytest.main(['Organazition_Region.py'])

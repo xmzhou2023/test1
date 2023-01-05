@@ -135,7 +135,8 @@ class TestAddShop:
         # 点击新增
         users.click_add()
         # 输入门店名称
-        users.input_shopname(shopname)
+        num = str(time.time())
+        users.input_shopname(shopname+num)
         # 输入组织
         users.switch_organization(organization)
         # 输入国家
@@ -187,4 +188,4 @@ class TestAddShop:
 
 
 if __name__ == '__main__':
-    pytest.main(['Shop_ShopList.py::TestQueryShop'])
+    pytest.main(['Shop_ShopList.py::TestAddShop'])

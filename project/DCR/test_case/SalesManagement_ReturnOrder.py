@@ -1,8 +1,6 @@
 import logging
 from datetime import datetime
-
 from dateutil.relativedelta import relativedelta
-
 from project.DCR.page_object.SalesManagement_ReturnOrder import ReturnOrderPage,ReturnOrderQuery
 from project.DCR.page_object.SalesManagement_SalesOrder import SalesOrderPage
 from project.DCR.page_object.SalesManagement_DeliveryOrder import DeliveryOrderPage
@@ -26,7 +24,6 @@ def function_menu_fixture(drivers):
     class_value = "tags-view-item router-link-exact-active router-link-active active"
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
-
 
 
 @allure.feature("销售管理-退货单")
@@ -672,7 +669,7 @@ class TestReturnQuery:
             'Model': 'T529',
             'Market Name': 'T529',
             'Seller Country': 'China',
-            'IMEI': '351594528651687'
+            'IMEI': '351594528651620'
         }
         query = ReturnOrderQuery(drivers)
         user.click_gotomenu("Sales Management", "Return Order")

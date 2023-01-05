@@ -100,7 +100,9 @@ class HAJSPage(Base):
 
     @allure.step("关闭打开的页面")
     def Close_Page(self):
-        self.is_click(user['Close_Page'])
+        self.is_click(user['Dash_Board'])
+        self.refresh()
+        self.driver.implicitly_wait(5)  # 隐式等待页面加载成功
 
     @allure.step("下载导出的excel")
     def Download_Symp_Code(self, name, content):
@@ -329,6 +331,12 @@ class HAJSPage(Base):
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='界面加载不成功')
         self.is_click(user['Search_Button'])
 
+    @allure.step("JS页面，Created On查询")
+    def Get_Created_On_JS(self, date):
+        self.is_click(user['Start_Date'])
+        self.is_click(user['Start_Date_Month'])
+        self.is_click(user['Start_Date_Day'], date)
+
     @allure.step("获取查询到的最新JS数据")
     def Get_New_JS(self):
         imei = self.element_text(user['JS_List_Data'], "1", "el-table_3_column_21")
@@ -455,6 +463,7 @@ class HAJSPage(Base):
                 txt = self.element_text(user['Current_Page_data'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
+                ValueAssert.value_assert_In(data, txt)
                 logging.info(list1)
             self.refresh()
             return number, th_num, list1
@@ -509,6 +518,7 @@ class HAJSPage(Base):
                 txt = self.element_text(user['Current_QuickRepair_data'], f'{i}')
                 logging.info(txt)
                 list1.append(txt)
+                ValueAssert.value_assert_In(data, txt)
                 logging.info(list1)
             self.refresh()
             return number, th_num, list1

@@ -52,7 +52,9 @@ class SymPage(Base):
 
     @allure.step("关闭打开的页面")
     def Close_Page(self):
-        self.is_click(user['Close_Page'])
+        self.is_click(user['Dash_Board'])
+        self.refresh()
+        self.driver.implicitly_wait(5)  # 隐式等待页面加载成功
 
     @allure.step("下载导出的excel")
     def Download_Symp(self, name, content):

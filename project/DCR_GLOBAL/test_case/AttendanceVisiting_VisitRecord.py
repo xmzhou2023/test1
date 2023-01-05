@@ -72,6 +72,8 @@ class TestExportVisitRecord:
         export.click_search()
         export.click_export()
         export.click_download_more()
+        export.input_task_name('Visit Record')
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()

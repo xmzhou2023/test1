@@ -54,15 +54,15 @@ class CustomerPSIPage(Base):
         brand = self.element_text(user['获取Brand文本'])
         return brand
 
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
-
-    def click_close_customerPSI(self):
-        """关闭客户PSI菜单"""
-        self.is_click(user['关闭客户PSI菜单'])
-        sleep(2)
+    # def click_close_export_record(self):
+    #     """关闭导出记录菜单"""
+    #     self.is_click(user['关闭导出记录菜单'])
+    #     sleep(1)
+    #
+    # def click_close_customerPSI(self):
+    #     """关闭客户PSI菜单"""
+    #     self.is_click(user['关闭客户PSI菜单'])
+    #     sleep(1)
 
 
 
@@ -78,6 +78,13 @@ class CustomerPSIPage(Base):
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
         sleep(4)
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click_dcr(user['Task Name value'], content)
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """

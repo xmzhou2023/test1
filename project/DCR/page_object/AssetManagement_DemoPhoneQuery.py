@@ -123,8 +123,5 @@ class DemoPhoneQueryPage(Base):
             self.assert_search_result(i, kwargs[i])
 
 
-
-
-
 if __name__ == '__main__':
     pass

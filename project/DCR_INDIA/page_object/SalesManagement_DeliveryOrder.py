@@ -82,6 +82,13 @@ class DeliveryOrderPage(Base):
         self.is_click(user['More'])
         sleep(6)
 
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click_dcr(user['Task Name value'], content)
+
     def click_export_search(self):
         """导出页面，点击Search按钮"""
         """循环点击查询，直到获取到下载状态为COMPLETE """

@@ -4,6 +4,7 @@ Basic Data Mgt: "xpath==//div[@class='nest-menu'][7]/li[@role='menuitem']/div[@c
 Asynchronous Report Mgt: "xpath==//span[contains(text(),'Asynchronous Report Mgt')]"
 Symptom Group Mgt: "xpath==//li[@role='menuitem']/span[contains(text(),'Symptom Group Mgt')]"
 Task List: "xpath==//LI[@role='menuitem']/span[contains(text(),'Task List')]"
+Dash_Board: "xpath==//li[@tabindex='-1']//span[text()='Dashboard']"
 Symptom_Group_Add: "xpath==//div[contains(@class,'el-row')]/button[@type='button']/span[contains(text(),'Add')]"
 Symptom_Group_Input: "xpath==//label[@for='symptomGroupName']/following-sibling::div//input[@type='text']"
 Symptom_Group_Save: "xpath==//button[@type='button']//span[text()='Save']"
