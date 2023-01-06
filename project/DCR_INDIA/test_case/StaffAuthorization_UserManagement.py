@@ -21,7 +21,8 @@ class TestSearch:
     def test_001_001(self, drivers):
         """变量"""
         query_dict = {
-            'User': 'IN406441I02',
+            'User ID': 'IN406441I02',
+            'User Name': 'MAKVANA ALKESHJI RAJUJI',
             'Superior': 'IN406441I',
             'Sales Region': 'India District_India-itel_GUJ-MH',
             'Staff Status': 'On Service',

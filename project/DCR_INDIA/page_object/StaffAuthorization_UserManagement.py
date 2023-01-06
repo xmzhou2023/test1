@@ -36,40 +36,41 @@ class UserManagementPage(Base):
         @header： 输入框名称
         @content： 输入内容
         """
-        user_list = ['User']
+        user_list = ['User ID']
         country_list = ['Sales Region', 'Country/City']
         fuzzySelect_list = ['Belong To Customer', 'Superior']
         exactSelect_list = ['Staff Status', 'Have Superior or Not', 'Have Shop or Not', 'Staff Type', 'Audit Status', 'Scheme Registration']
         inputSelect_list = ['Brand', 'Position', 'Role']
         self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
-        if header in user_list:
-            self.is_click_tbm(user['输入框'], header)
-            self.input_text(user['输入框2'], content, header)
-        elif header == 'User Name':
-            self.is_click_tbm(user['输入框'], header)
-            self.input_text(user['输入框'], content, header)
-            self.is_click_tbm(user['输入结果模糊选择'], content)
-        elif header in exactSelect_list:
-            self.is_click_tbm(user['输入框'], header)
-            self.is_click_tbm(user['输入结果精确选择'], content)
-        elif header in fuzzySelect_list:
-            if content != '':
+        if content != '':
+            if header in user_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框3'], content, header)
+            elif header == 'User Name':
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['输入结果模糊选择'], content)
+            elif header in exactSelect_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
+            elif header in fuzzySelect_list:
                 self.is_click_tbm(user['输入框'], header)
                 self.input_text(user['输入框2'], content, header)
                 self.is_click_tbm(user['输入结果模糊选择'], content)
-        elif header in country_list:
-            country = content.split('_')
-            self.is_click_tbm(user['输入框'], header)
-            self.input_text(user['输入框'], country[-1], header)
-            self.is_click_tbm(user['地区选择框'], country[0], country[1], country[-1])
-        elif header in inputSelect_list:
-            self.is_click_tbm(user['输入框'], header)
-            self.input_text(user['输入框4'], content, header)
-            self.is_click_tbm(user['输入结果精确选择'], content)
-        else:
-            logging.error('请输入正确的查询条件')
-            raise ValueError('请输入正确的查询条件')
+            elif header in country_list:
+                country = content.split('_')
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], country[-1], header)
+                self.is_click_tbm(user['地区选择框'], country[0], country[1], country[-1])
+            elif header in inputSelect_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框4'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
+                self.is_click_tbm(user['输入框名称'], header)
+            else:
+                logging.error('请输入正确的查询条件')
+                raise ValueError('请输入正确的查询条件')
 
     @allure.step("点击搜索功能")
     def click_search(self):
