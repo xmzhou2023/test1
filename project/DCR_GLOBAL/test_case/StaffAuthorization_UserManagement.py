@@ -21,7 +21,8 @@ class TestSearch:
     def test_001_001(self, drivers):
         """变量"""
         query_dict = {
-            'User': 'PK2021301',
+            'User ID': 'PK2021301',
+            'User Name': 'Ahmed Mobile+Okara',
             'Superior': '',
             'Sales Region': 'Okara',
             'Staff Status': 'On Service',
