@@ -160,4 +160,5 @@ class Login(Base):
         user.BDDP_input_account(username) # 输入帐户名
         user.BDDP_input_passwd(passwd) # 输入密码
         user.input_imgcode()
+        sleep(1)
         user.BDDP_click_login()

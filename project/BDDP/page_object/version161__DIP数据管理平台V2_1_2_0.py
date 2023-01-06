@@ -25,5 +25,8 @@ class UserPage(Base):
         self.is_click(user['用户管理-查询'])
         sleep()
 
+    @allure.step("查找工号")
+    def click_primary(self):
+        self.is_click_tbm(user['主题域'])
 if __name__ == '__main__':
     pass

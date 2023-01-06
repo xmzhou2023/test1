@@ -1,5 +1,6 @@
 import logging
 
+from public.base.assert_ui import DomAssert
 from public.base.basics import Base, sleep
 from libs.common.read_public_element import Element
 
@@ -242,6 +243,7 @@ class BDDPLoginPage(Base):
     def BDDP_click_login(self):
         """点击登录"""
         self.is_click(login['登录BDDP'])
+        DomAssert(self.driver).assert_control(login['登录人'])
 
     def input_imgcode(self):
         """识别图形验证码，输入验证码"""
