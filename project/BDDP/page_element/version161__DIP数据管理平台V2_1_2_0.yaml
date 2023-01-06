@@ -1,2 +1,4 @@
 关键字: "xpath==//span[contains(text(),'终审版报表')]"
 主题域: "xpath==//div[2]/input[@placeholder='请选择主题域']"
+输入框内容: "xpath==//label[normalize-space(text())='variable']/..//input"
+输入框内容2: "xpath==//label[normalize-space(text())='variable']/..//div[@class='tr-select-tree__radio-text']/span"

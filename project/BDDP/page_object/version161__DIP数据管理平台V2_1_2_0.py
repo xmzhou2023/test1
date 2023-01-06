@@ -28,5 +28,15 @@ class UserPage(Base):
     @allure.step("查找工号")
     def click_primary(self):
         self.is_click_tbm(user['主题域'])
+
+    @allure.step("查找工号")
+    def assert_input(self, header, content):
+        if header == '主题域' or header == '业务组织':
+            ac_content = self.element_text(user['输入框内容2'], header)
+            ValueAssert.value_assert_equal(ac_content, content)
+        else:
+            ac_content = self.element_input_text(user['输入框内容'], header)
+            ValueAssert.value_assert_equal(ac_content, content)
+
 if __name__ == '__main__':
     pass
