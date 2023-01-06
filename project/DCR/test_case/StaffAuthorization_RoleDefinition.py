@@ -132,8 +132,8 @@ class TestSetRolePermission:
         DomAssert(drivers).assert_att("Successfully")
 
     @allure.story("角色管理")
-    @allure.title("新增角色成功")
-    @allure.description("新增角色成功")
+    @allure.title("编辑角色成功")
+    @allure.description("编辑角色成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_005(self, drivers):
         """账号登录"""

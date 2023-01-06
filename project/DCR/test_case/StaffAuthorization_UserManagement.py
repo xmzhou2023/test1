@@ -194,6 +194,9 @@ class TestAddEditQuitTranssionUser:
         add.input_Job_Information('Brand', 'Infinix')
         add.input_Personal_Information('Gender', 'Male')
         add.click_add_user_submit()
+        """断言： 用户创建成功"""
+        DomAssert(drivers).assert_att('Create Staff Success')
+        add.click_OK()
         """筛选用户"""
         add.input_search('User ID', userID)
         add.click_search()
@@ -489,6 +492,7 @@ class TestAddEditQuitTranssionUser:
         add.input_Job_Information('Superior', '18650493')
         add.input_Job_Information('Brand', 'Infinix')
         add.click_add_user_submit()
+        add.click_OK()
         """筛选用户"""
         add.input_search('User ID', userID)
         add.click_search()

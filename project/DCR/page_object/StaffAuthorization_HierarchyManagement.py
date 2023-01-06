@@ -173,8 +173,10 @@ class HierarchyManagement(Base):
         """
         :param name: userid
         """
-        self.is_click_tbm(user['复选框'], name)
+        col = self.get_table_info(user['menu表格字段'], 'User ID')
+        self.is_click_tbm(user['复选框'], col, name)
         logging.info(f'点击 {name} 复选框')
+        sleep(1)
 
     @allure.step("输入门店查询条件")
     def input_dialog_search(self, header, content):
@@ -257,6 +259,14 @@ class HierarchyManagement(Base):
         logging.info('开始断言：点击导出存在进度条')
         DomAssert(self.driver).assert_control(user['导出进度条'])
 
-
+    @allure.step("点击弹框复选框")
+    def click_dialog_checkbox(self, name):
+        """
+        :param name: userid
+        """
+        col = self.get_table_info(user['弹窗menu表格字段'], 'User ID')
+        self.is_click_tbm(user['复选框'], col, name)
+        logging.info(f'点击 {name} 弹框复选框')
+        sleep(1)
 if __name__ == '__main__':
     pass

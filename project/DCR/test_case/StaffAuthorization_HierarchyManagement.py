@@ -109,14 +109,15 @@ class TestHierarchy:
         add.click_dialog_unfold()
         add.input_dialog_search('User ID', '1671417004')
         add.click_dialog_search()
-        add.click_checkbox('1671417004')
+        add.click_dialog_checkbox('1671417004')
         add.click_dialog_save()
         """点击Delete The Subordinate 删除下级关系"""
+        add.click_checkbox('wjkTS')
         add.click_function_button('Delete The Subordinate')
         add.click_dialog_unfold()
         add.input_dialog_search('User ID', '1671417004')
         add.click_dialog_search()
-        add.click_checkbox('1671417004')
+        add.click_dialog_checkbox('1671417004')
         add.click_dialog_save('delete')
         DomAssert(drivers).assert_att('Delete success!')
         """断言：删除下级关系成功"""

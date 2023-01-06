@@ -1053,7 +1053,9 @@ class UserManagementPage(Base):
         DomAssert(self.driver).assert_att('Save successfully!')
         self.is_click_tbm(user['修改密码OK'])
 
-
+    @allure.step("创建用户后点击OK")
+    def click_OK(self):
+        self.is_click_tbm(user['创建成功OK'])
 
 if __name__ == '__main__':
     pass

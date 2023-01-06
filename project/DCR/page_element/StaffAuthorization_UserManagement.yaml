@@ -162,4 +162,5 @@ Total: "xpath==//span[contains(text(),'Total')]"
 确认密码: "xpath==//label[normalize-space(text())='Confirm Password']/..//input"
 修改密码保存: "xpath==//div[@aria-label='For the first time, you need to change your password']//span[normalize-space(text())='Save']"
 修改密码OK: "xpath==//div[@aria-label='Tips']//span[normalize-space(text())='OK']"
+创建成功OK: "xpath==//div[@role='dialog']//span[normalize-space(text())='OK']"
 
