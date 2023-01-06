@@ -106,17 +106,10 @@ class Teststory_2797:
     @pytest.mark.smoke  # 用例标记
     def test_30691(self, drivers):
         robot = KeyWord(drivers)
-        robot.AI_get("http://10.248.39.163:10101/")#idbd3cf27c-8585-4ba5-8381-d235f14cee98
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-form-item:nth-child(1) .el-input--prefix > .el-input__inner").click()#id873dd024-9b8e-4a86-9ea7-1be3c2065e91
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-form-item:nth-child(1) .el-input--prefix > .el-input__inner").send_keys("18653759")#idb705b744-1104-47df-ad64-eb6208ca6886
-        robot.AI_find_element(By.CSS_SELECTOR, ".el-input--suffix > .el-input__inner").send_keys("xLily6x")#idde7f200e-d2ff-4f48-9f09-cbfd98301f26
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").click()#ida2d70b62-043a-49a4-a5f1-f0c574f6306c
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").send_keys("2JYB")#id80e4b3ac-fd56-410d-802d-a0f21c6aa83c
-        robot.AI_find_element(By.XPATH, "//button[contains(.,'登录')]").click()#id8ae7d68a-4e0e-41f0-81e2-1da07be1eae5
-        robot.AI_find_element(By.CSS_SELECTOR, "#hamburger-container use").click()#ida455c33d-cd2d-48e5-99a9-bf66e185d4b9
+        user = UserPage(drivers)
         robot.AI_find_element(By.XPATH, "//li[contains(.,'卡片管理')]").click()#id819be31d-e1f9-4481-9c4d-4f8c5b2eb748
         robot.AI_find_element(By.XPATH, "//span[contains(.,'+新建')]").click()#idb259fc7c-c62c-4853-ad7f-43426972ffd9
-        robot.AI_find_element(By.XPATH, "//span/i[2]").click()#id6eefae5f-6f81-4e45-8d5f-a4f6a45ac543
+        time.sleep(2)
         robot.AI_find_element(By.XPATH, "//input").click()#id7675bc2c-97bc-4003-8c23-a9f83a7f39e2
         robot.AI_find_element(By.XPATH, "//body/div[2]/div/div/ul/li/span").click()#id733e264f-409f-438c-860c-adbab3b06e5b
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").click()#id0c4fd09a-bd47-48fb-8f76-9572f82c1eeb
@@ -132,7 +125,7 @@ class Teststory_2797:
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[4]").click()#id7db42d6d-51d1-4856-b85b-bc7d4132fbe0
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[4]").send_keys("陈嘉")#id670f4fb3-33ed-436e-9c17-407410840882
         robot.AI_find_element(By.XPATH, "//div[5]/div/div/ul/li[2]/span").click()#id0aefa37b-d8a8-4248-9712-b33c09d742a5
-        robot.AI_find_element(By.XPATH, "//div[6]/div/div/div/div/div[2]/input").click()#ida85ddfc9-4eae-4fdf-988b-9d68793cb214
+        robot.AI_find_element(By.XPATH, "//div[6]/div/div/div/div/div").click()#ida85ddfc9-4eae-4fdf-988b-9d68793cb214
         robot.AI_find_element(By.XPATH, "//div[6]/div/div/div/div[2]/div[4]/div/div").click()#id81c228e5-fbac-4dda-a6e4-2dbb32761554
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[5]").click()#idfeb66049-f2f7-49a5-b58d-9acb078c748d
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[5]").send_keys("郭伟")#idbe1014f9-4127-40f6-a5e6-b1d907af7186
@@ -146,11 +139,20 @@ class Teststory_2797:
         robot.AI_find_element(By.XPATH, "//div[2]/div[3]/button/span").click()#id0c0244bd-7b65-46ea-9468-1e744ea81268
         robot.AI_find_element(By.XPATH, "//textarea").click()#id8e65d049-801e-44e7-bb4d-e149bbd931dd
         robot.AI_find_element(By.XPATH, "//textarea").send_keys("销售年情况")#idfb1077c3-5ffa-41ee-a2d4-c7c93fe00d0e
+        user.assert_input('新建说明', '销售年情况')
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[8]").click()#id08a75066-5f43-44ef-9c09-b31e3c01cd00
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[8]").send_keys("test")#idc6289502-af33-4620-94fe-df696d45087a
         robot.AI_find_element(By.XPATH, "//div[2]/div/div/div/textarea").click()#id16278250-da7e-4213-8ee1-e0d5c8c8237e
         robot.AI_find_element(By.XPATH, "//div[2]/div/div/div/textarea").send_keys("kdjflkjlfw")#id47af0a08-5176-485e-8cb1-276dc5c8b97c
+        user.assert_input('英文属性说明', 'kdjflkjlfw')
         robot.AI_find_element(By.XPATH, "//span[contains(.,'确定')]").click()#idb61adb68-2f38-4b49-9485-4a351657b5d9
+        DomAssert(drivers).assert_att("新建卡片成功！")
+        DomAssert(drivers).assert_att('测试5')
+        robot.AI_find_element(By.XPATH,
+                              "//td[not(contains(@class,'is-hidden'))]//i[@title='删除']").click()  # idaa9f333a-6f7a-4e44-874c-b9ad82f4b7af
+        robot.AI_find_element(By.XPATH,
+                              "//div[@class='el-message-box__wrapper']//span[normalize-space(text())='确定']").click()  # idaa9f333a-6f7a-4e44-874c-b9ad82f4b7af
+        DomAssert(drivers).assert_att("删除成功")
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称

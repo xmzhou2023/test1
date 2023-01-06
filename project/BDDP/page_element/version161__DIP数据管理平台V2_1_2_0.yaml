@@ -2,3 +2,5 @@
 主题域: "xpath==//div[2]/input[@placeholder='请选择主题域']"
 输入框内容: "xpath==//label[normalize-space(text())='variable']/..//input"
 输入框内容2: "xpath==//label[normalize-space(text())='variable']/..//div[@class='tr-select-tree__radio-text']/span"
+输入框内容3: "xpath==//div[normalize-space(text())='新建']/..//label[normalize-space(text())='说明']/..//textarea"
+输入框内容4: "xpath==//span[normalize-space(text())='英文属性']/../../..//label[normalize-space(text())='说明']/..//textarea"
