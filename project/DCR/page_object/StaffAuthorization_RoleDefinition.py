@@ -187,7 +187,7 @@ class RoleDefinitionPage(Base):
             self.is_click_tbm(user['功能按钮'], 'More Option')
             self.is_click_tbm(user['功能按钮2'], function)
             if function == 'Delete':
-                self.is_click_tbm(user['DeleteConfirm'])
+                self.is_click_tbm(user['dialogConfirm'])
         else:
             self.is_click_tbm(user['功能按钮'], function)
         logging.info(f'点击功能按钮： {function}')
@@ -229,6 +229,40 @@ class RoleDefinitionPage(Base):
     def assert_export_success(self):
         logging.info('开始断言：点击导出存在进度条')
         DomAssert(self.driver).assert_control(user['导出进度条'])
+
+    @allure.step("点击指定菜单复选框")
+    def click_menu_checkbox(self, menu):
+        """
+        :param menu: 指定菜单
+        """
+        self.is_click(user['菜单复选框'], menu)
+        logging.info(f'点击指定菜单 {menu} 复选框')
+
+    @allure.step("点击指定菜单管理页")
+    def click_menu_management(self, menu):
+        """
+        :param menu: 指定菜单
+        """
+        if menu.lower() == 'app':
+            self.is_click(user['菜单管理页'], 'App Menu Management')
+            logging.info(f'点击指定菜单 {menu} 复选框')
+        elif menu.lower() == 'web':
+            self.is_click(user['菜单管理页'], 'WEB Menu Management')
+            logging.info(f'点击指定菜单 {menu} 复选框')
+        else:
+            logging.error('请输入正确的菜单名')
+            raise ValueError('请输入正确的菜单名')
+
+    @allure.step("点击保存")
+    def click_permissionSave(self):
+        self.is_click_tbm(user['permissionSave'])
+        logging.info('点击保存')
+
+    @allure.step("点击确定")
+    def click_dialog_Confirm(self):
+        self.is_click_tbm(user['dialogConfirm'])
+        logging.info('点击确定')
+
 
 if __name__ == '__main__':
     pass

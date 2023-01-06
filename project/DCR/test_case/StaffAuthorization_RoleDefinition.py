@@ -204,7 +204,7 @@ class TestSetRolePermission:
     def test_001_007(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
-        """打开User Authorization菜单页面 """
+        """点击角色管理菜单"""
         add = RoleDefinitionPage(drivers)
         add.click_menu("Staff & Authorization", "Role Definition")
         add.click_unfold()
@@ -216,6 +216,43 @@ class TestSetRolePermission:
         add.click_function_button('Export Permission')
         """断言：存在导出文件进度条"""
         add.assert_export_success()
+
+    @allure.story("角色管理")
+    @allure.title("角色权限设置成功")
+    @allure.description("角色权限设置成功")
+    @allure.severity("normal")
+    @pytest.mark.smoke
+    def test_001_008(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击角色管理菜单"""
+        add = RoleDefinitionPage(drivers)
+        add.click_menu("Staff & Authorization", "Role Definition")
+        """新增角色"""
+        Role = 'Role名称自动生成{}'.format(datetime.now().strftime("%Y%m%d%H%M%S"))
+        add.click_function_button('Add')
+        add.input_role_content('Role Code', Role)
+        add.input_role_content('Role', Role)
+        add.click_AddSave()
+        DomAssert(drivers).assert_att("Successfully")
+        add.refresh()
+        """角色授权设置"""
+        add.input_search('Role', Role)
+        add.click_search()
+        add.click_checkbox(Role)
+        add.click_function_button('Permission Setting')
+        add.click_menu_checkbox('Home Page')
+        add.click_menu_checkbox('Basic Data Management')
+        add.click_menu_management('app')
+        add.click_menu_checkbox('Main Menu')
+        add.click_permissionSave()
+        """断言：角色授权设置成功"""
+        DomAssert(drivers).assert_att('Save Successfully')
+        add.click_dialog_Confirm()
+        """删除角色"""
+        add.click_checkbox(Role)
+        add.click_function_button('Delete')
+        DomAssert(drivers).assert_att("Successfully")
 
 
 if __name__ == '__main__':
