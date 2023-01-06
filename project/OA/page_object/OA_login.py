@@ -142,14 +142,50 @@ class OAdnluPage(Base):
         itexis = self.element_exist(user["我的专利提案"])
         return itexis
 
+    @allure.step("判断当前界面是不是登录首页，登录按钮是否存在")
+    def ispatent_loginnew(self):
+        itexis = self.element_exist(user["登录"])
+        return itexis
+
+
+
     @allure.step("登录BPM非正式环境")
     def BPMlog(self, options=1, Job="18645351"):
         if options == 1:
             self.open_url("http://10.250.112.41:9082/mvue")  # 打开BPM测试环境管理端
+            # 新界面。有图像识别
+            self.click_accountlogin()  # 点击帐户密码登录
+            self.input_newaccount(Job)  # 默认使用彩霞的号登录BPM
+            self.input_newpasswd("xLily6x")
+            aa = 0
+            # 如果a=1 就跳出循环
+            while aa == 0:
+                self.input_newimgcode()
+                self.click_newloginsubmit()
+                itexis = self.element_exist(user["新登录按钮"])
+                if itexis:
+                    aa = 0
+                else:
+                    aa = 1
+
+
         if options == 2:
+            # 老界面
             self.open_url("http://10.132.68.237:9081/mvue")  # 打开BPMUAT环境管理端
+            self.click_accountuser()
+            self.click_accountlogin()  # 点击帐户密码登录
+            self.input_account(Job)  # 默认使用彩霞的号登录BPM
+            self.input_passwd("xLily6x")
+            self.click_checkbox()
+            self.click_loginsubmit()
+
         if options == 3:
+            # 新界面。有图像识别
             self.open_url("http://10.250.112.42:9082/mvue")  # 打开BPM开发环境管理端
+            self.click_accountlogin()  # 点击帐户密码登录
+            self.input_newaccount(Job)  # 默认使用彩霞的号登录BPM
+            self.input_newpasswd("xLily6x")
+            self.click_newloginsubmit()
         if options == 4:
             self.open_url("http://10.250.112.41:9082/front")  # 打开BPM测试环境用户端
         if options == 5:
@@ -158,13 +194,20 @@ class OAdnluPage(Base):
             self.open_url("http://10.250.112.42:9081/front")  # 打开BPM开发环境用户端
         if options == 0:
             pass  # 不需要重新打开地址
-        self.click_accountuser()
-        self.click_accountlogin()  # 点击帐户密码登录
-        self.input_account(Job)  # 默认使用彩霞的号登录BPM
-        self.input_passwd("xLily6x")
-        if Job == "18645351":
-            self.click_checkbox()
-        self.click_loginsubmit()
 
+    def input_newaccount(self, content):
+        """输入工号"""
+        self.input_text(user['新账号名'], txt=content)
 
+    def input_newpasswd(self, content):
+        """输入密码"""
+        self.input_text(user['新密码'], txt=content)
 
+    def click_newloginsubmit(self):
+        """点击帐号密码登录"""
+        self.is_click(user['新登录按钮'])
+
+    def input_newimgcode(self):
+        """识别图形验证码，输入验证码"""
+        imgcode = self.get_graphical_code(user['图形验证码'])
+        self.input_text(user['图形验证码输入框输入'], imgcode)
