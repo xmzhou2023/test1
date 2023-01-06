@@ -31,25 +31,25 @@ class TestReturnOrder:
         user = LoginPage(drivers)
         """变量"""
         query_dict = {
-            'Return Order ID': 'RDIN202301020046',
-            'Delivery/DN Order ID': '02IN2208270005681',
-            'Brand': 'itel appliances',
+            'Return Order ID': 'RDIN202301044620',
+            'Delivery/DN Order ID': '02IN2212160011557',
+            'Brand': 'itel',
             #'Return Date': '2023-01-02',
-            'Status': 'Agree',
+            'Status': 'Commit',
             'Return Type': 'Return To Seller',
-            'Seller': 'IN405658V',
-            'Buyer': 'IN010492',
+            'Seller': 'IN400599I',
+            'Buyer': '1400067899',
             'Seller Warehouse Region': 'India District',
             'Buyer Warehouse Region': 'India District',
-            'Model': 'A3240IE',
-            'Market Name': 'A3240IE',
+            'Model': 'A511LQ',
+            'Market Name': 'A511LQ',
             'Seller Country': 'India',
-            'IMEI': 'IJ501C771807086'
+            'IMEI': '351606785597484'
         }
         query = ReturnOrderPage(drivers)
         user.click_gotomenu("Sales Management", "Return Order")
         query.click_unfold()
-        query.return_order_return_date_query('Return Date', '2023-01-02')
+        query.return_order_return_date_query('Return Date', '2023-01-04')
         query.random_Query_Method(query_dict)
 
 

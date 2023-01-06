@@ -66,6 +66,7 @@ class ShopBookingStatisticsPage(Base):
         elif header in brand_list:
             self.is_click_dcr(user['输入框'], header)
             self.is_click(user['输入结果精确选择'], content)
+            self.is_click(user['点击label标签'], header)
         elif header in market_name_list:
             self.is_click_dcr(user['输入框3'], header)
             self.input_text_dcr(user['输入框Market Name'], content, header)

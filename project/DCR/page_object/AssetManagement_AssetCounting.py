@@ -26,6 +26,7 @@ class AssetCountingPage(Base):
 
         self.is_click(user['Manpower Type'])
         self.is_click(user['Manpower Type Value'], manpower)
+        self.is_click(user['点击label标签'], 'Manpower Type')
         self.is_click(user['Fold'])
 
 

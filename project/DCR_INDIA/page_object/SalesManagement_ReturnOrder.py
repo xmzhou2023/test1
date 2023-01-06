@@ -66,6 +66,7 @@ class ReturnOrderPage(Base):
             self.is_click_dcr(user['输入框'], header)
             self.input_text(user['输入框1'], content, header)
             sleep(2)
+            self.presence_sleep_dcr(user['输入结果精确选择'], content)
             self.is_click(user['输入结果精确选择'], content)
             self.is_click(user['点击label标签'], header)
         elif header in return_date_list:

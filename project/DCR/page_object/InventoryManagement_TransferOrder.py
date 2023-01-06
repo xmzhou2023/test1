@@ -22,7 +22,7 @@ class TransferOrderPage(Base):
     def click_transfer_from_customer(self, customer):
         self.is_click(user['Transfer From'])
         sleep(1.5)
-        self.is_click(user['Transfer From Select Customer'], customer)
+        self.is_click_dcr(user['Transfer From Select Customer'], customer)
 
     @allure.step("Create新增TransferOrder页面，输入Transfer From的warehouse属性")
     def click_transfer_from_warehouse(self, warehouse):
@@ -83,7 +83,7 @@ class TransferOrderPage(Base):
 
     @allure.step("Transfer Order列表获取Transfer ID文本")
     def get_list_transfer_order_id(self):
-        self.presence_sleep_dcr(user['Get list Transfer Order ID'])
+        #self.presence_sleep_dcr(user['Get list Transfer Order ID'])
         get_transfer_id = self.element_text(user['Get list Transfer Order ID'])
         return get_transfer_id
 
@@ -173,7 +173,8 @@ class TransferOrderPage(Base):
     @allure.step("点击Search或 Reset按钮")
     def click_search_reset(self, choose):
         self.is_click(user['Search'], choose)
-        sleep(2)
+        self.element_text(user['Loading'])
+        #sleep(2)
 
     @allure.step("Transfer Order页面，获取列表Total分页总条数")
     def get_transfer_order_list_total(self):

@@ -36,9 +36,6 @@ class TestQueryShopInventoryIMEI:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
-        base = Base(drivers)
-        base.refresh()
-        sleep(3.5)
         menu = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
         """报表分析-打开门店库存IMEI查询页面"""
@@ -69,10 +66,6 @@ class TestExportShopInventoryIMEI:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
-        """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
-        sleep(3.5)
         """报表分析-打开门店库存IMEI查询页面"""
         menu = DCRLoginPage(drivers)
         menu.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")

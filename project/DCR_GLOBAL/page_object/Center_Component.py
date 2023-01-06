@@ -77,6 +77,9 @@ class DCRLoginPage(Base):
     """查找菜单"""
     def click_gotomenu(self, *content):
         """前往左侧菜单栏"""
+        self.refresh()
+        self.is_click(user['菜单栏'])
+        self.refresh()
         level = []
         navstr = ""
         for i in range(len(content)):
@@ -88,7 +91,7 @@ class DCRLoginPage(Base):
             self.scroll_into_view(user[level[i]])
             sleep(3.5)
             self.is_click(user[level[i]])
-        sleep(6)
+        self.element_exist(user['Loading'])
 
 
 

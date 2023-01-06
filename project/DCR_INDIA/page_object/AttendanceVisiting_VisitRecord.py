@@ -20,6 +20,7 @@ class VisitRecordPage(Base):
         self.is_click(user['Fold'])
         sleep(1.5)
 
+
     def input_shop_id_query(self, content):
         """Visit Record页面，筛选Shop ID的巡店记录"""
         self.is_click_dcr(user['Input Query Shop'])
@@ -41,7 +42,7 @@ class VisitRecordPage(Base):
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""

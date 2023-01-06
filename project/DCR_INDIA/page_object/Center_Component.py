@@ -86,6 +86,9 @@ class LoginPage(Base):
     @allure.step("点击菜单")
     def click_gotomenu(self, *content):
         """前往左侧菜单栏"""
+        self.refresh()
+        self.is_click(user['菜单栏'])
+        self.refresh()
         level = []
         navstr = ""
         for i in range(len(content)):
@@ -97,7 +100,7 @@ class LoginPage(Base):
             self.scroll_into_view(user[level[i]])
             sleep(4)
             self.is_click(user[level[i]])
-        sleep(5)
+        self.element_exist(user['Loading'])
 
 
 

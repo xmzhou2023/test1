@@ -26,15 +26,12 @@ class TestQueryVisitRecord:
     @allure.description("巡店记录页面，根据门店ID查询巡店记录列表数据加载，校验数据加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_001_001(self, drivers):
-        base = Base(drivers)
-        base.refresh()
-        sleep(4.5)
         menu = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
         """打开考勤与巡店管理-打开巡店记录页面"""
         menu.click_gotomenu("Attendance & Visiting", "Visit Record")
         all_visit = VisitRecordPage(drivers)
-        sleep(1.5)
+        all_visit.click_search()
         shop_id = all_visit.get_shop_id_text()
         all_visit.click_unfold()
         all_visit.input_shop_id_query(shop_id)

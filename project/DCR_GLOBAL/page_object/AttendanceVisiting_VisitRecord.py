@@ -48,7 +48,7 @@ class VisitRecordPage(Base):
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""

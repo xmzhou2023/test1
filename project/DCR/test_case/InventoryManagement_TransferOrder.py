@@ -102,7 +102,7 @@ class TestQueryTransferOrder:
         """按Brand条件，筛选调拨单记录"""
         query_transfer.transfer_order_input_select_query('Transfer Brand click query', 'Transfer Brand input query', 'Transfer Brand select query', 'itel', 'itel')
         query_transfer.click_search_reset('Search')
-        query_transfer.click_create_date_label
+        query_transfer.click_create_date_label()
         query_transfer.assert_search_transfer_order_field('Brand', 'itel')
         """重置筛选条件"""
         query_transfer.click_search_reset('Reset')
@@ -132,7 +132,6 @@ class TestQueryTransferOrder:
         query_transfer.assert_search_transfer_order_field('IMEI', '354196616529945')
         query_transfer.close_transfer_imei_detail()
         query_transfer.click_search_reset('Reset')
-
 
 
     @allure.story("查看调拨单IMEI详情")  # 场景名称
@@ -199,12 +198,11 @@ class TestNewRecallTransferOrder:
         logging.info("打印从IMEI Inventory Query页面，获取的imei:{}".format(imei))
         get_imei.click_close_imei_inventory()
         """刷新页面"""
-        get_imei.click_refresh(drivers)
-
+        Base(drivers).refresh()
         user.click_gotomenu("Inventory Management", "Transfer Order")
         transfer = TransferOrderPage(drivers)
         transfer.click_create()
-        transfer.click_transfer_from_customer('BD2915 lhmSubdealer001 ')
+        transfer.click_transfer_from_customer('BD2915 lhmSubdealer001')
         transfer.click_transfer_to_customer('NG20613 xylSub dealer')
         transfer.input_scan_imei(imei)
         """点击Check 按钮，校验IMEI是否存在此仓库"""
@@ -239,17 +237,22 @@ class TestNewRecallTransferOrder:
         transfer.click_transfer_receipt_status_query('No Receive')
         """点击查询按钮"""
         transfer.click_search_reset('Search')
-        sleep(1)
+        #sleep(1)
         """勾选复选框"""
         transfer.click_transfer_order_checkbox()
         """点击recall撤回功能"""
         transfer.click_more_option_recall_confirm()
         """弹出成功提示语断言"""
         DomAssert(drivers).assert_att('Successfully')
+        """点击查询按钮"""
+        transfer.click_transfer_receipt_status_query('Rejected')
+        transfer.click_search_reset('Search')
+        get_transfer_id2 = transfer.get_list_transfer_order_id()
         get_order_status = transfer.get_list_transfer_order_status()
         get_receipt_status = transfer.get_list_transfer_receipt_status()
-        ValueAssert.value_assert_equal('Recall', get_order_status)
-        ValueAssert.value_assert_equal('No Receive', get_receipt_status)
+        ValueAssert.value_assert_equal(get_transfer_id, get_transfer_id2)
+        ValueAssert.value_assert_equal('Audited', get_order_status)
+        ValueAssert.value_assert_equal('Rejected', get_receipt_status)
 
 
 
@@ -280,7 +283,7 @@ class TestNewRecallTransferOrder:
         user.click_gotomenu("Inventory Management", "Transfer Order")
         receipt = TransferOrderPage(drivers)
         receipt.click_create()
-        receipt.click_transfer_from_customer('NG20613 xylSub dealer ')
+        receipt.click_transfer_from_customer('NG20613 xylSub dealer')
         receipt.click_transfer_from_warehouse('WNG2061301')
         receipt.click_transfer_to_customer('NG20613 xylSub dealer')
         receipt.click_transfer_to_warehouse('WNG2061304')
@@ -495,7 +498,7 @@ class TestNewRecallTransferOrder:
         import_transfer.input_transfer_order_id_query(transfer_id)
         import_transfer.click_search_reset('Search')
         sleep(1)
-        """勾选第一个复选框后，点击Confirm Receipt 确认收货操作"""
+        """勾选第一个复选框后，点击Return Goods 确认退货操作"""
         import_transfer.click_transfer_order_checkbox()
         import_transfer.click_transfer_return_goods('退货', 'Return Goods')
         DomAssert(drivers).assert_att('Successfully')
@@ -584,13 +587,14 @@ class TestNewRecallTransferOrder:
         """关闭IMEI Detail详情页"""
         import_transfer.close_transfer_imei_detail()
 
-        """勾选第一个复选框后，点击Confirm Receipt 确认收货操作"""
+        """勾选第一个复选框后，点击Return Goods 确认退货操作"""
         import_transfer.click_transfer_order_checkbox()
         import_transfer.click_transfer_return_goods('退货', 'Return Goods')
         DomAssert(drivers).assert_att('Successfully')
         """获取Transfer Order列表，Receipt Status状态是否更新为Rejected"""
         import_transfer.click_search_reset('Search')
         sleep(1)
+
         get_audited = import_transfer.get_list_transfer_order_status()
         get_receive = import_transfer.get_list_transfer_receipt_status()
         ValueAssert.value_assert_equal('Audited', get_audited)

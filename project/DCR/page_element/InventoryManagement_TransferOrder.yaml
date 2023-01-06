@@ -1,7 +1,7 @@
 #Transfer Order页面，创建调拨单
 Create: "xpath==//div[@class='action']/span/button/span[contains(text(),'Create')]"
 Transfer From: "xpath==//label[contains(text(),'Transfer From')]/../div/div/div/input[@placeholder='Please select a customer']"
-Transfer From Select Customer: "xpath==//div[@class='el-scrollbar']//..//ul//li//span[contains(text(),'variable')]"
+Transfer From Select Customer: "xpath==//div[@class='el-scrollbar']//..//ul//li//span[normalize-space(text())='variable']"
 Transfer From Warehouse: "xpath==//label[contains(text(),'Transfer From')]/../div/div/div/input[@placeholder='Please select a warehouse']"
 Transfer From Select Warehouse: "xpath==//div//ul//li//span[contains(text(),'variable')]"
 
@@ -109,7 +109,7 @@ Transfer Order Transfer ID Query: "xpath==//div//input[@id='transferorder_input_
 Transfer Receipt Status query: "xpath==//div//input[@class='el-input__inner transferorder_input_receiptStatus']"
 Transfer Select Received Status: "xpath==//ul//li//span[contains(text(),'variable')]"
 Search: "xpath==//span[normalize-space(text())='variable']"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
 #Transfer Order页面，导入Transfer Order调拨单操作
 Transfer More Option: "xpath==//button//span[normalize-space(text())='More Option']"

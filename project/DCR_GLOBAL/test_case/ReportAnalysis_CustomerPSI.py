@@ -34,15 +34,12 @@ class TestQueryDistiCustomerPSI:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     def test_001_001(self, drivers):
         """筛选国包客户PSI列表数据，是否加载正常"""
-        base = Base(drivers)
-        base.refresh()
-        sleep(3.5)
         menu = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
         """报表分析-打开客户PSI页面"""
         menu.click_gotomenu("Report Analysis", "Customer PSI")
         psi = CustomerPSIPage(drivers)
-        sleep(5)
+        psi.click_search()
         region_text_a = psi.get_sale_regiona_text()
         region_text_b = psi.get_sale_regionb_text3()
         brand_text = psi.get_brand_text()
@@ -91,17 +88,13 @@ class TestExportDistiCustomerPSI:
 
 
 @allure.feature("报表分析-客户PSI")
-class TestQuerSubCustomerPSI:
+class TestQuerySubCustomerPSI:
     @allure.story("查询二代客户PSI")
     @allure.title("Customer PSI页面，按日期查询二代客户PSI列表数据加载")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据加载，断言数据是否加载正常")
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     def test_003_001(self, drivers):
         """根据日期筛选二代客户PSI列表数据，是否加载正常"""
-        """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
-        sleep(3.5)
         """考勤管理-打开考勤记录页面"""
         menu = DCRLoginPage(drivers)
         menu.click_gotomenu("Report Analysis", "Customer PSI")
@@ -135,7 +128,7 @@ class TestExportSubCustomerPSI:
         today = base.get_datetime_today()
         # 查询二代PSI数据
         export.click_sub_dealer()
-        sleep(5)
+        #sleep(5)
         # 筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()

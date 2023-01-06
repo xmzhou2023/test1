@@ -37,8 +37,7 @@ class TestQueryDeliveryOrder:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
-        Base(drivers).refresh()
-        sleep(3.5)
+        #Base(drivers).refresh()
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")
@@ -74,9 +73,6 @@ class TestExportDeliveryOrder:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
-        """刷新页面"""
-        Base(drivers).refresh()
-        sleep(3.5)
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")

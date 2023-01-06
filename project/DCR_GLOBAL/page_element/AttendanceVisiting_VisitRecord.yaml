@@ -15,6 +15,7 @@ Fold: "xpath==//span[contains(text(),'Fold')]"
 
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭巡店记录菜单: "xpath==//span[normalize-space(text())='Visit Record']//span[@class='el-icon-close']"
 

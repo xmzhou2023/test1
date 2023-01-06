@@ -36,9 +36,6 @@ class TestQueryShopSalesQuery:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
-        base = Base(drivers)
-        base.refresh()
-        sleep(3.5)
         user = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
         """打开销售管理-打开门店销售查询页面"""
@@ -73,10 +70,6 @@ class TestExportShopSalesQuery:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
-        """刷新页面"""
-        base = Base(drivers)
-        base.refresh()
-        sleep(3.5)
         """打开销售管理-打开门店销售查询页面"""
         menu = DCRLoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Shop Sales Query")
