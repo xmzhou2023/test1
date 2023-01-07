@@ -20,8 +20,8 @@ from public.base.assert_ui import DomAssert
 @allure.feature("DIP数据管理平台V2_1_2_0")  # 迭代名称
 class Teststory_2499:
     @allure.story("角色管理负责对所有的报表进行授权管理")  # 用户故事名称
-    @allure.title("公开报表说明栏501字以内新建验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域输入业务域==输入业务负责人.业务组织、IT负责人==选择页面来源定制==选择报表首页差异化是==选择报表类型总部==进入角色管理中心进行数据授权==来源卡片财务销售事业分析部（私有化卡片）==访问地址输入外部地址==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
+    @allure.title("无报表差异化卡片组合报表类型报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域输入业务域==输入业务负责人.业务组织、IT负责人==选择页面来源定制==选择报表首页差异化是==选择报表类型总部==进入角色管理中心进行数据授权==来源卡片财务销售事业分析部（私有化卡片）==访问地址输入外部地址==选择指标财务销售事业分析部==说明销售事业公析==登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域输入业务域==输入业务负责人.业务组织、IT负责人==选择页面来源定制==选择报表首页差异化是==选择报表类型总部==进入角色管理中心进行数据授权==来源卡片财务销售事业分析部（私有化卡片）==访问地址输入外部地址==选择指标财务销售事业分析部==说明销售事业公析==登录PC端后台")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_28877(self, drivers):
@@ -73,17 +73,8 @@ class Teststory_2499:
 @allure.feature("DIP数据管理平台V2_1_2_0")  # 迭代名称
 class Teststory_2797:
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("公开展示'首页'类型卡片新建验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析==选择分析指标选项==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_30688(self, drivers):
-        pass
-
-
-    @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("公开多类下钻报表类型卡片新建验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选项==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
+    @allure.title("公开无首页卡片池类型卡片新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选项==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细==登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选项==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细==登录PC端后台管理系统==点击卡片管理新建==选择卡片名称")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_30689(self, drivers):
@@ -91,8 +82,8 @@ class Teststory_2797:
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("公开卡片单选项指标新建验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选择一项指标==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
+    @allure.title("私有无首页卡片池卡片新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选择一项指标==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细==登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选择一项指标==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细==登录PC端后台管理系统==点击卡片管理新")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_30690(self, drivers):
@@ -100,8 +91,8 @@ class Teststory_2797:
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("公开卡片说明栏20字以内新建验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选择3项指标==输入说明18字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
+    @allure.title("公开有首页卡片池卡片新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选择3项指标==输入说明18字==配置英文属性卡片名销售明细，说明销售各类明细==登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开是==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选择3项指标==输入说明18字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_30691(self, drivers):
@@ -156,11 +147,128 @@ class Teststory_2797:
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("私有不展示'首页'类型卡片新建验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否私有私有==选择首页卡片池否==选择下钻报表财务销售经营分析==选择分析指标选项==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
+    @allure.title("私有有首页卡片池类型卡片新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否私有私有==选择首页卡片池否==选择下钻报表财务销售经营分析==选择分析指标选项==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细==登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否私有是==选择首页卡片池是==选择下钻报表财务销售经营分析==选择分析指标选项==输入说明==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_30692(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("公开卡片多选项指标新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开是==选择首页卡片池否==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选择多项指标==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30798(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("私有多选项指标卡片新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选择多项指标==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30799(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片修改功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的卡片==点击编辑==修改需求提出人==修改业务负责人.业务组织、IT负责人==修改卡片组件==修改是否公开==修改首页卡片池==修改下钻报表财务销售经营分析、供应链库存金额==修改分析指标选择2项指标==输入说明18字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30800(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片启用功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的卡片==点击启用==输入申请原因==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30801(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片查看功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的卡片==点击查看")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30802(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片停用功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的卡片==点击停用")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30803(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片已启用的卡片删除功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已启用的卡片==点击编辑==修改卡片信息==保证后再点击删除")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30804(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片类型全部选择功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击首页==选择全部")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30805(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片类型已启用选择功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击首页==选择已启用")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30806(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片类型已停用选择功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击首页==选择已停用")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30807(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("首页卡片池下钻报表搜索功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否公开公开==选择首页卡片池是==搜索下钻报表财务销售经营分析、供应链库存金额")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30808(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片类型搜索功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击卡片搜索框==选择卡片名称、应用类型移动端==点击搜索")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30809(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("卡片模糊搜索功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击模糊搜索框==输入模糊卡片名称、应用类型移动==点击搜索")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30810(self, drivers):
         pass
 
 
@@ -169,7 +277,7 @@ class Teststory_2797:
     @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否私有私有==选择首页卡片池是==选择下钻报表财务销售经营分析==选择分析指标选项==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30693(self, drivers):
+    def test_30811(self, drivers):
         pass
 
 
@@ -178,7 +286,7 @@ class Teststory_2797:
     @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否私有私有==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选项==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30694(self, drivers):
+    def test_30812(self, drivers):
         pass
 
 
@@ -187,142 +295,421 @@ class Teststory_2797:
     @allure.description("登录PC端后台管理系统==点击卡片管理新建==选择卡片名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择卡片组件分享==选择是否私有私有==选择首页卡片池是==选择下钻报表财务销售经营分析、供应链库存金额==选择分析指标选择一项指标==输入说明499字==配置英文属性卡片名销售明细，说明销售各类明细")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30695(self, drivers):
+    def test_30813(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("卡片组合总部类报表新建验证")  # 用例名称
+    @allure.title("移动端报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30814(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("PC端报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型pc端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==输入访问地址==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30815(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("大屏端报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型大屏端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==输入访问地址==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30816(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("自助分析端报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型自助分析==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==输入访问地址==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30817(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("无首页差异化报表外部引入类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择外部引入==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==输入外部链接==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30818(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("无首页差异化报表定制卡片类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择定制==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==选择私有卡片==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30819(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("无首页差异化报表定制外部引入类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择定制==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==输入外部链接==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30820(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("无首页差异化报表定制卡片、外部引入组合类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择定制==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==选择私有卡片、输入外部链接==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30821(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("有报表差异化卡片组合总部类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30696(self, drivers):
+    def test_30822(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("卡片组合地区部类报表新建验证")  # 用例名称
+    @allure.title("有报表差异化卡片组合地区部类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型地区部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30697(self, drivers):
+    def test_30823(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("卡片组合事业部类报表新建验证")  # 用例名称
+    @allure.title("有报表差异化卡片组合事业部类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型事业部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30698(self, drivers):
+    def test_30824(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("卡片组合国家类报表新建验证")  # 用例名称
+    @allure.title("有报表差异化卡片组合国家类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型国家==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30699(self, drivers):
+    def test_30825(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("卡片组合地区部_事业部类报表新建验证")  # 用例名称
+    @allure.title("有报表差异化卡片组合地区部_事业部类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型地区部_事业部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30700(self, drivers):
+    def test_30826(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("无首页差异化报表类报表新建验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化否==选择报表类型总部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
+    @allure.title("有报表差异化卡片组合总部、地区部_事业部类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型地区部_事业部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30701(self, drivers):
+    def test_30827(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("首页差异化类报表不同用户查看展示验证")  # 用例名称
-    @allure.description("分别登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
+    @allure.title("有报表差异化外部引入总部类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择外部引入==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==输入外部链接==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30702(self, drivers):
+    def test_30828(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("PC端报表查看展示验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型pc端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
+    @allure.title("有报表差异化外部引入地区部类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择外部引入==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型地区部==输入外部链接==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30703(self, drivers):
+    def test_30829(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("大屏端报表查看展示验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型大屏端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源卡片组合==选择报表首页差异化是==选择报表类型总部==选择卡片来源财务销售事业分析部==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
+    @allure.title("有报表差异化外部引入事业部类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择外部引入==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型事业部==输入外部链接==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30704(self, drivers):
+    def test_30830(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("外部页面总部类报表新建验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源外部页面==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部==访问地址输入外部地址==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
+    @allure.title("有报表差异化外部引入国家类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择外部引入==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型国家部==输入外部链接==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30705(self, drivers):
+    def test_30831(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("定制总部类报表新建验证")  # 用例名称
+    @allure.title("有报表差异化外部引入地区部_事业部类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择外部引入==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型地区事业部==输入外部链接==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30832(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("有报表差异化外部引入总部、地区部_事业部类报表新建验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择外部引入==选择报表首页差异化是==进入角色管理中心进行数据授权==选择报表类型总部、地区部==输入外部链接==选择指标财务销售事业分析部==说明销售事业公析==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30833(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("有报表差异化定制总部类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源定制==选择报表首页差异化是==选择报表类型总部==进入角色管理中心进行数据授权==来源卡片财务销售事业分析部（私有化卡片）==访问地址输入外部地址==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30706(self, drivers):
+    def test_30834(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("定制地区部类报表新建验证")  # 用例名称
+    @allure.title("有报表差异化定制地区部类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源定制==选择报表首页差异化是==选择报表类型地区部==进入角色管理中心进行数据授权==来源卡片财务销售事业分析部（私有化卡片）==访问地址输入外部地址==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30707(self, drivers):
+    def test_30835(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("定制事业部类报表新建验证")  # 用例名称
+    @allure.title("有报表差异化定制事业部类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源定制==选择报表首页差异化是==选择报表类型事业部==进入角色管理中心进行数据授权==来源卡片财务销售事业分析部（私有化卡片）==访问地址输入外部地址==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30708(self, drivers):
+    def test_30836(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("定制国家类报表新建验证")  # 用例名称
+    @allure.title("有报表差异化定制国家类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源定制==选择报表首页差异化是==选择报表类型国家==进入角色管理中心进行数据授权==来源卡片财务销售事业分析部（私有化卡片）==访问地址输入外部地址==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30709(self, drivers):
+    def test_30837(self, drivers):
         pass
 
 
     @allure.story("报表管理中增加角色类型")  # 用户故事名称
-    @allure.title("定制地区部_事业部类报表新建验证")  # 用例名称
+    @allure.title("有报表差异化定制地区部_事业部类报表新建验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择页面来源定制==选择报表首页差异化是==选择报表类型地区部_事业部==进入角色管理中心进行数据授权==来源卡片财务销售事业分析部（私有化卡片）==访问地址输入外部地址==选择指标财务销售事业分析部==说明销售事业公析")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_30710(self, drivers):
+    def test_30838(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("有报表差异化卡片组合类报表修改功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的报表==点击编辑==修改报表名称==修改主题域==修改需求提出人==修改业务负责人.业务组织、IT负责人==修改报表类型卡片组合==修改是否差异化是、修改报表类型国家==修改卡片来源==修改分析指标选择2项指标==修改说明18字==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30839(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("有报表差异化外部引入类报表修改功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的报表==点击编辑==修改报表名称==修改主题域==修改需求提出人==修改业务负责人.业务组织、IT负责人==修改报表类型外部引入==修改是否差异化是、修改报表类型国家==修改外部链接==修改分析指标选择2项指标==修改说明18字==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30840(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("有报表差异化定制类报表修改功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的报表==点击编辑==修改报表名称==修改主题域==修改需求提出人==修改业务负责人.业务组织、IT负责人==修改报表类型定制==修改是否差异化是、修改报表类型国家==修改卡片来源、外部链接==修改分析指标选择2项指标==修改说明18字==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30841(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("无报表差异化卡片组合类报表修改功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的报表==点击编辑==修改报表名称==修改主题域==修改需求提出人==修改业务负责人.业务组织、IT负责人==修改报表类型卡片组合==修改是否差异化否、==修改卡片来源==修改分析指标选择2项指标==修改说明18字==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30842(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("无报表差异化外部引入类报表修改功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的报表==点击编辑==修改报表名称==修改主题域==修改需求提出人==修改业务负责人.业务组织、IT负责人==修改报表类型外部引入==修改是否差异化否==修改外部链接==修改分析指标选择2项指标==修改说明18字==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30843(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("无报表差异化定制类报表修改功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的报表==点击编辑==修改报表名称==修改主题域==修改需求提出人==修改业务负责人.业务组织、IT负责人==修改报表类型定制==修改是否差异化否==修改卡片来源、外部链接==修改分析指标选择2项指标==修改说明18字==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30844(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("报表启用功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的报表==点击启用==输入申请原因==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30845(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("报表查看功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的报表==点击查看")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30846(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("报表停用功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已新建成功的报表==点击停用")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30847(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("报表已启用的报表删除功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理选择已启用的报表==修改报表名称、应用类型移动端==输入主题域选择业务域==修改业务负责人.业务组织、IT负责人==修改页面来源卡片组合==修改报表首页差异化是==进入角色管理中心进行数据授权==修改报表类型总部==修改卡片来源财务销售事业分析部==修改指标财务销售事业分析部==修改说明销售事业公析==点击保存后再点击删除")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30848(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("报表类型全部选择功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击首页==选择全部")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30849(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("报表类型已启用选择功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击首页==选择已启用")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30850(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("报表类型已停用选择功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击首页==选择已停用")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30851(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("新建报表卡片来源卡片搜索功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表管理新建==选择报表名称、应用类型移动端==输入主题域选择业务域==选择业务负责人.业务组织、IT负责人==选择报表组件分享==选择是否公开公开==选择首页报表池是==搜索下钻报表财务销售经营分析、供应链库存金额")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30852(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("报表类型搜索功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击报表搜索框==选择报表名称、应用类型移动端==点击搜索")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30853(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("报表模糊搜索功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击模糊搜索框==输入模糊报表名称、应用类型移动==点击搜索")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30854(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("新建无首页卡片池的角色功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击角色管理新建==输入角色名称==输入角色说明==拥有首页卡片池否==选择菜单报表授权==输入关联用户==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30855(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("新建有首页卡片池的角色功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击角色管理新建==输入角色名称==输入角色说明==拥有首页卡片池是==选择菜单报表授权==输入关联用户==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30856(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("修改角色功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已有的角色，点击编辑==修改角色名称==修改角色说明==修改拥有首页卡片池否==修改菜单报表授权==修改关联用户==点击保存")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30857(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("删除角色功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==选择已有的角色，点击编辑==点击删除")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30858(self, drivers):
+        pass
+
+
+    @allure.story("报表管理中增加角色类型")  # 用户故事名称
+    @allure.title("角色类型搜索功能验证")  # 用例名称
+    @allure.description("登录PC端后台管理系统==点击角色搜索框==输入搜索字段==点击搜索")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30859(self, drivers):
         pass
 
 
