@@ -12,6 +12,7 @@
 打开状态的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']"
 Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 菜单栏: "xpath==//span[contains(@class,'tags-view-item')][1]"
+首页当前登录用户: "xpath==//div[@class='el-dropdown']//span[text()='testsupervisor']"
 ###=====定位菜单元素=======================================
 Home Page: "xpath==//span[(text()='Home Page')]"
 Home Page-Customer: "xpath==//span[(text()='Home Page-Customer')]"

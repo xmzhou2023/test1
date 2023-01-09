@@ -44,7 +44,7 @@ class LoginPage(Base):
     def click_loginsubmit(self):
         self.is_click(user['登录'])
         self.base_get_img()
-        sleep(4)
+        sleep(1)
 
     @allure.step("点击退出登录")
     def click_loginOut(self):
@@ -92,7 +92,7 @@ class LoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-
+        DomAssert(self.driver).assert_att('testsupervisor')
 
     @allure.step("退出重新登录，去掉打开登录地址")
     def dcr_again_login(self, drivers, account, passwd):

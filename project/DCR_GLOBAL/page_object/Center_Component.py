@@ -50,6 +50,11 @@ class DCRLoginPage(Base):
         self.is_click(user['退出登录'])
         sleep(2)
 
+    @allure.step("进入首页，获取当前登录用户名")
+    def get_login_user_name(self):
+        self.element_text(user['首页当前登录用户'])
+
+
     @allure.step("获取当前打开状态的菜单class值")
     def get_open_menu_class(self):
         ss = self.find_element(user['打开状态的菜单'])
@@ -72,7 +77,9 @@ class DCRLoginPage(Base):
         if "is-checked" not in str(get_check_class):
             user.click_check_box()
         user.click_loginsubmit()
-        sleep(6)
+        #Base.assert_current_login_user(self, user['首页当前登录用户'])
+        DomAssert(self.driver).assert_att('testsupervisor')
+
 
     """查找菜单"""
     def click_gotomenu(self, *content):
@@ -92,7 +99,6 @@ class DCRLoginPage(Base):
             sleep(3.5)
             self.is_click(user[level[i]])
         self.element_exist(user['Loading'])
-
 
 
 if __name__ == '__main__':

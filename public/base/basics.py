@@ -349,6 +349,17 @@ class Base(object):
                 logging.info("打印循环执行查询次数{}".format(i))
         return status
 
+    def assert_current_login_user(self, current_login_user):
+        """DCR断言登录成功后，进行后面的用例操作"""
+        get_login_user = self.element_text(current_login_user)
+        for i in range(30):
+            if get_login_user != "testsupervisor":
+                get_login_user = self.element_text(current_login_user)
+                logging.info("循环后Download Status{}".format(get_login_user))
+                sleep(1)
+                i += 1
+                logging.info("打印循环执行登录等待次数{}".format(i))
+
     def import_record_status(self, click_search, get_status):
         """DCR通用的导出，等待导入状态更新(DRP专用)"""
         self.is_click(click_search)

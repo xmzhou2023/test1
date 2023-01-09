@@ -114,11 +114,11 @@ class DcrLoginPage(Base):
     def dcr_click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(login['登录dcr'])
-        sleep(4)
+        self.base_get_img()
+        sleep(1)
 
     def dcr_click_loginOut(self):
         """点击退出登录"""
-        sleep(2)
         self.is_click(login['退出登录dcr'])
         sleep(2)
 

@@ -1,8 +1,7 @@
 #操作按钮
 Click Position Operation Button: "xpath==//button//span[normalize-space(text())='variable']"
-#Delete Position Button: "xpath==//button//span[normalize-space(text())='Delete']"
-#Search Position Button: "xpath==//div//button//span[normalize-space(text())='Search']"
-#Reset Position Button: "xpath==//div//button//span[normalize-space(text())='Reset']"
+Search Position Button: "xpath==//div//button//span[normalize-space(text())='variable']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
 #职位筛选条件
 点击输入框Position: "xpath==//label//span[text()='Position']/../..//div//input[@class='el-input__inner positionmanagement_input_dutyIds']"
@@ -14,6 +13,7 @@ Click Position Operation Button: "xpath==//button//span[normalize-space(text())=
 表格字段: "xpath==//div[normalize-space(text())='variable']/.."
 表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
 水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
+
 
 #Add Position 新增职位
 Add Input Position: "xpath==//label[text()='Position']/..//div//div[@class='el-input el-input--small']//input"

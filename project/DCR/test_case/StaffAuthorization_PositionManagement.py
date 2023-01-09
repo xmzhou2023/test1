@@ -48,14 +48,14 @@ class TestAddPosition:
         Base(drivers).refresh()
         """按 Position条件筛选，新增的职位，点击查询按钮"""
         add_position.input_position_query(position_name, 'Position')
-        add_position.click_operation_button('Search')
+        add_position.click_position_search('Search')
         """断言查询的结果是否与新增的角色内容一致"""
-        add_position.assert_user_management_field('Position', position_name)
-        add_position.assert_contains_user_management_field('Default Roles', 'Transsion Administrator')
-        add_position.assert_user_management_field('Position Type', 'Promoter Group')
-        add_position.assert_user_management_field('Enabled or Not', 'Enabled')
-        add_position.assert_user_management_field('Remark', '传音促销员职位')
-        add_position.assert_contains_user_management_field('Create Date', today)
+        add_position.assert_position_management_field('Position', position_name)
+        add_position.assert_contains_position_management_field('Default Roles', 'Transsion Administrator')
+        add_position.assert_position_management_field('Position Type', 'Promoter Group')
+        add_position.assert_position_management_field('Enabled or Not', 'Enabled')
+        add_position.assert_position_management_field('Remark', '传音促销员职位')
+        add_position.assert_contains_position_management_field('Create Date', today)
 
 
     @allure.story("新增职位")
@@ -88,14 +88,14 @@ class TestAddPosition:
         Base(drivers).refresh()
         """按 Position条件筛选，新增的职位，点击查询按钮"""
         add_position.input_position_query(position_name, 'Position')
-        add_position.click_operation_button('Search')
+        add_position.click_position_search('Search')
         """断言查询的结果是否与新增的角色内容一致"""
-        add_position.assert_user_management_field('Position', position_name)
-        add_position.assert_user_management_field('Default Roles', 'Transsion Administrator')
-        add_position.assert_user_management_field('Position Type', 'Supervisor Group')
-        add_position.assert_user_management_field('Enabled or Not', 'Disabled')
-        add_position.assert_user_management_field('Remark', '传音督导职位')
-        add_position.assert_contains_user_management_field('Create Date', today)
+        add_position.assert_position_management_field('Position', position_name)
+        add_position.assert_position_management_field('Default Roles', 'Transsion Administrator')
+        add_position.assert_position_management_field('Position Type', 'Supervisor Group')
+        add_position.assert_position_management_field('Enabled or Not', 'Disabled')
+        add_position.assert_position_management_field('Remark', '传音督导职位')
+        add_position.assert_contains_position_management_field('Create Date', today)
 
 
     @allure.story("编辑职位")
@@ -119,7 +119,7 @@ class TestAddPosition:
         if get_list_add_position is not None:
             """按 Position条件筛选职位，点击查询按钮"""
             edit_position.input_position_query(get_list_add_position, 'Position')
-            edit_position.click_operation_button('Search')
+            edit_position.click_position_search('Search')
             """断言是否筛选到一条满足条件的数据"""
             get_total = edit_position.get_list_total()
             ValueAssert.value_assert_equal('1', get_total)
@@ -133,11 +133,11 @@ class TestAddPosition:
             """编辑职位成功后，弹出成功提示语"""
             DomAssert(drivers).assert_att('Set Up Successfully')
             """断言列表字段内容，是否显示编辑后的内容"""
-            edit_position.assert_user_management_field('Position', get_list_add_position)
-            edit_position.assert_contains_user_management_field('Default Roles', 'System Administrator')
-            edit_position.assert_contains_user_management_field('Position Type', 'Promoter Group')
-            edit_position.assert_user_management_field('Remark', '编辑系统管理员角色')
-            edit_position.assert_contains_user_management_field('Update Date', today)
+            edit_position.assert_position_management_field('Position', get_list_add_position)
+            edit_position.assert_contains_position_management_field('Default Roles', 'System Administrator')
+            edit_position.assert_contains_position_management_field('Position Type', 'Promoter Group')
+            edit_position.assert_position_management_field('Remark', '编辑系统管理员角色')
+            edit_position.assert_contains_position_management_field('Update Date', today)
             """断言列表，分页总条数是否为1"""
             get_total = edit_position.get_list_total()
             ValueAssert.value_assert_equal('1', get_total)
@@ -163,7 +163,7 @@ class TestAddPosition:
         if get_list_add_position is not None:
             """按 Position条件筛选职位，点击查询按钮"""
             delete_position.input_position_query(get_list_add_position, 'Position')
-            delete_position.click_operation_button('Search')
+            delete_position.click_position_search('Search')
             """选中筛选的新增职位，点击Delete删除职位操作"""
             delete_position.click_delete_position('Delete')
             """删除职位成功后，弹出成功提示语"""
@@ -173,6 +173,33 @@ class TestAddPosition:
             ValueAssert.value_assert_equal('0', get_total)
         else:
             pass
+
+
+@allure.feature("员工授权-筛选职位")
+class TestQueryPosition:
+    @allure.story("查询职位")
+    @allure.title("员工授权，单个条件筛选职位")
+    @allure.description("职位管理页面，单个条件筛选职位")
+    @allure.severity("normal")
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_001(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Staff & Authorization", "Position Management")
+        """新建启用状态的职位"""
+        query = PositionManagementPage(drivers)
+        """根据Position条件筛选职位数据"""
+        query.input_position_query('zhj督导', 'Position')
+        query.click_position_search('Search')
+        """断言根据Position条件筛选后，列表字段内容是否显示正确"""
+        query.assert_position_management_field('Position', 'zhj督导')
+
+
+
+
+
 
 
 if __name__ == '__main__':

@@ -101,17 +101,17 @@ class PositionManagementPage(Base):
         self.is_click(user['筛选点击label标签'], label)
 
     @allure.step("Position Management页面，点击Search查询按钮")
-    def click_position_search(self):
-        self.is_click(user['Search Position Button'])
-        sleep(1)
+    def click_position_search(self, search_reset):
+        self.is_click(user['Search Position Button'], search_reset)
+        self.element_text(user['Loading'])
 
     @allure.step("断言精确查询结果 Position Management列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
-    def assert_user_management_field(self, header, content):
+    def assert_position_management_field(self, header, content):
         DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content,
                                                     sc_element=user['水平滚动条'])
 
     @allure.step("断言模糊查询结果 Position Management列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
-    def assert_contains_user_management_field(self, header, content):
+    def assert_contains_position_management_field(self, header, content):
         DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容'], header, content,
                                                              sc_element=user['水平滚动条'])
 
@@ -128,7 +128,7 @@ class PositionManagementPage(Base):
         get_list_position = self.element_text(user['Get List Position'], position)
         return get_list_position
 
-    @allure.step("Position Management页面，点击Search查询按钮")
+    @allure.step("Position Management页面，点击Delete删除按钮")
     def click_delete_position(self, operation_name):
         self.is_click(user['勾选第一个复选框'])
         self.is_click(user['Click Position Operation Button'], operation_name)
@@ -140,6 +140,14 @@ class PositionManagementPage(Base):
         get_total = self.element_text(user['Get List Total'])
         get_total1 = get_total[6:]
         return get_total1
+
+    # #根据条件筛选职位结果
+    # @allure.step("断言：页面查询结果")
+    # def assert_query_result(self, header, content):
+    #     logging.info('开始断言：页面查询结果')
+    #     DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格指定列内容'], header, content, sc_element=user['水平滚动条'], h_element=user['表头文本'])
+    #
+
 
 
 
