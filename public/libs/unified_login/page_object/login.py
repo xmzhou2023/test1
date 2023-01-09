@@ -75,6 +75,11 @@ class LoginPage(Base):
         self.clear_code(login["验证码输入框"])
         sleep(0.5)
 
+    def ispatent_loginnew(self):
+        """ 判断当前界面是不是登录首页，登录按钮是否存在"""
+        itexis = self.element_exist(login["登录"])
+        return itexis
+
 
 """DCR登录类"""
 class DcrLoginPage(Base):
