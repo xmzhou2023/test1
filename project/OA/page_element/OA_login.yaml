@@ -11,6 +11,7 @@ zx扫码快捷登录: "id==tab-code"
 图形验证码: "xpath==//img[@slot='suffix']"
 图形验证码输入框: "xpath==//input[@placeholder='请输入验证码']"
 
+
 ####======DCR定位登录元素============================================
 工号输入框dcr: "name==username"
 密码输入框dcr: "name==password"
@@ -48,3 +49,11 @@ pop登录按钮: "xpath==//button[@type='primary']"
 
 利用首页: 'xpath==//span[text()="利用首页"]'
 我的专利提案: 'xpath==//span[text()="我的专利提案"]'
+
+#BPM新的登录界面
+新账号名: 'xpath==//*[@id="pane-account"]//div[1]/div/div/input'
+新密码: 'xpath==//*[@id="pane-account"]//input[@type="password"]'
+新登录按钮: 'xpath==//*[@id="pane-account"]//button[@type="submit"]'
+图形验证码输入框输入: 'xpath==//*[@id="pane-account"]//div[3]//div[1]/input'
+
+
