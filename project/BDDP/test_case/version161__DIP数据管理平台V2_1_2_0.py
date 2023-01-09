@@ -260,11 +260,24 @@ class Teststory_2798:
                               "//td[not(contains(@class,'is-hidden'))]//i[@title='编辑']").click()  # idaa9f333a-6f7a-4e44-874c-b9ad82f4b7af
         robot.AI_find_element(By.XPATH,
                               "(//input[@type='text'])[4]").click()  # id630b7b76-b226-4453-b976-493b0e3d9066
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[4]").clear()
         robot.AI_find_element(By.XPATH, "(//input[@type='text'])[4]").send_keys(
-            "陈佳杰")  # id1a973597-8457-4c93-871b-647a5e5d651e
+            "陈佳杰")  # id1a973597-8457-4c93-871b-647a5e5d651
+        DomAssert(drivers).assert_att("陈佳杰")
         robot.AI_find_element(By.XPATH,
-                              "//span[contains(.,'陈佳杰18649692')]").click()  # id1a7ae198-2390-4b8f-ace0-55636a61907b
-        user.assert_input('需求提出人', '陈佳杰18649692')
+                              "(//input[@type='text'])[5]").click()  # id1a7ae198-2390-4b8f-ace0-55636a61907b
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[5]").clear()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[5]").send_keys(
+            "王佳")
+        DomAssert(drivers).assert_att("王佳")
+        robot.AI_find_element(By.XPATH,
+                              "(//div[7]/div/div/div/div/div").click()  # id1a7ae198-2390-4b8f-ace0-55636a61907b
+        robot.AI_find_element(By.XPATH, "(//div[2]/div[4]/div/div").click()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[6]").click()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[6]").clear()
+        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[6]").send_keys(
+            "郭程")
+        DomAssert(drivers).assert_att("郭程")
         robot.AI_find_element(By.XPATH, "//span[contains(.,'确定')]").click()  # idb61adb68-2f38-4b49-9485-4a351657b5d9
         DomAssert(drivers).assert_att("编辑卡片成功！")
         robot.AI_find_element(By.XPATH,
@@ -275,15 +288,6 @@ class Teststory_2798:
 
 
     @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
-    @allure.title("卡片启用功能验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==选择已新建成功的卡片==点击启用==输入申请原因==点击保存")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_30863(self, drivers):
-        pass
-
-
-    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
     @allure.title("卡片查看功能验证")  # 用例名称
     @allure.description("登录PC端后台管理系统==选择已新建成功的卡片==点击查看")  # 用例描述
     @allure.severity("blocker")  # 用例等级
@@ -291,23 +295,6 @@ class Teststory_2798:
     def test_30864(self, drivers):
         pass
 
-
-    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
-    @allure.title("卡片停用功能验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==选择已新建成功的卡片==点击停用")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_30865(self, drivers):
-        pass
-
-
-    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
-    @allure.title("卡片已启用的卡片删除功能验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==选择已启用的卡片==点击编辑==修改卡片信息==保证后再点击删除")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_30866(self, drivers):
-        pass
 
 
     @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
@@ -327,14 +314,6 @@ class Teststory_2798:
     def test_30868(self, drivers):
         pass
 
-
-    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
-    @allure.title("卡片类型已停用选择功能验证")  # 用例名称
-    @allure.description("登录PC端后台管理系统==点击首页==选择已停用")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_30869(self, drivers):
-        pass
 
 
     @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
