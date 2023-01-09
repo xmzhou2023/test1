@@ -26,25 +26,23 @@ class TestReturnOrder:
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
-        Base(drivers).refresh()
-        sleep(3.5)
         user = LoginPage(drivers)
         """变量"""
         query_dict = {
-            'Return Order ID': 'RDIN202301044620',
-            'Delivery/DN Order ID': '02IN2212160011557',
+            'Return Order ID': 'RDIN202301044532',
+            'Delivery/DN Order ID': '02IN2212160011396',
             'Brand': 'itel',
             #'Return Date': '2023-01-02',
-            'Status': 'Commit',
+            'Status': 'Agree',
             'Return Type': 'Return To Seller',
             'Seller': 'IN400599I',
-            'Buyer': '1400067899',
+            'Buyer': '1400019850',
             'Seller Warehouse Region': 'India District',
             'Buyer Warehouse Region': 'India District',
             'Model': 'A511LQ',
             'Market Name': 'A511LQ',
             'Seller Country': 'India',
-            'IMEI': '351606785597484'
+            'IMEI': '355168718751205'
         }
         query = ReturnOrderPage(drivers)
         user.click_gotomenu("Sales Management", "Return Order")

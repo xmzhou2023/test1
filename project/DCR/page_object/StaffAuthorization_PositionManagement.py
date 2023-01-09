@@ -44,6 +44,12 @@ class PositionManagementPage(Base):
     def add_select_enabled_no(self):
         self.is_click(user['Add Select Enabled No'])
 
+    @allure.step("Add新增职位页面，筛选Enabled or Not与 Position Type筛选项的数据")
+    def enabled_position_type_query(self, label, content):
+        self.is_click(user['输入框1'], label)
+        self.presence_sleep_dcr(user['输入结果精确选择'], content)
+        self.is_click(user['输入结果精确选择'], content)
+
     @allure.step("Add新增职位页面，选择Position Type职位类型：Promoter Group, 出现Flexi or Not选择是")
     def add_position_type_promoter_yes(self, position_type):
         self.is_click(user['Add click Position Type'])

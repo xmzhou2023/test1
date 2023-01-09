@@ -195,11 +195,46 @@ class TestQueryPosition:
         query.click_position_search('Search')
         """断言根据Position条件筛选后，列表字段内容是否显示正确"""
         query.assert_position_management_field('Position', 'zhj督导')
+        query.click_position_search('Reset')
+
+        """根据Enabled or Not 条件筛选职位数据"""
+        query.enabled_position_type_query('Enabled or Not', 'Enabled')
+        query.click_position_search('Search')
+        """断言根据Position条件筛选后，列表字段内容是否显示正确"""
+        query.assert_position_management_field('Enabled or Not', 'Enabled')
+        query.click_position_search('Reset')
+
+        """根据Position Type 条件筛选职位数据"""
+        query.enabled_position_type_query('Position Type', 'Supervisor Group')
+        query.click_position_search('Search')
+        """断言根据Position条件筛选后，列表字段内容是否显示正确"""
+        query.assert_position_management_field('Position Type', 'Supervisor Group')
+        query.click_position_search('Reset')
 
 
-
-
-
+    @allure.story("查询职位")
+    @allure.title("员工授权，组合条件筛选职位")
+    @allure.description("职位管理页面，组合条件筛选职位")
+    @allure.severity("normal")
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Staff & Authorization", "Position Management")
+        """新建启用状态的职位"""
+        query = PositionManagementPage(drivers)
+        """根据Position、Enabled or Not、Position Type 条件筛选职位数据"""
+        query.input_position_query('zhj督导', 'Position')
+        query.enabled_position_type_query('Enabled or Not', 'Enabled')
+        query.enabled_position_type_query('Position Type', 'Supervisor Group')
+        """点击Search 查询按钮"""
+        query.click_position_search('Search')
+        """断言根据Position条件筛选后，列表字段内容是否显示正确"""
+        query.assert_position_management_field('Position', 'zhj督导')
+        query.assert_position_management_field('Enabled or Not', 'Enabled')
+        query.assert_position_management_field('Position Type', 'Supervisor Group')
 
 
 if __name__ == '__main__':

@@ -7,9 +7,8 @@ Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: n
 点击输入框Position: "xpath==//label//span[text()='Position']/../..//div//input[@class='el-input__inner positionmanagement_input_dutyIds']"
 输入框输入Position: "xpath==//label//span[text()='Position']/../..//div//input[@class='el-select__input is-small']"
 筛选点击label标签: "xpath==//div//label//span[text()='variable']"
-输入框1: "xpath==//label//span[text()='variable']/../..//div//input[@placeholder='All]"
+输入框1: "xpath==//label//span[text()='variable']/../..//div//input[@placeholder='All']"
 输入结果精确选择: "xpath==//div//ul//li//span[text()='variable']"
-
 表格字段: "xpath==//div[normalize-space(text())='variable']/.."
 表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
 水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"

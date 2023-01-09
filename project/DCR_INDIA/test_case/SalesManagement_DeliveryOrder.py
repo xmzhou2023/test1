@@ -37,7 +37,6 @@ class TestQueryDeliveryOrder:
     @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
-        #Base(drivers).refresh()
         """打开销售管理-打开出库单页面"""
         menu = LoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Delivery Order")
