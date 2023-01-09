@@ -30,6 +30,10 @@ class UserPage(Base):
         self.is_click_tbm(user['主题域'])
 
     @allure.step("查找工号")
+    def click_card(self):
+        self.is_click_tbm(user['卡片名称'])
+
+    @allure.step("查找工号")
     def assert_input(self, header, content):
         if header == '主题域' or header == '业务组织':
             ac_content = self.element_text(user['输入框内容2'], header)
