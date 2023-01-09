@@ -147,8 +147,6 @@ class OAdnluPage(Base):
         itexis = self.element_exist(user["登录"])
         return itexis
 
-
-
     @allure.step("登录BPM非正式环境")
     def BPMlog(self, options=1, Job="18645351"):
         if options == 1:
@@ -158,8 +156,10 @@ class OAdnluPage(Base):
             self.input_newaccount(Job)  # 默认使用彩霞的号登录BPM
             self.input_newpasswd("xLily6x")
             aa = 0
+            count = 0
             # 如果a=1 就跳出循环
-            while aa == 0:
+            while aa == 0 and count < 10:
+                count += 1
                 self.input_newimgcode()
                 self.click_newloginsubmit()
                 itexis = self.element_exist(user["新登录按钮"])
@@ -167,7 +167,6 @@ class OAdnluPage(Base):
                     aa = 0
                 else:
                     aa = 1
-
 
         if options == 2:
             # 老界面

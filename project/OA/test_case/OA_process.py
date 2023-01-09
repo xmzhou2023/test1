@@ -163,17 +163,16 @@ class TestUtil:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_006(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OB = OAUserPage(drivers)
         OA = OAdnluPage(drivers)
         OA.BPMlog(options=3)
         bmmA = BPM_modeling_Page(drivers)
         itexis = bmmA.ismodeling_login()
         if itexis:
-            # OB.Messagefeishu("06用例ok", "1")
-            logging.info("BPM开发环境管理端登录成功")
+            # OB.Messagefeishu("BPM开发环境管理端登录成功", "4")
             assert True
         else:
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM开发环境管理端,请相关人员及时排查问题!", "1")
-            logging.info("BPM开发环境管理端登录失败")
+            OB.Messagefeishu("BPM开发环境管理端登录失败", "4")
             assert False
 
     @allure.story("二级标题：BPM测试环境管理端登录")  # 场景名称
@@ -182,17 +181,16 @@ class TestUtil:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_007(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OB = OAUserPage(drivers)
         OA = OAdnluPage(drivers)
         OA.BPMlog(options=1)
         bmmA = BPM_modeling_Page(drivers)
         itexis = bmmA.ismodeling_login()
         if itexis:
-            logging.info("BPM测试环境管理端登录成功")
-            # OB.Messagefeishu("07用例ok", "1")
+            # OB.Messagefeishu("BPM测试环境管理端登录成功", "4")
             assert True
         else:
-            logging.info("BPM测试环境管理端登录失败")
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM测试环境管理端,请相关人员及时排查问题!", "1")
+            OB.Messagefeishu("BPM测试环境管理端登录失败", "4")
             assert False
 
     @allure.story("二级标题：BPM—UAT环境管理端登录")  # 场景名称
@@ -201,17 +199,16 @@ class TestUtil:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_008(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        OB = OAUserPage(drivers)
         OA = OAdnluPage(drivers)
         OA.BPMlog(options=2)
         bmmA = BPM_modeling_Page(drivers)
         itexis = bmmA.ismodeling_login()
         if itexis:
-            # OB.Messagefeishu("08用例ok", "1")
-            logging.info("BPM—UAT环境管理端登录成功")
+            # OB.Messagefeishu("BPM—UAT环境管理端登录成功", "4")
             assert True
         else:
-            logging.info("BPM—UAT环境管理端登录失败")
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM—UAT环境管理端,请相关人员及时排查问题!", "1")
+            OB.Messagefeishu("BPM—UAT环境管理端登录失败", "4")
             assert False
 
     @allure.story("二级标题：BPM—生产环境管理端登录")  # 场景名称
@@ -220,15 +217,17 @@ class TestUtil:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_009(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
-        OA = OAdnluPage(drivers)
         OB = OAUserPage(drivers)
+        OA = OAdnluPage(drivers)
         OA.open_url("https://bpm.transsion.com/mvue/")  # 打开应用系统巡检地址
         OA.click_accountuser()
         OA.click_accountlogin()  # 点击帐户密码登录
         OA.input_account_password_log('0', '1')
         aa = 0
+        count = 0
         # 如果a=1 就跳出循环
-        while aa == 0:
+        while aa == 0 and count < 10:
+            count += 1
             OA.input_imgcode()  # 输入验证码
             OA.click_checkbox()
             OA.click_checkbox()
@@ -242,11 +241,10 @@ class TestUtil:
         bmmA = BPM_modeling_Page(drivers)
         itexis = bmmA.ismodeling_login()
         if itexis:
-            # OB.Messagefeishu("09用例ok", "1")
-            # OB.Messagefeishu("BPM—开发环境管理端巡检通知\n系统登陆正常!", "1")
+            # OB.Messagefeishu("BPM—生产环境管理端登录成功", "4")
             assert True
         else:
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM—生产环境管理端,请相关人员及时排查问题!", "1")
+            OB.Messagefeishu("BPM—生产环境管理端登录失败", "4")
             assert False
 
     @allure.story("二级标题：BPM【制造中心的生产环境】端登录")  # 场景名称
@@ -255,15 +253,17 @@ class TestUtil:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_010(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
-        OA = OAdnluPage(drivers)
         OB = OAUserPage(drivers)
+        OA = OAdnluPage(drivers)
         OA.open_url("http://10.129.2.246:9081/mvue/")  # 打开应用系统巡检地址
         OA.click_accountuser()
         OA.click_accountlogin()  # 点击帐户密码登录
         OA.input_account_password_log('0', '1')
         aa = 0
+        count = 0
         # 如果a=1 就跳出循环
-        while aa == 0:
+        while aa == 0 and count < 10:
+            count += 1
             OA.input_imgcode()  # 输入验证码
             OA.click_checkbox()
             OA.click_checkbox()
@@ -276,11 +276,10 @@ class TestUtil:
         bmmA = BPM_modeling_Page(drivers)
         itexis = bmmA.ismodeling_login()
         if itexis:
-            # OB.Messagefeishu("10用例ok", "1")
-            # OB.Messagefeishu("BPM【制造中心的生产环境】巡检通知\n系统登陆正常!", "1")
+            # OB.Messagefeishu("BPM【制造中心的生产环境】端登录成功", "4")
             assert True
         else:
-            # OB.Messagefeishu("【重要信息】BPM机器人自动巡检通知,BPM【制造中心的生产环境】登录异常,请相关人员及时排查问题!", "1")
+            OB.Messagefeishu("BPM【制造中心的生产环境】端登录失败", "4")
             assert False
 
 
