@@ -36,7 +36,7 @@ class DistributorReceiptQuery(Base):
         # number=int(attribute[4:])
         return attribute
 
-    @allure.step("根据表头获取列的class值")
+    @allure.step("根据表头获取详情页面列的class值")
     def get_detail_column(self, header):
         self.is_click(user['点击IMEIDetail'])
         sleep()

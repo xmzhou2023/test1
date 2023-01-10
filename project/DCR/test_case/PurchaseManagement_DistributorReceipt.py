@@ -57,7 +57,7 @@ class TestDistributorReceipt:
         ValueAssert.value_assert_equal(success, "Set Up Successfully")
         receipt.click_reset()
 
-@allure.feature("采购管理-查看IMEI详情")
+@allure.feature("采购管理-国包收货")
 class TestQueryIMEIDetail:
     @allure.story("查询IMEI详情")
     @allure.title("国包用户进入Distributor Receipt页面，收货成功后，查看IMEI详情信息")
@@ -106,15 +106,15 @@ class TestQueryIMEIDetail:
         page.click_button('Unfold')
 
         """查询Activation Time，对结果进行判断,注意字典的键要和表格的表头一致"""
-        query_dic = {'Customer': 'IN400735T',
+        query_dic = {'Customer': 'IN401157',
                      'Model': 'KG5h',
                      'Material ID': '10030598',
-                     'DN': 'GJR2222641',
-                     'SAP Delivery Date': '2022-12-27',
-                     'SAP Customer ID': '400735',
+                     'DN': 'GRJ2287789',
+                     'SAP Delivery Date': '2022-11-26',
+                     'SAP Customer ID': '401157',
                      'Brand': 'TECNO',
                      'Category': 'Mobile',
-                     'IMEI': '351364952749823',
+                     'IMEI': '351364951010680',
                      'Market Name': 'SPARK Go 2022',
                      'Customer Region3': 'BIH-JH',
                      'Delivery Country': 'India',
@@ -132,11 +132,56 @@ class TestQueryIMEIDetail:
         page.click_button('Search')
         sleep(5)
         # 进行结果断言
+
+        total = int(page.get_total_content())
+        logging.info('the total in test case is %s' % total)
+        if total > 0:
+            # 进行结果断言
+            for i in list_random:
+                logging.info('Now the i  is %s' % i)
+                if i == 'Customer':
+                    logging.info('Now the Customer is %s' % query_dic[i])
+                elif i == 'Model' or i == 'Brand':
+                    colum = page.get_table_column(i)
+                    logging.info('then the colum is {}'.format(colum))
+                    attribute = page.get_table_content(colum)
+                    ValueAssert.value_assert_In(query_dic[i], attribute)
+                elif i == 'Material ID':
+                    page.click_detail()
+                    colum = page.get_table_column(i)
+                    logging.info('this the colum is {}'.format(colum))
+                    attribute = page.get_table_content(colum)
+                    ValueAssert.value_assert_equal(attribute, query_dic[i])
+                    page.clos_detail()
+                elif i == 'IMEI':
+                    page.click_detail()
+                    imei_total = page.get_total_detail()
+                    colum = page.get_table_column(i)
+                    logging.info('this imei colum is {}'.format(colum))
+                    attribute_list = []
+                    if imei_total > 0:
+                        for j in range(imei_total):
+                            m = j + 1
+                            attribute_list.append(page.get_table_detail(m, colum))
+                    ValueAssert.value_assert_In(query_dic[i], attribute_list)
+                    page.clos_detail()
+                elif i == 'SAP Delivery Date':
+                    colum = page.get_table_column(i)
+                    logging.info('that the colum is {}'.format(colum))
+                    attribute = page.get_table_content(colum)
+                    ValueAssert.value_assert_date_in(attribute, query_dic[i], query_dic[i])
+                else:
+                    colum = page.get_table_column(i)
+                    logging.info('finally the colum is {}'.format(colum))
+                    attribute = page.get_table_content(colum)
+                    ValueAssert.value_assert_equal(query_dic[i], attribute)
+        else:
+            logging.info('the total is empty')
         for i in list_random:
             logging.info('Now the i  is %s'%i)
             if i == 'Customer':
                 logging.info('Now the Customer is %s'%query_dic[i])
-            elif i == 'Model':
+            elif i == 'Model' or i == 'Brand':
                 colum = page.get_table_column(i)
                 logging.info('then the colum is {}'.format(colum))
                 attribute = page.get_table_content(colum)

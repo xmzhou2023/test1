@@ -129,7 +129,7 @@ class DistributorReceiptQuery(Base):
         # number=int(attribute[4:])
         return attribute
 
-    @allure.step("根据表头获取列的class值")
+    @allure.step("根据表头获取详情页面列的class值")
     def get_detail_column(self, header):
         self.is_click(user['点击IMEIDetail'])
         sleep()
@@ -141,6 +141,23 @@ class DistributorReceiptQuery(Base):
     @allure.step("获取表格文本")
     def get_table_content(self, content):
         txt = self.element_text(user['表格具体字段'], content)
+        return txt
+
+    @allure.step("获取Total数值文本")
+    def get_total_content(self):
+        txt = self.element_text(user['Total结果'])
+        logging.info('the total txt is %s'%txt)
+        return txt[6:]
+
+    @allure.step("获取详情页Total数值文本")
+    def get_total_detail(self):
+        txt = self.element_text(user['详情页total'])
+        logging.info('the total txt is %s'%txt)
+        return int(txt[6:])
+
+    @allure.step("获取IMEI文本")
+    def get_table_detail(self, content1, content2):
+        txt = self.element_text(user['详情页IMEI'], content1, content2)
         return txt
 
     @allure.step("点击Unfold展开筛选项按钮")

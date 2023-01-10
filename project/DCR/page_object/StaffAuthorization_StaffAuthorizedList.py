@@ -9,32 +9,36 @@ from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
-class ImeiInventoryQuery(Base):
+class StaffAuthorizedList(Base):
     """用户类"""
 
-    @allure.step("关闭IMEI库存查询菜单")
-    def click_close_imei_inventory_query(self):
-        self.is_click(user['关闭IMEI库存查询菜单'])
+    @allure.step("关闭不同页面菜单")
+    def click_close_menu(self,content):
+        self.is_click(user['关闭页面菜单',content])
 
-    @allure.step("点击MaterialID")
-    def click_box(self):
-        self.is_click(user['MaterialID输入'])
+    @allure.step("点击user输入框")
+    def click_user(self):
+        self.is_click(user['User点击'])
 
 
     @allure.step("输入文本,进行筛选")
     def select_content(self, type, content):
-        if type == 'Box ID':
-            self.is_click(user['Boxid点击'])
-            self.input_text(user['Boxid输入'], txt=content)
-        elif type == 'Receive Date':
-            self.input_text(user['收货日期开始'], txt=content)
-            self.input_text(user['收货日期结束'], txt=content)
-        elif type == 'Activation Date':
-            self.input_text(user['激活时间开始'], txt=content)
-            self.input_text(user['激活时间结束'], txt=content)
-            self.click_box()
-        elif type == 'Material ID':
-            self.input_text(user['MaterialID输入'], txt=content)
+        if type == 'User ID':
+            self.is_click(user['User点击'])
+            self.input_text(user['User输入'], txt=content)
+            self.is_click(user['User选择'],content)
+        elif type == 'Brand':
+            self.is_click(user['Brand点击'])
+            self.is_click(user['Brand_Position_Country_Role_Staff选择'], content)
+            self.is_click(user['User点击'])
+        elif type == 'Position':
+            self.is_click(user['Position点击'])
+            self.input_text(user['Position输入'], txt=content)
+            self.is_click(user['Brand_Position_Country_Role_Staff选择'], content)
+        elif type == 'Country':
+            self.is_click(user['Country点击'])
+            self.input_text(user['Country输入'], txt=content)
+            self.is_click(user['Brand_Position_Country_Role_Staff选择'], content)
         elif type == 'SAP Customer ID':
             self.input_text(user['SAPCustomerID输入'], txt=content)
         elif type == 'IMEI/SN':
@@ -105,7 +109,7 @@ class ImeiInventoryQuery(Base):
         return txt
 
     @allure.step("点击Unfold展开筛选项按钮")
-    def click_button(self, txt): 
+    def click_button(self, txt):
         self.is_click(user['Unfold_Search_Reset按钮'], txt)
         if txt=='Search':
             sleep(5)
