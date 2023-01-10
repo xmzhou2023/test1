@@ -142,3 +142,5 @@ ImportSave: "xpath==//div[@aria-label='Import']//button/span[normalize-space(tex
 当前菜单: "xpath==//span[@class='tags-view-item router-link-exact-active router-link-active active']"
 表格字段: "xpath==//div[normalize-space(text())='variable']/.."
 导出进度条: "xpath==//div[@role='progressbar']"
+tabSearch: "xpath==//div[@role='tabpanel']//button//span[normalize-space(text())='Search']"
+输入结果模糊选择: "xpath==//div[contains(@x-placement,'start')]//li/span[contains(text(),'variable')]"

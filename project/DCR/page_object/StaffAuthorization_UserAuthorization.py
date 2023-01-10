@@ -432,6 +432,11 @@ class UserAuthorizationPage(Base):
         self.is_click(user['tab标签'], select)
         logging.info(f'点击标签页： {select}')
 
+    @allure.step("点击标签页查询")
+    def click_tab_search(self):
+        self.is_click(user['tabSearch'])
+        logging.info('点击标签页查询')
+
     @allure.step("输入查询条件")
     def input_search(self, header, content):
         click_list = ['Customer Type']
@@ -439,7 +444,7 @@ class UserAuthorizationPage(Base):
         if header == 'User ID':
             self.is_click_tbm(user['输入框'], header)
             self.input_text(user['输入框3'], content, header)
-        elif header == 'User Name':
+        elif header == 'User Name' or header == 'Customer':
             self.is_click_tbm(user['输入框'], header)
             self.input_text(user['输入框2'], content, header)
             self.is_click_tbm(user['输入结果模糊选择'], content)
