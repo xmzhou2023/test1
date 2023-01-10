@@ -1,0 +1,51 @@
+#筛选user与Shop关系定位
+#Input User: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
+Click Unfold or Fold: "xpath==//div[@class='filter-fold']//span[text()='variable']"
+输入结果模糊选择: "xpath==//span[contains(text(),'variable')]"
+点击输入框: "xpath==//label[text()='variable']/..//div//input[@placeholder='All']"
+输入输入框: "xpath==//label[text()='variable']/..//div//input[@placeholder='Batch input content']"
+Search: "xpath==//button//span[normalize-space(text())='Search']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+Export: "id==staff_shop_association_export_"
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
+水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
+
+Get Total Text: "xpath==//span[contains(text(),'Total')]"
+Get list User ID: "xpath==//tbody//tr[1]/td[2]/div"
+Get list User Name: "xpath==//tbody//tr[1]/td[3]/div"
+Get list Position: "xpath==//tbody//tr[1]/td[4]/div"
+Get list Shop ID: "xpath==//tbody//tr[1]/td[5]/div"
+Get list Shop Name: "xpath==//tbody//tr[1]/td[6]/div"
+关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
+关闭用户与门店关系菜单: "xpath==//span[normalize-space(text())='User And Shop Association']//span[@class='el-icon-close']"
+
+
+#导入User And Shop Association 数据
+Click Import: "xpath==//div//button//span[normalize-space(text())='Import']"
+Click Upload: "xpath==//div//button//span[normalize-space(text())='Upload']"
+Click Upload Save: "xpath==//div[@class='dialog-footer']//button//span[normalize-space(text())='Save']"
+#Import Record
+Query Import Start Date: "xpath==//div//input[@class='el-input__inner importrecord_input_importDate']"
+Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"
+
+#删除User And Shop Association用户和门店关系数据
+勾选第一个复选框: "xpath==//tbody//tr//td[not(contains(@class ,'is-hidden'))]//div//label//span[@class='el-checkbox__input']"
+Delete: "xpath==//div//button//span[normalize-space(text())='Delete']"
+Confirm Delete: "xpath==//div[@class='el-message-box__header']/..//button//span[normalize-space(text())='Delete']"
+
+#导出功能定位
+Download Icon: "id==download-icon"
+More: "xpath==//span[contains(text(),'More...')]"
+Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
+Task Name value: "xpath==//div//ul//li//span[text()='variable']"
+Export Record Search: "css==[class='el-button btn-blue el-button--primary el-button--mini']"
+获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
+获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
+获取文件大小文本: "xpath==//tbody//tr[1]//td[7]//div"
+获取用户ID文本:  "xpath==//tbody//tr[1]//td[8]//div"
+获取创建日期文本: "xpath==//tbody//tr[1]//td[10]//div"
+获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
+获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
+获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"
+

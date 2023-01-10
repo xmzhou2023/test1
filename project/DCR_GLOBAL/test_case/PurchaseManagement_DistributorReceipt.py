@@ -11,31 +11,26 @@ import logging
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
-def function_distributor_receipt_query_fixture(drivers):
+def function_distributor_receipt_fixture(drivers):
     yield
     close = DistributorReceiptQuery(drivers)
     close.click_close_distributor_receipt_query()
 
 
-@allure.feature("采购管理-查看IMEI详情")
+@allure.feature("采购管理-国包收货")
 class TestQueryIMEIDetail:
-
-    @allure.story("查询国包收货")
-    @allure.title("IMEI库存查询页面，查询IMEI库存每个筛选项,进行随机组合")
-    @allure.description("IMEI库存页面，查询IMEI库存每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
+    @allure.story("组合查询国包收货")
+    @allure.title("国包收货页面，查询国包收货每个筛选项,进行随机组合")
+    @allure.description("国包收货页面，查询国包收货每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_distributor_receipt_query_fixture')
+    @pytest.mark.usefixtures('function_distributor_receipt_fixture')
     def test_002_002(self, drivers):
         user = DCRLoginPage(drivers)
-        #user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Purchase Management", "Distributor Receipt")
-
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = DistributorReceiptQuery(drivers)
         page.click_button('Unfold')
-
         """查询Activation Time，对结果进行判断,注意字典的键要和表格的表头一致"""
         query_dic = {'Customer': 'BD406712',
                      'Model': 'KG8',
@@ -45,7 +40,7 @@ class TestQueryIMEIDetail:
                      'SAP Customer ID': '406712',
                      'Brand': 'TECNO',
                      'Category': 'Mobile',
-                     'IMEI': '357916221064708',
+                     'IMEI': '357916221062926',
                      'Market Name': 'KG8',
                      'Customer Region3': 'Barisal',
                      'Delivery Country': 'Bangladesh',

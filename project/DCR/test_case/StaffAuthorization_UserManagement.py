@@ -739,9 +739,9 @@ class TestImportUser:
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_005_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-        user.click_gotomenu("Staff & Authorization", "User Management")
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "lhmadmin", "dcr123456")
+        menu.click_gotomenu("Staff & Authorization", "User Management")
         upload = UserManagementPage(drivers)
         """User Management页面，导入前获取列表筛选的User ID，如果能筛选到1条记录，先删除已存在的用户"""
         upload.delete_repetitive_user()
@@ -769,7 +769,6 @@ class TestImportUser:
         ValueAssert.value_assert_equal('0', get_failed)
         ValueAssert.value_assert_equal(today, get_import_date)
         """关闭当前打开的导入记录菜单"""
-        menu = LoginPage(drivers)
         menu.click_close_open_menu()
         """根据导入的客户ID，筛选导入的数据，然后进行删除操作"""
         upload.input_query_User('smarttest102')
@@ -791,9 +790,9 @@ class TestImportUser:
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_005_002(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-        user.click_gotomenu("Staff & Authorization", "User Management")
+        menu = LoginPage(drivers)
+        menu.initialize_login(drivers, "lhmadmin", "dcr123456")
+        menu.click_gotomenu("Staff & Authorization", "User Management")
         upload = UserManagementPage(drivers)
         """User Management页面，导入前获取列表筛选的User ID，如果能筛选到1条记录，先删除已存在的用户"""
         upload.delete_repetitive_user()
@@ -820,7 +819,6 @@ class TestImportUser:
         ValueAssert.value_assert_equal(today, get_import_date)
 
         """关闭当前打开的导入记录菜单"""
-        menu = LoginPage(drivers)
         menu.click_close_open_menu()
         """根据导入的客户ID，筛选导入的数据，然后进行删除操作"""
         upload.click_search()

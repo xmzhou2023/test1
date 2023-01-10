@@ -1,4 +1,4 @@
-from project.DCR.page_object.StaffAuthorization_UserCustAssociation import UserCustomerAssociaPage
+from project.DCR.page_object.StaffAuthorization_UserAndCustAssociation import UserCustomerAssociaPage
 import logging
 from libs.common.time_ui import sleep
 from project.DCR.page_object.Center_Component import LoginPage
@@ -32,13 +32,11 @@ class TestSearchUserCustAssocia:
         """DCR 管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开User And Customer Association菜单页面 """
         user.click_gotomenu("Staff & Authorization", "User and Customer Association")
-
         """ 查询用户与客户关系列表,所有数据加载正常 """
         user_cust = UserCustomerAssociaPage(drivers)
-        sleep(40)
+        sleep(20)
         userid = user_cust.get_list_user_id()
         username = user_cust.get_list_user_name()
         position = user_cust.get_list_position()
@@ -66,15 +64,11 @@ class TestExportUserCustAssocia:
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开User And Customer Association菜单页面 """
         user.click_gotomenu("Staff & Authorization", "User and Customer Association")
-
         export = UserCustomerAssociaPage(drivers)
         # 获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
-
+        today = Base(drivers).get_datetime_today()
         export.input_user_query("NG2061301")
         export.click_search()
         userid = export.get_list_user_id()
@@ -96,7 +90,6 @@ class TestExportUserCustAssocia:
         export.click_export()
         export.click_download_more()
         export.input_task_name("Staff And Customer Association")
-
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
@@ -117,5 +110,5 @@ class TestExportUserCustAssocia:
         #export.click_close_user_cust_assoc()
 
 if __name__ == '__main__':
-    pytest.main(['StaffAuthorization_UserCustAssociation.py'])
+    pytest.main(['StaffAuthorization_UserAndCustAssociation.py'])
 

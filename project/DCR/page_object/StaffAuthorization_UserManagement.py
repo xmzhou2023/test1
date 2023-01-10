@@ -371,12 +371,12 @@ class UserManagementPage(Base):
     @allure.step("User Management页面，点击Import 导入功能")
     def click_import_upload_save(self, file1):
         self.is_click(user['Add Upload'])
-        sleep(4)
+        sleep(3)
         ele = self.driver.find_element('xpath', "//button//..//input[@name='file']")
         ele.send_keys(file1)
         sleep(3)
         self.is_click(user['Import Save'])
-        sleep(2)
+        sleep(1)
         self.presence_sleep_dcr(user['Upload Confirm'])
         self.is_click(user['Upload Confirm'])
 

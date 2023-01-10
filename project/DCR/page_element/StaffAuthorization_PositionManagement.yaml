@@ -12,7 +12,7 @@ Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: n
 表格字段: "xpath==//div[normalize-space(text())='variable']/.."
 表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
 水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
-
+表头文本: "xpath==//thead/tr/th"
 
 #Add Position 新增职位
 Add Input Position: "xpath==//label[text()='Position']/..//div//div[@class='el-input el-input--small']//input"
