@@ -77,7 +77,7 @@ class TestCustomerAssociation:
         user.input_search('Customer', "SN400001")
         user.click_search()
         user.assert_Query_result('Customer ID', 'SN400001')
-        """断言：用户授权页面，用户与客户关系授权成功成功"""
+        """断言：用户授权页面，用户与客户关系授权成功"""
         customer = UserAuthorizationPage(drivers)
         customer.click_menu("Staff & Authorization", "User Authorization")
         customer.input_search('User ID', "wjkTS")
@@ -141,18 +141,19 @@ class TestCustomerAssociation:
         user.import_file('用户与客户关系.xlsx')
         user.click_save()
         user.click_confirm()
-        """移除客户关系授权"""
+        """删除客户关系授权"""
         user.click_menu("Staff & Authorization", "User And Customer Association")
         user.click_unfold()
         user.input_search('User', "wjkTS")
         user.input_search('Customer', "SN400001")
         user.click_search()
         user.click_CheckBox('wjkTS')
+        """断言：用户与客户关系删除成功"""
         user.click_function_button('Delete')
         user.click_Delete()
         DomAssert(drivers).assert_att('Successfully')
         user.assert_NoData()
-        """断言：用户授权页面，用户与客户关系授权成功成功"""
+        """断言：用户授权页面，用户与客户关系删除成功"""
         customer = UserAuthorizationPage(drivers)
         customer.click_menu("Staff & Authorization", "User Authorization")
         customer.input_search('User ID', "wjkTS")
