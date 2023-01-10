@@ -177,32 +177,6 @@ class TestQueryIMEIDetail:
                     ValueAssert.value_assert_equal(query_dic[i], attribute)
         else:
             logging.info('the total is empty')
-        for i in list_random:
-            logging.info('Now the i  is %s'%i)
-            if i == 'Customer':
-                logging.info('Now the Customer is %s'%query_dic[i])
-            elif i == 'Model' or i == 'Brand':
-                colum = page.get_table_column(i)
-                logging.info('then the colum is {}'.format(colum))
-                attribute = page.get_table_content(colum)
-                ValueAssert.value_assert_In(query_dic[i],attribute)
-            elif i == 'Material ID' or i == 'IMEI':
-                page.click_detail()
-                colum = page.get_table_column(i)
-                logging.info('this the colum is {}'.format(colum))
-                attribute = page.get_table_content(colum)
-                ValueAssert.value_assert_equal(attribute, query_dic[i])
-                page.clos_detail()
-            elif i == 'SAP Delivery Date':
-                colum = page.get_table_column(i)
-                logging.info('that the colum is {}'.format(colum))
-                attribute = page.get_table_content(colum)
-                ValueAssert.value_assert_date_in(attribute, query_dic[i], query_dic[i])
-            else:
-                colum = page.get_table_column(i)
-                logging.info('finally the colum is {}'.format(colum))
-                attribute = page.get_table_content(colum)
-                ValueAssert.value_assert_equal(query_dic[i],attribute)
 
 
 if __name__ == '__main__':
