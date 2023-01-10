@@ -83,6 +83,7 @@ class DistributorReceiptQuery(Base):
             self.is_click(user['Model点击'])
             self.input_text(user['Model输入'], txt=content)
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
+            self.click_dn()
         elif type == 'Customer':
             self.is_click(user['Customer点击'])
             self.input_text(user['Customer输入'], txt=content)
@@ -94,7 +95,7 @@ class DistributorReceiptQuery(Base):
         elif type == 'SAP Delivery Date':
             self.input_text(user['SAPDeliveryDate开始'], txt=content)
             self.input_text(user['SAPDeliveryDate结束'], txt=content)
-            self.is_click(user['DN输入'])
+            self.click_dn()
         elif type == 'SAP Customer ID':
             self.input_text(user['SAPCustomerID输入'], txt=content)
         elif type == 'Brand':
@@ -123,9 +124,9 @@ class DistributorReceiptQuery(Base):
             self.is_click(user['Country点击'])
             self.input_text(user['Country输入'], txt=content)
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
+            self.click_dn()
         elif type == 'Status':
             self.is_click(user['Status点击'])
-            # self.is_click(user['Status输入'])
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], 'Receiving')
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], 'On Transit')
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)

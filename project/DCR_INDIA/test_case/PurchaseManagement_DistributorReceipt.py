@@ -36,14 +36,11 @@ class TestQueryIMEIDetail:
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         #user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Purchase Management", "Distributor Receipt")
-
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = DistributorReceiptQuery(drivers)
         page.click_button('Unfold')
-
         """查询Activation Time，对结果进行判断,注意字典的键要和表格的表头一致"""
         query_dic = {'Customer': 'IN400134I',
                      'Model': 'A661L',
