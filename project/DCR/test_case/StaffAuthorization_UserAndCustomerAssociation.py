@@ -5,6 +5,7 @@ import pytest
 
 from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.StaffAuthorization_UserAndCustomerAssociation import UserAndCustomerAssociation
+from project.DCR.page_object.StaffAuthorization_UserAuthorization import UserAuthorizationPage
 from public.base.assert_ui import DomAssert
 
 """
@@ -76,13 +77,90 @@ class TestCustomerAssociation:
         user.input_search('Customer', "SN400001")
         user.click_search()
         user.assert_Query_result('Customer ID', 'SN400001')
+        """断言：用户授权页面，用户与客户关系授权成功成功"""
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        customer.click_tab('Customer')
+        customer.assert_Query_containsresult('Customer ID', 'SN400001')
         """移除客户关系授权"""
+        user.click_menu("Staff & Authorization", "User And Customer Association")
+        user.click_unfold()
+        user.input_search('User', "wjkTS")
+        user.input_search('Customer', "SN400001")
+        user.click_search()
         user.click_CheckBox('wjkTS')
         user.click_function_button('Delete')
         user.click_Delete()
         DomAssert(drivers).assert_att('Successfully')
         user.assert_NoData()
 
+    @allure.story("员工与客户关系")
+    @allure.title("导出用户与客户关系")
+    @allure.description("导出用户与客户关系")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_003(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, "18650493", "xLily6x")
+        """打开User Authorization菜单页面 """
+        user = UserAndCustomerAssociation(drivers)
+        user.click_menu("Staff & Authorization", "User And Customer Association")
+        user.click_unfold()
+        user.input_search('User', "wjkTS001")
+        user.click_search()
+        """导出"""
+        user.click_function_button('Export')
+        """断言ImportRecord页面结果"""
+        today = datetime.now().strftime('%Y-%m-%d')
+        DomAssert(drivers).assert_att('Create successful , will auto downloaded , please wait')
+        user.click_menu("Basic Data Management", "Export Record")
+        user.assert_Record_result('Export Record', 'Staff And Customer Association', 'Download Status', 'COMPLETE')
+        user.assert_Record_result('Export Record', 'Staff And Customer Association', 'File Size')
+        user.assert_Record_result('Export Record', 'Staff And Customer Association', 'Create Date', today)
+        user.assert_Record_result('Export Record', 'Staff And Customer Association', 'Completed Date', today)
+
+    @allure.story("员工与客户关系")
+    @allure.title("删除用户与客户关系")
+    @allure.description("删除用户与客户关系")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_004(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, "18650493", "xLily6x")
+        """打开User Authorization菜单页面 """
+        user = UserAndCustomerAssociation(drivers)
+        user.click_menu("Staff & Authorization", "User And Customer Association")
+        user.click_unfold()
+        user.input_search('User', "wjkTS")
+        user.input_search('Customer', "SN400001")
+        user.click_search()
+        """移除所有授权"""
+        user.reset_Association('wjkTS')
+        """导入文件授权"""
+        user.click_function_button('Import')
+        user.import_file('用户与客户关系.xlsx')
+        user.click_save()
+        user.click_confirm()
+        """移除客户关系授权"""
+        user.click_menu("Staff & Authorization", "User And Customer Association")
+        user.click_unfold()
+        user.input_search('User', "wjkTS")
+        user.input_search('Customer', "SN400001")
+        user.click_search()
+        user.click_CheckBox('wjkTS')
+        user.click_function_button('Delete')
+        user.click_Delete()
+        DomAssert(drivers).assert_att('Successfully')
+        user.assert_NoData()
+        """断言：用户授权页面，用户与客户关系授权成功成功"""
+        customer = UserAuthorizationPage(drivers)
+        customer.click_menu("Staff & Authorization", "User Authorization")
+        customer.input_search('User ID', "wjkTS")
+        customer.click_search()
+        customer.click_tab('Customer')
+        customer.input_search('Customer', "SN400001")
+        customer.click_tab_search()
+        customer.assert_NoData()
 
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])
