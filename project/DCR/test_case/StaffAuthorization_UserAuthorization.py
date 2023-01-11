@@ -404,27 +404,127 @@ class TestDeleteWareAuthorization:
 
 @allure.feature("员工授权-用户授权")
 class TestAddRegionAuthorization:
-    @allure.story("新增销售区域")
-    @allure.title("用户授权页面，新增销售区域授权")
-    @allure.description("用户授权页面，筛选User：testlhm0215，新增销售区域授权")
-    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    # @allure.story("销售区域授权")
+    # @allure.title("用户授权页面，新增销售区域授权")
+    # @allure.description("用户授权页面，筛选User：testlhm0215，新增销售区域授权")
+    # @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    # @pytest.mark.usefixtures('function_menu_fixture')
+    # def test_004_001(self, drivers):
+    #     user = LoginPage(drivers)
+    #     user.initialize_login(drivers, "lhmadmin", "dcr123456")
+    #
+    #     """打开User Authorization菜单页面 """
+    #     user.click_gotomenu("Staff & Authorization", "User Authorization")
+    #
+    #     sale_region = UserAuthorizationPage(drivers)
+    #     sale_region.input_trans_user_query("testlhm0215")
+    #     sale_region.click_search()
+    #
+    #     sale_region.click_sales_region_tab()
+    #     sale_region.click_east_africa_checkbox()
+    #     sale_region.click_score_user_checkbox()
+    #     sale_region.click_save_sales_region()
+    #     DomAssert(drivers).assert_att("Successfully")
+
+    @allure.story("销售区域授权")
+    @allure.title("授权销售区域下面的所有客户，店铺")
+    @allure.description("授权销售区域下面的所有客户，店铺")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_001(self, drivers):
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+    def test_004_002(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, "18650493", "xLily6x")
 
         """打开User Authorization菜单页面 """
-        user.click_gotomenu("Staff & Authorization", "User Authorization")
+        user = UserAuthorizationPage(drivers)
+        user.click_menu("Staff & Authorization", "User Authorization")
+        user.input_search('User ID', "1671417004")
+        user.click_search()
+        """点击Sales Region标签页"""
+        user.click_tab('Sales Region')
+        """移除所有授权"""
+        user.reset_Association('Sales Region')
+        """销售区域授权"""
+        user.select_SalesRegion('Senegal')
+        user.select_ScopeOfAutorization('All Customer')
+        user.select_ScopeOfAutorization('Shop')
+        user.click_SalesRegion_save()
+        """断言：添加销售区域授权成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        user.assert_SalesRegionAutorization_success('Senegal', 'All Customer', 'Distributor', 'Sub-dealer', 'Shop')
+        """移除销售区域授权"""
+        user.select_SalesRegion('Senegal')
+        user.click_SalesRegion_save()
+        """断言：移除销售区域成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        user.assert_NoData()
 
-        sale_region = UserAuthorizationPage(drivers)
-        sale_region.input_trans_user_query("testlhm0215")
-        sale_region.click_search()
+    @allure.story("销售区域授权")
+    @allure.title("授权销售区域下面的所有国包，用户")
+    @allure.description("授权销售区域下面的所有国包，用户")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_004_003(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, "18650493", "xLily6x")
 
-        sale_region.click_sales_region_tab()
-        sale_region.click_east_africa_checkbox()
-        sale_region.click_score_user_checkbox()
-        sale_region.click_save_sales_region()
-        DomAssert(drivers).assert_att("Successfully")
+        """打开User Authorization菜单页面 """
+        user = UserAuthorizationPage(drivers)
+        user.click_menu("Staff & Authorization", "User Authorization")
+        user.input_search('User ID', "1671417004")
+        user.click_search()
+        """点击Sales Region标签页"""
+        user.click_tab('Sales Region')
+        """移除所有授权"""
+        user.reset_Association('Sales Region')
+        """销售区域授权"""
+        user.select_SalesRegion('Senegal')
+        user.select_ScopeOfAutorization('Distributor')
+        user.select_ScopeOfAutorization('User')
+        user.click_SalesRegion_save()
+        """断言：添加销售区域授权成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        user.assert_SalesRegionAutorization_success('Senegal', 'Distributor', 'User')
+        """移除销售区域授权"""
+        user.select_SalesRegion('Senegal')
+        user.click_SalesRegion_save()
+        """断言：移除销售区域成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        user.assert_NoData()
+
+    @allure.story("销售区域授权")
+    @allure.title("销售销售区域下面的所二级经销商， 用户")
+    @allure.description("销售销售区域下面的所二级经销商， 用户")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_004_004(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, "18650493", "xLily6x")
+
+        """打开User Authorization菜单页面 """
+        user = UserAuthorizationPage(drivers)
+        user.click_menu("Staff & Authorization", "User Authorization")
+        user.input_search('User ID', "1671417004")
+        user.click_search()
+        """点击Sales Region标签页"""
+        user.click_tab('Sales Region')
+        """移除所有授权"""
+        user.reset_Association('Sales Region')
+        """销售区域授权"""
+        user.select_SalesRegion('Senegal')
+        user.select_ScopeOfAutorization('Sub-dealer')
+        user.select_ScopeOfAutorization('User')
+        user.click_SalesRegion_save()
+        """断言：添加销售区域授权成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        user.assert_SalesRegionAutorization_success('Senegal')
+        user.assert_SalesRegionAutorization_success('Senegal', 'Sub-dealer', 'User')
+        """移除销售区域授权"""
+        user.select_SalesRegion('Senegal')
+        user.click_SalesRegion_save()
+        """断言：移除销售区域成功"""
+        DomAssert(drivers).assert_att('Successfully')
+        user.assert_NoData()
 
 
 @allure.feature("员工授权-用户授权")

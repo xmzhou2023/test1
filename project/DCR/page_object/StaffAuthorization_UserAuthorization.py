@@ -1,3 +1,5 @@
+import logging
+
 from libs.common.read_element import Element
 from libs.config.conf import BASE_DIR
 from public.base.basics import Base
@@ -518,7 +520,7 @@ class UserAuthorizationPage(Base):
         if 'Customer' in title or 'Shop' in title:
             self.is_click(user['AuthorizedSelected'])
         elif 'Warehouse' in title:
-            self.is_click(user['Save'])
+            self.is_click(user['WarehouseSave'])
         else:
             logging.error('无对应保存按钮')
             raise ValueError('无对应保存按钮')
@@ -529,7 +531,6 @@ class UserAuthorizationPage(Base):
         """
         :param header: 需要获取的指定字段
         :param content: 需要断言的值
-        :param num: 包含的数量
         """
         logging.info('开始断言：用户授权页面查询结果')
         DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
@@ -545,12 +546,18 @@ class UserAuthorizationPage(Base):
         DomAssert(self.driver).assert_control(user['NoData'])
 
     @allure.step("前置：移除所有授权")
-    def reset_Association(self):
+    def reset_Association(self, tab=None):
         logging.info('开始：移除所有授权')
-        self.click_function_button('Empty All Association')
-        self.click_Delete()
-        DomAssert(self.driver).assert_att('Successfully')
-        self.assert_NoData()
+        if tab == 'Sales Region':
+            if self.element_exist(user['NoData']) is False:
+                self.is_click_tbm(user['销售区域选择'], 'Sales Region')
+                self.is_click_tbm(user['SalesRegionSave'])
+                DomAssert(self.driver).assert_att('Successfully')
+        else:
+            self.click_function_button('Empty All Association')
+            self.click_Delete()
+            DomAssert(self.driver).assert_att('Successfully')
+            self.assert_NoData()
 
     @allure.step("组合方法：添加授权")
     def Association_Method(self, Cid, header='Customer'):
@@ -644,6 +651,42 @@ class UserAuthorizationPage(Base):
     @allure.step("点击Export")
     def click_export(self):
         self.is_click(user['Export'])
+
+    @allure.step("选择销售区域")
+    def select_SalesRegion(self, SalesRegion):
+        """
+        :param SalesRegion: 销售区域
+        """
+        self.input_text(user['销售区域查询'], SalesRegion)
+        self.is_click_tbm(user['销售区域选择'], SalesRegion)
+
+    @allure.step("选择授权范围")
+    def select_ScopeOfAutorization(self, scope):
+        """
+        :param SalesRegion: 销售区域
+        """
+        self.is_click_tbm(user['销售范围选择'], scope)
+        logging.info(f'选择销售范围：{scope}')
+
+    @allure.step("点击保存")
+    def click_SalesRegion_save(self):
+        self.is_click(user['SalesRegionSave'])
+
+    @allure.step("断言：销售区域授权成功")
+    def assert_SalesRegionAutorization_success(self, SalesRegion, *scope):
+        """
+        :param SalesRegion: 销售区域
+        :param scope: 销售范围
+        """
+        logging.info('开始断言：销售区域授权成功')
+        self.input_text(user['已授权销售区域查询'], SalesRegion)
+        DomAssert(self.driver).assert_control(user['已授权销售区域'], SalesRegion)
+        logging.info(f'已授权销售区域：{SalesRegion} 存在')
+        if scope:
+            for i in scope:
+                class_att = self.get_element_attribute(user['已授权销售范围'], 'class', i)
+                ValueAssert.value_assert_In('is-checked', class_att)
+                logging.info(f'已勾选销售范围：{i}')
 
 
 if __name__ == '__main__':
