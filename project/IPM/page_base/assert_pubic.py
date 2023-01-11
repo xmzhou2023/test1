@@ -24,10 +24,12 @@ class AssertMode(PubicMethod):
     @allure.step("断言")
     def assert_toast(self,element, content=None):
         try:
-            att = self.wait.until(
-                    EC.visibility_of_element_located((By.XPATH, self.filelist.yaml_read(element)))).text
+            print(self.wait.until(EC.visibility_of_element_located((By.XPATH, self.filelist.yaml_read(element)))).text)
+            att = self.wait.until(EC.visibility_of_element_located((By.XPATH, self.filelist.yaml_read(element)))).text
+
             self.base_get_img()
             logging.info('获取toast提示语：{}'.format(att))
+
             try:
                 if content is None:
                     assert '请求成功' in att or '审核通过' in att or '操作成功' in att or '处理成功' in att
@@ -101,21 +103,34 @@ class AssertMode(PubicMethod):
             logging.error('断言失败，实际提示为：{}'.format(att))
             raise
 
-    def element_not_found(self,locator,result=False):
+    def element_not_found(self,locator,result=False,choice=None):
         '''
         locator：元素
         test:断言元素不存在
         '''
-        control = Base(self.driver).element_exist(locator)
+        control = self.element_exist_IPM(locator,choice)
+        print(control)
         try:
             assert  control is result,logging.warning(f'断言失败，元素：{locator}存在结果与期望结果：{result}不符')
-            logging.info((f'断崖成功，元素：{locator}存在结果为：{result}'))
+            logging.info((f'断言成功，元素：{locator}存在结果为：{result}'))
 
         except Exception as e:
             logging.info(e)
             raise
 
+    def elements_assert(self,ExpectedResults,element,choice=None,get_attribute='innerText'):
+        '''
+        locator：元素
+        test:断言预期结果在实际结果中
+        '''
+        ActualResults = self.find_elemens_ipm_yaml_get_attribute(element,choice,get_attribute)
+        try:
+            assert  ExpectedResults in ActualResults
+            logging.info((f'断言成功，元素：{ActualResults}存在结果为：{ExpectedResults}'))
 
+        except Exception as e:
+            logging.info(e)
+            raise
 
 if __name__ == '__main__':
     pass

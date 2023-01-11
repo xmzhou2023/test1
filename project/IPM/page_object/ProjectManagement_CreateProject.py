@@ -227,12 +227,12 @@ class CreateProject(General_methods):
         '''
         计划任务_上会_可预约日期选择
         '''
-        element_res=self.find_elemens_IPM_yaml_get_attribute('上会预约_获取可预约')
+        element_res=self.find_elemens_ipm_yaml_get_attribute('上会预约_获取可预约')
         if "可预约" in element_res:
             self.click_IPM("上会_预约")
         else:
-            element_res6_01 = self.find_elemens_IPM_yaml_get_attribute('上会预约_获取下月6')
-            element_res5_01 = self.find_elemens_IPM_yaml_get_attribute('上会预约_获取下月5')
+            element_res6_01 = self.find_elemens_ipm_yaml_get_attribute('上会预约_获取下月6')
+            element_res5_01 = self.find_elemens_ipm_yaml_get_attribute('上会预约_获取下月5')
             print(element_res5_01)
             if "01" in element_res5_01:
                 self.click_IPM("上会预约_5_01")
@@ -450,7 +450,7 @@ class CreateProject(General_methods):
         '''
         任务基本信息所有字段获取
         '''
-        return self.find_elemens_IPM_yaml_get_attribute('任务基本信息')
+        return self.find_elemens_ipm_yaml_get_attribute('任务基本信息')
 
 
 
@@ -615,7 +615,7 @@ class CreateProject(General_methods):
         self.project_tab("团队")
         self.prpject_Team_Role(role)
         try:
-            role_ele=self.find_elemens_IPM_yaml_get_attribute("团队_角色_表单成员")
+            role_ele=self.find_elemens_ipm_yaml_get_attribute("团队_角色_表单成员")
             for i in role_ele:
                 if i != None:
                     if judge == "删除":
