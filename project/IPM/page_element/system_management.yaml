@@ -22,7 +22,7 @@ span: 'xpath==//span[text()="variable"]'
 对象_页面属性刷新: 'xpath==//div[@class="flex-1 h-full overflow-overlay"]'
 对象_检入中_选择图标: 'xpath==//span[text()=" 选择图标 "]'
 对象_检入中_选择图标_已存在图标: 'xpath==//div[@class="choose-object-icon"]/div[1]/div'
-对象_检入中_选择图标_上传图标: 'xpath==//div[@aria-label="选择图标"]/div[@class="el-dialog__body"]//i'
+对象_检入中_选择图标_上传图标: 'xpath==//div[@aria-label="选择图标"]/div[@class="el-dialog__body"]//input'
 对象_检入中_选择图标_上传图标_功能键: 'xpath==//div[@aria-label="选择图标"]//span[text()=" variable "]'
 对象_检入中_字段框_启用禁用未启用文本: 'xpath==//span[text()=" variable "]'
 

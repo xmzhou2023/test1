@@ -328,12 +328,12 @@ class SystemManagement(General_methods):
         elif field == '选择图标':#如果field等于选择图标，则打开选择图标窗口
             element_not = self.element_exist_IPM('对象_检入中_选择图标')
             if element_not==True:
-                self.click_IPM('对象_检入中_选择图标')
+                self.upload_file_ipm('对象_检入中_选择图标',import_system_management)
             if element_not == False:
                 self.click_IPM('对象_检入中_选择图标_已存在图标')
             if SelectValue =="上传图标":
-                self.click_IPM('对象_检入中_选择图标_上传图标')
-                Improt_File_n(path_system_management,'上传图标.jpeg')
+                self.upload_file_ipm('对象_检入中_选择图标_上传图标',import_system_management)
+
                 if functionkeys == "确定" or functionkeys == "取消" :
                     self.click_IPM('对象_检入中_选择图标_上传图标_功能键',functionkeys)
             elif SelectValue == "确定" or SelectValue == "取消" :
