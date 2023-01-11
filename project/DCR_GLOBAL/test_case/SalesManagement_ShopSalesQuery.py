@@ -42,7 +42,7 @@ class TestQueryShopSalesQuery:
         user.click_gotomenu("Sales Management", "Shop Sales Query")
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         shop_sales = ShopSaleQueryPage(drivers)
-        sleep(3.5)
+        sleep(6)
         total = shop_sales.get_total_text()
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         if int(total) > 0:
@@ -75,6 +75,7 @@ class TestExportShopSalesQuery:
         menu.click_gotomenu("Sales Management", "Shop Sales Query")
         """实例化对象类"""
         export = ShopSaleQueryPage(drivers)
+        sleep(10)
         today = export.get_datetime_today()
         last_date = export.get_last_day(1)
         """根据销售日期筛选数据"""

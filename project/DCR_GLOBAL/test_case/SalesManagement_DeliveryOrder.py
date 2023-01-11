@@ -38,7 +38,6 @@ class TestQueryDeliveryOrder:
     def test_001_001(self, drivers):
         menu = DCRLoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
-        #Base(drivers).refresh()
         """打开销售管理-打开出库单页面"""
         menu.click_gotomenu("Sales Management", "Delivery Order")
         query = DeliveryOrderPage(drivers)
@@ -67,8 +66,7 @@ class TestExportDeliveryOrder:
         menu.click_gotomenu("Sales Management", "Delivery Order")
         export = DeliveryOrderPage(drivers)
         # 获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
         last_date = export.get_last_day(1)
         export.click_unfold()
         export.input_delivery_date(last_date, today)

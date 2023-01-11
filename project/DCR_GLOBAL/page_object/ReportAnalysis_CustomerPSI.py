@@ -31,7 +31,6 @@ class CustomerPSIPage(Base):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
         self.element_text(user['Loading'])
-        #sleep(6)
 
     def get_total_text(self):
         """获取分页总条数文本"""
@@ -65,8 +64,6 @@ class CustomerPSIPage(Base):
     #     self.is_click(user['关闭客户PSI菜单'])
     #     sleep(1)
 
-
-
     #Customer PSI列表数据筛选后，导出操作成功后验证
     def click_export(self):
         """Customer PSI页面，点击Export导出按钮"""
@@ -78,7 +75,7 @@ class CustomerPSIPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

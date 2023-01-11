@@ -1,6 +1,6 @@
 展开折叠: "xpath==//span[(text()='Unfold')]"
 Search: "xpath==//span[contains(text(),'Search')]"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 #组合条件筛选退货单
 输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
 输入框1: "xpath==//label[contains(text(),'variable')]/..//input[@class='el-select__input is-small']"
@@ -16,5 +16,4 @@ Input Return Start Date: "xpath==//label[contains(text(),'variable')]/..//div[@c
 menu表格字段: "xpath==//div[normalize-space(text())='variable']/.."
 表格内容: "xpath==//td[contains(@class,'variable ') and not(contains(@class, 'is-hidden'))]//div"
 滚动条: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']"
-Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 表头文本: "xpath==//thead/tr/th"
