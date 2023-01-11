@@ -4,7 +4,7 @@ PATH=os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA=os.path.join(PATH,'IPM\data')
 
 MaterialRequisitionPATH=os.path.join(PATH,'IPM\data\ProcessCenter_MaterialRequisition_Add')
-path_system_management = os.path.join(DATA,'system_management')
+path_system_management = os.path.join(DATA)
 # #手机物料
 # Mobile_Material=os.path.join(MaterialRequisitionPATH,'手机物料\手机物料导入')
 # #手机物料-二级BOM
