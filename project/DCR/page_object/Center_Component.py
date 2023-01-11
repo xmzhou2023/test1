@@ -145,6 +145,7 @@ class LoginPage(Base):
 
     @allure.step("初始化登录方法")
     def initialize_login(self, drivers, account1, password):
+        self.refresh()
         all_text = self.element_text(user['所有文本'])
         if 'Log in' in all_text:
             self.dcr_again_login(drivers, account1, password)
