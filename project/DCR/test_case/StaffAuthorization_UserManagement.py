@@ -613,6 +613,36 @@ class TestAddEditQuitTranssionUser:
         """断言： 登录成功"""
         DomAssert(drivers).assert_att(userID)
 
+    @allure.story("用户管理")
+    @allure.title("批量重置员工密码，包含内部员工重置失败")
+    @allure.description("批量重置员工密码，包含内部员工重置失败")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_002_015(self, drivers):
+        """账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """点击用户管理菜单"""
+        InternalEmployee = '18650493'
+        ExternalEmployee = '1671418444'
+        user_list = '18650493,1671418444'
+        add = UserManagementPage(drivers)
+        add.click_menu("Staff & Authorization", "User Management")
+        """重置密码"""
+        add.input_search('User ID', user_list)
+        add.click_search()
+        add.click_checkbox(InternalEmployee)
+        add.click_checkbox(ExternalEmployee)
+        add.click_function_button('Reset Password')
+        """断言：提示内部用户不可以重置密码"""
+        DomAssert(drivers).assert_att("Transsion account can't be reset password in the DCR")
+        add.refresh()
+        """断言：外部员工重置失败"""
+        user.click_loginOut()
+        user.input_account(ExternalEmployee)
+        user.input_passwd(ExternalEmployee)
+        user.click_loginsubmit()
+        DomAssert(drivers).assert_att('Username or password is incorrect, login failed！account will be locked for 1 hour after 10 consecutive failed!')
+
 
 @allure.feature("员工授权-用户管理")
 class TestAddEditQuitDealerUser:
