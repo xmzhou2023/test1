@@ -116,6 +116,9 @@ class PubicMethod(Base):
             self.input_text(locator=self.chome[elements], txt=text,choice=choice)
         sleep(0.5)
 
+    def upload_file_ipm(self,elements,text,choice=None):
+        self.upload_file(self.chome[elements],text,choice)
+
 
     def form_elements(self,formheader,choice=None,get_attributs='innerText'):
         """
