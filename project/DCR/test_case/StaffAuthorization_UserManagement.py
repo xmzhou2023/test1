@@ -316,7 +316,7 @@ class TestAddEditQuitTranssionUser:
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
         """点击用户管理菜单"""
-        UserID = '18650493'
+        UserID = '18645012'
         today = datetime.now().strftime('%Y-%m-%d')
         add = UserManagementPage(drivers)
         add.click_menu("Staff & Authorization", "User Management")
@@ -338,10 +338,10 @@ class TestAddEditQuitTranssionUser:
         add.input_search('User ID', UserID)
         add.click_search()
         add.click_Edit(UserID)
-        add.assert_user_Information('User Name', '翁佳柯')
-        add.assert_user_Information('Hire Date', '2021-12-30')
-        add.assert_user_Information('Email', 'JIAKE.WENG@TRANSSION.COM')
-        add.assert_user_Information('Gender', 'Male')
+        add.assert_user_Information('User Name', '陈彦冰')
+        add.assert_user_Information('Hire Date', '2019-12-12')
+        add.assert_user_Information('Email', 'YANBING.CHEN@TRANSSION.COM')
+        add.assert_user_Information('Gender', 'Female')
 
     @allure.story("用户管理")
     @allure.title("批导编辑员工信息成功生效")
@@ -358,9 +358,9 @@ class TestAddEditQuitTranssionUser:
         TranssionName = 'wjk传音员工' + suffix
         ContactNo = 'ContactNo' + suffix
         DealerID = 'SN40000301'
-        TranssionInternalID = '18650493'
+        TranssionInternalID = '18645012'
         TranssionExternalID = 'wjkTS004'
-        user_list = 'SN40000301,18650493,wjkTS004'
+        user_list = 'SN40000301,18645012,wjkTS004'
         today = datetime.now().strftime('%Y-%m-%d')
         """点击用户管理菜单"""
         add = UserManagementPage(drivers)
