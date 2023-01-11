@@ -71,8 +71,7 @@ class TestExportShopInventoryIMEI:
         user.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
         export = ShopInventoryIMEIQueryPage(drivers)
         #获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
         last_date = export.get_last_day(1)
         # 点击Unfold展开筛选按钮
         export.click_unfold()

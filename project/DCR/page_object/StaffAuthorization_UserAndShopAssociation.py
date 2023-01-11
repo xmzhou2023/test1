@@ -14,7 +14,7 @@ class UserShopAssociaPage(Base):
     @allure.step("进入User and Shop Association页面，根据User或 Shop条件筛选品牌、客户等数据")
     def input_user_or_shop_query(self, label, content):
         self.is_click(user['点击输入框'], label)
-        self.input_text(user['输入输入框'], label, content)
+        self.input_text(user['输入输入框'], content, label)
         self.presence_sleep_dcr(user['输入结果模糊选择'], content)
         self.is_click(user['输入结果模糊选择'], content)
 
@@ -186,8 +186,8 @@ class UserShopAssociaPage(Base):
         self.is_click(user['Click Import'])
         sleep(1)
         """未上传文件时，先点击Save，弹出提示：请上传文件"""
-        self.presence_sleep_dcr(user['Click Upload Save'])
-        self.is_click(user['Click Upload Save'])
+        self.presence_sleep_dcr(user['Import Save'])
+        self.is_click(user['Import Save'])
         DomAssert(self.driver).assert_att('Please upload first.')
 
     @allure.step("user and shop Association 页面，点击Upload上传文件")
@@ -197,8 +197,8 @@ class UserShopAssociaPage(Base):
         self.is_click(user['Click Upload'])
         sleep(3)
         ele = self.driver.find_element('xpath', "//div/..//button/..//input[@name='file']")
-        ele.send_keys(file1)
-        sleep(3)
+        ele.send_keys(path1)
+        sleep(1.5)
         self.is_click(user['Import Save'])
         self.presence_sleep_dcr(user['Upload Confirm'])
         self.is_click(user['Upload Confirm'])
@@ -215,30 +215,18 @@ class UserShopAssociaPage(Base):
 
 
     #删除用户和门店关系数据
-    # def input_shop_id_query(self):
-    #     self.is_click(user['Shop输入框'])
-    #     self.input_text(user['Input Shop输入框'])
-    #     self.presence_sleep_dcr(user[''])
-    #     self.is_click(user[''])
-    @allure.step("根据User ID与 Shop ID条件进行搜索待删除的数据")
-    def user_and_shop_query(self, unfold):
-        self.click_unfold_or_fold(unfold)
-        self.input_user_or_shop_query('lhmdianzhang', 'User')
-        self.input_user_or_shop_query('EG000706', 'Shop')
-        self.click_search()
-
     @allure.step("点击删除操作")
     def click_delete_operation(self, unfold):
-        self.click_unfold_or_fold('Fold')
+        self.click_unfold_or_fold(unfold)
         self.is_click(user['勾选第一个复选框'])
         self.is_click(user['Delete'])
         self.is_click(user['Confirm Delete'])
 
-
     @allure.step("断言：页面查询结果")
-    def assert_User_Exist(self, header, content):
+    def assert_search_result_exist(self, header, content):
         logging.info('开始断言：页面查询结果')
-        DomAssert(self.driver).assert_search_contains_result(user['表格指定列内容'], header, content, sc_element=user['水平滚动条'], h_element=user['表头文本'])
+        DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content,
+                                                             sc_element=user['水平滚动条'], h_element=user['表头文本'])
 
     @allure.step("判断空值")
     def assert_None(self, result):
@@ -255,51 +243,36 @@ class UserShopAssociaPage(Base):
         @header： 输入框名称
         @content： 输入内容
         """
-        click_input_list = ['Return Order ID', 'Delivery/DN Order ID']
-        input_select_list = ['Brand']
-        input_select_all_list1 = ['Status', 'Return Type']
-        input_select_all_list22 = ['Model', 'Market Name', 'Seller Country']
-        return_date_list = ['Return Date']
-        seller_list = ['Seller', 'Buyer']
-        warehouse_list = ['Buyer Warehouse Region', 'Seller Warehouse Region']
-        imei_list = ['IMEI']
+        user_shop_list = ['User', 'Shop']
+        sales_region_list = ['Sales Region']
+        brand_list = ['Brand', 'Manpower Type']
+        #shop_type_list = ['Shop Type']
+        input_country_list = ['Country']
         self.element_exist(user['Loading'])
         logging.info(f'输入查询条件： {header} ，内容： {content}')
-        if header in click_input_list:
-            self.is_click_dcr(user['输入框'], header)
-            self.input_text(user['输入框'], content, header)
-        elif header in input_select_list:
-            self.is_click_dcr(user['输入框'], header)
-            self.is_click(user['输入结果精确选择'], content, header)
-            self.is_click(user['点击label标签'], header)
-        elif header in input_select_all_list1:
+        if header in user_shop_list:
+            self.is_click(user['点击输入框1'], header)
+            self.input_text(user['输入输入框1'], content, header)
+            self.presence_sleep_dcr(user['输入结果模糊选择1'], content)
+            self.is_click(user['输入结果模糊选择1'], content)
+        elif header in sales_region_list:
             self.is_click(user['输入框'], header)
+            self.input_text(user['输入框'], content, header)
+            self.is_click(user['输入区域精确选择'], header, content)
+        elif header in brand_list:
+            self.is_click(user['点击输入框1'], header)
+            self.input_text(user['点击输入框1'], content, header)
+            self.is_click(user['输入结果精确选择'], content)
+        # elif header in shop_type_list:
+        #     self.is_click_dcr(user['输入输入框2'], header)
+        #     self.input_text(user['输入Shop Type'], content, header)
+        #     sleep(1.5)
+        #     self.is_click(user['输入结果精确选择'], content)
+        elif header in input_country_list:
+            self.is_click_dcr(user['点击输入框1'], header)
             self.input_text(user['输入框2'], content, header)
             self.is_click(user['输入结果精确选择'], content)
-        elif header in input_select_all_list22:
-            self.is_click_dcr(user['输入框'], header)
-            self.input_text(user['输入框1'], content, header)
-            sleep(1.8)
-            self.is_click(user['输入结果精确选择1'], header, content)
-            self.is_click(user['点击label标签'], header)
-        elif header in return_date_list:
-            self.is_click(user['Input Return Start Date'], header)
-            self.input_text(user['Input Return Start Date'], content, header)
-            """弹出日历空间后，点击日历标签释法"""
-            self.is_click(user['点击label标签'], header)
-        elif header in seller_list:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框2'], content, header)
-            sleep(0.8)
-            self.is_click(user['输入结果模糊选择'], content)
-        elif header in warehouse_list:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框'], content, header)
-            sleep(0.8)
-            self.is_click(user['输入仓库区域精确选择'], header, content)
-        elif header in imei_list:
-            self.is_click(user['输入框'], header)
-            self.input_text(user['输入框IMEI'], content, header)
+            self.is_click(user['点击筛选项label'], header)
         else:
             logging.error('请输入正确的查询条件')
             raise ValueError('请输入正确的查询条件')
@@ -308,41 +281,28 @@ class UserShopAssociaPage(Base):
     @allure.step("断言：页面查询结果")
     def assert_search_result(self, header, content):
         logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
-        if header == 'Return Order ID' or header == 'Delivery/DN Order ID':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Return Date':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Status':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Return Type':
-            self.assert_User_Exist(f'{header}', content)
+        if header == 'User':
+            self.assert_search_result_exist(f'{header} ID', content)
+        elif header == 'Sales Region':
+            self.assert_search_result_exist(f'{header} 3', content)
         elif header == 'Brand':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Model':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Market Name':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Seller':
-            self.assert_User_Exist(f'{header} ID', content)
-        elif header == 'Seller Country':
-            self.assert_User_Exist(f'{header}', content)
-        elif header == 'Buyer':
-            self.assert_User_Exist(f'{header} ID', content)
-        elif header == 'Buyer Warehouse Region' or header == 'Seller Warehouse Region':
-            self.assert_User_Exist(f'{header}1', content)
-        elif header == 'IMEI':
-            self.is_click(user['点击IMEI Detail按钮'])
-            sleep(0.5)
-            self.assert_User_Exist(f'{header}', content)
-            self.is_click(user['关闭IMEI Detail窗口'])
+            self.assert_search_result_exist(f'{header}', content)
+        # elif header == ' Shop Type':
+        #     self.assert_user_and_shop_assoc_exist(f'{header}', content)
+        elif header == 'Manpower Type':
+            self.assert_search_result_exist(f'{header}', content)
+        elif header == 'Shop':
+            self.assert_search_result_exist(f'{header} ID', content)
+        elif header == 'Country':
+            self.assert_search_result_exist(f'{header} ID', content)
         else:
-            self.assert_User_Exist(header, content)
+            self.assert_search_result_exist(header, content)
 
 
     @allure.step("组合查询 组合方法")
     def random_Query_Method(self, kwargs):
         list_query = []
-        num = random.randint(3, 9)
+        num = random.randint(3, 6)
         for i in kwargs:
             list_query.append(i)
         logging.info(f'输入框：{list_query}')

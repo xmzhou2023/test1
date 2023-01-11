@@ -27,12 +27,12 @@ class AttendanceRecordPage(Base):
     def click_search(self):
         """Attendance Records页面，点击Seasrch筛选考勤记录"""
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Attendance Records页面，点击Reset重置筛选条件"""
         self.is_click(user['Reset'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
 
     def get_photo_text(self):
@@ -64,18 +64,6 @@ class AttendanceRecordPage(Base):
         return total1
 
 
-    def get_home_page_cust(self):
-        homepage = self.element_text(user['Get Home Page Customer'])
-        return homepage
-
-
-    # def presence_sleep(self, content):
-    #     """DCR通用的显示等待方法"""
-    #     txt1 = None
-    #     while not txt1:
-    #         txt1 = self.find_element(content)
-    #
-
     """导出考勤记录功能"""
 
     def click_export(self):
@@ -88,7 +76,7 @@ class AttendanceRecordPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

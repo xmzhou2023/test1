@@ -77,8 +77,7 @@ class TestExportDeliveryOrder:
         menu.click_gotomenu("Sales Management", "Delivery Order")
         export = DeliveryOrderPage(drivers)
         # 获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
         last_date = export.get_last_day(1)
         export.click_unfold()
         export.input_delivery_date(last_date, today)

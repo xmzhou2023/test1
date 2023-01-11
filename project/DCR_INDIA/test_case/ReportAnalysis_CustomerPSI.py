@@ -42,13 +42,13 @@ class TestQueryDistiCustomerPSI:
         """报表分析-打开客户PSI页面"""
         user.click_gotomenu("Report Analysis", "Customer PSI")
         psi = CustomerPSIPage(drivers)
-        region_texta = psi.get_sale_regiona_text()
-        region_textb = psi.get_sale_regionb_text()
+        region_text_2 = psi.get_sale_regiona_text()
+        region_text_3 = psi.get_sale_regionb_text()
         brand_text = psi.get_brand_text()
         total = psi.get_total_text()
         """根据日期筛选Distributor Customer PSI数据后，断言是否查询到数据"""
-        ValueAssert.value_assert_IsNoneNot(region_texta)
-        ValueAssert.value_assert_IsNoneNot(region_textb)
+        ValueAssert.value_assert_IsNoneNot(region_text_2)
+        ValueAssert.value_assert_IsNoneNot(region_text_3)
         ValueAssert.value_assert_IsNoneNot(brand_text)
         psi.assert_total(total)
 
@@ -65,13 +65,17 @@ class TestExportDistiCustomerPSI:
         """筛选国包客户PSI列表数据，导出数据是否正常"""
         export = CustomerPSIPage(drivers)
         # 获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
+        last_date = export.get_last_day(1)
+        export.customer_psi_start_date_query('2023-01-10')
+        export.click_search()
         # 默认选中查询国包PSI数据
         #点击导出功能
         export.click_export()
         export.click_download_more()
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
         export.input_task_name('Customer PSI')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
@@ -130,14 +134,19 @@ class TestExportSubCustomerPSI:
         """根据日期筛选二代客户PSI列表数据，导出数据是否正常"""
         export = CustomerPSIPage(drivers)
         # 获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
+        logging.info("打印当前日期".format(today))
+        last_date = export.get_last_day(1)
+        export.customer_psi_start_date_query('2023-01-10')
+        export.click_search()
         # 查询二代PSI数据
         export.click_sub_dealer()
         # 筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
         export.input_task_name('Customer PSI')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
