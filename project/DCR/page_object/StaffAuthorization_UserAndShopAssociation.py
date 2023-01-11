@@ -13,8 +13,8 @@ class UserShopAssociaPage(Base):
     """ User and Shop Association 菜单定位元素类"""
     @allure.step("进入User and Shop Association页面，根据User或 Shop条件筛选品牌、客户等数据")
     def input_user_or_shop_query(self, label, content):
-        self.is_click(user['点击输入框'], label)
-        self.input_text(user['输入输入框'], content, label)
+        self.is_click(user['点击输入框1'], label)
+        self.input_text(user['输入输入框1'], content, label)
         self.presence_sleep_dcr(user['输入结果模糊选择'], content)
         self.is_click(user['输入结果模糊选择'], content)
 
@@ -171,12 +171,12 @@ class UserShopAssociaPage(Base):
 
     @allure.step("断言精确查询结果 user and shop Association 列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
     def assert_user_and_shop_assoc_field(self, header, content):
-        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content,
+        DomAssert(self.driver).assert_search_result(user['menu表格字段'], user['表格内容'], header, content,
                                                     sc_element=user['水平滚动条'])
 
     @allure.step("断言模糊查询结果 user and shop Association 列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
     def assert_contains_user_and_shop_assoc_field(self, header, content):
-        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容'], header, content,
+        DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content,
                                                              sc_element=user['水平滚动条'])
 
 

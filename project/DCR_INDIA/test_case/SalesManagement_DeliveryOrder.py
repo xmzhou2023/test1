@@ -42,11 +42,11 @@ class TestQueryDeliveryOrder:
         menu.click_gotomenu("Sales Management", "Delivery Order")
         query = DeliveryOrderPage(drivers)
         # 获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
+        last_date = query.get_last_day(1)
         """根据出库日期筛选列表数据"""
         query.click_unfold()
-        query.input_delivery_date("2022-11-01", today)
+        query.input_delivery_date(last_date, today)
         query.click_status_input_box()
         query.click_fold()
         query.click_search()

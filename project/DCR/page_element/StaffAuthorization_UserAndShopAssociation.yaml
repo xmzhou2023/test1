@@ -17,7 +17,7 @@ Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: n
 Export: "id==staff_shop_association_export_"
 menu表格字段: "xpath==//div[normalize-space(text())='variable']/.."
 表格内容: "xpath==//td[contains(@class,'variable ') and not(contains(@class, 'is-hidden'))]//div"
-表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
+#表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
 水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
 表头文本: "xpath==//thead/tr/th"
 
