@@ -24,7 +24,7 @@ class Teststory_3259:
     def test_23742(self, drivers):
         print(123456)
 
-    @allure.story("创建/项目")  # 用户故事名称
+    @allure.story("创建项目")  # 用户故事名称
     @allure.title("新增按钮点击新增按钮，可新增项目，新增成功的项目在项目清单页面展示")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
