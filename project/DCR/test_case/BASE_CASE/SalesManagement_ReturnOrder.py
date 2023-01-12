@@ -82,8 +82,7 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(get_status, "Delivered")
         add.click_close_sales_order()
         """卖家创建退货单，退货类型为Return To Seller，退无码产品"""
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
 
@@ -111,8 +110,7 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal("NG20613", get_buyer_id)
         """点击提交按钮"""
         returnorder.click_Submit()
-        dom = DomAssert(drivers)
-        dom.assert_att("Submit Success!")
+        DomAssert(drivers).assert_att("Submit Success!")
         """方法参数赋值给变量"""
         returnorder.input_Delivery_Orderid(delivery_code)
         returnorder.click_Search()
@@ -172,9 +170,9 @@ class TestReturnOrder:
                 add_delivery.click_submit_affirm()
                 dom.assert_att("Submit successfully")
         except Exception as e:
-            logging.info("打印日志{}".format(e))
-        sleep(5)
-
+            #logging.info("打印日志{}".format(e))
+            pass
+        sleep(3)
         """从数据库表中，获取国包出库单ID，传给出库单筛选方法"""
         deli_sql = SQL('DCR', 'test')
         deli_varsql = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200000 order by created_time desc limit 1"
@@ -236,20 +234,16 @@ class TestReturnOrder:
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
-
         """打开Report Analysis->IMEI Inventory Query菜单"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
         """查询IMEI Inventory Query页面 指定product的IMEI"""
-        sleep(2)
         imei = delivery.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.close_imei_inventory_query()
-
         """ 刷新页面 """
         delivery.click_refresh(drivers)
-
         """打开销售管理-打开出库单页面，创建有码出库单"""
         user.click_gotomenu("Sales Management", "Delivery Order")
         deli_return = DeliveryOrderPage(drivers)
@@ -284,8 +278,9 @@ class TestReturnOrder:
                 deli_return.click_submit_affirm()
                 dom.assert_att("Submit successfully")
         except Exception as e:
-            logging.info("打印日志{}".format(e))
-        sleep(4)
+            #logging.info("打印日志{}".format(e))
+            pass
+        sleep(3)
 
         """从数据库表中，获取国包出库单ID，传给出库单筛选方法"""
         deli_sql = SQL('DCR', 'test')
@@ -312,8 +307,7 @@ class TestReturnOrder:
         deli_return.click_close_delivery_order()
 
         """卖家创建退货单，退货类型为Return To Seller、退有码产品，扫IMEI退货"""
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
         return_order = ReturnOrderPage(drivers)

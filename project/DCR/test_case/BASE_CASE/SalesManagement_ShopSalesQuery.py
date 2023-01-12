@@ -36,19 +36,16 @@ class TestShopSalesQuery:
 
         """打开销售管理-打开门店销售查询页面"""
         user.click_gotomenu("Sales Management", "Shop Sales Query")
-
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
         shop_sales = ShopSaleQueryPage(drivers)
         shop_sales.input_upload_start_date("2022-11-01")
         shop_sales.click_search()
-
         shop_id = shop_sales.get_shop_id_text()
         shop_name = shop_sales.get_shop_name_text()
         status = shop_sales.get_status_text()
         sales_date = shop_sales.get_sales_date_text()
         public_id = shop_sales.get_public_id_text()
         total = shop_sales.get_total_text()
-
         """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
         ValueAssert.value_assert_IsNoneNot(shop_id)
         ValueAssert.value_assert_IsNoneNot(status)
@@ -66,12 +63,10 @@ class TestShopSalesQuery:
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开销售管理-打开门店销售查询页面"""
         user.click_gotomenu("Sales Management", "Shop Sales Query")
         page = ShopSaleQueryPage(drivers)
         page.click_unfold()
-
         """查看Shop Sales Query按shopID查询"""
         page.input_upload_date("2022-12-01","2022-12-06")
         page.input_query_shop_id('BD026690')
@@ -79,7 +74,6 @@ class TestShopSalesQuery:
         result=page.get_table_txt(2)
         ValueAssert.value_assert_equal('BD026690',result)
         page.click_reset()
-
         """查看Shop Sales Query按销量状态查询"""
         page.input_upload_date('2022-10-01', '2022-10-30')
         page.input_status('Deleted')
@@ -510,46 +504,36 @@ class TestExportShopSalesQuery:
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开销售管理-打开门店销售查询页面"""
         user.click_gotomenu("Sales Management", "Shop Sales Query")
         """实例化对象类"""
         export = ShopSaleQueryPage(drivers)
-        base = Base(drivers)
-        today = base.get_datetime_today()
-
+        today = Base(drivers).get_datetime_today()
         export.click_unfold()
         """首先按日期筛选门店销量数据"""
-        export.input_upload_start_date("2022-11-01")
+        export.input_upload_start_date("2023-01-01")
         export.click_upload_end_date()
-        export.input_sales_date("2022-11-01", today)
+        export.input_sales_date("2023-01-01", today)
         export.click_fold()
         export.click_search()
         total = export.get_total_text()
         """Shop Sales Query页面，增加断言 对比列表字段与分页总条数是否有数据"""
         export.assert_total(total)
-
-        #筛选销售日期后，点击导出功能
+        """筛选销售日期后，点击导出功能"""
         export.click_export()
         export.click_download_more()
         export.input_task_name("Shop Sales Query")
+        export.export_record_create_date_query(today)
         down_status = export.click_export_search()
-
-        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        task_id = export.get_task_user_id_text()
-        create_date = export.get_create_date_text()
-        complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
-        operation = export.get_export_operation_text()
-
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Shop Sales Query")
-        ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+        export.assert_shop_sales_query_field('Download Status', down_status)
+        export.assert_shop_sales_query_field('Task Name', 'Shop Sales Query')
+        export.assert_shop_sales_query_field('User ID', 'lhmadmin')
+        export.assert_shop_sales_query_field('Create Date', today)
+        export.assert_shop_sales_query_field('Completed Date', today)
+        export.assert_shop_sales_query_field('Operation', 'Download')
         #export.click_close_export_record()
         #export.click_close_shop_sales_query()
 

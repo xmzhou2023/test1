@@ -32,10 +32,8 @@ class TestQueryDistDelivery:
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
-
         """销售管理菜单-出库单列表-筛选出库单数据用例"""
         user.click_gotomenu("Sales Management", "Delivery Order")
-
         """出库单页面 实例化销售管理页面组件类"""
         query = DeliveryOrderPage(drivers)
         """出库单页面，筛选出库单用例"""
@@ -64,13 +62,12 @@ class TestAddDistDeliveryOrder:
         """出库单列表页，国包账号 新增出库单用例 """
         user1 = LoginPage(drivers)
         user1.initialize_login(drivers, "BD40344201", "dcr123456")
-
         """打开Report Analysis->IMEI Inventory Query菜单"""
         user1.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
         """查询IMEI Inventory Query页面 指定product的IMEI"""
-        sleep(2)
+        #sleep(2)
         imei = delivery.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.click_close_imei_inventory()

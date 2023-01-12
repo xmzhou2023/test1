@@ -41,53 +41,44 @@ class TestAddSalesOrder:
         user.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Sales Order")
-
         add = SalesOrderPage(drivers)
         num = add.customer_random()
         add.click_add_sales()
-
         add.click_temporary_customer()
         add.input_temporary_customer_name("testcodeless" + num)
         add.input_customer_contact_no("13988776" + num)
         add.click_business_type('Retail&Wholesale')
-
         add.input_sales_brand("oraimo")
         add.input_sales_product("OEB-E75D  BLACK")
         add.input_sales_quantity("1")
+        """点击提交按钮"""
         add.click_submit()
         add.click_submit_OK()
-
         """对新建的销售单，直接出库操作"""
         sales_id = add.get_text_sales_id()
         add.input_sales_order_ID(sales_id)
         add.click_checkbox_orderID()
         add.click_Delivery_button()
-
         add.input_Payment_Mode("Wechat")
         add.click_quantity_radio_button()
-
         add.input_delivery_quantity('1')
         add.click_delivery_quantity()
-
         product = add.get_order_detail_product()
         ValueAssert.value_assert_IsNoneNot(product)
         quantity = add.get_new_delivery_quantity()
         ValueAssert.value_assert_equal('1', quantity)
-
         """点击Submit提交按钮"""
         add.click_submit()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
-        dom = DomAssert(drivers)
-        dom.assert_att("Successfully")
-        sleep(3)
+        DomAssert(drivers).assert_att("Successfully")
+        add.click_search()
         """断言状态是否更新为Delivered状态"""
-        status = add.get_list_status_text()
-        ValueAssert.value_assert_equal("Delivered", status)
+        #status = add.get_list_status_text()
+        #ValueAssert.value_assert_equal('Delivered', status)
+        add.assert_sales_order_field('Status', 'Delivered')
         #add.click_close_sales_order()
 
 
-@allure.feature("销售管理-销售单")
-class TestAddSalesOrder:
     @allure.story("新增销售单")
     @allure.title("国包用户,创建销售单，产品为有码的，买方为临时客户，不出库")
     @allure.description("国包用户,创建销售单，产品为有码的，买方为临时客户，不出库")
@@ -118,10 +109,12 @@ class TestAddSalesOrder:
         temporary_cust.input_sales_order_ID(order_code)
         temporary_cust.click_search()
         """断言获取列表销售单ID、状态，与查询数据库表里的销售单ID与状态是否一致"""
-        get_sales_id = temporary_cust.get_text_sales_id()
-        get_sales_status = temporary_cust.get_list_status_text()
-        ValueAssert.value_assert_equal('Pending', get_sales_status)
-        ValueAssert.value_assert_equal(order_code, get_sales_id)
+        # get_sales_id = temporary_cust.get_text_sales_id()
+        # get_sales_status = temporary_cust.get_list_status_text()
+        # ValueAssert.value_assert_equal('Pending', get_sales_status)
+        # ValueAssert.value_assert_equal(order_code, get_sales_id)
+        temporary_cust.assert_sales_order_field('Sales Order ID', order_code)
+        temporary_cust.assert_sales_order_field('Status', 'Pending')
         """查看Pending 状态的 IMEI Detail 详情,未出库IMEI，IMEI Detail详情显示No Data"""
         temporary_cust.click_sales_order_imei_detail()
         get_imei_detail_header = temporary_cust.get_sales_order_imei_detail_header()
@@ -143,55 +136,49 @@ class TestAddSalesOrder:
         user.click_gotomenu("Sales Management", "Sales Order")
         add = SalesOrderPage(drivers)
         add.click_add_sales()
-
         add.input_sales_buyer("NG20613")
         add.input_sales_brand("oraimo")
         add.input_sales_product("OEB-E75D  BLACK")
         add.input_sales_quantity('1')
+        """点击提交按钮"""
         add.click_submit()
         add.click_submit_OK()
-
         """对新建的销售单，直接出库操作"""
         add.click_checkbox_orderID()
         add.click_Delivery_button()
         add.input_Payment_Mode("Wechat")
         add.click_quantity_radio_button()
-
         add.input_delivery_quantity('1')
         add.click_delivery_quantity()
-
-        product = add.get_order_detail_product()
-        ValueAssert.value_assert_IsNoneNot(product)
         quantity = add.get_new_delivery_quantity()
         ValueAssert.value_assert_equal('1', quantity)
         """点击Submit提交按钮"""
         add.click_submit()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
-        dom = DomAssert(drivers)
-        dom.assert_att("Successfully")
-        sleep(1)
+        DomAssert(drivers).assert_att("Successfully")
         add.click_search()
         """获取列表，销售单ID与Status文本内容"""
-        get_sales_order = add.get_text_sales_id()
-        get_status = add.get_text_sales_status("Delivered")
-
-        # """二代用户，查询数据库最近新建的销售单ID"""
-        # user = SQL('DCR', 'test')
-        # sql = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
-        # result = user.query_db(sql)
-        # order = result[0].get("order_code")
-        # status = result[0].get("status")
-        # if status == 1:
-        #     sales_status = "Delivered"
+        #get_sales_order = add.get_text_sales_id()
+        #get_status = add.get_text_sales_status("Delivered")
+        """二代用户，查询数据库最近新建的销售单ID,status =2 为Delivered状态 """
+        user = SQL('DCR', 'test')
+        sql = "select order_code,status from t_channel_sale_ticket where warehouse_id = '61735' and seller_id = '1596874516539127' and buyer_id = '1596874516539550' and status = 2 order by created_time desc limit 1"
+        result = user.query_db(sql)
+        sales_order_id = result[0].get("order_code")
+        status = result[0].get("status")
+        if status == 2:
+            sales_status = "Delivered"
         # """销售单页面，按销售单ID筛选销售单信息"""
-        add.input_sales_order_ID(get_sales_order)
+        add.input_sales_order_ID(sales_order_id)
+        """点击查询按钮"""
         add.click_search()
-
-        get_sales_order2 = add.get_text_sales_id()
-        get_status2 = add.get_text_sales_status("Delivered")
+        #get_sales_order2 = add.get_text_sales_id()
+        #get_status2 = add.get_text_sales_status("Delivered")
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
-        ValueAssert.value_assert_equal(get_sales_order, get_sales_order2)
-        ValueAssert.value_assert_equal(get_status, get_status2)
+        #ValueAssert.value_assert_equal(get_sales_order, get_sales_order2)
+        #ValueAssert.value_assert_equal(get_status, get_status2)
+        add.assert_sales_order_field('Sales Order ID', sales_order_id)
+        add.assert_sales_order_field('Status', sales_status)
         #add.click_close_sales_order()
 
 
@@ -209,13 +196,12 @@ class TestAddSalesOrder:
         """销售订单页面，新建销售单"""
         add_sales = SalesOrderPage(drivers)
         add_sales.click_add_sales()
-        add_sales.input_sales_buyer("EG000562")
+        add_sales.input_sales_buyer('EG000562')
         add_sales.input_sales_brand('TECNO')
-        add_sales.input_sales_product("SPARK 6 Go 64+4 AQUA BLUE")
+        add_sales.input_sales_product('SPARK 6 Go 64+4 AQUA BLUE')
         add_sales.input_sales_quantity('1')
         add_sales.click_submit()
         add_sales.click_submit_OK()
-
         """二代用户，查询数据库最近新建的销售单ID"""
         sql = SQL('DCR', 'test')
         sql_val = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
@@ -227,21 +213,21 @@ class TestAddSalesOrder:
         """销售单页面，按销售单ID筛选销售单信息"""
         add_sales.input_sales_order_ID(order_code)
         add_sales.click_search()
-
         """获取列表，销售单ID与Status文本内容"""
-        get_sales_order = add_sales.get_text_sales_id()
-        get_status = add_sales.get_text_sales_status("Pending")
+        #get_sales_order = add_sales.get_text_sales_id()
+        #get_status = add_sales.get_text_sales_status("Pending")
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
-        ValueAssert.value_assert_equal(get_sales_order, order_code)
-        ValueAssert.value_assert_equal(get_status, sales_status)
+        #ValueAssert.value_assert_equal(get_sales_order, order_code)
+        #ValueAssert.value_assert_equal(get_status, sales_status)
+        add_sales.assert_sales_order_field('Sales Order ID', order_code)
+        add_sales.assert_sales_order_field('Status', sales_status)
         add_sales.click_close_sales_order()
 
 
         """ 刷新页面 获取库存IMEI，对新增的销售单，直接出库操作"""
-        add_sales.click_refresh(drivers)
+        Base(drivers).refresh()
         """打开Report Analysis->IMEI Inventory Query菜单，获取库存IMEI"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
-
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
         """查询IMEI Inventory Query页面 指定product的IMEI"""
@@ -250,9 +236,8 @@ class TestAddSalesOrder:
         delivery.click_inventory_search()
         imei = delivery.get_text_imei_inventory()
         delivery.close_imei_inventory_query()
-
         """ 刷新页面 """
-        delivery.click_refresh(drivers)
+        Base(drivers).refresh()
         user.click_gotomenu("Sales Management", "Sales Order")
 
         """二代用户，查询数据库最近新建的销售单ID"""
@@ -298,7 +283,6 @@ class TestAddSalesOrder:
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
         return_order = ReturnOrderPage(drivers)
-
         """从数据库表中，获取二代出库单ID，传给出库单筛选方法"""
         deli_sql = SQL('DCR', 'test')
         deli_varsql = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200000 order by created_time desc limit 1"

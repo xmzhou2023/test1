@@ -17,7 +17,6 @@ Export: "id==customer_psi_export_"
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭客户PSI菜单: "xpath==//span[normalize-space(text())='Customer PSI']//span[@class='el-icon-close']"
 
-
 #生产环境，导出Customer PSI 成功后校验
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"

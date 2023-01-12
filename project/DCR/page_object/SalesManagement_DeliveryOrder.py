@@ -26,12 +26,12 @@ class DeliveryOrderPage(Base):
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("出库单页面，点击Add新增出库单")
     def click_add(self):

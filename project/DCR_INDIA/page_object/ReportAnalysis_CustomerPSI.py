@@ -149,7 +149,6 @@ class CustomerPSIPage(Base):
             logging.info("按日期筛选Distributor Customer PSI后，能正常加载数据，Total{}".format(total))
         else:
             logging.info("按日期筛选Distributor Customer PSI后，未筛选到满足条件的数据，Total1{}".format(total))
-        sleep(1)
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """
@@ -162,7 +161,7 @@ class CustomerPSIPage(Base):
             logging.info("Customer PSI导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Customer PSI导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
+
 
 if __name__ == '__main__':
     pass

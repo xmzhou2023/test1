@@ -106,7 +106,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单列表页面，点击Search")
     def click_Search(self):
         self.is_click(user['Search'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("退货单列表页面，点击IMEI Detail按钮，查看IMEI详情")
     def click_return_order_imei_detail(self):
@@ -314,7 +314,7 @@ class ReturnOrderQuery(Base):
     @allure.step("退货单列表页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        self.element_text(user['Loading'])
 
     @allure.step("退货单列表页面，点击export按钮")
     def click_export(self):

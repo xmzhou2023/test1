@@ -64,10 +64,8 @@ class TestAddSubDeliveryReceipt:
         """出库单列表页，二代用户新增出库单用例 """
         user1 = LoginPage(drivers)
         user1.initialize_login(drivers, "BD291501", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user1.click_gotomenu("Sales Management", "Delivery Order")
-
         add = DeliveryOrderPage(drivers)
         """查询二代BD2915仓库的库存IMEI"""
         sql1 = SQL('DCR', 'test')
@@ -91,7 +89,6 @@ class TestAddSubDeliveryReceipt:
                 add.click_submit_affirm()
                 dom.assert_att("Submit successfully")
         except Exception as e:
-            #dom.assert_att("Submit successfully")
             logging.info("打印日志{}".format(e))
         sleep(1)
         add.click_search()
@@ -141,13 +138,10 @@ class TestAddSubDeliveryReceipt:
             ValueAssert.value_assert_equal(delivery_status, del_status)
         add.click_close_delivery_order()
 
-
         """ 零售商EG00056201账号登录， 进行快速收货 """
         user1.initialize_login(drivers, "EG00056201", "dcr123456")
-
         """打开采购单Purchase Management菜单"""
         user1.click_gotomenu("Purchase Management", "Inbound Receipt")
-
         receipt = InboundReceiptPage(drivers)
         """从数据库表，查询最近新建的销售单ID与出库单ID"""
         sql3 = SQL('DCR', 'test')
@@ -155,18 +149,15 @@ class TestAddSubDeliveryReceipt:
         result = sql3.query_db(varsql3)
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
-
         receipt.input_salesOrder(order_code)
         receipt.input_deliveryOrder(delivery_code)
         receipt.click_search()
-
         receipt.select_checkbox()
         receipt.click_quick_received()
         receipt.click_save()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Successfully")
-
         status = receipt.text_status()
         """二代收货页面，验证收货后Status：显示GoodsReceipt状态，匹配一致"""
         ValueAssert.value_assert_equal("Goods Receipt", status)
@@ -179,12 +170,10 @@ class TestAddSubDeliveryReceipt:
         """关闭收货页面"""
         receipt.click_close_inbound_receipt()
 
-
         """零售商EG00056201账号, 进行退货操作"""
         Base(drivers).refresh()
         """打开Purchase Management菜单"""
         user1.click_gotomenu("Sales Management", "Return Order")
-
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
         """从数据库表，查询二代账号，最近新建的销售单ID与出库单ID"""
@@ -220,10 +209,8 @@ class TestAddSubDeliveryReceipt:
 
         """退货单列表页面，二代账号, 进行审核退货单操作"""
         user1.initialize_login(drivers, "BD291501", "dcr123456")
-
         """打开Purchase Management菜单"""
         user1.click_gotomenu("Sales Management", "Return Order")
-
         """实例化 Return order退货单类"""
         return_approve = ReturnOrderPage(drivers)
         sql4 = SQL('DCR', 'test')
@@ -234,7 +221,6 @@ class TestAddSubDeliveryReceipt:
 
         return_approve.input_Delivery_Orderid(delivery_code)
         return_approve.click_Search()
-
         return_approve.click_checkbox()
         return_approve.click_Approve_button()
         return_approve.input_remark("同意退货")

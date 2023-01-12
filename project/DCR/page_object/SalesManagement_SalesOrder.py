@@ -48,13 +48,13 @@ class SalesOrderPage(Base):
     @allure.step("新建销售单页面，点击提交Submit按钮")
     def click_submit(self):
         self.is_click_dcr(user['Submit Sales'])
-        sleep(0.8)
+        sleep(3)
 
     @allure.step("新建销售单页面，点击确认OK按钮")
     def click_submit_OK(self):
         self.presence_sleep_dcr(user['保存成功确认OK'])
         self.is_click(user['保存成功确认OK'])
-        sleep(3)
+        sleep(2)
 
     @allure.step("销售单页面，按销售单ID条件筛选")
     def input_sales_order_ID(self, content):
@@ -65,7 +65,7 @@ class SalesOrderPage(Base):
     def click_search(self):
         """销售单页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(2)
+        self.element_text(user['Loading'])
 
     @allure.step("获取列表Sales Order ID文本内容")
     def get_text_sales_id(self):
@@ -117,11 +117,6 @@ class SalesOrderPage(Base):
     def click_submit_delivery(self):
         self.is_click_dcr(user['Submit Delivery'])
         sleep(3)
-
-    @allure.step("刷新页面")
-    def click_refresh(self, drivers):
-        ref = Base(drivers)
-        ref.refresh()
 
     @allure.step("获取销售单列表状态Status")
     def get_list_status_text(self):
@@ -395,6 +390,10 @@ class SalesOrderPage(Base):
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
 
+    @allure.step("断言精确查询结果 Customer PSI列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_sales_order_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
 
     @allure.step("后端断言，创建销售单成功后，数据库表是否新增销售单记录")
     def select_sql_sales_order(self, warehouse, seller, buyer):
@@ -404,7 +403,6 @@ class SalesOrderPage(Base):
         order_code = result[0].get("order_code")
         logging.info("打印数据库查询的销售单ID order_code{}".format(order_code))
         return order_code
-
 
 
     @allure.step("查询订单状态")

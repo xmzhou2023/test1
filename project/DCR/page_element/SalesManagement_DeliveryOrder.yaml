@@ -4,7 +4,7 @@ Input Sales Order ID: "xpath==//label[contains(text(),'Sales Order ID')]//parent
 Input Delivery Order ID: "xpath==//label[contains(text(),'Delivery Order ID')]//parent::div//following-sibling::div//input"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
 #创建出库单定位元素
 Warehouse Name: "xpath==//div//input[@class='el-input__inner deliveryorderadd_input_warehouseId']"
