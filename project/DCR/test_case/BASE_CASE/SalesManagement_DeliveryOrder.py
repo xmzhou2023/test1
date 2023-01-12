@@ -181,39 +181,35 @@ class TestExportDeliveryOrder:
     @pytest.mark.usefixtures('function_export_fixture')
     def test_003_001(self, drivers):
         user2 = LoginPage(drivers)
-        user2.initialize_login(drivers, "BD40344201", "dcr123456")
+        user2.initialize_login(drivers, 'BD40344201', 'dcr123456')
         """打开销售管理-打开出库单页面"""
-        user2.click_gotomenu("Sales Management", "Delivery Order")
+        user2.click_gotomenu('Sales Management', 'Delivery Order')
         export = DeliveryOrderPage(drivers)
         #获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
+        last_date = export.get_last_day(7)
         """筛选当天出库的记录，进行导出操作"""
         export.click_unfold()
-        export.input_delivery_date(today, today)
-        export.click_status_input_box()
+        export.input_delivery_date(last_date, today)
         export.click_fold()
         export.click_search()
         #筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
-        export.input_task_name("Delivery Order")
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
+        export.input_task_name('Delivery Order')
+        export.export_record_create_date_query(today)
         down_status = export.click_export_search()
         """导出记录页面，获取列表字段进行断言"""
-        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        task_id = export.get_task_user_id_text()
-        create_date = export.get_create_date_text()
-        complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
-        operation = export.get_export_operation_text()
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Delivery Order")
-        ValueAssert.value_assert_equal(task_id, "BD40344201")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+        export.assert_delivery_order_field('Download Status', down_status)
+        export.assert_delivery_order_field('Task Name', 'Delivery Order')
+        export.assert_delivery_order_field('User ID', 'BD40344201')
+        export.assert_delivery_order_field('Create Date', today)
+        export.assert_delivery_order_field('Completed Date', today)
+        export.assert_delivery_order_field('Operation', 'Download')
         #export.click_close_export_record()
         #export.click_close_delivery_order()
 
@@ -227,13 +223,11 @@ class TestExportDeliveryOrder:
         user2.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user2.click_gotomenu("Sales Management", "Delivery Order")
-
         export = DeliveryOrderPage(drivers)
         # 获取日期
         base = Base(drivers)
         today = base.get_datetime_today()
         last_day = base.get_last_day(20)
-
         export.click_unfold()
         export.input_delivery_date(last_day, today)
         export.click_status_input_box()
@@ -376,8 +370,7 @@ class TestAddDeliveryOrder:
 
 
         """卖家创建退货单，退货类型为Return To Seller、退有码产品，输入Delivery Order出库单ID整单退货"""
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         """打开销售管理-打开退货单页面"""
         user4.click_gotomenu("Sales Management", "Return Order")
         return_order = ReturnOrderPage(drivers)
@@ -502,7 +495,7 @@ class TestAddDeliveryOrder:
         receipt.click_save()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         DomAssert(drivers).assert_att("Successfully")
-        sleep(1.6)
+        receipt.click_search()
         """获取列表Status字段内容"""
         status = receipt.text_status()
         """二代收货页面，验证收货后Status：显示GoodsReceipt状态，匹配一致"""
@@ -679,7 +672,7 @@ class TestAddDeliveryOrder:
         receipt.click_save()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         DomAssert(drivers).assert_att("Successfully")
-        sleep(1.5)
+        receipt.click_search()
         """获取列表Status字段内容"""
         status = receipt.text_status()
         """二代收货页面，验证收货后Status：显示GoodsReceipt状态，匹配一致"""
@@ -861,7 +854,7 @@ class TestAddDeliveryOrder:
         receipt.click_save()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         DomAssert(drivers).assert_att("Successfully")
-        sleep(1.5)
+        receipt.click_search()
         """获取列表Status字段内容"""
         status = receipt.text_status()
         """二代收货页面，验证收货后Status：显示GoodsReceipt状态，匹配一致"""
@@ -886,7 +879,6 @@ class TestAddDeliveryOrder:
         process.shop_purchase_query_imei(get_imei1)
         process.shop_purchase_query_cancel()
         DomAssert(drivers).assert_att('Cancel success')
-        sleep(1)
         process.click_search()
         get_cancel_status = process.get_list_field_text('Get Shop Purchase list Status')
         ValueAssert.value_assert_equal('Canceled', get_cancel_status)

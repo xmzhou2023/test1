@@ -15,6 +15,9 @@ Get Order Detail Deli Order ID: "xpath==//tr[@class='el-table__row']//td[1]//div
 Get Order Detail Seller ID: "xpath==//tr[@class='el-table__row']//td[2]//div[@class='cell el-tooltip']"
 Get Order Detail Buyer ID: "xpath==//tr[@class='el-table__row']//td[5]//div[@class='cell el-tooltip']"
 Get Order Detail Return Quantity: "xpath==//tr[@class='el-table__row']//td[10]//div[@class='cell el-tooltip']"
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
+水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
 
 
 #Quantity无码申请退货页面定位

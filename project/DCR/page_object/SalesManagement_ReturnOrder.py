@@ -86,11 +86,10 @@ class ReturnOrderPage(Base):
         return_quantity = self.element_text(user['Get Order Detail Return Quantity'])
         return return_quantity
 
-
     @allure.step("退货单页面，点击Submit")
     def click_Submit(self):
         self.is_click(user['Submit'])
-        sleep(0.5)
+        sleep(1)
 
     @allure.step("获取提交退货成功提示语")
     def get_submit_success_text(self):
@@ -179,6 +178,10 @@ class ReturnOrderPage(Base):
         success = self.element_text(user['Approval Successfully'])
         return success
 
+    @allure.step("断言精确查询结果 Sales Order列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_return_order_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
 
     """无码申请退货"""
     @allure.step("新建退货页面，点击无码退货单选按钮")
@@ -307,6 +310,7 @@ class ReturnOrderPage(Base):
 
     def click_blank(self):
         self.is_click(user['空白处'])
+
 
 class ReturnOrderQuery(Base):
     """用户类"""

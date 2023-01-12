@@ -71,10 +71,8 @@ class TestReturnOrder:
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         dom = DomAssert(drivers)
         dom.assert_att("Successfully")
-        sleep(3)
-
-        """获取列表，销售单ID与Status文本内容"""
         add.click_search()
+        """获取列表，销售单ID与Status文本内容"""
         get_sales_order = add.get_text_sales_id()
         get_status = add.get_text_sales_status("Delivered")
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
@@ -136,7 +134,7 @@ class TestReturnOrder:
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
         """查询IMEI Inventory Query页面 指定product的IMEI"""
-        sleep(2)
+        #sleep(2)
         imei = delivery.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.close_imei_inventory_query()
@@ -172,7 +170,7 @@ class TestReturnOrder:
         except Exception as e:
             #logging.info("打印日志{}".format(e))
             pass
-        sleep(3)
+        add_delivery.click_search()
         """从数据库表中，获取国包出库单ID，传给出库单筛选方法"""
         deli_sql = SQL('DCR', 'test')
         deli_varsql = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200000 order by created_time desc limit 1"
@@ -197,8 +195,7 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal("On Transit", del_status)
         add_delivery.click_close_delivery_order()
         """卖家创建退货单，退货类型为Return To Seller，退有码产品，输入出库单号退货"""
-        base = Base(drivers)
-        base.refresh()
+        Base(drivers).refresh()
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
         return_order = ReturnOrderPage(drivers)

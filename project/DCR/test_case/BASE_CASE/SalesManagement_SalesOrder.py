@@ -73,8 +73,6 @@ class TestAddSalesOrder:
         DomAssert(drivers).assert_att("Successfully")
         add.click_search()
         """断言状态是否更新为Delivered状态"""
-        #status = add.get_list_status_text()
-        #ValueAssert.value_assert_equal('Delivered', status)
         add.assert_sales_order_field('Status', 'Delivered')
         #add.click_close_sales_order()
 
@@ -109,10 +107,6 @@ class TestAddSalesOrder:
         temporary_cust.input_sales_order_ID(order_code)
         temporary_cust.click_search()
         """断言获取列表销售单ID、状态，与查询数据库表里的销售单ID与状态是否一致"""
-        # get_sales_id = temporary_cust.get_text_sales_id()
-        # get_sales_status = temporary_cust.get_list_status_text()
-        # ValueAssert.value_assert_equal('Pending', get_sales_status)
-        # ValueAssert.value_assert_equal(order_code, get_sales_id)
         temporary_cust.assert_sales_order_field('Sales Order ID', order_code)
         temporary_cust.assert_sales_order_field('Status', 'Pending')
         """查看Pending 状态的 IMEI Detail 详情,未出库IMEI，IMEI Detail详情显示No Data"""
@@ -157,9 +151,6 @@ class TestAddSalesOrder:
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         DomAssert(drivers).assert_att("Successfully")
         add.click_search()
-        """获取列表，销售单ID与Status文本内容"""
-        #get_sales_order = add.get_text_sales_id()
-        #get_status = add.get_text_sales_status("Delivered")
         """二代用户，查询数据库最近新建的销售单ID,status =2 为Delivered状态 """
         user = SQL('DCR', 'test')
         sql = "select order_code,status from t_channel_sale_ticket where warehouse_id = '61735' and seller_id = '1596874516539127' and buyer_id = '1596874516539550' and status = 2 order by created_time desc limit 1"
@@ -172,11 +163,7 @@ class TestAddSalesOrder:
         add.input_sales_order_ID(sales_order_id)
         """点击查询按钮"""
         add.click_search()
-        #get_sales_order2 = add.get_text_sales_id()
-        #get_status2 = add.get_text_sales_status("Delivered")
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
-        #ValueAssert.value_assert_equal(get_sales_order, get_sales_order2)
-        #ValueAssert.value_assert_equal(get_status, get_status2)
         add.assert_sales_order_field('Sales Order ID', sales_order_id)
         add.assert_sales_order_field('Status', sales_status)
         #add.click_close_sales_order()
@@ -206,23 +193,17 @@ class TestAddSalesOrder:
         sql = SQL('DCR', 'test')
         sql_val = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
         result = sql.query_db(sql_val)
-        order_code = result[0].get("order_code")
+        sales_order_code = result[0].get("order_code")
         status = result[0].get("status")
         if status == 0:
             sales_status = "Pending"
         """销售单页面，按销售单ID筛选销售单信息"""
-        add_sales.input_sales_order_ID(order_code)
+        add_sales.input_sales_order_ID(sales_order_code)
         add_sales.click_search()
-        """获取列表，销售单ID与Status文本内容"""
-        #get_sales_order = add_sales.get_text_sales_id()
-        #get_status = add_sales.get_text_sales_status("Pending")
         """调用断言方法，判断数据库表中查询的销售单ID，与列表获取的销售单ID文本匹配是否一致"""
-        #ValueAssert.value_assert_equal(get_sales_order, order_code)
-        #ValueAssert.value_assert_equal(get_status, sales_status)
-        add_sales.assert_sales_order_field('Sales Order ID', order_code)
+        add_sales.assert_sales_order_field('Sales Order ID', sales_order_code)
         add_sales.assert_sales_order_field('Status', sales_status)
         add_sales.click_close_sales_order()
-
 
         """ 刷新页面 获取库存IMEI，对新增的销售单，直接出库操作"""
         Base(drivers).refresh()
@@ -236,28 +217,17 @@ class TestAddSalesOrder:
         delivery.click_inventory_search()
         imei = delivery.get_text_imei_inventory()
         delivery.close_imei_inventory_query()
+
         """ 刷新页面 """
         Base(drivers).refresh()
         user.click_gotomenu("Sales Management", "Sales Order")
-
-        """二代用户，查询数据库最近新建的销售单ID"""
-        sql = SQL('DCR', 'test')
-        sql_val = "select order_code,status from t_channel_sale_ticket where warehouse_id = '62134' and seller_id = '1596874516539662' and buyer_id = '1596874516539668' and status = 0 order by created_time desc limit 1"
-        result = sql.query_db(sql_val)
-        order_code = result[0].get("order_code")
-        logging.info("打印查询脚本返回值order_code:{}".format(order_code))
-        # status = result[0].get("status")
-        # if status == 80200000:
-        #     sales_status = "Delivered"
         """销售单页面，按销售单ID筛选销售单信息"""
-        delivery.input_sales_order_ID(order_code)
+        delivery.input_sales_order_ID(sales_order_code)
         delivery.click_search()
-
         """勾选新建的销售单，直接出库操作"""
         delivery.click_checkbox_orderID()
         """点击Delivery出库按钮"""
         delivery.click_Delivery_button()
-
         delivery.input_Payment_Mode('Wechat')
         delivery.input_imei(imei)
         delivery.click_check()
@@ -266,16 +236,14 @@ class TestAddSalesOrder:
         get_success = delivery.get_scan_record_success()
         ValueAssert.value_assert_In("Success", get_success)
         ValueAssert.value_assert_In(imei, get_imei)
-        """点击提交按钮"""
+        """出库操作，点击提交按钮"""
         delivery.click_submit_delivery()
 
         """销售单页面，按销售单ID筛选销售单信息，断言该条销售单对应的状态是否更新为：Delivered状态"""
-        text_sales_order = delivery.get_text_sales_id()
-        delivery.input_sales_order_ID(text_sales_order)
+        delivery.input_sales_order_ID(sales_order_code)
         delivery.click_search()
-        text_status = delivery.get_text_sales_status("Delivered")
         """出库操作成功后，验证该条销售单对应的状态是否更新为：Delivered状态"""
-        ValueAssert.value_assert_equal(text_status, "Delivered")
+        delivery.assert_sales_order_field('Status', 'Delivered')
         delivery.click_close_sales_order()
 
         """对出库的销售单，进行退货操作,闭环流程"""
@@ -303,18 +271,14 @@ class TestAddSalesOrder:
         """点击提交按钮"""
         return_order.click_Submit()
         DomAssert(drivers).assert_att("Submit Success!")
-
         """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
         return_order.input_Delivery_Orderid(delivery_code)
         return_order.click_Search()
-
         """断言筛选退货列表页，获取退货单ID、退货出库单ID、退货状态与数据库表中查询的出库单ID对比是否一致"""
         get_return_order_id = return_order.get_list_return_order_id()
-        get_delivery_order_id = return_order.get_text_deliveryID()
-        get_status = return_order.get_return_status()
-        ValueAssert.value_assert_IsNoneNot(get_return_order_id)
-        ValueAssert.value_assert_equal(get_delivery_order_id, delivery_code)
-        ValueAssert.value_assert_equal("Approved", get_status)
+        return_order.assert_return_order_field('Return Order ID', get_return_order_id)
+        return_order.assert_return_order_field('Delivery/DN Order ID', delivery_code)
+        return_order.assert_return_order_field('Status', 'Approved')
 
 
 @allure.feature("销售管理-销售单")
@@ -332,8 +296,6 @@ class TestDeleteSalesOrder:
         user.click_gotomenu("Sales Management", "Sales Order")
         """调用新增销售单用例"""
         delete = SalesOrderPage(drivers)
-        dom = DomAssert(drivers)
-
         delete.click_add_sales()
         delete.input_sales_buyer("NG20613")
         delete.input_sales_brand('oraimo')
@@ -341,18 +303,18 @@ class TestDeleteSalesOrder:
         delete.input_sales_quantity('1')
         delete.click_submit()
         delete.click_submit_OK()
-
+        """点击查询，重新加载数据"""
+        delete.click_search()
         """获取列表，销售单ID文本内容"""
         get_sales_order = delete.get_text_sales_id()
         """销售单页面，按销售单ID筛选销售单信息"""
         delete.input_sales_order_ID(get_sales_order)
         delete.click_search()
-        get_query_sales_order = delete.get_text_sales_id()
-        ValueAssert.value_assert_equal(get_query_sales_order, get_sales_order)
+        delete.assert_sales_order_field('Sales Order ID', get_sales_order)
         """点击删除销售单功能，能删除成功"""
         delete.click_delete_sales()
         delete.click_confirm_delete()
-        dom.assert_att("Successfully")
+        DomAssert(drivers).assert_att("Successfully")
         #delete.click_close_sales_order()
 
 
@@ -368,24 +330,19 @@ class TestDeleteSalesOrder:
         """销售管理菜单-打开销售单菜单"""
         user.click_gotomenu("Sales Management", "Sales Order")
         delete = SalesOrderPage(drivers)
-        dom = DomAssert(drivers)
-
         """Status筛选项输入Delivered条件筛选已发货的销售单"""
         delete.input_status_query("Delivered")
         delete.click_search()
-
         """获取列表，销售单ID与Status文本内容"""
         get_sales_order = delete.get_text_sales_id()
         get_status = delete.get_text_sales_status("Delivered")
-
         """筛选已发货的销售单，进行删除操作"""
         delete.input_sales_order_ID(get_sales_order)
         delete.click_search()
-
         if get_status == "Delivered":
             delete.click_delete_sales()
         """断言已发货状态的销售单不支持删除"""
-        dom.assert_att("The scanned IMEI exists in the order, fail to delete")
+        DomAssert(drivers).assert_att("The scanned IMEI exists in the order, fail to delete")
         #delete.click_close_sales_order()
 
 
@@ -399,42 +356,35 @@ class TestExportSalesOrder:
     def test_003_001(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        user.initialize_login(drivers, 'lhmadmin', 'dcr123456')
         """销售管理菜单-打开销售单菜单"""
-        user.click_gotomenu("Sales Management", "Sales Order")
+        user.click_gotomenu('Sales Management', 'Sales Order')
         export = SalesOrderPage(drivers)
         # 获取当天日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
-
+        today = Base(drivers).get_datetime_today()
+        last_date = export.get_last_day(7)
         """按销售单创建日期、Status条件筛选销售单"""
         export.click_sales_order_unfold()
-        export.input_status_query("Delivered")
-        export.list_input_create_date("2022-11-01", today)
+        export.input_status_query('Delivered')
+        export.list_input_create_date(last_date, today)
         export.click_search()
 
         """点击导出按钮"""
         export.click_export()
         export.click_download_more()
-        #输入Task Name筛选该任务的导出记录
-        export.input_task_name("Sale Order")
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
+        export.input_task_name('Sales Order')
+        export.export_record_create_date_query(today)
         down_status = export.click_export_search()
-
-        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        task_id = export.get_task_user_id_text()
-        create_date = export.get_create_date_text()
-        complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
-        operation = export.get_export_operation_text()
-
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Sale Order")
-        ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+        export.assert_sales_order_field('Download Status', down_status)
+        export.assert_sales_order_field('Task Name', 'Sales Order')
+        export.assert_sales_order_field('User ID', 'lhmadmin')
+        export.assert_sales_order_field('Create Date', today)
+        export.assert_sales_order_field('Completed Date', today)
+        export.assert_sales_order_field('Operation', 'Download')
         #export.click_close_export_record()
         #export.click_close_sales_order()
 
@@ -447,46 +397,36 @@ class TestExportSalesOrder:
     def test_003_002(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
+        user.initialize_login(drivers, 'lhmadmin', 'dcr123456')
         """销售管理菜单-打开销售单菜单"""
-        user.click_gotomenu("Sales Management", "Sales Order")
-
+        user.click_gotomenu('Sales Management', 'Sales Order')
         export = SalesOrderPage(drivers)
         # 获取当天日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
-
+        today = Base(drivers).get_datetime_today()
+        last_date = export.get_last_day(7)
         """按销售单创建日期、Status条件筛选销售单"""
         export.click_sales_order_unfold()
-        export.input_status_query("Delivered")
-        export.list_input_create_date("2022-11-01", today)
+        export.input_status_query('Delivered')
+        export.list_input_create_date(last_date, today)
         export.click_search()
 
         """点击导出按钮"""
         export.click_more_option()
         export.click_export_detail()
-
         export.click_download_more()
-        #输入Task Name筛选该任务的导出记录
-        export.input_task_name("Sales Order Detail")
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
+        export.input_task_name('Sales Order Detail')
+        export.export_record_create_date_query(today)
         down_status = export.click_export_search()
-
-        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-        task_id = export.get_task_user_id_text()
-        create_date = export.get_create_date_text()
-        complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
-        operation = export.get_export_operation_text()
-
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Sales Order Detail")
-        ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+        export.assert_sales_order_field('Download Status', down_status)
+        export.assert_sales_order_field('Task Name', 'Sales Order Detail')
+        export.assert_sales_order_field('User ID', 'lhmadmin')
+        export.assert_sales_order_field('Create Date', today)
+        export.assert_sales_order_field('Completed Date', today)
+        export.assert_sales_order_field('Operation', 'Download')
         #export.click_close_export_record()
         #export.click_close_sales_order()
 
@@ -506,7 +446,6 @@ class TestQuerySalesOrder:
         user.click_gotomenu("Sales Management", "Sales Order")
         page = SalesOrderPage(drivers)
         page.click_unfold()
-
         """按销售单创建日期、Status条件筛选销售单"""
         page.search_sales_status('Delivered')
         page.click_search()

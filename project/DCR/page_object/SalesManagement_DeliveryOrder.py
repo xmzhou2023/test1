@@ -110,7 +110,7 @@ class DeliveryOrderPage(Base):
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):
         self.is_click(user['Submit'])
-        sleep(0.6)
+        sleep(1)
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def get_text_submit(self):
@@ -168,6 +168,7 @@ class DeliveryOrderPage(Base):
         sleep(1)
         self.is_click(user['Delivery End Date'])
         self.readonly_input_text(user['Delivery End Date'], content2)
+        self.is_click(user['点击筛选项label'], 'Delivery Date')
 
     @allure.step("点击 Status输入框")
     def click_status_input_box(self):
@@ -231,14 +232,20 @@ class DeliveryOrderPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
-        self.input_text(user['Input Task Name'], txt=content)
-        sleep(0.5)
+        self.input_text(user['Input Task Name'], content)
+        sleep(0.6)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     @allure.step("循Base环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -308,7 +315,12 @@ class DeliveryOrderPage(Base):
             logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
+
+    @allure.step("断言精确查询结果 Customer PSI列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_delivery_order_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['DeliveryOrdery表格内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
+
 
     @allure.step("获取出库单列表，字段内容")
     def get_list_field_text(self, field):
