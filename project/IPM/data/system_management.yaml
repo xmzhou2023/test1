@@ -1,3 +1,4 @@
 对象_获取树结构所有对象名称: '//div[@class="tree-node-label"]/span'
 对象_获取指定对象的名称: '//div[@class="tree-node-label"]/span[contains(text(),"IPM")]'
 对象_删除节点提示: '//div[@class="popconfirm-dialog"]//span[1]'
+断言提示: "//div[@role='alert']/p"

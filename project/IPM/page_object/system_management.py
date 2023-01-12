@@ -7,6 +7,7 @@ from project.IPM.page_base.assert_pubic import *
 from project.IPM.api.APIRequest import *
 import random
 from project.IPM.page_object.Generalmethods import General_methods
+from project.IPM.page_base.import_ipm import *
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 from project.IPM.page_base.pathconfig import *
 Api = APIRequest()
@@ -233,14 +234,9 @@ class SystemManagement(General_methods):
         '''
         if value:
             for i in value:
-                if fillin == '角色':
-                    self.click_IPM('对象_表单功能_权限_角色修改')
-                elif fillin=='生命周期状态':
+                if fillin=='生命周期状态':
                     self.click_IPM('对象_表单功能_权限_生命周期状态')
                     self.DropDownBoxAcquiredField(i)
-                elif fillin=='操作权限':
-                    self.click_IPM('对象_表单功能_权限_角色修改')
-                    self.click_IPM('对象_表单功能_权限_操作权限')
                 elif fillin == '保存':
                     self.click_IPM("对象_表单功能_权限_操作_保存",i)
                 elif fillin == '删除':
@@ -250,8 +246,13 @@ class SystemManagement(General_methods):
                 else:
                     logging.info(f'{fillin}在方法（system_management_object_permissions_formediting）中不存在，请扩展或填写正确的值')
                     raise ValueError(f'{fillin}在方法（system_management_object_permissions_formediting）中不存在，请扩展或填写正确的值')
-
-
+        else:
+            if fillin == '角色':
+                self.click_IPM('对象_表单功能_权限_角色修改')
+            elif fillin == '操作权限':
+                self.click_IPM('对象_表单功能_权限_角色修改')
+                self.click_IPM('对象_表单功能_权限_操作权限')
+        sleep(2)
 
 
 
