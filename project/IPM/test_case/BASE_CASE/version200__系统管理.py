@@ -43,7 +43,7 @@ class Teststory_4488:
         test.system_management_object_all(proname)
         test.system_management_object_upper_function('新建')
         test.system_management_object_editobject(bjname)
-        test.system_management_object_functionkeys_confirm_cancel("确定")
+        test.system_management_object_all(bjname)
         ass = Assert_result_system_management(drivers)
         ass.elements_assert(bjname, '对象_树结构_对象查询')
         get_object_delete(proname)
@@ -365,8 +365,6 @@ class Teststory_4489:
         ass = Assert_result_system_management(drivers)
         ass.elements_assert("https://transsion-platform02.oss-cn-shenzhen.aliyuncs.com/avatar/%E4%B8%8A%E4%BC%A0%E5%9B%BE%E6%A0%87.jpeg",
                             '对象_检入中_断言上传图标地址',get_attribute='src')
-        test.system_management_object_functionkeys('撤销检出')
-        test.system_management_object_functionkeys_confirm_cancel('确定')
         get_object_delete(proname)
 
 
@@ -415,8 +413,6 @@ class Teststory_4489:
         test.system_management_object_functionkeys('检出')
         ass = Assert_result_system_management(drivers)
         ass.element_not_found("对象_检入中_字段不可编辑",choice='对象名称')
-        test.system_management_object_functionkeys('撤销检出')
-        test.system_management_object_functionkeys_confirm_cancel('确定')
         get_object_delete(proname)
 
 
@@ -468,8 +464,6 @@ class Teststory_4489:
         test.system_management_object_checkingin("状态","确定")
         ass = Assert_result_system_management(drivers)
         ass.element_not_found("对象_检入中_字段框_启用禁用未启用文本",choice='未启用')
-        test.system_management_object_functionkeys('撤销检出')
-        test.system_management_object_functionkeys_confirm_cancel('确定')
         get_object_delete(proname)
 
     @allure.story("对象管理/对象类型_对象管理界面")  # 用户故事名称
@@ -821,7 +815,29 @@ class Teststory_4489:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_31283(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试对象{now_times}'
+        bjname1 = f'1IPM自动化测试对象{now_times}'
+        bjname2 = f'2IPM自动化测试对象{now_times}'
+        test = SystemManagement(drivers)
+        test.get_url_system_management_object()
+        test.system_management_object_all('所有对象')
+        test.system_management_object_upper_function('新建')
+        test.system_management_object_newbaseclass('名称', proname)
+        test.system_management_object_newbaseclass('确认')
+        test.system_management_object_all(proname)
+        test.system_management_object_upper_function('新建')
+        test.system_management_object_editobject(bjname1)
+        test.system_management_object_all(proname)
+        test.system_management_object_upper_function('新建')
+        test.system_management_object_editobject(bjname2)
+        test.system_management_object_all(bjname2)
+        test.system_management_object_functionkeys('检出')
+        ass = Assert_result_system_management(drivers)
+        ass.element_not_found('对象_树结构_锁', True, choice=bjname2)
+        ass.element_not_found('对象_树结构_锁', True, choice=proname)
+        ass.element_not_found('对象_树结构_锁', choice=bjname1)
+        get_object_delete(proname)
 
 
     @allure.story("对象管理/对象类型_对象管理界面")  # 用户故事名称

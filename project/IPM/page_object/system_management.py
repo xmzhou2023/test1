@@ -148,16 +148,11 @@ class SystemManagement(General_methods):
                     self.click_IPM('对象_右键点击_删除_功能键', functionkeys)
 
         else:
-            objname = self.element_exist_IPM('对象_树结构_对象右侧功能键', functionkeys)
-            if objname == True:
-                self.mouse_hover_IPM('对象_编辑树结构文本')
-                self.click_IPM('对象_树结构_对象右侧功能键', functionkeys)
+            UndoCheckOut = self.element_exist_IPM('对象_撤销检出_功能键', functionkeys)#撤销检出提示
+            if UndoCheckOut == True:
+                self.click_IPM('对象_撤销检出_功能键', functionkeys)
             else:
-                UndoCheckOut = self.element_exist_IPM('对象_撤销检出_功能键', functionkeys)#撤销检出提示
-                if UndoCheckOut == True:
-                    self.click_IPM('对象_撤销检出_功能键', functionkeys)
-                else:
-                    self.click_IPM('对象_右键点击_删除_功能键', functionkeys)
+                self.click_IPM('对象_右键点击_删除_功能键', functionkeys)
 
 
 
