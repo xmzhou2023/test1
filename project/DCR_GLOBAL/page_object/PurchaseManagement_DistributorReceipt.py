@@ -83,11 +83,13 @@ class DistributorReceiptQuery(Base):
         if type == 'Model':
             self.is_click(user['Model点击'])
             self.input_text(user['Model输入'], txt=content)
+            sleep(2)
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         elif type == 'Customer':
             self.is_click(user['Customer点击'])
             self.input_text(user['Customer输入'], txt=content)
+            sleep(2)
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
         elif type == 'Material ID':
             self.input_text(user['MaterialID输入'], txt=content)
@@ -101,6 +103,7 @@ class DistributorReceiptQuery(Base):
             self.input_text(user['SAPCustomerID输入'], txt=content)
         elif type == 'Brand':
             self.is_click(user['Brand点击'])
+            sleep()
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         elif type == 'Category':
@@ -113,17 +116,18 @@ class DistributorReceiptQuery(Base):
         elif type == 'Market Name':
             self.is_click(user['MarketName点击'])
             self.input_text(user['MarketName输入'], txt=content)
+            sleep(2)
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         elif type == 'Customer Region3':
             self.is_click(user['CustomerRegion点击'])
-            logging.info('click Customer Region3  wrong')
             self.input_text(user['CustomerRegion点击'], txt=content)
-            logging.info('click Customer Region3  right')
+            sleep(2)
             self.is_click(user['CustomerRegion输入'], content)
         elif type == 'Delivery Country':
             self.is_click(user['Country点击'])
             self.input_text(user['Country输入'], txt=content)
+            sleep(2)
             self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         elif type == 'Status':
