@@ -21,8 +21,7 @@ class Teststory_4488:
         test.system_management_object_newbaseclass('确认')
         ass = Assert_result_system_management(drivers)
         ass.elements_assert(proname,'对象_树结构_对象查询')
-        test.system_management_object_all(proname)
-        test.system_management_object_righ(proname,'删除','确定')
+        get_object_delete(proname)
 
 
     @allure.story("对象管理/对象类型_树形对象左上图标")  # 用户故事名称
@@ -34,6 +33,7 @@ class Teststory_4488:
 
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试对象{now_times}'
+        bjname = f'IPM子对象{now_times}'
         test = SystemManagement(drivers)
         test.get_url_system_management_object()
         test.system_management_object_all('所有对象')
@@ -42,11 +42,11 @@ class Teststory_4488:
         test.system_management_object_newbaseclass('确认')
         test.system_management_object_all(proname)
         test.system_management_object_upper_function('新建')
-        test.system_management_object_functionkeys('确定',proname)
+        test.system_management_object_editobject(bjname)
+        test.system_management_object_functionkeys_confirm_cancel("确定")
         ass = Assert_result_system_management(drivers)
-        ass.elements_assert(f"{proname}_1", '对象_树结构_对象查询')
-        test.system_management_object_all(proname)
-        test.system_management_object_righ(proname, '删除', '确定')
+        ass.elements_assert(bjname, '对象_树结构_对象查询')
+        get_object_delete(proname)
 
 
     @allure.story("对象管理/对象类型_树形对象左上图标")  # 用户故事名称
