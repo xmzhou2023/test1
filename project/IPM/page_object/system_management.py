@@ -150,6 +150,7 @@ class SystemManagement(General_methods):
         else:
             objname = self.element_exist_IPM('对象_树结构_对象右侧功能键', functionkeys)
             if objname == True:
+                self.mouse_hover_IPM('对象_编辑树结构文本')
                 self.click_IPM('对象_树结构_对象右侧功能键', functionkeys)
             else:
                 UndoCheckOut = self.element_exist_IPM('对象_撤销检出_功能键', functionkeys)#撤销检出提示
@@ -169,7 +170,7 @@ class SystemManagement(General_methods):
         :param Subobject: 子对象
         '''
         if functionkeys =='新建' :#functionkeys传入删除/新建，则需要传入对象的名字，不然不会显示对象隐藏的功能键
-            self.mouse_hover_IPM('对象_点击对象名称',Objectsoperatedon)
+            self.mouse_hover_IPM('对象_编辑树结构文本',Objectsoperatedon)
             self.click_IPM('对象_树结构_对象右侧功能键', Objectsoperatedon,functionkeys)
             if textname =='确定' or textname =='取消' :
                 self.system_management_object_editobject(Subobject)
