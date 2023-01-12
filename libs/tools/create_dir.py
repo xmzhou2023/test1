@@ -9,7 +9,7 @@ import os
 import shutil
 
 # 自动新增文件夹
-PERO_PATH = os.path.join(PEROJECT_PATH, 'MES_DAP')
+PERO_PATH = os.path.join(PEROJECT_PATH, 'ESP')
 path = os.path.join('template/modle_name.csv')
 
 # 引用模板位置
