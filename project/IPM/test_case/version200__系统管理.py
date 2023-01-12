@@ -76,7 +76,6 @@ class Teststory_4488:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_31248(self, drivers):
-
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试对象{now_times}'
         test = SystemManagement(drivers)
@@ -90,9 +89,10 @@ class Teststory_4488:
         test.system_management_object_functionkeys('检入')
         test.system_management_object_all(proname)
         test.system_management_object_righ(proname, '删除')
-        ass = Assert_result_system_management(drivers)
-        ass.assert_toast("对象_删除节点提示", '是否删除该节点?')
         test.system_management_object_functionkeys('确定')
+        ass = Assert_result_system_management(drivers)
+        ass.assert_toast("断言提示", '只有未启用的节点才允许删除！')
+        get_object_delete(proname)
 
     @allure.story("对象管理/对象类型_树形对象左上图标")  # 用户故事名称
     @allure.title("删除对象选中的对象无子对象且未启用，点击'删除'标识，可删除选中的对象")  # 用例名称
@@ -340,10 +340,7 @@ class Teststory_4489:
         test.system_management_object_functionkeys('检出')
         ass = Assert_result_system_management(drivers)
         ass.elements_assert("检入", '对象_检入检出功能键','检入')
-        test.system_management_object_functionkeys('撤销检出')
-        test.system_management_object_functionkeys_confirm_cancel('确定')
-        test.system_management_object_all(proname)
-        test.system_management_object_righ(proname,'删除','确定')
+        get_object_delete(proname)
 
 
     @allure.story("对象管理/对象类型_对象管理界面")  # 用户故事名称
@@ -432,6 +429,7 @@ class Teststory_4489:
     def test_31262(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试对象{now_times}'
+        objectname= f'IPM子对象测试对象{now_times}'
         test = SystemManagement(drivers)
         test.get_url_system_management_object()
         test.system_management_object_all('所有对象')
@@ -439,14 +437,13 @@ class Teststory_4489:
         test.system_management_object_newbaseclass('名称', proname)
         test.system_management_object_newbaseclass('确认')
         test.system_management_object_all(proname)
-        test.system_management_object_upper_function('新建')
-        test.system_management_object_functionkeys_confirm_cancel("确定")
-        test.system_management_object_all(f'{proname}_1')
-        test.system_management_object_functionkeys('检出')
+        test.system_management_object_functionkeys('新建', proname, '确定', objectname)
+        test.get_url_system_management_object()
+        test.system_management_object_all(objectname, proname)
+        test.system_management_object_all(objectname)
+        test.system_management_object_righ(objectname, '检出')
         ass = Assert_result_system_management(drivers)
-        ass.element_not_found("对象_检入中_字段不可编辑",choice='父对象')
-        test.system_management_object_functionkeys('撤销检出')
-        test.system_management_object_functionkeys_confirm_cancel('确定')
+        ass.element_not_found("对象_检入中_字段不可编辑",True, choice='父对象')
         get_object_delete(proname)
 
 
@@ -492,10 +489,11 @@ class Teststory_4489:
         test.system_management_object_all(proname)
         test.system_management_object_righ(proname, '删除')
         ass = Assert_result_system_management(drivers)
-        ass.element_not_found("对象_检入中_字段框_启用禁用未启用文本",choice='未启用')
-        ass = Assert_result_system_management(drivers)
         ass.assert_toast("对象_删除节点提示", '是否删除该节点?')
         test.system_management_object_functionkeys('确定')
+        test.get_url_system_management_object()
+        ass.element_not_found("对象_点击对象名称", choice=proname)
+        get_object_delete(proname)
 
 
     @allure.story("对象管理/对象类型_对象管理界面")  # 用户故事名称
@@ -727,7 +725,41 @@ class Teststory_4489:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_31280(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试对象{now_times}'
+        objectname = f'测试对象{now_times}'
+        test = SystemManagement(drivers)
+        test.get_url_system_management_object()
+        test.system_management_object_all('所有对象')
+        test.system_management_object_upper_function('新建')
+        test.system_management_object_newbaseclass('名称', proname)
+        test.system_management_object_newbaseclass('确认')
+        test.system_management_object_righ(proname, '检出')
+        test.system_management_object_functionkeys("新增")
+        test.system_management_object_newattribute("类型", "基础组件", '文本')
+        test.system_management_object_newattribute("属性名", "testname")
+        test.system_management_object_newattribute("字段释义", f"测试名称{now_times}")
+        test.system_management_object_functionkeys_confirm_cancel('确认', "新增属性")
+        test.system_management_object_functionkeys('检入')
+        test.system_management_object_all(proname)
+        test.system_management_object_functionkeys('新建', proname, '确定', objectname)
+        test.get_url_system_management_object()
+        test.system_management_object_all(objectname, proname)
+        test.system_management_object_all(objectname)
+        test.system_management_object_righ(objectname, '检出')
+        test.system_management_object_functionkeys("新增")
+        test.system_management_object_newattribute("类型", "基础组件", '文本')
+        test.system_management_object_newattribute("属性名", "testnameobj")
+        test.system_management_object_newattribute("字段释义", f"测试子对象{now_times}")
+        test.system_management_object_functionkeys_confirm_cancel('确认', "新增属性")
+        test.system_management_object_functionkeys('检入')
+        ass = Assert_result_system_management(drivers)
+        ass.element_not_found("对象_属性及约束表单_表单值获取", result=True, choice=f"测试名称{now_times}")
+        ass.element_not_found("对象_属性及约束表单_继承属性不可删除功能键", result=True, choice="1")
+        ass.element_not_found("对象_属性及约束表单_表单值获取", result=True, choice=f"测试子对象{now_times}")
+        ass.element_not_found("对象_属性及约束表单_删除", result=True, choice="2")
+        ass.elements_assert('#icon-no-deletion', '对象_属性及约束表单_删除', '2', 'xlink:href')
+        get_object_delete(proname)
 
 
     @allure.story("对象管理/对象类型_对象管理界面")  # 用户故事名称
@@ -736,7 +768,30 @@ class Teststory_4489:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_31281(self, drivers):
-        pass
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试对象{now_times}'
+        objectname = f'测试对象{now_times}'
+        test = SystemManagement(drivers)
+        test.get_url_system_management_object()
+        test.system_management_object_all('所有对象')
+        test.system_management_object_upper_function('新建')
+        test.system_management_object_newbaseclass('名称', proname)
+        test.system_management_object_newbaseclass('确认')
+        test.system_management_object_righ(proname, '检出')
+        test.system_management_object_functionkeys("新增")
+        test.system_management_object_newattribute("类型", "基础组件", '文本')
+        test.system_management_object_newattribute("属性名", "testname")
+        test.system_management_object_newattribute("字段释义", f"测试名称{now_times}")
+        test.system_management_object_functionkeys_confirm_cancel('确认', "新增属性")
+        test.system_management_object_functionkeys('检入')
+        test.system_management_object_all(proname)
+        test.system_management_object_functionkeys('新建', proname, '确定', objectname)
+        test.get_url_system_management_object()
+        test.system_management_object_all(objectname, proname)
+        test.system_management_object_all(objectname)
+        ass = Assert_result_system_management(drivers)
+        ass.elements_assert('#icon-inherit', '对象_属性及约束表单_删除', '1', 'xlink:href')
+        get_object_delete(proname)
 
 
     @allure.story("对象管理/对象类型_对象管理界面")  # 用户故事名称
@@ -745,8 +800,20 @@ class Teststory_4489:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_31282(self, drivers):
-        pass
-
+        now_times = strftime('%Y-%m-%d%H:%M:%S')
+        proname = f'IPM自动化测试对象{now_times}'
+        objectname = f'测试对象{now_times}'
+        test = SystemManagement(drivers)
+        test.get_url_system_management_object()
+        test.system_management_object_all('所有对象')
+        test.system_management_object_upper_function('新建')
+        test.system_management_object_newbaseclass('名称', proname)
+        test.system_management_object_newbaseclass('确认')
+        test.system_management_object_righ(proname, '检出')
+        ass = Assert_result_system_management(drivers)
+        ass.elements_assert('检入', '对象_检入检出功能键', '检入')
+        test.system_management_object_functionkeys('检入')
+        get_object_delete(proname)
 
     @allure.story("对象管理/对象类型_对象管理界面")  # 用户故事名称
     @allure.title("检出子对象检出编辑后，当前对象整个树上锁，同级对象不上锁")  # 用例名称

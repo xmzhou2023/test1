@@ -1,4 +1,5 @@
 对象_展开树结构: 'xpath==//div/div/div/div/span[text()="variable"]/../../../span'
+对象_树结构_锁: 'xpath==//div/div/div/div/span[text()="variable"]/../i[contains(@title,"对象【文件】被")]'
 对象_点击对象名称: 'xpath==//div/div/div/div/span[text()="variable"]'
 对象_右键点击对象: 'xpath==//ul/li[text()=" variable "]'
 对象_右键点击_删除_功能键: 'xpath==//div[@class="popconfirm-dialog"]//span[text()=" variable "]'
@@ -51,7 +52,10 @@ span: 'xpath==//span[text()="variable"]'
 对象_表单功能_选择权限角色_功能键: 'xpath==//div[@aria-label="选择权限角色"]//span[text()=" variable "]'
 
 #======================================================================属性及约束==================================================================================
-对象_属性及约束表单_表单值获取: 'xpath==//*[@id="pane-property"]/div/section/div[3]/div/div[2]/div[1]/div[2]/table/tbody/tr/td//span[text()="variable"]'
+对象_属性及约束表单_表单值获取: 'xpath==//div[@class="flex-1 h-full overflow-overlay"]/div[1]//div[@class="vxe-table--main-wrapper"]//tr/td//span[text()="variable"]'
+对象_属性及约束表单_批量设置: 'xpath==//div[@class="vxe-table--body-wrapper body--wrapper"]/table//tr[variable]/td[12]/div/span[contains(@title,"批量设置")]'
+对象_属性及约束表单_删除: 'xpath==//div[@class="vxe-table--body-wrapper body--wrapper"]/table//tr[variable]/td[12]/div/span[1]//*[name()="svg"]/*[name()="use"]'
+对象_属性及约束表单_继承属性不可删除功能键: 'xpath==//div[@class="vxe-table--body-wrapper body--wrapper"]/table//tr[variable]/td[12]/div/span[contains(@aria-describedby,"el-tooltip")]'
 
 #======================================================================权限-表单===========================================================================================
 对象_表单功能_权限_角色修改: 'xpath==//div[@class="permissions-tabs"]//td[2]//input'
@@ -74,6 +78,7 @@ span: 'xpath==//span[text()="variable"]'
 
 #===================================================================对象_撤销检出提示==========================================================================================
 对象_撤销检出_功能键: 'xpath==//div[@aria-label="提示信息"]//span[contains(text(),"variable")]'
+
 #====================================================================断言========================================================================================
 对象_树结构_对象查询: 'xpath==//div[@class="tree-node-label"]/span'
 对象_检入中_断言上传图标地址: 'xpath==//div[@class="choose-object-icon"]//img'
