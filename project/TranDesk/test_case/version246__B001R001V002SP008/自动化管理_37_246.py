@@ -12,4 +12,4 @@ class Teststory_4206:
 
 
 if __name__ == '__main__':
-      pass
+    pass
