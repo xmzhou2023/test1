@@ -39,7 +39,6 @@ class TestQueryDistiCustomerPSI:
         """报表分析-打开客户PSI页面"""
         menu.click_gotomenu("Report Analysis", "Customer PSI")
         psi = CustomerPSIPage(drivers)
-        psi.click_search()
         region_text_a = psi.get_sale_regiona_text()
         region_text_b = psi.get_sale_regionb_text3()
         brand_text = psi.get_brand_text()
@@ -62,12 +61,15 @@ class TestExportDistiCustomerPSI:
         """筛选国包客户PSI列表数据，导出数据是否正常"""
         export = CustomerPSIPage(drivers)
         # 获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
+        last_date = export.get_last_day(1)
+        """按日期筛选当天日期前一天的数据，然后进行导出"""
+        export.customer_psi_start_date_query(last_date)
         #点击导出功能
         export.click_export()
         export.click_download_more()
         export.input_task_name('Customer PSI')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
@@ -133,6 +135,7 @@ class TestExportSubCustomerPSI:
         export.click_export()
         export.click_download_more()
         export.input_task_name('Customer PSI')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         export.click_export_search()
         down_status = export.get_download_status_text()

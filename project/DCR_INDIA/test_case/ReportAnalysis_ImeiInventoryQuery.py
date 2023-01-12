@@ -33,15 +33,11 @@ class TestImeiInventoryQuery:
     @pytest.mark.usefixtures('function_imei_inventory_query_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
-
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
-
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = ImeiInventoryQuery(drivers)
         page.click_button('Unfold')
-
-
         """查询Activation Time，对结果进行判断,注意字典的键要和表格的表头一致"""
         query_dic={'Receive Date':'2022-11-08',
                    'Box ID':'43012210040316',
@@ -82,8 +78,6 @@ class TestImeiInventoryQuery:
                 ValueAssert.value_assert_date_in(attribute,query_dic[i],query_dic[i])
             else:
                 ValueAssert.value_assert_equal(attribute, query_dic[i])
-
-
 
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])

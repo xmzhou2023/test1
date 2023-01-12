@@ -97,7 +97,7 @@ class CustomerPSIPage(Base):
     def export_record_create_date_query(self, start_date):
         self.is_click(user['Export Record Create Date'])
         self.input_text(user['Export Record Create Date'], start_date)
-        self.is_click(user['点击筛选项label'])
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """

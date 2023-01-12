@@ -67,6 +67,7 @@ class TestExportDistiCustomerPSI:
         # 获取日期
         today = Base(drivers).get_datetime_today()
         last_date = export.get_last_day(1)
+        """按日期筛选当天日期前一天的数据，然后进行导出"""
         export.customer_psi_start_date_query(last_date)
         export.click_search()
         # 默认选中查询国包PSI数据

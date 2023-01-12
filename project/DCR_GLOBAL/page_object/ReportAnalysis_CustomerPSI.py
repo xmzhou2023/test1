@@ -27,6 +27,12 @@ class CustomerPSIPage(Base):
         self.is_click(user['Sub dealer'])
         self.element_text(user['Loading'])
 
+    def customer_psi_start_date_query(self, start_date):
+        """Customer PSI 页面，输入开始Date条件筛选数据"""
+        self.is_click(user['Customer PSI Start Date'])
+        self.input_text(user['Customer PSI Start Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Date')
+
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
@@ -83,6 +89,12 @@ class CustomerPSIPage(Base):
         self.input_text(user['Input Task Name'], content)
         sleep(1)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
