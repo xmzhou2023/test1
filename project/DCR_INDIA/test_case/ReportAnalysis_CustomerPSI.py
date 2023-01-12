@@ -66,7 +66,7 @@ class TestExportDistiCustomerPSI:
         export = CustomerPSIPage(drivers)
         # 获取日期
         today = Base(drivers).get_datetime_today()
-        last_date = export.get_last_day(1)
+        last_date = export.get_last_day(2)
         """按日期筛选当天日期前一天的数据，然后进行导出"""
         export.customer_psi_start_date_query(last_date)
         export.click_search()
@@ -136,11 +136,11 @@ class TestExportSubCustomerPSI:
         export = CustomerPSIPage(drivers)
         # 获取日期
         today = Base(drivers).get_datetime_today()
-        last_date = export.get_last_day(1)
+        last_date = export.get_last_day(2)
         export.customer_psi_start_date_query(last_date)
-        export.click_search()
         # 查询二代PSI数据
         export.click_sub_dealer()
+        export.click_search()
         # 筛选出库单后，点击导出功能
         export.click_export()
         export.click_download_more()
