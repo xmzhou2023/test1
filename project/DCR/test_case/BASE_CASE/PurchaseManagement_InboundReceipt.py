@@ -80,13 +80,11 @@ class TestQueryIMEIDetail:
         user1.initialize_login(drivers, "BD291501", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例"""
         user1.click_gotomenu("Purchase Management", "Inbound Receipt")
-
         query = InboundReceiptPage(drivers)
         query.click_unfold()
         query.click_select_brand()
         query.click_deliver_Order()
         query.click_search()
-        sleep(1.5)
         query.click_fold()
 
         #获取Inbound Receipt列表字段文本
@@ -95,7 +93,6 @@ class TestQueryIMEIDetail:
         #点击IMEI Detai功能按钮
         query.click_imei_detail()
         DomAssert(drivers).assert_att('Please select a record')
-
         #勾选第一条记录前的复选框
         query.select_checkbox()
         query.click_imei_detail()
@@ -108,7 +105,6 @@ class TestQueryIMEIDetail:
         detail_export = query.get_imei_detail_export()
         total = query.get_imei_detail_total()
         query.assert_total_imei_detail(total)
-
         ValueAssert.value_assert_IsNoneNot(detail_product)
         ValueAssert.value_assert_IsNoneNot(detail_itel)
         ValueAssert.value_assert_equal(list_brand, detail_brand)

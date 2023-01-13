@@ -27,12 +27,12 @@ class AttendanceRecordPage(Base):
     @allure.step("Attendance Records页面，点击 Search筛选考勤记录")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("Attendance Records页面，点击Reset重置筛选条件")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     @allure.step("Attendance Records页面，点击Picture 查看考勤照片详情")
     def click_view_picture_button(self):
@@ -73,17 +73,11 @@ class AttendanceRecordPage(Base):
     def click_close_export_record(self):
         """关闭导出记录菜单"""
         self.is_click(user['关闭导出记录菜单'])
-        #sleep(1)
 
     @allure.step("关闭考勤记录菜单")
     def click_close_atten_record(self):
         self.is_click(user['关闭考勤记录菜单'])
-        #sleep(1)
 
-    @allure.step("获取首页Get Home Page Customer文本内容")
-    def get_home_page_cust(self):
-        homepage = self.element_text(user['Get Home Page Customer'])
-        return homepage
 
     @allure.step("查看考勤 Picture详情页，获取user ID文本内容")
     def get_attendance_photo_user_id(self, content):
@@ -113,7 +107,7 @@ class AttendanceRecordPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -121,6 +115,12 @@ class AttendanceRecordPage(Base):
         self.input_text(user['Input Task Name'], content)
         sleep(0.5)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -203,6 +203,10 @@ class AttendanceRecordPage(Base):
         else:
             logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
 
+    @allure.step("断言精确查询结果 Attendance Records列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_attendance_records_field(self, header, content):
+        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
 
 if __name__ == '__main__':
     pass

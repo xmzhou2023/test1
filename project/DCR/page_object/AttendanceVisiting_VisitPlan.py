@@ -15,7 +15,7 @@ class VisitPlan(Base):
         self.input_text(user['输入筛选用户'], shop)
         sleep(1.5)
         self.is_click(user['Search'])
-        sleep(2.5)
+        self.element_text(user['Loading'])
 
     @allure.step("Visit Plan页面，点击 Unfold按钮")
     def click_unfold(self):

@@ -9,7 +9,6 @@ user = Element(pro_name, object_name)
 
 class ShopInventoryIMEIQueryPage(Base):
     """ShopInventoryIMEIQueryPage，生产环境，Shop Inventory IMEI Query 页面元素定位"""
-
     @allure.step("Shop Inventory IMEI Query页面，点击Unfold展开筛选条件")
     def click_unfold(self):
         """Shop Inventory IMEI Query页面，点击Unfold展开筛选条件"""
@@ -33,12 +32,12 @@ class ShopInventoryIMEIQueryPage(Base):
     @allure.step("Shop Inventory IMEI Query页面，点击Search按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     @allure.step("Shop Inventory IMEI Query页面，点击Search按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     @allure.step("Shop Inventory IMEI Query页面，点击Fold收起筛选条件按钮")
     def click_fold(self):
@@ -106,7 +105,7 @@ class ShopInventoryIMEIQueryPage(Base):
         sleep(1)
         self.presence_sleep_dcr(user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -114,6 +113,12 @@ class ShopInventoryIMEIQueryPage(Base):
         self.input_text(user['Input Task Name'], txt=content)
         sleep(0.5)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -191,7 +196,11 @@ class ShopInventoryIMEIQueryPage(Base):
             logging.info("Shop Inventory IMEI Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Shop Inventory IMEI Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
+
+    @allure.step("断言精确查询结果 Customer PSI列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_shop_inventory_imei_field(self, header, content):
+        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容'], header, content,
+                                                             sc_element=user['水平滚动条'])
 
 
 if __name__ == '__main__':

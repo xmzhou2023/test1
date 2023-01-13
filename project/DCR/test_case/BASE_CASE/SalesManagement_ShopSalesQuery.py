@@ -509,11 +509,13 @@ class TestExportShopSalesQuery:
         """实例化对象类"""
         export = ShopSaleQueryPage(drivers)
         today = Base(drivers).get_datetime_today()
+        """获取当天日期之前13天的日期"""
+        last_date = Base(drivers).get_last_day(15)
         export.click_unfold()
         """首先按日期筛选门店销量数据"""
-        export.input_upload_start_date("2023-01-01")
+        export.input_upload_start_date(last_date)
         export.click_upload_end_date()
-        export.input_sales_date("2023-01-01", today)
+        export.input_sales_date(last_date, today)
         export.click_fold()
         export.click_search()
         total = export.get_total_text()

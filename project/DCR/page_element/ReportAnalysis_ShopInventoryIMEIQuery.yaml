@@ -3,9 +3,12 @@
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Inbound Date Start Time: "xpath==//div//input[@id='shopinventoryimeilist_input_inBoundDate']"
 Fold: "xpath==//span[contains(text(),'Fold')]"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
+水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
 
 获取Shop ID文本:  "xpath==//table//tbody//tr[1]//td[2]//div"
 获取Shop Name文本: "xpath==//table//tbody//tr[1]//td[3]//div"

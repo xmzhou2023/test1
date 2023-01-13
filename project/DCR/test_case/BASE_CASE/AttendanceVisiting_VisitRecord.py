@@ -41,30 +41,22 @@ class TestQueryVisitRecord:
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
-
         visit_task = VisitRecordPage(drivers)
-        visit_task.input_submit_start_date("2022-11-01")
-        visit_task.click_submit_date()
+        """获取当天日期之前7天的日期"""
+        last_date = Base(drivers).get_last_day(7)
+        visit_task.input_submit_start_date(last_date)
         visit_task.click_shop_self_inspection('Visit task')
         visit_task.click_search()
-
         shop_id = visit_task.get_shop_id_text()
         logging.info("获取Visit task的巡店记录列表Shop ID字段文本{}".format(shop_id))
-        visit_task.click_unfold()
         visit_task.input_shop_id_query(shop_id)
-        visit_task.click_fold()
+        """点击查询按钮"""
         visit_task.click_search()
-        sleep(2)
-        shop_id2 = visit_task.get_shop_id_text()
-        submit_date = visit_task.get_submit_date_text()
         visit_date = visit_task.get_visit_date_text()
-        operation = visit_task.get_view_operation_text()
         total = visit_task.get_total_text()
-
-        ValueAssert.value_assert_equal(shop_id, shop_id2)
-        ValueAssert.value_assert_IsNoneNot(submit_date)
-        ValueAssert.value_assert_IsNoneNot(visit_date)
-        ValueAssert.value_assert_In(operation, "View")
+        visit_task.assert_visit_record_field('Shop ID', shop_id)
+        visit_task.assert_visit_record_field('Visit Date', visit_date)
+        visit_task.assert_visit_record_field('Operation', 'View')
         visit_task.assert_total(total)
 
 
@@ -78,29 +70,21 @@ class TestQueryVisitRecord:
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
-
         visit = VisitRecordPage(drivers)
-        visit.input_submit_start_date("2022-09-01")
+        """获取当天日期之前50天的日期"""
+        last_date = Base(drivers).get_last_day(50)
+        visit.input_submit_start_date(last_date)
         visit.click_shop_self_inspection('Shop self-inspection')
         visit.click_search()
-        sleep(2)
         shop_id = visit.get_shop_id_text()
         logging.info("获取Shop self-inspection的巡店记录列表Shop ID字段文本{}".format(shop_id))
-        visit.click_unfold()
         visit.input_shop_id_query(shop_id)
-        visit.click_fold()
         visit.click_search()
-        sleep(2)
-        shop_id2 = visit.get_shop_id_text()
-        submit_date = visit.get_submit_date_text()
         visit_date = visit.get_visit_date_text()
-        operation = visit.get_view_operation_text()
         total = visit.get_total_text()
-
-        ValueAssert.value_assert_equal(shop_id, shop_id2)
-        ValueAssert.value_assert_IsNoneNot(submit_date)
-        ValueAssert.value_assert_IsNoneNot(visit_date)
-        ValueAssert.value_assert_In(operation, "View")
+        visit.assert_visit_record_field('Shop ID', shop_id)
+        visit.assert_visit_record_field('Visit Date', visit_date)
+        visit.assert_visit_record_field('Operation', 'View')
         visit.assert_total(total)
 
 
@@ -117,38 +101,34 @@ class TestExportVisitRecord:
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
-        """获取当天日期"""
-        base = Base(drivers)
-        today = base.get_datetime_today()
-
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-11-01")
-        export.click_submit_date()
+        """获取当天日期"""
+        today = Base(drivers).get_datetime_today()
+        """获取当天日期之前7天的日期"""
+        last_date = Base(drivers).get_last_day(7)
+        export.input_submit_start_date(last_date)
         export.click_shop_self_inspection('Visit task')
+        """点击查询按钮"""
         export.click_search()
 
+        """点击导出"""
         export.click_export()
         export.click_download_more()
-        export.input_task_name("Visit Record")
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
+        export.input_task_name('Visit Record')
+        export.export_record_create_date_query(today)
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
-
-        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-
-        task_id = export.get_task_user_id_text()
-        create_date = export.get_create_date_text()
-        complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
-        operation = export.get_export_operation_text()
-        logging.info("获取导出记录列表的operation字段内容{}".format(operation))
-
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Visit Record")
-        ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+        export.assert_visit_record_field('Download Status', down_status)
+        export.assert_visit_record_field('Task Name', 'Visit Record')
+        export.assert_visit_record_field('User ID', 'lhmadmin')
+        export.assert_visit_record_field('Create Date', today)
+        export.assert_visit_record_field('Completed Date', today)
+        export.assert_visit_record_field('Operation', 'Download')
+
 
 
     @allure.story("导出巡店记录")
@@ -163,36 +143,30 @@ class TestExportVisitRecord:
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
         """获取当天日期"""
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
+        """获取当天日期之前7天的日期"""
+        last_date = Base(drivers).get_last_day(7)
         export2 = VisitRecordPage(drivers)
-
-        export2.input_submit_start_date("2022-09-01")
-        export2.click_submit_date()
+        export2.input_submit_start_date(last_date)
         export2.click_shop_self_inspection('Visit task')
         export2.click_search()
 
         export2.click_export_detail()
         export2.click_download_more()
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
         export2.input_task_name("Visit Record Details List")
+        export2.export_record_create_date_query(today)
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export2.click_export_search()
-
-        task_name = export2.get_task_name_text()
         file_size = export2.get_file_size_text()
-
-        task_id = export2.get_task_user_id_text()
-        create_date = export2.get_create_date_text()
-        complete_date = export2.get_complete_date_text()
         export_time = export2.get_export_time_text()
-        operation = export2.get_export_operation_text()
-
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Visit Record Details List")
-        ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
         export2.assert_file_time_size(file_size, export_time)
+        export2.assert_visit_record_field('Download Status', down_status)
+        export2.assert_visit_record_field('Task Name', 'Visit Record Details List')
+        export2.assert_visit_record_field('User ID', 'lhmadmin')
+        export2.assert_visit_record_field('Create Date', today)
+        export2.assert_visit_record_field('Completed Date', today)
+        export2.assert_visit_record_field('Operation', 'Download')
 
 
     @allure.story("导出巡店记录")
@@ -207,36 +181,29 @@ class TestExportVisitRecord:
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
         """获取当天日期"""
-        base = Base(drivers)
-        today = base.get_datetime_today()
-
+        today = Base(drivers).get_datetime_today()
+        """获取当天日期之前50天的日期"""
+        last_date = Base(drivers).get_last_day(50)
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-09-01")
-        export.click_submit_date()
+        export.input_submit_start_date(last_date)
         export.click_shop_self_inspection('Shop self-inspection')
         export.click_search()
-
         export.click_export()
         export.click_download_more()
-        export.input_task_name("Visit Record")
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
+        export.input_task_name('Visit Record')
+        export.export_record_create_date_query(today)
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
-
-        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-
-        task_id = export.get_task_user_id_text()
-        create_date = export.get_create_date_text()
-        complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
-        operation = export.get_export_operation_text()
-
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Visit Record")
-        ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+        export.assert_visit_record_field('Download Status', down_status)
+        export.assert_visit_record_field('Task Name', 'Visit Record')
+        export.assert_visit_record_field('User ID', 'lhmadmin')
+        export.assert_visit_record_field('Create Date', today)
+        export.assert_visit_record_field('Completed Date', today)
+        export.assert_visit_record_field('Operation', 'Download')
 
 
     @allure.story("导出巡店记录")
@@ -251,36 +218,31 @@ class TestExportVisitRecord:
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Attendance & Visiting", "Visit Record")
         """获取当天日期"""
-        base = Base(drivers)
-        today = base.get_datetime_today()
-
+        today = Base(drivers).get_datetime_today()
+        """获取当天日期之前50天的日期"""
+        last_date = Base(drivers).get_last_day(50)
         export = VisitRecordPage(drivers)
-        export.input_submit_start_date("2022-09-01")
-        export.click_submit_date()
+        export.input_submit_start_date(last_date)
         export.click_shop_self_inspection('Shop self-inspection')
         export.click_search()
 
         export.click_export_detail()
         export.click_download_more()
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
         export.input_task_name("Visit Record Details List")
+        export.export_record_create_date_query(today)
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
-
-        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-
-        task_id = export.get_task_user_id_text()
-        create_date = export.get_create_date_text()
-        complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
-        operation = export.get_export_operation_text()
-
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Visit Record Details List")
-        ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+        export.assert_visit_record_field('Download Status', down_status)
+        export.assert_visit_record_field('Task Name', 'Visit Record Details List')
+        export.assert_visit_record_field('User ID', 'lhmadmin')
+        export.assert_visit_record_field('Create Date', today)
+        export.assert_visit_record_field('Completed Date', today)
+        export.assert_visit_record_field('Operation', 'Download')
+
 
 if __name__ == '__main__':
     pytest.main(['AttendanceVisiting_VisitRecord.py'])
