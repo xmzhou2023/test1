@@ -15,6 +15,7 @@ Quick Received select Warehouse: "xpath==//label[contains(text(),'Warehouse')]//
 Select Warehouse Value: "xpath==//span[contains(text(),'variable')]"
 关闭二代收货菜单: "xpath==//span[normalize-space(text())='Inbound Receipt']//span[@class='el-icon-close']"
 关闭二代收货IMEI Detail: "xpath==//div/..//span[contains(text(), 'DN:')]/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+点击筛选项label: "xpath==//div//label[contains(text(),'variable')]"
 
 #获取列表字段元素
 获取列表第一个销售单ID:  "xpath==//tbody//tr[1]//td[2]//div"

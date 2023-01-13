@@ -39,26 +39,22 @@ class TestQueryInboundReceipt:
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD291501", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Purchase Management", "Inbound Receipt")
-
         query = InboundReceiptPage(drivers)
+        """获取当天日期之前60天的日期"""
+        last_date = Base(drivers).get_last_day(60)
         query.click_unfold()
-        query.input_delivery_date("2022-09-01")
-        query.click_deliver_Order()
+        query.input_delivery_date(last_date)
         query.click_select_brand()
-        query.click_deliver_Order()
         query.click_search()
         query.click_fold()
-
         saleo_order = query.text_salesOrder()
         delivery_order = query.text_deliveryOrder()
         delivery_date = query.get_delivery_date_text()
         status = query.get_status_text()
         product = query.get_product_text()
         total = query.get_total_text()
-
         ValueAssert.value_assert_IsNoneNot(saleo_order)
         ValueAssert.value_assert_IsNoneNot(delivery_order)
         ValueAssert.value_assert_IsNoneNot(delivery_date)
@@ -83,10 +79,8 @@ class TestQueryIMEIDetail:
         query = InboundReceiptPage(drivers)
         query.click_unfold()
         query.click_select_brand()
-        query.click_deliver_Order()
         query.click_search()
         query.click_fold()
-
         #获取Inbound Receipt列表字段文本
         list_brand = query.get_brand_text()
         logging.info("获取列表Brand字段内容：{}".format(list_brand))
@@ -96,7 +90,6 @@ class TestQueryIMEIDetail:
         #勾选第一条记录前的复选框
         query.select_checkbox()
         query.click_imei_detail()
-
         detail_material_id = query.get_imei_detail_material_id()
         detail_product = query.get_imei_detail_product()
         detail_itel = query.get_imei_detail_itel()
@@ -104,13 +97,14 @@ class TestQueryIMEIDetail:
         detail_imei = query.get_imei_detail_imei()
         detail_export = query.get_imei_detail_export()
         total = query.get_imei_detail_total()
-        query.assert_total_imei_detail(total)
+        query.assert_total(total)
         ValueAssert.value_assert_IsNoneNot(detail_product)
         ValueAssert.value_assert_IsNoneNot(detail_itel)
         ValueAssert.value_assert_equal(list_brand, detail_brand)
         ValueAssert.value_assert_IsNoneNot(detail_material_id)
         ValueAssert.value_assert_IsNoneNot(detail_imei)
         ValueAssert.value_assert_equal("Export", detail_export)
+        query.assert_total(total)
         #query.click_close_inbound_imei_detail()
         #query.click_close_inbound_receipt()
 
@@ -125,19 +119,16 @@ class TestScanIMEIInboundReceipt:
     def test_003_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
-
         """打开Report Analysis->IMEI Inventory Query菜单"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
-
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
         """查询IMEI Inventory Query页面 指定product的IMEI"""
         imei = delivery.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.click_close_imei_inventory()
-
         """ 刷新页面 """
-        delivery.click_refresh(drivers)
+        Base(drivers).refresh()
         """国包账号，新建出库单"""
         user.click_gotomenu("Sales Management", "Delivery Order")
         add = DeliveryOrderPage(drivers)
@@ -163,7 +154,6 @@ class TestScanIMEIInboundReceipt:
         except Exception as e:
             #DomAssert(drivers).assert_att("Submit successfully")
             logging.info("打印{}".format(e))
-        sleep(1)
         add.click_search()
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         salesorder = add.text_sales_order()

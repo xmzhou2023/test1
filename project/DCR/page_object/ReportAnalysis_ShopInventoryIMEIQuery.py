@@ -85,12 +85,10 @@ class ShopInventoryIMEIQueryPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
 
     @allure.step("关闭门店库存IMEI菜单")
     def click_close_shop_inventory_imei(self):
         self.is_click(user['关闭门店库存IMEI菜单'])
-        sleep(1)
 
 
     # 门店库存IMEI查询记录，导出功能验证
