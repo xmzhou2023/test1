@@ -30,7 +30,7 @@ def remote_url(request):
     return request.config.getoption("--remoteurl")
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_url, remote_ui=True):
+def drivers(request, remote_url, remote_ui=False):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
@@ -127,29 +127,29 @@ logname = time.strftime('%Y_%m_%d_%H')
 #                     filemode='a')
 
 
-@pytest.mark.hookwrapper
-def pytest_runtest_makereport(item):
-    """
-    当测试失败的时候，自动截图，展示到html报告中,基于pytest-html
-    :param item:
-    """
-    pytest_html = item.config.pluginmanager.getplugin('html')
-    outcome = yield
-    report = outcome.get_result()
-    extra = getattr(report, 'extra', [])
-
-    if report.when == 'call' or report.when == "setup":
-        xfail = hasattr(report, 'wasxfail')
-        if (report.skipped and xfail) or (report.failed and not xfail):
-            file_name = report.nodeid.replace("::", "_") + ".png"
-            screen_img = _capture_screenshot()
-            if file_name:
-                html = '<div><img src="" alt="screenshot" style="width:1024px;height:768px;" ' \
-                       'onclick="window.open(this.src)" align="right"/></div>' % screen_img
-                extra.append(pytest_html.extras.html(html))
-        report.extra = extra
-        report.description = str(item.function.__doc__)
-        report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")
+# @pytest.mark.hookwrapper
+# def pytest_runtest_makereport(item):
+#     """
+#     当测试失败的时候，自动截图，展示到html报告中,基于pytest-html
+#     :param item:
+#     """
+#     pytest_html = item.config.pluginmanager.getplugin('html')
+#     outcome = yield
+#     report = outcome.get_result()
+#     extra = getattr(report, 'extra', [])
+#
+#     if report.when == 'call' or report.when == "setup":
+#         xfail = hasattr(report, 'wasxfail')
+#         if (report.skipped and xfail) or (report.failed and not xfail):
+#             file_name = report.nodeid.replace("::", "_") + ".png"
+#             screen_img = _capture_screenshot()
+#             if file_name:
+#                 html = '<div><img src="" alt="screenshot" style="width:1024px;height:768px;" ' \
+#                        'onclick="window.open(this.src)" align="right"/></div>' % screen_img
+#                 extra.append(pytest_html.extras.html(html))
+#         report.extra = extra
+#         report.description = str(item.function.__doc__)
+#         report.nodeid = report.nodeid.encode("utf-8").decode("unicode_escape")
 
 @pytest.mark.optionalhook
 def pytest_html_results_table_header(cells):
@@ -172,31 +172,31 @@ def pytest_html_results_table_html(report, data):
         data.append(html.div('通过的用例未捕获日志输出.', class_='empty log'))
 
 
-def _capture_screenshot():
-    '''
-    截图保存为base64
-    :return:
-    '''
-    return driver.get_screenshot_as_base64()
+# def _capture_screenshot():
+#     '''
+#     截图保存为base64
+#     :return:
+#     '''
+#     return driver.get_screenshot_as_base64()
 
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_runtest_makereport(item, call):
-    """
-获取⽤例执⾏结果的钩⼦函数
-    :param item:
-    :param call:
-    :return:
-    """
-    outcome = yield
-    report = outcome.get_result()
-    if report.when == "call" and report.failed:
-        mode = "a" if os.path.exists("failures") else "w"
-        with open("failures", mode)as f:
-            if "tmpir" in item.fixturenames:
-                extra = " (%s)" % item.funcargs["tmpdir"]
-            else:
-                extra = ""
-                f.write(report.nodeid + extra + "\n")
-            with allure.step('添加失败截图'):
-                allure.attach(driver.get_screenshot_as_png(), "失败截图", allure.attachment_type.PNG)
+# @pytest.hookimpl(tryfirst=True, hookwrapper=True)
+# def pytest_runtest_makereport(item, call):
+#     """
+# 获取⽤例执⾏结果的钩⼦函数
+#     :param item:
+#     :param call:
+#     :return:
+#     """
+#     outcome = yield
+#     report = outcome.get_result()
+#     if report.when == "call" and report.failed:
+#         mode = "a" if os.path.exists("failures") else "w"
+#         with open("failures", mode)as f:
+#             if "tmpir" in item.fixturenames:
+#                 extra = " (%s)" % item.funcargs["tmpdir"]
+#             else:
+#                 extra = ""
+#                 f.write(report.nodeid + extra + "\n")
+#             with allure.step('添加失败截图'):
+#                 allure.attach(driver.get_screenshot_as_png(), "失败截图", allure.attachment_type.PNG)
 

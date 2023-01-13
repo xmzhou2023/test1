@@ -32,7 +32,7 @@ class ReadConfig:
 
     @property
     def db(self):
-        return self._get('SQL', 'db')
+        return self._get('SQL','db')
 
     @property
     def IPM_db(self):
@@ -43,12 +43,15 @@ class ReadConfig:
         return self._get(self.ini_name, self.values)
 
 if __name__ == '__main__':
-    ini = ReadConfig('DRP','test')
-    sql = ast.literal_eval(ini.db)
-    inis = ReadConfig('IPM', 'test','database','db_ipm_config_uat')
-    sql_IPM = ast.literal_eval(inis.IPM_db)
-    inim = ReadConfig('MIP', 'test','database','ms_platform_test')
-    sql_MIP = ast.literal_eval(inis.MIP_db)
-    print(ini.url)
-    print(sql)
-    print(sql_IPM)
+    # ini = ReadConfig('DRP','test')
+    # sql = ast.literal_eval(ini.db)
+    # inis = ReadConfig('IPM', 'test','database','db_ipm_config_uat')
+    # sql_IPM = ast.literal_eval(inis.IPM_db)
+    # inim = ReadConfig('MIP', 'test','database','ms_platform_test')
+    # sql_MIP = ast.literal_eval(inis.MIP_db)
+    # print(ini.url)
+    # print(sql)
+    # print(sql_IPM)
+    a = ReadConfig('POP','test','db_name').get('SQL','db')
+    a = ast.literal_eval(a)
+    print(a['db_name'])
