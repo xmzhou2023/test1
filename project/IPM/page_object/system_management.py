@@ -7,7 +7,6 @@ from project.IPM.page_base.assert_pubic import *
 from project.IPM.api.APIRequest import *
 import random
 from project.IPM.page_object.Generalmethods import General_methods
-from project.IPM.page_base.import_ipm import *
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 from project.IPM.page_base.pathconfig import *
 Api = APIRequest()
