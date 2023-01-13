@@ -17,6 +17,7 @@ Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 #根据筛选功能，查询销售订单ID
 按销售单ID筛选: "xpath==//label[contains(text(),'Sales Order ID')]//parent::div//following-sibling::div//input"
 Sales Order Search: "xpath==//span[contains(text(),'Search')]"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 获取Sales Order ID文本: "xpath==//tbody//tr[1]//td[2]//div//div"
 获取列表Status文本: "xpath==//tbody//tr[1]//td[4]//div"
 

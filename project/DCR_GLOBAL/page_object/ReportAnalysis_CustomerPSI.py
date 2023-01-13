@@ -25,7 +25,6 @@ class CustomerPSIPage(Base):
         """点击Sub-dealer按钮筛选二代数据"""
         self.presence_sleep_dcr(user['Sub dealer'])
         self.is_click(user['Sub dealer'])
-        self.element_text(user['Loading'])
 
     def customer_psi_start_date_query(self, start_date):
         """Customer PSI 页面，输入开始Date条件筛选数据"""
@@ -36,6 +35,7 @@ class CustomerPSIPage(Base):
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
+        sleep(3)
         self.element_text(user['Loading'])
 
     def get_total_text(self):

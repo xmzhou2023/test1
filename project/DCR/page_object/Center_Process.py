@@ -80,7 +80,7 @@ class SalesOrderPage(Base):
     @allure.step("销售单页面，点击Search查询按钮")
     def click_search(self):
         self.is_click(user['Sales Order Search'])
-        sleep(2.5)
+        self.element_text(user['Loading'])
 
     @allure.step("销售单页面，点击IMEI Detail打开详情页")
     def click_sales_order_imei_detail(self):

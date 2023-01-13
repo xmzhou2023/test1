@@ -147,15 +147,11 @@ class SystemManagement(General_methods):
                     self.click_IPM('对象_右键点击_删除_功能键', functionkeys)
 
         else:
-            objname = self.element_exist_IPM('对象_树结构_对象右侧功能键', functionkeys)
-            if objname == True:
-                self.click_IPM('对象_树结构_对象右侧功能键', functionkeys)
+            UndoCheckOut = self.element_exist_IPM('对象_撤销检出_功能键', functionkeys)#撤销检出提示
+            if UndoCheckOut == True:
+                self.click_IPM('对象_撤销检出_功能键', functionkeys)
             else:
-                UndoCheckOut = self.element_exist_IPM('对象_撤销检出_功能键', functionkeys)#撤销检出提示
-                if UndoCheckOut == True:
-                    self.click_IPM('对象_撤销检出_功能键', functionkeys)
-                else:
-                    self.click_IPM('对象_右键点击_删除_功能键', functionkeys)
+                self.click_IPM('对象_右键点击_删除_功能键', functionkeys)
 
 
 
@@ -168,7 +164,7 @@ class SystemManagement(General_methods):
         :param Subobject: 子对象
         '''
         if functionkeys =='新建' :#functionkeys传入删除/新建，则需要传入对象的名字，不然不会显示对象隐藏的功能键
-            self.mouse_hover_IPM('对象_点击对象名称',Objectsoperatedon)
+            self.mouse_hover_IPM('对象_编辑树结构文本',Objectsoperatedon)
             self.click_IPM('对象_树结构_对象右侧功能键', Objectsoperatedon,functionkeys)
             if textname =='确定' or textname =='取消' :
                 self.system_management_object_editobject(Subobject)
@@ -233,14 +229,9 @@ class SystemManagement(General_methods):
         '''
         if value:
             for i in value:
-                if fillin == '角色':
-                    self.click_IPM('对象_表单功能_权限_角色修改')
-                elif fillin=='生命周期状态':
+                if fillin=='生命周期状态':
                     self.click_IPM('对象_表单功能_权限_生命周期状态')
                     self.DropDownBoxAcquiredField(i)
-                elif fillin=='操作权限':
-                    self.click_IPM('对象_表单功能_权限_角色修改')
-                    self.click_IPM('对象_表单功能_权限_操作权限')
                 elif fillin == '保存':
                     self.click_IPM("对象_表单功能_权限_操作_保存",i)
                 elif fillin == '删除':
@@ -250,8 +241,13 @@ class SystemManagement(General_methods):
                 else:
                     logging.info(f'{fillin}在方法（system_management_object_permissions_formediting）中不存在，请扩展或填写正确的值')
                     raise ValueError(f'{fillin}在方法（system_management_object_permissions_formediting）中不存在，请扩展或填写正确的值')
-
-
+        else:
+            if fillin == '角色':
+                self.click_IPM('对象_表单功能_权限_角色修改')
+            elif fillin == '操作权限':
+                self.click_IPM('对象_表单功能_权限_角色修改')
+                self.click_IPM('对象_表单功能_权限_操作权限')
+        sleep(2)
 
 
 

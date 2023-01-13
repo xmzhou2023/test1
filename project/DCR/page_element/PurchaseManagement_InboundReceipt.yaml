@@ -9,10 +9,10 @@ Select TECNO: "xpath==//span[text()='TECNO']"
 Select itel: "xpath==//span[text()='itel']"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 Click IMEI Detail: "xpath==//button//span[contains(text(),'IMEI Detail')]"
 Quick Received select Warehouse: "xpath==//label[contains(text(),'Warehouse')]//parent::div//following-sibling::div//input"
 Select Warehouse Value: "xpath==//span[contains(text(),'variable')]"
-
 关闭二代收货菜单: "xpath==//span[normalize-space(text())='Inbound Receipt']//span[@class='el-icon-close']"
 关闭二代收货IMEI Detail: "xpath==//div/..//span[contains(text(), 'DN:')]/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
 

@@ -28,7 +28,7 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("获取列表第一个销售单ID")
     def text_salesOrder(self):
