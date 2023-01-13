@@ -90,7 +90,7 @@ class AddDefineSuggestedPrice(Base):
 
     @allure.step("数据库查询新增定义建议价格断言")
     def sql_priceassert(self,count,good,region):
-        sql = f"SELECT count(*) FROM `pop_data_db`.`goods_price` WHERE `goods_id` = {good} AND `area_id`={region} AND `enabled_flag`=1;"
+        sql = f"SELECT count(*) FROM `pop_data_db`.`good_price` WHERE `goods_id` = {good} AND `area_id`={region} AND `enabled_flag`=1;"
         SQLAssert('POP','test').assert_sql_count(count, sql)
 
 class ExportPrice(Base):
