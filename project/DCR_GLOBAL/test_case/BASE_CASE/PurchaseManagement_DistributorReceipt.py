@@ -65,7 +65,7 @@ class TestQueryIMEIDetail:
                 logging.info('Now the i  is %s' % i)
                 if i == 'Customer':
                     logging.info('Now the Customer is %s' % query_dic[i])
-                elif i == 'Model' or i == 'Brand':
+                elif i == 'Model' or i == 'Brand' or i == 'Market Name':
                     colum = page.get_table_column(i)
                     logging.info('then the colum is {}'.format(colum))
                     attribute = page.get_table_content(colum)
