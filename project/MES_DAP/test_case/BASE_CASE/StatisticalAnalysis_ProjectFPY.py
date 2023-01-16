@@ -8,7 +8,7 @@ from public.base.assert_ui import DomAssert, SQLAssert, ValueAssert
 import pytest
 import logging
 import allure
-import datetime
+import arrow
 
 
 @pytest.fixture(scope='module', autouse=True)
@@ -32,25 +32,24 @@ class TestQueryProjectFPY:
         info = ProjectFPY(drivers)
         info.click_reset()
         info.choice_workshop_section(workshop_section)
-        info.choice_station(station)
         info.choice_start_date(str(eval(start_time)) if start_time else start_time)
         info.choice_end_date(str(eval(end_time)) if end_time else end_time)
+        info.choice_station(station)
         info.click_search()
         dom = DomAssert(drivers)
         dom.assert_att(tips)
 
-    test_data = ReadData().read_excel(os.path.join(BASE_DIR, 'project', 'MES_DAP', 'data', 'parametrize.xls'), 'ProjectFPY_Data', 'row', rows=1, end_col=3)
     @allure.story("查询项目直通率")
     @allure.title("按工段、站点、项目查询当日项目直通")
     @allure.description("选择查询条件>点击查询按钮")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.parametrize("workshpo_station, station, project", [("PCBA", "BTI", "H371"), ("组装", "RTI", "X556_H371"), ("包装", "GBL", "X556")])
-    def test_290901(self, drivers, workshpo_station, station, project):
+    @pytest.mark.parametrize("workshop_section, station, project", [("PCBA", "BTI", "H371"), ("组装", "RTI", "X556_H371"), ("包装", "GBL", "X556")])
+    def test_290901(self, drivers, workshop_section, station, project):
         info = ProjectFPY(drivers)
         info.click_reset()
-        info.choice_workshop_section(workshpo_station)
-        info.choice_start_date(str(datetime.datetime.now().replace(month=datetime.date.today().month-6)))
-        info.choice_end_date(str(datetime.datetime.now()))
+        info.choice_workshop_section(workshop_section)
+        info.choice_start_date(str(arrow.now().shift(months=-1))[0:10])
+        info.choice_end_date(str(arrow.now())[:10])
         info.choice_station(station)
         info.choice_project(project)
         info.click_search()
@@ -68,13 +67,13 @@ class TestCheckFormData:
     @allure.title("检查各工段半年内某一项目某一站点数据正确性")
     @allure.description("选择查询条件>点击查询按钮>检查列表数据正确性")
     @allure.severity("blocker")  # blocker\critical\normal\minor\trivial
-    @pytest.mark.parametrize("workshpo_station, station, project, title, sql", test_data)
-    def test_290902(self, drivers, workshpo_station, station, project, title, sql):
+    @pytest.mark.parametrize("workshop_section, station, project, title, sql", test_data)
+    def test_290902(self, drivers, workshop_section, station, project, title, sql):
         info = ProjectFPY(drivers)
         info.click_reset()
-        info.choice_workshop_section(workshpo_station)
-        info.choice_start_date(str(datetime.datetime.now().replace(month=datetime.date.today().month-6)))
-        info.choice_end_date(str(datetime.datetime.now()))
+        info.choice_workshop_section(workshop_section)
+        info.choice_start_date(str(arrow.now().shift(months=-1))[0:10])
+        info.choice_end_date(str(arrow.now())[:10])
         info.choice_station(station)
         info.choice_project(project)
         info.click_search()

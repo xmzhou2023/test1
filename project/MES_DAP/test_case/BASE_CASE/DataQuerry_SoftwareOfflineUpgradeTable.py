@@ -23,13 +23,15 @@ def module_setup_fixture(drivers):
 class TestSearchSoftwareOfflineUpgradeLog:
     @allure.story("查询软件离线升级记录")
     @allure.title("必填条件为空查询失败")
-    @allure.description("必填条件（品牌、PCBA）为空查询")
+    @allure.description("必填条件（品牌、项目、主板、机型）为空查询")
     @allure.severity("blocker")
-    @pytest.mark.parametrize("brand, pcba", [('', ''), ('Infinix', '')])
-    def test_292101(self, drivers, brand, pcba):
+    @pytest.mark.parametrize("brand, project, pcba, model", [('', '', '', ''), ('Infinix', '', '', ''), ('Infinix', 'X556_H371', '', ''), ('Infinix', 'X556_H371', 'H371', '')])
+    def test_292101(self, drivers, brand, project, pcba, model):
         data = SoftwareOfflineUpgradele(drivers)
         data.choice_brand(brand)
+        data.choice_project(project)
         data.choice_pcba(pcba)
+        data.choice_model(model)
         data.click_search()
         dom = DomAssert(drivers)
         dom.assert_att("不能为空")
@@ -39,13 +41,14 @@ class TestSearchSoftwareOfflineUpgradeLog:
     @allure.title("必填条件不为空，正确返回查询结果")
     @allure.description("选择必填条件：品牌、PCBA》依次选择其他条件查询")
     @allure.severity("blocker")
-    @pytest.mark.parametrize("brand, pcba, matcode, start_date, end_date, sn, sql", values)
-    def test_292102(self, drivers, brand, pcba, matcode, sn, start_date, end_date, sql):
+    @pytest.mark.parametrize("brand, project, pcba, model, start_date, end_date, sn, sql", values)
+    def test_292102(self, drivers, brand, project, pcba, model, sn, start_date, end_date, sql):
         data = SoftwareOfflineUpgradele(drivers)
         data.click_reset()
         data.choice_brand(brand)
+        data.choice_project(project)
         data.choice_pcba(pcba)
-        data.input_material_code(matcode)
+        data.choice_model(model)
         data.input_sn(sn)
         data.choice_start_date(start_date)
         data.choice_end_date(end_date)
