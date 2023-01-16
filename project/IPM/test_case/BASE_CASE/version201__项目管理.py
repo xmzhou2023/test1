@@ -3665,11 +3665,9 @@ class Teststory_3322:
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
         test.refresh_webpage()
+        get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
         test.get_url_project()
-        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
-        test.project_team(judge='删除')
-        test.project_team(addrole='添加成员', role_id="18645960")
         test.project_tab("计划")
         test.project_Task_More_actions( "概念阶段", "查看")
         sleep(10)
@@ -3739,7 +3737,7 @@ class Teststory_3322:
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
         test.refresh_webpage()
-        get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
+        get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审','PMT区域组长')
         test.get_url_project()
         test.enter_the_project(proname)
         test.project_tab("计划")
