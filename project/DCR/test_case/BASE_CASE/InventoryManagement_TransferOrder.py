@@ -174,6 +174,35 @@ class TestQueryTransferOrder:
         ValueAssert.value_assert_In(get_detail_customer, get_list_from_cust)
         detail.close_transfer_imei_detail()
 
+    @allure.story("导出调拨单")
+    @allure.title("调拨单页面页面，导出页面数据")
+    @allure.description("调拨单页面，点击Export按钮，导出调拨单")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_003(self, drivers):
+        user = LoginPage(drivers)
+
+        """打开报表分析-打开IMEI库存查询页面"""
+        user.click_gotomenu("Inventory Management", "Transfer Order")
+
+        """查看IMEI库存查询 列表数据加载是否正常"""
+        page = TransferOrderPage(drivers)
+        page.click_button('Unfold')
+
+        """按Create Date 条件，筛选调拨单记录"""
+        page.input_transfer_create_start_date('2022-12-10')
+        page.input_transfer_create_end_date('2022-12-25')
+        page.click_transfer_id()
+        page.click_button('Search')
+        total = int(page.get_total_content())
+        logging.info('the total in test case is %s' % total)
+        if total > 0:
+            page.click_button('Export')
+            sleep(5)
+            complete_value =page.get_download_value()
+            ValueAssert.value_assert_equal(complete_value, 100)
+        else:
+            logging.info('the total is empty')
 
 
 @allure.feature("库存管理-调拨单")

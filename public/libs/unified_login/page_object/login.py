@@ -31,9 +31,20 @@ class LoginPage(Base):
         self.input_text(login['工号输入框'], txt=content)
         sleep()
 
+    def input_id(self, content):
+        """2021-1-13 熊文敏 用于crm生产"""
+        self.input_text(login['crm_pro工号输入框'], txt=content)
+        sleep()
+
+
     def input_passwd(self, content):
         """输入密码"""
         self.input_text(login['密码输入框'], txt=content)
+        sleep()
+
+    def input_password(self, content):
+        """输入密码  2021-1-13 熊文敏 用于crm生产"""
+        self.input_text(login['crm_pro密码输入框'], txt=content)
         sleep()
 
     def check_box(self):
@@ -59,6 +70,11 @@ class LoginPage(Base):
         self.is_click(login['登录'])
         sleep(6)
 
+    def click_loginsubmit_crm(self):
+        """2021-1-13 熊文敏 用于crm生产"""
+        self.is_click(login['crm_pro登录'])
+        sleep(6)
+
     def input_imgcode(self):
         """识别图形验证码，输入验证码"""
         imgcode = self.get_graphical_code(login['图形验证码'])
@@ -66,10 +82,15 @@ class LoginPage(Base):
 
     def input_verify_code(self):
         """输入验证码，生产环境用 2022-9-30,熊文敏"""
-        verify_code = self.get_graphical_code(login["验证码图标"])
-        self.is_click(login['验证码输入框'])
-        self.input_text(login["验证码输入框"], verify_code)
+        verify_code = self.get_graphical_code(login["crm_pro图形验证码"])
+        self.is_click(login['crm_pro验证码输入框'])
+        self.input_text(login["crm_pro验证码输入框"], verify_code)
         sleep(2)
+
+    def code_clear_crm(self):
+        """输入验证码，生产环境用 2022-9-30,熊文敏"""
+        self.clear_code(login["crm_pro验证码输入框"])
+        sleep(0.5)
 
     def code_clear(self):
         self.clear_code(login["验证码输入框"])

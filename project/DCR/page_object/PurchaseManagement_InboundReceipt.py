@@ -98,9 +98,11 @@ class InboundReceiptPage(Base):
 
     @allure.step("输入出库单日期条件，进行筛选操作")
     def input_delivery_date(self, content):
+
         self.is_click(user['Input Delivery Start Date'])
-        self.input_text_dcr(user['Input Delivery Start Date'], txt=content)
+        self.input_text_dcr(user['Input Delivery Start Date'], content)
         sleep(0.5)
+        self.is_click(user['点击筛选项label'], 'Delivery Date')
 
     @allure.step("输入品牌条件，进行筛选操作")
     def click_select_brand(self):
@@ -109,6 +111,7 @@ class InboundReceiptPage(Base):
         self.presence_sleep_dcr(user['Select itel'])
         self.is_click(user['Select itel'])
         self.is_click(user['Select TECNO'])
+        self.is_click(user['点击筛选项label'], 'Brand')
 
     @allure.step("获取列表Delivery Date文本")
     def get_delivery_date_text(self):
@@ -141,7 +144,7 @@ class InboundReceiptPage(Base):
     @allure.step("获取列表total文本")
     def get_total_text(self):
         total = self.element_text(user['Get Total Text'])
-        total1 = int(total[7:])
+        total1 = int(total[6:])
         return total1
 
     @allure.step("Inbound Receipt列表点击 IMEI Detail按钮")
@@ -199,18 +202,10 @@ class InboundReceiptPage(Base):
 
     @allure.step("断言 列表取分页总数判断是否有数据")
     def assert_total(self, total):
-        if total > 0:
+        if int(total) > 0:
             logging.info("Inbound Receipt列表，分页总条数为{}".format(total))
         else:
             logging.info("Inbound Receipt列表，分页总条数为{}".format(total))
-        sleep(1)
-
-    @allure.step("断言 获取IMEI详情页，判断是否有数据")
-    def assert_total_imei_detail(self, total1):
-        if int(total1) > 0:
-            logging.info("查看Inbound Receipt列表，加载IMEI详情数据正常，分页总条数Total：{}".format(total1))
-        else:
-            logging.info("查看Inbound Receipt列表，加载IMEI详情数据失败，分页总条数Total：{}".format(total1))
 
     #扫码收货
     @allure.step("点击Stock in by Scan 扫码收货按钮")

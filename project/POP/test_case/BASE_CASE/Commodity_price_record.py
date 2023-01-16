@@ -65,4 +65,4 @@ class TestQueryCommodityPrice:
         ValueAssert.value_assert_equal(test[0:10],"2023-01-03")
 
 if __name__ == '__main__':
-    pytest.main(['Commodity_price_record.py::TestQueryCommodityPrice::test_001_004'])
+    pytest.main(['Commodity_price_record.py'])

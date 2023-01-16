@@ -36,7 +36,6 @@ class TestVisitPlan:
         """获取列表Shop ID，然后根据门店ID进行筛选巡店计划数据"""
         query.input_shop_query_search(shop_id)
         query.click_fold()
-
         get_plan_no = query.get_plan_no()
         get_shop_name = query.get_list_shop_name()
         get_shop_id = query.get_list_shop_id()

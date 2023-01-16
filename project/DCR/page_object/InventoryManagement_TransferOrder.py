@@ -305,6 +305,33 @@ class TransferOrderPage(Base):
     def assert_contains_transfer_order_field(self, header, content):
         DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['水平滚动条'])
 
+    @allure.step("获取下载进度值")
+    def get_download_value(self):
+        attribute = self.get_table_info(user['下载进度条'], attr='aria-valuenow')
+        logging.info('下载进度值是%s' % attribute)
+        # number=int(attribute[4:])
+        return int(attribute)
+
+    @allure.step("点击Unfold展开筛选项按钮")
+    def click_button(self, txt):
+        self.is_click(user['Export_Search_Reset等按钮'], txt)
+        if txt=='Search':
+            sleep(5)
+        elif txt == 'Reset':
+            sleep(3)
+        else:
+            sleep()
+
+    @allure.step("点击Transfer ID输入框")
+    def click_transfer_id(self):
+        self.is_click(user['Transfer Order Transfer ID Query'])
+
+    @allure.step("获取Total数值文本")
+    def get_total_content(self):
+        txt = self.element_text(user['Total结果'])
+        logging.info('the total txt is %s'%txt)
+        return txt[6:]
+
 
 if __name__ == '__main__':
     pass

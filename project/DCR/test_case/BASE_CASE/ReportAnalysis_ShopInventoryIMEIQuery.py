@@ -33,13 +33,10 @@ class TestQueryShopInventoryIMEI:
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """报表分析-打开门店库存IMEI查询页面"""
         user.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
-
         """查看Shop Inventory IMEI Query 列表所有数据加载是否正常"""
         shop_inventory = ShopInventoryIMEIQueryPage(drivers)
-
         #获取列表属性文本内容
         total = shop_inventory.get_total_text()
         shop_id = shop_inventory.get_shop_id_text()
@@ -47,7 +44,6 @@ class TestQueryShopInventoryIMEI:
         brand = shop_inventory.get_brand_text()
         series = shop_inventory.get_series_text()
         model = shop_inventory.get_model_text()
-
         #断言筛选前获取列表文本内容，然后筛选操作后，断言比较列表文本内容是否一致
         ValueAssert.value_assert_IsNoneNot(shop_id)
         ValueAssert.value_assert_IsNoneNot(shop_name)
@@ -69,21 +65,18 @@ class TestExportShopInventoryIMEI:
         """查看Shop Inventory IMEI Query 列表数据加载是否正常"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """报表分析-打开门店库存IMEI查询页面"""
         user.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
-
         export = ShopInventoryIMEIQueryPage(drivers)
         # 获取日期
-        base = Base(drivers)
-        today = base.get_datetime_today()
-
+        today = Base(drivers).get_datetime_today()
+        """获取当天日期之前13天的日期"""
+        last_date = Base(drivers).get_last_day(13)
         #点击Unfold展开筛选按钮
         export.click_unfold()
-        export.input_inbound_date("2022-08-01")
+        export.input_inbound_date(last_date)
         export.click_fold()
         export.click_search()
-
         #筛选后，获取列表属性文本内容
         total = export.get_total_text()
         export.assert_total2(total)
@@ -91,25 +84,20 @@ class TestExportShopInventoryIMEI:
         # 点击导出功能
         export.click_export()
         export.click_download_more()
+        """进入导出记录页面，根据任务名称与创建日期条件筛选导出的任务记录"""
         export.input_task_name("Shop Inventory IMEI Query")
+        export.export_record_create_date_query(today)
+        """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
-
-        task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-
-        task_id = export.get_task_user_id_text()
-        create_date = export.get_create_date_text()
-        complete_date = export.get_complete_date_text()
         export_time = export.get_export_time_text()
-        operation = export.get_export_operation_text()
-
-        ValueAssert.value_assert_equal(down_status, "COMPLETE")
-        ValueAssert.value_assert_equal(task_name, "Shop Inventory IMEI Query")
-        ValueAssert.value_assert_equal(task_id, "lhmadmin")
-        ValueAssert.value_assert_equal(create_date, today)
-        ValueAssert.value_assert_equal(complete_date, today)
-        ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+        export.assert_shop_inventory_imei_field('Download Status', down_status)
+        export.assert_shop_inventory_imei_field('Task Name', 'Shop Inventory IMEI Query')
+        export.assert_shop_inventory_imei_field('User ID', 'lhmadmin')
+        export.assert_shop_inventory_imei_field('Create Date', today)
+        export.assert_shop_inventory_imei_field('Completed Date', today)
+        export.assert_shop_inventory_imei_field('Operation', 'Download')
         # export.click_close_export_record()
         # export.click_close_shop_inventory_imei()
 

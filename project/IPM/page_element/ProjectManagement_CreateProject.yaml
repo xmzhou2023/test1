@@ -6,7 +6,7 @@
 项目描述: "xpath==//div[@aria-label='新建项目']//div/label/span[text()='项目描述']/../../div//textarea"
 保存: "xpath==//div[@aria-label='新建项目']//span[text()='保存']"
 取消: "xpath==//div[@aria-label='新建项目']//span[text()='取消']"
-编辑: "xpath==//span[text()=' 编辑 ']"
+编辑: "xpath==//span[contains(text(),'编辑')]"
 
 
 进入项目: "xpath==//section//div[@title='variable']"
@@ -18,11 +18,11 @@
 置顶提示: 'xpath==//div[@role="alert"]/p'
 
 #========================================================================编辑===============================================================================
-字段名称: "xpath==//div[@class='plan relation']/div/form/div/label[text()=' variable ']/..//input"
+字段名称: "xpath==//div/form/div/label[contains(text(),'variable')]/..//input"
 字段框: 'xpath==//div[@class="plan relation"]/div/form/div/label[text()=" variable "]/..//input'
 
 基本信息保存: "xpath==//span[@title='保存']"
-启动项目: 'xpath==// span[text() = " 启动项目 "]'
+启动项目: 'xpath==//span[contains(text(),"启动项目")]'
 tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 下拉值获取: "xpath==//div[@x-placement='bottom-start']//li/span"
 下拉值选择: 'xpath==//div[@x-placement="bottom-start"]//li/span[text()="variable"]'
@@ -46,11 +46,12 @@ tab应用: 'xpath==//div[@class="tabs-box"]//li[text()=" variable "]'
 计划任务选择: 'xpath==//span[text()="variable"]'
 计划任务展开: 'xpath==//div/span[text()="variable"]/../i[1]'
 计划任务_任务名称: 'xpath==//div/span[text()="variable"]'
-计划任务更多操作: 'xpath==//div/span[text()="variable"]/../div/i[3]'
-计划任务_更多功能_异常备选: 'xpath==//div/span[text()="variable"]/../i[2]'
 计划任务更多操作_子功能: 'xpath==//ul/li[text()=" variable "]'
 任务基本信息: 'xpath==//div[@class="plan relation"]//label'
 点击标题: 'xpath==//div[@class="flex justify-end items-center"]'
+计划任务_查看(打开任务抽屉): 'xpath==//div/span[contains(text(),"variable")]/../div/i[1]'
+计划任务_新增任务: 'xpath==//div/span[contains(text(),"variable")]/../div/i[2]'
+计划任务_更多操作: 'xpath==//div/span[contains(text(),"variable")]/../div/i[3]'
 
 计划任务_预约上会: "xpath==//div[@class='el-button-group']//button/span[text()=' 预约上会 ']"
 计划任务_保存: "xpath==//div[@class='el-button-group']//button/span[text()=' 保存 ']"

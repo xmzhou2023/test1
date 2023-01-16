@@ -25,7 +25,7 @@ class TestAdd_DefineSuggestedPrice:
         users.click_button("新增")
         users.click_productname("PA00005438")
         users.click_addbutton("1000", "INDIA")
-        sleep(0.5)
+        sleep(2)
         # 断言
         users.sql_priceassert(1, "5623", "7255")
 
@@ -43,8 +43,8 @@ class TestAdd_DefineSuggestedPrice:
         users.click_edit_price("500")
 
         # 数据清理--数据库删除商品价格
-        # sql = f'delete FROM `goods_price` WHERE `goods_id` = 5623 AND `area_id`=7255 AND `enabled_flag`=1;'
-        # SQL("POP", "test").delete_db(sql)
+        sql = f'delete FROM `pop_data_db`.`goods_price` WHERE `goods_id` = 5623 AND `area_id`=7255 AND `enabled_flag`=1;'
+        SQL("POP", "test").delete_db(sql)
 
 @allure.feature("商品-定义建议价格")
 class TestQuery:
@@ -157,4 +157,4 @@ class TestExportPrice:
 
 
 if __name__ == '__main__':
-    pytest.main(['Add_DefineSuggestedPrice.py::TestQuery'])
+    pytest.main(['Add_DefineSuggestedPrice.py::TestAdd_DefineSuggestedPrice::test_001_001'])

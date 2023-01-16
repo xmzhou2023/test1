@@ -110,6 +110,9 @@ Transfer Receipt Status query: "xpath==//div//input[@class='el-input__inner tran
 Transfer Select Received Status: "xpath==//ul//li//span[contains(text(),'variable')]"
 Search: "xpath==//span[normalize-space(text())='variable']"
 Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+Export_Search_Reset等按钮: "xpath==//span[normalize-space(text())='variable']"
+下载进度条: "xpath==//div[@class='el-progress el-progress--line is-success el-progress--text-inside']"
+Total结果: "xpath==//span[@class='el-pagination__total']"
 
 #Transfer Order页面，导入Transfer Order调拨单操作
 Transfer More Option: "xpath==//button//span[normalize-space(text())='More Option']"

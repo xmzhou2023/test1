@@ -55,3 +55,12 @@ pop登录按钮: "xpath==//button[@type='primary']"
 验证码输入框BDDP: 'xpath==//div[@class="accountLogin"]//form/div[3]//input'
 登录BDDP: "xpath==//div[@class='accountLogin']//button/span[normalize-space(text())='登录']"
 登录人: "xpath==//div[@aria-haspopup='list']//span[normalize-space(text())='周晓敏']"
+
+####======CRM生产定位登录元素============================================
+crm_pro工号输入框: "xpath==//*[@id='pane-account']/form/div[1]/div/div[1]/input"
+crm_pro密码输入框: "xpath==//*[@id='pane-account']/form/div[2]/div/div[1]/input"
+crm_pro登录: "xpath==//*[@id='pane-account']/form/button"
+crm_pro图形验证码: "xpath==//img[@slot='suffix']"
+crm_pro图形验证码输入框: "xpath==//input[@placeholder='请输入验证码']"
+crm_pro验证码输入框: "xpath==//*[@id='pane-account']/form/div[3]/div/div[1]/input"
+crm_pro验证码图标: "xpath==//*[@id='pane-account']/form/div[3]/div/div[2]/img"
