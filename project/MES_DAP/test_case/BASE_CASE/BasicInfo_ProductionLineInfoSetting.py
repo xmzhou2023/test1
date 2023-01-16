@@ -42,6 +42,22 @@ class TestSearchProductionLineInfoSetting:
 class TestInsertProductionLineInfoSetting:
     @pytest.fixture(scope='class', autouse=True)
     def class_teardown_fixture(self, drivers):
+        logging.info("新增类前置条件：删除需要新增的产线的数据")
+        info = ProductionLineInfoSetting(drivers)
+        info.choice_workshop_section("PCBA")
+        info.choice_line("p1")
+        info.choice_line_type("小线")
+        info.click_search()
+        count = int(PageInfo(drivers).get_count())
+        if count != 0:
+            for i in range(count):
+                info.click_del(str(i+1))
+                info.click_del_accept()
+            db = SQLAssert(pro_name, 'test')
+            db.assert_sql_count(0,
+                                "select count(id) from db_pldb_test.line_info li where station_type = 'FE' and line_no "
+                                "='100047';")
+
         yield
         logging.info("新增类后置条件：删除新增的数据")
         info = ProductionLineInfoSetting(drivers)
