@@ -13,6 +13,8 @@ import allure
 from project.IPM.page_object.ProjectManagement_CreateProject import *
 from project.IPM.page_base.assert_pubic import *
 from project.IPM.test_case.conftest import *
+from project.IPM.api.API_ProjectManagement_CreateProject import *
+from project.IPM.api.Api_ApplicationCenter import *
 
 @allure.feature("项目管理")  # 迭代名称
 class Teststory_3259:
@@ -22,7 +24,7 @@ class Teststory_3259:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_23742(self, drivers):
-        print(123456)
+        pass
 
     @allure.story("创建项目")  # 用户故事名称
     @allure.title("新增按钮点击新增按钮，可新增项目，新增成功的项目在项目清单页面展示")  # 用例名称
@@ -88,6 +90,7 @@ class Teststory_3259:
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('取消', 'IT项目模板', proname)
+        test.get_url_project()
         ass = Assert_result(drivers)
         ass.assert_toast_not('断言新建项目的名字', proname)
 
@@ -3322,6 +3325,7 @@ class Teststory_3322:
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
+        test.project_team(judge='删除')
         test.project_team(addrole='添加成员', role_id="18645960")
         test.project_tab("计划")
         test.project_Task_More_actions( "概念阶段", "查看")
@@ -3481,6 +3485,7 @@ class Teststory_3322:
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
+        test.project_team(judge='删除')
         test.project_team(addrole='添加成员', role_id="18645960")
         test.project_tab("计划")
         test.project_Task_More_actions( "概念阶段", "查看")
@@ -3584,6 +3589,7 @@ class Teststory_3322:
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
+        test.project_team(judge='删除')
         test.project_team(addrole='添加成员', role_id="18645960")
         test.project_tab("计划")
         test.project_Task_More_actions( "概念阶段", "查看")
@@ -3687,6 +3693,7 @@ class Teststory_3322:
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
+        test.project_team(judge='删除')
         test.project_team(addrole='添加成员', role_id="18645960")
         test.project_tab("计划")
         test.project_Task_More_actions( "概念阶段", "查看")
@@ -3727,6 +3734,7 @@ class Teststory_3322:
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
+        test.project_team(judge='删除')
         test.project_team(addrole='添加成员', role_id="18645960")
         test.project_tab("计划")
         test.project_Task_More_actions("概念阶段", "查看")
@@ -3765,13 +3773,11 @@ class Teststory_3322:
         proname = f'IPM自动化测试{now_times}'
         test = CreateProject(drivers)
         test.refresh_webpage()
+        get_project_Team_member_add('IPD模块化项目模板',proname,'PQA','PMToffice','LPDT','PMToffice内审')
         test.get_url_project()
-        test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
-        test.project_team(addrole='添加成员', role_id=username)
-        test.project_team(role='PQA', addrole='添加成员', role_id=username)
         test.project_tab("计划")
-        test.project_Task_More_actions( "概念阶段", "查看")
+        test.project_Task_More_actions("概念阶段", "查看")
         sleep(10)
         test.project_task_type(proname, "概念阶段", now_times, 'DCP任务', username, '确定')
         test.project_Drop_down_box_multiple_selection('任务基本信息', "前置任务", "启动产品策划", "任命项目经理", "产品概念启动")
@@ -3780,14 +3786,7 @@ class Teststory_3322:
         test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
-        test.close_switch(1)
-        testapply = ApplicationCenter(drivers)
-        testapply.DCP_bulletinboard_operation(proname, '同意预约', username, username)
-        test.close_switch(1)
-        test.click_project()
-        test.enter_the_project(proname)
-        test.project_tab("计划")
-        test.project_Task_More_actions( f"任务名称{now_times}", "查看")
+        get_applicationcenter_DCP_agree_approveAppointment(proname,f"任务名称{now_times}")
         test.project_Scheduled_Tasks_Initiate_review()
         test.project_ReviewProcessConfirmationPage_selection()
         test.project_ReviewProcessConfirmationPage_selectiontask(ProjectName='rrt', Drop_down_value='概念DCP')
@@ -4338,10 +4337,9 @@ class Teststory_3261:
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
         test.click_edit()
-        sleep(3)
-        test.Start_project()
+        stu_res = test.project_stu()
         ass = Assert_result(drivers)
-        ass.assert_toast('断言项目启动成功', '启动成功!')
+        ass.assert_IPM(stu_res, 'true')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
 
