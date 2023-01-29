@@ -178,7 +178,7 @@ class HierarchyManagement(Base):
         logging.info(f'点击 {name} 复选框')
         sleep(1)
 
-    @allure.step("输入门店查询条件")
+    @allure.step("输入弹框查询条件")
     def input_dialog_search(self, header, content):
         """
         :param header: 输入框
@@ -187,7 +187,7 @@ class HierarchyManagement(Base):
         input_list = ['User ID', 'Employee Name']
         country_list = ['Country/City']
         exactSelect_list = ['Division', 'Position', 'Have Superior or Not', 'Staff Status', 'Gender']
-        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        logging.info(f'输入弹框查询条件： {header} ，内容： {content}')
         if content != '':
             if header in input_list:
                 self.input_text(user['弹窗输入框'], content, header)
@@ -201,8 +201,8 @@ class HierarchyManagement(Base):
                 self.input_text(user['弹窗输入框'], country[2], header)
                 self.is_click_tbm(user['地区选择框'], country[0], country[1], country[2])
             else:
-                logging.error('请输入正确的查询条件')
-                raise ValueError('请输入正确的查询条件')
+                logging.error('请输入正确的弹框查询条件')
+                raise ValueError('请输入正确的弹框查询条件')
 
     @allure.step("点击Unfold 展开筛选项")
     def click_dialog_unfold(self):

@@ -550,14 +550,11 @@ class TestImportShopSalesQuery:
         today = datetime.datetime.now().strftime('%Y-%m-%d')
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "SenegalwjkPromoterInfinix", "xLily6x")
-        """打开销售管理-打开门店销售查询页面"""
-
-        """点击导入"""
+        """前置：重置导入数据"""
         user = ShopSaleQueryPage(drivers)
-        user.click_menu("Sales Management", "Shop Sales Query")
         user.reset_ShopSalesQuery_import('356514117190074')
-        menu.click_gotomenu("Purchase Management", "Shop Purchase Query")
         user.reset_ShopPurchaseQuery_import('356514117190074')
+        """导入"""
         user.click_menu("Sales Management", "Shop Sales Query")
         user.click_import()
         user.import_ShopSalesQuery_file('销量上报1个条件2个不符合条件.xlsx')
@@ -643,14 +640,12 @@ class TestImportShopSalesQuery:
     def test_003_002(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "SenegalwjkPromoterTECNO", "xLily6x")
-        """库存上报"""
         user = ShopSaleQueryPage(drivers)
-        """检查imei是否已经库存上报&销量上报"""
-        menu.click_gotomenu("Sales Management", "Shop Sales Query")
+        """前置：重置导入数据"""
         user.reset_ShopSalesQuery_import('358870660738380')
-        menu.click_gotomenu("Purchase Management", "Shop Purchase Query")
         user.reset_ShopPurchaseQuery_import('358870660738380')
-        user.refresh()
+        """库存上报"""
+        user.click_menu("Purchase Management", "Shop Purchase Query")
         user.click_import()
         user.import_file('Shop+Stock+In+Template配置自动上报销量.xlsx')
         user.assert_import_success()
@@ -663,7 +658,7 @@ class TestImportShopSalesQuery:
         user.assert_ImportRecord_result('Shop+Stock+In+Template配置自动上报销量.xlsx', 'Success', '1')
         # user.assert_ImportRecord_result('Shop+Stock+In+Template配置自动上报销量.xlsx', 'Import Date', '2022-11-21')
         """断言ShopSalesQuery页面是否自动上报"""
-        menu.click_gotomenu("Sales Management", "Shop Sales Query")
+        user.click_menu("Sales Management", "Shop Sales Query")
         user.click_unfold()
         user.input_ShopSalesQuery_query('IMEI/SN', '358870660738380')
         user.click_search()
@@ -673,8 +668,8 @@ class TestImportShopSalesQuery:
         user.click_checkbox('358870660738380')
         user.click_delete()
         DomAssert(drivers).assert_att('Deleted Successfully')
-        """Shop Purchase Query页面点击指定imei复选框，删除"""
-        menu.click_gotomenu("Purchase Management", "Shop Purchase Query")
+        """Shop Purchase Query页面点击指定imei复选框，取消"""
+        user.click_menu("Purchase Management", "Shop Purchase Query")
         user.click_unfold()
         user.input_ShopPurchaseQuery_query('IMEI', '358870660738380')
         user.input_ShopPurchaseQuery_query('Status', 'Committed')

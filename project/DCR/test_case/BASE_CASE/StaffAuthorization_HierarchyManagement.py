@@ -80,7 +80,7 @@ class TestHierarchy:
         add.click_dialog_unfold()
         add.input_dialog_search('User ID', '1671417004')
         add.click_dialog_search()
-        add.click_checkbox('1671417004')
+        add.click_dialog_checkbox('1671417004')
         add.click_dialog_save()
         """断言：增加下级关系成功"""
         add.click_row_function('wjkTS', 'Subordinate')
@@ -144,7 +144,7 @@ class TestHierarchy:
         add.click_row_function('1671417004', 'Operation')
         add.input_dialog_search('User ID', 'wjkTS001')
         add.click_dialog_search()
-        add.click_checkbox('wjkTS001')
+        add.click_dialog_checkbox('wjkTS001')
         add.click_dialog_save()
         """断言：设置上级关系成功"""
         add.click_search()

@@ -389,6 +389,7 @@ class ShopSaleQueryPage(Base):
     @allure.step("重置ShopSalesQuery导入数据")
     def reset_ShopSalesQuery_import(self, imei):
         """Shop Sales Query页面点击指定imei复选框，删除"""
+        self.click_menu("Sales Management", "Shop Sales Query")
         logging.info('开始重置ShopSalesQuery导入数据')
         self.input_ShopSalesQuery_query('IMEI/SN', imei)
         self.click_search()
@@ -405,6 +406,7 @@ class ShopSaleQueryPage(Base):
     def reset_ShopPurchaseQuery_import(self, imei):
         """ShopPurchaseQuery页面点击指定imei复选框，删除"""
         logging.info('开始重置ShopPurchaseQuery导入数据')
+        self.click_menu("Purchase Management", "Shop Purchase Query")
         self.click_unfold()
         self.input_ShopPurchaseQuery_query('IMEI', imei)
         self.input_ShopPurchaseQuery_query('Status', 'Committed')
