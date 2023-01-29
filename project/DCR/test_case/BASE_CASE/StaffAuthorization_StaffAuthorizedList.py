@@ -45,7 +45,7 @@ class TestQueryStaffAuthorizedList:
                      'Brand': 'TECNO',
                      'Position': 'Regional Sales Manager',
                      'Country': 'Bangladesh',
-                     'Role': 'RSM',
+                         'Role': 'RSM',
                      'Customer': 'Yes',
                      'Warehouse': 'Yes',
                      'Staff Type': 'Transsion Staff',
@@ -72,7 +72,7 @@ class TestQueryStaffAuthorizedList:
         if total > 0:
             # 进行结果断言
             for i in list_random:
-                logging.info('Now the i  is %s' % i)
+                logging.info('Now the assert column  is %s' % i)
                 if i == 'Customer' or i == 'Warehouse' or i == 'Shop':
                     colum = page.get_table_column(i)
                     logging.info('then the colum is {}'.format(colum))
@@ -112,7 +112,7 @@ class TestQueryStaffAuthorizedList:
                     colum = page.get_table_column(i)
                     logging.info('that the colum is {}'.format(colum))
                     attribute = page.get_table_content(colum)
-                    ValueAssert.value_assert_date_in(attribute, query_dic[i], query_dic[i])
+                    ValueAssert.value_assert_over(int(attribute), int(query_dic[i]))
                 else:
                     colum = page.get_table_column(i)
                     logging.info('finally the colum is {}'.format(colum))

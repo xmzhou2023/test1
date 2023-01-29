@@ -39,12 +39,12 @@ class StaffAuthorizedList(Base):
             self.is_click(user['Position点击'])
             self.input_text(user['Position输入'], txt=content)
             self.is_click(user['Brand_Position_Country_Role_Staff选择'], content)
-            self.is_click(user['User点击'])
+            self.is_click(user['不活跃天数'])
         elif type == 'Country':
             self.is_click(user['Country点击'])
             self.input_text(user['Country输入'], txt=content)
             self.is_click(user['Brand_Position_Country_Role_Staff选择'], content)
-            self.is_click(user['User点击'])
+            self.is_click(user['不活跃天数'])
         elif type == 'Role':
             self.is_click(user['Role点击输入'])
             self.input_text(user['Role点击输入'], txt=content)
@@ -70,7 +70,7 @@ class StaffAuthorizedList(Base):
         elif type == 'Last Login Date':
             self.input_text(user['最后登录日期开始'], txt=content)
             self.input_text(user['最后登录日期结束'], txt=content)
-            self.is_click(user['User点击'])
+            self.is_click(user['不活跃天数'])
         else:
             logging.info('type is wrong,pls check')
         sleep()
