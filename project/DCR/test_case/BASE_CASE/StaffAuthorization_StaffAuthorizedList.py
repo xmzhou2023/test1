@@ -56,7 +56,7 @@ class TestQueryStaffAuthorizedList:
         list_query = []
         for i in query_dic:
             list_query.append(i)
-        num = random.randint(10, 11)
+        num = random.randint(3, 8)
         list_random = random_list(list_query, num)
         logging.info('the query condition is %s' % list_random)
         # 开始 对随机查询条件进行输入
