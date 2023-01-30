@@ -3,11 +3,9 @@ nest-menu: "xpath==//div[@class='menu-wrapper nest-menu']//span[contains(text(),
 登录人: "xpath==//div[@class='right-menu']//div[@role='tooltip']"
 头像: "xpath==//div[@role='button']/span"
 退出登录: "xpath==//ul[contains(@x-placement,'end')]/li[4]"
-账号密码登录: "id==tab-account"
-工号输入框: "xpath==//*[@id='pane-account']/form/div[1]/div/div[1]/input"
-密码输入框: "xpath==//*[@id='pane-account']/form/div[2]/div/div[1]/input"
-隐私保护勾选框: "xpath==//span[text()='我已阅读并接受']/../label/span/span"
-登录: "xpath==//*[@id='pane-account']/form/button"
+工号输入框IPM: 'xpath==//input[@placeholder="请输入账号/工号"]'
+密码输入框IPM: 'xpath==//input[@placeholder="请输入登录密码"]'
+登录ipm: "xpath==//span[text()='登录系统']"
 新增: "xpath==//button/span[contains(text(),'新增')]"
 提交: "xpath==//button/span[contains(text(),'提交')]"
 保存: "xpath==//button/span[contains(text(),'保存')]"
@@ -158,6 +156,7 @@ BOM列表指定内容: "xpath==//*[normalize-space(text())='variable']/../../td[
 汇签/抄送人员选择框: "xpath==//span[text()='汇签/抄送人员']/../../../..//label[text()='variable']/..//input"
 汇签/抄送人员清空: "xpath==//span[text()='汇签/抄送人员']/../../../..//label[text()='variable']/..//i[contains(@class,'el-icon-circle-close')]"
 成员列表清空: "xpath==//div[@aria-label='人员列表']//span[normalize-space(text())='清空']"
+成员列表多选清空: "xpath==//div[@aria-label='成员列表（多选）']//span[normalize-space(text())='清空']"
 ###==========================================衍生BOM制作需求========================================
 衍生差异: "xpath==//div[@id='tab-second']"
 生成BOM: "xpath==//button/span[contains(text(),'生成BOM')]"

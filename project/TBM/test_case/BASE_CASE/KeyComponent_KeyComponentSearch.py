@@ -68,7 +68,7 @@ class TestCreateProcessExceptionScenario:
         user.assert_toast('请勿重复维护关键器件角色！')
 
 
-@allure.feature("关键器件-关键器件流程")  # 模块名称
+@allure.feature("关键器件-关键器件查询")  # 模块名称
 class TestTheProcessOfExaminationAndApproval:
     @allure.story("流程审批")  # 场景名称
     @allure.title("摄像头+闪光灯节点，审批成功")  # 用例名称
@@ -164,7 +164,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_Device_pending_code('CTP(1供)')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商名称', 'TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '是否新供应商', '否')
-        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '0')
+        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '不涉及')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因类别', '成本因素')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因', '供应商选择原因TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '份额', '50')
@@ -180,7 +180,7 @@ class TestTheProcessOfExaminationAndApproval:
         user.click_Device_pending_code('CPU(1供)')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商名称', 'TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '是否新供应商', '否')
-        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '0')
+        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '不涉及')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因类别', '成本因素')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因', '供应商选择原因TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '份额', '50')
