@@ -60,7 +60,7 @@ class Teststory_3247:
         user.input_bom_info('同时做衍生BOM', '否')
         user.click_add_bomtree()
         user.input_bomtree('单机头', 'BOM状态', '试产')
-        user.input_bomtree('单机头', '物料编码', '12011331')
+        user.input_bomtree('单机头', '物料编码', '12011335')
         user.input_bomtree('单机头', '用量', '1000')
         user.input_bomtree('指纹模组', '物料编码', '17600563')
         user.input_bomtree('指纹模组', '用量', '1000')
@@ -189,7 +189,7 @@ class Teststory_3247:
         user.refresh_webpage_click_menu()
         user.click_add()
         user.input_bom_info('制作类型', '单机头BOM制作')
-        user.input_bom_info('品牌', 'aaaaa')
+        user.input_bom_info('品牌', '其他')
         user.input_bom_info('机型', 'X572-1')
         user.input_bom_info('阶段', '试产阶段')
         user.input_bom_info('市场', '埃塞本地')
@@ -455,14 +455,14 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('单机头', 'BOM状态', '试产')
-        user.input_bomtree('单机头', '物料编码', '12011331')
+        user.input_bomtree('单机头', '物料编码', '12011335')
         user.input_bomtree('单机头', '用量', '1000')
         user.input_bomtree('指纹模组', '物料编码', '17600563')
         user.input_bomtree('指纹模组', '用量', '1000')
         user.input_bomtree('指纹模组', '替代组', 'A1')
         user.input_bomtree('指纹模组', '份额', '20')
         user.click_add_submit()
-        user.assert_toast('[12011331] 替代组[A1]只有一颗物料')
+        user.assert_toast('[12011335] 替代组[A1]只有一颗物料')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作单机头BOM协作=发起流程，审批页面的数据和发起的数据是一致的")  # 用例名称
@@ -648,7 +648,7 @@ class Teststory_3247:
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_self_inspection('业务类型', '手机')
-        user.click_self_inspection('检查角色', '质量部(QPM)')
+        user.click_self_inspection('检查角色', '质量')
         user.scroll_self_inspection()
         user.input_self_inspection_result()
         user.assert_OneWorks_AgreeFlow()
@@ -1009,6 +1009,7 @@ class Teststory_3247:
     @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
+    @pytest.mark.skip
     def test_20260(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)
         user.refresh_webpage_click_menu()
@@ -1024,7 +1025,7 @@ class Teststory_3247:
         user.click_add_bomtree()
         # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
         user.input_bomtree('单机头', 'BOM状态', '试产')
-        user.input_bomtree('单机头', '物料编码', '12011331')
+        user.input_bomtree('单机头', '物料编码', '12011335')
         user.input_bomtree('单机头', '用量', '1000')
         user.input_bomtree('指纹模组', '物料编码', '17600563')
         user.input_bomtree('指纹模组', '用量', '1000')
@@ -1157,7 +1158,7 @@ class Teststory_3247:
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_self_inspection('业务类型', '手机')
-        user.click_self_inspection('检查角色', '质量部(QPM)')
+        user.click_self_inspection('检查角色', '质量')
         user.scroll_self_inspection()
         user.input_self_inspection_result(result='不通过')
         user.click_oneworks_agree()
@@ -1175,7 +1176,7 @@ class Teststory_3247:
         user.refresh_webpage()
         user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
         user.click_self_inspection('业务类型', '手机')
-        user.click_self_inspection('检查角色', '质量部(QPM)')
+        user.click_self_inspection('检查角色', '质量')
         user.scroll_self_inspection()
         user.input_self_inspection_result(result='不涉及')
         user.click_oneworks_agree()
@@ -1429,6 +1430,7 @@ class Teststory_3247:
         user.click_add_save()
         DomAssert(drivers).assert_att('保存草稿成功')
         user.click_edit('自动化查询用例test')
+        user.select_business_review('李小素', 'MPM')
         user.click_add_submit()
         DomAssert(drivers).assert_att('创建流程成功')
         user.input_search_info('标题', '自动化查询用例test')
@@ -3221,9 +3223,13 @@ class Teststory_3247:
         user.input_search_info('标题', '自动化查询用例test')
         user.click_search()
         user.click_edit('自动化查询用例test')
+        user.select_business_review('李小素', 'QPM')
+        user.select_business_review('李小素', 'PPM')
         user.click_add_save()
         DomAssert(drivers).assert_att('保存草稿成功')
         user.click_edit('自动化查询用例test')
+        user.select_business_review('李小素', 'QPM')
+        user.select_business_review('李小素', 'PPM')
         user.click_add_submit()
         DomAssert(drivers).assert_att('创建流程成功')
         user.input_search_info('标题', '自动化查询用例test')
@@ -3536,7 +3542,7 @@ class Teststory_3247:
         user.refresh_webpage_click_menu()
         user.click_add()
         user.input_bom_info('制作类型', '生产BOM')
-        user.input_bom_info('品牌', 'aaaaa')
+        user.input_bom_info('品牌', '其他')
         user.input_bom_info('机型', 'X572-1')
         user.input_bom_info('阶段', '试产阶段')
         user.input_bom_info('市场', '埃塞本地')
@@ -3804,7 +3810,7 @@ class Teststory_3247:
         user.refresh_webpage_click_menu()
         user.click_add()
         user.input_bom_info('制作类型', '衍生BOM')
-        user.input_bom_info('品牌', 'aaaaa')
+        user.input_bom_info('品牌', '其他')
         user.input_bom_info('机型', 'X572-1')
         user.input_bom_info('阶段', '试产阶段')
         user.input_bom_info('市场', '埃塞本地')
@@ -5306,7 +5312,7 @@ class Teststory_3247:
         user.input_bom_info('制作虚拟贴片/套片', '否')
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105695')
+        user.input_bomtree('PCBA', '物料编码', '12105698')
         user.input_bomtree('PCBA', '数量', '1')
         user.input_bomtree('CPU', '物料编码', '12105820')
         user.input_bomtree('CPU', '数量', '1')
@@ -5337,11 +5343,11 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105695')
+        user.input_bomtree('PCBA', '物料编码', '12105698')
         user.input_bomtree('CPU', '物料编码', '12105820')
         user.click_BOMTree_checkbox()
         user.input_OnePress('数量', '1')
-        user.assert_BomTree_OnepressResult('12105695', '数量', '1', 'code')
+        user.assert_BomTree_OnepressResult('12105698', '数量', '1', 'code')
         user.assert_BomTree_OnepressResult('12105820', '数量', '1', 'code')
 
     @allure.story("自动化测试")  # 用户故事名称
@@ -5441,20 +5447,20 @@ class Teststory_3247:
         user.input_bom_info('机型', 'JMB-01')
         user.input_bom_info('阶段', '试产阶段')
         user.click_Derived_add()
-        user.input_Derived_info('新BOM编码', '12198883')
+        user.input_Derived_info('新BOM编码', '12398884')
         user.input_Derived_info('原始BOM编码', '12106993')
         user.input_Derived_info('原始BOM工厂', 'C105')
         user.click_Derived_differ()
         user.click_Derived_add()
-        user.input_Derived_info('BOM编码', '12198883')
+        user.input_Derived_info('BOM编码', '12398884')
         user.input_Derived_info('操作', '新增物料')
-        user.input_Derived_info('处理物料编码', '12105695')
+        user.input_Derived_info('处理物料编码', '12105698')
         user.input_Derived_info('数量', '1')
         user.click_Creat_BOM()
         user.assert_toast('生成衍生BOM成功')
         user.select_business_review('李小素', 'MPM')
         user.select_business_review('李小素', '结构工程师')
-        user.select_business_review('李小素', '采购部(NPS)cc')
+        user.select_business_review('李小素', '采购部(NPS)')
         user.select_business_review('李小素', '射频&天线工程师')
         user.select_business_review('李小素', '检查人')
         user.click_add_submit()
@@ -5479,14 +5485,14 @@ class Teststory_3247:
         user.input_bom_info('机型', 'JMB-01')
         user.input_bom_info('阶段', '试产阶段')
         user.click_Derived_add()
-        user.input_Derived_info('新BOM编码', '12198883')
+        user.input_Derived_info('新BOM编码', '12398884')
         user.input_Derived_info('原始BOM编码', '12106993')
         user.input_Derived_info('原始BOM工厂', 'C105')
         user.click_Creat_BOM()
         user.assert_toast('生成衍生BOM成功')
         user.select_business_review('李小素', 'MPM')
         user.select_business_review('李小素', '结构工程师')
-        user.select_business_review('李小素', '采购部(NPS)cc')
+        user.select_business_review('李小素', '采购部(NPS)')
         user.select_business_review('李小素', '射频&天线工程师')
         user.select_business_review('李小素', '检查人')
         user.click_add_submit()
@@ -5517,7 +5523,7 @@ class Teststory_3247:
         user.assert_toast('生成衍生BOM成功')
         user.select_business_review('李小素', 'MPM')
         user.select_business_review('李小素', '结构工程师')
-        user.select_business_review('李小素', '采购部(NPS)cc')
+        user.select_business_review('李小素', '采购部(NPS)')
         user.select_business_review('李小素', '射频&天线工程师')
         user.select_business_review('李小素', '检查人')
         user.click_add_submit()
@@ -5548,7 +5554,7 @@ class Teststory_3247:
         user.assert_toast('生成衍生BOM成功')
         user.select_business_review('李小素', 'MPM')
         user.select_business_review('李小素', '结构工程师')
-        user.select_business_review('李小素', '采购部(NPS)cc')
+        user.select_business_review('李小素', '采购部(NPS)')
         user.select_business_review('李小素', '射频&天线工程师')
         user.select_business_review('李小素', '检查人')
         user.click_add_save()
@@ -5570,7 +5576,7 @@ class Teststory_3247:
         user.refresh_webpage_click_menu()
         user.click_add()
         user.input_bom_info('制作类型', 'PCBA BOM制作')
-        user.input_bom_info('品牌', 'aaaaa')
+        user.input_bom_info('品牌', '其他')
         user.input_bom_info('机型', 'JMB-01')
         user.input_bom_info('阶段', '试产阶段')
         user.input_bom_info('制作虚拟贴片/套片', '否')
@@ -5602,7 +5608,7 @@ class Teststory_3247:
         user.refresh_webpage_click_menu()
         user.add_bom_info()
         user.click_add_bomtree()
-        user.input_bomtree('PCBA', '物料编码', '12105866')
+        user.input_bomtree('PCBA', '物料编码', '12398884')
         user.input_bomtree('PCBA', '数量', '1')
         user.click_add_submit()
         user.assert_toast('BOM状态不能为空')
@@ -5634,7 +5640,7 @@ class Teststory_3247:
         user.refresh_webpage_click_menu()
         user.click_add()
         user.input_bom_info('制作类型', 'PCBA BOM制作')
-        user.input_bom_info('品牌', 'aaaaa')
+        user.input_bom_info('品牌', '其他')
         user.input_bom_info('机型', 'JMB-01')
         user.input_bom_info('阶段', '试产阶段')
         user.input_bom_info('制作虚拟贴片/套片', '否')
@@ -5665,10 +5671,10 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105866')
+        user.input_bomtree('PCBA', '物料编码', '12398884')
         user.select_business_review('李小素')
         user.click_add_submit()
-        user.assert_toast('[12105866]的数量为空!')
+        user.assert_toast('[12398884]的数量为空!')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作PCBABOM协作=数量长度超3字符")  # 用例名称
@@ -5681,7 +5687,7 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105866')
+        user.input_bomtree('PCBA', '物料编码', '12398884')
         user.input_bomtree('PCBA', '数量', '1000')
         user.select_business_review('李小素')
         user.click_add_submit()
@@ -5698,14 +5704,14 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105866')
+        user.input_bomtree('PCBA', '物料编码', '12398884')
         user.input_bomtree('PCBA', '数量', 'aaa')
         user.select_business_review('李小素')
         user.click_add_submit()
         user.assert_toast('数量只能填写1-8位正整数')
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作PCBABOM协作=父阶BOM料号12105821下的子阶BOM料号12105820数量不为1")  # 用例名称
+    @allure.title("BOM协作PCBABOM协作=父阶BOM料号xxxxxxxx下的子阶BOM料号xxxxxxxx数量不为1")  # 用例名称
     @allure.description("进入新增页面制作类型选择PCBABOM协作，选择一个存在模板的品牌，在BOMtree中点击新增BOM，正确填入产成品数据，选择单机头的物料编码，输入单机头用量为2，点击提示，不能提交成功并给出提示父阶BOM料号xxxxxxxx下的子阶BOM料号xxxxxxxx数量不为1")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -5715,13 +5721,13 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105866')
+        user.input_bomtree('PCBA', '物料编码', '12398884')
         user.input_bomtree('PCBA', '数量', '1')
         user.input_bomtree('CPU', '物料编码', '12105820')
         user.input_bomtree('CPU', '数量', '2')
         user.select_business_review('李小素')
         user.click_add_submit()
-        user.assert_toast('父阶BOM料号12105866下的子阶BOM料号12105820数量不为1')
+        user.assert_toast('父阶BOM料号12398884下的子阶BOM料号12105820数量不为1')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作PCBABOM协作=业务评审必填项需填写完整")  # 用例名称
@@ -5734,7 +5740,7 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105866')
+        user.input_bomtree('PCBA', '物料编码', '12398884')
         user.input_bomtree('PCBA', '数量', '1')
         user.click_add_submit()
         user.assert_toast('业务评审必填项需填写完整！')
@@ -5750,9 +5756,9 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105866')
+        user.input_bomtree('PCBA', '物料编码', '12398884')
         user.input_OnePress('数量', '1')
-        user.assert_BomTree_OnepressResult('12105866', '数量', '', 'code')
+        user.assert_BomTree_OnepressResult('12398884', '数量', '', 'code')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作PCBABOM协作=不填写产成品数据，选择物料一键填写不生效")  # 用例名称
@@ -5820,14 +5826,14 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105695')
+        user.input_bomtree('PCBA', '物料编码', '12105698')
         user.input_bomtree('PCBA', '数量', '1')
         user.input_bomtree('CPU', '物料编码', '12105820')
         user.input_bomtree('CPU', '数量', '1')
         user.input_bomtree('CPU', '替代组', 'A1')
         user.input_bomtree('CPU', '份额', '20')
         user.click_add_submit()
-        user.assert_toast('[12105695] 替代组[A1]只有一颗物料')
+        user.assert_toast('[12105698] 替代组[A1]只有一颗物料')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作PCBABOM协作=输入位号U1001,U1002,U1003,U1004,U1005，数量自动变为5")  # 用例名称
@@ -5840,7 +5846,7 @@ class Teststory_3247:
         user.add_bom_info()
         user.click_add_bomtree()
         user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12105695')
+        user.input_bomtree('PCBA', '物料编码', '12105698')
         user.input_bomtree('PCBA', '数量', '1')
         user.input_bomtree('IC144', '物料编码', '14400003')
         user.input_bomtree('IC144', '位号', 'U1001,U1002,U1003,U1004,U1005')
@@ -5892,14 +5898,14 @@ class Teststory_3247:
         user.input_bom_info('机型', 'JMB-01')
         user.input_bom_info('阶段', '试产阶段')
         user.click_Derived_add()
-        user.input_Derived_info('新BOM编码', '12198883')
+        user.input_Derived_info('新BOM编码', '12398884')
         user.input_Derived_info('原始BOM编码', '12106993')
         user.input_Derived_info('原始BOM工厂', 'C105')
         user.click_Derived_differ()
         user.click_Derived_add()
-        user.input_Derived_info('BOM编码', '12198883')
+        user.input_Derived_info('BOM编码', '12398884')
         user.input_Derived_info('操作', '新增物料')
-        user.input_Derived_info('处理物料编码', '12105695')
+        user.input_Derived_info('处理物料编码', '12105698')
         user.input_Derived_info('数量', '1')
         user.click_add_submit()
         user.assert_toast('Bom Tree不能为空！')
@@ -5919,7 +5925,7 @@ class Teststory_3247:
         user.input_bom_info('机型', 'JMB-01')
         user.input_bom_info('阶段', '试产阶段')
         user.click_Derived_add()
-        user.input_Derived_info('新BOM编码', '12198883')
+        user.input_Derived_info('新BOM编码', '12398884')
         user.input_Derived_info('原始BOM编码', '12106993')
         user.click_Creat_BOM()
         user.assert_toast('原始bom工厂不能为空！')
@@ -5939,20 +5945,20 @@ class Teststory_3247:
         user.input_bom_info('机型', 'JMB-01')
         user.input_bom_info('阶段', '试产阶段')
         user.click_Derived_add()
-        user.input_Derived_info('新BOM编码', '12198883')
+        user.input_Derived_info('新BOM编码', '12398884')
         user.input_Derived_info('原始BOM编码', '12106993')
         user.input_Derived_info('原始BOM工厂', 'C105')
         user.click_Derived_differ()
         user.click_Derived_add()
-        user.input_Derived_info('BOM编码', '12198883')
+        user.input_Derived_info('BOM编码', '12398884')
         user.input_Derived_info('操作', '新增物料')
-        user.input_Derived_info('处理物料编码', '12105695')
+        user.input_Derived_info('处理物料编码', '12105698')
         user.input_Derived_info('数量', '1000')
         user.click_Creat_BOM()
         user.assert_toast('生成衍生BOM成功')
         user.select_business_review('李小素', 'MPM')
         user.select_business_review('李小素', '结构工程师')
-        user.select_business_review('李小素', '采购部(NPS)cc')
+        user.select_business_review('李小素', '采购部(NPS)')
         user.select_business_review('李小素', '射频&天线工程师')
         user.select_business_review('李小素', '检查人')
         user.click_add_submit()
@@ -5973,14 +5979,14 @@ class Teststory_3247:
         user.input_bom_info('机型', 'JMB-01')
         user.input_bom_info('阶段', '试产阶段')
         user.click_Derived_add()
-        user.input_Derived_info('新BOM编码', '12198883')
+        user.input_Derived_info('新BOM编码', '12398884')
         user.input_Derived_info('原始BOM编码', '12106993')
         user.input_Derived_info('原始BOM工厂', 'C105')
         user.click_Derived_differ()
         user.click_Derived_add()
-        user.input_Derived_info('BOM编码', '12198883')
+        user.input_Derived_info('BOM编码', '12398884')
         user.input_Derived_info('操作', '新增物料')
-        user.input_Derived_info('处理物料编码', '12105695')
+        user.input_Derived_info('处理物料编码', '12105698')
         user.input_Derived_info('数量', '1')
         user.click_Creat_BOM()
         user.assert_toast('生成衍生BOM成功')
@@ -6453,7 +6459,7 @@ class Teststory_3247:
         user.assert_toast('生成衍生BOM成功')
         user.select_business_review('李小素', 'MPM')
         user.select_business_review('李小素', '结构工程师')
-        user.select_business_review('李小素', '采购部(NPS)cc')
+        user.select_business_review('李小素', '采购部(NPS)')
         user.select_business_review('李小素', '射频&天线工程师')
         user.select_business_review('李小素', '检查人')
         user.click_add_submit()
@@ -6470,7 +6476,7 @@ class Teststory_3247:
         ValueAssert.value_assert_equal(info3, 'JMB-01')
         ValueAssert.value_assert_equal(info4, '试产阶段')
         user.assert_oneworks_bomtree_result('PCBA',
-                                            ('1', 'PCBA', '12198883', 'PCBA_itel_it1655S_M30B_4+512_单卡_SKU4', '1'))
+                                            ('1', 'PCBA', '12398884', 'PCBA_itel_it1655S_M30B_4+512_单卡_SKU4', '1'))
         user.quit_oneworks()
         user.delete_flow(process_code)
 
@@ -7232,7 +7238,7 @@ class Teststory_3247:
         user.quit_oneworks()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作PCBABOM协作=BOM衍生，【生产工厂信息】物料12198883的贴片工厂不能为空")  # 用例名称
+    @allure.title("BOM协作PCBABOM协作=BOM衍生，【生产工厂信息】物料12398884的贴片工厂不能为空")  # 用例名称
     @allure.description("在补充工厂页面中，不进行填写任何数据，点击同意，不能提交成功，并给出提示'【生产工厂信息】物料xxxxxxxx的贴片工厂不能为空'")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -7243,7 +7249,7 @@ class Teststory_3247:
         user.enter_oneworks_edit(PCBA_Derived_API[0])
         user.click_oneworks_agree()
         user.enter_oneworks_iframe()
-        user.assert_toast('【生产工厂信息】物料12198883的贴片工厂不能为空')
+        user.assert_toast('【生产工厂信息】物料12398884的贴片工厂不能为空')
         user.quit_oneworks()
 
     @allure.story("自动化测试")  # 用户故事名称
@@ -7305,7 +7311,7 @@ class Teststory_3247:
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作PCBABOM协作=BOM衍生，BOM[XXXXXXX]中的物料[XXXXXXX]位号个数与数量不一致，请检查后提交")  # 用例名称
-    @allure.description("在基带工程师审批页面中，衍生差异信息中位号填多个，将BOM数量改为1，点击生成BOM，提示'BOM[12198883]中的物料[12300002]位号个数与数量不一致，请检查后提交'")  # 用例描述
+    @allure.description("在基带工程师审批页面中，衍生差异信息中位号填多个，将BOM数量改为1，点击生成BOM，提示'BOM[12398884]中的物料[12300002]位号个数与数量不一致，请检查后提交'")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_20595(self, drivers, PCBA_Derived_Factory_API):
@@ -7316,7 +7322,7 @@ class Teststory_3247:
         user.click_Derived_differ()
         user.input_Derived_info('位号', 'C1,C2')
         user.click_Creat_BOM()
-        user.assert_toast('BOM[12198883]中的物料[12105695]位号个数与数量不一致，请检查后提交')
+        user.assert_toast('BOM[12398884]中的物料[12105698]位号个数与数量不一致，请检查后提交')
         user.quit_oneworks()
 
     @allure.story("自动化测试")  # 用户故事名称
@@ -7676,7 +7682,7 @@ class Teststory_3247:
         user.click_Device_pending_code('CTP(1供)')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商名称', 'TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '是否新供应商', '否')
-        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '0')
+        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '不涉及')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因类别', '成本因素')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因', '供应商选择原因TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '份额', '50')
@@ -7692,7 +7698,7 @@ class Teststory_3247:
         user.click_Device_pending_code('CPU(1供)')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商名称', 'TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '是否新供应商', '否')
-        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '0')
+        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '不涉及')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因类别', '成本因素')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因', '供应商选择原因TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '份额', '50')
@@ -7866,7 +7872,6 @@ class Teststory_3247:
         user.click_add()
         user.input_add_item_info('品牌', 'itel')
         user.input_add_item_info('项目', '50A712U')
-        user.input_add_item_info('基线名称', '基线GP2325')
         user.input_add_item_info('平台', '测试平台')
         user.input_add_item_info('上市时间', '2022-06-20')
         user.input_add_item_info('月度需求', '1')
@@ -7890,7 +7895,6 @@ class Teststory_3247:
         user.click_add()
         user.input_add_item_info('品牌', 'itel')
         user.input_add_item_info('项目', '50A712U')
-        user.input_add_item_info('基线名称', '基线GP2325')
         user.input_add_item_info('平台', '测试平台')
         user.input_add_item_info('上市时间', '2022-06-20')
         user.input_add_item_info('月度需求', '1')
@@ -7962,7 +7966,7 @@ class Teststory_3247:
         user.assert_toast('请勿重复维护关键器件角色！')
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("关键器件关键器件流程=摄像头闪光灯节点，审批成功")  # 用例名称
+    @allure.title("关键器件关键器件查询=摄像头闪光灯节点，审批成功")  # 用例名称
     @allure.description("摄像头闪光灯节点，关键器件中的摄像头闪光灯节点，点击左侧三角，点击下面的模块，点击物料编码右侧的加号，物料编码下面出现一行，点击新出现这行的加号，填写代申请编码信息，点击其他模块保存成功（像这样随便填几个模块），点击同意，提示操作成功")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -7983,7 +7987,7 @@ class Teststory_3247:
         user.assert_OneWorks_AgreeFlow()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("关键器件关键器件流程=硬件电子料基带节点，审批成功")  # 用例名称
+    @allure.title("关键器件关键器件查询=硬件电子料基带节点，审批成功")  # 用例名称
     @allure.description("硬件电子料基带节点，关键器件中的硬件电子料基带节点，点击左侧三角，点击下面的模块，点击物料编码右侧的加号，物料编码下面出现一行，点击新出现这行的加号，填写代申请编码信息，点击其他模块保存成功（像这样随便填几个模块），点击同意，提示操作成功")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -8000,7 +8004,7 @@ class Teststory_3247:
         user.assert_OneWorks_AgreeFlow()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("关键器件关键器件流程=标准化代表节点，审批成功")  # 用例名称
+    @allure.title("关键器件关键器件查询=标准化代表节点，审批成功")  # 用例名称
     @allure.description("标准化代表节点，找到标准化评估责任人，点击左侧全选，点击右侧一键填写，弹出一键填写框，字段名称选择责任人，责任人选择xxx，点击确定，提示已选分类的审批人设置成功，点击关闭按钮，弹框关闭，点击同意，提示操作成功")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -8016,7 +8020,7 @@ class Teststory_3247:
         user.assert_OneWorks_AgreeFlow()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("关键器件关键器件流程=采购代表节点，审批成功")  # 用例名称
+    @allure.title("关键器件关键器件查询=采购代表节点，审批成功")  # 用例名称
     @allure.description("采购代表节点，找到采购评估责任人，点击左侧全选，点击右侧一键填写，弹出一键填写框，字段名称选择资源商务，责任人选择xxx，点击确定，提示已选分类的审批人设置成功；字段名称选择采购执行，责任人选择xxx，点击确定，提示已选分类的审批人设置成功；字段名称选择采购PTC，责任人选择xxx，点击确定，提示已选分类的审批人设置成功；字段名称选择采购SQM，责任人选择xxx，点击确定。提示已选分类的审批人设置成功，点击关闭按钮，弹框关闭，点击同意，提示操作成功")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -8042,7 +8046,7 @@ class Teststory_3247:
         user.assert_OneWorks_AgreeFlow()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("关键器件关键器件流程=资源商务评估节点，审批成功")  # 用例名称
+    @allure.title("关键器件关键器件查询=资源商务评估节点，审批成功")  # 用例名称
     @allure.description("资源商务评估节点，（所有前面填过信息的这里都可以填采购评估资源商务）勾选是否新供应商、国产化属性、供应商选择原因类别、是否客供物料、价格趋势（6个月）、是否NUDD、评审结论（选通过或者选建议修改，填原因及修改建议），填写供应商选择原因、份额（只能输数字1100）、关联物料（只能填物料）、NUDD说明、NUDD管理方案、原因及修改建议；点击同意，有必填不填时有提示，点击确定")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -8055,7 +8059,7 @@ class Teststory_3247:
         user.click_Device_pending_code('CTP(1供)')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商名称', 'TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '是否新供应商', '否')
-        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '0')
+        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '不涉及')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因类别', '成本因素')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因', '供应商选择原因TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '份额', '50')
@@ -8071,7 +8075,7 @@ class Teststory_3247:
         user.click_Device_pending_code('CPU(1供)')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商名称', 'TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '是否新供应商', '否')
-        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '0')
+        user.input_KeyDevice_Evaluation_content('资源商务', '国产化属性', '不涉及')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因类别', '成本因素')
         user.input_KeyDevice_Evaluation_content('资源商务', '供应商选择原因', '供应商选择原因TEST')
         user.input_KeyDevice_Evaluation_content('资源商务', '份额', '50')
@@ -8085,7 +8089,7 @@ class Teststory_3247:
         user.assert_OneWorks_AgreeFlow()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("关键器件关键器件流程=采购执行评估节点，审批成功")  # 用例名称
+    @allure.title("关键器件关键器件查询=采购执行评估节点，审批成功")  # 用例名称
     @allure.description("采购执行评估节点，（所有前面填过信息的这里都可以填采购评估采购执行）勾选产能评审结论（选通过或者选建议修改，填原因及修改建议），填写L/T天、最小下单量pcs、此项目峰值需求K/M、供应商总产能K/M、分配传音产能K/M、供应弹性、共用项目需求合计K/M、此项目产能分配")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -8128,7 +8132,7 @@ class Teststory_3247:
         user.assert_OneWorks_AgreeFlow()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("关键器件关键器件流程=采购PTC评估节点，审批成功")  # 用例名称
+    @allure.title("关键器件关键器件查询=采购PTC评估节点，审批成功")  # 用例名称
     @allure.description("采购PTC评估节点，（所有前面填过信息的这里都可以填采购评估PTC）勾选评审结论（选通过或者选不同意，填原因及修改建议），填写原因及修改建议，，点击同意，有必填不填时有提示，点击确定")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -8151,7 +8155,7 @@ class Teststory_3247:
         user.assert_OneWorks_AgreeFlow()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("关键器件关键器件流程=采购SQM评估节点，审批成功")  # 用例名称
+    @allure.title("关键器件关键器件查询=采购SQM评估节点，审批成功")  # 用例名称
     @allure.description("采购SQM评估节点，（所有前面填过信息的这里都可以填采购评估SQM）勾选评审结论（选通过或者选不同意，填原因及修改建议），填写原因及修改建议，点击同意，有必填不填时有提示，点击确定")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -8174,7 +8178,7 @@ class Teststory_3247:
         user.assert_OneWorks_AgreeFlow()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("关键器件关键器件流程=标准化部评估节点，审批成功后可以再次发起修订流程")  # 用例名称
+    @allure.title("关键器件关键器件查询=标准化部评估节点，审批成功后可以再次发起修订流程")  # 用例名称
     @allure.description("关键器件关键器件流程，查看单据状态已变为审批通过，可以再次点击修订勾选几个（例如摄像头闪光灯，硬件电子料基带），发起修订流程")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -8225,18 +8229,18 @@ class Teststory_3247:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', f'项目名称{querytime}')
         user.click_add()
-        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('全球版本', 'SMART')
         user.input_product_definition_info('市场名称', f'市场名称{querytime}')
         user.input_product_definition_info('项目名称', f'项目名称{querytime}')
-        user.input_product_definition_info('MEMORY', '128+8')
-        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('MEMORY', '256+12')
+        user.input_product_definition_info('BAND STRATEGY', '拉美BOM')
         user.input_product_definition_info('项目经理', '李小素')
         user.input_product_definition_info('摄像头', '摄像头')
         user.input_product_definition_info('型号', '型号')
         user.input_product_definition_info('新增', '新增')
-        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('再增', '2.5G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
-        user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('尺寸', '64M+13M+2M')
         user.input_product_definition_info('首单量产时间', querytime[0:10])
         user.click_product_definition_confirm()
         user.select_signatory('汇签人员', '李小素')
@@ -8258,12 +8262,12 @@ class Teststory_3247:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', f'项目名称{querytime}')
         user.click_add()
-        user.input_product_definition_info('全球版本', '版本1')
-        user.assert_version_get_member('版本1')
-        user.input_product_definition_info('全球版本', '版本2')
-        user.assert_version_get_member('版本2')
-        user.input_product_definition_info('全球版本', '版本3')
-        user.assert_version_get_member('版本3')
+        user.input_product_definition_info('全球版本', 'SMART')
+        user.assert_version_get_member('SMART')
+        user.input_product_definition_info('全球版本', 'HOT')
+        user.assert_version_get_member('HOT')
+        user.input_product_definition_info('全球版本', 'NOTE')
+        user.assert_version_get_member('NOTE')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("出货国家出货国家流程=新增产品经理和项目经理，查看抄送人员是自动添加登录人产品经理项目经理")  # 用例名称
@@ -8312,18 +8316,18 @@ class Teststory_3247:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', '项目名称测试复制')
         user.click_add()
-        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('全球版本', 'SMART')
         user.input_product_definition_info('市场名称', '市场名称测试复制')
         user.input_product_definition_info('项目名称', '项目名称测试复制')
-        user.input_product_definition_info('MEMORY', '128+8')
-        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('MEMORY', '256+12')
+        user.input_product_definition_info('BAND STRATEGY', '拉美BOM')
         user.input_product_definition_info('项目经理', '李小素')
         user.input_product_definition_info('摄像头', '摄像头')
         user.input_product_definition_info('型号', '型号')
         user.input_product_definition_info('新增', '新增')
-        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('再增', '2.5G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
-        user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('尺寸', '64M+13M+2M')
         user.input_product_definition_info('首单量产时间', querytime)
         user.click_product_definition_confirm()
         user.click_product_definition_copy()
@@ -8342,11 +8346,11 @@ class Teststory_3247:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', '项目名称测试删除')
         user.click_add()
-        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('全球版本', 'SMART')
         user.input_product_definition_info('市场名称', '市场名称测试删除')
         user.input_product_definition_info('项目名称', '项目名称测试删除')
-        user.input_product_definition_info('MEMORY', '128+8')
-        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('MEMORY', '256+12')
+        user.input_product_definition_info('BAND STRATEGY', '拉美BOM')
         user.click_product_definition_confirm()
         user.click_product_definition_delete()
         DomAssert(drivers).assert_att('确定删除吗?')
@@ -8404,18 +8408,18 @@ class Teststory_3247:
         user.click_product_definition_edit()
         querytime2 = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
         querytime = datetime.now().strftime('%Y-%m-%d')
-        user.input_product_definition_info('全球版本', '版本2')
+        user.input_product_definition_info('全球版本', 'HOT')
         user.input_product_definition_info('市场名称', f'市场名称{querytime2}')
         user.input_product_definition_info('项目名称', f'项目名称{querytime2}')
-        user.input_product_definition_info('MEMORY', '64+8')
-        user.input_product_definition_info('BAND STRATEGY', '公开市场')
+        user.input_product_definition_info('MEMORY', '512+8')
+        user.input_product_definition_info('BAND STRATEGY', '东南亚BOM')
         user.input_product_definition_info('项目经理', '李小素')
         user.input_product_definition_info('摄像头', '摄像头test')
         user.input_product_definition_info('型号', '型号test')
         user.input_product_definition_info('新增', '新增test')
-        user.input_product_definition_info('再增', '1G')
-        user.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
-        user.input_product_definition_info('尺寸', '8M')
+        user.input_product_definition_info('再增', '5G')
+        user.input_product_definition_info('配色', '波尔多红/Bordeaux Red')
+        user.input_product_definition_info('尺寸', '108M+8M+8M')
         user.input_product_definition_info('首单量产时间', querytime)
         user.click_product_definition_confirm()
         user.assert_OneWorks_AgreeFlow()
@@ -8496,7 +8500,7 @@ class Teststory_3247:
         user.click_add()
         user.click_add_submit()
         user.assert_toast('No.1行全球版本不能为空')
-        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('全球版本', 'SMART')
         user.click_add_submit()
         DomAssert(drivers).assert_att('No.1行市场名称不能为空')
         user.input_product_definition_info('市场名称', '市场名称测试删除')
@@ -8505,7 +8509,7 @@ class Teststory_3247:
         user.input_product_definition_info('项目名称', '项目名称测试删除')
         user.click_add_submit()
         DomAssert(drivers).assert_att('No.1行MEMORY不能为空')
-        user.input_product_definition_info('MEMORY', '128+8')
+        user.input_product_definition_info('MEMORY', '256+12')
         user.click_add_submit()
         DomAssert(drivers).assert_att('No.1行BAND STRATEGY不能为空')
 
@@ -8522,18 +8526,18 @@ class Teststory_3247:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', '汇签人不能为空')
         user.click_add()
-        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('全球版本', 'SMART')
         user.input_product_definition_info('市场名称', '汇签人不能为空')
         user.input_product_definition_info('项目名称', '汇签人不能为空')
-        user.input_product_definition_info('MEMORY', '128+8')
-        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('MEMORY', '256+12')
+        user.input_product_definition_info('BAND STRATEGY', '拉美BOM')
         user.input_product_definition_info('项目经理', '李小素')
         user.input_product_definition_info('摄像头', '摄像头')
         user.input_product_definition_info('型号', '型号')
         user.input_product_definition_info('新增', '新增')
-        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('再增', '2.5G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
-        user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('尺寸', '64M+13M+2M')
         user.input_product_definition_info('首单量产时间', querytime)
         user.click_product_definition_confirm()
         user.clear_member('汇签人员')
@@ -8553,18 +8557,18 @@ class Teststory_3247:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', '抄送人不能为空')
         user.click_add()
-        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('全球版本', 'SMART')
         user.input_product_definition_info('市场名称', '抄送人不能为空')
         user.input_product_definition_info('项目名称', '抄送人不能为空')
-        user.input_product_definition_info('MEMORY', '128+8')
-        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('MEMORY', '256+12')
+        user.input_product_definition_info('BAND STRATEGY', '拉美BOM')
         user.input_product_definition_info('项目经理', '李小素')
         user.input_product_definition_info('摄像头', '摄像头')
         user.input_product_definition_info('型号', '型号')
         user.input_product_definition_info('新增', '新增')
-        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('再增', '2.5G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
-        user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('尺寸', '64M+13M+2M')
         user.input_product_definition_info('首单量产时间', querytime)
         user.click_product_definition_confirm()
         user.clear_member('抄送人员')
@@ -8584,18 +8588,18 @@ class Teststory_3247:
         user.input_add_item_info('品牌', 'Infinix')
         user.input_add_item_info('项目', '项目名称测试复制')
         user.click_add()
-        user.input_product_definition_info('全球版本', '版本1')
+        user.input_product_definition_info('全球版本', 'SMART')
         user.input_product_definition_info('市场名称', '市场名称测试复制')
         user.input_product_definition_info('项目名称', '项目名称测试复制')
-        user.input_product_definition_info('MEMORY', '128+8')
-        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('MEMORY', '256+12')
+        user.input_product_definition_info('BAND STRATEGY', '拉美BOM')
         user.input_product_definition_info('项目经理', '李小素')
         user.input_product_definition_info('摄像头', '摄像头')
         user.input_product_definition_info('型号', '型号')
         user.input_product_definition_info('新增', '新增')
-        user.input_product_definition_info('再增', '2G')
+        user.input_product_definition_info('再增', '2.5G')
         user.input_product_definition_info('配色', '魅海蓝/Aqua Blue')
-        user.input_product_definition_info('尺寸', '64M')
+        user.input_product_definition_info('尺寸', '64M+13M+2M')
         user.input_product_definition_info('首单量产时间', querytime)
         user.click_product_definition_confirm()
         user.click_product_definition_copy()
@@ -8654,17 +8658,17 @@ class Teststory_3247:
         user.click_change('变更产品')
         user.click_product_definition_edit(pro_name)
         querytime = datetime.now().strftime('%Y-%m-%d%H%M%S')
-        user.input_product_definition_info('全球版本', '版本3')
+        user.input_product_definition_info('全球版本', 'NOTE')
         user.input_product_definition_info('市场名称', f'市场名称test{querytime}')
         user.input_product_definition_info('项目名称', f'项目名称test{querytime}')
         user.input_product_definition_info('MEMORY', '64+6')
-        user.input_product_definition_info('BAND STRATEGY', '拉美市场')
+        user.input_product_definition_info('BAND STRATEGY', '拉美BOM')
         user.input_product_definition_info('摄像头', '摄像头')
         user.input_product_definition_info('型号', '型号')
         user.input_product_definition_info('新增', '新增')
-        user.input_product_definition_info('再增', '2G')
-        user.input_product_definition_info('配色', '炭蓝灰/Charcoal Blue')
-        user.input_product_definition_info('尺寸', '8M')
+        user.input_product_definition_info('再增', '5G')
+        user.input_product_definition_info('配色', '晶辰紫/Cosmic Purple')
+        user.input_product_definition_info('尺寸', '64M+13M+2M')
         user.click_product_definition_confirm()
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
@@ -8736,8 +8740,8 @@ class Teststory_3247:
         user.click_change('变更国家')
         user.click_change_select('东亚')
         user.click_products()
-        user.search_products('市场名称', '出货国家查询-变更产品-全流程-自动化测试项目-市场名称')
-        user.select_products('出货国家查询-变更产品-全流程-自动化测试项目-市场名称')
+        user.search_products('市场名称', '出货国家查询-变更产品自动化全流程测试')
+        user.select_products('出货国家查询-变更产品自动化全流程测试')
         user.click_InfoCheckBox()
         user.click_Bulk_Editing()
         user.select_Bulk_Editing_cty('柬埔寨')
@@ -8785,17 +8789,17 @@ class Teststory_3247:
         user.enter_oneworks_edit(SaleCountry_ProductChange_Join_API[0])
         user.click_product_definition_edit('出货国家查询变更产品部分流程')
         querytime = datetime.now().strftime('%Y-%m-%d%H%M%S')
-        user.input_product_definition_info('全球版本', '版本2')
+        user.input_product_definition_info('全球版本', 'HOT')
         user.input_product_definition_info('市场名称', f'修改市场名称{user.querytime}')
         user.input_product_definition_info('项目名称', f'修改项目名称{querytime}')
-        user.input_product_definition_info('MEMORY', '128+8')
-        user.input_product_definition_info('BAND STRATEGY', '公开市场')
+        user.input_product_definition_info('MEMORY', '256+12')
+        user.input_product_definition_info('BAND STRATEGY', '拉美BOM')
         user.input_product_definition_info('摄像头', '摄像头test_002_003')
         user.input_product_definition_info('型号', '型号test_002_003')
         user.input_product_definition_info('新增', '新增test_002_003')
-        user.input_product_definition_info('再增', '1G')
-        user.input_product_definition_info('配色', '普鲁士蓝/Prussian Blue')
-        user.input_product_definition_info('尺寸', '8M')
+        user.input_product_definition_info('再增', '4G')
+        user.input_product_definition_info('配色', '晶辰紫/Cosmic Purple')
+        user.input_product_definition_info('尺寸', '108M+8M+8M')
         user.click_product_definition_confirm()
         user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_ProductChange_Join_API[0], '产品部管理员复核', True)
@@ -8829,7 +8833,7 @@ class Teststory_3247:
         user.click_change('变更产品')
         user.click_product_definition_edit('出货国家查询-变更产品自动化全流程测试')
         querytime = datetime.now().strftime('%Y-%m-%d%H%M%S')
-        user.input_product_definition_info('全球版本', '版本3')
+        user.input_product_definition_info('全球版本', 'SMART')
         user.input_product_definition_info('摄像头', f'{querytime}摄像头test_002_005')
         user.input_product_definition_info('型号', f'{querytime}型号test_002_005')
         user.input_product_definition_info('新增', f'{querytime}新增test_002_005')
@@ -8920,17 +8924,17 @@ class Teststory_3247:
         user = ShippingCountrySearch(drivers)
         user.refresh_webpage_click_menu()
         user.input_condition('品牌', 'Infinix')
-        user.input_condition('项目名称', '出货国家查询变更产品部分流程')
+        user.input_condition('项目名称', '项目名称test2023-01-30-15:23:43')
         user.click_search()
-        user.click_checkbox('出货国家查询变更产品部分流程')
-        user.check_reset_cty_status('出货国家查询变更产品部分流程', '东亚')
+        user.click_checkbox('项目名称test2023-01-30-15:23:43')
+        user.check_reset_cty_status('项目名称test2023-01-30-15:23:43', '东亚')
         user.click_change('变更国家')
         user.click_change_select('东亚')
-        user.edit_product_definition_ctyinfo('出货国家查询变更产品部分流程', '柬埔寨', '●')
+        user.edit_product_definition_ctyinfo('项目名称test2023-01-30-15:23:43', '柬埔寨', '●')
         user.select_signatory('汇签人员', '李小素')
         user.click_add_submit()
         DomAssert(drivers).assert_att('请求成功')
-        process_code = user.get_info('出货国家查询变更产品部分流程')[2]
+        process_code = user.get_info('项目名称test2023-01-30-15:23:43')[2]
         user.assert_my_todo_node(process_code, '产品部管理员审核', True)
         user.delete_shipping_country_search(process_code)
 
@@ -8971,7 +8975,7 @@ class Teststory_3247:
         user = ShippingCountrySearch(drivers)
         user.refresh_webpage()
         user.enter_oneworks_edit(SaleCountry_CountryChange_Join_API[0])
-        user.edit_product_definition_ctyinfo('出货国家查询变更产品部分流程', '日本2', '●')
+        user.edit_product_definition_ctyinfo('项目名称test2023-01-30-15:23:43', '日本2', '●')
         user.assert_OneWorks_AgreeFlow()
         user.assert_my_todo_node(SaleCountry_CountryChange_Join_API[0], '产品部管理员复核', True)
 
@@ -9034,7 +9038,7 @@ class Teststory_3247:
         user.click_checkbox('出货国家查询变更产品部分流程')
         user.click_change('变更产品')
         DomAssert(drivers).assert_att(
-            f'【出货国家查询变更产品部分流程_出货国家查询变更产品部分流程_64+6_公开市场】产品存在在途单据【{SaleCountry_ProductChange_API[0]}】')
+            f'【出货国家查询变更产品部分流程_出货国家查询变更产品部分流程_Memory16_非洲BOM】产品存在在途单据【{SaleCountry_ProductChange_API[0]}】')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("出货国家出货国家查询=变更国家，第1行产品国家【xxxxx】已经存在流程中单据【xxxxxxx】！")  # 用例名称
@@ -9045,12 +9049,12 @@ class Teststory_3247:
         user = ShippingCountrySearch(drivers)
         user.refresh_webpage_click_menu()
         user.input_condition('品牌', 'Infinix')
-        user.input_condition('项目名称', '出货国家查询变更产品部分流程')
+        user.input_condition('项目名称', '项目名称test2023-01-30-15:23:43')
         user.click_search()
-        user.click_checkbox('出货国家查询变更产品部分流程')
+        user.click_checkbox('项目名称test2023-01-30-15:23:43')
         user.click_change('变更国家')
         user.click_change_select('东亚')
-        user.edit_product_definition_ctyinfo('出货国家查询变更产品部分流程', '柬埔寨', '●')
+        user.edit_product_definition_ctyinfo('项目名称test2023-01-30-15:23:43', '柬埔寨', '●')
         user.click_add_submit()
         user.assert_toast(f'第1行产品国家【柬埔寨】已经存在流程中单据【{SaleCountry_CountryChange_API[0]}】！')
 
