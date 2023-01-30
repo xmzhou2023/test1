@@ -43,14 +43,9 @@ class RoleDefinitionPage(Base):
         self.is_click_dcr(user['Save'])
         sleep(1)
 
-    @allure.step("获取Save Successfully保存成功提示语")
-    def get_save_successfully(self):
-        success = self.element_text(user['Get Save Successfully Text'])
-        return success
-
     @allure.step("点击Confirm确认保存按钮 ")
     def click_confirm(self):
-        self.is_click(user['Confirm'])
+        self.is_click(user['dialogConfirm'])
         sleep(1.5)
 
     @allure.step("获取Sales Region Management文本内容")

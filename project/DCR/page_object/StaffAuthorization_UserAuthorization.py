@@ -14,30 +14,21 @@ user = Element(pro_name, object_name)
 
 class UserAuthorizationPage(Base):
     """ 根据代理用户筛选用户关联的数据 """
-
     @allure.step("进入用户授权页面，根据User 筛选品牌、客户等数据")
     def input_dealer_user_query(self, content):
-        self.presence_sleep_dcr(user['Input User'])
-        self.is_click_dcr(user['Input User'])
-        self.input_text_dcr(user['Input User'], txt=content)
-        sleep(3)
-        self.presence_sleep_dcr(user['Click Dealer User Value'], content)
-        self.is_click(user['Click Dealer User Value'], content)
+        self.is_click(user['Input User'])
+        self.input_text(user['User ID输入框'], content)
 
     @allure.step("根据传音用户筛选用户关联的数据")
     def input_trans_user_query(self, content):
         """进入用户授权页面，根据User 筛选品牌、客户等数据"""
-        self.is_click_dcr(user['Input User'])
-        self.input_text_dcr(user['Input User'], txt=content)
-        sleep(3.5)
-        self.presence_sleep_dcr(user['Click Trans User Value'], content)
-        self.is_click(user['Click Trans User Value'], content)
+        self.is_click(user['Input User'])
+        self.input_text(user['User ID输入框'], content)
 
     @allure.step("点击user对应的Search按钮")
     def click_search(self):
         self.is_click_dcr(user['User Search'])
-        sleep(2.5)
-
+        self.element_text(user['Loading'])
 
     """删除与添加品牌定位方法"""
     @allure.step("获取列表Infinix品牌文本")
@@ -195,9 +186,8 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在仓库页签，输入Warehouse ID进行筛选需要删除的仓库")
     def input_list_query_ware(self, content):
-        self.presence_sleep_dcr(user['仓库列表点击仓库输入框'])
         self.is_click(user['仓库列表点击仓库输入框'])
-        self.input_text_dcr(user['仓库列表点击仓库输入框'], txt=content)
+        self.input_text_dcr(user['仓库列表点击仓库输入框'], content)
         sleep(2)
         self.is_click_dcr(user['仓库列表选中输入的仓库'], 'WNG2061304 NG2061303')
 
@@ -218,7 +208,6 @@ class UserAuthorizationPage(Base):
     @allure.step("在仓库页签，筛选Warehouse ID后，点击More Option按钮")
     def click_ware_more_option(self):
         self.is_click(user['Warehouse More Option'])
-        sleep(1)
 
     @allure.step("在仓库页签，点击Batch Cancel Association 按钮")
     def click_ware_cancel_association(self):
@@ -316,7 +305,6 @@ class UserAuthorizationPage(Base):
     @allure.step("在门店页签，筛选Shop ID后，点击More Option按钮")
     def click_shop_more_option(self):
         self.is_click(user['Shop More Option'])
-        sleep(2)
 
     @allure.step("在门店页签，点击 Batch Cancel Association取消关联按钮")
     def click_shop_cancel_association(self):

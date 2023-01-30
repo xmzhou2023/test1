@@ -25,10 +25,8 @@ class TestSetRolePermission:
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开Staff & Authorization模块下的 Role Definition的菜单"""
         user.click_gotomenu("Staff & Authorization", "Role Definition")
-
         """Role Definition角色定义页面，筛选“lhmItel店长”角色，然后添加Basic Data Management菜单权限用例"""
         role = RoleDefinitionPage(drivers)
         role.input_role_query("lhmItel店长")
@@ -37,28 +35,22 @@ class TestSetRolePermission:
         role.click_first_checkbox()
         role.click_permission_setting()
         role.click_check_basic_data_mgt()
-
         """点击保存"""
         role.click_save()
-        """获取保存成功提示语，进行断言是否保存成功"""
-        success = role.get_save_successfully()
-
-        dom = DomAssert(drivers)
-        dom.assert_exact_att(success)
+        """断言是否弹出保存成功提示"""
+        DomAssert(drivers).assert_att('Save Successfully')
         role.click_confirm()
         #role.click_close_role_definition()
-
         # """设置Basic Data Management模块权限后，检查是否能打开此模块下的菜单 """
         # user = DCRLogin(drivers)
         # user.dcr_login(udrivers, "testlhm0215", "dcr123456")
         # sleep(5)
-        #
         # menu = MenuPage(drivers)
         # menu.click_gotomenu("Basic Data Management", "Sales Region Management")
         # sleep(5)
-        #
         # sales_region = role.get_sale_region_mgt_text()
         # assert_ui.value_assert_In(sales_region, "Sales Region Management")
+
 
     @allure.story("角色管理") # 场景名称
     @allure.title("组合查询成功")  # 用例名称

@@ -1,10 +1,7 @@
 #筛选User字段
-Input User: "xpath==//label[(text()='User')]//parent::div// following-sibling::div//input"
-Click Dealer User Value: "xpath==//span[contains(text(),'variable')]"
-#Click Trans User Value: "xpath==//span[contains(text(),'lihongmei10')]"
-Click Trans User Value: "xpath==//span[contains(text(),'variable ')]"
+Input User: "xpath==//label[(text()='User ID')]//parent::div// following-sibling::div//input"
+User ID输入框: "xpath==//div//textarea[@placeholder='Batch input content']"
 User Search: "css==[class='el-button el-button--primary el-button--mini']"
-
 
 #添加授权品牌Brand
 Add Association Brand: "xpath==//span[contains(text(),'Add Association')]"

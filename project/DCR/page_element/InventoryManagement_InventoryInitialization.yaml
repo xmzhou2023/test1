@@ -1,0 +1,40 @@
+Export: "xpath==//div//button//span[normalize-space(text())='Export']"
+Unfold_Fold: "xpath==//div//span[text()='variable']"
+Search: "xpath==//div//button//span[normalize-space(text())='Search']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+#新建初始化库存
+Add: "xpath==//div//button//span[normalize-space(text())='Add']"
+IMEI SN Radio: "xpath==//span[normalize-space(text())='IMEI/SN']/../..//label[@class='el-radio is-checked']"
+Box ID Radio: "xpath==//span[normalize-space(text())='Box ID']/../..//label[@class='el-radio']"
+输入IMEI SN: "xpath==//div//textarea[@placeholder='Please enter IMEI/SN,press enter to check']"
+输入Box ID: "xpath==//div//textarea[@placeholder='Please enter boxId,press enter to check']"
+点击Check: "xpath==//div//button//span[normalize-space(text())='Check']"
+Scanned Num: "xpath==//div[@class='scanned-box']//div[@class='num']"
+Scan Record Success: "xpath==//div//ul//li//div[normalize-space(text())='Success']"
+Scan Record error: "xpath==//div//ul//li//div[normalize-space(text())='Already in warehouse']"
+Add Submit: "xpath==//div[@class='area-add-btn']//button//span[normalize-space(text())='Submit']"
+Order Detail No Data: "xpath==//div//span[text()='No Data']"
+
+#筛选项定位
+点击IMEI输入框: "xpath==//label[text()='variable']/..//input[@placeholder='All']"
+输入IMEI输入框: "xpath==//label[text()='variable']/..//textarea[@placeholder='Batch input content']"
+Get List Total: "xpath==//div//span[contains(text(), 'Total')]"
+
+
+#查看IMEI Detail详情
+点击IMEI Detail: "xpath==//tbody//tr//td[not(contains(@class, 'is-hidden'))]//div//span[text()='IMEI Detail']"
+Get IMEI Detail Total: "xpath==//div//span[text()='IMEI Detail']/../..//div//span[contains(text(), 'Total')]"
+关闭IMEI Detail: "xpath==//div//span[text()='IMEI Detail']/..//button[@class='el-dialog__headerbtn']//i"
+
+#断言
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格内容: "xpath==//td[contains(@class,'variable   ') and not(contains(@class, 'is-hidden'))]/div"
+滚动条: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']"
+表头文本: "xpath==//thead/tr/th"
+
+
+
+
+
+
+

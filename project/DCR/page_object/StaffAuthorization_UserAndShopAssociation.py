@@ -294,7 +294,7 @@ class UserShopAssociaPage(Base):
         elif header == 'Shop':
             self.assert_search_result_exist(f'{header} ID', content)
         elif header == 'Country':
-            self.assert_search_result_exist(f'{header} ID', content)
+            self.assert_search_result_exist(f'{header}', content)
         else:
             self.assert_search_result_exist(header, content)
 

@@ -140,7 +140,7 @@ class TestAddEditQuitTranssionUser:
         """编辑传音员工基本信息操作"""
         add_transsion.edit_trans_user_info_operation(edit_trans_username, 'oraimo', edit_email, edit_contact_no, 'Male')
         DomAssert(drivers).assert_att("Set Up Successfully")
-        sleep(2)
+        sleep(1)
         """调用断言 编辑的用户在列表是否更新成功"""
         """断言修改后的用户ID 与用户名是否存在相同值"""
         add_transsion.assert_user_management_field('User ID', trans_userid)
@@ -697,7 +697,7 @@ class TestAddEditQuitDealerUser:
         dealer_user.click_add_user_submit()
         """编辑成功后，页面是否弹出编辑成功提示语"""
         DomAssert(drivers).assert_att("Set Up Successfully")
-        sleep(2)
+        sleep(1)
         """断言修改后的用户ID与用户名称是否存在相同值"""
         dealer_user.assert_user_management_field('User ID', userid)
         dealer_user.assert_user_management_field('User Name', edit_user_name)

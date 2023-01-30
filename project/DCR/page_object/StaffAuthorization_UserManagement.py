@@ -145,12 +145,12 @@ class UserManagementPage(Base):
     @allure.step("点击搜索功能")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3.5)
+        self.element_text(user['Loading'])
 
     @allure.step("点击重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("新增Add 传音员工操作步骤")
     def add_trans_user_operation(self, staff_type, trans_userid, trans_username, sales_region, country_city, superior, position, email, contact_no, gender):
@@ -168,6 +168,7 @@ class UserManagementPage(Base):
         self.input_contact_no(contact_no)
         self.click_gender_female(gender)
         self.click_add_user_submit()
+        self.is_click(user['创建成功OK'])
 
     @allure.step("编辑Edit 传音员工基本信息操作步骤")
     def edit_trans_user_info_operation(self, edit_username, brand, email, contact_no, gender):
@@ -196,6 +197,7 @@ class UserManagementPage(Base):
         self.input_contact_no(contact_no)
         self.click_gender_female(gender)
         self.click_add_user_submit()
+        self.is_click(user['创建成功OK'])
 
 
     """编辑用户时，筛选用户"""
@@ -501,7 +503,7 @@ class UserManagementPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, task_name):
