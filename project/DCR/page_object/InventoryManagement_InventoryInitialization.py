@@ -63,15 +63,24 @@ class InventoryInitializationPage(Base):
         return get_no_data
 
     #筛选列表信息
-    @allure.step("列表页面，点击Unfold或者Fold展开筛选项")
+    @allure.step("Inventory Initialization列表页面，点击Unfold或者Fold展开筛选项")
     def click_unfold_fold(self, unfold_fold):
         self.is_click(user['Unfold_Fold'], unfold_fold)
         sleep(1)
 
-    @allure.step("列表页面，根据imei条件进行筛选数据")
+    @allure.step("Inventory Initialization列表页面，根据imei条件进行筛选数据")
     def input_inventory_imei_query(self, header, content):
         self.is_click(user['点击IMEI输入框'], header)
         self.input_text(user['输入IMEI输入框'], content, header)
+
+    @allure.step("Inventory Initialization列表页面，根据initial id条件进行筛选数据")
+    def input_initial_id_query(self, header, content):
+        self.input_text(user['Initial ID输入框'], content, header)
+
+
+
+
+
 
     @allure.step("列表页面，点击Search 查询按钮")
     def click_search(self):
@@ -137,6 +146,16 @@ class InventoryInitializationPage(Base):
         self.is_click(user['Export'])
         sleep(1)
 
+    @allure.step("初始化库存列表，进入IMEI Detail详情页，点击导出功能")
+    def click_imei_detail_export(self):
+        self.is_click(user['IMEI Detail Export'])
+        sleep(1)
+
+    @allure.step("获取下载进度值")
+    def get_download_value(self):
+        attribute = self.get_table_info(user['下载进度条'], attr='aria-valuenow')
+        logging.info('下载进度值是%s' % attribute)
+        return int(attribute)
 
 if __name__ == '__main__':
     pass

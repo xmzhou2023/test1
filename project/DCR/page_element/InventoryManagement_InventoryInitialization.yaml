@@ -1,4 +1,3 @@
-Export: "xpath==//div[@class='action']/..//button//span[normalize-space(text())='Export']"
 Unfold_Fold: "xpath==//div//span[text()='variable']"
 Search: "xpath==//div//button//span[normalize-space(text())='Search']"
 Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
@@ -19,7 +18,14 @@ Order Detail No Data: "xpath==//div//span[text()='No Data']"
 点击IMEI输入框: "xpath==//label[text()='variable']/..//input[@placeholder='All']"
 输入IMEI输入框: "xpath==//label[text()='variable']/..//textarea[@placeholder='Batch input content']"
 Get List Total: "xpath==//div//span[contains(text(), 'Total')]"
+Initial ID输入框: "xpath==//div//label[contains(text(),'variable')]/..//input"
 
+
+
+#导出
+Export: "xpath==//div[@class='action']/..//button//span[normalize-space(text())='Export']"
+IMEI Detail Export: "xpath==//div[@class='el-dialog__header']/..//button//span[normalize-space(text())='Export']"
+下载进度条: "xpath==//div[@class='el-progress el-progress--line is-success el-progress--text-inside']"
 
 #查看IMEI Detail详情
 点击IMEI Detail: "xpath==//tbody//tr//td[not(contains(@class, 'is-hidden'))]//div//span[text()='IMEI Detail']"

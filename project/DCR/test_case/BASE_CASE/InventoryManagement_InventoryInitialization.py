@@ -132,33 +132,57 @@ class TestAddInitializationOrder:
         DomAssert(drivers).assert_att('43012212030149')
 
 
-# @allure.feature("库存管理-库存初始化")
-# class TestExportInitializationOrder:
-#     @allure.story("查询库存初始化数据")
-#     @allure.title("库存管理页面，查询每个筛选条件")
-#     @allure.description("库存管理页面，查询每个筛选条件，查询结果与条件一致")
-#     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-#     @pytest.mark.smoke  # 用例标记
-#     @pytest.mark.usefixtures('function_export_fixture')
-#     def test_002_001(self, drivers):
-#         login = LoginPage(drivers)
-#         login.initialize_login(drivers, 'BD291501', 'dcr123456')
-#         login.click_gotomenu('Inventory Management', 'Inventory Initialization')
-#         select = InventoryInitializationPage(drivers)
+@allure.feature("库存管理-库存初始化")
+class TestQueryInitializationOrder:
+    @allure.story("查询库存初始化数据")
+    @allure.title("库存管理页面，查询每个筛选条件")
+    @allure.description("库存管理页面，查询每个筛选条件，查询结果与条件一致")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_001(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, 'BD291501', 'dcr123456')
+        login.click_gotomenu('Inventory Management', 'Inventory Initialization')
+        select = InventoryInitializationPage(drivers)
+        select.click_unfold_fold('Unfold')
+        """按Initial ID条件筛选初始化id数据"""
+        select.input_initial_id_query('Initial ID', '05HK2301300001')
+        select.click_search()
+        select.assert_Query_result('Initial ID', '05HK2301300001')
+        select.assert_Query_result('Operation', 'IMEI Detail')
+        select.assert_Query_result('Customer ID', 'BD2915')
+
+        
 
 
-    # @allure.story("查询库存初始化数据")
-    # @allure.title("库存管理页面，查询查看一条数据的IMEI Detail详情")
-    # @allure.description("库存管理页面，查看一条数据的IMEI Detail详情列表信息")
-    # @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    # @pytest.mark.smoke  # 用例标记
-    # @pytest.mark.usefixtures('function_export_fixture')
-    # def test_002_002(self, drivers):
-    #     login = LoginPage(drivers)
-    #     login.initialize_login(drivers, 'BD291501', 'dcr123456')
-    #     login.click_gotomenu('Inventory Management', 'Inventory Initialization')
-    #     select = InventoryInitializationPage(drivers)
+    @allure.story("查询库存初始化数据")
+    @allure.title("库存管理页面，查询查看一条数据的IMEI Detail详情")
+    @allure.description("库存管理页面，查看一条数据的IMEI Detail详情列表信息")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_export_fixture')
+    def test_002_002(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, 'BD291501', 'dcr123456')
+        login.click_gotomenu('Inventory Management', 'Inventory Initialization')
+        select = InventoryInitializationPage(drivers)
 
+        """筛选某条IMEI数据，查看IMEI详情，导出IMEI Detail详情信息"""
+        select.click_unfold_fold('Unfold')
+        select.input_inventory_imei_query('IMEI', '351364951220222')
+        select.click_search()
+
+        """断言 分页总条数，是否筛选到满足条件的一条数据"""
+        get_list_total = select.get_list_total()
+        ValueAssert.value_assert_equal('1', get_list_total)
+        """点击IMEI Detail按钮，打开详情页"""
+        select.click_imei_detail_button()
+        get_detail_total = select.get_imei_detail_total()
+        ValueAssert.value_assert_equal('1', get_detail_total)
+        select.assert_Query_result('IMEI', '351364951220222')
+        select.assert_Query_result('Brand', 'TECNO')
+        select.click_close_imei_detail()
 
 
 @allure.feature("库存管理-库存初始化")
@@ -193,21 +217,42 @@ class TestExportInitializationOrder:
         export.assert_Query_result('Operation', 'Download')
 
 
-    # @allure.story("导出库存初始化数据")
-    # @allure.title("库存管理页面，导出IMEI Detail详情列表信息")
-    # @allure.description("库存管理页面，导出IMEI Detail详情列表信息")
-    # @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    # @pytest.mark.smoke  # 用例标记
-    # @pytest.mark.usefixtures('function_export_fixture')
-    # def test_003_002(self, drivers):
-    #     login = LoginPage(drivers)
-    #     login.initialize_login(drivers, 'BD291501', 'dcr123456')
-    #     login.click_gotomenu('Inventory Management', 'Inventory Initialization')
-    #     export_detail = InventoryInitializationPage(drivers)
-    #
-    #     """筛选某条IMEI数据，查看IMEI详情，导出IMEI Detail详情信息"""
-    #     export_detail.click_unfold_fold('Unfold')
-    #     export_detail.input_inventory_imei_query('IMEI', '351364951818686')
+    @allure.story("导出库存初始化数据")
+    @allure.title("库存管理页面，导出IMEI Detail详情列表信息")
+    @allure.description("库存管理页面，导出IMEI Detail详情列表信息")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_003_002(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, 'BD291501', 'dcr123456')
+        login.click_gotomenu('Inventory Management', 'Inventory Initialization')
+        export_detail = InventoryInitializationPage(drivers)
+        """筛选某条IMEI数据，查看IMEI详情，导出IMEI Detail详情信息"""
+        export_detail.click_unfold_fold('Unfold')
+        export_detail.input_inventory_imei_query('IMEI', '351364951220222')
+        export_detail.click_search()
+
+        """断言 分页总条数，是否筛选到满足条件的一条数据"""
+        get_list_total = export_detail.get_list_total()
+        ValueAssert.value_assert_equal('1', get_list_total)
+        """点击IMEI Detail按钮，打开详情页"""
+        export_detail.click_imei_detail_button()
+        """断言IMEI Detail详情页 分页总数是否为有1条数据"""
+        get_detail_total = export_detail.get_imei_detail_total()
+        ValueAssert.value_assert_equal('1', get_detail_total)
+        export_detail.assert_Query_result('IMEI', '351364951220222')
+
+        """点击IMEI Detail 详情页的导出按钮, 断言导出进度条是否100%"""
+        logging.info('the total in test case is %s' % get_detail_total)
+        if int(get_detail_total) > 0:
+            export_detail.click_imei_detail_export()
+            sleep(3)
+            complete_value = export_detail.get_download_value()
+            ValueAssert.value_assert_equal(complete_value, 100)
+        else:
+            logging.info('the total is empty')
+        export_detail.click_close_imei_detail()
 
 
 if __name__ == '__main__':

@@ -91,7 +91,7 @@ class CustomerManagementPage(Base):
     def input_customer_query(self, customer_id):
         self.is_click_dcr(user['筛选Customer'])
         self.input_text_dcr(user['筛选Customer'], customer_id)
-        sleep(2.5)
+        sleep(2)
         self.presence_sleep_dcr(user['筛选Customer Select'], customer_id)
         self.is_click(user['筛选Customer Select'], customer_id)
 
@@ -181,7 +181,7 @@ class CustomerManagementPage(Base):
 
     @allure.step("删除新建的客户")
     def delete_customer(self):
-        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['CheckBox'])
         self.is_click(user['More Options'])
         sleep(2)
         self.presence_sleep_dcr(user['Delete'])
@@ -192,15 +192,15 @@ class CustomerManagementPage(Base):
 
     @allure.step("删除有绑定订单数据的客户不能被删除")
     def delete_have_records_customer(self):
-        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['CheckBox'])
         self.is_click(user['More Options'])
-        sleep(1.7)
+        sleep(1.5)
         self.presence_sleep_dcr(user['Delete'])
         self.is_click(user['Delete'])
         sleep(1.5)
         self.presence_sleep_dcr(user['Delete Confirm'])
         self.is_click(user['Delete Confirm'])
-        sleep(2)
+        sleep(1.7)
         DomAssert(self.driver).assert_att("The following customers have delivery or receipt records and cannot be deleted!")
         self.is_click_dcr(user['Delete Tips Close'])
 
@@ -212,10 +212,9 @@ class CustomerManagementPage(Base):
 
     @allure.step("点击启用按钮")
     def click_more_option_enable(self):
-        sleep(1)
-        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['CheckBox'])
         self.is_click(user['More Options'])
-        sleep(2)
+        sleep(0.5)
         self.is_click(user['Enable'])
         sleep(1.5)
         self.presence_sleep_dcr(user['Enable Confirm'])
@@ -223,14 +222,13 @@ class CustomerManagementPage(Base):
 
     @allure.step("点击禁用按钮")
     def click_more_option_disable(self):
-        sleep(1)
-        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['CheckBox'])
         self.is_click(user['More Options'])
-        sleep(2)
+        sleep(0.5)
         self.is_click(user['Disable'])
         sleep(1.5)
         self.presence_sleep_dcr(user['Disable Yes'])
-        self.is_click_dcr(user['Disable Yes'])
+        self.is_click(user['Disable Yes'])
 
     @allure.step("客户列表，获取列表状态字段内容")
     def get_list_status(self, status):
@@ -490,9 +488,10 @@ class CustomerManagementPage(Base):
             raise
 
     @allure.step("断言：页面查询结果")
-    def assert_User_Exist(self, header, content):
+    def assert_customer_query_result(self, header, content):
         logging.info('开始断言：页面查询结果')
         DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
+
 
     @allure.step("断言：页面查询结果")
     def assert_search_result(self, header, content):
