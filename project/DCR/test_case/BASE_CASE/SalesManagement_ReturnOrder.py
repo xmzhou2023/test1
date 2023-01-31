@@ -132,18 +132,20 @@ class TestReturnOrder:
         user.initialize_login(drivers, "BD40344201", "dcr123456")
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
-        delivery = SalesOrderPage(drivers)
-        """查询IMEI Inventory Query页面 指定product的IMEI"""
-        #sleep(2)
-        imei = delivery.get_text_imei_inventory()
+        query_imei = SalesOrderPage(drivers)
+        last_date = Base(drivers).get_last_day(2)
+        """查询IMEI Inventory Query页面 筛选收货日期的IMEI"""
+        query_imei.input_received_date_query('2022-11-01', last_date)
+        query_imei.click_search()
+        imei = query_imei.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
-        delivery.close_imei_inventory_query()
+        query_imei.close_imei_inventory_query()
         """ 刷新页面 """
-        delivery.click_refresh(drivers)
+        Base(drivers).refresh()
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Delivery Order")
         add_delivery = DeliveryOrderPage(drivers)
-        """点击Add新增出库单按"""
+        """点击Add新增出库单按钮"""
         add_delivery.click_add()
         add_delivery.input_sub_buyer("BD2915")
         add_delivery.input_deli_pay_mode("Online")
@@ -240,7 +242,7 @@ class TestReturnOrder:
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.close_imei_inventory_query()
         """ 刷新页面 """
-        delivery.click_refresh(drivers)
+        Base(drivers).refresh()
         """打开销售管理-打开出库单页面，创建有码出库单"""
         user.click_gotomenu("Sales Management", "Delivery Order")
         deli_return = DeliveryOrderPage(drivers)
@@ -277,8 +279,7 @@ class TestReturnOrder:
         except Exception as e:
             #logging.info("打印日志{}".format(e))
             pass
-        sleep(3)
-
+        sleep(2)
         """从数据库表中，获取国包出库单ID，传给出库单筛选方法"""
         deli_sql = SQL('DCR', 'test')
         deli_varsql = "select order_code,delivery_code,status from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200000 order by created_time desc limit 1"
@@ -331,7 +332,7 @@ class TestReturnOrder:
         """点击提交按钮"""
         return_order.click_Submit()
         dom.assert_att("Submit Success!")
-        sleep(2.5)
+        sleep(2)
         """退货单页面，根据出库单ID查询 是否生成一条Return Order ID 退货单"""
         return_order.input_Delivery_Orderid(delivery_code)
         return_order.click_Search()
@@ -358,7 +359,6 @@ class TestReturnOrder:
         user.click_gotomenu("Sales Management", "Delivery Order")
         """新建无码出库单操作"""
         delivery = DeliveryOrderPage(drivers)
-
         delivery.click_add()
         delivery.input_sub_buyer("NG20613")
         delivery.input_deli_pay_mode("Wechat")
@@ -368,7 +368,7 @@ class TestReturnOrder:
         delivery.input_delivery_quantity('1')
         delivery.click_submit()
         DomAssert(drivers).assert_att("Submit successfully")
-        sleep(2.5)
+        sleep(2)
         delivery.click_search()
         get_delivery_order = delivery.get_delivery_order_text()
         """数据库断言,列表新建的出库单 与数据库的出库单是否一致"""
@@ -416,7 +416,6 @@ class TestReturnOrder:
         recall_return.click_radio_quantity()
         recall_return.input_quantity_customer("NG20613")
         recall_return.input_quantity_delivery_order(delivery_id)
-
         recall_return.click_quantity_product("OCD-M201")
         recall_return.input_return_quantity('1')
         recall_return.click_Check()
@@ -426,10 +425,8 @@ class TestReturnOrder:
         """筛选新建的退货单数据，然后进行撤销操作"""
         recall_return.input_Delivery_Orderid(delivery_id)
         recall_return.click_Search()
-
         get_status = recall_return.get_return_status()
         ValueAssert.value_assert_equal(get_status, "Pending Approval")
-
         recall_return.click_checkbox()
         """点击更多操作，Recall 撤销功能"""
         recall_return.click_more_option_recall()
@@ -616,7 +613,6 @@ class TestReturnQuery:
         user.initialize_login(drivers, "xiongbo92", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
-
         page = ReturnOrderQuery(drivers)
         page.click_unfold()
 
@@ -650,7 +646,6 @@ class TestReturnQuery:
             'Return Order ID': 'RDHK202212020050',
             'Delivery/DN Order ID': '02HK2212020000015',
             'Brand': 'TECNO',
-            'Return Date': '2022-12-02',
             'Status': 'Approved',
             'Return Type': 'Return To Seller',
             'Seller': 'CN100742',
@@ -665,6 +660,7 @@ class TestReturnQuery:
         query = ReturnOrderQuery(drivers)
         user.click_gotomenu("Sales Management", "Return Order")
         query.click_unfold()
+        query.return_order_return_date_query('Return Date', '2022-12-02')
         query.random_Query_Method(query_dict)
 
 

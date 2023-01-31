@@ -73,7 +73,7 @@ class TestAddDistDeliveryOrder:
         delivery.click_close_imei_inventory()
 
         """ 刷新页面 """
-        delivery.click_refresh(drivers)
+        Base(drivers).refresh()
 
         """销售管理菜单-出库单列表-筛选出库单数据用例"""
         user1.click_gotomenu("Sales Management", "Delivery Order")

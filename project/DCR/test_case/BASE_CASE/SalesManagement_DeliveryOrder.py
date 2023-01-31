@@ -313,7 +313,7 @@ class TestAddDeliveryOrder:
         delivery.click_close_imei_inventory()
 
         """ 刷新页面 """
-        delivery.click_refresh(drivers)
+        Base(drivers).refresh()
         """打开销售管理-打开出库单页面"""
         user4.click_gotomenu("Sales Management", "Delivery Order")
         add = DeliveryOrderPage(drivers)

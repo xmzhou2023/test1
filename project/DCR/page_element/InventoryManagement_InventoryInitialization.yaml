@@ -1,4 +1,4 @@
-Export: "xpath==//div//button//span[normalize-space(text())='Export']"
+Export: "xpath==//div[@class='action']/..//button//span[normalize-space(text())='Export']"
 Unfold_Fold: "xpath==//div//span[text()='variable']"
 Search: "xpath==//div//button//span[normalize-space(text())='Search']"
 Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"

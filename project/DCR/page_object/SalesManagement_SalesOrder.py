@@ -82,7 +82,6 @@ class SalesOrderPage(Base):
         return status
 
     """勾选新建的销售单，直接出库"""
-
     @allure.step("勾选第一条销售单ID")
     def click_checkbox_orderID(self):
         sleep(1.5)
@@ -157,11 +156,19 @@ class SalesOrderPage(Base):
 
 
     #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
-    @allure.step("IMEI Inventory Query页面，进入iframe")
-    def imei_inventory_iframe(self):
-        imei_iframe = self.find_element(user['imei inventory iframe'])
-        self.driver.switch_to.frame(imei_iframe)
-        sleep(1)
+    # @allure.step("IMEI Inventory Query页面，进入iframe")
+    # def imei_inventory_iframe(self):
+    #     imei_iframe = self.find_element(user['imei inventory iframe'])
+    #     self.driver.switch_to.frame(imei_iframe)
+    #     sleep(1)
+
+    @allure.step("IMEI Inventory Query页面，根据Received Date开始与结束日期筛选IMEI数据")
+    def input_received_date_query(self, start, end):
+        self.is_click(user['IMEI Inventory Received Date Start'])
+        self.input_text(user['IMEI Inventory Received Date Start'], start)
+        self.is_click(user['IMEI Inventory Received Date End'])
+        self.input_text(user['IMEI Inventory Received Date End'], end)
+        self.is_click(user['点击label标签'], 'Received Date')
 
     @allure.step("点击Unfold展开筛选按钮")
     def click_unfold(self):

@@ -321,12 +321,11 @@ class TestExportCustomer:
         export.click_export()
         export.click_download_more()
         export.input_task_name("Customer management")
+        export.export_record_create_start_date(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
-
         task_name = export.get_task_name_text()
         file_size = export.get_file_size_text()
-
         task_id = export.get_task_user_id_text()
         create_date = export.get_create_date_text()
         complete_date = export.get_complete_date_text()

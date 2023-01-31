@@ -62,6 +62,7 @@ class InventoryInitializationPage(Base):
         get_no_data = self.element_text(user['Order Detail No Data'])
         return get_no_data
 
+    #筛选列表信息
     @allure.step("列表页面，点击Unfold或者Fold展开筛选项")
     def click_unfold_fold(self, unfold_fold):
         self.is_click(user['Unfold_Fold'], unfold_fold)
@@ -76,6 +77,8 @@ class InventoryInitializationPage(Base):
     def click_search(self):
         self.is_click(user['Search'])
         self.element_text(user['Loading'])
+
+
 
     @allure.step("IMEI Detail详情页面，获取Total分页总数")
     def get_imei_detail_total(self):
@@ -92,7 +95,7 @@ class InventoryInitializationPage(Base):
     @allure.step("新建IMEI的初始化库存操作步骤, 暂时不用勿删")
     def create_initialization_imei_operation(self, imei_sn, imei_sn1):
         self.click_add_initialization()
-        self.click_add_imei_sn()
+        self.click_add_imei_sn_radio()
         """输入仓库已存在的IMEI，检查失败"""
         self.input_scan_imei_sn(imei_sn)
         self.click_check()
@@ -124,9 +127,15 @@ class InventoryInitializationPage(Base):
         :param content: 需要断言的值
         """
         logging.info('开始断言：Inventory Initialization列表筛选结果')
-        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
+        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
 
 
+
+    #导出操作
+    @allure.step("初始化库存列表，点击导出功能")
+    def click_initial_list_export(self):
+        self.is_click(user['Export'])
+        sleep(1)
 
 
 if __name__ == '__main__':

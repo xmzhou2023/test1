@@ -159,5 +159,63 @@ class LoginPage(Base):
                 ref.refresh()
 
 
+    """断言导出记录"""
+    @allure.step("Customer Management页面，导出操作后，点击右上角下载图标,点击右上角more...")
+    def click_download_more(self):
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
+        self.is_click(user['More'])
+        self.element_text(user['Loading'])
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], txt=content)
+        sleep(0.5)
+        self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_start_date(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选条件的标签'], 'Create Date')
+
+    @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
+    def click_export_search(self):
+        download_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])
+        return download_status
+
+    @allure.step("导出记录页面，获取列表 Download Status文本")
+    def get_download_status_text(self):
+        status = self.find_element(user['获取下载状态文本'])
+        while status != "COMPLETE":
+            status = self.element_text(user['获取下载状态文本'])
+            sleep(1)
+        return status
+
+    @allure.step("导出记录页面，获取列表 Task Name文本")
+    def get_file_size_text(self):
+        file_size = self.element_text(user['获取文件大小文本'])
+        file_size1 = file_size[0:1]
+        return file_size1
+
+    @allure.step("导出记录页面，获取列表导出时间文本")
+    def get_export_time_text(self):
+        export_time = self.element_text(user['获取导出时间'])
+        export_time1 = export_time[0:1]
+        return export_time1
+
+    @allure.step("断言文件或导出时间是否有数据")
+    def assert_file_time_size(self, file_size, export_time):
+        if int(file_size) > 0:
+            logging.info("Attendance Records导出成功，File Size导出文件大于M:{}".format(file_size))
+        else:
+            logging.info("Attendance Records导出失败，File Size导出文件小于M:{}".format(file_size))
+        if int(export_time) > 0:
+            logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
+        else:
+            logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
+
+
 if __name__ == '__main__':
     pass

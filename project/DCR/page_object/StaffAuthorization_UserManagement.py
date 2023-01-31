@@ -584,7 +584,6 @@ class UserManagementPage(Base):
             logging.info("Attendance Records导出成功，File Size导出文件大于M:{}".format(file_size))
         else:
             logging.info("Attendance Records导出失败，File Size导出文件小于M:{}".format(file_size))
-
         if int(export_time) > 0:
             logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:

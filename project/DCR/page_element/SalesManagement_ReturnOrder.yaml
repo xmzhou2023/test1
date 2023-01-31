@@ -55,7 +55,7 @@ Approval Successfully: "xpath==//p[text()='Approval successfully']"
 #撤销退货单
 More Option: "xpath==//span[normalize-space(text())='More Option']"
 Recall: "xpath==//li[normalize-space(text())='Recall']"
-Confirm Recall: "xpath==//span[normalize-space(text())='Confirm']"
+Confirm Recall: "xpath==//div[@aria-label='Tips']//button//span[normalize-space(text())='Confirm']"
 
 #退货单页面，查看IMEI Detail详情定位
 Return Order Click IMEI Detail: "xpath==//tbody//tr[1]//td[not(contains(@class,'is-hidden'))]//div//button//span[normalize-space(text())='IMEI Detail']"
@@ -114,7 +114,7 @@ IMEI输入: "xpath==//textarea[@class='el-textarea__inner']"
 输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
 输入框1: "xpath==//label[contains(text(),'variable')]/..//input[@class='el-select__input is-small']"
 输入框2: "xpath==//label[contains(text(),'variable')]/..//input[@placeholder='All']"
-Input Return Start Date: "xpath==//label[contains(text(),'variable')]/..//input[@class='el-input__inner returnorder_input_returnDate']"
+Input Return Start Date: "xpath==//label[contains(text(),'variable')]/..//div[@class='date-box start']//input"
 输入框IMEI: "xpath==//label[contains(text(),'variable')]/..//div//textarea[@placeholder='Batch input content']"
 输入结果精确选择: "xpath==//div//ul//li//span[text()='variable']"
 输入结果精确选择1: "xpath==//label[contains(text(),'variable')]/..//div//ul//li//span[text()='variable']"

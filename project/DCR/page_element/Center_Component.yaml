@@ -178,3 +178,19 @@ New Product Booking->Shop Booking Statistics: "xpath==//div//li//span[text()='Sh
 
 Login: "xpath==//h3[normalize-space(text())='Log in']"
 
+#导出记录页面定位
+Download Icon: "id==download-icon"
+More: "xpath==//span[contains(text(),'More...')]"
+Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
+Task Name value: "xpath==//div//ul//li//span[normalize-space(text())='variable']"
+导出记录筛选创建日期: "xpath==//div//input[@class='el-input__inner exportrecord_input_beginTime']"
+点击筛选条件的标签: "xpath==//div//label[text()='variable']"
+Export Record Search: "xpath==//span[contains(text(),'Search')]"
+获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
+获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
+获取文件大小文本: "xpath==//tbody//tr[1]//td[7]//div"
+获取用户ID文本:  "xpath==//tbody//tr[1]//td[8]//div"
+获取创建日期文本: "xpath==//tbody//tr[1]//td[10]//div"
+获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
+获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
+获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"

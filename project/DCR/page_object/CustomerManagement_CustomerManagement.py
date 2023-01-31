@@ -99,12 +99,11 @@ class CustomerManagementPage(Base):
     def click_search(self):
         self.is_click(user['Search'])
         self.element_exist(user['Loading'])
-        sleep(3)
 
     @allure.step("客户列表页面，点击Reset 重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(4.5)
+        self.element_text(user['Loading'])
 
     @allure.step("获取新增客户ID")
     def get_customer_id(self):
@@ -273,7 +272,7 @@ class CustomerManagementPage(Base):
     @allure.step("Import Record页面，点击Search 查询按钮")
     def click_import_record_search(self):
         self.is_click(user['Search'])
-        sleep(1.7)
+        self.element_text(user['Loading'])
 
 
     """导入记录页面，获取列表字段断言是否导入成功"""
@@ -326,15 +325,14 @@ class CustomerManagementPage(Base):
     @allure.step("Customer Management页面，点击导出按钮")
     def click_export(self):
         self.is_click(user['Export'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("Customer Management页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(2)
-
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -342,6 +340,12 @@ class CustomerManagementPage(Base):
         self.input_text(user['Input Task Name'], txt=content)
         sleep(0.5)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_start_date(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选条件的标签'], 'Create Date')
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):

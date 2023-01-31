@@ -579,6 +579,12 @@ class ReturnOrderQuery(Base):
         for i in list_random:
             self.assert_search_result(i, kwargs[i])
 
+    @allure.step("按退货日期条件筛选数据")
+    def return_order_return_date_query(self, header, content):
+        self.is_click(user['Input Return Start Date'], header)
+        self.input_text(user['Input Return Start Date'], content, header)
+        """弹出日历空间后，点击日历标签释法"""
+        self.is_click(user['点击label标签'], header)
 
 
 if __name__ == '__main__':

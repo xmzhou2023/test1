@@ -52,7 +52,7 @@ class TestSalesBusinessProcess:
 
         """2 销售订单页面，新建有码销售单操作"""
         add_sales = SalesOrderPage(drivers)
-        add_sales.click_refresh(drivers)
+        Base(drivers).refresh()
         user.click_gotomenu("Sales Management", "Sales Order")
         add_sales.click_add_sales()
         add_sales.input_sales_buyer("EG000562")
@@ -106,7 +106,7 @@ class TestSalesBusinessProcess:
 
 
         """4 断言进入Delivery Order菜单，是否生成条件对应的出库单记录，状态是否为Delivered"""
-        delivery.click_refresh(drivers)
+        Base(drivers).refresh()
         user.click_gotomenu("Sales Management", "Delivery Order")
         salesid, deliveryid = add_sales.query_sql_delivery_order_id2('62134', '1596874516539662', '1596874516539668', '80200000')
         logging.info("打印最近新建的销售单ID与出库单ID:{}".format(salesid, deliveryid))
@@ -158,7 +158,7 @@ class TestSalesBusinessProcess:
 
 
         """刷新页面"""
-        add_sales.click_refresh(drivers)
+        Base(drivers).refresh()
         """6 退货页面，零售商用户，对已收货的销售单，进行退货操作"""
         user.initialize_login(drivers, "EG00056201", "dcr123456")
         """打开Purchase Management菜单"""
@@ -295,7 +295,7 @@ class TestDeliveryBusinessProcess:
 
         """刷新页面"""
         receipt = SalesOrderPage(drivers)
-        receipt.click_refresh(drivers)
+        Base(drivers).refresh()
         """二代用户，申请退货无码出库单"""
         user2.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""

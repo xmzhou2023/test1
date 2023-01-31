@@ -75,6 +75,9 @@ Get Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
 
 
 #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
+IMEI Inventory Received Date Start: "xpath==//label//span[text()='Received Date']/../..//div[@class='date-box start']//input"
+IMEI Inventory Received Date End: "xpath==//label//span[text()='Received Date']/../..//div[@class='date-box end']//input"
+点击label标签: "xpath==//div//label//span[text()='variable']"
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Material ID: "xpath==//input[@id='imeiinventoryquery_input_materialId']"
 #IMEI库存点击Brand: "xpath==//div//input[@id='imeiinventoryquery_input_brandCodes']"

@@ -255,9 +255,9 @@ class SalesOrderPage(Base):
         box_id = self.element_text(user['Get list Box ID text'])
         return box_id
 
-    @allure.step("刷新页面")
-    def click_refresh(self, drivers):
-        Base(drivers).refresh()
+    # @allure.step("刷新页面")
+    # def click_refresh(self, drivers):
+    #     Base(drivers).refresh()
 
     @allure.step("关闭Sales Order销售单菜单")
     def click_close_sales_order(self):
