@@ -69,24 +69,71 @@ class InventoryInitializationPage(Base):
         sleep(1)
 
     @allure.step("Inventory Initialization列表页面，根据imei条件进行筛选数据")
-    def input_inventory_imei_query(self, header, content):
+    def input_initial_imei_query(self, header, content):
         self.is_click(user['点击IMEI输入框'], header)
         self.input_text(user['输入IMEI输入框'], content, header)
 
     @allure.step("Inventory Initialization列表页面，根据initial id条件进行筛选数据")
     def input_initial_id_query(self, header, content):
-        self.input_text(user['Initial ID输入框'], content, header)
+        self.input_text(user['输入框'], content, header)
 
+    @allure.step("Inventory Initialization列表页面，根据Customer条件进行筛选数据")
+    def input_initial_customer_query(self, header, content, values):
+        self.is_click(user['输入框'], header)
+        self.input_text(user['输入框'], content, header)
+        self.presence_sleep_dcr(user['选中模糊结果值'], values)
+        self.is_click(user['选中模糊结果值'], values)
 
+    @allure.step("Inventory Initialization列表页面，根据Customer Type条件进行筛选数据")
+    def input_initial_customer_type_query(self, header, content):
+        self.is_click(user['输入框'], header)
+        self.input_text(user['输入框'], content, header)
+        self.presence_sleep_dcr(user['选中精确结果值'], content)
+        self.is_click(user['选中精确结果值'], content)
 
+    @allure.step("Inventory Initialization列表页面，根据Warehouse条件进行筛选数据")
+    def input_initial_warehouse_query(self, header, content):
+        self.is_click(user['输入框'], header)
+        self.input_text(user['输入框'], content, header)
+        self.presence_sleep_dcr(user['选中模糊结果值'], content)
+        self.is_click(user['选中模糊结果值'], content)
 
+    @allure.step("Inventory Initialization列表页面，根据model条件进行筛选数据")
+    def input_initial_model_query(self, header, content):
+        self.is_click(user['Model输入框'])
+        self.input_text_dcr(user['输入框2'], content, header)
+        self.presence_sleep_dcr(user['选中精确结果值'], content)
+        self.is_click(user['选中精确结果值'], content)
+        self.is_click(user['点击筛选label'], header)
 
+    @allure.step("Inventory Initialization列表页面，根据brand条件进行筛选数据")
+    def input_initial_brand_query(self, header, content):
+        self.is_click(user['Brand输入框'])
+        self.input_text(user['输入框2'], content, header)
+        self.presence_sleep_dcr(user['选中精确结果值'], content)
+        self.is_click(user['选中精确结果值'], content)
+        self.is_click(user['点击筛选label'], header)
+
+    @allure.step("Inventory Initialization列表页面，根据market_name条件进行筛选数据")
+    def input_initial_market_name_query(self, header, content):
+        self.is_click(user['Market Name输入框'])
+        self.input_text(user['输入框2'], content, header)
+        self.presence_sleep_dcr(user['选中精确结果值'], content)
+        self.is_click(user['选中精确结果值'], content)
+        self.is_click(user['点击筛选label'], header)
+
+    @allure.step("Inventory Initialization列表页面，根据Country条件进行筛选数据")
+    def input_initial_country_query(self, header, content):
+        self.is_click(user['Country输入框'])
+        self.input_text(user['输入框2'], content, header)
+        self.presence_sleep_dcr(user['选中精确结果值'], content)
+        self.is_click(user['选中精确结果值'], content)
+        self.is_click(user['点击筛选label'], header)
 
     @allure.step("列表页面，点击Search 查询按钮")
-    def click_search(self):
-        self.is_click(user['Search'])
+    def click_search_reset(self, content):
+        self.is_click(user['Search_Reset'], content)
         self.element_text(user['Loading'])
-
 
 
     @allure.step("IMEI Detail详情页面，获取Total分页总数")

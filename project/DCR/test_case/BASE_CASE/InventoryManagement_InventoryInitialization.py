@@ -55,9 +55,9 @@ class TestAddInitializationOrder:
         # add.create_initialization_imei_operation('351364951818686')
         # """断言Inventory Initialization列表 ，根本IMEI筛选，是否存在新建的数据"""
         # add.click_unfold_fold('Unfold')
-        # add.input_inventory_imei_query('IMEI', '351364951818686')
+        # add.input_initial_imei_query('IMEI', '351364951818686')
         # """点击Search查询按钮"""
-        # add.click_search()
+        # add.click_search_reset('Search')
         # add.assert_Query_result('Customer ID', 'BD2915')
         # add.assert_Query_result('Creator', 'BD291501')
         # add.assert_Query_result('Operation', 'IMEI Detail')
@@ -142,18 +142,73 @@ class TestQueryInitializationOrder:
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         login = LoginPage(drivers)
-        login.initialize_login(drivers, 'BD291501', 'dcr123456')
+        login.initialize_login(drivers, 'lhmadmin', 'dcr123456')
         login.click_gotomenu('Inventory Management', 'Inventory Initialization')
         select = InventoryInitializationPage(drivers)
         select.click_unfold_fold('Unfold')
         """按Initial ID条件筛选初始化id数据"""
         select.input_initial_id_query('Initial ID', '05HK2301300001')
-        select.click_search()
+        select.click_search_reset('Search')
         select.assert_Query_result('Initial ID', '05HK2301300001')
         select.assert_Query_result('Operation', 'IMEI Detail')
         select.assert_Query_result('Customer ID', 'BD2915')
+        select.click_search_reset('Reset')
 
-        
+        """按Customer条件筛选初始化数据"""
+        select.input_initial_customer_query('Customer', 'BD2915', 'BD2915 lhmSubdealer001')
+        select.click_search_reset('Search')
+        select.assert_Query_result('Customer ID', 'BD2915')
+        select.assert_Query_result('Customer Name', 'lhmSubdealer001')
+        select.click_search_reset('Reset')
+
+        """按Customer Type条件筛选初始化数据"""
+        select.input_initial_customer_type_query('Customer Type', 'Distributor')
+        select.click_search_reset('Search')
+        select.assert_Query_result('Customer Type', '1')
+        select.click_search_reset('Reset')
+
+        """按Warehouse条件筛选初始化数据"""
+        select.input_initial_warehouse_query('Warehouse', 'WBD291502')
+        select.click_search_reset('Search')
+        select.assert_Query_result('Warehouse ID', 'WBD291502')
+        select.click_search_reset('Reset')
+
+        """按Model条件筛选初始化数据"""
+        select.input_initial_model_query('Model', 'X665B')
+        select.click_search_reset('Search')
+        select.assert_Query_result('Model', 'X665B')
+        select.click_search_reset('Reset')
+
+        """按Brand条件筛选初始化数据"""
+        select.input_initial_brand_query('Brand', 'Infinix')
+        select.click_search_reset('Search')
+        select.assert_Query_result('Brand', 'Infinix')
+        select.click_search_reset('Reset')
+
+        """按Market Name条件筛选初始化数据"""
+        select.input_initial_market_name_query('Market Name', 'HOT 12i')
+        select.click_search_reset('Search')
+        select.assert_Query_result('Market Name', 'HOT 12i')
+        select.click_search_reset('Reset')
+
+        """按IMEI条件筛选初始化数据"""
+        select.input_initial_imei_query('IMEI', '357274166980524')
+        select.click_search_reset('Search')
+        """点击IMEI Detail按钮，打开详情页"""
+        select.click_imei_detail_button()
+        """断言IMEI Detail详情页是否存在 筛选的IMEI"""
+        get_detail_total = select.get_imei_detail_total()
+        ValueAssert.value_assert_equal('1', get_detail_total)
+        select.assert_Query_result('IMEI', '357274166980524')
+        select.click_close_imei_detail()
+        select.click_search_reset('Reset')
+
+        """按Country条件筛选初始化数据"""
+        select.input_initial_country_query('Country', 'Bangladesh')
+        select.click_search_reset('Search')
+        select.assert_Query_result('Country', 'Bangladesh')
+        select.click_search_reset('Reset')
+
 
 
     @allure.story("查询库存初始化数据")
@@ -170,8 +225,8 @@ class TestQueryInitializationOrder:
 
         """筛选某条IMEI数据，查看IMEI详情，导出IMEI Detail详情信息"""
         select.click_unfold_fold('Unfold')
-        select.input_inventory_imei_query('IMEI', '351364951220222')
-        select.click_search()
+        select.input_initial_imei_query('IMEI', '351364951220222')
+        select.click_search_reset('Search')
 
         """断言 分页总条数，是否筛选到满足条件的一条数据"""
         get_list_total = select.get_list_total()
@@ -230,8 +285,8 @@ class TestExportInitializationOrder:
         export_detail = InventoryInitializationPage(drivers)
         """筛选某条IMEI数据，查看IMEI详情，导出IMEI Detail详情信息"""
         export_detail.click_unfold_fold('Unfold')
-        export_detail.input_inventory_imei_query('IMEI', '351364951220222')
-        export_detail.click_search()
+        export_detail.input_initial_imei_query('IMEI', '351364951220222')
+        export_detail.click_search_reset('Search')
 
         """断言 分页总条数，是否筛选到满足条件的一条数据"""
         get_list_total = export_detail.get_list_total()
