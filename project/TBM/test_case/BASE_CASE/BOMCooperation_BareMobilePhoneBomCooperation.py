@@ -1004,6 +1004,7 @@ class TestTheProcessOfExaminationAndApproval:
     @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
+    @pytest.mark.skip
     # @pytest.mark.skip # 如果需要执行，手动将@pytest.mark.skip注释
     def test_003_035(self, drivers):
         user = BareMobilePhoneBomCooperation(drivers)

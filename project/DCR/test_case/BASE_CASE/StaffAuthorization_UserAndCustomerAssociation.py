@@ -163,5 +163,6 @@ class TestCustomerAssociation:
         customer.click_tab_search()
         customer.assert_NoData()
 
+
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])

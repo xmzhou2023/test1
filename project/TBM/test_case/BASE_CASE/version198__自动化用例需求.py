@@ -7238,7 +7238,7 @@ class Teststory_3247:
         user.quit_oneworks()
 
     @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作PCBABOM协作=BOM衍生，【生产工厂信息】物料12398884的贴片工厂不能为空")  # 用例名称
+    @allure.title("BOM协作PCBABOM协作=BOM衍生，【生产工厂信息】物料xxxxxx的贴片工厂不能为空")  # 用例名称
     @allure.description("在补充工厂页面中，不进行填写任何数据，点击同意，不能提交成功，并给出提示'【生产工厂信息】物料xxxxxxxx的贴片工厂不能为空'")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
@@ -7249,7 +7249,7 @@ class Teststory_3247:
         user.enter_oneworks_edit(PCBA_Derived_API[0])
         user.click_oneworks_agree()
         user.enter_oneworks_iframe()
-        user.assert_toast('【生产工厂信息】物料12398884的贴片工厂不能为空')
+        user.assert_toast('【生产工厂信息】物料12198883的贴片工厂不能为空')
         user.quit_oneworks()
 
     @allure.story("自动化测试")  # 用户故事名称
@@ -7311,7 +7311,7 @@ class Teststory_3247:
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作PCBABOM协作=BOM衍生，BOM[XXXXXXX]中的物料[XXXXXXX]位号个数与数量不一致，请检查后提交")  # 用例名称
-    @allure.description("在基带工程师审批页面中，衍生差异信息中位号填多个，将BOM数量改为1，点击生成BOM，提示'BOM[12398884]中的物料[12300002]位号个数与数量不一致，请检查后提交'")  # 用例描述
+    @allure.description("在基带工程师审批页面中，衍生差异信息中位号填多个，将BOM数量改为1，点击生成BOM，提示'BOM[XXXXXXX]中的物料[XXXXXXX]位号个数与数量不一致，请检查后提交'")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_20595(self, drivers, PCBA_Derived_Factory_API):
@@ -7322,7 +7322,7 @@ class Teststory_3247:
         user.click_Derived_differ()
         user.input_Derived_info('位号', 'C1,C2')
         user.click_Creat_BOM()
-        user.assert_toast('BOM[12398884]中的物料[12105698]位号个数与数量不一致，请检查后提交')
+        user.assert_toast('BOM[12198883]中的物料[12105695]位号个数与数量不一致，请检查后提交')
         user.quit_oneworks()
 
     @allure.story("自动化测试")  # 用户故事名称
@@ -7811,7 +7811,6 @@ class Teststory_3247:
         user.click_add()
         user.input_add_item_info('品牌', 'itel')
         user.input_add_item_info('项目', '50A1S')
-        user.input_add_item_info('基线名称', '基线GP2325')
         user.input_add_item_info('平台', '测试平台')
         user.input_add_item_info('上市时间', '2022-06-20')
         user.input_add_item_info('月度需求', '1')
@@ -7850,7 +7849,6 @@ class Teststory_3247:
         user.refresh_webpage_click_menu()
         user.click_add()
         user.input_add_item_info('品牌', 'itel')
-        user.input_add_item_info('基线名称', '基线GP2325')
         user.input_add_item_info('平台', '测试平台')
         user.input_add_item_info('上市时间', '2022-06-20')
         user.input_add_item_info('月度需求', '1')

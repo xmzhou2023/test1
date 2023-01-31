@@ -1979,7 +1979,7 @@ class TestProcessApprovalExceptionScenario:
         user.quit_oneworks()
 
     @allure.story("流程审批异常场景")
-    @allure.title("BOM衍生，【生产工厂信息】物料12398884的贴片工厂不能为空")
+    @allure.title("BOM衍生，【生产工厂信息】物料xxxxxx的贴片工厂不能为空")
     @allure.description("在补充工厂页面中，不进行填写任何数据，点击同意，不能提交成功，并给出提示“【生产工厂信息】物料xxxxxxxx的贴片工厂不能为空”")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
     @pytest.mark.UT
@@ -1990,7 +1990,7 @@ class TestProcessApprovalExceptionScenario:
         user.enter_oneworks_edit(PCBA_Derived_API[0])
         user.click_oneworks_agree()
         user.enter_oneworks_iframe()
-        user.assert_toast('【生产工厂信息】物料12398884的贴片工厂不能为空')
+        user.assert_toast('【生产工厂信息】物料12198883的贴片工厂不能为空')
         user.quit_oneworks()
 
     @allure.story("流程审批异常场景")
@@ -2052,7 +2052,7 @@ class TestProcessApprovalExceptionScenario:
 
     @allure.story("流程审批异常场景")  # 场景名称
     @allure.title("BOM衍生，BOM[XXXXXXX]中的物料[XXXXXXX]位号个数与数量不一致，请检查后提交")  # 用例名称
-    @allure.description("在基带工程师审批页面中，衍生差异信息中位号填多个，将BOM数量改为1，点击生成BOM，提示“BOM[12398884]中的物料[12300002]位号个数与数量不一致，请检查后提交”")
+    @allure.description("在基带工程师审批页面中，衍生差异信息中位号填多个，将BOM数量改为1，点击生成BOM，提示“BOM[XXXXXXX]中的物料[XXXXXXX]位号个数与数量不一致，请检查后提交”")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
     def test_004_020(self, drivers, PCBA_Derived_Factory_API):
@@ -2063,7 +2063,7 @@ class TestProcessApprovalExceptionScenario:
         user.click_Derived_differ()
         user.input_Derived_info('位号', 'C1,C2')
         user.click_Creat_BOM()
-        user.assert_toast('BOM[12398884]中的物料[12105698]位号个数与数量不一致，请检查后提交')
+        user.assert_toast('BOM[12198883]中的物料[12105695]位号个数与数量不一致，请检查后提交')
         user.quit_oneworks()
 
     @allure.story("流程审批异常场景")  # 场景名称
@@ -2285,15 +2285,18 @@ class TestProcessSearch:
     @allure.description("在查询页面，点击编辑，跳转至oneworks编辑页面，可以编辑页面信息、提交、保存")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.UT  # 用例标记
+
     def test_005_008(self, drivers):
         user = PCBABomCooperation(drivers)
         user.refresh_webpage_click_menu()
         user.input_search_info('标题', '自动化查询用例')
         user.click_search()
         user.click_edit('自动化查询用例')
+        user.select_business_review('李小素', 'all')
         user.click_add_save()
         DomAssert(drivers).assert_att('保存草稿成功')
         user.click_edit('自动化查询用例')
+        user.select_business_review('李小素', 'all')
         user.click_add_submit()
         DomAssert(drivers).assert_att('创建流程成功')
         user.input_search_info('标题', '自动化查询用例')
