@@ -46,13 +46,11 @@ Get Warehouse ID: "xpath==//tbody//tr[@class='el-table__row']//td[10]//div[@clas
 Get Warehouse Name: "xpath==//tbody//tr[@class='el-table__row']//td[11]//div[@class='cell el-tooltip']"
 Get Total: "xpath==//section//div//..//..//span[contains(text(),'Total')]"
 
-
 #删除客户信息
 More Options: "xpath==//button[@id='customermanagementglobal_More Option']//span"
 Delete: "xpath==//li[normalize-space(text())='Delete']"
 Delete Confirm: "xpath==//div[@class='el-dialog__body']//..//div[@class='el-dialog__footer']//button[@id='customermanagementglobal_Yes']"
 Delete Tips Close: "xpath==//button//span[normalize-space(text())='Close']"
-
 
 关闭导出记录菜单: "xpath==//span[normalize-space(text())='Export Record']//span[@class='el-icon-close']"
 关闭客户管理菜单: "xpath==//span[normalize-space(text())='Customer Management (global)']//span[@class='el-icon-close']"
@@ -62,7 +60,6 @@ Enable Confirm: "xpath==//div[@aria-label='dialog']//button//span[normalize-spac
 Disable: "xpath==//li[normalize-space(text())='Disable']"
 Disable Yes: "xpath==//div[@aria-label='Customer Disable Setting']//button//span[normalize-space(text())='Yes']"
 Get list Status: "xpath==//tbody//tr[@class='el-table__row']//td[38]//div[normalize-space(text())='variable']"
-#勾选复选框: "xpath==//tbody//tr[@class='el-table__row']//td[1]//div//label//..//span[@class='el-checkbox__inner']"
 
 #导入客户信息
 Import Button: "xpath==//button[@id='enterprise_import_']//span[normalize-space(text())='Import']"
