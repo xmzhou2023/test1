@@ -1,3 +1,5 @@
+from selenium.webdriver import ActionChains, Keys
+
 from public.base.basics import Base
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
@@ -153,6 +155,8 @@ class LoginPage(Base):
             get_account = self.get_login_account()
             if account1 != get_account:
                 self.click_loginOut()
+                self.driver.delete_all_cookies()
+                self.refresh()
                 self.dcr_again_login(drivers, account1, password)
             else:
                 ref = Base(drivers)
