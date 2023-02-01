@@ -94,7 +94,7 @@ class TestQueryUser:
 
 
 @allure.feature("员工授权-用户管理")
-class TestAddEditQuitTranssionUser:
+class TestAddEditQuitUser:
     @allure.story("用户管理业务流程")
     @allure.title("用户管理页面，新增、编辑、离职传音用户")
     @allure.description("用户管理页面，新增、编辑、离职传音用户能正常运行")
@@ -164,12 +164,88 @@ class TestAddEditQuitTranssionUser:
         """ 在数据库表中，删除新增的用户 """
         add_transsion.sql_delete_user(trans_userid)
 
+    @allure.story("用户管理业务流程")
+    @allure.title("用户管理页面，新增、编辑、离职代理用户")
+    @allure.description("用户管理页面，新增、编辑、离职代理用户能正常运行")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_002_002(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Staff & Authorization", "User Management")
+        """新建国包代理员工"""
+        dealer_user = UserManagementPage(drivers)
+        num = dealer_user.number_radom()
+        add_contact_no = "13896785" + num
+        edit_email = add_contact_no + '@163.com'
+        dealer_username = dealer_user.dealer_user_name_random()
+        """新增Add代理员工操作"""
+        dealer_user.add_dealer_user_operation('Dealer Staff', 'UG4019912', dealer_username, 'Barisal', 'Barisal',
+                                              'lhm二代', 'lhmadmin', edit_email, add_contact_no, 'Female')
+        """点击查询按钮"""
+        dealer_user.click_search()
+        """首先根据新建的User ID筛选，然后获取列表新增的User ID，User name，进行断言比较是否存在新建的用户"""
+        user = SQL('DCR', 'test')
+        result = user.query_db(
+            "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
+        userid = result[0].get('USER_CODE')
+        """筛选用户后，点击Search，进行断言门店列表是否存在新建的门店ID"""
+        dealer_user.input_query_User(userid)
+        dealer_user.click_search()
+        dealer_user.assert_user_management_field('User ID', userid)
+        dealer_user.assert_user_management_field('User Name', dealer_username)
+
+        """查询数据库用户表的userid,username是否存在断言"""
+        sql_asser = SQLAssert('DCR', 'test')
+        sql_asser.assert_sql(userid,
+                             "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin' and e.IN_SERVICE=2 order by e.created_time desc limit 1")
+        sql_asser.assert_sql(dealer_username,
+                             "select u.USER_NAME from t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin' and e.IN_SERVICE=2 order by e.created_time desc limit 1")
+
+        """ 编辑代理员工 """
+        """筛选用户后，点击Search，进行编辑操作"""
+        edit_user_name = dealer_user.dealer_user_name_random()
+        edit_contact_no = "13914021" + num
+        edit_email = edit_contact_no + '@163.com'
+        logging.info("打印编辑代理员工时，输入的User Name{}".format(edit_user_name))
+        """编辑Edit代理员工操作"""
+        dealer_user.edit_trans_user_info_operation(edit_user_name, 'itel', edit_email, edit_contact_no, 'Male')
+        """点击user name属性，将光标从品牌字段移开"""
+        dealer_user.click_add_user_submit()
+        """编辑成功后，页面是否弹出编辑成功提示语"""
+        DomAssert(drivers).assert_att("Set Up Successfully")
+        sleep(1)
+        """断言修改后的用户ID与用户名称是否存在相同值"""
+        dealer_user.assert_user_management_field('User ID', userid)
+        dealer_user.assert_user_management_field('User Name', edit_user_name)
+
+        """查询数据库用户表的userid,username是否存在断言"""
+        sqlasser = SQLAssert('DCR', 'test')
+        sqlasser.assert_sql(userid,
+                            "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
+        sqlasser.assert_sql(edit_user_name,
+                            "select u.USER_NAME from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin'  and e.IN_SERVICE=2 order by e.created_time desc limit 1")
+
+        """ 离职代理员工 """
+        dealer_user.click_first_checkbox()
+        dealer_user.click_more_option_quit()
+        """用户离职是否成功，断言"""
+        DomAssert(drivers).assert_att("Disabled Successfully")
+        sleep(1.5)
+        """断言列表是否不存在被删除的用户"""
+        get_total = dealer_user.get_total()
+        ValueAssert.value_assert_In('0', get_total)
+        """ 在数据库表中，删除新增的用户 """
+        dealer_user.sql_delete_user(userid)
+
 
     @allure.story("用户管理")
     @allure.title("新建代理员工，User ID输入内部员工时，提示报错，使用非内部员工数字能创建成功。")
     @allure.description("新建代理员工，staff type选择Dealer Staff，使用输入User ID是内部员工时，提示失败，然后使用非内部员工数字能成功。")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_002_002(self, drivers):
+    def test_002_003(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -219,7 +295,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("新增在HR已离职的员工，不允许新增，提示信息为“员工已在用户中心离职，不允许新增”")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_003(self, drivers):
+    def test_002_004(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -237,7 +313,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("页面编辑传音员工，用户类型、用户ID、姓名、性别、个人邮箱、语言、入职日期字段置灰不可编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_004(self, drivers):
+    def test_002_005(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -265,7 +341,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("页面进入代理员工编辑页，员工类型、ID、所属客户置灰不可编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_005(self, drivers):
+    def test_002_006(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -288,7 +364,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("用户中心已离职的员工编辑提示：该用户已在用户中心离职，不能编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_006(self, drivers):
+    def test_002_007(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -311,7 +387,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("批导编辑传音员工，编辑用户类型失败；编辑已离职员工失败；批导编辑传音员工姓名、性别、个人邮箱、语言、入职日期字段不生效")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_007(self, drivers):
+    def test_002_008(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -348,7 +424,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("支持导入编辑员工信息，检查成功的（比如职位）")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_008(self, drivers):
+    def test_002_009(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -406,7 +482,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("可启用离职状态的员工，能正常登录DCR系统,访问不同菜单，不会出现token失效的问题")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_009(self, drivers):
+    def test_002_010(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -442,7 +518,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("内部员工不能直接重置，提示报错")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_010(self, drivers):
+    def test_002_011(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -463,7 +539,7 @@ class TestAddEditQuitTranssionUser:
     @allure.title("新建员工，输入内部员工ID自动同步信息，并且登录成功")
     @allure.description("新建传音员工，staff type选择Transsion Staff，能自动同步姓名、入职日期信息，使用通用密码登录成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_002_011(self, drivers):
+    def test_002_012(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -507,7 +583,7 @@ class TestAddEditQuitTranssionUser:
     @allure.title("已离职员工不能重置密码以及登录系统")
     @allure.description("操作用户离职，已离职的员工不能重置密码,离职后用户不能登录系统")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_002_012(self, drivers):
+    def test_002_013(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -541,7 +617,7 @@ class TestAddEditQuitTranssionUser:
     @allure.description("支持导入新增员工，上传User ID，未填写用户姓名、性别、个人邮箱，同时语言和入职日期是错误的，会同步用户中心的字段信息为准")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_013(self, drivers):
+    def test_002_014(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -587,7 +663,7 @@ class TestAddEditQuitTranssionUser:
     @allure.title("外部员工可重置密码")
     @allure.description("外部员工密码可重置成功,重置后，能登录并修改密码，修改后能登录成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_002_014(self, drivers):
+    def test_002_015(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -617,7 +693,7 @@ class TestAddEditQuitTranssionUser:
     @allure.title("批量重置员工密码，包含内部员工重置失败")
     @allure.description("批量重置员工密码，包含内部员工重置失败")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    def test_002_015(self, drivers):
+    def test_002_016(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "18650493", "xLily6x")
@@ -644,83 +720,6 @@ class TestAddEditQuitTranssionUser:
         DomAssert(drivers).assert_att('Username or password is incorrect, login failed！account will be locked for 1 hour after 10 consecutive failed!')
 
 
-@allure.feature("员工授权-用户管理")
-class TestAddEditQuitDealerUser:
-    @allure.story("用户管理业务流程")
-    @allure.title("用户管理页面，新增、编辑、离职代理用户")
-    @allure.description("用户管理页面，新增、编辑、离职代理用户能正常运行")
-    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
-    def test_003_001(self, drivers):
-        """ lhmadmin管理员账号登录"""
-        user = LoginPage(drivers)
-        user.initialize_login(drivers, "lhmadmin", "dcr123456")
-        """销售管理菜单-出库单-筛选出库单用例"""
-        user.click_gotomenu("Staff & Authorization", "User Management")
-        """新建国包代理员工"""
-        dealer_user = UserManagementPage(drivers)
-        num = dealer_user.number_radom()
-        add_contact_no = "13896785" + num
-        edit_email = add_contact_no + '@163.com'
-        dealer_username = dealer_user.dealer_user_name_random()
-        """新增Add代理员工操作"""
-        dealer_user.add_dealer_user_operation('Dealer Staff', 'UG4019912', dealer_username, 'Barisal', 'Barisal', 'lhm二代', 'lhmadmin', edit_email, add_contact_no, 'Female')
-        """点击查询按钮"""
-        dealer_user.click_search()
-        """首先根据新建的User ID筛选，然后获取列表新增的User ID，User name，进行断言比较是否存在新建的用户"""
-        user = SQL('DCR', 'test')
-        result = user.query_db(
-            "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
-        userid = result[0].get('USER_CODE')
-        """筛选用户后，点击Search，进行断言门店列表是否存在新建的门店ID"""
-        dealer_user.input_query_User(userid)
-        dealer_user.click_search()
-        dealer_user.assert_user_management_field('User ID', userid)
-        dealer_user.assert_user_management_field('User Name', dealer_username)
-
-        """查询数据库用户表的userid,username是否存在断言"""
-        sql_asser = SQLAssert('DCR', 'test')
-        sql_asser.assert_sql(userid,
-                             "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin' and e.IN_SERVICE=2 order by e.created_time desc limit 1")
-        sql_asser.assert_sql(dealer_username,
-                             "select u.USER_NAME from t_user as u,t_employee as e  where  u.ID=e.U_ID  and  e.created_by='lhmadmin' and e.IN_SERVICE=2 order by e.created_time desc limit 1")
-
-        """ 编辑代理员工 """
-        """筛选用户后，点击Search，进行编辑操作"""
-        edit_user_name = dealer_user.dealer_user_name_random()
-        edit_contact_no = "13914021" + num
-        edit_email = edit_contact_no + '@163.com'
-        logging.info("打印编辑代理员工时，输入的User Name{}".format(edit_user_name))
-        """编辑Edit代理员工操作"""
-        dealer_user.edit_trans_user_info_operation(edit_user_name, 'itel', edit_email, edit_contact_no, 'Male')
-        """点击user name属性，将光标从品牌字段移开"""
-        dealer_user.click_add_user_submit()
-        """编辑成功后，页面是否弹出编辑成功提示语"""
-        DomAssert(drivers).assert_att("Set Up Successfully")
-        sleep(1)
-        """断言修改后的用户ID与用户名称是否存在相同值"""
-        dealer_user.assert_user_management_field('User ID', userid)
-        dealer_user.assert_user_management_field('User Name', edit_user_name)
-
-        """查询数据库用户表的userid,username是否存在断言"""
-        sqlasser = SQLAssert('DCR', 'test')
-        sqlasser.assert_sql(userid,
-                            "select u.USER_CODE from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin' and e.IN_SERVICE=2  order by e.created_time desc limit 1")
-        sqlasser.assert_sql(edit_user_name,
-                            "select u.USER_NAME from t_user as u,t_employee as e  where  u.ID=e.U_ID and e.created_by='lhmadmin'  and e.IN_SERVICE=2 order by e.created_time desc limit 1")
-
-        """ 离职代理员工 """
-        dealer_user.click_first_checkbox()
-        dealer_user.click_more_option_quit()
-        """用户离职是否成功，断言"""
-        DomAssert(drivers).assert_att("Disabled Successfully")
-        sleep(1.5)
-        """断言列表是否不存在被删除的用户"""
-        get_total = dealer_user.get_total()
-        ValueAssert.value_assert_In('0', get_total)
-        """ 在数据库表中，删除新增的用户 """
-        #dealer_user.sql_delete_user(userid)
-
 
 @allure.feature("员工授权-用户管理")
 class TestExportUser:
@@ -729,7 +728,7 @@ class TestExportUser:
     @allure.description("用户管理页面，导出筛选的用户数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_004_001(self, drivers):
+    def test_003_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -768,7 +767,7 @@ class TestImportUser:
     @allure.description("用户管理页面，导入传音用户成功后，查看列表是否展示导入的用户信息；然后删除导入的用户操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_005_001(self, drivers):
+    def test_004_001(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "lhmadmin", "dcr123456")
         menu.click_gotomenu("Staff & Authorization", "User Management")
@@ -819,7 +818,7 @@ class TestImportUser:
     @allure.description("用户管理页面，导入代理用户成功后，查看列表是否展示导入的用户信息；然后删除导入的用户操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_005_002(self, drivers):
+    def test_004_002(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "lhmadmin", "dcr123456")
         menu.click_gotomenu("Staff & Authorization", "User Management")
@@ -867,41 +866,39 @@ class TestImportUser:
         upload.sql_delete_user(get_user_id)
 
 
-# @allure.feature("员工授权-用户管理")
-# class TestResetPasswordUser:
-#     @allure.story("用户重置密码")
-#     @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
-#     @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
-#     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-#     def test_006_001(self, drivers):
-#         """ lhmadmin管理员账号登录"""
-#         user = LoginPage(drivers)
-#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-#
-#         """用户授权-用户管理-查询用户管理列表数据用例"""
-#         user.click_gotomenu("Staff & Authorization", "User Management")
-#
-#         reset = UserManagementPage(drivers)
-#         reset.input_query_User('EG4463901')
-#         reset.click_search()
-#         reset.click_first_checkbox()
-#         reset.click_more_reset_password()
-#         """断言是否弹出设置成功提示"""
-#         DomAssert(drivers).assert_att("Set Up Successfully")
-#         sleep(1.5)
-#         """重置密码成功后，使用该账号登录，设置新的密码"""
-#         user.initialize_login(drivers, "EG4463901", "EG4463901")
-#
-#         """该用户登录时，弹出设置新密码窗口，输入新密码及确认新密码，点击保存"""
-#         reset.input_new_password_save("dcr123456")
-#         DomAssert(drivers).assert_att("Save successfully!")
-#         reset.click_save_successfully_ok()
-#
-#         """弹出登录页面，输入新的密码，点击登录按钮"""
-#         reset.input_login_password("dcr123456")
-#         reset.click_login()
-#         """验证登录成功后，页面是否存在首页菜单"""
-#         DomAssert(drivers).assert_att("Home Page-Customer")
+@allure.feature("员工授权-用户管理")
+class TestResetPasswordUser:
+    @allure.story("用户重置密码")
+    @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
+    @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    def test_005_001(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """用户授权-用户管理-查询用户管理列表数据用例"""
+        user.click_gotomenu("Staff & Authorization", "User Management")
+        reset = UserManagementPage(drivers)
+        reset.input_query_User('EG4463901')
+        reset.click_search()
+        reset.click_first_checkbox()
+        reset.click_more_reset_password()
+        """断言是否弹出设置成功提示"""
+        DomAssert(drivers).assert_att("Set Up Successfully")
+        sleep(1)
+        """重置密码成功后，使用该账号登录，设置新的密码"""
+        user.initialize_login(drivers, "EG4463901", "EG4463901")
+
+        """该用户登录时，弹出设置新密码窗口，输入新密码及确认新密码，点击保存"""
+        reset.input_new_password_save("dcr123456")
+        DomAssert(drivers).assert_att("Save successfully!")
+        reset.click_save_successfully_ok()
+
+        """弹出登录页面，输入新的密码，点击登录按钮"""
+        reset.input_login_password("dcr123456")
+        reset.click_login()
+        """验证登录成功后，页面是否存在首页菜单"""
+        DomAssert(drivers).assert_att("Home Page-Customer")
 
 
 if __name__ == '__main__':

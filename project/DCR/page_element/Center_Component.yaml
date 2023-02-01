@@ -194,3 +194,7 @@ Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
 获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
 获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"
+
+#Import Record导入记录
+筛选Import Date Start: "xpath==//div//label[text()='Import Date']/..//div[@class='date-box start']//input"
+筛选label标签: "xpath==//div//label[text()='variable']"

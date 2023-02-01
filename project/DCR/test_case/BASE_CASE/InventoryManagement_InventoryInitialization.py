@@ -2,9 +2,9 @@ from project.DCR.page_object.Center_Component import LoginPage
 from project.DCR.page_object.InventoryManagement_InventoryInitialization import InventoryInitializationPage
 from public.base.assert_ui import ValueAssert, DomAssert
 from public.base.basics import Base
+from libs.common.connect_sql import *
 import logging
 from libs.common.time_ui import sleep
-import datetime
 import pytest
 import allure
 
@@ -210,7 +210,6 @@ class TestQueryInitializationOrder:
         select.click_search_reset('Reset')
 
 
-
     @allure.story("查询库存初始化数据")
     @allure.title("库存管理页面，查询查看一条数据的IMEI Detail详情")
     @allure.description("库存管理页面，查看一条数据的IMEI Detail详情列表信息")
@@ -308,6 +307,95 @@ class TestExportInitializationOrder:
         else:
             logging.info('the total is empty')
         export_detail.click_close_imei_detail()
+
+
+@allure.feature("库存管理-库存初始化")
+class TestImportInitializationOrder:
+    @allure.story("导入库存初始化数据")
+    @allure.title("库存管理页面，导入库存初始化数据成功")
+    @allure.description("库存管理页面，导入库存初始化数据成功")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_004_001(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, 'BD291501', 'dcr123456')
+        login.click_gotomenu('Inventory Management', 'Inventory Initialization')
+        add_upload = InventoryInitializationPage(drivers)
+        today = Base(drivers).get_datetime_today()
+        """需要导入的IMEI参数"""
+        imei = '359037470982967'
+        add_upload.click_initial_import('Import')
+        add_upload.upload_true_file('Inventory+Initiali+Template_Success.xlsx')
+        """根据导入日期筛选当前导入的数据"""
+        login.input_batch_import_date_query(today)
+        """进入Import Record页面，点击Search按钮 """
+        add_upload.click_search_reset('Search')
+
+        """Import Record 导入记录页面，断言是否新增一条导入成功的记录"""
+        add_upload.assert_Query_result('File Name', 'Inventory+Initiali+Template_Success.xlsx')
+        add_upload.assert_Query_result('Status', 'Upload Successfully')
+        add_upload.assert_Query_result('Total', '1')
+        add_upload.assert_Query_result('Success', '1')
+        add_upload.assert_Query_result('Failed', '0')
+        add_upload.assert_Query_result('Import Date', today)
+        add_upload.assert_Query_result('User ID', 'BD291501')
+        """关闭当前打开的菜单"""
+        login.click_close_open_menu()
+
+        """根据导入的库存初始化数据，筛选导入的数据，进行断言列表是否存在导入的数据"""
+        add_upload.click_unfold_fold('Unfold')
+        add_upload.input_initial_imei_query('IMEI', imei)
+        add_upload.click_search_reset('Search')
+        """断言Inventory Initialization页面，是否加载导入成的数据"""
+        get_list_total = add_upload.get_list_total()
+        logging.info("获取Inventory Initialization页面，分页总条数:{}".format(get_list_total))
+        ValueAssert.value_assert_equal('1', get_list_total)
+        initial_id = add_upload.get_initial_id_text()
+        logging.info("获取Inventory Initialization页面列表，Initial ID字段内容:{}".format(initial_id))
+        add_upload.assert_Query_result('Brand', 'itel')
+        """点击IMEI Detail按钮，打开详情页"""
+        add_upload.click_imei_detail_button()
+        get_detail_total = add_upload.get_imei_detail_total()
+        ValueAssert.value_assert_equal('1', get_detail_total)
+        add_upload.assert_Query_result('IMEI', imei)
+        add_upload.assert_Query_result('Brand', 'itel')
+        add_upload.click_close_imei_detail()
+        """通过数据库脚本删除导入的初始化数据"""
+        add_upload.delete_import_initial_data(initial_id, imei)
+
+
+
+    @allure.story("导入库存初始化数据")
+    @allure.title("库存管理页面，导入库存初始化列表已存在的IMEI，导入失败")
+    @allure.description("库存管理页面，导入库存初始化列表已存在的IMEI，导入失败")
+    @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_export_fixture')
+    def test_004_002(self, drivers):
+        login = LoginPage(drivers)
+        login.initialize_login(drivers, 'BD291501', 'dcr123456')
+        login.click_gotomenu('Inventory Management', 'Inventory Initialization')
+        add_upload = InventoryInitializationPage(drivers)
+        today = Base(drivers).get_datetime_today()
+
+        add_upload.click_initial_import('Import')
+        add_upload.upload_true_file('Inventory+Initiali+Template_Failed.xlsx')
+        """根据导入日期筛选当前导入的数据"""
+        login.input_batch_import_date_query(today)
+        """进入Batch Import页面，点击Search按钮 """
+        add_upload.click_search_reset('Search')
+
+        """Import Record 导入记录页面，断言是否新增一条导入失败的记录"""
+        add_upload.assert_Query_result('File Name', 'Inventory+Initiali+Template_Failed.xlsx')
+        add_upload.assert_Query_result('Status', 'Upload Successfully')
+        add_upload.assert_Query_result('Total', '1')
+        add_upload.assert_Query_result('Success', '0')
+        add_upload.assert_Query_result('Failed', '1')
+        add_upload.assert_Query_result('Fail Data', 'Download Failed')
+        add_upload.assert_Query_result('Import Date', today)
+        add_upload.assert_Query_result('User ID', 'BD291501')
+
 
 
 if __name__ == '__main__':

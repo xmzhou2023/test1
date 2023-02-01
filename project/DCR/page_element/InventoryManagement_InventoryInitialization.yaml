@@ -28,6 +28,14 @@ Market Name输入框: "id==inventoryinit_input_marketingNames"
 Country输入框: "id==inventoryinit_input_countryList"
 点击筛选label: "xpath==//div//label[text()='variable']"
 
+#导入
+Import_upload: "xpath==//div//button//span[normalize-space(text())='variable']"
+Import Save: "xpath==//div[@class='el-dialog__footer']/../..//button[@id='inventoryinit_Save']//span[normalize-space(text())='Save']"
+Upload Confirm: "xpath==//div[@aria-label='dialog']//button//span[normalize-space(text())='Confirm']"
+#获取列表Initial ID字段内容
+获取列表Initial ID表头: "xpath==//tr[1]//td[contains(@class,'el-table_1_column') and not(contains(@class,'is-hidden'))]"
+获取列表Initial ID内容: "xpath==//tr//td[contains(@class,'variable') and not(contains(@class,'is-hidden'))]"
+
 
 #导出
 Export: "xpath==//div[@class='action']/..//button//span[normalize-space(text())='Export']"

@@ -432,7 +432,7 @@ class TestDisableCustomer:
 #         ValueAssert.value_assert_equal(today, get_import_date)
 #         """关闭当前打开的菜单"""
 #         user.click_close_open_menu()
-#         """根据导入的客户ID，筛选导入的数据，然后进行删除操作"""
+#         """根据导入的客户ID，筛选导入的数据，进行断言列表是否存在导入的数据"""
 #         upload.input_customer_query('Cus_test_itel')
 #         upload.click_search()
 #
@@ -442,11 +442,6 @@ class TestDisableCustomer:
 #         get_cus_name = upload.get_customer_name()
 #         get_contact_name = upload.get_contact_name()
 #         get_contact_no = upload.get_contact_no()
-#         logging.info("打印获取客户管理列表brand字段内容：{}".format(get_brand))
-#         logging.info("打印获取客户管理列表brand字段内容：{}".format(get_cus_id))
-#         logging.info("打印获取客户管理列表字段内容：{}".format(get_cus_name))
-#         logging.info("打印获取客户管理列表字段内容：{}".format(get_contact_name))
-#         logging.info("打印获取客户管理列表字段内容：{}".format(get_contact_no))
 #         ValueAssert.value_assert_equal('itel', get_brand)
 #         ValueAssert.value_assert_IsNoneNot(get_cus_id)
 #         ValueAssert.value_assert_equal('Cus_test_itel', get_cus_name)

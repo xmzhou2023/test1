@@ -62,8 +62,8 @@ class LoginPage(Base):
 
     @allure.step("获取当前打开状态的菜单class值")
     def get_open_menu_class(self):
-        ss = self.find_element(user['打开状态的菜单'])
-        get_menu_class = ss.get_attribute('class')
+        open_menu = self.find_element(user['打开状态的菜单'])
+        get_menu_class = open_menu.get_attribute('class')
         return get_menu_class
 
     @allure.step("获取页面是否有隐私政策内容")
@@ -217,6 +217,13 @@ class LoginPage(Base):
             logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
+
+    #批量导入页面定位
+    @allure.step("Import Record导入记录页面，按Import Date条件筛选数据")
+    def input_batch_import_date_query(self, start):
+        self.is_click(user['筛选Import Date Start'])
+        self.input_text(user['筛选Import Date Start'], start)
+        self.is_click(user['筛选label标签'], 'Import Date')
 
 
 if __name__ == '__main__':
