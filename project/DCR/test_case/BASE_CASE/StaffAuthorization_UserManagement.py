@@ -168,7 +168,6 @@ class TestAddEditQuitUser:
     @allure.title("用户管理页面，新增、编辑、离职代理用户")
     @allure.description("用户管理页面，新增、编辑、离职代理用户能正常运行")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_002(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
