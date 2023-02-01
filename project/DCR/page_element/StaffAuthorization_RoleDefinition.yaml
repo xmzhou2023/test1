@@ -21,7 +21,7 @@ Save: "xpath==//span[contains(text(),'Save')]"
 
 菜单1: "xpath==//li[@class='el-submenu']/div//span[normalize-space(text())='variable']"
 菜单2: "xpath==//div[@class='nest-menu']//span[normalize-space(text())='variable']"
-菜单栏: "xpath==//span[contaConfirmins(@class,'tags-view-item')][1]"
+菜单栏: "xpath==//span[contains(@class,'tags-view-item')][1]"
 Unfold: "xpath==//div//span[text()='Unfold']"
 Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 输入框: "xpath==//span[normalize-space(text())='variable']/../..//input"
