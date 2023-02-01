@@ -1562,94 +1562,94 @@ class TestTheProcessOfExaminationAndApproval:
         user.quit_oneworks()
         user.assert_flow_deliver(Foreign_Derived_Approval_API[0], '陈月')
 
-    @allure.story("流程审批")  # 场景名称
-    @allure.title("数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    @pytest.mark.skip  # 如果需要执行，手动将@pytest.mark.skip注释
-    def test_003_026(self, drivers):
-        user = ForeignBom(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
-        user.input_basic_info('标题', '自动化新增用例')
-        user.input_bom_info('制作类型', '客供BOM制作')
-        user.input_bom_info('品牌', 'itel')
-        user.input_bom_info('机型', 'JMB-01')
-        user.input_bom_info('阶段', '量产阶段')
-        user.input_bom_info('市场', '埃塞本地')
-        user.input_bom_info('模式', '零价值客供')
-        user.click_add_bomtree()
-        # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
-        user.input_bomtree('客供BOM', 'BOM状态', '量产')
-        user.input_bomtree('客供BOM', '物料编码', '12004871')
-        user.input_bomtree('客供BOM', '用量', '1000')
-        user.click_add_material()
-        user.input_add_material('12004871', '物料编码', '12800002')
-        user.input_add_material('12004871', '用量', '1000')
-        user.click_refresh()
-        user.select_business_review(user.review, 'PPM')
-        user.select_business_review(user.review, 'QPM')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
-        user.business_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
-        user.assert_OneWorks_AgreeFlow()
-        user.assert_my_application_node(process_code, '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(process_code, '审批完成')
-        process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
-        ValueAssert.value_assert_equal(process_status, '审批通过')
-
-    @allure.story("流程审批")  # 场景名称
-    @allure.title("衍生BOM，数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.UT  # 用例标记
-    @pytest.mark.skip  # 如果需要执行，手动将@pytest.mark.skip注释
-    def test_003_027(self, drivers):
-        user = ForeignBom(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
-        user.input_basic_info('标题', '自动化新增用例')
-        user.input_bom_info('制作类型', '客供BOM衍生')
-        user.input_bom_info('品牌', 'itel')
-        user.input_bom_info('机型', 'JMB-01')
-        user.input_bom_info('阶段', '量产阶段')
-        user.input_bom_info('市场', '埃塞本地')
-        user.input_bom_info('模式', '零价值客供')
-        # 填写相关衍生信息，需要在数据组审批子阶检查通过
-        user.click_Derived_add()
-        user.input_Derived_info('新BOM编码', '12000003')
-        user.input_Derived_info('原始BOM编码', '12014351')
-        user.input_Derived_info('原始BOM工厂', 'PL01')
-        user.click_Derived_differ()
-        user.click_Derived_add()
-        user.input_Derived_info('BOM编码', '12000003')
-        user.input_Derived_info('操作', '新增物料')
-        user.input_Derived_info('处理物料编码', '12800001')
-        user.input_Derived_info('用量', '1000')
-        user.click_Creat_BOM()
-        user.assert_toast('生成衍生BOM成功')
-        user.click_refresh()
-        user.select_business_review(user.review, 'PPM')
-        user.select_business_review(user.review, 'QPM')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
-        user.business_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
-        user.assert_OneWorks_AgreeFlow()
-        user.assert_my_application_node(process_code, '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(process_code, '审批完成')
-        process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
-        ValueAssert.value_assert_equal(process_status, '审批通过')
+    # @allure.story("流程审批")  # 场景名称
+    # @allure.title("数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
+    # @allure.severity("normal")  # 用例等级
+    # @pytest.mark.UT  # 用例标记
+    # @pytest.mark.skip  # 如果需要执行，手动将@pytest.mark.skip注释
+    # def test_003_026(self, drivers):
+    #     user = ForeignBom(drivers)
+    #     user.refresh_webpage_click_menu()
+    #     user.click_add()
+    #     # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
+    #     user.input_basic_info('标题', '自动化新增用例')
+    #     user.input_bom_info('制作类型', '客供BOM制作')
+    #     user.input_bom_info('品牌', 'itel')
+    #     user.input_bom_info('机型', 'JMB-01')
+    #     user.input_bom_info('阶段', '量产阶段')
+    #     user.input_bom_info('市场', '埃塞本地')
+    #     user.input_bom_info('模式', '零价值客供')
+    #     user.click_add_bomtree()
+    #     # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
+    #     user.input_bomtree('客供BOM', 'BOM状态', '量产')
+    #     user.input_bomtree('客供BOM', '物料编码', '12004871')
+    #     user.input_bomtree('客供BOM', '用量', '1000')
+    #     user.click_add_material()
+    #     user.input_add_material('12004871', '物料编码', '12800002')
+    #     user.input_add_material('12004871', '用量', '1000')
+    #     user.click_refresh()
+    #     user.select_business_review(user.review, 'PPM')
+    #     user.select_business_review(user.review, 'QPM')
+    #     user.click_add_submit()
+    #     user.assert_toast('创建流程成功')
+    #     user.refresh()
+    #     process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
+    #     user.business_approve_flow(process_code)
+    #     user.enter_oneworks_edit(process_code)
+    #     user.assert_OneWorks_AgreeFlow()
+    #     user.assert_my_application_node(process_code, '审批通知', True)
+    #     sleep(60)
+    #     user.assert_my_application_flow(process_code, '审批完成')
+    #     process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
+    #     ValueAssert.value_assert_equal(process_status, '审批通过')
+    #
+    # @allure.story("流程审批")  # 场景名称
+    # @allure.title("衍生BOM，数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")
+    # @allure.severity("normal")  # 用例等级
+    # @pytest.mark.UT  # 用例标记
+    # @pytest.mark.skip  # 如果需要执行，手动将@pytest.mark.skip注释
+    # def test_003_027(self, drivers):
+    #     user = ForeignBom(drivers)
+    #     user.refresh_webpage_click_menu()
+    #     user.click_add()
+    #     # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
+    #     user.input_basic_info('标题', '自动化新增用例')
+    #     user.input_bom_info('制作类型', '客供BOM衍生')
+    #     user.input_bom_info('品牌', 'itel')
+    #     user.input_bom_info('机型', 'JMB-01')
+    #     user.input_bom_info('阶段', '量产阶段')
+    #     user.input_bom_info('市场', '埃塞本地')
+    #     user.input_bom_info('模式', '零价值客供')
+    #     # 填写相关衍生信息，需要在数据组审批子阶检查通过
+    #     user.click_Derived_add()
+    #     user.input_Derived_info('新BOM编码', '12000003')
+    #     user.input_Derived_info('原始BOM编码', '12014351')
+    #     user.input_Derived_info('原始BOM工厂', 'PL01')
+    #     user.click_Derived_differ()
+    #     user.click_Derived_add()
+    #     user.input_Derived_info('BOM编码', '12000003')
+    #     user.input_Derived_info('操作', '新增物料')
+    #     user.input_Derived_info('处理物料编码', '12800001')
+    #     user.input_Derived_info('用量', '1000')
+    #     user.click_Creat_BOM()
+    #     user.assert_toast('生成衍生BOM成功')
+    #     user.click_refresh()
+    #     user.select_business_review(user.review, 'PPM')
+    #     user.select_business_review(user.review, 'QPM')
+    #     user.click_add_submit()
+    #     user.assert_toast('创建流程成功')
+    #     user.refresh()
+    #     process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
+    #     user.business_approve_flow(process_code)
+    #     user.enter_oneworks_edit(process_code)
+    #     user.assert_OneWorks_AgreeFlow()
+    #     user.assert_my_application_node(process_code, '审批通知', True)
+    #     sleep(60)
+    #     user.assert_my_application_flow(process_code, '审批完成')
+    #     process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
+    #     ValueAssert.value_assert_equal(process_status, '审批通过')
 
 
 @allure.feature("BOM协作-外研BOM协作")

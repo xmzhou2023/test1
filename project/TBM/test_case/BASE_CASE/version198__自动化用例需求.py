@@ -1004,47 +1004,47 @@ class Teststory_3247:
         user.quit_oneworks()
         user.assert_flow_deliver(BarePhone_bomEnginner_API[0], '陈月')
 
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作单机头BOM协作=数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20260(self, drivers):
-        user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
-        user.input_basic_info('标题', '自动化新增用例')
-        user.input_bom_info('制作类型', '单机头BOM制作')
-        user.input_bom_info('品牌', 'itel')
-        user.input_bom_info('机型', 'X572-1')
-        user.input_bom_info('阶段', '试产阶段')
-        user.input_bom_info('市场', '埃塞本地')
-        user.input_bom_info('同时做衍生BOM', '否')
-        user.click_add_bomtree()
-        # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
-        user.input_bomtree('单机头', 'BOM状态', '试产')
-        user.input_bomtree('单机头', '物料编码', '12011335')
-        user.input_bomtree('单机头', '用量', '1000')
-        user.input_bomtree('指纹模组', '物料编码', '17600563')
-        user.input_bomtree('指纹模组', '用量', '1000')
-        user.select_business_review('李小素', 'MPM')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        process_code = user.get_bom_info('单机头BOM协作', '自动化新增用例', '流程编码')
-        user.supplementary_factory_flow(process_code)
-        user.framework_engineer_flow(process_code)
-        user.business_approve_flow(process_code)
-        user.bom_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
-        user.assert_OneWorks_AgreeFlow()
-        # user.assert_my_application_node(process_code, '审批通知', True)
-        # sleep(60)
-        user.assert_my_application_flow(process_code, '审批完成')
-        process_status = user.get_bom_info('单机头BOM协作', '自动化新增用例', '单据状态')
-        ValueAssert.value_assert_equal(process_status, '审批通过')
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作单机头BOM协作=数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20260(self, drivers):
+    #     user = BareMobilePhoneBomCooperation(drivers)
+    #     user.refresh_webpage_click_menu()
+    #     user.click_add()
+    #     # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
+    #     user.input_basic_info('标题', '自动化新增用例')
+    #     user.input_bom_info('制作类型', '单机头BOM制作')
+    #     user.input_bom_info('品牌', 'itel')
+    #     user.input_bom_info('机型', 'X572-1')
+    #     user.input_bom_info('阶段', '试产阶段')
+    #     user.input_bom_info('市场', '埃塞本地')
+    #     user.input_bom_info('同时做衍生BOM', '否')
+    #     user.click_add_bomtree()
+    #     # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
+    #     user.input_bomtree('单机头', 'BOM状态', '试产')
+    #     user.input_bomtree('单机头', '物料编码', '12011335')
+    #     user.input_bomtree('单机头', '用量', '1000')
+    #     user.input_bomtree('指纹模组', '物料编码', '17600563')
+    #     user.input_bomtree('指纹模组', '用量', '1000')
+    #     user.select_business_review('李小素', 'MPM')
+    #     user.click_add_submit()
+    #     user.assert_toast('创建流程成功')
+    #     user.refresh()
+    #     process_code = user.get_bom_info('单机头BOM协作', '自动化新增用例', '流程编码')
+    #     user.supplementary_factory_flow(process_code)
+    #     user.framework_engineer_flow(process_code)
+    #     user.business_approve_flow(process_code)
+    #     user.bom_approve_flow(process_code)
+    #     user.enter_oneworks_edit(process_code)
+    #     user.assert_OneWorks_AgreeFlow()
+    #     # user.assert_my_application_node(process_code, '审批通知', True)
+    #     # sleep(60)
+    #     user.assert_my_application_flow(process_code, '审批完成')
+    #     process_status = user.get_bom_info('单机头BOM协作', '自动化新增用例', '单据状态')
+    #     ValueAssert.value_assert_equal(process_status, '审批通过')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作单机头BOM协作=【生产工厂信息】物料xxxxxx的组包工厂不能为空")  # 用例名称
@@ -1226,70 +1226,70 @@ class Teststory_3247:
         user.assert_toast('子阶bom检查失败，无法同步')
         user.quit_oneworks()
 
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作单机头BOM协作=补充工厂页面中，导出的xlsx表的数据和页面的数据是一致")  # 用例名称
-    @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20273(self, drivers, BarePhone_API):
-        user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(BarePhone_API[0])
-        user.assert_oneworks_factoryinfo()
-        user.quit_oneworks()
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作单机头BOM协作=结构工程师审批页面，BomTree导出数据一致")  # 用例名称
-    @allure.description("在结构工程师审批页面中，在BomTree中点导出，导出的数据和BomTree的数据是一致的")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20274(self, drivers, BarePhone_Factory_API):
-        user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(BarePhone_Factory_API[0])
-        user.assert_oneworks_approval_bominfo()
-        user.quit_oneworks()
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作单机头BOM协作=在业务审核页面中，在生产工厂信息导出的数据和页面的数据是一致的")  # 用例名称
-    @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20275(self, drivers, BarePhone_StructureEnginner_API):
-        user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
-        user.assert_oneworks_factoryinfo()
-        user.quit_oneworks()
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作单机头BOM协作=在业务审核页面中，在BOMTree导出的数据和页面的数据是一致的")  # 用例名称
-    @allure.description("在业务审核页面中，点击BOMTree中的导出，导出文件中的数据和页面中的数据是一致的")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20276(self, drivers, BarePhone_StructureEnginner_API):
-        user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
-        user.assert_oneworks_approval_bominfo()
-        user.quit_oneworks()
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作单机头BOM协作=在BOM工程师审批中，子阶BOM检查内容导出和页面的数据是一致的")  # 用例名称
-    @allure.description("在BOM工程师审批中，在BOM工程师审批中，点击导出，可以导出子阶BOM检查内容")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20277(self, drivers, BarePhone_Approval_Fail_API):
-        user = BareMobilePhoneBomCooperation(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(BarePhone_Approval_Fail_API[0])
-        user.assert_oneworks_approval_bomcheck()
-        user.quit_oneworks()
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作单机头BOM协作=补充工厂页面中，导出的xlsx表的数据和页面的数据是一致")  # 用例名称
+    # @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20273(self, drivers, BarePhone_API):
+    #     user = BareMobilePhoneBomCooperation(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(BarePhone_API[0])
+    #     user.assert_oneworks_factoryinfo()
+    #     user.quit_oneworks()
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作单机头BOM协作=结构工程师审批页面，BomTree导出数据一致")  # 用例名称
+    # @allure.description("在结构工程师审批页面中，在BomTree中点导出，导出的数据和BomTree的数据是一致的")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20274(self, drivers, BarePhone_Factory_API):
+    #     user = BareMobilePhoneBomCooperation(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(BarePhone_Factory_API[0])
+    #     user.assert_oneworks_approval_bominfo()
+    #     user.quit_oneworks()
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作单机头BOM协作=在业务审核页面中，在生产工厂信息导出的数据和页面的数据是一致的")  # 用例名称
+    # @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20275(self, drivers, BarePhone_StructureEnginner_API):
+    #     user = BareMobilePhoneBomCooperation(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
+    #     user.assert_oneworks_factoryinfo()
+    #     user.quit_oneworks()
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作单机头BOM协作=在业务审核页面中，在BOMTree导出的数据和页面的数据是一致的")  # 用例名称
+    # @allure.description("在业务审核页面中，点击BOMTree中的导出，导出文件中的数据和页面中的数据是一致的")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20276(self, drivers, BarePhone_StructureEnginner_API):
+    #     user = BareMobilePhoneBomCooperation(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(BarePhone_StructureEnginner_API[0])
+    #     user.assert_oneworks_approval_bominfo()
+    #     user.quit_oneworks()
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作单机头BOM协作=在BOM工程师审批中，子阶BOM检查内容导出和页面的数据是一致的")  # 用例名称
+    # @allure.description("在BOM工程师审批中，在BOM工程师审批中，点击导出，可以导出子阶BOM检查内容")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20277(self, drivers, BarePhone_Approval_Fail_API):
+    #     user = BareMobilePhoneBomCooperation(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(BarePhone_Approval_Fail_API[0])
+    #     user.assert_oneworks_approval_bomcheck()
+    #     user.quit_oneworks()
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作单机头BOM协作=在查询页面，标题查询结果正确")  # 用例名称
@@ -3005,94 +3005,94 @@ class Teststory_3247:
         user.quit_oneworks()
         user.assert_flow_deliver(Foreign_Derived_Approval_API[0], '陈月')
 
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作外研BOM协作=数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20360(self, drivers):
-        user = ForeignBom(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
-        user.input_basic_info('标题', '自动化新增用例')
-        user.input_bom_info('制作类型', '客供BOM制作')
-        user.input_bom_info('品牌', 'itel')
-        user.input_bom_info('机型', 'JMB-01')
-        user.input_bom_info('阶段', '量产阶段')
-        user.input_bom_info('市场', '埃塞本地')
-        user.input_bom_info('模式', '零价值客供')
-        user.click_add_bomtree()
-        # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
-        user.input_bomtree('客供BOM', 'BOM状态', '量产')
-        user.input_bomtree('客供BOM', '物料编码', '12004871')
-        user.input_bomtree('客供BOM', '用量', '1000')
-        user.click_add_material()
-        user.input_add_material('12004871', '物料编码', '12800002')
-        user.input_add_material('12004871', '用量', '1000')
-        user.click_refresh()
-        user.select_business_review(user.review, 'PPM')
-        user.select_business_review(user.review, 'QPM')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
-        user.business_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
-        user.assert_OneWorks_AgreeFlow()
-        user.assert_my_application_node(process_code, '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(process_code, '审批完成')
-        process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
-        ValueAssert.value_assert_equal(process_status, '审批通过')
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作外研BOM协作=衍生BOM，数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20361(self, drivers):
-        user = ForeignBom(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
-        user.input_basic_info('标题', '自动化新增用例')
-        user.input_bom_info('制作类型', '客供BOM衍生')
-        user.input_bom_info('品牌', 'itel')
-        user.input_bom_info('机型', 'JMB-01')
-        user.input_bom_info('阶段', '量产阶段')
-        user.input_bom_info('市场', '埃塞本地')
-        user.input_bom_info('模式', '零价值客供')
-        # 填写相关衍生信息，需要在数据组审批子阶检查通过
-        user.click_Derived_add()
-        user.input_Derived_info('新BOM编码', '12000003')
-        user.input_Derived_info('原始BOM编码', '12014351')
-        user.input_Derived_info('原始BOM工厂', 'PL01')
-        user.click_Derived_differ()
-        user.click_Derived_add()
-        user.input_Derived_info('BOM编码', '12000003')
-        user.input_Derived_info('操作', '新增物料')
-        user.input_Derived_info('处理物料编码', '12800001')
-        user.input_Derived_info('用量', '1000')
-        user.click_Creat_BOM()
-        user.assert_toast('生成衍生BOM成功')
-        user.click_refresh()
-        user.select_business_review(user.review, 'PPM')
-        user.select_business_review(user.review, 'QPM')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
-        user.business_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
-        user.assert_OneWorks_AgreeFlow()
-        user.assert_my_application_node(process_code, '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(process_code, '审批完成')
-        process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
-        ValueAssert.value_assert_equal(process_status, '审批通过')
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作外研BOM协作=数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20360(self, drivers):
+    #     user = ForeignBom(drivers)
+    #     user.refresh_webpage_click_menu()
+    #     user.click_add()
+    #     # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
+    #     user.input_basic_info('标题', '自动化新增用例')
+    #     user.input_bom_info('制作类型', '客供BOM制作')
+    #     user.input_bom_info('品牌', 'itel')
+    #     user.input_bom_info('机型', 'JMB-01')
+    #     user.input_bom_info('阶段', '量产阶段')
+    #     user.input_bom_info('市场', '埃塞本地')
+    #     user.input_bom_info('模式', '零价值客供')
+    #     user.click_add_bomtree()
+    #     # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
+    #     user.input_bomtree('客供BOM', 'BOM状态', '量产')
+    #     user.input_bomtree('客供BOM', '物料编码', '12004871')
+    #     user.input_bomtree('客供BOM', '用量', '1000')
+    #     user.click_add_material()
+    #     user.input_add_material('12004871', '物料编码', '12800002')
+    #     user.input_add_material('12004871', '用量', '1000')
+    #     user.click_refresh()
+    #     user.select_business_review(user.review, 'PPM')
+    #     user.select_business_review(user.review, 'QPM')
+    #     user.click_add_submit()
+    #     user.assert_toast('创建流程成功')
+    #     user.refresh()
+    #     process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
+    #     user.business_approve_flow(process_code)
+    #     user.enter_oneworks_edit(process_code)
+    #     user.assert_OneWorks_AgreeFlow()
+    #     user.assert_my_application_node(process_code, '审批通知', True)
+    #     sleep(60)
+    #     user.assert_my_application_flow(process_code, '审批完成')
+    #     process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
+    #     ValueAssert.value_assert_equal(process_status, '审批通过')
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作外研BOM协作=衍生BOM，数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20361(self, drivers):
+    #     user = ForeignBom(drivers)
+    #     user.refresh_webpage_click_menu()
+    #     user.click_add()
+    #     # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
+    #     user.input_basic_info('标题', '自动化新增用例')
+    #     user.input_bom_info('制作类型', '客供BOM衍生')
+    #     user.input_bom_info('品牌', 'itel')
+    #     user.input_bom_info('机型', 'JMB-01')
+    #     user.input_bom_info('阶段', '量产阶段')
+    #     user.input_bom_info('市场', '埃塞本地')
+    #     user.input_bom_info('模式', '零价值客供')
+    #     # 填写相关衍生信息，需要在数据组审批子阶检查通过
+    #     user.click_Derived_add()
+    #     user.input_Derived_info('新BOM编码', '12000003')
+    #     user.input_Derived_info('原始BOM编码', '12014351')
+    #     user.input_Derived_info('原始BOM工厂', 'PL01')
+    #     user.click_Derived_differ()
+    #     user.click_Derived_add()
+    #     user.input_Derived_info('BOM编码', '12000003')
+    #     user.input_Derived_info('操作', '新增物料')
+    #     user.input_Derived_info('处理物料编码', '12800001')
+    #     user.input_Derived_info('用量', '1000')
+    #     user.click_Creat_BOM()
+    #     user.assert_toast('生成衍生BOM成功')
+    #     user.click_refresh()
+    #     user.select_business_review(user.review, 'PPM')
+    #     user.select_business_review(user.review, 'QPM')
+    #     user.click_add_submit()
+    #     user.assert_toast('创建流程成功')
+    #     user.refresh()
+    #     process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
+    #     user.business_approve_flow(process_code)
+    #     user.enter_oneworks_edit(process_code)
+    #     user.assert_OneWorks_AgreeFlow()
+    #     user.assert_my_application_node(process_code, '审批通知', True)
+    #     sleep(60)
+    #     user.assert_my_application_flow(process_code, '审批完成')
+    #     process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
+    #     ValueAssert.value_assert_equal(process_status, '审批通过')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作外研BOM协作=数据组审批页面，检查失败项不为0，提交失败")  # 用例名称
@@ -4284,46 +4284,46 @@ class Teststory_3247:
         user.quit_oneworks()
         user.assert_flow_deliver(Machine_bomEnginner_API[0], '陈月')
 
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作整机BOM协作=数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20430(self, drivers):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场），修改下面方法第二个字串就好
-        user.input_bom_info('制作类型', '生产BOM')
-        user.input_bom_info('品牌', 'itel')
-        user.input_bom_info('机型', 'X572-1')
-        user.input_bom_info('阶段', '试产阶段')
-        user.input_bom_info('市场', '埃塞本地')
-        user.click_add_bomtree()
-        # 填写相关bomTree（BOM类型，BOM状态，物料编码，用量）
-        user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
-        user.input_bomtree('产成品', 'BOM状态', '试产')
-        user.input_bomtree('产成品', '物料编码', '10018956')
-        user.input_bomtree('产成品', '用量', '1000')
-        user.input_bomtree('充电器', '物料编码', '25101424')
-        user.input_bomtree('充电器', '用量', '1000')
-        user.select_business_review('李小素', 'MPM')
-        user.select_business_review('李小素', 'NPS')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
-        user.supplementary_factory_flow(process_code)
-        user.engineer_approve_flow(process_code)
-        user.business_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
-        user.assert_OneWorks_AgreeFlow()
-        user.assert_my_application_node(process_code, '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(process_code, '审批完成')
-        document_status = user.get_assigned_info(process_code)[7]
-        ValueAssert.value_assert_equal(document_status, '审批通过')
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作整机BOM协作=数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20430(self, drivers):
+    #     user = MachineBOMCollaboration(drivers)
+    #     user.refresh_webpage_click_menu()
+    #     user.click_add()
+    #     # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场），修改下面方法第二个字串就好
+    #     user.input_bom_info('制作类型', '生产BOM')
+    #     user.input_bom_info('品牌', 'itel')
+    #     user.input_bom_info('机型', 'X572-1')
+    #     user.input_bom_info('阶段', '试产阶段')
+    #     user.input_bom_info('市场', '埃塞本地')
+    #     user.click_add_bomtree()
+    #     # 填写相关bomTree（BOM类型，BOM状态，物料编码，用量）
+    #     user.input_bomtree('产成品', 'BOM类型', '国内生产BOM')
+    #     user.input_bomtree('产成品', 'BOM状态', '试产')
+    #     user.input_bomtree('产成品', '物料编码', '10018956')
+    #     user.input_bomtree('产成品', '用量', '1000')
+    #     user.input_bomtree('充电器', '物料编码', '25101424')
+    #     user.input_bomtree('充电器', '用量', '1000')
+    #     user.select_business_review('李小素', 'MPM')
+    #     user.select_business_review('李小素', 'NPS')
+    #     user.click_add_submit()
+    #     user.assert_toast('创建流程成功')
+    #     user.refresh()
+    #     process_code = user.get_info("BOM协作", "整机BOM协作")[1]
+    #     user.supplementary_factory_flow(process_code)
+    #     user.engineer_approve_flow(process_code)
+    #     user.business_approve_flow(process_code)
+    #     user.enter_oneworks_edit(process_code)
+    #     user.assert_OneWorks_AgreeFlow()
+    #     user.assert_my_application_node(process_code, '审批通知', True)
+    #     sleep(60)
+    #     user.assert_my_application_flow(process_code, '审批完成')
+    #     document_status = user.get_assigned_info(process_code)[7]
+    #     ValueAssert.value_assert_equal(document_status, '审批通过')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作整机BOM协作=数据组审批页面，回退到补充工厂")  # 用例名称
@@ -4438,76 +4438,76 @@ class Teststory_3247:
         user.assert_oneworks_add_material(['1.2.1.2', '25001674', '电池_TECNO_BL_49FT_4900mAh_FH_IN_W10', '外研', '编辑删除'])
         user.quit_oneworks()
 
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作整机BOM协作=补充工厂页面中，导出的xlsx表的数据和页面的数据是一致的")  # 用例名称
-    @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20438(self, drivers, Machine_API):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(Machine_API[0])
-        user.assert_oneworks_factoryinfo()
-        user.quit_oneworks()
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作整机BOM协作=BOM工程师页面，BomTree导出数据一致")  # 用例名称
-    @allure.description("在BOM工程师页面中，在BomTree中点导出，导出的数据和BomTree的数据是一致的")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20439(self, drivers, Machine_Factory_API):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(Machine_Factory_API[0])
-        user.click_BOMTree_checkbox()
-        user.click_oneworks_approval_export()
-        user.assert_oneworks_approval_bominfo()
-        user.quit_oneworks()
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作整机BOM协作=业务审核页面，生产工厂信息导出数据和页面数据一致")  # 用例名称
-    @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20440(self, drivers, Machine_bomEnginner_API):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
-        user.assert_oneworks_factoryinfo()
-        user.quit_oneworks()
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作整机BOM协作=业务审核页面，BOMTree导出数据和页面中数据一致")  # 用例名称
-    @allure.description("在业务审核页面中，点击BOMTree中的导出，导出文件中的数据和页面中的数据是一致的")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20441(self, drivers, Machine_bomEnginner_API):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(Machine_bomEnginner_API[0])
-        user.click_BOMTree_checkbox()
-        user.click_oneworks_approval_export()
-        user.assert_oneworks_approval_bominfo()
-        user.quit_oneworks()
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作整机BOM协作=在数据组审批页面，生产工厂信息导出数据和页面数据一致")  # 用例名称
-    @allure.description("在数据组审批页面中，在生产工厂信息中点击导出，导出的文件中的数据和页面中的数据是一致的")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20442(self, drivers, Machine_Approval_API):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage()
-        user.enter_oneworks_edit(Machine_Approval_API[0])
-        user.click_Factory_checkbox()
-        user.click_oneworks_factory_export()
-        user.assert_oneworks_factoryinfo()
-        user.quit_oneworks()
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作整机BOM协作=补充工厂页面中，导出的xlsx表的数据和页面的数据是一致的")  # 用例名称
+    # @allure.description("在补充工厂页面中，点击导出，导出的xlsx表的数据和页面的数据是一致的")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20438(self, drivers, Machine_API):
+    #     user = MachineBOMCollaboration(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(Machine_API[0])
+    #     user.assert_oneworks_factoryinfo()
+    #     user.quit_oneworks()
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作整机BOM协作=BOM工程师页面，BomTree导出数据一致")  # 用例名称
+    # @allure.description("在BOM工程师页面中，在BomTree中点导出，导出的数据和BomTree的数据是一致的")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20439(self, drivers, Machine_Factory_API):
+    #     user = MachineBOMCollaboration(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(Machine_Factory_API[0])
+    #     user.click_BOMTree_checkbox()
+    #     user.click_oneworks_approval_export()
+    #     user.assert_oneworks_approval_bominfo()
+    #     user.quit_oneworks()
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作整机BOM协作=业务审核页面，生产工厂信息导出数据和页面数据一致")  # 用例名称
+    # @allure.description("在业务审核页面中，在生产工厂信息中点击导出，导出文件中的数据和页面的数据是一致的")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20440(self, drivers, Machine_bomEnginner_API):
+    #     user = MachineBOMCollaboration(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(Machine_bomEnginner_API[0])
+    #     user.assert_oneworks_factoryinfo()
+    #     user.quit_oneworks()
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作整机BOM协作=业务审核页面，BOMTree导出数据和页面中数据一致")  # 用例名称
+    # @allure.description("在业务审核页面中，点击BOMTree中的导出，导出文件中的数据和页面中的数据是一致的")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20441(self, drivers, Machine_bomEnginner_API):
+    #     user = MachineBOMCollaboration(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(Machine_bomEnginner_API[0])
+    #     user.click_BOMTree_checkbox()
+    #     user.click_oneworks_approval_export()
+    #     user.assert_oneworks_approval_bominfo()
+    #     user.quit_oneworks()
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作整机BOM协作=在数据组审批页面，生产工厂信息导出数据和页面数据一致")  # 用例名称
+    # @allure.description("在数据组审批页面中，在生产工厂信息中点击导出，导出的文件中的数据和页面中的数据是一致的")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20442(self, drivers, Machine_Approval_API):
+    #     user = MachineBOMCollaboration(drivers)
+    #     user.refresh_webpage()
+    #     user.enter_oneworks_edit(Machine_Approval_API[0])
+    #     user.click_Factory_checkbox()
+    #     user.click_oneworks_factory_export()
+    #     user.assert_oneworks_factoryinfo()
+    #     user.quit_oneworks()
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作整机BOM协作=衍生BOM，发起流程，审批页面的数据和发起的数据是一致的")  # 用例名称
@@ -4825,44 +4825,44 @@ class Teststory_3247:
         user.quit_oneworks()
         user.assert_flow_deliver(Machine_Derive_bomEnginner_API[0], '陈月')
 
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作整机BOM协作=衍生BOM,数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20458(self, drivers):
-        user = MachineBOMCollaboration(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        user.input_basic_info('标题', '自动化新增用例')
-        user.input_bom_info('制作类型', '衍生BOM')
-        user.input_bom_info('品牌', 'itel')
-        user.input_bom_info('机型', 'X572-1')
-        user.input_bom_info('阶段', '量产阶段')
-        user.input_bom_info('市场', '埃塞本地')
-        user.click_Derived_add()
-        user.input_Derived_info('新BOM类型', '发货BOM')
-        user.input_Derived_info('新BOM编码', '11000002')
-        user.input_Derived_info('原始BOM编码', '10026373')
-        user.input_Derived_info('原始BOM工厂', 'PL01')
-        user.select_business_review('李小素', 'MPM')
-        user.select_business_review('李小素', '音频')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        user.assert_add_result("BOM协作", "整机BOM协作", '衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
-        process_code = user.get_info("BOM协作", "整机BOM协作")[1]
-        user.supplementary_factory_flow(process_code)
-        user.engineer_Derivedapprove_flow(process_code)
-        user.business_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
-        user.assert_OneWorks_AgreeFlow()
-        user.assert_my_application_node(process_code, '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(process_code, '审批完成')
-        document_status = user.get_assigned_info(process_code)[7]
-        ValueAssert.value_assert_equal(document_status, '审批通过')
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作整机BOM协作=衍生BOM,数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM/状态/物料检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20458(self, drivers):
+    #     user = MachineBOMCollaboration(drivers)
+    #     user.refresh_webpage_click_menu()
+    #     user.click_add()
+    #     user.input_basic_info('标题', '自动化新增用例')
+    #     user.input_bom_info('制作类型', '衍生BOM')
+    #     user.input_bom_info('品牌', 'itel')
+    #     user.input_bom_info('机型', 'X572-1')
+    #     user.input_bom_info('阶段', '量产阶段')
+    #     user.input_bom_info('市场', '埃塞本地')
+    #     user.click_Derived_add()
+    #     user.input_Derived_info('新BOM类型', '发货BOM')
+    #     user.input_Derived_info('新BOM编码', '11000002')
+    #     user.input_Derived_info('原始BOM编码', '10026373')
+    #     user.input_Derived_info('原始BOM工厂', 'PL01')
+    #     user.select_business_review('李小素', 'MPM')
+    #     user.select_business_review('李小素', '音频')
+    #     user.click_add_submit()
+    #     user.assert_toast('创建流程成功')
+    #     user.refresh()
+    #     user.assert_add_result("BOM协作", "整机BOM协作", '衍生BOM', 'X572-1', 'itel', '量产阶段', '审批中', '埃塞本地')
+    #     process_code = user.get_info("BOM协作", "整机BOM协作")[1]
+    #     user.supplementary_factory_flow(process_code)
+    #     user.engineer_Derivedapprove_flow(process_code)
+    #     user.business_approve_flow(process_code)
+    #     user.enter_oneworks_edit(process_code)
+    #     user.assert_OneWorks_AgreeFlow()
+    #     user.assert_my_application_node(process_code, '审批通知', True)
+    #     sleep(60)
+    #     user.assert_my_application_flow(process_code, '审批完成')
+    #     document_status = user.get_assigned_info(process_code)[7]
+    #     ValueAssert.value_assert_equal(document_status, '审批通过')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作整机BOM协作=衍生BOM,在数据组审批页面中回退到补充工厂成功")  # 用例名称
@@ -6923,95 +6923,95 @@ class Teststory_3247:
         user.quit_oneworks()
         user.assert_flow_deliver(PCBA_Derived_Purchase_API[0], '陈月')
 
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作PCBABOM协作=数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20574(self, drivers):
-        user = PCBABomCooperation(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
-        user.input_basic_info('标题', '自动化新增用例')
-        user.input_bom_info('制作类型', 'PCBA BOM制作')
-        user.input_bom_info('品牌', 'Infinix')
-        user.input_bom_info('机型', 'JMB-02')
-        user.input_bom_info('阶段', '试产阶段')
-        user.input_bom_info('制作虚拟贴片/套片', '否')
-        user.click_add_bomtree()
-        # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
-        user.input_bomtree('PCBA', 'BOM状态', '试产')
-        user.input_bomtree('PCBA', '物料编码', '12100001')
-        user.input_bomtree('PCBA', '数量', '1')
-        user.input_bomtree('IC144', '物料编码', '14400003')
-        user.input_bomtree('IC144', '数量', '1')
-        user.input_bomtree('IC144', '位号', 'U1001')
-        user.select_business_review('李小素')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        process_code = user.get_bom_info('PCBA BOM协作', '自动化新增用例', '流程编码')
-        user.supplement_bom_flow(process_code)
-        user.supplementary_factory_flow(process_code)
-        user.Structure_flow(process_code)
-        user.Purchase_flow(process_code)
-        user.business_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
-        user.assert_OneWorks_AgreeFlow()
-        user.assert_my_application_node(process_code, '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(process_code, '审批完成')
-        process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
-        ValueAssert.value_assert_equal(process_status, '审批通过')
-
-    @allure.story("自动化测试")  # 用户故事名称
-    @allure.title("BOM协作PCBABOM协作=衍生BOM，数据组审批页面，审批成功")  # 用例名称
-    @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
-    @allure.severity("blocker")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.skip
-    def test_20575(self, drivers):
-        user = PCBABomCooperation(drivers)
-        user.refresh_webpage_click_menu()
-        user.click_add()
-        # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
-        user.input_basic_info('标题', '自动化新增用例')
-        user.input_bom_info('制作类型', '客供BOM衍生')
-        user.input_bom_info('品牌', 'itel')
-        user.input_bom_info('机型', 'JMB-01')
-        user.input_bom_info('阶段', '量产阶段')
-        user.input_bom_info('市场', '埃塞本地')
-        user.input_bom_info('模式', '零价值客供')
-        # 填写相关衍生信息，需要在数据组审批子阶检查通过
-        user.click_Derived_add()
-        user.input_Derived_info('新BOM编码', '12000003')
-        user.input_Derived_info('原始BOM编码', '12014351')
-        user.input_Derived_info('原始BOM工厂', 'PL01')
-        user.click_Derived_differ()
-        user.click_Derived_add()
-        user.input_Derived_info('BOM编码', '12000003')
-        user.input_Derived_info('操作', '新增物料')
-        user.input_Derived_info('处理物料编码', '12800001')
-        user.input_Derived_info('用量', '1000')
-        user.click_Creat_BOM()
-        user.assert_toast('生成衍生BOM成功')
-        user.click_refresh()
-        user.select_business_review(user.review, 'PPM')
-        user.select_business_review(user.review, 'QPM')
-        user.click_add_submit()
-        user.assert_toast('创建流程成功')
-        user.refresh()
-        process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
-        user.business_approve_flow(process_code)
-        user.enter_oneworks_edit(process_code)
-        user.assert_OneWorks_AgreeFlow()
-        user.assert_my_application_node(process_code, '审批通知', True)
-        sleep(60)
-        user.assert_my_application_flow(process_code, '审批完成')
-        process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
-        ValueAssert.value_assert_equal(process_status, '审批通过')
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作PCBABOM协作=数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20574(self, drivers):
+    #     user = PCBABomCooperation(drivers)
+    #     user.refresh_webpage_click_menu()
+    #     user.click_add()
+    #     # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
+    #     user.input_basic_info('标题', '自动化新增用例')
+    #     user.input_bom_info('制作类型', 'PCBA BOM制作')
+    #     user.input_bom_info('品牌', 'Infinix')
+    #     user.input_bom_info('机型', 'JMB-02')
+    #     user.input_bom_info('阶段', '试产阶段')
+    #     user.input_bom_info('制作虚拟贴片/套片', '否')
+    #     user.click_add_bomtree()
+    #     # 填写相关bomTree（BOM状态，物料编码，用量），需要在数据组审批子阶检查通过
+    #     user.input_bomtree('PCBA', 'BOM状态', '试产')
+    #     user.input_bomtree('PCBA', '物料编码', '12100001')
+    #     user.input_bomtree('PCBA', '数量', '1')
+    #     user.input_bomtree('IC144', '物料编码', '14400003')
+    #     user.input_bomtree('IC144', '数量', '1')
+    #     user.input_bomtree('IC144', '位号', 'U1001')
+    #     user.select_business_review('李小素')
+    #     user.click_add_submit()
+    #     user.assert_toast('创建流程成功')
+    #     user.refresh()
+    #     process_code = user.get_bom_info('PCBA BOM协作', '自动化新增用例', '流程编码')
+    #     user.supplement_bom_flow(process_code)
+    #     user.supplementary_factory_flow(process_code)
+    #     user.Structure_flow(process_code)
+    #     user.Purchase_flow(process_code)
+    #     user.business_approve_flow(process_code)
+    #     user.enter_oneworks_edit(process_code)
+    #     user.assert_OneWorks_AgreeFlow()
+    #     user.assert_my_application_node(process_code, '审批通知', True)
+    #     sleep(60)
+    #     user.assert_my_application_flow(process_code, '审批完成')
+    #     process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
+    #     ValueAssert.value_assert_equal(process_status, '审批通过')
+    #
+    # @allure.story("自动化测试")  # 用户故事名称
+    # @allure.title("BOM协作PCBABOM协作=衍生BOM，数据组审批页面，审批成功")  # 用例名称
+    # @allure.description("在数据组审批页面中，子阶BOM检查为成功，点击同意，能提交成功，并且给出提交成功的提示")  # 用例描述
+    # @allure.severity("blocker")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # @pytest.mark.skip
+    # def test_20575(self, drivers):
+    #     user = PCBABomCooperation(drivers)
+    #     user.refresh_webpage_click_menu()
+    #     user.click_add()
+    #     # 数据组审批需要将SAP数据删除，手动删除后，需要填写相关bom信息（品牌，机型，阶段，市场）
+    #     user.input_basic_info('标题', '自动化新增用例')
+    #     user.input_bom_info('制作类型', '客供BOM衍生')
+    #     user.input_bom_info('品牌', 'itel')
+    #     user.input_bom_info('机型', 'JMB-01')
+    #     user.input_bom_info('阶段', '量产阶段')
+    #     user.input_bom_info('市场', '埃塞本地')
+    #     user.input_bom_info('模式', '零价值客供')
+    #     # 填写相关衍生信息，需要在数据组审批子阶检查通过
+    #     user.click_Derived_add()
+    #     user.input_Derived_info('新BOM编码', '12000003')
+    #     user.input_Derived_info('原始BOM编码', '12014351')
+    #     user.input_Derived_info('原始BOM工厂', 'PL01')
+    #     user.click_Derived_differ()
+    #     user.click_Derived_add()
+    #     user.input_Derived_info('BOM编码', '12000003')
+    #     user.input_Derived_info('操作', '新增物料')
+    #     user.input_Derived_info('处理物料编码', '12800001')
+    #     user.input_Derived_info('用量', '1000')
+    #     user.click_Creat_BOM()
+    #     user.assert_toast('生成衍生BOM成功')
+    #     user.click_refresh()
+    #     user.select_business_review(user.review, 'PPM')
+    #     user.select_business_review(user.review, 'QPM')
+    #     user.click_add_submit()
+    #     user.assert_toast('创建流程成功')
+    #     user.refresh()
+    #     process_code = user.get_bom_info('外研BOM协作', '自动化新增用例', '流程编码')
+    #     user.business_approve_flow(process_code)
+    #     user.enter_oneworks_edit(process_code)
+    #     user.assert_OneWorks_AgreeFlow()
+    #     user.assert_my_application_node(process_code, '审批通知', True)
+    #     sleep(60)
+    #     user.assert_my_application_flow(process_code, '审批完成')
+    #     process_status = user.get_bom_info('外研BOM协作', '自动化新增用例', '单据状态')
+    #     ValueAssert.value_assert_equal(process_status, '审批通过')
 
     @allure.story("自动化测试")  # 用户故事名称
     @allure.title("BOM协作PCBABOM协作=【生产工厂信息】物料xxxxxx的组包工厂不能为空")  # 用例名称
