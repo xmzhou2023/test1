@@ -26,73 +26,15 @@ class Teststory_2798:
     @pytest.mark.smoke  # 用例标记
     def test_30689(self, drivers):
         robot = KeyWord(drivers)
-        user = UserPage(drivers)
-        robot.AI_find_element(By.XPATH, "//li[contains(.,'卡片管理')]").click()  # id819be31d-e1f9-4481-9c4d-4f8c5b2eb748
-        robot.AI_find_element(By.XPATH, "//span[contains(.,'+新建')]").click()  # idb259fc7c-c62c-4853-ad7f-43426972ffd9
-        time.sleep(2)
-        robot.AI_find_element(By.XPATH, "//input").click()  # id7675bc2c-97bc-4003-8c23-a9f83a7f39e2
-        robot.AI_find_element(By.XPATH,
-                              "//div[contains(@x-placement,'start')]//span[normalize-space(text())='移动端']").click()  # id733e264f-409f-438c-860c-adbab3b06e5b
-        DomAssert(drivers).assert_att('移动端')
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[2]").click()  # id0c4fd09a-bd47-48fb-8f76-9572f82c1eeb
-        robot.AI_find_element(By.XPATH, "//span[contains(.,'测试5')]").click()  # idaee48538-e0fd-4398-af6e-069d10bcee4a
-        DomAssert(drivers).assert_att('测试5')
-        robot.AI_find_element(By.XPATH, "//div[3]/div/div/div/div").click()  # id04f28941-04fc-44fd-985d-e6d052a6d848
-        robot.AI_find_element(By.XPATH, "//div[2]/div/span").click()  # id7dae952a-5538-4984-9b69-6e8fe7a041e8
-        DomAssert(drivers).assert_att('经营分析')
-        robot.AI_find_element(By.XPATH,
-                              "//div[2]/div[2]/div[2]/div[2]/div/div").click()  # id38d3f393-8a1c-4efb-8755-114a7972491c
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[3]").click()  # idbf07d0c5-9b20-4b44-99dd-775b7afbda55
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[3]").send_keys(
-            "陈嘉")  # idb1b23502-aaa2-464f-943c-edec89f09dbf
-        robot.AI_find_element(By.XPATH,
-                              "//div[contains(@x-placement,'start')]//span[contains(.,'陈嘉18649432')]").click()  # id99fd142c-af80-416f-86a3-9d4ae612616a
-        user.assert_input('需求提出人','陈嘉18649432')
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[4]").click()  # id7db42d6d-51d1-4856-b85b-bc7d4132fbe0
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[4]").send_keys(
-            "陈嘉")  # id670f4fb3-33ed-436e-9c17-407410840882
-        robot.AI_find_element(By.XPATH,
-                              "//div[contains(@x-placement,'start')]//span[contains(.,'陈嘉18649432')]").click()  # id0aefa37b-d8a8-4248-9712-b33c09d742a5
-        user.assert_input('业务负责人','陈嘉18649432')
-        robot.AI_find_element(By.XPATH,
-                              "//div[6]/div/div/div/div/div").click()  # ida85ddfc9-4eae-4fdf-988b-9d68793cb214
-        robot.AI_find_element(By.XPATH,
-                              "//div[6]/div/div/div/div[2]/div[4]/div/div").click()  # id81c228e5-fbac-4dda-a6e4-2dbb32761554
-        user.assert_input('业务组织','深圳传音控股')
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[5]").click()  # idfeb66049-f2f7-49a5-b58d-9acb078c748d
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[5]").send_keys(
-            "郭伟")  # idbe1014f9-4127-40f6-a5e6-b1d907af7186
-        robot.AI_find_element(By.XPATH,
-                              "//span[contains(.,'郭伟18648974')]").click()  # id176dc776-7a0d-420c-b08f-7f0cdb8607de
-        user.assert_input('IT负责人','郭伟18648974')
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[6]").click()  # id5813b835-6415-409c-817b-0077154c754a
-        robot.AI_find_element(By.XPATH, "//li[contains(.,'分享')]").click()  # id1decd83b-3a76-45e4-b979-df3bcc701eb8
-        DomAssert(drivers).assert_att('分享')
-        robot.AI_find_element(By.XPATH, "//form/div").click()  # ida38468eb-42eb-4207-b858-4bc4fe5bd74d
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[7]").click()  # idbad517d0-a865-41ee-848d-56824c93d13e
-        robot.AI_find_element(By.XPATH, "//button[contains(.,'选择')]").click()  # id5e1bc90c-083b-44b6-8b0b-a38b23fb4fdb
-        robot.AI_find_element(By.XPATH,
-                              "//div[2]/div[2]/div[2]/div[2]/div[2]/div/div/label/span/span").click()  # id0eeb066f-3867-460f-b2d8-f977384ea9a4
-        robot.AI_find_element(By.XPATH, "//div[2]/div[3]/button/span").click()  # id0c0244bd-7b65-46ea-9468-1e744ea81268
-        robot.AI_find_element(By.XPATH, "//textarea").click()  # id8e65d049-801e-44e7-bb4d-e149bbd931dd
-        robot.AI_find_element(By.XPATH, "//textarea").send_keys("销售年情况")  # idfb1077c3-5ffa-41ee-a2d4-c7c93fe00d0e
-        user.assert_input('新建说明', '销售年情况')
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[8]").click()  # id08a75066-5f43-44ef-9c09-b31e3c01cd00
-        robot.AI_find_element(By.XPATH, "(//input[@type='text'])[8]").send_keys(
-            "test")  # idc6289502-af33-4620-94fe-df696d45087a
-        robot.AI_find_element(By.XPATH,
-                              "//div[2]/div/div/div/textarea").click()  # id16278250-da7e-4213-8ee1-e0d5c8c8237e
-        robot.AI_find_element(By.XPATH, "//div[2]/div/div/div/textarea").send_keys(
-            "kdjflkjlfw")  # id47af0a08-5176-485e-8cb1-276dc5c8b97c
-        user.assert_input('英文属性说明', 'kdjflkjlfw')
-        robot.AI_find_element(By.XPATH, "//span[contains(.,'确定')]").click()  # idb61adb68-2f38-4b49-9485-4a351657b5d9
-        DomAssert(drivers).assert_att("新建卡片成功！")
-        DomAssert(drivers).assert_att('测试5')
-        robot.AI_find_element(By.XPATH,
-                              "//td[not(contains(@class,'is-hidden'))]//i[@title='删除']").click()  # idaa9f333a-6f7a-4e44-874c-b9ad82f4b7af
-        robot.AI_find_element(By.XPATH,
-                              "//div[@class='el-message-box__wrapper']//span[normalize-space(text())='确定']").click()  # idaa9f333a-6f7a-4e44-874c-b9ad82f4b7af
-        DomAssert(drivers).assert_att("删除成功")
+        robot.AI_get("http://10.248.39.163:10101/")#idaac9448f-b803-4887-a254-4292de6b9f6d
+        robot.AI_find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(14) .nest-menu:nth-child(1) .el-menu-item").click()#ida76f8c92-7b04-4d10-96b3-469369537b37
+        element = robot.AI_find_element(By.CSS_SELECTOR, ".el-menu--vertical:nth-child(14) .nest-menu:nth-child(1) span")#id97eaae4d-a6fd-47e8-8753-4adfd87bf103
+        actions = ActionChains(drivers)
+        actions.move_to_element(element).perform()
+        element = robot.AI_find_element(By.CSS_SELECTOR, "body")#idee67642d-901a-4400-b253-490f31db32e7
+        actions = ActionChains(drivers)
+        actions.move_to_element(element).perform()
+        robot.AI_find_element(By.CSS_SELECTOR, ".is-opened > .el-submenu__title").click()#idf9464851-9e2f-4cde-88b0-ac8e57cf8a6b
 
 
     @allure.story("BI单点登录插件改造")  # 用户故事名称
