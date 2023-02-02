@@ -148,6 +148,7 @@ class LoginPage(Base):
         self.refresh()
         all_text = self.element_text(user['所有文本'])
         if 'Log in' in all_text:
+            self.driver.delete_all_cookies()
             self.dcr_again_login(drivers, account1, password)
         else:
             get_account = self.get_login_account()
