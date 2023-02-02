@@ -1,3 +1,5 @@
+from selenium.webdriver import Keys
+
 from public.base.basics import Base
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
@@ -97,6 +99,9 @@ class LoginPage(Base):
     @allure.step("退出重新登录，去掉打开登录地址")
     def dcr_again_login(self, drivers, account, passwd):
         user = LoginPage(drivers)
+        self.get_url('chrome://settings/clearBrowserData')
+        self.find_element(By.XPATH, '//settings-ui').send_keys(Keys.ENTER)
+        self.get_url('http://testdcr.imwav.com:8091/')
         user.input_account(account)
         user.input_passwd(passwd)
         sleep(3)
@@ -148,14 +153,11 @@ class LoginPage(Base):
         self.refresh()
         all_text = self.element_text(user['所有文本'])
         if 'Log in' in all_text:
-            self.driver.delete_all_cookies()
             self.dcr_again_login(drivers, account1, password)
         else:
             get_account = self.get_login_account()
             if account1 != get_account:
                 self.click_loginOut()
-                self.driver.delete_all_cookies()
-                self.refresh()
                 self.dcr_again_login(drivers, account1, password)
             else:
                 ref = Base(drivers)
