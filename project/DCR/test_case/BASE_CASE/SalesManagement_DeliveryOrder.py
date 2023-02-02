@@ -109,6 +109,7 @@ class TestQueryDeliveryOrder:
         user = DeliveryOrderPage(drivers)
         user.click_menu("Sales Management", "Delivery Order")
         user.click_unfold()
+        user.input_search('Delivery Date', '2022-11-01To2023-01-31')
         user.input_search('Brand', 'itel')
         user.input_search('Sales Order ID', '02HK2211220003')
         user.input_search('Seller', 'SN405554')

@@ -128,3 +128,5 @@ click输入框选择: "xpath==//div[contains(@x-placement,'start')]//li/span[nor
 NoData: "xpath==//div[@class='el-table__empty-block']"
 打印Cancel: "xpath==//div[normalize-space(text())='Delivery Order']/../../..//span[normalize-space(text())='Cancel']"
 DeliveryOrdery表格退货标签: "xpath==//td[contains(@class,'variable   ') and not(contains(@class, 'is-hidden'))]/div/div/div"
+时间输入框: "xpath==//label[normalize-space(text())='variable']/..//div[contains(@class,'date-box')][variable]//input"
+输入框名称: "xpath==//label[normalize-space(text())='variable']"

@@ -14,6 +14,15 @@ object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
 class DeliveryOrderPage(Base):
+
+    def input_text(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        ele.send_keys(txt)
+        logging.info("输入文本：{}".format(txt))
+
     """DeliveryOrderPage类，Delivery Order页面，查询与新建出库单功能 元素定位"""
     @allure.step("出库单页面，输入销售订单号查询")
     def input_salesorder(self, content):
@@ -687,7 +696,10 @@ class DeliveryOrderPage(Base):
             self.is_click_tbm(user['click输入框'], header)
             self.is_click_tbm(user['click输入框选择'], content)
         elif header in time_list:
-            pass
+            createDate = content.split('To')
+            for i in range(len(createDate)):
+                self.readonly_input_text(user['时间输入框'], createDate[i], header, i + 1)
+                self.is_click_tbm(user['输入框名称'], header)
         else:
             logging.error('请输入正确的查询条件')
             raise ValueError('请输入正确的查询条件')
@@ -714,6 +726,7 @@ class DeliveryOrderPage(Base):
         :param content: 断言内容
         """
         logging.info('开始断言：单一条件查询结果')
+        self.input_search('Delivery Date', '2022-11-01To2023-01-31')
         self.input_search(header, content)
         self.click_search()
         if header == 'Seller' or header == 'Buyer':
