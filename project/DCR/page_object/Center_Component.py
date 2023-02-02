@@ -116,6 +116,7 @@ class LoginPage(Base):
 
     @allure.step("退出重新登录，去掉打开登录地址")
     def privacy(self):
+        sleep(2.5)
         all_text = self.element_text(user['所有文本'])
         if '请下拉阅读完本隐私协议后可点击同意按钮' in all_text:
             for i in range(20):

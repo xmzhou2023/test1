@@ -31,25 +31,22 @@ class TestQuerySubDelivery:
         """DCR 二代账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD291501", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Sales Management", "Delivery Order")
-
         """出库单页面 实例化销售管理页面组件类"""
         query = DeliveryOrderPage(drivers)
         """出库单页面，筛选出库单用例"""
-        salesorder = query.text_sales_order()
-        deliveryorder = query.text_delivery_order()
-
-        query.input_salesorder(salesorder)
-        query.input_deliveryorder(deliveryorder)
+        sales_order = query.text_sales_order()
+        delivery_order = query.text_delivery_order()
+        query.input_salesorder(sales_order)
+        query.input_deliveryorder(delivery_order)
         query.click_search()
 
-        salesorder2 = query.text_sales_order()
-        deliveryorder2 = query.text_delivery_order()
+        sales_order2 = query.text_sales_order()
+        delivery_order2 = query.text_delivery_order()
         """出库单页面，调用断言封装的方法，比较页面获取的文本是否与查询的结果相等"""
-        ValueAssert.value_assert_equal(salesorder, salesorder2)
-        ValueAssert.value_assert_equal(deliveryorder, deliveryorder2)
+        ValueAssert.value_assert_equal(sales_order, sales_order2)
+        ValueAssert.value_assert_equal(delivery_order, delivery_order2)
         #query.click_close_delivery_order()
 
 
@@ -72,11 +69,9 @@ class TestAddSubDeliveryReceipt:
         varsql1 = "SELECT IMEI FROM  t_channel_warehouse_current_stock WHERE WAREHOUSE_ID = 62134   AND STATUS = 1 limit 1"
         result_imei = sql1.query_db(varsql1)
         sub_imei = result_imei[0].get("IMEI")
-
         """点击Add新增出库单按钮"""
         add.click_add()
-        """如果buyer买家为二代账号，则调用input_sub_buyer方法；buyer买家为零售商账号，input_retail_buyer方法。"""
-
+        """如果buyer买家为二代账号，则调用input_sub_buyer方法；buyer买家为零售商账号，input_retail_buyer方法"""
         add.input_retail_buyer("EG000562")
         add.input_deli_pay_mode("Online")
         add.input_imei(sub_imei)
@@ -90,7 +85,6 @@ class TestAddSubDeliveryReceipt:
                 dom.assert_att("Submit successfully")
         except Exception as e:
             logging.info("打印日志{}".format(e))
-        sleep(1)
         add.click_search()
 
         sql2 = SQL('DCR', 'test')
@@ -105,17 +99,14 @@ class TestAddSubDeliveryReceipt:
         """出库单列表页面，获取页面，销售单与出库单的文本内容进行筛选"""
         salesorder = add.text_sales_order()
         deliveryorder = add.text_delivery_order()
-
         """出库单页面，筛选出库单ID"""
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
-
         """出库单页面，断言，比较页面获取的文本是否与查询的结果相等"""
         ValueAssert.value_assert_equal(salesorder, order_code)
         ValueAssert.value_assert_equal(deliveryorder, delivery_code)
         sleep(1)
-
         """断言后端，数据库是否存在新建的出库单，获取列表出库单页面，销售ID、出库单ID、状态文本内容与数据库对比是否一致"""
         del_sales_order = add.text_sales_order()
         del_delivery_order = add.text_delivery_order()
@@ -130,7 +121,6 @@ class TestAddSubDeliveryReceipt:
         delivery_id = result[0].get("delivery_code")
         status = result[0].get("status")
         sleep(1)
-
         ValueAssert.value_assert_equal(del_sales_order, order_id)
         ValueAssert.value_assert_equal(del_delivery_order, delivery_id)
         if status == 80200000:
@@ -181,7 +171,7 @@ class TestAddSubDeliveryReceipt:
         varsql4 = "select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200001 order by created_time desc limit 1"
         result = sql3.query_db(varsql4)
         delivery_code = result[0].get("delivery_code")
-
+        """点击添加退货单按钮"""
         return_order.click_Add()
         return_order.click_Return_Type()
         return_order.radio_Delivery_order()
@@ -192,8 +182,7 @@ class TestAddSubDeliveryReceipt:
         return_order.click_Submit()
 
         """断言页面是否存在提交成功 Submit Success!文本"""
-        dom = DomAssert(drivers)
-        dom.assert_att("Submit Success!")
+        DomAssert(drivers).assert_att("Submit Success!")
         """方法参数赋值给变量"""
         return_order.input_Delivery_Orderid(delivery_code)
         return_order.click_Search()
@@ -218,14 +207,12 @@ class TestAddSubDeliveryReceipt:
         varsql5 = "select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='62134' and seller_id='1596874516539662' and buyer_id='1596874516539668' and status=80200001 order by created_time desc limit 1"
         result = sql4.query_db(varsql5)
         delivery_code = result[0].get("delivery_code")
-
         return_approve.input_Delivery_Orderid(delivery_code)
         return_approve.click_Search()
         return_approve.click_checkbox()
         return_approve.click_Approve_button()
         return_approve.input_remark("同意退货")
         return_approve.click_agree()
-
         """ 断言页面是否存在审核成功Approval successfully文本 """
         dom = DomAssert(drivers)
         dom.assert_att("Approval successfully")

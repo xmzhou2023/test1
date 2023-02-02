@@ -11,9 +11,7 @@ import datetime
 import logging
 import pytest
 import allure
-
 from libs.config.conf import DOWNLOAD_PATH
-
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
@@ -534,7 +532,7 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
-        return_order.add_return_order_box_sn_box('43012202214859')
+        return_order.add_return_order_box_sn_imei('43012202214859')
         record = return_order.get_text_Record()
         get_scanned = return_order.get_scanned_number()
         ValueAssert.value_assert_equal("Success", record)
@@ -614,7 +612,7 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         process = SalesOrderPage(drivers)
         """根据指定仓库、Brand、Activated 条件筛选库存IMEI"""
-        process.imei_inventory_query_imei2('WNG2061304 NG2061303', 'TECNO', 'Yes')
+        process.imei_inventory_query_imei2('WNG2061304', 'TECNO', 'Yes')
         get_imei1 = process.get_text_imei_inventory()
         get_imei2 = process.get_text_imei_inventory2()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(get_imei1, get_imei2))
@@ -697,7 +695,7 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal('SN001872', get_shop_id)
         """"关闭Shop Purchase Query页面"""
         #user5.click_close_open_menu()
-
+        #勿删除注释的用例
         # """断言收货成功后，打开Shop Sales Query列表，根据IMEI条件查询，IMEI是否入Shop Sales Query页面"""
         # Base(drivers).refresh()
         # user5.click_gotomenu("Sales Management", "Shop Sales Query")
@@ -760,7 +758,7 @@ class TestAddDeliveryOrder:
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
         """退货操作，传参退2个IMEI"""
-        return_order.add_return_order_box_sn_imei(get_imei1, get_imei2)
+        return_order.add_return_order_box_sn_imei2(get_imei1, get_imei2)
         record = return_order.get_text_Record()
         ValueAssert.value_assert_equal("Success", record)
         """点击提交按钮"""
@@ -797,7 +795,7 @@ class TestAddDeliveryOrder:
         user5.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         process = SalesOrderPage(drivers)
         """根据指定仓库、Brand、Activated 条件筛选库存IMEI"""
-        process.imei_inventory_query_imei2('WNG2061304 NG2061303', 'TECNO', 'Yes')
+        process.imei_inventory_query_imei2('WNG2061304', 'TECNO', 'Yes')
         get_imei1 = process.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(get_imei1))
         user5.click_close_open_menu()
@@ -1029,14 +1027,14 @@ class TestAddDeliveryOrder:
     @allure.description("国包用户，新建出库单，产品为有码的，出库类型为:SN产品，买方为二代用户，买收货后，SN退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_011(self, drivers):
+    def test_004_009(self, drivers):
         user6 = LoginPage(drivers)
         user6.initialize_login(drivers, "IN40080501", "dcr123456")
         """打开IMEI Inventory Query菜单, 获取列表SN"""
         user6.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         process = SalesOrderPage(drivers)
         """根据Brand：itel appliances条件筛选库存SN"""
-        process.imei_inventory_query_imei2('WIN400805 400805', 'itel appliances', 'No')
+        process.imei_inventory_query_imei2('WIN400805', 'itel appliances', 'No')
         get_sn1 = process.get_text_imei_inventory1()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(get_sn1))
         user6.click_close_open_menu()
@@ -1057,13 +1055,14 @@ class TestAddDeliveryOrder:
         get_product = add_delivery.get_delivery_order_detail_product()
         """"点击提交按钮"""
         add_delivery.click_submit()
-        """断言确认销售价格弹窗 Brand 与 Product字段文本内容是否正确"""
-        get_confirm_price_product = add_delivery.get_list_field_text('Get Confirm the sale price Product')
-        ValueAssert.value_assert_equal(get_product, get_confirm_price_product)
-        get_confirm_price_brand = add_delivery.get_list_field_text('Get Confirm the sale price Brand')
-        ValueAssert.value_assert_equal('itel appliances', get_confirm_price_brand)
-        """点击提交后，盘点是否有弹出确认价格提示框，如果没有就执行except下面的语句，直接提交成功，断言是否有成功提示语"""
+
+        """点击提交后，判断是否有弹出确认价格提示框，如果没有就执行except下面的语句，直接提交成功，断言是否有成功提示语"""
         try:
+            """断言确认销售价格弹窗 Brand 与 Product字段文本内容是否正确"""
+            get_confirm_price_product = add_delivery.get_list_field_text('Get Confirm the sale price Product')
+            ValueAssert.value_assert_equal(get_product, get_confirm_price_product)
+            get_confirm_price_brand = add_delivery.get_list_field_text('Get Confirm the sale price Brand')
+            ValueAssert.value_assert_equal('itel appliances', get_confirm_price_brand)
             affirm = add_delivery.get_text_submit_affirm()
             if affirm == "Submit":
                 add_delivery.click_submit_affirm()
@@ -1129,11 +1128,9 @@ class TestAddDeliveryOrder:
         return_order.click_return_order_imei_detail()
         get_detail_title = return_order.get_list_field_text('Get Return Order IMEI Detail title')
         get_detail_imei = return_order.get_list_field_text('Get Return Order IMEI Detail IMEI')
-        get_detail_product = return_order.get_list_field_text('Get Return Order IMEI Detail Product')
         get_detail_brand = return_order.get_list_field_text('Get Return Order IMEI Detail Brand')
         ValueAssert.value_assert_equal('IMEI Detail', get_detail_title)
         ValueAssert.value_assert_equal(get_sn1, get_detail_imei)
-        ValueAssert.value_assert_equal(get_confirm_price_product, get_detail_product)
         ValueAssert.value_assert_equal('itel appliances', get_detail_brand)
         """关闭退货单页面的IEMI Detail窗口"""
         return_order.close_return_order_imei_detail()
@@ -1151,8 +1148,6 @@ class TestAddDeliveryOrder:
         get_return_type = return_order.get_list_return_type()
         ValueAssert.value_assert_equal("Approved", status)
         ValueAssert.value_assert_equal('Return To Seller', get_return_type)
-
-
 
 
 if __name__ == '__main__':

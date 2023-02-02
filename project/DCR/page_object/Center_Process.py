@@ -231,7 +231,8 @@ class SalesOrderPage(Base):
     @allure.step("IMEI Inventory Query页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(4)
+        #sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("IMEI Inventory Query页面，获取列表 第一行IMEI文本内容")
     def get_text_imei_inventory1(self):
@@ -291,6 +292,8 @@ class SalesOrderPage(Base):
     def imei_inventory_query_imei2(self, warehouse, brand, activated):
         self.click_unfold()
         self.is_click(user['IMEI Inventory Warehouse'])
+        self.input_text(user['IMEI Inventory Warehouse'], warehouse)
+        self.presence_sleep_dcr(user['IMEI Inventory Warehouse Value'], warehouse)
         self.is_click(user['IMEI Inventory Warehouse Value'], warehouse)
         self.is_click(user['IMEI库存点击Brand'])
         self.is_click(user['IMEI库存select brand'], brand)
@@ -305,7 +308,8 @@ class SalesOrderPage(Base):
     def shop_sales_query_imei(self, imei):
         self.input_text(user['Shop Sales Query IMEI SN'], imei)
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(4)
+        #sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("Shop Sales Query菜单, 获取列表分页总条数")
     def shop_sales_assert_total(self):
@@ -339,7 +343,8 @@ class SalesOrderPage(Base):
     def shop_purchase_query_imei(self, imei):
         self.input_text(user['Shop Purchase Query IMEI'], imei)
         self.is_click(user['IMEI库存查询按钮'])
-        sleep(4)
+        #sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("Shop Purchase Query菜单, 勾选记录，然后点击删除功能")
     def shop_purchase_query_cancel(self):

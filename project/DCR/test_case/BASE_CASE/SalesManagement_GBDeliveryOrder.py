@@ -37,17 +37,17 @@ class TestQueryDistDelivery:
         """出库单页面 实例化销售管理页面组件类"""
         query = DeliveryOrderPage(drivers)
         """出库单页面，筛选出库单用例"""
-        salesorder = query.text_sales_order()
-        deliveryorder = query.text_delivery_order()
-        query.input_salesorder(salesorder)
-        query.input_deliveryorder(deliveryorder)
+        sales_order = query.text_sales_order()
+        delivery_order = query.text_delivery_order()
+        query.input_salesorder(sales_order)
+        query.input_deliveryorder(delivery_order)
         query.click_search()
 
-        salesorder2 = query.text_sales_order()
-        deliveryorder2 = query.text_delivery_order()
+        sales_order2 = query.text_sales_order()
+        delivery_order2 = query.text_delivery_order()
         """出库单页面，调用断言封装的方法，比较页面获取的文本是否与查询的结果相等"""
-        ValueAssert.value_assert_equal(salesorder, salesorder2)
-        ValueAssert.value_assert_equal(deliveryorder, deliveryorder2)
+        ValueAssert.value_assert_equal(sales_order, sales_order2)
+        ValueAssert.value_assert_equal(delivery_order, delivery_order2)
         #query.click_close_delivery_order()
 
 
@@ -67,14 +67,12 @@ class TestAddDistDeliveryOrder:
         """调用菜单栏，打开IMEI Inventory Query菜单，获取product对应的IMEI"""
         delivery = SalesOrderPage(drivers)
         """查询IMEI Inventory Query页面 指定product的IMEI"""
-        #sleep(2)
         imei = delivery.get_text_imei_inventory()
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(imei))
         delivery.click_close_imei_inventory()
 
         """ 刷新页面 """
         Base(drivers).refresh()
-
         """销售管理菜单-出库单列表-筛选出库单数据用例"""
         user1.click_gotomenu("Sales Management", "Delivery Order")
         add = DeliveryOrderPage(drivers)
@@ -114,7 +112,6 @@ class TestAddDistDeliveryOrder:
         order_code = result[0].get("order_code")
         delivery_code = result[0].get("delivery_code")
         sleep(1)
-
         add.input_salesorder(order_code)
         add.input_deliveryorder(delivery_code)
         add.click_search()
@@ -136,7 +133,6 @@ class TestAddDistDeliveryOrder:
         ordercode = result[0].get("order_code")
         deliverycode = result[0].get("delivery_code")
         status = result[0].get("status")
-
         """筛选后断言，后端查询数据库sales_order、delivery_order、status字段是否与列表字段一致"""
         ValueAssert.value_assert_equal(del_sales_order, ordercode)
         ValueAssert.value_assert_equal(del_delivery_order, deliverycode)
@@ -152,7 +148,6 @@ class TestAddDistDeliveryOrder:
         user1.click_gotomenu("Purchase Management", "Inbound Receipt")
         """二代账号筛选 最近新建的出库单ID，快速收货操作"""
         receipt = InboundReceiptPage(drivers)
-
         """从数据库表，查询最近新建的销售单ID与出库单ID"""
         sql4 = SQL('DCR', 'test')
         varsql4 = "select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200000 order by created_time desc limit 1"
@@ -189,7 +184,6 @@ class TestAddDistDeliveryOrder:
         user1.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
-
         """退货单列表页面，二代或者零售商用户退货操作"""
         """从数据库表，查询国包账号，最近新建的销售单ID与出库单ID"""
         sql5 = SQL('DCR', 'test')
@@ -224,7 +218,6 @@ class TestAddDistDeliveryOrder:
 
         """退货单列表页面，国包账号, 进行退货审核操作"""
         user1.initialize_login(drivers, "BD40344201", "dcr123456")
-
         """打开Purchase Management菜单"""
         user1.click_gotomenu("Sales Management", "Return Order")
 
