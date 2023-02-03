@@ -98,10 +98,12 @@ class LoginPage(Base):
 
     @allure.step("退出重新登录，去掉打开登录地址")
     def dcr_again_login(self, drivers, account, passwd):
+        logging.info('退出重新登录')
         user = LoginPage(drivers)
         self.driver.delete_all_cookies()
         js = 'window.localStorage.clear();'
         self.driver.execute_script(js)
+        self.refresh()
         user.input_account(account)
         user.input_passwd(passwd)
         sleep(3)
