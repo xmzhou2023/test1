@@ -17,7 +17,7 @@ class Teststory_3791:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_25928(self, drivers):
-        pass
+        print('2222')
 
 
 if __name__ == '__main__':
