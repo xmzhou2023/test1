@@ -64,7 +64,7 @@ class DitributorReceiptPage(Base):
     @allure.step("国包收货页面，筛选条件后，点击Search按钮")
     def click_search(self):
         self.is_click(user['国包收货列表Search'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     @allure.step("点击快速收货提交按钮")
     def click_quick_receive_submit(self):
@@ -79,13 +79,13 @@ class DitributorReceiptPage(Base):
     @allure.step("国包收货页面，点击Reset按钮")
     def click_reset(self):
         self.is_click(user['国包收货Reset'])
-        sleep(4.5)
+        self.element_text(user['Loading'])
 
     @allure.step("国包收货页面，点击IMEI Detail按钮查看IMEI详情信息")
     def click_imei_detail(self):
         self.presence_sleep_dcr(user['点击IMEI Detail'])
         self.is_click(user['点击IMEI Detail'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("打开IMEI Detail页面，获取DN文本内容")
     def get_text_imei_detail_DN(self):

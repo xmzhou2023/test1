@@ -49,6 +49,7 @@ IMEI Inventory Activated Value: "xpath==//div//ul//li//span[contains(text(),'var
 IMEI库存点击Brand: "xpath==//label//..//div//input[@id='imeiinventoryquery_input_brandCodes']"
 IMEI库存选中Brand: "xpath==//div//ul//li//span[text()='itel']"
 IMEI库存select brand: "xpath==//div//ul//li//span[text()='variable']"
+点击label标签: "xpath==//div//label//span[text()='variable']"
 IMEI库存查询按钮: "xpath==//span[contains(text(),'Search')]"
 获取IMEI文本内容1: "xpath==//tbody//tr[1]//td[4]//div"
 获取IMEI文本内容: "xpath==//tbody//tr[2]//td[4]//div"
@@ -59,8 +60,8 @@ Get list Total: "xpath==//div//div//span[contains(text(), 'Total')]"
 
 
 #Inbound Receipt 快速收货销售单页面定位
-获取列表第一个销售单ID:  "xpath==//tbody//tr[1]//td[2]//div"
-获取列表第一个出库单ID:  "xpath==//tbody//tr[1]//td[3]//div"
+获取列表第一个销售单ID: "xpath==//tbody//tr[1]//td[2]//div"
+获取列表第一个出库单ID: "xpath==//tbody//tr[1]//td[3]//div"
 Sales Order ID:  "xpath==//label[(text()='Sales Order ID')]//parent::div// following-sibling::div//input"
 Delivery Order ID: "xpath==//label[(text()='Delivery Order ID')]//parent::div// following-sibling::div//input"
 Inbound Receipt Search: "xpath==//span[contains(text(),'Search')]"

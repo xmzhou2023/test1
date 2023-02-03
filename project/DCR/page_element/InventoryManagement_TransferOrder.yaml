@@ -42,7 +42,7 @@ Transfer From Warehouse select query: "xpath==//div//div//ul//li//span[contains(
 Transfer To Warehouse click query: "xpath==//div//input[@class='el-input__inner transferorder_input_warehouseTo']"
 Transfer To Warehouse input query: "xpath==//label[text()='Transfer To Warehouse']/..//div//input[@class='el-select__input is-small']"
 Transfer To Warehouse select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
-Click Create Date Label: "xpath==//div//div//label[text()='Create Date']"
+点击label标签: "xpath==//div//div//label[text()='variable']"
 
 Transfer Receipt Status click query: "xpath==//div//input[@class='el-input__inner transferorder_input_receiptStatus']"
 Transfer Receipt Status select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
@@ -93,7 +93,7 @@ Close Transfer IMEI Detail: "xpath==//div//span[text()='IMEI Detail']/..//button
 Transfer Order Confirm Receipt: "xpath==//button[@id='transferring_order_receive_']//span[normalize-space(text())='Confirm Receipt']"
 Transfer Order Click CheckBox: "xpath==//tbody//tr[1]//td[not(contains(@class ,'is-hidden'))]//div//label//span[@class='el-checkbox__input']"
 Transfer Order Receipt Remark: "xpath==//div//textarea[@placeholder='Limit 150 chars']"
-Transfer Confirm Receipt Button: "xpath==//div//button//..//span[text()='variable']"
+Transfer Confirm Receipt Button: "xpath==//div//button//..//span[text()='Confirm Receipt']"
 Transfer Confirm receipt or Recall: "xpath==//div//span[text()='Tips']/../../..//button//span[normalize-space(text())='Confirm']"
 Close Transfer Receipt Remark: "xpath==//div//span[text()='Receipt Remark']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
 #Transfer Order页面，退货操作按钮
@@ -129,5 +129,3 @@ Get Import Record Success: "xpath==//tbody//tr[1]//td[5]//div"
 Get Import Record Failed: "xpath==//tbody//tr[1]//td[6]//div"
 Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
 Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"
-
-

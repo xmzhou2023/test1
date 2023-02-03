@@ -30,7 +30,9 @@ class TestQueryTransferOrder:
         user.initialize_login(drivers, "xiongbo92", "dcr123456")
         user.click_gotomenu("Inventory Management", "Transfer Order")
         query_transfer = TransferOrderPage(drivers)
+        today = query_transfer.get_datetime_today()
         query_transfer.click_unfold('Unfold')
+        query_transfer.input_transfer_create_start_end_date('2022-12-06', today)
         """按Transfer ID条件，筛选调拨单记录"""
         query_transfer.transfer_order_input_query('Transfer Transfer ID input query', 'Transfer Transfer ID input query', 'TFHK202212060004')
         query_transfer.click_search_reset('Search')
@@ -69,10 +71,7 @@ class TestQueryTransferOrder:
         query_transfer.click_search_reset('Reset')
 
         """按Create Date 条件，筛选调拨单记录"""
-        query_transfer.input_transfer_create_start_date('2022-12-06')
-        query_transfer.input_transfer_create_end_date('2022-12-06')
-        """点击空白区域"""
-        query_transfer.click_create_date_label()
+        query_transfer.input_transfer_create_start_end_date('2022-12-06', '2022-12-06')
         query_transfer.click_search_reset('Search')
         query_transfer.assert_contains_transfer_order_field('Create Date', '2022-12-06')
         """重置筛选条件"""
@@ -102,7 +101,6 @@ class TestQueryTransferOrder:
         """按Brand条件，筛选调拨单记录"""
         query_transfer.transfer_order_input_select_query('Transfer Brand click query', 'Transfer Brand input query', 'Transfer Brand select query', 'itel', 'itel')
         query_transfer.click_search_reset('Search')
-        query_transfer.click_create_date_label()
         query_transfer.assert_search_transfer_order_field('Brand', 'itel')
         """重置筛选条件"""
         query_transfer.click_search_reset('Reset')
@@ -222,6 +220,7 @@ class TestNewRecallTransferOrder:
         """查询IMEI Inventory Query页面 指定product的IMEI"""
         get_imei.click_unfold()
         get_imei.input_warehouse_query('WBD291502')
+        get_imei.select_brand_query('itel')
         get_imei.click_inventory_search()
         imei = get_imei.get_text_imei_inventory()
         logging.info("打印从IMEI Inventory Query页面，获取的imei:{}".format(imei))
@@ -266,7 +265,6 @@ class TestNewRecallTransferOrder:
         transfer.click_transfer_receipt_status_query('No Receive')
         """点击查询按钮"""
         transfer.click_search_reset('Search')
-        #sleep(1)
         """勾选复选框"""
         transfer.click_transfer_order_checkbox()
         """点击recall撤回功能"""
@@ -274,14 +272,14 @@ class TestNewRecallTransferOrder:
         """弹出成功提示语断言"""
         DomAssert(drivers).assert_att('Successfully')
         """点击查询按钮"""
-        transfer.click_transfer_receipt_status_query('Rejected')
+        transfer.click_transfer_receipt_status_query('No Receive')
         transfer.click_search_reset('Search')
         get_transfer_id2 = transfer.get_list_transfer_order_id()
         get_order_status = transfer.get_list_transfer_order_status()
         get_receipt_status = transfer.get_list_transfer_receipt_status()
         ValueAssert.value_assert_equal(get_transfer_id, get_transfer_id2)
-        ValueAssert.value_assert_equal('Audited', get_order_status)
-        ValueAssert.value_assert_equal('Rejected', get_receipt_status)
+        ValueAssert.value_assert_equal('Recall', get_order_status)
+        ValueAssert.value_assert_equal('No Receive', get_receipt_status)
 
 
 
@@ -307,7 +305,7 @@ class TestNewRecallTransferOrder:
         get_imei.click_close_imei_inventory()
 
         """刷新页面"""
-        get_imei.click_refresh(drivers)
+        get_imei.refresh()
         """进入Transfer Order创建同级调拨单，不同客户之间调拨"""
         user.click_gotomenu("Inventory Management", "Transfer Order")
         receipt = TransferOrderPage(drivers)
@@ -346,19 +344,17 @@ class TestNewRecallTransferOrder:
         receipt.input_transfer_order_id_query(get_transfer_id)
         receipt.click_transfer_receipt_status_query('No Receive')
         receipt.click_search_reset('Search')
-        sleep(1)
         """未勾选复选框时，点击Confirm Receipt操作，提示 请选择记录"""
         receipt.click_confirm_receipt1()
         DomAssert(drivers).assert_att('Please select a record')
         sleep(1)
         """勾选第一个复选框后，点击Confirm Receipt 确认收货操作"""
         receipt.click_transfer_order_checkbox()
-        receipt.click_transfer_confirm_receipt('已收货', 'Confirm Receipt')
+        receipt.click_transfer_confirm_receipt('已收货')
         DomAssert(drivers).assert_att('Successfully')
         """筛选Received 已收货状态的记录，进行断言,调拨单号是否正确，状态是否更新为Received状态 """
         receipt.click_transfer_receipt_status_query('Received')
         receipt.click_search_reset('Search')
-        sleep(1)
         transfer_id1 = receipt.get_list_transfer_order_id()
         get_audited = receipt.get_list_transfer_order_status()
         get_received = receipt.get_list_transfer_receipt_status()
@@ -389,12 +385,12 @@ class TestNewRecallTransferOrder:
         get_imei.click_close_imei_inventory()
 
         """刷新页面"""
-        get_imei.click_refresh(drivers)
+        get_imei.refresh()
         """进入Transfer Order创建同个客户，不同仓库之间的调拨单"""
         user.click_gotomenu("Inventory Management", "Transfer Order")
         transfer = TransferOrderPage(drivers)
         transfer.click_create()
-        transfer.click_transfer_from_customer('BD2915 lhmSubdealer001 ')
+        transfer.click_transfer_from_customer('BD2915 lhmSubdealer001')
         transfer.click_transfer_to_customer('NG20613 xylSub dealer')
         transfer.click_transfer_to_warehouse('WNG2061301')
         transfer.input_scan_imei(imei_itel)
@@ -421,14 +417,15 @@ class TestNewRecallTransferOrder:
         ValueAssert.value_assert_equal('Audited', get_audited)
         ValueAssert.value_assert_equal('No Receive', get_receive)
 
-        """from调拨方收货操作，提示：无权限收货"""
+        """from调拨方收货操作，弹出提示：无权限收货"""
         """筛选待收货状态的调拨单"""
         transfer.input_transfer_order_id_query(get_transfer_id)
         transfer.click_search_reset('Search')
-        sleep(1)
         """勾选第一个复选框后，点击Confirm Receipt 确认收货操作"""
         transfer.click_transfer_order_checkbox()
-        transfer.click_transfer_confirm_receipt('已收货', 'Confirm Receipt')
+        transfer.click_transfer_confirm_receipt('已收货')
+        DomAssert(drivers).assert_att("You don't have permission to receive this ticket")
+        sleep(1)
         get_confirm_receipt_button = transfer.get_list_field('Transfer Confirm Receipt Button')
         ValueAssert.value_assert_equal("Confirm Receipt", get_confirm_receipt_button)
         """关闭Transfer Order确认收货窗口"""
@@ -442,7 +439,6 @@ class TestNewRecallTransferOrder:
         transfer.input_transfer_order_id_query(get_transfer_id)
         transfer.click_transfer_receipt_status_query('No Receive')
         transfer.click_search_reset('Search')
-        sleep(1)
         """获取Transfer Order列表字段内容"""
         transfer_id2 = transfer.get_list_transfer_order_id()
         get_list_brand = transfer.get_list_field('Get list Brand')
@@ -468,12 +464,11 @@ class TestNewRecallTransferOrder:
 
         """勾选第一个复选框后，点击Confirm Receipt 确认收货操作"""
         transfer.click_transfer_order_checkbox()
-        transfer.click_transfer_confirm_receipt('已收货', 'Confirm Receipt')
+        transfer.click_transfer_confirm_receipt('已收货')
         DomAssert(drivers).assert_att('Successfully')
         """筛选Received 已收货状态的记录，进行断言,调拨单号是否正确，状态是否更新为Received状态 """
         transfer.click_transfer_receipt_status_query('Received')
         transfer.click_search_reset('Search')
-        sleep(1)
         transfer_id1 = transfer.get_list_transfer_order_id()
         get_audited = transfer.get_list_transfer_order_status()
         get_received = transfer.get_list_transfer_receipt_status()

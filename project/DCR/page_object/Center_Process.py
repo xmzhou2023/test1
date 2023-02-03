@@ -223,6 +223,7 @@ class SalesOrderPage(Base):
     def select_brand_query(self, brand):
         self.is_click(user['IMEI库存点击Brand'])
         self.is_click(user['IMEI库存select brand'], brand)
+        self.is_click(user['点击label标签'], 'Brand')
 
     @allure.step("IMEI库存页面，根据Box_ID 查询箱号下的IMEI")
     def input_box_id_query(self, box_id):
@@ -231,7 +232,6 @@ class SalesOrderPage(Base):
     @allure.step("IMEI Inventory Query页面，点击查询按钮")
     def click_inventory_search(self):
         self.is_click(user['IMEI库存查询按钮'])
-        #sleep(4)
         self.element_text(user['Loading'])
 
     @allure.step("IMEI Inventory Query页面，获取列表 第一行IMEI文本内容")
