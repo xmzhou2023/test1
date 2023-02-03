@@ -8,7 +8,7 @@ class Teststory_3791:
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_24861(self, drivers):
-        pass
+        print('1111')
 
 
     @allure.story("测试删除需求2")  # 用户故事名称
