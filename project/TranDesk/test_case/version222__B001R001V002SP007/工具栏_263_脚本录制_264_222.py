@@ -10,7 +10,7 @@ class Teststory_3791:
     def test_24861(self, drivers):
         print('1111')
 
-    @allure.story("测试删除需求3")  # 用户故事名称
+    @allure.story("测试删除需求2")  # 用户故事名称
     @allure.title("22222222222222")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
@@ -18,8 +18,8 @@ class Teststory_3791:
     def test_25930(self, drivers):
         print('2222')
 
-    @allure.story("测试删除需求4")  # 用户故事名称
-    @allure.title("22222222222222")  # 用例名称
+    @allure.story("测试删除需求3")  # 用户故事名称
+    @allure.title("333333333")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
