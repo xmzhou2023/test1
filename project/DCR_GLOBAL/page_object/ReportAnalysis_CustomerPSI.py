@@ -25,13 +25,18 @@ class CustomerPSIPage(Base):
         """点击Sub-dealer按钮筛选二代数据"""
         self.presence_sleep_dcr(user['Sub dealer'])
         self.is_click(user['Sub dealer'])
-        self.element_text(user['Loading'])
+
+    def customer_psi_start_date_query(self, start_date):
+        """Customer PSI 页面，输入开始Date条件筛选数据"""
+        self.is_click(user['Customer PSI Start Date'])
+        self.input_text(user['Customer PSI Start Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Date')
 
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
+        sleep(3)
         self.element_text(user['Loading'])
-        #sleep(6)
 
     def get_total_text(self):
         """获取分页总条数文本"""
@@ -65,8 +70,6 @@ class CustomerPSIPage(Base):
     #     self.is_click(user['关闭客户PSI菜单'])
     #     sleep(1)
 
-
-
     #Customer PSI列表数据筛选后，导出操作成功后验证
     def click_export(self):
         """Customer PSI页面，点击Export导出按钮"""
@@ -78,7 +81,7 @@ class CustomerPSIPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -86,6 +89,12 @@ class CustomerPSIPage(Base):
         self.input_text(user['Input Task Name'], content)
         sleep(1)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """

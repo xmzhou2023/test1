@@ -86,11 +86,10 @@ class ReturnOrderPage(Base):
         return_quantity = self.element_text(user['Get Order Detail Return Quantity'])
         return return_quantity
 
-
     @allure.step("退货单页面，点击Submit")
     def click_Submit(self):
         self.is_click(user['Submit'])
-        sleep(0.5)
+        sleep(1)
 
     @allure.step("获取提交退货成功提示语")
     def get_submit_success_text(self):
@@ -106,7 +105,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单列表页面，点击Search")
     def click_Search(self):
         self.is_click(user['Search'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("退货单列表页面，点击IMEI Detail按钮，查看IMEI详情")
     def click_return_order_imei_detail(self):
@@ -179,6 +178,10 @@ class ReturnOrderPage(Base):
         success = self.element_text(user['Approval Successfully'])
         return success
 
+    @allure.step("断言精确查询结果 Sales Order列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_return_order_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
 
     """无码申请退货"""
     @allure.step("新建退货页面，点击无码退货单选按钮")
@@ -247,17 +250,17 @@ class ReturnOrderPage(Base):
         self.is_click(user['Confirm Recall'])
         sleep(0.6)
 
-    @allure.step("退货单页面，点击添加退货单操作，退货一个BoxID或IMEI")
-    def add_return_order_box_sn_box(self, box_id):
+    @allure.step("退货单页面，点击添加退货单操作，退货一个BoxID或IMEI或SN")
+    def add_return_order_box_sn_imei(self, box_sn_imei):
         self.click_Add()
         """点击退货给卖家类型"""
         self.click_Return_Type()
         self.radio_Boxid_IMEI()
-        self.input_BoxID_IMEI(box_id)
+        self.input_BoxID_IMEI(box_sn_imei)
         self.click_Check()
 
     @allure.step("退货单页面，点击添加退货单操作，退货两个IMEI")
-    def add_return_order_box_sn_imei(self, imei1, imei2):
+    def add_return_order_box_sn_imei2(self, imei1, imei2):
         self.click_Add()
         """点击退货给卖家类型"""
         self.click_Return_Type()
@@ -308,13 +311,14 @@ class ReturnOrderPage(Base):
     def click_blank(self):
         self.is_click(user['空白处'])
 
+
 class ReturnOrderQuery(Base):
     """用户类"""
 
     @allure.step("退货单列表页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        self.element_text(user['Loading'])
 
     @allure.step("退货单列表页面，点击export按钮")
     def click_export(self):
@@ -575,6 +579,12 @@ class ReturnOrderQuery(Base):
         for i in list_random:
             self.assert_search_result(i, kwargs[i])
 
+    @allure.step("按退货日期条件筛选数据")
+    def return_order_return_date_query(self, header, content):
+        self.is_click(user['Input Return Start Date'], header)
+        self.input_text(user['Input Return Start Date'], content, header)
+        """弹出日历空间后，点击日历标签释法"""
+        self.is_click(user['点击label标签'], header)
 
 
 if __name__ == '__main__':

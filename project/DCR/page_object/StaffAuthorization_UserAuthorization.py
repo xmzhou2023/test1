@@ -1,3 +1,5 @@
+import logging
+
 from libs.common.read_element import Element
 from libs.config.conf import BASE_DIR
 from public.base.basics import Base
@@ -12,30 +14,21 @@ user = Element(pro_name, object_name)
 
 class UserAuthorizationPage(Base):
     """ 根据代理用户筛选用户关联的数据 """
-
     @allure.step("进入用户授权页面，根据User 筛选品牌、客户等数据")
     def input_dealer_user_query(self, content):
-        self.presence_sleep_dcr(user['Input User'])
-        self.is_click_dcr(user['Input User'])
-        self.input_text_dcr(user['Input User'], txt=content)
-        sleep(3)
-        self.presence_sleep_dcr(user['Click Dealer User Value'], content)
-        self.is_click(user['Click Dealer User Value'], content)
+        self.is_click(user['Input User'])
+        self.input_text(user['User ID输入框'], content)
 
     @allure.step("根据传音用户筛选用户关联的数据")
     def input_trans_user_query(self, content):
         """进入用户授权页面，根据User 筛选品牌、客户等数据"""
-        self.is_click_dcr(user['Input User'])
-        self.input_text_dcr(user['Input User'], txt=content)
-        sleep(3.5)
-        self.presence_sleep_dcr(user['Click Trans User Value'], content)
-        self.is_click(user['Click Trans User Value'], content)
+        self.is_click(user['Input User'])
+        self.input_text(user['User ID输入框'], content)
 
     @allure.step("点击user对应的Search按钮")
     def click_search(self):
         self.is_click_dcr(user['User Search'])
-        sleep(2.5)
-
+        self.element_text(user['Loading'])
 
     """删除与添加品牌定位方法"""
     @allure.step("获取列表Infinix品牌文本")
@@ -193,9 +186,8 @@ class UserAuthorizationPage(Base):
 
     @allure.step("在仓库页签，输入Warehouse ID进行筛选需要删除的仓库")
     def input_list_query_ware(self, content):
-        self.presence_sleep_dcr(user['仓库列表点击仓库输入框'])
         self.is_click(user['仓库列表点击仓库输入框'])
-        self.input_text_dcr(user['仓库列表点击仓库输入框'], txt=content)
+        self.input_text_dcr(user['仓库列表点击仓库输入框'], content)
         sleep(2)
         self.is_click_dcr(user['仓库列表选中输入的仓库'], 'WNG2061304 NG2061303')
 
@@ -216,7 +208,6 @@ class UserAuthorizationPage(Base):
     @allure.step("在仓库页签，筛选Warehouse ID后，点击More Option按钮")
     def click_ware_more_option(self):
         self.is_click(user['Warehouse More Option'])
-        sleep(1)
 
     @allure.step("在仓库页签，点击Batch Cancel Association 按钮")
     def click_ware_cancel_association(self):
@@ -314,7 +305,6 @@ class UserAuthorizationPage(Base):
     @allure.step("在门店页签，筛选Shop ID后，点击More Option按钮")
     def click_shop_more_option(self):
         self.is_click(user['Shop More Option'])
-        sleep(2)
 
     @allure.step("在门店页签，点击 Batch Cancel Association取消关联按钮")
     def click_shop_cancel_association(self):
@@ -432,6 +422,11 @@ class UserAuthorizationPage(Base):
         self.is_click(user['tab标签'], select)
         logging.info(f'点击标签页： {select}')
 
+    @allure.step("点击标签页查询")
+    def click_tab_search(self):
+        self.is_click(user['tabSearch'])
+        logging.info('点击标签页查询')
+
     @allure.step("输入查询条件")
     def input_search(self, header, content):
         click_list = ['Customer Type']
@@ -439,7 +434,7 @@ class UserAuthorizationPage(Base):
         if header == 'User ID':
             self.is_click_tbm(user['输入框'], header)
             self.input_text(user['输入框3'], content, header)
-        elif header == 'User Name':
+        elif header == 'User Name' or header == 'Customer':
             self.is_click_tbm(user['输入框'], header)
             self.input_text(user['输入框2'], content, header)
             self.is_click_tbm(user['输入结果模糊选择'], content)
@@ -513,7 +508,7 @@ class UserAuthorizationPage(Base):
         if 'Customer' in title or 'Shop' in title:
             self.is_click(user['AuthorizedSelected'])
         elif 'Warehouse' in title:
-            self.is_click(user['Save'])
+            self.is_click(user['WarehouseSave'])
         else:
             logging.error('无对应保存按钮')
             raise ValueError('无对应保存按钮')
@@ -524,7 +519,6 @@ class UserAuthorizationPage(Base):
         """
         :param header: 需要获取的指定字段
         :param content: 需要断言的值
-        :param num: 包含的数量
         """
         logging.info('开始断言：用户授权页面查询结果')
         DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
@@ -540,12 +534,18 @@ class UserAuthorizationPage(Base):
         DomAssert(self.driver).assert_control(user['NoData'])
 
     @allure.step("前置：移除所有授权")
-    def reset_Association(self):
+    def reset_Association(self, tab=None):
         logging.info('开始：移除所有授权')
-        self.click_function_button('Empty All Association')
-        self.click_Delete()
-        DomAssert(self.driver).assert_att('Successfully')
-        self.assert_NoData()
+        if tab == 'Sales Region':
+            if self.element_exist(user['NoData']) is False:
+                self.is_click_tbm(user['销售区域选择'], 'Sales Region')
+                self.is_click_tbm(user['SalesRegionSave'])
+                DomAssert(self.driver).assert_att('Successfully')
+        else:
+            self.click_function_button('Empty All Association')
+            self.click_Delete()
+            DomAssert(self.driver).assert_att('Successfully')
+            self.assert_NoData()
 
     @allure.step("组合方法：添加授权")
     def Association_Method(self, Cid, header='Customer'):
@@ -639,6 +639,42 @@ class UserAuthorizationPage(Base):
     @allure.step("点击Export")
     def click_export(self):
         self.is_click(user['Export'])
+
+    @allure.step("选择销售区域")
+    def select_SalesRegion(self, SalesRegion):
+        """
+        :param SalesRegion: 销售区域
+        """
+        self.input_text(user['销售区域查询'], SalesRegion)
+        self.is_click_tbm(user['销售区域选择'], SalesRegion)
+
+    @allure.step("选择授权范围")
+    def select_ScopeOfAutorization(self, scope):
+        """
+        :param SalesRegion: 销售区域
+        """
+        self.is_click_tbm(user['销售范围选择'], scope)
+        logging.info(f'选择销售范围：{scope}')
+
+    @allure.step("点击保存")
+    def click_SalesRegion_save(self):
+        self.is_click(user['SalesRegionSave'])
+
+    @allure.step("断言：销售区域授权成功")
+    def assert_SalesRegionAutorization_success(self, SalesRegion, *scope):
+        """
+        :param SalesRegion: 销售区域
+        :param scope: 销售范围
+        """
+        logging.info('开始断言：销售区域授权成功')
+        self.input_text(user['已授权销售区域查询'], SalesRegion)
+        DomAssert(self.driver).assert_control(user['已授权销售区域'], SalesRegion)
+        logging.info(f'已授权销售区域：{SalesRegion} 存在')
+        if scope:
+            for i in scope:
+                class_att = self.get_element_attribute(user['已授权销售范围'], 'class', i)
+                ValueAssert.value_assert_In('is-checked', class_att)
+                logging.info(f'已勾选销售范围：{i}')
 
 
 if __name__ == '__main__':

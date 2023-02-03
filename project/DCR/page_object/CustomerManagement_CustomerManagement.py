@@ -91,7 +91,7 @@ class CustomerManagementPage(Base):
     def input_customer_query(self, customer_id):
         self.is_click_dcr(user['筛选Customer'])
         self.input_text_dcr(user['筛选Customer'], customer_id)
-        sleep(2.5)
+        sleep(2)
         self.presence_sleep_dcr(user['筛选Customer Select'], customer_id)
         self.is_click(user['筛选Customer Select'], customer_id)
 
@@ -99,12 +99,11 @@ class CustomerManagementPage(Base):
     def click_search(self):
         self.is_click(user['Search'])
         self.element_exist(user['Loading'])
-        sleep(3)
 
     @allure.step("客户列表页面，点击Reset 重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(4.5)
+        self.element_text(user['Loading'])
 
     @allure.step("获取新增客户ID")
     def get_customer_id(self):
@@ -182,9 +181,9 @@ class CustomerManagementPage(Base):
 
     @allure.step("删除新建的客户")
     def delete_customer(self):
-        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['CheckBox'])
         self.is_click(user['More Options'])
-        sleep(2)
+        sleep(0.5)
         self.presence_sleep_dcr(user['Delete'])
         self.is_click(user['Delete'])
         sleep(1.5)
@@ -193,15 +192,15 @@ class CustomerManagementPage(Base):
 
     @allure.step("删除有绑定订单数据的客户不能被删除")
     def delete_have_records_customer(self):
-        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['CheckBox'])
         self.is_click(user['More Options'])
-        sleep(1.7)
+        sleep(0.5)
         self.presence_sleep_dcr(user['Delete'])
         self.is_click(user['Delete'])
         sleep(1.5)
         self.presence_sleep_dcr(user['Delete Confirm'])
         self.is_click(user['Delete Confirm'])
-        sleep(2)
+        sleep(1.7)
         DomAssert(self.driver).assert_att("The following customers have delivery or receipt records and cannot be deleted!")
         self.is_click_dcr(user['Delete Tips Close'])
 
@@ -213,10 +212,9 @@ class CustomerManagementPage(Base):
 
     @allure.step("点击启用按钮")
     def click_more_option_enable(self):
-        sleep(1)
-        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['CheckBox'])
         self.is_click(user['More Options'])
-        sleep(2)
+        sleep(0.5)
         self.is_click(user['Enable'])
         sleep(1.5)
         self.presence_sleep_dcr(user['Enable Confirm'])
@@ -224,14 +222,13 @@ class CustomerManagementPage(Base):
 
     @allure.step("点击禁用按钮")
     def click_more_option_disable(self):
-        sleep(1)
-        self.is_click_dcr(user['CheckBox'])
+        self.is_click(user['CheckBox'])
         self.is_click(user['More Options'])
-        sleep(2)
+        sleep(0.5)
         self.is_click(user['Disable'])
         sleep(1.5)
         self.presence_sleep_dcr(user['Disable Yes'])
-        self.is_click_dcr(user['Disable Yes'])
+        self.is_click(user['Disable Yes'])
 
     @allure.step("客户列表，获取列表状态字段内容")
     def get_list_status(self, status):
@@ -273,7 +270,7 @@ class CustomerManagementPage(Base):
     @allure.step("Import Record页面，点击Search 查询按钮")
     def click_import_record_search(self):
         self.is_click(user['Search'])
-        sleep(1.7)
+        self.element_text(user['Loading'])
 
 
     """导入记录页面，获取列表字段断言是否导入成功"""
@@ -326,15 +323,14 @@ class CustomerManagementPage(Base):
     @allure.step("Customer Management页面，点击导出按钮")
     def click_export(self):
         self.is_click(user['Export'])
-        sleep(2)
+        sleep(1)
 
     @allure.step("Customer Management页面，导出操作后，点击右上角下载图标,点击右上角more...")
     def click_download_more(self):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(2)
-
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -342,6 +338,12 @@ class CustomerManagementPage(Base):
         self.input_text(user['Input Task Name'], txt=content)
         sleep(0.5)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_start_date(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选条件的标签'], 'Create Date')
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -486,9 +488,10 @@ class CustomerManagementPage(Base):
             raise
 
     @allure.step("断言：页面查询结果")
-    def assert_User_Exist(self, header, content):
+    def assert_customer_query_result(self, header, content):
         logging.info('开始断言：页面查询结果')
         DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
+
 
     @allure.step("断言：页面查询结果")
     def assert_search_result(self, header, content):

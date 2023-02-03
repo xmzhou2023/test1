@@ -34,12 +34,12 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_search(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
         self.is_click(user['Search'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
         self.is_click(user['Reset'])
-        sleep(7.5)
+        self.element_text(user['Loading'])
 
     def click_fold(self):
         """Shop Inventory IMEI Query页面，点击Fold收起筛选条件按钮"""
@@ -87,7 +87,7 @@ class ShopInventoryIMEIQueryPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(6)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

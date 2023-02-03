@@ -3,10 +3,9 @@
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Inbound Date Start Time: "xpath==//label[text()='Inbound Date']//..//div[@class='date-box start']//input"
 Fold: "xpath==//span[contains(text(),'Fold')]"
-
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 获取Shop ID文本: "xpath==//table//tbody//tr[1]//td[2]//div"
 获取Shop Name文本: "xpath==//table//tbody//tr[1]//td[3]//div"
 获取Brand文本: "xpath==//table//tbody//tr[1]//td[4]//div"

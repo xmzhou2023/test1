@@ -36,24 +36,26 @@ class ShopSaleQueryPage(Base):
     @allure.step("输入Upload Date筛选项的开始时间")
     def input_upload_start_date(self, content):
         self.is_click(user['Input Upload Start Date'])
-        self.input_text(user['Input Upload Start Date'], txt=content)
+        self.input_text(user['Input Upload Start Date'], content)
+        self.is_click(user['点击筛选项label'], 'Upload Date')
 
     @allure.step("输入销售日期开始时间与结束时间Sales Date Start Date")
     def input_sales_date(self, content1, content2):
         self.is_click(user['Sales Date Start Date'])
-        self.input_text(user['Sales Date Start Date'], txt=content1)
+        self.input_text(user['Sales Date Start Date'], content1)
         self.is_click(user['Sales Date End Date'])
-        self.input_text(user['Sales Date End Date'], txt=content2)
+        self.input_text(user['Sales Date End Date'], content2)
+        self.is_click(user['点击筛选项label'], 'Sales Date')
 
     @allure.step("Shop Sales Query页面，筛选Shop ID后，点击Search按钮")
     def click_search(self):
         self.is_click_dcr(user['Search'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     @allure.step("Shop Sales Query页面，筛选Shop ID后，点击Search按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(2)
+        self.element_text(user['Loading'])
 
     @allure.step("Shop Sales Query页面，获取列表Shop ID 文本内容")
     def get_shop_id_text(self):
@@ -115,7 +117,7 @@ class ShopSaleQueryPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -123,6 +125,12 @@ class ShopSaleQueryPage(Base):
         self.input_text(user['Input Task Name'], txt=content)
         sleep(0.5)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -200,7 +208,6 @@ class ShopSaleQueryPage(Base):
             logging.info("Shop Sales Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Shop Sales Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
 
     @allure.step("点击Import按钮")
     def click_import(self):
@@ -382,6 +389,7 @@ class ShopSaleQueryPage(Base):
     @allure.step("重置ShopSalesQuery导入数据")
     def reset_ShopSalesQuery_import(self, imei):
         """Shop Sales Query页面点击指定imei复选框，删除"""
+        self.click_menu("Sales Management", "Shop Sales Query")
         logging.info('开始重置ShopSalesQuery导入数据')
         self.input_ShopSalesQuery_query('IMEI/SN', imei)
         self.click_search()
@@ -398,6 +406,7 @@ class ShopSaleQueryPage(Base):
     def reset_ShopPurchaseQuery_import(self, imei):
         """ShopPurchaseQuery页面点击指定imei复选框，删除"""
         logging.info('开始重置ShopPurchaseQuery导入数据')
+        self.click_menu("Purchase Management", "Shop Purchase Query")
         self.click_unfold()
         self.input_ShopPurchaseQuery_query('IMEI', imei)
         self.input_ShopPurchaseQuery_query('Status', 'Committed')
@@ -593,6 +602,13 @@ class ShopSaleQueryPage(Base):
         :param content: 需要断言的值
         """
         DomAssert(self.driver).assert_search_result(user['表格头部字段'], user['列表第一行'], header, content)
+
+
+    @allure.step("断言精确查询结果 Shop Sales Query列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_shop_sales_query_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['指定列内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
+
 
 
 if __name__ == '__main__':

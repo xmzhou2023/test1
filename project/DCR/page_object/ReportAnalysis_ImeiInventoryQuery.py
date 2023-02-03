@@ -105,7 +105,7 @@ class ImeiInventoryQuery(Base):
         return txt
 
     @allure.step("点击Unfold展开筛选项按钮")
-    def click_button(self, txt):
+    def click_button(self, txt): 
         self.is_click(user['Unfold_Search_Reset按钮'], txt)
         if txt=='Search':
             sleep(5)

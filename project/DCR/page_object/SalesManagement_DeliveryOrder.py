@@ -14,6 +14,15 @@ object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
 class DeliveryOrderPage(Base):
+
+    def input_text(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        ele.send_keys(txt)
+        logging.info("输入文本：{}".format(txt))
+
     """DeliveryOrderPage类，Delivery Order页面，查询与新建出库单功能 元素定位"""
     @allure.step("出库单页面，输入销售订单号查询")
     def input_salesorder(self, content):
@@ -26,12 +35,12 @@ class DeliveryOrderPage(Base):
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("出库单页面，点击Add新增出库单")
     def click_add(self):
@@ -110,7 +119,7 @@ class DeliveryOrderPage(Base):
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):
         self.is_click(user['Submit'])
-        sleep(0.6)
+        sleep(1)
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def get_text_submit(self):
@@ -168,6 +177,7 @@ class DeliveryOrderPage(Base):
         sleep(1)
         self.is_click(user['Delivery End Date'])
         self.readonly_input_text(user['Delivery End Date'], content2)
+        self.is_click(user['点击筛选项label'], 'Delivery Date')
 
     @allure.step("点击 Status输入框")
     def click_status_input_box(self):
@@ -231,14 +241,20 @@ class DeliveryOrderPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
-        self.input_text(user['Input Task Name'], txt=content)
-        sleep(0.5)
+        self.input_text(user['Input Task Name'], content)
+        sleep(0.6)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     @allure.step("循Base环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -308,7 +324,12 @@ class DeliveryOrderPage(Base):
             logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
+
+    @allure.step("断言精确查询结果 Customer PSI列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_delivery_order_field(self, header, content):
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['DeliveryOrdery表格内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
+
 
     @allure.step("获取出库单列表，字段内容")
     def get_list_field_text(self, field):
@@ -675,7 +696,10 @@ class DeliveryOrderPage(Base):
             self.is_click_tbm(user['click输入框'], header)
             self.is_click_tbm(user['click输入框选择'], content)
         elif header in time_list:
-            pass
+            createDate = content.split('To')
+            for i in range(len(createDate)):
+                self.readonly_input_text(user['时间输入框'], createDate[i], header, i + 1)
+                self.is_click_tbm(user['输入框名称'], header)
         else:
             logging.error('请输入正确的查询条件')
             raise ValueError('请输入正确的查询条件')
@@ -702,6 +726,7 @@ class DeliveryOrderPage(Base):
         :param content: 断言内容
         """
         logging.info('开始断言：单一条件查询结果')
+        self.input_search('Delivery Date', '2022-11-01To2023-01-31')
         self.input_search(header, content)
         self.click_search()
         if header == 'Seller' or header == 'Buyer':

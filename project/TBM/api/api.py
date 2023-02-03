@@ -1335,9 +1335,9 @@ class APIRequest:
                 logging.info('流程接口结束：关键器件流程新增流程')
                 return i['flowNo'], i['instanceId'], i['bid']
 
-    @allure.step("关键器件流程新增接口")
+    @allure.step("关键器件流程修订接口")
     def API_KeyDevice_Revise(self):
-        logging.info('发起流程接口：关键器件流程新增流程')
+        logging.info('发起流程接口：关键器件流程修订流程')
         token = self.tbm_login()
         querytime = datetime.now().strftime('%Y-%m-%d')
         revise_data = {
@@ -1536,7 +1536,7 @@ class APIRequest:
         for i in search_response_data:
             if i['bid'] == bid:
                 logging.info('接口返回数据：FlowNo：{}，InstanceID：{}，bid：{}'.format(i['flowNo'], i['instanceId'], i['bid']))
-                logging.info('流程接口结束：关键器件流程新增流程')
+                logging.info('流程接口结束：关键器件流程修订流程')
                 return i['flowNo'], i['instanceId'], i['bid']
 
     @allure.step("关键器件流程：摄像头+闪光灯审批接口")
@@ -1894,11 +1894,11 @@ class APIRequest:
                 {
                     "scPrdBaseInfoVO": {
                         "bizType": "create",
-                        "globalVersion": "ver1",
+                        "globalVersion": "GlobalVersion4",
                         "marketName": f"市场名称{querytime}",
                         "projectName": f"项目名称{querytime}",
-                        "memory": "128+8",
-                        "bandStrategy": "latinAmericaMarket",
+                        "memory": "Memory2",
+                        "bandStrategy": "SC_BAND_STRATEGY2",
                         "productManager": "18645960",
                         "projectManager": "18645960",
                         "brandCode": "infinix",
@@ -1909,7 +1909,7 @@ class APIRequest:
                         "camera": "摄像头",
                         "type": "型号",
                         "new": "新增",
-                        "anthor": "Standard2",
+                        "anthor": "3G",
                         "Color": [
                             "Aqua Blue"
                         ],
@@ -2022,12 +2022,12 @@ class APIRequest:
                         "bid": queryArchDetail['data']['scArchiveProductVO']['bid'],
                         "flowBid": queryArchDetail['data']['scArchiveProductVO']['flowBid'],
                         "bizType": "update",
-                        "globalVersion": "ver3",
+                        "globalVersion": "GlobalVersion1",
                         "marketName": f'{projectName}{testdate}',
                         "projectName": projectName,
-                        "memory": "256+8",
+                        "memory": "Memory1",
                         "brandCode": "infinix",
-                        "bandStrategy": "Indianmarket",
+                        "bandStrategy": "SC_BAND_STRATEGY1",
                         "productManager": "18645960",
                         "projectManager": "18645960",
                         "isDeleted": "0",
@@ -2037,15 +2037,16 @@ class APIRequest:
                         "countryProperties": {},
                         "countryField": None,
                         "dictMap": queryArchDetail['data']['scArchiveProductVO']['dictMap'],
-                        "editStatus": False
+                        "editStatus": False,
+                        "status": "mass"
                     },
                     "scPrdUniversalInfoMap": {
                         "camera": "摄像头test",
                         "type": "型号test",
                         "new": "新增test",
-                        "anthor": "Standard2",
+                        "anthor": "5G",
                         "Color": [
-                            "Aqua Blue"
+                            "Midnight Black"
                         ],
                         "inch": ["RearCamera1"],
                         "FirstOrderMassProdTime": titletime

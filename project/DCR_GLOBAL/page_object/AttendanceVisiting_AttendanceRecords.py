@@ -27,12 +27,12 @@ class AttendanceRecordPage(Base):
     def click_search(self):
         """Attendance Records页面，点击Seasrch筛选考勤记录"""
         self.is_click(user['Search'])
-        sleep(3.5)
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Attendance Records页面，点击Reset重置筛选条件"""
         self.is_click(user['Reset'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
 
     def get_photo_text(self):
@@ -89,7 +89,7 @@ class AttendanceRecordPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3.5)
+        self.element_text(user['Loading'])
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """

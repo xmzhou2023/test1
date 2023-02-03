@@ -119,12 +119,12 @@ def drivers(request, remote_url, remote_ui=False):
 
 
 logname = time.strftime('%Y_%m_%d_%H')
-# logging.basicConfig(level=logging.INFO,
-#                     format='%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)',
-#                     datefmt='[%Y-%m-%d %H:%M:%S]',
-#                     filename='{}/{}.log'.format(LOG_PATH, logname),
-#                     encoding='utf-8',
-#                     filemode='a')
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)',
+                    datefmt='[%Y-%m-%d %H:%M:%S]',
+                    filename='{}/{}.log'.format(LOG_PATH, logname),
+                    encoding='utf-8',
+                    filemode='a')
 
 
 @pytest.mark.hookwrapper

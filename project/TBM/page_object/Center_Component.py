@@ -36,38 +36,23 @@ class CenterComponent(Base, APIRequest):
         self.is_click(user['头像'])
         self.is_click_tbm(user['退出登录'])
 
-    def click_accountlogin(self):
-        """点击帐号密码登录"""
-        self.is_click(user['账号密码登录'])
-
     def input_account(self, content):
         """输入工号"""
-        self.input_text(user['工号输入框'], txt=content)
-        sleep()
+        self.input_text(user['工号输入框IPM'], txt=content)
 
     def input_passwd(self, content):
         """输入密码"""
-        self.input_text(user['密码输入框'], txt=content)
-        sleep()
-
-    def check_box(self):
-        """判断是否被选中"""
-        return self.select_state(user['隐私保护勾选框'])
-
-    def click_proxy_checkbox(self):
-        """点击复选框"""
-        if not self.check_box():
-            self.is_click(user['隐私保护勾选框'])
+        self.input_text(user['密码输入框IPM'], txt=content)
 
     def click_loginsubmit(self):
-        """点击帐号密码登录"""
-        self.is_click(user['登录'])
-        sleep(6)
+        """点击登录"""
+        sleep(2)
+        self.is_click(user['登录ipm'])
+        sleep(2)
 
     def relogin(self, username):
         """统一登录֤"""
         self.click_logout() # 退出登录
-        self.click_accountlogin() # 点击帐户密码登录
         self.input_account(username) # 输入帐户名
         self.input_passwd('xLily6x') # 输入密码
         self.click_loginsubmit()
@@ -821,6 +806,7 @@ class CenterComponent(Base, APIRequest):
                 for i in AuditGroup:
                     infolist.append(i.text)
                     self.is_click_tbm(user['审核人类别'], i.text)
+                    self.is_click_tbm(user['成员列表多选清空'])
                     self.input_text(user['成员列表多选输入框'], audit)
                     sleep(1)
                     self.is_click_tbm(user['成员选择'], audit)
@@ -829,6 +815,7 @@ class CenterComponent(Base, APIRequest):
                 logging.info('获取审核人名单:{}'.format(infolist))
         else:
             self.is_click_tbm(user['审核人类别'], type)
+            self.is_click_tbm(user['成员列表多选清空'])
             self.input_text(user['成员列表多选输入框'], audit)
             sleep(1)
             self.is_click_tbm(user['成员选择'], audit)
@@ -1059,18 +1046,23 @@ class CenterComponent(Base, APIRequest):
 
     @allure.step("断言：出货国家选择全球版本，汇签人员会自动获取人员")
     def assert_version_get_member(self, ver):
-        ver_dict = {'版本1': 'ver1', '版本2': 'ver2', '版本3': 'ver3'}
-        Employee_list = []
-        ServiceDictData = self.API_TBM_ServiceDictData('GLOBAL_VERB')
-        for i in ServiceDictData['data'][0]['values']:
-            if i['key'] == ver_dict[ver]:
-                member_list = i['chValue'].split(',')
-                logging.info('获取字典服务汇签人员工号：{}'.format(member_list))
-                for j in member_list:
-                    Employee_Name = self.API_queryDeptAndEmployee(j)['data'][0]['employeeName']
-                    Employee_list.append(Employee_Name)
-                logging.info('获取字典服务汇签人员名字：{}'.format(Employee_list))
-        self.assert_member('汇签人员', Employee_list)
+        enValueDictData = self.API_TBM_ServiceDictData('SC_GLOBAL_VERSION')
+        for i in enValueDictData['data'][0]['values']:
+            if i['chValue'] == ver:
+                key = i['key']
+                Employee_list = []
+                ServiceDictData = self.API_TBM_ServiceDictData('GLOBAL_VERB')
+                for i in ServiceDictData['data'][0]['values']:
+                    if i['key'] == key:
+                        member_list = i['chValue'].split(',')
+                        logging.info('获取字典服务汇签人员工号：{}'.format(member_list))
+                        for j in member_list:
+                            Employee_Name = self.API_queryDeptAndEmployee(j)['data'][0]['employeeName']
+                            Employee_list.append(Employee_Name)
+                        logging.info('获取字典服务汇签人员名字：{}'.format(Employee_list))
+                self.assert_member('汇签人员', Employee_list)
+                return
+
 
     @allure.step("断言：出货国家选择全球版本，汇签人员会自动获取人员")
     def assert_member(self, type, member):
@@ -1272,7 +1264,7 @@ class CenterComponent(Base, APIRequest):
         :param name: 人员名字
         """
         self.is_click_tbm(user['汇签/抄送人员选择框'], choice)
-        self.is_click_tbm(user['成员列表清空'], choice)
+        self.is_click_tbm(user['成员列表清空'])
         self.input_text(user['成员列表输入框'], name)
         sleep(1)
         self.is_click_tbm(user['成员选择'], name)

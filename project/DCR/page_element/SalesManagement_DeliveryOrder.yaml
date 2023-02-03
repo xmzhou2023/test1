@@ -4,7 +4,9 @@ Input Sales Order ID: "xpath==//label[contains(text(),'Sales Order ID')]//parent
 Input Delivery Order ID: "xpath==//label[contains(text(),'Delivery Order ID')]//parent::div//following-sibling::div//input"
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+点击筛选项label: "xpath==//div//label[contains(text(),'variable')]"
+水平滚动条: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']"
 
 #创建出库单定位元素
 Warehouse Name: "xpath==//div//input[@class='el-input__inner deliveryorderadd_input_warehouseId']"
@@ -85,6 +87,7 @@ Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
 Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
 Task Name value: "xpath==//div//ul//li//span[text()='variable']"
+Export Record Create Date: "xpath==//div//label[text()='Create Date']/..//div[@class='date-box start']//input"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
 获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
@@ -94,6 +97,7 @@ Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
 获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
 获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"
+
 
 Import: "xpath==//button/span[normalize-space(text())='Import']"
 Upload: "xpath==//button/span[normalize-space(text())='Upload']"
@@ -124,3 +128,5 @@ click输入框选择: "xpath==//div[contains(@x-placement,'start')]//li/span[nor
 NoData: "xpath==//div[@class='el-table__empty-block']"
 打印Cancel: "xpath==//div[normalize-space(text())='Delivery Order']/../../..//span[normalize-space(text())='Cancel']"
 DeliveryOrdery表格退货标签: "xpath==//td[contains(@class,'variable   ') and not(contains(@class, 'is-hidden'))]/div/div/div"
+时间输入框: "xpath==//label[normalize-space(text())='variable']/..//div[contains(@class,'date-box')][variable]//input"
+输入框名称: "xpath==//label[normalize-space(text())='variable']"

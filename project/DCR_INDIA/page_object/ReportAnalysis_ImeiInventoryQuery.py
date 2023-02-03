@@ -29,6 +29,7 @@ class ImeiInventoryQuery(Base):
         elif type == 'Receive Date':
             self.input_text(user['收货日期开始'], txt=content)
             self.input_text(user['收货日期结束'], txt=content)
+            self.click_box()
         elif type == 'Activation Date':
             self.input_text(user['激活时间开始'], txt=content)
             self.input_text(user['激活时间结束'], txt=content)
@@ -72,10 +73,12 @@ class ImeiInventoryQuery(Base):
             self.input_text(user['Model输入'], txt=content)
             sleep()
             self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.click_box()
         elif type == 'Market Name':
             self.is_click(user['MarketName点击'])
             self.input_text(user['MarketName输入'], txt=content)
             self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.click_box()
         elif type == 'Series':
             self.is_click(user['Series点击'])
             self.input_text(user['Series输入'], txt=content)
@@ -84,10 +87,12 @@ class ImeiInventoryQuery(Base):
         elif type == 'Category':
             self.is_click(user['Category点击'])
             self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.click_box()
         elif type == 'Dealer Category':
             self.is_click(user['DealerCategory点击'])
             self.input_text(user['DealerCategory输入'], txt=content)
             self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.click_box()
         else:
             logging.info('type is wrong,pls check')
         sleep()

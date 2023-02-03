@@ -43,24 +43,38 @@ class PubicMethod(Base):
         except:
             self.driver.execute_script("arguments[0].click();", ele)
             sleep(0.5)
-        logging.info("点击元素：{}".format(locator))
+        logging.info("点击元素：{} {}".format(locator, choice))
         sleep(0.5)
     def mouse_hover_IPM(self,element,choice=None):
+        '''鼠标悬停'''
         self.mouse_hover(self.chome[element], choice=choice)
 
     def element_exist_IPM(self,element,choice=None):
+        """校验元素是否存在"""
         return  self.element_exist(self.chome[element],choice)
+
+    def mouse_right_click_ipm(self,element,choice=None):
+        '''鼠标右击'''
+        return self.mouse_right_click(self.chome[element],choice)
 
     def find_element_IPM_yaml(self,element, choice=None, choices=None):
         return self.find_element(self.chome[element], choice=choice, choices=choices)
 
-    def find_elemens_IPM_yaml_get_attribute(self,element, choice=None):
+    def find_elemens_ipm_yaml_get_attribute(self,element, choice=None,get_attribute="innerText"):
         ele=self.find_elements(self.chome[element], choice=choice)
         elelist=[]
         for i in ele:
-            res=i.get_attribute("innerText")
+            res=i.get_attribute(get_attribute)
             elelist.append(res)
         return elelist
+
+    def drag_and_drop_ipm(self,element,start_choice,end_choice):
+        '''拖拽元素'''
+        #这是鼠标需要进行的元素
+        start_location = self.find_element(self.chome[element], choice=start_choice)
+        #这是鼠标需要停留的元素
+        end_location = self.find_element(self.chome[element], choice=end_choice)
+        ActionChains(self.driver).drag_and_drop(start_location,end_location).perform()
 
     def refresh_webpage(self):
         logging.info("初始化浏览器")
@@ -73,7 +87,9 @@ class PubicMethod(Base):
                 self.close_switch(1)
         else:
             self.switch_window(0)
-
+    def mouse_double_click_ipm(self,element,choice=None):
+        '''双击'''
+        return self.mouse_double_click(self.chome[element], choice=choice)
 
     def click_IPM(self, element, choice=None, choices=None):
         """
@@ -99,6 +115,9 @@ class PubicMethod(Base):
             self.scroll_into_view(locator=self.chome[elements],choice=choice)
             self.input_text(locator=self.chome[elements], txt=text,choice=choice)
         sleep(0.5)
+
+    def upload_file_ipm(self,elements,text,choice=None):
+        self.upload_file(self.chome[elements],text,choice)
 
 
     def form_elements(self,formheader,choice=None,get_attributs='innerText'):

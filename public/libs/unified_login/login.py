@@ -15,10 +15,10 @@ class Login(Base):
         user = LoginPage(drivers)
         user.get_url(url) # 跳转到指定网页
         user.switch_lanuage("中文") # 传参为"中文"，"英文"，"法文"
-        user.click_accountlogin() # 点击帐户密码登录
+        # user.click_accountlogin() # 点击帐户密码登录
         user.input_account(username) # 输入帐户名
         user.input_passwd(passwd) # 输入密码
-        user.click_checkbox()
+        # user.click_checkbox()
         user.click_loginsubmit()
 
     def IPM_login(self, drivers, url, username, passwd):
@@ -66,18 +66,18 @@ class Login(Base):
         user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
         user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
         user.click_accountlogin()  # 点击帐户密码登录
-        user.input_account(username)  # 输入帐户名
-        user.input_passwd(passwd)  # 输入密码
+        user.input_id(username)  # 输入帐户名
+        user.input_password(passwd)  # 输入密码
         user.click_checkbox_en()
         n = 1
         while n < 6:
             user.input_verify_code()
             sleep(1)
-            user.click_loginsubmit()
+            user.click_loginsubmit_crm()
             sleep(1)
             if 'login' in self.driver.current_url:
                 n += 1
-                user.code_clear()
+                user.code_clear_crm()
                 continue
             else:
                 break
@@ -89,18 +89,18 @@ class Login(Base):
         # user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
         # user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
         user.click_accountlogin()  # 点击帐户密码登录
-        user.input_account(username)  # 输入帐户名
-        user.input_passwd(passwd)  # 输入密码
+        user.input_id(username)  # 输入帐户名
+        user.input_password(passwd)  # 输入密码
         user.click_checkbox_en()
         n = 1
         while n < 6:
             user.input_verify_code()
             sleep(1)
-            user.click_loginsubmit()
+            user.click_loginsubmit_crm()
             sleep(1)
             if 'login' in self.driver.current_url:
                 n += 1
-                user.code_clear()
+                user.code_clear_crm()
                 continue
             else:
                 break
@@ -168,6 +168,6 @@ class Login(Base):
         # user.switch_lanuage("中文") # 传参为"中文"，"英文"，"法文"
         user.BDDP_input_account(username) # 输入帐户名
         user.BDDP_input_passwd(passwd) # 输入密码
-        user.input_imgcode()
+        # user.input_imgcode()
         sleep(1)
         user.BDDP_click_login()

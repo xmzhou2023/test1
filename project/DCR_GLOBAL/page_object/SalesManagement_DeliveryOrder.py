@@ -33,7 +33,7 @@ class DeliveryOrderPage(Base):
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     def get_total_text(self):
         """获取Total分页总条数文本"""
@@ -90,7 +90,7 @@ class DeliveryOrderPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(7)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

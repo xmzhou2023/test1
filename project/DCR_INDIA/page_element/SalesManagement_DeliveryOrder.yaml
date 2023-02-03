@@ -4,6 +4,7 @@ Sales Order ID: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/di
 Delivery/DN Order: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[2]/div/div/div/input"
 Search: "xpath==//button//span[normalize-space(text())='Search']"
 Reset: "xpath==//button//span[normalize-space(text())='Reset']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
 #获取列表字段文本
 Get Sales Order ID Text: "xpath==//table//tbody//tr[1]//td[2]//div"

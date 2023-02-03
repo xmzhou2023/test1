@@ -184,18 +184,20 @@ class CreateProject(General_methods):
     @allure.step("项目管理_项目详情_项目tab应用_计划_计划任务更多操作")
     def project_more_actions(self,taskname,function):
         '''
-        计划_计划任务更多操作
+        计划_计划任务更多操作/新增任务/打开任务抽屉
         :param taskname: 任务名称
         :param function: 子功能为（查看，新增，删除，取消阶段，设置里程碑，置灰等）
         '''
         self.mouse_hover_IPM("计划任务_任务名称",taskname)
-        ele_not=self.element_exist_IPM('计划任务更多操作',taskname)
-        if ele_not ==True:
-            self.mouse_hover_IPM("计划任务更多操作", taskname)
+        if function == '查看':
+            self.click_IPM("计划任务_查看(打开任务抽屉)", taskname)
+
+        if function == '新增':
+            self.click_IPM("计划任务_新增", taskname)
+        if function == '更多操作':
+            self.mouse_hover_IPM("计划任务_更多操作", taskname)
             self.click_IPM("计划任务更多操作_子功能", function)
-        else:
-            self.mouse_hover_IPM("计划任务_更多功能_异常备选", taskname)
-            self.click_IPM("计划任务更多操作_子功能",function)
+
 
     @allure.step("项目管理_项目详情_项目tab应用_计划任务_保存")
     def project_Planned_Task_Save(self):
@@ -227,12 +229,12 @@ class CreateProject(General_methods):
         '''
         计划任务_上会_可预约日期选择
         '''
-        element_res=self.find_elemens_IPM_yaml_get_attribute('上会预约_获取可预约')
+        element_res=self.find_elemens_ipm_yaml_get_attribute('上会预约_获取可预约')
         if "可预约" in element_res:
             self.click_IPM("上会_预约")
         else:
-            element_res6_01 = self.find_elemens_IPM_yaml_get_attribute('上会预约_获取下月6')
-            element_res5_01 = self.find_elemens_IPM_yaml_get_attribute('上会预约_获取下月5')
+            element_res6_01 = self.find_elemens_ipm_yaml_get_attribute('上会预约_获取下月6')
+            element_res5_01 = self.find_elemens_ipm_yaml_get_attribute('上会预约_获取下月5')
             print(element_res5_01)
             if "01" in element_res5_01:
                 self.click_IPM("上会预约_5_01")
@@ -437,7 +439,7 @@ class CreateProject(General_methods):
         '''
         打开任务的更多操作功能
         :param taskname: 编辑的任务名称
-        :param function: 更多功能
+        :param function: 功能
         :param expansion_name1: 展开的任务树结构名称
         '''
         if expansion_name1:
@@ -450,7 +452,7 @@ class CreateProject(General_methods):
         '''
         任务基本信息所有字段获取
         '''
-        return self.find_elemens_IPM_yaml_get_attribute('任务基本信息')
+        return self.find_elemens_ipm_yaml_get_attribute('任务基本信息')
 
 
 
@@ -605,7 +607,7 @@ class CreateProject(General_methods):
         self.click_IPM("团队_角色_新增成员")
 
 
-    def project_team(self,role="PMToffice",judge=None,addrole=None,role_id=None):
+    def project_team(self,role="PMToffice",judge='删除',addrole=None,role_id=None):
         '''
         项目_团队
         :param judge: 传入删除，则将存在团队成员删除
@@ -615,7 +617,7 @@ class CreateProject(General_methods):
         self.project_tab("团队")
         self.prpject_Team_Role(role)
         try:
-            role_ele=self.find_elemens_IPM_yaml_get_attribute("团队_角色_表单成员")
+            role_ele=self.find_elemens_ipm_yaml_get_attribute("团队_角色_表单成员")
             for i in role_ele:
                 if i != None:
                     if judge == "删除":

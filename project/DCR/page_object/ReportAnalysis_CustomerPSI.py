@@ -25,12 +25,18 @@ class CustomerPSIPage(Base):
     @allure.step("点击Sub-dealer按钮筛选二代数据")
     def click_sub_dealer(self):
         self.is_click(user['Sub-dealer'])
-        sleep(1)
+
+    def customer_psi_start_date_query(self, start_date):
+        """Customer PSI 页面，输入开始Date条件筛选数据"""
+        self.is_click(user['Customer PSI Start Date'])
+        self.input_text(user['Customer PSI Start Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Date')
 
     @allure.step("点击Search查询按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("获取分页总条数文本")
     def get_total_text(self):
@@ -75,7 +81,7 @@ class CustomerPSIPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -83,6 +89,12 @@ class CustomerPSIPage(Base):
         self.input_text(user['Input Task Name'], txt=content)
         sleep(0.5)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -136,7 +148,7 @@ class CustomerPSIPage(Base):
             logging.info("按日期筛选Distributor Customer PSI后，能正常加载数据，Total{}".format(total))
         else:
             logging.info("按日期筛选Distributor Customer PSI后，未筛选到满足条件的数据，Total1{}".format(total))
-        sleep(1)
+
 
     @allure.step("断言文件或导出时间是否有数据")
     def assert_file_time_size(self, file_size, export_time):
@@ -149,7 +161,12 @@ class CustomerPSIPage(Base):
             logging.info("Customer PSI导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Customer PSI导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
+
+    @allure.step("断言精确查询结果 Customer PSI列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_customer_psi_field(self, header, content):
+        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
+
 
 
 if __name__ == '__main__':

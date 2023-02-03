@@ -56,7 +56,7 @@ class ReturnOrderPage(Base):
             self.input_text(user['输入框'], content, header)
         elif header in input_select_list:
             self.is_click_dcr(user['输入框'], header)
-            self.is_click(user['输入结果精确选择'], content, header)
+            self.is_click(user['输入结果精确选择'], content)
             self.is_click(user['点击label标签'], header)
         elif header in input_select_all_list1:
             self.is_click(user['输入框'], header)
@@ -66,8 +66,7 @@ class ReturnOrderPage(Base):
             self.is_click_dcr(user['输入框'], header)
             self.input_text(user['输入框1'], content, header)
             sleep(2)
-            self.presence_sleep_dcr(user['输入结果精确选择'], content)
-            self.is_click(user['输入结果精确选择'], content)
+            self.is_click(user['输入结果精确选择1'], header, content)
             self.is_click(user['点击label标签'], header)
         elif header in return_date_list:
             self.is_click(user['Input Return Start Date'], header)

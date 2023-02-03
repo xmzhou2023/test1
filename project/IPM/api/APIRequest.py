@@ -249,8 +249,8 @@ class APIRequest:
             object_bid = self.Api_object_bid()
             logging.info('项目管理基本信息显示字段获取')
             for i in object_bid:
-                if i.get('对象名称') == '问题':
-                    data = {"objBid": i.get('对象BID'), "domainBid": bid[0], "tag": ""}
+                if i.get('name') == objectname:
+                    data = {"objBid": i.get('bid'), "domainBid": bid[0], "tag": ""}
                     headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
                     response = self.api_request('项目管理_计划_任务字段属性获取', data, headers)
                     node = response['body']['data']
@@ -283,14 +283,30 @@ class APIRequest:
 
         headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
         response = self.api_request('系统管理_对象_对象BID获取', headers=headers,method='get')
-        object_bid=[]
         bid = response['body']['data']
+        def asdf(a, c):
+            if len(a['children']) != 0:
+                for j in a['children']:
+                    b = {}
+                    b['bid'] = j['bid']
+                    b['modelCode'] = j['modelCode']
+                    b['rootModel'] = j['rootModel']
+                    b['name'] = j['name']
+                    c.append(b)
+                    asdf(j, c)
+                return c
+        bid_list = []
         for i in bid:
-            pro = '对象名称', '对象BID',
-            properties = i.get('name'), i.get("rootBid")
-            res = dict(zip(pro, properties))
-            object_bid.append(res)
-        return object_bid
+            bid_dict = {}
+            bid_dict['bid'] = i['bid']
+            bid_dict['modelCode'] = i['modelCode']
+            bid_dict['rootModel'] = i['rootModel']
+            bid_dict['name'] = i['name']
+            # print(bid_dict)
+            bid_list.append(bid_dict)
+            if len(i['children']) != 0:
+                asdf(i, bid_list)
+        return bid_list
 
 
 
@@ -300,10 +316,11 @@ if __name__ == '__main__':
     Api=APIRequest()
     # ApplyList=Api.Api_applyList(20220810085734677324)
     # Api.Api_queryDeptAndEmployee(20220810085734677324)
-    print(Api.Api_project_bid("IPM自动化测试2023-01-0318:33:16"))
+    # print(Api.Api_project_bid("IPM自动化测试2023-01-0318:33:16"))
     # print(Api.Api_templ_bid('IPD模块化项目模板'))
-    # print(Api.Api_project_task("IPM自动化测试2022-12-2316:56:38","任务名称2022-12-2316:56:38"))
+    # print(Api.Api_project_task("IPM自动化测试2022-12-2316:56:38","任务名称2022-12-2316:56:38","问题"))
     # print(Api.Api_project_field("5435345"))
     # print(Api.Api_project_getPlanTaskTree("655人TV v"))
     # print(Api.Api_project_Scheduled_action("IPM自动化测试2022-12-2316:56:38","任务名称2022-12-2316:56:38"))
-    #   任务流程名
+    print(Api.Api_object_bid())
+    # #   任务流程名

@@ -1,5 +1,6 @@
 Search: "xpath==//button//span[normalize-space(text())='Search']"
 Reset: "xpath==//button//span[normalize-space(text())='Reset']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
 Unfold: "xpath==//span[contains(text(),'Unfold')]"
 Fold: "xpath==//span[contains(text(),'Fold')]"

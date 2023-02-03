@@ -145,12 +145,12 @@ class UserManagementPage(Base):
     @allure.step("点击搜索功能")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3.5)
+        self.element_text(user['Loading'])
 
     @allure.step("点击重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("新增Add 传音员工操作步骤")
     def add_trans_user_operation(self, staff_type, trans_userid, trans_username, sales_region, country_city, superior, position, email, contact_no, gender):
@@ -168,6 +168,7 @@ class UserManagementPage(Base):
         self.input_contact_no(contact_no)
         self.click_gender_female(gender)
         self.click_add_user_submit()
+        self.is_click(user['创建成功OK'])
 
     @allure.step("编辑Edit 传音员工基本信息操作步骤")
     def edit_trans_user_info_operation(self, edit_username, brand, email, contact_no, gender):
@@ -196,6 +197,7 @@ class UserManagementPage(Base):
         self.input_contact_no(contact_no)
         self.click_gender_female(gender)
         self.click_add_user_submit()
+        self.is_click(user['创建成功OK'])
 
 
     """编辑用户时，筛选用户"""
@@ -371,12 +373,12 @@ class UserManagementPage(Base):
     @allure.step("User Management页面，点击Import 导入功能")
     def click_import_upload_save(self, file1):
         self.is_click(user['Add Upload'])
-        sleep(4)
+        sleep(3)
         ele = self.driver.find_element('xpath', "//button//..//input[@name='file']")
         ele.send_keys(file1)
         sleep(3)
         self.is_click(user['Import Save'])
-        sleep(2)
+        sleep(1)
         self.presence_sleep_dcr(user['Upload Confirm'])
         self.is_click(user['Upload Confirm'])
 
@@ -501,7 +503,7 @@ class UserManagementPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, task_name):
@@ -582,7 +584,6 @@ class UserManagementPage(Base):
             logging.info("Attendance Records导出成功，File Size导出文件大于M:{}".format(file_size))
         else:
             logging.info("Attendance Records导出失败，File Size导出文件小于M:{}".format(file_size))
-
         if int(export_time) > 0:
             logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
