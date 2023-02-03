@@ -94,7 +94,6 @@ class Teststory_2798:
         robot.AI_find_element(By.XPATH,
                               "//div[@class='el-message-box__wrapper']//span[normalize-space(text())='确定']").click()  # idaa9f333a-6f7a-4e44-874c-b9ad82f4b7af
         DomAssert(drivers).assert_att("删除成功")
-        close
         time.sleep(5)
     @allure.story("BI单点登录插件改造")  # 用户故事名称
     @allure.title("私有无首页卡片池卡片新建验证")  # 用例名称
