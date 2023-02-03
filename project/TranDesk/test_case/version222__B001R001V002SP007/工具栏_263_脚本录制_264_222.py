@@ -11,11 +11,11 @@ class Teststory_3791:
         print('1111')
 
     @allure.story("测试删除需求2")  # 用户故事名称
-    @allure.title("查找到指定用户并配置菜单权限")  # 用例名称
+    @allure.title("新用例")  # 用例名称
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_25940(self, drivers):
+    def test_25999(self, drivers):
         print('2222')
 
     @allure.story("测试删除需求2")  # 用户故事名称
