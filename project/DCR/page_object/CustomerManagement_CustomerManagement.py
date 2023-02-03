@@ -85,7 +85,8 @@ class CustomerManagementPage(Base):
         self.input_text(user['Customer Address'], addresss)
         self.is_click(user['Add Submit'])
         sleep(1)
-
+        self.is_click(user['Add Submit OK'])
+        sleep(1)
 
     @allure.step("客户列表页面，根据客户ID条件筛选客户信息")
     def input_customer_query(self, customer_id):
@@ -335,9 +336,9 @@ class CustomerManagementPage(Base):
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
-        self.input_text(user['Input Task Name'], txt=content)
-        sleep(0.5)
-        self.is_click_dcr(user['Task Name value'], content)
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click(user['Task Name value'], content)
 
     @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
     def export_record_create_start_date(self, start_date):
@@ -420,7 +421,6 @@ class CustomerManagementPage(Base):
             logging.info("Attendance Records导出成功，File Size导出文件大于M:{}".format(file_size))
         else:
             logging.info("Attendance Records导出失败，File Size导出文件小于M:{}".format(file_size))
-
         if int(export_time) > 0:
             logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
@@ -497,7 +497,7 @@ class CustomerManagementPage(Base):
     def assert_search_result(self, header, content):
         logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
         if header == 'Customer' or header == 'User' or header == 'Warehouse':
-            self.assert_User_Exist(f'{header} ID', content)
+            self.assert_customer_query_result(f'{header} ID', content)
         elif header == 'Sales Region':
             for i in range(5):
                 assert_result = False
@@ -515,7 +515,7 @@ class CustomerManagementPage(Base):
                     logging.info('断言结束')
                     break
         elif header == 'Country/City':
-            self.assert_User_Exist(f'City', content)
+            self.assert_customer_query_result(f'City', content)
         elif header == 'Staff Type':
             column = self.get_table_info(user['menu表格字段'], 'Belong To Customer ID', sc_element=user['滚动条'], h_element=user['表头文本'])
             contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
@@ -526,7 +526,7 @@ class CustomerManagementPage(Base):
                 for i in contents:
                     self.assert_None(i)
         else:
-            self.assert_User_Exist(header, content)
+            self.assert_customer_query_result(header, content)
 
     @allure.step("组合查询 组合方法")
     def random_Query_Method(self, kwargs):

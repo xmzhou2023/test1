@@ -748,12 +748,15 @@ class TestExportUser:
         export.export_record_create_start_date(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
+
         file_size = export.get_file_size_text()
         export_time = export.get_export_time_text()
         """断言导出记录列表，导出关键字段内容是否正确"""
         export.assert_file_time_size(file_size, export_time)
-        export.assert_user_management_field('Download Status', down_status)
+        #export.get_export_record_row('获取Export Record User ID', 'lhmadmin')
+        export.assert_contains_user_management_field('Download Status', down_status)
         export.assert_user_management_field('Task Name', 'User Management')
+        export.assert_contains_user_management_field('User ID', 'lhmadmin')
         export.assert_contains_user_management_field('Create Date', today)
         export.assert_contains_user_management_field('Completed Date', today)
         export.assert_contains_user_management_field('Operation', 'Download')
