@@ -31,8 +31,7 @@ class TestQueryAttendanceRecord:
         # user.dcr_login(drivers, "testsupervisor", "dcr123456")
         """考勤管理-打开考勤记录页面"""
         menu.click_gotomenu("Attendance & Visiting", "Attendance Records")
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
         """查询考勤记录列表，是否存在当天考勤记录"""
         query_all = AttendanceRecordPage(drivers)
         picture = query_all.get_photo_text()
@@ -56,7 +55,7 @@ class TestExportAttendanceRecord:
         """查询某个用户的，当天考勤记录用例"""
         export = AttendanceRecordPage(drivers)
         """获取当天日期"""
-        today =  Base(drivers).get_datetime_today()
+        today = Base(drivers).get_datetime_today()
         export.input_query_date(today)
         export.click_search()
         """ 获取列表User Name """
@@ -84,6 +83,7 @@ class TestExportAttendanceRecord:
         export.click_export()
         export.click_download_more()
         export.input_task_name('Attendance Records')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
