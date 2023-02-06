@@ -17,12 +17,15 @@ Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: n
 Get Successfully Text: "xpath==//p[contains(text(),'Set Up Successfully')]"
 DN输入框: "xpath==//label[(text()='DN')]//parent::div// following-sibling::div//input"
 点击IMEI Detail: "xpath==//tbody//tr[1]//td[not(contains(@class, 'is-hidden'))]//span[text()='IMEI Detail']"
-IMEI Detail DN:  "xpath==//span[contains(text(),'DN ：')]"
-IMEI Detail Total: "xpath==//span[contains(text(),'DN ：')]/../..//div//span[contains(text(), 'Total')]"
+Get IMEI Detail DN:  "xpath==//span[contains(text(),'DN ：')]"
+Get IMEI Detail Total: "xpath==//span[contains(text(),'DN ：')]/../..//div//span[contains(text(), 'Total')]"
 Close IMEI Detail: "xpath==//span[contains(text(),'DN ：')]/..//button[@class='el-dialog__headerbtn']//i"
+#IMEI Detail详情导出定位
+IMEI Detail Export: "xpath==//span[contains(text(),'DN ：')]/../..//button//span[normalize-space(text())='Export']"
+下载进度条: "xpath==//span[contains(text(),'DN ：')]/../..//div[@class='el-progress el-progress--line is-success el-progress--text-inside']"
+
 
 #查询
-关闭DistributorReceipt查询菜单: "xpath==//span[normalize-space(text())='Distributor Receipt']//span[@class='el-icon-close']"
 Customer点击: "id==distributorreceipt_input_kunagName"
 Customer输入: "xpath==//input[@class='el-input__inner distributorreceipt_input_kunagName1']"
 Model点击: "id==distributorreceipt_input_model"

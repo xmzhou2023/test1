@@ -13,81 +13,102 @@ import logging
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
-def function_distributor_receipt_query_fixture(drivers):
+def function_distributor_receipt_fixture(drivers):
     yield
-    close = DistributorReceiptQuery(drivers)
-    close.click_close_distributor_receipt_query()
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
+
 
 #国包快速收货待修改用例
-# @allure.feature("采购管理-国包收货")
-# class TestDistributorReceipt:
-#     @allure.story("国包快速收货")
-#     @allure.title("国包用户进入Distributor Receipt页面，进行快速收货操作 ")
-#     @allure.description("国包用户进入Distributor Receipt页面，进行快速收货操作 EC402067")
-#     @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-#     def test_001_001(self, drivers):
-#         """DCR 国包账号登录"""
-#         user = LoginPage(drivers)
-#         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-#         """销售管理菜单-出库单-筛选出库单用例"""
-#         user.click_gotomenu("Purchase Management", "Distributor Receipt")
-#         """调用国包快速收货用例，并断言收货是否成功"""
-#         receipt = DitributorReceiptPage(drivers)
-#         list_dn = receipt.get_list_dn_text()
-#         list_quantity = receipt.get_list_quantity_text()
-#         receipt.click_unfold()
-#         receipt.input_dn(list_dn)
-#         receipt.click_search()
-#         receipt.click_first_chekbox()
-#         receipt.click_quick_receive()
-#         dialog_dn = receipt.get_dialog_text_dn()
-#         dialog_quantity = receipt.get_dialog_text_quantity()
-#         """ 增加断言，验证列表获取的DN与快速收货对话框的DN是否一致 """
-#         ValueAssert.value_assert_equal(list_dn, dialog_dn)
-#         """断言列表获取的quantity与快速收货对话框的quantity是否一致"""
-#         ValueAssert.value_assert_equal(list_quantity, dialog_quantity)
-#         receipt.click_quick_receive_submit()
-#         """断言国包收货成功，状态已更新，列表显示:No Data """
-#         success = receipt.get_success_text()
-#         ValueAssert.value_assert_equal(success, "Set Up Successfully")
-#         receipt.click_reset()
+@allure.feature("采购管理-国包收货")
+class TestDistributorReceipt:
+    @allure.story("国包快速收货")
+    @allure.title("国包收货页面，进行快速收货操作 ")
+    @allure.description("国包收货页面，进行快速收货操作 EC402067")
+    @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_distributor_receipt_fixture')
+    def test_001_001(self, drivers):
+        """DCR 国包账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "EC402067", "dcr123456")
+        """销售管理菜单-出库单-筛选出库单用例"""
+        user.click_gotomenu("Purchase Management", "Distributor Receipt")
+        """调用国包快速收货用例，并断言收货是否成功"""
+        receipt = DitributorReceiptPage(drivers)
+        list_dn = receipt.get_list_dn_text()
+        list_quantity = receipt.get_list_quantity_text()
+        receipt.click_unfold()
+        receipt.input_dn(list_dn)
+        receipt.click_search()
+        receipt.click_first_chekbox()
+        receipt.click_quick_receive()
+        dialog_dn = receipt.get_dialog_text_dn()
+        dialog_quantity = receipt.get_dialog_text_quantity()
+        """ 增加断言，验证列表获取的DN与快速收货对话框的DN是否一致 """
+        ValueAssert.value_assert_equal(list_dn, dialog_dn)
+        """断言列表获取的quantity与快速收货对话框的quantity是否一致"""
+        ValueAssert.value_assert_equal(list_quantity, dialog_quantity)
+        receipt.click_quick_receive_submit()
+        """断言国包收货成功，状态已更新，列表显示:No Data """
+        success = receipt.get_success_text()
+        ValueAssert.value_assert_equal(success, "Set Up Successfully")
+        receipt.click_reset()
 
 
 @allure.feature("采购管理-国包收货")
 class TestQueryIMEIDetail:
     @allure.story("查询IMEI详情")
-    @allure.title("国包用户进入Distributor Receipt页面，收货成功后，查看IMEI详情信息")
-    @allure.description("国包用户进入Distributor Receipt页面，收货成功后，查看IMEI详情信息是否与收货的信息一致")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
-    @pytest.mark.usefixtures('function_distributor_receipt_query_fixture')
+    @allure.title("国包收货页面，筛选DN记录，查看IMEI详情信息，并导出详情信息")
+    @allure.description("国包收货页面，查看IMEI详情信息是否与筛选的DN一致，并导出详情信息")
+    @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_distributor_receipt_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Purchase Management", "Distributor Receipt")
-        receipt = DitributorReceiptPage(drivers)
-        list_dn = receipt.get_list_dn_text()
-        list_quantity = receipt.get_list_quantity_text()
+        view_imei = DitributorReceiptPage(drivers)
+        list_dn = view_imei.get_list_dn_text()
+        list_total_quantity = view_imei.get_list_quantity_text()
+        logging.info("打印Distributor Receipt列表Total Quantity字段的总数量：{}".format(list_total_quantity))
         """根据DN条件进行筛选"""
-        receipt.click_unfold()
-        receipt.input_dn(list_dn)
-        receipt.click_search()
+        view_imei.click_unfold()
+        view_imei.input_dn(list_dn)
+        view_imei.click_search()
         """点击详情按钮"""
-        receipt.click_imei_detail()
-        imei_detail_dn = receipt.get_text_imei_detail_DN()
-        detail_total = receipt.text_imei_detail_total()
+        view_imei.click_imei_detail()
+        imei_detail_dn = view_imei.get_text_imei_detail_DN()
+        get_detail_total = view_imei.text_imei_detail_total()
+        logging.info("打印Distributor Receipt详情页的Total总分页数：{}".format(get_detail_total))
         """ 断言列表获取的DN，与打开IMEI Detail详情页的DN比较一致 """
         ValueAssert.value_assert_In(list_dn, imei_detail_dn)
         """ 断言列表获取的quantity总条数，与打开IMEI Detail详情页的Total总条数比较一致 """
-        ValueAssert.value_assert_In(list_quantity, detail_total)
-        receipt.click_close()
+        ValueAssert.value_assert_equal(list_total_quantity, get_detail_total)
+
+        """点击IMEI Detail详情页的导出按按， 断言导出进度条是否100%"""
+        logging.info('the total in test case is %s' % get_detail_total)
+        if int(get_detail_total) > 0:
+            view_imei.click_distri_imei_detail_export()
+            sleep(4)
+            complete_value = view_imei.get_download_value()
+            ValueAssert.value_assert_equal(complete_value, 100)
+        else:
+            logging.info('the total is empty')
+        """关闭IMEI Detail详情页面"""
+        view_imei.click_imei_detail_close()
 
 
     @allure.story("查询国包收货")
-    @allure.title("IMEI库存查询页面，查询IMEI库存每个筛选项,进行随机组合")
-    @allure.description("IMEI库存页面，查询IMEI库存每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
+    @allure.title("国包收货页面，筛选DN记录，查询国包收货每个筛选项,进行随机组合筛选")
+    @allure.description("国包收货页面，查询国包每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_distributor_receipt_query_fixture')
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_distributor_receipt_fixture')
     def test_002_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
