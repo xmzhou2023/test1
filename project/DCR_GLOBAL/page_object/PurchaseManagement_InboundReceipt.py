@@ -112,12 +112,12 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
     def click_close_inbound_receipt(self):
         self.is_click(user['关闭二代收货菜单'])
-        sleep(2)
+        #sleep(1)
 
     @allure.step("快速收货页面，点击关闭IMEI Detail窗口")
     def click_close_inbound_imei_detail(self):
         self.is_click(user['关闭二代收货IMEI Detail'])
-        sleep(2)
+        #sleep(1)
 
 
     #IMEI Detail页面元素定位方法

@@ -101,8 +101,13 @@ class LoginPage(Base):
         logging.info('退出重新登录')
         user = LoginPage(drivers)
         self.driver.delete_all_cookies()
+        sleep(1)
         js = 'window.localStorage.clear();'
         self.driver.execute_script(js)
+        sleep(1)
+        js = 'window.sessionStorage.clear();'
+        self.driver.execute_script(js)
+        sleep(1)
         self.refresh()
         user.input_account(account)
         user.input_passwd(passwd)

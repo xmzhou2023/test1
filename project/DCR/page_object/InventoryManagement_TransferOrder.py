@@ -105,11 +105,11 @@ class TransferOrderPage(Base):
         self.is_click(user['Transfer Order Click CheckBox'])
 
     @allure.step("勾选Transfer ID记录后，点击Confirm Receipt按钮,进行确认收货操作")
-    def click_transfer_confirm_receipt(self, context, confirm_receipt):
+    def click_transfer_confirm_receipt(self, context):
         self.is_click(user['Transfer Order Confirm Receipt'])
         sleep(1)
         self.input_text(user['Transfer Order Receipt Remark'], context)
-        self.is_click(user['Transfer Confirm Receipt Button'], confirm_receipt)
+        self.is_click(user['Transfer Confirm Receipt Button'])
         sleep(0.6)
         self.is_click(user['Transfer Confirm receipt or Recall'])
 
@@ -140,30 +140,21 @@ class TransferOrderPage(Base):
         sleep(1.5)
 
     @allure.step("按Create Start Date字段筛选数据")
-    def input_transfer_create_start_date(self, create_date):
+    def input_transfer_create_start_end_date(self, start_date, end_date):
         self.presence_sleep_dcr(user['Create Start Date'])
         self.is_click(user['Create Start Date'])
-        self.input_text(user['Create Start Date'], create_date)
-
-    @allure.step("按Create End Date字段筛选数据")
-    def input_transfer_create_end_date(self, end_date):
+        self.input_text(user['Create Start Date'], start_date)
         self.presence_sleep_dcr(user['Create End Date'])
         self.is_click(user['Create End Date'])
         self.input_text(user['Create End Date'], end_date)
+        self.is_click(user['点击label标签'], 'Create Date')
 
-    @allure.step("点击Create Date筛选标签，用于取消释法")
-    def click_create_date_label(self):
-        self.is_click(user['Click Create Date Label'])
-
-    # @allure.step("点击Brand 筛选标签，用于取消释法")
-    # def click_brand_label(self):
-    #     self.is_click(user['Click Brand Label'])
 
     @allure.step("Transfer Order页面，输入Transfer ID筛选项条件，进行筛选")
     def input_transfer_order_id_query(self, context):
         self.input_text(user['Transfer Order Transfer ID Query'], context)
 
-    @allure.step("点击Receipt Status收货状态筛选项")
+    @allure.step("点击Receipt Status收货状态筛选项查询")
     def click_transfer_receipt_status_query(self, status):
         self.presence_sleep_dcr(user['Transfer Receipt Status query'])
         self.is_click(user['Transfer Receipt Status query'])
@@ -174,7 +165,6 @@ class TransferOrderPage(Base):
     def click_search_reset(self, choose):
         self.is_click(user['Search'], choose)
         self.element_text(user['Loading'])
-        #sleep(2)
 
     @allure.step("Transfer Order页面，获取列表Total分页总条数")
     def get_transfer_order_list_total(self):
@@ -295,6 +285,7 @@ class TransferOrderPage(Base):
         sleep(1)
         self.presence_sleep_dcr(user[position3], parameter2)
         self.is_click(user[position3], parameter2)
+        self.is_click(user['点击label标签'], 'Brand')
 
 
     @allure.step("断言 精确查询结果Transfer Order列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")

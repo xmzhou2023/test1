@@ -1,5 +1,4 @@
 Add: "xpath==//button//span[contains(text(),'Add')]"
-
 Customer Type: "xpath==//label//span[contains(text(),'Customer Type')]//..//..//input"
 Customer Type Select: "xpath==//ul[@class='el-scrollbar__view el-select-dropdown__list']//li//span[contains(text(),'variable')]"
 Brand: "xpath==//label//span[contains(text(),'Brand')]//..//..//input[@id='customermanagementadd_input_brandNames']"
@@ -22,6 +21,7 @@ Country: "xpath==//label//span[contains(text(),'Country')]//..//..//input"
 Country Select: "xpath==//div[@class='el-tree-node__content']//span[(text()='variable')]"
 Customer Address: "xpath==//span[text()='Customer Address']//..//..//div//input"
 Add Submit: "xpath==//div[@class='area-add-btn']//..//button[@id='customermanagementadd_Submit']"
+Add Submit OK: "xpath==//div//button//span[normalize-space(text())='OK']"
 
 #编辑客户信息
 CheckBox: "xpath==//tbody//tr//td[not(contains(@class, 'is-hidden'))]//div//label[@class='el-checkbox']/span"
@@ -81,7 +81,7 @@ Export: "xpath==//button//span[normalize-space(text())='Export']"
 Download Icon: "id==download-icon"
 More: "xpath==//span[contains(text(),'More...')]"
 Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
-Task Name value: "xpath==//div//ul//li//span[text()='variable']"
+Task Name value: "xpath==//div//div//div//ul/li//span[text()='variable']"
 导出记录筛选创建日期: "xpath==//div//input[@class='el-input__inner exportrecord_input_beginTime']"
 点击筛选条件的标签: "xpath==//div//label[text()='variable']"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
@@ -93,7 +93,6 @@ Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
 获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
 获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"
-
 
 Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 Unfold: "xpath==//div//span[text()='Unfold']"

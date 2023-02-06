@@ -519,6 +519,10 @@ class UserManagementPage(Base):
         self.input_text(user['导出记录筛选创建日期'], start_date)
         self.is_click(user['点击筛选条件的标签'], 'Create Date')
 
+    # def get_export_record_row(self, header, content):
+    #     get_list_text = self.element_text(user[header], content)
+    #     return get_list_text
+
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
         download_status = self.export_download_status(user['Export Record Search'], user['获取下载状态文本'])

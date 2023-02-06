@@ -64,12 +64,12 @@ class DitributorReceiptPage(Base):
     @allure.step("国包收货页面，筛选条件后，点击Search按钮")
     def click_search(self):
         self.is_click(user['国包收货列表Search'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     @allure.step("点击快速收货提交按钮")
     def click_quick_receive_submit(self):
         self.is_click_dcr(user['国包收货Submit'])
-        sleep(4)
+        sleep(3)
 
     @allure.step("国包收货页面，筛选DN收货成功后，获取文本No Data")
     def get_success_text(self):
@@ -79,37 +79,44 @@ class DitributorReceiptPage(Base):
     @allure.step("国包收货页面，点击Reset按钮")
     def click_reset(self):
         self.is_click(user['国包收货Reset'])
-        sleep(4.5)
+        self.element_text(user['Loading'])
 
     @allure.step("国包收货页面，点击IMEI Detail按钮查看IMEI详情信息")
     def click_imei_detail(self):
         self.presence_sleep_dcr(user['点击IMEI Detail'])
         self.is_click(user['点击IMEI Detail'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("打开IMEI Detail页面，获取DN文本内容")
     def get_text_imei_detail_DN(self):
-        imei_detail_dn = self.element_text(user['IMEI Detail DN'])
+        imei_detail_dn = self.element_text(user['Get IMEI Detail DN'])
         return imei_detail_dn
 
     @allure.step("IMEI Detail页面，获取IMEI总条数Total")
     def text_imei_detail_total(self):
-        imei_detail_total = self.element_text(user['IMEI Detail Total'])
-        return imei_detail_total
+        imei_detail_total = self.element_text(user['Get IMEI Detail Total'])
+        imei_detail_total1 = imei_detail_total[6:]
+        return imei_detail_total1
+
+    @allure.step("IMEI Detail页面，点击Export导出按钮")
+    def click_distri_imei_detail_export(self):
+        self.is_click(user['IMEI Detail Export'])
+        sleep(1)
 
     @allure.step("IMEI Detail页面，点击右上角关闭图标，关闭页面")
-    def click_close(self):
+    def click_imei_detail_close(self):
         self.is_click(user['Close IMEI Detail'])
-        sleep(1)
+
+    @allure.step("获取下载进度值")
+    def get_download_value(self):
+        attribute = self.get_table_info(user['下载进度条'], attr='aria-valuenow')
+        logging.info('下载进度值是%s' % attribute)
+        return int(attribute)
+
 
 
 class DistributorReceiptQuery(Base):
     """DistributorReceipt查询类"""
-
-    @allure.step("关闭DistributorReceipt查询菜单")
-    def click_close_distributor_receipt_query(self):
-        self.is_click(user['关闭DistributorReceipt查询菜单'])
-
     @allure.step("点击MaterialID")
     def click_dn(self):
         self.is_click(user['DN输入'])

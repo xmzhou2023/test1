@@ -49,7 +49,6 @@ class TestSalesBusinessProcess:
         logging.info("打印获取IMEI Inventory Query页面的IMEI:{}".format(itel_imei))
         delivery.click_close_imei_inventory()
 
-
         """2 销售订单页面，新建有码销售单操作"""
         add_sales = SalesOrderPage(drivers)
         Base(drivers).refresh()
@@ -104,29 +103,27 @@ class TestSalesBusinessProcess:
         ValueAssert.value_assert_equal(text_status, "Delivered")
         add_sales.click_close_sales_order()
 
-
         """4 断言进入Delivery Order菜单，是否生成条件对应的出库单记录，状态是否为Delivered"""
         Base(drivers).refresh()
         user.click_gotomenu("Sales Management", "Delivery Order")
-        salesid, deliveryid = add_sales.query_sql_delivery_order_id2('62134', '1596874516539662', '1596874516539668', '80200000')
-        logging.info("打印最近新建的销售单ID与出库单ID:{}".format(salesid, deliveryid))
+        sales_id, delivery_id = add_sales.query_sql_delivery_order_id2('62134', '1596874516539662', '1596874516539668', '80200000')
+        logging.info("打印最近新建的销售单ID与出库单ID:{}".format(sales_id, delivery_id))
         deli_assert = DeliveryOrderPage(drivers)
-        deli_assert.input_salesorder(salesid)
+        deli_assert.input_salesorder(sales_id)
         deli_assert.click_search()
         deli_status = deli_assert.get_status_text()
         get_delivery_text = deli_assert.text_delivery_order()
         ValueAssert.value_assert_equal('On Transit', deli_status)
-        ValueAssert.value_assert_equal(deliveryid, get_delivery_text)
+        ValueAssert.value_assert_equal(delivery_id, get_delivery_text)
         """断言 查看该条出库单记录的IEMI Detail详情信息是否正确"""
         """打开IMEI Detail弹窗"""
         deli_assert.click_imei_detail()
         deli_detail_title = deli_assert.get_detail_title_delivery_id_text()
         detail_total = deli_assert.get_detail_total_text()
-        ValueAssert.value_assert_In(deliveryid, deli_detail_title)
+        ValueAssert.value_assert_In(delivery_id, deli_detail_title)
         ValueAssert.value_assert_In('2', detail_total)
         """关闭出库单IMEI Detail详情页"""
         deli_assert.click_close_imei_detail()
-
 
         """5 采购管理页面，零售商用户快速收货操作"""
         user.initialize_login(drivers, "EG00056201", "dcr123456")
@@ -135,15 +132,15 @@ class TestSalesBusinessProcess:
         """调用零售商收货筛选与 快速收货用例"""
         receipt = InboundReceiptPage(drivers)
         """从数据库查询BD40344201国包账号下最近新建的出库单，返回销售单ID与出库单ID，作为筛选条件，验证新增的出库单是否成功"""
-        receipt.input_salesOrder(salesid)
-        receipt.input_deliveryOrder(deliveryid)
+        receipt.input_salesOrder(sales_id)
+        receipt.input_deliveryOrder(delivery_id)
         receipt.click_inbound_receipt_search()
         receipt.click_checkbox()
         receipt.click_quick_received()
         receipt.click_save()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         DomAssert(drivers).assert_att("Successfully")
-        sleep(2)
+        sleep(1)
         status = receipt.get_text_status()
         """ 二代收货页面，断言收货后Status更新为：Goods Receipt状态 """
         ValueAssert.value_assert_equal(status, "Goods Receipt")
@@ -151,13 +148,12 @@ class TestSalesBusinessProcess:
         salesorder = receipt.get_text_salesOrder()
         deliveryorder = receipt.get_text_deliveryOrder()
         """筛选二代收货列表数据，断言数据正确性"""
-        ValueAssert.value_assert_equal(salesorder, salesid)
-        ValueAssert.value_assert_equal(deliveryorder, deliveryid)
+        ValueAssert.value_assert_equal(salesorder, sales_id)
+        ValueAssert.value_assert_equal(deliveryorder, delivery_id)
         """关闭收货页面"""
         receipt.click_close_inbound_receipt()
 
-
-        """刷新页面"""
+        """6 刷新页面"""
         Base(drivers).refresh()
         """6 退货页面，零售商用户，对已收货的销售单，进行退货操作"""
         user.initialize_login(drivers, "EG00056201", "dcr123456")
@@ -186,7 +182,6 @@ class TestSalesBusinessProcess:
         ValueAssert.value_assert_equal(delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Pending Approval", status)
         return_order.click_close_return_order()
-
 
         """7 退货单列表页面，二代账号, 进行审核退货单操作"""
         user.initialize_login(drivers, "BD291501", "dcr123456")
@@ -236,7 +231,7 @@ class TestDeliveryBusinessProcess:
         add.click_submit()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         DomAssert(drivers).assert_att("Submit successfully")
-        sleep(2)
+        sleep(1)
         """断言查询新建的无码出库单"""
         sql1 = SQL('DCR', 'test')
         varsql1 = "select order_code,delivery_code, status from t_channel_delivery_ticket where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200000 order by created_time desc limit 1"
@@ -258,7 +253,6 @@ class TestDeliveryBusinessProcess:
         ValueAssert.value_assert_equal(get_delivery_order, delivery_code)
         ValueAssert.value_assert_equal(get_status, status)
 
-
         """2 二代用户，快速收货无码出库单"""
         user2.initialize_login(drivers, "BD291501", "dcr123456")
         """打开Purchase Management菜单"""
@@ -274,13 +268,13 @@ class TestDeliveryBusinessProcess:
         receipt.input_salesOrder(order_code)
         receipt.input_deliveryOrder(delivery_code)
         """点击筛选查询按钮"""
-        receipt.click_inbound_receipt_search
+        receipt.click_inbound_receipt_search()
         receipt.click_checkbox()
         receipt.click_quick_received()
         receipt.click_save()
         """获取收货提交成功提示语，断言是否包含Successfully提示语"""
         DomAssert(drivers).assert_att("Successfully")
-        sleep(2)
+        sleep(1)
         """获取列表文本 销售单ID、出库单ID、Status状态"""
         salesorder = receipt.get_text_salesOrder()
         deliveryorder = receipt.get_text_deliveryOrder()
@@ -293,10 +287,9 @@ class TestDeliveryBusinessProcess:
         receipt.click_close_inbound_receipt()
 
 
-        """刷新页面"""
-        receipt = SalesOrderPage(drivers)
+        """3 刷新页面"""
         Base(drivers).refresh()
-        """二代用户，申请退货无码出库单"""
+        """3 二代用户，申请退货无码出库单"""
         user2.click_gotomenu("Sales Management", "Return Order")
         """实例化 二代退货单类"""
         return_order = ReturnOrderPage(drivers)
@@ -306,7 +299,6 @@ class TestDeliveryBusinessProcess:
         varsql3 = "select order_code,delivery_code from t_channel_delivery_ticket  where warehouse_id='62139' and seller_id='1596874516539667' and buyer_id='1596874516539662' and status=80200001 order by created_time desc limit 1"
         result = sql3.query_db(varsql3)
         delivery_code = result[0].get("delivery_code")
-        sleep(1)
         return_order.click_Add()
         return_order.click_Return_Type()
         return_order.click_radio_quantity()
@@ -333,7 +325,6 @@ class TestDeliveryBusinessProcess:
         status = return_order.get_return_status()
         ValueAssert.value_assert_equal(delivery_order_id, delivery_code)
         ValueAssert.value_assert_equal("Pending Approval", status)
-
 
         """4 退货单页面，国包用户，审核无码退货单操作"""
         user2.initialize_login(drivers, "BD40344201", "dcr123456")

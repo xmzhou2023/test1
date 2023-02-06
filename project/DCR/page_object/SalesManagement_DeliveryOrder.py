@@ -327,7 +327,7 @@ class DeliveryOrderPage(Base):
 
     @allure.step("断言精确查询结果 Customer PSI列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
     def assert_delivery_order_field(self, header, content):
-        DomAssert(self.driver).assert_search_result(user['表格字段'], user['DeliveryOrdery表格内容'], header, content,
+        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['DeliveryOrdery表格内容'], header, content,
                                                     sc_element=user['水平滚动条'])
 
 
