@@ -277,7 +277,6 @@ class TestAddEditQuitUser:
         add.click_search()
         """断言： 用户创建成功"""
         add.assert_User_Exist('User ID', userID)
-        add.click_checkbox(userID)
         """登录用户账号"""
         user.initialize_login(drivers, userID, userID)
         """断言： 存在修改密码弹框"""
