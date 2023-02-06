@@ -33,7 +33,8 @@ class TestQueryShopInventoryIMEI:
     @allure.story("查询门店库存IMEI")
     @allure.title("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载")
     @allure.description("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载，断言数据加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
@@ -63,7 +64,8 @@ class TestExportShopInventoryIMEI:
     @allure.story("导出门店库存IMEI")
     @allure.title("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的数据")
     @allure.description("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的门店库存IMEI数据，断言导出数据加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """报表分析-打开门店库存IMEI查询页面"""
@@ -84,6 +86,7 @@ class TestExportShopInventoryIMEI:
         export.click_export()
         export.click_download_more()
         export.input_task_name('Shop Inventory IMEI Query')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()

@@ -18,6 +18,7 @@ class TestSearch:
     @allure.title("随机条件组合查询")
     @allure.description("客户管理页面，随机组合查询条件查询客户成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):
         """变量"""
         query_dict = {

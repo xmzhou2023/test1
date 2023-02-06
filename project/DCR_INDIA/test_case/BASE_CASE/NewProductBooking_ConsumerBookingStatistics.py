@@ -18,7 +18,7 @@ class TestSearch:
     @allure.title("组合查询")  # 用例名称
     @allure.description("组合查询")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):
         """变量"""
         query_dict = {

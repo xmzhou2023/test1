@@ -34,7 +34,8 @@ class TestQueryDeliveryOrder:
     @allure.story("查询出库单")
     @allure.title("出库单页面，查询出库单列表加载数据")
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         """打开销售管理-打开出库单页面"""
@@ -69,7 +70,8 @@ class TestExportDeliveryOrder:
     @allure.story("导出出库单")
     @allure.title("出库单页面，导出筛选的出库单记录")
     @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """打开销售管理-打开出库单页面"""
@@ -88,6 +90,7 @@ class TestExportDeliveryOrder:
         export.click_export()
         export.click_download_more()
         export.input_task_name('Delivery Order')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()

@@ -73,6 +73,9 @@ class TestQueryIMEIDetail:
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Purchase Management", "Distributor Receipt")
         view_imei = DitributorReceiptPage(drivers)
+        """获取当天日期"""
+        today = Base(drivers).get_datetime_today()
+
         list_dn = view_imei.get_list_dn_text()
         list_total_quantity = view_imei.get_list_quantity_text()
         logging.info("打印Distributor Receipt列表Total Quantity字段的总数量：{}".format(list_total_quantity))
@@ -88,8 +91,8 @@ class TestQueryIMEIDetail:
         """ 断言列表获取的DN，与打开IMEI Detail详情页的DN比较一致 """
         ValueAssert.value_assert_In(list_dn, imei_detail_dn)
         """ 断言列表获取的quantity总条数，与打开IMEI Detail详情页的Total总条数比较一致 """
-        ValueAssert.value_assert_equal(list_total_quantity, get_detail_total)
 
+        ValueAssert.value_assert_equal(list_total_quantity, get_detail_total)
         """点击IMEI Detail详情页的导出按按， 断言导出进度条是否100%"""
         logging.info('the total in test case is %s' % get_detail_total)
         if int(get_detail_total) > 0:

@@ -19,7 +19,7 @@ import logging
 
 """后置关闭菜单方法"""
 @pytest.fixture(scope='function')
-def function_distributor_receipt_query_fixture(drivers):
+def function_dist_receipt_fixture(drivers):
     yield
     close = DistributorReceiptQuery(drivers)
     close.click_close_distributor_receipt_query()
@@ -30,7 +30,8 @@ class TestQueryIMEIDetail:
     @allure.title("国包收货页面，查询国包收货每个筛选项,进行随机组合")
     @allure.description("国包收货页面，查询国包收货每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_distributor_receipt_query_fixture')
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_dist_receipt_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         #user.initialize_login(drivers, "lhmadmin", "dcr123456")
