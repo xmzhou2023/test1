@@ -1,0 +1,6 @@
+应用中心: "xpath==//span[text()='应用中心']"
+#======================================================================应用====================================================================================
+应用: "xpath==//div[contains(text(),'variable')]"
+工号输入框IPM_KT: 'xpath==//div[@class="accountLogin"]/form/div[1]/div/div/input'
+密码输入框IPM_KT: 'xpath==//div[@class="accountLogin"]/form/div[2]/div/div/input'
+登录IPM_KT: 'xpath==//div[@class="accountLogin"]//span[text()="登录"]'
