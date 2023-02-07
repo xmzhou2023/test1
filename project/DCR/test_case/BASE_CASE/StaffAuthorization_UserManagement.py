@@ -714,6 +714,7 @@ class TestAddEditQuitUser:
         user.click_loginOut()
         user.input_account(ExternalEmployee)
         user.input_passwd(ExternalEmployee)
+        user.click_privacy_box()
         user.click_loginsubmit()
         DomAssert(drivers).assert_att('Username or password is incorrect, login failed！account will be locked for 1 hour after 10 consecutive failed!')
 
