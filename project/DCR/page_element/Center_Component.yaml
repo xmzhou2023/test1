@@ -7,6 +7,7 @@
 登录: "xpath==//span[contains(text(),'LOGIN')]"
 获取登录账号: "xpath==//span[@class='el-dropdown-link el-dropdown-selfdefine']"
 退出登录: "xpath==//div[@class='right-menu-item']//img"
+隐私勾选框: "xpath==//div[@class='policy-box']/label"
 
 #获取页面所有文本: "xpath==//*[contains(text(),'')]"
 Home Page Customer: "xpath==//li//span[text()='Home Page-Customer']"

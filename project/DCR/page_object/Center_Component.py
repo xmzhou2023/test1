@@ -31,6 +31,14 @@ class LoginPage(Base):
     def click_check_box(self):
         self.is_click(user['隐私保护勾选'])
 
+    @allure.step("点击隐私勾选框")
+    def click_privacy_box(self):
+        sleep(3)
+        box_status = self.get_element_attribute(user['隐私勾选框'], 'class')
+        if 'is-checked' not in box_status:
+            self.is_click(user['隐私保护勾选'])
+            logging.info('点击隐私勾选框')
+
     @allure.step("获取复选框对应的 Class属性是否包含is-checked")
     def get_check_box_class(self):
         ss = self.find_element(user['隐私保护勾选'])
