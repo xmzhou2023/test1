@@ -23,7 +23,7 @@ class Teststory_3259:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23742(self, drivers,env_name):
+    def test_23742(self, drivers):
         pass
 
     @allure.story("创建项目")  # 用户故事名称
@@ -31,14 +31,14 @@ class Teststory_3259:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23743(self, drivers,env_name):
+    def test_23743(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '新建成功！')
         test.get_url_project()
         ass.assert_toast('断言新建项目的名字',proname)
@@ -49,12 +49,12 @@ class Teststory_3259:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23748(self, drivers,env_name):
-        test = CreateProject(drivers,env_name)
+    def test_23748(self, drivers):
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板')
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast("断言项目名称不能为空", '请输入项目名称')
 
     @allure.story("创建项目")  # 用户故事名称
@@ -62,12 +62,12 @@ class Teststory_3259:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23749(self, drivers,env_name):
-        test = CreateProject(drivers,env_name)
+    def test_23749(self, drivers):
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', f'IPM自动化2022-12-0611:03:34')
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast("断言提示", '项目名称已被使用!')
 
     @allure.story("创建项目")  # 用户故事名称
@@ -75,7 +75,7 @@ class Teststory_3259:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23752(self, drivers,env_name):
+    def test_23752(self, drivers):
         pass
 
     @allure.story("创建项目")  # 用户故事名称
@@ -83,15 +83,15 @@ class Teststory_3259:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23757(self, drivers,env_name):
+    def test_23757(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('取消', 'IT项目模板', proname)
         test.get_url_project()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast_not('断言新建项目的名字', proname)
 
     @allure.story("创建项目")  # 用户故事名称
@@ -99,7 +99,7 @@ class Teststory_3259:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23750(self, drivers,env_name):
+    def test_23750(self, drivers):
         pass
 
     @allure.story("创建项目")  # 用户故事名称
@@ -107,15 +107,15 @@ class Teststory_3259:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_25536(self, drivers,env_name):
+    def test_25536(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
 
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname)
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '新建成功！')
         test.get_url_project()
         ass.assert_toast('断言新建项目的名字', proname)
@@ -129,7 +129,7 @@ class Teststory_3345:
     @allure.description("进入项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20957(self, drivers,env_name):
+    def test_20957(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
@@ -137,7 +137,7 @@ class Teststory_3345:
     @allure.description("项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20958(self, drivers,env_name):
+    def test_20958(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
@@ -145,7 +145,7 @@ class Teststory_3345:
     @allure.description("项目管理》项目》计划》点击【里程碑】图标按钮，查看里程碑视图的弹出方式")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20959(self, drivers,env_name):
+    def test_20959(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查询")  # 用户故事名称
@@ -153,7 +153,7 @@ class Teststory_3345:
     @allure.description("项目管理》项目》计划》鼠标移动到【里程碑】图标按钮悬停，查看【里程碑视图】按钮的TIP显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20960(self, drivers,env_name):
+    def test_20960(self, drivers):
         pass
 
 
@@ -164,7 +164,7 @@ class Teststory_3346:
     @allure.description("登录【项目经理】权限账号，选择项目》计划中关联里程碑的任务点击==编辑【计划开始时间】和【计划结束时间】，点击【保存】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20961(self, drivers,env_name):
+    def test_20961(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -172,7 +172,7 @@ class Teststory_3346:
     @allure.description("登录【其他角色】权限账号（非项目经理角色），选择项目》计划中关联里程碑的任务点击==编辑【计划开始时间】和【计划结束时间】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20962(self, drivers,env_name):
+    def test_20962(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -180,7 +180,7 @@ class Teststory_3346:
     @allure.description("分别点击不同任务类型的任务，查看任务弹窗中的字段显示==编辑【实际开始时间】字段")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20963(self, drivers,env_name):
+    def test_20963(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -188,7 +188,7 @@ class Teststory_3346:
     @allure.description("当任务由未开始改变为进行中保存后，查看该任务的【实际开始时间】字段显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20964(self, drivers,env_name):
+    def test_20964(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -196,7 +196,7 @@ class Teststory_3346:
     @allure.description("选择任务的里程碑在非V1.0时，对该任务的【计划开始时间】和【计划结束时间】进行编辑保存")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20965(self, drivers,env_name):
+    def test_20965(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -204,7 +204,7 @@ class Teststory_3346:
     @allure.description("选择任务的里程碑在在V1.0审核中及V1.0审核通过之后的版本时，对该任务的【计划开始时间】和【计划结束时间】进行编辑保存")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20966(self, drivers,env_name):
+    def test_20966(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -212,7 +212,7 @@ class Teststory_3346:
     @allure.description("里程碑视图未提交审批时，查看里程碑视图状态")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20968(self, drivers,env_name):
+    def test_20968(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -220,7 +220,7 @@ class Teststory_3346:
     @allure.description("里程碑视图提交审批，在审核中时，查看里程碑视图状态")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20969(self, drivers,env_name):
+    def test_20969(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -228,7 +228,7 @@ class Teststory_3346:
     @allure.description("里程碑视图提交审批且通过后，为【正式版且审核通过】，查看里程碑视图状态")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20970(self, drivers,env_name):
+    def test_20970(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -236,7 +236,7 @@ class Teststory_3346:
     @allure.description("里程碑视图点击【发布】按钮，提交第一次审批在审核中阶段，查看里程碑视图的左上角显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20971(self, drivers,env_name):
+    def test_20971(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -244,7 +244,7 @@ class Teststory_3346:
     @allure.description("里程碑视图点击【发布】按钮，提交第N次审批在审批中阶段，查看里程碑视图的左上角显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20972(self, drivers,env_name):
+    def test_20972(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -252,7 +252,7 @@ class Teststory_3346:
     @allure.description("里程碑视图点击【发布】按钮，提交第一次审批且流程审批通过后，查看里程碑视图的左上角显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20973(self, drivers,env_name):
+    def test_20973(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -260,7 +260,7 @@ class Teststory_3346:
     @allure.description("里程碑视图点击【发布】按钮，提交第N次审批且流程审批通过后，查看里程碑视图的左上角显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20974(self, drivers,env_name):
+    def test_20974(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -268,7 +268,7 @@ class Teststory_3346:
     @allure.description("登录项目经理和超管账号，在里程碑视图中查看【新增】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20981(self, drivers,env_name):
+    def test_20981(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -276,7 +276,7 @@ class Teststory_3346:
     @allure.description("其他成员和非团队成员账号，在里程碑视图中查看【新增】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20982(self, drivers,env_name):
+    def test_20982(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -284,7 +284,7 @@ class Teststory_3346:
     @allure.description("登录项目经理和超管账号，在里程碑视图中查看【保存】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20983(self, drivers,env_name):
+    def test_20983(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -292,7 +292,7 @@ class Teststory_3346:
     @allure.description("其他成员和非团队成员账号，在里程碑视图中查看【保存】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20984(self, drivers,env_name):
+    def test_20984(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -300,7 +300,7 @@ class Teststory_3346:
     @allure.description("登录项目经理和超管账号，在里程碑视图中查看【发布】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20985(self, drivers,env_name):
+    def test_20985(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -308,7 +308,7 @@ class Teststory_3346:
     @allure.description("其他成员和非团队成员账号，在里程碑视图中查看【发布】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20986(self, drivers,env_name):
+    def test_20986(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -316,7 +316,7 @@ class Teststory_3346:
     @allure.description("当前里程碑视图的最新版本为正式版本且流程审核通过时，项目经理和超级管理员账号对【新增】按钮点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20990(self, drivers,env_name):
+    def test_20990(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -324,7 +324,7 @@ class Teststory_3346:
     @allure.description("当前里程碑视图的最新版本为正式版本且流程审核通过时，非项目经理和非超级管理员账号对【新增】按钮点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20991(self, drivers,env_name):
+    def test_20991(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -332,7 +332,7 @@ class Teststory_3346:
     @allure.description("当前里程碑视图的最新版本为非正式版或正式版本且在审核中时，登录项目经理和超管账号点击【新增】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20992(self, drivers,env_name):
+    def test_20992(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -340,7 +340,7 @@ class Teststory_3346:
     @allure.description("当前里程碑视图的最新版本为非正式版时，登录项目经理和超管账号点击【保存】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20993(self, drivers,env_name):
+    def test_20993(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -348,7 +348,7 @@ class Teststory_3346:
     @allure.description("当前里程碑视图的最新版本为非正式版时，登录非项目经理和非超管账号点击【保存】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20994(self, drivers,env_name):
+    def test_20994(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -356,7 +356,7 @@ class Teststory_3346:
     @allure.description("当前里程碑视图的最新版本为正式版本时，登录项目经理和超管账号点击【保存】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20995(self, drivers,env_name):
+    def test_20995(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -364,7 +364,7 @@ class Teststory_3346:
     @allure.description("当前里程碑视图的最新版本为非正式版时，登录项目经理和超管账号点击【发布】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20996(self, drivers,env_name):
+    def test_20996(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -372,7 +372,7 @@ class Teststory_3346:
     @allure.description("当前里程碑视图的最新版本为非正式版时，登录非项目经理和非超管账号点击【发布】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20997(self, drivers,env_name):
+    def test_20997(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -380,7 +380,7 @@ class Teststory_3346:
     @allure.description("当前里程碑视图的最新版本为正式版本时，登录项目经理和超管账号点击【发布】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20998(self, drivers,env_name):
+    def test_20998(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -388,7 +388,7 @@ class Teststory_3346:
     @allure.description("在里程碑视图中选择【非正式版本】的里程碑进行点击，在里程碑弹窗中编辑【计划开始时间】和【计划完成时间】，清空【计划开始时间】，点击【保存】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21034(self, drivers,env_name):
+    def test_21034(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_新增保存发布")  # 用户故事名称
@@ -396,7 +396,7 @@ class Teststory_3346:
     @allure.description("在里程碑视图中选择【非正式版本】的里程碑进行点击，在里程碑弹窗中编辑【计划开始时间】和【计划完成时间】，清空【计划结束时间】，点击【保存】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21035(self, drivers,env_name):
+    def test_21035(self, drivers):
         pass
 
 
@@ -407,7 +407,7 @@ class Teststory_3355:
     @allure.description("登录项目经理角色账号，在PD基线和IPD模块化项目》计划中查看表头的【里程碑】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20967(self, drivers,env_name):
+    def test_20967(self, drivers):
         pass
 
 
@@ -418,7 +418,7 @@ class Teststory_3348:
     @allure.description("登录团队成员和超管账号，在里程碑视图中查看【导出】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20975(self, drivers,env_name):
+    def test_20975(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导出")  # 用户故事名称
@@ -426,7 +426,7 @@ class Teststory_3348:
     @allure.description("登录非团队成员账号，在里程碑视图中查看【导出】按钮并点击（超管账号除外）")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20976(self, drivers,env_name):
+    def test_20976(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导出")  # 用户故事名称
@@ -434,7 +434,7 @@ class Teststory_3348:
     @allure.description("在里程碑视图弹窗中，点击【导出】按钮，查看导出文件中的sheet1页显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21104(self, drivers,env_name):
+    def test_21104(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导出")  # 用户故事名称
@@ -442,7 +442,7 @@ class Teststory_3348:
     @allure.description("在里程碑视图弹窗中，点击【导出】按钮，查看导出文件中的sheet2页显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21105(self, drivers,env_name):
+    def test_21105(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导出")  # 用户故事名称
@@ -450,7 +450,7 @@ class Teststory_3348:
     @allure.description("在里程碑视图弹窗中，点击【导出】按钮，查看导出文件中的sheet2页显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21106(self, drivers,env_name):
+    def test_21106(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导出")  # 用户故事名称
@@ -458,7 +458,7 @@ class Teststory_3348:
     @allure.description("在里程碑视图弹窗中，点击【导出】按钮，查看导出文件中的sheet2页显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21107(self, drivers,env_name):
+    def test_21107(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导出")  # 用户故事名称
@@ -466,7 +466,7 @@ class Teststory_3348:
     @allure.description("在里程碑视图弹窗中，点击【导出】按钮，查看导出文件中的sheet2页显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21108(self, drivers,env_name):
+    def test_21108(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导出")  # 用户故事名称
@@ -474,7 +474,7 @@ class Teststory_3348:
     @allure.description("在里程碑视图弹窗中，点击【导出】按钮，查看导出文件中列表的左上方显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21109(self, drivers,env_name):
+    def test_21109(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导出")  # 用户故事名称
@@ -482,7 +482,7 @@ class Teststory_3348:
     @allure.description("在里程碑视图弹窗中，点击【导出】按钮，查看导出文件中列表的左上方显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21110(self, drivers,env_name):
+    def test_21110(self, drivers):
         pass
 
 
@@ -493,7 +493,7 @@ class Teststory_3349:
     @allure.description("登录团队成员和超管账号，在里程碑视图中查看【流程记录】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20977(self, drivers,env_name):
+    def test_20977(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_流程记录")  # 用户故事名称
@@ -501,7 +501,7 @@ class Teststory_3349:
     @allure.description("登录非团队成员账号，在里程碑视图中查看【流程记录】按钮并点击（超管账号除外）")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20978(self, drivers,env_name):
+    def test_20978(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_流程记录")  # 用户故事名称
@@ -509,7 +509,7 @@ class Teststory_3349:
     @allure.description("发起页面中，当里程碑正式版本（审批中）时，再点击【发布】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21076(self, drivers,env_name):
+    def test_21076(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_流程记录")  # 用户故事名称
@@ -517,7 +517,7 @@ class Teststory_3349:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21077(self, drivers,env_name):
+    def test_21077(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_流程记录")  # 用户故事名称
@@ -525,7 +525,7 @@ class Teststory_3349:
     @allure.description("在里程碑视图中，点击【流程记录】按钮，查看流程记录弹窗显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21111(self, drivers,env_name):
+    def test_21111(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_流程记录")  # 用户故事名称
@@ -533,7 +533,7 @@ class Teststory_3349:
     @allure.description("在里程碑视图中，点击【流程记录】按钮，查看流程记录弹窗中的【版本】、【流程编码】、【单据状态】、【提单人】、【提单时间】、【审批通过时间】字段显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21112(self, drivers,env_name):
+    def test_21112(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_流程记录")  # 用户故事名称
@@ -541,7 +541,7 @@ class Teststory_3349:
     @allure.description("在里程碑视图中，点击【流程记录】按钮，查看流程记录弹窗中的流程记录排序显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21113(self, drivers,env_name):
+    def test_21113(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_流程记录")  # 用户故事名称
@@ -549,7 +549,7 @@ class Teststory_3349:
     @allure.description("在里程碑视图中，点击【流程记录】按钮，点击对应【流程编码】链接")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21114(self, drivers,env_name):
+    def test_21114(self, drivers):
         pass
 
 
@@ -560,7 +560,7 @@ class Teststory_3347:
     @allure.description("登录项目经理和超管账号，在里程碑视图中查看【导入】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20979(self, drivers,env_name):
+    def test_20979(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -568,7 +568,7 @@ class Teststory_3347:
     @allure.description("其他成员和非团队成员账号，在里程碑视图中查看【导入】按钮并点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20980(self, drivers,env_name):
+    def test_20980(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -576,7 +576,7 @@ class Teststory_3347:
     @allure.description("当前里程碑视图的最新版本为非正式版本时，登录项目经理和超管账号，点击【导入】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20987(self, drivers,env_name):
+    def test_20987(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -584,7 +584,7 @@ class Teststory_3347:
     @allure.description("当前里程碑视图的最新版本为非正式版本时，登录非项目经理和非超管账号，点击【导入】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20988(self, drivers,env_name):
+    def test_20988(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -592,7 +592,7 @@ class Teststory_3347:
     @allure.description("当前里程碑视图的最新版本为正式版本时（包含正式版本【审核中】和正式版本【审核通过】），登录超管和项目经理账号对【导入】按钮点击")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20989(self, drivers,env_name):
+    def test_20989(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -600,7 +600,7 @@ class Teststory_3347:
     @allure.description("里程碑视图弹窗中，点击【导入】按钮，在导入弹窗中，点击【导入模板】按钮==下载成功后，对比查看导入模板与里程碑视图列表")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21097(self, drivers,env_name):
+    def test_21097(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -608,7 +608,7 @@ class Teststory_3347:
     @allure.description("里程碑视图弹窗中，点击【导入】按钮，在导入弹窗中，选择导入非Excel文件")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21098(self, drivers,env_name):
+    def test_21098(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -616,7 +616,7 @@ class Teststory_3347:
     @allure.description("里程碑视图弹窗中，点击【导入】按钮，在导入弹窗中，选择导入一个阶段与项目中的阶段不一致的Excel文件")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21099(self, drivers,env_name):
+    def test_21099(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -624,7 +624,7 @@ class Teststory_3347:
     @allure.description("里程碑视图弹窗中，点击【导入】按钮，在导入弹窗中，选择导入一个阶段与里程碑视图中的阶段不一致的Excel文件")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21100(self, drivers,env_name):
+    def test_21100(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -632,7 +632,7 @@ class Teststory_3347:
     @allure.description("里程碑视图弹窗中，点击【导入】按钮，在导入弹窗中，导入文件时间与里程碑视图中的时间格式不一致")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21101(self, drivers,env_name):
+    def test_21101(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -640,7 +640,7 @@ class Teststory_3347:
     @allure.description("里程碑视图弹窗中，点击【导入】按钮，在导入弹窗中，导入文件无非正式版本数据")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21102(self, drivers,env_name):
+    def test_21102(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_导入")  # 用户故事名称
@@ -648,7 +648,7 @@ class Teststory_3347:
     @allure.description("里程碑视图弹窗中，点击【导入】按钮，在导入弹窗中，导入文件")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21103(self, drivers,env_name):
+    def test_21103(self, drivers):
         pass
 
 
@@ -659,7 +659,7 @@ class Teststory_3353:
     @allure.description("当前里程碑视图的最新版本为正式版本时，登录非项目经理和非超管账号点击【发布】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_20999(self, drivers,env_name):
+    def test_20999(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -667,7 +667,7 @@ class Teststory_3353:
     @allure.description("当前里程碑视图的最新版本为非正式版时，登录项目经理和超管账号对里程碑节点日期进行【编辑修改】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21000(self, drivers,env_name):
+    def test_21000(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -675,7 +675,7 @@ class Teststory_3353:
     @allure.description("当前里程碑视图的最新版本为非正式版时，登录非项目经理和非超管账号对里程碑节点日期进行【编辑修改】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21001(self, drivers,env_name):
+    def test_21001(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -683,7 +683,7 @@ class Teststory_3353:
     @allure.description("当前里程碑视图的最新版本为正式版本时。登录项目经理和超管账号对里程碑节点日期进行【编辑修改】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21002(self, drivers,env_name):
+    def test_21002(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -691,7 +691,7 @@ class Teststory_3353:
     @allure.description("在阿波罗配置项中配置'以开始时间计算'、'以结束时间计算'")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21003(self, drivers,env_name):
+    def test_21003(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -699,7 +699,7 @@ class Teststory_3353:
     @allure.description("在第一层WBS下将一个任务设置里程碑，在里程碑视图中，查看对应的阶段名称")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21004(self, drivers,env_name):
+    def test_21004(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -707,7 +707,7 @@ class Teststory_3353:
     @allure.description("当一个第一层WBS下一个任务均没有设置里程碑，在里程碑视图中，查看对应的阶段名称")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21005(self, drivers,env_name):
+    def test_21005(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -715,7 +715,7 @@ class Teststory_3353:
     @allure.description("分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示==分别选择三个第一层WBS下没有设置里程碑的任务的阶段，对这三个阶段分别设置'TR'、'DCP'、quot里程碑'，在里程碑视图中查看这三个阶段的显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21006(self, drivers,env_name):
+    def test_21006(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -723,7 +723,7 @@ class Teststory_3353:
     @allure.description("选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示==选择一个第一层WBS，在其下选择三个任务分别设置'TR'、'DCP'、quot里程碑'，进入里程碑视图中，查看对应阶段下的该三个任务显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21007(self, drivers,env_name):
+    def test_21007(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -731,7 +731,7 @@ class Teststory_3353:
     @allure.description("选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示==选择在一个阶段下建立多个层级任务，在该阶段下的任务，分别建立'TR'、'DCP'、quot里程碑'类型的计划==在里程碑视图中查看该阶段显示和阶段下的里程碑显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21008(self, drivers,env_name):
+    def test_21008(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -739,7 +739,7 @@ class Teststory_3353:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21071(self, drivers,env_name):
+    def test_21071(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -747,7 +747,7 @@ class Teststory_3353:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21072(self, drivers,env_name):
+    def test_21072(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -755,7 +755,7 @@ class Teststory_3353:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21073(self, drivers,env_name):
+    def test_21073(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -763,7 +763,7 @@ class Teststory_3353:
     @allure.description("查看流程审批页面中的基本信息模块显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21115(self, drivers,env_name):
+    def test_21115(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_查看单据")  # 用户故事名称
@@ -771,7 +771,7 @@ class Teststory_3353:
     @allure.description("鼠标浮动到里程碑版本位置，查看对应显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21118(self, drivers,env_name):
+    def test_21118(self, drivers):
         pass
 
 
@@ -782,7 +782,7 @@ class Teststory_3354:
     @allure.description("在【里程碑视图】中的里程碑【版本时间】配置【计划开始时间】和【计划结束时间】后，点击保存==阿波罗中配置项为【以开始时间计算】，查看里程碑视图中的版本时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21009(self, drivers,env_name):
+    def test_21009(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -790,7 +790,7 @@ class Teststory_3354:
     @allure.description("在【里程碑视图】中的里程碑【版本时间】配置【计划开始时间】和【计划结束时间】后，点击保存==阿波罗中配置项为【以结束时间计算】，查看里程碑视图中的版本时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21010(self, drivers,env_name):
+    def test_21010(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -798,7 +798,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以开始时间计算】，查看里程碑视图中的【实际】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21011(self, drivers,env_name):
+    def test_21011(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -806,7 +806,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以结束时间计算】，查看里程碑视图中的【实际】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21012(self, drivers,env_name):
+    def test_21012(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -814,7 +814,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以开始时间计算】，查看里程碑视图中的【偏差】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21013(self, drivers,env_name):
+    def test_21013(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -822,7 +822,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以开始时间计算】，计划开始时间【大于】实际开始时间，查看里程碑视图中的【偏差】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21014(self, drivers,env_name):
+    def test_21014(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -830,7 +830,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以开始时间计算】，计划开始时间【小于】实际开始时间，查看里程碑视图中的【偏差】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21015(self, drivers,env_name):
+    def test_21015(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -838,7 +838,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以开始时间计算】，计划开始时间【等于】实际开始时间，查看里程碑视图中的【偏差】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21016(self, drivers,env_name):
+    def test_21016(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -846,7 +846,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以结束时间计算】，查看里程碑视图中的【偏差】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21017(self, drivers,env_name):
+    def test_21017(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -854,7 +854,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以结束时间计算】，计划开始时间【大于】实际开始时间，查看里程碑视图中的【偏差】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21018(self, drivers,env_name):
+    def test_21018(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -862,7 +862,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以结束时间计算】，计划开始时间【小于】实际开始时间，查看里程碑视图中的【偏差】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21019(self, drivers,env_name):
+    def test_21019(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -870,7 +870,7 @@ class Teststory_3354:
     @allure.description("阿波罗中配置项为【以结束时间计算】，计划开始时间【等于】实际开始时间，查看里程碑视图中的【偏差】时间显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21020(self, drivers,env_name):
+    def test_21020(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -878,7 +878,7 @@ class Teststory_3354:
     @allure.description("进入里程碑视图中，查看里程碑视图的复选框选项")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21021(self, drivers,env_name):
+    def test_21021(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -886,7 +886,7 @@ class Teststory_3354:
     @allure.description("对里程碑视图的复选框选项，进行单选，多选，全选")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21022(self, drivers,env_name):
+    def test_21022(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -894,7 +894,7 @@ class Teststory_3354:
     @allure.description("对里程碑视图的复选框选项进行勾选后，查看里程碑信息显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21023(self, drivers,env_name):
+    def test_21023(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -902,7 +902,7 @@ class Teststory_3354:
     @allure.description("【计划】页面中，鼠标移动到【里程碑视图】按钮处悬停")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21024(self, drivers,env_name):
+    def test_21024(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -910,7 +910,7 @@ class Teststory_3354:
     @allure.description("在【里程碑视图】中，鼠标移动到非正式版本和正式版本的【版本时间】和【实际】对应里程碑上悬停")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21025(self, drivers,env_name):
+    def test_21025(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -918,7 +918,7 @@ class Teststory_3354:
     @allure.description("设置了【里程碑】、【TR】、【DCP】计划类型的任务中，保存了【计划开始时候】和【计划结束时间】==进入里程碑视图中，点击里程碑的【版本时间】，查看弹窗中的【计划开始时间】和【计划结束时间】显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21026(self, drivers,env_name):
+    def test_21026(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -926,7 +926,7 @@ class Teststory_3354:
     @allure.description("设置了【里程碑】、【TR】、【DCP】计划类型的任务中，保存了【计划开始时候】和【计划结束时间】==进入里程碑视图中查看对应里程碑的【版本时间】显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21027(self, drivers,env_name):
+    def test_21027(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -934,7 +934,7 @@ class Teststory_3354:
     @allure.description("当里程碑视图中当前里程碑最新版本为【非正式版本】，查看【里程碑视图】弹窗左上角显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21028(self, drivers,env_name):
+    def test_21028(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -942,7 +942,7 @@ class Teststory_3354:
     @allure.description("当里程碑视图中当前里程碑最新版本为【正式版本（发布中）】，查看【里程碑视图】弹窗左上角显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21029(self, drivers,env_name):
+    def test_21029(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -950,7 +950,7 @@ class Teststory_3354:
     @allure.description("当里程碑视图中当前里程碑最新版本为【正式版本（已发布）】，查看【里程碑视图】弹窗左上角显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21030(self, drivers,env_name):
+    def test_21030(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -958,7 +958,7 @@ class Teststory_3354:
     @allure.description("在里程碑视图中，查看当前日期的时间线")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21031(self, drivers,env_name):
+    def test_21031(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -966,7 +966,7 @@ class Teststory_3354:
     @allure.description("【里程碑视图】中，当前版本与上一正式版本进行对比，里程碑【版本时间】查看")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21032(self, drivers,env_name):
+    def test_21032(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -974,7 +974,7 @@ class Teststory_3354:
     @allure.description("里程碑视图中修改保存里程碑的【版本时间】中的【计划开始时间】/【计划结束时间】==在对应的WBS计划的任务详情页中查看【计划开始时间】/【计划结束时间】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21033(self, drivers,env_name):
+    def test_21033(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -982,7 +982,7 @@ class Teststory_3354:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21036(self, drivers,env_name):
+    def test_21036(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -990,7 +990,7 @@ class Teststory_3354:
     @allure.description("在里程碑视图中对里程碑【版本时间】进行修改保存，在对应里程碑任务的详情页和WBS查看显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21037(self, drivers,env_name):
+    def test_21037(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -998,7 +998,7 @@ class Teststory_3354:
     @allure.description("在里程碑视图中对里程碑【版本时间】进行修改保存，查看对应里程碑显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21038(self, drivers,env_name):
+    def test_21038(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1006,7 +1006,7 @@ class Teststory_3354:
     @allure.description("在里程碑视图中对里程碑【版本时间】进行修改保存，查看对应里程碑显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21039(self, drivers,env_name):
+    def test_21039(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1014,7 +1014,7 @@ class Teststory_3354:
     @allure.description("编辑里程碑【版本时间】，将【计划开始时间】和【计划结束时间】，分别点击【置为不存在/】按钮，点击【保存】按钮==查看对应里程碑【版本时间】显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21040(self, drivers,env_name):
+    def test_21040(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1022,7 +1022,7 @@ class Teststory_3354:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21041(self, drivers,env_name):
+    def test_21041(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1030,7 +1030,7 @@ class Teststory_3354:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21042(self, drivers,env_name):
+    def test_21042(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1038,7 +1038,7 @@ class Teststory_3354:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21043(self, drivers,env_name):
+    def test_21043(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1046,7 +1046,7 @@ class Teststory_3354:
     @allure.description("在里程碑视图中，当前非正式版本中有里程碑【版本时间】为空，点击保存")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21044(self, drivers,env_name):
+    def test_21044(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1054,7 +1054,7 @@ class Teststory_3354:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21045(self, drivers,env_name):
+    def test_21045(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1062,7 +1062,7 @@ class Teststory_3354:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21082(self, drivers,env_name):
+    def test_21082(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1070,7 +1070,7 @@ class Teststory_3354:
     @allure.description("对里程碑视图的计划开始/结束时间，计划列表中任务的计划开始/结束时间，任务详情页中的计划开始/结束时间进行编辑")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21121(self, drivers,env_name):
+    def test_21121(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1078,7 +1078,7 @@ class Teststory_3354:
     @allure.description("对里程碑视图的计划开始/结束时间，计划列表中任务的计划开始/结束时间，任务详情页中的计划开始/结束时间进行编辑")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21122(self, drivers,env_name):
+    def test_21122(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1086,7 +1086,7 @@ class Teststory_3354:
     @allure.description("查看里程碑视图的【计划开始/结束时间】显示==查看对应任务的列表和详情页显示的【计划开始/结束时间】显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21123(self, drivers,env_name):
+    def test_21123(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1094,7 +1094,7 @@ class Teststory_3354:
     @allure.description("查看里程碑视图的【计划开始/结束时间】显示==查看对应任务的列表和详情页显示的【计划开始/结束时间】显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21124(self, drivers,env_name):
+    def test_21124(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1102,7 +1102,7 @@ class Teststory_3354:
     @allure.description("选择计划任务，进入详情页，对【实际开始时间】【实际结束时间】进行编辑")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21125(self, drivers,env_name):
+    def test_21125(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1110,7 +1110,7 @@ class Teststory_3354:
     @allure.description("任务状态更改为已经进行中或者评审中，查看对应任务的【实际开始时间】显示==编辑【实际开始时间】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21126(self, drivers,env_name):
+    def test_21126(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1118,7 +1118,7 @@ class Teststory_3354:
     @allure.description("任务状态更改为已经进行中或者评审中，查看对应任务的【实际开始时间】显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21127(self, drivers,env_name):
+    def test_21127(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1126,7 +1126,7 @@ class Teststory_3354:
     @allure.description("任务状态更改为【已完成】，查看对应任务的【实际结束时间】显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21128(self, drivers,env_name):
+    def test_21128(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1134,7 +1134,7 @@ class Teststory_3354:
     @allure.description("任务状态更改为【已完成】，查看对应任务的【实际结束时间】显示==对【实际结束时间】进行编辑")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21129(self, drivers,env_name):
+    def test_21129(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1142,7 +1142,7 @@ class Teststory_3354:
     @allure.description("任务状态更改为【已完成】，查看对应任务的【实际结束时间】显示==对【实际结束时间】进行编辑")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21130(self, drivers,env_name):
+    def test_21130(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1150,7 +1150,7 @@ class Teststory_3354:
     @allure.description("选择计划任务，进入任务详情页，对【实际开始时间】和【实际结束时间】进行编辑")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21131(self, drivers,env_name):
+    def test_21131(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1158,7 +1158,7 @@ class Teststory_3354:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21132(self, drivers,env_name):
+    def test_21132(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑封板逻辑及wbs同步逻辑")  # 用户故事名称
@@ -1166,7 +1166,7 @@ class Teststory_3354:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21133(self, drivers,env_name):
+    def test_21133(self, drivers):
         pass
 
 
@@ -1177,7 +1177,7 @@ class Teststory_3351:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21046(self, drivers,env_name):
+    def test_21046(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1185,7 +1185,7 @@ class Teststory_3351:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21066(self, drivers,env_name):
+    def test_21066(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1193,7 +1193,7 @@ class Teststory_3351:
     @allure.description("在里程碑审批发起页面中查看【调整原因】字段标识")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21067(self, drivers,env_name):
+    def test_21067(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1201,7 +1201,7 @@ class Teststory_3351:
     @allure.description("在里程碑审批发起页面中，不填写【调整原因】，点击【提交】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21068(self, drivers,env_name):
+    def test_21068(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1209,7 +1209,7 @@ class Teststory_3351:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21069(self, drivers,env_name):
+    def test_21069(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1217,7 +1217,7 @@ class Teststory_3351:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21070(self, drivers,env_name):
+    def test_21070(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1225,7 +1225,7 @@ class Teststory_3351:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21074(self, drivers,env_name):
+    def test_21074(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1233,7 +1233,7 @@ class Teststory_3351:
     @allure.description("发起页面中的【里程碑信息】与【里程碑视图】中待发布的里程碑数据不一致，点击【发布】按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21075(self, drivers,env_name):
+    def test_21075(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1241,7 +1241,7 @@ class Teststory_3351:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21080(self, drivers,env_name):
+    def test_21080(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1249,7 +1249,7 @@ class Teststory_3351:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21081(self, drivers,env_name):
+    def test_21081(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发起页面")  # 用户故事名称
@@ -1257,7 +1257,7 @@ class Teststory_3351:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21083(self, drivers,env_name):
+    def test_21083(self, drivers):
         pass
 
 
@@ -1268,7 +1268,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21047(self, drivers,env_name):
+    def test_21047(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1276,7 +1276,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21048(self, drivers,env_name):
+    def test_21048(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1284,7 +1284,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21049(self, drivers,env_name):
+    def test_21049(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1292,7 +1292,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21050(self, drivers,env_name):
+    def test_21050(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1300,7 +1300,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21051(self, drivers,env_name):
+    def test_21051(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1308,7 +1308,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21052(self, drivers,env_name):
+    def test_21052(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1316,7 +1316,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21053(self, drivers,env_name):
+    def test_21053(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1324,7 +1324,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21054(self, drivers,env_name):
+    def test_21054(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1332,7 +1332,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21055(self, drivers,env_name):
+    def test_21055(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1340,7 +1340,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21056(self, drivers,env_name):
+    def test_21056(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1348,7 +1348,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21057(self, drivers,env_name):
+    def test_21057(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1356,7 +1356,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21058(self, drivers,env_name):
+    def test_21058(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1364,7 +1364,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21059(self, drivers,env_name):
+    def test_21059(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1372,7 +1372,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21060(self, drivers,env_name):
+    def test_21060(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1380,7 +1380,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21061(self, drivers,env_name):
+    def test_21061(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1388,7 +1388,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21062(self, drivers,env_name):
+    def test_21062(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1396,7 +1396,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21063(self, drivers,env_name):
+    def test_21063(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1404,7 +1404,7 @@ class Teststory_3352:
     @allure.description("【二级领导审批】页面中点击【加签】按钮，选择【加签人员】")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21064(self, drivers,env_name):
+    def test_21064(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1412,7 +1412,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21065(self, drivers,env_name):
+    def test_21065(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1420,7 +1420,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21084(self, drivers,env_name):
+    def test_21084(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1428,7 +1428,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21085(self, drivers,env_name):
+    def test_21085(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1436,7 +1436,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21086(self, drivers,env_name):
+    def test_21086(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1444,7 +1444,7 @@ class Teststory_3352:
     @allure.description("【直接领导】审核和【二级领导】审核单据中，鼠标移到到【里程碑版本】位置悬停")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21087(self, drivers,env_name):
+    def test_21087(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1452,7 +1452,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21088(self, drivers,env_name):
+    def test_21088(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1460,7 +1460,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21089(self, drivers,env_name):
+    def test_21089(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1468,7 +1468,7 @@ class Teststory_3352:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21090(self, drivers,env_name):
+    def test_21090(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1476,7 +1476,7 @@ class Teststory_3352:
     @allure.description("在审批页面的里程碑信息模块中点击筛选按钮，选择需要展示的阶段==点击导出按钮")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21119(self, drivers,env_name):
+    def test_21119(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_直接领导审核二级领导审核")  # 用户故事名称
@@ -1484,7 +1484,7 @@ class Teststory_3352:
     @allure.description("查看流程审批页面中的附件模块显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21120(self, drivers,env_name):
+    def test_21120(self, drivers):
         pass
 
 
@@ -1495,7 +1495,7 @@ class Teststory_3350:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21078(self, drivers,env_name):
+    def test_21078(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发布流程图")  # 用户故事名称
@@ -1503,7 +1503,7 @@ class Teststory_3350:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21079(self, drivers,env_name):
+    def test_21079(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发布流程图")  # 用户故事名称
@@ -1511,7 +1511,7 @@ class Teststory_3350:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21091(self, drivers,env_name):
+    def test_21091(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发布流程图")  # 用户故事名称
@@ -1519,7 +1519,7 @@ class Teststory_3350:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21092(self, drivers,env_name):
+    def test_21092(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发布流程图")  # 用户故事名称
@@ -1527,7 +1527,7 @@ class Teststory_3350:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21093(self, drivers,env_name):
+    def test_21093(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发布流程图")  # 用户故事名称
@@ -1535,7 +1535,7 @@ class Teststory_3350:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21094(self, drivers,env_name):
+    def test_21094(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发布流程图")  # 用户故事名称
@@ -1543,7 +1543,7 @@ class Teststory_3350:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21095(self, drivers,env_name):
+    def test_21095(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑新里程碑视图_发布流程图")  # 用户故事名称
@@ -1551,7 +1551,7 @@ class Teststory_3350:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21096(self, drivers,env_name):
+    def test_21096(self, drivers):
         pass
 
 
@@ -1562,7 +1562,7 @@ class Teststory_3343:
     @allure.description("查看流程审批页面中的里程碑信息模块显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21116(self, drivers,env_name):
+    def test_21116(self, drivers):
         pass
 
     @allure.story("项目详情/计划_里程碑里程碑视图调整")  # 用户故事名称
@@ -1570,7 +1570,7 @@ class Teststory_3343:
     @allure.description("查看流程审批页面中的里程碑信息模块内容显示")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_21117(self, drivers,env_name):
+    def test_21117(self, drivers):
         pass
 
 
@@ -1581,7 +1581,7 @@ class Teststory_3312:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22368(self, drivers,env_name):
+    def test_22368(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险导入")  # 用户故事名称
@@ -1589,7 +1589,7 @@ class Teststory_3312:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22369(self, drivers,env_name):
+    def test_22369(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险导入")  # 用户故事名称
@@ -1597,7 +1597,7 @@ class Teststory_3312:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22370(self, drivers,env_name):
+    def test_22370(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险导入")  # 用户故事名称
@@ -1605,7 +1605,7 @@ class Teststory_3312:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22371(self, drivers,env_name):
+    def test_22371(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险导入")  # 用户故事名称
@@ -1613,7 +1613,7 @@ class Teststory_3312:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22372(self, drivers,env_name):
+    def test_22372(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险导入")  # 用户故事名称
@@ -1621,7 +1621,7 @@ class Teststory_3312:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22373(self, drivers,env_name):
+    def test_22373(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险导入")  # 用户故事名称
@@ -1629,7 +1629,7 @@ class Teststory_3312:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22374(self, drivers,env_name):
+    def test_22374(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险导入")  # 用户故事名称
@@ -1637,7 +1637,7 @@ class Teststory_3312:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22375(self, drivers,env_name):
+    def test_22375(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险导入")  # 用户故事名称
@@ -1645,7 +1645,7 @@ class Teststory_3312:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22376(self, drivers,env_name):
+    def test_22376(self, drivers):
         pass
 
 
@@ -1656,7 +1656,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22380(self, drivers,env_name):
+    def test_22380(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1664,7 +1664,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22381(self, drivers,env_name):
+    def test_22381(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1672,7 +1672,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22382(self, drivers,env_name):
+    def test_22382(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1680,7 +1680,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22383(self, drivers,env_name):
+    def test_22383(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1688,7 +1688,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22384(self, drivers,env_name):
+    def test_22384(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1696,7 +1696,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22385(self, drivers,env_name):
+    def test_22385(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1704,7 +1704,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22386(self, drivers,env_name):
+    def test_22386(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1712,7 +1712,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22387(self, drivers,env_name):
+    def test_22387(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1720,7 +1720,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22388(self, drivers,env_name):
+    def test_22388(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1728,7 +1728,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22389(self, drivers,env_name):
+    def test_22389(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1736,7 +1736,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22390(self, drivers,env_name):
+    def test_22390(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1744,7 +1744,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22391(self, drivers,env_name):
+    def test_22391(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1752,7 +1752,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22392(self, drivers,env_name):
+    def test_22392(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1760,7 +1760,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22393(self, drivers,env_name):
+    def test_22393(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1768,7 +1768,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22394(self, drivers,env_name):
+    def test_22394(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1776,7 +1776,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22395(self, drivers,env_name):
+    def test_22395(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1784,7 +1784,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22396(self, drivers,env_name):
+    def test_22396(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1792,7 +1792,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22397(self, drivers,env_name):
+    def test_22397(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1800,7 +1800,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22398(self, drivers,env_name):
+    def test_22398(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1808,7 +1808,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22399(self, drivers,env_name):
+    def test_22399(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1816,7 +1816,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22400(self, drivers,env_name):
+    def test_22400(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1824,7 +1824,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23679(self, drivers,env_name):
+    def test_23679(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1832,7 +1832,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23680(self, drivers,env_name):
+    def test_23680(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1840,7 +1840,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23681(self, drivers,env_name):
+    def test_23681(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1848,7 +1848,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23682(self, drivers,env_name):
+    def test_23682(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1856,7 +1856,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23683(self, drivers,env_name):
+    def test_23683(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1864,7 +1864,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23684(self, drivers,env_name):
+    def test_23684(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1872,7 +1872,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23685(self, drivers,env_name):
+    def test_23685(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1880,7 +1880,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23686(self, drivers,env_name):
+    def test_23686(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1888,7 +1888,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23687(self, drivers,env_name):
+    def test_23687(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1896,7 +1896,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23688(self, drivers,env_name):
+    def test_23688(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1904,7 +1904,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23689(self, drivers,env_name):
+    def test_23689(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1912,7 +1912,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23690(self, drivers,env_name):
+    def test_23690(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1920,7 +1920,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23691(self, drivers,env_name):
+    def test_23691(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1928,7 +1928,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23692(self, drivers,env_name):
+    def test_23692(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1936,7 +1936,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23693(self, drivers,env_name):
+    def test_23693(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1944,7 +1944,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23694(self, drivers,env_name):
+    def test_23694(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA审核节点")  # 用户故事名称
@@ -1952,7 +1952,7 @@ class Teststory_3317:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23695(self, drivers,env_name):
+    def test_23695(self, drivers):
         pass
 
 
@@ -1963,7 +1963,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22401(self, drivers,env_name):
+    def test_22401(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -1971,7 +1971,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22402(self, drivers,env_name):
+    def test_22402(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -1979,7 +1979,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22403(self, drivers,env_name):
+    def test_22403(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -1987,7 +1987,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22404(self, drivers,env_name):
+    def test_22404(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -1995,7 +1995,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22405(self, drivers,env_name):
+    def test_22405(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2003,7 +2003,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22406(self, drivers,env_name):
+    def test_22406(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2011,7 +2011,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22407(self, drivers,env_name):
+    def test_22407(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2019,7 +2019,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22408(self, drivers,env_name):
+    def test_22408(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2027,7 +2027,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22409(self, drivers,env_name):
+    def test_22409(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2035,7 +2035,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22410(self, drivers,env_name):
+    def test_22410(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2043,7 +2043,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22411(self, drivers,env_name):
+    def test_22411(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2051,7 +2051,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22412(self, drivers,env_name):
+    def test_22412(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2059,7 +2059,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22413(self, drivers,env_name):
+    def test_22413(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2067,7 +2067,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22414(self, drivers,env_name):
+    def test_22414(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2075,7 +2075,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22415(self, drivers,env_name):
+    def test_22415(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2083,7 +2083,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22416(self, drivers,env_name):
+    def test_22416(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2091,7 +2091,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22417(self, drivers,env_name):
+    def test_22417(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2099,7 +2099,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22418(self, drivers,env_name):
+    def test_22418(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2107,7 +2107,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22419(self, drivers,env_name):
+    def test_22419(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2115,7 +2115,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22420(self, drivers,env_name):
+    def test_22420(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2123,7 +2123,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22421(self, drivers,env_name):
+    def test_22421(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2131,7 +2131,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22422(self, drivers,env_name):
+    def test_22422(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2139,7 +2139,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22423(self, drivers,env_name):
+    def test_22423(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2147,7 +2147,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22424(self, drivers,env_name):
+    def test_22424(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2155,7 +2155,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22425(self, drivers,env_name):
+    def test_22425(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2163,7 +2163,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22426(self, drivers,env_name):
+    def test_22426(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2171,7 +2171,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22427(self, drivers,env_name):
+    def test_22427(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2179,7 +2179,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22428(self, drivers,env_name):
+    def test_22428(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2187,7 +2187,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22429(self, drivers,env_name):
+    def test_22429(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TRPQA发布结论节点")  # 用户故事名称
@@ -2195,7 +2195,7 @@ class Teststory_3318:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22430(self, drivers,env_name):
+    def test_22430(self, drivers):
         pass
 
 
@@ -2206,7 +2206,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22432(self, drivers,env_name):
+    def test_22432(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2214,7 +2214,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22433(self, drivers,env_name):
+    def test_22433(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2222,7 +2222,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22434(self, drivers,env_name):
+    def test_22434(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2230,7 +2230,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22435(self, drivers,env_name):
+    def test_22435(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2238,7 +2238,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22436(self, drivers,env_name):
+    def test_22436(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2246,7 +2246,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22437(self, drivers,env_name):
+    def test_22437(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2254,7 +2254,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22438(self, drivers,env_name):
+    def test_22438(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2262,7 +2262,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23696(self, drivers,env_name):
+    def test_23696(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2270,7 +2270,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23697(self, drivers,env_name):
+    def test_23697(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2278,7 +2278,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23698(self, drivers,env_name):
+    def test_23698(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2286,7 +2286,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23699(self, drivers,env_name):
+    def test_23699(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2294,7 +2294,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23700(self, drivers,env_name):
+    def test_23700(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2302,7 +2302,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23701(self, drivers,env_name):
+    def test_23701(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2310,7 +2310,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23702(self, drivers,env_name):
+    def test_23702(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2318,7 +2318,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23703(self, drivers,env_name):
+    def test_23703(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2326,7 +2326,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23704(self, drivers,env_name):
+    def test_23704(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2334,7 +2334,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23705(self, drivers,env_name):
+    def test_23705(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2342,7 +2342,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23706(self, drivers,env_name):
+    def test_23706(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2350,7 +2350,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23707(self, drivers,env_name):
+    def test_23707(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素自检节点")  # 用户故事名称
@@ -2358,7 +2358,7 @@ class Teststory_3315:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23720(self, drivers,env_name):
+    def test_23720(self, drivers):
         pass
 
 
@@ -2369,7 +2369,7 @@ class Teststory_3316:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22439(self, drivers,env_name):
+    def test_22439(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素互评节点")  # 用户故事名称
@@ -2377,7 +2377,7 @@ class Teststory_3316:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22440(self, drivers,env_name):
+    def test_22440(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素互评节点")  # 用户故事名称
@@ -2385,7 +2385,7 @@ class Teststory_3316:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22441(self, drivers,env_name):
+    def test_22441(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素互评节点")  # 用户故事名称
@@ -2393,7 +2393,7 @@ class Teststory_3316:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22442(self, drivers,env_name):
+    def test_22442(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素互评节点")  # 用户故事名称
@@ -2401,7 +2401,7 @@ class Teststory_3316:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22443(self, drivers,env_name):
+    def test_22443(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素互评节点")  # 用户故事名称
@@ -2409,7 +2409,7 @@ class Teststory_3316:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22444(self, drivers,env_name):
+    def test_22444(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素互评节点")  # 用户故事名称
@@ -2417,7 +2417,7 @@ class Teststory_3316:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23733(self, drivers,env_name):
+    def test_23733(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素互评节点")  # 用户故事名称
@@ -2425,7 +2425,7 @@ class Teststory_3316:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23734(self, drivers,env_name):
+    def test_23734(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR要素互评节点")  # 用户故事名称
@@ -2433,7 +2433,7 @@ class Teststory_3316:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23735(self, drivers,env_name):
+    def test_23735(self, drivers):
         pass
 
 
@@ -2444,7 +2444,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22446(self, drivers,env_name):
+    def test_22446(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2452,7 +2452,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22447(self, drivers,env_name):
+    def test_22447(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2460,7 +2460,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22448(self, drivers,env_name):
+    def test_22448(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2468,7 +2468,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22449(self, drivers,env_name):
+    def test_22449(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2476,7 +2476,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22450(self, drivers,env_name):
+    def test_22450(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2484,7 +2484,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22451(self, drivers,env_name):
+    def test_22451(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2492,7 +2492,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22452(self, drivers,env_name):
+    def test_22452(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2500,7 +2500,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22453(self, drivers,env_name):
+    def test_22453(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2508,7 +2508,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22454(self, drivers,env_name):
+    def test_22454(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2516,7 +2516,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22455(self, drivers,env_name):
+    def test_22455(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2524,7 +2524,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22456(self, drivers,env_name):
+    def test_22456(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2532,7 +2532,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22457(self, drivers,env_name):
+    def test_22457(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2540,7 +2540,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22458(self, drivers,env_name):
+    def test_22458(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2548,7 +2548,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22459(self, drivers,env_name):
+    def test_22459(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2556,7 +2556,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22460(self, drivers,env_name):
+    def test_22460(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2564,7 +2564,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22461(self, drivers,env_name):
+    def test_22461(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2572,7 +2572,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22462(self, drivers,env_name):
+    def test_22462(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2580,7 +2580,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22463(self, drivers,env_name):
+    def test_22463(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2588,7 +2588,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22464(self, drivers,env_name):
+    def test_22464(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2596,7 +2596,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22465(self, drivers,env_name):
+    def test_22465(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2604,7 +2604,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22466(self, drivers,env_name):
+    def test_22466(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2612,7 +2612,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22467(self, drivers,env_name):
+    def test_22467(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2620,7 +2620,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22468(self, drivers,env_name):
+    def test_22468(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2628,7 +2628,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22469(self, drivers,env_name):
+    def test_22469(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2636,7 +2636,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22470(self, drivers,env_name):
+    def test_22470(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2644,7 +2644,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22471(self, drivers,env_name):
+    def test_22471(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2652,7 +2652,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22472(self, drivers,env_name):
+    def test_22472(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2660,7 +2660,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22473(self, drivers,env_name):
+    def test_22473(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2668,7 +2668,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22474(self, drivers,env_name):
+    def test_22474(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2676,7 +2676,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22475(self, drivers,env_name):
+    def test_22475(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2684,7 +2684,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22476(self, drivers,env_name):
+    def test_22476(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2692,7 +2692,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22477(self, drivers,env_name):
+    def test_22477(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2700,7 +2700,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22478(self, drivers,env_name):
+    def test_22478(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2708,7 +2708,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22479(self, drivers,env_name):
+    def test_22479(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2716,7 +2716,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22480(self, drivers,env_name):
+    def test_22480(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2724,7 +2724,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22481(self, drivers,env_name):
+    def test_22481(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2732,7 +2732,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22482(self, drivers,env_name):
+    def test_22482(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2740,7 +2740,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22483(self, drivers,env_name):
+    def test_22483(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2748,7 +2748,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22484(self, drivers,env_name):
+    def test_22484(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2756,7 +2756,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22485(self, drivers,env_name):
+    def test_22485(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2764,7 +2764,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22486(self, drivers,env_name):
+    def test_22486(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2772,7 +2772,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22487(self, drivers,env_name):
+    def test_22487(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2780,7 +2780,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22488(self, drivers,env_name):
+    def test_22488(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR问题创建")  # 用户故事名称
@@ -2788,7 +2788,7 @@ class Teststory_3313:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22489(self, drivers,env_name):
+    def test_22489(self, drivers):
         pass
 
 
@@ -2799,7 +2799,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22494(self, drivers,env_name):
+    def test_22494(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2807,7 +2807,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22495(self, drivers,env_name):
+    def test_22495(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2815,7 +2815,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22496(self, drivers,env_name):
+    def test_22496(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2823,7 +2823,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22497(self, drivers,env_name):
+    def test_22497(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2831,7 +2831,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22498(self, drivers,env_name):
+    def test_22498(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2839,7 +2839,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22499(self, drivers,env_name):
+    def test_22499(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2847,7 +2847,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22500(self, drivers,env_name):
+    def test_22500(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2855,7 +2855,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22501(self, drivers,env_name):
+    def test_22501(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2863,7 +2863,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22502(self, drivers,env_name):
+    def test_22502(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2871,7 +2871,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22503(self, drivers,env_name):
+    def test_22503(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2879,7 +2879,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22504(self, drivers,env_name):
+    def test_22504(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2887,7 +2887,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22505(self, drivers,env_name):
+    def test_22505(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2895,7 +2895,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22506(self, drivers,env_name):
+    def test_22506(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2903,7 +2903,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22507(self, drivers,env_name):
+    def test_22507(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2911,7 +2911,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22508(self, drivers,env_name):
+    def test_22508(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2919,7 +2919,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22509(self, drivers,env_name):
+    def test_22509(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2927,7 +2927,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22510(self, drivers,env_name):
+    def test_22510(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2935,7 +2935,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22511(self, drivers,env_name):
+    def test_22511(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2943,7 +2943,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22512(self, drivers,env_name):
+    def test_22512(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2951,7 +2951,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22513(self, drivers,env_name):
+    def test_22513(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2959,7 +2959,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22514(self, drivers,env_name):
+    def test_22514(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2967,7 +2967,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22515(self, drivers,env_name):
+    def test_22515(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2975,7 +2975,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22516(self, drivers,env_name):
+    def test_22516(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2983,7 +2983,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22517(self, drivers,env_name):
+    def test_22517(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2991,7 +2991,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22518(self, drivers,env_name):
+    def test_22518(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -2999,7 +2999,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22519(self, drivers,env_name):
+    def test_22519(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3007,7 +3007,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22520(self, drivers,env_name):
+    def test_22520(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3015,7 +3015,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22521(self, drivers,env_name):
+    def test_22521(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3023,7 +3023,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22522(self, drivers,env_name):
+    def test_22522(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3031,7 +3031,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22523(self, drivers,env_name):
+    def test_22523(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3039,7 +3039,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22524(self, drivers,env_name):
+    def test_22524(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3047,7 +3047,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22525(self, drivers,env_name):
+    def test_22525(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3055,7 +3055,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22526(self, drivers,env_name):
+    def test_22526(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3063,7 +3063,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22527(self, drivers,env_name):
+    def test_22527(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3071,7 +3071,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22528(self, drivers,env_name):
+    def test_22528(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3079,7 +3079,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22529(self, drivers,env_name):
+    def test_22529(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3087,7 +3087,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22530(self, drivers,env_name):
+    def test_22530(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3095,7 +3095,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22531(self, drivers,env_name):
+    def test_22531(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3103,7 +3103,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22532(self, drivers,env_name):
+    def test_22532(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3111,7 +3111,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22533(self, drivers,env_name):
+    def test_22533(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3119,7 +3119,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22534(self, drivers,env_name):
+    def test_22534(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3127,7 +3127,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22535(self, drivers,env_name):
+    def test_22535(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3135,7 +3135,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22536(self, drivers,env_name):
+    def test_22536(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR风险创建")  # 用户故事名称
@@ -3143,7 +3143,7 @@ class Teststory_3311:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22537(self, drivers,env_name):
+    def test_22537(self, drivers):
         pass
 
 
@@ -3154,7 +3154,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22538(self, drivers,env_name):
+    def test_22538(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3162,7 +3162,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22539(self, drivers,env_name):
+    def test_22539(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3170,7 +3170,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22540(self, drivers,env_name):
+    def test_22540(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3178,7 +3178,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22541(self, drivers,env_name):
+    def test_22541(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3186,7 +3186,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22542(self, drivers,env_name):
+    def test_22542(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3194,7 +3194,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22543(self, drivers,env_name):
+    def test_22543(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3202,7 +3202,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22544(self, drivers,env_name):
+    def test_22544(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3210,7 +3210,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22545(self, drivers,env_name):
+    def test_22545(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3218,7 +3218,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22546(self, drivers,env_name):
+    def test_22546(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3226,7 +3226,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23652(self, drivers,env_name):
+    def test_23652(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3234,7 +3234,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23653(self, drivers,env_name):
+    def test_23653(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3242,7 +3242,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23654(self, drivers,env_name):
+    def test_23654(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3250,7 +3250,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23655(self, drivers,env_name):
+    def test_23655(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3258,7 +3258,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23656(self, drivers,env_name):
+    def test_23656(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3266,7 +3266,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23657(self, drivers,env_name):
+    def test_23657(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3274,7 +3274,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23658(self, drivers,env_name):
+    def test_23658(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3282,7 +3282,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23659(self, drivers,env_name):
+    def test_23659(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3290,7 +3290,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23660(self, drivers,env_name):
+    def test_23660(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice汇总反馈跟踪问题")  # 用户故事名称
@@ -3298,7 +3298,7 @@ class Teststory_3328:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23661(self, drivers,env_name):
+    def test_23661(self, drivers):
         pass
 
 
@@ -3309,7 +3309,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22547(self, drivers,env_name):
+    def test_22547(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3317,10 +3317,10 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22548(self, drivers,env_name):
+    def test_22548(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
         test.get_url_project()
@@ -3335,10 +3335,10 @@ class Teststory_3322:
         test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
-        get_applicationcenter_DCP_agree_approveAppointment(env_name,proname, f"任务名称{now_times}")
+        get_applicationcenter_DCP_agree_approveAppointment(proname, f"任务名称{now_times}")
         test.project_Scheduled_Tasks_Initiate_review()
         test.project_ReviewProcessConfirmationPage_selection()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('流程评审确认页', '评审流程确认页')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3348,7 +3348,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22549(self, drivers,env_name):
+    def test_22549(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3356,7 +3356,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22550(self, drivers,env_name):
+    def test_22550(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3364,7 +3364,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22551(self, drivers,env_name):
+    def test_22551(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3372,7 +3372,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22552(self, drivers,env_name):
+    def test_22552(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3380,7 +3380,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22553(self, drivers,env_name):
+    def test_22553(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3388,7 +3388,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22554(self, drivers,env_name):
+    def test_22554(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3396,7 +3396,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22555(self, drivers,env_name):
+    def test_22555(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3404,7 +3404,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22556(self, drivers,env_name):
+    def test_22556(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3412,7 +3412,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22557(self, drivers,env_name):
+    def test_22557(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3420,7 +3420,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22558(self, drivers,env_name):
+    def test_22558(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3428,7 +3428,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22559(self, drivers,env_name):
+    def test_22559(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3436,7 +3436,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22560(self, drivers,env_name):
+    def test_22560(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3444,7 +3444,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22561(self, drivers,env_name):
+    def test_22561(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3452,7 +3452,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22562(self, drivers,env_name):
+    def test_22562(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3460,7 +3460,7 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22563(self, drivers,env_name):
+    def test_22563(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCP任务发起")  # 用户故事名称
@@ -3468,12 +3468,12 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22564(self, drivers,env_name):
+    def test_22564(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
-        get_project_Team_member_add(env_name,'IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
+        get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
         test.get_url_project()
         test.enter_the_project(proname)
         test.project_tab("计划")
@@ -3486,7 +3486,7 @@ class Teststory_3322:
         test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
-        get_applicationcenter_DCP_agree_approveAppointment(env_name,proname, f"任务名称{now_times}")
+        get_applicationcenter_DCP_agree_approveAppointment(proname, f"任务名称{now_times}")
         test.close_switch(1)
         test.click_project()
         test.enter_the_project(proname)
@@ -3501,7 +3501,7 @@ class Teststory_3322:
         test.project_tab("计划")
         test.project_Task_More_actions(f"任务名称{now_times}", "查看")
         test.project_Scheduled_Tasks_Initiate_review()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('评审流程确认页_关联项目的DCP任务_1', '')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3511,12 +3511,12 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_26665(self, drivers,env_name):
+    def test_26665(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
-        get_project_Team_member_add(env_name,'IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
+        get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
         test.get_url_project()
         test.enter_the_project(proname)
         test.project_tab("计划")
@@ -3529,7 +3529,7 @@ class Teststory_3322:
         sleep(1)
         test.project_Scheduled_Tasks_Initiate_review()
         sleep(0.5)
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '请预约上会后再发起评审！')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3539,10 +3539,10 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_26666(self, drivers,env_name):
+    def test_26666(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
@@ -3558,7 +3558,7 @@ class Teststory_3322:
         test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', 'PMToffice未配置用户！')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3568,10 +3568,10 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_26667(self, drivers,env_name):
+    def test_26667(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
@@ -3588,7 +3588,7 @@ class Teststory_3322:
         test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '您不是当前任务的责任人！')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3598,12 +3598,12 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_27573(self, drivers,env_name):
+    def test_27573(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
-        get_project_Team_member_add(env_name,'IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
+        get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
         test.get_url_project()
         test.enter_the_project(proname)
         test.project_tab("计划")
@@ -3617,7 +3617,7 @@ class Teststory_3322:
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
         test.project_Scheduled_Tasks_Initiate_review()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '状态错误，状态应为预约成功,当前状态为预约中')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3627,10 +3627,10 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_27574(self, drivers,env_name):
+    def test_27574(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IPD模块化项目模板', proname, f'IPM自动化项目描述{now_times}')
@@ -3646,10 +3646,10 @@ class Teststory_3322:
         test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
-        get_applicationcenter_DCP_agree_approveAppointment(env_name,proname, f"任务名称{now_times}")
+        get_applicationcenter_DCP_agree_approveAppointment(proname, f"任务名称{now_times}")
         test.project_Scheduled_Tasks_Initiate_review()
         test.project_ReviewProcessConfirmationPage_selection()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('流程评审确认页', '评审流程确认页')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3660,12 +3660,12 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_27860(self, drivers,env_name):
+    def test_27860(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
-        get_project_Team_member_add(env_name,'IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
+        get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
         test.get_url_project()
         test.enter_the_project(proname)
         test.project_tab("计划")
@@ -3678,10 +3678,10 @@ class Teststory_3322:
         test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
-        get_applicationcenter_DCP_agree_approveAppointment(env_name,proname, f"任务名称{now_times}")
+        get_applicationcenter_DCP_agree_approveAppointment(proname, f"任务名称{now_times}")
         test.project_Scheduled_Tasks_Initiate_review()
         test.project_ReviewProcessConfirmationPage_InitiationProcess()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', 'PQA角色中未配置人员，请配置后再发起')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3692,12 +3692,12 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_27861(self, drivers,env_name):
+    def test_27861(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
-        get_project_Team_member_add(env_name,'IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
+        get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审')
         test.get_url_project()
         test.enter_the_project(proname)
         test.project_tab("计划")
@@ -3710,12 +3710,12 @@ class Teststory_3322:
         test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
-        get_applicationcenter_DCP_agree_approveAppointment(env_name,proname,f"任务名称{now_times}")
+        get_applicationcenter_DCP_agree_approveAppointment(proname,f"任务名称{now_times}")
         test.project_Scheduled_Tasks_Initiate_review()
         test.project_ReviewProcessConfirmationPage_selection()
         test.project_ReviewProcessConfirmationPage_selectiontask(ProjectName='rrt', Drop_down_value='概念DCP')
         test.project_ReviewProcessConfirmationPage_InitiationProcess()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('窗口提示', '关系数据强制刷新到关联的DCP任务, 是否继续?')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3725,12 +3725,12 @@ class Teststory_3322:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_28285(self, drivers,env_name):
+    def test_28285(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
-        get_project_Team_member_add(env_name,'IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审','PMT区域组长')
+        get_project_Team_member_add('IPD模块化项目模板', proname, 'PMToffice', 'LPDT', 'PMToffice内审','PMT区域组长')
         test.get_url_project()
         test.enter_the_project(proname)
         test.project_tab("计划")
@@ -3743,10 +3743,10 @@ class Teststory_3322:
         test.project_Scheduled_Tasks_Make_an_appointment_for_a_meeting()
         test.project_Make_an_appointment_at_the_meeting()
         test.project_SetNotificationContent()
-        get_applicationcenter_DCP_agree_approveAppointment(env_name,proname, f"任务名称{now_times}")
+        get_applicationcenter_DCP_agree_approveAppointment(proname, f"任务名称{now_times}")
         test.project_Scheduled_Tasks_Initiate_review()
         test.project_ReviewProcessConfirmationPage_InitiationProcess()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', 'PQA角色中未配置人员，请配置后再发起')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -3758,7 +3758,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22645(self, drivers,env_name):
+    def test_22645(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3766,7 +3766,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22658(self, drivers,env_name):
+    def test_22658(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3774,7 +3774,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22659(self, drivers,env_name):
+    def test_22659(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3782,7 +3782,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_22660(self, drivers,env_name):
+    def test_22660(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3790,7 +3790,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23644(self, drivers,env_name):
+    def test_23644(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3798,7 +3798,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23645(self, drivers,env_name):
+    def test_23645(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3806,7 +3806,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23646(self, drivers,env_name):
+    def test_23646(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3814,7 +3814,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23647(self, drivers,env_name):
+    def test_23647(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3822,7 +3822,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23648(self, drivers,env_name):
+    def test_23648(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3830,7 +3830,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23649(self, drivers,env_name):
+    def test_23649(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3838,7 +3838,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23650(self, drivers,env_name):
+    def test_23650(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3846,7 +3846,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23651(self, drivers,env_name):
+    def test_23651(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3854,7 +3854,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23662(self, drivers,env_name):
+    def test_23662(self, drivers):
         pass
 
     @allure.story("项目详情/计划任务")  # 用户故事名称
@@ -3862,7 +3862,7 @@ class Teststory_3287:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23663(self, drivers,env_name):
+    def test_23663(self, drivers):
         pass
 
 
@@ -3873,7 +3873,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23664(self, drivers,env_name):
+    def test_23664(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3881,7 +3881,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23665(self, drivers,env_name):
+    def test_23665(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3889,7 +3889,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23666(self, drivers,env_name):
+    def test_23666(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3897,7 +3897,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23667(self, drivers,env_name):
+    def test_23667(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3905,7 +3905,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23668(self, drivers,env_name):
+    def test_23668(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3913,7 +3913,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23669(self, drivers,env_name):
+    def test_23669(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3921,7 +3921,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23670(self, drivers,env_name):
+    def test_23670(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3929,7 +3929,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23671(self, drivers,env_name):
+    def test_23671(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3937,7 +3937,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23672(self, drivers,env_name):
+    def test_23672(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3945,7 +3945,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23673(self, drivers,env_name):
+    def test_23673(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3953,7 +3953,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23674(self, drivers,env_name):
+    def test_23674(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3961,7 +3961,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23675(self, drivers,env_name):
+    def test_23675(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3969,7 +3969,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23676(self, drivers,env_name):
+    def test_23676(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3977,7 +3977,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23677(self, drivers,env_name):
+    def test_23677(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3985,7 +3985,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23678(self, drivers,env_name):
+    def test_23678(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -3993,7 +3993,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23711(self, drivers,env_name):
+    def test_23711(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4001,7 +4001,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23712(self, drivers,env_name):
+    def test_23712(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4009,7 +4009,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23713(self, drivers,env_name):
+    def test_23713(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4017,7 +4017,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23714(self, drivers,env_name):
+    def test_23714(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4025,7 +4025,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23715(self, drivers,env_name):
+    def test_23715(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4033,7 +4033,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23716(self, drivers,env_name):
+    def test_23716(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4041,7 +4041,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23717(self, drivers,env_name):
+    def test_23717(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4049,7 +4049,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23718(self, drivers,env_name):
+    def test_23718(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4057,7 +4057,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23721(self, drivers,env_name):
+    def test_23721(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4065,7 +4065,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23722(self, drivers,env_name):
+    def test_23722(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4073,7 +4073,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23725(self, drivers,env_name):
+    def test_23725(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4081,7 +4081,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23726(self, drivers,env_name):
+    def test_23726(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4089,7 +4089,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23727(self, drivers,env_name):
+    def test_23727(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4097,7 +4097,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23728(self, drivers,env_name):
+    def test_23728(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4105,7 +4105,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23729(self, drivers,env_name):
+    def test_23729(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4113,7 +4113,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23730(self, drivers,env_name):
+    def test_23730(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4121,7 +4121,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23731(self, drivers,env_name):
+    def test_23731(self, drivers):
         pass
 
     @allure.story("项目详情/计划_TR任务发起")  # 用户故事名称
@@ -4129,7 +4129,7 @@ class Teststory_3299:
     @allure.description("")  # 用例描述
     @allure.severity("minor")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23732(self, drivers,env_name):
+    def test_23732(self, drivers):
         pass
 
 
@@ -4140,7 +4140,7 @@ class Teststory_3331:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23708(self, drivers,env_name):
+    def test_23708(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice发布结果")  # 用户故事名称
@@ -4148,7 +4148,7 @@ class Teststory_3331:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23709(self, drivers,env_name):
+    def test_23709(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPMToffice发布结果")  # 用户故事名称
@@ -4156,7 +4156,7 @@ class Teststory_3331:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23710(self, drivers,env_name):
+    def test_23710(self, drivers):
         pass
 
 
@@ -4167,7 +4167,7 @@ class Teststory_3326:
     @allure.description("")  # 用例描述
     @allure.severity("critical")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23736(self, drivers,env_name):
+    def test_23736(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPQA审核节点")  # 用户故事名称
@@ -4175,7 +4175,7 @@ class Teststory_3326:
     @allure.description("")  # 用例描述
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23737(self, drivers,env_name):
+    def test_23737(self, drivers):
         pass
 
     @allure.story("项目详情/计划_DCPPQA审核节点")  # 用户故事名称
@@ -4183,7 +4183,7 @@ class Teststory_3326:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23738(self, drivers,env_name):
+    def test_23738(self, drivers):
         pass
 
 
@@ -4194,15 +4194,15 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23914(self, drivers,env_name):
+    def test_23914(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言项目标题', proname)
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -4212,14 +4212,14 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23915(self, drivers,env_name):
+    def test_23915(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '新建成功！')
         test.get_url_project()
         test.Click_the_button_to_enter(proname, "编辑")
@@ -4234,16 +4234,16 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23916(self, drivers,env_name):
+    def test_23916(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
         test.click_edit()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言基本信息保存', '保存')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -4253,7 +4253,7 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23920(self, drivers,env_name):
+    def test_23920(self, drivers):
         pass
 
     @allure.story("编辑项目")  # 用户故事名称
@@ -4261,17 +4261,17 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23921(self, drivers,env_name):
+    def test_23921(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
         test.click_edit()
         stu_res = test.project_stu()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_IPM(stu_res, 'true')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -4281,17 +4281,17 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23929(self, drivers,env_name):
+    def test_23929(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname, f'IPM自动化项目描述{now_times}')
         test.enter_the_project(proname)
         test.click_edit()
         stu_res = test.project_stu()
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_IPM(stu_res, 'true')
         test.close_switch(-1)
         test.Click_the_button_to_enter(proname, "删除", "确认")
@@ -4301,7 +4301,7 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23948(self, drivers,env_name):
+    def test_23948(self, drivers):
         pass
 
     @allure.story("编辑项目")  # 用户故事名称
@@ -4309,7 +4309,7 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23949(self, drivers,env_name):
+    def test_23949(self, drivers):
         pass
 
     @allure.story("编辑项目")  # 用户故事名称
@@ -4317,7 +4317,7 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23950(self, drivers,env_name):
+    def test_23950(self, drivers):
         pass
 
     @allure.story("编辑项目")  # 用户故事名称
@@ -4325,7 +4325,7 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23951(self, drivers,env_name):
+    def test_23951(self, drivers):
         pass
 
     @allure.story("编辑项目")  # 用户故事名称
@@ -4333,7 +4333,7 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23952(self, drivers,env_name):
+    def test_23952(self, drivers):
         pass
 
     @allure.story("编辑项目")  # 用户故事名称
@@ -4341,7 +4341,7 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23956(self, drivers,env_name):
+    def test_23956(self, drivers):
         pass
 
     @allure.story("编辑项目")  # 用户故事名称
@@ -4349,7 +4349,7 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23957(self, drivers,env_name):
+    def test_23957(self, drivers):
         pass
 
     @allure.story("编辑项目")  # 用户故事名称
@@ -4357,7 +4357,7 @@ class Teststory_3261:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23958(self, drivers,env_name):
+    def test_23958(self, drivers):
         pass
 
 
@@ -4371,15 +4371,15 @@ class Teststory_3262:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_26336(self, drivers,env_name):
+    def test_26336(self, drivers):
         now_times = strftime('%Y-%m-%d%H:%M:%S')
         proname = f'IPM自动化测试{now_times}'
-        test = CreateProject(drivers,env_name)
+        test = CreateProject(drivers)
         test.refresh_webpage()
         test.get_url_project()
         test.Create_project('保存', 'IT项目模板', proname)
         test.Click_the_button_to_enter(proname, "删除", "确认")
-        ass = Assert_result(drivers,env_name)
+        ass = Assert_result(drivers)
         ass.assert_toast('断言提示', '请求成功')
         ass.assert_toast_not('断言新建项目的名字', proname)
 
@@ -4391,7 +4391,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23960(self, drivers,env_name):
+    def test_23960(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4399,7 +4399,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23961(self, drivers,env_name):
+    def test_23961(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4407,7 +4407,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23962(self, drivers,env_name):
+    def test_23962(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4415,7 +4415,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23964(self, drivers,env_name):
+    def test_23964(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4423,7 +4423,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23966(self, drivers,env_name):
+    def test_23966(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4431,7 +4431,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23968(self, drivers,env_name):
+    def test_23968(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4439,7 +4439,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23970(self, drivers,env_name):
+    def test_23970(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4447,7 +4447,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23972(self, drivers,env_name):
+    def test_23972(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4455,7 +4455,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23973(self, drivers,env_name):
+    def test_23973(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4463,7 +4463,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23974(self, drivers,env_name):
+    def test_23974(self, drivers):
         pass
 
     @allure.story("查询项目")  # 用户故事名称
@@ -4471,7 +4471,7 @@ class Teststory_3263:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_23975(self, drivers,env_name):
+    def test_23975(self, drivers):
         pass
 
 
@@ -4482,7 +4482,7 @@ class Teststory_3296:
     @allure.description("")  # 用例描述
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
-    def test_27659(self, drivers,env_name):
+    def test_27659(self, drivers):
         pass
 
 
