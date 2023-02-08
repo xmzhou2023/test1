@@ -9,9 +9,12 @@ import random
 from project.IPM.page_object.Generalmethods import General_methods
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 
+Api = APIRequest()
+# ApplyList=Api.Api_applyList(20220810085734677324)
+# Api.Api_queryDeptAndEmployee(20220810085734677324)
 
-
-
+def field_attribute_maintennance(self):
+    field_att = Api.Api_project_field("开模流程测试")
 
 now_times = strftime('%Y-%m-%d%H:%M:%S')
 now_t = strftime('%Y-%m-%d')
@@ -19,18 +22,16 @@ time_ipm=f'ipm自动化{now_times}'
 
 class CreateProject(General_methods):
 
-    def __init__(self,driver,env_name,element_yaml='ProjectManagement_CreateProject',expect='ProjectManagement_CreateProject.yaml'):
+    def __init__(self,driver,element_yaml='ProjectManagement_CreateProject',expect='ProjectManagement_CreateProject.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
-        self.Api = APIRequest(env_name)
-        self.ini = ReadConfig(pro_name, env_name)
+
     @allure.step("鼠标悬停")
     def mouse_hover__IPM(self,element,choice=None):
         self.mouse_hover_IPM(element,choice)
 
     @allure.step("项目管理_url")
     def get_url_project(self):
-        # self.get_url(f"http://ipm-uat.transsion.com/#/project-manage")
-        self.get_url(f"{self.ini._get('HOST', 'url_ipm')}/#/project-manage")
+        self.get_url("http://ipm-uat.transsion.com/#/project-manage")
         sleep(2)
 
     @allure.step("项目管理")
@@ -138,8 +139,8 @@ class CreateProject(General_methods):
         获取单个字段属性
 
         '''
-
-        field_att = self.Api.Api_project_field(proname,domainbid)
+        Api = APIRequest()
+        field_att = Api.Api_project_field(proname,domainbid)
         for i in field_att:
             if i.get("字段名称") == '项目状态':
                 return i.get('是否可读')
@@ -468,8 +469,8 @@ class CreateProject(General_methods):
         Get_required_fields('项目名'，'任务名称'，'当前日期')
         '''
 
-
-        field_att = self.Api.Api_project_task(proname,task_name,objectname)
+        Api = APIRequest()
+        field_att = Api.Api_project_task(proname,task_name,objectname)
         ele_res=self.elements_filelds()
         field = []
         for j in field_att:
@@ -560,8 +561,8 @@ class CreateProject(General_methods):
         if ele_not == True:
             self.click_IPM('计划任务_点击展开')
         sleep(2)
-
-        field_att = self.Api.Api_project_task(proname, task_name)
+        Api = APIRequest()
+        field_att = Api.Api_project_task(proname, task_name)
         for i in field_att:
             if i.get("字段名")=="任务类型":
                 if tasktype == "普通任务" \

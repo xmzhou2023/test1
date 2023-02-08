@@ -8,7 +8,7 @@ from project.IPM.api.APIRequest import *
 import random
 
 
-
+Api = APIRequest()
 # ApplyList=Api.Api_applyList(20220810085734677324)
 # Api.Api_queryDeptAndEmployee(20220810085734677324)
 def field_attribute_maintennance(self):
@@ -19,10 +19,9 @@ now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
 class ProcessCenter(PubicMethod):
 
-    def __init__(self,driver,env_name,element_yaml='ProcessCenter_Moldopeningprocess',expect='ProcessCenter_Moldopeningprocess.yaml'):
+    def __init__(self,driver,element_yaml='ProcessCenter_Moldopeningprocess',expect='ProcessCenter_Moldopeningprocess.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
 
-        self.Api = APIRequest(env_name)
     def fieldname(self,name):
         self.click_IPM('字段',name)
 

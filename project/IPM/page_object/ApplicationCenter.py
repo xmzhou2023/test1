@@ -9,18 +9,18 @@ import allure
 from project.IPM.page_base.basics_IPM import PubicMethod
 from libs.common.time_ui import *
 from project.IPM.page_base.assert_pubic import *
-
+from project.IPM.api.APIRequest import *
 from project.IPM.page_object.Generalmethods import *
 import random
-
+Api = APIRequest()
 
 
 class ApplicationCenter(PubicMethod):
 
-    def __init__(self,driver,env_name,element_yaml='ApplicationCenter',expect='ApplicationCenter.yaml'):
+    def __init__(self,driver,element_yaml='ApplicationCenter',expect='ApplicationCenter.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
 
-        self.Api = APIRequest(env_name)
+
     @allure.step("应用中心入口")
     def ApplicationCenter_entrance(self):
         self.click_IPM('应用中心')

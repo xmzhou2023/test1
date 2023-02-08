@@ -13,13 +13,13 @@ email=account[15]['email']
 now_times = strftime('%Y-%m-%d%H:%M:%S')
 # ApplyList=Api.Api_applyList(20220810085734677324)
 # Api.Api_queryDeptAndEmployee(20220810085734677324)
-
-def get_project_create(env_name,templname,projectname):
+Api = APIRequest()
+def get_project_create(templname,projectname):
     '''
     项目创建
 
     '''
-    Api=APIRequest(env_name)
+
     field_att = Api.Api_templ_bid(templname)
     data = {"param":{"templBid":field_att,"name":projectname}}
     headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
@@ -28,7 +28,7 @@ def get_project_create(env_name,templname,projectname):
     probid = bid.get("permission_bid")
     return probid
 
-def get_project_Team_member_delete(env_name,objInsBid,roleBid,usernum_pro,bid,username_pro):
+def get_project_Team_member_delete(objInsBid,roleBid,usernum_pro,bid,username_pro):
     '''
     项目管理_团队_成员删除
     param objInsBid:项目BID
@@ -37,7 +37,6 @@ def get_project_Team_member_delete(env_name,objInsBid,roleBid,usernum_pro,bid,us
     param bid:角色BID（由get_project_Team_member_find接口返回）
     param username_pro:姓名
     '''
-    Api=APIRequest(env_name)
     data ={"objInsBid":objInsBid,"roleBid":roleBid,"jobNumber":usernum_pro,"bid":bid,"name":username_pro,"type":"member"}
     headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
     response = Api.api_request('项目管理_团队_角色成员删除', data, headers)
@@ -49,13 +48,12 @@ def get_project_Team_member_delete(env_name,objInsBid,roleBid,usernum_pro,bid,us
 
 
 
-def get_project_Team_member_find(env_name,projectname,rolename):
+def get_project_Team_member_find(projectname,rolename):
     '''
     项目管理_团队_成员查询
     param probid:项目BID
     param rolename:角色
     '''
-    Api=APIRequest(env_name)
     probid=Api.Api_project_bid(projectname)
     data = {"objInsBid":probid[0],"roleBid":rolename,"isQuerySonRole":False}
     headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
@@ -68,22 +66,20 @@ def get_project_Team_member_find(env_name,projectname,rolename):
             objInsBid=id.get('objInsBid')
             name=id.get('name')
             roleBid=id.get('roleBid')
-            get_project_Team_member_delete(objInsBid,roleBid,jobNumber,bid,name,env_name)
+            get_project_Team_member_delete(objInsBid,roleBid,jobNumber,bid,name)
         else:
             print('为空放弃吧')
 
 
-def get_project_Team_member_add(env_name,templname,projectname,*rolename):
+def get_project_Team_member_add(templname,projectname,*rolename):
     '''
     项目管理_团队_成员新增
     param templname:项目模板名称
     param projectname:项目名称
     '''
-
-    Api=APIRequest(env_name)
-    probid=get_project_create(templname,projectname,env_name)
+    probid=get_project_create(templname,projectname)
     for role in rolename:
-        get_project_Team_member_find(projectname,role,env_name)
+        get_project_Team_member_find(projectname,role)
         if role == 'PQA':
 
             data = [{"employeeName":username,"type":"member","employeeNo":usernum,"accountType":"01","route":True,"jobNumber":usernum,"objInsBid":probid,"roleBid":role}]
@@ -151,8 +147,7 @@ def get_project_Team_member_add(env_name,templname,projectname,*rolename):
 
 
 if __name__ == '__main__':
-    #env_name为全局变量，获取当前运行环境的
-    # get_project_create(env_name,'IPD模块化项目模板','测试1+1_{}'.format(now_times))
-    # get_project_Team_member_find(env_name,'IPM自动化测试2023-01-0318:33:16','PMToffice')
-    # get_project_Team_member_delete(env_name,'1059888241785835520', 'PMToffice', '18646295', '1059900121430495232', '陈万红')
-    get_project_Team_member_add(env_name,'IPD模块化项目模板', now_times, 'PQA', 'HRBP', 'PMT区域组长', 'LPDT','PMToffice')
+    # get_project_create('IPD模块化项目模板','测试1+1_{}'.format(now_times))
+    # get_project_Team_member_find('IPM自动化测试2023-01-0318:33:16','PMToffice')
+    # get_project_Team_member_delete('1059888241785835520', 'PMToffice', '18646295', '1059900121430495232', '陈万红')
+    get_project_Team_member_add('IPD模块化项目模板', now_times, 'PQA', 'HRBP', 'PMT区域组长', 'LPDT','PMToffice')

@@ -11,15 +11,14 @@ email=account[15]['email']
 now_times = strftime('%Y-%m-%d%H:%M:%S')
 # ApplyList=Api.Api_applyList(20220810085734677324)
 # Api.Api_queryDeptAndEmployee(20220810085734677324)
+Api = APIRequest()
 
 
-
-def get_object_delete(env_name,objectname):
+def get_object_delete(objectname):
     '''
     系统管理_对象管理_对象删除
     param objectname:对象名称
     '''
-    Api=APIRequest(env_name)
     object=Api.Api_object_bid()
     for i in object:
         if i.get("name")==objectname:
@@ -31,13 +30,4 @@ def get_object_delete(env_name,objectname):
 
 
 if __name__ == '__main__':
-    get_object_delete(env_name,"巍峨哇")
-    get_object_delete(env_name,"IPM自动化测试对象2023-02-0712:08:40")
-    get_object_delete(env_name,"IPM自动化测试对象2023-02-0712:11:00")
-    get_object_delete(env_name,"IPM自动化测试对象2023-02-0714:15:49")
-    get_object_delete(env_name,"IPM自动化测试对象2023-02-0714:17:55")
-    get_object_delete(env_name,"IPM自动化测试对象2023-02-0714:43:01")
-    get_object_delete(env_name,"IPM自动化测试对象2023-02-0715:03:47")
-    get_object_delete(env_name,"IPM自动化测试对象2023-02-0711:50:45")
-    get_object_delete(env_name,"IPM自动化测试对象2023-02-0710:55:57")
-    get_object_delete(env_name,"IPM自动化测试对象2023-02-0711:56:18")
+    get_object_delete("测试22222")

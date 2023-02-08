@@ -9,20 +9,18 @@ import random
 from project.IPM.page_object.Generalmethods import General_methods
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 from project.IPM.page_base.pathconfig import *
-
+Api = APIRequest()
 
 now_times = strftime('%Y-%m-%d%H:%M:%S')
 now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
 
 class SystemManagement(General_methods):
-    def __init__(self,driver,env_name,element_yaml='system_management',expect='system_management.yaml'):
+    def __init__(self,driver,element_yaml='system_management',expect='system_management.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
-        self.Api = APIRequest(env_name)
-        self.ini = ReadConfig(pro_name, env_name)
 
     def get_url_system_management_object(self):
-        self.get_url(f"{self.ini._get('HOST', 'url_ipm')}/#/system-manage/object-manage")
+        self.get_url("http://ipm-uat.transsion.com/#/system-manage/object-manage")
         sleep(2)
 
     def system_management_object_all(self,objectaname,*levelname):
@@ -349,10 +347,8 @@ class SystemManagement(General_methods):
 
 
 class Assert_result_system_management(AssertMode):
-    def __init__(self,driver,env_name,element_yaml='system_management', expect='system_management.yaml'):
+    def __init__(self,driver,element_yaml='system_management', expect='system_management.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
-        self.Api = APIRequest(env_name)
-        self.ini = ReadConfig(pro_name, env_name)
 
 
 
