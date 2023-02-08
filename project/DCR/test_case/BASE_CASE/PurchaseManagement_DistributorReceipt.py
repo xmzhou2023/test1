@@ -21,8 +21,6 @@ def function_distributor_receipt_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
-
-#国包快速收货待修改用例
 @allure.feature("采购管理-国包收货")
 class TestDistributorReceipt:
     @allure.story("国包快速收货")
