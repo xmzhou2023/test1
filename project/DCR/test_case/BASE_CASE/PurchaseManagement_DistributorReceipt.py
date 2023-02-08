@@ -59,7 +59,7 @@ class TestDistributorReceipt:
 
 @allure.feature("采购管理-国包收货")
 class TestQueryIMEIDetail:
-    @allure.story("查询国包收货")
+    @allure.story("查询IMEI详情")
     @allure.title("国包收货页面，筛选DN记录，查看IMEI详情信息，并导出详情信息")
     @allure.description("国包收货页面，查看IMEI详情信息是否与筛选的DN一致，并导出详情信息")
     @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal

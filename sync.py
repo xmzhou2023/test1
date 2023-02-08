@@ -1172,6 +1172,6 @@ if __name__ == '__main__':
     # sync_AllData(get_Data(),get_env())
 
     # 同步所有数据（增量）
-    # sync_Data(get_Data(), get_env())
-    # clear_data()
+    sync_Data(get_Data(), get_env())
+    clear_data()
 
