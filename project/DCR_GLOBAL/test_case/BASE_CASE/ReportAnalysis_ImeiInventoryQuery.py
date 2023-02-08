@@ -39,6 +39,7 @@ class TestImeiInventoryQuery:
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = ImeiInventoryQuery(drivers)
         page.click_button('Unfold')
+        sleep(10)
         """查询Activation Time，对结果进行判断,注意字典的键要和表格的表头一致"""
         query_dic={'Receive Date':'2022-11-30',
                    'Box ID':'04012211110366',
