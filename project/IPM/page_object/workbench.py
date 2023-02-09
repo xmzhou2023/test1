@@ -9,18 +9,21 @@ import random
 from project.IPM.page_object.Generalmethods import General_methods
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 
-Api = APIRequest()
+
 
 now_times = strftime('%Y-%m-%d%H:%M:%S')
 now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
 
 class WorkBench(General_methods):
-    def __init__(self,driver,element_yaml='workbench',expect='workbench.yaml'):
+    def __init__(self,driver,env_name,element_yaml='workbench',expect='workbench.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
+        self.Api = APIRequest(env_name)
+        self.ini = ReadConfig(pro_name, env_name)
 
+        self.Api = APIRequest(env_name)
     def get_url_workbench(self):
-        self.get_url("http://ipm-uat.transsion.com/#/panel")
+        self.get_url(f"{self.ini._get('HOST', 'url_ipm')}/#/panel")
         sleep(2)
 
     @allure.step("工作台_筛选")

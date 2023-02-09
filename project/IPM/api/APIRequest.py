@@ -12,14 +12,15 @@ import logging
 from libs.common.read_config import *
 
 pro_name = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).split('\\')[-1]
-pro_env = 'uat' # 需要手动配置测试环境
-ini = ReadConfig(pro_name, pro_env)
+
+
 
 class APIRequest:
-    def __init__(self,uasername=18646295):
+    def __init__(self,env_name,uasername=18646295):
         self.username=uasername
+        self.env_name=env_name #全局变量，获取当前用例运行环境
 
-    def api_request(self, request, data=None, headers=None, method='post'):
+    def api_request(self, request, data=None, headers=None, method='post',):
         """
         接口请求方法
         @param request:接口地址
@@ -27,6 +28,7 @@ class APIRequest:
         @param headers:接口头部
         @param method:接口方式，待补充
         """
+        ini = ReadConfig(pro_name, self.env_name)
         logging.info('接口请求地址为：%s', eval(ini._get('API', request)))
         global response
         if method == 'post':
@@ -313,7 +315,7 @@ class APIRequest:
 
 
 if __name__ == '__main__':
-    Api=APIRequest()
+    Api=APIRequest(env_name)
     # ApplyList=Api.Api_applyList(20220810085734677324)
     # Api.Api_queryDeptAndEmployee(20220810085734677324)
     # print(Api.Api_project_bid("IPM自动化测试2023-01-0318:33:16"))

@@ -103,12 +103,12 @@ class AssertMode(PubicMethod):
             logging.error('断言失败，实际提示为：{}'.format(att))
             raise
 
-    def element_not_found(self,locator,result=False,choice=None):
+    def element_not_found(self,locator,result=False,choice=None,choice1=None,choice2=None,choice3=None):
         '''
         locator：元素
         test:断言元素不存在
         '''
-        control = self.element_exist_IPM(locator,choice)
+        control = self.element_exist_IPM(locator,choice,choice1,choice2,choice3)
         print(control)
         try:
             assert  control is result,logging.warning(f'断言失败，元素：{locator}存在结果与期望结果：{result}不符')
