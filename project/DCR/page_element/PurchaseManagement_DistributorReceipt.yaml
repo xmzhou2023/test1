@@ -12,7 +12,7 @@ Get Quick Receive DN: "xpath==//div[normalize-space(text())='Quick Receive']/../
 Get Quick Receive Quantity: "xpath==//div[normalize-space(text())='Quick Receive']/../..//tbody//tr[1]//td[3]//div"
 Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
-#同步DN定位 DN:[44]获取的数据为空
+#同步DN定位
 More Option: "xpath==//div//button//span[normalize-space(text())='More Option']"
 More Option Sync DN: "xpath==//ul[@x-placement='bottom']//li[normalize-space(text())='Sync DN']"
 Get Sync DN Text: "xpath==//div[normalize-space(text())='Sync DN']"
