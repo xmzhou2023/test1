@@ -114,8 +114,10 @@ class ReturnOrderPage(Base):
             self.assert_User_Exist(f'{header}', content)
         elif header == 'Buyer':
             self.assert_User_Exist(f'{header} ID', content)
-        elif header == 'Buyer Warehouse Region' or header == 'Seller Warehouse Region':
-            self.assert_User_Exist(f'{header}1', content)
+        elif header == 'Seller Warehouse Region':
+            self.assert_User_Exist(f'{header}3', content)
+        elif header == 'Buyer Warehouse Region':
+            self.assert_User_Exist(f'{header}2', content)
         elif header == 'IMEI':
             self.is_click(user['点击IMEI Detail按钮'])
             sleep(0.5)

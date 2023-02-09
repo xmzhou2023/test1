@@ -38,27 +38,28 @@ class TestImeiInventoryQuery:
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = ImeiInventoryQuery(drivers)
+        sleep(3)
         page.click_button('Unfold')
-        sleep(10)
         """查询Activation Time，对结果进行判断,注意字典的键要和表格的表头一致"""
-        query_dic={'Receive Date':'2022-11-30',
-                   'Box ID':'04012211110366',
-                   'Customer ID':'TH101048',
-                   'Customer Type':'Distributor',
-                   'Material ID':'10604687',
-                   'Warehouse ID':'WTH10104801',
-                   'Warehouse Type':'Main Warehouse',
-                   'SAP Customer ID':'101048',
-                   'IMEI/SN':'351387530482203',
-                   'Sales Region 3':'Bkk',
-                   'Activated Or Not':'Yes',
-                   'Brand':'TECNO',
-                   'Model':'BD4a',
-                   'Market Name':'POP 5 LTE',
-                   'Series':'POP',
-                   'Category':'Mobile',
-                   'Dealer Category':'Distributor',
-                   'Activation Date':'2022-12-01'}
+        query_dic={'Receive Date': '2023-02-08',
+                   'Box ID': '75012301110318',
+                   'Customer ID': 'PK413803',
+                   'Customer Type': 'Retailer',
+                   'Material ID': '10032437',
+                   'Warehouse ID': 'WPK41380301',
+                   'Warehouse Type': 'Main Warehouse',
+                   #'SAP Customer ID': '',
+                   'IMEI/SN': '358964614398662',
+                   'Sales Region 3': 'South',
+                   'Activated Or Not': 'No',
+                   'Brand': 'Infinix',
+                   'Model': 'X6817',
+                   'Market Name': 'HOT 12',
+                   'Series': 'HOT',
+                   'Category': 'Mobile',
+                   #'Dealer Category': '',
+                   #'Activation Date': ''
+                   }
         list_query = []
         for i in query_dic:
             list_query.append(i)

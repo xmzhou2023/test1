@@ -22,19 +22,19 @@ class TestSearch:
     def test_001_001(self, drivers):
         """变量"""
         query_dict = {
-            'User ID': 'PK2021301',
-            'User Name': 'Ahmed Mobile+Okara',
-            'Superior': '',
-            'Sales Region': 'Okara',
+            'User ID': 'testdzz',
+            'User Name': 'testdeng',
+            'Superior': 'testsupervisor',
+            'Sales Region': 'Nigeria',
             'Staff Status': 'On Service',
-            'Have Superior or Not': 'No',
-            'Have Shop or Not': 'No',
-            'Staff Type': 'Dealer Staff',
-            'Belong To Customer': 'PK20213',
-            'Country/City': 'Okara',
+            'Have Superior or Not': 'Yes',
+            'Have Shop or Not': 'Yes',
+            'Staff Type': 'Transsion Staff',
+            'Belong To Customer': '',
+            'Country/City': 'Barde',
             'Brand': 'TECNO',
-            'Position': 'Sub_dealer Sales Manager',
-            'Role': 'Sub_dealer Sales Manager'
+            'Position': 'Test_Position',
+            'Role': 'test role'
         }
         add = UserManagementPage(drivers)
         add.click_menu("Staff & Authorization", "User Management")

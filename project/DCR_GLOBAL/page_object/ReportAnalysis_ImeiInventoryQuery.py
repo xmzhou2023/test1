@@ -30,14 +30,14 @@ class ImeiInventoryQuery(Base):
             self.input_text(user['收货日期开始'], txt=content)
             self.input_text(user['收货日期结束'], txt=content)
             self.click_box()
-        elif type == 'Activation Date':
-            self.input_text(user['激活时间开始'], txt=content)
-            self.input_text(user['激活时间结束'], txt=content)
-            self.click_box()
+        # elif type == 'Activation Date':
+        #     self.input_text(user['激活时间开始'], txt=content)
+        #     self.input_text(user['激活时间结束'], txt=content)
+        #     self.click_box()
         elif type == 'Material ID':
             self.input_text(user['MaterialID输入'], txt=content)
-        elif type == 'SAP Customer ID':
-            self.input_text(user['SAPCustomerID输入'], txt=content)
+        # elif type == 'SAP Customer ID':
+        #     self.input_text(user['SAPCustomerID输入'], txt=content)
         elif type == 'IMEI/SN':
             self.is_click(user['IMEI点击'])
             self.input_text(user['IMEI输入'], txt=content)
@@ -48,51 +48,51 @@ class ImeiInventoryQuery(Base):
             self.is_click(user['Customer选择'], content)
         elif type == 'Customer Type':
             self.is_click(user['CustomerType输入'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Warehouse ID':
             self.is_click(user['Warehouse输入'])
             sleep()
             self.input_text(user['Warehouse输入'], txt=content)
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Warehouse Type':
             self.is_click(user['WarehouseType输入'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Sales Region 3':
             self.is_click(user['SalesRegion输入'])
             self.input_text(user['SalesRegion输入'], txt=content)
             self.is_click(user['SalesRegion选择'], content)
         elif type == 'Activated Or Not':
             self.is_click(user['ActivatedOrNot点击'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Brand':
             self.is_click(user['Brand输入'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Model':
             self.is_click(user['Model点击'])
             self.input_text(user['Model输入'], txt=content)
             sleep()
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Market Name':
             self.is_click(user['MarketName点击'])
             self.input_text(user['MarketName输入'], txt=content)
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Series':
             self.is_click(user['Series点击'])
             self.input_text(user['Series输入'], txt=content)
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Category':
             self.is_click(user['Category点击'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
-        elif type == 'Dealer Category':
-            self.is_click(user['DealerCategory点击'])
-            self.input_text(user['DealerCategory输入'], txt=content)
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
-            self.click_box()
+        # elif type == 'Dealer Category':
+        #     self.is_click(user['DealerCategory点击'])
+        #     self.input_text(user['DealerCategory输入'], txt=content)
+        #     self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
+        #     self.click_box()
         else:
             logging.info('type is wrong,pls check')
         sleep()
@@ -112,10 +112,10 @@ class ImeiInventoryQuery(Base):
     @allure.step("点击Unfold展开筛选项按钮")
     def click_button(self, txt):
         self.is_click(user['Unfold_Search_Reset按钮'], txt)
-        if txt=='Search':
-            sleep(5)
+        if txt == 'Search':
+            self.element_text(user['Loading'])
         elif txt == 'Reset':
-            sleep(3)
+            self.element_text(user['Loading'])
         else:
             sleep()
 
