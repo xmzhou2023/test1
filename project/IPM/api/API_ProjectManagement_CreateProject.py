@@ -68,7 +68,7 @@ def get_project_Team_member_find(env_name,projectname,rolename):
             objInsBid=id.get('objInsBid')
             name=id.get('name')
             roleBid=id.get('roleBid')
-            get_project_Team_member_delete(objInsBid,roleBid,jobNumber,bid,name,env_name)
+            get_project_Team_member_delete(env_name,objInsBid,roleBid,jobNumber,bid,name)
         else:
             print('为空放弃吧')
 
@@ -81,9 +81,9 @@ def get_project_Team_member_add(env_name,templname,projectname,*rolename):
     '''
 
     Api=APIRequest(env_name)
-    probid=get_project_create(templname,projectname,env_name)
+    probid=get_project_create(env_name,templname,projectname)
     for role in rolename:
-        get_project_Team_member_find(projectname,role,env_name)
+        get_project_Team_member_find(env_name,projectname,role)
         if role == 'PQA':
 
             data = [{"employeeName":username,"type":"member","employeeNo":usernum,"accountType":"01","route":True,"jobNumber":usernum,"objInsBid":probid,"roleBid":role}]
