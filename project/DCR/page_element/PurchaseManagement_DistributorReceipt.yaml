@@ -22,6 +22,19 @@ Get Customer ID label disabled: "xpath==//div[normalize-space(text())='Sync DN']
 Get Date label disabled: "xpath==//div[normalize-space(text())='Sync DN']/../..//label[text()='Date']/..//input"
 Get Country label disabled: "xpath==//div[normalize-space(text())='Sync DN']/../..//label[text()='Country']/..//input"
 
+#扫码IMEI与Box ID收货
+点击Stock in by Scan: "xpath==//button//span[normalize-space(text())='Stock-in by Scan']"
+More Option Stock in by Scan: "xpath==//ul[@x-placement='bottom']//li[normalize-space(text())='Stock-in by Scan']"
+Create Inbound Customer点击: "xpath==//div//input[@class='el-input__inner createinboundorder_input_customerId']"
+Create Inbound Customer下拉选择值: "xpath==//div[@x-placement='bottom-start']//ul//li//span[contains(text(),'variable')]"
+Scan Input IMEI or BoxID: "xpath==//div[@class='el-form-item__content']//textarea"
+点击Check: "xpath==//div//button//span[normalize-space(text())='Check']"
+Get Scanned number: "xpath==//div[@class='scanned-box']/..//div[@class='num']"
+Get Order Detail Scanned number: "xpath==//div[normalize-space(text())='Order Detail']/..//table//tr[1]//td//button//span"
+Get Scan Record IMEI: "xpath==//div[@class='scan-record-box']//ul//li//div[normalize-space(text())='variable']"
+Get Scan Record Success: "xpath==//div[@class='scan-record-box']//ul//li//div[@class='successTips']"
+Create Inbound Click Submit: "xpath==//div[@class='area-add-btn']//button//span[normalize-space(text())='Submit']"
+
 
 #IMEI Detail详情页定位
 Get Successfully Text: "xpath==//p[contains(text(),'Set Up Successfully')]"

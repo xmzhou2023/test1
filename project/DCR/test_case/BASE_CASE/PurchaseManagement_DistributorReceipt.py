@@ -30,7 +30,6 @@ class TestDistributorReceipt:
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_dist_receipt_fixture')
     def test_001_001(self, drivers):
-        """DCR 国包账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "xiongbo92", "dcr123456")
         user.click_gotomenu("Purchase Management", "Distributor Receipt")
@@ -64,11 +63,91 @@ class TestDistributorReceipt:
         list_total = query.get_total_content()
         ValueAssert.value_assert_equal('0', list_total)
         """删除数据库已收货的DN数据，恢复DN数据状态"""
-        receipt.delete_dist_receipt_dn_date()
+        receipt.delete_dist_receipt_dn_data('8100053878')
         """查询国包收货列表, 该DN数据是否复原能查询到"""
         receipt.click_search_reset('Search')
         receipt.assert_query_result('DN', '8100053878')
         receipt.assert_query_result('SAP Customer ID', '100055')
+
+
+    @allure.story("国包收货")
+    @allure.title("国包收货页面，创建收货单扫码IMEI进行收货入库操作")
+    @allure.description("国包收货页面，创建收货单扫码IMEI进行收货入库操作")
+    @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_dist_receipt_fixture')
+    def test_001_002(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "NG100055", "dcr123456")
+        user.click_gotomenu("Purchase Management", "Distributor Receipt")
+        """调用国包快速收货用例，并断言收货是否成功"""
+        scan_imei_receipt = DitributorReceiptPage(drivers)
+        query = DistributorReceiptQuery(drivers)
+        """根据IMEI与sap customer id 条件筛选待收货的dn数据"""
+        scan_imei_receipt.click_unfold()
+        scan_imei_receipt.input_sap_customer_id_query('100055')
+        scan_imei_receipt.input_dn_query('8100150180')
+        scan_imei_receipt.input_imei_query('352153455475088')
+        """点击查询按钮"""
+        scan_imei_receipt.click_search_reset('Search')
+        """获取列表是否查询到数据"""
+        list_total = query.get_total_content()
+        if int(list_total) == 1:
+            """如果列表有筛选的DN与IMEI数据，则点击扫码IMEI收货功能"""
+            scan_imei_receipt.click_stock_in_by_scan_button()
+            """打开创建Inbound Order，输入IMEI进行扫码收货操作"""
+            scan_imei_receipt.create_inbound_order_imei2('352153455475088')
+            DomAssert(drivers).assert_att('INBOUND_SUCCESS')
+
+            """删除数据库已收货的IMEI数据，恢复DN下已收货的IMEI状态"""
+            scan_imei_receipt.delete_dist_receipt_imei_data('352153455475088')
+            """点击查询按钮"""
+            scan_imei_receipt.click_search_reset('Search')
+            """断言判断DN下的IMEI状态恢复正常，能查询到满足DN,IMEI条件的数据"""
+            list_total = query.get_total_content()
+            ValueAssert.value_assert_equal('1', list_total)
+        else:
+            logging.info("该IMEI数据已扫码入库")
+
+
+    @allure.story("国包收货")
+    @allure.title("国包收货页面，创建收货单扫码Box ID进行收货操作 ")
+    @allure.description("国包收货页面，创建收货单扫码Box ID进行收货操作 ")
+    @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_dist_receipt_fixture')
+    def test_001_003(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "NG100055", "dcr123456")
+        user.click_gotomenu("Purchase Management", "Distributor Receipt")
+        """调用国包快速收货用例，并断言收货是否成功"""
+        scan_imei_receipt = DitributorReceiptPage(drivers)
+        query = DistributorReceiptQuery(drivers)
+        """根据Box ID与sap customer id 条件筛选待收货的dn数据"""
+        scan_imei_receipt.click_unfold()
+        scan_imei_receipt.input_sap_customer_id_query('100055')
+        scan_imei_receipt.input_dn_query('8100146459')
+        scan_imei_receipt.input_box_id_query('81012108100173')
+        """点击查询按钮"""
+        scan_imei_receipt.click_search_reset('Search')
+        """获取列表是否查询到数据"""
+        list_total = query.get_total_content()
+        if int(list_total) == 1:
+            """如果列表有筛选的DN与IMEI数据，则点击扫码IMEI收货功能 NG100055"""
+            scan_imei_receipt.click_stock_in_by_scan_button()
+            """打开创建Inbound Order，输入Box ID进行扫码收货操作"""
+            scan_imei_receipt.create_inbound_order_box_id('81012108100173')
+            DomAssert(drivers).assert_att('INBOUND_SUCCESS')
+
+            """删除数据库已收货的IMEI数据，恢复DN下已收货的IMEI状态"""
+            scan_imei_receipt.delete_dist_receipt_box_id_data('81012108100173')
+            """点击查询按钮"""
+            scan_imei_receipt.click_search_reset('Search')
+            """断言判断DN下的IMEI状态恢复正常，能查询到满足DN,IMEI条件的数据"""
+            list_total = query.get_total_content()
+            ValueAssert.value_assert_equal('1', list_total)
+        else:
+            logging.info("该Box ID数据已扫码入库")
 
 
     @allure.story("国包收货")
@@ -77,8 +156,7 @@ class TestDistributorReceipt:
     @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_dist_receipt_fixture')
-    def test_001_002(self, drivers):
-        """DCR 国包账号登录"""
+    def test_001_004(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "xiongbo92", "dcr123456")
         user.click_gotomenu("Purchase Management", "Distributor Receipt")
@@ -150,7 +228,7 @@ class TestDistributorReceipt:
     @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_dist_receipt_fixture')
-    def test_001_003(self, drivers):
+    def test_001_005(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         user.click_gotomenu("Purchase Management", "Distributor Receipt")
@@ -220,7 +298,7 @@ class TestDistributorReceipt:
     @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_dist_receipt_fixture')
-    def test_001_004(self, drivers):
+    def test_001_006(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         user.click_gotomenu("Purchase Management", "Distributor Receipt")
@@ -262,7 +340,7 @@ class TestDistributorReceipt:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_dist_receipt_fixture')
-    def test_001_005(self, drivers):
+    def test_001_007(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开采购管理-打开国包收货页面"""
@@ -350,7 +428,7 @@ class TestDistributorReceipt:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_dist_receipt_fixture')
-    def test_001_006(self, drivers):
+    def test_001_008(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         user.click_gotomenu("Purchase Management", "Distributor Receipt")
@@ -373,7 +451,6 @@ class TestDistributorReceipt:
             ValueAssert.value_assert_equal(complete_value, 100)
         else:
             logging.info('the total is empty')
-
 
 
 if __name__ == '__main__':

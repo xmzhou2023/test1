@@ -67,20 +67,52 @@ class DitributorReceiptPage(Base):
     @allure.step("国包收货页面，筛选条件后，点击Search按钮")
     def click_search_reset(self, search_reset):
         self.is_click(user['Search_Reset'], search_reset)
-        sleep(2)
         self.element_text(user['Loading'])
 
-    @allure.step("国包收货页面，一键收货的DN数据")
-    def delete_dist_receipt_dn_date(self):
-        logging.info("国包收货后，开始删除收货的DN相关数据")
+    @allure.step("国包收货页面，删除一键收货的DN数据")
+    def delete_dist_receipt_dn_data(self, dn_code):
+        logging.info("国包收货后，开始删除一键收货的DN相关数据")
         sql1 = SQL('DCR', 'test')
-        inbound_code = sql1.query_db(f"select inbound_code from t_channel_inbound_ticket where order_code = '8100053878'")
+        result = sql1.query_db(f"select inbound_code from t_channel_inbound_ticket where order_code = '{dn_code}'")
+        inbound_code = result[0].get("inbound_code")
         logging.info("打印查询t_channel_inbound_ticket表inbound_code字段的值:{}".format(inbound_code))
         sql1.delete_db(f"delete from t_channel_inbound_detail where inbound_code= '{inbound_code}'")
         sql1.delete_db(f"delete from t_channel_inbound_imei where inbound_code= '{inbound_code}'")
-        sql1.delete_db(f"delete from  t_channel_inbound_ticket where order_code= '8100053878'")
-        sql1.delete_db(f"delete from t_channel_warehouse_current_stock where imei in (select imei1 from t_enter_sap_detail where vbeln='8100053878')")
-        sql1.change_db(f"update t_enter_sap_dn set state=1 where vbeln='8100053878'")
+        sql1.delete_db(f"delete from t_channel_inbound_ticket where order_code= '{dn_code}'")
+        sql1.delete_db(f"delete from t_channel_warehouse_current_stock where imei in (select imei1 from t_enter_sap_detail where vbeln='{dn_code}')")
+        sql1.change_db(f"update t_enter_sap_dn set state=1 where vbeln='{dn_code}'")
+
+
+    @allure.step("国包收货页面，删除扫码收货的IMEI数据")
+    def delete_dist_receipt_imei_data(self, imei):
+        logging.info("国包收货页面，扫码IMEI入库后，开始删除扫码IMEI的相关数据")
+        sql2 = SQL('DCR', 'test')
+        result = sql2.query_db(f"select inbound_code from t_channel_inbound_imei where imei1='{imei}'")
+        inbound_code = result[0].get("inbound_code")
+        logging.info("打印查询t_channel_inbound_imei表inbound_code字段的值:{}".format(inbound_code))
+        sql2.delete_db(f"delete from t_channel_inbound_detail where inbound_code= '{inbound_code}'")
+        sql2.delete_db(f"delete from t_channel_inbound_imei where inbound_code= '{inbound_code}'")
+        sql2.delete_db(f"delete from t_channel_inbound_ticket where inbound_code= '{inbound_code}'")
+        sql2.delete_db(f"delete from t_channel_warehouse_current_stock where IMEI ='{imei}'")
+        sql2.change_db(f"update t_enter_sap_detail set r_qty=0 where imei1='{imei}'")
+
+    @allure.step("国包收货页面，删除扫码收货的Box ID数据")
+    def delete_dist_receipt_box_id_data(self, box_id):
+        logging.info("国包收货页面，扫码IMEI入库后，开始删除扫码IMEI的相关数据")
+        sql3 = SQL('DCR', 'test')
+        result_vbeln = sql3.query_db(f"select vbeln from t_enter_sap_detail where boxid='{box_id}'")
+        vbeln = result_vbeln[0].get("vbeln")
+        logging.info("打印查询t_enter_sap_detail表vbeln字段的值:{}".format(vbeln))
+        result_inbound_code = sql3.query_db(f"select inbound_code from t_channel_inbound_ticket where order_code='{vbeln}'")
+        inbound_code = result_inbound_code[0].get("inbound_code")
+        logging.info("打印查询t_channel_inbound_ticket表inbound_code字段的值:{}".format(inbound_code))
+
+        sql3.delete_db(f"delete from t_channel_inbound_detail where  inbound_code= '{inbound_code}'")
+        sql3.delete_db(f"delete from t_channel_inbound_imei where  inbound_code= '{inbound_code}'")
+        sql3.delete_db(f"delete from  t_channel_inbound_ticket where inbound_code= '{inbound_code}'")
+        sql3.delete_db(f"delete from t_channel_warehouse_current_stock  where IMEI in (select imei1 from t_enter_sap_detail where boxid='{box_id}')")
+        sql3.change_db(f"update t_enter_sap_detail set r_qty=0 where  boxid='{box_id}'")
+
 
     @allure.step("国包收货页面，删除同步的DN数据")
     def delete_dist_sync_dn_date(self, dn_data):
@@ -88,6 +120,83 @@ class DitributorReceiptPage(Base):
         sql2 = SQL('DCR', 'test')
         sql2.delete_db(f"delete from t_enter_sap_detail where vbeln='{dn_data}'")
         sql2.delete_db(f"delete from t_enter_sap_dn where vbeln='{dn_data}'")
+
+
+    #扫码IMEI与SN收货
+    @allure.step("国包收货页面，点击More Option下的Stock in by Scan扫码收货功能")
+    def click_more_option_stock_in_by_scan(self):
+        self.mouse_hover_click(user['More Option'])
+        Base.presence_sleep_dcr(self, user['More Option Stock in by Scan'])
+        self.is_click(user['More Option Stock in by Scan'])
+        sleep(1.5)
+
+    @allure.step("N10005登录，进入国包收货页面，没有more Option更多，直接点击Stock in by Scan扫码按钮")
+    def click_stock_in_by_scan_button(self):
+        self.is_click(user['点击Stock in by Scan'])
+        sleep(1.5)
+
+
+    @allure.step("国包收货页面，打开创建Inbound Order，输入IMEI进行扫码收货操作")
+    def create_inbound_order_imei(self, customer, imei1):
+        """输入Customer并选择客户"""
+        self.is_click(user['Create Inbound Customer点击'])
+        self.input_text(user['Create Inbound Customer点击'], customer)
+        self.presence_sleep_dcr(user['Create Inbound Customer下拉选择值'], customer)
+        self.is_click(user['Create Inbound Customer下拉选择值'], customer)
+        self.is_click(user['点击label标签'], 'Customer')
+        """扫码输入IMEI或SN"""
+        self.input_text(user['Scan Input IMEI or BoxID'], imei1)
+        self.is_click(user['点击Check'])
+        """断言是否检查通过"""
+        get_scanned = self.element_text(user['Get Scanned number'])
+        get_order_detail_scanned = self.element_text(user['Get Order Detail Scanned number'])
+        get_scan_record_imei = self.element_text(user['Get Scan Record IMEI'], imei1)
+        get_success = self.element_text(user['Get Scan Record Success'])
+        ValueAssert.value_assert_equal('1', get_scanned)
+        ValueAssert.value_assert_equal(get_scanned, get_order_detail_scanned)
+        ValueAssert.value_assert_equal(imei1, get_scan_record_imei)
+        ValueAssert.value_assert_In('Success', get_success)
+        """点击提交按钮"""
+        self.is_click(user['Create Inbound Click Submit'])
+
+
+    @allure.step("国包收货页面，打开创建Inbound Order，输入IMEI进行扫码收货操作")
+    def create_inbound_order_imei2(self, imei2):
+        """使用国包账号登录，默认加载该账号的Customer ID与仓库"""
+        """扫码输入IMEI或SN"""
+        self.input_text(user['Scan Input IMEI or BoxID'], imei2)
+        self.is_click(user['点击Check'])
+        """断言是否检查通过"""
+        get_scanned = self.element_text(user['Get Scanned number'])
+        get_order_detail_scanned = self.element_text(user['Get Order Detail Scanned number'])
+        get_scan_record_imei = self.element_text(user['Get Scan Record IMEI'], imei2)
+        get_success = self.element_text(user['Get Scan Record Success'])
+        ValueAssert.value_assert_equal('1', get_scanned)
+        ValueAssert.value_assert_equal(get_scanned, get_order_detail_scanned)
+        ValueAssert.value_assert_equal(imei2, get_scan_record_imei)
+        ValueAssert.value_assert_In('Success', get_success)
+        """点击提交按钮"""
+        self.is_click(user['Create Inbound Click Submit'])
+
+    @allure.step("国包收货页面，打开创建Inbound Order，输入IMEI进行扫码收货操作")
+    def create_inbound_order_box_id(self, box_id):
+        """使用国包账号登录，默认加载该账号的Customer ID与仓库"""
+        """扫码输入IMEI或SN"""
+        self.input_text(user['Scan Input IMEI or BoxID'], box_id)
+        self.is_click(user['点击Check'])
+        sleep(5)
+        """断言是否检查通过"""
+        get_scanned = self.element_text(user['Get Scanned number'])
+        logging.info("get_scanned".format(get_scanned))
+        get_order_detail_scanned = self.element_text(user['Get Order Detail Scanned number'])
+        logging.info("get_order_detail_scanned".format(get_order_detail_scanned))
+        get_success = self.element_text(user['Get Scan Record Success'])
+        ValueAssert.value_assert_equal('40', get_scanned)
+        ValueAssert.value_assert_equal(get_scanned, get_order_detail_scanned)
+        ValueAssert.value_assert_In('Success', get_success)
+        """点击提交按钮"""
+        self.is_click(user['Create Inbound Click Submit'])
+
 
     #同步DN
     @allure.step("国包收货页面，点击More Option下的 sync DN同步功能")
@@ -214,6 +323,11 @@ class DitributorReceiptPage(Base):
     def input_imei_query(self, content):
         self.is_click(user['IMEI点击'])
         self.input_text(user['IMEI输入'], content)
+
+    @allure.step("Distributor Receipt页面，按imei字段筛选")
+    def input_box_id_query(self, content):
+        self.is_click(user['Box点击'])
+        self.input_text(user['Box输入'], content)
 
     @allure.step("Distributor Receipt页面，按imei字段筛选")
     def input_market_name_query(self, content):
