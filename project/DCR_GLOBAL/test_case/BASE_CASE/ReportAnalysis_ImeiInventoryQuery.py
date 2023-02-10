@@ -32,7 +32,7 @@ class TestImeiInventoryQuery:
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_imei_inventory_query_fixture')
-    def test_001_002(self, drivers):
+    def test_001_001(self, drivers):
         user = DCRLoginPage(drivers)
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")

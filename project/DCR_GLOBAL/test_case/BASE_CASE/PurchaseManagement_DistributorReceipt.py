@@ -18,13 +18,13 @@ def function_distributor_receipt_fixture(drivers):
 
 @allure.feature("采购管理-国包收货")
 class TestQueryIMEIDetail:
-    @allure.story("组合查询国包收货")
+    @allure.story("查询国包收货")
     @allure.title("国包收货页面，查询国包收货每个筛选项,进行随机组合")
     @allure.description("国包收货页面，查询国包收货每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_distributor_receipt_fixture')
-    def test_002_002(self, drivers):
+    def test_001_001(self, drivers):
         user = DCRLoginPage(drivers)
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Purchase Management", "Distributor Receipt")

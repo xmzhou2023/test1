@@ -11,9 +11,8 @@ import pytest
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 
-
 @allure.feature("员工授权-用户管理") # 模块名称
-class TestSearch:
+class TestUserManagementSearch:
     @allure.story("查询用户")
     @allure.title("随机条件组合查询")
     @allure.description("用户管理页面，查询用户列表所有用户数据加载")
