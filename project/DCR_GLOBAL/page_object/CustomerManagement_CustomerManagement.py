@@ -60,9 +60,10 @@ class CustomerManagementPage(Base):
                 self.input_text(user['输入框2'], content, header)
                 self.is_click_tbm(user['输入结果模糊选择'], content)
             elif header in country_list:
+                country = content.split('_')
                 self.is_click_tbm(user['输入框'], header)
-                self.input_text(user['输入框'], content, header)
-                self.is_click_tbm(user['地区选择框'], content)
+                self.input_text(user['输入框'], country[2], header)
+                self.is_click_tbm(user['地区选择框'], country[0], country[1], country[2])
             elif header in inputSelect_list:
                 self.is_click_tbm(user['输入框'], header)
                 self.input_text(user['输入框4'], content, header)
@@ -89,26 +90,30 @@ class CustomerManagementPage(Base):
     @allure.step("断言：页面查询结果")
     def assert_search_result(self, header, content):
         logging.info(f'开始断言：页面查询：{header} 结果 ：{content}')
+        Region_list = ['Sales Region', 'Country/City']
         if header == 'Customer' or header == 'User' or header == 'Warehouse':
             self.assert_User_Exist(f'{header} ID', content)
-        elif header == 'Sales Region':
-            for i in range(5):
+        elif header in Region_list:
+            country = content.split('_')
+            for i in range(3):
                 assert_result = False
-                column = self.get_table_info(user['menu表格字段'], f'{header} {5 - i}', sc_element=user['滚动条'],
-                                             h_element=user['表头文本'])
+                if header == 'Sales Region':
+                    column = self.get_table_info(user['menu表格字段'], f'{header} {3 - i}', sc_element=user['滚动条'],
+                                                 h_element=user['表头文本'])
+                else:
+                    column = self.get_table_info(user['menu表格字段'], 'City', sc_element=user['滚动条'],
+                                                 h_element=user['表头文本'])
                 contents = self.get_row_info(user['表格内容'], column, user['滚动条'])
                 for j in contents:
-                    if j != '':
-                        ValueAssert.value_assert_equal(j, content)
+                    if ''.join(j.split()) != '':
+                        ValueAssert.value_assert_equal(j, country[2])
                         assert_result = True
                     else:
-                        logging.info(f'{header} {5 - i} 区域为空，继续比对上级区域')
+                        logging.info(f'{header} {3 - i} 区域为空，继续比对上级区域')
                         break
                 if assert_result:
                     logging.info('断言结束')
                     break
-        elif header == 'Country/City':
-            self.assert_User_Exist(f'City', content)
         elif header == 'Staff Type':
             column = self.get_table_info(user['menu表格字段'], 'Belong To Customer ID', sc_element=user['滚动条'],
                                          h_element=user['表头文本'])
@@ -130,8 +135,9 @@ class CustomerManagementPage(Base):
             list_query.append(i)
         logging.info(f'输入框：{list_query}')
         list_random = random_list(list_query, num)
-        if 'Customer Grade' in list_random and 'Customer Type' not in list_random:
-            list_random.remove('Customer Grade')
+        if 'Customer Grade' in list_random:
+            if 'Customer Type' not in list_random:
+                list_random.remove('Customer Grade')
         logging.info(f'随机组合：输入框：{list_random}')
         for i in list_random:
             logging.info(f'随机组合：{i} 输入框输入内容：{kwargs[i]}')

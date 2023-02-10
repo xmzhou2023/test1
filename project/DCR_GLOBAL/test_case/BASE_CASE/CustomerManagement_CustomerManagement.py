@@ -22,20 +22,20 @@ class TestSearch:
     def test_001_002(self, drivers):
         """变量"""
         query_dict = {
-            'Customer': 'PK015681',
-            'Contact Name': 'Aslam',
-            'Sales Region': 'Faisalabad',
-            'Country/City': 'Faisalabad',
-            'Customer Type': 'Retailer',
-            'Customer Grade': 'S',
-            'SAP Customer ID': '',
+            'Customer': 'PK101018',
+            # 'Contact Name': 'Aslam',
+            'Sales Region': 'New Market_Pakistan-Infinix_North',
+            'Country/City': 'Pakistan_Khyber Pakhtunkhwa_Peshawar',
+            'Customer Type': 'Distributor',
+            'Customer Grade': 'A',
+            'SAP Customer ID': '101018',
             'Whether use DCR system': 'Yes',
             'Customer Category': '',
             'Brand': 'Infinix',
             'Status': 'Enable',
             'Channel Sales Manager': '',
-            'User': '',
-            'Warehouse': 'WPK01568101'
+            'User': 'PK10101801',
+            'Warehouse': 'WPK10101801'
         }
         add = CustomerManagementPage(drivers)
         add.click_menu("Customer Management", "Customer Management")
