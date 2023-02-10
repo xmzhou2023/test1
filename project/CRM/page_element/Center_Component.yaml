@@ -11,6 +11,10 @@ OperationMgt->ProjectMgt: 'xpath==//li[@role="menuitem"]//span[text()="Project M
 AssetsMgt: 'xpath==//div[@class="el-submenu__title"]//span[text()="Assets Mgt"]'
 AssetsMgt->AssetsBasicInfoMgt: 'xpath==//div[@class="el-submenu__title"]//span[text()="Assets Basic Info Mgt"]'
 AssetsMgt->AssetsBasicInfoMgt->AssetsCodeMgt: 'xpath==//li[@role="menuitem"]//span[text()="Assets Code Mgt"]'
+AssetsMgt->AssetsBasicInfoMgt->AssetsListMgt: 'xpath==//li[@role="menuitem"]//span[text()="Assets List Mgt"]'
+AssetsMgt->AssetsBuessinessMgt: 'xpath==//div[@class="el-submenu__title"]//span[text()="Assets Bussiness Mgt"]'
+AssetsMgt->AssetsBuessinessMgt->AssetsApplication: 'xpath==//li[@role="menuitem"]//span[text()="Assets Application"]'
+
 total数量: 'xpath==//span[@class="el-pagination__total"]'
 
 菜单搜索框: "xpath==//div[contains(@class,'bar__view')]//input"
