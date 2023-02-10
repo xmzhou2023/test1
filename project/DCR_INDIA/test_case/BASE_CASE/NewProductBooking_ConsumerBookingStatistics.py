@@ -13,7 +13,7 @@ from project.DCR_INDIA.page_object.NewProductBooking_ConsumerBookingStatistics i
 """
 
 @allure.feature("新品预订-顾客预订报表") # 模块名称
-class TestSearch:
+class TestConsumerBookingStatistics:
     @allure.story("页面查询") # 场景名称
     @allure.title("组合查询")  # 用例名称
     @allure.description("组合查询")

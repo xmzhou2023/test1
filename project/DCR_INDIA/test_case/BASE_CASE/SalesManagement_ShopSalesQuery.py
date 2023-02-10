@@ -30,8 +30,8 @@ def function_menu_fixture(drivers):
 
 
 @allure.feature("销售管理-门店销售查询")
-class TestQueryShopSalesQuery:
-    @allure.story("查询门店销量")
+class TestShopSalesQuery:
+    @allure.story("门店销量查询")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
@@ -62,15 +62,13 @@ class TestQueryShopSalesQuery:
             shop_sales.assert_total(total)
 
 
-@allure.feature("销售管理-门店销售查询")
-class TestExportShopSalesQuery:
-    @allure.story("导出查询门店销量")
+    @allure.story("门店销量查询")
     @allure.title("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         #"""刷新页面"""
         #Base(drivers).refresh()
         """打开销售管理-打开门店销售查询页面"""

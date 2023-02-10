@@ -21,7 +21,7 @@ def function_export_fixture(drivers):
 
 @allure.feature("考勤&巡店-巡店记录")
 class TestQueryVisitRecord:
-    @allure.story("查询巡店记录")
+    @allure.story("巡店记录")
     @allure.title("巡店记录页面，根据门店ID查询巡店记录列表数据加载")
     @allure.description("巡店记录页面，根据门店ID查询巡店记录列表数据加载，校验数据加载正常")
     @pytest.mark.smoke  # 用例标记
@@ -52,15 +52,13 @@ class TestQueryVisitRecord:
         all_visit.click_reset()
 
 
-@allure.feature("考勤&巡店-巡店记录")
-class TestExportVisitRecord:
-    @allure.story("导出巡店记录")
+    @allure.story("巡店记录")
     @allure.title("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录")
     @allure.description("巡店记录页面，按Shop ID条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         """获取当天日期"""
         base = Base(drivers)
         today = base.get_datetime_today()

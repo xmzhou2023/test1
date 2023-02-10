@@ -13,7 +13,7 @@ from project.DCR_INDIA.page_object.CustomerManagement_CustomerManagement import 
 """
 
 @allure.feature("客户管理-客户管理") # 模块名称
-class TestSearch:
+class TestCustomerManagementSearch:
     @allure.story("查询客户")
     @allure.title("随机条件组合查询")
     @allure.description("客户管理页面，随机组合查询条件查询客户成功")
