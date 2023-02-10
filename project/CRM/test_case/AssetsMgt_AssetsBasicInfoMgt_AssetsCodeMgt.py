@@ -68,9 +68,91 @@ class TestAssetsCode:
         sql_qty = s_ser[0].get("COUNT(*)")
         ValueAssert.value_assert_equal(sql_qty, int(get_total))
 
+    @allure.story("AssetsBasicInfoMgt_AssetsCode") # 场景名称
+    @allure.title("AssetsCode页新增数据")  # 用例名称
+    @allure.description("新增一条assets code")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_001_003(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        file_path = os.path.join(BASE_DIR, "project", "CRM", "data", "附件.png")
+        user = AssetsMgtPage(drivers)
+        user.assets_add()
+        user.Add_input(txt="AAA", price="221.1", file=file_path, unit="%(V)", choice=1)
+        user.assets_button("Save")  # 点击保存，并校验页面返回列表页
+        user = DomAssert(drivers)
+        user.assert_exact_att("Search Criteria:")
 
+    @allure.story("AssetsBasicInfoMgt_AssetsCode") # 场景名称
+    @allure.title("AssetsCode页编辑数据")  # 用例名称
+    @allure.description("编辑assets code数据")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_001_004(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        file_path = os.path.join(BASE_DIR, "project", "CRM", "data", "附件.png")
+        user = AssetsMgtPage(drivers)
+        user.Get_search(status="Draft", choice="approveStatus")
+        user.assets_edit(operate="Edit")
+        user.Add_input(txt="AAA", price="133.2", file=file_path, unit="%(V)", choice=2)  # 编辑页修改purchase type
+        user.assets_button("Save")
+        user = DomAssert(drivers)
+        user.assert_exact_att("Search Criteria:")
+        user = AssetsMgtPage(drivers)
+        user.Get_search(status="Draft", choice="approveStatus")
+        user.assets_edit(operate="Edit")  # 校验编辑页修改的purchase type成功
+        purchasetype = user.assets_get_text()
+        logging.info("purchasetype是：{}".format(purchasetype))
+        get_type = "Purchase from HQ"
+        logging.info("get_type文本是:{}".format(get_type))
+        ValueAssert.value_assert_equal(get_type, purchasetype)
+        sleep(1)
+        user = AssetsMgtPage(drivers)
+        user.assets_scroll()
+        user.assets_button("Cancel")  # 关闭编辑页
 
+    @allure.story("AssetsBasicInfoMgt_AssetsCode") # 场景名称
+    @allure.title("AssetsCode页新增数据")  # 用例名称
+    @allure.description("新增一条assets code并submit")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_001_005(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        file_path = os.path.join(BASE_DIR, "project", "CRM", "data", "附件.png")
+        user = AssetsMgtPage(drivers)
+        user.assets_add()
+        user.Add_input(txt="AAA", price="221.1", file=file_path, unit="%(V)", choice=1)
+        user.assets_button("Submit")  # 点击submit，并校验页面approve状态显示正确
+        approve = user.assets_get_status()
+        ValueAssert.value_assert_equal(approve, "Submitted")
 
+    @allure.story("AssetsBasicInfoMgt_AssetsCode") # 场景名称
+    @allure.title("AssetsCode页新增校验必填项")  # 用例名称
+    @allure.description("新增校验必填项")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_001_006(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        file_path = os.path.join(BASE_DIR, "project", "CRM", "data", "附件.png")
+        user = AssetsMgtPage(drivers)
+        user.assets_add()
+        user.Add_input(txt="", price="221.1", file=file_path, unit="%(V)", choice=1)
+        user.assets_button("Save")  # 点击submit，并校验页面approve状态显示正确
+        user = DomAssert(drivers)
+        user.assert_exact_att("nameChinese is required")
+        user = AssetsMgtPage(drivers)
+        user.assets_button("Cancel")  # 关闭编辑页
+
+    @allure.story("AssetsBasicInfoMgt_AssetsCode") # 场景名称
+    @allure.title("AssetsCode页编辑点击提交")  # 用例名称
+    @allure.description("assets code编辑页点击submit")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke # 用例标记
+    def test_001_007(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+        user = AssetsMgtPage(drivers)
+        user.Get_search(status="Draft", choice="approveStatus")
+        user.assets_edit(operate="Edit")
+        user = AssetsMgtPage(drivers)
+        user.assets_scroll()
+        user.assets_button("Submit")  # 点击submit，并校验页面approve状态显示正确
+        approve = user.assets_get_status()
+        ValueAssert.value_assert_equal(approve, "Submitted")
 
 if __name__ == '__main__':
     pytest.main(['project/CRM/test_case/OperationMgt_PolicyAndProfits_ProfitsTypeMgt.py'])
