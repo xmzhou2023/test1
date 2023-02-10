@@ -27,8 +27,8 @@ def function_menu_fixture(drivers):
         menu.click_close_open_menu()
 
 @allure.feature("报表分析-客户PSI")
-class TestQueryDistiCustomerPSI:
-    @allure.story("查询国包客户PSI")
+class TestQueryCustomerPSI:
+    @allure.story("查询客户PSI")
     @allure.title("Customer PSI页面，查询国包客户PSI列表数据加载")
     @allure.description("Customer PSI页面，查询国包客户PSI列表数据加载，断言数据是否加载正常")
     @pytest.mark.smoke  # 用例标记
@@ -51,15 +51,14 @@ class TestQueryDistiCustomerPSI:
         psi.assert_total(total)
 
 
-@allure.feature("报表分析-客户PSI")
-class TestExportDistiCustomerPSI:
-    @allure.story("导出国包客户PSI")
+
+    @allure.story("查询客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询国包客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询国包客户PSI列表数据，并导出")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         """筛选国包客户PSI列表数据，导出数据是否正常"""
         export = CustomerPSIPage(drivers)
         # 获取日期
@@ -92,14 +91,12 @@ class TestExportDistiCustomerPSI:
         # export.click_close_customerPSI()
 
 
-@allure.feature("报表分析-客户PSI")
-class TestQuerySubCustomerPSI:
-    @allure.story("查询二代客户PSI")
+    @allure.story("查询客户PSI")
     @allure.title("Customer PSI页面，按日期查询二代客户PSI列表数据加载")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据加载，断言数据是否加载正常")
     @pytest.mark.smoke  # 用例标记
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
-    def test_003_001(self, drivers):
+    def test_001_003(self, drivers):
         """根据日期筛选二代客户PSI列表数据，是否加载正常"""
         """考勤管理-打开考勤记录页面"""
         menu = DCRLoginPage(drivers)
@@ -119,15 +116,13 @@ class TestQuerySubCustomerPSI:
         psi.assert_total(total)
 
 
-@allure.feature("报表分析-客户PSI")
-class TestExportSubCustomerPSI:
-    @allure.story("导出二代客户PSI")
+    @allure.story("查询客户PSI")
     @allure.title("Customer PSI页面，导出按日期查询二代客户PSI列表数据")
     @allure.description("Customer PSI页面，按日期查询二代客户PSI列表数据，并导出。断言导出数据是否正常")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_004_001(self, drivers):
+    def test_001_004(self, drivers):
         """根据日期筛选二代客户PSI列表数据，导出数据是否正常"""
         export = CustomerPSIPage(drivers)
         # 获取日期
