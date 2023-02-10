@@ -51,27 +51,25 @@ class TestAssetsApplication:
         sql_qty = s_ser[0].get("COUNT(*)")
         ValueAssert.value_assert_equal(sql_qty, int(get_total))
 
-    @allure.feature("AssetsBussinessMgt")  # 模块名称
-    class TestAssetsApplication:
-        @allure.story("AssetsBussiness_AssetsApplication")  # 场景名称
-        @allure.title("AssetsApplication页whetherReturn筛选")  # 用例名称
-        @allure.description("对whetherReturn查询")
-        @allure.severity("normal")  # 用例等级
-        @pytest.mark.parametrize("status, code",
+    @allure.story("AssetsBussiness_AssetsApplication")  # 场景名称
+    @allure.title("AssetsApplication页whetherReturn筛选")  # 用例名称
+    @allure.description("对whetherReturn查询")
+    @allure.severity("normal")  # 用例等级
+    @pytest.mark.parametrize("status, code",
                                  [("Draft", "0"), ("Submitted", "1"), ("In Approval", "2"), ("Approved", "3"), ("Failed", "4")])
-        @pytest.mark.smoke  # 用例标记
-        def test_001_002(self, drivers, status, code):  # 用例名称取名规范'test+场景编号+用例编号'
-            user = AssetsMgtPage(drivers)
-            user.Get_search(status, choice="approveStatus")
-            user.assets_search()
-            user = NavPage(drivers)
-            get_total = user.get_total()
-            user = SQL("CRM", "test")
-            s_ser = user.query_db(
+    @pytest.mark.smoke  # 用例标记
+    def test_001_002(self, drivers, status, code):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = AssetsMgtPage(drivers)
+        user.Get_search(status, choice="approveStatus")
+        user.assets_search()
+        user = NavPage(drivers)
+        get_total = user.get_total()
+        user = SQL("CRM", "test")
+        s_ser = user.query_db(
                 "SELECT COUNT(*) FROM crm_wms_assets_application aa WHERE aa.approve_status = {} AND aa.is_deleted = 0".format(
                     code))
-            sql_qty = s_ser[0].get("COUNT(*)")
-            ValueAssert.value_assert_equal(sql_qty, int(get_total))
+        sql_qty = s_ser[0].get("COUNT(*)")
+        ValueAssert.value_assert_equal(sql_qty, int(get_total))
 
 if __name__ == '__main__':
     pytest.main(['project/CRM/test_case/OperationMgt_PolicyAndProfits_ProfitsTypeMgt.py'])
