@@ -106,7 +106,6 @@ class DitributorReceiptPage(Base):
         result_inbound_code = sql3.query_db(f"select inbound_code from t_channel_inbound_ticket where order_code='{vbeln}'")
         inbound_code = result_inbound_code[0].get("inbound_code")
         logging.info("打印查询t_channel_inbound_ticket表inbound_code字段的值:{}".format(inbound_code))
-
         sql3.delete_db(f"delete from t_channel_inbound_detail where  inbound_code= '{inbound_code}'")
         sql3.delete_db(f"delete from t_channel_inbound_imei where  inbound_code= '{inbound_code}'")
         sql3.delete_db(f"delete from  t_channel_inbound_ticket where inbound_code= '{inbound_code}'")
@@ -187,9 +186,7 @@ class DitributorReceiptPage(Base):
         sleep(5)
         """断言是否检查通过"""
         get_scanned = self.element_text(user['Get Scanned number'])
-        logging.info("get_scanned".format(get_scanned))
         get_order_detail_scanned = self.element_text(user['Get Order Detail Scanned number'])
-        logging.info("get_order_detail_scanned".format(get_order_detail_scanned))
         get_success = self.element_text(user['Get Scan Record Success'])
         ValueAssert.value_assert_equal('40', get_scanned)
         ValueAssert.value_assert_equal(get_scanned, get_order_detail_scanned)
@@ -223,11 +220,8 @@ class DitributorReceiptPage(Base):
     def click_sync_dn_submit(self):
         """输入DN后，获取Customer ID、Date、Country输入框是否为disabled禁用状态"""
         get_customer_id = self.get_input_attribute_disabled_state('Get Customer ID label disabled')
-        logging.info("打印get_customer_id1:{}".format(get_customer_id))
         get_date = self.get_input_attribute_disabled_state('Get Date label disabled')
-        logging.info("打印get_customer_id1:{}".format(get_customer_id))
         get_country = self.get_input_attribute_disabled_state('Get Country label disabled')
-        logging.info("打印get_customer_id1:{}".format(get_customer_id))
         if 'true' in str(get_customer_id) and 'true' in str(get_date) and 'true' in str(get_country):
             logging.info("打印customer id、date、country输入框为禁用状态，不可输入")
             """点击同步DN的提交"""
@@ -486,8 +480,6 @@ class DistributorReceiptQuery(Base):
         else:
             logging.info('type is wrong,pls check')
         sleep()
-
-
 
 
 if __name__ == '__main__':
