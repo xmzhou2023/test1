@@ -153,7 +153,7 @@ class Login(Base):
         while aa == 0 and count < 10:
             count += 1
             user.input_imgcode()  # 输入验证码
-            user.click_checkbox()
+            # user.click_checkbox()
             user.click_loginsubmit()
             itexis = user.ispatent_loginnew()
             if itexis:
