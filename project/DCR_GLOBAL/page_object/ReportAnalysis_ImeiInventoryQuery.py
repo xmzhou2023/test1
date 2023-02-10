@@ -119,5 +119,44 @@ class ImeiInventoryQuery(Base):
         else:
             sleep()
 
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.refresh()
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user['菜单'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+        self.refresh()
+        self.element_exist(user['Loading'])
+
+    @allure.step("断言：查询结果为空")
+    def assert_NoData(self):
+        logging.info('开始断言：查询结果为空')
+        total_text = self.element_text(user['Total'])
+        total = total_text[total_text.index(' ') + 1:]
+        logging.info(total_text)
+        ValueAssert.value_assert_equal(total, '0')
+
+    @allure.step("user management页面，输入查询条件")
+    def input_search(self, header, content):
+        """
+        @header： 输入框名称
+        @content： 输入内容
+        """
+        Date_list = ['Activation Time', 'Activated Date']
+        self.element_exist(user['Loading'])
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if content != '':
+            if header in Date_list:
+                createDate = content.split('To')
+                for i in range(len(createDate)):
+                    self.readonly_input_text(user['时间输入框'], createDate[i], header, i+1)
+                    self.is_click_tbm(user['输入框名称'], header)
+            else:
+                logging.error(f'无效字段：{header}，请输入正确的查询条件')
+                raise ValueError(f'无效字段：{header}，请输入正确的查询条件')
+
+
 if __name__ == '__main__':
     pass

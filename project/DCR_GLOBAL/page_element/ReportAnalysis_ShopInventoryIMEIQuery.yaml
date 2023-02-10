@@ -34,7 +34,13 @@ Export Record Search: "xpath==//span[contains(text(),'Search')]"
 获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
 获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
 获取操作按钮文本: "xpath==//td[not(contains(@class,'is-hidden'))]//div//button[@class='el-button el-button--text el-button--mini']//span[normalize-space(text())='Download']"
-
-
+Total: "xpath==//span[contains(text(),'Total')]"
+输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
+输入结果精确选择: "xpath==//div[contains(@x-placement,'start')]//li/span[normalize-space(text())='variable']"
+时间输入框: "xpath==//label[normalize-space(text())='variable']/..//div[contains(@class,'date-box')][variable]//input"
+输入框名称: "xpath==//label[normalize-space(text())='variable']"
+菜单1: "xpath==//li[@class='el-submenu']/div//span[normalize-space(text())='variable']"
+菜单2: "xpath==//div[@class='nest-menu']//span[normalize-space(text())='variable']"
+菜单栏: "xpath==//span[contains(@class,'tags-view-item')][1]"
 
 

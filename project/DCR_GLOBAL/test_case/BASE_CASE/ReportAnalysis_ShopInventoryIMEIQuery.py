@@ -105,6 +105,20 @@ class TestQueryShopInventoryIMEI:
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
 
+    @allure.story("门店库存IMEI查询")
+    @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_003(self, drivers):
+        user = ShopInventoryIMEIQueryPage(drivers)
+        user.click_menu("Report Analysis", "Shop Inventory IMEI Query")
+        user.click_unfold()
+        user.input_search('Activation Status', 'Not Activated')
+        user.input_search('Activated Date', '2019-01-01To2023-12-31')
+        user.input_search('Inbound Date', '2019-01-01To2023-12-31')
+        user.click_search()
+        user.assert_NoData()
+
 
 if __name__ == '__main__':
     pytest.main(['ReportAnalysis_ShopInventoryIMEIQuery.py'])
