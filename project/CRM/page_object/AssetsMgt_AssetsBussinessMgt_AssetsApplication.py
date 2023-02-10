@@ -33,6 +33,8 @@ class AssetsMgtPage(Base):
         self.input_text(user['筛选框'], status, choice)
         self.hover(user['下拉框data'], status)
         self.is_click(user['下拉框data'], status)
+
+    def assets_search(self):
         self.is_click(user['搜索按钮'])
 
     @allure.step("AssetsCode页点击新增按钮")
