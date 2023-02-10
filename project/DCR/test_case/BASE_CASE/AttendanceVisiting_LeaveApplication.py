@@ -23,6 +23,7 @@ class TestLeaveApplicationRecords:
     @allure.title("休假申请记录页面，根据user查询休假申请记录列表数据加载")
     @allure.description("休假申请记录页面，根据user查询休假申请记录列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)

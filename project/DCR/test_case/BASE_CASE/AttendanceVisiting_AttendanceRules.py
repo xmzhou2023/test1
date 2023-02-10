@@ -24,6 +24,7 @@ class TestQueryAttendanceRules:
     @allure.title("考勤排班页面，筛选查询考勤排班记录")
     @allure.description("考勤排班页面，筛选查询开始月份的考勤排班记录")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -49,6 +50,7 @@ class TestQueryAttendanceRules:
     @allure.title("随机条件组合查询考勤排班")
     @allure.description("考勤排班页面，查询考勤排班的随机条件组合查询")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         """ lhmadmin管理员账号登录"""
@@ -67,10 +69,11 @@ class TestQueryAttendanceRules:
 
 @allure.feature("考勤&巡店-考勤排班")
 class TestAddDeleteAttendanceRules:
-    @allure.story("新增、删除考勤排班")
+    @allure.story("新增考勤排班")
     @allure.title("考勤排班页面，新增、删除考勤排班操作")
     @allure.description("考勤排班页面，新增、删除考勤排班保存后，断言列表是否显示新增的考勤排班记录")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
@@ -129,6 +132,7 @@ class TestAddDeleteAttendanceRules:
     @allure.title("考勤排班页面，不支持新增已存在的考勤排班")
     @allure.description("考勤排班页面，新增已存在的考勤排班操作，提示：同一国家的品牌位置不允许重复")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_002(self, drivers):
         user = LoginPage(drivers)
@@ -163,6 +167,7 @@ class TestEditAttendanceRules:
     @allure.title("考勤排班页面，编辑考勤排班操作")
     @allure.description("考勤排班页面，编辑考勤排班保存后，断言列表是否显示编辑后的排班信息")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_001(self, drivers):
         user = LoginPage(drivers)

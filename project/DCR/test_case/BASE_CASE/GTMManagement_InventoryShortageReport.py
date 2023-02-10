@@ -22,8 +22,8 @@ class TestQueryInventoryShortage:
     @allure.title("库存不足报告页面，根据品牌、国家、时间查询库存不足报告数据")
     @allure.description("库存不足报告页面，根据品牌、国家、时间查询库存不足报告数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
     @pytest.mark.UT
+    @pytest.mark.usefixtures('function_menu_f  @pytest.mark.UTixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")

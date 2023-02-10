@@ -35,6 +35,7 @@ class TestQueryVisitRecord:
     @allure.title("巡店记录页面，根据门店ID查询类型为Visit task的巡店记录，能正常加载筛选的巡店记录")
     @allure.description("巡店记录页面，根据门店ID查询类型为Visit task的巡店记录，列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -64,6 +65,7 @@ class TestQueryVisitRecord:
     @allure.title("巡店记录页面，根据门店ID查询类型为Shop self-inspection的巡店记录，能正常加载筛选的巡店记录")
     @allure.description("巡店记录页面，根据门店ID查询类型为Shop self-inspection的巡店记录，列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
@@ -94,6 +96,7 @@ class TestExportVisitRecord:
     @allure.title("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录")
     @allure.description("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """打开考勤与巡店管理-打开巡店记录页面"""
@@ -135,6 +138,7 @@ class TestExportVisitRecord:
     @allure.title("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录详情数据")
     @allure.description("巡店记录页面，切换Visit task页签，按Submit Date条件筛选，导出筛选后的巡店记录详情数据，断言导出数据是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_002(self, drivers):
         """打开考勤与巡店管理-打开巡店记录页面"""
@@ -173,6 +177,7 @@ class TestExportVisitRecord:
     @allure.title("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店记录")
     @allure.description("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店记录，断言导出数据是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_003(self, drivers):
         """打开考勤与巡店管理-打开巡店记录页面"""
@@ -210,6 +215,7 @@ class TestExportVisitRecord:
     @allure.title("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店详情记录")
     @allure.description("巡店记录页面，切换Shop self-inspection页签，按Submit Date条件筛选，导出筛选后的巡店详情记录，断言导出数据是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_004(self, drivers):
         """打开考勤与巡店管理-打开巡店记录页面"""

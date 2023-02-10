@@ -35,6 +35,7 @@ class TestQueryAttendanceRecord:
     @allure.title("考勤记录页面，查询考勤记录列表数据加载")
     @allure.description("考勤记录页面，查询考勤记录列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -53,10 +54,11 @@ class TestQueryAttendanceRecord:
         #query_all.click_close_atten_record()
 
 
-    @allure.story("查看考勤照片详情")
+    @allure.story("查询考勤记录")
     @allure.title("考勤记录页面，查看筛选用户的考勤照片详情")
     @allure.description("考勤记录页面，查询筛选用户的，考勤照片详情")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
@@ -88,6 +90,7 @@ class TestExportAttendanceRecord:
     @allure.title("考勤记录页面，导出筛选用户的当天考勤记录")
     @allure.description("考勤记录页面，查询某个用户的，当天考勤记录，然后导出筛选的考勤记录")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
