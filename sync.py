@@ -1163,10 +1163,10 @@ def clear_data():
 
 if __name__ == '__main__':
     # 区分环境选择配置
-    # run_env(sys.argv[1])
+    run_env(sys.argv[1])
 
     # print(get_env())
-    print(get_Data())
+    # print(get_Data())
 
     # 同步所有数据（覆盖）
     # sync_AllData(get_Data(),get_env())
