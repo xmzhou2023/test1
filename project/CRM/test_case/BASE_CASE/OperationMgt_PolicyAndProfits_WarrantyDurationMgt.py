@@ -28,7 +28,7 @@ def module_fixture(drivers):
 
 @allure.feature("政策与权益")  # 模块名称
 class TestWarrantyDurationMgt:
-    @allure.story("WarrantyDurationMgt查询") # 场景名称
+    @allure.story("WarrantyDurationMgt")  # 场景名称
     @allure.title("页面筛选框查询")  # 用例名称
     @allure.description("筛选框KeyWord查询")
     @allure.severity("normal")  # 用例等级
@@ -36,13 +36,13 @@ class TestWarrantyDurationMgt:
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = OperationPage(drivers)
         classname = user.get_warrantyname()[1]
-        user.search_data(classname,choice=classname)  # 在保修期限基础数据页筛选框进行搜索
+        user.search_data(classname, choice=classname)  # 在保修期限基础数据页筛选框进行搜索
 
-    @allure.story("WarrantyDurationMgt") # 场景名称
+    @allure.story("WarrantyDurationMgt")  # 场景名称
     @allure.title("异常场景重复数据校验")  # 用例名称
     @allure.description("点击ADD按钮新增一条已存在的数据")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = OperationPage(drivers)
         classname = user.get_warrantyname()[0]  # 获取已存在的classname值
@@ -51,9 +51,9 @@ class TestWarrantyDurationMgt:
         user = DomAssert(drivers)
         user.assert_exact_att("Warranty duration already exists")  # 校验有重复错误提示
         user = OperationPage(drivers)
-        user.click_cancel()  #关闭弹窗
+        user.click_cancel()  # 关闭弹窗
 
-    @allure.story("WarrantyDurationMgt") # 场景名称
+    @allure.story("WarrantyDurationMgt")  # 场景名称
     @allure.title("正向场景新增数据")  # 用例名称
     @allure.description("点击ADD按钮新增一条数据，校验新增成功后并禁用")
     @allure.severity("normal")  # 用例等级
@@ -72,14 +72,14 @@ class TestWarrantyDurationMgt:
         user = DomAssert(drivers)
         user.assert_exact_att("Disabled Successfully!")
 
-    @allure.story("WarrantyDurationMgt新增数据校验") # 场景名称
+    @allure.story("WarrantyDurationMgt")  # 场景名称
     @allure.title("异常场景新增数据校验")  # 用例名称
     @allure.description("新增页Duration Days只允许输入数字校验")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke # 用例标记
     def test_001_004(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = OperationPage(drivers)
-        name1 = user.get_Numbersletters()  #获取输入文本
+        name1 = user.get_Numbersletters()  # 获取输入文本
         user.add_click()
         user.input_WarrantyDuration(txt=name1)  # 新增一条异常数据
         user = DomAssert(drivers)
@@ -87,7 +87,7 @@ class TestWarrantyDurationMgt:
         user = OperationPage(drivers)
         user.click_cancel()  # 关闭新增弹窗
 
-    @allure.story("WarrantyDurationMgt编辑数据") # 场景名称
+    @allure.story("WarrantyDurationMgt")  # 场景名称
     @allure.title("正向场景编辑数据")  # 用例名称
     @allure.description("点击编辑按钮进行编辑保存并禁用")
     @allure.severity("normal")  # 用例等级
@@ -108,7 +108,7 @@ class TestWarrantyDurationMgt:
         user = DomAssert(drivers)
         user.assert_exact_att("Disabled Successfully!")
 
-    @allure.story("WarrantyDurationMgt编辑数据") # 场景名称
+    @allure.story("WarrantyDurationMgt")  # 场景名称
     @allure.title("异常场景编辑时在durationdays输入非数字的文本数据")  # 用例名称
     @allure.description("点击编辑按钮进行编辑并禁用")
     @allure.severity("normal")  # 用例等级
@@ -134,7 +134,7 @@ class TestWarrantyDurationMgt:
         user = DomAssert(drivers)
         user.assert_exact_att("Disabled Successfully!")
 
-    @allure.story("WarrantyDurationMgt") # 场景名称
+    @allure.story("WarrantyDurationMgt")  # 场景名称
     @allure.title("异常场景编辑时输入重复的数据")  # 用例名称
     @allure.description("点击编辑按钮进行编辑并提示有重复报错提示")
     @allure.severity("normal")  # 用例等级

@@ -18,7 +18,7 @@ from project.CRM.page_object.OperationMgt_ProjectMgt import *
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 
-@pytest.fixture(scope='module' , autouse=True) # 模块名称
+@pytest.fixture(scope='module' , autouse=True)  # 模块名称
 def module_fixture(drivers):
     logging.info("模块前置条件，前往operation页面")
     user = NavPage(drivers)
@@ -31,13 +31,13 @@ def module_fixture(drivers):
     user = NavPage(drivers)
     user.click_gotonav("OperationMgt")
 
-@allure.feature("Operation_PolicyMgt") # 模块名称
+@allure.feature("Operation_PolicyMgt")  # 模块名称
 class TestProjectMgt:
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页查询")  # 用例名称
     @allure.description("项目管理页对国家查询")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ProjectPage(drivers)
         user.project_input_criteria(country="IN", brand=None, status=None)
@@ -49,11 +49,11 @@ class TestProjectMgt:
         sql_num=user.project_sql_search(country="IN", brand=None, status=None)  # 查询sql 数据
         ValueAssert.value_assert_equal(sql_num, int(number))  # 页面数据和sql对比
 
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页查询")  # 用例名称
     @allure.description("项目管理页对brand查询")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ProjectPage(drivers)
         user.project_input_criteria(country=None, brand="TECNO", status=None)
@@ -65,11 +65,11 @@ class TestProjectMgt:
         sql_num=user.project_sql_search(country=None, brand="TECNO", status=None)  # 查询sql 数据
         ValueAssert.value_assert_equal(sql_num, int(number))  # 页面数据和sql对比
 
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页查询")  # 用例名称
     @allure.description("项目管理页对status查询")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_003(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ProjectPage(drivers)
         user.project_input_criteria(country=None, brand=None, status="Enable")  # 输入查询条件
@@ -81,11 +81,11 @@ class TestProjectMgt:
         sql_num=user.project_sql_search(country=None, brand=None, status="1")  # 查询sql 数据
         ValueAssert.value_assert_equal(sql_num, int(number))
 
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页查询")  # 用例名称
     @allure.description("项目管理页筛选项组合查询")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_004(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ProjectPage(drivers)
         user.project_input_criteria(country="RW", brand="itel", status="Disable")  # 输入筛选条件
@@ -97,11 +97,11 @@ class TestProjectMgt:
         sql_num=user.project_sql_search(brand="itel", status="0", country="RW")  # 查询sql 数据
         ValueAssert.value_assert_equal(sql_num, int(number))  # 页面数据和sql对比
 
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页新增正向")  # 用例名称
     @allure.description("项目管理页新增数据")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_005(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ProjectPage(drivers)
         user.project_add()
@@ -121,11 +121,11 @@ class TestProjectMgt:
 
 
 
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页新增异向")  # 用例名称
     @allure.description("项目管理页新增必填校验")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_006(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ProjectPage(drivers)
         user.project_add()
@@ -136,11 +136,11 @@ class TestProjectMgt:
         user = ProjectPage(drivers)
         user.project_cancel()  # 关闭页面
 
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页新增")  # 用例名称
     @allure.description("项目管理页新增页重置")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_007(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ProjectPage(drivers)
         user.project_add()
@@ -152,11 +152,11 @@ class TestProjectMgt:
         user = ProjectPage(drivers)
         user.project_cancel()
 
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页新增异向")  # 用例名称
     @allure.description("项目管理页新增数据结束时间大于开始时间")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_008(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ProjectPage(drivers)
         user.project_add()
@@ -167,11 +167,11 @@ class TestProjectMgt:
         user = ProjectPage(drivers)
         user.project_cancel()  # 关闭页面
 
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页编辑正向")  # 用例名称
     @allure.description("项目管理页编辑数据")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_009(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = OperationPage(drivers)
         text = user.get_Numbersletters()  # 获取要输入的文本
@@ -188,15 +188,15 @@ class TestProjectMgt:
         user.assert_exact_att(text)  # 确认页面上是否存在修改过的内容
 
 
-    @allure.story("ProjectMgt_项目管理") # 场景名称
+    @allure.story("ProjectMgt_项目管理")  # 场景名称
     @allure.title("项目管理页编辑异向")  # 用例名称
     @allure.description("项目管理编辑页校验必填")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_010(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = ProjectPage(drivers)
         user.project_edit()  # 进入编辑页
-        user.project_input(country="", category="", StartDate="", EndDate="", txt=" ")  #输入空字符串
+        user.project_input(country="", category="", StartDate="", EndDate="", txt=" ")  # 输入空字符串
         user.project_editsave()
         user = DomAssert(drivers)
         user.assert_exact_att("projectDesc must not be blank")  # 校验必填为空

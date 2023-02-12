@@ -30,7 +30,7 @@ def function_menu_fixture(drivers):
 
 @allure.feature("报表分析-门店库存IMEI查询")
 class TestQueryShopInventoryIMEI:
-    @allure.story("查询门店库存IMEI")
+    @allure.story("门店库存IMEI查询")
     @allure.title("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载")
     @allure.description("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
@@ -59,15 +59,13 @@ class TestQueryShopInventoryIMEI:
         shop_inventory.assert_total(total)
 
 
-@allure.feature("报表分析-门店库存IMEI查询")
-class TestExportShopInventoryIMEI:
-    @allure.story("导出门店库存IMEI")
+    @allure.story("门店库存IMEI查询")
     @allure.title("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的数据")
     @allure.description("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的门店库存IMEI数据，断言导出数据加载正常")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         """报表分析-打开门店库存IMEI查询页面"""
         menu = DCRLoginPage(drivers)
         menu.click_gotomenu("Report Analysis", "Shop Inventory IMEI Query")
@@ -88,6 +86,7 @@ class TestExportShopInventoryIMEI:
         export.click_export()
         export.click_download_more()
         export.input_task_name('Shop Inventory IMEI Query')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()
@@ -105,6 +104,20 @@ class TestExportShopInventoryIMEI:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+
+    @allure.story("门店库存IMEI查询")
+    @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_003(self, drivers):
+        user = ShopInventoryIMEIQueryPage(drivers)
+        user.click_menu("Report Analysis", "Shop Inventory IMEI Query")
+        user.click_unfold()
+        user.input_search('Activation Status', 'Not Activated')
+        user.input_search('Activated Date', '2019-01-01To2023-12-31')
+        user.input_search('Inbound Date', '2019-01-01To2023-12-31')
+        user.click_search()
+        user.assert_NoData()
 
 
 if __name__ == '__main__':

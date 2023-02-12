@@ -21,11 +21,12 @@ def function_export_fixture(drivers):
             sleep(1)
 
 @allure.feature("考勤&巡店-考勤记录")
-class TestQueryAttendanceRecord:
-    @allure.story("查询考勤记录")
+class TestAttendanceRecord:
+    @allure.story("考勤记录")
     @allure.title("考勤记录页面，查询考勤记录列表数据加载")
     @allure.description("考勤记录页面，查询考勤记录列表数据加载，断言数据加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
@@ -44,19 +45,17 @@ class TestQueryAttendanceRecord:
         query_all.assert_total2(total)
 
 
-@allure.feature("考勤&巡店-考勤记录")
-class TestExportAttendanceRecord:
-    @allure.story("导出考勤记录")
+    @allure.story("考勤记录")
     @allure.title("考勤记录页面，导出筛选用户的当天考勤记录")
     @allure.description("考勤记录页面，查询某个用户的，当天考勤记录，然后导出筛选的考勤记录")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         """查询某个用户的，当天考勤记录用例"""
         export = AttendanceRecordPage(drivers)
         """获取当天日期"""
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
         """按当前日期筛选"""
         export.input_query_date(today)
         """点击查询"""
@@ -85,6 +84,7 @@ class TestExportAttendanceRecord:
         export.click_export()
         export.click_download_more()
         export.input_task_name('Attendance Records')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()

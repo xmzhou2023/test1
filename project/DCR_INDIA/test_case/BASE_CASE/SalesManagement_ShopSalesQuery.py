@@ -30,11 +30,12 @@ def function_menu_fixture(drivers):
 
 
 @allure.feature("销售管理-门店销售查询")
-class TestQueryShopSalesQuery:
-    @allure.story("查询门店销量")
+class TestShopSalesQuery:
+    @allure.story("门店销量查询")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -61,14 +62,13 @@ class TestQueryShopSalesQuery:
             shop_sales.assert_total(total)
 
 
-@allure.feature("销售管理-门店销售查询")
-class TestExportShopSalesQuery:
-    @allure.story("导出查询门店销量")
+    @allure.story("门店销量查询")
     @allure.title("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
-    @allure.severity("blocker")  # 分别为5种类型等级：blocker\critical\normal
+    @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         #"""刷新页面"""
         #Base(drivers).refresh()
         """打开销售管理-打开门店销售查询页面"""
@@ -76,9 +76,9 @@ class TestExportShopSalesQuery:
         menu.click_gotomenu("Sales Management", "Shop Sales Query")
         """实例化对象类"""
         export = ShopSaleQueryPage(drivers)
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        today = Base(drivers).get_datetime_today()
         last_date = export.get_last_day(1)
+        """根据销售日期筛选门店销售数据"""
         export.click_unfold()
         export.shop_sales_query_sales_date_query(last_date, today)
         export.click_search()
@@ -95,6 +95,7 @@ class TestExportShopSalesQuery:
         export.click_export()
         export.click_download_more()
         export.input_task_name('Shop Sales Query')
+        export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
         down_status = export.click_export_search()
         task_name = export.get_task_name_text()

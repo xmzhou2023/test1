@@ -113,6 +113,12 @@ class ShopSaleQueryPage(Base):
         sleep(1)
         self.is_click_dcr(user['Task Name value'], content)
 
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选标签'], 'Create Date')
+
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
         down_status = Base.export_download_status(self, user['Export Record Search'], user['获取下载状态文本'])

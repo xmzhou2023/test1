@@ -82,7 +82,7 @@ class LoginPage(Base):
 
     def input_verify_code(self):
         """输入验证码，生产环境用 2022-9-30,熊文敏"""
-        verify_code = self.get_graphical_code(login["crm_pro图形验证码"])
+        verify_code = self.get_graphical_code(login["crm_pro验证码图标"])
         self.is_click(login['crm_pro验证码输入框'])
         self.input_text(login["crm_pro验证码输入框"], verify_code)
         sleep(2)

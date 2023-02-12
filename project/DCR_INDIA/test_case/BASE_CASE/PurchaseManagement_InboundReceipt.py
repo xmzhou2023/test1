@@ -5,6 +5,14 @@ from libs.common.time_ui import sleep
 import pytest
 import allure
 
+@pytest.fixture(scope='function')
+def function_menu_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    get_menu_class = menu.get_open_menu_class()
+    class_value = "tags-view-item router-link-exact-active router-link-active active"
+    if class_value == str(get_menu_class):
+        menu.click_close_open_menu()
 
 @allure.feature("采购管理-二代零售商收货")
 class TestQueryInboundReceipt:
@@ -42,14 +50,13 @@ class TestQueryInboundReceipt:
         query.click_reset()
 
 
-@allure.feature("采购管理-二代零售商收货")
-class TestQueryIMEIDetail:
-    @allure.story("查询IMEI详情信息")
-    @allure.title("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
-    @allure.description("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
-    @pytest.mark.smoke  # 用例标记
+    @allure.story("查询二代零售商收货")
+    @allure.title("二代用户，查看收货列表第一条IMEI详情信息加载是否正常")
+    @allure.description("二代用户，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：blocker\critical\normal
-    def test_002_001(self, drivers):
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_002(self, drivers):
         query = InboundReceiptPage(drivers)
         query.click_unfold()
         query.click_select_brand('itel', 'TECNO')
@@ -81,7 +88,7 @@ class TestQueryIMEIDetail:
         ValueAssert.value_assert_IsNoneNot(detail_imei)
         ValueAssert.value_assert_equal("Export", detail_export)
         query.click_close_inbound_imei_detail()
-        query.click_close_inbound_receipt()
+        #query.click_close_inbound_receipt()
 
 
 if __name__ == '__main__':

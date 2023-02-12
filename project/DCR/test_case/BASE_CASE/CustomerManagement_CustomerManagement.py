@@ -85,10 +85,12 @@ class TestQueryGlobalCustomers:
         query.assert_total1(get_query_total)
         #query.click_close_customer_mgt()
 
+
     @allure.story("查询用户")
     @allure.title("随机条件组合查询")
     @allure.description("用户管理页面，查询用户列表所有用户数据加载")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):
         """变量"""
         query_dict = {
@@ -286,7 +288,7 @@ class TestExportCustomer:
     @allure.severity("normal")
     @pytest.mark.smoke   # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_005_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_004_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -327,13 +329,13 @@ class TestExportCustomer:
 
 @allure.feature("客户管理-客户管理(全球)") # 模块名称
 class TestDisableCustomer:
-    @allure.story("禁用客户")
+    @allure.story("启用禁用客户")
     @allure.title("禁用客户")
     @allure.description("筛选需要禁用的客户，然后点击禁用功能，查看该客户状态是否更新为Disable状态")
     @allure.severity("normal")
     @pytest.mark.RT   # 用例标记
     @pytest.mark.usefixtures('function_customer_fixture')
-    def test_006_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_005_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -351,13 +353,13 @@ class TestDisableCustomer:
         disable.assert_customer_query_result('Status', 'Disable')
 
 
-    @allure.story("启用客户")
+    @allure.story("启用禁用客户")
     @allure.title("启用客户")
     @allure.description("筛选需要启用的客户，然后点击启用功能，查看该客户状态是否更新为Enable状态")
     @allure.severity("normal")
     @pytest.mark.RT  # 用例标记
     @pytest.mark.usefixtures('function_customer_fixture')
-    def test_006_002(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+    def test_005_002(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         """登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
@@ -377,13 +379,13 @@ class TestDisableCustomer:
 
 @allure.feature("客户管理-客户管理(全球)")
 class TestImportCustomer:
-    @allure.story("导入客户操作")
-    @allure.title("导入客户操作，然后删除导入的客户操作")
-    @allure.description("导入客户成功后，查看列表是否展示导入的客户信息；然后删除导入的客户操作")
-    @allure.severity("normal")
-    @pytest.mark.smoke  # 用例标记
-    @pytest.mark.usefixtures('function_customer_fixture')
-#     def test_008_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+#     @allure.story("导入客户操作")
+#     @allure.title("导入客户操作，然后删除导入的客户操作")
+#     @allure.description("导入客户成功后，查看列表是否展示导入的客户信息；然后删除导入的客户操作")
+#     @allure.severity("normal")
+#     @pytest.mark.smoke  # 用例标记
+#     @pytest.mark.usefixtures('function_customer_fixture')
+#     def test_006_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
 #         user = LoginPage(drivers)
 #         user.initialize_login(drivers, "lhmadmin", "dcr123456")
 #         """打开客户管理菜单"""
@@ -444,7 +446,7 @@ class TestImportCustomer:
     @allure.severity("normal")
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_customer_fixture')
-    def test_008_002(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+    def test_006_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开客户管理菜单"""

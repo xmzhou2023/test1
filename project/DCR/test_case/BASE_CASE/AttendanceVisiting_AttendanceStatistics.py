@@ -23,6 +23,7 @@ class TestAttendanceStatistics:
     @allure.title("考勤统计页面，根据user或position查询考勤统计记录列表数据加载")
     @allure.description("考勤统计页面，根据user或position查询考勤统计记录列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)

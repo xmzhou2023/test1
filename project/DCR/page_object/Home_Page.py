@@ -19,7 +19,7 @@ class HomePagePage(Base):
     @allure.step("点击Search查询按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("点击Search查询按钮")
     def get_user_mgt_authorization(self):
@@ -146,7 +146,7 @@ class HomePagePage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

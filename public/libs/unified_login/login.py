@@ -63,12 +63,12 @@ class Login(Base):
         """生产登录,2022-9-30,熊文敏"""
         user = LoginPage(drivers)
         user.get_url(url)  # 跳转到指定网页
-        user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
-        user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
+        # user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
+        # user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
         user.click_accountlogin()  # 点击帐户密码登录
         user.input_id(username)  # 输入帐户名
         user.input_password(passwd)  # 输入密码
-        user.click_checkbox_en()
+        # user.click_checkbox_en()
         n = 1
         while n < 6:
             user.input_verify_code()
@@ -91,7 +91,7 @@ class Login(Base):
         user.click_accountlogin()  # 点击帐户密码登录
         user.input_id(username)  # 输入帐户名
         user.input_password(passwd)  # 输入密码
-        user.click_checkbox_en()
+        # user.click_checkbox_en()
         n = 1
         while n < 6:
             user.input_verify_code()
@@ -153,7 +153,7 @@ class Login(Base):
         while aa == 0 and count < 10:
             count += 1
             user.input_imgcode()  # 输入验证码
-            user.click_checkbox()
+            # user.click_checkbox()
             user.click_loginsubmit()
             itexis = user.ispatent_loginnew()
             if itexis:

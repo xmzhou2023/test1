@@ -33,7 +33,8 @@ class UserManagementPage(Base):
         @content： 输入内容
         """
         user_list = ['User ID']
-        country_list = ['Sales Region', 'Country/City']
+        sales_region_list = ['Sales Region']
+        country_list = ['Country/City']
         fuzzySelect_list = ['Belong To Customer', 'Superior']
         exactSelect_list = ['Staff Status', 'Have Superior or Not', 'Have Shop or Not', 'Staff Type', 'Audit Status', 'Scheme Registration']
         inputSelect_list = ['Brand', 'Position', 'Role']
@@ -54,6 +55,10 @@ class UserManagementPage(Base):
                 self.is_click_tbm(user['输入框'], header)
                 self.input_text(user['输入框2'], content, header)
                 self.is_click_tbm(user['输入结果模糊选择'], content)
+            elif header in sales_region_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['Sales Region选择框'], content)
             elif header in country_list:
                 self.is_click_tbm(user['输入框'], header)
                 self.input_text(user['输入框'], content, header)
@@ -101,7 +106,7 @@ class UserManagementPage(Base):
                 for i in contents:
                     self.assert_None(i)
         elif header == 'Sales Region':
-            self.assert_User_Exist(f'{header}5', content)
+            self.assert_User_Exist(f'{header}2', content)
         elif header == 'Country/City':
             self.assert_User_Exist(f'City', content)
         elif header == 'Staff Type':

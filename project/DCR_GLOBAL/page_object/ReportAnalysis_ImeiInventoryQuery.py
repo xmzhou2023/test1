@@ -30,14 +30,14 @@ class ImeiInventoryQuery(Base):
             self.input_text(user['收货日期开始'], txt=content)
             self.input_text(user['收货日期结束'], txt=content)
             self.click_box()
-        elif type == 'Activation Date':
-            self.input_text(user['激活时间开始'], txt=content)
-            self.input_text(user['激活时间结束'], txt=content)
-            self.click_box()
+        # elif type == 'Activation Date':
+        #     self.input_text(user['激活时间开始'], txt=content)
+        #     self.input_text(user['激活时间结束'], txt=content)
+        #     self.click_box()
         elif type == 'Material ID':
             self.input_text(user['MaterialID输入'], txt=content)
-        elif type == 'SAP Customer ID':
-            self.input_text(user['SAPCustomerID输入'], txt=content)
+        # elif type == 'SAP Customer ID':
+        #     self.input_text(user['SAPCustomerID输入'], txt=content)
         elif type == 'IMEI/SN':
             self.is_click(user['IMEI点击'])
             self.input_text(user['IMEI输入'], txt=content)
@@ -48,51 +48,51 @@ class ImeiInventoryQuery(Base):
             self.is_click(user['Customer选择'], content)
         elif type == 'Customer Type':
             self.is_click(user['CustomerType输入'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Warehouse ID':
             self.is_click(user['Warehouse输入'])
             sleep()
             self.input_text(user['Warehouse输入'], txt=content)
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Warehouse Type':
             self.is_click(user['WarehouseType输入'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Sales Region 3':
             self.is_click(user['SalesRegion输入'])
             self.input_text(user['SalesRegion输入'], txt=content)
             self.is_click(user['SalesRegion选择'], content)
         elif type == 'Activated Or Not':
             self.is_click(user['ActivatedOrNot点击'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Brand':
             self.is_click(user['Brand输入'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Model':
             self.is_click(user['Model点击'])
             self.input_text(user['Model输入'], txt=content)
             sleep()
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Market Name':
             self.is_click(user['MarketName点击'])
             self.input_text(user['MarketName输入'], txt=content)
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Series':
             self.is_click(user['Series点击'])
             self.input_text(user['Series输入'], txt=content)
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Category':
             self.is_click(user['Category点击'])
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
+            self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
-        elif type == 'Dealer Category':
-            self.is_click(user['DealerCategory点击'])
-            self.input_text(user['DealerCategory输入'], txt=content)
-            self.is_click(user['CustomerType_Warehouse_Wartype_激活_brand_model_MarketName_Series_Category选择'], content)
-            self.click_box()
+        # elif type == 'Dealer Category':
+        #     self.is_click(user['DealerCategory点击'])
+        #     self.input_text(user['DealerCategory输入'], txt=content)
+        #     self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
+        #     self.click_box()
         else:
             logging.info('type is wrong,pls check')
         sleep()
@@ -112,12 +112,51 @@ class ImeiInventoryQuery(Base):
     @allure.step("点击Unfold展开筛选项按钮")
     def click_button(self, txt):
         self.is_click(user['Unfold_Search_Reset按钮'], txt)
-        if txt=='Search':
-            sleep(5)
+        if txt == 'Search':
+            self.element_text(user['Loading'])
         elif txt == 'Reset':
-            sleep(3)
+            self.element_text(user['Loading'])
         else:
             sleep()
+
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.refresh()
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user['菜单'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+        self.refresh()
+        self.element_exist(user['Loading'])
+
+    @allure.step("断言：查询结果为空")
+    def assert_NoData(self):
+        logging.info('开始断言：查询结果为空')
+        total_text = self.element_text(user['Total'])
+        total = total_text[total_text.index(' ') + 1:]
+        logging.info(total_text)
+        ValueAssert.value_assert_equal(total, '0')
+
+    @allure.step("user management页面，输入查询条件")
+    def input_search(self, header, content):
+        """
+        @header： 输入框名称
+        @content： 输入内容
+        """
+        Date_list = ['Activation Time', 'Activated Date']
+        self.element_exist(user['Loading'])
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if content != '':
+            if header in Date_list:
+                createDate = content.split('To')
+                for i in range(len(createDate)):
+                    self.readonly_input_text(user['时间输入框'], createDate[i], header, i+1)
+                    self.is_click_tbm(user['输入框名称'], header)
+            else:
+                logging.error(f'无效字段：{header}，请输入正确的查询条件')
+                raise ValueError(f'无效字段：{header}，请输入正确的查询条件')
+
 
 if __name__ == '__main__':
     pass

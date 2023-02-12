@@ -52,15 +52,13 @@ class TestQueryInboundReceipt:
         query.click_reset()
 
 
-@allure.feature("采购管理-二代零售商收货")
-class TestQueryIMEIDetail:
-    @allure.story("查询IMEI详情信息")
+    @allure.story("查询二代零售商收货")
     @allure.title("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.description("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.severity("normal")  # 分别为5种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         query = InboundReceiptPage(drivers)
         query.click_unfold()
         query.click_select_brand('TECNO')

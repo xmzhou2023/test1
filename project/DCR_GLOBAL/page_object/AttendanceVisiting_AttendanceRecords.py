@@ -122,6 +122,12 @@ class AttendanceRecordPage(Base):
         sleep(1)
         self.is_click_dcr(user['Task Name value'], content)
 
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选标签'], 'Create Date')
+
     def get_task_user_id_text(self):
         """导出记录页面，获取列表 User ID文本"""
         user_id = self.element_text(user['获取用户ID文本'])

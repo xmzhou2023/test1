@@ -30,8 +30,9 @@ class TestImeiInventoryQuery:
     @allure.title("IMEI库存查询页面，查询IMEI库存每个筛选项,进行随机组合")
     @allure.description("IMEI库存页面，查询IMEI库存每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_imei_inventory_query_fixture')
-    def test_001_002(self, drivers):
+    def test_001_001(self, drivers):
         user = LoginPage(drivers)
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
