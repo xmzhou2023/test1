@@ -114,6 +114,7 @@ class TestShopSalesQuery:
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
 
+
     @allure.story("门店销量查询")
     @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
     @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")

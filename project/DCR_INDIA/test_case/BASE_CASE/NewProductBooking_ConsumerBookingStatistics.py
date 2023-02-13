@@ -42,6 +42,7 @@ class TestConsumerBookingStatistics:
         add.click_unfold()
         add.random_Query_Method(query_dict)
 
+
     @allure.story("顾客预订报表")
     @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
     @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
