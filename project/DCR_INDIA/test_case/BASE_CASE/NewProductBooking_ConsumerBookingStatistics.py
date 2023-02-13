@@ -42,5 +42,21 @@ class TestConsumerBookingStatistics:
         add.click_unfold()
         add.random_Query_Method(query_dict)
 
+    @allure.story("顾客预订报表")
+    @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_002(self, drivers):
+        user = ConsumerBookingStatistics(drivers)
+        user.click_menu("New Product Booking", "Consumer Booking Statistics")
+        user.click_unfold()
+        user.input_search('Activated Status', 'No')
+        user.input_search('Booking Date', '2019-01-01To2023-12-31')
+        user.input_search('Activated Date', '2019-01-01To2023-12-31')
+        user.click_search()
+        user.assert_NoData()
+
+
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])
