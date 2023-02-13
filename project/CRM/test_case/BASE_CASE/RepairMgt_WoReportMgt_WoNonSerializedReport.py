@@ -29,7 +29,7 @@ def module_fixture(drivers):
 
 @allure.feature("Repair Mgt-WO NonSerialized Report")
 class TestWoReportSearch:
-    @allure.story("查询非序列化报表所有数据") # 场景名称
+    @allure.story("查询非序列化报表数据") # 场景名称
     @allure.title("查询非序列化报表所有数据 ")  # 用例名称
     @allure.description("时间查询搜索框中的开始时间清除，再点击search，能查到报表数据")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
@@ -41,7 +41,7 @@ class TestWoReportSearch:
         ValueAssert.value_assert_equal(record[0], record[1], )
 
 
-    @allure.story("查询非序列化报表部分数据")  # 场景名称
+    @allure.story("查询非序列化报表数据")  # 场景名称
     @allure.title("根据国家和时间过滤非序列化报表数据")  # 用例名称
     @allure.description("country字段输入SL，from date输入当月1号，查询SL国家当月的非序列化报表数据")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial

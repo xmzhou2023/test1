@@ -44,6 +44,7 @@ class TestQueryDeliveryOrder:
     @allure.title("出库单页面，查询出库单列表加载数据")
     @allure.description("出库单页面，查询出库单列表加载数据正常，断言查询的出库单数据是否加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -64,10 +65,12 @@ class TestQueryDeliveryOrder:
         list1.assert_total(total)
         #list1.click_close_delivery_order()
 
+
     @allure.story("查询出库单")
     @allure.title("单一条件筛选出库单，筛选出正确数据")
     @allure.description("单一条件筛选出库单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         menu = LoginPage(drivers)
@@ -101,6 +104,7 @@ class TestQueryDeliveryOrder:
     @allure.title("组合条件筛选出库单，筛选出正确数据")
     @allure.description("组合条件筛选出库单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.UT
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_003(self, drivers):
         menu = LoginPage(drivers)
@@ -122,6 +126,7 @@ class TestQueryDeliveryOrder:
     @allure.title("组合条件筛选出库单，无筛选结果")
     @allure.description("组合条件筛选出库单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.UT
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_004(self, drivers):
         menu = LoginPage(drivers)
@@ -135,14 +140,13 @@ class TestQueryDeliveryOrder:
         user.assert_NoData()
 
 
-@allure.feature("销售管理-出库单")
-class TestViewDeliveryIMEIDetails:
-    @allure.story("查看出库单IMEI详情")
+    @allure.story("查询出库单")
     @allure.title("国包用户，查看出库单IMEI详情")
     @allure.description("国包用户，查看出库单IMEI详情")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_view_fixture')
-    def test_002_001(self, drivers):
+    def test_001_005(self, drivers):
         user1 = LoginPage(drivers)
         user1.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -177,8 +181,9 @@ class TestExportDeliveryOrder:
     @allure.title("出库单页面，导出筛选的出库单记录")
     @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_003_001(self, drivers):
+    def test_002_001(self, drivers):
         user2 = LoginPage(drivers)
         user2.initialize_login(drivers, 'BD40344201', 'dcr123456')
         """打开销售管理-打开出库单页面"""
@@ -212,12 +217,14 @@ class TestExportDeliveryOrder:
         #export.click_close_export_record()
         #export.click_close_delivery_order()
 
-    @allure.story("导出筛选的出库单详情")
+
+    @allure.story("导出筛选的出库单")
     @allure.title("出库单页面，导出筛选的出库单记录详情")
     @allure.description("出库单页面，筛选出库单记录后，导出筛选的出库单记录详情")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_003_002(self, drivers):
+    def test_002_002(self, drivers):
         user2 = LoginPage(drivers)
         user2.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -243,8 +250,9 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为无码的，买方为临时客户")
     @allure.description("国包用户，新建出库单，产品为无码时，买方为临时客户")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_001(self, drivers):
+    def test_003_001(self, drivers):
         user3 = LoginPage(drivers)
         user3.initialize_login(drivers, "EG40052202", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -298,8 +306,9 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家退货单")
     @allure.description("国包用户，新建出库单，产品为有码的，买方为临时客户,卖家创建退货单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_002(self, drivers):
+    def test_003_002(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开Report Analysis->IMEI Inventory Query菜单"""
@@ -410,8 +419,9 @@ class TestAddDeliveryOrder:
     @allure.title("二代用户，新建出库单，出库类型为BoxID，买方为零售商有多个门店，转零售商库存")
     @allure.description("二代用户，新建出库单，出库类型为BoxID，买方为零售商有多个门店，转零售商库存，卖家退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor  43012211021179
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_003(self, drivers):
+    def test_003_003(self, drivers):
         user5 = LoginPage(drivers)
         user5.initialize_login(drivers, "BD291501", "dcr123456")
         """打开销售管理-打开出库单页面"""
@@ -605,8 +615,9 @@ class TestAddDeliveryOrder:
     @allure.title("二代用户，新建出库单，出库类型为IMEI，买方为零售商有只有一个门店，自动转门店销量")
     @allure.description("二代用户，新建出库单，出库类型为IMEI，买方为零售商只有一个门店，自动转门店销量，卖家退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_004(self, drivers):
+    def test_003_004(self, drivers):
         user5 = LoginPage(drivers)
         user5.initialize_login(drivers, "NG2061301", "dcr123456")
         """打开IMEI Inventory Query菜单"""
@@ -788,8 +799,9 @@ class TestAddDeliveryOrder:
     @allure.title("二代用户，新建出库单，出库类型为IMEI，买方为零售商只有一个门店，自动转门店库存")
     @allure.description("二代用户，新建出库单，出库类型为IMEI，买方为零售商只有一个门店，自动转门店库存，买家退货指定传音人员审批")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_005(self, drivers):
+    def test_003_005(self, drivers):
         user5 = LoginPage(drivers)
         user5.initialize_login(drivers, "NG2061301", "dcr123456")
         """打开IMEI Inventory Query菜单"""
@@ -915,12 +927,14 @@ class TestAddDeliveryOrder:
         ValueAssert.value_assert_equal('Return To Seller', get_return_type)
 
 
-    @allure.story("导入出库单")
+
+    @allure.story("新建出库单")
     @allure.title("代理员工批量导入出库单")
     @allure.description("代理员工批量导入出库单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_006(self, drivers):
+    def test_003_006(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "SN405554", "xLily6x")
         """打开Sales Management/Delivery Ordery菜单"""
@@ -958,12 +972,13 @@ class TestAddDeliveryOrder:
         DomAssert(drivers).assert_att('Submit Success!')
 
 
-    @allure.story("导入出库单")
+    @allure.story("新建出库单")
     @allure.title("传音员工批量导入出库单")
     @allure.description("传音员工批量导入出库单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_007(self, drivers):
+    def test_003_007(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "18650493", "xLily6x")
         """打开Sales Management/Delivery Ordery菜单"""
@@ -1001,12 +1016,13 @@ class TestAddDeliveryOrder:
         DomAssert(drivers).assert_att('Submit Success!')
 
 
-    @allure.story("打印出库单")
+    @allure.story("新建出库单")
     @allure.title("打印出库单，断言是否弹出打印页面")
     @allure.description("打印出库单，断言是否弹出打印页面")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.UT
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_008(self, drivers):
+    def test_003_008(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "SN405554", "xLily6x")
         """打开Sales Management/Delivery Ordery菜单"""
@@ -1027,8 +1043,9 @@ class TestAddDeliveryOrder:
     @allure.title("国包用户，新建出库单，产品为有码的，出库类型为:SN产品，买方为二代用户")
     @allure.description("国包用户，新建出库单，产品为有码的，出库类型为:SN产品，买方为二代用户，买收货后，SN退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_004_009(self, drivers):
+    def test_003_009(self, drivers):
         user6 = LoginPage(drivers)
         user6.initialize_login(drivers, "IN40080501", "dcr123456")
         """打开IMEI Inventory Query菜单, 获取列表SN"""

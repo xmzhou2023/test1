@@ -121,9 +121,9 @@ class TestQueryShop:
         test = users.element_text(user['区域断言'])
         ValueAssert.value_assert_equal(test,'China')
 
-@allure.feature("门店-门店列表")
 @pytest.mark.parametrize("shopname,organization,country,province,city,address,city_level,region,linkman,phone,"
                          "shop_level,image_level,sales_volume_level,ownership,shop_square_measure,shop_storey_height,userinformation,monthlysales,expect",data)  # 通过parametrize装饰器传入数据
+@allure.feature("门店-门店列表")
 class TestAddShop:
     @allure.story("门店列表")
     @allure.title("门店新增")

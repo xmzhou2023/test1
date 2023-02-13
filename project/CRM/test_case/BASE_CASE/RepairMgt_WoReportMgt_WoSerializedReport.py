@@ -29,7 +29,7 @@ def module_fixture(drivers):
 
 @allure.feature("Repair Mgt-WO Serialized Report")
 class TestWoReportSearch:
-    @allure.story("查询序列化报表所有数据") # 场景名称
+    @allure.story("查询序列化报表数据") # 场景名称
     @allure.title("查询序列化报表所有数据 ")  # 用例名称
     @allure.description("时间查询搜索框中的开始时间清除，再点击search，能查到报表数据")
     @allure.severity("critical")  # blocker\critical\normal\minor\trivial
@@ -41,7 +41,7 @@ class TestWoReportSearch:
         ValueAssert.value_assert_equal(record[0], record[1], )
 
 
-    @allure.story("查询序列化报表部分数据")  # 场景名称
+    @allure.story("查询序列化报表数据")  # 场景名称
     @allure.title("根据国家和时间过滤序列化报表数据")  # 用例名称
     @allure.description("country字段输入IN，from date输入当月1号，查询IN国家当月的非序列化报表数据")
     @allure.severity("critical")  # blocker\critical\normal\minor\trivial
@@ -54,7 +54,7 @@ class TestWoReportSearch:
 
 @allure.feature("Repair Mgt-WO Serialized Report")
 class TestWoReportExport:
-    @allure.story("序列化报表导出全部数据成功")  # 场景名称
+    @allure.story("序列化报表导出数据")  # 场景名称
     @allure.title("导出序列化报表所有数据")  # 用例名称
     @allure.description("查询到序列化报表所有数据，可导出成功")
     @allure.severity("critical")  # blocker\critical\normal\minor\trivial
@@ -78,7 +78,7 @@ class TestWoReportExport:
 
 
 
-    @allure.story("序列化报表导出IN国家数据成功")  # 场景名称
+    @allure.story("序列化报表导出数据")  # 场景名称
     @allure.title("导出序列化报表中IN国家数据")  # 用例名称
     @allure.description("查询到IN国家的报表数据，可导出成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial

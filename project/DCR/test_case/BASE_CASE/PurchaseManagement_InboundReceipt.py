@@ -35,6 +35,7 @@ class TestQueryInboundReceipt:
     @allure.title("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
     @allure.description("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -64,14 +65,13 @@ class TestQueryInboundReceipt:
         #query.click_close_inbound_receipt()
 
 
-@allure.feature("采购管理-二代零售商收货")
-class TestQueryIMEIDetail:
-    @allure.story("查询IMEI详情信息")
+    @allure.story("查询二代零售商收货")
     @allure.title("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.description("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_inbound_imei_fixture')
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         user1 = LoginPage(drivers)
         user1.initialize_login(drivers, "BD291501", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例"""
@@ -115,8 +115,9 @@ class TestScanIMEIInboundReceipt:
     @allure.title("二代用户进入Inbound Receipt页面，点击扫码收货操作")
     @allure.description("二代用户进入Inbound Receipt页面，点击Stock-in by Scan扫码收货操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_003_001(self, drivers):
+    def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开Report Analysis->IMEI Inventory Query菜单"""
@@ -138,7 +139,6 @@ class TestScanIMEIInboundReceipt:
         # varsql1 = "SELECT IMEI FROM  t_channel_warehouse_current_stock WHERE WAREHOUSE_ID ='62139' AND STATUS = 1  limit 1"
         # result = sql1.query_db(varsql1)
         # imei = result[0].get("IMEI")
-
         """点击Add新增出库单按"""
         add.click_add()
         add.input_sub_buyer("BD2915")

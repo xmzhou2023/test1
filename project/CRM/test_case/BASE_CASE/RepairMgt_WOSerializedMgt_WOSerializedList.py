@@ -44,7 +44,7 @@ def module_setup_fixture(drivers):
 
 @allure.feature("WO Serialized Mgt-WO Serialized List")
 class TestAddWoList:
-    @allure.story("新增序列化工单成功") # 场景名称
+    @allure.story("新增序列化工单") # 场景名称
     @allure.title("序列化工单新增成功")  # 用例名称
     @allure.description("输入的imei在所选的仓库中有defective状态库存")
     @allure.severity("blocker")  # 用例等级
@@ -57,7 +57,7 @@ class TestAddWoList:
         num = DomAssert(drivers)
         num.assert_att(sn_imei)
 
-    @allure.story("新增序列化工单失败")  # 场景名称
+    @allure.story("新增序列化工单")  # 场景名称
     @allure.title("序列化工单新增失败")  # 用例名称
     @allure.description("输入的imei不在当前所选仓库")
     @allure.severity("blocker")  # 用例等级
@@ -72,7 +72,7 @@ class TestAddWoList:
 
 @allure.feature("WO Serialized Mgt-WO Serialized List")
 class TestSearchWoList:
-    @allure.story("查询序列化工单所有数据")  # 场景名称
+    @allure.story("查询序列化工单")  # 场景名称
     @allure.title("查询序列化工单所有数据")  # 用例名称
     @allure.description("查询条件都设置为空,查询所有序列化工单数据")
     @allure.severity("blocker")  # 用例等级
@@ -85,7 +85,7 @@ class TestSearchWoList:
 
 
 
-    @allure.story("查询序列化工单部分数据")  # 场景名称
+    @allure.story("查询序列化工单")  # 场景名称
     @allure.title("查询印度当月的序列化工单数据")  # 用例名称
     @allure.description("查询条件设置时间为当月，国家选择印度进行查询")
     @allure.severity("blocker")  # 用例等级

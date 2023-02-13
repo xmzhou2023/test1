@@ -23,13 +23,13 @@ class TestQueryUserSalaryMgt:
     @allure.title("工资管理页面，根据国家筛选员工工资单，列表数据加载")
     @allure.description("工资管理页面，根据国家筛选员工工资单，断言列表是否能查询到数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开考勤与巡店管理-打开巡店记录页面"""
         user.click_gotomenu("Rebate & Achievement", "User Salary Management")
-
         query = UserSalaryManagement(drivers)
         """根据User ID，筛选导入的数据，然后进行删除操作"""
         query.input_country_query_search('China')
@@ -57,6 +57,7 @@ class TestEditUserSalaryMgt:
     @allure.title("员工工资管理页面，编辑员工基本工资操作")
     @allure.description("员工工资管理页面，编辑员工基本工资操作，断言列表是否显示编辑后的基本工资")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
@@ -75,10 +76,11 @@ class TestEditUserSalaryMgt:
 
 @allure.feature("返利模块-员工工资管理")
 class TestImportDeleteSalaryMgt:
-    @allure.story("导入、删除员工工资单")
+    @allure.story("导入员工工资单")
     @allure.title("员工工资管理页面，导入、删除员工工资操作")
     @allure.description("员工工资管理页面，导入、删除员工工资操作，断言列表是否显示导入的员工工资数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_001(self, drivers):
         user = LoginPage(drivers)
@@ -145,10 +147,11 @@ class TestImportDeleteSalaryMgt:
         DomAssert(drivers).assert_att('Deleted Successfully')
 
 
-    @allure.story("Import导入错误的文件")
+    @allure.story("导入员工工资单")
     @allure.title("员工工资管理页面，Import导入错误的文件，导入失败")
     @allure.description("员工工资管理页面，Import导入错误的员工工资操作，断言导入记录页面，导入状态失败")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_002(self, drivers):
         user = LoginPage(drivers)
@@ -184,10 +187,11 @@ class TestImportDeleteSalaryMgt:
         menu.click_close_open_menu()
 
 
-    @allure.story("导入、删除工资明细单")
+    @allure.story("导入员工工资单")
     @allure.title("员工工资管理页面，导入、删除工资明细单操作")
     @allure.description("员工工资管理页面，导入、删除工资明细单，断言列表是否显示导入的员工工资明细单数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_003(self, drivers):
         user = LoginPage(drivers)
@@ -254,10 +258,11 @@ class TestImportDeleteSalaryMgt:
         DomAssert(drivers).assert_att('Deleted Successfully')
 
 
-    @allure.story("Import Payslip 导入错误的文件")
+    @allure.story("导入员工工资单")
     @allure.title("员工工资管理页面，Import Payslip 导入错误的文件，导入失败")
     @allure.description("员工工资管理页面，Import Payslip 导入错误的员工工资操作，断言导入记录页面，导入状态失败")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_004(self, drivers):
         user = LoginPage(drivers)

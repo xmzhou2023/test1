@@ -102,7 +102,7 @@ class TestAddInitializationOrder:
         DomAssert(drivers).assert_att('351364951220222')
 
 
-    @allure.story("新建Box ID库存初始化")
+    @allure.story("新建IMEI库存初始化")
     @allure.title("库存管理页面，新建Box ID库存初始化，输入仓库已存在的Box ID")
     @allure.description("库存管理页面，新建Box ID库存初始化，输入仓库已存在的Box ID，检查不通过")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor

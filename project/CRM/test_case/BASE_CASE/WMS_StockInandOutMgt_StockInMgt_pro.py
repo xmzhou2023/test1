@@ -32,7 +32,7 @@ def module_fixture(drivers):
 
 @allure.feature("WMS-Stock in&out Mgt-Stock in-pro")
 class TestStockInSearch:
-    @allure.story("查询当月各个业务类型的入库单数据")  # 场景名称
+    @allure.story("查询入库单数据")  # 场景名称
     @allure.title("根据type和时间筛选值进行查询")  # 用例名称
     @allure.description("type选择各种业务类型,时间默认为当前月，其余条件为空进行查询")
     @allure.severity("blocker")  # 用例等级

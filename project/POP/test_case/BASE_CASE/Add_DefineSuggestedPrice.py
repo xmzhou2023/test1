@@ -15,7 +15,7 @@ def setup_module(drivers):
 
 @allure.feature("商品-定义建议价格")  # 模块名称
 class TestAdd_DefineSuggestedPrice:
-    @allure.story("新增商品建议价格")  # 场景名称
+    @allure.story("定义建议价格")  # 场景名称
     @allure.title("点击新增")  # 用例名称
     @allure.description("输入商品建议价格")
     @allure.severity("normal")  # 用例等级
