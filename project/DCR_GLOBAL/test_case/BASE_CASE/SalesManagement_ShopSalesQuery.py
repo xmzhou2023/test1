@@ -30,7 +30,7 @@ def function_menu_fixture(drivers):
 
 @allure.feature("销售管理-门店销售查询")
 class TestQueryShopSalesQuery:
-    @allure.story("查询门店销量")
+    @allure.story("门店销售查询")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
@@ -63,15 +63,13 @@ class TestQueryShopSalesQuery:
             shop_sales.assert_total2(total)
 
 
-@allure.feature("销售管理-门店销售查询")
-class TestExportShopSalesQuery:
-    @allure.story("导出查询门店销量")
+    @allure.story("门店销售查询")
     @allure.title("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
-    def test_002_001(self, drivers):
+    def test_001_002(self, drivers):
         """打开销售管理-打开门店销售查询页面"""
         menu = DCRLoginPage(drivers)
         menu.click_gotomenu("Sales Management", "Shop Sales Query")
@@ -115,6 +113,20 @@ class TestExportShopSalesQuery:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+
+    @allure.story("门店销售查询")
+    @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_003(self, drivers):
+        user = ShopSaleQueryPage(drivers)
+        user.click_menu("Sales Management", "Shop Sales Query")
+        user.click_unfold()
+        user.input_search('Activation Status', 'Not Activated')
+        user.input_search('Activation Date', '2019-01-01To2023-12-31')
+        user.input_search('Upload Date', '2019-01-01To2023-12-31')
+        user.click_search()
+        user.assert_NoData()
 
 
 if __name__ == '__main__':

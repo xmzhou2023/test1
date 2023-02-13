@@ -13,7 +13,7 @@ from project.DCR_INDIA.page_object.ShopManagement_ShopManagement import ShopMana
 """
 
 @allure.feature("门店管理-门店管理") # 模块名称
-class TestSearch:
+class TestSearchShopManagement:
     @allure.story("查询全球门店") # 场景名称
     @allure.title("随机条件组合查询")  # 用例名称
     @allure.description("门店管理页面，随机条件组合查询")

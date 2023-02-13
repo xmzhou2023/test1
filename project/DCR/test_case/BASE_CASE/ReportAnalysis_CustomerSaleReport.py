@@ -16,13 +16,13 @@ def function_sale_report_fixture(drivers):
     close = CustomerSalesReportPage(drivers)
     close.click_close_cust_sale_report()
 
-
 @allure.feature("报表分析-客户销售报表")
 class TestQueryCustomerSalesReport:
-    @allure.story("国包用户查看客户销售报表")
+    @allure.story("查看客户销售报表")
     @allure.title("国包用户查看客户销售报表，统计出库数、退货数与实际销售数")
     @allure.description("国包用户查看客户销售报表，统计出库数、退货数与实际销售数")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_sale_report_fixture')
     def test_001_001(self, drivers):
         """国包账号登录"""

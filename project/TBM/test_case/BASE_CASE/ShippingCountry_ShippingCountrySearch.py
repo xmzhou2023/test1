@@ -414,7 +414,7 @@ class TestTheProcessOfExaminationAndApproval:
 
 @allure.feature("出货国家-出货国家查询")
 class TestCreateProcessExceptionScenario:
-    @allure.story("创建流程异常场景")
+    @allure.story("流程审批异常场景")
     @allure.title("变更产品，【xxxxx】产品存在在途单据【xxxxxx】")
     @allure.description("选中一条数据点击变更产品，进行发起后，再次选中该条数据点击进行变更产品，不能进行发起，并提示【xxxxx】产品存在在途单据【xxxxxx】")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
@@ -429,7 +429,7 @@ class TestCreateProcessExceptionScenario:
         user.click_change('变更产品')
         DomAssert(drivers).assert_att(f'【出货国家查询变更产品部分流程_出货国家查询变更产品部分流程_64+6_公开市场】产品存在在途单据【{SaleCountry_ProductChange_API[0]}】')
 
-    @allure.story("创建流程异常场景")
+    @allure.story("流程审批异常场景")
     @allure.title("变更国家，第1行产品国家【xxxxx】已经存在流程中单据【xxxxxxx】！")
     @allure.description("选中一条数据点击变更国家，进行发起后，再次选中该条数据点击变更国家还是变更一样的国家，发起时会给出提示第1行产品国家【xxxxx】已经存在流程中单据【xxxxxxx】！")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial

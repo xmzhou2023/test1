@@ -181,7 +181,7 @@ class TestFGsunking:
         user = FGsunking(drivers)
         user.click_cancel()
 
-@allure.feature("Operation_FGsunking_download") # 模块名称
+@allure.feature("Operation_FGsunking") # 模块名称
 class TestFGsunking_Download:
     @allure.story("PolicyMgt_sunking_Download") # 场景名称
     @allure.title("sunking数据导出")  # 用例名称

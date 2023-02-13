@@ -23,6 +23,7 @@ class TestShopPurchaseQuery:
     @allure.title("页面随机组合查询")
     @allure.description("随机组合查询")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -59,10 +60,12 @@ class TestShopPurchaseQuery:
         add.click_unfold()
         add.random_Query_Method(query_dict)
 
+
     @allure.story("门店采购查询")
     @allure.title("撤回门店入库单成功")
     @allure.description("取消撤回门店入库单：Commited状态的可取消")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "SenegalwjkPromoterInfinix", "xLily6x")
@@ -88,10 +91,12 @@ class TestShopPurchaseQuery:
         user.click_cancel()
         DomAssert(drivers).assert_att('Cancel success')
 
+
     @allure.story("门店采购查询")
     @allure.title("撤回门店入库单失败")
     @allure.description("取消撤回门店入库单：Canceled状态的不可取消")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_003(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "SenegalwjkPromoterInfinix", "xLily6x")
@@ -108,10 +113,12 @@ class TestShopPurchaseQuery:
         user.click_cancel()
         DomAssert(drivers).assert_att('The IMEI has been cancelled.')
 
+
     @allure.story("门店采购查询")
     @allure.title("导出查询记录成功")
     @allure.description("导出Shop Purchase Query查询记录")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_004(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "SenegalwjkPromoterInfinix", "xLily6x")
@@ -130,10 +137,12 @@ class TestShopPurchaseQuery:
         user.assert_Record_result('Export Record', 'Shop Purchase Query', 'Download Status', 'COMPLETE')
         user.assert_Record_result('Export Record', 'Shop Purchase Query', 'File Size')
 
+
     @allure.story("门店采购查询")
     @allure.title("批量导入门店库存成功")
     @allure.description("批量导入门店库存")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_005(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "SenegalwjkPromoterInfinix", "xLily6x")

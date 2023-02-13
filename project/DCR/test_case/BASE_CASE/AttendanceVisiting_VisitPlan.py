@@ -21,6 +21,7 @@ class TestVisitPlan:
     @allure.title("查询巡店计划页面，根据Shop查询巡店计划信息，列表数据加载")
     @allure.description("巡店计划页面，根据Shop查询巡店计划列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)

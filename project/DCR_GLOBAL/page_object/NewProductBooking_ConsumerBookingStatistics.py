@@ -86,8 +86,8 @@ class ConsumerBookingStatistics(Base):
                     self.input_text(user['时间输入框'], createDate[i], header, i+1)
                     self.is_click_tbm(user['输入框名称'], header)
             else:
-                logging.error('请输入正确的查询条件')
-                raise ValueError('请输入正确的查询条件')
+                logging.error(f'无效字段：{header}，请输入正确的查询条件')
+                raise ValueError(f'无效字段：{header}，请输入正确的查询条件')
 
     @allure.step("判断空值")
     def assert_None(self, result):
@@ -186,6 +186,15 @@ class ConsumerBookingStatistics(Base):
         self.click_search()
         for i in list_random:
             self.assert_search_result(i, kwargs[i])
+
+    @allure.step("断言：查询结果为空")
+    def assert_NoData(self):
+        logging.info('开始断言：查询结果为空')
+        total_text = self.element_text(user['Total'])
+        total = total_text[total_text.index(' ') + 1:]
+        logging.info(total_text)
+        ValueAssert.value_assert_equal(total, '0')
+
 
 if __name__ == '__main__':
     pass

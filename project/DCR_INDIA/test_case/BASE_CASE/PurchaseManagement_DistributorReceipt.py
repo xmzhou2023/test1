@@ -25,7 +25,7 @@ def function_dist_receipt_fixture(drivers):
     close.click_close_distributor_receipt_query()
 
 @allure.feature("采购管理-国包收货")
-class TestQueryIMEIDetail:
+class TestDistributorReceipt:
     @allure.story("查询国包收货")
     @allure.title("国包收货页面，查询国包收货每个筛选项,进行随机组合")
     @allure.description("国包收货页面，查询国包收货每个筛选项，进行随机组合，断言查询结果数据符合查询条件")

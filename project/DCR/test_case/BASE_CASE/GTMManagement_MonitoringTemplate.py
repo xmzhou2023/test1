@@ -21,8 +21,8 @@ class TestAddMonitorTemplate:
     @allure.title("预警模板页面，新增预警模板,选择Inventory Monitor类型的预警模板")
     @allure.description("预警模板页面，新增预警模板操作，断言列表是否加载新增的预警模板")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
     @pytest.mark.UT
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")

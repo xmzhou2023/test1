@@ -3,7 +3,7 @@ import logging, allure
 from py._xmlgen import html
 from selenium import webdriver
 from time import sleep
-from libs.common.inspect_ymal import inspect_element
+from libs.common.inspect_ymal import inspect_element, inspect_description
 from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
 from selenium.webdriver.remote.file_detector import LocalFileDetector
 
@@ -78,6 +78,7 @@ def drivers(request, remote_url, remote_ui=False):
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
             driver = webdriver.Remote(remote_url, options=option)
             inspect_element() # page_element YMAL文件自检
+            inspect_description() # test_case目录下子文件夹自检
         else:
             if remote_ui:
                 '''win系统下VNC界面模式'''
@@ -96,6 +97,7 @@ def drivers(request, remote_url, remote_ui=False):
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
                 driver = webdriver.Remote(remote_url, options=option)
                 inspect_element() # page_element YMAL文件自检
+                inspect_description()  # test_case目录下子文件夹自检
             else:
                 option = webdriver.ChromeOptions()
                 prefs = {"": ""}
@@ -109,6 +111,7 @@ def drivers(request, remote_url, remote_ui=False):
                 driver = webdriver.Chrome(options=option)
                 driver.maximize_window()
                 inspect_element() # page_element YMAL文件自检
+                inspect_description()  # test_case目录下子文件夹自检
     def fn():
         sleep(5)
         driver.quit()

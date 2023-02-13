@@ -29,7 +29,6 @@ class AssetsMgtPage(Base):
 
     @allure.step("Assets Code页面，筛选框下拉框查询")
     def Get_search(self, status, choice):
-        self.refresh()
         self.is_click(user['筛选框'], choice)
         self.input_text(user['筛选框'], status, choice)
         self.hover(user['下拉框data'], status)

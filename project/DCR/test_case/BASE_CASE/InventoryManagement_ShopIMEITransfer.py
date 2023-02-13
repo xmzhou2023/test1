@@ -18,10 +18,11 @@ def function_menu_fixture(drivers):
 
 @allure.feature("库存管理-门店IMEI调店")
 class TestQueryIMEITransfer:
-    @allure.story("查询门店IMEI调店数据")
+    @allure.story("查询门店IMEI调店")
     @allure.title("库存管理页面，按状态查询门店IMEI调店")
     @allure.description("库存管理页面，按状态查询门店IMEI调店")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user2 = LoginPage(drivers)
@@ -45,10 +46,11 @@ class TestQueryIMEITransfer:
         query.assert_total(get_total)
 
 
-    @allure.story("查询门店IMEI调店数据")
+    @allure.story("查询门店IMEI调店")
     @allure.title("库存管理页面，按单个条件查询门店IMEI调店")
     @allure.description("库存管理页面，按单个条件查询门店IMEI调店")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         user2 = LoginPage(drivers)
@@ -140,10 +142,11 @@ class TestQueryIMEITransfer:
 
 @allure.feature("库存管理-门店IMEI调店")
 class TestNewRejectIMEITransfer:
-    @allure.story("新建门店IMEI调拨单，然后审核拒绝门店IMEI调店")
+    @allure.story("新建门店IMEI调拨单")
     @allure.title("库存管理页面，新建门店IMEI调拨单，然后审核拒绝门店IMEI调店操作")
     @allure.description("库存管理页面，新建门店IMEI调店、拒绝门店IMEI调店操作,Shop:EG000397,EG000388")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         user1 = LoginPage(drivers)
@@ -185,9 +188,7 @@ class TestNewRejectIMEITransfer:
         ValueAssert.value_assert_equal('Rejected', get_status)
 
 
-    @allure.feature("库存管理-门店IMEI调店")
-    class TestNewRejectIMEITransfer:
-        @allure.story("新建门店IMEI调拨单，一次拒绝多条调拨单")
+        @allure.story("新建门店IMEI调拨单单")
         @allure.title("库存管理页面，新建门店IMEI调拨单，一次拒绝多条调拨单")
         @allure.description("库存管理页面，新建门店IMEI调拨单、一次拒绝多条调拨单,Shop:EG000397,EG000388")
         @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
@@ -256,7 +257,7 @@ class TestNewRejectIMEITransfer:
             add_shop_transfer.assert_shop_imei_transfer_field('Status', 'Rejected')
 
 
-    @allure.story("新建并审核门店IMEI调店")
+    @allure.story("新建门店IMEI调拨单")
     @allure.title("库存管理页面，新建门店IMEI调拨单(出库IMEI)，并审核门店调拨单")
     @allure.description("库存管理页面，新建门店IMEI调拨单(出库IMEI)，并审核门店调拨单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -327,11 +328,11 @@ class TestNewRejectIMEITransfer:
         approve.assert_shop_imei_transfer_field('To Shop ID', 'EG000397')
 
 
-    @allure.story("新建并审核门店IMEI调店")
+    @allure.story("新建门店IMEI调拨单")
     @allure.title("库存管理页面，创建门店调拨单(出库IMEI)，一次审核同意多条门店调拨单")
     @allure.description("库存管理页面，创建门店调拨单(出库IMEI)，一次审核同意多条门店调拨单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor 352427572805108
-    @pytest.mark.UI  # 用例标记
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_004(self, drivers):
         user1 = LoginPage(drivers)
@@ -430,10 +431,11 @@ class TestNewRejectIMEITransfer:
 
 
 
-    @allure.story("新建门店IMEI调店,无需审核")
+    @allure.story("新建门店IMEI调拨单")
     @allure.title("库存管理页面，新建门店IMEI调店，配置无需审核，新建成功后自动审核通过")
     @allure.description("库存管理页面，新建门店IMEI调店，配置无需审核，新建成功后自动审核通过")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_005(self, drivers):
         user1 = LoginPage(drivers)
@@ -481,10 +483,11 @@ class TestNewRejectIMEITransfer:
         add_shop_transfer.assert_shop_imei_transfer_field('To Shop ID', 'SN001872')
 
 
-    @allure.story("新建并审核门店IMEI调店")
+    @allure.story("新建门店IMEI调拨单")
     @allure.title("库存管理页面，新建门店IMEI调店(出库SN)，并审核门店IMEI调店")
     @allure.description("库存管理页面，新建门店IMEI调店(出库SN)，审核门店IMEI调店")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_006(self, drivers):
         user1 = LoginPage(drivers)
@@ -535,10 +538,11 @@ class TestNewRejectIMEITransfer:
 
 @allure.feature("库存管理-门店IMEI调店")
 class TestApproveRejectTransfer:
-    @allure.story("将Approved状态的数据，进行Reject拒绝操作")
+    @allure.story("拒绝门店IMEI调拨单")
     @allure.title("门店IMEI调店页面，将Approved状态的数据，进行Reject拒绝操作")
     @allure.description("库存管理页面，门店IMEI调店页面，将Approved状态的数据，进行Reject拒绝操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.RT  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_001(self, drivers):
         user2 = LoginPage(drivers)
@@ -558,10 +562,11 @@ class TestApproveRejectTransfer:
         DomAssert(drivers).assert_att('The data you selected include completed, please reselect')
 
 
-    @allure.story("将Reject状态的数据，进行Approved拒绝操作")
+    @allure.story("拒绝门店IMEI调拨单")
     @allure.title("门店IMEI调店页面，将Reject状态的数据，进行Approved拒绝操作")
     @allure.description("库存管理页面，门店IMEI调店页面，将Reject状态的数据，进行Reject拒绝操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.RT  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_002(self, drivers):
         user2 = LoginPage(drivers)

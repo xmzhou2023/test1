@@ -26,38 +26,40 @@ def function_imei_inventory_query_fixture(drivers):
 
 @allure.feature("报表分析-IMEI库存查询")
 class TestImeiInventoryQuery:
-    @allure.story("查询IMEI库存")
+    @allure.story("IMEI库存查询")
     @allure.title("IMEI库存查询页面，查询IMEI库存每个筛选项,进行随机组合")
     @allure.description("IMEI库存页面，查询IMEI库存每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_imei_inventory_query_fixture')
-    def test_001_002(self, drivers):
+    def test_001_001(self, drivers):
         user = DCRLoginPage(drivers)
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = ImeiInventoryQuery(drivers)
+        sleep(3)
         page.click_button('Unfold')
         """查询Activation Time，对结果进行判断,注意字典的键要和表格的表头一致"""
-        query_dic={'Receive Date':'2022-11-30',
-                   'Box ID':'04012211110366',
-                   'Customer ID':'TH101048',
-                   'Customer Type':'Distributor',
-                   'Material ID':'10604687',
-                   'Warehouse ID':'WTH10104801',
-                   'Warehouse Type':'Main Warehouse',
-                   'SAP Customer ID':'101048',
-                   'IMEI/SN':'351387530482203',
-                   'Sales Region 3':'Bkk',
-                   'Activated Or Not':'Yes',
-                   'Brand':'TECNO',
-                   'Model':'BD4a',
-                   'Market Name':'POP 5 LTE',
-                   'Series':'POP',
-                   'Category':'Mobile',
-                   'Dealer Category':'Distributor',
-                   'Activation Date':'2022-12-01'}
+        query_dic={'Receive Date': '2023-02-08',
+                   'Box ID': '75012301110318',
+                   'Customer ID': 'PK413803',
+                   'Customer Type': 'Retailer',
+                   'Material ID': '10032437',
+                   'Warehouse ID': 'WPK41380301',
+                   'Warehouse Type': 'Main Warehouse',
+                   #'SAP Customer ID': '',
+                   'IMEI/SN': '358964614398662',
+                   'Sales Region 3': 'South',
+                   'Activated Or Not': 'No',
+                   'Brand': 'Infinix',
+                   'Model': 'X6817',
+                   'Market Name': 'HOT 12',
+                   'Series': 'HOT',
+                   'Category': 'Mobile',
+                   #'Dealer Category': '',
+                   #'Activation Date': ''
+                   }
         list_query = []
         for i in query_dic:
             list_query.append(i)
@@ -79,6 +81,19 @@ class TestImeiInventoryQuery:
                 ValueAssert.value_assert_date_in(attribute,query_dic[i],query_dic[i])
             else:
                 ValueAssert.value_assert_equal(attribute, query_dic[i])
+
+    @allure.story("IMEI库存查询")
+    @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_002(self, drivers):
+        add = ImeiInventoryQuery(drivers)
+        add.click_menu("Report Analysis", "IMEI Inventory Query")
+        add.click_button('Unfold')
+        add.select_content('Activated Or Not', 'No')
+        add.input_search('Activation Time', '2019-01-01To2023-12-31')
+        add.click_button('Search')
+        add.assert_NoData()
 
 
 if __name__ == '__main__':

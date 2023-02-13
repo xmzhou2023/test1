@@ -9,18 +9,20 @@ import random
 from project.IPM.page_object.Generalmethods import General_methods
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 from project.IPM.page_base.pathconfig import *
-Api = APIRequest()
+
 
 now_times = strftime('%Y-%m-%d%H:%M:%S')
 now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
 
 class SystemManagement(General_methods):
-    def __init__(self,driver,element_yaml='system_management',expect='system_management.yaml'):
+    def __init__(self,driver,env_name,element_yaml='system_management',expect='system_management.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
+        self.Api = APIRequest(env_name)
+        self.ini = ReadConfig(pro_name, env_name)
 
     def get_url_system_management_object(self):
-        self.get_url("http://ipm-uat.transsion.com/#/system-manage/object-manage")
+        self.get_url(f"{self.ini._get('HOST', 'url_ipm')}/#/system-manage/object-manage")
         sleep(2)
 
     def system_management_object_all(self,objectaname,*levelname):
@@ -136,6 +138,7 @@ class SystemManagement(General_methods):
         '''
         if  Objectsoperatedon == '新增属性':
             self.click_IPM('对象_检入中_新增属性_功能键',Objectsoperatedon,functionkeys)
+
         elif Objectsoperatedon !=None:
             objectname = self.element_exist_IPM('对象_点击对象名称', Objectsoperatedon)
             if objectname == True:
@@ -145,6 +148,13 @@ class SystemManagement(General_methods):
                     self.click_IPM('对象_树结构_对象右侧功能键', functionkeys)
                 else:
                     self.click_IPM('对象_右键点击_删除_功能键', functionkeys)
+        elif Objectsoperatedon ==  None:
+            if functionkeys =='确定':
+                sleep(1)
+                try:
+                    self.click_IPM('对象_右键点击_删除_功能键',functionkeys)
+                except:
+                    self.click_IPM('对象_撤销检出_功能键', functionkeys)
 
         else:
             UndoCheckOut = self.element_exist_IPM('对象_撤销检出_功能键', functionkeys)#撤销检出提示
@@ -164,7 +174,7 @@ class SystemManagement(General_methods):
         :param Subobject: 子对象
         '''
         if functionkeys =='新建' :#functionkeys传入删除/新建，则需要传入对象的名字，不然不会显示对象隐藏的功能键
-            self.mouse_hover_IPM('对象_编辑树结构文本',Objectsoperatedon)
+            self.mouse_hover_IPM('对象_点击对象名称',Objectsoperatedon)
             self.click_IPM('对象_树结构_对象右侧功能键', Objectsoperatedon,functionkeys)
             if textname =='确定' or textname =='取消' :
                 self.system_management_object_editobject(Subobject)
@@ -347,8 +357,10 @@ class SystemManagement(General_methods):
 
 
 class Assert_result_system_management(AssertMode):
-    def __init__(self,driver,element_yaml='system_management', expect='system_management.yaml'):
+    def __init__(self,driver,env_name,element_yaml='system_management', expect='system_management.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
+        self.Api = APIRequest(env_name)
+        self.ini = ReadConfig(pro_name, env_name)
 
 
 

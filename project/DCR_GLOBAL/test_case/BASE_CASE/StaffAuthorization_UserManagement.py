@@ -11,9 +11,8 @@ import pytest
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 
-
 @allure.feature("员工授权-用户管理") # 模块名称
-class TestSearch:
+class TestUserManagementSearch:
     @allure.story("查询用户")
     @allure.title("随机条件组合查询")
     @allure.description("用户管理页面，查询用户列表所有用户数据加载")
@@ -22,19 +21,19 @@ class TestSearch:
     def test_001_001(self, drivers):
         """变量"""
         query_dict = {
-            'User ID': 'PK2021301',
-            'User Name': 'Ahmed Mobile+Okara',
-            'Superior': '',
-            'Sales Region': 'Okara',
+            'User ID': 'testdzz',
+            'User Name': 'testdeng',
+            'Superior': 'testsupervisor',
+            'Sales Region': 'Nigeria',
             'Staff Status': 'On Service',
-            'Have Superior or Not': 'No',
-            'Have Shop or Not': 'No',
-            'Staff Type': 'Dealer Staff',
-            'Belong To Customer': 'PK20213',
-            'Country/City': 'Okara',
+            'Have Superior or Not': 'Yes',
+            'Have Shop or Not': 'Yes',
+            'Staff Type': 'Transsion Staff',
+            'Belong To Customer': '',
+            'Country/City': 'Barde',
             'Brand': 'TECNO',
-            'Position': 'Sub_dealer Sales Manager',
-            'Role': 'Sub_dealer Sales Manager'
+            'Position': 'Test_Position',
+            'Role': 'test role'
         }
         add = UserManagementPage(drivers)
         add.click_menu("Staff & Authorization", "User Management")

@@ -12,7 +12,7 @@ from project.CRM.page_object.Center_Component import *
         trivial级别:轻微缺陷(必输项无提示， 或者提示不规范)
 """
 
-@pytest.fixture(scope='module', autouse=True) # 模块名称
+@pytest.fixture(scope='module', autouse=True)  # 模块名称
 def module_fixture(drivers):
     logging.info("模块前置条件，前往Warehouse List页面")
     user = NavPage(drivers)
@@ -25,7 +25,7 @@ def module_fixture(drivers):
     user = NavPage(drivers)
     user.click_gotonav("WMS")
 
-@allure.feature('Warehouse List') #模块名称
+@allure.feature('Warehouse List')  # 模块名称
 class TestSearchWarehouse:
     @allure.story("查询仓库数据")
     @allure.title("查询SWH仓库")

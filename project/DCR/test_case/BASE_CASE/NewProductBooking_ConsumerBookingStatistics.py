@@ -13,12 +13,12 @@ from project.DCR.page_object.NewProductBooking_ConsumerBookingStatistics import 
 """
 
 @allure.feature("新品预订-顾客预订报表") # 模块名称
-class TestSearch:
+class TestConsumerBookingStatistics:
     @allure.story("页面查询") # 场景名称
     @allure.title("组合查询")  # 用例名称
     @allure.description("组合查询")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.UT
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         """变量"""
         query_dict = {

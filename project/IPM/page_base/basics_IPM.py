@@ -49,9 +49,9 @@ class PubicMethod(Base):
         '''鼠标悬停'''
         self.mouse_hover(self.chome[element], choice=choice)
 
-    def element_exist_IPM(self,element,choice=None):
+    def element_exist_IPM(self,element,choice=None,choice1=None,choice2=None,choice3=None):
         """校验元素是否存在"""
-        return  self.element_exist(self.chome[element],choice)
+        return  self.element_exist(self.chome[element],choice,choice1,choice2,choice3)
 
     def mouse_right_click_ipm(self,element,choice=None):
         '''鼠标右击'''
