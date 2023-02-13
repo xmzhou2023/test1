@@ -27,8 +27,8 @@ def function_menu_fixture(drivers):
 
 
 @allure.feature("销售管理-竞品销售查询") # 模块名称
-class TestQueryCompe:
-    @allure.story("查询竞品销售信息") # 场景名称
+class TestCompetitorSales:
+    @allure.story("竞品销售") # 场景名称
     @allure.title("查询各个常用条件下销售信息")  # 用例名称
     @allure.description("查询后检查结果中是否有对应字段信息")
     @allure.severity("normal")  # 用例等级
@@ -39,22 +39,19 @@ class TestQueryCompe:
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开打开销售管理-打开竞品销售查询页面"""
         user.click_gotomenu("Sales Management", "Competitor Sales Query")
-        page=CompetitorSalesQuery(drivers)
-
+        page = CompetitorSalesQuery(drivers)
         #查询上传日期并断言日期和查询结果一致
         page.input_upload_date('2022-09-06','2022-09-06')
         page.click_search()
-        result_date=page.get_table_txt(2)    #第2列
+        result_date = page.get_table_txt(2)    #第2列
         ValueAssert.value_assert_In('2022-09-06',result_date)
         page.click_reset()
-
         #查询销售区域并断言列表和查询结果一致
         page.select_sale_area('Senegal')
         page.click_search()
-        result_area=page.get_table_txt(20)      #第20列
+        result_area = page.get_table_txt(20)      #第20列
         ValueAssert.value_assert_In('Senegal',result_area)
         page.click_reset()
-
         # 查询品牌并断言品牌和查询结果一致
         page.select_sale_brand('Acer')
         page.click_search()
@@ -63,7 +60,7 @@ class TestQueryCompe:
         page.click_reset()
 
 
-    @allure.story("查询竞品销售信息") # 场景名称
+    @allure.story("竞品销售") # 场景名称
     @allure.title("查询各个不常用条件下的销售信息")  # 用例名称
     @allure.description("查询后检查结果中是否有对应字段信息")
     @allure.severity("normal")  # 用例等级
@@ -74,17 +71,14 @@ class TestQueryCompe:
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开打开销售管理-打开竞品销售查询页面"""
         user.click_gotomenu("Sales Management", "Competitor Sales Query")
-
-        page=CompetitorSalesQuery(drivers)
+        page = CompetitorSalesQuery(drivers)
         page.click_unfold()
-
         #查询上传日期并断言日期和查询结果一致
         page.input_sales_date('2022-09-06','2022-09-06')
         page.click_search()
         result_date=page.get_table_txt(8)    #第八列
         ValueAssert.value_assert_In('2022-09-06',result_date)
         page.click_reset()
-
         #查询店铺并断言店铺和查询结果一致
         page.select_shop('BD017762')
         page.click_search()
@@ -93,25 +87,23 @@ class TestQueryCompe:
         page.click_reset()
 
 
-class TestExportCompe:
-    @allure.story("导出竞品销售信息") # 场景名称
+    @allure.story("竞品销售") # 场景名称
     @allure.title("导出固定条件下的销售信息")  # 用例名称
     @allure.description("导出页面数据保证功能可用")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture') # 用例标记
-    def test_002_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
+    def test_001_003(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开打开销售管理-打开竞品销售查询页面"""
         user.click_gotomenu("Sales Management", "Competitor Sales Query")
-        page=CompetitorSalesQuery(drivers)
+        page = CompetitorSalesQuery(drivers)
         page.click_unfold()
-
         #查询上传日期并断言日期和查询结果一致
         page.input_country('Egypt')
         page.click_search()
-        result_date=page.get_table_txt(11)    #第11列
+        result_date = page.get_table_txt(11)    #第11列
         ValueAssert.value_assert_In('Egypt',result_date)
         page.click_reset()
         page.click_export()

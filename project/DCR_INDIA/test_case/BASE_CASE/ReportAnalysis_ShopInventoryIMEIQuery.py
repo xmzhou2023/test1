@@ -58,7 +58,6 @@ class TestShopInventoryIMEIQuery:
         ValueAssert.value_assert_IsNoneNot(model)
         shop_inventory.assert_total(total)
 
-
     @allure.story("门店库存IMEI查询")
     @allure.title("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的数据")
     @allure.description("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的门店库存IMEI数据，断言导出数据加载正常")
@@ -102,6 +101,22 @@ class TestShopInventoryIMEIQuery:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+
+    @allure.story("门店库存IMEI查询")
+    @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_003(self, drivers):
+        user = ShopInventoryIMEIQueryPage(drivers)
+        user.click_menu("Report Analysis", "Shop Inventory IMEI Query")
+        user.click_unfold()
+        user.input_search('Activation Status', 'Not Activated')
+        user.input_search('Activated Date', '2019-01-01To2023-12-31')
+        user.input_search('Inbound Date', '2019-01-01To2023-12-31')
+        user.click_search()
+        user.assert_NoData()
+
 
 
 if __name__ == '__main__':

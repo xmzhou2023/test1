@@ -26,7 +26,7 @@ def function_imei_inventory_query_fixture(drivers):
 
 @allure.feature("报表分析-IMEI库存查询")
 class TestImeiInventoryQuery:
-    @allure.story("查询IMEI库存")
+    @allure.story("IMEI库存查询")
     @allure.title("IMEI库存查询页面，查询IMEI库存每个筛选项,进行随机组合")
     @allure.description("IMEI库存页面，查询IMEI库存每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -79,6 +79,21 @@ class TestImeiInventoryQuery:
                 ValueAssert.value_assert_date_in(attribute,query_dic[i],query_dic[i])
             else:
                 ValueAssert.value_assert_equal(attribute, query_dic[i])
+
+    @allure.story("IMEI库存查询")
+    @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_002(self, drivers):
+        add = ImeiInventoryQuery(drivers)
+        add.click_menu("Report Analysis", "IMEI Inventory Query")
+        add.click_button('Unfold')
+        add.select_content('Activated Or Not', 'No')
+        add.input_search('Activation Time', '2019-01-01To2023-12-31')
+        add.click_button('Search')
+        add.assert_NoData()
+
 
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])

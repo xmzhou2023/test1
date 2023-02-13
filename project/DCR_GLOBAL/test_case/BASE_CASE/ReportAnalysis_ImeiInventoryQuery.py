@@ -85,6 +85,7 @@ class TestImeiInventoryQuery:
     @allure.story("IMEI库存查询")
     @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
     @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @pytest.mark.smoke  # 用例标记
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_002(self, drivers):
         add = ImeiInventoryQuery(drivers)

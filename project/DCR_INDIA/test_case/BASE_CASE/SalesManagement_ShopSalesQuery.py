@@ -29,7 +29,7 @@ def function_menu_fixture(drivers):
         menu.click_close_open_menu()
 
 
-@allure.feature("销售管理-门店销售查询")
+@allure.feature("销售管理-门店销量查询")
 class TestShopSalesQuery:
     @allure.story("门店销量查询")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
@@ -113,6 +113,22 @@ class TestShopSalesQuery:
         ValueAssert.value_assert_equal(complete_date, today)
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
+
+
+    @allure.story("门店销量查询")
+    @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @pytest.mark.smoke  # 用例标记
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_003(self, drivers):
+        user = ShopSaleQueryPage(drivers)
+        user.click_menu("Sales Management", "Shop Sales Query")
+        user.click_unfold()
+        user.input_search('Activation Status', 'Not Activated')
+        user.input_search('Activation Date', '2019-01-01To2023-12-31')
+        user.input_search('Upload Date', '2019-01-01To2023-12-31')
+        user.click_search()
+        user.assert_NoData()
 
 
 if __name__ == '__main__':

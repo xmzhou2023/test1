@@ -30,7 +30,7 @@ def function_menu_fixture(drivers):
 
 @allure.feature("销售管理-门店销售查询")
 class TestQueryShopSalesQuery:
-    @allure.story("门店销售查询")
+    @allure.story("门店销量查询")
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
@@ -63,7 +63,7 @@ class TestQueryShopSalesQuery:
             shop_sales.assert_total2(total)
 
 
-    @allure.story("门店销售查询")
+    @allure.story("门店销量查询")
     @allure.title("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.severity("blocker")  # 分别为3种类型等级：blocker\critical\normal
@@ -114,9 +114,10 @@ class TestQueryShopSalesQuery:
         ValueAssert.value_assert_equal(operation, "Download")
         export.assert_file_time_size(file_size, export_time)
 
-    @allure.story("门店销售查询")
+    @allure.story("门店销量查询")
     @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
     @allure.description("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
+    @pytest.mark.smoke  # 用例标记
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     def test_001_003(self, drivers):
         user = ShopSaleQueryPage(drivers)

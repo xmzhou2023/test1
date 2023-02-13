@@ -54,7 +54,7 @@ class TestWoReportSearch:
 
 @allure.feature("Repair Mgt-WO NonSerialized Report")
 class TestWoReportExport:
-    @allure.story("非序列化报表导出成功")  # 场景名称
+    @allure.story("非序列化报表导出")  # 场景名称
     @allure.title("导出非序列化报表所有数据")  # 用例名称
     @allure.description("查询到非序列化报表所有数据，可导出成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial
@@ -64,7 +64,7 @@ class TestWoReportExport:
         user.download_report(scope=all)
 
 
-    @allure.story("非序列化报表导出SL国家数据成功")  # 场景名称
+    @allure.story("非序列化报表导出")  # 场景名称
     @allure.title("导出非序列化报表中SL国家数据")  # 用例名称
     @allure.description("查询到SL国家的报表数据，可导出成功")
     @allure.severity("normal")  # blocker\critical\normal\minor\trivial

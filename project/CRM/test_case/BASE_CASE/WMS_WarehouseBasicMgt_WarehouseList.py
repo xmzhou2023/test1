@@ -85,17 +85,5 @@ class TestDownloadTemplate:
 
 
 
-
-    # @allure.story("新增仓库")
-    # @allure.title("新增一个仓库")
-    # @allure.description("新增")
-    # @allure.severity("normal")
-    # def test_005_005(self,drivers):
-    #     user = WarehouseList(drivers)
-    #     user.add_warehouse(code="Happy_Thur",name="快乐星期四",type="SWH",parent="xiao",Assignment="RW",contacts="艾珍",no="12345",address1="ASDFG",keeper="艾珍")
-
-
-
-
 if __name__ == '__main__':
     pytest.main(['WMS_WarehouseBasicMgt_WarehouseList.py'])
