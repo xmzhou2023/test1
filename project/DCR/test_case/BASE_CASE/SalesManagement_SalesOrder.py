@@ -35,6 +35,7 @@ class TestAddSalesOrder:
     @allure.title("国包用户,创建销售单，产品为无码的，买方为临时客户,并直接出库操作")
     @allure.description("销售单页面，国包用户创建销售单，产品为无码的，买方为临时客户，并直接出库操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -81,6 +82,7 @@ class TestAddSalesOrder:
     @allure.title("国包用户,创建销售单，产品为有码的，买方为临时客户，不出库")
     @allure.description("国包用户,创建销售单，产品为有码的，买方为临时客户，不出库")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
@@ -122,6 +124,7 @@ class TestAddSalesOrder:
     @allure.title("国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库操作")
     @allure.description("销售单页面，国包用户，新建销售单，无码产品，买方为系统二代客户，并直接出库操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
@@ -169,10 +172,11 @@ class TestAddSalesOrder:
         #add.click_close_sales_order()
 
 
-    @allure.story("新增销售单,直接出库")
-    @allure.title("销售单页面，二代用户新增有码销售单操作,然后进行出库操作,最后进行退货操作")
+    @allure.story("新增销售单")
+    @allure.title("销售单页面，二代用户新增有码销售单操作,然后进行直接出库操作,最后进行退货操作")
     @allure.description("销售单页面，二代用户新增有码销售单操作成功后，然后进行出库操作,最后进行退货操作，闭环流程")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_004(self, drivers):
         """DCR 二代账号登录"""
@@ -287,6 +291,7 @@ class TestDeleteSalesOrder:
     @allure.title("销售单页面，国包用户，删除新建的Pending状态的销售单操作")
     @allure.description("销售单页面，国包用户，对新建Pending状态的销售单进行删除操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         """DCR 国包账号登录"""
@@ -322,6 +327,7 @@ class TestDeleteSalesOrder:
     @allure.title("销售单页面，国包用户，删除Delivered状态的销售单，提示不支持删除")
     @allure.description("销售单页面，国包用户，删除Delivered状态的销售单，提示不支持删除")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_002(self, drivers):
         """DCR 国包账号登录"""
@@ -352,6 +358,7 @@ class TestExportSalesOrder:
     @allure.title("销售单页面，国包用户，导出筛选条件下销售单，导出文件内容和列表查询结果一致")
     @allure.description("销售单页面，国包用户，导出筛选条件下销售单，导出文件内容和列表查询结果一致")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_003_001(self, drivers):
         """DCR 国包账号登录"""
@@ -393,6 +400,7 @@ class TestExportSalesOrder:
     @allure.title("销售单页面，国包用户，导出筛选条件下销售单详情，导出文件内容和列表查询结果一致")
     @allure.description("销售单页面，国包用户，导出筛选条件下销售单详情，导出文件内容和列表查询结果一致")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_003_002(self, drivers):
         """DCR 国包账号登录"""
@@ -433,10 +441,11 @@ class TestExportSalesOrder:
 
 @allure.feature("销售管理-销售单")
 class TestQuerySalesOrder:
-    @allure.story("销售单查询")
+    @allure.story("查询销售单")
     @allure.title("销售单页面，各个条件进行筛选销售单")
     @allure.description("销售单页面，在各个条件下筛选销售单，筛选条件和列表查询结果一致")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_001(self, drivers):
         """DCR 国包账号登录"""
@@ -515,10 +524,11 @@ class TestQuerySalesOrder:
         page.click_reset()
 
 
-    @allure.story("销售单查询")
+    @allure.story("查询销售单")
     @allure.title("销售单页面，物料和丢失激活条件进行筛选销售单")
     @allure.description("销售单页面，在物料和丢失激活条件下筛选销售单，筛选条件和列表查询结果一致")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_002(self, drivers):
         """DCR 国包账号登录"""

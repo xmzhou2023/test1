@@ -27,6 +27,7 @@ class TestSearchUserCustAssocia:
     @allure.title("查询用户和客户关系列表所有数据")
     @allure.description("查询用户和客户关系列表，所有数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_cust_assoc_fixture')
     def test_001_001(self, drivers):
         """DCR 管理员账号登录"""
@@ -60,6 +61,7 @@ class TestExportUserCustAssocia:
     @allure.title("用户和客户关系列表，筛选User ID：NG2061301关联的客户，并导出筛选的数据")
     @allure.description("用户和客户关系列表，筛选User ID：NG2061301关联的客户，并导出筛选的数据")
     @allure.severity("normal")   # critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)

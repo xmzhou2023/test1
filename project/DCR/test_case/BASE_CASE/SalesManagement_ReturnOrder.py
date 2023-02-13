@@ -28,10 +28,11 @@ def function_menu_fixture(drivers):
 
 @allure.feature("销售管理-退货单")
 class TestReturnOrder:
-    @allure.story("创建退货单")
+    @allure.story("新增退货单")
     @allure.title("卖家创建无码销售单；然后卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.description("销售单页面，国包用户创建销售单，产品为无码的；卖家创建退货单，退货类型为Return To Seller，退无码产品")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -122,10 +123,11 @@ class TestReturnOrder:
         #returnorder.click_close_return_order()
 
 
-    @allure.story("创建退货单")
+    @allure.story("新增退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.description("销售单页面，国包用户创建有码出库单；卖家创建退货单，退货类型为Return To Seller、输入出库单号退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
@@ -225,10 +227,11 @@ class TestReturnOrder:
         #return_order.click_close_return_order()
 
 
-    @allure.story("创建退货单")
+    @allure.story("新增退货单")
     @allure.title("卖家创建有码出库单；然后卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
     @allure.description("销售单页面，国包用户卖家创建有码出库单；卖家创建退货单，退货类型为Return To Seller、扫IMEI退货")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
@@ -347,10 +350,11 @@ class TestReturnOrder:
         #return_order.click_close_return_order()
 
 
-    @allure.story("创建退货单")
+    @allure.story("新增退货单")
     @allure.title("退货单页面，撤回退货单，Pending Approval状态的订单可撤回")
     @allure.description("销售单页面，国包用户卖家创建无码出库单；二代用户快速收货；最后新建退货单，然后进行撤回退货单")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_004(self, drivers):
         user = LoginPage(drivers)
@@ -436,10 +440,12 @@ class TestReturnOrder:
         ValueAssert.value_assert_equal(get_status_cancel, "Cancel")
         #recall_return.click_close_return_order()
 
-    @allure.story("创建退货单")
+
+    @allure.story("新增退货单")
     @allure.title("The imei is already been activated")
     @allure.description("配置Return Need Check Activation Or Not，输入已激活imei提示：The imei is already been activated")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_005(self, drivers):
         menu = LoginPage(drivers)
@@ -454,10 +460,12 @@ class TestReturnOrder:
         delivery.click_Check()
         delivery.assert_Scan_Record('356514118470111')
 
-    @allure.story("创建退货单")
+
+    @allure.story("新增退货单")
     @allure.title("上月Return Date不可选择")
     @allure.description("上月Return Date不可选择")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_006(self, drivers):
         menu = LoginPage(drivers)
@@ -480,23 +488,21 @@ class TestReturnQuery:
     @allure.title("在退货单界面，按条件对退货单进行查询，判断结果和查询条件一致")
     @allure.description("在退货单界面，按条件对退货单进行查询，判断结果和查询条件一致")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "xiongbo92", "dcr123456")
         """打开销售管理-打开出库单页面"""
         user.click_gotomenu("Sales Management", "Return Order")
-
         page = ReturnOrderQuery(drivers)
         page.click_unfold()
-
         #查询上传日期并断言日期和查询结果一致
         page.input_return_date('2022-09-06','2022-09-06')
         page.click_search()
         result_date=page.get_table_txt(3)    #第3列
         ValueAssert.value_assert_In('2022-09-06',result_date)
         page.click_reset()
-
         #查询退单ID并断言退单ID和查询结果一致
         page.input_return_order('RDHK202211280031')
         page.input_return_date('2022-11-20','2022-11-30')
@@ -504,7 +510,6 @@ class TestReturnQuery:
         result_date=page.get_table_txt(2)    #第3列
         ValueAssert.value_assert_In('RDHK202211280031',result_date)
         page.click_reset()
-
         #查询出库ID并断言出库单ID和查询结果一致
         page.input_delivery_order('02HK2211280000023')
         page.input_return_date('2022-11-20','2022-11-30')
@@ -603,10 +608,12 @@ class TestReturnQuery:
         ValueAssert.value_assert_In('Nigeria',result_date)
         page.click_reset()
 
-    @allure.story("导出退货单")
+
+    @allure.story("查询退货单")
     @allure.title("在退货单界面，按条件对退货单进行查询，导出查询结果和查询条件一致")
     @allure.description("在退货单界面，按条件对退货单进行查询，导出查询结果和查询条件一致")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_002(self, drivers):
         user = LoginPage(drivers)
@@ -636,6 +643,7 @@ class TestReturnQuery:
     @allure.title("随机条件组合查询退货单")
     @allure.description("退货单页面，查询退货单的随机条件组合查询")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_003(self, drivers):
         """ lhmadmin管理员账号登录"""

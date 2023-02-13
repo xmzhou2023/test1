@@ -39,6 +39,7 @@ class TestQueryUser:
     @allure.title("用户管理页面，查询用户列表所有用户数据加载")
     @allure.description("用户管理页面，查询用户列表所有用户数据加载")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
@@ -62,10 +63,12 @@ class TestQueryUser:
         query_user.assert_user_management_field('User Name', 'testlhm18648901')
         query_user.assert_contains_user_management_field('Brand', 'TECNO')
 
+
     @allure.story("查询用户")
     @allure.title("随机条件组合查询")
     @allure.description("用户管理页面，查询用户列表所有用户数据加载")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         """ lhmadmin管理员账号登录"""
@@ -95,10 +98,11 @@ class TestQueryUser:
 
 @allure.feature("员工授权-用户管理")
 class TestAddEditQuitUser:
-    @allure.story("用户管理业务流程")
+    @allure.story("用户管理")
     @allure.title("用户管理页面，新增、编辑、离职传音用户")
     @allure.description("用户管理页面，新增、编辑、离职传音用户能正常运行")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         """ lhmadmin管理员账号登录"""
@@ -164,10 +168,12 @@ class TestAddEditQuitUser:
         """ 在数据库表中，删除新增的用户 """
         add_transsion.sql_delete_user(trans_userid)
 
-    @allure.story("用户管理业务流程")
+
+    @allure.story("用户管理")
     @allure.title("用户管理页面，新增、编辑、离职代理用户")
     @allure.description("用户管理页面，新增、编辑、离职代理用户能正常运行")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     def test_002_002(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -244,6 +250,7 @@ class TestAddEditQuitUser:
     @allure.title("新建代理员工，User ID输入内部员工时，提示报错，使用非内部员工数字能创建成功。")
     @allure.description("新建代理员工，staff type选择Dealer Staff，使用输入User ID是内部员工时，提示失败，然后使用非内部员工数字能成功。")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     def test_002_003(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
@@ -288,10 +295,12 @@ class TestAddEditQuitUser:
         """数据库删除用户"""
         add.SQL_delete_user(userID)
 
+
     @allure.story("用户管理")
     @allure.title("已离职员工，不允许新增")
     @allure.description("新增在HR已离职的员工，不允许新增，提示信息为“员工已在用户中心离职，不允许新增”")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_004(self, drivers):
         """账号登录"""
@@ -310,6 +319,7 @@ class TestAddEditQuitUser:
     @allure.title("传音员工，个人信息置灰不可编辑")
     @allure.description("页面编辑传音员工，用户类型、用户ID、姓名、性别、个人邮箱、语言、入职日期字段置灰不可编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_005(self, drivers):
         """账号登录"""
@@ -334,10 +344,12 @@ class TestAddEditQuitUser:
         add.assert_input_edit('Native Language')
         add.click_Cancel()
 
+
     @allure.story("用户管理")
     @allure.title("代理员工的员工类型、ID、所属客户置灰不可编辑")
     @allure.description("页面进入代理员工编辑页，员工类型、ID、所属客户置灰不可编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_006(self, drivers):
         """账号登录"""
@@ -361,6 +373,7 @@ class TestAddEditQuitUser:
     @allure.title("已离职员工不可编辑")
     @allure.description("用户中心已离职的员工编辑提示：该用户已在用户中心离职，不能编辑")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_007(self, drivers):
         """账号登录"""
@@ -380,10 +393,12 @@ class TestAddEditQuitUser:
         add.click_add_user_submit()
         DomAssert(drivers).assert_att("This user has left the user center and cannot edit")
 
+
     @allure.story("用户管理")
     @allure.title("批导编辑传音员工，编辑用户类型失败；编辑已离职员工失败；编辑个人信息不生效")
     @allure.description("批导编辑传音员工，编辑用户类型失败；编辑已离职员工失败；批导编辑传音员工姓名、性别、个人邮箱、语言、入职日期字段不生效")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_008(self, drivers):
         """账号登录"""
@@ -417,10 +432,12 @@ class TestAddEditQuitUser:
         add.assert_user_Information('Email', 'YANBING.CHEN@TRANSSION.COM')
         add.assert_user_Information('Gender', 'Female')
 
+
     @allure.story("用户管理")
     @allure.title("批导编辑员工信息成功生效")
     @allure.description("支持导入编辑员工信息，检查成功的（比如职位）")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_009(self, drivers):
         """账号登录"""
@@ -475,10 +492,12 @@ class TestAddEditQuitUser:
         add.assert_user_Information('Contact No.', ContactNo)
         add.click_Cancel()
 
+
     @allure.story("用户管理")
     @allure.title("用户复职后，能正常访问DCR系统")
     @allure.description("可启用离职状态的员工，能正常登录DCR系统,访问不同菜单，不会出现token失效的问题")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_010(self, drivers):
         """账号登录"""
@@ -511,10 +530,12 @@ class TestAddEditQuitUser:
         add.click_menu("Staff & Authorization", "User Management")
         add.disable_user_Method(UserID)
 
+
     @allure.story("用户管理")
     @allure.title("内部员工不能直接重置成功")
     @allure.description("内部员工不能直接重置，提示报错")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_011(self, drivers):
         """账号登录"""
@@ -537,6 +558,7 @@ class TestAddEditQuitUser:
     @allure.title("新建员工，输入内部员工ID自动同步信息，并且登录成功")
     @allure.description("新建传音员工，staff type选择Transsion Staff，能自动同步姓名、入职日期信息，使用通用密码登录成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     def test_002_012(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
@@ -577,10 +599,12 @@ class TestAddEditQuitUser:
         DomAssert(drivers).assert_att(userID)
         add.SQL_delete_user(userID)
 
+
     @allure.story("用户管理")
     @allure.title("已离职员工不能重置密码以及登录系统")
     @allure.description("操作用户离职，已离职的员工不能重置密码,离职后用户不能登录系统")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     def test_002_013(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
@@ -610,10 +634,12 @@ class TestAddEditQuitUser:
         """断言：已离职的员工不能登录系统"""
         DomAssert(drivers).assert_att("The user has resigned in DCR!")
 
+
     @allure.story("用户管理")
     @allure.title("导入新增内部员工成功")
     @allure.description("支持导入新增员工，上传User ID，未填写用户姓名、性别、个人邮箱，同时语言和入职日期是错误的，会同步用户中心的字段信息为准")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_014(self, drivers):
         """账号登录"""
@@ -657,10 +683,12 @@ class TestAddEditQuitUser:
         add.click_Cancel()
         add.SQL_delete_user(userID)
 
+
     @allure.story("用户管理")
     @allure.title("外部员工可重置密码")
     @allure.description("外部员工密码可重置成功,重置后，能登录并修改密码，修改后能登录成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     def test_002_015(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
@@ -687,10 +715,12 @@ class TestAddEditQuitUser:
         """断言： 登录成功"""
         DomAssert(drivers).assert_att(userID)
 
+
     @allure.story("用户管理")
     @allure.title("批量重置员工密码，包含内部员工重置失败")
     @allure.description("批量重置员工密码，包含内部员工重置失败")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     def test_002_016(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
@@ -719,13 +749,13 @@ class TestAddEditQuitUser:
         DomAssert(drivers).assert_att('Username or password is incorrect, login failed！account will be locked for 1 hour after 10 consecutive failed!')
 
 
-
 @allure.feature("员工授权-用户管理")
 class TestExportUser:
     @allure.story("导出用户")
     @allure.title("用户管理页面，导出筛选的用户数据")
     @allure.description("用户管理页面，导出筛选的用户数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_export_fixture')
     def test_003_001(self, drivers):
         """ lhmadmin管理员账号登录"""
@@ -768,6 +798,7 @@ class TestImportUser:
     @allure.title("用户管理页面，导入传音用户操作，查询列表是否存在导入的用户")
     @allure.description("用户管理页面，导入传音用户成功后，查看列表是否展示导入的用户信息；然后删除导入的用户操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_001(self, drivers):
         menu = LoginPage(drivers)
@@ -819,6 +850,7 @@ class TestImportUser:
     @allure.title("用户管理页面，导入代理用户操作，查询列表是否存在导入的用户")
     @allure.description("用户管理页面，导入代理用户成功后，查看列表是否展示导入的用户信息；然后删除导入的用户操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_002(self, drivers):
         menu = LoginPage(drivers)
@@ -874,6 +906,7 @@ class TestResetPasswordUser:
     @allure.title("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码")
     @allure.description("用户管理页面，筛选用户然后重置密码；然后使用重置的密码登录，设置新密码，最后新密码登录")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke
     def test_005_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
