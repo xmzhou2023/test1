@@ -154,7 +154,7 @@ class ShopIMEITransferPage(Base):
     @allure.step("点击Search按钮")
     def click_search(self):
         self.is_click(user['search按钮'])
-        sleep(2.6)
+        self.element_text(user['Loading'])
 
     @allure.step("Shop IMEI Transfer菜单，根据to shop与状态筛选,新建的调拨单记录")
     def query_add_shop_imei_transfer(self, to_shop, status):

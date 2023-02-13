@@ -28,6 +28,7 @@ class TestSearchUserShopAssociation:
     @allure.title("查询用户和门店关系列表所有数据")
     @allure.description("查询用户和门店关系列表，所有数据加载正常")
     @allure.severity("critical")  #  分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_shop_assoc_fixture')
     def test_001_001(self, drivers):
         """DCR 管理员账号登录"""
@@ -57,6 +58,7 @@ class TestSearchUserShopAssociation:
     @allure.title("组合条件筛选用户和门店关系数据")
     @allure.description("组合条件筛选用户和门店关系数据，断言列表加载筛选的数据正确")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_shop_assoc_fixture')
     def test_001_002(self, drivers):
         """DCR 管理员账号登录"""
@@ -85,6 +87,7 @@ class TestExportUserShopAssociation:
     @allure.title("用户和门店关系列表，筛选User ID：lhmdianzhang关联的门店，并导出筛选的数据")
     @allure.description("用户和门店关系列表，筛选User ID：lhmdianzhang关联的门店，并导出筛选的数据")
     @allure.severity("normal")   #  critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         """ 根据 Userid：lhmdianzhang，筛选关联的门店，并导出筛选的数据 """
@@ -130,6 +133,7 @@ class TestDeleteUserShopAssociation:
     @allure.title("用户和门店关系列表，筛选User ID：lhmdianzhang关联的门店，并导出筛选的数据")
     @allure.description("用户和门店关系列表，筛选User ID：lhmdianzhang关联的门店，并导出筛选的数据")
     @allure.severity("normal")   #  critical\normal\minor
+    @pytest.mark.UT  # 用例标记
     @pytest.mark.usefixtures('function_shop_assoc_fixture')
     def test_003_001(self, drivers):
         """ 根据 Userid：lhmdianzhang，筛选关联的门店，并导出筛选的数据 """
@@ -157,6 +161,7 @@ class TestImportUserShopAssociation:
     @allure.title("用户和门店关系列表，导入用户和门店关系数据")
     @allure.description("用户和门店关系列表，导入用户和门店关系数据，断言导入是否成功")
     @allure.severity("normal")   #  critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_shop_assoc_fixture')
     def test_004_001(self, drivers):
         """ 根据 Userid：lhmdianzhang，筛选关联的门店，并导出筛选的数据 """

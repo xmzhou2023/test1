@@ -18,11 +18,11 @@ def function_menu_fixture(drivers):
 
 @allure.feature("员工授权-新增职位")
 class TestAddPosition:
-    @allure.story("新增职位")
+    @allure.story("职位管理")
     @allure.title("员工授权，新增启用状态的职位")
     @allure.description("职位管理页面，新增启用状态的职位")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.UT
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -58,11 +58,11 @@ class TestAddPosition:
         add_position.assert_contains_position_management_field('Create Date', today)
 
 
-    @allure.story("新增职位")
+    @allure.story("职位管理")
     @allure.title("员工授权，新增禁用状态的职位")
     @allure.description("职位管理页面，新增禁用状态的职位")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.UT
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
@@ -98,11 +98,11 @@ class TestAddPosition:
         add_position.assert_contains_position_management_field('Create Date', today)
 
 
-    @allure.story("编辑职位")
+    @allure.story("职位管理")
     @allure.title("员工授权，编辑新增的职位")
     @allure.description("职位管理页面，编辑新增的职位")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.UT
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
@@ -145,11 +145,11 @@ class TestAddPosition:
             pass
 
 
-    @allure.story("删除职位")
+    @allure.story("职位管理")
     @allure.title("员工授权，删除新增的职位")
     @allure.description("职位管理页面，删除新增的职位")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.UT
+    @pytest.mark.smoke
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_004(self, drivers):
         user = LoginPage(drivers)
@@ -175,15 +175,13 @@ class TestAddPosition:
             pass
 
 
-@allure.feature("员工授权-筛选职位")
-class TestQueryPosition:
-    @allure.story("查询职位")
+    @allure.story("职位管理")
     @allure.title("员工授权，单个条件筛选职位")
     @allure.description("职位管理页面，单个条件筛选职位")
     @allure.severity("normal")
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_001(self, drivers):
+    def test_001_005(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例"""
@@ -212,13 +210,13 @@ class TestQueryPosition:
         query.click_position_search('Reset')
 
 
-    @allure.story("查询职位")
+    @allure.story("职位管理")
     @allure.title("员工授权，组合条件筛选职位")
     @allure.description("职位管理页面，组合条件筛选职位")
     @allure.severity("normal")
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_002(self, drivers):
+    def test_001_006(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例"""

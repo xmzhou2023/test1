@@ -16,10 +16,11 @@ def function_set_role_fixture(drivers):
 
 @allure.feature("用户和授权-角色管理")
 class TestSetRolePermission:
-    @allure.story("修改角色权限")
+    @allure.story("角色管理")
     @allure.title("角色定义页面，给“lhmItel店长”角色设置权限")
     @allure.description("角色定义页面，给“lhmItel店长”角色设置菜单权限")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_set_role_fixture')
     def test_001_001(self, drivers):
         """DCR 二代账号登录"""
@@ -51,12 +52,11 @@ class TestSetRolePermission:
         # sales_region = role.get_sale_region_mgt_text()
         # assert_ui.value_assert_In(sales_region, "Sales Region Management")
 
-
     @allure.story("角色管理") # 场景名称
     @allure.title("组合查询成功")  # 用例名称
     @allure.description("组合查询成功")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):
         """变量"""
         query_dict = {
@@ -73,11 +73,12 @@ class TestSetRolePermission:
         add.click_unfold()
         add.All_Query_Method(query_dict)
 
+
     @allure.story("角色管理") # 场景名称
     @allure.title("单一条件随机查询成功")  # 用例名称
     @allure.description("单一条件随机查询成功")
     @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke # 用例标记
+    @pytest.mark.smoke  # 用例标记
     def test_001_003(self, drivers):
         """变量"""
         query_dict = {
@@ -98,6 +99,7 @@ class TestSetRolePermission:
     @allure.title("新增角色成功")
     @allure.description("新增角色成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_004(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
@@ -127,6 +129,7 @@ class TestSetRolePermission:
     @allure.title("编辑角色成功")
     @allure.description("编辑角色成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_005(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)
@@ -163,6 +166,7 @@ class TestSetRolePermission:
     @allure.title("删除角色成功")
     @allure.description("删除角色成功")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_006(self, drivers):
         """账号登录"""
         user = LoginPage(drivers)

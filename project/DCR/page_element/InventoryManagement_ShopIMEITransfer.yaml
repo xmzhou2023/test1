@@ -14,7 +14,6 @@ Shop IMEI Transfer Add Submit OK: "xpath==//button[contains(@class,'el-button el
 #Shop IMEI Transfer 获取列表字段内容
 Get Shop IMEI Transfer ID: "xpath==//tbody//tr[1]//td[2]//div"
 Get Shop IMEI Transfer ID content: "xpath==//tbody//tr[1]//td[not(contains(@class, 'is-hidden'))]//div[text()='variable']"
-
 Get Shop IMEI Transfer Status: "xpath==//tbody//tr[1]//td[3]//div"
 Get Shop IMEI Transfer To Shop ID: "xpath==//tbody//tr[1]//td[13]//div"
 
@@ -78,6 +77,7 @@ fold按钮: "xpath==//span[normalize-space()='Fold']"
 Status条件筛选: "xpath==//input[contains(@class,'el-input__inner shopimeitransfer_input_status')]"
 Pending按钮: "xpath==//span[normalize-space(text())='Pending']"
 search按钮: "xpath==//button[@id='shopimeitransfer_search']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
 #Shop IMEI Transfer 审核与拒绝调店操作
 勾选第一条复选框: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"

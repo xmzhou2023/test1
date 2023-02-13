@@ -29,11 +29,11 @@ class TestShopSalesQuery:
     @allure.title("门店销售查询页面，查询门店销售查询列表数据加载")
     @allure.description("考勤记录页面，查询门店销售查询列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_shop_sale_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开销售管理-打开门店销售查询页面"""
         user.click_gotomenu("Sales Management", "Shop Sales Query")
         """查看Shop Sales Query门店销量上报 列表数据加载是否正常"""
@@ -55,10 +55,12 @@ class TestShopSalesQuery:
         shop_sales.assert_total2(total)
         #shop_sales.click_close_shop_sales_query()
 
-    @allure.story("查询门店销量1")
+
+    @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表，查询结果和条件一致")
     @allure.description("门店销售查询页面，查询门店销售查询列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_shop_sale_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
@@ -192,10 +194,12 @@ class TestShopSalesQuery:
         ValueAssert.value_assert_equal('Not Activated', result_date)
         page.click_reset()
 
-    @allure.story("查询门店销量2")
+
+    @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，查询门店销售查询列表，查询结果和条件一致")
     @allure.description("门店销售查询页面，查询门店销售查询列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_shop_sale_fixture')
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
@@ -308,20 +312,19 @@ class TestShopSalesQuery:
         page.click_reset()
 
 
-    @allure.story("随机查询门店销量")
+    @allure.story("查询门店销量")
     @allure.title("门店销售查询页面，随机组合查询条件，查询门店销售查询列表，查询结果和条件一致")
     @allure.description("门店销售查询页面，随机组合查询条件，查询门店销售查询列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_shop_sale_fixture')
     def test_001_004(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开销售管理-打开门店销售查询页面"""
         user.click_gotomenu("Sales Management", "Shop Sales Query")
         page = ShopSaleQueryPage(drivers)
         page.click_unfold()
-
         """查看Shop Sales Query按Supplier查询"""
         page.input_upload_date('2022-01-01', '2022-10-30')
         #列表顺序要和表格顶部字段顺序一致
@@ -500,6 +503,7 @@ class TestExportShopSalesQuery:
     @allure.title("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.description("门店销售查询页面，按销售开始与结束日期查询 门店销售查询记录，并导出筛选后的数据")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
@@ -539,13 +543,15 @@ class TestExportShopSalesQuery:
         #export.click_close_export_record()
         #export.click_close_shop_sales_query()
 
+
 @allure.feature("销售管理-门店销售查询")
 class TestImportShopSalesQuery:
     @allure.story("门店销量上报")
     @allure.title("导入门店销量上报成功")
     @allure.description("导入门店销量上报，符合条件导入成功，不符合条件导入失败")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures()
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_export_fixture')
     def test_003_001(self, drivers):
         today = datetime.datetime.now().strftime('%Y-%m-%d')
         menu = LoginPage(drivers)
@@ -632,11 +638,12 @@ class TestImportShopSalesQuery:
         user.click_search()
         user.assert_Query_result('Status', 'Canceled')
 
+
     @allure.story("门店销量上报")
     @allure.title("门店入库自动激活转销量")
     @allure.description("已配置自动转销量，库存上报后，自动转门店销量上报")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures()
+    @pytest.mark.smoke  # 用例标记
     def test_003_002(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "SenegalwjkPromoterTECNO", "xLily6x")
@@ -678,10 +685,12 @@ class TestImportShopSalesQuery:
         user.click_cancel()
         DomAssert(drivers).assert_att('Cancel success')
 
-    @allure.story("门店销量导出")
+
+    @allure.story("门店销量上报")
     @allure.title("门店销量导出")
     @allure.description("门店销量导出")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures()
     def test_003_003(self, drivers):
         menu = LoginPage(drivers)

@@ -192,5 +192,53 @@ class ShopSaleQueryPage(Base):
             logging.info("Shop Sales Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
         sleep(1)
 
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.refresh()
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user[f'菜单{i + 1}'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+        self.refresh()
+        self.element_exist(user['Loading'])
+
+    def input_text(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        ele.send_keys(txt)
+        logging.info("输入文本：{}".format(txt))
+
+    @allure.step("输入查询条件")
+    def input_search(self, header, content):
+        exactSelect_list = ['Activation Status']
+        Date_list = ['Activation Date', 'Upload Date']
+        self.element_exist(user['Loading'])
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if content != '':
+            if header in exactSelect_list:
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
+            elif header in Date_list:
+                createDate = content.split('To')
+                for i in range(len(createDate)):
+                    self.input_text(user['时间输入框'], createDate[i], header, i+1)
+                    self.is_click_tbm(user['输入框名称'], header)
+            else:
+                logging.error(f'无效字段：{header}，请输入正确的查询条件')
+                raise ValueError(f'无效字段：{header}，请输入正确的查询条件')
+
+    @allure.step("断言：查询结果为空")
+    def assert_NoData(self):
+        logging.info('开始断言：查询结果为空')
+        total_text = self.element_text(user['Total'])
+        total = total_text[total_text.index(' ') + 1:]
+        logging.info(total_text)
+        ValueAssert.value_assert_equal(total, '0')
+
+
 if __name__ == '__main__':
     pass

@@ -23,11 +23,11 @@ def function_menu_fixture(drivers):
 
 @allure.feature("销售管理-国包出库单")
 class TestQueryDistDelivery:
-    @allure.story("国包查询出库单")
-    @allure.title("国包用户按出库单条件筛选，出库单列表数据")
-    @allure.description("根据销售单与出库单条件，筛选出库单列表数据")
+    @allure.story("查询出库单")
+    @allure.title("国包用户，按出库单条件筛选，出库单列表数据")
+    @allure.description("国包用户，根据销售单与出库单条件，筛选出库单列表数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):
         """DCR 国包账号登录"""
         user = LoginPage(drivers)
@@ -53,11 +53,11 @@ class TestQueryDistDelivery:
 
 @allure.feature("销售管理-国包出库单")
 class TestAddDistDeliveryOrder:
-    @allure.story("国包新增出库单，二代快速收货，二代退货出库单，国包审核退货单")
+    @allure.story("新增出库单")
     @allure.title("国包新增出库单，二代快速收货，二代退货出库单，国包审核退货单")
     @allure.description("国包用户新增出库单，二代快速收货，二代退货出库单，国包审核退货单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.usefixtures('function_menu_fixture')
+    @pytest.mark.smoke  # 用例标记
     def test_002_001(self, drivers):
         """出库单列表页，国包账号 新增出库单用例 """
         user1 = LoginPage(drivers)
