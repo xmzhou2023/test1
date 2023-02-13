@@ -60,7 +60,7 @@ def module_fixture(drivers):
 
 @allure.feature("SymptomGroup") # 模块名称
 class TestAddSymptomGroup:
-    @pytest.fixture()
+    @pytest.fixture(scope='module',autouse=True)
     def class_fixture(self, drivers):
         logging.info("\n这个fixture在每个case前执行一次")
         yield
@@ -86,7 +86,7 @@ class TestAddSymptomGroup:
         sql_get_name = shop_data[0].get("symptom_group_name")
         ValueAssert.value_assert_equal(sql_get_name, name)  # 判断新增数据存在于数据库
 
-    @allure.story("添加现象组")  # 场景名称
+    @allure.story("新增现象组")  # 场景名称
     @allure.title("添加现象组后Created Date、CreatedBy、ModifiedOn、ModifiedBy字段值正确")  # 验证字段的值
     @allure.description("添加现象组后Created Date、CreatedBy、ModifiedOn、ModifiedBy字段值正确")
     @allure.severity("normal")  # 用例等级
@@ -149,7 +149,7 @@ class TestAddSymptomGroup:
 
 @allure.feature("SymptomGroup") # 模块名称
 class TestGetSymptomGroup:
-    @pytest.fixture()
+    @pytest.fixture(scope='module',autouse=True)
     def class_fixture(self, drivers):
         logging.info("\n这个fixture在每个case前执行一次")
         yield
@@ -228,7 +228,7 @@ class TestGetSymptomGroup:
 #
 @allure.feature("SymptomGroup") # 模块名称
 class TestEditSymptomGroup:
-    @pytest.fixture()
+    @pytest.fixture(scope='module',autouse=True)
     def class_fixture(self, drivers):
         logging.info("\n这个fixture在每个case前执行一次")
         yield
@@ -297,6 +297,7 @@ class TestEditSymptomGroup:
         user.query_db(
             'delete  from crm_mdm_symptom_group where symptom_group_name="{}"'.format(update_name))
 
+@allure.feature("SymptomGroup")
 class TestExportSymptomGroup:
     @allure.story("导出现象组")  # 场景名称
     @allure.title("导出现象组成功")  # 编辑现象组
