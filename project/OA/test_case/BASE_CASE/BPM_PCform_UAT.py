@@ -23,7 +23,7 @@ pro_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.abspath(__fi
 """
 
 
-@allure.feature("BPM流程搭建--测试环境")  # 模块名称
+@allure.feature("BPM流程搭建--UAT环境")  # 模块名称
 class TestBPM:
     a = random.randint(1000, 9999)
     global modeling_name
@@ -35,7 +35,7 @@ class TestBPM:
     global process_definition
     process_definition = "机器人流程定义" + str(a)
 
-    @allure.story("二级标题：业务建模新建")  # 场景名称
+    @allure.story("BPM流程搭建--UAT环境")  # 场景名称
     @allure.title("三级标题：BPM数据建模首次建模保存成功")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
@@ -63,7 +63,7 @@ class TestBPM:
             logging.info("业务建模保存失败")
             assert False
 
-    @allure.story("二级标题：业务建模发布")  # 场景名称
+    @allure.story("BPM流程搭建--UAT环境")  # 场景名称
     @allure.title("三级标题：BPM数据建模首次建模发布成功")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
@@ -86,7 +86,7 @@ class TestBPM:
             logging.info("业务建模发布失败")
             assert False
 
-    @allure.story("二级标题：添加保存PC表单")  # 场景名称
+    @allure.story("BPM流程搭建--UAT环境")  # 场景名称
     @allure.title("三级标题： PC表单首次添加保存上刚新建数据建模的表单")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
@@ -116,7 +116,7 @@ class TestBPM:
             logging.info("PC表单保存失败")
             assert False
 
-    @allure.story("二级标题：添加保存PC表单")  # 场景名称
+    @allure.story("BPM流程搭建--UAT环境")  # 场景名称
     @allure.title("三级标题： PC表单首次添加保存上刚新建数据建模的表单")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
@@ -142,7 +142,7 @@ class TestBPM:
             logging.info("PC表单保存失败")
             assert False
 
-    @allure.story("二级标题：新建流程定义单")  # 场景名称
+    @allure.story("BPM流程搭建--UAT环境")  # 场景名称
     @allure.title("三级标题： 新建一条流程定义单设置简单的流程图，进行保存")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
@@ -177,7 +177,7 @@ class TestBPM:
             logging.info("流程设计保存失败")
             assert False
 
-    @allure.story("二级标题：发布新建流程定义单")  # 场景名称
+    @allure.story("BPM流程搭建--UAT环境")  # 场景名称
     @allure.title("三级标题： 05用例新建的流程定义数据，进行发布")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
@@ -203,7 +203,7 @@ class TestBPM:
             logging.info("流程设计发布失败")
             assert False
 
-    @allure.story("二级标题：给流程定义单进行全局配置添加PC表单")  # 场景名称
+    @allure.story("BPM流程搭建--UAT环境")  # 场景名称
     @allure.title("三级标题： 05用例新建的流程定义数据，进行配置节点审批人")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
@@ -240,7 +240,7 @@ class TestBPM:
             assert False
         sleep(5)
 
-    @allure.story("二级标题：给流程定义单配置02节点审批人")  # 场景名称
+    @allure.story("BPM流程搭建--UAT环境")  # 场景名称
     @allure.title("三级标题： 05用例新建的流程定义数据，进行配置节点审批人")  # 用例名称
     @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
