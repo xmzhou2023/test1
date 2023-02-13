@@ -1,3 +1,5 @@
+import logging
+
 from selenium.webdriver import Keys
 
 from public.base.basics import Base
@@ -213,6 +215,31 @@ class LoginPage(Base):
             status = self.element_text(user['获取下载状态文本'])
             sleep(1)
         return status
+
+    @allure.step("点击查询按钮")
+    def click_search(self):
+        self.is_click(user['Export Record Search'])
+
+    @allure.step("导出记录页面，判断是否存在download按钮")
+    def assert_exist_download(self):
+        flag=0
+        for i in range(30):
+            attr_exist = self.element_exist(user['Download按钮显示'])
+            attr_not = self.element_exist(user['Download按钮不显示'])
+            #Download按钮一直存在，当在下载中或者失败时，会有属性style为display:none,当寻找不到这个属性，且有这个按钮时，说明下载完毕
+            if attr_not:
+                sleep(2)
+                logging.info('Maybe it is downloading')
+            else:
+                if attr_exist:
+                    flag = 1
+                    break
+                else:
+                    logging.info('not find download button')
+        if flag == 1:
+            return True
+        else:
+            return False
 
     @allure.step("导出记录页面，获取列表 Task Name文本")
     def get_file_size_text(self):
