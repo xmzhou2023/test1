@@ -379,7 +379,7 @@ class TestDisableCustomer:
 
 @allure.feature("客户管理-客户管理(全球)")
 class TestImportCustomer:
-#     @allure.story("导入客户操作")
+#     @allure.story("导入客户")
 #     @allure.title("导入客户操作，然后删除导入的客户操作")
 #     @allure.description("导入客户成功后，查看列表是否展示导入的客户信息；然后删除导入的客户操作")
 #     @allure.severity("normal")
