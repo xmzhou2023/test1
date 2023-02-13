@@ -60,7 +60,7 @@ class TestEditWarehouse:
         test = users.element_text(user['操作成功提示'])
         ValueAssert.value_assert_equal(test, '编辑成功')
 
-
+@allure.feature("库存-仓库信息")  # 模块名称
 class TestDisableWarehouse:
     @allure.story("禁用仓库")
     @allure.title("选择一条数据进行禁用")
@@ -82,7 +82,7 @@ class TestDisableWarehouse:
         test = users.element_text(user['操作成功提示'])
         ValueAssert.value_assert_equal(test, '操作成功')
 
-
+@allure.feature("库存-仓库信息")  # 模块名称
 class TestExportWarehouse:
     @allure.story("导出列表")
     @allure.title("导出仓库信息列表")
