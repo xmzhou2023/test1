@@ -31,6 +31,7 @@ class TestImeiInventoryQuery:
     @allure.title("IMEI库存查询页面，查询IMEI库存每个筛选项")
     @allure.description("IMEI库存页面，查询IMEI库存每个筛选项，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_imei_inventory_query_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -215,18 +216,16 @@ class TestImeiInventoryQuery:
     @allure.title("IMEI库存查询页面，查询IMEI库存每个筛选项,进行随机组合")
     @allure.description("IMEI库存页面，查询IMEI库存每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_imei_inventory_query_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
-
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = ImeiInventoryQuery(drivers)
         page.click_button('Unfold')
-
 
         """查询Activation Time，对结果进行判断,注意字典的键要和表格的表头一致"""
         query_dic={'Receive Date':'2022-07-28',
@@ -269,10 +268,12 @@ class TestImeiInventoryQuery:
             else:
                 ValueAssert.value_assert_equal(attribute, query_dic[i])
 
+
     @allure.story("查询IMEI库存")
     @allure.title("IMEI库存查询页面，查询IMEI库存每个筛选项,进行随机组合")
     @allure.description("IMEI库存页面，查询IMEI库存每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_imei_inventory_query_fixture')
     def test_001_003(self, drivers):
         user = LoginPage(drivers)

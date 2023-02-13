@@ -20,16 +20,15 @@ class TestCustomerInvoice:
     @allure.story("查询客户发票")
     @allure.title("用户进入CustomerInvoice页面，进行“随机查询”操作")
     @allure.description("用户进入CustomerInvoice页面，进行“随机查询”操作，断言查询结果数据符合查询条件")
-    @allure.severity("critical")  # 分别为5种类型等级：blocker\critical\normal\minor\trivial
+    @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_customer_invoice_fixture')
     def test_001_001(self, drivers):
         """DCR 管理员账号登录"""
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """打开采购管理-打开客户发票页面"""
         user.click_gotomenu("Purchase Management", "Customer Invoice")
-
         """展开筛选输入框"""
         page = CustomerInvoiceQuery(drivers)
         page.click_button('Unfold')

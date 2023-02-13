@@ -32,6 +32,7 @@ class TestQueryCompe:
     @allure.title("查询各个常用条件下销售信息")  # 用例名称
     @allure.description("查询后检查结果中是否有对应字段信息")
     @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = LoginPage(drivers)
@@ -61,10 +62,12 @@ class TestQueryCompe:
         ValueAssert.value_assert_In('Acer', result_date)
         page.click_reset()
 
+
     @allure.story("查询竞品销售信息") # 场景名称
     @allure.title("查询各个不常用条件下的销售信息")  # 用例名称
     @allure.description("查询后检查结果中是否有对应字段信息")
     @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture') # 用例标记
     def test_001_002(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = LoginPage(drivers)
@@ -89,11 +92,13 @@ class TestQueryCompe:
         ValueAssert.value_assert_In('BD017762',result_date)
         page.click_reset()
 
+
 class TestExportCompe:
     @allure.story("导出竞品销售信息") # 场景名称
     @allure.title("导出固定条件下的销售信息")  # 用例名称
     @allure.description("导出页面数据保证功能可用")
     @allure.severity("normal")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture') # 用例标记
     def test_002_001(self, drivers):   # 用例名称取名规范'test+场景编号+用例编号'
         user = LoginPage(drivers)

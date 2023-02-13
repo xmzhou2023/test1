@@ -22,6 +22,7 @@ class TestInboundOrder:
     @allure.title("页面随机组合查询")
     @allure.description("随机组合查询")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
         user = LoginPage(drivers)
@@ -55,10 +56,12 @@ class TestInboundOrder:
         add.click_unfold()
         add.random_Query_Method(query_dict)
 
+
     @allure.story("入库单")
     @allure.title("导出查询记录成功")
     @allure.description("导出Inbound Order查询记录")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "lhmadmin", "xLily6x")
@@ -76,9 +79,11 @@ class TestInboundOrder:
         user.assert_Record_result('Export Record', 'Inbound Order', 'Download Status', 'COMPLETE')
         user.assert_Record_result('Export Record', 'Inbound Order', 'File Size')
 
+
     @allure.story("入库单")
     @allure.title("导出详情记录成功")
     @allure.description("导出Inbound Order Detail查询记录")
+    @pytest.mark.smoke  # 用例标记
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
     def test_001_003(self, drivers):
         menu = LoginPage(drivers)
@@ -101,6 +106,7 @@ class TestInboundOrder:
     @allure.title("Order IMEI功能正常")
     @allure.description("点击Order IMEI，检查订单imei数量正常，导出按钮正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_004(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "lhmadmin", "xLily6x")
@@ -125,6 +131,7 @@ class TestInboundOrder:
     @allure.title("Scaned IMEI功能正常")
     @allure.description("点击Scaned IMEI，检查订单imei数量正常，导出按钮正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_005(self, drivers):
         menu = LoginPage(drivers)
         menu.initialize_login(drivers, "lhmadmin", "xLily6x")

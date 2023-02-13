@@ -19,7 +19,7 @@ def function_menu_fixture(drivers):
 
 @allure.feature("库存管理-调拨单")
 class TestQueryTransferOrder:
-    @allure.story("查询调拨单数据")  # 场景名称
+    @allure.story("查询调拨单")  # 场景名称
     @allure.title("库存管理页面，按单个条件查询 调拨单记录")  # 用例名称
     @allure.description("库存管理页面，按单个条件查询 调拨单记录")
     @allure.severity("critical")  # 用例等级
@@ -132,7 +132,7 @@ class TestQueryTransferOrder:
         query_transfer.click_search_reset('Reset')
 
 
-    @allure.story("查看调拨单IMEI详情")  # 场景名称
+    @allure.story("查询调拨单")  # 场景名称
     @allure.title("查看调拨单IMEI详情")  # 用例名称
     @allure.description("调拨单页面，点击IMEI Detail功能，查看调拨单IMEI详情")
     @allure.severity("minor")  # 用例等级
@@ -172,24 +172,21 @@ class TestQueryTransferOrder:
         ValueAssert.value_assert_In(get_detail_customer, get_list_from_cust)
         detail.close_transfer_imei_detail()
 
-    @allure.story("导出调拨单")
+
+    @allure.story("查询调拨单")
     @allure.title("调拨单页面页面，导出页面数据")
     @allure.description("调拨单页面，点击Export按钮，导出调拨单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
-
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Inventory Management", "Transfer Order")
-
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = TransferOrderPage(drivers)
         page.click_button('Unfold')
-
         """按Create Date 条件，筛选调拨单记录"""
-        page.input_transfer_create_start_date('2022-12-10')
-        page.input_transfer_create_end_date('2022-12-25')
+        page.input_transfer_create_start_end_date('2022-12-10', '2022-12-25')
         page.click_transfer_id()
         page.click_button('Search')
         total = int(page.get_total_content())
@@ -205,7 +202,7 @@ class TestQueryTransferOrder:
 
 @allure.feature("库存管理-调拨单")
 class TestNewRecallTransferOrder:
-    @allure.story("创建调拨单，No Receive未收货状态的调拨单,可撤回调拨单")  # 场景名称
+    @allure.story("创建调拨单")  # 场景名称
     @allure.title("创建调拨单，No Receive未收货状态的调拨单,可撤回调拨单")  # 用例名称
     @allure.description("创建调拨单页面，两个不同客户之间的调拨，未收货状态，然后撤回调拨单")
     @allure.severity("critical")  # 用例等级
@@ -283,7 +280,7 @@ class TestNewRecallTransferOrder:
 
 
 
-    @allure.story("创建调拨单(同个客户：不同仓库之间调拨)，然后被调拨方收货")
+    @allure.story("创建调拨单")
     @allure.title("创建调拨单(同个客户：不同仓库之间调拨)，然后被调拨方收货")
     @allure.description("NG2061301客户创建调拨单，NG2061303客户收货")
     @allure.severity("critical")
@@ -363,7 +360,7 @@ class TestNewRecallTransferOrder:
         ValueAssert.value_assert_equal('Received', get_received)
 
 
-    @allure.story("创建调拨单(同级调拨：不同客户间调拨)，from调拨方收货无权限, 然后被调拨方可以收货")
+    @allure.story("创建调拨单")
     @allure.title("创建调拨单(同级调拨：不同客户间调拨)，from调拨方收货无权限, 然后被调拨方可以收货")
     @allure.description("BD291501客户创建调拨单，NG2061301客户收货")
     @allure.severity("critical")
@@ -477,7 +474,7 @@ class TestNewRecallTransferOrder:
         ValueAssert.value_assert_equal('Received', get_received)
 
 
-    @allure.story("导入调拨单，导入成功断言，然后to 方退货操作，退货from方，单据更新为拒绝状态")
+    @allure.story("创建调拨单")
     @allure.title("导入调拨单(同级客户调拨：不同客户间调拨)，导入成功断言，然后to 方退货操作，退货from方，单据更新为拒绝状态")
     @allure.description("NG2061301客户导入调拨单，BD291501客户退货操作")
     @allure.severity("normal")
@@ -542,7 +539,7 @@ class TestNewRecallTransferOrder:
         ValueAssert.value_assert_equal("354196616530083", get_imei)
 
 
-    @allure.story("导入调拨单，导入文件一条IMEI成功，其他3条IMEI导入失败，然后to方退货导入成功的一条IMEI，退货from方，单据更新为拒绝状态")
+    @allure.story("创建调拨单")
     @allure.title("导入调拨单(同级客户调拨：不同客户间调拨)，然后to 方退货操作，退货from方，单据更新为拒绝状态")
     @allure.description("NG2061301客户导入调拨单，导入一条IMEI成功，其他3条IMEI导入失败，BD291501客户退货操作")
     @allure.severity("normal")
@@ -649,7 +646,7 @@ class TestRecallTransferOrder:
         recall = TransferOrderPage(drivers)
         """筛选Transfer Order页面，Received已经收货状态数据"""
         recall.click_unfold('Unfold')
-        recall.input_transfer_create_start_date("2022-09-01")
+        recall.input_transfer_create_start_end_date("2022-09-01", "2022-09-01")
         recall.click_transfer_receipt_status_query('Received')
         recall.click_search_reset('Search')
         sleep(1)

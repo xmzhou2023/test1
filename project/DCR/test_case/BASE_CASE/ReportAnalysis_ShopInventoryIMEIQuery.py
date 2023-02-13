@@ -29,6 +29,7 @@ class TestQueryShopInventoryIMEI:
     @allure.title("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载")
     @allure.description("门店库存IMEI页面，查询门店库存IMEI记录列表数据加载，断言数据加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_query_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -60,6 +61,7 @@ class TestExportShopInventoryIMEI:
     @allure.title("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的数据")
     @allure.description("门店库存IMEI页面，根据收货日期查询，门店库存IMEI记录，并导出筛选后的门店库存IMEI数据，断言导出数据加载正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_report_fixture')
     def test_002_001(self, drivers):
         """查看Shop Inventory IMEI Query 列表数据加载是否正常"""
