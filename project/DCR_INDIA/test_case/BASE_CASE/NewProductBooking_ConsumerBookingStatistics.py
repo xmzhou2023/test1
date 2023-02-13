@@ -14,7 +14,7 @@ from project.DCR_INDIA.page_object.NewProductBooking_ConsumerBookingStatistics i
 
 @allure.feature("新品预订-顾客预订报表") # 模块名称
 class TestConsumerBookingStatistics:
-    @allure.story("页面查询") # 场景名称
+    @allure.story("顾客预订报表") # 场景名称
     @allure.title("组合查询")  # 用例名称
     @allure.description("组合查询")
     @allure.severity("normal")  # 用例等级
@@ -41,6 +41,7 @@ class TestConsumerBookingStatistics:
         add.click_menu("New Product Booking", "Consumer Booking Statistics")
         add.click_unfold()
         add.random_Query_Method(query_dict)
+
 
     @allure.story("顾客预订报表")
     @allure.title("逻辑冲突的查询条件查询结果为空：是否激活&激活时间")
