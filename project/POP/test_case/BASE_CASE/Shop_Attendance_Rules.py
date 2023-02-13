@@ -30,6 +30,7 @@ class TestAddAttendanceRules:
         test = users.element_text(user['新增成功提示'])
         ValueAssert.value_assert_equal(test, "新增成功")
 
+@allure.feature("门店-考勤规则") # 模块名称
 class TestQueryAttendanceRules:
     @allure.story("考勤规则")  # 场景名称
     @allure.title("查询考勤规则")  # 用例名称

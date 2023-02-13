@@ -96,6 +96,7 @@ class TestDisableRole:
         test = users.element_text(user['存在人员禁用提示'])
         ValueAssert.value_assert_equal(test,"请先移除人员")
 
+@allure.feature("组织-角色管理") # 模块名称
 class TestEditRole:
     @allure.story("角色管理")  # 场景名称
     @allure.title("编辑角色")  # 用例名称

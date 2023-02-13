@@ -39,7 +39,7 @@ class TestAddWarehouse:
         test = users.element_text(user['操作成功提示'])
         ValueAssert.value_assert_equal(test, '新增成功')
 
-
+@allure.feature("库存-仓库信息")  # 模块名称
 class TestEditWarehouse:
     @allure.story("编辑仓库名")
     @allure.title("编辑分仓名称")
