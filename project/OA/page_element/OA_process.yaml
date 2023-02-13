@@ -12,6 +12,15 @@ sso登录: 'xpath==//button[text()="SSO 登录"]'
 密码: 'xpath==//input[@placeholder="请输入邮箱密码"]'
 登录: 'xpath==//span[text()="登录"]'
 
+#BPM 和 OA新的登录界面
+新账号名: 'xpath==//*[@id="pane-account"]//div[1]/div/div/input'
+新密码: 'xpath==//input[@type="password"]'
+新登录按钮: 'xpath==//*[@id="pane-account"]//button[@type="submit"]'
+图形验证码输入框输入: 'xpath==//*[@id="pane-account"]//div[3]//div[1]/input'
+图形验证码: "xpath==//img[@slot='suffix']"
+iframe: "xpath==//iframe"
+#
+
 
 
 

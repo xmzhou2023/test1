@@ -25,6 +25,8 @@
 添加字段按钮: 'xpath==//span[contains(text(),"添加字段")]'
 主实体描述输入框: 'xpath==//*[@id="changeEntsDesc0"]/div/textarea'
 一子实体描述输入框: 'xpath==//textarea[@name="7hcy94l201"]'
+主实体英文名输入框: 'xpath==//input[@placeholder="请输入内容"]'
+
 主实体选中框: 'xpath==//span[text()="主实体"]'
 子实体选中框: 'xpath==//span[text()="子实体"]'
 字段列表1行注释: 'xpath==//*[@id="comment0"]/div/input'

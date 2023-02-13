@@ -42,6 +42,12 @@ class BPM_modeling_Page(Base):
     def input_master_entity(self, content):
         self.input_text(user['主实体描述输入框'], txt=content)
 
+    @allure.step("输入主实体英文名输入框——输入文字")
+    def input_master_entity_EN(self, content):
+        self.input_text(user['主实体英文名输入框'], txt=content)
+
+
+
     # @allure.step("点击6次添加字段按钮")
     # def click_from_button(self):
     #     self.is_click_tbm(user['添加字段按钮'])

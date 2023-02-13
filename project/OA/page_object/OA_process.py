@@ -67,8 +67,10 @@ class OAUserPage(Base):
     def click_account_password(self):
         self.is_click_tbm(user['点击通过账号密码'])
 
+
     @allure.step("输入账号密码进行登录飞书到应用系统巡检系统")
     def input_account_password(self, name, password):
+        sleep(10)
         self.input_text_oa(user['工号'], name)
         self.input_text_oa(user['密码'], password)
 
@@ -188,6 +190,60 @@ class OAUserPage(Base):
         cc = base64.decodebytes(bytes("MTg2NjQzMzMyNDM=\n", 'utf-8'))
         dd = base64.decodebytes(bytes("MzI0OTIyQHd1\n==\n", 'utf-8'))
         return aa, pa, cc, dd
+
+    @allure.step("登录OA正式环境")
+    def OAlog(self, options=1, Job="18647220"):
+        self.frame_enter(user["iframe"])
+        if options == 1:
+            self.input_newaccount(Job)  # 默认使用刘艳的号登录BPM
+            self.input_newpasswd("teddy@2863")
+            aa = 0
+            count = 0
+            # 如果a=1 就跳出循环
+            while aa == 0 and count < 10:
+                count += 1
+                self.input_newimgcode()
+                self.click_newloginsubmit()
+                itexis = self.element_exist(user["新登录按钮"])
+                if itexis:
+                    aa = 0
+                else:
+                    aa = 1
+
+    @allure.step("登录OA正式环境,不用重新获取iframe")
+    def OAlogB(self, options=1, Job="18647220"):
+        if options == 1:
+            self.input_newaccount(Job)  # 默认使用刘艳的号登录BPM
+            self.input_newpasswd("teddy@2863")
+            aa = 0
+            count = 0
+            # 如果a=1 就跳出循环
+            while aa == 0 and count < 10:
+                count += 1
+                self.input_newimgcode()
+                self.click_newloginsubmit()
+                itexis = self.element_exist(user["新登录按钮"])
+                if itexis:
+                    aa = 0
+                else:
+                    aa = 1
+
+    def input_newaccount(self, content):
+        """输入工号"""
+        self.input_text(user['新账号名'], txt=content)
+
+    def input_newpasswd(self, content):
+        """输入密码"""
+        self.input_text(user['新密码'], txt=content)
+
+    def click_newloginsubmit(self):
+        """点击帐号密码登录"""
+        self.is_click(user['新登录按钮'])
+
+    def input_newimgcode(self):
+        """识别图形验证码，输入验证码"""
+        imgcode = self.get_graphical_code(user['图形验证码'])
+        self.input_text(user['图形验证码输入框输入'], imgcode)
 
 
 if __name__ == '__main__':
