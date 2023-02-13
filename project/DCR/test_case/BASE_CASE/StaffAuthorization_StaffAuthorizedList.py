@@ -29,17 +29,15 @@ class TestQueryStaffAuthorizedList:
     @allure.title("员工授权列表页面，查询员工授权每个筛选项,进行随机组合")
     @allure.description("员工授权列表页面，查询员工授权列表每个筛选项，进行随机组合，断言查询结果数据符合查询条件")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_staff_authorized_list_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
-
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Staff & Authorization", "Staff Authorized List")
-
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = StaffAuthorizedList(drivers)
         page.click_button('Unfold')
-
         """查询Activation Time，对结果进行判断,注意字典的键要和表格的表头一致"""
         query_dic = {'User ID': 'zhao11',
                      'Brand': 'TECNO',
@@ -121,21 +119,20 @@ class TestQueryStaffAuthorizedList:
         else:
             logging.info('the total is empty')
 
-    @allure.story("导出员工授权列表")
+
+    @allure.story("查询员工授权列表")
     @allure.title("员工授权列表页面，导出页面数据")
     @allure.description("员工授权列表页面，查询员工授权列表的筛选项，导出数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_staff_authorized_list_fixture')
     def test_001_002(self, drivers):
         user = LoginPage(drivers)
-
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Staff & Authorization", "Staff Authorized List")
-
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = StaffAuthorizedList(drivers)
         page.click_button('Unfold')
-
         page.select_content('Role', 'RSM')
         page.click_button('Search')
         total = int(page.get_total_content())
@@ -148,21 +145,20 @@ class TestQueryStaffAuthorizedList:
         else:
             logging.info('the total is empty')
 
-    @allure.story("员工授权列表点击跳转")
+
+    @allure.story("查询员工授权列表")
     @allure.title("员工授权列表页面，点击customer等进行跳转查看")
     @allure.description("员工授权列表页面，点击customer等进行跳转查看")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.UT  # 用例标记
     @pytest.mark.usefixtures('function_staff_authorized_list_fixture')
     def test_001_003(self, drivers):
         user = LoginPage(drivers)
-
         """打开报表分析-打开IMEI库存查询页面"""
         user.click_gotomenu("Staff & Authorization", "Staff Authorized List")
-
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = StaffAuthorizedList(drivers)
         page.click_button('Unfold')
-
         page.select_content('User ID', 'TK555555')
         page.select_content('Inactive Day(No Login)', '0')
         page.click_button('Search')

@@ -53,7 +53,7 @@ def ValueTemplate_fixture(drivers):
 
 
 
-@allure.feature("供应商绩效考核--评估代码供货品类配置")  # 模块名称
+@allure.feature("供应商绩效考核")  # 模块名称
 class TestAppraisal:
 
     @allure.story("估代码供货品类配置")  # 场景名称
@@ -292,7 +292,7 @@ class TestAppraisal:
         app.screening_valuecode()
 
 
-@allure.feature("供应商绩效考核--评估代码管理人员配置")  # 模块名称
+@allure.feature("供应商绩效考核")  # 模块名称
 class TestPersonManage:
     @allure.story("评估代码管理人员配置")  # 场景名称
     @allure.title("新建评估代码人员配置")  # 用例名称
@@ -537,7 +537,7 @@ class TestPersonManage:
 
 
 
-@allure.feature("供应商绩效考核--评估模板管理")  # 模块名称
+@allure.feature("供应商绩效考核")  # 模块名称
 class TestValueTemplate:
 
     @allure.story("评估模板管理")  # 场景名称

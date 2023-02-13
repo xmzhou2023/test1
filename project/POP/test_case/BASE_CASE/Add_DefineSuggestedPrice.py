@@ -29,7 +29,7 @@ class TestAdd_DefineSuggestedPrice:
         # 断言
         users.sql_priceassert(1, "5623", "7255")
 
-    @allure.story("编辑商品建议价格")  # 场景名称
+    @allure.story("定义建议价格")  # 场景名称
     @allure.title("查询商品名称，点击编辑，修改价格后保存")  # 用例名称
     @allure.description("输入商品建议价格")
     @allure.severity("normal")  # 用例等级
@@ -46,7 +46,7 @@ class TestAdd_DefineSuggestedPrice:
         sql = f'delete FROM `pop_data_db`.`goods_price` WHERE `goods_id` = 5623 AND `area_id`=7255 AND `enabled_flag`=1;'
         SQL("POP", "test").delete_db(sql)
 
-@allure.feature("商品-定义建议价格")
+@allure.feature("商品-定义建议价格")  # 模块名称
 class TestQuery:
     @allure.story("定义建议价格")
     @allure.title("查询定义建议价格")
@@ -141,7 +141,7 @@ class TestQuery:
 
 @allure.feature("商品-定义建议价格")  # 模块名称
 class TestExportPrice:
-    @allure.story("导出")  # 场景名称
+    @allure.story("定义建议价格")  # 场景名称
     @allure.title("根据品牌名称查询后导出")  # 用例名称
     @allure.description("导出")
     @allure.severity("normal")  # 用例等级
