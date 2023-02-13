@@ -44,6 +44,42 @@ class AddRole(Base):
         sleep(2)
         self.is_click_tbm(user['二次弹窗确定'])
 
+    @allure.step("关闭弹窗")
+    def click_close(self):
+        self.is_click_tbm(user['关闭弹窗按钮'])
+
+class DisableRole(Base):
+    """禁用角色类"""
+
+    @allure.step("选择角色禁用")
+    def disable_role(self, role):
+        self.is_click_tbm(user['选择新增的角色组'], role)
+        sleep(2)
+        self.is_click_tbm(user['禁用按钮'])
+        sleep(2)
+        self.is_click_tbm(user['二次弹窗确定'])
+
+class EditRole(Base):
+    """编辑角色类"""
+    @allure.step("选择角色")
+    def switch_role(self,role):
+        self.is_click_tbm(user['选择角色组'],role)
+        sleep(3)
+
+    @allure.step("点击编辑")
+    def click_edit(self):
+        self.is_click_tbm(user['编辑按钮'])
+
+    @allure.step("编辑角色名称")
+    def input_rolename(self, rolename):
+        self.is_click_tbm(user['角色名称输入框'])
+        self.input_text(user['角色名称输入框'], rolename)
+
+    @allure.step("编辑提交")
+    def click_submit(self):
+        self.is_click_tbm(user['编辑提交按钮'])
+
+
 
 if __name__ == '__main__':
     pass

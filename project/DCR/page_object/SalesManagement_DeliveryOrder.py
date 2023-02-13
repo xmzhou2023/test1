@@ -1,5 +1,10 @@
+from datetime import datetime
+from openpyxl import load_workbook
+# from pykeyboard import PyKeyboard
+from pykeyboard import *
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
+from libs.config.conf import BASE_DIR
 from public.base.basics import Base
 from public.base.assert_ui import ValueAssert
 import random
@@ -9,27 +14,33 @@ object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
 class DeliveryOrderPage(Base):
-    """DeliveryOrderPage类，Delivery Order页面，查询与新建出库单功能 元素定位"""
 
-    @allure.step("出库单页面，输入销售订单号")
+    def input_text(self, locator, txt, *choice):
+        """输入文本"""
+        sleep(0.5)
+        ele = self.find_element(locator, *choice)
+        ele.clear()
+        ele.send_keys(txt)
+        logging.info("输入文本：{}".format(txt))
+
+    """DeliveryOrderPage类，Delivery Order页面，查询与新建出库单功能 元素定位"""
+    @allure.step("出库单页面，输入销售订单号查询")
     def input_salesorder(self, content):
         self.input_text(user['Input Sales Order ID'], txt=content)
-        sleep(1)
 
-    @allure.step("出库单页面，输入出库订单号")
+    @allure.step("出库单页面，输入出库订单号查询")
     def input_deliveryorder(self, content):
         self.input_text(user['Input Delivery Order ID'], txt=content)
-        sleep(1)
 
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     @allure.step("出库单页面，点击Add新增出库单")
     def click_add(self):
@@ -37,12 +48,17 @@ class DeliveryOrderPage(Base):
         self.is_click(user['新增出库单'])
         sleep(2)
 
+    @allure.step("Add新增出库单页面，选择仓库")
+    def select_warehouse_name(self, warehouse):
+        self.is_click(user['Warehouse Name'])
+        sleep(1)
+        self.is_click(user['Warehouse Name Value'], warehouse)
+
     @allure.step("Add新增出库单页面，输入国包账号的Buyer属性")
     def input_sub_buyer(self, content):
         self.presence_sleep_dcr(user['Buyer'])
         self.is_click(user['Buyer'])
-        sleep(1)
-        self.input_text(user['Buyer'], txt=content)
+        self.input_text(user['Buyer'], content)
         sleep(1.5)
         self.presence_sleep_dcr(user['Buyer sub value'], content)
         self.is_click(user['Buyer sub value'], content)
@@ -51,7 +67,7 @@ class DeliveryOrderPage(Base):
     def input_retail_buyer(self, content):
         self.presence_sleep_dcr(user['Buyer'])
         self.is_click(user['Buyer'])
-        self.input_text(user['Buyer'], txt=content)
+        self.input_text(user['Buyer'], content)
         sleep(2)
         self.is_click(user['Buyer retail value'], content)
 
@@ -59,13 +75,13 @@ class DeliveryOrderPage(Base):
     def input_deli_pay_mode(self, content):
         self.presence_sleep_dcr(user['payment mode'])
         self.is_click(user['payment mode'])
-        self.input_text(user['payment mode'], txt=content)
+        self.input_text(user['payment mode'], content)
         sleep(1)
         self.is_click(user['payment mode Online'], content)
 
     @allure.step("Add新增出库单页面，IMEI属性")
     def input_imei(self, content):
-        self.input_text(user['Input IMEI'], txt=content)
+        self.input_text(user['Input IMEI'], content)
 
     @allure.step("Add新增出库单页面，Check按钮")
     def click_check(self):
@@ -88,6 +104,12 @@ class DeliveryOrderPage(Base):
         scan_record_success = self.element_text(user['Get Delivery Scan Record Success'])
         return scan_record_success
 
+    @allure.step("Add新增出库单页面，点击Check按钮后，获取Order Detail列表Product内容")
+    def get_delivery_order_detail_product(self):
+        get_delivery_product = self.element_text(user['Get Delivery Order Detail Product'])
+        return get_delivery_product
+
+
     @allure.step("Add新增出库单页面，点击check后，Scan Record扫码记录下侧出现显示IMEI")
     def get_Deli_Scan_Record_IMEI(self, imei):
         self.presence_sleep_dcr(user['Get Delivery Scan Record IMEI'], imei)
@@ -97,7 +119,7 @@ class DeliveryOrderPage(Base):
     @allure.step("Add新增出库单页面，Submit按钮")
     def click_submit(self):
         self.is_click(user['Submit'])
-        sleep(0.6)
+        sleep(1)
 
     @allure.step("Add新增出库单页面，Submit按钮")
     def get_text_submit(self):
@@ -151,10 +173,11 @@ class DeliveryOrderPage(Base):
     @allure.step("输入Delivery Date开始与结束日期筛选")
     def input_delivery_date(self, content1, content2):
         self.is_click(user['Delivery Start Date'])
-        self.input_text(user['Delivery Start Date'], txt=content1)
+        self.readonly_input_text(user['Delivery Start Date'], content1)
         sleep(1)
         self.is_click(user['Delivery End Date'])
-        self.input_text(user['Delivery End Date'], txt=content2)
+        self.readonly_input_text(user['Delivery End Date'], content2)
+        self.is_click(user['点击筛选项label'], 'Delivery Date')
 
     @allure.step("点击 Status输入框")
     def click_status_input_box(self):
@@ -183,7 +206,7 @@ class DeliveryOrderPage(Base):
         deli_date = self.element_text(user['Get Delivery Date Text'])
         return deli_date
 
-    @allure.step("获取列表Status文本内容")
+    @allure.step("获取出库单列表Status文本内容")
     def get_status_text(self):
         status = self.element_text(user['Get Status Text'])
         return status
@@ -196,17 +219,14 @@ class DeliveryOrderPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
 
     @allure.step("出库单页面，关闭出库单菜单")
     def click_close_delivery_order(self):
         self.is_click(user['关闭出库单菜单'])
-        sleep(1)
 
     @allure.step("出库单页面，关闭IMEI Detail详情页")
     def click_close_imei_detail(self):
         self.is_click(user['关闭IMEI详情页'])
-        sleep(1.5)
 
 
     #Delivery Order列表数据筛选后，导出操作成功后验证
@@ -218,18 +238,23 @@ class DeliveryOrderPage(Base):
 
     @allure.step("点击下载Download Icon,more更多按钮")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
-        self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
+        self.input_text(user['Input Task Name'], content)
+        sleep(0.6)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     @allure.step("循Base环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -299,10 +324,73 @@ class DeliveryOrderPage(Base):
             logging.info("Delivery Order导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Delivery Order导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
+
+    @allure.step("断言精确查询结果 Customer PSI列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_delivery_order_field(self, header, content):
+        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['DeliveryOrdery表格内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
 
 
-    """#创建出库单，产品为无码的出库单"""
+    @allure.step("获取出库单列表，字段内容")
+    def get_list_field_text(self, field):
+        self.scroll_into_view(user[field])
+        get_field = self.element_text(user[field])
+        return get_field
+
+    @allure.step("获取复选框对应的 Class属性是否包含is-checked")
+    def get_field_style_color(self, field):
+        ss = self.find_element(user[field])
+        get_check_style = ss.get_attribute('style')
+        return get_check_style
+
+
+    @allure.step("后端断言，创建出库单成功后，数据库表是否新增出库单记录")
+    def select_sql_delivery_order(self, warehouse, seller, buyer):
+        sql2 = SQL('DCR', 'test')
+        varsql2 = f"select order_code, delivery_code from t_channel_delivery_ticket where warehouse_id='{warehouse}' and seller_id='{seller}' and buyer_id='{buyer}' and status=80200000 order by created_time desc limit 1"
+        result = sql2.query_db(varsql2)
+        order_code = result[0].get("order_code")
+        delivery_code = result[0].get("delivery_code")
+        logging.info("打印数据库查询的销售单ID order_code{}".format(order_code))
+        logging.info("打印数据库查询的出库单ID delivery_code{}".format(delivery_code))
+        ValueAssert.value_assert_equal(order_code, delivery_code)
+        return order_code, delivery_code
+
+
+    @allure.step("创建出库单的操作步骤,封装公共方法")
+    def create_delivery_order(self, buyer, pay, box_id):
+        self.click_add()
+        self.input_retail_buyer(buyer)
+        self.input_deli_pay_mode(pay)
+        self.input_imei(box_id)
+        self.click_check()
+        sleep(0.8)
+
+    @allure.step("创建出库单，选择卖家仓库，输入多个IMEI 场景操作步骤,封装公共方法")
+    def create_delivery_order_many_imei(self, warehouse, buyer, pay, imei1, imei2):
+        self.click_add()
+        self.select_warehouse_name(warehouse)
+        self.input_retail_buyer(buyer)
+        self.input_deli_pay_mode(pay)
+        self.input_imei(imei1)
+        self.click_check()
+        sleep(0.8)
+        self.input_imei(imei2)
+        self.click_check()
+        sleep(0.8)
+
+    @allure.step("创建出库单，选择卖家仓库，输入一个IMEI 场景操作步骤,封装公共方法")
+    def create_delivery_order_imei(self, warehouse, buyer, pay, imei1):
+        self.click_add()
+        self.select_warehouse_name(warehouse)
+        self.input_retail_buyer(buyer)
+        self.input_deli_pay_mode(pay)
+        self.input_imei(imei1)
+        self.click_check()
+        sleep(0.8)
+
+
+    """创建出库单，产品为无码的出库单"""
     @allure.step("点击无码单选按钮")
     def click_quantity_radio_button(self):
         self.is_click(user['Quantity Radio Button'])
@@ -356,10 +444,10 @@ class DeliveryOrderPage(Base):
         self.input_text(user['Temporary Contact No'], content)
 
     @allure.step("点击业务类型下拉框")
-    def click_business_type(self):
+    def click_business_type(self, business):
         self.is_click(user['Business Type'])
-        sleep(2)
-        self.is_click(user['Business Type value'], "Retail&Wholesale")
+        sleep(1)
+        self.is_click(user['Business Type value'], business)
 
     @allure.step("随机生成数字")
     def customer_random(self):
@@ -368,10 +456,10 @@ class DeliveryOrderPage(Base):
 
 
     """查询出库单的IMEI Detail 详情信息"""
-    @allure.step("点击出库单的IMEI Detail 详情信息")
+    @allure.step("点击出库单页面的IMEI Detail 查看详情信息")
     def click_imei_detail(self):
-        self.is_click_dcr(user['Click IMEI Detail'])
-        sleep(2.5)
+        self.is_click(user['Click IMEI Detail'])
+        sleep(2)
 
     @allure.step("获取列表Product文本")
     def get_list_product_text(self):
@@ -386,10 +474,10 @@ class DeliveryOrderPage(Base):
         return get_list_item
 
 
-    @allure.step("IMEI Detail页面，获取Title标题的Sales Order")
-    def get_detail_title_sale_text(self):
-        self.presence_sleep_dcr(user['Get IMEI Detail Title'])
-        get_detail_title = self.element_text(user['Get IMEI Detail Title'])
+    @allure.step("IMEI Detail页面，获取Title标题的Delivery Order ID")
+    def get_detail_title_delivery_id_text(self):
+        self.presence_sleep_dcr(user['Get Delivery IMEI Detail Title'])
+        get_detail_title = self.element_text(user['Get Delivery IMEI Detail Title'])
         return get_detail_title
 
     @allure.step("IMEI Detail页面，获取Product文本")
@@ -411,6 +499,264 @@ class DeliveryOrderPage(Base):
     def get_detail_total_text(self):
         get_detail_total = self.element_text(user['Get IMEI Detail Total Text'])
         return get_detail_total
+
+    @allure.step("Delivery Order页面，根据销售单与出库单号筛选新增的出库单记录")
+    def query_delivery_order(self, order_code, delivery_code):
+        self.input_salesorder(order_code)
+        self.input_deliveryorder(delivery_code)
+        self.click_search()
+
+    @allure.step("点击Upload按钮")
+    def click_upload(self):
+        self.is_click(user['Upload'])
+        logging.info('点击upload按钮')
+        # k = PyKeyboard()
+        # k.tap_key(k.escape_key)
+
+    @allure.step("点击Import按钮")
+    def click_import(self):
+        self.is_click(user['Import'])
+        logging.info('点击Import按钮')
+        self.click_upload()
+
+    @allure.step("导入文件")
+    def import_file(self, name):
+        """
+        @name： 传入存放在data文件夹里的文件名
+        """
+        file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
+        logging.info("文件地址：{}".format(file_path))
+        self.upload_file(user['导入'], file_path)
+        logging.info("导入文件：{}".format(file_path))
+
+    @allure.step("导入出库单文件")
+    def import_DeliveryOrdery_file(self, name):
+        """
+        :param name： 传入存放在data文件夹里的文件名
+        """
+        file_path = os.path.join(BASE_DIR, 'project', 'DCR', 'data', name)
+        logging.info("文件地址：{}".format(file_path))
+        today = datetime.now().strftime('%Y-%m-%d')
+        workbook = load_workbook(filename=file_path)
+        sheet = workbook.active
+        cells = sheet['D']
+        for cell in cells[2:]:
+            cell.value = today
+        workbook.save(filename=file_path)
+        self.upload_file(user['导入'], file_path)
+        logging.info("导入出库单文件：{}".format(file_path))
+
+    @allure.step("点击Save按钮")
+    def click_save(self):
+        self.is_click(user['Save'])
+        logging.info('点击Save按钮')
+
+    @allure.step("点击Confirm按钮")
+    def click_confirm(self):
+        self.is_click(user['Confirm'])
+        logging.info('点击Confirm按钮')
+        sleep(2)
+        self.refresh()
+
+    @allure.step("断言：导入成功状态")
+    def assert_import_success(self):
+        logging.info("开始断言：导入成功状态")
+        DomAssert(self.driver).assert_control(user['导入成功状态'])
+
+    @allure.step("获得首行指定内容")
+    def get_FirstRow_info(self, header):
+        """
+        :param header: 需要获取的指定字段
+        """
+        column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+        content = self.inner_text(user['表格首行指定内容'], column)
+        content_list = []
+        if '|' in content:
+            for i in content.split('|'):
+                content_list.append(i)
+            logging.info('获取首行 {} 内容：{}'.format(header, content_list))
+            return content_list
+        else:
+            logging.info('获取首行 {} 内容：{}'.format(header, content))
+            return content
+
+    @allure.step("断言首行字段是否正确")
+    def assert_first_info(self, header, content):
+        """
+        :param header: 需要获取的指定字段
+        """
+        logging.info('开始断言：首行字段是否正确')
+        ac_info = self.get_FirstRow_info(header)
+        ValueAssert.value_assert_In(content, ac_info)
+
+    @allure.step("获得Record指定内容")
+    def get_Record_info(self, menu, name, header):
+        """
+        :param menu: 菜单名
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        """
+        for i in range(20):
+            ac_menu = self.element_text(user['当前菜单'])
+            if ac_menu == menu:
+                column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+                content = self.element_text(user['表格指定列内容'], name, column)
+                logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+                return content
+            self.click_menu('Basic Data Management', menu)
+            column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+            content = self.element_text(user['表格指定列内容'], name, column)
+            logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+            return content
+
+    @allure.step("断言：ImportRecord导入结果")
+    def assert_Record_result(self, menu, name, header, result=None):
+        """
+        :param menu: 菜单
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        :param result: 需要断言的值 比如状态，数量，时间
+        """
+        logging.info('开始断言：ImportRecord导入结果')
+        ac_result = self.get_Record_info(menu, name, header)
+        if header == 'File Size':
+            ValueAssert.value_assert_IsNot(ac_result, '0B')
+        else:
+            ValueAssert.value_assert_In(result, ac_result)
+
+    @allure.step("断言：ShopSalesQuery导入结果")
+    def assert_Query_result(self, header, content):
+        """
+        :param header: 需要获取的指定字段
+        :param content: 需要断言的值
+        """
+        logging.info('开始断言：ShopSalesQuery导入结果')
+        DomAssert(self.driver).assert_search_result(user['表格字段'], user['DeliveryOrdery表格内容'], header, content, sc_element=user['DeliveryOrdery滚动条'], h_element=user['表头文本'])
+
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user['菜单'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+
+    @allure.step("点击首行print")
+    def click_First_print(self):
+        self.is_click_tbm(user['首行print'])
+        logging.info("点击首行print")
+
+    @allure.step("断言：print页面内容是否正确")
+    def assert_print_content(self, content):
+        """
+        :param content: 需要断言的内容
+        """
+        logging.info('开始断言：print页面内容是否正确')
+        if isinstance(content, str):
+            try:
+                result = self.element_exist(user['打印内容'], content)
+                assert result
+                logging.info('断言成功,print页面存在内容：{}'.format(content))
+            except:
+                logging.error('断言失败，print不存在内容:{}'.format(content))
+                raise
+        elif isinstance(content, list):
+            for i in range(len(content)):
+                try:
+                    result = self.element_exist(user['打印内容'], content[i])
+                    assert result
+                    logging.info('断言成功,print页面存在内容：{}'.format(content[i]))
+                except:
+                    logging.error('断言失败，print不存在内容:{}'.format(content[i]))
+                    raise
+
+    @allure.step("输入查询条件")
+    def input_search(self, header, content):
+        """
+        :param header: 需要查询的字段
+        :param content: 查询内容
+        """
+        input_list = ['Sales Order ID', 'Delivery Order ID']
+        select_list = ['Seller', 'Buyer', 'Creator']
+        click_list = ['Brand', 'Model', 'Market Name', 'Buyer Country', 'Seller Country']
+        click_list2 = ['Status', 'Activated Loss Or Not', 'Have Discount', 'Upload Type', 'Buyer Type', 'Seller Type', 'Return or not', 'Payment Mode']
+        time_list = ['Delivery Date']
+        logging.info(f'输入查询条件： {header} ，内容： {content}')
+        if header in input_list:
+            self.input_text(user['input输入框'], content, header)
+        elif header in select_list:
+            self.is_click_tbm(user['select输入框'], header)
+            self.input_text(user['select输入框2'], content, header)
+            self.is_click_tbm(user['select输入框选择'], content)
+        elif header in click_list:
+            self.is_click_tbm(user['click输入框'], header)
+            self.readonly_input_text(user['click输入框2'], content, header)
+            self.is_click_tbm(user['click输入框选择'], content)
+        elif header in click_list2:
+            self.is_click_tbm(user['click输入框'], header)
+            self.is_click_tbm(user['click输入框选择'], content)
+        elif header in time_list:
+            createDate = content.split('To')
+            for i in range(len(createDate)):
+                self.readonly_input_text(user['时间输入框'], createDate[i], header, i + 1)
+                self.is_click_tbm(user['输入框名称'], header)
+        else:
+            logging.error('请输入正确的查询条件')
+            raise ValueError('请输入正确的查询条件')
+
+    @allure.step("断言：查询结果为空")
+    def assert_NoData(self):
+        logging.info('开始断言：查询结果为空')
+        DomAssert(self.driver).assert_control(user['NoData'])
+
+    @allure.step("输入查询条件")
+    def click_export_detail(self):
+        self.is_click(user['Click Export Detail'])
+        sleep(6)
+
+    @allure.step("点击print页面取消")
+    def click_print_cancel(self):
+        self.is_click_tbm(user['打印Cancel'])
+        logging.info('点击print页面取消')
+
+    @allure.step("单一条件查询断言组合方法")
+    def assert_Query_Method(self, header, content):
+        """
+        :param header: 需要断言的字段
+        :param content: 断言内容
+        """
+        logging.info('开始断言：单一条件查询结果')
+        self.input_search('Delivery Date', '2022-11-01To2023-01-31')
+        self.input_search(header, content)
+        self.click_search()
+        if header == 'Seller' or header == 'Buyer':
+            self.assert_Query_result(f'{header} ID', content)
+        elif header == 'Have Discount':
+            column = self.get_table_info(user['表格字段'], 'Total Discount', sc_element=user['DeliveryOrdery滚动条'], h_element=user['表头文本'])
+            contents = self.get_row_info(user['DeliveryOrdery表格内容'], column, user['DeliveryOrdery滚动条'])
+            if content == 'Yes':
+                for i in contents:
+                    ValueAssert.value_assert_Notequal(i, '0')
+            else:
+                for i in contents:
+                    ValueAssert.value_assert_equal(i, '0')
+        elif header == 'Return or not':
+            column = self.get_table_info(user['表格字段'], 'Return Quantity', sc_element=user['DeliveryOrdery滚动条'], h_element=user['表头文本'])
+            ac_content = self.find_elements(user['DeliveryOrdery表格退货标签'], column)
+            as_value = 'color: red'
+            if content == 'Yes':
+                for i in ac_content:
+                    ValueAssert.value_assert_Notequal(i.text, '0')
+                    style = i.get_attribute('style')
+                    ValueAssert.value_assert_In(as_value, style)
+            else:
+                for i in ac_content:
+                    ValueAssert.value_assert_equal(i.text, '0')
+                    style = i.get_attribute('style')
+                    ValueAssert.value_assert_InNot(as_value, style)
+        else:
+            self.assert_Query_result(header, content)
+        self.click_reset()
 
 
 if __name__ == '__main__':

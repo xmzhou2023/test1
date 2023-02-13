@@ -9,53 +9,42 @@ user = Element(pro_name, object_name)
 
 class VisitRecordPage(Base):
     """VisitRecordPage类，生产环境，Visit Record巡店记录页面元素定位"""
-
-    @allure.step("Visit Record页面，点击unfold展开筛选条件")
-    def click_unfold(self):
-        self.is_click(user['Unfold'])
-        sleep(2)
-
-    @allure.step("Visit Record页面，点击unfold展开筛选条件")
-    def click_fold(self):
-        self.is_click(user['Fold'])
-        sleep(1)
-
     @allure.step("Visit Record页面，筛选Shop ID的巡店记录")
     def input_shop_id_query(self, content):
+        self.is_click(user['Unfold'])
+        sleep(2)
         self.presence_sleep_dcr(user['Click Input Shop Query'])
         self.is_click(user['Click Input Shop Query'])
-        self.input_text(user['Input Shop Query'], txt=content)
-        sleep(3)
+        self.input_text(user['Input Shop Query'], content)
+        sleep(2)
         self.presence_sleep_dcr(user['Select Shop Value'], content)
         self.is_click(user['Select Shop Value'], content)
+        self.is_click(user['Fold'])
 
     @allure.step("Visit Record页面，输入Submit Start Date")
     def input_submit_start_date(self, content):
         sleep(3)
         self.presence_sleep_dcr(user['Submit Start Date'])
         self.is_click(user['Submit Start Date'])
-        self.input_text(user['Submit Start Date'], txt=content)
-
-    @allure.step("Visit Record页面，点击 Submit Date输入框释放光标位置")
-    def click_submit_date(self):
-        self.is_click(user['Click Submit Date'])
+        self.input_text(user['Submit Start Date'], content)
+        self.is_click(user['点击筛选项label'], 'Submit Date')
 
     @allure.step("Visit Record页面，点击Search查询按钮")
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(3.8)
+        self.element_text(user['Loading'])
 
     @allure.step("Visit Record页面，点击Reset重置按钮")
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(3.5)
+        self.element_text(user['Loading'])
 
     @allure.step("Visit Record页面，获取列表中Shop ID文本属性")
     def get_shop_id_text(self):
         self.scroll_into_view(user['获取Shop ID文本'])
-        self.presence_sleep_dcr(user['获取Shop ID文本'])
+        #self.presence_sleep_dcr(user['获取Shop ID文本'])
         shop_id = self.element_text(user['获取Shop ID文本'])
         return shop_id
 
@@ -83,19 +72,19 @@ class VisitRecordPage(Base):
         return total1
 
     @allure.step("Visit Record页面，点击Shop self-inspection 条件筛选")
-    def click_shop_self_inspection(self):
-        self.is_click(user['Shop self-inspection'], 'Shop self-inspection')
+    def click_shop_self_inspection(self, content):
+        self.is_click(user['Shop self-inspection'], content)
         sleep(0.5)
 
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
+        #sleep(1)
 
     @allure.step("Visit Record页面，点击关闭Visit Record菜单")
     def click_close_visit_record(self):
         self.is_click(user['关闭巡店记录菜单'])
-        sleep(1)
+        #sleep(1)
 
 
     #巡店记录，导出功能验证
@@ -112,18 +101,23 @@ class VisitRecordPage(Base):
 
     @allure.step("点击Download Icon，点击More更多按钮")
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1.5)
-        self.presence_sleep_dcr(user['More'])
+        self.mouse_hover_click(user['Download Icon'])
+        Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
         self.is_click(user['Input Task Name'])
         self.input_text(user['Input Task Name'], txt=content)
-        sleep(2)
+        sleep(0.5)
         self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date 开始日期筛选该任务的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['Export Record Create Date'])
+        self.input_text(user['Export Record Create Date'], start_date)
+        self.is_click(user['点击筛选项label'], 'Create Date')
 
     @allure.step("循环点击查询，直到获取到下载状态为COMPLETE")
     def click_export_search(self):
@@ -198,6 +192,10 @@ class VisitRecordPage(Base):
         else:
             logging.info("Visit Record导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
 
+    @allure.step("断言精确查询结果 Customer PSI列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
+    def assert_visit_record_field(self, header, content):
+        DomAssert(self.driver).assert_search_contains_result(user['表格字段'], user['表格指定列内容'], header, content,
+                                                    sc_element=user['水平滚动条'])
 
 
 if __name__ == '__main__':

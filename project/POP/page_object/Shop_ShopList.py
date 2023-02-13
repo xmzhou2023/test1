@@ -5,28 +5,30 @@ import logging
 from ..test_case.conftest import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
+from project.POP.page_object.Center_Component import *
 
+class QueryShop(Page_Operation, General_button):
+    """按条件查询门店"""
+    select_list1 = {"门店列表-门店框": "门店列表-门店", "门店列表-组织框": "门店列表-组织", "门店列表-国家框": "门店列表-国家","门店列表-门店等级框":"门店列表-门店等级"}
+    select_list2 = {"门店列表-销量等级框": "门店列表-销量等级", "门店列表-状态框": "门店列表-状态","门店列表-区域框":"门店列表-区域"}
 
-class Query_shop(Base):
-    """查看门店类"""
+    def queryhop(self, select, content, ele2=None, enddate=None):
+        if select in self.select_list1:
+            self.single_condition_input_boxquery(select, self.select_list1[select], content)
+            sleep()
+            self.query()
+        elif select in self.select_list2:
+            self.more()
+            sleep()
+            self.single_condition_input_boxquery(select, self.select_list2[select], content)
+            sleep()
+            self.more_query()
+        elif select == "开始日期框":
+            self.date_range(select, ele2, content, enddate)
+            self.query()
+        else:
+            logging.error("系统检测没有此筛选项，请检查后重新输入")
 
-    @allure.step("选择组织")
-    def click_organization(self,variable):
-        #点击组织输入框,点击Tecno
-        self.is_click(user["组织下拉按钮"])
-        self.is_click(user["TECNO组织"],variable)
-
-    @allure.step("输入门店名称筛选条件")
-    def click_shop(self,variable):
-        #点击门店输入框，输入仙桃体专店
-        self.is_click(user["门店列表输入框"])
-        self.input_text(user["门店列表输入框"],variable)
-        self.is_click(user["门店"],variable)
-
-    @allure.step("点击查询")
-    def click_query(self,expect):
-        #点击查询按钮
-        self.is_click(user["查询按钮"])
 
 class AddShop(Base):
     """门店新增类"""

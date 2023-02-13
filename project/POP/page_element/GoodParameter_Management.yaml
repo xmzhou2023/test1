@@ -20,3 +20,9 @@ add按钮: "xpath==//span[normalize-space()='+Add']"
 # 导出--导出商品参数列表
 导出: "xpath==//button[@type='primary']"
 导出成功提示: "class==el-message__content"
+
+# 商品参数查询
+日期断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[8]/div"
+参数名称断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[2]/div"
+参数状态断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[4]/div"
+创建人断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[7]/div"

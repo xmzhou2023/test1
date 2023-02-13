@@ -1,0 +1,5 @@
+门店断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[3]/div"
+组织断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[4]/div"
+国家断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[5]/div"
+审批状态断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[7]/div"
+区域断言: "xpath==//*[@id='app']/main/section/div[2]/div/div[2]/div/div[1]/div[3]/table/tbody/tr[1]/td[6]/div"

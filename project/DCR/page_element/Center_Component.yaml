@@ -7,6 +7,7 @@
 登录: "xpath==//span[contains(text(),'LOGIN')]"
 获取登录账号: "xpath==//span[@class='el-dropdown-link el-dropdown-selfdefine']"
 退出登录: "xpath==//div[@class='right-menu-item']//img"
+隐私勾选框: "xpath==//div[@class='policy-box']/label"
 
 #获取页面所有文本: "xpath==//*[contains(text(),'')]"
 Home Page Customer: "xpath==//li//span[text()='Home Page-Customer']"
@@ -15,7 +16,8 @@ agree button: "xpath==//div[@class='pr-dialog_footer']//button[text()='同意']"
 
 关闭当前打开的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']//span[@class='el-icon-close']"
 打开状态的菜单: "xpath==//div//span[@class='tags-view-item router-link-exact-active router-link-active active']"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+菜单栏: "xpath==//span[contains(@class,'tags-view-item')][1]"
 ###=====定位菜单元素=======================================
 Home Page: "xpath==//span[(text()='Home Page')]"
 Home Page-Customer: "xpath==//span[(text()='Home Page-Customer')]"
@@ -27,6 +29,9 @@ Menu Function Management: "xpath==//span[(text()='Menu Function Management')]"
 Function Setting: "xpath==//span[(text()='Function Setting')]"
 Privacy Policy Log: "xpath==//span[(text()='Privacy Ploicy Log')]"
 Data Dictionary: "xpath==//span[(text()='Data Dictionary')]"
+所有文本: "xpath==//*[contains(text(),'')]"
+隐私滚动条: "xpath==//div[@id='iframeBox']"
+隐私同意按钮: "xpath==//div[@aria-label='privacy']//button[normalize-space(text())='同意']"
 
 
 Basic Data Management: "xpath==//span[(text()='Basic Data Management')]"
@@ -74,7 +79,6 @@ Customer Management->Share Inventory Set: "xpath==//span[(text()='Share Inventor
 Customer Management->Customer Authorized List: "xpath==//span[(text()='Customer Authorized List')]"
 Customer Management->Customer Grade: "xpath==//span[(text()='Customer Grade')]"
 
-
 Shop Management: "xpath==//span[(text()='Shop Management')]"
 Shop Management->Shop Management(Global): "xpath==//span[(text()='Shop Management (global)')]"
 Shop Management->Shop Grade: "xpath==//span[(text()='Shop Grade')]"
@@ -83,14 +87,12 @@ Shop Management->Shop ROI: "xpath==//span[(text()='Shop Roi')]"
 Shop Management->Shop Census Template: "xpath==//span[(text()='Shop Census Template')]"
 Shop Management->Shop Census Record: "xpath==//span[(text()='Shop Census Record')]"
 
-
 Purchase Management: "xpath==//span[(text()='Purchase Management')]"
 Purchase Management->Customer Invoice: "xpath==//span[(text()='Customer Invoice')]"
 Purchase Management->Distributor Receipt: "xpath==//span[(text()='Distributor Receipt')]"
 Purchase Management->Inbound Receipt: "xpath==//span[(text()='Inbound Receipt')]"
 Purchase Management->Shop Purchase Query: "xpath==//span[(text()='Shop Purchase Query')]"
 Purchase Management->Inbound Order: "xpath==//span[(text()='Inbound Order')]"
-
 
 Sales Management: "xpath==//span[contains(text(),'Sales Management')]"
 Sales Management->Sales Order: "xpath==//span[(text()='Sales Order')]"
@@ -143,6 +145,7 @@ Report Analysis->Shop Inventory Query: "xpath==//span[(text()='Shop Inventory Qu
 Report Analysis->Shop Inventory Counting: "css==[route='/ShopInventoryCounting']"
 Report Analysis->Shop PSI: "xpath==//span[(text()='Shop PSI')]"
 Report Analysis->Working Statistics: "xpath==//span[(text()='Working Statistics')]"
+
 Stock Ageing Query: "xpath==//span[(text()='Stock Ageing Query')]"
 Customer Stock Coverage: "xpath==//span[(text()='Customer Stock Coverage')]"
 Staff Wise Stock Coverage: "css==[route='/StaffStockCoverage']"
@@ -153,12 +156,14 @@ Shop Replenishment Report: "xpath==//span[(text()='Shop Replenishment Report')]"
 Shop Activation PSI: "xpath==//span[(text()='Shop Activation PSI')]"
 Customer Activation PSI: "xpath==//span[(text()='Customer Activation PSI')]"
 CMS/TBY Historical Data Report: "xpath==//span[(text()='CMS/TBY Historical Data Report')]"
+
 IMEI Management: "xpath==//span[(text()='IMEI Management')]"
 IMEI Management->IMEI Query: "xpath==//span[(text()='IMEI Query')]"
 IMEI History Query: "css=='/IMEIHistoryQuery'"
-GTM Management: "css=='/GTMManagement'"
-Monitoring Template: "css=='/MonitoringTemplate'"
-Inventory Shortage Report: "css==' /InventoryShortageReport'"
+
+GTM Management: "xpath==//span[(text()='GTM Management')]"
+GTM Management->Monitoring Template: "xpath==//span[(text()='Monitoring Template')]"
+GTM Management->Inventory Shortage Report: "xpath==//span[(text()='Inventory Shortage Report')]"
 
 Asset Management: "xpath==//div//li//span[text()='Asset Management']"
 Asset Management->Asset Definition: "xpath==//div//li//span[text()='Asset Definition']"
@@ -166,3 +171,31 @@ Asset Management->Shop Asset: "xpath==//div//li//span[text()='Shop Asset']"
 Asset Management->Asset Maintenance History: "xpath==//div//li//span[text()='Asset Maintenance History']"
 Asset Management->Asset Counting: "xpath==//div//li//span[text()='Asset Counting']"
 Asset Management->Demo Phone Query: "xpath==//div//li//span[text()='Demo Phone Query']"
+
+New Product Booking: "xpath==//span[(text()='New Product Booking')]"
+New Product Booking->Activity Template: "xpath==//div//li//span[text()='Activity Template']"
+New Product Booking->Consumer Booking Statistics: "xpath==//div//li//span[text()='Consumer Booking Statistics']"
+New Product Booking->Shop Booking Statistics: "xpath==//div//li//span[text()='Shop Booking Statistics']"
+
+Login: "xpath==//h3[normalize-space(text())='Log in']"
+
+#导出记录页面定位
+Download Icon: "id==download-icon"
+More: "xpath==//span[contains(text(),'More...')]"
+Input Task Name: "xpath==//input[@class='el-input__inner exportrecord_input_taskName']"
+Task Name value: "xpath==//div//ul//li//span[normalize-space(text())='variable']"
+导出记录筛选创建日期: "xpath==//div//input[@class='el-input__inner exportrecord_input_beginTime']"
+点击筛选条件的标签: "xpath==//div//label[text()='variable']"
+Export Record Search: "xpath==//span[contains(text(),'Search')]"
+获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
+获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
+获取文件大小文本: "xpath==//tbody//tr[1]//td[7]//div"
+获取用户ID文本:  "xpath==//tbody//tr[1]//td[8]//div"
+获取创建日期文本: "xpath==//tbody//tr[1]//td[10]//div"
+获取完成日期文本: "xpath==//tbody//tr[1]//td[11]//div"
+获取导出时间: "xpath==//tbody//tr[1]//td[13]//div"
+获取操作按钮文本: "xpath==//td[not(contains(@class ,'is-hidden'))]//button[@class='el-button el-button--text el-button--mini']/span/span"
+
+#Import Record导入记录
+筛选Import Date Start: "xpath==//div//label[text()='Import Date']/..//div[@class='date-box start']//input"
+筛选label标签: "xpath==//div//label[text()='variable']"

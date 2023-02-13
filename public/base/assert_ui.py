@@ -13,6 +13,7 @@ from public.base.basics import Base
 
 """     值校验的各种方法     """
 
+
 class ValueAssert(object):
 
     @allure.step("两值相等断言")
@@ -32,6 +33,18 @@ class ValueAssert(object):
         except Exception as e:
             logging.error(e)
             raise
+
+    @allure.step("两值比较大小断言")
+    def value_assert_over(a, b):
+        if type(a) != int or type(b) != int:
+            logging.info("请传入int类型， | a:{} b:{}".format(a, b))
+        else:
+            try:
+                assert a >= b, logging.warning("断言失败: 左边小于右边 | a:{} b:{}".format(a, b))
+                logging.info("断言成功: 左边大于等边右边 | a:{} b:{}".format(a, b))
+            except Exception as e:
+                logging.error(e)
+                raise
 
     @allure.step("值为True值断言")
     def value_assert_True(x):
@@ -123,6 +136,19 @@ class ValueAssert(object):
             logging.error(e)
             raise
 
+    @allure.step("判断日期是否在指定日志中间断言")
+    def value_assert_date_in(a, b, c):
+        # a,b,c格式为’2022-11-22 11:11:11‘或’2022-11-22’，或以年月日格式开头的日期时间,判断a在b和c之间，甚至10位内的纯数字都可以用字符串形式传入
+        a1 = int(a[0:10].replace('-', ''))
+        b1 = int(b[0:10].replace('-', ''))
+        c1 = int(c[0:10].replace('-', ''))
+        try:
+            assert b1 <= a1 <= c1, logging.warning("断言失败: a: {} 小日期：{} 大日期：{}".format(a, b, c))
+            logging.info("断言成功: a: {} 在小日期：{} 和大日期：{}之间".format(a, b, c))
+        except Exception as e:
+            logging.error(e)
+            raise
+
 
 """     页面元素校验的方法     """
 
@@ -133,7 +159,6 @@ class DomAssert(object):
         self.driver = driver
         self.timeout = 20
         self.wait = WebDriverWait(self.driver, self.timeout)
-
 
     @allure.step("值为True值断言")
     def assert_platform(self, word):
@@ -151,7 +176,7 @@ class DomAssert(object):
         try:
             Base(self.driver).base_get_img('result')
             att = self.wait.until(
-                EC.visibility_of_element_located((By.XPATH, "//*[contains(text(),'{}')]".format(word)))).text
+                EC.visibility_of_element_located((By.XPATH, '//*[contains(text(),"{}")]'.format(word)))).text
             assert word in att, logging.warning("断言失败：页面不存在该标识 | 当前页面关键字: {}".format(att.replace("\n", "|")))
             logging.info("断言成功：页面存在该标识 | 当前页面关键字: {}".format(att.replace("\n", "|")))
         except Exception as e:
@@ -190,7 +215,9 @@ class DomAssert(object):
         try:
             Base(self.driver).base_get_img('result')
             att = self.wait.until(
-                EC.visibility_of_element_located((By.XPATH, "//tr[{0}]/td[{1}]//*[contains(text(),'{2}')]".format(variable1, variable2, word))), message='你要的值未找到').text
+                EC.visibility_of_element_located(
+                    (By.XPATH, "//tr[{0}]/td[{1}]//*[contains(text(),'{2}')]".format(variable1, variable2, word))),
+                message='你要的值未找到').text
             assert word in att, logging.warning("断言失败：页面不存在该标识{} | 关键字:'{}'".format(att, word))
             logging.info("断言成功：页面存在该标识'{}' | 关键字:'{}'".format(att, word))
         except Exception as e:
@@ -301,9 +328,10 @@ class DomAssert(object):
             raise
 
     @allure.step("断言：查询结果")
-    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0', sc_element=None):
+    def assert_search_result(self, col_element, tb_element, header, content, attr='class', index='0', sc_element=None,
+                             h_element=None):
         """
-        断言：页面查询结果
+        断言：页面精确查询结果
         @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
         @tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
         @header：元素定位 表头字段名称
@@ -312,39 +340,54 @@ class DomAssert(object):
         @index：属性值索引
         @sc_element：内嵌div中有滑动条的定位
         """
-        for i in range(1, 10):
-            if Base(self.driver).element_exist(col_element, header):
-                logging.info('表格字段存在，跳出循环')
-                break
-            else:
-                if sc_element:
-                    logging.info('表格字段不存在，向右滑动滚动条')
-                    Base(self.driver).DivRolling(sc_element, num=i*1000)
-                else:
-                    logging.error('表格字段不存在当前页面，请补充内嵌div：sc_element，以便左右滑动')
-                    raise
-        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index)
-        try:
-            contents = Base(self.driver).find_elements_tbm(tb_element, column)
-        except:
-            if sc_element:
-                Base(self.driver).DivRolling(sc_element, direction='top')
-                contents = Base(self.driver).find_elements_tbm(tb_element, column)
-            else:
-                logging.error('无法获取全部字段内容，请补充内嵌div：sc_element，以便上下滑动')
-                raise
-        content_list = []
+        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element,
+                                                  h_element=h_element)
+        contents = Base(self.driver).get_row_info(tb_element, column, sc_element)
         for i in contents:
             try:
-                assert content in i.text
-                logging.info("断言成功，结果:{}包含指定内容:{}".format(i.text, content))
+                assert content in i
+                logging.info("断言成功，结果:{}包含指定内容:{}".format(i, content))
             except:
-                logging.error("断言失败，结果:{}不包含指定内容:{}".format(i.text, content))
+                logging.error("断言失败，结果:{}不包含指定内容:{}".format(i, content))
                 raise
-            content_list.append(i.text)
-        logging.info('获取表格执行列内容：{}'.format(content_list))
         logging.info("断言成功，结果包含指定内容")
 
+    @allure.step("断言：查询结果")
+    def assert_search_contains_result(self, col_element, tb_element, header, content, num=None, attr='class', index='0',
+                                      sc_element=None, h_element=None):
+        """
+        断言：页面模糊查询结果
+        @col_element：表头元素定位 "xpath==//div[normalize-space(text())='variable']/.."
+        @tb_element：表格内容定位 "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+        @header：元素定位 表头字段名称
+        @content：表格需要断言的内容
+        @attr：需要获取的属性
+        @index：属性值索引
+        @sc_element：内嵌div中有滑动条的定位
+        """
+        column = Base(self.driver).get_table_info(col_element, header, attr=attr, index=index, sc_element=sc_element,
+                                                  h_element=h_element)
+        contents = Base(self.driver).get_row_info(tb_element, column, sc_element)
+        result_num = 0
+        result = False
+        for i in contents:
+            if content in i:
+                logging.info("断言成功，结果: {} 包含指定内容:{}".format(i, content))
+                result_num += 1
+                result = True
+        if result is True:
+            logging.info("断言成功，结果数量为: {}".format(result_num))
+            if num is not None:
+                try:
+                    assert result_num == int(num), logging.warning(
+                        "断言失败: 两值不等，实际数量： {} ，预计数量： {}".format(result_num, num))
+                    logging.info("断言成功，两值相等，实际数量： {} ，预计数量： {}".format(result_num, num))
+                except Exception as e:
+                    logging.error(e)
+                    raise
+        else:
+            logging.error("断言失败，结果: {} 不包含指定内容:{}".format(contents, content))
+            raise ValueError("断言失败，结果: {} 不包含指定内容:{}".format(contents, content))
 
     """     数据库断言     """
 

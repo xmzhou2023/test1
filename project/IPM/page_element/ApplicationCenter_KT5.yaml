@@ -1,0 +1,18 @@
+应用中心: "xpath==//span[text()='应用中心']"
+#======================================================================应用====================================================================================
+应用: "xpath==//div[contains(text(),'variable')]"
+
+#=====================================================================工时设置通用===============================================================================
+li: 'xpath==//li[contains(text(),"variable")]'
+span: 'xpath==//span[contains(text(),"variable")]'
+span_title: 'xpath==//span[contains(title(),"variable")]'
+字段框: 'xpath==//div/label/span[contains(text(),"variable")]/../..//input'
+
+
+
+
+#======================================================================下拉框======================================================================================
+下拉值获取: "xpath==//div[@x-placement='bottom-start']//li/span"
+下拉值选择: 'xpath==//div[@x-placement="bottom-start"]//li/span[text()="variable"]'
+下拉框: "xpath==//div[@x-placement='bottom-start']//li[2]/span"
+下拉框_列表名: "xpath==//div[@x-placement='bottom-start']//span[text()='variable']"

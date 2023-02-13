@@ -21,6 +21,14 @@ class SoftwareOfflineUpgradele(Base):
             self.is_click(data["品牌选择框"])
 
 
+    @allure.step("选择项目")
+    def choice_project(self, project):
+        self.is_click(data["项目选择框"])
+        if project:
+            self.is_click(data["下拉选项"], project)
+        else:
+            self.is_click(data["项目选择框"])
+
     @allure.step("选择主板")
     def choice_pcba(self, pcba):
         self.is_click(data["主板选择框"])
@@ -29,9 +37,13 @@ class SoftwareOfflineUpgradele(Base):
         else:
             self.is_click(data["主板选择框"])
 
-    @allure.step("输入物料编码")
-    def input_material_code(self, material_code):
-        self.input_text(data["物料编码输入框"], material_code)
+    @allure.step("选择机型")
+    def choice_model(self, model):
+        self.is_click(data["机型选择框"])
+        if model:
+            self.is_click(data["下拉选项"], model)
+        else:
+            self.is_click(data["机型选择框"])
 
     @allure.step("输入SN")
     def input_sn(self, sn):

@@ -1,14 +1,14 @@
-#创建调拨单
+#Transfer Order页面，创建调拨单
 Create: "xpath==//div[@class='action']/span/button/span[contains(text(),'Create')]"
 Transfer From: "xpath==//label[contains(text(),'Transfer From')]/../div/div/div/input[@placeholder='Please select a customer']"
-Transfer From Select Customer: "xpath==//div[@class='el-scrollbar']//..//ul//li//span[contains(text(),'variable')]"
+Transfer From Select Customer: "xpath==//div[@class='el-scrollbar']//..//ul//li//span[normalize-space(text())='variable']"
 Transfer From Warehouse: "xpath==//label[contains(text(),'Transfer From')]/../div/div/div/input[@placeholder='Please select a warehouse']"
-Transfer From Select Warehouse: "xpath==//div//ul//li//span[contains(text(),'WNG2061301')]"
+Transfer From Select Warehouse: "xpath==//div//ul//li//span[contains(text(),'variable')]"
 
 Transfer To: "xpath==//label[contains(text(),'Transfer To')]/../div/div/div/input[@placeholder='Please select a customer']"
 Transfer To Select Customer: "xpath==//div//ul//li//span[text()='variable']"
 Transfer To Warehouse: "xpath==//label[contains(text(),'Transfer To')]/../div/div/div/input[@placeholder='Please select a warehouse']"
-Transfer To Select Warehouse: "xpath==//ul//li//span[contains(text(),'WNG2061304')]"
+Transfer To Select Warehouse: "xpath==//ul//li//span[contains(text(),'variable')]"
 
 Scan IMEI: "xpath==//div[@class='el-textarea el-input--small']/textarea[@placeholder]"
 Check: "xpath==//div[@class='title']//span[contains(text(),'Check')]"
@@ -16,42 +16,116 @@ Get Scanned Value: "xpath==//div//..//div[@class='num']"
 Get Order Detail Deli Quantity: "xpath==//tbody//tr[1]//td[3]//div//span"
 Get Scan Record IMEI: "xpath==//ul//li//div[text()='variable']"
 Get Scan Record Success: "xpath==//ul//li//..//div[normalize-space(text())='Success']"
-Submit: "xpath==//div[@class='action']/button/span[contains(text(),'Submit')]"
-Submit OK: "xpath==//button//span[normalize-space(text())='OK']"
+Transfer Order Submit: "xpath==//div[@class='action']/button/span[contains(text(),'Submit')]"
+Transfer Order Submit OK: "xpath==//button//span[normalize-space(text())='OK']"
 
-#获取列表字段内容
-Get list Transfer ID: "xpath==//tbody//tr[1]//td[2]//div[@class='cell el-tooltip']"
-Get list Order Status: "xpath==//tbody//tr[1]//td[3]//div[@class='cell el-tooltip']"
-Get list Receipt Status: "xpath==//tbody//tr[1]//td[4]//div[@class='cell el-tooltip']"
 
-#确认收货
-Confirm Receipt: "xpath==//button[@id='transferring_order_receive_']//span[normalize-space(text())='Confirm Receipt']"
-Click First CheckBox: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
-Receipt Remark: "xpath==//div//textarea[@placeholder='Limit 150 chars']"
-点击确认收货按钮: "xpath==//button//..//span[text()='Confirm Receipt']"
-Confirm receipt or Recall: "xpath==//button//span[normalize-space(text())='Confirm']"
+#筛选Transfer Order列表数据
+表格字段: "xpath==//tr//th//div[normalize-space(text())='variable']/.."
+表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
+水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
+Get Shop Transfer Total: "xpath==//div//div//span[contains(text(),'Total')]"
+Transfer Transfer ID input query: "xpath==//div//input[@class='el-input__inner transferorder_input_transferId']"
 
-#撤回功能
+From Customer click query: "xpath==//div//input[@class='el-input__inner transferorder_input_formEnterpriseId']"
+From Customer input query: "xpath==//label[text()='Transfer From Customer']/..//div//input[@class='el-select__input is-small']"
+From Customer select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
+
+Transfer To Customer click query: "xpath==//div//input[@class='el-input__inner transferorder_input_toEnterpriseId']"
+Transfer To Customer input query: "xpath==//label[text()='Transfer To Customer']/..//div//input[@class='el-select__input is-small']"
+Transfer To Customer select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
+
+Transfer From Warehouse click query: "xpath==//div//input[@class='el-input__inner transferorder_input_warehouseFrom']"
+Transfer From Warehouse input query: "xpath==//label[text()='Transfer From Warehouse']/..//div//input[@class='el-select__input is-small']"
+Transfer From Warehouse select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
+
+Transfer To Warehouse click query: "xpath==//div//input[@class='el-input__inner transferorder_input_warehouseTo']"
+Transfer To Warehouse input query: "xpath==//label[text()='Transfer To Warehouse']/..//div//input[@class='el-select__input is-small']"
+Transfer To Warehouse select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
+点击label标签: "xpath==//div//div//label[text()='variable']"
+
+Transfer Receipt Status click query: "xpath==//div//input[@class='el-input__inner transferorder_input_receiptStatus']"
+Transfer Receipt Status select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
+
+Transfer Transfer Type click query: "xpath==//div//input[@class='el-input__inner transferorder_input_transferType']"
+Transfer Transfer Type select query: "xpath==//div//div//ul//li//span[contains(text(),'variable')]"
+
+Transfer Brand click query: "xpath==//div//input[@class='el-input__inner transferorder_input_brands']"
+Transfer Brand input query: "xpath==//label[text()='Brand']/..//div//input[@class='el-select__input is-small']"
+Transfer Brand select query: "xpath==//div//div//ul//li//span[text()='variable']"
+
+Transfer Model click query: "xpath==//div//input[@class='el-input__inner transferorder_input_models']"
+Transfer Model input query: "xpath==//label[text()='Model']/..//div//input[@class='el-select__input is-small']"
+Transfer Model select query: "xpath==//div//div//ul//li//span[text()='variable']"
+
+Transfer Market Name click query: "xpath==//div//input[@class='el-input__inner transferorder_input_marketingNames']"
+Transfer Market Name input query: "xpath==//label[text()='Market Name']/..//div//input[@class='el-select__input is-small']"
+Transfer Market Name select query: "xpath==//div//div//ul//li//span[text()='variable']"
+
+Transfer IMEI click query: "xpath==//div//input[@class='el-input__inner transferorder_input_imeis']"
+Transfer IMEI input query: "xpath==//label[text()='IMEI']/..//div//textarea[@placeholder='Batch input content']"
+Transfer Click IMEI Detail: "xpath==//tbody//tr[1]//td[not(contains(@class, 'is-hidden'))]//div//button//span[contains(text(),'IMEI Detail')]"
+
+
+#获取Transfer Order列表字段内容
+Get list Transfer Order ID: "xpath==//tbody//tr[1]//td[2]//div[@class='cell el-tooltip']"
+Get list Transfer Order Status: "xpath==//tbody//tr[1]//td[3]//div[@class='cell el-tooltip']"
+Get list Transfer Receipt Status: "xpath==//tbody//tr[1]//td[4]//div[@class='cell el-tooltip']"
+Get list Brand: "xpath==//tbody//tr[1]//td[11]//div//div//div"
+Get list item: "xpath==//tbody//tr[1]//td[12]//div//div//div"
+Get list Model: "xpath==//tbody//tr[1]//td[13]//div//div//div"
+Get list Transfer From Cust: "xpath==//tbody//tr[1]//td[6]//div"
+Get list Transfer Order Total: "xpath==//div//span[contains(text(),'Total')]"
+
+#Transfer Order页面，获取IMEI Detail详情列表字段内容
+Click Transfer IMEI Detail: "xpath==//tbody//tr[1]//td[not(contains(@class, 'is-hidden'))]//div//button//span[normalize-space(text())='IMEI Detail']"
+Get Detail Transfer ID: "xpath==//div//span[text()='IMEI Detail']/../..//div//table//tbody//tr[1]//td[1]//div"
+Get Detail Brand: "xpath==//div//span[text()='IMEI Detail']/../..//div//table//tbody//tr[1]//td[4]//div"
+Get Detail Item: "xpath==//div//span[text()='IMEI Detail']/../..//div//table//tbody//tr[1]//td[5]//div"
+Get Detail Model: "xpath==//div//span[text()='IMEI Detail']/../..//div//table//tbody//tr[1]//td[6]//div"
+Get Detail IMEI: "xpath==//div//span[text()='IMEI Detail']/../..//div//table//tbody//tr[1]//td[10]//div"
+Get Detail Customer Name: "xpath==//div//span[text()='IMEI Detail']/../..//div//table//tbody//tr[1]//td[2]//div"
+Get Transfer Detail Total: "xpath==//div//span[text()='IMEI Detail']/../..//div//span[contains(text(),'Total')]"
+Close Transfer IMEI Detail: "xpath==//div//span[text()='IMEI Detail']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+
+
+#Transfer Order页面，确认收货
+Transfer Order Confirm Receipt: "xpath==//button[@id='transferring_order_receive_']//span[normalize-space(text())='Confirm Receipt']"
+Transfer Order Click CheckBox: "xpath==//tbody//tr[1]//td[not(contains(@class ,'is-hidden'))]//div//label//span[@class='el-checkbox__input']"
+Transfer Order Receipt Remark: "xpath==//div//textarea[@placeholder='Limit 150 chars']"
+Transfer Confirm Receipt Button: "xpath==//div//button//..//span[text()='Confirm Receipt']"
+Transfer Confirm receipt or Recall: "xpath==//div//span[text()='Tips']/../../..//button//span[normalize-space(text())='Confirm']"
+Close Transfer Receipt Remark: "xpath==//div//span[text()='Receipt Remark']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+#Transfer Order页面，退货操作按钮
+Transfer Return Goods Button: "xpath==//div//button//..//span[text()='variable']"
+
+#Transfer Order页面，撤回功能
 Create Start Date: "xpath==//div//input[@id='transferorder_input_fromDate']"
+Create End Date: "xpath==//div//input[@class='el-input__inner transferorder_input_fromDate1']"
 More Option: "xpath==//button//span[normalize-space(text())='More Option']"
 Recall: "xpath==//ul//..//li[normalize-space(text())='Recall']"
-Unfold: "xpath==//div[@class='filter-fold']//span[contains(text(),'Unfold')]"
-点击调拨单筛选项: "xpath==//div//input[@id='transferorder_input_transferId']"
-点击收货状态筛选项: "xpath==//div//input[@class='el-input__inner transferorder_input_receiptStatus']"
-选中Received状态: "xpath==//ul//li//span[contains(text(),'variable')]"
-Search: "xpath==//span[normalize-space(text())='Search']"
+Unfold: "xpath==//div[@class='filter-fold']//span[contains(text(),'variable')]"
+Transfer Order Transfer ID Query: "xpath==//div//input[@id='transferorder_input_transferId']"
+Transfer Receipt Status query: "xpath==//div//input[@class='el-input__inner transferorder_input_receiptStatus']"
+Transfer Select Received Status: "xpath==//ul//li//span[contains(text(),'variable')]"
+Search: "xpath==//span[normalize-space(text())='variable']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+Export_Search_Reset等按钮: "xpath==//span[normalize-space(text())='variable']"
+下载进度条: "xpath==//div[@class='el-progress el-progress--line is-success el-progress--text-inside']"
+Total结果: "xpath==//span[@class='el-pagination__total']"
 
-#查看IMEI详情
-IMEI Detail: "xpath==//tbody//tr[1]//td[23]//div//button//span[normalize-space(text())='IMEI Detail']"
-Get list Brand: "xpath==//tbody//tr[@class='el-table__row']//td[11]//div"
-Get list item: "xpath==//tbody//tr[@class='el-table__row']//td[12]//div"
-Get list Model: "xpath==//tbody//tr[@class='el-table__row']//td[13]//div"
-Get list Transfer From Cust: "xpath==//tbody//tr[@class='el-table__row']//td[6]//div"
-
-Get Detail Transfer ID: "xpath==//*[@id='mainContainer']/section/div[2]/div[4]/div/div[2]/div/div[2]/div/div[3]/table/tbody/tr/td[1]/div"
-Get Detail Brand: "xpath==//*[@id='mainContainer']/section/div[2]/div[4]/div/div[2]/div/div[2]/div/div[3]/table/tbody/tr/td[4]/div"
-Get Detail Item: "xpath==//*[@id='mainContainer']/section/div[2]/div[4]/div/div[2]/div/div[2]/div/div[3]/table/tbody/tr/td[5]/div"
-Get Detail Model: "xpath==//*[@id='mainContainer']/section/div[2]/div[4]/div/div[2]/div/div[2]/div/div[3]/table/tbody/tr/td[6]/div"
-Get Detail IMEI: "xpath==//*[@id='mainContainer']/section/div[2]/div[4]/div/div[2]/div/div[2]/div/div[3]/table/tbody/tr/td[10]/div"
-Get Detail Customer Name: "xpath==//*[@id='mainContainer']/section/div[2]/div[4]/div/div[2]/div/div[2]/div/div[3]/table/tbody/tr/td[2]/div"
-Close IMEI Detail: "xpath==//*[@id='mainContainer']/section/div[2]/div[4]/div/div[1]/button/i"
+#Transfer Order页面，导入Transfer Order调拨单操作
+Transfer More Option: "xpath==//button//span[normalize-space(text())='More Option']"
+Transfer Order Import: "xpath==//div/..//ul//li[normalize-space(text())='Import']"
+Transfer Order Import Upload: "xpath==//div[@class='el-upload el-upload--text']//button//span[normalize-space(text())='Upload']"
+Transfer Order Import Save: "xpath==//div//button[@id='transferorder_Save']//span[normalize-space(text())='Save']"
+Transfer Order Upload Confirm: "xpath==//div/..//button[@class='el-button el-button--default el-button--small el-button--primary ']//span[normalize-space(text())='Confirm']"
+#Import Record
+Input Import Date: "xpath==//div//div//input[@class='el-input__inner importrecord_input_importDate']"
+Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
+Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"
+Get Import Record Total: "xpath==//tbody//tr[1]//td[4]//div"
+Get Import Record Success: "xpath==//tbody//tr[1]//td[5]//div"
+Get Import Record Failed: "xpath==//tbody//tr[1]//td[6]//div"
+Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
+Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"

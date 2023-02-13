@@ -4,7 +4,7 @@ Fold: "xpath==//div//span[text()='Fold']"
 输入筛选用户: "xpath==//div//input[@placeholder='Batch input content']"
 选中筛选门店: "xpath==//div//ul//li//span[contains(text(),'variable')]"
 Search: "id==visitplan_Search"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 Get list Plan No: "xpath==//tbody//tr[1]//td[2]//div"
 Get list Shop Name: "xpath==//tbody//tr[1]//td[10]//div"
 Get list Shop ID: "xpath==//tbody//tr[1]//td[11]//div"

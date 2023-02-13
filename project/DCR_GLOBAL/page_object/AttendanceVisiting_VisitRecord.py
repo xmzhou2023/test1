@@ -2,6 +2,7 @@ from libs.common.read_element import Element
 import logging
 from libs.common.time_ui import sleep
 from public.base.basics import Base
+from datetime import datetime, timedelta
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -35,18 +36,24 @@ class VisitRecordPage(Base):
         sleep(1)
         self.input_text(user['Submit Start Date'], txt=content)
 
+    # def get_date_time_yestoday(self):
+    #     """Visit Record页面，当前日期减一天"""
+    #     yestoday = datetime.now() + timedelta(days=-1)
+    #     yestoday1 = str(yestoday)
+    #     return yestoday1
+
     def click_sales_region(self):
         self.is_click(user['Sales Region'])
 
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     def get_shop_id_text(self):
         """Visit Record页面，获取列表中Shop ID文本属性"""
@@ -95,11 +102,23 @@ class VisitRecordPage(Base):
         sleep(2)
 
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1.5)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(5)
+        self.element_text(user['Loading'])
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选标签'], 'Create Date')
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """

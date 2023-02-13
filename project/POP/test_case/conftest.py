@@ -1,4 +1,4 @@
-import pytest, logging
+import pytest, logging,xlrd
 from public.data.unified_login.unified import *
 from public.base.assert_ui import *
 from public.libs.unified_login.login import Login

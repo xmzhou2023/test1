@@ -22,35 +22,36 @@ class ProjectFPY(Base):
         else:
             self.is_click(statistical["工段选择框"])
 
-    @allure.step("选择开始时间")
+    @allure.step("输入开始时间")
     def choice_start_date(self, start_date):
-        logging.info(start_date)
         if start_date:
-            self.input_text(statistical["开始时间选择框"], start_date)
             self.is_click(statistical["开始时间选择框"])
+            self.input_text(statistical['时间弹窗输入框'], start_date)
+            sleep(0.5)
+            self.is_click(statistical["时间确认弹窗"])
 
     @allure.step("选择结束时间")
     def choice_end_date(self, end_date):
-        logging.info(end_date)
         if end_date:
-            self.input_text(statistical["结束时间选择框"], end_date)
             self.is_click(statistical["结束时间选择框"])
+            self.input_text(statistical["时间弹窗输入框"], end_date)
+            sleep(0.5)
+            self.is_click(statistical["时间确认弹窗"])
 
     @allure.step("选择站点")
     def choice_station(self, *content):
         self.is_click(statistical["站点选择框"])
-        for i in content:
-            if i and i is not None:
+        if content[0] != '':
+            for i in content:
                 self.is_click(statistical["下拉选项"], i)
-                self.is_click(statistical["站点选择框"])
-            else:
-                self.is_click(statistical["站点选择框"])
+        self.is_click(statistical["站点选择框"])
 
     @allure.step("选择项目")
     def choice_project(self, content):
         self.is_click(statistical["项目选择框"])
         if content:
             self.is_click(statistical["下拉选项"], content)
+            self.is_click(statistical["项目选择框"])
         else:
             self.is_click(statistical["项目选择框"])
 

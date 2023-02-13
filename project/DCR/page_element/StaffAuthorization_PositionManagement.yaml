@@ -1,0 +1,38 @@
+#操作按钮
+Click Position Operation Button: "xpath==//button//span[normalize-space(text())='variable']"
+Search Position Button: "xpath==//div//button//span[normalize-space(text())='variable']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+
+#职位筛选条件
+点击输入框Position: "xpath==//label//span[text()='Position']/../..//div//input[@class='el-input__inner positionmanagement_input_dutyIds']"
+输入框输入Position: "xpath==//label//span[text()='Position']/../..//div//input[@class='el-select__input is-small']"
+筛选点击label标签: "xpath==//div//label//span[text()='variable']"
+输入框1: "xpath==//label//span[text()='variable']/../..//div//input[@placeholder='All']"
+输入结果精确选择: "xpath==//div//ul//li//span[text()='variable']"
+表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
+水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
+表头文本: "xpath==//thead/tr/th"
+
+#Add Position 新增职位
+Add Input Position: "xpath==//label[text()='Position']/..//div//div[@class='el-input el-input--small']//input"
+Add Select Enabled Yes: "xpath==//label[text()='Enabled or Not']/..//div//label//span[@class='el-radio__input is-checked']"
+Add Select Enabled No: "xpath==//label[text()='Enabled or Not']/..//div//label//span[@class='el-radio__input']"
+Add click Position Type: "xpath==//label[text()='Position Type']/..//div//input[@class='el-input__inner']"
+选择结果精确选择: "xpath==//div[contains(@x-placement,'start')]//span[text()='variable']"
+Add Input Default Roles: "xpath==//label[text()='Default Roles']/..//div//div//input[@placeholder='Select']"
+Add Input Remark: "xpath==//label[text()='Remark']/..//div//textarea[@class='el-textarea__inner']"
+Add Save Button: "xpath==//div//div//button[@id='positionmanagement_Save']//span[normalize-space(text())='Save']"
+新增点击label标签: "xpath==//div//label[text()='variable']"
+Add Click Flexi or Not Yes: "xpath==//label[text()='Flexi or Not']/..//span[@class='el-radio__input is-checked']"
+Add Click Flexi or Not No: "xpath==//label[text()='Flexi or Not']/..//span[@class='el-radio__input']"
+
+#删除职位 Successfully
+勾选第一个复选框: "xpath==//tbody//tr//td[not(contains(@class, 'is-hidden'))]//div//label//span[@class='el-checkbox__input']"
+Confirm Delete Button: "xpath==//div[@class='el-message-box__btns']//button//span[normalize-space(text())='Confirm']"
+Get List Total: "xpath==//div//span[contains(text(),'Total')]"
+Get List Position: "xpath==//tbody//tr//td[not(contains(@class, 'is-hidden'))]//div[contains(text(),'lhm_transsion')]"
+
+#编辑职位
+Edit Position Button: "xpath==//tbody//tr[1]//td[not(contains(@class, 'is-hidden'))]//div//span[text()='Edit']"
+

@@ -20,6 +20,7 @@ class VisitRecordPage(Base):
         self.is_click(user['Fold'])
         sleep(1.5)
 
+
     def input_shop_id_query(self, content):
         """Visit Record页面，筛选Shop ID的巡店记录"""
         self.is_click_dcr(user['Input Query Shop'])
@@ -41,12 +42,12 @@ class VisitRecordPage(Base):
     def click_search(self):
         """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Visit Record页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     def get_shop_id_text(self):
         """Visit Record页面，获取列表中Shop ID文本属性"""
@@ -75,17 +76,6 @@ class VisitRecordPage(Base):
         total1 = total[6:]
         return total1
 
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
-
-    def click_close_visit_record(self):
-        """Visit Record页面，点击关闭菜单"""
-        self.is_click(user['关闭巡店记录菜单'])
-        sleep(1)
-
-
     #巡店记录，导出功能验证
     def click_export(self):
         """Visit Record页面，点击Export导出按钮"""
@@ -94,11 +84,23 @@ class VisitRecordPage(Base):
         sleep(2)
 
     def click_download_more(self):
-        self.is_click(user['Download Icon'])
-        sleep(1)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        self.element_text(user['Loading'])
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选标签'], 'Create Date')
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
@@ -149,14 +151,12 @@ class VisitRecordPage(Base):
         export_time1 = export_time[0:1]
         return export_time1
 
-
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
         if int(total) > 0:
             logging.info("根据门店ID筛选，巡店记录列表中，加载筛选的数据正常，分页总条数Total:{}".format(total))
         else:
             logging.info("根据门店ID筛选，巡店记录列表中，未加载筛选的数据，分页总条数Total:{}".format(total))
-
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """
@@ -169,7 +169,6 @@ class VisitRecordPage(Base):
             logging.info("Visit Record导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Visit Record导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
 
 if __name__ == '__main__':
     pass

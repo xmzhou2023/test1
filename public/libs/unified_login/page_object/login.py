@@ -1,3 +1,6 @@
+import logging
+
+from public.base.assert_ui import DomAssert
 from public.base.basics import Base, sleep
 from libs.common.read_public_element import Element
 
@@ -28,9 +31,20 @@ class LoginPage(Base):
         self.input_text(login['工号输入框'], txt=content)
         sleep()
 
+    def input_id(self, content):
+        """2021-1-13 熊文敏 用于crm生产"""
+        self.input_text(login['crm_pro工号输入框'], txt=content)
+        sleep()
+
+
     def input_passwd(self, content):
         """输入密码"""
         self.input_text(login['密码输入框'], txt=content)
+        sleep()
+
+    def input_password(self, content):
+        """输入密码  2021-1-13 熊文敏 用于crm生产"""
+        self.input_text(login['crm_pro密码输入框'], txt=content)
         sleep()
 
     def check_box(self):
@@ -56,6 +70,11 @@ class LoginPage(Base):
         self.is_click(login['登录'])
         sleep(6)
 
+    def click_loginsubmit_crm(self):
+        """2021-1-13 熊文敏 用于crm生产"""
+        self.is_click(login['crm_pro登录'])
+        sleep(6)
+
     def input_imgcode(self):
         """识别图形验证码，输入验证码"""
         imgcode = self.get_graphical_code(login['图形验证码'])
@@ -63,14 +82,24 @@ class LoginPage(Base):
 
     def input_verify_code(self):
         """输入验证码，生产环境用 2022-9-30,熊文敏"""
-        verify_code = self.get_graphical_code(login["验证码图标"])
-        self.is_click(login['验证码输入框'])
-        self.input_text(login["验证码输入框"], verify_code)
+        verify_code = self.get_graphical_code(login["crm_pro验证码图标"])
+        self.is_click(login['crm_pro验证码输入框'])
+        self.input_text(login["crm_pro验证码输入框"], verify_code)
         sleep(2)
+
+    def code_clear_crm(self):
+        """输入验证码，生产环境用 2022-9-30,熊文敏"""
+        self.clear_code(login["crm_pro验证码输入框"])
+        sleep(0.5)
 
     def code_clear(self):
         self.clear_code(login["验证码输入框"])
         sleep(0.5)
+
+    def ispatent_loginnew(self):
+        """ 判断当前界面是不是登录首页，登录按钮是否存在"""
+        itexis = self.element_exist(login["登录"])
+        return itexis
 
 
 """DCR登录类"""
@@ -106,11 +135,11 @@ class DcrLoginPage(Base):
     def dcr_click_loginsubmit(self):
         """点击帐号密码登录"""
         self.is_click(login['登录dcr'])
-        sleep(4)
+        self.base_get_img()
+        sleep(1)
 
     def dcr_click_loginOut(self):
         """点击退出登录"""
-        sleep(2)
         self.is_click(login['退出登录dcr'])
         sleep(2)
 
@@ -128,7 +157,20 @@ class DcrLoginPage(Base):
         home_page_cust = self.element_text(login['Home Page Customer'])
         return home_page_cust
 
-
+    def privacy(self):
+        all_text = self.element_text(login['所有文本'])
+        if '请下拉阅读完本隐私协议后可点击同意按钮' in all_text:
+            for i in range(20):
+                class_value = self.get_element_attribute(login['隐私同意按钮'], 'class')
+                if 'pr-btn_gree_primary' not in class_value:
+                    Base(self.driver).DivRolling(login['隐私滚动条'], direction='top', num=i*100000)
+                    sleep(1)
+                else:
+                    self.is_click_tbm(login['隐私同意按钮'])
+                    logging.info('点击隐私同意按钮')
+                    break
+        else:
+            logging.info("打印获取的内容：{}".format(all_text))
 
 """SRM登录类"""
 class SrmLoginPage(Base):
@@ -185,6 +227,54 @@ class OALoginPage(Base):
         ele.clear()
         ele.send_keys(content)
         sleep(0.5)
+
+"""IPM登录类"""
+class IpmLoginPage(Base):
+    def ipm_input_account(self, content):
+        """输入工号"""
+        self.input_text(login['工号输入框IPM'], txt=content)
+
+    def ipm_input_passwd(self, content):
+        """输入密码"""
+        self.input_text(login['密码输入框IPM'], txt=content)
+    # def ipm_get_check_box_class(self):
+    #     """获取复选框对应的 Class属性是否包含is-checked"""
+    #     ss = self.find_element(login['隐私保护勾选dcr'])
+    #     get_check_state = ss.get_attribute('class')
+    #     return get_check_state
+
+    # def dcr_check_box(self):
+    #     """判断是否被选中"""
+    #     checkbox = self.select_state(login['隐私保护勾选dcr'])
+    #     return checkbox
+
+
+    def ipm_click_login(self):
+        """点击登录"""
+        sleep(2)
+        self.is_click(login['登录ipm'])
+        sleep(2)
+
+"""IPM登录类"""
+class BDDPLoginPage(Base):
+
+    def BDDP_input_account(self, content):
+        """输入工号"""
+        self.input_text(login['工号输入框BDDP'], txt=content)
+
+    def BDDP_input_passwd(self, content):
+        """输入密码"""
+        self.input_text(login['密码输入框BDDP'], txt=content)
+
+    def BDDP_click_login(self):
+        """点击登录"""
+        self.is_click(login['登录BDDP'])
+        DomAssert(self.driver).assert_control(login['登录人'])
+
+    def input_imgcode(self):
+        """识别图形验证码，输入验证码"""
+        imgcode = self.get_graphical_code(login['图形验证码'])
+        self.input_text(login['验证码输入框BDDP'], imgcode)
 
 if __name__ == '__main__':
     pass

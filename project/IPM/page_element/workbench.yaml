@@ -1,0 +1,23 @@
+#===============================================================通用=================================================================================================
+span: 'xpath==//span[text()="variable"]'
+
+#===============================================================工作台-筛选============================================================================================
+
+工作台_筛选: 'xpath==//span[@title="筛选"]'
+工作台_筛选_过滤标题: 'xpath==//div[not(contains(@style,"display: none;"))]/div[text()="过滤 "]'
+工作台_筛选_条件: 'xpath==//div/label/span[text()="variable"]/../..//input'
+工作台_筛选_条件_状态: 'xpath==//div/label/span[text()="状态"]/../..//input'
+工作台_筛选_条件_状态_下拉值: 'xpath==//div[@x-placement="top-start"]//li/span[text()="variable"]'
+工作台_筛选_字段: 'xpath==//div/div[text()="过滤 "]/../..//div/label/span'
+下拉值获取: 'xpath==//div[@x-placement="top-start"]//li/span'
+下拉值选择: 'xpath==//div[@x-placement="top-start"]//li/span[text()="variable"]'
+添加全部: 'xpath==//label/span[text()=" 添加全部 "]/../span//input'
+工作台_筛选_按钮: 'xpath==//div/div[text()="过滤 "]/..//span[text()="variable"]'
+
+
+
+#=========================================================================人员列表=================================================================================
+请输入姓名或工号: 'xpath==//div[@aria-label="人员列表"]//input'
+选择人员: 'xpath==//div[@aria-label="人员列表"]//div[text()=" variable "]'
+人员列表_确定: 'xpath==//div[@aria-label="人员列表"]//button[2]/span'
+人员列表_取消: 'xpath==//div[@aria-label="人员列表"]//button/span[text()="取消"]'

@@ -3,7 +3,7 @@ import logging, allure
 from py._xmlgen import html
 from selenium import webdriver
 from time import sleep
-from libs.common.inspect_ymal import inspect_element
+from libs.common.inspect_ymal import inspect_element, inspect_description
 from libs.config.conf import DOWNLOAD_PATH, LOG_PATH
 from selenium.webdriver.remote.file_detector import LocalFileDetector
 
@@ -30,7 +30,7 @@ def remote_url(request):
     return request.config.getoption("--remoteurl")
 
 @pytest.fixture(scope='session', autouse=True)
-def drivers(request, remote_url, remote_ui=True):
+def drivers(request, remote_url, remote_ui=False):
     global driver
     if driver is None:
         if 'linux' in sys.platform:
@@ -78,6 +78,7 @@ def drivers(request, remote_url, remote_ui=True):
             option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
             driver = webdriver.Remote(remote_url, options=option)
             inspect_element() # page_element YMAL文件自检
+            inspect_description() # test_case目录下子文件夹自检
         else:
             if remote_ui:
                 '''win系统下VNC界面模式'''
@@ -96,6 +97,7 @@ def drivers(request, remote_url, remote_ui=True):
                 option.add_experimental_option("excludeSwitches", ['enable-automation', 'enable-logging'])
                 driver = webdriver.Remote(remote_url, options=option)
                 inspect_element() # page_element YMAL文件自检
+                inspect_description()  # test_case目录下子文件夹自检
             else:
                 option = webdriver.ChromeOptions()
                 prefs = {"": ""}
@@ -109,6 +111,7 @@ def drivers(request, remote_url, remote_ui=True):
                 driver = webdriver.Chrome(options=option)
                 driver.maximize_window()
                 inspect_element() # page_element YMAL文件自检
+                inspect_description()  # test_case目录下子文件夹自检
     def fn():
         sleep(5)
         driver.quit()
@@ -119,12 +122,12 @@ def drivers(request, remote_url, remote_ui=True):
 
 
 logname = time.strftime('%Y_%m_%d_%H')
-# logging.basicConfig(level=logging.INFO,
-#                     format='%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)',
-#                     datefmt='[%Y-%m-%d %H:%M:%S]',
-#                     filename='{}/{}.log'.format(LOG_PATH, logname),
-#                     encoding='utf-8',
-#                     filemode='a')
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s [%(levelname)8s] %(message)s (%(filename)s:%(lineno)s)',
+                    datefmt='[%Y-%m-%d %H:%M:%S]',
+                    filename='{}/{}.log'.format(LOG_PATH, logname),
+                    encoding='utf-8',
+                    filemode='a')
 
 
 @pytest.mark.hookwrapper

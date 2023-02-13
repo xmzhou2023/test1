@@ -4,6 +4,7 @@ Sales Order ID: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/di
 Delivery/DN Order: "xpath==//*[@id='app']/div/div[2]/section/div/form/div/div[1]/div[2]/div/div/div/input"
 Search: "xpath==//button//span[normalize-space(text())='Search']"
 Reset: "xpath==//button//span[normalize-space(text())='Reset']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
 #获取列表字段文本
 Get Sales Order ID Text: "xpath==//table//tbody//tr[1]//td[2]//div"
@@ -29,8 +30,9 @@ More: "xpath==//span[contains(text(),'More...')]"
 Input Task Name: "xpath==//label[(text()='Task Name')]//parent::div// following-sibling::div//input"
 Task Name value: "xpath==//span[text()='variable']"
 Create Start Date: "xpath==//label[text()='Create Date']//..//div[@class='date-box start']//input"
+导出记录筛选创建日期: "xpath==//label[text()='Create Date']/..//div[@class='date-box start']//input"
+点击筛选标签: "xpath==//div//label[text()='Create Date']"
 Export Record Search: "xpath==//span[contains(text(),'Search')]"
-
 获取下载状态文本: "xpath==//tbody//tr[1]//td[2]/div/div"
 获取任务名称文本: "xpath==//tbody//tr[1]//td[5]/div"
 获取文件大小文本: "xpath==//tbody//tr[1]//td[7]//div"

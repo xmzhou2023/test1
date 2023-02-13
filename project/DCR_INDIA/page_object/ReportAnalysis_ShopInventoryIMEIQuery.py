@@ -34,12 +34,12 @@ class ShopInventoryIMEIQueryPage(Base):
     def click_search(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
         self.is_click(user['Search'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Shop Inventory IMEI Query页面，点击Search按钮"""
         self.is_click(user['Reset'])
-        sleep(7.5)
+        self.element_text(user['Loading'])
 
     def click_fold(self):
         """Shop Inventory IMEI Query页面，点击Fold收起筛选条件按钮"""
@@ -75,17 +75,6 @@ class ShopInventoryIMEIQueryPage(Base):
         model = self.element_text(user['获取Model文本'])
         return model
 
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1.5)
-
-    def click_close_shop_inventory_imei(self):
-        """关闭门店库存IMEI菜单"""
-        self.is_click(user['关闭门店库存IMEI菜单'])
-        sleep(2)
-
-
 
     # 门店库存IMEI查询记录，导出功能验证
     def click_export(self):
@@ -95,11 +84,23 @@ class ShopInventoryIMEIQueryPage(Base):
 
     def click_download_more(self):
         """点击下载-更多按钮"""
-        self.is_click(user['Download Icon'])
-        sleep(2)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(6)
+        self.element_text(user['Loading'])
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选标签'], 'Create Date')
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
@@ -153,8 +154,6 @@ class ShopInventoryIMEIQueryPage(Base):
         export_time1 = export_time[0:1]
         return export_time1
 
-    def click_close_shop_inventory_imei(self):
-        self.is_click(user['关闭门店库存IMEI菜单'])
 
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
@@ -174,7 +173,6 @@ class ShopInventoryIMEIQueryPage(Base):
             logging.info("Shop Inventory IMEI Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Shop Inventory IMEI Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1.5)
 
 if __name__ == '__main__':
     pass

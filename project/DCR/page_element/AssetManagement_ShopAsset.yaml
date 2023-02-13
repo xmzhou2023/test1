@@ -1,0 +1,64 @@
+Import: "xpath==//button//span[normalize-space(text())='Import']"
+Import Upload: "xpath==//button//span[normalize-space(text())='Upload']"
+Import Save: "xpath==//button[@class='el-button el-button--success el-button--mini']//span[normalize-space(text())='Save']"
+Upload Confirm: "xpath==//button//span[normalize-space(text())='Confirm']"
+
+#Import Record
+Import Search: "xpath==//button//span[normalize-space(text())='Search']"
+Get Import Record File Name: "xpath==//tbody//tr[1]//td[2]//div"
+Get Import Record Status: "xpath==//tbody//tr[1]//td[3]//div"
+Get Import Record Total: "xpath==//tbody//tr[1]//td[4]//div"
+Get Import Record Success: "xpath==//tbody//tr[1]//td[5]//div"
+Get Import Record Failed: "xpath==//tbody//tr[1]//td[6]//div"
+Get Import Fail Data: "xpath==//tbody//tr[1]//td[7]//div"
+Get Import Import Date: "xpath==//tbody//tr[1]//td[8]//div"
+
+#查询
+Create start Date: "xpath==//div//input[@class='el-input__inner shopassetlist_input_createDateBegin']"
+Create end Date: "xpath==//div//input[@class='el-input__inner shopassetlist_input_createDateBegin1']"
+query Shop: "xpath==//div//input[@class='el-input__inner shopassetlist_input_shopCode']"
+query Status: "xpath==//div//input[@class='el-input__inner shopassetlist_input_status']"
+query Status Value: "xpath==//div//ul//li//span[text()='variable']"
+Unfold_Fold: "xpath==//div//span[text()='variable']"
+Search: "xpath==//button//span[normalize-space(text())='Search']"
+
+#获取列表字段内容
+Get list Shop ID: "xpath==//tbody//tr[1]//td[6]//div"
+Get list Asset Name CN: "xpath==//tbody//tr[1]//td[16]//div"
+Get list Asset Name EN: "xpath==//tbody//tr[1]//td[17]//div"
+Get list Has ASN: "xpath==//tbody//tr[1]//td[20]//div"
+Get list Status: "xpath==//tbody//tr[1]//td[19]//div"
+Get list Create Date: "xpath==//tbody//tr[1]//td[25]//div"
+Get list Picture: "xpath==//body//tr[1]//td[not(contains(@class ,'is-hidden'))]//button//span[normalize-space(text())='Picture']"
+Get list Total: "xpath==//div//span[contains(text(), 'Total')]"
+
+#删除
+勾选第复选框: "xpath==//tbody//tr[1]//td[1]//label//span[@class='el-checkbox__input']"
+Delete: "xpath==//button//span[normalize-space(text())='Delete']"
+
+
+#组合条件筛选退货单
+输入框: "xpath==//label[normalize-space(text())='variable']/..//input"
+输入框1: "xpath==//label[contains(text(),'variable')]/..//input[@class='el-select__input is-small']"
+输入框2: "xpath==//label[contains(text(),'variable')]/..//input[@placeholder='All']"
+Input Return Start Date: "xpath==//label[contains(text(),'Return Date')]/..//input[@class='el-input__inner returnorder_input_returnDate']"
+输入框IMEI: "xpath==//label[contains(text(),'variable')]/..//div//textarea[@placeholder='Batch input content']"
+输入结果精确选择: "xpath==//div//ul//li//span[text()='variable']"
+输入结果模糊选择: "xpath==//div//ul//li//span[contains(text(),'variable')]"
+输入区域精确选择: "xpath==//div//label[text()='variable']/../..//span[text()='variable']"
+点击label标签: "xpath==//div//label[contains(text(),'variable')]"
+Create Start Date: "xpath==//div//input[@class='el-input__inner shopassetlist_input_createDateBegin']"
+Create End Date: "xpath==//div//input[@class='el-input__inner shopassetlist_input_createDateBegin1']"
+
+点击IMEI Detail按钮: "xpath==//tbody//tr//td[not(contains(@class, 'is-hidden'))]//button//span[normalize-space(text())='IMEI Detail']"
+关闭IMEI Detail窗口: "xpath==//div//span[text()='IMEI Detail']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+menu表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+表格内容: "xpath==//td[contains(@class,'variable ') and not(contains(@class, 'is-hidden'))]//div"
+滚动条: "xpath==//div[@class='el-table__body-wrapper is-scrolling-left']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+表头文本: "xpath==//thead/tr/th"
+
+
+
+
+

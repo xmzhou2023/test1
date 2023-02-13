@@ -7,15 +7,15 @@ Input Delivery Start Date: "xpath==//div//input[@id='inboundreceipt_input_delive
 Click Select Brand: "id==inboundreceipt_input_brandList"
 Select TECNO: "xpath==//span[text()='TECNO']"
 Select itel: "xpath==//span[text()='itel']"
-
 Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-IMEI Detail: "xpath==//span[contains(text(),'IMEI Detail')]"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
+Click IMEI Detail: "xpath==//button//span[contains(text(),'IMEI Detail')]"
 Quick Received select Warehouse: "xpath==//label[contains(text(),'Warehouse')]//parent::div//following-sibling::div//input"
 Select Warehouse Value: "xpath==//span[contains(text(),'variable')]"
-
 关闭二代收货菜单: "xpath==//span[normalize-space(text())='Inbound Receipt']//span[@class='el-icon-close']"
-关闭二代收货IMEI Detail: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[1]/button/i"
+关闭二代收货IMEI Detail: "xpath==//div/..//span[contains(text(), 'DN:')]/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+点击筛选项label: "xpath==//div//label[contains(text(),'variable')]"
 
 #获取列表字段元素
 获取列表第一个销售单ID:  "xpath==//tbody//tr[1]//td[2]//div"
@@ -28,20 +28,23 @@ Get Brand: "xpath==//tbody//tr[1]//td[11]//div//div//div"
 Get Total Text: "xpath==//span[contains(text(),'Total')]"
 
 #IMEI Detail详情页，获取列表字段内容，元素定位
-Get IMEI Detail Material ID: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[1]/div"
-Get IMEI Detail Product: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[2]/div"
-Get IMEI Detail Item: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[3]/div"
-Get IMEI Detail Brand: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[5]/div"
-Get IMEI: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[2]/div/div[3]/table/tbody/tr/td[6]/div"
-Get IMEI Detail Total: "xpath==//*[@id='mainContainer']/section/div[2]/div[5]/div[1]/div/div[2]/div[2]/div[3]/span[contains(text(),'Total')]"
+Get IMEI Detail Material ID: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//tbody//tr//td[1]//div"
+Get IMEI Detail Product: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//tbody//tr//td[2]//div"
+Get IMEI Detail Item: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//tbody//tr//td[3]//div"
+Get IMEI Detail Brand: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//tbody//tr//td[5]//div"
+Get IMEI Detail IMEI: "xpath==//div/..//span[contains(text(),'DN: ')]/../..//tbody//tr//td[6]//div"
+Get IMEI Detail Total: "xpath==//div/..//span[contains(text(),'DN:')]/../..//div//span[contains(text(),'Total')]"
 Get IMEI Detail Export: "id==inbound_receipt_imei_export_"
+Get DN Delivery Order ID: "xpath==//div/..//span[contains(text(),'DN: ')]"
 
 
 收货第一个复选框: "xpath==//tbody//tr[1]//td[1]//div//label//span[@class='el-checkbox__input']"
 快速收货按钮: "xpath==//Span[contains(text(),'Quick Received')]"
+Get Quick Received Order ID: "xpath==//div//span[text()='Quick Received']/../..//tbody//tr[1]//td[1]//div"
+Get Quick Received Quantity: "xpath==//div//span[text()='Quick Received']/../..//tbody//tr[1]//td[3]//div"
 保存: "xpath==//div//span//button[@id='inboundreceipt_Save']//span[contains(text(),'Save')]"
 
-获取列表状态: "xpath==//table//tbody//tr[1]//td[5]//div[contains(text(),'Goods Receipt')]"
+获取列表状态: "xpath==//table//tbody//tr[1]//td[5]//div"
 获取收货成功提示: "xpath==//p[contains(text(),'Successfully')]"
 
 #扫码收货操作

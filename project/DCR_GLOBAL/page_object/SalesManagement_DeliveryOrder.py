@@ -22,10 +22,9 @@ class DeliveryOrderPage(Base):
         """输入Delivery Date开始与结束日期筛选"""
         Base.presence_sleep_dcr(self, user['Delivery Start Date'])
         self.is_click(user['Delivery Start Date'])
-        self.input_text(user['Delivery Start Date'], txt=content1)
-        sleep(1)
+        self.readonly_input_text(user['Delivery Start Date'], content1)
         self.is_click(user['Delivery End Date'])
-        self.input_text(user['Delivery End Date'], txt=content2)
+        self.readonly_input_text(user['Delivery End Date'], content2)
 
     def click_status_input_box(self):
         """点击 Status输入框"""
@@ -34,7 +33,7 @@ class DeliveryOrderPage(Base):
     def click_search(self):
         """点击Search查询按钮"""
         self.is_click(user['Search'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
     def get_total_text(self):
         """获取Total分页总条数文本"""
@@ -88,11 +87,23 @@ class DeliveryOrderPage(Base):
 
     def click_download_more(self):
         """点击more更多按钮"""
-        self.is_click(user['Download Icon'])
-        sleep(1)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(7)
+        self.element_text(user['Loading'])
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选标签'], 'Create Date')
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """

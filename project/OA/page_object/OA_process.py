@@ -56,7 +56,8 @@ class OAUserPage(Base):
 
     @allure.step("点击下一步")
     def click_Next(self):
-        self.is_click_tbm(user['下一步'])
+        element = self.find_elements(user['下一步'])
+        element[len(element) - 1].click()
 
     @allure.step("点击还未装IMWAV或遇到问题？")
     def click_IMWAV(self):
@@ -147,6 +148,9 @@ class OAUserPage(Base):
         elif choose == "3":  # 禁用 禅道大群
             sign = self.gen_sign(timestamp, "TI382IhVUAI6FtxqAWb3Vh")
             post_url = "https://open.feishu.cn/open-apis/bot/v2/hook/5e74a61c-b59c-4fa3-bad5-c87db5eefe49"
+        elif choose == "4":  # 禁用 BPM测试群
+            sign = self.gen_sign(timestamp, "RdwWixnXElNrzkL7K0uPBh")
+            post_url = "https://open.feishu.cn/open-apis/bot/v2/hook/df935d46-60cb-4b07-8e62-af9d067c44b5"
 
 
         request_param = {

@@ -6,7 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import logging
 from project.POP.test_case.conftest import *
 from conftest import *
-
+from project.POP.page_object.Center_Component import *
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
@@ -90,7 +90,7 @@ class AddDefineSuggestedPrice(Base):
 
     @allure.step("数据库查询新增定义建议价格断言")
     def sql_priceassert(self,count,good,region):
-        sql = f"SELECT count(*) FROM `goods_price` WHERE `goods_id` = {good} AND `area_id`={region} AND `enabled_flag`=1;"
+        sql = f"SELECT count(*) FROM `pop_data_db`.`good_price` WHERE `goods_id` = {good} AND `area_id`={region} AND `enabled_flag`=1;"
         SQLAssert('POP','test').assert_sql_count(count, sql)
 
 class ExportPrice(Base):
@@ -109,6 +109,27 @@ class ExportPrice(Base):
     @allure.step("点击导出")
     def click_export(self,content):
         self.is_click_tbm(user["按钮"],content)
+
+class QueryGoodSugPrice(Page_Operation,General_button):
+    """按条件查询商品规格"""
+    select_list1 = {"定义建议价格-商品名称框":"定义建议价格-商品名称","定义建议价格-品牌名称框":"定义建议价格-品牌名称","定义建议价格-产品名称框":"定义建议价格-产品名称"}
+    select_list2 = {"定义建议价格-区域框":"定义建议价格-区域","定义建议价格-自采标记框":"定义建议价格-自采标记","定义建议价格-创建人框":"定义建议价格-创建人"}
+    def querygoodprice(self,select,content,ele2=None,enddate=None):
+        if select in self.select_list1:
+            self.single_condition_input_boxquery(select,self.select_list1[select],content)
+            sleep()
+            self.query()
+        elif select in self.select_list2:
+            self.more()
+            sleep()
+            self.single_condition_input_boxquery(select,self.select_list2[select],content)
+            sleep()
+            self.more_query()
+        elif select == "定义建议价格-开始日期框":
+            self.date_range(select,ele2,content,enddate)
+            self.query()
+        else:
+            logging.error("系统检测没有此筛选项，请检查后重新输入")
 
 
 if __name__ == '__main__':

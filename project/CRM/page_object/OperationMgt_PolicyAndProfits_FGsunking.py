@@ -35,7 +35,6 @@ class FGsunking(Base):
         if batch == repeatbatch:
             logging.info("输入重复的batch号")
             self.input_text(user["batchNo"],batch)
-
             self.is_click(user["countrycode"])
             self.input_text(user["countrycode"],country)
             sleep(1)

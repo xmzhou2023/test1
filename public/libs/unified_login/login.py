@@ -2,8 +2,7 @@ import logging
 
 from public.base.basics import Base
 # from libs.common.read_config import ini
-from public.libs.unified_login.page_object.login import LoginPage, SrmLoginPage, PopLoginPage, OALoginPage
-from public.libs.unified_login.page_object.login import DcrLoginPage
+from public.libs.unified_login.page_object.login import *
 
 from time import sleep
 
@@ -16,12 +15,20 @@ class Login(Base):
         user = LoginPage(drivers)
         user.get_url(url) # 跳转到指定网页
         user.switch_lanuage("中文") # 传参为"中文"，"英文"，"法文"
-        user.click_accountlogin() # 点击帐户密码登录
+        # user.click_accountlogin() # 点击帐户密码登录
         user.input_account(username) # 输入帐户名
         user.input_passwd(passwd) # 输入密码
-        user.click_checkbox()
+        # user.click_checkbox()
         user.click_loginsubmit()
 
+    def IPM_login(self, drivers, url, username, passwd):
+        """统一登录֤"""
+        user = IpmLoginPage(drivers)
+        user.get_url(url) # 跳转到指定网页
+        user.ipm_input_account(username) # 输入帐户名
+        user.ipm_input_passwd(passwd) # 输入密码
+        user.ipm_click_login()
+        sleep(3)
 
     def dcr_login(self, drivers, url, username, passwd):
         user = DcrLoginPage(drivers)
@@ -29,20 +36,15 @@ class Login(Base):
         sleep(3)
         user.dcr_input_account(username)
         user.dcr_input_passwd(passwd)
-        sleep(1.5)
+        sleep(3)
         get_check_class = user.dcr_get_check_box_class()
         if "is-checked" not in str(get_check_class):
             user.dcr_click_check_box()
         user.dcr_click_loginsubmit()
 
         """判断是否弹出DCR隐私政策页面"""
-        get_home_page = user.dcr_get_home_page_customer()
-        if get_home_page != 'Home Page-Customer':
-            get_yinsizhegnce = user.dcr_get_yinsizhengce()
-            if get_yinsizhegnce == '隐私政策':
-                user.dcr_click_agree()
-        else:
-            logging.info("打印获取的内容：{}".format(get_home_page))
+        user.privacy()
+
 
 
     def crm_login(self, drivers, url, username, passwd):
@@ -51,31 +53,31 @@ class Login(Base):
         user.get_url(url)  # 跳转到指定网页
         user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
         user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
-        user.click_accountlogin()  # 点击帐户密码登录
+        # user.click_accountlogin()  # 点击帐户密码登录
         user.input_account(username)  # 输入帐户名
         user.input_passwd(passwd)  # 输入密码
-        user.click_checkbox_en()
+        # user.click_checkbox_en()
         user.click_loginsubmit()
 
     def crm_pro_login(self, drivers, url, username, passwd):
         """生产登录,2022-9-30,熊文敏"""
         user = LoginPage(drivers)
         user.get_url(url)  # 跳转到指定网页
-        user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
-        user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
+        # user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
+        # user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
         user.click_accountlogin()  # 点击帐户密码登录
-        user.input_account(username)  # 输入帐户名
-        user.input_passwd(passwd)  # 输入密码
-        user.click_checkbox_en()
+        user.input_id(username)  # 输入帐户名
+        user.input_password(passwd)  # 输入密码
+        # user.click_checkbox_en()
         n = 1
         while n < 6:
             user.input_verify_code()
             sleep(1)
-            user.click_loginsubmit()
+            user.click_loginsubmit_crm()
             sleep(1)
             if 'login' in self.driver.current_url:
                 n += 1
-                user.code_clear()
+                user.code_clear_crm()
                 continue
             else:
                 break
@@ -87,18 +89,18 @@ class Login(Base):
         # user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"  #夏小珍 2022-9-6
         # user.switch_lanuage("英文")  # 传参为"中文"，"英文"，"法文"
         user.click_accountlogin()  # 点击帐户密码登录
-        user.input_account(username)  # 输入帐户名
-        user.input_passwd(passwd)  # 输入密码
-        user.click_checkbox_en()
+        user.input_id(username)  # 输入帐户名
+        user.input_password(passwd)  # 输入密码
+        # user.click_checkbox_en()
         n = 1
         while n < 6:
             user.input_verify_code()
             sleep(1)
-            user.click_loginsubmit()
+            user.click_loginsubmit_crm()
             sleep(1)
             if 'login' in self.driver.current_url:
                 n += 1
-                user.code_clear()
+                user.code_clear_crm()
                 continue
             else:
                 break
@@ -140,12 +142,32 @@ class Login(Base):
     def OA_login(self, drivers, url, username, passwd):
         """统一登录֤"""
         user = LoginPage(drivers)
-        pwd = OALoginPage(drivers)
         user.get_url(url)  # 跳转到指定网页
-        user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"
+        # user.switch_lanuage("中文")  # 传参为"中文"，"英文"，"法文"
         user.click_accountlogin()  # 点击帐户密码登录
         user.input_account(username)  # 输入帐户名
-        pwd.input_passwd(passwd)  # 输入密码
-        user.input_imgcode()  # 输入验证码
-        user.click_checkbox()
-        user.click_loginsubmit()
+        user.input_passwd(passwd)  # 输入密码
+        aa = 0
+        count = 0
+        # 如果a=1 就跳出循环
+        while aa == 0 and count < 10:
+            count += 1
+            user.input_imgcode()  # 输入验证码
+            # user.click_checkbox()
+            user.click_loginsubmit()
+            itexis = user.ispatent_loginnew()
+            if itexis:
+                aa = 0
+            else:
+                aa = 1
+
+    def BDDP_login(self, drivers, url, username, passwd):
+        """统一登录֤"""
+        user = BDDPLoginPage(drivers)
+        user.get_url(url) # 跳转到指定网页
+        # user.switch_lanuage("中文") # 传参为"中文"，"英文"，"法文"
+        user.BDDP_input_account(username) # 输入帐户名
+        user.BDDP_input_passwd(passwd) # 输入密码
+        # user.input_imgcode()
+        sleep(1)
+        user.BDDP_click_login()

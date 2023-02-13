@@ -1,24 +1,25 @@
 #新增销售订单元素
 Add: "id==saler_order_createSalesOrder_"
 Buyer: "xpath==//label[(text()='Buyer')]//parent::div// following-sibling::div//input"
-Buyer value: "xpath==//li[contains(text(),'EG000562')]"
-
-Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
-Brand value: "xpath==//span[contains(text(),'TECNO')]"
-
-product: "xpath==//label[(text()='Product')]//parent::div// following-sibling::div//input"
-product value: "xpath==//span[(text()='variable')]"
+Buyer value: "xpath==//li[contains(text(),'variable')]"
+Sales Order Add Brand: "xpath==//label[(text()='Brand')]//parent::div// following-sibling::div//input"
+Sales Order Add Brand value: "xpath==//div//ul/li//span[text()='variable']"
+Sales Order Add product: "xpath==//label[(text()='Product')]//parent::div// following-sibling::div//input"
+Sales Order Add product value: "xpath==//div//ul/li//span[text()='variable']"
 Quantity: "xpath==//label[(text()='Quantity')]//parent::div// following-sibling::div//input"
 
+Sales Order Add Product Button: "xpath==//div//button/..//span[normalize-space(text())='Add Product']"
+Sales Order Add Brand2: "xpath==//*[@id='mainContainer']/section/div[2]/form/div[5]/div[1]/div/div/div/div[1]/input"
+Sales Order Add product2: "xpath==//*[@id='mainContainer']/section/div[2]/form/div[5]/div[2]/div/div/div/div[1]/input"
 Submit Sales: "xpath==//span[contains(text(),'Submit')]"
 保存成功确认OK: "xpath==//span[contains(text(),'OK')]"
 
 #根据筛选功能，查询销售订单ID
 按销售单ID筛选: "xpath==//label[contains(text(),'Sales Order ID')]//parent::div//following-sibling::div//input"
 Sales Order Search: "xpath==//span[contains(text(),'Search')]"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 获取Sales Order ID文本: "xpath==//tbody//tr[1]//td[2]//div//div"
-获取列表Status文本: "xpath==//tbody//tr[1]//td[4]//div[normalize-space(text())='variable']"
+获取列表Status文本: "xpath==//tbody//tr[1]//td[4]//div"
 
 #勾选新建的销售单，直接出库
 勾选第一条销售单ID: "xpath==//tbody//tr[1]//td[1]//div//label//span//span"
@@ -31,29 +32,40 @@ Check: "xpath==//span[contains(text(),'Check')]"
 Get Delivery Quantity: "xpath==//div[normalize-space(text())='Delivery Quantity']/..//div[@class='num']"
 Get Order Detail Deli Quantity: "xpath==//table[@class='el-table__body']//tr[1]//td[5]"
 Get Delivery Scan Record IMEI: "xpath==//div[normalize-space(text())='variable']"
-Get Delivery Scan Record Success: "xpath==//div[normalize-space(text())='Success']"
+Get Delivery Scan Record Success: "xpath==//div//ul//li/..//div[normalize-space(text())='Success']"
 Submit Delivery: "xpath==//span[contains(text(),'Submit')]"
+
 
 #筛选IMEI Inventory Query页面，product对应的IMEI 元素定位
 imei  iframe: "id==imei_inventory_query"
 IMEI Inventory Unfold: "xpath==//span[contains(text(),'Unfold')]"
-Material ID: "xpath==//input[@id='imeiinventoryquery_input_materialId']"
-Warehouse: "xpath==//label//..//div//input[@class='el-input__inner imeiinventoryquery_input_warehouseId']"
-Select Warehouse Value: "xpath==//ul//li//span[contains(text(),'variable')]"
+IMEI Inventory Fold: "xpath==//span[contains(text(),'Fold')]"
+IMEI Inventory Query IMEI: "xpath==//div//input[@class='el-input__inner imeiinventoryquery_input_imei']"
+IMEI Inventory Material ID: "xpath==//input[@id='imeiinventoryquery_input_materialId']"
+IMEI Inventory Warehouse: "xpath==//div//input[@class='el-input__inner imeiinventoryquery_input_warehouseId']"
+IMEI Inventory Warehouse Value: "xpath==//div//ul//li//span[contains(text(),'variable')]"
+IMEI Inventory Activated: "xpath==//div//input[@class='el-input__inner imeiinventoryquery_input_isActivated']"
+IMEI Inventory Activated Value: "xpath==//div//ul//li//span[contains(text(),'variable')]"
 IMEI库存点击Brand: "xpath==//label//..//div//input[@id='imeiinventoryquery_input_brandCodes']"
-IMEI库存选中Brand: "xpath==//div//ul//li[3]//span[text()='itel']"
+IMEI库存选中Brand: "xpath==//div//ul//li//span[text()='itel']"
+IMEI库存select brand: "xpath==//div//ul//li//span[text()='variable']"
+点击label标签: "xpath==//div//label//span[text()='variable']"
 IMEI库存查询按钮: "xpath==//span[contains(text(),'Search')]"
-获取IMEI文本内容: "xpath==//tbody//tr[1]//td[4]//div"
+获取IMEI文本内容1: "xpath==//tbody//tr[1]//td[4]//div"
+获取IMEI文本内容: "xpath==//tbody//tr[2]//td[4]//div"
+获取IMEI文本内容2: "xpath==//tbody//tr[3]//td[4]//div"
+Query Box ID: "xpath==//div//input[@class='el-input__inner imeiinventoryquery_input_boxId']"
+Get list Box ID text: "xpath==//tbody//tr[1]//td[3]//div"
+Get list Total: "xpath==//div//div//span[contains(text(), 'Total')]"
 
-#快速收货销售单页面定位
-获取列表第一个销售单ID:  "xpath==//tbody//tr[1]//td[2]//div"
-获取列表第一个出库单ID:  "xpath==//tbody//tr[1]//td[3]//div"
 
+#Inbound Receipt 快速收货销售单页面定位
+获取列表第一个销售单ID: "xpath==//tbody//tr[1]//td[2]//div"
+获取列表第一个出库单ID: "xpath==//tbody//tr[1]//td[3]//div"
 Sales Order ID:  "xpath==//label[(text()='Sales Order ID')]//parent::div// following-sibling::div//input"
 Delivery Order ID: "xpath==//label[(text()='Delivery Order ID')]//parent::div// following-sibling::div//input"
 Inbound Receipt Search: "xpath==//span[contains(text(),'Search')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
-
 第一个复选框: "xpath==//tbody//tr[1]//td[1]//div//label//span//span"
 快速收货按钮: "xpath==//Span[contains(text(),'Quick Received')]"
 保存: "xpath==//span[contains(text(),'Save')]"
@@ -83,3 +95,54 @@ Close IMEI Detail: "xpath==//*[@id='app']/div/div[2]/section/div/div[3]/div/div[
 关闭销售单菜单: "xpath==//span[normalize-space(text())='Sales Order']//span[@class='el-icon-close']"
 关闭二代收货菜单: "xpath==//span[normalize-space(text())='Inbound Receipt']//span[@class='el-icon-close']"
 关闭IMEI Inventory Query: "xpath==//span[normalize-space(text())='IMEI Inventory Query']//span[@class='el-icon-close']"
+
+#获取Delivery Order 出库单 列表字段文本
+Get Sales Order ID Text: "xpath==//tbody//tr[1]//td[2]//div"
+Get Delivery Order ID Text: "xpath==//tbody//tr[1]//td[3]//div//div"
+Get Status Text: "xpath==//tbody//tr[1]//td[6]//div"
+Get Delivery Date Text: "xpath==//tbody//tr[1]//td[4]//div"
+Get Delivery Status: "xpath==//div[text()='Goods Receipt']"
+
+#筛选Shop Sales Query页面, 查询门店销量IMEI记录
+Shop Sales Query IMEI SN: "xpath==//div//input[@class='el-input__inner shopsalesquery_input_imeiCode']"
+Get Shop Sales list Shop ID: "xpath==//tbody//tr[1]//td[2]//div//span"
+Get Shop Sales list Total: "xpath==//div/..//div//span[contains(text(), 'Total')]"
+Shop Sales Query check box: "xpath==//tbody//tr[1]//td[1]//div//span[@class='vxe-checkbox--icon vxe-checkbox--unchecked-icon']"
+Shop Sales Query Delete: "xpath==//div//button//span[normalize-space(text())='Delete']"
+Shop Sales Query Confirm Del: "xpath==//div[@class='el-message-box__btns']//button//span[normalize-space(text())='Confirm']"
+
+
+#筛选Shop Purchase Query页面, 查询门店采购IMEI记录
+Shop Purchase Query IMEI: "xpath==//div//input[@class='el-input__inner shopstockinrecord_input_codes']"
+Get Shop Purchase list Shop ID: "xpath==//tbody//tr[1]//td[5]//div"
+Get Shop Purchase list Status: "xpath==//tbody//tr[1]//td[4]//span"
+Get Shop Purchase list IMEI: "xpath==//tbody//tr[1]//td[17]//div//span"
+Get Shop Purchase list Total: "xpath==//div/..//div//span[contains(text(), 'Total')]"
+Shop Purchase Query check box: "xpath==//tbody//tr[1]//td[1]//div//span[@class='vxe-checkbox--icon vxe-checkbox--unchecked-icon']"
+Shop Purchase Query Cancel: "xpath==//div//button[@id='ShopStockInRecord_cancel']//span[normalize-space(text())='Cancel']"
+Shop Purchase Query Confirm Cancel: "xpath==//div//div[3]//button[2]//span[normalize-space(text())='Confirm']"
+表格字段: "xpath==//tr//th//div[normalize-space(text())='variable']/.."
+表格指定列内容: "xpath==//td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
+滚动条: "xpath==//div[contains(@class,'vxe-table--body-wrapper body--wrapper')]"
+
+
+#Shop Inventory IMEI Query 页面，筛选IMEI门店库存记录
+Shop Inventory Query IMEI: "xpath==//div//input[@class='el-input__inner shopinventoryimeilist_input_codes']"
+
+
+#Sales Order页面，打开IMEI Detail详情页断言
+Sales Order IMEI Detail: "xpath==//tbody//tr[1]//td[not(contains(@class,'is-hidden'))]//div//div//span[text()='IMEI Detail']"
+Get Sales IMEI Detail Product: "xpath==//div//span[text()='IMEI Detail']/../..//tbody//tr[1]//td[1]"
+Get Sales IMEI Detail Brand: "xpath==//div//span[text()='IMEI Detail']/../..//tbody//tr[1]//td[5]"
+Get Sales IMEI Detail Total: "xpath==//div//span[text()='IMEI Detail']/../..//div//span[contains(text(),'Total')]"
+Close Sales Order IMEI Detail: "xpath==//div//span[text()='IMEI Detail']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
+
+
+#Shop Inventory IMEI Query页面，根据IMEI筛选门店库存
+Shop Inventory IMEI Query IMEI1: "xpath==//div//label[text()='IMEI']/..//div/..//input[@class='el-input__inner shopinventoryimeilist_input_codes']"
+Shop Inventory IMEI Query IMEI2: "xpath==//div//label[text()='IMEI']/..//div//textarea[@placeholder='Batch input content']"
+Get Shop Inventory IMEI list IMEI: "xpath==//tbody//tr[1]//td[13]//div"
+Get Shop Inventory IMEI Total: "xpath==//div//span[contains(text(), 'Total')]"
+
+
+

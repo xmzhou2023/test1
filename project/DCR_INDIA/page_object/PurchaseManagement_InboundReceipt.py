@@ -18,14 +18,14 @@ class InboundReceiptPage(Base):
         """快速收货页面，输入出库单ID条件筛选"""
         self.input_text(user['Input Delivery Order ID'], txt=content)
 
-    def click_deliver_Order(self):
-        """快速收货页面，点击出库单ID筛选输入框"""
-        self.is_click(user['Input Delivery Order ID'])
+    def click_deliver_Order_label(self, label_name):
+        """快速收货页面，点击筛选项出库单ID Label，释法"""
+        self.is_click(user['点击筛选label标签'], label_name)
 
     def click_search(self):
         """快速收货页面，点击Search"""
         self.is_click(user['Search'])
-        sleep(2)
+        self.element_text(user['Loading'])
 
     def text_salesOrder(self):
         """获取列表第一个销售单ID"""
@@ -66,7 +66,7 @@ class InboundReceiptPage(Base):
     def click_reset(self):
         """快速收货页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        sleep(4)
+        self.element_text(user['Loading'])
 
     def click_unfold(self):
         self.is_click(user['Unfold'])
@@ -82,12 +82,12 @@ class InboundReceiptPage(Base):
         self.input_text_dcr(user['Input Delivery Start Date'], txt=content)
         sleep(0.5)
 
-    def click_select_brand(self):
+    def click_select_brand(self, itel, tecno):
         """ 输入品牌条件，进行筛选操作 """
         self.is_click_dcr(user['Click Select Brand'])
         sleep(1.5)
-        self.is_click(user['Select itel'])
-        self.is_click(user['Select TECNO'])
+        self.is_click(user['Select itel'], itel)
+        self.is_click(user['Select TECNO'], tecno)
 
     def get_delivery_date_text(self):
         """获取列表Delivery Date文本"""
@@ -134,12 +134,10 @@ class InboundReceiptPage(Base):
     @allure.step("快速收货页面，点击关闭Inbound Receipt菜单")
     def click_close_inbound_receipt(self):
         self.is_click(user['关闭二代收货菜单'])
-        sleep(2)
 
     @allure.step("快速收货页面，点击关闭IMEI Detail窗口")
     def click_close_inbound_imei_detail(self):
         self.is_click(user['关闭二代收货IMEI Detail'])
-        sleep(2)
 
 
     #IMEI Detail页面元素定位方法

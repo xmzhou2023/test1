@@ -59,6 +59,15 @@ class LoginPage(Base):
         homepage = self.element_text(user['get Home Page Customer text'])
         return homepage
 
+    @allure.step("获取当前打开状态的菜单class值")
+    def get_open_menu_class(self):
+        ss = self.find_element(user['打开状态的菜单'])
+        get_menu_class = ss.get_attribute('class')
+        return get_menu_class
+
+    @allure.step("关闭当天打开状态的菜单")
+    def click_close_open_menu(self):
+        self.is_click(user['关闭当前打开的菜单'])
 
     @allure.step("登录方法")
     def dcr_login(self, drivers, account, passwd):
@@ -77,6 +86,9 @@ class LoginPage(Base):
     @allure.step("点击菜单")
     def click_gotomenu(self, *content):
         """前往左侧菜单栏"""
+        self.refresh()
+        self.is_click(user['菜单栏'])
+        self.refresh()
         level = []
         navstr = ""
         for i in range(len(content)):
@@ -88,7 +100,7 @@ class LoginPage(Base):
             self.scroll_into_view(user[level[i]])
             sleep(4)
             self.is_click(user[level[i]])
-        sleep(5)
+        self.element_exist(user['Loading'])
 
 
 

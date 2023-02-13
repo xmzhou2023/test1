@@ -10,6 +10,7 @@ Reference_From: 'xpath==//label[@for="referenceSourceCode"]/following-sibling::d
 JS_From_Data: 'xpath==//span[contains(text(),"variable")]'
 IMEI_Input: 'xpath==//label[@for="imeiSn1"]/following-sibling::div/div[contains(@class,"el-select")]//input'
 IMEI_Select: 'xpath==//li[contains(@class,"el-select-dropdown__item")]/span[contains(text(),"variable")]'
+Dash_Board: "xpath==//li[@tabindex='-1']//span[text()='Dashboard']"
 Physical_Condition: 'xpath==//label[@for="physicalStatus"]/following-sibling::div/div[contains(@class,"lazySelect")]//input'
 JS_Data: 'xpath==//li[contains(@class,"el-select-dropdown__item")]//span[contains(text(),"variable")]'
 Warranty_Status_Input: 'xpath==//label[@for="warrantyStatus"]/following-sibling::div[@class="el-form-item__content"]'
@@ -48,6 +49,9 @@ Search_Data: 'xpath==//tr[variable]//td[contains(@class,"el-table_3_column_8")]/
 List_Data: 'xpath==//tr[variable]//td[contains(@class,"variable")]//div[@class="textStyle"]'
 Search_Shortage_Data: 'xpath==//tr[variable]//td[contains(@class,"el-table_3_column_9")]//div[@class="textStyle"]'
 Service_Type_Data: 'xpath==//tr[variable]//td[contains(@class,"el-table_3_column_11")]//div[@class="textStyle"]'
+Start_Date: 'xpath==//input[@placeholder="Start Date"]'
+Start_Date_Month: 'xpath==//div[@x-placement="bottom-start"]//button[contains(@class,"el-icon-arrow-left")][@aria-label="Previous Month"]'
+Start_Date_Day: 'xpath==//td[@class="prev-month"]//span[contains(text(),"variable")]'
 Current_Page_data: 'xpath==//tbody/tr[contains(@class,"el-table__row")]["variable"]//td[contains(@class,"el-table_3_column_22")]//div[@class="textStyle"]'
 Status_Button: 'xpath==//tbody/tr[contains(@class,"el-table__row")]/td[2]/div[1]//span[contains(text(),"variable")]'
 Edit_Status_Yes: 'xpath==//button[@type="button"]//span[contains(text(),"Yes")]'

@@ -15,24 +15,23 @@ class AttendanceRecordPage(Base):
         Base.presence_sleep_dcr(self, user['筛选用户'])
         self.is_click_dcr(user['筛选用户'])
         sleep(1)
-        self.input_text_dcr(user['筛选用户'], txt=content)
+        self.input_text_dcr(user['筛选用户'], content)
         sleep(3)
         self.is_click_dcr(user['Select User Value'], content1)
 
     def input_query_date(self, content):
         self.is_click(user['筛选开始日期'])
-        sleep(1)
-        self.input_text(user['筛选开始日期'], txt=content)
+        self.input_text(user['筛选开始日期'], content)
 
     def click_search(self):
         """Attendance Records页面，点击Seasrch筛选考勤记录"""
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Attendance Records页面，点击Reset重置筛选条件"""
         self.is_click(user['Reset'])
-        sleep(5)
+        self.element_text(user['Loading'])
 
 
     def get_photo_text(self):
@@ -52,34 +51,17 @@ class AttendanceRecordPage(Base):
         userid = self.element_text(user['获取列表UserID文本'])
         return userid
 
+    @allure.step("Attendance Records页面，获取列表User name文本")
+    def get_user_name_text(self):
+        user_name = self.element_text(user['获取列表UserName文本'])
+        return user_name
+
     def get_total_text(self):
         """Attendance Records页面，获取列表Total总条数文本"""
         total = self.element_text(user['获取总条数文本'])
         total1 = total[6:]
         return total1
 
-
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(2)
-
-    def click_close_atten_record(self):
-        """关闭考勤记录菜单"""
-        self.is_click(user['关闭考勤记录菜单'])
-        sleep(2)
-
-    def get_home_page_cust(self):
-        homepage = self.element_text(user['Get Home Page Customer'])
-        return homepage
-
-
-    # def presence_sleep(self, content):
-    #     """DCR通用的显示等待方法"""
-    #     txt1 = None
-    #     while not txt1:
-    #         txt1 = self.find_element(content)
-    #
 
     """导出考勤记录功能"""
 
@@ -90,11 +72,23 @@ class AttendanceRecordPage(Base):
 
     def click_download_more(self):
         """导出操作后，点击右上角下载图标,点击右上角more..."""
-        self.is_click(user['Download Icon'])
-        sleep(1)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(4)
+        self.element_text(user['Loading'])
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选标签'], 'Create Date')
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
@@ -162,7 +156,6 @@ class AttendanceRecordPage(Base):
             logging.info("查看考勤记录列表，分页总条数大于1000，能查询到考勤记录Total：{}".format(total))
         else:
             logging.info("查看考勤记录列表，分页总条数为1000，未查询到考勤记录Total：{}".format(total))
-        sleep(1)
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """
@@ -175,7 +168,6 @@ class AttendanceRecordPage(Base):
             logging.info("Attendance Records导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Attendance Records导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
 
 if __name__ == '__main__':
     pass

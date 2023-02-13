@@ -25,21 +25,29 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['Fold'])
         sleep(1)
 
-    def input_sales_date_date(self, content1, content2):
+    def shop_sales_query_sales_date_query(self, content1, content2):
         Base.presence_sleep_dcr(self, user['Sales Date Start Date'])
         self.is_click(user['Sales Date Start Date'])
         self.input_text(user['Sales Date Start Date'], txt=content1)
         self.is_click(user['Sales Date End Date'])
         self.input_text(user['Sales Date End Date'], txt=content2)
 
+    @allure.step("Shop Sales Query页面，输入Shop ID筛选门店销售数据")
+    def shop_sales_query_shop_query(self, content):
+        self.is_click(user['Shop Sales Query Shop点击输入框'])
+        self.input_text(user['Shop Sales Query Shop输入框'], content)
+        sleep(1.5)
+        self.is_click(user['输入结果模糊选择'], content)
+
     def click_search(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
         self.is_click_dcr(user['Search'])
+        self.element_text(user['Loading'])
 
     def click_reset(self):
         """Shop Sales Query页面，筛选Shop ID后，点击Search按钮"""
         self.is_click(user['Reset'])
-        sleep(6)
+        self.element_text(user['Loading'])
 
     def get_shop_id_text(self):
         """Shop Sales Query页面，获取列表Shop ID 文本内容"""
@@ -74,17 +82,15 @@ class ShopSaleQueryPage(Base):
         total1 = total[6:]
         return total1
 
-
-    def click_close_export_record(self):
-        """关闭导出记录菜单"""
-        self.is_click(user['关闭导出记录菜单'])
-        sleep(1)
-
-    def click_close_shop_sales_query(self):
-        """ 关闭门店销售查询菜单 """
-        self.is_click(user['关闭门店销售查询菜单'])
-        sleep(2)
-
+    # def click_close_export_record(self):
+    #     """关闭导出记录菜单"""
+    #     self.is_click(user['关闭导出记录菜单'])
+    #     sleep(1)
+    #
+    # def click_close_shop_sales_query(self):
+    #     """ 关闭门店销售查询菜单 """
+    #     self.is_click(user['关闭门店销售查询菜单'])
+    #     sleep(2)
 
 
     #门店销售查询，导出功能验证
@@ -95,11 +101,23 @@ class ShopSaleQueryPage(Base):
 
     def click_download_more(self):
         """点击异步导出，点击更多按钮"""
-        self.is_click(user['Download Icon'])
-        sleep(1)
+        self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(5)
+        self.element_text(user['Loading'])
+
+    @allure.step("输入Task Name筛选该任务的导出记录")
+    def input_task_name(self, content):
+        self.is_click(user['Input Task Name'])
+        self.input_text(user['Input Task Name'], content)
+        sleep(1)
+        self.is_click_dcr(user['Task Name value'], content)
+
+    @allure.step("输入Create Date开始日期筛选当天日期的导出记录")
+    def export_record_create_date_query(self, start_date):
+        self.is_click(user['导出记录筛选创建日期'])
+        self.input_text(user['导出记录筛选创建日期'], start_date)
+        self.is_click(user['点击筛选标签'], 'Create Date')
 
     def click_export_search(self):
         """循环点击查询，直到获取到下载状态为COMPLETE """
@@ -156,16 +174,10 @@ class ShopSaleQueryPage(Base):
     def assert_total(self, total):
         """断言分页总数是否存在数据"""
         if int(total) > 0:
-            logging.info("Shop Sales Query列表，按Shop ID筛选，加载筛选后的数据正常，分页总条数Total：{}".format(total))
+            logging.info("查看Shop Sales Query列表，按sales date条件筛选，分页总条数Total：{}".format(total))
         else:
-            logging.info("查看Shop Sales Query列表，未加载筛选后的数据失败，分页总条数Total：{}".format(total))
+            logging.info("查看Shop Sales Query列表，按sales date条件筛选，分页总条数Total：{}".format(total))
 
-    def assert_total2(self, total2):
-        """断言分页总数是否存在数据"""
-        if int(total2) > 1000:
-            logging.info("查看Shop Sales Query列表，加载所有数据正常，分页总条数Total：{}".format(total2))
-        else:
-            logging.info("查看Shop Sales Query列表，未加载所有数据失败，分页总条数Total：{}".format(total2))
 
     def assert_file_time_size(self, file_size, export_time):
         """断言文件或导出时间是否有数据 """
