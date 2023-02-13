@@ -42,10 +42,12 @@ class TestCustomerAssociation:
         add.click_unfold()
         add.random_Query_Method(query_dict)
 
+
     @allure.story("员工与客户关系")
     @allure.title("导入用户与客户关系")
     @allure.description("导入用户与客户关系")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):
         login = LoginPage(drivers)
         login.initialize_login(drivers, "18650493", "xLily6x")
@@ -96,10 +98,12 @@ class TestCustomerAssociation:
         DomAssert(drivers).assert_att('Successfully')
         user.assert_NoData()
 
+
     @allure.story("员工与客户关系")
     @allure.title("导出用户与客户关系")
     @allure.description("导出用户与客户关系")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_003(self, drivers):
         login = LoginPage(drivers)
         login.initialize_login(drivers, "18650493", "xLily6x")
@@ -120,10 +124,12 @@ class TestCustomerAssociation:
         user.assert_Record_result('Export Record', 'Staff And Customer Association', 'Create Date', today)
         user.assert_Record_result('Export Record', 'Staff And Customer Association', 'Completed Date', today)
 
+
     @allure.story("员工与客户关系")
     @allure.title("删除用户与客户关系")
     @allure.description("删除用户与客户关系")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_001_004(self, drivers):
         login = LoginPage(drivers)
         login.initialize_login(drivers, "18650493", "xLily6x")

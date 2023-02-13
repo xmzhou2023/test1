@@ -43,6 +43,7 @@ class TestAddShop:
     @allure.title("门店管理，新增门店操作")
     @allure.description("门店管理页面，新增门店操作成功后，筛选新增的门店是否加载正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         """ lhmadmin管理员账号登录"""
@@ -97,12 +98,11 @@ class TestAddShop:
         #add_shop.click_close_shop_management()
 
 
-@allure.feature("门店管理-门店管理(global)")
-class TestExpandBrandShop:
-    @allure.story("扩展门店品牌")
+    @allure.story("新增门店")
     @allure.title("门店管理页面，对新增的门店进行扩展itel品牌操作")
     @allure.description("门店管理页面，对新增的门店进行扩展品牌操作，扩展itel品牌提交后，列表展示扩展的门店品牌")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         user = LoginPage(drivers)
@@ -110,7 +110,6 @@ class TestExpandBrandShop:
 
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Shop Management", "Shop Management(Global)")
-
         expand_brand = ShopManagementPage(drivers)
         """从数据库查询最近新建的门店ID"""
         user = SQL('DCR', 'test')
@@ -170,14 +169,13 @@ class TestDisableShop:
     @allure.title("门店管理页面，对新增的门店进行禁用操作")
     @allure.description("门店管理页面，对新增的门店进行禁用操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_003_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Shop Management", "Shop Management(Global)")
-
         """实例化ShopManagementPage类，调用页面元素方法"""
         disable = ShopManagementPage(drivers)
         """选中门店进行禁用扩展门店"""
@@ -206,11 +204,11 @@ class TestEditShop:
     @allure.title("门店管理页面，Edit编辑门店信息")
     @allure.description("门店管理页面，Edit编辑门店信息，提交后，返回列表显示编辑后的门店信息")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_004_001(self, drivers):
         user5 = LoginPage(drivers)
         user5.initialize_login(drivers, "lhmadmin", "dcr123456")
-
         """销售管理菜单-出库单-筛选出库单用例"""
         user5.click_gotomenu("Shop Management", "Shop Management(Global)")
         """实例化ShopManagementPage类，调用页面元素方法"""
@@ -240,7 +238,7 @@ class TestEditShop:
         """点击提交按钮"""
         edit.click_submit()
         DomAssert(drivers).assert_att("Edited Successfully")
-        sleep(2)
+        sleep(1)
         #edit.click_close_shop_management()
 
 
@@ -250,6 +248,7 @@ class TestEnableShop:
     @allure.title("门店管理页面，对禁用的门店，进行启用操作")
     @allure.description("门店管理页面，对禁用的门店，进行启用操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.UT  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_005_001(self, drivers):
         user6 = LoginPage(drivers)
@@ -293,6 +292,7 @@ class TestExportShop:
     @allure.title("门店管理页面，根据门店创建日期筛选门店后，进行导出操作")
     @allure.description("门店管理页面，根据门店创建日期筛选门店后，进行导出操作")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_export_fixture')
     def test_006_001(self, drivers):
         user = LoginPage(drivers)
@@ -301,7 +301,6 @@ class TestExportShop:
         user.click_gotomenu("Shop Management", "Shop Management(Global)")
         """实例化ShopManagementPage类，调用页面元素方法"""
         export = ShopManagementPage(drivers)
-
         today = Base(drivers).get_datetime_today()
         logging.info("打印当前日期：{}".format(today))
 
@@ -346,18 +345,17 @@ class TestQueryGlobalShop:
     @allure.title("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
     @allure.description("门店管理页面，按门店ID与状态条件筛选全球门店列表数据加载是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_007_001(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """销售管理菜单-出库单-筛选出库单用例"""
         user.click_gotomenu("Shop Management", "Shop Management(Global)")
-
         """实例化ShopManagementPage类，调用页面元素方法"""
         query = ShopManagementPage(drivers)
         today = Base(drivers).get_datetime_today()
         logging.info("打印当前日期：{}".format(today))
-
         query.click_unfold()
         """门店列表，按日期筛选门店记录"""
         query.input_create_date("2022-08-20", today)
@@ -384,6 +382,7 @@ class TestQueryGlobalShop:
     @allure.title("门店管理页面，查看View门店详情信息是否正确")
     @allure.description("门店管理页面，查看View门店详情信息是否正确")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_view_fixture')
     def test_007_002(self, drivers):
         user4 = LoginPage(drivers)
@@ -428,10 +427,12 @@ class TestQueryGlobalShop:
         #view.click_close_shop_view()
         #view.click_close_shop_management()
 
+
     @allure.story("查询全球门店")
     @allure.title("随机条件组合查询")
     @allure.description("门店管理页面，随机条件组合查询")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_007_003(self, drivers):
         """变量"""
         query_dict = {
@@ -492,6 +493,7 @@ class TestManagerGlobalShop:
     @allure.title("审核拒绝门店")
     @allure.description("审核拒绝门店")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_008_001(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
@@ -544,10 +546,12 @@ class TestManagerGlobalShop:
         user.click_query_search()
         user.assert_Query_result('Status', 'Rejected')
 
+
     @allure.story("门店管理")
     @allure.title("审批通过门店")
     @allure.description("审批通过门店，审核后门店状态为enabled")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_008_002(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
@@ -597,10 +601,12 @@ class TestManagerGlobalShop:
         user.click_query_search()
         user.assert_Query_result('Status', 'Enabled')
 
+
     @allure.story("门店管理")
     @allure.title("新建门店，零售商自动生成")
     @allure.description("新建门店，零售商自动生成")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_008_003(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
@@ -640,10 +646,12 @@ class TestManagerGlobalShop:
         user.assert_CustomerQuery_result('Customer ID', shopID)
         user.assert_CustomerQuery_result('Customer Name', name)
 
+
     @allure.story("门店管理")
     @allure.title("不支持拓展相同品牌门店")
     @allure.description("不支持拓展相同品牌门店，给出错误提示")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_008_004(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")
@@ -658,10 +666,12 @@ class TestManagerGlobalShop:
         user.extend_brand_save()
         user.click_submit()
 
+
     @allure.story("门店管理")
     @allure.title("批量导入门店")
     @allure.description("批量导入门店成功")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     def test_008_005(self, drivers):
         user4 = LoginPage(drivers)
         user4.initialize_login(drivers, "wjkTS001", "xLily6x")

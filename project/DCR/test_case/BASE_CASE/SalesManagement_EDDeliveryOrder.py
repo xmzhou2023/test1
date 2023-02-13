@@ -22,10 +22,11 @@ def function_menu_fixture(drivers):
 
 @allure.feature("销售管理-二代出库单")
 class TestQuerySubDelivery:
-    @allure.story("二代查询出库单")
-    @allure.title("按出库单条件筛选，出库单列表数据")
-    @allure.description("根据销售单与出库单条件，筛选出库单列表数据")
+    @allure.story("查询出库单")
+    @allure.title("二代用户，按出库单条件筛选，出库单列表数据")
+    @allure.description("二代用户，根据销售单与出库单条件，筛选出库单列表数据")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         """DCR 二代账号登录"""
@@ -52,10 +53,11 @@ class TestQuerySubDelivery:
 
 @allure.feature("销售管理-二代出库单")
 class TestAddSubDeliveryReceipt:
-    @allure.story("二代新增出库单,零售商收货操作,零售商退货出库单,二代审核退货单")
+    @allure.story("新增出库单")
     @allure.title("二代新增出库单,零售商收货操作,零售商退货出库单,二代审核退货单")
     @allure.description("二代新增出库单,零售商收货操作,零售商退货出库单,二代审核退货单")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_002_001(self, drivers):
         """出库单列表页，二代用户新增出库单用例 """

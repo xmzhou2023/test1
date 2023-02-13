@@ -98,7 +98,7 @@ class TestAddPosition:
         add_position.assert_contains_position_management_field('Create Date', today)
 
 
-    @allure.story("编辑职位")
+    @allure.story("新增职位")
     @allure.title("员工授权，编辑新增的职位")
     @allure.description("职位管理页面，编辑新增的职位")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
@@ -145,7 +145,7 @@ class TestAddPosition:
             pass
 
 
-    @allure.story("删除职位")
+    @allure.story("新增职位")
     @allure.title("员工授权，删除新增的职位")
     @allure.description("职位管理页面，删除新增的职位")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
