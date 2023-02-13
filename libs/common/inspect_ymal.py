@@ -164,7 +164,8 @@ def inspect_description():
                             lll.append(ll)
 
                         for news in lll:
-                            res1 = [li for li in news if '@allure.story' in li]
+                            res1 = [li for li in news if '@allure.story' in li and li.strip().startswith("#") is False]
+
                             storytlist = []
                             if len(res1) > 1:
                                 for linee in res1:
