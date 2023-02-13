@@ -70,7 +70,7 @@ def module_fixture(drivers):
 
 @allure.feature("SymptomCode")  # 现象码页面
 class TestAddSymptomCode:
-    @pytest.fixture()
+    @pytest.fixture(scope='module',autouse=True)
     def class_fixture(self, drivers):
         logging.info("\n这个fixture在每个case前执行一次")
         yield
@@ -263,7 +263,7 @@ class TestAddSymptomCode:
 
 @allure.feature("SymptomCode")  # 模块名称
 class TestGetSymptomGroup:
-    @pytest.fixture()
+    @pytest.fixture(scope='module',autouse=True)
     def class_fixture(self, drivers):
         logging.info("\n这个fixture在每个case前执行一次")
         yield
@@ -369,9 +369,9 @@ class TestGetSymptomGroup:
 
 
 
-
+@allure.feature("SymptomCode")
 class TestEditSymptomCode:
-    @pytest.fixture()
+    @pytest.fixture(scope='module',autouse=True)
     def class_fixture(self, drivers):
         logging.info("\n这个fixture在每个case前执行一次")
         yield
