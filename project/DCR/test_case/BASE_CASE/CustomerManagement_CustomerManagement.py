@@ -86,7 +86,7 @@ class TestQueryGlobalCustomers:
         #query.click_close_customer_mgt()
 
 
-    @allure.story("查询用户")
+    @allure.story("查询客户")
     @allure.title("随机条件组合查询")
     @allure.description("用户管理页面，查询用户列表所有用户数据加载")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
@@ -440,7 +440,7 @@ class TestImportCustomer:
 #         #     "delete from t_enterprise where enterprise_NAME = 'Cus_test_itel'")
 
 
-    @allure.story("导入客户操作")
+    @allure.story("导入客户")
     @allure.title("导入客户操作，输入不存在的销售区域，导入失败")
     @allure.description("导入客户操作，输入不存在的销售区域，导入失败")
     @allure.severity("normal")
