@@ -27,7 +27,7 @@ def module_fixture(drivers):
 
 @allure.feature("WOSerializedMgt-AssignSpareToWO")
 class TestWOSerializedAssignToWO:
-    @allure.story("工单状态非20时，操作派料失败")  # 场景名称
+    @allure.story("派料")  # 场景名称
     @allure.title("从工单列表页复制非20状态的工单，进行派料时提示报错")  # 用例名称
     @allure.description("从工单列表页复制一个非20状态的工单，点击add或者直接从操作区输入工单号，确认后提示报错")
     @allure.severity("blocker")  # 用例等级
@@ -45,7 +45,7 @@ class TestWOSerializedAssignToWO:
         num = DomAssert(drivers)
         num.assert_att("not allowed in the current status of Serialize workorder")
 
-    @allure.story("成功进入派料新增页")  # 场景名称
+    @allure.story("派料")  # 场景名称
     @allure.title("从工单列表页复制20状态的工单，进行派料时可正常跳转")  # 用例名称
     @allure.description("从工单列表页复制一个20状态的工单，点击add或者直接从操作区输入工单号，确认可跳转到派料页")
     @allure.severity("blocker")  # 用例等级
