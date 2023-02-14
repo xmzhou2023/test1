@@ -33,7 +33,9 @@ class TestZenUtil:
     def test_001_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         OB = OAUserPage(drivers)
         OA = OAdnluPage(drivers)
-        OA.open_url("http://zentao.transsion.com:9090")  # 打开禅道地址
+        # OA.open_url("http://zentao.transsion.com:9090")  # 打开禅道地址
+        OA.open_url("https://zentao.transsion.com/")  # 打开禅道地址
+
         OA.input_Zenuser(0, 2)
         OA.click_Zencheckbox()
         OA.click_Zensubmit()

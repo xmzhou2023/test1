@@ -35,6 +35,9 @@ class TestBPM:
     global master_entity
     master_entity = "主实体描述" + str(a)
 
+    global master_entity_EN  # 主实体描述的英文
+    master_entity_EN = "zstms" + str(a)
+
     global process_definition
     process_definition = "机器人流程定义" + str(a)
 
@@ -42,8 +45,8 @@ class TestBPM:
     Process_numbe = "赋值前00000000000"  # 流程编号存储
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：BPM管理端登录")  # 用例名称
-    @allure.description("三级标题：BPM系统是否正常登录")
+    @allure.title("三级标题：BPM系统是否正常登录")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -59,8 +62,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：业务建模新建")  # 用例名称
-    @allure.description("三级标题：BPM数据建模首次建模保存成功")
+    @allure.title("三级标题：BPM数据建模首次建模保存成功")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_002(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -76,6 +79,7 @@ class TestBPM:
         bmmA.click_physical_button()
         sleep(2)
         bmmA.input_master_entity(master_entity)
+        bmmA.input_master_entity_EN(master_entity_EN)
         sleep(2)
         bmmA.input_note()
         bmmA.click_save()
@@ -88,8 +92,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：业务建模发布")  # 用例名称
-    @allure.description("三级标题：BPM数据建模首次建模发布成功")
+    @allure.title("三级标题：BPM数据建模首次建模发布成功")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_003(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -113,8 +117,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：添加保存PC表单")  # 用例名称
-    @allure.description("三级标题： PC表单首次添加保存上刚新建数据建模的表单")
+    @allure.title("三级标题： PC表单首次添加保存上刚新建数据建模的表单")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_004(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -146,8 +150,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：发布PC表单")  # 用例名称
-    @allure.description("三级标题： 首次添加保存上刚新建数据建模的表单,发布PC表单")
+    @allure.title("三级标题： 首次添加保存上刚新建数据建模的表单,发布PC表单")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_005(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -173,8 +177,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：新建流程定义单")  # 用例名称
-    @allure.description("三级标题： 新建一条流程定义单设置简单的流程图，进行保存")
+    @allure.title("三级标题： 新建一条流程定义单设置简单的流程图，进行保存")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_006(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -209,8 +213,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：发布新建流程定义单")  # 用例名称
-    @allure.description("三级标题： 05用例新建的流程定义数据，进行发布")
+    @allure.title("三级标题： 05用例新建的流程定义数据，进行发布")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级F
     @pytest.mark.smoke  # 用例标记
     def test_001_007(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -235,8 +239,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：给流程定义单进行全局配置添加PC表单")  # 用例名称
-    @allure.description("三级标题： 05用例新建的流程定义数据，添加PC表单")
+    @allure.title("三级标题： 05用例新建的流程定义数据，添加PC表单")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_008(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -272,8 +276,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：给流程定义单配置02节点审批人")  # 用例名称
-    @allure.description("三级标题：05用例新建的流程定义数据，进行配置节点审批人")
+    @allure.title("三级标题： 05用例新建的流程定义数据，进行配置节点审批人")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_009(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -305,8 +309,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：给流程定义单进行流程授权")  # 用例名称
-    @allure.description("三级标题：05用例新建的流程定义数据，进行配置授权")
+    @allure.title("三级标题： 05用例新建的流程定义数据，进行配置授权")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_010(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -337,8 +341,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：登录BPM用户端")  # 用例名称
-    @allure.description("三级标题：BPM用户端系统是否正常登录，默认登录钟彩霞的账号")
+    @allure.title("三级标题： BPM用户端系统是否正常登录，默认登录钟彩霞的账号")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_011(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -356,8 +360,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：新发布的新流程，打开流程查看表单是否正常加载成功")  # 用例名称
-    @allure.description("三级标题：新发布的流程在用户端可以正常加载，配置的字段可见")
+    @allure.title("三级标题：新发布的流程在用户端可以正常加载，配置的字段可见")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_012(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -380,8 +384,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题： 流程发起")  # 用例名称
-    @allure.description("三级标题： 新发布的流程在用户端可以成功创建提单，生成流程单号")
+    @allure.title("三级标题： 新发布的流程在用户端可以成功创建提单，生成流程单号")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_013(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -409,8 +413,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：切换02节点审批人的账号")  # 用例名称
-    @allure.description("三级标题：退出以登录的用户，切02节点账号进行登录")
+    @allure.title("三级标题：退出以登录的用户，切02节点账号进行登录")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_014(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -431,8 +435,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：流程进行审批同意操作")  # 用例名称
-    @allure.description("三级标题：根据后端发布的新流程流程发起后，02节点进行同意审批")
+    @allure.title("三级标题：根据后端发布的新流程流程发起后，02节点进行同意审批")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_015(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
@@ -460,8 +464,8 @@ class TestBPM:
             assert False
 
     @allure.story("BPM流程搭建--测试环境")  # 场景名称
-    @allure.title("二级标题：新建流程已归档")  # 用例名称
-    @allure.description("三级标题：根据后端发布的新流程流程发起后，02节点进行同意审批后，流程状态为【已归档】")
+    @allure.title("三级标题：根据后端发布的新流程流程发起后，02节点进行同意审批后，流程状态为【已归档】")  # 用例名称
+    @allure.description("用例描述")
     @allure.severity("normal")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_001_016(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'

@@ -1,6 +1,5 @@
 import allure
 import pytest
-from project.DRP.page_object.Center_Component import NavPage
 from project.CRM.page_object.RC_JSMgt_JSList import JSPage
 from project.CRM.page_object.RC_JSMgt_AssignTechnician import AssignPage
 from public.base.assert_ui import ValueAssert

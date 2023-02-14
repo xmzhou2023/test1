@@ -1,6 +1,5 @@
 import allure
 import pytest
-from project.DRP.page_object.Center_Component import NavPage
 from project.CRM.page_object.RC_BasicDataMgt_SymptomGroupMgt import SymPage
 from project.CRM.page_object.RC_BasicDataMgt_SymptomCodeMgt import SymCodePage
 from public.base.assert_ui import ValueAssert

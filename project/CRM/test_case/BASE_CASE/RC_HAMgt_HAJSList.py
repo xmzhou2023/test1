@@ -1,6 +1,5 @@
 import allure
 import pytest
-from project.DRP.page_object.Center_Component import NavPage
 from project.CRM.page_object.RC_HAMgt_HAJSList import HAJSPage
 from public.base.assert_ui import ValueAssert
 import random, string

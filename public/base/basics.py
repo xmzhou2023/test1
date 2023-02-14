@@ -103,6 +103,15 @@ class Base(object):
         """回车"""
         ActionChains(self).send_keys(Keys.ENTER)
 
+    def close_new_window(self):  # 夏小珍新增 2023-2-14
+        """产生新窗口时,关闭新窗口并切换回原窗口"""
+        sleep(2)
+        handles = self.driver.window_handles  # 获取所有窗口
+        self.driver.switch_to.window(handles[1])  # 切换到新窗口，此处默认只有2个窗口，所以取的下标1
+        self.driver.close()  # 关闭新开的窗口
+        self.driver.switch_to.window(handles[0])  # 切换回原窗口
+        logging.info("回到原窗口")
+
     def is_click(self, locator, *args, **kwargs):
         """点击元素"""
         if args and args is not None:

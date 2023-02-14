@@ -34,7 +34,7 @@ class TestUtil:
     def test_001_001(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         OA = OAUserPage(drivers)
         OA.refresh()  # 刷新当前界面
-        sleep(30)
+        sleep(5)
         itexis = OA.islogin()
         OA.open_url("https://wenjuan.feishu.cn/m/cfm?t=spxJpHryzfxi-qnnu")  # 打开应用系统巡检地址
         # 绕过【应用系统巡检】扫码登录
@@ -45,8 +45,7 @@ class TestUtil:
         OA.click_Next()
         OA.click_IMWAV()
         OA.click_account_password()
-        OA.input_account_password('0', '1')
-        OA.click_Login()
+        OA.OAlog()
         # 提交系统巡检报告
         OA.click_Inspection("深圳")
         OA.click_Inspection("OA")
@@ -116,13 +115,7 @@ class TestUtil:
         OA = OAdnluPage(drivers)
         OB = OAUserPage(drivers)
         OA.open_url("http://10.248.39.80/AmsHome")  # 打开应用系统巡检地址
-        OA.click_accountuser()
-        OA.click_accountlogin()  # 点击帐户密码登录
-        OA.input_account_password_log('0', '1')
-        OA.input_imgcode()  # 输入验证码
-        OA.click_checkbox()
-        OA.click_checkbox()
-        OA.click_loginsubmit()
+        OB.OAlogB()
         itexis = OA.isfile_login()
         if itexis:
             # OB.Messagefeishu("4用例ok", "1")
@@ -132,30 +125,32 @@ class TestUtil:
             OB.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境档案管理系统登录异常,请相关人员及时排查问题!", "1")
             assert False
 
-    @allure.story("OA应用系统巡检")  # 场景名称
-    @allure.title("三级标题：传音知识产权管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
-    @allure.description("用例描述")
-    @allure.severity("normal")  # 用例等级
-    @pytest.mark.smoke  # 用例标记
-    def test_001_005(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
-        OA = OAdnluPage(drivers)
-        OB = OAUserPage(drivers)
-        OA.open_url("https://ipr.transsion.com:8060/login.html")  # 打开应用系统巡检地址
-        OA.click_accountuser()
-        OA.click_accountlogin()  # 点击帐户密码登录
-        OA.input_account_password_log('0', '1')
-        OA.input_imgcode()  # 输入验证码
-        OA.click_checkbox()
-        OA.click_checkbox()
-        OA.click_loginsubmit()
-        itexis = OA.ispatent_login()
-        if itexis:
-            # OB.Messagefeishu("5用例ok", "1")
-            # OB.Messagefeishu("传音知识产权管理系统巡检通知\n系统登陆正常!", "1")
-            assert True
-        else:
-            OB.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境传音知识产权管理系统登录异常,请相关人员及时排查问题!", "1")
-            assert False
+    # @allure.story("OA应用系统巡检")  # 场景名称
+    # @allure.title("三级标题：传音知识产权管理系统巡检，飞书推送消息到OA测试群")  # 用例名称
+    # @allure.description("用例描述")
+    # @allure.severity("normal")  # 用例等级
+    # @pytest.mark.smoke  # 用例标记
+    # def test_001_005(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+    #     OA = OAdnluPage(drivers)
+    #     OB = OAUserPage(drivers)
+    #     OA.open_url("https://ipr.transsion.com:8060/login.html")  # 打开应用系统巡检地址
+    #     # OA.click_accountuser()
+    #     # OA.click_accountlogin()  # 点击帐户密码登录
+    #     OB.OAlogB()
+    #     # OA.input_account_password_log('0', '1')
+    #     #
+    #     # OA.input_imgcode()  # 输入验证码
+    #     # OA.click_checkbox()
+    #     # OA.click_checkbox()
+    #     # OA.click_loginsubmit()
+    #     itexis = OA.ispatent_login()
+    #     if itexis:
+    #         # OB.Messagefeishu("5用例ok", "1")
+    #         # OB.Messagefeishu("传音知识产权管理系统巡检通知\n系统登陆正常!", "1")
+    #         assert True
+    #     else:
+    #         OB.Messagefeishu("【重要信息】OA机器人自动巡检通知,生产环境传音知识产权管理系统登录异常,请相关人员及时排查问题!", "1")
+    #         assert False
 
     @allure.story("OA应用系统巡检")  # 场景名称
     @allure.title("三级标题：BPM开发环境管理端登录")  # 用例名称
@@ -219,25 +214,8 @@ class TestUtil:
     def test_001_009(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
         OB = OAUserPage(drivers)
         OA = OAdnluPage(drivers)
-        OA.open_url("https://bpm.transsion.com/mvue/")  # 打开应用系统巡检地址
-        OA.click_accountuser()
-        OA.click_accountlogin()  # 点击帐户密码登录
-        OA.input_account_password_log('0', '1')
-        aa = 0
-        count = 0
-        # 如果a=1 就跳出循环
-        while aa == 0 and count < 10:
-            count += 1
-            OA.input_imgcode()  # 输入验证码
-            OA.click_checkbox()
-            OA.click_checkbox()
-            OA.click_loginsubmit()
-            itexis = OA.ispatent_loginnew()
-            if itexis:
-                aa = 0
-            else:
-                aa = 1
-
+        OA.open_url("https://bpm.transsion.com/mvue/")
+        OB.OAlogB()
         bmmA = BPM_modeling_Page(drivers)
         itexis = bmmA.ismodeling_login()
         if itexis:
@@ -256,23 +234,7 @@ class TestUtil:
         OB = OAUserPage(drivers)
         OA = OAdnluPage(drivers)
         OA.open_url("http://10.129.2.246:9081/mvue/")  # 打开应用系统巡检地址
-        OA.click_accountuser()
-        OA.click_accountlogin()  # 点击帐户密码登录
-        OA.input_account_password_log('0', '1')
-        aa = 0
-        count = 0
-        # 如果a=1 就跳出循环
-        while aa == 0 and count < 10:
-            count += 1
-            OA.input_imgcode()  # 输入验证码
-            OA.click_checkbox()
-            OA.click_checkbox()
-            OA.click_loginsubmit()
-            itexis = OA.ispatent_loginnew()
-            if itexis:
-                aa = 0
-            else:
-                aa = 1
+        OB.OAlogB()
         bmmA = BPM_modeling_Page(drivers)
         itexis = bmmA.ismodeling_login()
         if itexis:

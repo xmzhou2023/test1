@@ -101,12 +101,13 @@ def inspect_description():
         DIR_PATH = os.path.join(PEROJECT_PATH, pro, 'test_case')
         for i in os.listdir(DIR_PATH):
             _path = os.path.join(DIR_PATH, i)
-            if 'conftest.py' not in _path and '__pycache__' not in _path:
+            if 'conftest.py' not in _path and '__pycache__' not in _path and 'failures' not in _path and 'allure-results' not in _path:
                 dirlist.append(_path)
         for dir in dirlist:
             for filename in os.listdir(dir):
-                file_path = os.path.join(dir, filename)
-                # fixtlist = []
+                if 'failures' not in filename and 'allure-results' not in filename:
+                    file_path = os.path.join(dir, filename)
+                    # fixtlist = []
 
                 if os.path.isfile(file_path):
                     with open(file_path, encoding='utf-8', errors='ignore') as f:
@@ -188,5 +189,5 @@ def inspect_description():
 if __name__ == '__main__':
     # print(get_FolderName(PEROJECT_PATH))
     # inspect_element()
-    # inspect_description('DCR_GLOBAL')
+    #inspect_description('DCR_GLOBAL')
     inspect_description()

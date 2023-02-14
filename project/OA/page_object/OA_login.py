@@ -147,6 +147,25 @@ class OAdnluPage(Base):
         itexis = self.element_exist(user["登录"])
         return itexis
 
+    @allure.step("登录BPM正式环境")
+    def BPMlogB(self):
+        # 新界面。有图像识别
+        self.click_accountlogin()  # 点击帐户密码登录
+        self.input_newaccount("18647220")
+        self.input_newpasswd("teddy@2863")
+        aa = 0
+        count = 0
+        # 如果a=1 就跳出循环
+        while aa == 0 and count < 10:
+            count += 1
+            self.input_newimgcode()
+            self.click_newloginsubmit()
+            itexis = self.element_exist(user["新登录按钮"])
+            if itexis:
+                aa = 0
+            else:
+                aa = 1
+
     @allure.step("登录BPM非正式环境")
     def BPMlog(self, options=1, Job="18645351"):
         if options == 1:
@@ -160,7 +179,7 @@ class OAdnluPage(Base):
             # 如果a=1 就跳出循环
             while aa == 0 and count < 10:
                 count += 1
-                self.input_newimgcode()
+                # self.input_newimgcode()
                 self.click_newloginsubmit()
                 itexis = self.element_exist(user["新登录按钮"])
                 if itexis:
@@ -171,12 +190,22 @@ class OAdnluPage(Base):
         if options == 2:
             # 老界面
             self.open_url("http://10.132.68.237:9081/mvue")  # 打开BPMUAT环境管理端
-            self.click_accountuser()
+            # 新界面。无图像识别
             self.click_accountlogin()  # 点击帐户密码登录
-            self.input_account(Job)  # 默认使用彩霞的号登录BPM
-            self.input_passwd("xLily6x")
-            self.click_checkbox()
-            self.click_loginsubmit()
+            self.input_newaccount(Job)  # 默认使用彩霞的号登录BPM
+            self.input_newpasswd("xLily6x")
+            aa = 0
+            count = 0
+            # 如果a=1 就跳出循环
+            while aa == 0 and count < 10:
+                count += 1
+                # self.input_newimgcode()
+                self.click_newloginsubmit()
+                itexis = self.element_exist(user["新登录按钮"])
+                if itexis:
+                    aa = 0
+                else:
+                    aa = 1
 
         if options == 3:
             # 新界面。有图像识别
