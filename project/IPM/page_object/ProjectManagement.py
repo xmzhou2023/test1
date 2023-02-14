@@ -6,7 +6,7 @@ from libs.common.time_ui import *
 from project.IPM.page_base.assert_pubic import *
 from project.IPM.api.APIRequest import *
 import random
-from project.IPM.page_object.Generalmethods import General_methods
+from project.IPM.page_object.ipm_publiclibrary import *
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 
 
@@ -17,9 +17,9 @@ now_times = strftime('%Y-%m-%d%H:%M:%S')
 now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
 
-class CreateProject(General_methods):
+class CreateProject(ipm_publiclibrary):
 
-    def __init__(self,driver,env_name,element_yaml='ProjectManagement_CreateProject',expect='ProjectManagement_CreateProject.yaml'):
+    def __init__(self,driver,env_name,element_yaml='ProjectManagement',expect='ProjectManagement.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
         self.Api = APIRequest(env_name)
         self.ini = ReadConfig(pro_name, env_name)
@@ -211,6 +211,7 @@ class CreateProject(General_methods):
         计划任务_发起评审
         '''
         self.click_IPM("计划任务_发起评审")
+        sleep(0.5)
     @allure.step("项目管理_项目详情_项目tab应用_计划任务_预约上会")
     def project_Scheduled_Tasks_Make_an_appointment_for_a_meeting(self):
         '''
@@ -735,7 +736,7 @@ class CreateProject(General_methods):
 
 #断言
 class Assert_result(AssertMode):
-    def __init__(self,driver,element_yaml='ProjectManagement_CreateProject', expect='ProjectManagement_CreateProject.yaml'):
+    def __init__(self,driver,element_yaml='ProjectManagement', expect='ProjectManagement.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
 
 

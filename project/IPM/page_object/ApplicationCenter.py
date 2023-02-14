@@ -10,7 +10,7 @@ from project.IPM.page_base.basics_IPM import PubicMethod
 from libs.common.time_ui import *
 from project.IPM.page_base.assert_pubic import *
 
-from project.IPM.page_object.Generalmethods import *
+from project.IPM.page_object.ipm_publiclibrary import *
 import random
 
 
@@ -56,14 +56,14 @@ class ApplicationCenter(PubicMethod):
     @allure.step("应用中心_DCP看板详情_表单操作按钮_同意预约_收件人")
     def DCP_Cc(self,JobNo):
         self.click_IPM("设置通知内容_抄送人")
-        personnel=General_methods(self.driver)
+        personnel=ipm_publiclibrary(self.driver)
         personnel.personnel_list(JobNo)
         sleep(1)
 
     @allure.step("应用中心_DCP看板详情_表单操作按钮_同意预约_收件人")
     def DCP_addressee(self,JobNo):
         self.click_IPM("设置通知内容_收件人")
-        personnel=General_methods(self.driver)
+        personnel=ipm_publiclibrary(self.driver)
         personnel.personnel_list(JobNo)
         sleep(1)
 
