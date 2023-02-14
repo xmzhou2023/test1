@@ -67,7 +67,7 @@ class DitributorReceiptPage(Base):
     @allure.step("国包收货页面，筛选条件后，点击Search按钮")
     def click_search_reset(self, search_reset):
         self.is_click(user['Search_Reset'], search_reset)
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("国包收货页面，删除一键收货的DN数据")
     def delete_dist_receipt_dn_data(self, dn_code):
@@ -237,7 +237,7 @@ class DitributorReceiptPage(Base):
         self.presence_sleep_dcr(user['点击IMEI Detail'])
         self.is_click(user['点击IMEI Detail'])
         sleep(1)
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("打开IMEI Detail页面，获取DN文本内容")
     def get_imei_detail_dn_text(self):
@@ -416,9 +416,9 @@ class DistributorReceiptQuery(Base):
     def click_button(self, txt):
         self.is_click(user['Unfold_Search_Reset按钮'], txt)
         if txt == 'Search':
-            self.element_text(user['Loading'])
+            self.element_exist(user['Loading'])
         elif txt == 'Reset':
-            self.element_text(user['Loading'])
+            self.element_exist(user['Loading'])
         else:
             sleep()
 

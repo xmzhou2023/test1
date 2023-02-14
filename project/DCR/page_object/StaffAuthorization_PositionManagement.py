@@ -109,7 +109,7 @@ class PositionManagementPage(Base):
     @allure.step("Position Management页面，点击Search查询按钮")
     def click_position_search(self, search_reset):
         self.is_click(user['Search Position Button'], search_reset)
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("断言精确查询结果 Position Management列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
     def assert_position_management_field(self, header, content):

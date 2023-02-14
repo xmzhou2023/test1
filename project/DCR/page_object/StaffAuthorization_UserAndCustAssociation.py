@@ -20,7 +20,7 @@ class UserCustomerAssociaPage(Base):
     @allure.step("点击Search按钮筛选数据")
     def click_search(self):
         self.is_click(user['Search'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("获取分页总条数文本")
     def get_total_text(self):
@@ -73,7 +73,7 @@ class UserCustomerAssociaPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(6)
+        self.element_exist(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
@@ -139,7 +139,6 @@ class UserCustomerAssociaPage(Base):
             logging.info("查看User And Customer Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total))
         else:
             logging.info("查看User And Customer Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total))
-        sleep(1)
 
     @allure.step("断言判读分页总条数，是否能查询到数据且大于1条")
     def assert_total1(self, total1):
@@ -147,7 +146,6 @@ class UserCustomerAssociaPage(Base):
             logging.info("查看User And Customer Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total1))
         else:
             logging.info("查看User And Customer Association列表，加载筛选的数据正常，分页总条数Total：{}".format(total1))
-        sleep(1)
 
     @allure.step("断言文件或导出时间是否有数据")
     def assert_file_time_size(self, file_size, export_time):
@@ -160,7 +158,6 @@ class UserCustomerAssociaPage(Base):
             logging.info("User and Customer Association导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("User and Customer Association导出成功，Export Time(s)导出时间等于0s:{}".format(export_time))
-        sleep(1)
 
 
 if __name__ == '__main__':

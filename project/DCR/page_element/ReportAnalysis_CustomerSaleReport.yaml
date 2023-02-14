@@ -3,6 +3,7 @@
 客户销售报表结束日期: "xpath==//div//input[@id='salesreport_input_startDate1']"
 
 Search: "xpath==//span[contains(text(),'Search')]"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 Reset: "xpath==//span[contains(text(),'Reset')]"
 获取分页总条数文本: "xpath==//div//span[contains(text(),'Total')]"
 

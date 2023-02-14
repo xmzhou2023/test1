@@ -1,5 +1,6 @@
 查询: "xpath==//span[contains(text(),'Search')]"
 重置: "xpath==//span[contains(text(),'Reset')]"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 上传日期开始: "xpath==//input[@id='competitorsalesquery_input_uploadDate']"
 上传日期结束: "xpath==//input[@id='competitorsalesquery_input_uploadDate1']"
 销售区域: "xpath==//input[@id='competitorsalesquery_input_areaId']"

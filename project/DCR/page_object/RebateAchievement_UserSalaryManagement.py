@@ -18,7 +18,6 @@ class UserSalaryManagement(Base):
         sleep(1.5)
         self.is_click(user['选中筛选国家'], country)
         self.click_search()
-        sleep(3)
 
     @allure.step("User Salary Management页面，输入User筛选，点击Search按钮查询")
     def input_user_query_search(self, userid):
@@ -29,7 +28,7 @@ class UserSalaryManagement(Base):
         self.presence_sleep_dcr(user['选中筛选用户'], userid)
         self.is_click(user['选中筛选用户'], userid)
         self.is_click(user['Search'])
-        sleep(4)
+        self.element_exist(user['Loading'])
 
     @allure.step("User Salary Management页面，点击Import 导入功能")
     def click_import_upload_save(self, file):
@@ -114,12 +113,12 @@ class UserSalaryManagement(Base):
     @allure.step("Import Record页面，点击Search 查询按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(3)
+        self.element_exist(user['Loading'])
 
     @allure.step("Import Record页面，点击Reset 重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(3)
+        self.element_exist(user['Loading'])
 
     @allure.step("循环点击查询，直到获取到导入记录状态为Upload Successfully")
     def click_import_status_search(self):
