@@ -168,6 +168,6 @@ class Login(Base):
         # user.switch_lanuage("中文") # 传参为"中文"，"英文"，"法文"
         user.BDDP_input_account(username) # 输入帐户名
         user.BDDP_input_passwd(passwd) # 输入密码
-        # user.input_imgcode()
-        sleep(1)
+        user.input_imgcode()
+        sleep(3)
         user.BDDP_click_login()
