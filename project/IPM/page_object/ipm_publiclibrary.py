@@ -6,9 +6,9 @@ from project.IPM.page_base.assert_pubic import *
 from project.IPM.api.APIRequest import *
 import random
 
-class General_methods(PubicMethod):
+class ipm_publiclibrary(PubicMethod):
 
-    def __init__(self,driver,element_yaml='Generalmethods',expect='Generalmethods.yaml'):
+    def __init__(self,driver,element_yaml='ipm_publiclibrary',expect='ipm_publiclibrary.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
     def personnel_list(self, text, Confirm_or_Cancel=None):
         '''
@@ -70,15 +70,4 @@ class General_methods(PubicMethod):
         except:
             logging.info("当前没有需要点击的元素")
 
-    def object_all_objects(self,taskname,*expansion_name1):
-        '''
-        点击任务名字编辑
-        :param taskname: 编辑的任务名称
-        :param expansion_name1: 展开的树结构名称
-        '''
-
-        if expansion_name1:
-            for i in expansion_name1:
-                self.project_Task_expansion(i)
-        self.project_Task_selection(taskname)
 

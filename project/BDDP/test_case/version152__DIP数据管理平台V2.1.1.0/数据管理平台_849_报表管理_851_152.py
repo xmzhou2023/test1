@@ -8,7 +8,7 @@ class Teststory_2492:
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_30876(self, drivers):
-        print(1)
+        pass
 
 
     @allure.story("报表管理新增定制化报表和首页差异化报表属性")  # 用户故事名称

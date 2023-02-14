@@ -6,7 +6,7 @@ from libs.common.time_ui import *
 from project.IPM.page_base.assert_pubic import *
 from project.IPM.api.APIRequest import *
 import random
-from project.IPM.page_object.Generalmethods import General_methods
+from project.IPM.page_object.ipm_publiclibrary import ipm_publiclibrary
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 from project.IPM.page_base.pathconfig import *
 
@@ -15,8 +15,8 @@ now_times = strftime('%Y-%m-%d%H:%M:%S')
 now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
 
-class SystemManagement(General_methods):
-    def __init__(self,driver,env_name,element_yaml='system_management',expect='system_management.yaml'):
+class SystemManagement(ipm_publiclibrary):
+    def __init__(self,driver,env_name,element_yaml='system_management',expect='SM_ObjectManagement.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
         self.Api = APIRequest(env_name)
         self.ini = ReadConfig(pro_name, env_name)
@@ -357,7 +357,7 @@ class SystemManagement(General_methods):
 
 
 class Assert_result_system_management(AssertMode):
-    def __init__(self,driver,env_name,element_yaml='system_management', expect='system_management.yaml'):
+    def __init__(self,driver,env_name,element_yaml='SM_ObjectManagement', expect='SM_ObjectManagement.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
         self.Api = APIRequest(env_name)
         self.ini = ReadConfig(pro_name, env_name)

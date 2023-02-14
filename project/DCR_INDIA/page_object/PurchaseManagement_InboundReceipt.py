@@ -25,7 +25,7 @@ class InboundReceiptPage(Base):
     def click_search(self):
         """快速收货页面，点击Search"""
         self.is_click(user['Search'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     def text_salesOrder(self):
         """获取列表第一个销售单ID"""
@@ -66,7 +66,7 @@ class InboundReceiptPage(Base):
     def click_reset(self):
         """快速收货页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     def click_unfold(self):
         self.is_click(user['Unfold'])

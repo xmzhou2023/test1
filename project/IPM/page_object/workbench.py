@@ -6,7 +6,7 @@ from libs.common.time_ui import *
 from project.IPM.page_base.assert_pubic import *
 from project.IPM.api.APIRequest import *
 import random
-from project.IPM.page_object.Generalmethods import General_methods
+from project.IPM.page_object.ipm_publiclibrary import *
 from project.IPM.page_object.ApplicationCenter import ApplicationCenter
 
 
@@ -15,7 +15,7 @@ now_times = strftime('%Y-%m-%d%H:%M:%S')
 now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
 
-class WorkBench(General_methods):
+class WorkBench(ipm_publiclibrary):
     def __init__(self,driver,env_name,element_yaml='workbench',expect='workbench.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
         self.Api = APIRequest(env_name)

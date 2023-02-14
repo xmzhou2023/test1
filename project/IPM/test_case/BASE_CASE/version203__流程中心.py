@@ -12,7 +12,7 @@ from libs.common.action import KeyWord
 import allure
 from libs.common.action import KeyWord
 import allure
-from project.IPM.page_object.ProjectManagement_CreateProject import *
+from project.IPM.page_object.ProjectManagement import *
 from project.IPM.page_base.assert_pubic import *
 from public.data.unified_login.unified import *
 from public.base.assert_ui import *
@@ -20,7 +20,7 @@ from public.libs.unified_login.login import Login
 from libs.common.read_config import *
 from project.IPM.test_case.conftest import *
 from project.IPM.page_object.ProcessCenter_Moldopeningprocess import *
-from project.IPM.page_object.Generalmethods import *
+from project.IPM.page_object.ipm_publiclibrary import *
 
 
 @allure.feature("流程中心")  # 迭代名称

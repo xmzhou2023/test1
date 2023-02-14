@@ -113,9 +113,9 @@ class ImeiInventoryQuery(Base):
     def click_button(self, txt):
         self.is_click(user['Unfold_Search_Reset按钮'], txt)
         if txt == 'Search':
-            self.element_text(user['Loading'])
+            self.element_exist(user['Loading'])
         elif txt == 'Reset':
-            self.element_text(user['Loading'])
+            self.element_exist(user['Loading'])
         else:
             sleep()
 

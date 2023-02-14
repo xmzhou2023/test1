@@ -10,10 +10,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from libs.common.action import KeyWord
 import allure
-from project.IPM.page_object.ProjectManagement_CreateProject import *
+from project.IPM.page_object.ProjectManagement import *
 from project.IPM.page_base.assert_pubic import *
 from project.IPM.test_case.conftest import *
-from project.IPM.api.API_ProjectManagement_CreateProject import *
+from project.IPM.api.API_ProjectManagement import *
 from project.IPM.api.Api_ApplicationCenter import *
 
 @allure.feature("项目管理")  # 迭代名称
