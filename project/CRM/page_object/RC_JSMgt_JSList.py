@@ -322,15 +322,10 @@ class JSPage(Base):
         self.is_click(user['Hide_Return'])  # 取消隐藏100状态的
         self.is_click(user['Scope_Select'], choice="scopeType")
         self.is_click(user['Scope_Select_Data'], choice="All")  # 设置范围为所有
-
-    @allure.step("产生新窗口时,关闭新窗口并切换回原窗口")
-    def Swith_Original_Window(self):
-        sleep(2)
-        handles = self.driver.window_handles
-        self.driver.switch_to.window(handles[1])
-        self.driver.close()  # 关闭新开的窗口
-        self.driver.switch_to.window(handles[0])
-        logging.info("回到原窗口")
+    #
+    # @allure.step("产生新窗口时,关闭新窗口并切换回原窗口")
+    # def Swith_Original_Window(self):
+    #     self.close_new_window()
 
 
     @allure.step("展开菜单树")

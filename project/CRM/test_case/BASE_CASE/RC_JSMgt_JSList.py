@@ -1,6 +1,5 @@
 import allure
 import pytest
-from project.DRP.page_object.Center_Component import NavPage
 from project.CRM.page_object.RC_JSMgt_JSList import JSPage
 from public.base.assert_ui import ValueAssert
 import random, string
@@ -323,7 +322,7 @@ class TestAddJSList:
         user.Add_JS_Basic_Info(reference_from[0], imei1[0], physical_condition[0], symptoms_list[0], item_received[0])  # 添加工单的基本信息
         user.Add_JS_Customer_Info("End User", name, "Andorra", "+376", mobile_no)        # 添加工单的客户信息
         user.Save_JS()  # 保存工单
-        user.Swith_Original_Window()  # 回到工单页面
+        self.Base.close_new_window()# 回到工单页面
       #  user.Search_JS()  # 搜索工单
         user.Get_Exact_Word_JS(imei1[0])
         imei, customer_name, js_no, warranty_status = user.Get_New_JS()
@@ -352,7 +351,7 @@ class TestAddJSList:
         user.Add_JS_Basic_Info(reference_from[0], imei1[0], physical_condition[0], symptoms_list[0], item_received[0])  # 添加工单的基本信息
         user.Add_JS_Customer_Info("End User", name, "Andorra", "+376", mobile_no)        # 添加工单的客户信息
         user.Save_JS()  # 保存工单
-        user.Swith_Original_Window()  # 回到工单页面
+        self.Base.close_new_window()# 回到工单页面
       #  user.Search_JS()  # 搜索工单
         user.Get_Exact_Word_JS(imei1[0])
         imei, customer_name, js_no, warranty_status = user.Get_New_JS()
@@ -390,7 +389,7 @@ class TestAddJSList:
         ValueAssert.value_assert_equal(tax_amt, "0")  # 验证税金为0
         ValueAssert.value_assert_equal(est_amt, "0")   # 验证费用为0
         user.Save_JS()
-        user.Swith_Original_Window()  # 回到工单页面
+        self.Base.close_new_window()# 回到工单页面
         user.Get_Exact_Word_JS(imei1[0])  # 搜索出新增的工单，方便获取单号用于数据库删除
         imei, customer_name, js_no, warranty_status = user.Get_New_JS()
         user = SQL('CRM', 'test')
@@ -413,7 +412,7 @@ class TestAddJSList:
         user.Add_JS_Basic_Info(reference_from[0], imei1[1], physical_condition[1], symptoms_list[0], item_received[0])  # 添加工单的基本信息
         user.Add_JS_Customer_Info("End User", name, "Andorra", "+376", mobile_no)        # 添加工单的客户信息
         user.Save_JS()  # 保存工单
-        user.Swith_Original_Window()  # 回到工单页面
+        self.Base.close_new_window()# 回到工单页面
       #  user.Search_JS()  # 搜索工单
         user.Get_Exact_Word_JS(imei1[1])
         imei, customer_name, js_no, warranty_status = user.Get_New_JS()
@@ -449,7 +448,7 @@ class TestAddJSList:
         ValueAssert.value_assert_equal(item, "Material")  # 验证报价为物料类型
         ValueAssert.value_assert_equal(qty_num, qty)  # 验证qty为1
         user.Save_JS()
-        user.Swith_Original_Window()  # 回到工单页面
+        self.Base.close_new_window()# 回到工单页面
         user.Get_Exact_Word_JS(imei1[1])  # 搜索出新增的工单，方便获取单号用于数据库删除
         imei, customer_name, js_no, warranty_status = user.Get_New_JS()
         user = SQL('CRM', 'test')
@@ -482,7 +481,7 @@ class TestAddJSList:
         tax_amt_calculation = round((float(tax_price) - float(tax_price) / (1.0 + float(rate))), 2) # 计算税额，保留小数点后2位
         ValueAssert.value_assert_equal(tax_amt_new,  tax_amt_calculation)  # 验证报价的tax amt字段值正确
         user.Save_JS()
-        user.Swith_Original_Window()  # 回到工单页面
+        self.Base.close_new_window()# 回到工单页面
         user.Get_Exact_Word_JS(imei1[1])  # 搜索出新增的工单，方便获取单号用于数据库删除
         imei, customer_name, js_no, warranty_status = user.Get_New_JS()
         user = SQL('CRM', 'test')
@@ -505,7 +504,7 @@ class TestAddJSList:
         user.Add_JS_Basic_Info(reference_from[0], imei1[1], physical_condition[1], symptoms_list[0], item_received[0])  # 添加工单的基本信息
         user.Add_JS_Customer_Info("End User", name, "Andorra", "+376", mobile_no)        # 添加工单的客户信息
         user.Save_JS()  # 保存工单
-        user.Swith_Original_Window()  # 回到工单页面
+        self.Base.close_new_window()# 回到工单页面
       #  user.Search_JS()  # 搜索工单
         user.Get_Exact_Word_JS(imei1[1])
         document_status, serivice_type = user.Get_JS_Status_Type()
