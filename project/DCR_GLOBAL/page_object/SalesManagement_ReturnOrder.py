@@ -115,7 +115,7 @@ class ReturnOrderPage(Base):
         elif header == 'Buyer':
             self.assert_User_Exist(f'{header} ID', content)
         elif header == 'Seller Warehouse Region':
-            self.assert_User_Exist(f'{header}3', content)
+            self.assert_User_Exist(f'{header}2', content)
         elif header == 'Buyer Warehouse Region':
             self.assert_User_Exist(f'{header}2', content)
         elif header == 'IMEI':

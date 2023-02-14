@@ -29,19 +29,19 @@ class TestReturnOrder:
         user = DCRLoginPage(drivers)
         """变量"""
         query_dict = {
-            'Return Order ID': 'RDHK202302090002',
-            'Delivery/DN Order ID': '02HK2207210000458',
-            'Brand': 'Infinix',
+            'Return Order ID': 'RDHK202302140166',
+            'Delivery/DN Order ID': '02HK2302090001496',
+            'Brand': 'TECNO',
             'Status': 'Agree',
             'Return Type': 'Return To Seller',
-            'Seller': 'BD406678',
-            'Buyer': 'BD4031266',
-            'Seller Warehouse Region': 'Northern Sumatera',
-            'Buyer Warehouse Region': 'Indonesia-Infinix',
-            'Model': 'X6812B',
-            'Market Name': 'HOT 11S',
-            'Seller Country': 'Indonesia',
-            'IMEI': '353312901155269'
+            'Seller': 'PK21573',
+            'Buyer': 'PK002086',
+            'Seller Warehouse Region': 'Pakistan-TECNO',
+            'Buyer Warehouse Region': 'Pakistan-TECNO',
+            'Model': 'CH6h',
+            'Market Name': 'CAMON 18',
+            'Seller Country': 'Pakistan',
+            'IMEI': '359384983849782'
         }
         query = ReturnOrderPage(drivers)
         user.click_gotomenu("Sales Management", "Return Order")
