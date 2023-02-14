@@ -15,7 +15,7 @@ class ReturnOrderPage(Base):
     @allure.step("退货单列表页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        self.element_exist(user['Loading'])
 
     @allure.step("点击退货单unfold")
     def click_unfold(self):
