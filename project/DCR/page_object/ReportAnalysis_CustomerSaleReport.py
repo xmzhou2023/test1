@@ -19,11 +19,13 @@ class CustomerSalesReportPage(Base):
     @allure.step("点击Search查询按钮")
     def click_search(self):
         self.is_click_dcr(user['Search'])
-        sleep(15)
+        sleep(3)
+        self.element_exist(user['Loading'])
 
     @allure.step("点击Reset重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
+        self.element_exist(user['Loading'])
 
     @allure.step("获取出库总数文本")
     def get_delivery_sum_text(self):

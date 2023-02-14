@@ -34,3 +34,4 @@ Role弹窗页面: "xpath==//div[@class='el-dialog__header']//span[contains(text(
 关闭Role弹窗页面: "xpath==//span[contains(text(),'Role')]//..//i[@class='el-dialog__close el-icon el-icon-close']"
 下载进度条: "xpath==//div[@class='el-progress el-progress--line is-success el-progress--text-inside']"
 跳转页面total: "xpath==//div[@class='el-tabs__content']//span[@class='el-pagination__total']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"

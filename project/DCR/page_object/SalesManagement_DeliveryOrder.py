@@ -35,12 +35,12 @@ class DeliveryOrderPage(Base):
     @allure.step("出库单页面，点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("出库单页面，点击Reset")
     def click_reset(self):
         self.is_click(user['Reset'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("出库单页面，点击Add新增出库单")
     def click_add(self):
@@ -241,7 +241,7 @@ class DeliveryOrderPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

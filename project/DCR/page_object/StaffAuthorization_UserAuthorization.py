@@ -28,7 +28,7 @@ class UserAuthorizationPage(Base):
     @allure.step("点击user对应的Search按钮")
     def click_search(self):
         self.is_click_dcr(user['User Search'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     """删除与添加品牌定位方法"""
     @allure.step("获取列表Infinix品牌文本")

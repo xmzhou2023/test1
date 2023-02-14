@@ -64,11 +64,12 @@ class CompetitorSalesQuery(Base):
     @allure.step("点击重置")
     def click_reset(self):
         self.is_click(user['重置'])
+        self.element_exist(user['Loading'])
 
     @allure.step("点击查询")
     def click_search(self):
         self.is_click(user['查询'])
-        sleep(3)
+        self.element_exist(user['Loading'])
 
     @allure.step("获取表格文本")
     def get_table_txt(self,num):

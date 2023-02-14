@@ -65,7 +65,7 @@ class SalesOrderPage(Base):
     def click_search(self):
         """销售单页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("获取列表Sales Order ID文本内容")
     def get_text_sales_id(self):
@@ -214,7 +214,7 @@ class SalesOrderPage(Base):
     @allure.step("点击Reset按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("销售单页面，输入Status状态筛选销售单")
     def input_status_query(self, status):
@@ -319,7 +319,7 @@ class SalesOrderPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("下拉输入选择的值的文本框，公共方法")
     def click_input_text(self, yamal1, yamal2, content1):

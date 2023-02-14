@@ -20,10 +20,6 @@ class RoleDefinitionPage(Base):
         self.presence_sleep_dcr(user['Click Role value'])
         self.is_click(user['Click Role value'])
 
-    # @allure.step("进入角色设置页面，点击查询按钮")
-    # def click_search(self):
-    #     self.is_click(user['Search'])
-    #     sleep(2.5)
 
     @allure.step("进入角色设置页面，筛选角色后，点击第一个复选框")
     def click_first_checkbox(self):
