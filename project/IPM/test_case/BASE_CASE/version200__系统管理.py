@@ -1,7 +1,7 @@
 import allure
 import pytest
-from project.IPM.page_object.system_management import *
-from project.IPM.api.api_system_management import *
+from project.IPM.page_object.SM_ObjectManagement import *
+from project.IPM.api.Api_SM_ObjectManagement import *
 @allure.feature("系统管理")  # 迭代名称
 class Teststory_4488:
     @allure.story("对象管理/对象类型_树形对象左上图标")  # 用户故事名称
