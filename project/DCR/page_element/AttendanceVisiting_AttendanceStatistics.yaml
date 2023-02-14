@@ -8,7 +8,7 @@
 
 Click Position Label: "xpath==//div//label[text()='Position']"
 考勤统计Search: "id==attendanceatatistics_search"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 Get list Brand: "xpath==//tbody//tr[1]//td[4]//div"
 Get list User ID: "xpath==//tbody//tr[1]//td[5]//div"
 Get list User Name: "xpath==//tbody//tr[1]//td[6]//div"

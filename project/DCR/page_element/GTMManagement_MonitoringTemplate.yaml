@@ -40,6 +40,7 @@ Add Submit: "xpath==//div//button[@class='el-button el-button--primary el-button
 Unfold: "xpath==//div//span[text()='Unfold']"
 Fold: "xpath==//div//span[text()='Fold']"
 Search: "xpath==//div//button//span[normalize-space(text())='Search']"
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
 Query Title: "xpath==//div//input[@class='el-input__inner monitoringtemplate_input_title']"
 Query Status: "xpath==//div//input[@class='el-input__inner monitoringtemplate_input_status']"

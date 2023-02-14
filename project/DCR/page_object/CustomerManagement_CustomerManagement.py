@@ -104,7 +104,7 @@ class CustomerManagementPage(Base):
     @allure.step("客户列表页面，点击Reset 重置按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("获取新增客户ID")
     def get_customer_id(self):
@@ -271,7 +271,7 @@ class CustomerManagementPage(Base):
     @allure.step("Import Record页面，点击Search 查询按钮")
     def click_import_record_search(self):
         self.is_click(user['Search'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
 
     """导入记录页面，获取列表字段断言是否导入成功"""
@@ -331,7 +331,7 @@ class CustomerManagementPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

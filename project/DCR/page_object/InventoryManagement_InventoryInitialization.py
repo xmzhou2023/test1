@@ -133,7 +133,7 @@ class InventoryInitializationPage(Base):
     @allure.step("Inventory Initialization页面，点击Search 查询按钮")
     def click_search_reset(self, content):
         self.is_click(user['Search_Reset'], content)
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("Inventory Initialization页面，获取Initial ID字段的内容")
     def get_initial_id_text(self):

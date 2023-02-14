@@ -33,7 +33,7 @@ class AssetCountingPage(Base):
     @allure.step("Asset Counting页面, 点击查询按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        self.element_exist(user['Loading'])
 
     @allure.step("Asset Counting页面, 获取列表字段内容")
     def get_list_field_content(self, field):

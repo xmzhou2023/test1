@@ -87,7 +87,7 @@ class MonitoringTemplatePage(Base):
     @allure.step("Monitoring Template 列表, 点击Search按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        self.element_exist(user['Loading'])
 
     @allure.step("Monitoring Template Edit页面, 点击编辑按钮")
     def click_edit(self):

@@ -72,9 +72,9 @@ class CustomerInvoiceQuery(Base):
     def click_button(self, txt):
         self.is_click(user['Export_Unfold_Search_Reset按钮'], txt)
         if txt == 'Search':
-            sleep(5)
+            self.element_exist(user['Loading'])
         elif txt == 'Reset':
-            sleep(3)
+            self.element_exist(user['Loading'])
         elif txt == 'Export':
             sleep(10)
         else:

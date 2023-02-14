@@ -31,15 +31,13 @@ class VisitRecordPage(Base):
 
     @allure.step("Visit Record页面，点击Search查询按钮")
     def click_search(self):
-        """Visit Record页面，点击Search查询按钮"""
         self.is_click(user['Search'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("Visit Record页面，点击Reset重置按钮")
     def click_reset(self):
-        """Visit Record页面，点击Reset重置按钮"""
         self.is_click(user['Reset'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("Visit Record页面，获取列表中Shop ID文本属性")
     def get_shop_id_text(self):
@@ -79,12 +77,10 @@ class VisitRecordPage(Base):
     @allure.step("关闭导出记录菜单")
     def click_close_export_record(self):
         self.is_click(user['关闭导出记录菜单'])
-        #sleep(1)
 
     @allure.step("Visit Record页面，点击关闭Visit Record菜单")
     def click_close_visit_record(self):
         self.is_click(user['关闭巡店记录菜单'])
-        #sleep(1)
 
 
     #巡店记录，导出功能验证
@@ -104,7 +100,7 @@ class VisitRecordPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):
