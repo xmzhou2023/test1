@@ -16,7 +16,7 @@ AssetsMgt->AssetsBuessinessMgt: 'xpath==//div[@class="el-submenu__title"]//span[
 AssetsMgt->AssetsBuessinessMgt->AssetsApplication: 'xpath==//li[@role="menuitem"]//span[text()="Assets Application"]'
 
 total数量: 'xpath==//span[@class="el-pagination__total"]'
-
+Shop_Name: 'xpath==//div[@class="right-menu"]//div[contains(@class,"el-tooltip")]'
 菜单搜索框: "xpath==//div[contains(@class,'bar__view')]//input"
 菜单搜索下拉框: "xpath==//ul[contains(@class,'dropdown__list')]/div[1]/li"
 Repair Mgt: "xpath==//span[contains(text(),'Repair Mgt')]"

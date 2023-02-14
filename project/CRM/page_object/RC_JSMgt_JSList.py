@@ -121,7 +121,8 @@ class JSPage(Base):
     @allure.step("工单save按钮")
     def Save_JS(self):
         self.is_click(user['JS_Save'])
-        self.is_click(user['JS_Save'])
+        sleep(1)
+        #self.is_click(user['JS_Save'])
         self.wait.until(EC.presence_of_element_located(user["Search_Button"]), message='save不成功')
 
 
@@ -315,20 +316,31 @@ class JSPage(Base):
 
     @allure.step("JS页面，清空查询条件")
     def JS_Clear_Query_Conditions(self):
-        self.is_click(user['Created_Date_Input'], choice="Start Date")
-        self.hover(user['Created_Date_Clear'], choice="Start Date")
-        self.is_click(user['Created_Date_Clear'], choice="Start Date")  # 清空时间查询条件
+       # self.is_click(user['Created_Date_Input'], choice="Start Date")
+       # self.hover(user['Created_Date_Clear'], choice="Start Date")
+       # self.is_click(user['Created_Date_Clear'], choice="Start Date")  # 清空时间查询条件
         self.is_click(user['Hide_Return'])  # 取消隐藏100状态的
         self.is_click(user['Scope_Select'], choice="scopeType")
         self.is_click(user['Scope_Select_Data'], choice="All")  # 设置范围为所有
 
-    @allure.step("产生新窗口时切换回原窗口")
+    @allure.step("产生新窗口时,关闭新窗口并切换回原窗口")
     def Swith_Original_Window(self):
-        self.driver.switch_to.window((self.driver.window_handles[-1]))
-        #self.driver.close()
-        self.driver.switch_to.window(self.driver.window_handles[0])
+        sleep(2)
+        handles = self.driver.window_handles
+        self.driver.switch_to.window(handles[1])
+        self.driver.close()  # 关闭新开的窗口
+        self.driver.switch_to.window(handles[0])
         logging.info("回到原窗口")
 
+
+    @allure.step("展开菜单树")
+    def open_moudle_tree(self):
+        sleep(0.5)
+        if self.find_element(user["菜单树收拢状态"]):
+            self.is_click(user["菜单树"])  # 将菜单树展开
+            sleep(0.5)
+        else:
+            sleep(0.5)
 
     @allure.step("默认条件查询JS，返回查询到的JS名称")
     def Search_JS(self):
@@ -357,11 +369,49 @@ class JSPage(Base):
 
     @allure.step("JS页面，Exact Word查询")
     def Get_Exact_Word_JS(self, js_no):
-        self.is_click(user['JS_Info'], "keyword")
-        self.input_text(user['JS_Info'], txt=js_no, choice="keyword")
+        self.is_click(user['JS_Info'], "exactWordTwo")
+        self.input_text(user['JS_Info'], txt=js_no, choice="exactWordTwo")
         self.is_click(user['Search_Button'])
         get_js_no = self.element_text(user['JS_NO'], "1", "el-table_3_column_7")
         return get_js_no
+
+    @allure.step("Eu Price Mgt页面，报价查询")
+    def Get_Eu_Price(self, country, material_group, model):
+        model_list = model.split("_", 1)
+        self.is_click(user['JS_Info'], "countryCode")
+        self.input_text(user['JS_Info'], txt=country, choice="countryCode")
+        self.hover(user['EU_Price_Select'], choice=country)
+        self.is_click(user['EU_Price_Select'], choice=country)
+        self.is_click(user['JS_Info'], "materialGroupId")
+        self.input_text(user['JS_Info'], txt=material_group, choice="materialGroupId")
+        self.hover(user['EU_Price_Select_Group'], choice=material_group)
+        self.is_click(user['EU_Price_Select_Group'], choice=material_group)
+        self.is_click(user['JS_Info'], "productModelCode")
+        self.input_text(user['JS_Info'], txt=model_list[0], choice="productModelCode")
+        self.hover(user['EU_Price_Select'], choice=model)
+        self.is_click(user['EU_Price_Select'], choice=model)
+        self.is_click(user['Search_Button'])
+
+    @allure.step("Eu Price Mgt页面，报价查询")
+    def Get_Eu_Price_By_Grade(self, material_grade):
+        get_total = self.element_text(user['Data_Total'])
+        total = get_total.split(" ", 1)
+        total_price = int(total[1])
+        i = 1
+        while i < total_price+1:
+            get_tr = self.element_text(user['Price_List'], i, "el-table_3_column_12")
+            sleep(10)
+            logging.info(get_tr)
+            if get_tr == material_grade:
+                logging.info(material_grade)
+                tax_price = self.element_text(user['Price_List'], i, "el-table_3_column_13")  # 获取含税价
+                no_tax_price = self.element_text(user['Price_List'], i, "el-table_3_column_14")  # 获取不含税价
+                rate = self.element_text(user['Price_List'], i, "el-table_3_column_15")  # 获取税率
+                return tax_price, no_tax_price, rate
+            else:
+                logging.info("继续找下一行")
+            i += 1
+
 
     @allure.step("JS页面，Created On查询")
     def Get_Created_On_JS(self, date):
@@ -499,6 +549,7 @@ class JSPage(Base):
             for i in range(1, th_num + 1):
                 logging.info(f'{i}')
                 txt = self.element_text(user['Current_Ecalate_data'], f'{i}')
+                ValueAssert.value_assert_In(data, txt)
                 logging.info(txt)
                 list1.append(txt)
                 logging.info(list1)
@@ -526,6 +577,7 @@ class JSPage(Base):
             for i in range(1, th_num + 1):
                 logging.info(f'{i}')
                 txt = self.element_text(user['Current_QuickRepair_data'], f'{i}')
+                ValueAssert.value_assert_equal(data, txt)
                 logging.info(txt)
                 list1.append(txt)
                 logging.info(list1)
@@ -730,6 +782,13 @@ class JSPage(Base):
         est_amt = self.element_text(user['Qte_List'], "14")
         return item, material_group, qty_num, vat, tax_amt, est_amt
 
+    @allure.step("JS报价，返回报价Price、VAT、Tax Amt、Est Amt字段")
+    def Get_Quote_List_Price(self):
+        quote_price = self.element_text(user['Qte_List'], "7")
+        vat = self.element_text(user['Qte_List'], "12")
+        tax_amt = self.element_text(user['Qte_List'], "13")
+        est_amt = self.element_text(user['Qte_List'], "14")
+        return quote_price, vat, tax_amt, est_amt
 
 
 

@@ -56,6 +56,15 @@ class NavPage(Base):
         number = num[1]
         return number
 
+    @allure.step("获取网点以及网点国家")
+    def get_shop(self):
+        sleep(0.5)
+        shop_name = self.element_text(user["Shop_Name"])
+        logging.info("获取网点名称:{}".format(shop_name))
+        shop_country = shop_name[0:2]
+        logging.info("获取网点国家:{}".format(shop_country))
+        return shop_name, shop_country
+
         
         
         
