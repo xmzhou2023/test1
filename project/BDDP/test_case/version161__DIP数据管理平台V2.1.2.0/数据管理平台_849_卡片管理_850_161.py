@@ -74,7 +74,7 @@ class Teststory_3937:
         user.click_close_card()
         time.sleep(1)
         user.click_close()
-        pass
+
 
 
     @allure.story("BI单点登录插件改造")  # 用户故事名称
@@ -128,7 +128,8 @@ class Teststory_3937:
         user.click_close_card()
         time.sleep(1)
         user.click_close()
-        pass
+
+
 
     @allure.story("BI单点登录插件改造")  # 用户故事名称
     @allure.title("公开有首页卡片池卡片新建验证")  # 用例名称
@@ -183,7 +184,8 @@ class Teststory_3937:
         user.click_close_card()
         time.sleep(1)
         user.click_close()
-        pass
+
+
 
     @allure.story("BI单点登录插件改造")  # 用户故事名称
     @allure.title("私有有首页卡片池类型卡片新建验证")  # 用例名称
@@ -241,7 +243,7 @@ class Teststory_3937:
         user.click_close_card()
         time.sleep(2)
         user.click_close()
-        pass
+
 
 
 if __name__ == '__main__':
