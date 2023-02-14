@@ -607,6 +607,60 @@ class Teststory_2798:
         user.click_close()
 
 
+    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
+    @allure.title("卡片已启用的卡片删除功能验证")  # 用例名称
+    @allure.description("步骤1:登录PC端后台管理系统;步骤2:选择已启用的卡片;步骤3:点击编辑;步骤4:修改卡片信息;步骤5:保证后再点击删除;")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30866(self, drivers):
+        pass
+
+
+    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
+    @allure.title("卡片类型全部选择功能验证")  # 用例名称
+    @allure.description("步骤1:登录PC端后台管理系统;步骤2:点击首页;步骤3:选择全部;")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30867(self, drivers):
+        pass
+
+
+    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
+    @allure.title("首页卡片池下钻报表搜索功能验证")  # 用例名称
+    @allure.description("步骤1:登录PC端后台管理系统;步骤2:点击卡片管理新建;步骤3:选择卡片名称应用类型移动端;步骤4:输入主题域选择业务域;步骤5:选择业务负责人.业务组织IT负责人;步骤6:选择卡片组件分享;步骤7:选择是否公开公开;步骤8:选择首页卡片池是;步骤9:搜索下钻报表财务销售经营分析供应链库存金额;")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30870(self, drivers):
+        pass
+
+
+    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
+    @allure.title("私有展示'首页'类型卡片新建验证")  # 用例名称
+    @allure.description("步骤1:登录PC端后台管理系统;步骤2:点击卡片管理新建;步骤3:选择卡片名称应用类型移动端;步骤4:输入主题域选择业务域;步骤5:选择业务负责人.业务组织IT负责人;步骤6:选择卡片组件分享;步骤7:选择是否私有私有;步骤8:选择首页卡片池是;步骤9:选择下钻报表财务销售经营分析;步骤10:选择分析指标选项;步骤11:输入说明499字;步骤12:配置英文属性卡片名销售明细，说明销售各类明细;")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30873(self, drivers):
+        pass
+
+
+    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
+    @allure.title("私有多类下钻报表类型卡片新建验证")  # 用例名称
+    @allure.description("步骤1:登录PC端后台管理系统;步骤2:点击卡片管理新建;步骤3:选择卡片名称应用类型移动端;步骤4:输入主题域选择业务域;步骤5:选择业务负责人.业务组织IT负责人;步骤6:选择卡片组件分享;步骤7:选择是否私有私有;步骤8:选择首页卡片池是;步骤9:选择下钻报表财务销售经营分析供应链库存金额;步骤10:选择分析指标选项;步骤11:输入说明499字;步骤12:配置英文属性卡片名销售明细，说明销售各类明细;")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30874(self, drivers):
+        pass
+
+
+    @allure.story("卡片管理增加是否进入首页卡片池")  # 用户故事名称
+    @allure.title("PC端无首页卡片池私有卡片新建验证")  # 用例名称
+    @allure.description("步骤1:登录PC端后台管理系统;步骤2:点击卡片管理新建;步骤3:选择卡片名称应用类型PC端;步骤4:输入主题域选择业务域;步骤5:选择业务负责人.业务组织IT负责人;步骤6:选择卡片组件分享;步骤7:选择是否公开否;步骤8:选择首页卡片池否;步骤9:选择下钻报表财务销售经营分析供应链库存金额;步骤10:选择分析指标选择多项指标;步骤11:输入说明499字;步骤12:配置英文属性卡片名销售明细，说明销售各类明细;")  # 用例描述
+    @allure.severity("blocker")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    def test_30925(self, drivers):
+        pass
+
+
 @allure.feature("数据管理平台_849_报表管理_851")  # 迭代名称
 class Teststory_2499:
     @allure.story("角色管理负责对所有的报表进行授权管理")  # 用户故事名称
@@ -777,4 +831,4 @@ class Teststory_2499:
 
 
 if __name__ == '__main__':
-      pass
+    pass
