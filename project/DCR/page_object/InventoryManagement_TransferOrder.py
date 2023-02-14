@@ -164,7 +164,7 @@ class TransferOrderPage(Base):
     @allure.step("点击Search或 Reset按钮")
     def click_search_reset(self, choose):
         self.is_click(user['Search'], choose)
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("Transfer Order页面，获取列表Total分页总条数")
     def get_transfer_order_list_total(self):
@@ -306,10 +306,10 @@ class TransferOrderPage(Base):
     @allure.step("点击Unfold展开筛选项按钮")
     def click_button(self, txt):
         self.is_click(user['Export_Search_Reset等按钮'], txt)
-        if txt=='Search':
-            sleep(5)
+        if txt == 'Search':
+            self.element_exist(user['Loading'])
         elif txt == 'Reset':
-            sleep(3)
+            self.element_exist(user['Loading'])
         else:
             sleep()
 

@@ -188,7 +188,7 @@ class LoginPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

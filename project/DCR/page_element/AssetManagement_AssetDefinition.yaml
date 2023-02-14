@@ -13,10 +13,6 @@ Has ASN Yes: "xpath==//div//ul//li//span[text()='Yes']"
 
 Bangladesh Lable: "xpath==//div//span[text()='Bangladesh']"
 Enable All: "xpath==//div[@class='checkedAll']//label//span[@class='el-checkbox__input']"
-#Status Bangladesh Enable: "xpath==//span[text()='variable']/../..//label[@class='el-radio-button el-radio-button--small']//span[normalize-space(text())='Enable']"
-#Status China Enable: "xpath==//span[text()='variable']/../..//label[@class='el-radio-button el-radio-button--small']//span[normalize-space(text())='Enable']"
-#Status Canada Enable: "xpath==//span[text()='variable']/../..//label[@class='el-radio-button el-radio-button--small']//span[normalize-space(text())='Enable']"
-
 Upload Picture: "xpath==//div//ul[@class='el-upload-list el-upload-list--picture-card']/..//i"
 Add Submit: "xpath==//button[@id='assetadd_Submit']//span[normalize-space(text())='Submit']"
 
@@ -28,7 +24,7 @@ Unfold: "xpath==//div[@class='filter-fold']//span[text()='Unfold']"
 Fold: "xpath==//div[@class='filter-fold']//span[text()='Fold']"
 Asset Name Query: "xpath==//input[@id='assetdefinition_input_assetName']"
 Search: "xpath==//button//span[normalize-space(text())='Search']"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 
 #获取列表字段内容
 Get list Brand: "xpath==//tbody//tr[1]//td[2]//div"

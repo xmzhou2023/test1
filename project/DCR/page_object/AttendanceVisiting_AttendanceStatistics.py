@@ -35,7 +35,7 @@ class AttendanceStatistics(Base):
     @allure.step("Attendance Statistics页面，点击Search查询按钮")
     def click_search(self):
         self.is_click(user['考勤统计Search'])
-        sleep(2.5)
+        self.element_exist(user['Loading'])
 
     @allure.step("Attendance Statistics页面，点击position 标签释放光标")
     def click_position_label(self):

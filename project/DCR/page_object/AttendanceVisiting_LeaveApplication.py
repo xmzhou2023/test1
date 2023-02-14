@@ -31,7 +31,7 @@ class LeaveApplicationRecords(Base):
     @allure.step("Leave Application Records页面，点击Search 查询按钮")
     def click_search(self):
         self.is_click(user['休假申请记录Search'])
-        sleep(2.5)
+        self.element_exist(user['Loading'])
 
     @allure.step("Leave Application Records页面，获取列表 Leave Type字段文本")
     def get_list_leave_type(self):

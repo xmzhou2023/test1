@@ -108,7 +108,7 @@ class AttendanceRulesPage(Base):
     @allure.step("考勤规则列表页面，输入Start Month筛选项筛选考勤规则记录")
     def click_search(self):
         self.is_click(user['Click Search'])
-        sleep(2.5)
+        self.element_exist(user['Loading'])
 
     @allure.step("Add考勤规则页面，点击Cancel取消按钮")
     def click_cancel(self):

@@ -139,7 +139,7 @@ class ShopIMEITransferPage(Base):
         self.input_to_shop_query(shop)
         self.input_status_query(status)
         self.is_click(user['search按钮'])
-        sleep(3)
+        self.element_exist(user['Loading'])
 
     @allure.step("点击Unfold展开按钮")
     def click_unfold(self):
@@ -154,7 +154,7 @@ class ShopIMEITransferPage(Base):
     @allure.step("点击Search按钮")
     def click_search(self):
         self.is_click(user['search按钮'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("Shop IMEI Transfer菜单，根据to shop与状态筛选,新建的调拨单记录")
     def query_add_shop_imei_transfer(self, to_shop, status):
@@ -189,7 +189,7 @@ class ShopIMEITransferPage(Base):
         self.is_click(user['Pending按钮'])
         sleep(1)
         self.is_click(user['search按钮'])
-        sleep(2)
+        self.element_exist(user['Loading'])
 
     @allure.step("点击Operation操作列的Approve按钮，弹出弹窗Yes/Cancel按钮，点击OK审核通过")
     def click_operation_approve_yes_ok(self, choose, yes_cancel):

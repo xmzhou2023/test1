@@ -12,7 +12,7 @@ Statistical end Date: "xpath==//div//input[@class='el-input__inner inventoryshor
 Statistical Date Label: "xpath==//div//label[text()='Statistical Date']"
 
 Search: "xpath==//button//span[normalize-space(text())='Search']"
-
+Loading: "xpath==//div[@class='el-loading-mask' and contains(@style, 'display: none;')]"
 Get list Total: "xpath==//div//span[contains(text(), 'Total')]"
 Get list Shop ID: "xpath==//tbody//tr[1]//td[2]//div"
 Get list Shop Name: "xpath==//tbody//tr[1]//td[3]//div"

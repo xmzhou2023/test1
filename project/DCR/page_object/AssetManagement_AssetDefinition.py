@@ -70,7 +70,7 @@ class AssetDefinitionPage(Base):
     @allure.step("Asset Definition列表, 点击Search")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(1.5)
+        self.element_exist(user['Loading'])
 
     @allure.step("Asset Definition列表, 根据Create Date或者category条件筛选资产信息")
     def query_createdate_category(self, start_date, end_date, category):

@@ -27,12 +27,12 @@ class AttendanceRecordPage(Base):
     @allure.step("Attendance Records页面，点击 Search筛选考勤记录")
     def click_search(self):
         self.is_click(user['Search'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("Attendance Records页面，点击Reset重置筛选条件")
     def click_reset(self):
         self.is_click(user['Reset'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("Attendance Records页面，点击Picture 查看考勤照片详情")
     def click_view_picture_button(self):
@@ -107,7 +107,7 @@ class AttendanceRecordPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        self.element_text(user['Loading'])
+        self.element_exist(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")
     def input_task_name(self, content):

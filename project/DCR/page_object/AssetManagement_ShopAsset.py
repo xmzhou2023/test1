@@ -116,7 +116,7 @@ class ShopAssetPage(Base):
     @allure.step("Shop Asset页面，点击Search按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        self.element_exist(user['Loading'])
 
     @allure.step("Shop Asset列表, 获取列表字段内容")
     def get_list_field_content(self, field):
