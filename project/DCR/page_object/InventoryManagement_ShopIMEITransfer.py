@@ -45,6 +45,11 @@ class ShopIMEITransferPage(Base):
         get_success = self.element_text(user['Get Scan Record Success'])
         return get_success
 
+    @allure.step("点击check按钮后，扫码Box ID里的IMEI被使用，验证失败，获取Scan Record记录里的Invalid IMEI SN信息")
+    def get_scan_record_failed_info(self):
+        get_scan_record_error_info = self.element_text(user['Get Scan Record Invalid Info'])
+        return get_scan_record_error_info
+
     @allure.step("点击check按钮后，扫码IMEI是否成功，获取Scanned为1的值")
     def get_scanned_value(self):
         self.presence_sleep_dcr(user['Get Scanned Value'])
@@ -56,13 +61,18 @@ class ShopIMEITransferPage(Base):
         get_order_detail_scanned = self.element_text(user['Get Order Detail Scanned'])
         return get_order_detail_scanned
 
-    @allure.step("点击Submit")
+    @allure.step("创建门店调拨单后，点击Submit")
     def click_add_submit_ok(self):
         self.is_click(user['Shop IMEI Transfer Add Submit'])
         sleep(1.5)
         self.presence_sleep_dcr(user['Shop IMEI Transfer Add Submit OK'])
         self.is_click(user['Shop IMEI Transfer Add Submit OK'])
         sleep(2)
+
+    @allure.step("创建门店调拨单后，点击Submit")
+    def click_add_submit_failed(self):
+        self.is_click(user['Shop IMEI Transfer Add Submit'])
+        sleep(1.5)
 
     @allure.step("新建门店IMEI调拨单操作")
     def add_shop_transfer_order(self, to_shop, scan_imei):

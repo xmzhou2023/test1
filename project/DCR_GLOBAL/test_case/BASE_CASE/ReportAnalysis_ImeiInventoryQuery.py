@@ -98,4 +98,4 @@ class TestImeiInventoryQuery:
 
 
 if __name__ == '__main__':
-    pytest.main(['project/DRP/testcase/run_code.py'])
+    pytest.main(['ReportAnalysis_ImeiInventoryQuery.py'])

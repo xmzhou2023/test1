@@ -190,7 +190,7 @@ class ShopSaleQueryPage(Base):
             logging.info("Shop Sales Query导出成功，Export Time(s)导出时间大于0s:{}".format(export_time))
         else:
             logging.info("Shop Sales Query导出失败，Export Time(s)导出时间小于0s:{}".format(export_time))
-        sleep(1)
+
 
     @allure.step("查找菜单")
     def click_menu(self, *content):

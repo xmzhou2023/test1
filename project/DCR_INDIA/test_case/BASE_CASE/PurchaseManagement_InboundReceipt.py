@@ -21,6 +21,7 @@ class TestQueryInboundReceipt:
     @allure.description("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
     @pytest.mark.smoke  # 用例标记
     @allure.severity("critical")  # 分别为3种类型等级：blocker\critical\normal
+    @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         #user.dcr_login(drivers, "BD291501", "dcr123456")
@@ -57,6 +58,8 @@ class TestQueryInboundReceipt:
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_002(self, drivers):
+        user = LoginPage(drivers)
+        user.click_gotomenu("Purchase Management", "Inbound Receipt")
         query = InboundReceiptPage(drivers)
         query.click_unfold()
         query.click_select_brand('itel', 'TECNO')

@@ -34,6 +34,7 @@ class ConsumerBookingStatistics(Base):
     @allure.step("点击Unfold 展开筛选项")
     def click_unfold(self):
         self.is_click(user['Unfold'])
+        sleep(1)
         logging.info('点击Unfold 展开筛选项')
 
     def input_text(self, locator, txt, *choice):

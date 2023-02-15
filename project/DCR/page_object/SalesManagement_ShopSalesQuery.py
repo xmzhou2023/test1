@@ -19,14 +19,14 @@ class ShopSaleQueryPage(Base):
     @allure.step("Shop Sales Query页面，根据Shop ID条件筛选 门店销售数据")
     def input_query_shop_id(self, content):
         self.is_click_dcr(user['筛选门店'])
-        self.input_text_dcr(user['筛选门店'], txt=content)
-        sleep(3)
-        self.is_click(user['Select Shop Value'],content)
+        self.input_text_dcr(user['筛选门店'], content)
+        self.presence_sleep_dcr(user['Select Shop Value'], content)
+        self.is_click(user['Select Shop Value'], content)
 
     @allure.step("点击Unfold展开筛选项按钮")
     def click_unfold(self):
         self.is_click(user['Unfold'])
-        sleep(2)
+        sleep(1.5)
 
     @allure.step("点击fold收起筛选项按钮")
     def click_fold(self):

@@ -13,7 +13,7 @@ SAPDeliveryDate结束: "xpath==//label[contains(text(),'SAP Delivery Date')]//..
 SAPCustomerID输入: "xpath==//label[contains(text(),'SAP Customer ID')]//..//input[@class='el-input__inner']"
 Brand点击: "xpath==//label[contains(text(),'Brand')]//..//div[@class='el-input el-input--mini el-input--suffix']//input[@class='el-input__inner']"
 Brand输入: "xpath==//label[contains(text(),'Brand')]//..//div[@class='el-select el-select--small']//input[@class='el-select__input is-small']"
-Category点击: "xpath==//label[contains(text(),'Category')]//..//div[@class='el-input el-input--mini el-input--suffix']//input[@class='el-input__inner']"
+Category点击: "xpath==//label[contains(text(),'Category'//span[contains(text(),'variable')])]//..//div[@class='el-input el-input--mini el-input--suffix']//input[@class='el-input__inner']"
 Category输入: "xpath==//label[contains(text(),'Category')]//..//div[@class='el-select__tags']//input[@class='el-select__input is-small']"
 IMEI点击: "xpath==//label[contains(text(),'IMEI')]//..//div[@class='el-input el-input--mini el-input--suffix']//input[@class='el-input__inner']"
 IMEI输入: "xpath==//label[contains(text(),'IMEI')]//..//textarea"

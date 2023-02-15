@@ -37,13 +37,11 @@ class ShopSaleQueryPage(Base):
     @allure.step("Shop Sales Query页面，筛选Shop ID后，点击Search按钮")
     def click_search(self):
         self.is_click_dcr(user['Search'])
-        sleep(10)
         self.element_exist(user['Loading'])
 
     @allure.step("Shop Sales Query页面，筛选Shop ID后，点击Reset按钮")
     def click_reset(self):
         self.is_click(user['Reset'])
-        sleep(10)
         self.element_exist(user['Loading'])
 
     @allure.step("Shop Sales Query页面，获取列表Shop ID 文本内容")
@@ -101,7 +99,6 @@ class ShopSaleQueryPage(Base):
         self.mouse_hover_click(user['Download Icon'])
         Base.presence_sleep_dcr(self, user['More'])
         self.is_click(user['More'])
-        sleep(21)
         self.element_exist(user['Loading'])
 
     @allure.step("输入Task Name筛选该任务的导出记录")

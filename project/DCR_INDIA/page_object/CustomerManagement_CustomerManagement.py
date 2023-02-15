@@ -33,6 +33,7 @@ class CustomerManagementPage(Base):
     @allure.step("点击Unfold 展开筛选项")
     def click_unfold(self):
         self.is_click(user['Unfold'])
+        sleep(1)
         logging.info('点击Unfold 展开筛选项')
 
     @allure.step("user management页面，输入查询条件")
