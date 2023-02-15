@@ -74,7 +74,7 @@ class DistributorReceiptQuery(Base):
         elif txt == 'Reset':
             self.element_exist(user['Loading'])
         else:
-            sleep()
+            sleep(2)
 
     @allure.step("输入文本,进行筛选")
     def select_content(self, type, content):

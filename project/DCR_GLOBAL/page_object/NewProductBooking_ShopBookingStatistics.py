@@ -12,12 +12,12 @@ class ShopBookingStatisticsPage(Base):
     @allure.step("Shop Asset页面，点击Search按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        self.element_exist(user['Loading'])
 
     @allure.step("Shop Asset页面，点击Unfold展开筛选条件")
     def click_unfold_fold(self, content):
         self.is_click(user['Unfold_Fold'], content)
-
+        sleep(1.5)
 
     @allure.step("断言：页面查询结果")
     def assert_User_Exist(self, header, content):
