@@ -546,8 +546,8 @@ class TestQueryIMEITransfer:
 
 
     @allure.story("门店IMEI调拨单")
-    @allure.title("库存管理页面，新建门店IMEI调店(出库Box ID)，提交校验不通过")
-    @allure.description("库存管理页面，新建门店IMEI调店(出库Box ID)，提交校验不通过，提示：无效的的IMEI/SN")
+    @allure.title("库存管理页面，新建门店IMEI调店(出库Box ID)，提交检查不通过")
+    @allure.description("库存管理页面，新建门店IMEI调店(出库Box ID)，提交检查不通过，提示：无效的的IMEI/SN")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_create_fixture')
