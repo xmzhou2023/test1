@@ -16,6 +16,18 @@ def function_menu_fixture(drivers):
     if class_value == str(get_menu_class):
         menu.click_close_open_menu()
 
+@pytest.fixture(scope='function')
+def function_menu_create_fixture(drivers):
+    yield
+    menu = LoginPage(drivers)
+    for i in range(2):
+        get_menu_class = menu.get_open_menu_class()
+        class_value = "tags-view-item router-link-exact-active router-link-active active"
+        if class_value == str(get_menu_class):
+            menu.click_close_open_menu()
+            sleep(1)
+
+
 @allure.feature("库存管理-门店IMEI调店")
 class TestQueryIMEITransfer:
     @allure.story("门店IMEI调拨单")
@@ -534,12 +546,37 @@ class TestQueryIMEITransfer:
 
 
     @allure.story("门店IMEI调拨单")
+    @allure.title("库存管理页面，新建门店IMEI调店(出库Box ID)，提交校验不通过")
+    @allure.description("库存管理页面，新建门店IMEI调店(出库Box ID)，提交校验不通过，提示：无效的的IMEI/SN")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_create_fixture')
+    def test_001_009(self, drivers):
+        user1 = LoginPage(drivers)
+        user1.initialize_login(drivers, "xiongbo92", "dcr123456")
+        user1.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
+        shop_transfer_box_id = ShopIMEITransferPage(drivers)
+        """新建店铺调拨单，将Box ID: 43012201241922，从门店：BD026807 调至门店 CN000180 """
+        shop_transfer_box_id.add_shop_transfer_order('CN000180', '43012201241922')
+        """断言输入的Box ID是否验证通过"""
+        get_scanned = shop_transfer_box_id.get_scanned_value()
+        get_box_id = shop_transfer_box_id.get_scan_record_imei('43012201241922')
+        get_fail_info = shop_transfer_box_id.get_scan_record_failed_info()
+        ValueAssert.value_assert_equal('0', get_scanned)
+        ValueAssert.value_assert_equal('43012201241922', get_box_id)
+        ValueAssert.value_assert_equal('Invalid IMEI/SN', get_fail_info)
+        """点击提交按钮"""
+        shop_transfer_box_id.click_add_submit_failed()
+        DomAssert(drivers).assert_att('Invalid IMEI code, order creation failed.')
+
+
+    @allure.story("门店IMEI调拨单")
     @allure.title("门店IMEI调店页面，将Approved状态的数据，进行Reject拒绝操作")
     @allure.description("库存管理页面，门店IMEI调店页面，将Approved状态的数据，进行Reject拒绝操作")
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.RT  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_001_009(self, drivers):
+    def test_001_010(self, drivers):
         user2 = LoginPage(drivers)
         user2.initialize_login(drivers, "xiongbo92", "dcr123456")
         user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")
@@ -563,7 +600,7 @@ class TestQueryIMEITransfer:
     @allure.severity("minor")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.RT  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_001_010(self, drivers):
+    def test_001_011(self, drivers):
         user2 = LoginPage(drivers)
         user2.initialize_login(drivers, "xiongbo92", "dcr123456")
         user2.click_gotomenu("Inventory Management", "Shop IMEI Transfer")

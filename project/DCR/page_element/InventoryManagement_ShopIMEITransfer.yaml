@@ -6,6 +6,7 @@ Scan IMEI Name: "xpath==//textarea[@placeholder='Please enter IMEI/SN,press ente
 Check Scan IMEI: "xpath==//span[normalize-space()='Check']"
 Get Scan Record IMEI: "xpath==//ul//li//div[text()='variable']"
 Get Scan Record Success: "xpath==//ul//li//div[@class='successTips']"
+Get Scan Record Invalid Info: "xpath==//ul//li//div[normalize-space(text())='Invalid IMEI/SN']"
 Get Scanned Value: "xpath==//div[normalize-space()='Scanned']/..//div[@class='num']"
 Get Order Detail Scanned: "xpath==//tbody//tr[@class='el-table__row']//td[2]//div"
 Shop IMEI Transfer Add Submit: "xpath==//button[@id='shopimeitransferadd_Submit']"
