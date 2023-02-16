@@ -323,6 +323,96 @@ class TransferOrderPage(Base):
         logging.info('the total txt is %s'%txt)
         return txt[6:]
 
+    @allure.step("输入文本,进行筛选")
+    def select_content(self, type, content):
+        # Customer，Box本页面有条件，但无结果展示，无法断言
+        if type == 'Transfer ID':
+            self.is_click(user['Transfer Order Transfer ID Query'])
+            self.input_text(user['Transfer Order Transfer ID Query'], txt=content)
+            self.is_click(user['活动页面'])
+        elif type == 'Transfer From Customer':
+            self.is_click(user['From Customer click query'])
+            self.input_text(user['From Customer input query'], txt=content)
+            sleep(2)
+            self.is_click(user['From Customer select query'], content)
+        elif type == 'Transfer To Customer':
+            self.is_click(user['Transfer To Customer click query'])
+            self.input_text(user['Transfer To Customer input query'], txt=content)
+            sleep(2)
+            self.is_click(user['Transfer To Customer select query'], content)
+        elif type == 'Transfer From Warehouse':
+            self.is_click(user['Transfer From Warehouse click query'])
+            self.input_text(user['Transfer From Warehouse input query'], txt=content)
+            sleep(2)
+            self.is_click(user['Transfer From Warehouse select query'], content)
+            self.is_click(user['活动页面'])
+        elif type == 'Transfer To Warehouse':
+            self.is_click(user['Transfer To Warehouse click query'])
+            self.input_text(user['Transfer To Warehouse input query'], txt=content)
+            sleep(2)
+            self.is_click(user['Transfer To Warehouse select query'], content)
+            self.is_click(user['活动页面'])
+        elif type == 'Create Date':
+            self.is_click(user['Create Start Date'])
+            self.input_text(user['Create Start Date'], txt=content)
+            self.is_click(user['Create End Date'])
+            self.input_text(user['Create End Date'], txt=content)
+            self.is_click(user['活动页面'])
+        elif type == 'Receipt Status':
+            self.is_click(user['Transfer Receipt Status query'])
+            self.is_click(user['Transfer Select Received Status'], content)
+        elif type == 'Transfer Type':
+            self.is_click(user['Transfer Transfer Type click query'])
+            self.is_click(user['Transfer Transfer Type select query'], content)
+        elif type == 'Brand':
+            self.is_click(user['Transfer Brand click query'])
+            self.input_text(user['Transfer Brand input query'], txt=content)
+            self.is_click(user['Transfer Brand select query'], content)
+            self.is_click(user['活动页面'])
+        elif type == 'Model':
+            self.is_click(user['Transfer Model click query'])
+            self.input_text(user['Transfer Model input query'], txt=content)
+            self.is_click(user['Transfer Model select query'], content)
+            self.is_click(user['活动页面'])
+        elif type == 'Market Name':
+            self.is_click(user['Transfer Market Name click query'])
+            self.input_text(user['Transfer Market Name input query'], txt=content)
+            self.is_click(user['Transfer Market Name select query'], content)
+            self.is_click(user['活动页面'])
+        elif type == 'IMEI':
+            self.is_click(user['Transfer IMEI click query'])
+            self.input_text(user['Transfer IMEI input query'], txt=content)
+        else:
+            logging.info('type is wrong,pls check')
+        sleep()
+
+    @allure.step("根据表头获取列的class值")
+    def get_table_column(self, header):
+        attribute = self.get_table_info(user['表头字段'], header, attr='class')
+        logging.info('列元素的属性是%s' % attribute)
+        # number=int(attribute[4:])
+        return attribute
+
+    @allure.step("根据表头获取详情页面列的class值")
+    def get_detail_column(self, header):
+        self.is_click(user['Transfer Click IMEI Detail'])
+        sleep()
+        attribute = self.get_table_info(user['表头字段'], header, attr='class')
+        logging.info('列元素的属性是%s' % attribute)
+        # number=int(attribute[4:])
+        return attribute
+        """注意在调试时，看下是否需要关闭IMEIDetail详情页面"""
+
+    @allure.step("获取表格文本")
+    def get_table_content(self, content):
+        txt = self.element_text(user['表格具体字段'], content)
+        return txt
+
+    @allure.step("获取IMEI文本")
+    def get_table_detail(self, content1, content2):
+        txt = self.element_text(user['详情页面IMEI'], content1, content2)
+        return txt
+
 
 if __name__ == '__main__':
     pass

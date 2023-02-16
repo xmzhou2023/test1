@@ -41,7 +41,6 @@ class TestCustomerInvoice:
                      'SAP Delivery Date': '2022-11-03',
                      'Brand': 'TECNO',
                      'Model': 'CH6h',
-                     'Category': 'Mobile',
                      'Market Name': 'CAMON 18',
                      'Customer Region3': 'DEL-UP',
                      'SAP Customer ID': '401537',

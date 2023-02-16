@@ -24,6 +24,9 @@ Transfer Order Submit OK: "xpath==//button//span[normalize-space(text())='OK']"
 表格字段: "xpath==//tr//th//div[normalize-space(text())='variable']/.."
 表格指定列内容: "xpath==//td[contains(@class,'variable  ') and not(contains(@class, 'is-hidden'))]/div"
 水平滚动条: "xpath==//div[contains(@class,'el-table__body-wrapper')]"
+活动页面: "xpath==//span[@class='tags-view-item router-link-exact-active router-link-active active']"
+表头字段: "xpath==//thead[@class='has-gutter']//div[normalize-space(text())='variable']/.."
+表格具体字段: "xpath==//tr[1]//td[@class='variable   ']//div"
 Get Shop Transfer Total: "xpath==//div//div//span[contains(text(),'Total')]"
 Transfer Transfer ID input query: "xpath==//div//input[@class='el-input__inner transferorder_input_transferId']"
 
@@ -87,7 +90,7 @@ Get Detail IMEI: "xpath==//div//span[text()='IMEI Detail']/../..//div//table//tb
 Get Detail Customer Name: "xpath==//div//span[text()='IMEI Detail']/../..//div//table//tbody//tr[1]//td[2]//div"
 Get Transfer Detail Total: "xpath==//div//span[text()='IMEI Detail']/../..//div//span[contains(text(),'Total')]"
 Close Transfer IMEI Detail: "xpath==//div//span[text()='IMEI Detail']/..//button//i[@class='el-dialog__close el-icon el-icon-close']"
-
+详情页面IMEI: "xpath==//tr[variable]//td[@class='variable   ']//div"
 
 #Transfer Order页面，确认收货
 Transfer Order Confirm Receipt: "xpath==//button[@id='transferring_order_receive_']//span[normalize-space(text())='Confirm Receipt']"
