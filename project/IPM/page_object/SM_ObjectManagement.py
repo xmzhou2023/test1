@@ -159,8 +159,7 @@ class SystemManagement(ipm_publiclibrary):
                     self.click_IPM('对象_右键点击_删除_功能键',functionkeys)
                 except:
                     self.click_IPM('对象_撤销检出_功能键', functionkeys)
-                else:
-                    self.click_IPM('提示信息框', functionkeys)
+
 
         else:
             UndoCheckOut = self.element_exist_IPM('对象_撤销检出_功能键', functionkeys)#撤销检出提示
