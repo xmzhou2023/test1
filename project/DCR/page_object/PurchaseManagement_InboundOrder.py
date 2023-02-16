@@ -163,6 +163,7 @@ class InboundOrder(Base):
 
     @allure.step("组合查询 组合方法")
     def random_Query_Method(self, kwargs):
+        self.input_search('Delivery Date', '2023-01-01To2023-01-31')
         list_query = []
         num = random.randint(3, 8)
         for i in kwargs:

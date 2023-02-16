@@ -32,7 +32,6 @@ class TestInboundOrder:
             'Buyer': 'BD2915',
             'Seller': 'BD403442',
             'Inbound Date': '2023-01-01To2023-01-31',
-            'Delivery Date': '2023-01-01To2023-01-31',
             'Inbound ID': '01HK2301300002335',
             'Order ID': '02HK2301300000004',
             'Delivery Order ID': '02HK2301300000004',

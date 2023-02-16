@@ -32,3 +32,5 @@ Unfold: "xpath==//div//span[text()='Unfold']"
 Record表格字段: "xpath==//div[normalize-space(text())='variable']/.."
 指定行: "xpath==//span[normalize-space(text())='variable']/../../.."
 Total: "xpath==//span[contains(text(),'Total')]"
+Inventory表格字段: "xpath==//div[normalize-space(text())='variable']/.."
+

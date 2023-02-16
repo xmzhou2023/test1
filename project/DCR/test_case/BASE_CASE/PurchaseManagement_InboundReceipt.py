@@ -29,13 +29,12 @@ def function_inbound_imei_fixture(drivers):
     close.click_close_inbound_imei_detail()
     close.click_close_inbound_receipt()
 
-@allure.feature("采购管理-二代零售商收货")
+@allure.feature("采购管理-二级三级收货")
 class TestQueryInboundReceipt:
-    @allure.story("查询二代零售商收货")
-    @allure.title("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
+    @allure.story("二级三级收货")
+    @allure.title("查询二代零售商收货")
     @allure.description("二代用户进入Inbound Receipt页面，按日期筛选收货列表数据加载是否正常")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
@@ -64,12 +63,10 @@ class TestQueryInboundReceipt:
         query.assert_total(total)
         #query.click_close_inbound_receipt()
 
-
-    @allure.story("查询二代零售商收货")
-    @allure.title("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
+    @allure.story("二级三级收货")
+    @allure.title("查询IMEI详情信息")
     @allure.description("二代用户进入Inbound Receipt页面，查看收货列表第一条IMEI详情信息加载是否正常")
     @allure.severity("normal")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_inbound_imei_fixture')
     def test_001_002(self, drivers):
         user1 = LoginPage(drivers)
@@ -108,16 +105,12 @@ class TestQueryInboundReceipt:
         #query.click_close_inbound_imei_detail()
         #query.click_close_inbound_receipt()
 
-
-@allure.feature("采购管理-二代零售商收货")
-class TestScanIMEIInboundReceipt:
-    @allure.story("扫码收货")
-    @allure.title("二代用户进入Inbound Receipt页面，点击扫码收货操作")
+    @allure.story("二级三级收货")
+    @allure.title("扫码收货")
     @allure.description("二代用户进入Inbound Receipt页面，点击Stock-in by Scan扫码收货操作")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
-    @pytest.mark.smoke  # 用例标记
     @pytest.mark.usefixtures('function_menu_fixture')
-    def test_002_001(self, drivers):
+    def test_001_003(self, drivers):
         user = LoginPage(drivers)
         user.initialize_login(drivers, "BD40344201", "dcr123456")
         """打开Report Analysis->IMEI Inventory Query菜单"""
@@ -139,6 +132,7 @@ class TestScanIMEIInboundReceipt:
         # varsql1 = "SELECT IMEI FROM  t_channel_warehouse_current_stock WHERE WAREHOUSE_ID ='62139' AND STATUS = 1  limit 1"
         # result = sql1.query_db(varsql1)
         # imei = result[0].get("IMEI")
+
         """点击Add新增出库单按"""
         add.click_add()
         add.input_sub_buyer("BD2915")
@@ -279,6 +273,67 @@ class TestScanIMEIInboundReceipt:
         """退货成功后，获取列表第一个状态，断言判断是否审核成功"""
         status = return_approve.get_text_Status()
         ValueAssert.value_assert_equal("Approved", status)
+
+    @allure.story("二级三级收货")
+    @allure.title("页面随机组合查询")
+    @allure.description("随机组合查询")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_004(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """变量"""
+        query_dict = {
+            'Sales Order ID': '02HK2302020000041',
+            'Delivery Order ID': '02HK2302020000041',
+            'Buyer': 'NG20613',
+            'Seller': 'IN400805',
+            'Brand': 'itel appliances',
+            'Buyer Category': 'DZZ type',
+            'IMEI': '',
+            'Box': '',
+            'Model': 'G5534IE',
+            'Market Name': '',
+            'Buyer Region': 'North Africa_Egypt_Cairo',
+            'Seller Region': 'India District_INDIA_BIH-JH',
+            'Buyer Country': 'Egypt',
+            'Seller Country': 'India',
+            'Return or not': 'Yes'
+        }
+        add = InboundReceiptPage(drivers)
+        add.click_menu("Purchase Management", "Inbound Receipt")
+        add.click_unfold()
+        add.random_Query_Method(query_dict)
+
+    @allure.story("二级三级收货")
+    @allure.title("click to check!，点击后显示数量一致")
+    @allure.description("click to check!，点击后显示数量一致")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_005(self, drivers):
+        """ lhmadmin管理员账号登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        add = InboundReceiptPage(drivers)
+        add.click_menu("Purchase Management", "Inbound Receipt")
+        add.click_check()
+        add.assert_check_num()
+
+    @allure.story("二级三级收货")
+    @allure.title("导出二级三级入库单")
+    @allure.description("导出二级三级入库单")
+    @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
+    def test_001_006(self, drivers):
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "18650493", "xLily6x")
+        """打开User Authorization菜单页面 """
+        add = InboundReceiptPage(drivers)
+        add.click_menu("Purchase Management", "Inbound Receipt")
+        add.input_search('Delivery Date', "2023-02-01To2023-02-07")
+        add.click_search()
+        """导出筛选条件下的门店授权"""
+        add.click_function_button('Export')
+        """断言：存在导出文件进度条"""
+        add.assert_export_success()
 
 
 if __name__ == '__main__':
