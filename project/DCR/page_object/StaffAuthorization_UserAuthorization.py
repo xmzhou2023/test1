@@ -452,15 +452,13 @@ class UserAuthorizationPage(Base):
         Add Association, Import, Export Filtered, More Option,
         Batch Cancel Association, Empty All Association
         """
+        logging.info(f'点击功能按钮： {function}')
         MoreOptionList = ['Batch Cancel Association', 'Empty All Association']
         if function in MoreOptionList:
             self.is_click(user['功能按钮'], 'More Option')
             self.is_click(user['功能按钮2'], function)
         else:
             self.is_click(user['功能按钮'], function)
-            # if function == 'Import':
-                # self.click_upload()
-        logging.info(f'点击功能按钮： {function}')
 
     @allure.step("输入查询条件")
     def input_AddAssociation_search(self, header, content):
@@ -576,8 +574,6 @@ class UserAuthorizationPage(Base):
     def click_upload(self):
         self.is_click(user['Upload'])
         logging.info('点击upload按钮')
-        # k = PyKeyboard()
-        # k.tap_key(k.escape_key)
 
     @allure.step("导入门店")
     def import_file(self, name):

@@ -39,7 +39,7 @@ class TestQueryShopAsset:
             'Asset Name': '3.0版本玻璃柜',
             'Has ASN': 'No',
             'Sales Region': 'West Africa Ⅲ',
-             'Design By': 'Headquarters',
+            'Design By': 'Headquarters',
             'Manpower Type': 'Manned'
         }
         query = ShopAssetPage(drivers)

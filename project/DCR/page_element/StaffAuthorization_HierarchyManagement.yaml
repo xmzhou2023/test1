@@ -30,7 +30,7 @@ menu表格字段: "xpath==//div[normalize-space(text())='variable']/.."
 弹窗menu表格字段: "xpath==//div[@role='dialog']//div[normalize-space(text())='variable']/.."
 Delete: "xpath==//button//span[normalize-space(text())='Delete']"
 NoData: "xpath==//div[@class='el-table__empty-block']"
-导出进度条: "xpath==//div[not(contains(@style,'display: none;'))]//div[@role='progressbar']"
+导出进度条: "xpath==//div[@role='tooltip' and not(contains(@style,'display: none;'))]//div[@role='progressbar']"
 
 
 

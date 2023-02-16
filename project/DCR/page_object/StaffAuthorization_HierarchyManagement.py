@@ -154,8 +154,8 @@ class HierarchyManagement(Base):
         :param function: 需要点击的功能按钮，具体如下：
         Export, Staff Hierarchy, Add The Subordinate, Delete The Subordinate
         """
-        self.is_click(user['功能按钮'], function)
         logging.info(f'点击功能按钮： {function}')
+        self.is_click(user['功能按钮'], function)
         if function == 'Add The Subordinate' or function == 'Delete The Subordinate':
             self.element_exist(user['弹窗Loading'])
 

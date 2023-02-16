@@ -173,6 +173,7 @@ class RoleDefinitionPage(Base):
         Add, Export Permission, Permission Setting, More Option,
         Delete, configCountry
         """
+        logging.info(f'点击功能按钮： {function}')
         MoreOptionList = ['Delete', 'configCountry']
         if function in MoreOptionList:
             self.is_click_tbm(user['功能按钮'], 'More Option')
@@ -181,7 +182,6 @@ class RoleDefinitionPage(Base):
                 self.is_click_tbm(user['dialogConfirm'])
         else:
             self.is_click_tbm(user['功能按钮'], function)
-        logging.info(f'点击功能按钮： {function}')
 
     @allure.step("输入角色定义内容")
     def input_role_content(self, header, content):

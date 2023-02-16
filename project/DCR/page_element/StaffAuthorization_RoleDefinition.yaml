@@ -40,7 +40,7 @@ AddSave: "xpath==//span[contains(text(),'Role')]/../..//span[contains(text(),'Sa
 dialogConfirm: "xpath==//div[@aria-label='dialog']//span[normalize-space(text())='Confirm']"
 指定行按钮: "xpath==//div[normalize-space(text())='variable']/../..//td[contains(@class,'variable ') and not(contains(@class, 'is-hidden'))]//span"
 NoData: "xpath==//div[@class='el-table__empty-block']"
-导出进度条: "xpath==//div[@role='progressbar']"
+导出进度条: "xpath==//div[@role='tooltip' and not(contains(@style,'display: none;'))]//div[@role='progressbar']"
 菜单复选框: "xpath==//span[@class='custom-tree-node']//span[normalize-space(text())='variable']/../../..//span[@class='el-checkbox__inner']"
 菜单管理页: "xpath==//span[normalize-space(text())='variable']"
 permissionSave: "xpath==//div[@class='permission-area']//span[normalize-space(text())='Save']"

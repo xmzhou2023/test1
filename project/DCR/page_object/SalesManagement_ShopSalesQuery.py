@@ -7,7 +7,6 @@ from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 from libs.config.conf import BASE_DIR
 from public.base.basics import Base
-# from pykeyboard import PyKeyboard
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
@@ -225,8 +224,6 @@ class ShopSaleQueryPage(Base):
         self.is_click(user['Upload'])
         logging.info('点击upload按钮')
         sleep(2)
-        # k = PyKeyboard()
-        # k.tap_key(k.escape_key)
 
     @allure.step("导入文件")
     def import_file(self, name):
@@ -320,6 +317,7 @@ class ShopSaleQueryPage(Base):
         :param header: 字段名
         :param content: 内容
         """
+
         click_list = ['Status']
         imei_list = ['IMEI/SN', 'IMEI']
         select_list = ['Shop']
@@ -366,10 +364,20 @@ class ShopSaleQueryPage(Base):
         DomAssert(self.driver).assert_search_result(user['menu表格字段'], user['ShopSalesQuery表格内容'], header, content, sc_element=user['ShopSalesQuery滚动条'], index='1', h_element=user['表头文本'])
 
     @allure.step("点击复选框")
-    def click_checkbox(self, content):
+    def click_checkbox(self, content, header='IMEI/SN'):
         """
         :param content: 指定值，如imei
+        :param header: 表头，默认IMEI/SN
         """
+        for i in range(1, 20):
+            heard_list = self.elements_inner_text(user['表头文本'])
+            if set(tuple([(header)])) <= set(heard_list):
+                logging.info('{}表格字段存在，跳出循环'.format(header))
+                break
+            else:
+                logging.info('{}表格字段不存在，向右滑动滚动条'.format(header))
+                self.DivRolling(user['ShopSalesQuery滚动条'], num=i * 1000)
+                sleep(1)
         rowid = self.get_table_info(user['指定行'], content, attr='rowid', sc_element=user['ShopSalesQuery滚动条'])
         self.is_click_tbm(user['指定复选框'], rowid)
         logging.info(f'点击 {content} 复选框')
@@ -595,14 +603,14 @@ class ShopSaleQueryPage(Base):
     def get_table_content(self,attribute):
         txt = self.element_text(user['表格具体字段'],attribute)
         return txt
-    @allure.step("断言：ShopSalesQuery查询结果")
-    def assert_Query_result(self, header, content):
-        """
-        :param header: 需要获取的指定字段
-        :param content: 需要断言的值
-        """
-        DomAssert(self.driver).assert_search_result(user['表格头部字段'], user['列表第一行'], header, content)
-
+    # @allure.step("断言：ShopSalesQuery查询结果")
+    # def assert_Query_result1(self, header, content):
+    #     """
+    #     :param header: 需要获取的指定字段
+    #     :param content: 需要断言的值
+    #     """
+    #     DomAssert(self.driver).assert_search_result(user['表格头部字段'], user['列表第一行'], header, content)
+    #
 
     @allure.step("断言精确查询结果 Shop Sales Query列表，字段列、字段内容是否与预期的字段内容值一致，有滚动条")
     def assert_shop_sales_query_field(self, header, content):
