@@ -242,10 +242,10 @@ class TestDistributorReceipt:
         query_dist.assert_query_result('Model', 'it5026')
         query_dist.click_search_reset('Reset')
         """按 material id字段进行筛选"""
-        query_dist.input_material_id_query('10030598')
+        query_dist.input_material_id_query('10036421')
         query_dist.click_search_reset('Search')
         query_dist.click_imei_detail()
-        query_dist.assert_query_result('Material ID', '10030598')
+        query_dist.assert_query_result('Material ID', '10036421')
         query_dist.click_imei_detail_close()
         query_dist.click_search_reset('Reset')
         """按 DN 字段进行筛选"""
@@ -318,8 +318,8 @@ class TestDistributorReceipt:
         logging.info("打印Distributor Receipt详情页的Total总分页数：{}".format(get_detail_total))
         """ 断言列表获取的DN，与打开IMEI Detail详情页的DN比较一致 """
         ValueAssert.value_assert_In(list_dn, imei_detail_dn)
-        """ 断言列表获取的quantity总条数，与打开IMEI Detail详情页的Total总条数比较一致 """
-        ValueAssert.value_assert_equal(list_total_quantity, get_detail_total)
+        """ 断言列表获取的quantity总条数，与打开IMEI Detail详情页的Total总条数比较一致，此处断言取消，如果为TV或配件时，个数必定不一致 """
+        # ValueAssert.value_assert_equal(list_total_quantity, get_detail_total)
 
         """点击IMEI Detail详情页的导出按按， 断言导出进度条是否100%"""
         logging.info('the total in test case is %s' % get_detail_total)
@@ -389,14 +389,14 @@ class TestDistributorReceipt:
                     logging.info('then the colum is {}'.format(colum))
                     attribute = page.get_table_content(colum)
                     ValueAssert.value_assert_In(query_dic[i], attribute)
-                elif i == 'Material ID':
-                    page.click_detail()
-                    colum = page.get_table_column(i)
-                    logging.info('this the colum is {}'.format(colum))
-                    attribute = page.get_table_content(colum)
-                    ValueAssert.value_assert_equal(attribute, query_dic[i])
-                    page.clos_detail()
-                elif i == 'IMEI':
+                # elif i == 'Material ID':
+                #     page.click_detail()
+                #     colum = page.get_table_column(i)
+                #     logging.info('this the colum is {}'.format(colum))
+                #     attribute = page.get_table_content(colum)
+                #     ValueAssert.value_assert_equal(attribute, query_dic[i])
+                #     page.clos_detail()
+                elif i == 'IMEI' or i == 'Material ID':
                     page.click_detail()
                     imei_total = page.get_total_detail()
                     colum = page.get_table_column(i)

@@ -24,7 +24,7 @@ class CustomerInvoiceQuery(Base):
     @allure.step("点击IMEI Detail")
     def click_detail(self):
         self.is_click(user['IMEI Detail点击'])
-        sleep(3)
+        sleep(5)
 
     @allure.step("关闭IMEI Detail")
     def clos_detail(self):
