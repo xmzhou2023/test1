@@ -50,7 +50,7 @@ class TestImeiInventoryQuery:
                    'Warehouse Type': 'Main Warehouse',
                    #'SAP Customer ID': '',
                    'IMEI/SN': '358964614398662',
-                   'Sales Region 3': 'South',
+                   'Sales Region 2': 'Pakistan-Infinix',
                    'Activated Or Not': 'No',
                    'Brand': 'Infinix',
                    'Model': 'X6817',
