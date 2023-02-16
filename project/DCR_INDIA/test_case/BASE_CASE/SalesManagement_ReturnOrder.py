@@ -45,7 +45,7 @@ class TestReturnOrder:
             'IMEI': '355168718751205'
         }
         query = ReturnOrderPage(drivers)
-        user.click_gotomenu("Sales Management", "Return Order")
+        user.click_menu("Sales Management", "Return Order")
         query.click_unfold()
         query.return_order_return_date_query('Return Date', '2023-01-04')
         query.random_Query_Method(query_dict)

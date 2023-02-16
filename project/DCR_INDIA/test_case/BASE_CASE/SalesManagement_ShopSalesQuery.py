@@ -1,7 +1,7 @@
 from libs.common.time_ui import sleep
 from project.DCR_INDIA.page_object.Center_Component import LoginPage
 from project.DCR_INDIA.page_object.SalesManagement_ShopSalesQuery import ShopSaleQueryPage
-from public.base.assert_ui import ValueAssert
+from public.base.assert_ui import ValueAssert, DomAssert
 import datetime
 import logging
 from public.base.basics import Base
@@ -73,7 +73,7 @@ class TestShopSalesQuery:
         #Base(drivers).refresh()
         """打开销售管理-打开门店销售查询页面"""
         menu = LoginPage(drivers)
-        menu.click_gotomenu("Sales Management", "Shop Sales Query")
+        menu.click_menu("Sales Management", "Shop Sales Query")
         """实例化对象类"""
         export = ShopSaleQueryPage(drivers)
         today = Base(drivers).get_datetime_today()
@@ -93,7 +93,8 @@ class TestShopSalesQuery:
         export.assert_total(total)
         #筛选销售日期后，点击导出功能
         export.click_export()
-        export.click_download_more()
+        DomAssert(drivers).assert_att("Create successful , will auto downloaded , please wait")
+        export.click_menu("Basic Data Management", "Export Record")
         export.input_task_name('Shop Sales Query')
         export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""

@@ -2,7 +2,7 @@ import time
 from libs.common.time_ui import sleep
 from project.DCR_INDIA.page_object.Center_Component import LoginPage
 from project.DCR_INDIA.page_object.AttendanceVisiting_AttendanceRecords import AttendanceRecordPage
-from public.base.assert_ui import ValueAssert
+from public.base.assert_ui import ValueAssert, DomAssert
 import datetime
 import logging
 from public.base.basics import Base
@@ -55,6 +55,7 @@ class TestAttendanceRecord:
         """查询某个用户的，当天考勤记录用例"""
         export = AttendanceRecordPage(drivers)
         """获取当天日期"""
+        export.click_menu("Attendance & Visiting", "Attendance Records")
         today = Base(drivers).get_datetime_today()
         """按当前日期筛选"""
         export.input_query_date(today)
@@ -82,7 +83,8 @@ class TestAttendanceRecord:
         export.assert_total(total)
         """点击导出"""
         export.click_export()
-        export.click_download_more()
+        DomAssert(drivers).assert_att("Create successful , will auto downloaded , please wait")
+        export.click_menu("Basic Data Management", "Export Record")
         export.input_task_name('Attendance Records')
         export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""

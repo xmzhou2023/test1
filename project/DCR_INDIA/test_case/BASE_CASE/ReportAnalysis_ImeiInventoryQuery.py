@@ -35,7 +35,7 @@ class TestImeiInventoryQuery:
     def test_001_001(self, drivers):
         user = LoginPage(drivers)
         """打开报表分析-打开IMEI库存查询页面"""
-        user.click_gotomenu("Report Analysis", "IMEI Inventory Query")
+        user.click_menu("Report Analysis", "IMEI Inventory Query")
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = ImeiInventoryQuery(drivers)
         page.click_button('Unfold')
