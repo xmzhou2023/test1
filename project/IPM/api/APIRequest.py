@@ -16,9 +16,11 @@ pro_name = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).split('\\
 
 
 class APIRequest:
+    # def __init__(self,uasername=18646295):
     def __init__(self,env_name,uasername=18646295):
         self.username=uasername
-        self.env_name=env_name #全局变量，获取当前用例运行环境
+        self.env_name=env_name
+
 
     def api_request(self, request, data=None, headers=None, method='post',):
         """
@@ -29,6 +31,7 @@ class APIRequest:
         @param method:接口方式，待补充
         """
         ini = ReadConfig(pro_name, self.env_name)
+        # ini = ReadConfig(pro_name, 'uat')
         logging.info('接口请求地址为：%s', eval(ini._get('API', request)))
         global response
         if method == 'post':
@@ -60,8 +63,9 @@ class APIRequest:
         headers = {'Content-Type': 'application/json'}
         response = self.api_request('登录接口', data, headers)
         token = response['body']['data']['token']
+        rtoken = response['body']['data']['rtoken']
         logging.info('获取token：%s', token)
-        return token
+        return token,rtoken
 
 
 
@@ -72,7 +76,7 @@ class APIRequest:
         """
         logging.info('发起请求：流程节点获取审批角色/节点')
         data = {"size":1,"param":{"code": f"{flow_id}"}}
-        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
         response = self.api_request('流程节点获取审批角色', data, headers)
         personnel = response['body']['data']["list"][0]["assignee"]
         s_personnel=tuple(personnel.split(","))
@@ -92,7 +96,7 @@ class APIRequest:
         logging.info('发起请求：工号查询')
         list_queryDeptAndEmployee=[]
         for data in applyList:
-            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
             response =  requests.post(url='https://pfgateway.transsion.com:9199/service-cp-uc-extend/cp-uc-extend/Department/queryDeptAndEmployee',
                       data=data.encode('utf-8'), headers=headers).json()['data'][0]['employeeNo']
             result = response
@@ -105,7 +109,7 @@ class APIRequest:
         获取项目管理项目的项目ID和对象ID
         """
         data = {"size":100,"current":1,"param":{"name":f"{proname}","typeCode":"","stateCode":["preparation","underway"]}}
-        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
         response = self.api_request('项目管理获取项目模板的BID', data, headers)
         bid = response['body']['data']['data'][0]
         probid=bid.get("permissionBid")
@@ -124,7 +128,7 @@ class APIRequest:
         bid=self.Api_project_bid(proname)
         logging.info('项目管理基本信息显示字段获取')
         data = {"projBid":bid[0]}
-        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
         response = self.api_request('项目管理_计划_任务', data, headers)
         node = response['body']['data']
 
@@ -181,7 +185,7 @@ class APIRequest:
         logging.info('项目管理基本信息显示字段获取')
         data = {"actionMethod":"get","targetModel":"task","sourceModel":"","targetModelBid":"","sourceModelBid":"","targetDataMap":
             {"bid":tasksbid,"projBid":bid[0]},"targetModelAttrList":[],"sourceRefTargetDataMap":{},"sourceRefTargetModelAttrList":[]}
-        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
         response = self.api_request('项目管理_计划_任务基本信息字段获取', data, headers)
         node = response['body']['data']
         taskbid=node.get("bid")
@@ -200,7 +204,7 @@ class APIRequest:
             bid=self.Api_project_bid(proname)
             logging.info('项目管理基本信息显示字段获取')
             data = {"domainBid":bid[0],"objBid":bid[1]}
-            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
             response = self.api_request('项目管理基本信息字段获取', data, headers)
             node = response['body']['data']
             field_properties = []
@@ -214,7 +218,7 @@ class APIRequest:
             bid=self.Api_project_bid(proname)
             logging.info('项目管理基本信息显示字段获取')
             data = {"domainBid":domainbid,"objBid":bid[1]}
-            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
             response = self.api_request('项目管理基本信息字段获取', data, headers)
             node = response['body']['data']
             field_properties = []
@@ -235,7 +239,7 @@ class APIRequest:
             bid=self.Api_project_Scheduled_action(proname,task_name)
             logging.info('项目管理基本信息显示字段获取')
             data = {"objBid":bid[1],"domainBid":bid[2],"modelBid":"task","modelInsBid":bid[0],"tag":"not_started"}
-            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+            headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
             response = self.api_request('项目管理_计划_任务字段属性获取', data, headers)
             node = response['body']['data']
             print(node)
@@ -253,7 +257,7 @@ class APIRequest:
             for i in object_bid:
                 if i.get('name') == objectname:
                     data = {"objBid": i.get('bid'), "domainBid": bid[0], "tag": ""}
-                    headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+                    headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
                     response = self.api_request('项目管理_计划_任务字段属性获取', data, headers)
                     node = response['body']['data']
                     field_properties = []
@@ -272,7 +276,7 @@ class APIRequest:
         系统管理-项目模板BID获取
         """
         data = {"count":True,"param":{"name":objtemplname},"name":"IT","current":1,"size":20}
-        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
         response = self.api_request('系统管理_项目模板_BID获取', data, headers)
         bid = response['body']['data']['data'][0]
         probid=bid.get("bid")
@@ -282,10 +286,10 @@ class APIRequest:
         """
         系统管理-对象BID获取
         """
-
-        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()}
+        headers = {'Content-Type': 'application/json', 'Authorization': self.Api_login()[0],'p-rtoken': self.Api_login()[1]}
         response = self.api_request('系统管理_对象_对象BID获取', headers=headers,method='get')
         bid = response['body']['data']
+        # print(bid)
         def asdf(a, c):
             if len(a['children']) != 0:
                 for j in a['children']:
@@ -297,25 +301,30 @@ class APIRequest:
                     c.append(b)
                     asdf(j, c)
                 return c
-        bid_list = []
-        for i in bid:
-            bid_dict = {}
-            bid_dict['bid'] = i['bid']
-            bid_dict['modelCode'] = i['modelCode']
-            bid_dict['rootModel'] = i['rootModel']
-            bid_dict['name'] = i['name']
-            # print(bid_dict)
-            bid_list.append(bid_dict)
-            if len(i['children']) != 0:
-                asdf(i, bid_list)
-        return bid_list
+        if bid !=None:
+            bid_list = []
+            for i in bid:
+                bid_dict = {}
+                bid_dict['bid'] = i['bid']
+                bid_dict['modelCode'] = i['modelCode']
+                bid_dict['rootModel'] = i['rootModel']
+                bid_dict['name'] = i['name']
+                # print(bid_dict)
+                bid_list.append(bid_dict)
+                if len(i['children']) != 0:
+                    asdf(i, bid_list)
+
+            return bid_list
+        else:
+            logging.info('当前接口返回为空，请检查')
+            print('当前接口返回为空，请检查')
 
 
 
 
 
 if __name__ == '__main__':
-    Api=APIRequest(env_name)
+    Api=APIRequest()
     # ApplyList=Api.Api_applyList(20220810085734677324)
     # Api.Api_queryDeptAndEmployee(20220810085734677324)
     # print(Api.Api_project_bid("IPM自动化测试2023-01-0318:33:16"))
@@ -324,5 +333,5 @@ if __name__ == '__main__':
     # print(Api.Api_project_field("5435345"))
     # print(Api.Api_project_getPlanTaskTree("655人TV v"))
     # print(Api.Api_project_Scheduled_action("IPM自动化测试2022-12-2316:56:38","任务名称2022-12-2316:56:38"))
-    print(Api.Api_object_bid())
+    Api.Api_object_bid()
     # #   任务流程名

@@ -22,7 +22,7 @@ def get_project_create(env_name,templname,projectname):
     Api=APIRequest(env_name)
     field_att = Api.Api_templ_bid(templname)
     data = {"param":{"templBid":field_att,"name":projectname}}
-    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
     response = Api.api_request('项目管理_创建项目', data, headers)
     bid = response['body']['data']
     probid = bid.get("permission_bid")
@@ -39,7 +39,7 @@ def get_project_Team_member_delete(env_name,objInsBid,roleBid,usernum_pro,bid,us
     '''
     Api=APIRequest(env_name)
     data ={"objInsBid":objInsBid,"roleBid":roleBid,"jobNumber":usernum_pro,"bid":bid,"name":username_pro,"type":"member"}
-    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
     response = Api.api_request('项目管理_团队_角色成员删除', data, headers)
     bid = response['body']['message']
     if bid == '请求成功':
@@ -58,7 +58,7 @@ def get_project_Team_member_find(env_name,projectname,rolename):
     Api=APIRequest(env_name)
     probid=Api.Api_project_bid(projectname)
     data = {"objInsBid":probid[0],"roleBid":rolename,"isQuerySonRole":False}
-    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
     response = Api.api_request('项目管理_团队_角色成员查询', data, headers)
     value = response['body']['data']
     for id in value:
@@ -87,7 +87,7 @@ def get_project_Team_member_add(env_name,templname,projectname,*rolename):
         if role == 'PQA':
 
             data = [{"employeeName":username,"type":"member","employeeNo":usernum,"accountType":"01","route":True,"jobNumber":usernum,"objInsBid":probid,"roleBid":role}]
-            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
             response = Api.api_request('项目管理_团队_成员新增', data, headers)
             bid = response['body']['message']
             if bid == '请求成功':
@@ -97,7 +97,7 @@ def get_project_Team_member_add(env_name,templname,projectname,*rolename):
                 raise ValueError('当前人员状态添加结果为{}'.format(bid))
         if role == 'LPDT':
             data = [{"employeeName":username,"type":"member","employeeNo":usernum,"accountType":"01","route":True,"jobNumber":usernum,"objInsBid":probid,"roleBid":role}]
-            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
             response = Api.api_request('项目管理_团队_成员新增', data, headers)
             bid = response['body']['message']
             if bid == '请求成功':
@@ -107,7 +107,7 @@ def get_project_Team_member_add(env_name,templname,projectname,*rolename):
                 raise ValueError('当前人员状态添加结果为{}'.format(bid))
         if role == 'HRBP':
             data = [{"employeeName":username,"type":"member","employeeNo":usernum,"accountType":"01","route":True,"jobNumber":usernum,"objInsBid":probid,"roleBid":role}]
-            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
             response = Api.api_request('项目管理_团队_成员新增', data, headers)
             bid = response['body']['message']
             if bid == '请求成功':
@@ -117,7 +117,7 @@ def get_project_Team_member_add(env_name,templname,projectname,*rolename):
                 raise ValueError('当前人员状态添加结果为{}'.format(bid))
         if role == 'PMToffice':
             data = [{"employeeName":username,"type":"member","employeeNo":usernum,"accountType":"01","route":True,"jobNumber":usernum,"objInsBid":probid,"roleBid":role}]
-            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
             response = Api.api_request('项目管理_团队_成员新增', data, headers)
             bid = response['body']['message']
             if bid == '请求成功':
@@ -137,7 +137,7 @@ def get_project_Team_member_add(env_name,templname,projectname,*rolename):
                 raise ValueError('当前人员状态添加结果为{}'.format(bid))
         if role == 'PMToffice内审': #
             data = [{"employeeName":username,"type":"member","employeeNo":usernum,"accountType":"01","route":True,"jobNumber":usernum,"objInsBid":probid,"roleBid":'PMToffice_IA'}]
-            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+            headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
             response = Api.api_request('项目管理_团队_成员新增', data, headers)
             bid = response['body']['message']
             if bid == '请求成功':

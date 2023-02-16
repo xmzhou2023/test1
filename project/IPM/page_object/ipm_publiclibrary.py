@@ -1,3 +1,5 @@
+'''公共通用方法'''
+
 import logging
 
 from project.IPM.page_base.basics_IPM import PubicMethod

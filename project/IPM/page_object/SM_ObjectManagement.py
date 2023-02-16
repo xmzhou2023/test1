@@ -16,7 +16,7 @@ now_t = strftime('%Y-%m-%d')
 time_ipm=f'ipm自动化{now_times}'
 
 class SystemManagement(ipm_publiclibrary):
-    def __init__(self,driver,env_name,element_yaml='system_management',expect='SM_ObjectManagement.yaml'):
+    def __init__(self,driver,env_name,element_yaml='SM_ObjectManagement',expect='SM_ObjectManagement.yaml'):
         super().__init__(driver, element_yaml,expect=expect)
         self.Api = APIRequest(env_name)
         self.ini = ReadConfig(pro_name, env_name)
@@ -138,6 +138,10 @@ class SystemManagement(ipm_publiclibrary):
         '''
         if  Objectsoperatedon == '新增属性':
             self.click_IPM('对象_检入中_新增属性_功能键',Objectsoperatedon,functionkeys)
+        elif Objectsoperatedon ==  '提示信息':
+            if functionkeys =='确定':
+                sleep(1)
+                self.click_IPM('提示信息框', functionkeys)#t
 
         elif Objectsoperatedon !=None:
             objectname = self.element_exist_IPM('对象_点击对象名称', Objectsoperatedon)
@@ -155,6 +159,8 @@ class SystemManagement(ipm_publiclibrary):
                     self.click_IPM('对象_右键点击_删除_功能键',functionkeys)
                 except:
                     self.click_IPM('对象_撤销检出_功能键', functionkeys)
+                else:
+                    self.click_IPM('提示信息框', functionkeys)
 
         else:
             UndoCheckOut = self.element_exist_IPM('对象_撤销检出_功能键', functionkeys)#撤销检出提示
