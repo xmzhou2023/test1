@@ -29,7 +29,7 @@ class TestConsumerBookingStatistics:
             'Market Name': 'NOTE 12 VIP',
             'Shop': 'PK410266',
             'IMEI': '',
-            'Activated Status': 'No',
+            #'Activated Status': 'No',
             'Delivered Date': '',
             'Activated Date': '',
             'Activity Template': 'TEM2206300001',

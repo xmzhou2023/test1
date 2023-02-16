@@ -75,7 +75,8 @@ class TestQueryDeliveryOrder:
         export.click_search()
         # 筛选出库单后，点击导出功能
         export.click_export()
-        export.click_download_more()
+        # export.click_download_more()
+        menu.click_gotomenu("Basic Data Management", "Export Record")
         export.input_task_name('Delivery Order')
         export.export_record_create_date_query(today)
         """循环点击查询按钮，直到获取到Download Status字段的状态更新为COMPLETE"""
