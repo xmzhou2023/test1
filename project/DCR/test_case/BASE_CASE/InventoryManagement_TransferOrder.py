@@ -3,10 +3,11 @@ from project.DCR.page_object.InventoryManagement_TransferOrder import TransferOr
 from project.DCR.page_object.Center_Process import SalesOrderPage
 from public.base.assert_ui import ValueAssert, DomAssert
 from libs.common.time_ui import sleep
-from public.base.basics import Base
+from public.base.basics import Base, random_list
 import logging
 import allure
 import pytest
+import random
 
 @pytest.fixture(scope='function')
 def function_menu_fixture(drivers):
@@ -196,6 +197,86 @@ class TestQueryTransferOrder:
             sleep(5)
             complete_value =page.get_download_value()
             ValueAssert.value_assert_equal(complete_value, 100)
+        else:
+            logging.info('the total is empty')
+
+    @allure.story("查询调拨单")  # 场景名称
+    @allure.title("库存管理页面，按组合条件查询调拨单记录")  # 用例名称
+    @allure.description("库存管理页面，按组合条件查询调拨单记录，校验结果和条件一致")
+    @allure.severity("critical")  # 用例等级
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_menu_fixture')
+    def test_001_004(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "xiongbo92", "dcr123456")
+        user.click_gotomenu("Inventory Management", "Transfer Order")
+        page = TransferOrderPage(drivers)
+        today = page.get_datetime_today()
+        page.click_unfold('Unfold')
+
+        """随机查询，对结果进行判断,注意字典的键要和表格的表头一致"""
+        query_dic = {'Transfer ID': 'TFHK202209290012',
+                     'Receipt Status': 'Received',
+                     'Transfer Type': 'To Warehouse',
+                     'Transfer From Customer': 'NG20613',
+                     'Transfer From Warehouse': 'WNG2061301',
+                     'Transfer To Customer': 'NG20613',
+                     'Transfer To Warehouse': 'WNG2061304',
+                     'Brand': 'itel',
+                     'Model': 'it2163',
+                     'Market Name': 'Value 100',
+                     'Create Date': '2022-09-29',
+                     'IMEI': '355875611207842'
+                     }
+        list_query = []
+        for i in query_dic:
+            list_query.append(i)
+        num = random.randint(3, 8)
+        list_random = random_list(list_query, num)
+        logging.info('the query condition is %s' % list_random)
+        # 开始 对随机查询条件进行输入
+        for i in list_random:
+            page.select_content(i, query_dic[i])
+            logging.info('the query condition is {},values is {}'.format(i, query_dic[i]))
+        page.click_search_reset('Search')
+        # 进行结果断言
+        """重置筛选条件"""
+        page.click_search_reset('Search')
+
+        # 进行结果断言
+        total = int(page.get_transfer_order_list_total())
+        logging.info('the total in test case is %s' % total)
+        if total > 0:
+            # 进行结果断言
+            for i in list_random:
+                logging.info('Now the i  is %s' % i)
+                if i == 'Transfer From Customer' or i == 'Transfer From Warehouse' or i == 'Transfer To Customer' or i == 'Transfer To Warehouse':
+                    colum = page.get_table_column(i)
+                    logging.info('then the colum is {}'.format(colum))
+                    attribute = page.get_table_content(colum)
+                    ValueAssert.value_assert_In(query_dic[i], attribute)
+                elif i == 'IMEI':
+                    page.transfer_click_imei_detail()
+                    imei_total = int(page.get_transfer_detail_total())
+                    colum = page.get_table_column(i)
+                    logging.info('this imei colum is {}'.format(colum))
+                    attribute_list = []
+                    if imei_total > 0:
+                        for j in range(imei_total):
+                            m = j + 1
+                            attribute_list.append(page.get_table_detail(m, colum))
+                    ValueAssert.value_assert_In(query_dic[i], attribute_list)
+                    page.close_transfer_imei_detail()
+                elif i == 'Create Date':
+                    colum = page.get_table_column(i)
+                    logging.info('that the colum is {}'.format(colum))
+                    attribute = page.get_table_content(colum)
+                    ValueAssert.value_assert_date_in(attribute, query_dic[i], query_dic[i])
+                else:
+                    colum = page.get_table_column(i)
+                    logging.info('finally the colum is {}'.format(colum))
+                    attribute = page.get_table_content(colum)
+                    ValueAssert.value_assert_equal(query_dic[i], attribute)
         else:
             logging.info('the total is empty')
 

@@ -440,7 +440,47 @@ class CustomerManagementPage(Base):
     @allure.step("点击Unfold 展开筛选项")
     def click_unfold(self):
         self.is_click(user['Unfold'])
+        sleep(1)
         logging.info('点击Unfold 展开筛选项')
+
+    @allure.step("客户管理页面，按Customer ID筛选客户信息")
+    def input_customer_channel_sales_manager_query(self, header, content):
+        self.is_click_dcr(user['输入框'], header)
+        self.input_text(user['输入框2'], content, header)
+        self.presence_sleep_dcr(user['输入结果模糊选择'], content)
+        self.is_click(user['输入结果模糊选择'], content)
+
+    @allure.step("客户管理页面，按Contact Name或 customer_type筛选客户信息")
+    def input_contact_name_customer_type_query(self, header, content):
+        self.is_click(user['输入框'], header)
+        self.input_text(user['输入框'], content, header)
+        self.presence_sleep_dcr(user['输入结果精确选择'], content)
+        self.is_click(user['输入结果精确选择'], content)
+
+    @allure.step("客户管理页面，按Sales Region 或Country/City筛选客户信息")
+    def input_sales_region_country_query(self, header, content):
+        self.is_click(user['输入框'], header)
+        self.input_text(user['输入框'], content, header)
+        self.presence_sleep_dcr(user['销售区域选择值'], content)
+        self.is_click(user['销售区域选择值'], content)
+
+    @allure.step("客户管理页面，按SAP Customer ID 筛选客户信息")
+    def input_sap_customer_id_query(self, header, content):
+        self.input_text(user['输入框'], content, header)
+
+    @allure.step("客户管理页面，按Whether use DCR system 筛选客户信息")
+    def input_whether_use_dcr_system_status_query(self, header, content):
+        self.is_click(user['输入框'], header)
+        self.input_text(user['输入框'], content, header)
+        self.is_click(user['输入结果精确选择'], content)
+
+    @allure.step("客户管理页面，按Customer Category 筛选客户信息")
+    def input_customer_category_brand_query(self, header, content):
+        self.is_click_dcr(user['输入框'], header)
+        self.input_text(user['输入框4'], content, header)
+        self.is_click(user['输入结果精确选择'], content)
+        self.is_click(user['筛选label标签'], 'Brand')
+
 
     @allure.step("user management页面，输入查询条件")
     def input_search(self, header, content):
@@ -463,17 +503,17 @@ class CustomerManagementPage(Base):
                 self.input_text(user['输入框'], content, header)
                 self.is_click_tbm(user['输入结果精确选择'], content)
             elif header in fuzzySelect_list:
-                    self.is_click_tbm(user['输入框'], header)
-                    self.input_text(user['输入框2'], content, header)
-                    self.is_click_tbm(user['输入结果模糊选择'], content)
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框2'], content, header)
+                self.is_click_tbm(user['输入结果模糊选择'], content)
             elif header in country_list:
                 self.is_click_tbm(user['输入框'], header)
                 self.input_text(user['输入框'], content, header)
                 self.is_click_tbm(user['地区选择框'], content)
             elif header in inputSelect_list:
-                    self.is_click_tbm(user['输入框'], header)
-                    self.input_text(user['输入框4'], content, header)
-                    self.is_click_tbm(user['输入结果精确选择'], content)
+                self.is_click_tbm(user['输入框'], header)
+                self.input_text(user['输入框4'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
             else:
                 logging.error('请输入正确的查询条件')
                 raise ValueError('请输入正确的查询条件')
@@ -545,6 +585,13 @@ class CustomerManagementPage(Base):
         self.click_search()
         for i in list_random:
             self.assert_search_result(i, kwargs[i])
+
+
+    @allure.step("断言：列表页面查询结果")
+    def assert_query_result(self, header, content):
+        logging.info('开始断言：页面查询结果')
+        DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content, sc_element=user['滚动条'], h_element=user['表头文本'])
+
 
 
 if __name__ == '__main__':

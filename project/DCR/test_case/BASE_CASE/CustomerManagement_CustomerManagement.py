@@ -41,7 +41,7 @@ def function_export_fixture(drivers):
 @allure.feature("客户管理-客户管理(全球)")  # 模块名称
 class TestQueryGlobalCustomers:
     @allure.story("查询客户")
-    @allure.title("查询客户列表所以数据加载，然后筛选客户信息是否加载正常")
+    @allure.title("查询客户列表所有数据加载，然后筛选客户信息是否加载正常")
     @allure.description("查询客户列表所以数据加载，然后筛选客户信息是否加载正常")
     @allure.severity("normal")
     @pytest.mark.smoke  # 用例标记
@@ -87,11 +87,95 @@ class TestQueryGlobalCustomers:
 
 
     @allure.story("查询客户")
+    @allure.title("查询客户列表，单个条件查询客户信息")
+    @allure.description("查询客户列表，单个条件查询客户信息是否正常")
+    @allure.severity("normal")
+    @pytest.mark.smoke  # 用例标记
+    @pytest.mark.usefixtures('function_customer_fixture')
+    def test_001_002(self, drivers):  # 用例名称取名规范'test+场景编号+用例编号'
+        """登录"""
+        user = LoginPage(drivers)
+        user.initialize_login(drivers, "lhmadmin", "dcr123456")
+        """打开客户管理菜单"""
+        user.click_gotomenu("Customer Management", "Customer Management(Global)")
+        query = CustomerManagementPage(drivers)
+        query.click_unfold()
+        """按Customer字段进行筛选"""
+        query.input_customer_channel_sales_manager_query('Customer', 'NG400002')
+        query.click_search()
+        query.assert_query_result('Customer ID', 'NG400002')
+        query.click_reset()
+        """按Contact Name字段进行筛选"""
+        query.input_contact_name_customer_type_query('Contact Name', 'zhang')
+        query.click_search()
+        query.assert_query_result('Contact Name', 'zhang')
+        query.click_reset()
+        """按Sales Region字段进行筛选"""
+        query.input_sales_region_country_query('Sales Region', 'West Africa I')
+        query.click_search()
+        query.assert_query_result('Sales Region 1', 'West Africa I')
+        query.click_reset()
+        """按Country/City字段进行筛选"""
+        query.input_sales_region_country_query('Country/City', 'Nigeria')
+        query.click_search()
+        query.assert_query_result('Country', 'Nigeria')
+        query.click_reset()
+        """按先输入Customer Type 然后输入Customer Grade 字段进行筛选"""
+        query.input_contact_name_customer_type_query('Customer Type', 'Retailer')
+        query.input_whether_use_dcr_system_status_query('Customer Grade', 'B')
+        query.click_search()
+        query.assert_query_result('Customer Type', 'Retailer')
+        query.assert_query_result('Customer Grade', 'B')
+        query.click_reset()
+        """按SAP Customer ID字段进行筛选"""
+        query.input_sap_customer_id_query('SAP Customer ID', '400599')
+        query.click_search()
+        query.assert_query_result('SAP Customer ID', '400599')
+        query.click_reset()
+        """按Whether use DCR system字段进行筛选"""
+        query.input_whether_use_dcr_system_status_query('Whether use DCR system', 'Yes')
+        query.click_search()
+        query.assert_query_result('Whether use DCR system', 'Yes')
+        query.click_reset()
+        """按Customer Category字段进行筛选"""
+        query.input_customer_category_brand_query('Customer Category', 'DZZ type')
+        query.click_search()
+        query.assert_query_result('Customer Category', 'DZZ type')
+        query.click_reset()
+        """按Brand字段进行筛选"""
+        query.input_customer_category_brand_query('Brand', 'TECNO')
+        query.click_search()
+        query.assert_query_result('Brand', 'TECNO')
+        query.click_reset()
+        """按Status字段进行筛选"""
+        query.input_whether_use_dcr_system_status_query('Status', 'Enable')
+        query.click_search()
+        query.assert_query_result('Status', 'Enable')
+        query.click_reset()
+        """按Channel Sales Manager字段进行筛选"""
+        query.input_customer_channel_sales_manager_query('Channel Sales Manager', '18601586')
+        query.click_search()
+        query.assert_query_result('Channel Sales Manager ID', '18601586')
+        query.assert_query_result('Channel Sales Manager', '刘航宇')
+        query.click_reset()
+        """按User 字段进行筛选"""
+        query.input_customer_channel_sales_manager_query('User', 'ID200005')
+        query.click_search()
+        query.assert_query_result('User ID', 'ID200005')
+        query.click_reset()
+        """按Warehouse 字段进行筛选"""
+        query.input_customer_channel_sales_manager_query('Warehouse', 'WID200005')
+        query.click_search()
+        query.assert_query_result('Warehouse ID', 'WID200005')
+        query.click_reset()
+
+
+    @allure.story("查询客户")
     @allure.title("随机条件组合查询")
     @allure.description("用户管理页面，查询用户列表所有用户数据加载")
     @allure.severity("critical")  # 分别为3种类型等级：critical\normal\minor
     @pytest.mark.smoke  # 用例标记
-    def test_001_002(self, drivers):
+    def test_001_003(self, drivers):
         """变量"""
         query_dict = {
             'Customer': 'caron2301',

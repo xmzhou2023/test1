@@ -24,6 +24,7 @@ class CustomerInvoiceQuery(Base):
     @allure.step("点击IMEI Detail")
     def click_detail(self):
         self.is_click(user['IMEI Detail点击'])
+        sleep(3)
 
     @allure.step("关闭IMEI Detail")
     def clos_detail(self):
@@ -102,7 +103,7 @@ class CustomerInvoiceQuery(Base):
         # number=int(attribute[4:])
         return int(attribute)
 
-    @allure.step("获取下载进度值")
+    @allure.step("获取详情页下载进度值")
     def get_download_detail(self):
         attribute = self.get_table_info(user['跳转页下载进度条'], attr='aria-valuenow')
         logging.info('下载进度值是%s' % attribute)

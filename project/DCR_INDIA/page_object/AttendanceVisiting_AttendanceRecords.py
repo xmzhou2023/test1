@@ -2,13 +2,15 @@ import time
 from libs.common.read_element import Element
 from libs.common.time_ui import sleep
 import datetime
+
+from project.DCR_INDIA.page_object.Center_Component import LoginPage
 from ..test_case.conftest import *
 
 object_name = os.path.basename(__file__).split('.')[0]
 user = Element(pro_name, object_name)
 
 
-class AttendanceRecordPage(Base):
+class AttendanceRecordPage(LoginPage):
     """ AttendanceRecord类，生产环境，Attendance Records考勤记录页面元素定位"""
     def input_user_id_query(self, content, content1):
         """Attendance Records页面，输入User ID筛选用户的考勤记录"""

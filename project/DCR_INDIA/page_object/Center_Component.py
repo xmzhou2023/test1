@@ -102,7 +102,46 @@ class LoginPage(Base):
             self.is_click(user[level[i]])
         self.element_exist(user['Loading'])
 
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.refresh()
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user[f'菜单{i + 1}'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+        self.refresh()
+        self.element_exist(user['Loading'])
 
+    @allure.step("获得Record指定内容")
+    def get_Record_info(self, menu, name, header):
+        """
+        :param menu: 菜单名
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        """
+        for i in range(20):
+            ac_menu = self.element_text(user['当前菜单'])
+            if ac_menu != menu:
+                self.click_menu('Basic Data Management', menu)
+            column = self.get_table_info(user['表格字段'], header, h_element=user['表头文本'])
+            content = self.element_text(user['表格指定列内容'], name, column)
+            logging.info(f'获得 {menu} 页面 {name} 文件 {header} 字段内容 {content}')
+            return content
+
+    @allure.step("断言：导入导出Record结果")
+    def assert_Record_result(self, menu, name, header, result=None):
+        """
+        :param menu: 菜单
+        :param name: 输入文件名
+        :param header: 需要获取的指定字段
+        :param result: 需要断言的值 比如状态，数量，时间
+        """
+        ac_result = self.get_Record_info(menu, name, header)
+        if header == 'File Size':
+            ValueAssert.value_assert_IsNot(ac_result, '0B')
+        else:
+            ValueAssert.value_assert_In(result, ac_result)
 
 if __name__ == '__main__':
     pass

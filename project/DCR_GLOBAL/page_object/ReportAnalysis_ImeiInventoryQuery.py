@@ -57,7 +57,7 @@ class ImeiInventoryQuery(Base):
         elif type == 'Warehouse Type':
             self.is_click(user['WarehouseType输入'])
             self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
-        elif type == 'Sales Region 3':
+        elif type == 'Sales Region 2':
             self.is_click(user['SalesRegion输入'])
             self.input_text(user['SalesRegion输入'], txt=content)
             self.is_click(user['SalesRegion选择'], content)
