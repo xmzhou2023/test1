@@ -274,6 +274,29 @@ class ShopIMEITransferPage(Base):
     def assert_shop_imei_transfer_field(self, header, content):
         DomAssert(self.driver).assert_search_result(user['表格字段'], user['表格指定列内容'], header, content, sc_element=user['水平滚动条'])
 
+    @allure.step("查找菜单")
+    def click_menu(self, *content):
+        self.refresh()
+        self.is_click_tbm(user['菜单栏'])
+        self.refresh()
+        for i in range(len(content)):
+            self.is_click_tbm(user['菜单'], content[i])
+            logging.info('点击菜单：{}'.format(content[i]))
+        self.refresh()
+        self.element_exist(user['Loading'])
+
+    @allure.step("点击导出")
+    def click_export(self):
+        sleep(1)
+        logging.info('点击导出')
+        self.is_click_tbm(user['Export'])
+
+    @allure.step("断言：点击导出有进度条")
+    def assert_export_success(self):
+        DomAssert(self.driver).assert_control(user['导出进度条'])
+        logging.info('断言成功：点击导出存在进度条')
+
+
 
 if __name__ == '__main__':
     pass

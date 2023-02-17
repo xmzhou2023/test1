@@ -138,7 +138,7 @@ ImportSave: "xpath==//div[@aria-label='Import']//button/span[normalize-space(tex
 表格指定列内容: "xpath==//*[normalize-space(text())='variable']/../../td[contains(@class,'variable') and not(contains(@class, 'is-hidden'))]/div"
 当前菜单: "xpath==//span[@class='tags-view-item router-link-exact-active router-link-active active']"
 表格字段: "xpath==//div[normalize-space(text())='variable']/.."
-导出进度条: "xpath==//div[@role='progressbar']"
+导出进度条: "xpath==//div[@role='tooltip' and not(contains(@style,'display: none;'))]//div[@role='progressbar']"
 tabSearch: "xpath==//div[@role='tabpanel']//button//span[normalize-space(text())='Search']"
 输入结果模糊选择: "xpath==//div[contains(@x-placement,'start')]//li/span[contains(text(),'variable')]"
 销售区域选择: "xpath==//span[normalize-space(text())='variable']/../..//span[@class='el-checkbox__inner']"

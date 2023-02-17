@@ -14,19 +14,19 @@ class DistributorReceiptQuery(Base):
 
     @allure.step("关闭DistributorReceipt查询菜单")
     def click_close_distributor_receipt_query(self):
-        self.is_click(user['关闭DistributorReceipt查询菜单'])
+        self.is_click_tbm(user['关闭DistributorReceipt查询菜单'])
 
     @allure.step("点击MaterialID")
     def click_dn(self):
-        self.is_click(user['DN输入'])
+        self.is_click_tbm(user['DN输入'])
 
     @allure.step("点击IMEI Detail")
     def click_detail(self):
-        self.is_click(user['点击IMEIDetail'])
+        self.is_click_tbm(user['点击IMEIDetail'])
 
     @allure.step("关闭IMEI Detail")
     def clos_detail(self):
-        self.is_click(user['关闭IMEIDetail'])
+        self.is_click_tbm(user['关闭IMEIDetail'])
 
     @allure.step("根据表头获取列的class值")
     def get_table_column(self, header):
@@ -37,7 +37,7 @@ class DistributorReceiptQuery(Base):
 
     @allure.step("根据表头获取列的class值")
     def get_detail_column(self, header):
-        self.is_click(user['点击IMEIDetail'])
+        self.is_click_tbm(user['点击IMEIDetail'])
         sleep()
         attribute = self.get_table_info(user['表头字段'], header, attr='class')
         logging.info('列元素的属性是%s' % attribute)
@@ -68,7 +68,7 @@ class DistributorReceiptQuery(Base):
 
     @allure.step("点击Unfold展开筛选项按钮")
     def click_button(self, txt):
-        self.is_click(user['Unfold_Search_Reset按钮'], txt)
+        self.is_click_tbm(user['Unfold_Search_Reset按钮'], txt)
         if txt == 'Search':
             self.element_exist(user['Loading'])
         elif txt == 'Reset':
@@ -80,16 +80,16 @@ class DistributorReceiptQuery(Base):
     def select_content(self, type, content):
         # Customer，Box本页面有条件，但无结果展示，无法断言
         if type == 'Model':
-            self.is_click(user['Model点击'])
+            self.is_click_tbm(user['Model点击'])
             self.input_text(user['Model输入'], txt=content)
             sleep(2)
-            self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
+            self.is_click_tbm(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         elif type == 'Customer':
-            self.is_click(user['Customer点击'])
+            self.is_click_tbm(user['Customer点击'])
             self.input_text(user['Customer输入'], txt=content)
             sleep(2)
-            self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
+            self.is_click_tbm(user['Model_Brand_Category_MarName_Country_Status选择'], content)
         elif type == 'Material ID':
             self.input_text(user['MaterialID输入'], txt=content)
         elif type == 'DN':
@@ -101,40 +101,40 @@ class DistributorReceiptQuery(Base):
         elif type == 'SAP Customer ID':
             self.input_text(user['SAPCustomerID输入'], txt=content)
         elif type == 'Brand':
-            self.is_click(user['Brand点击'])
+            self.is_click_tbm(user['Brand点击'])
             sleep()
-            self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
+            self.is_click_tbm(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         elif type == 'Category':
-            self.is_click(user['Category点击'])
+            self.is_click_tbm(user['Category点击'])
             sleep()
-            self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
+            self.is_click_tbm(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         elif type == 'IMEI':
-            self.is_click(user['IMEI点击'])
+            self.is_click_tbm(user['IMEI点击'])
             self.input_text(user['IMEI输入'], txt=content)
         elif type == 'Market Name':
-            self.is_click(user['MarketName点击'])
+            self.is_click_tbm(user['MarketName点击'])
             self.input_text(user['MarketName输入'], txt=content)
             sleep(2)
-            self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
+            self.is_click_tbm(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         elif type == 'Customer Region3':
-            self.is_click(user['CustomerRegion点击'])
+            self.is_click_tbm(user['CustomerRegion点击'])
             self.input_text(user['CustomerRegion点击'], txt=content)
             sleep(2)
-            self.is_click(user['CustomerRegion输入'], content)
+            self.is_click_tbm(user['CustomerRegion输入'], content)
         elif type == 'Delivery Country':
-            self.is_click(user['Country点击'])
+            self.is_click_tbm(user['Country点击'])
             self.input_text(user['Country输入'], txt=content)
             sleep(2)
-            self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
+            self.is_click_tbm(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         elif type == 'Status':
-            self.is_click(user['Status点击'])
-            self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], 'Receiving')
-            self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], 'On Transit')
-            self.is_click(user['Model_Brand_Category_MarName_Country_Status选择'], content)
+            self.is_click_tbm(user['Status点击'])
+            self.is_click_tbm(user['Model_Brand_Category_MarName_Country_Status选择'], 'Receiving')
+            self.is_click_tbm(user['Model_Brand_Category_MarName_Country_Status选择'], 'On Transit')
+            self.is_click_tbm(user['Model_Brand_Category_MarName_Country_Status选择'], content)
             self.click_dn()
         else:
             logging.info('type is wrong,pls check')

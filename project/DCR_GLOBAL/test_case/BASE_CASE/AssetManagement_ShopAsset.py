@@ -29,18 +29,19 @@ class TestQueryShopAsset:
     def test_001_002(self, drivers):
         user = DCRLoginPage(drivers)
         """变量"""
+        #权限变动，数据修改下
         query_dict = {
-            'Country': 'Guinea',
+            'Country': 'Pakistan',
             'Brand': 'TECNO',
-            'Create Date': '2022-12-28',
+            'Create Date': '2021-09-09',
             'Category': 'Shop Construction Props',
             'Status': 'Available',
-            'Shop': 'GN000072',
-            'Asset Name': '3.0版本玻璃柜',
-            'Has ASN': 'No',
-            'Sales Region': 'West Africa Ⅲ',
-             'Design By': 'Headquarters',
-            'Manpower Type': 'Manned'
+            'Shop': 'PKCL3466',
+            'Asset Name': '收银台2021',
+            'Has ASN': 'Yes',
+            'Sales Region': 'Pakistan-TECNO',
+            'Design By': 'Local',
+            'Manpower Type': 'Unmanned'
         }
         query = ShopAssetPage(drivers)
         user.click_gotomenu("Asset Management", "Shop Asset")

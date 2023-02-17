@@ -67,6 +67,7 @@ class kapianguanli(Base):
         textarea_list = ['说明']
         fuzzySelect_list = ['需求提出人', '业务负责人', 'IT负责人', 'Supplier']
         exactSelect_list = ['应用类型', '卡片名称']
+        exactSelect_list1 = ['报表名称']
         logging.info(f'输入查询条件： {header} ，内容： {content}')
         if content != '':
             if header in textarea_list:
@@ -80,6 +81,9 @@ class kapianguanli(Base):
                 self.is_click_tbm(user['输入框内容'], header)
                 self.input_text(user['输入框内容'], content, header)
                 self.is_click_tbm(user['输入结果模糊选择'], content)
+            elif header in exactSelect_list1:
+                self.is_click_tbm(user['输入框内容'], header)
+                self.input_text(user['输入框内容'], content, header)
             else:
                 logging.error('请输入正确的查询条件')
                 raise ValueError('请输入正确的查询条件')
@@ -162,7 +166,7 @@ class kapianguanli(Base):
 
     @allure.step("说明")
     def click_explain1(self):
-        self.input_text(user['输入说明'], '销售年情况')
+        self.input_text(user['输入说明'], '销售情况')
 
     @allure.step("配置卡片名称")
     def click_card_explain(self):
@@ -276,7 +280,7 @@ class kapianguanli(Base):
     def click_close(self):
         self.is_click(user['关闭维度管理'])
 
-    # ----角色管理--------
+    # ----角色管理----------------------------------------------------
 
     @allure.step("点击系统管理")
     def click_system(self):
@@ -352,7 +356,7 @@ class kapianguanli(Base):
 
     @allure.step("粘贴")
     def click_paste1(self):
-        self.input_text(user['粘贴'], '18601002')
+        self.input_text(user['粘贴'], '18601002,18649492,18653759,18645046,18647281')
 
     @allure.step("确定粘贴")
     def click_paste2(self):
@@ -389,6 +393,54 @@ class kapianguanli(Base):
     @allure.step("关闭维度")
     def click_close_tables(self):
         self.is_click(user['关闭维度'])
+
+    # -------报表管理 ---------------------------------------------
+
+    @allure.step("报表管理")
+    def click_menu1(self):
+        self.is_click(user['报表管理'])
+
+    @allure.step("我的报表")
+    def click_menu2(self):
+        self.is_click(user['我的报表'])
+
+    @allure.step("卡片来源")
+    def click_card_source(self):
+        self.is_click(user['卡片来源'])
+
+    @allure.step("移动驾驶舱测试1")
+    def click_card_source1(self):
+        self.is_click(user['移动驾驶舱测试1'])
+
+    @allure.step("确定卡片")
+    def click_card_source2(self):
+        self.is_click(user['确定卡片'])
+
+    @allure.step("选择指标")
+    def click_tg(self):
+        self.is_click(user['选择指标'])
+
+    @allure.step("昨日激活SO")
+    def click_tg1(self):
+        self.is_click(user['昨日激活SO'])
+
+    @allure.step("报表指标确定")
+    def click_tg2(self):
+        self.is_click(user['报表指标确定'])
+
+    @allure.step("报表名称1")
+    def click_report_name1(self):
+        self.input_text(user['报表名称1'], 'test')
+
+    @allure.step("报表说明")
+    def click_report_name2(self):
+        self.input_text(user['报表说明'], 'test')
+
+    @allure.step("保存报表1")
+    def click_save_reprot(self):
+        self.is_click(user['保存报表1'])
+
+
 
 
 if __name__ == '__main__':

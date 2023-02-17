@@ -110,6 +110,13 @@ class ShopPurchaseQuery(Base):
         logging.info('开始断言：页面查询结果')
         DomAssert(self.driver).assert_search_contains_result(user['menu表格字段'], user['表格内容'], header, content,
                                                              index=1,  sc_element=user['滚动条'], h_element=user['表头文本'])
+
+    @allure.step("断言：页面查询结果")
+    def assert_InventoryQuery_result(self, header, content):
+        logging.info('开始断言：IMEI Inventory Query页面查询结果')
+        DomAssert(self.driver).assert_search_contains_result(user['Inventory表格字段'], user['表格内容'], header, content,
+                                                              sc_element=user['滚动条'], h_element=user['表头文本'])
+
     @allure.step("断言：页面查询结果")
     def assert_search_result(self, header, content):
         if content != '':
@@ -286,6 +293,14 @@ class ShopPurchaseQuery(Base):
             ValueAssert.value_assert_IsNot(ac_result, '0B')
         else:
             ValueAssert.value_assert_In(result, ac_result)
+
+    @allure.step("断言：查询结果为空")
+    def assert_NoData(self):
+        logging.info('开始断言：查询结果为空')
+        total_text = self.element_text(user['Total'])
+        total = total_text[total_text.index(' ') + 1:]
+        logging.info(total_text)
+        ValueAssert.value_assert_equal(total, '0')
 
 
 if __name__ == '__main__':

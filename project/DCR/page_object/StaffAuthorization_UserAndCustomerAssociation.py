@@ -238,10 +238,11 @@ class UserAndCustomerAssociation(Base):
         @function： 需要点击的功能按钮，具体如下：
         Export, Import, Delete
         """
+        logging.info(f'点击功能按钮： {function}')
         self.is_click(user['功能按钮'], function)
         if function == 'Import':
             self.click_upload()
-        logging.info(f'点击功能按钮： {function}')
+
 
     @allure.step("点击指定复选框")
     def click_CheckBox(self, uid, header='User ID'):

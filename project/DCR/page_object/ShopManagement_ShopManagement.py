@@ -688,8 +688,6 @@ class ShopManagementPage(Base):
     def click_upload(self):
         self.is_click(user['Upload'])
         logging.info('点击upload按钮')
-        # k = PyKeyboard()
-        # k.tap_key(k.escape_key)
 
     @allure.step("点击Import按钮")
     def click_import(self):

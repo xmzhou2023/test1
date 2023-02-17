@@ -1,5 +1,6 @@
-Input Query Shop: "xpath==//label[(text()='Shop')]//parent::div// following-sibling::div//input"
-Select Shop Value: "xpath==//div//ul//li//span[contains(text(),'variable')]"
+Shop输入框: "xpath==//label[(text()='Shop')]/..//input[@placeholder='All']"
+Shop输入框2: "xpath==//label[(text()='Shop')]/..//input[@placeholder='Batch input content']"
+Select Shop Value: "xpath==//div[contains(@x-placement,'start')]//span[contains(text(),'variable')]"
 
 Submit Start Date: "xpath==//div[@class='date-box start']//input"
 Sales Region: "xpath==//label[(text()='Sales Region')]//parent::div// following-sibling::div//input"

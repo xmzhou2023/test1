@@ -8,6 +8,7 @@
 对象_检入检出功能键: 'xpath==//details[1]//span[normalize-space(text())="variable"]/..'
 对象_树结构_对象右侧功能键: 'xpath==//div[@class="tree-node-container"]/div/span[text()="variable"]/../..//button[@title="variable"]'
 span: 'xpath==//span[text()="variable"]'
+提示信息框: 'xpath==//div/div/div/span[contains(text(),"提示信息")]/../../..//span[contains(text(),"variable")]'
 
 对象_树结构_获取对象下面子对象的第一个对象: 'xpath==//div[@role="treeitem"]//span[text()="variable"]/../../../..//div[@role="treeitem"][1]//div[@class="tree-node-label"]/span'
 对象_树结构_获取对象下面子对象的第二个对象: 'xpath==//div[@role="treeitem"]//span[text()="variable"]/../../../..//div[@role="treeitem"][2]//div[@class="tree-node-label"]/span'

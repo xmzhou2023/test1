@@ -30,7 +30,7 @@ class TestQueryVisitRecord:
         #user.dcr_login(drivers, "testsupervisor", "dcr123456")
         user = LoginPage(drivers)
         """打开考勤与巡店管理-打开巡店记录页面"""
-        user.click_gotomenu("Attendance & Visiting", "Visit Record")
+        user.click_menu("Attendance & Visiting", "Visit Record")
         all_visit = VisitRecordPage(drivers)
         all_visit.click_search()
         shop_id = all_visit.get_shop_id_text()
@@ -60,9 +60,10 @@ class TestQueryVisitRecord:
     @pytest.mark.usefixtures('function_export_fixture')
     def test_001_002(self, drivers):
         """获取当天日期"""
-        base = Base(drivers)
-        today = base.get_datetime_today()
+        user = LoginPage(drivers)
         export = VisitRecordPage(drivers)
+        today = export.get_datetime_today()
+        user.click_menu("Attendance & Visiting", "Visit Record")
         last_date = export.get_last_day(1)
         """根据提交时间筛选巡店记录"""
         export.input_submit_start_date(last_date)

@@ -795,8 +795,6 @@ class UserManagementPage(Base):
     def click_upload(self):
         self.is_click(user['Upload'])
         logging.info('点击upload按钮')
-        # k = PyKeyboard()
-        # k.tap_key(k.escape_key)
 
     @allure.step("点击EditUpload按钮")
     def click_EditUpload(self):
@@ -973,6 +971,7 @@ class UserManagementPage(Base):
         Add, Import, Export, More Option,
         Enable, Reset Password, Quit
         """
+        logging.info(f'点击功能按钮： {function}')
         MoreOptionList = ['Enable', 'Reset Password', 'Quit']
         if function in MoreOptionList:
             self.is_click_tbm(user['功能按钮'], 'More Option')
@@ -986,7 +985,6 @@ class UserManagementPage(Base):
                     self.is_click_tbm(user['ResetPasswordYes'])
         else:
             self.is_click_tbm(user['功能按钮'], function)
-        logging.info(f'点击功能按钮： {function}')
 
     @allure.step("复职用户 组合方法")
     def enable_user_Method(self, uid):

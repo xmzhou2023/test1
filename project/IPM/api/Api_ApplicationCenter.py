@@ -14,7 +14,7 @@ def get_applicationcenter_DCP_agree(env_name,proname,task_name):
     probid=Api.Api_project_Scheduled_action(proname,task_name)
     print(probid[2],probid[0])
     data = {"taskId":probid[0],"objInsBid":probid[2],"templateType":"2"}
-    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
     response = Api.api_request('应用中心_DCP看板_同意预约', data, headers)
     bid = response['body']['message']
     if bid == '请求成功':
@@ -32,7 +32,7 @@ def get_applicationcenter_DCP_agree_sendMail(env_name,proname,task_name):
     Api=APIRequest(env_name)
     probid=Api.Api_project_Scheduled_action(proname,task_name)
     data = {"appointmentDate":None,"taskId":probid[0],"objInsBid":probid[2],"title":F"【预约成功】({proname})计划DCP1月12日IPMT上会申请 ","content":F"Hi ，已收到({proname})计划DCP1月12日IPMT上会申请，请于1月5日18:00前提交上会资料，office审核无误报备IPMT后将通知你启动干系人沟通。","mailReceivers":["18646295"],"copyReceivers":[]}
-    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
     response = Api.api_request('应用中心_DCP看板_同意预约_发送邮件', data, headers)
     bid = response['body']['message']
     print(bid)
@@ -50,7 +50,7 @@ def get_applicationcenter_DCP_agree_approveAppointment(env_name,proname,task_nam
     Api=APIRequest(env_name)
     probid=Api.Api_project_Scheduled_action(proname,task_name)
     data = {"btnType":1,"objInsBid":probid[2],"taskIds":[probid[0]]}
-    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()}
+    headers = {'Content-Type': 'application/json', 'Authorization': Api.Api_login()[0],'p-rtoken': Api.Api_login()[1]}
     response = Api.api_request('应用中心_DCP看板_同意预约_预约成功', data, headers)
     bid = response['body']['message']
     print(bid)
