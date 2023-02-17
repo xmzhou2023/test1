@@ -12,7 +12,7 @@ class ShopAssetPage(Base):
     @allure.step("Shop Asset页面，点击Search按钮")
     def click_search(self):
         self.is_click(user['Search'])
-        sleep(2)
+        sleep(3)
 
     @allure.step("Shop Asset页面，点击Unfold展开筛选条件")
     def click_unfold_fold(self, content):

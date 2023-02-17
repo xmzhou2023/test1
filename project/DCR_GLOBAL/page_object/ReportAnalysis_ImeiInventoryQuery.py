@@ -48,6 +48,7 @@ class ImeiInventoryQuery(Base):
             self.is_click(user['Customer选择'], content)
         elif type == 'Customer Type':
             self.is_click(user['CustomerType输入'])
+            sleep()
             self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Warehouse ID':
             self.is_click(user['Warehouse输入'])
@@ -56,6 +57,7 @@ class ImeiInventoryQuery(Base):
             self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Warehouse Type':
             self.is_click(user['WarehouseType输入'])
+            sleep()
             self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Sales Region 2':
             self.is_click(user['SalesRegion输入'])
@@ -63,9 +65,11 @@ class ImeiInventoryQuery(Base):
             self.is_click(user['SalesRegion选择'], content)
         elif type == 'Activated Or Not':
             self.is_click(user['ActivatedOrNot点击'])
+            sleep()
             self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
         elif type == 'Brand':
             self.is_click(user['Brand输入'])
+            sleep()
             self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Model':
@@ -77,15 +81,18 @@ class ImeiInventoryQuery(Base):
         elif type == 'Market Name':
             self.is_click(user['MarketName点击'])
             self.input_text(user['MarketName输入'], txt=content)
+            sleep()
             self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Series':
             self.is_click(user['Series点击'])
             self.input_text(user['Series输入'], txt=content)
+            sleep()
             self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         elif type == 'Category':
             self.is_click(user['Category点击'])
+            sleep()
             self.is_click(user['CustomerType_Warehouse_Wartype_brand_model_MarketName_Series_Category选择'], content)
             self.click_box()
         # elif type == 'Dealer Category':

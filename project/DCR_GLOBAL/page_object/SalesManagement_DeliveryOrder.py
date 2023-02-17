@@ -11,7 +11,7 @@ class DeliveryOrderPage(Base):
     def click_unfold(self):
         """点击Unfold展开筛选条件"""
         self.is_click(user['Unfold'])
-        sleep(2)
+        sleep(3)
 
     def click_fold(self):
         """点击Fold 合拢筛选条件"""
