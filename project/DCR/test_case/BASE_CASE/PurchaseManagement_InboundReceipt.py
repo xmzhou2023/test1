@@ -315,7 +315,7 @@ class TestQueryInboundReceipt:
         user.initialize_login(drivers, "lhmadmin", "dcr123456")
         add = InboundReceiptPage(drivers)
         add.click_menu("Purchase Management", "Inbound Receipt")
-        add.click_check()
+        add.click_to_check()
         add.assert_check_num()
 
     @allure.story("二级三级收货")

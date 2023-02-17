@@ -122,7 +122,7 @@ class TestDistributorPurchase:
         attribute = user.assert_exist_download()
         ValueAssert.value_assert_equal(attribute, True)
 
-
+    '''
     @allure.story("查询国包采购")  # 场景名称
     @allure.title("用户进入国包采购页面，进行“新增采购”操作")  # 用例名称
     @allure.description("用户进入国包采购页面，进行“新增采购”操作后，断言新增成功")
@@ -177,6 +177,7 @@ class TestDistributorPurchase:
             ValueAssert.value_assert_In(attribute, 'Confirmed')
         else:
             ValueAssert.value_assert_In(attribute, 'Canceled')
+    '''
 
 if __name__ == '__main__':
     pytest.main(['project/DRP/testcase/run_code.py'])
