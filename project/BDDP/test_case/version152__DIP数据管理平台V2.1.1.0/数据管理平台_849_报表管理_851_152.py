@@ -1,17 +1,5 @@
 import pytest
 import time
-import json
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-
-from conftest import drivers
-from libs.common.action import KeyWord
-from datetime import datetime
 import allure
 from project.BDDP.page_object.数据管理平台_报表管理 import baobiaoguanli
 from public.base.assert_ui import DomAssert
