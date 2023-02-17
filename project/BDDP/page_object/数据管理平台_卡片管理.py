@@ -47,9 +47,6 @@ class kapianguanli(Base):
         elif header == '英文属性说明':
             ac_content = self.element_input_text(user['输入框内容4'], header)
             ValueAssert.value_assert_equal(ac_content, content)
-        # elif header == '卡片名称':
-        #     ac_content = self.element_input_text(user['输入框内容5'], header)
-        #     ValueAssert.value_assert_equal(ac_content, content)
         else:
             ac_content = self.element_input_text(user['输入框内容'], header)
             ValueAssert.value_assert_equal(ac_content, content)
@@ -143,10 +140,6 @@ class kapianguanli(Base):
     @allure.step("分析指标")
     def click_targer(self):
         self.is_click(user['分析指标'])
-
-    # @allure.step("分析指标1")
-    # def click_targer01(self):
-    #     self.is_click(user['分析指标1'])
 
     @allure.step("选择分析指标")
     def click_targer1(self):

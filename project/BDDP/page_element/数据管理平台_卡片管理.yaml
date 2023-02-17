@@ -1,4 +1,4 @@
-关键字: "xpath==//span[contains(text(),'终审版报表')]"
+######卡片管理#########
 卡片名称: "xpath==//span[normalize-space(text())='英文属性']/../../..//label[normalize-space(text())='卡片名称']/..//input"
 输入框内容: "xpath==//label[normalize-space(text())='variable']/..//input"
 输入框内容2: "xpath==//label[normalize-space(text())='variable']/..//div[@class='tr-select-tree__radio-text']/span"

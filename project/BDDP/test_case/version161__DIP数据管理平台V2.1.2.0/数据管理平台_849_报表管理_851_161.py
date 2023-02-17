@@ -172,7 +172,7 @@ class Teststory_2499:
     @allure.severity("blocker")  # 用例等级
     @pytest.mark.smoke  # 用例标记
     def test_30921(self, drivers):
-        # time.sleep(20)
+        time.sleep(20)
         user = kapianguanli(drivers)
         user.click_system()
         user.click_role()
