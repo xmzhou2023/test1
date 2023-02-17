@@ -443,7 +443,7 @@ class InboundReceiptPage(Base):
             self.assert_search_result(i, kwargs[i])
 
     @allure.step("点击click to check!")
-    def click_check(self):
+    def click_to_check(self):
         self.is_click_tbm(user['ClickToCheck'])
         logging.info('点击click to check!')
 
