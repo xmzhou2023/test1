@@ -36,7 +36,7 @@ class TestDistributorReceipt:
         user = LoginPage(drivers)
         #user.initialize_login(drivers, "lhmadmin", "dcr123456")
         """打开报表分析-打开IMEI库存查询页面"""
-        user.click_gotomenu("Purchase Management", "Distributor Receipt")
+        user.click_menu("Purchase Management", "Distributor Receipt")
         """查看IMEI库存查询 列表数据加载是否正常"""
         page = DistributorReceiptQuery(drivers)
         page.click_button('Unfold')

@@ -23,10 +23,9 @@ class VisitRecordPage(Base):
 
     def input_shop_id_query(self, content):
         """Visit Record页面，筛选Shop ID的巡店记录"""
-        self.is_click_dcr(user['Input Query Shop'])
-        self.input_text_dcr(user['Input Query Shop'], txt=content)
+        self.is_click_dcr(user['Shop输入框'])
+        self.input_text_dcr(user['Shop输入框2'], txt=content)
         sleep(3)
-        self.presence_sleep_dcr(user['Select Shop Value'], content)
         self.is_click(user['Select Shop Value'], content)
 
     def input_submit_start_date(self, content):
