@@ -1,4 +1,5 @@
-报表名称: "xpath==//span[normalize-space(text())='英文属性']/../../..//label[normalize-space(text())='报表名称']/..//input"
+######报表管理#####
+
 输入框内容: "xpath==//label[normalize-space(text())='variable']/..//input"
 输入框内容2: "xpath==//label[normalize-space(text())='variable']/..//div[@class='tr-select-tree__radio-text']/span"
 输入框内容3: "xpath==//div[normalize-space(text())='新建']/..//label[normalize-space(text())='说明']/..//textarea"
@@ -10,4 +11,17 @@
 经营分析: "xpath==//div[2]/div[2]/div[2]/div[2]/div/div"
 输入结果模糊选择: "xpath==//div[contains(@x-placement,'start')]//li/*[contains(text(),'variable')]"
 输入结果精确选择: "xpath==//div[contains(@x-placement,'start')]//li/*[normalize-space(text())='variable']"
-业务组织: "xpath==//div[6]/div/div/div/div/div"
+报表管理: "xpath==//div[3]/li/div"
+我的报表: "xpath==//div[3]/li/ul/div[2]/a/li"
+报表新建: "xpath==//span[contains(.,'+新建')]"
+报表名称: "xpath==//span[normalize-space(text())='英文属性']/../../..//label[normalize-space(text())='报表名称']/..//input"
+卡片来源: "xpath==//span[contains(.,'选择')]"
+移动驾驶舱测试1: "xpath==//div[2]/div/div[2]/div/div[2]/div/div/label/span/span"
+确定卡片: "xpath==//span[contains(.,'确定')]"
+选择指标: "xpath==//form/div/div[2]/div/div/div/button"
+昨日激活SO: "xpath==//span[normalize-space(text())='昨日激活SO']/../..//span[@class='el-checkbox__inner']"
+报表指标确定: "xpath==//div[@aria-label='选择指标']//span[normalize-space(text())='确定']"
+报表名称1: "xpath==(//input[@type='text'])[7]"
+报表说明: "xpath==//div[2]/div/div/div/textarea"
+保存报表1: "xpath==//button[contains(.,'保存')]"
+
