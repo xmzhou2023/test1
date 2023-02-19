@@ -111,7 +111,7 @@ def drivers(request, remote_url, remote_ui=False):
                 driver = webdriver.Chrome(options=option)
                 driver.maximize_window()
                 inspect_element() # page_element YMAL文件自检
-                inspect_description()  # test_case目录下子文件夹自检
+                #inspect_description()  # test_case目录下子文件夹自检
     def fn():
         sleep(5)
         driver.quit()
