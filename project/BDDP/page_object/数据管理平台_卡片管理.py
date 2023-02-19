@@ -63,8 +63,11 @@ class kapianguanli(Base):
     def input_content(self, header, content):
         textarea_list = ['说明']
         fuzzySelect_list = ['需求提出人', '业务负责人', 'IT负责人', 'Supplier']
+        fuzzySelect_list1 = ['主题域','Supplier']
+        fuzzySelect_list2 = ['业务组织', 'Supplier']
         exactSelect_list = ['应用类型', '卡片名称']
         exactSelect_list1 = ['报表名称']
+        exactSelect_list2 = ['卡片组件集成']
         logging.info(f'输入查询条件： {header} ，内容： {content}')
         if content != '':
             if header in textarea_list:
@@ -78,32 +81,25 @@ class kapianguanli(Base):
                 self.is_click_tbm(user['输入框内容'], header)
                 self.input_text(user['输入框内容'], content, header)
                 self.is_click_tbm(user['输入结果模糊选择'], content)
+            elif header in fuzzySelect_list1:
+                self.is_click_tbm(user['输入框内容'], header)
+                self.input_text(user['输入框内容'], content, header)
+                self.is_click(user['经营分析'])
+            elif header in fuzzySelect_list2:
+                self.is_click_tbm(user['输入框内容'], header)
+                self.input_text(user['输入框内容'], content, header)
+                self.is_click(user['深圳传音控股'])
             elif header in exactSelect_list1:
                 self.is_click_tbm(user['输入框内容'], header)
                 self.input_text(user['输入框内容'], content, header)
+            elif header in exactSelect_list2:
+                self.is_click_tbm(user['输入框内容'], header)
+                self.readonly_input_text(user['输入框内容'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
             else:
                 logging.error('请输入正确的查询条件')
                 raise ValueError('请输入正确的查询条件')
 
-    @allure.step("主题域")
-    def click_theme(self):
-        self.is_click(user['主题域'])
-
-    @allure.step("营销")
-    def click_theme1(self):
-        self.is_click(user['营销'])
-
-    @allure.step("经营分析")
-    def click_theme2(self):
-        self.is_click(user['经营分析'])
-
-    @allure.step("业务组织")
-    def click_group(self):
-        self.is_click(user['业务组织'])
-
-    @allure.step("深圳传音控股")
-    def click_group1(self):
-        self.is_click(user['深圳传音控股'])
 
     @allure.step("是否公开")
     def click_open(self):
@@ -154,12 +150,8 @@ class kapianguanli(Base):
         self.is_click(user['指标确定'])
 
     @allure.step("说明")
-    def click_explain(self):
-        self.is_click(user['说明'])
-
-    @allure.step("说明")
     def click_explain1(self):
-        self.input_text(user['输入说明'], '销售情况')
+        self.input_text(user['说明'], '销售情况')
 
     @allure.step("配置卡片名称")
     def click_card_explain(self):
@@ -245,9 +237,9 @@ class kapianguanli(Base):
     def click_card_code_search(self):
         self.is_click(user['卡片类型搜索'])
 
-    @allure.step("pc端")
+    @allure.step("PC端")
     def click_card_code_search1(self):
-        self.is_click(user['pc端'])
+        self.is_click(user['PC端'])
 
     @allure.step("重置")
     def click_reset(self):
@@ -422,18 +414,16 @@ class kapianguanli(Base):
         self.is_click(user['报表指标确定'])
 
     @allure.step("报表名称1")
-    def click_report_name1(self):
-        self.input_text(user['报表名称1'], 'test')
+    def click_report_name1(self, content):
+        self.input_text(user['报表名称1'], content)
 
     @allure.step("报表说明")
-    def click_report_name2(self):
-        self.input_text(user['报表说明'], 'test')
+    def click_report_name2(self, content):
+        self.input_text(user['报表说明'], content)
 
     @allure.step("保存报表1")
     def click_save_reprot(self):
         self.is_click(user['保存报表1'])
-
-
 
 
 if __name__ == '__main__':

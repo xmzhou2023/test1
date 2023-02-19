@@ -63,13 +63,16 @@ class baobiaoguanli(Base):
     def input_content(self, header, content):
         textarea_list = ['说明']
         fuzzySelect_list = ['需求提出人', '业务负责人', 'IT负责人', 'Supplier']
+        fuzzySelect_list1 = ['主题域', 'Supplier']
+        fuzzySelect_list2 = ['业务组织', 'Supplier']
         exactSelect_list = ['应用类型', '卡片名称']
         exactSelect_list1 = ['报表名称']
+        exactSelect_list2 = ['报表类型']
         logging.info(f'输入查询条件： {header} ，内容： {content}')
         if content != '':
             if header in textarea_list:
-                self.is_click_tbm(user['输入框'], header)
-                self.input_text(user['输入框3'], content, header)
+                self.is_click_tbm(user['输入框内容'], header)
+                self.input_text(user['输入框内容'], content, header)
             elif header in exactSelect_list:
                 self.is_click_tbm(user['输入框内容'], header)
                 self.readonly_input_text(user['输入框内容'], content, header)
@@ -78,13 +81,24 @@ class baobiaoguanli(Base):
                 self.is_click_tbm(user['输入框内容'], header)
                 self.input_text(user['输入框内容'], content, header)
                 self.is_click_tbm(user['输入结果模糊选择'], content)
+            elif header in fuzzySelect_list1:
+                self.is_click_tbm(user['输入框内容'], header)
+                self.input_text(user['输入框内容'], content, header)
+                self.is_click(user['经营分析'])
+            elif header in fuzzySelect_list2:
+                self.is_click_tbm(user['输入框内容'], header)
+                self.input_text(user['输入框内容'], content, header)
+                self.is_click(user['深圳传音控股'])
             elif header in exactSelect_list1:
                 self.is_click_tbm(user['输入框内容'], header)
                 self.input_text(user['输入框内容'], content, header)
+            elif header in exactSelect_list2:
+                self.is_click_tbm(user['输入框内容'], header)
+                self.readonly_input_text(user['输入框内容'], content, header)
+                self.is_click_tbm(user['输入结果精确选择'], content)
             else:
                 logging.error('请输入正确的查询条件')
                 raise ValueError('请输入正确的查询条件')
-
         # -------报表管理 ---------------------------------------------
 
     @allure.step("报表管理")
@@ -115,6 +129,24 @@ class baobiaoguanli(Base):
     def click_group1(self):
         self.is_click(user['深圳传音控股'])
 
+    @allure.step("首页差异化")
+    def click_home(self):
+        self.is_click(user['首页差异化'])
+
+    @allure.step("报表类型选择")
+    def click_home1(self):
+        self.is_click(user['报表类型选择'])
+
+    @allure.step("地区部")
+    def click_CE(self):
+        self.is_click(user['地区部'])
+
+
+    @allure.step("事业部")
+    def click_BU(self):
+        self.is_click(user['事业部'])
+
+
     @allure.step("卡片来源")
     def click_card_source(self):
         self.is_click(user['卡片来源'])
@@ -126,6 +158,22 @@ class baobiaoguanli(Base):
     @allure.step("确定卡片")
     def click_card_source2(self):
         self.is_click(user['确定卡片'])
+
+    @allure.step("外部引入")
+    def click_external(self):
+        self.is_click(user['外部引入'])
+
+    @allure.step("定制化")
+    def click_customized(self):
+        self.is_click(user['定制化'])
+
+    @allure.step("访问地址")
+    def click_address(self):
+        self.input_text(user['访问地址'], 'https://cockpitnew.transsion.com/dip/')
+
+    @allure.step("访问地址1")
+    def click_address1(self):
+        self.input_text(user['访问地址1'], 'https://cockpitnew.transsion.com/dip/')
 
     @allure.step("选择指标")
     def click_tg(self):
@@ -140,20 +188,70 @@ class baobiaoguanli(Base):
         self.is_click(user['报表指标确定'])
 
     @allure.step("说明")
-    def click_explain1(self):
-        self.input_text(user['输入说明'], '销售情况')
+    def click_explain1(self, content):
+        self.input_text(user['说明'], content)
 
     @allure.step("报表名称1")
-    def click_report_name1(self):
-        self.input_text(user['报表名称1'], 'test')
+    def click_report_name1(self, content):
+        self.input_text(user['报表名称1'], content)
+
+    @allure.step("报表名称2")
+    def click_report_name01(self, content):
+        self.input_text(user['报表名称2'], content)
+
+    @allure.step("报表名称3")
+    def click_report_name02(self, content):
+        self.input_text(user['报表名称3'], content)
+
+    @allure.step("报表名称4")
+    def click_report_name03(self, content):
+        self.input_text(user['报表名称4'], content)
 
     @allure.step("报表说明")
-    def click_report_name2(self):
-        self.input_text(user['报表说明'], 'test')
+    def click_report_name2(self, content):
+        self.input_text(user['报表说明'], content)
 
     @allure.step("保存报表1")
     def click_save_reprot(self):
         self.is_click(user['保存报表1'])
+
+    @allure.step("编辑")
+    def click_edit(self):
+        self.is_click(user['编辑'])
+
+    @allure.step("启用")
+    def click_start(self):
+        self.is_click(user['启用'])
+
+    @allure.step("停用")
+    def click_stop(self):
+        self.is_click(user['停用'])
+
+    @allure.step("保存")
+    def click_save(self):
+        self.is_click(user['保存'])
+
+    @allure.step("类型搜索")
+    def click_code_search(self):
+        self.is_click(user['类型搜索'])
+
+    @allure.step("移动端")
+    def click_code_search1(self):
+        self.is_click(user['移动端'])
+
+    @allure.step("重置")
+    def click_reset(self):
+        self.is_click(user['重置'])
+
+
+    @allure.step("移动端")
+    def click_input_code(self):
+        self.input_text(user['输入类型'], '移动端')
+
+    @allure.step("查询")
+    def click_search(self):
+        self.is_click(user['查询'])
+
 
     @allure.step("删除卡片")
     def click_delete(self):
@@ -164,14 +262,12 @@ class baobiaoguanli(Base):
         self.is_click(user['确定删除'])
 
     @allure.step("初始化1")
-    def click_close_card(self):
-        self.is_click(user['关闭卡片管理'])
+    def click_close_report(self):
+        self.is_click(user['关闭报表管理'])
 
     @allure.step("初始化3")
     def click_close(self):
         self.is_click(user['关闭维度管理'])
-
-
 
 
 if __name__ == '__main__':

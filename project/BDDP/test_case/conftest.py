@@ -18,5 +18,4 @@ def __init__(drivers, env_name):
     logging.info("前置条件：传音统一登录开始")
     user = Login(drivers)
     user.BDDP_login(drivers,ini.url, account[16]['usernum'], account[16]['passwd'])
-
     logging.info("前置条件：传音统一登录成功")
